@@ -1,7 +1,8 @@
 {
-  "name": "@ni/nimble",
+  "name": "@ni/nimble-tokens",
   "version": "0.0.0",
-  "description": "The NI Nimble Design System Monorepo",
+  "description": "Design tokens for the NI Nimble Design System",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,8 +17,5 @@
   "bugs": {
     "url": "https://github.com/ni/nimble/issues"
   },
-  "homepage": "https://github.com/ni/nimble#readme",
-  "workspaces": [
-    "packages/nimble-tokens"
-  ]
+  "homepage": "https://github.com/ni/nimble#readme"
 }
