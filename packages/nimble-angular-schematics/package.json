@@ -1,8 +1,7 @@
 {
-  "name": "@ni/nimble-web-components",
-  "version": "0.0.0",
-  "description": "Styled web components for the NI Nimble Design System",
-  "main": "index.js",
+  "name": "@ni/nimble-angular-schematics",
+  "version": "1.0.0-beta.0",
+  "description": "Angular schematics for Nimble components in Angular",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,9 +10,9 @@
     "url": "git+https://github.com/ni/nimble.git"
   },
   "author": {
-    "name": "NI"
+    "name": "National Instruments"
   },
-  "license": "MIT",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/ni/nimble/issues"
   },

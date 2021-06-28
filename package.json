@@ -1,6 +1,7 @@
 {
   "name": "@ni/nimble",
   "version": "0.0.0",
+  "private": true,
   "description": "The NI Nimble Design System Monorepo",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,9 +11,9 @@
     "url": "git+https://github.com/ni/nimble.git"
   },
   "author": {
-    "name": "NI"
+    "name": "National Instruments"
   },
-  "license": "MIT",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/ni/nimble/issues"
   },
