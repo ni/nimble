@@ -1,3 +1,5 @@
+/*Current broken migrating to V2
+
 import { css, customElement } from "@microsoft/fast-element";
 import { Button, buttonTemplate as template } from "@microsoft/fast-foundation";
 
@@ -47,4 +49,4 @@ const styles = css`
 })
 export class NimbleButton extends Button {
 
-}
+}*/

@@ -1,3 +1,5 @@
+/*Currently broken migrating to V2
+
 import {
     designSystemProvider,
     DesignSystemProviderTemplate as template,
@@ -44,7 +46,7 @@ export class NimbleDesignSystemProvider extends DesignSystemProvider {
     })
     public outlineColorHover: string = niGreen;
 
-    @designSystemProperty({
+    @designSystemProperty({/
         attribute: "outline-color",
         cssCustomProperty: "outline-color",
         default: black
@@ -92,4 +94,4 @@ export class NimbleDesignSystemProvider extends DesignSystemProvider {
         default: black
     })
     public fontColor: string = black;
-}
+}*/
