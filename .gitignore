@@ -103,5 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-# Include nimble-tokens dist
+# Include nimble-tokens DSP build output
 !packages/nimble-tokens/dist/
