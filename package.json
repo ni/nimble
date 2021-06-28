@@ -18,9 +18,6 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "workspaces": [
-    "packages/nimble-tokens",
-    "packages/nimble-web-components",
-    "packages/nimble-angular",
-    "packages/nimble-blazor"
+    "packages/**"
   ]
 }
