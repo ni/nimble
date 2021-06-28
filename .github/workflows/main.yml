@@ -1,0 +1,43 @@
+on:
+    pull_request:
+    push:
+        branches:
+            - '*'
+        tags:
+            - 'v*'
+
+jobs:
+    build:
+        runs-on: ubuntu-18.04
+        steps:
+            - uses: actions/checkout@v2
+
+            # Install dependencies
+            - uses: actions/setup-node@v1
+                with:
+                    node-version: '12'
+                    registry-url: 'https://registry.npmjs.org'
+            - run: npm install --global npm@7
+            - run: npm ci
+
+            # Lint
+            # - run: npm run lint
+
+            # Build
+            # - run: |
+            #         npm run build
+            #         npm pack
+            # - uses: actions/upload-artifact@v2
+            #     with:
+            #         name: npm package
+            #         path: ./ni-nimble-tokens-*.tgz
+            #         if-no-files-found: error
+
+            # Test
+            - run: npm run test
+
+            # Publish
+            # - if: startsWith(github.ref, 'refs/tags/v')
+            #     run: npm publish
+            #     env:
+            #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
