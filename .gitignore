@@ -103,5 +103,9 @@ dist
 # TernJS port file
 .tern-port
 
+# Exclude all package-lock.json files outside of the root
+package-lock.json
+!/package-lock.json
+
 # Include nimble-tokens DSP build output
 !packages/nimble-tokens/dist/
