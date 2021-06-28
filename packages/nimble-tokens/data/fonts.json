@@ -1,0 +1,245 @@
+{
+  "dsp_spec_version": "0.0.1",
+  "last_updated_by": "",
+  "last_updated": "2021-06-04T21:53:51.125Z",
+  "entities": [
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "7194a30e-ff7f-4974-9fa9-4efc4d517681",
+      "name": "Button",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/2266c05e-bcf1-4fab-74b8-6f84cd52992e#",
+        "id": "67d7ac1f-64cd-4c9e-bffc-2bba69a5226e",
+        "last_sync": "2021-06-04T22:02:37.807Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "7194a30e-ff7f-4974-9fa9-4efc4d517681",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "7194a30e-ff7f-4974-9fa9-4efc4d517681",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "7194a30e-ff7f-4974-9fa9-4efc4d517681",
+          "type": "size",
+          "value": "14",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "69dad57b-e9db-4ae5-bfe4-499c08614e47",
+      "name": "OVERLINE - Caps",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/2266c05e-bcf1-4fab-74b8-6f84cd52992e#",
+        "id": "3e824058-d220-4ef2-b86e-de15c8666c8b",
+        "last_sync": "2021-06-04T22:02:37.807Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "69dad57b-e9db-4ae5-bfe4-499c08614e47",
+          "type": "custom",
+          "value": "Space Mono",
+          "key": "family"
+        },
+        {
+          "id": "69dad57b-e9db-4ae5-bfe4-499c08614e47",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "69dad57b-e9db-4ae5-bfe4-499c08614e47",
+          "type": "size",
+          "value": "12",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "00f9e862-e3b8-4366-a52a-4c0093ff0984",
+      "name": "Body",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/2266c05e-bcf1-4fab-74b8-6f84cd52992e#",
+        "id": "5b378a8d-5028-4382-8db6-21fde45bd27c",
+        "last_sync": "2021-06-04T22:02:37.807Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "00f9e862-e3b8-4366-a52a-4c0093ff0984",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "00f9e862-e3b8-4366-a52a-4c0093ff0984",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "00f9e862-e3b8-4366-a52a-4c0093ff0984",
+          "type": "size",
+          "value": "14",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "d51021de-0e0b-4f1a-91da-05420328777d",
+      "name": "Subtitle",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/2266c05e-bcf1-4fab-74b8-6f84cd52992e#",
+        "id": "7c6eff7f-280b-46c4-8413-a71a6a82270f",
+        "last_sync": "2021-06-04T22:02:37.807Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "d51021de-0e0b-4f1a-91da-05420328777d",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "d51021de-0e0b-4f1a-91da-05420328777d",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "d51021de-0e0b-4f1a-91da-05420328777d",
+          "type": "size",
+          "value": "12",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "edb1bbd9-9b9c-4c33-9ead-26f27484e294",
+      "name": "H2",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/2266c05e-bcf1-4fab-74b8-6f84cd52992e#",
+        "id": "743ece4f-3c53-42dd-a7e0-c57997320148",
+        "last_sync": "2021-06-04T22:02:37.807Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "edb1bbd9-9b9c-4c33-9ead-26f27484e294",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "edb1bbd9-9b9c-4c33-9ead-26f27484e294",
+          "type": "custom",
+          "value": "Light",
+          "key": "weight"
+        },
+        {
+          "id": "edb1bbd9-9b9c-4c33-9ead-26f27484e294",
+          "type": "size",
+          "value": "22",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "3d68ac0e-e5b2-46e7-a2cc-2be8c98c0fda",
+      "name": "H1",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/2266c05e-bcf1-4fab-74b8-6f84cd52992e#",
+        "id": "43ab4f16-a270-438b-92c5-374e567fe9db",
+        "last_sync": "2021-06-04T22:02:37.807Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "3d68ac0e-e5b2-46e7-a2cc-2be8c98c0fda",
+          "type": "custom",
+          "value": "Noto Serif",
+          "key": "family"
+        },
+        {
+          "id": "3d68ac0e-e5b2-46e7-a2cc-2be8c98c0fda",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "3d68ac0e-e5b2-46e7-a2cc-2be8c98c0fda",
+          "type": "size",
+          "value": "24",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "68d7e8d3-72b2-4f72-8646-55144144b6a4",
+      "name": "H0",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/2266c05e-bcf1-4fab-74b8-6f84cd52992e#",
+        "id": "579a2706-5825-444d-9c67-b6f9ea86ca41",
+        "last_sync": "2021-06-04T22:02:37.807Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "68d7e8d3-72b2-4f72-8646-55144144b6a4",
+          "type": "custom",
+          "value": "Noto Serif",
+          "key": "family"
+        },
+        {
+          "id": "68d7e8d3-72b2-4f72-8646-55144144b6a4",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "68d7e8d3-72b2-4f72-8646-55144144b6a4",
+          "type": "size",
+          "value": "36",
+          "key": "size"
+        }
+      ]
+    }
+  ]
+}

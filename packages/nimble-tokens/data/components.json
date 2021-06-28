@@ -1,0 +1,29 @@
+{
+  "dsp_spec_version": "0.0.1",
+  "last_updated_by": "",
+  "last_updated": "2021-06-04T21:53:51.125Z",
+  "entities": [
+    {
+      "id": "47aa90b5-fafc-4640-bbc3-1ab7d5c0ec2b",
+      "class": "component",
+      "type": "page",
+      "related_entity_ids": [
+        "7194a30e-ff7f-4974-9fa9-4efc4d517681"
+      ],
+      "snippets": {
+        "trigger": "button",
+        "languages": {
+          "html": "<nimble-button></nimble-button>"
+        }
+      },
+      "renditions": [
+        "nimble-button.png"
+      ],
+      "name": "nimble-button",
+      "tags": [],
+      "last_updated": "2021-06-28T16:30:13.558Z",
+      "last_updated_by": "",
+      "description": "The `nimble-button` can be configured a primary or secondary button."
+    }
+  ]
+}
