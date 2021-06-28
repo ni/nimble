@@ -1,0 +1,313 @@
+{
+  "color": {
+    "Black7": {
+      "value": "#F5F5F5ff"
+    },
+    "Black40": {
+      "value": "#BCBDBEff"
+    },
+    "Warning85": {
+      "value": "#FF6900ff"
+    },
+    "Black75": {
+      "value": "#818386ff"
+    },
+    "Black88": {
+      "value": "#252526ff"
+    },
+    "Black15": {
+      "value": "#F1F1F2ff"
+    },
+    "Development 32bit": {
+      "value": "#EB7006ff"
+    },
+    "Selection100": {
+      "value": "#00B888ff"
+    },
+    "Selection15": {
+      "value": "#E8F8F3ff"
+    },
+    "Black85": {
+      "value": "#363738ff"
+    },
+    "Brand100": {
+      "value": "#009B65ff"
+    },
+    "Brand15": {
+      "value": "#D9F0E8ff"
+    },
+    "Brand30": {
+      "value": "#B2E1D0ff"
+    },
+    "Brand50": {
+      "value": "#7FCDB1ff"
+    },
+    "Brand75": {
+      "value": "#40B48Bff"
+    },
+    "Brand85": {
+      "value": "#26A97Cff"
+    },
+    "Application 32bit": {
+      "value": "#009691ff"
+    },
+    "Application 64 bit": {
+      "value": "#00ABA5ff"
+    },
+    "Developemnt 64bit": {
+      "value": "#FFC60Bff"
+    },
+    "Warning100": {
+      "value": "#FF4B00ff"
+    },
+    "Pass100": {
+      "value": "#00C12Bff"
+    },
+    "Fail100": {
+      "value": "#C4000Cff"
+    },
+    "Information75": {
+      "value": "#A392C3ff"
+    },
+    "Information50": {
+      "value": "#BEB0D3ff"
+    },
+    "Information30": {
+      "value": "#D9D0E5ff"
+    },
+    "Information15": {
+      "value": "#EBE7F2ff"
+    },
+    "Information85": {
+      "value": "#8E78B7ff"
+    },
+    "Information100": {
+      "value": "#7C61A9ff"
+    },
+    "Black30": {
+      "value": "#D3D5D6ff"
+    },
+    "Brand": {
+      "value": "#009B65ff"
+    },
+    "Enterprise": {
+      "value": "#074023ff"
+    },
+    "Third-Party": {
+      "value": "#626363ff"
+    },
+    "R&D RGB NI Green": {
+      "value": "#009B65ff"
+    },
+    "White": {
+      "value": "#FFFFFFff"
+    },
+    "Black80": {
+      "value": "#505153ff"
+    },
+    "Black91": {
+      "value": "#161617ff"
+    },
+    "Black": {
+      "value": "#000000ff"
+    },
+    "Black50": {
+      "value": "#AEB0B3ff"
+    },
+    "Black95": {
+      "value": "#0E0F0Fff"
+    },
+    "RGB NI Honey": {
+      "value": "#E5AC0Cff"
+    },
+    "Plot6": {
+      "value": "#FFC60Bff"
+    },
+    "Plot5": {
+      "value": "#00ABA5ff"
+    },
+    "Plot4": {
+      "value": "#E54C8Aff"
+    },
+    "Plot3": {
+      "value": "#EF6E3Fff"
+    },
+    "Plot2": {
+      "value": "#8E78B7ff"
+    },
+    "Plot1": {
+      "value": "#3CB4E7ff"
+    },
+    "Fail85": {
+      "value": "#CF1A37ff"
+    },
+    "Fail75": {
+      "value": "#D73C51ff"
+    },
+    "Pass15": {
+      "value": "#DDF6E1ff"
+    },
+    "Pass30": {
+      "value": "#BBEDC4ff"
+    },
+    "Pass50": {
+      "value": "#8CE09Bff"
+    },
+    "Pass75": {
+      "value": "#45D167ff"
+    },
+    "Pass85": {
+      "value": "#06CA50ff"
+    },
+    "Fail50": {
+      "value": "#E6808Cff"
+    },
+    "Fail30": {
+      "value": "#F1B2B9ff"
+    },
+    "Fail15": {
+      "value": "#F9D9DDff"
+    },
+    "Warning75": {
+      "value": "#FF7C25ff"
+    },
+    "Warning50": {
+      "value": "#FFA876ff"
+    },
+    "Warning30": {
+      "value": "#FFCBAEff"
+    },
+    "Warning15": {
+      "value": "#FFE5D7ff"
+    },
+    "RGB NI Pale Green": {
+      "value": "#CDDCC8ff"
+    },
+    "RGB NI Off-White": {
+      "value": "#F6F6F6ff"
+    },
+    "RGB NI Fern Dark 3": {
+      "value": "#1F300Eff"
+    },
+    "RGB NI Fern Dark 2": {
+      "value": "#356430ff"
+    },
+    "RGB NI Fern Dark 1": {
+      "value": "#499146ff"
+    },
+    "RGB NI Fern": {
+      "value": "#76BC43ff"
+    },
+    "RGB NI Fern Light": {
+      "value": "#9ACD78ff"
+    },
+    "RGB NI Plum Dark 3": {
+      "value": "#311835ff"
+    },
+    "RGB NI Plum Dark 2": {
+      "value": "#572464ff"
+    },
+    "RGB NI Plum Dark 1": {
+      "value": "#8C459Aff"
+    },
+    "RGB NI Plum": {
+      "value": "#AA5EA5ff"
+    },
+    "RGB NI Plum Light": {
+      "value": "#CCA0CAff"
+    },
+    "RGB NI Indigo Dark 3": {
+      "value": "#211944ff"
+    },
+    "RGB NI Indigo Dark 2": {
+      "value": "#312E7Fff"
+    },
+    "RGB NI Indigo Dark 1": {
+      "value": "#57539Eff"
+    },
+    "RGB NI Indigo": {
+      "value": "#8E78B7ff"
+    },
+    "RGB NI Indigo Light": {
+      "value": "#ACA3D0ff"
+    },
+    "RGB NI Sea Dark 3": {
+      "value": "#0A2B25ff"
+    },
+    "RGB NI Sea Dark 2": {
+      "value": "#00685Fff"
+    },
+    "RGB NI Sea Dark 1": {
+      "value": "#05968Eff"
+    },
+    "RGB NI Sea": {
+      "value": "#00ABA5ff"
+    },
+    "RGB NI Sea Light": {
+      "value": "#A5D8C8ff"
+    },
+    "RGB NI Tulip Dark 3": {
+      "value": "#351928ff"
+    },
+    "RGB NI Tulip Dark 2": {
+      "value": "#63144Aff"
+    },
+    "RGB NI Tulip Dark 1": {
+      "value": "#962E65ff"
+    },
+    "RGB NI Tulip": {
+      "value": "#E54C8Aff"
+    },
+    "RGB NI Tulip Light": {
+      "value": "#F38FBBff"
+    },
+    "RGB NI Scarlet Dark 3": {
+      "value": "#371615ff"
+    },
+    "RGB NI Scarlet Dark 2": {
+      "value": "#981B23ff"
+    },
+    "RGB NI Scarlet Dark 1": {
+      "value": "#CD1722ff"
+    },
+    "RGB NI Scarlet": {
+      "value": "#EF463Fff"
+    },
+    "RGB NI Scarlet Light": {
+      "value": "#F5989Eff"
+    },
+    "RGB NI Honey Dark 3": {
+      "value": "#281E11ff"
+    },
+    "RGB NI Honey Dark 2": {
+      "value": "#6E4D26ff"
+    },
+    "RGB NI Honey Dark 1": {
+      "value": "#B1792Bff"
+    },
+    "RGB NI Honey Light": {
+      "value": "#FFE76Bff"
+    },
+    "RGB NI Sky Dark 3": {
+      "value": "#052633ff"
+    },
+    "RGB NI Sky Dark 2": {
+      "value": "#063D58ff"
+    },
+    "RGB NI Sky Dark 1": {
+      "value": "#0181AAff"
+    },
+    "RGB NI Sky": {
+      "value": "#3CB4E7ff"
+    },
+    "RGB NI Sky Light": {
+      "value": "#A5DDEDff"
+    },
+    "RGB NI Power Green": {
+      "value": "#32EB96ff"
+    },
+    "RGB NI Forest Green": {
+      "value": "#044123ff"
+    }
+  }
+}
