@@ -24,13 +24,13 @@ jobs:
             # - run: npm run lint
 
             # Build
-            # - run: |
-            #         npm run build
-            #         npm pack
+            - run: |
+                npm run build
+            #     npm run pack
             # - uses: actions/upload-artifact@v2
             #   with:
-            #     name: npm package
-            #     path: ./ni-nimble-tokens-*.tgz
+            #     name: packages
+            #     path: ./packages/*.tgz
             #     if-no-files-found: error
 
             # Test

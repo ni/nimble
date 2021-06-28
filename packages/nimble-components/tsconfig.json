@@ -12,11 +12,6 @@
         "allowJs": true,
         "importHelpers": true,
         "resolveJsonModule": true,
-        "types": [
-            "node",
-            "mocha",
-            "webpack-env"
-        ],
         "lib": [
             "DOM",
             "ES2015",

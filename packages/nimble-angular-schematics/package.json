@@ -3,7 +3,6 @@
   "version": "1.0.0-beta.0",
   "description": "Angular schematics for Nimble components in Angular",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
   },
   "repository": {
     "type": "git",

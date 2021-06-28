@@ -4,7 +4,8 @@
   "private": true,
   "description": "The NI Nimble Design System Monorepo",
   "scripts": {
-    "test": "npm --workspaces run test"
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm test --workspaces --if-present"
   },
   "repository": {
     "type": "git",
