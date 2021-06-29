@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Mon, 28 Jun 2021 16:34:53 GMT
+ * Generated on Tue, 29 Jun 2021 17:42:16 GMT
  */
 
 export const Black7 = "#f5f5f5";
