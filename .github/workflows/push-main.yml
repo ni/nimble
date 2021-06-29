@@ -1,0 +1,24 @@
+# Defines steps which run _only_ on pushes into main. main.yml defines steps that run both on PR and on push
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-18.04
+        steps:
+            - uses: actions/checkout@v2
+
+            # Install dependencies.
+            - uses: actions/setup-node@v1
+              with:
+                node-version: '12'
+                registry-url: 'https://registry.npmjs.org'
+            - run: npm install --global npm@7
+            - run: cd angular-workspace && npm ci
+            - run: npm ci
+
+            # Publish new package versions
+            - run: npm run publish-ci
