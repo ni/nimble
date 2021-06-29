@@ -7,7 +7,7 @@
     "build": "npm run build --workspaces --if-present",
     "test": "npm test --workspaces --if-present",
     "change": "beachball change",
-    "check": "beachball check",
+    "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "beachball:publish": "beachball publish"
   },
   "repository": {
