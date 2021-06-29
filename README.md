@@ -4,11 +4,11 @@
 
 # Nimble
 
-[![NPM Version](https://img.shields.io/npm/v/@ni/nimble-angular.svg?label=nimble-angular)](https://www.npmjs.com/package/@ni/nimble-angular)
-[![NPM Version](https://img.shields.io/npm/v/@ni/nimble-angular-schematics.svg?label=nimble-angular-schematics)](https://www.npmjs.com/package/@ni/nimble-angular-schematics)
-[![Nuget Version](https://img.shields.io/nuget/v/NimbleBlazor.svg?label=NimbleBlazor)](https://www.nuget.org/packages/NimbleBlazor)
-[![NPM Version](https://img.shields.io/npm/v/@ni/nimble-components.svg?label=nimble-components)](https://www.npmjs.com/package/@ni/nimble-components)
-[![NPM Version](https://img.shields.io/npm/v/@ni/nimble-tokens.svg?label=nimble-tokens)](https://www.npmjs.com/package/@ni/nimble-tokens)
+[![NPM Version](https://img.shields.io/npm/v/@ni/nimble-angular.svg?label=nimble-angular)](packages/nimble-angular/README.md)
+[![NPM Version](https://img.shields.io/npm/v/@ni/nimble-angular-schematics.svg?label=nimble-angular-schematics)](packages/nimble-angular-schematics/README.md)
+[![Nuget Version](https://img.shields.io/nuget/v/NimbleBlazor.svg?label=NimbleBlazor)](packages/nimble-blazor/README.md)
+[![NPM Version](https://img.shields.io/npm/v/@ni/nimble-components.svg?label=nimble-components)](packages/nimble-components/README.md)
+[![NPM Version](https://img.shields.io/npm/v/@ni/nimble-tokens.svg?label=nimble-tokens)](packages/nimble-tokens/README.md)
 
 The NI design system.
 
