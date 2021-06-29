@@ -1,5 +1,5 @@
 import { DesignToken } from "@microsoft/fast-foundation";
-import { White, Black, Brand100, Brand15, BodyFamily, OverlineCapsFamily } from "@ni/nimble-tokens/dist/styledictionary/js/tokens"
+import { White, Black, Black91, Brand100, Brand15, BodyFamily, OverlineCapsFamily } from "@ni/nimble-tokens/dist/styledictionary/js/tokens"
 const { create } = DesignToken;
 
 //Color Tokens
@@ -20,4 +20,4 @@ export const labelFontFamily = create<string>("label-font-family").withDefault(O
 export const labelFontSize = create<string>("label-font-size").withDefault("11px");
 
 //Font Color Tokens
-export const fontColor = create<string>("label-font-color").withDefault(Black);
+export const fontColor = create<string>("label-font-color").withDefault(Black91);
