@@ -3,12 +3,10 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { nimbleDesignSystemProvider } from  './design-system-provider';
 import { nimbleButton } from './button';
-import { nimbleTextField } from './text-field';
 
 const allComponents = {
     nimbleDesignSystemProvider,
-    nimbleButton,
-    nimbleTextField
+    nimbleButton
 }
 
 export const nimbleDesignSystem = DesignSystem.getOrCreate().withPrefix('nimble').register(
