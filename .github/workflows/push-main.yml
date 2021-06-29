@@ -5,6 +5,11 @@ on:
         branches:
             - main
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_SERVICE_USER: "NI Nimble Builds"
+  GITHUB_SERVICE_EMAIL: "TODO@ni.com"
+
 jobs:
     build:
         runs-on: ubuntu-18.04
@@ -20,5 +25,24 @@ jobs:
             - run: cd angular-workspace && npm ci
             - run: npm ci
 
-            # Publish new package versions
-            - run: npm run publish-ci
+            - name: Set Git User
+              run: |
+                git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
+                git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
+
+            - name: Check for the presence of changed files inside ./change
+              run: npm run check
+
+            - name: Publish NPM packages
+              env:
+                NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
+              run: npm run publish-ci -n $NPM_SECRET_TOKEN
+
+            # - name: send notification message on failure
+            #   if: failure()
+            #   uses: appleboy/discord-action@master
+            #   with:
+            #     webhook_id: ${{ secrets.WEBHOOK_ID }}
+            #     webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+            #     username: "GitHub Automated notification"
+            #     message: "FAST publishing failed"
