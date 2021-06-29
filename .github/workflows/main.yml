@@ -49,7 +49,7 @@ jobs:
                 git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
                 git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
 
-            - if: startsWith(github.ref, 'refs/heads/main')
-              env:
-                NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
-              # run: npm run publish-ci -n $NPM_SECRET_TOKEN
+            # - if: startsWith(github.ref, 'refs/heads/main')
+            #   env:
+            #     NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
+            #   run: npm run publish-ci -n $NPM_SECRET_TOKEN
