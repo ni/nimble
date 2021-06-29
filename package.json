@@ -22,7 +22,7 @@
   "workspaces": [
     "packages/nimble-tokens",
     "packages/nimble-components",
-    "packages/nimble-angular",
+    "angular-workspace/projects/ni/nimble-angular",
     "packages/nimble-angular-schematics",
     "packages/nimble-blazor"
   ]
