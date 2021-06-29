@@ -1,2 +1,2 @@
-export * from './text-field.component';
-export * from './text-field.module';
+export * from './nimble-text-field.module';
+export * from './nimble-text-field.component';

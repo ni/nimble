@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
-import { NimbleTextFieldComponent } from "./text-field.component";
+import { NimbleTextFieldComponent } from "./nimble-text-field.component";
 
 import '@ni/nimble-components/dist/esm/text-field';
 
