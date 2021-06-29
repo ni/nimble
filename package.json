@@ -25,5 +25,8 @@
     "angular-workspace/projects/ni/nimble-angular",
     "packages/nimble-angular-schematics",
     "packages/nimble-blazor"
-  ]
+  ],
+  "devDependencies": {
+    "beachball": "^2.6.2"
+  }
 }
