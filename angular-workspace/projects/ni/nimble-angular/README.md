@@ -1,3 +1,22 @@
+<div align="center">
+    <p align="center"><b>ni | nimble | angular</b></p>
+</div>
+
+# Nimble Angular
+
+[![NPM Version](https://img.shields.io/npm/v/@ni/nimble-angular.svg)](https://www.npmjs.com/package/@ni/nimble-angular)
+
+NI-styled UI components for Angular applications
+
+## Getting Started
+
+TODO
+
+## Contributing
+
+Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify this library.
+
+<!--
 # NimbleAngular
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
@@ -22,3 +41,4 @@ Run `ng test nimble-angular` to execute the unit tests via [Karma](https://karma
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+-->

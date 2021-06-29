@@ -4,7 +4,7 @@
 
 # Nimble
 
-[![Nimble Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-angular.svg?label=nimble-angular)](packages/nimble-angular/README.md)
+[![Nimble Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-angular.svg?label=nimble-angular)](angular-workspace/projects/ni/nimble-angular/README.md)
 [![Nimble Angular Schematics NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-angular-schematics.svg?label=nimble-angular-schematics)](packages/nimble-angular-schematics/README.md)
 [![Nimble Blazor Nuget version and repo link](https://img.shields.io/nuget/v/NimbleBlazor.svg?label=nimble-blazor)](packages/nimble-blazor/README.md)
 [![Nimble Components NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-components.svg?label=nimble-components)](packages/nimble-components/README.md)
