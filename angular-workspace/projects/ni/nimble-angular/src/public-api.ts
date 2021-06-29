@@ -2,4 +2,4 @@
  * Public API Surface of nimble-angular
  */
 
-export * from './text-field';
+export * from './components/text-field';
