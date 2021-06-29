@@ -26,7 +26,7 @@ jobs:
             - run: npm ci
 
             # Check for beachball change file inside ./change
-            - run: npm run check
+            # - run: npm run check
 
             # Lint
             # - run: npm run lint
@@ -49,8 +49,8 @@ jobs:
               run: |
                 git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
                 git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
-                
+
             - if: startsWith(github.ref, 'refs/heads/main')
               env:
                 NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
-              run: npm run publish-ci -n $NPM_SECRET_TOKEN
+              # run: npm run publish-ci -n $NPM_SECRET_TOKEN
