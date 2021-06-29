@@ -109,3 +109,6 @@ package-lock.json
 
 # Include nimble-tokens DSP build output
 !packages/nimble-tokens/dist/
+
+# macOS
+.DS_Store
