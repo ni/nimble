@@ -1,6 +1,9 @@
 {
   "name": "@ni/nimble-angular",
   "version": "0.0.1",
+  "scripts": {
+    "build": "cd ../../../ && npm run build"
+  },
   "peerDependencies": {
     "@angular/common": "^12.1.0",
     "@angular/core": "^12.1.0",
