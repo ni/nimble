@@ -112,3 +112,6 @@ package-lock.json
 
 # macOS
 .DS_Store
+
+# User-specific vscode config
+.vscode
