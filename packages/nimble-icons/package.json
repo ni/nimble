@@ -7,7 +7,7 @@
     "svgtofont": "^3.11.4"
   },
   "scripts": {
-    "build": "svgtofont --sources ./assets/icons --output ./dist/icons"
+    "build-manual": "svgtofont --sources ./assets/icons --output ./dist/icons"
   },
   "repository": {
     "type": "git",
