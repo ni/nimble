@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NimbleTextFieldComponent } from '../nimble-text-field.component';
+import { NimbleTextFieldComponent, NimbleTextFieldModule } from '../index';
 
 describe('NimbleAngularComponent', () => {
     let component: NimbleTextFieldComponent;
@@ -8,7 +8,8 @@ describe('NimbleAngularComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [NimbleTextFieldComponent]
+            declarations: [NimbleTextFieldComponent],
+            imports: [NimbleTextFieldModule]
         })
             .compileComponents();
     });
