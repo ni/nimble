@@ -14,6 +14,6 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     stepUpGlyph: `
         <span class="step-up-glyph" part="step-up-glyph"></span>
     `,
-})
+});
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());
