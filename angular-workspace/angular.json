@@ -137,6 +137,15 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/example-client-app/**/*.ts",
+              "projects/example-client-app/**/*.html"
+            ]
+          }
         }
       }
     }
