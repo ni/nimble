@@ -10,11 +10,18 @@
 [![Nimble Components NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-components.svg?label=nimble-components)](packages/nimble-components)
 [![Nimble Tokens NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-tokens.svg?label=nimble-tokens)](packages/nimble-tokens)
 
-The NI design system.
+The NI Nimble Design System: styled UI components for NI applications.
 
 ## Getting Started
 
-TODO
+This repository contains the source for the following packages:
+- **[nimble-angular](./angular-workspace/projects/ni/nimble-angular/README.md)** - styled Angular components for use in NI Angular applications
+- **[nimble-blazor](./packages/nimble-blazor/README.md)** - styled Blazor components for use in NI Blazor applications
+- **[nimble-components](./packages/nimble-components/README.md)** - styled web components for use in other applications (also used by `nimble-angular` and `nimble-blazor`)
+- **[nimble-tokens](./packages/nimble-tokens/README.md)** - design tokens used by the component packages
+- **[nimble-icons](./packages/nimble-icons/README.md)** - icons used by the component packages
+
+Consult the README.md for each package to learn more, including how to use it in an application.
 
 ## Contributing
 
