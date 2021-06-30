@@ -1,5 +1,15 @@
 # Contributing
 
+## Repository overview
+
+This repository uses the following tooling. See below for more info.
+
+1. A monorepo containing multiple packages managed via [NPM workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
+1. Linting via [ESLint](https://eslint.org/) following the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide)
+1. Testing via [Karma](http://karma-runner.github.io/6.3/index.html) and [Jasmine](https://jasmine.github.io/)
+1. Releases via [beachball](https://microsoft.github.io/beachball/)
+1. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
+
 ## Pull Requests, Releases, and Versioning
 
 This repository uses [beachball](https://microsoft.github.io/beachball/) to automate publishing its packages to NPM. The basic workflow is as follows:
