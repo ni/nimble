@@ -3,7 +3,7 @@
   "version": "1.0.0-beta.0",
   "description": "Icons for use with the Nimble Design System",
   "scripts": {
-    "build-manual": "svgtofont --sources ./assets/icons --output ./dist/icons"
+    "build": "svgtofont --sources ./assets/icons --output ./dist/icons"
   },
   "repository": {
     "type": "git",
