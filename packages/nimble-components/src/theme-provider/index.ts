@@ -9,12 +9,12 @@ import * as tokens from './design-tokens';
 import { NimbleTheme } from './themes';
 
 function designToken<T>(token: DesignToken<T>) {
-    return (source: NimbleThemeProvider, key: string) => {
-        source[`${key}Changed`] = function (
+    return (source: NimbleThemeProvider, key: string): void => {
+        source[`${key}Changed`] = function keyChanged(
             this: NimbleThemeProvider,
-            prev: T | undefined,
+            _prev: T | undefined,
             next: T | undefined
-        ) {
+        ): void {
             if (next !== undefined && next !== null) {
                 token.setValueFor(this, next as DesignTokenValue<T>);
             } else {
@@ -29,10 +29,6 @@ function designToken<T>(token: DesignToken<T>) {
  * @internal
  */
 class NimbleThemeProvider extends FoundationElement {
-    constructor() {
-        super();
-    }
-
     @attr({
         attribute: 'theme',
     })
