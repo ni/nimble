@@ -43,6 +43,9 @@ jobs:
             # Test
             - run: npm run test
 
+            # Validate build and test does not result in untracked or modified files
+            - run: git diff-index --exit-code --ignore-space-at-eol --stat HEAD
+
             # Publish NPM packages
             - name: Set Git User
               run: |
