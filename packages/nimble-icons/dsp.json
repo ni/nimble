@@ -1,12 +1,12 @@
 {
   "dsp_spec_version": "0.0.1",
   "last_updated_by": "",
-  "last_updated": "2021-06-04T21:53:51.125Z",
+  "last_updated": "2021-06-30T16:44:37.297Z",
   "settings": {
-    "name": "nimble-tokens-dsp",
+    "name": "nimble-icons-dsp",
     "package_version": "0.0.1",
     "build_tool": "StyleDictionary",
-    "snippet_trigger_prefix": "nim_",
+    "snippet_trigger_prefix": "icons_",
     "build_status_label": "dev",
     "build_params": "./config.js",
     "languages": [
