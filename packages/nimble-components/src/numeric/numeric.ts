@@ -1,6 +1,6 @@
 // IN WORK
 
-/*import { css, customElement } from "@microsoft/fast-element";
+/* import { css, customElement } from "@microsoft/fast-element";
 import { numberFieldTemplate as template, NumberField } from "@microsoft/fast-foundation";
 import { numberFieldStyles as styles } from "@microsoft/fast-components";
 
