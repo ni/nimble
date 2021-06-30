@@ -2,9 +2,7 @@
   "name": "@ni/nimble-tokens",
   "version": "1.0.0-beta.0",
   "description": "Design tokens for the NI Nimble Design System",
-  "scripts": {
-    "build-font": "svgtofont --sources ./assets/icons --output ./dist/icons"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -19,13 +17,5 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
     "style-dictionary": "^3.0.1"
-  },
-  "devDependencies": {
-    "svgtofont": "^3.11.4"
-  },
-  "svgtofont": {
-    "fontName": "nimble-icon-font",
-    "emptyDist": true,
-    "outSVGReact": false
   }
 }
