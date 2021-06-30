@@ -1,0 +1,5 @@
+{
+    // Allows VSCode ESLint extension to work with NPM workspace monorepo
+    // https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+    "eslint.workingDirectories": [{"mode":"auto"}]
+}
