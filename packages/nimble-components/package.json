@@ -4,7 +4,8 @@
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "lint-fix": "eslint src --fix"
   },
   "repository": {
     "type": "git",
