@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
-import { Button as FoundationButton, buttonTemplate as template } from '@microsoft/fast-foundation';
-import { fillColor, fillColorHover, outlineColor, outlineColorHover, controlHeight, standardPadding, fontFamily } from '../design-system-provider/design-tokens';
+import { Button as FoundationButton, buttonTemplate as template, DesignSystem } from '@microsoft/fast-foundation';
+import { fillColor, fillColorHover, outlineColor, outlineColorHover, controlHeight, standardPadding, fontFamily, fontColor } from '../theme-provider/design-tokens';
 
 const styles = css`
 :host {
@@ -10,6 +10,7 @@ const styles = css`
     height: ${controlHeight};
     padding-left: ${standardPadding};
     padding-right: ${standardPadding};
+    color: ${fontColor};
     font-family: ${fontFamily};
     cursor: pointer;
     text-align: center;
@@ -47,11 +48,13 @@ const styles = css`
  * Generates HTML Element: \<nimble-button\>
  *
  */
-export const nimbleButton = FoundationButton.compose({
-    baseName: 'button',
+const nimbleButton = FoundationButton.compose({
+    baseName: "button",
     template,
     styles,
     shadowOptions: {
         delegatesFocus: true,
     },
 });
+
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
