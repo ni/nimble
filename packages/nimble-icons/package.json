@@ -3,7 +3,9 @@
   "version": "1.0.0-beta.0",
   "description": "Icons for use with the Nimble Design System",
   "scripts": {
-    "build-manual": "svgtofont --sources ./assets/icons --output ./dist/icons"
+    "build-manual": "svgtofont --sources ./assets/icons --output ./dist/icons",
+    "lint": "eslint scripts",
+    "lint-fix": "eslint scripts --fix"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,9 @@
     "outSVGReact": false
   },
   "devDependencies": {
+    "@ni/eslint-config": "^1.0.0",
+    "eslint": "^7.29.0",
+    "eslint-plugin-import": "^2.23.4",
     "svgtofont": "^3.11.4"
   }
 }
