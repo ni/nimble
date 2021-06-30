@@ -1,16 +1,16 @@
-import { DesignSystem, DesignToken, DesignTokenValue, FoundationElement } from "@microsoft/fast-foundation";
+import { DesignSystem, DesignToken, DesignTokenValue, FoundationElement } from '@microsoft/fast-foundation';
 import {
     attr,
     css,
     html,
-} from "@microsoft/fast-element";
+} from '@microsoft/fast-element';
 
-import * as tokens from "./design-tokens";
-import { NimbleTheme } from "./themes";
+import * as tokens from './design-tokens';
+import { NimbleTheme } from './themes';
 
 function designToken<T>(token: DesignToken<T>) {
     return (source: NimbleThemeProvider, key: string) => {
-        source[key + "Changed"] = function (
+        source[`${key}Changed`] = function (
             this: NimbleThemeProvider,
             prev: T | undefined,
             next: T | undefined
@@ -56,7 +56,7 @@ A function that returns a registration for configuring the component with a Desi
  * Generates HTML Element: \<nimble-design-system-provider\>
  */
 const nimbleDesignSystemProvider = NimbleThemeProvider.compose({
-    baseName: "theme-provider",
+    baseName: 'theme-provider',
     styles,
     template
 });

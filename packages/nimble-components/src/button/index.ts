@@ -49,7 +49,7 @@ const styles = css`
  *
  */
 const nimbleButton = FoundationButton.compose({
-    baseName: "button",
+    baseName: 'button',
     template,
     styles,
     shadowOptions: {
