@@ -7,12 +7,12 @@ import {
 import * as tokens from './design-tokens';
 
 function designToken<T>(token: DesignToken<T>) {
-    return (source: DesignSystemProvider, key: string) => {
+    return (source: DesignSystemProvider, key: string): void => {
         source[`${key}Changed`] = function (
             this: DesignSystemProvider,
-            prev: T | undefined,
+            _prev: T | undefined,
             next: T | undefined
-        ) {
+        ): void {
             if (next !== undefined && next !== null) {
                 token.setValueFor(this, next as DesignTokenValue<T>);
             } else {
@@ -27,10 +27,6 @@ function designToken<T>(token: DesignToken<T>) {
  * @internal
  */
 class DesignSystemProvider extends FoundationElement {
-    constructor() {
-        super();
-    }
-
     @designToken(tokens.fillColor)
     public fillColor: string;
 
