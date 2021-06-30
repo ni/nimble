@@ -8,6 +8,6 @@ const nimbleTextField = FoundationTextField.compose({
     shadowOptions: {
         delegatesFocus: true
     }
-})
+});
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextField());

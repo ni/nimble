@@ -3,7 +3,7 @@
   "last_updated_by": "",
   "last_updated": "2021-06-04T21:53:51.125Z",
   "settings": {
-    "name": "nimble-dsp",
+    "name": "nimble-tokens-dsp",
     "package_version": "0.0.1",
     "build_tool": "StyleDictionary",
     "snippet_trigger_prefix": "nim_",
