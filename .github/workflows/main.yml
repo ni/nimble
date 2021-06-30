@@ -43,8 +43,12 @@ jobs:
             # Test
             - run: npm run test
 
-            # Validate build and test does not result in untracked or modified files
-            - run: git diff-index --exit-code --ignore-space-at-eol --stat HEAD
+            - name: Validate no untracked files or changes
+              run: |
+                # List files with changes for build log
+                git diff-index --ignore-space-at-eol --stat HEAD
+                # Use quiet to get an error level and fail step
+                git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
             # Publish NPM packages
             - name: Set Git User
