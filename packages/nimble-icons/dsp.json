@@ -6,7 +6,7 @@
     "name": "nimble-icons-dsp",
     "package_version": "0.0.1",
     "build_tool": "StyleDictionary",
-    "snippet_trigger_prefix": "xd_",
+    "snippet_trigger_prefix": "icons_",
     "build_status_label": "dev",
     "build_params": "./config.js",
     "languages": [
