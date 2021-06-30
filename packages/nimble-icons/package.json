@@ -1,11 +1,7 @@
 {
-  "name": "nimble-icons",
-  "version": "1.0.0",
+  "name": "@ni/nimble-icons",
+  "version": "1.0.0-beta.0",
   "description": "Icons for use with the Nimble Design System",
-  "main": "index.js",
-  "devDependencies": {
-    "svgtofont": "^3.11.4"
-  },
   "scripts": {
     "build-manual": "svgtofont --sources ./assets/icons --output ./dist/icons"
   },
@@ -13,12 +9,9 @@
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
   },
-  "keywords": [
-    "nimble",
-    "icons",
-    "icon"
-  ],
-  "author": "NI",
+  "author": {
+    "name": "National Instruments"
+  },
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/ni/nimble/issues"
@@ -28,5 +21,8 @@
     "fontName": "nimble-icon-font",
     "emptyDist": true,
     "outSVGReact": false
+  },
+  "devDependencies": {
+    "svgtofont": "^3.11.4"
   }
 }
