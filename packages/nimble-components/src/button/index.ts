@@ -1,12 +1,12 @@
 import { css } from '@microsoft/fast-element';
 import { Button as FoundationButton, buttonTemplate as template, DesignSystem } from '@microsoft/fast-foundation';
-import { fillColor, fillColorHover, outlineColor, outlineColorHover, controlHeight, standardPadding, fontFamily, fontColor } from '../theme-provider/design-tokens';
+import { outlineColorRgb, outlineColorHover, controlHeight, standardPadding, fontFamily, fontColor } from '../theme-provider/design-tokens';
 
 const styles = css`
 :host {
     display: inline-block;
-    outline: 1px solid ${outlineColor};
-    background-color: ${fillColor};
+    outline: 1px solid rgba(${outlineColorRgb}, 0.3);
+    background-color: transparent;
     height: ${controlHeight};
     padding-left: ${standardPadding};
     padding-right: ${standardPadding};
@@ -19,11 +19,6 @@ const styles = css`
 :host(:hover) {
     outline: 1px solid ${outlineColorHover};
     box-shadow:0px 0px 0px 1px ${outlineColorHover} inset;
-    background-color: ${fillColorHover};
-}
-
-:host(:active) {
-    box-shadow: none;
 }
 
 .control {
