@@ -44,6 +44,13 @@ jobs:
             # Test
             - run: npm run test
 
+            - name: Validate no changes to tracked files
+              run: |
+                echo print files with changes:
+                git diff-index --ignore-space-at-eol --stat HEAD
+                echo exit with error if there are changes.
+                git diff-index --quiet --ignore-space-at-eol --stat HEAD
+
             # Publish NPM packages
             - name: Set Git User
               run: |
