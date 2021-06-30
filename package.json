@@ -35,10 +35,6 @@
     "packages/nimble-icons"
   ],
   "devDependencies": {
-    "@ni/eslint-config": "^1.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.28.1",
-    "beachball": "^2.6.2",
-    "eslint": "^7.29.0",
-    "eslint-plugin-import": "^2.23.4"
+    "beachball": "^2.6.2"
   }
 }
