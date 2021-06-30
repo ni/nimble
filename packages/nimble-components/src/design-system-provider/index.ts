@@ -8,7 +8,7 @@ import * as tokens from './design-tokens';
 
 function designToken<T>(token: DesignToken<T>) {
     return (source: DesignSystemProvider, key: string): void => {
-        source[`${key}Changed`] = function (
+        source[`${key}Changed`] = function keyChanged(
             this: DesignSystemProvider,
             _prev: T | undefined,
             next: T | undefined
