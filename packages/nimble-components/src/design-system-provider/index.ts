@@ -1,18 +1,18 @@
-import { DesignToken, DesignTokenValue, FoundationElement } from "@microsoft/fast-foundation";
+import { DesignToken, DesignTokenValue, FoundationElement } from '@microsoft/fast-foundation';
 import {
     css,
     html,
-} from "@microsoft/fast-element";
+} from '@microsoft/fast-element';
 
-import * as tokens from "./design-tokens"
+import * as tokens from './design-tokens';
 
 function designToken<T>(token: DesignToken<T>) {
-    return (source: DesignSystemProvider, key: string) => {
-        source[key + "Changed"] = function (
+    return (source: DesignSystemProvider, key: string): void => {
+        source[`${key}Changed`] = function keyChanged(
             this: DesignSystemProvider,
-            prev: T | undefined,
+            _prev: T | undefined,
             next: T | undefined
-        ) {
+        ): void {
             if (next !== undefined && next !== null) {
                 token.setValueFor(this, next as DesignTokenValue<T>);
             } else {
@@ -27,10 +27,6 @@ function designToken<T>(token: DesignToken<T>) {
  * @internal
  */
 class DesignSystemProvider extends FoundationElement {
-    constructor() {
-        super();
-    }
-
     @designToken(tokens.fillColor)
     public fillColor: string;
 
@@ -51,7 +47,7 @@ class DesignSystemProvider extends FoundationElement {
 
     @designToken(tokens.fontFamily)
     public fontFamily: string;
-    
+
     @designToken(tokens.labelFontFamily)
     public labelFontFamily: string;
 
@@ -78,7 +74,7 @@ A function that returns a registration for configuring the component with a Desi
  * Generates HTML Element: \<nimble-design-system-provider\>
  */
 export const nimbleDesignSystemProvider = DesignSystemProvider.compose({
-    baseName: "design-system-provider",
+    baseName: 'design-system-provider',
     styles,
     template
 });
