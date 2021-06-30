@@ -8,9 +8,9 @@ describe('NimbleAngularComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ NimbleTextFieldComponent ]
+            declarations: [NimbleTextFieldComponent]
         })
-        .compileComponents();
+            .compileComponents();
     });
 
     beforeEach(() => {
