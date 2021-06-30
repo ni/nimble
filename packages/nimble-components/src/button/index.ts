@@ -1,6 +1,6 @@
-import { css } from '@microsoft/fast-element';
-import { Button as FoundationButton, buttonTemplate as template } from '@microsoft/fast-foundation';
-import { fillColor, fillColorHover, outlineColor, outlineColorHover, controlHeight, standardPadding, fontFamily } from '../design-system-provider/design-tokens';
+import { css } from "@microsoft/fast-element";
+import { Button as FoundationButton, buttonTemplate as template } from "@microsoft/fast-foundation";
+import { fillColor, fillColorHover, outlineColor, outlineColorHover, controlHeight, standardPadding, fontFamily } from "../design-system-provider/design-tokens";
 
 const styles = css`
 :host {
@@ -48,7 +48,7 @@ const styles = css`
  *
  */
 export const nimbleButton = FoundationButton.compose({
-    baseName: 'button',
+    baseName: "button",
     template,
     styles,
     shadowOptions: {
