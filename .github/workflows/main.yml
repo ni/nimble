@@ -29,7 +29,8 @@ jobs:
             # - run: npm run check
 
             # Lint
-            # - run: npm run lint
+            - run: npm run lint
+              continue-on-error: true
 
             # Build
             - run: npm run build
