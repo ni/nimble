@@ -5,6 +5,7 @@
   "description": "The NI Nimble Design System Monorepo",
   "scripts": {
     "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
     "test": "npm test --workspaces --if-present",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
