@@ -3,3 +3,4 @@
  */
 
 export * from './components/text-field';
+export * from './components/number-field';
