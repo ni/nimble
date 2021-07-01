@@ -98,7 +98,10 @@
                   "with": "projects/example-client-app/src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "assets": [
+                "projects/example-client-app/src/package.json"
+              ]
             },
             "development": {
               "buildOptimizer": false,

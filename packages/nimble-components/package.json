@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "lint": "eslint src",
-    "lint-fix": "eslint src --fix"
+    "lint-fix": "eslint src --fix",
+    "pack": "npm pack"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,9 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
+  "files": [
+    "dist/**"
+  ],
   "dependencies": {
     "@microsoft/fast-components": "^2.0.0",
     "@microsoft/fast-element": "^1.4.0",

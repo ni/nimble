@@ -35,13 +35,13 @@ jobs:
 
             # Build
             - run: npm run build
-            - if: 'false'
-              run: npm run pack
-            - if: 'false'
-              uses: actions/upload-artifact@v2
+            - run: npm run pack
+            - uses: actions/upload-artifact@v2
               with:
                 name: packages
-                path: ./packages/*.tgz
+                path: |
+                  packages/**/*.tgz
+                  angular-workspace/dist/**/*.tgz
                 if-no-files-found: error
 
             # Test
