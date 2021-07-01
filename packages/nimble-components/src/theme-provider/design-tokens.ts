@@ -34,7 +34,7 @@ export const standardPadding = create<string>('standard-padding').withDefault('8
 
 // Font Family Tokens
 export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
-export const labelFontFamily = create<string>('label-font-family').withDefault(OverlineCapsFamily);
+export const labelFontFamily = create<string>('label-font-family').withDefault(`${OverlineCapsFamily}, ${BodyFamily}`);
 
 // Font Sizing Tokens
 export const labelFontSize = create<string>('label-font-size').withDefault('11px');

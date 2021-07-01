@@ -1,0 +1,13 @@
+.container{
+    width: calc(100vw - 32px);
+    height: calc(100vh - 32px);
+    padding: 16px;
+    background-color: var(--application-background-color);
+    display: flex;
+    flex-direction: column;
+}
+
+nimble-button{
+    margin-bottom: 12px;
+    width: fit-content;
+}

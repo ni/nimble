@@ -1,1 +1,6 @@
-<nimble-angular-text-field></nimble-angular-text-field>
+<nimble-theme-provider [attr.theme]="theme">
+    <div class="container">
+        <nimble-button (click)="onClick()" >Turn {{onoff}} the lights</nimble-button>
+        <nimble-angular-text-field></nimble-angular-text-field>
+    </div>
+</nimble-theme-provider>
