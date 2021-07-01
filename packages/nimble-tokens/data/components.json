@@ -4,6 +4,49 @@
   "last_updated": "2021-06-04T21:53:51.125Z",
   "entities": [
     {
+      "class": "component",
+      "type": "page",
+      "tags": [],
+      "id": "26ac9f9d-4eae-4e73-891d-658b343cfb39",
+      "related_entity_ids": [],
+      "snippets": {
+        "trigger": "",
+        "languages": {}
+      },
+      "name": "Buttion_IconandText",
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "15b14701-45f8-4823-b134-007afecffea6",
+        "last_sync": "2021-06-30T20:47:04.230Z",
+        "sync": true
+      }
+    },
+    {
+      "class": "component",
+      "type": "page",
+      "tags": [],
+      "id": "fe6bed40-a6b5-4921-b260-48a0aab88427",
+      "related_entity_ids": [
+        "52f034f9-98af-48f9-8a87-f70e2fb83ea3"
+      ],
+      "snippets": {
+        "trigger": "checkbox",
+        "languages": {
+          "html": "<nimble-checkbox></nimble-checkbox>"
+        }
+      },
+      "name": "Checkbox",
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "fbe1252c-9d00-4c13-8bef-45bafa1fec54",
+        "last_sync": "2021-06-30T20:47:04.230Z",
+        "sync": true
+      },
+      "last_updated": "2021-06-30T20:48:52.096Z",
+      "last_updated_by": "",
+      "description": "This is documentation"
+    },
+    {
       "id": "nimble-button",
       "class": "component",
       "type": "page",
@@ -24,6 +67,78 @@
       "last_updated": "2021-06-30T16:58:16.136Z",
       "last_updated_by": "",
       "description": "The `nimble-button` can be configured a primary or secondary button."
+    },
+    {
+      "class": "component",
+      "type": "page",
+      "tags": [],
+      "id": "86d59905-3949-475c-956f-4097405ab71e",
+      "related_entity_ids": [],
+      "snippets": {
+        "trigger": "",
+        "languages": {}
+      },
+      "name": "Radio Button",
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "41113f18-83c6-4da5-91c3-f8750424d6d2",
+        "last_sync": "2021-06-30T20:47:04.230Z",
+        "sync": true
+      }
+    },
+    {
+      "class": "component",
+      "type": "page",
+      "tags": [],
+      "id": "c136828f-e3f5-4ad4-a413-f833647ce97e",
+      "related_entity_ids": [],
+      "snippets": {
+        "trigger": "",
+        "languages": {}
+      },
+      "name": "TextButton_Block",
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "bf30648e-f8d4-44f6-bce7-b3a61d05dade",
+        "last_sync": "2021-06-30T20:47:04.230Z",
+        "sync": true
+      }
+    },
+    {
+      "class": "component",
+      "type": "page",
+      "tags": [],
+      "id": "5974c703-df46-42c0-82b2-d038e81839a5",
+      "related_entity_ids": [],
+      "snippets": {
+        "trigger": "",
+        "languages": {}
+      },
+      "name": "TextButton_Ghost",
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "f7fe7aa7-9417-4aa8-a6ec-9c7c049d5856",
+        "last_sync": "2021-06-30T20:47:04.230Z",
+        "sync": true
+      }
+    },
+    {
+      "class": "component",
+      "type": "page",
+      "tags": [],
+      "id": "7ce18898-ebd9-4147-b338-4e00842deb5e",
+      "related_entity_ids": [],
+      "snippets": {
+        "trigger": "",
+        "languages": {}
+      },
+      "name": "TextButton_Outline",
+      "ext-com_adobe-cclib": {
+        "source": "https://assets.adobe.com/public/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "a2a3b153-1632-48f4-b58c-55ddb907a8f5",
+        "last_sync": "2021-06-30T20:47:04.230Z",
+        "sync": true
+      }
     }
   ]
 }

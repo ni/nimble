@@ -5,7 +5,8 @@
   "scripts": {
     "build-manual": "svgtofont --sources ./assets/icons --output ./dist/icons",
     "lint": "eslint scripts",
-    "lint-fix": "eslint scripts --fix"
+    "lint-fix": "eslint scripts --fix",
+    "generate-dsp": "node ./scripts/nimble-icons-generate-dsp.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,9 @@
     "fontName": "nimble-icon-font",
     "emptyDist": true,
     "outSVGReact": false
+  },  "dependencies": {
+    "style-dictionary": "^3.0.1",
+    "prettier": "2.3.2"
   },
   "devDependencies": {
     "@ni/eslint-config": "^1.0.0",

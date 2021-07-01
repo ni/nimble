@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 30 Jun 2021 16:58:21 GMT
+ * Generated on Thu, 01 Jul 2021 14:51:56 GMT
  */
 
 export const Black7 = "#f5f5f5";
@@ -21,7 +21,7 @@ export const Brand75 = "#40b48b";
 export const Brand85 = "#26a97c";
 export const Application32Bit = "#009691";
 export const Application64Bit = "#00aba5";
-export const Developemnt64Bit = "#ffc60b";
+export const Development64Bit = "#ffc60b";
 export const Warning100 = "#ff4b00";
 export const Pass100 = "#00c12b";
 export const Fail100 = "#c4000c";
