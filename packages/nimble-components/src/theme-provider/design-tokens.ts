@@ -2,7 +2,9 @@ import { DesignToken } from '@microsoft/fast-foundation';
 import hexRgb from 'hex-rgb';
 import {
     Black91,
+    Black85,
     Black15,
+    White,
     Brand100,
     Selection100,
     BodyFamily,
@@ -20,6 +22,7 @@ const { create } = DesignToken;
 export const theme = create<NimbleTheme>({ name: 'theme', cssCustomPropertyName: null }).withDefault(NimbleTheme.Light);
 
 // Color Tokens
+export const applicationBackgroundColor = create<string>('application-background-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? White : Black85)) as string);
 export const fillColorSelected = create<string>('fill-color-hover').withDefault(Selection100);
 export const outlineColor = create<string>('outline-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)) as string);
 export const outlineColorRgb = create<string>('outline-color-rgb').withDefault((element: HTMLElement) => (rgbString(theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)));

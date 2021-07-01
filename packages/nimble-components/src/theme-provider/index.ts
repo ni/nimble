@@ -5,7 +5,7 @@ import {
     html,
 } from '@microsoft/fast-element';
 
-import * as tokens from './design-tokens';
+import { theme } from './design-tokens';
 import { NimbleTheme } from './themes';
 
 function designToken<T>(token: DesignToken<T>) {
@@ -32,7 +32,7 @@ class NimbleThemeProvider extends FoundationElement {
     @attr({
         attribute: 'theme',
     })
-    @designToken(tokens.theme)
+    @designToken(theme)
     public theme: NimbleTheme;
 }
 
@@ -49,7 +49,7 @@ const template = html`
 A function that returns a registration for configuring the component with a DesignSystem. *
  * @public
  * @remarks
- * Generates HTML Element: \<nimble-design-system-provider\>
+ * Generates HTML Element: \<nimble-theme-provider\>
  */
 const nimbleDesignSystemProvider = NimbleThemeProvider.compose({
     baseName: 'theme-provider',
