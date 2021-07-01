@@ -1,18 +1,23 @@
-import { DesignSystem, NumberField, NumberFieldOptions, numberFieldTemplate as template } from '@microsoft/fast-foundation';
+import { DesignSystem, ElementDefinitionContext, FoundationElementDefinition, NumberField, NumberFieldOptions, numberFieldTemplate as template } from '@microsoft/fast-foundation';
 import { numberFieldStyles as styles } from '@microsoft/fast-components';
+import { css, ElementStyles } from '@microsoft/fast-element';
+import { nimbleIconFontStyles } from '@ni/nimble-tokens/dist-manual/nimble-icon-font';
+
+const overrideStyles = (context: ElementDefinitionContext,
+    definition: FoundationElementDefinition): ElementStyles => css`${styles(context, definition)}${nimbleIconFontStyles}`;
 
 const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     baseName: 'number-field',
     template,
-    styles,
+    styles: overrideStyles,
     shadowOptions: {
         delegatesFocus: true
     },
     stepDownGlyph: `
-        <span class="step-down-glyph" part="step-down-glyph"></span>
+        <i class="nimble-icon-font-Fail_16x16"></i>
     `,
     stepUpGlyph: `
-        <span class="step-up-glyph" part="step-up-glyph"></span>
+        <i class="nimble-icon-font-Succeeded_16x16"></i>
     `,
 });
 
