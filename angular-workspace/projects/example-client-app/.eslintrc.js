@@ -1,8 +1,5 @@
 module.exports = {
   extends: '../../.eslintrc.js',
-  rules: {
-    "import/no-extraneous-dependencies": ["error", {"packageDir": require('path').join(__dirname, '../../')}]
-  },
   ignorePatterns: [
     '!**/*'
   ],
@@ -18,8 +15,7 @@ module.exports = {
         ],
         createDefaultProgram: true
       },
-      rules: {
-      }
+      rules: {}
     },
     {
       files: [
