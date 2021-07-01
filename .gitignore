@@ -107,9 +107,8 @@ dist
 package-lock.json
 !/package-lock.json
 
-# Include nimble-tokens & icons DSP build output
+# Include nimble-tokens DSP build output
 !packages/nimble-tokens/dist/
-!packages/nimble-icons/dist/
 
 # .vscode often contains user-specific VS Code config but some files are meant to be shared
 .vscode/*
