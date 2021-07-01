@@ -40,8 +40,9 @@ jobs:
               with:
                 name: packages
                 path: |
-                  packages/**/*.tgz
-                  angular-workspace/dist/**/*.tgz
+                  packages/nimble-components/ni-nimble-components-*.tgz
+                  angular-workspace/dist/example-client-app/example-client-app-*.tgz
+                  angular-workspace/dist/ni/nimble-angular/ni-nimble-angular-*.tgz
                 if-no-files-found: error
 
             # Test
