@@ -1,5 +1,6 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NimbleTextFieldModule } from '@ni/nimble-angular';
+import { NimbleNumberFieldModule, NimbleTextFieldModule } from '@ni/nimble-angular';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -9,8 +10,10 @@ describe('AppComponent', () => {
                 AppComponent
             ],
             imports: [
-                NimbleTextFieldModule
-            ]
+                NimbleTextFieldModule,
+                NimbleNumberFieldModule
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
         }).compileComponents();
     });
 
