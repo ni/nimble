@@ -29,10 +29,6 @@ jobs:
             - if: 'false'
               run: npm run check
 
-            # Lint
-            - run: npm run lint
-              continue-on-error: true
-
             # Build
             - run: npm run build
             - run: npm run pack
@@ -43,6 +39,10 @@ jobs:
                   packages/**/*.tgz
                   angular-workspace/dist/**/*.tgz
                 if-no-files-found: error
+
+            # Lint
+            - run: npm run lint
+              continue-on-error: true
 
             # Test
             - run: npm run test
