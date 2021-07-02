@@ -102,7 +102,7 @@
               ],
               "outputHashing": "all",
               "assets": [
-                "projects/example-client-app/src/package.json"
+                {"glob": "package.json", "input": "./projects/example-client-app/build-assets", "output": "/" }
               ]
             },
             "development": {

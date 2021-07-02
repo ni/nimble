@@ -10,17 +10,13 @@ export class AppComponent {
     public title = 'example-client-app';
 
     public theme: NimbleTheme = NimbleTheme.Light;
-    public onoff: string = "off";
+    public onoff = 'off';
     public themes = NimbleTheme;
     private toggle = true;
 
-    ngOnInit(){
-        
-    }
-
-    onClick() {
+    public onClick(): void {
         this.toggle = !this.toggle;
         this.theme = this.toggle ? NimbleTheme.Light : NimbleTheme.Dark;
-        this.onoff = this.toggle ? "off" : "on";
+        this.onoff = this.toggle ? 'off' : 'on';
     }
 }

@@ -4,7 +4,6 @@
   "compilerOptions": {
     "paths": {
       "@ni/nimble-angular": [
-        "dist/ni/nimble-angular/ni-nimble-angular",
         "dist/ni/nimble-angular"
       ]
     },
