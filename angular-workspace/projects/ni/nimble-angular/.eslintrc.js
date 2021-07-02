@@ -10,9 +10,10 @@ module.exports = {
       ],
       parserOptions: {
         project: [
-          'projects/ni/nimble-angular/tsconfig.lib.json',
-          'projects/ni/nimble-angular/tsconfig.spec.json'
+          './tsconfig.lib.json',
+          './tsconfig.spec.json'
         ],
+        tsconfigRootDir: __dirname,
         createDefaultProgram: true
       },
       rules: {

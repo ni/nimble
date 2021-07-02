@@ -4,7 +4,8 @@ module.exports = {
         '@ni/eslint-config/typescript-requiring-type-checking'
     ],
     parserOptions: {
-        project: './tsconfig.json'
+        project: './tsconfig.json',
+        tsconfigRootDir: __dirname
     },
     rules: {
         // *-default-export lines can be deleted once a fix for this issue is published and uptaken

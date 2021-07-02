@@ -10,9 +10,10 @@ module.exports = {
       ],
       parserOptions: {
         project: [
-          'projects/example-client-app/tsconfig.app.json',
-          'projects/example-client-app/tsconfig.spec.json'
+          './tsconfig.app.json',
+          './tsconfig.spec.json'
         ],
+        tsconfigRootDir: __dirname,
         createDefaultProgram: true
       },
       rules: {}
