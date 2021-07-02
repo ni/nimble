@@ -25,7 +25,9 @@ This repository contains the source for the following packages:
 
 Consult the README.md for each package to learn more, including how to use it in an application.
 
-![Architecture overview diagram](architecture-overview.png)
+## Learning
+
+- [Architecture](docs/Architecture.md) - Architecture of the design system packages and monorepo
 
 ## Contributing
 
