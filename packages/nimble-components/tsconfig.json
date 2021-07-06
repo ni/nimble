@@ -11,6 +11,7 @@
         "allowJs": true,
         "importHelpers": true,
         "resolveJsonModule": true,
+        "sourceMap": true,
         "lib": [
             "DOM",
             "ES2015",
