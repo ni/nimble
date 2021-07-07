@@ -47,7 +47,8 @@ export class NimbleTextFieldComponent implements ControlValueAccessor {
         this.disabled = isDisabled;
     }
 
+    public onTouched = (): void => {};
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     private onChange = (value: string): void => {};
-    private onTouched = (): void => {};
 }
