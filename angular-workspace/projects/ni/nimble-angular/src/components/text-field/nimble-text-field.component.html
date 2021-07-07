@@ -1,1 +1,8 @@
-<nimble-text-field [placeholder]="placeholder"></nimble-text-field>
+<nimble-text-field #nimbleTextField
+    [placeholder]="placeholder"
+    [value]="value"
+    [disabled]="disabled"
+    (change)="valueChanged()"
+    (blur)="onTouched()"
+>
+</nimble-text-field>
