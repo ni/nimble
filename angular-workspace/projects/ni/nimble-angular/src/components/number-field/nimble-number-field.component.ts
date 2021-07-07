@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NumberField } from '@microsoft/fast-foundation';
 
