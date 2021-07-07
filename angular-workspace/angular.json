@@ -86,7 +86,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -103,7 +103,12 @@
               "outputHashing": "all",
               "assets": [
                 {"glob": "package.json", "input": "./projects/example-client-app/build-assets", "output": "/" }
-              ]
+              ],
+              "optimization": {
+                "fonts": true,
+                "styles": true,
+                "scripts": false
+              }
             },
             "development": {
               "buildOptimizer": false,
