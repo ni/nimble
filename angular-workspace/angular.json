@@ -104,11 +104,8 @@
               "assets": [
                 {"glob": "package.json", "input": "./projects/example-client-app/build-assets", "output": "/" }
               ],
-              "optimization": {
-                "fonts": true,
-                "styles": true,
-                "scripts": false
-              }
+              "buildOptimizer": false,
+              "optimization": true
             },
             "development": {
               "buildOptimizer": false,
