@@ -23,7 +23,8 @@ export const theme = create<NimbleTheme>({ name: 'theme', cssCustomPropertyName:
 
 // Color Tokens
 export const applicationBackgroundColor = create<string>('application-background-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? White : Black85)) as string);
-export const fillColorSelected = create<string>('fill-color-hover').withDefault(Selection100);
+export const fillColorSelected = create<string>('fill-color-selected').withDefault(Selection100);
+export const fillColorSelectedRgb = create<string>('fill-color-selected-rgb').withDefault(rgbString(Selection100));
 export const outlineColor = create<string>('outline-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)) as string);
 export const outlineColorRgb = create<string>('outline-color-rgb').withDefault((element: HTMLElement) => (rgbString(theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)));
 export const outlineColorHover = create<string>('outline-color-hover').withDefault(Brand100);
