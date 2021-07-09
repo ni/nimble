@@ -1,5 +1,3 @@
-import { css } from '@microsoft/fast-element';
-
 const styleString = String.raw`
 [class^="{{prefix}}-"], [class*=" {{prefix}}-"] {
   font-family: '{{fontname}}' !important;
@@ -11,5 +9,4 @@ const styleString = String.raw`
 
 {{cssString}}
 `;
-const fastStyleString = css([styleString]);
-export default fastStyleString;
+export default styleString;

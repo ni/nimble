@@ -2,8 +2,8 @@
 
 // FAST;
 
-import "@ni/nimble-tokens/dist-manual/nimble-icon-font-thin.css";
-import "@ni/nimble-tokens/dist-manual/fonts.css";
+import "@ni/nimble-tokens/dist-icons/nimble-icons-font-face.css";
+import "@ni/nimble-tokens/source/space-mono-font-face.css";
 
 export const parameters = {
   layout: "fullscreen",

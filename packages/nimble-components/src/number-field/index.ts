@@ -1,7 +1,7 @@
 import { DesignSystem, ElementDefinitionContext, FoundationElementDefinition, NumberField, NumberFieldOptions, numberFieldTemplate as template } from '@microsoft/fast-foundation';
 import { numberFieldStyles as styles } from '@microsoft/fast-components';
 import { css, ElementStyles } from '@microsoft/fast-element';
-import { nimbleIconFontStyles } from '@ni/nimble-tokens/dist-manual/nimble-icon-font';
+import { nimbleIconFontStyles } from '../shared/icon-font';
 
 const overrideStyles = (context: ElementDefinitionContext,
     definition: FoundationElementDefinition): ElementStyles => css`${styles(context, definition)}${nimbleIconFontStyles}`;
