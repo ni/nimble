@@ -27,7 +27,6 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "workspaces": [
-    "packages/nimble-icons",
     "packages/nimble-tokens",
     "packages/nimble-components",
     "angular-workspace",
