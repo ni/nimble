@@ -3,12 +3,13 @@
   "version": "1.0.0-beta.0",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
-    "build": "tsc -p ./tsconfig.json",
+    "build": "npm run build-components && npm run build-storybook",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
     "pack": "npm pack",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
+    "build-components": "tsc -p ./tsconfig.json",
     "chromatic": "chromatic"
   },
   "repository": {
