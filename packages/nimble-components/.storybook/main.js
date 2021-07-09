@@ -5,6 +5,7 @@ module.exports = {
     builder: "webpack5"
   },
   stories: ["../src/**/*.stories.ts"],
+  addons: ["@storybook/addon-essentials", "storybook-addon-xd-designs"],
   webpackFinal: async config => {
     config.module.rules.push({
       test: /\.ts$/,
