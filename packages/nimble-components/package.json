@@ -9,7 +9,7 @@
     "pack": "npm pack",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "npx chromatic"
+    "chromatic": "chromatic"
   },
   "repository": {
     "type": "git",
