@@ -1,8 +1,6 @@
 import './index';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { withXD } from 'storybook-addon-xd-designs';
 
-// eslint-disable-next-line import/no-default-export
 export default {
     title: 'Number Field',
     decorators: [withXD],

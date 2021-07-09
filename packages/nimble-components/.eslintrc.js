@@ -12,5 +12,12 @@ module.exports = {
         // https://github.com/ni/javascript-styleguide/issues/39
         'import/prefer-default-export': 'off',
         'import/no-default-export': 'error'
-    }
+    },
+    overrides: [{
+        files: ['*.stories.ts'],
+        rules: {
+            'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+            'import/no-default-export': 'off'
+        }
+    }]
 };
