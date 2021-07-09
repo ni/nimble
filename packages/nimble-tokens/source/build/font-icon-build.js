@@ -15,6 +15,9 @@ process.on('unhandledRejection', error => {
         fontName: 'nimble-icons',
         emptyDist: true,
         css: true,
-        outSVGReact: false
+        outSVGReact: false,
+        typescript: {
+            extension: 'ts'
+        }
     });
 })();

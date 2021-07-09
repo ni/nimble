@@ -3,7 +3,7 @@
   "version": "1.0.0-beta.0",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
-    "build": "node source/build/font-icon-build.js",
+    "build": "node source/build/font-icon-build.js && tsc -p ./tsconfig.json",
     "lint": "eslint ."
   },
   "repository": {
