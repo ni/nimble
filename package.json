@@ -10,7 +10,7 @@
     "test": "npm test --workspaces --if-present",
     "pack": "npm run pack --workspaces --if-present && npm pack",
     "build-site": "git clean -fdx site/ && npm run build-storybook && npm run build-angular-example",
-    "build-storybook": "cd packages/nimble-components && copyfiles -E \"storybook-static/**\" ../../site",
+    "build-storybook": "cd packages/nimble-components/dist && copyfiles -E \"storybook/**\" ../../../site",
     "build-angular-example": "cd angular-workspace/dist && copyfiles -E \"example-client-app/**\" ../../site",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
