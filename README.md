@@ -12,6 +12,8 @@
 
 The NI Nimble Design System: styled UI components for NI applications.
 
+See the [storybook page](https://ni.github.io/nimble/storybook-static) or the [example angular application](https://ni.github.io/nimble/example-client-app).
+
 ## Getting Started
 
 This repository contains the source for the following packages:
