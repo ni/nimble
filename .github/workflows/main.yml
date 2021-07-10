@@ -1,10 +1,10 @@
 on:
-    pull_request:
-    push:
-        branches:
-            - '*'
-        tags:
-            - 'v*'
+  pull_request:
+  push:
+    branches:
+      - '*'
+    tags:
+      - 'v*'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -12,57 +12,67 @@ env:
   GITHUB_SERVICE_EMAIL: "TODO@ni.com"
 
 jobs:
-    build:
-        runs-on: ubuntu-18.04
-        steps:
-            - uses: actions/checkout@v2
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
 
-            # Install dependencies
-            - uses: actions/setup-node@v1
-              with:
-                node-version: '12'
-                registry-url: 'https://registry.npmjs.org'
-            - run: npm install --global npm@7
-            - run: npm ci
+      # Install dependencies
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install --global npm@7
+      - run: npm ci
 
-            # Check for beachball change file inside ./change
-            - if: 'false'
-              run: npm run check
+      # Check for beachball change file inside ./change
+      - if: 'false'
+        run: npm run check
 
-            # Build
-            - run: npm run build
-            - run: npm run pack
-            - uses: actions/upload-artifact@v2
-              with:
-                name: packages
-                path: |
-                  packages/**/*.tgz
-                  angular-workspace/dist/**/*.tgz
-                  *.tgz
-                if-no-files-found: error
+      # Build
+      - run: npm run build
+      - run: npm run pack
+      - uses: actions/upload-artifact@v2
+        with:
+          name: packages
+          path: |
+            packages/**/*.tgz
+            angular-workspace/dist/**/*.tgz
+            *.tgz
+          if-no-files-found: error
 
-            # Lint
-            - run: npm run lint
-              continue-on-error: true
+      # Lint
+      - run: npm run lint
+        continue-on-error: true
 
-            # Test
-            - run: npm run test
+      # Test
+      - run: npm run test
 
-            - name: Validate no changes to tracked files
-              run: |
-                echo print files with changes:
-                git diff-index --ignore-space-at-eol --stat HEAD
-                echo exit with error if there are changes.
-                git diff-index --quiet --ignore-space-at-eol --stat HEAD
+      - name: Validate no changes to tracked files
+        run: |
+          echo print files with changes:
+          git diff-index --ignore-space-at-eol --stat HEAD
+          echo exit with error if there are changes.
+          git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
-            # Publish NPM packages
-            - name: Set Git User
-              run: |
-                git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
-                git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
+      # Publish NPM packages
+      - name: Set Git User
+        run: |
+          git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
+          git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
 
-            - if: 'false'
-              # if: startsWith(github.ref, 'refs/heads/main')
-              env:
-                NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
-              run: npm run publish-ci -n $NPM_SECRET_TOKEN
+      - if: 'false'
+        # if: startsWith(github.ref, 'refs/heads/main')
+        env:
+          NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm run publish-ci -n $NPM_SECRET_TOKEN
+
+      # Publish site to GitHub Pages
+      - name: Install ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Install dependencies
+        run: gem install dpl
+      - name: Deploy to GitHub Pages
+        run: dpl --provider=pages --repo=ni/nimble --local_dir=site --skip_cleanup --name=rajsite --email=rajsite@users.noreply.github.com --github-token=${{secrets.GITHUBPAGESDEPLOYTOKEN}}
