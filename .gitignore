@@ -116,3 +116,7 @@ package-lock.json
 
 # macOS
 .DS_Store
+
+/site/*
+!/site/.nojekyll
+!/site/package.json

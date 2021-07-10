@@ -4,11 +4,14 @@
   "private": true,
   "description": "The NI Nimble Design System Monorepo",
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present && npm run build-site",
     "lint": "npm run lint --workspaces --if-present",
     "lint-fix": "npm run lint-fix --workspaces --if-present",
     "test": "npm test --workspaces --if-present",
-    "pack": "npm run pack --workspaces --if-present",
+    "pack": "npm run pack --workspaces --if-present && npm pack",
+    "build-site": "git clean -fdx site/ && npm run build-storybook && npm run build-angular-example",
+    "build-storybook": "cd packages/nimble-components && copyfiles -E storybook-static/** ../../site",
+    "build-angular-example": "cd angular-workspace/dist && copyfiles -E example-client-app/** ../../site",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "publish": "beachball publish",
@@ -26,6 +29,10 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
+  "files": [
+    "site",
+    "!*.tgz"
+  ],
   "workspaces": [
     "packages/nimble-tokens",
     "packages/nimble-components",
@@ -35,6 +42,7 @@
     "packages/nimble-blazor"
   ],
   "devDependencies": {
-    "beachball": "^2.6.2"
+    "beachball": "^2.6.2",
+    "copyfiles": "^2.4.1"
   }
 }

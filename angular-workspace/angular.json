@@ -105,7 +105,8 @@
                 {"glob": "package.json", "input": "./projects/example-client-app/build-assets", "output": "/" }
               ],
               "buildOptimizer": false,
-              "optimization": true
+              "optimization": true,
+              "baseHref": "example-client-app"
             },
             "development": {
               "buildOptimizer": false,

@@ -38,6 +38,7 @@ jobs:
                 path: |
                   packages/**/*.tgz
                   angular-workspace/dist/**/*.tgz
+                  *.tgz
                 if-no-files-found: error
 
             # Lint
