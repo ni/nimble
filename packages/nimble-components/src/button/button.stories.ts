@@ -14,4 +14,4 @@ export default {
 
 const buttonTemplate = '<nimble-button>Button</nimble-button>';
 
-export const nimbleButton = (): string => buttonTemplate;
+export const button = (): string => buttonTemplate;

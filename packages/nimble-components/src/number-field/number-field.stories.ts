@@ -14,4 +14,4 @@ export default {
 
 const template = '<nimble-number-field>Number Field</nimble-number-field>';
 
-export const nimbleNumberField = (): string => template;
+export const numberField = (): string => template;
