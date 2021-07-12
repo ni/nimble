@@ -117,6 +117,10 @@ package-lock.json
 # macOS
 .DS_Store
 
+# site files
 /site/*
 !/site/.nojekyll
 !/site/package.json
+
+# local npmrc files
+.npmrc
