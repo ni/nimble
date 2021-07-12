@@ -10,6 +10,17 @@ This repository uses the following tooling. See below for more info.
 1. Releases via [beachball](https://microsoft.github.io/beachball/)
 1. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
 
+## Getting Started
+
+1. From the `nimble` directory:
+    1. Run `npm install`
+    1. Run `npm build`
+    1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+
+## Develop New Components
+
+1. TODO
+
 ## Pull Requests, Releases, and Versioning
 
 This repository uses [beachball](https://microsoft.github.io/beachball/) to automate publishing its packages to NPM. The basic workflow is as follows:
