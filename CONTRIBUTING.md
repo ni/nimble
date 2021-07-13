@@ -27,30 +27,30 @@ This repository uses [beachball](https://microsoft.github.io/beachball/) to auto
 1. Every pull request must contain a "change file" which specifies how it affects the versions of each package and includes a description of the change. Developers generate this change file by running `npm run change` before creating the pull request.
 1. After the pull request completes, a CI pipeline will inspect the change files to generate changelogs, bump versions in package.json, and publish the newly built packages to NPM.
 
-## Adding new packages
+## Installing dependencies
 
-Add packages using the workflow you would expect for npm workspaces and a slightly different workflow for adding Angular libraries.
+Install packages using the workflow you would expect for npm workspaces and a slightly different workflow for adding Angular libraries.
 
 ### NPM packages
 
-To add npm packages start from the root of the repository and use `npm install <my-package> --workspace=path/to/target`.
+To install npm packages start from the root of the repository and use `npm install <my-package> --workspace=path/to/target`.
 
-Example: Add `five` to a npm workspace project:
-
-```
-npm install five --workspace=packages/nimble-tokens
-```
-
-Example: Add `five` to an angular-workspace project (requires peer dependency):
+Example: Install `five` in an npm workspace project:
 
 ```
-npm install five --save-peer --workspace=angular-workspace/projects/ni/nimble-angular
+npm install five --workspace=@ni/nimble-tokens
 ```
 
-Example: Add a monorepo project `nimble-tokens` to another project in either workspace:
+Example: Install `five` in an angular-workspace project (requires peer dependency):
 
 ```
-npm install @ni/nimble-tokens --workspace=angular-workspace/projects/ni/nimble-angular
+npm install five --save-peer --workspace=@ni/nimble-angular
+```
+
+Example: Add a monorepo package `nimble-tokens` as a dependency to another monorepo package:
+
+```
+npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
 <!-- TODO this workflow doesn't seem to work
 ### Angular libraries
