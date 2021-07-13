@@ -120,7 +120,6 @@ package-lock.json
 # site files
 /site/*
 !/site/.nojekyll
-!/site/package.json
 
 # local npmrc files
 .npmrc
