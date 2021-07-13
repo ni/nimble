@@ -50,7 +50,7 @@ npm install five --save-peer --workspace=@ni/nimble-angular
 Example: Add a monorepo package `nimble-tokens` as a dependency to another monorepo package:
 
 ```
-npm install @ni/nimble-tokens --workspace=@ni/nimble-angular
+npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
 <!-- TODO this workflow doesn't seem to work
 ### Angular libraries
