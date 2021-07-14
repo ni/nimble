@@ -13,9 +13,9 @@ This repository uses the following tooling. See below for more info.
 ## Getting Started
 
 1. From the `nimble` directory:
-    1. Run `npm install`
-    1. Run `npm build`
-    1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+   1. Run `npm install`
+   1. Run `npm build`
+   1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
 ## Develop New Components
 
@@ -24,8 +24,14 @@ This repository uses the following tooling. See below for more info.
 ## Pull Requests, Releases, and Versioning
 
 This repository uses [beachball](https://microsoft.github.io/beachball/) to automate publishing its packages to NPM. The basic workflow is as follows:
+
 1. Every pull request must contain a "change file" which specifies how it affects the versions of each package and includes a description of the change. Developers generate this change file by running `npm run change` before creating the pull request.
 1. After the pull request completes, a CI pipeline will inspect the change files to generate changelogs, bump versions in package.json, and publish the newly built packages to NPM.
+
+This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual component review, and adds Github status checks to the build pipeline. The workflow is as follows:
+
+1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**.
+1. The `UI Review` status check is designed to collect feedback from UX and visual designers. Using the Chromatic review tooling, invite designers to review and approve the component changes.
 
 ## Installing dependencies
 
@@ -37,21 +43,22 @@ To install npm packages start from the root of the repository and use `npm insta
 
 Example: Install `five` in an npm workspace project:
 
-```
+```bash
 npm install five --workspace=@ni/nimble-tokens
 ```
 
 Example: Install `five` in an angular-workspace project (requires peer dependency):
 
-```
+```bash
 npm install five --save-peer --workspace=@ni/nimble-angular
 ```
 
 Example: Add a monorepo package `nimble-tokens` as a dependency to another monorepo package:
 
-```
+```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
+
 <!-- TODO this workflow doesn't seem to work
 ### Angular libraries
 

@@ -32,4 +32,11 @@ Consult the README.md for each package to learn more, including how to use it in
 
 ## Contributing
 
+### Quick Start
+
+1. From the `nimble` directory:
+   1. Run `npm install`
+   1. Run `npm build`
+   1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+
 Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify the design system.
