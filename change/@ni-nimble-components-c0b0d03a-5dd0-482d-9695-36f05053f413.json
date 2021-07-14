@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Fixed Text Field story, so the Text Field label reads \"Text Field\" instead of \"Number Field\"",
-  "packageName": "@ni/nimble-components",
-  "email": "fred.visser@ni.com",
-  "dependentChangeType": "none"
-}
