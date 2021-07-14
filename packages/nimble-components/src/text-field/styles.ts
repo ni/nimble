@@ -64,4 +64,5 @@ export const styles = css`
     font-size: ${labelFontSize};
     line-height: 16px;
     text-transform: uppercase;
+    color: blue;
 }`;
