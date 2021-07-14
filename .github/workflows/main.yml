@@ -8,8 +8,8 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  GITHUB_SERVICE_USER: "NI Nimble Builds"
-  GITHUB_SERVICE_EMAIL: "TODO@ni.com"
+  GITHUB_SERVICE_USER: "rajsite"
+  GITHUB_SERVICE_EMAIL: "rajsite@users.noreply.github.com"
 
 jobs:
   build:
@@ -26,7 +26,7 @@ jobs:
       - run: npm ci
 
       # Check for beachball change file inside ./change
-      - if: 'false'
+      - if: startsWith(github.ref, 'refs/remotes/pull')
         run: npm run check
 
       # Build
@@ -78,4 +78,4 @@ jobs:
         run: gem install dpl
       - name: Deploy to GitHub Pages
         if: startsWith(github.ref, 'refs/heads/main')
-        run: dpl --provider=pages --repo=ni/nimble --local_dir=site --skip_cleanup --name=rajsite --email=rajsite@users.noreply.github.com --github-token=${{secrets.GITHUBPAGESDEPLOYTOKEN}}
+        run: dpl --provider=pages --repo=ni/nimble --local_dir=site --skip_cleanup --name="${{ env.GITHUB_SERVICE_USER }}" --email="${{ env.GITHUB_SERVICE_EMAIL }}" --github-token=${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
