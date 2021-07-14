@@ -12,6 +12,6 @@ export default {
     }
 };
 
-const template = '<nimble-text-field>Number Field</nimble-text-field>';
+const template = '<nimble-text-field>Text Field</nimble-text-field>';
 
 export const textField = (): string => template;
