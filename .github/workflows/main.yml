@@ -67,12 +67,15 @@ jobs:
           NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm run publish-ci -n $NPM_SECRET_TOKEN
 
-      # Publish site to GitHub Pages
+      # Publish site to GitHub Pages (from main only)
       - name: Install ruby
+        if: startsWith(github.ref, 'refs/heads/main')
         uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.6'
       - name: Install dependencies
+        if: startsWith(github.ref, 'refs/heads/main')
         run: gem install dpl
       - name: Deploy to GitHub Pages
+        if: startsWith(github.ref, 'refs/heads/main')
         run: dpl --provider=pages --repo=ni/nimble --local_dir=site --skip_cleanup --name=rajsite --email=rajsite@users.noreply.github.com --github-token=${{secrets.GITHUBPAGESDEPLOYTOKEN}}
