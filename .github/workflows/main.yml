@@ -25,10 +25,6 @@ jobs:
       - run: npm install --global npm@7
       - run: npm ci
 
-      # Check for beachball change file inside ./change
-      - if: startsWith(github.ref, 'refs/remotes/pull')
-        run: npm run check
-
       # Build
       - run: npm run build
       - run: npm run pack
@@ -47,6 +43,9 @@ jobs:
 
       # Test
       - run: npm run test
+
+      # Check Changelog
+      - run: npm run check
 
       - name: Validate no changes to tracked files
         run: |
