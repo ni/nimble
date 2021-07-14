@@ -6,6 +6,9 @@ module.exports = {
   },
   stories: ["../src/**/*.stories.ts"],
   addons: ["@storybook/addon-essentials", "storybook-addon-xd-designs"],
+  features: {
+    previewCsfV3: true
+  },
   webpackFinal: async config => {
     config.module.rules.push({
       test: /\.ts$/,
