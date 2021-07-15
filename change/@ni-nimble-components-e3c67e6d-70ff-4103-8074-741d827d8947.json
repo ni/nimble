@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Adding Source Sans Pro",
+  "packageName": "@ni/nimble-components",
+  "email": "fred.visser@ni.com",
+  "dependentChangeType": "patch"
+}
