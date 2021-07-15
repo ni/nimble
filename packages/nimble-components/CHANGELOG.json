@@ -1,0 +1,20 @@
+{
+  "name": "@ni/nimble-components",
+  "entries": [
+    {
+      "date": "Thu, 15 Jul 2021 21:07:15 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.1",
+      "version": "1.0.0-beta.1",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Update outline button styles",
+            "author": "christine.karas@ni.com",
+            "commit": "367d4642c85f1f1e0b814d522173d02ab5957812",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    }
+  ]
+}
