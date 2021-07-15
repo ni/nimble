@@ -1,8 +1,8 @@
 import { css } from '@microsoft/fast-element';
 import { nimbleIconFontStyles } from '../shared/icon-font';
 import {
-    outlineColor,
-    outlineColorHover,
+    borderColor,
+    borderColorHover,
     fillColorSelectedRgb,
     fontFamily,
     fontColor,
@@ -28,11 +28,11 @@ export const styles = css`
     flex-direction: row;
     border-radius: 0px;
     font-family: ${fontFamily};
-    border-bottom: 2px solid ${outlineColor};
+    border-bottom: 2px solid ${borderColor};
   }
 
   .root:hover {
-    border-bottom: 3px solid ${outlineColorHover};
+    border-bottom: 2px solid ${borderColorHover};
   }
 
   .control {

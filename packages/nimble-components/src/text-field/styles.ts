@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 
-import { outlineColor, outlineColorHover, fillColorSelectedRgb, fontFamily, fontColor, labelFontFamily, labelFontSize } from '../theme-provider/design-tokens';
+import { borderColor, borderColorHover, fillColorSelectedRgb, fontFamily, fontColor, labelFontFamily, labelFontSize } from '../theme-provider/design-tokens';
 
 export const styles = css`
 :host {
@@ -18,11 +18,11 @@ export const styles = css`
     flex-direction: row;
     border-radius: 0px;
     font-family: ${fontFamily};
-    border-bottom: 2px solid ${outlineColor};
+    border-bottom: 2px solid ${borderColor};
 }
 
 .root:hover{
-    border-bottom: 3px solid ${outlineColorHover};
+    border-bottom: 2px solid ${borderColorHover};
 }
 
 .control {

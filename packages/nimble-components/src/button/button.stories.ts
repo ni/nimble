@@ -7,7 +7,7 @@ export default {
     parameters: {
         design: {
             artboardUrl:
-        'https://xd.adobe.com/view/2a5a7401-925e-4fcc-9230-39d8e3c56729-7f09/screen/0fbfcd67-b185-4c93-864f-d86a86c5476f/specs/'
+        'https://xd.adobe.com/view/6fdbdacb-b624-4d2c-950e-a58f3fd7ebac-3a88/screen/aeff5951-0982-4f82-a471-a9e5a0675a63/specs'
         }
     }
 };
