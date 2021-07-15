@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Update storybook defaults",
+  "packageName": "@ni/nimble-components",
+  "email": "christine.karas@ni.com",
+  "dependentChangeType": "none"
+}
