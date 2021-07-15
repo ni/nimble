@@ -45,7 +45,7 @@ export const styles = css`
         appearanceBehavior(
             'ghost',
             css`
-                :host {
+                :host([appearance='ghost']) {
                     border: 1px solid transparent;
                 }
             `
@@ -53,15 +53,16 @@ export const styles = css`
         appearanceBehavior(
             'block',
             css`
-                :host {
+                :host([appearance='block']) {
                     background-color: rgba(${borderColorRgb}, 0.1);
                 }
 
-                :host(:hover), :host(:focus) {
+                :host([appearance='block']:hover),
+                :host([appearance='block']:focus) {
                     background-color: transparent;
                 }
 
-                :host(:active) {
+                :host([appearance='block']:active) {
                     background-color: ${fillColorSelected};
                     border-color: transparent;
                     box-shadow: none;
