@@ -12,6 +12,10 @@ export default {
     }
 };
 
-const buttonTemplate = '<nimble-button>Button</nimble-button>';
+const buttonTemplate = `
+    <nimble-button>Button</nimble-button>
+    <nimble-button appearance="ghost">Ghost button</nimble-button>
+    <nimble-button appearance="block">Block button</nimble-button>
+`;
 
 export const button = (): string => buttonTemplate;
