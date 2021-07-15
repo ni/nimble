@@ -19,7 +19,7 @@ function rgbString(hexValue: string): string {
 
 function rgba(hexValue: string, alpha: number): string {
     const { red, green, blue } = hexRgb(hexValue);
-    return `rgba(${red}, ${green}, ${blue}, ${alpha}`;
+    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
 const { create } = DesignToken;
