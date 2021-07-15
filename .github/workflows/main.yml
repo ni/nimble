@@ -56,19 +56,18 @@ jobs:
           echo exit with error if there are changes.
           git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
-      # Publish NPM packages
+      # Publish NPM packages (only from main)
       - name: Set Git User
+        if: startsWith(github.ref, 'refs/heads/main')
         run: |
           git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
           git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
-
-      - if: 'false'
-        # if: startsWith(github.ref, 'refs/heads/main')
+      - if: startsWith(github.ref, 'refs/heads/main')
         env:
           NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm run publish-ci -n $NPM_SECRET_TOKEN
 
-      # Publish site to GitHub Pages (from main only)
+      # Publish site to GitHub Pages (only from main)
       - name: Install ruby
         if: startsWith(github.ref, 'refs/heads/main')
         uses: actions/setup-ruby@v1
