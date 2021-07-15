@@ -3,5 +3,5 @@
   "comment": "Add button appearances",
   "packageName": "@ni/nimble-components",
   "email": "christine.karas@ni.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
