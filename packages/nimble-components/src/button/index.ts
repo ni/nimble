@@ -5,7 +5,6 @@ import { styles } from './styles';
 /**
  * Types of button appearance.
  * @public
- *
  */
 export type ButtonAppearance = 'ghost' | 'outline' | 'block';
 
