@@ -17,7 +17,7 @@ function rgbString(hexValue: string): string {
     return `${red}, ${green}, ${blue}`;
 }
 
-function rgba(hexValue: string, alpha: number): string {
+function hexToRgba(hexValue: string, alpha: number): string {
     const { red, green, blue } = hexRgb(hexValue);
     return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
@@ -28,7 +28,7 @@ export const theme = create<NimbleTheme>({ name: 'theme', cssCustomPropertyName:
 
 // Color Tokens
 export const applicationBackgroundColor = create<string>('application-background-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? White : Black85)) as string);
-export const fillColorSelected = create<string>('fill-color-selected').withDefault(rgba(Selection100, 0.3));
+export const fillColorSelected = create<string>('fill-color-selected').withDefault(hexToRgba(Selection100, 0.3));
 export const fillColorSelectedRgb = create<string>('fill-color-selected-rgb').withDefault(rgbString(Selection100));
 export const borderColor = create<string>('border-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)) as string);
 export const borderColorRgb = create<string>('border-color-rgb').withDefault((element: HTMLElement) => (rgbString(theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)));
