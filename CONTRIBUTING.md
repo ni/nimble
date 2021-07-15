@@ -14,7 +14,7 @@ This repository uses the following tooling. See below for more info.
 
 1. From the `nimble` directory:
    1. Run `npm install`
-   1. Run `npm build`
+   1. Run `npm run build`
    1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
 ## Develop New Components
