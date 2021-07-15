@@ -65,7 +65,7 @@ jobs:
       - if: startsWith(github.ref, 'refs/heads/main')
         env:
           NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm run publish-ci -n $NPM_SECRET_TOKEN
+        run: npm run publish-ci -- -n $NPM_SECRET_TOKEN
 
       # Publish site to GitHub Pages (only from main)
       - name: Install ruby
