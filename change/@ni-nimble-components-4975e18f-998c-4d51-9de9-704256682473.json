@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Switch to token es6 module type declarations",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
