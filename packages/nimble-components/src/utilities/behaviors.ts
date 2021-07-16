@@ -1,5 +1,6 @@
 import { Behavior, ElementStyles } from '@microsoft/fast-element';
 import { PropertyStyleSheetBehavior } from '@microsoft/fast-foundation';
+import { ButtonAppearance } from '../button/types';
 
 /**
  * Behavior that will conditionally apply a stylesheet based on the element's
@@ -10,6 +11,6 @@ import { PropertyStyleSheetBehavior } from '@microsoft/fast-foundation';
  *
  * @public
  */
-export function appearanceBehavior(value: string, styles: ElementStyles): Behavior {
+export function appearanceBehavior(value: ButtonAppearance, styles: ElementStyles): Behavior {
     return new PropertyStyleSheetBehavior('appearance', value, styles);
 }

@@ -1,14 +1,9 @@
 import { attr } from '@microsoft/fast-element';
 import { Button as FoundationButton, buttonTemplate as template, DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from './styles';
+import { ButtonAppearance } from './types';
 
-/**
- * Types of button appearance.
- * @public
- */
-export type ButtonAppearance = 'ghost' | 'outline' | 'block';
-
-export class Button extends FoundationButton {
+class Button extends FoundationButton {
     /**
      * The appearance the button should have.
      *
@@ -22,7 +17,7 @@ export class Button extends FoundationButton {
     public connectedCallback(): void {
         super.connectedCallback();
         if (!this.appearance) {
-            this.appearance = 'outline';
+            this.appearance = ButtonAppearance.Outline;
         }
     }
 }
@@ -36,7 +31,7 @@ export class Button extends FoundationButton {
  * Generates HTML Element: \<nimble-button\>
  *
  */
-const nimbleButton = FoundationButton.compose({
+const nimbleButton = Button.compose({
     baseName: 'button',
     template,
     styles,

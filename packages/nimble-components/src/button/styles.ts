@@ -1,6 +1,16 @@
 import { css } from '@microsoft/fast-element';
-import { borderColorRgb, borderColorHover, controlHeight, standardPadding, fontFamily, fontColor, fillColorSelected, contentFontSize } from '../theme-provider/design-tokens';
+import {
+    borderColorRgb,
+    borderColorHover,
+    controlHeight,
+    standardPadding,
+    fontFamily,
+    fontColor,
+    fillColorSelected,
+    contentFontSize
+} from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/behaviors';
+import { ButtonAppearance } from './types';
 
 export const styles = css`
     :host {
@@ -20,6 +30,11 @@ export const styles = css`
     :host(:focus) {
         border: 1px solid ${borderColorHover};
         box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
+    }
+
+    :host(:focus:not(:active)) {
+        outline: 1px solid ${borderColorHover};
+        outline-offset: -4px;
     }
 
     :host(:active) {
@@ -43,29 +58,18 @@ export const styles = css`
         padding: 0 ${standardPadding};
     }`.withBehaviors(
         appearanceBehavior(
-            'ghost',
+            ButtonAppearance.Ghost,
             css`
-                :host([appearance='ghost']) {
+                :host([appearance=${ButtonAppearance.Ghost}]:not(:hover):not(:focus)) {
                     border: 1px solid transparent;
                 }
             `
         ),
         appearanceBehavior(
-            'block',
+            ButtonAppearance.Block,
             css`
-                :host([appearance='block']) {
+                :host([appearance=${ButtonAppearance.Block}]:not(:active)) {
                     background-color: rgba(${borderColorRgb}, 0.1);
-                }
-
-                :host([appearance='block']:hover),
-                :host([appearance='block']:focus) {
-                    background-color: transparent;
-                }
-
-                :host([appearance='block']:active) {
-                    background-color: ${fillColorSelected};
-                    border-color: transparent;
-                    box-shadow: none;
                 }
             `
         ),
