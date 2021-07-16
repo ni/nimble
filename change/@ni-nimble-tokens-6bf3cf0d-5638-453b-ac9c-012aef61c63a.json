@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Generate es6 module type declarations",
-  "packageName": "@ni/nimble-tokens",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
