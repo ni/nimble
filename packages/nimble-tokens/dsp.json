@@ -8,7 +8,7 @@
     "build_tool": "StyleDictionary",
     "snippet_trigger_prefix": "nim_",
     "build_status_label": "dev",
-    "build_params": "./config.js",
+    "build_params": "./nimble-extensions.js",
     "languages": [
       {
         "label": "Coffeescript",
