@@ -76,6 +76,7 @@
             "styles": [
               "projects/example-client-app/src/styles.scss",
               "../node_modules/@ni/nimble-tokens/source/space-mono-font-face.css",
+              "../node_modules/@ni/nimble-tokens/source/source-sans-pro-font-face.css",
               "../node_modules/@ni/nimble-tokens/dist-icons/nimble-icons-font-face.css"
             ],
             "scripts": []
@@ -102,7 +103,11 @@
               ],
               "outputHashing": "all",
               "assets": [
-                {"glob": "package.json", "input": "./projects/example-client-app/build-assets", "output": "/" }
+                {
+                  "glob": "package.json",
+                  "input": "./projects/example-client-app/build-assets",
+                  "output": "/"
+                }
               ],
               "buildOptimizer": false,
               "optimization": true,
@@ -149,9 +154,7 @@
               "projects/example-client-app/src/favicon.ico",
               "projects/example-client-app/src/assets"
             ],
-            "styles": [
-              "projects/example-client-app/src/styles.scss"
-            ],
+            "styles": ["projects/example-client-app/src/styles.scss"],
             "scripts": []
           }
         },

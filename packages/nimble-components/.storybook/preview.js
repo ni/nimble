@@ -6,6 +6,7 @@ import { addDecorator } from "@storybook/html";
 
 import "@ni/nimble-tokens/dist-icons/nimble-icons-font-face.css";
 import "@ni/nimble-tokens/source/space-mono-font-face.css";
+import "@ni/nimble-tokens/source/source-sans-pro-font-face.css";
 import "@ni/nimble-components/src/theme-provider/index";
 
 export const parameters = {
