@@ -26,7 +26,7 @@ const { create } = DesignToken;
 
 export const theme = create<NimbleTheme>({ name: 'theme', cssCustomPropertyName: null }).withDefault(NimbleTheme.Light);
 
-function getColorForTheme(element: HTMLElement, lightThemeColor, darkThemeColor, colorThemeColor): string {
+function getColorForTheme(element: HTMLElement, lightThemeColor: string, darkThemeColor: string, colorThemeColor: string): string {
     switch (theme.getValueFor(element)) {
         case NimbleTheme.Light:
             return lightThemeColor;
@@ -34,10 +34,12 @@ function getColorForTheme(element: HTMLElement, lightThemeColor, darkThemeColor,
             return darkThemeColor;
         case NimbleTheme.Color:
             return colorThemeColor;
+        default:
+            return lightThemeColor;
     }
 }
 
-function getDefaultLineColorForTheme(element: HTMLElement) {
+function getDefaultLineColorForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
         case NimbleTheme.Light:
             return Black91;
@@ -45,12 +47,14 @@ function getDefaultLineColorForTheme(element: HTMLElement) {
             return Black15;
         case NimbleTheme.Color:
             return White;
+        default:
+            return Black91;
     }
 }
 
 // Color Tokens
 export const applicationBackgroundColor = create<string>('application-background-color').withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise));
-const fillColorSelectedTheme = (element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White);
+const fillColorSelectedTheme = (element: HTMLElement): string => getColorForTheme(element, Selection100, Selection100, White);
 export const fillColorSelected = create<string>('fill-color-selected').withDefault((element: HTMLElement) => hexToRgba(fillColorSelectedTheme(element), 0.3));
 export const fillColorSelectedRgb = create<string>('fill-color-selected-rgb').withDefault((element: HTMLElement) => rgbString(fillColorSelectedTheme(element)));
 export const borderColor = create<string>('border-color').withDefault((element: HTMLElement) => (getDefaultLineColorForTheme(element)));
