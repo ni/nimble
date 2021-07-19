@@ -1,0 +1,50 @@
+{
+  "name": "angular-workspace",
+  "entries": [
+    {
+      "date": "Fri, 16 Jul 2021 22:52:21 GMT",
+      "tag": "angular-workspace_v0.0.0",
+      "version": "0.0.0",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Bump angular-workspace to v0.0.0",
+            "author": "rajsite@users.noreply.github.com",
+            "commit": "9815168fa7197edecccf517696cd90b66e1c3f8e",
+            "package": "angular-workspace"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Jul 2021 16:01:07 GMT",
+      "tag": "angular-workspace_v0.0.0",
+      "version": "0.0.0",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Bump angular-workspace to v0.0.0",
+            "author": "fred.visser@ni.com",
+            "commit": "a65a2166df28414ffd11d558123323e488eff3b6",
+            "package": "angular-workspace"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Jul 2021 21:07:15 GMT",
+      "tag": "angular-workspace_v0.0.0",
+      "version": "0.0.0",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Bump angular-workspace to v0.0.0",
+            "author": "christine.karas@ni.com",
+            "commit": "367d4642c85f1f1e0b814d522173d02ab5957812",
+            "package": "angular-workspace"
+          }
+        ]
+      }
+    }
+  ]
+}

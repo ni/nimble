@@ -27,10 +27,10 @@ const { create } = DesignToken;
 export const theme = create<NimbleTheme>({ name: 'theme', cssCustomPropertyName: null }).withDefault(NimbleTheme.Light);
 
 // Color Tokens
-export const applicationBackgroundColor = create<string>('application-background-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? White : Black85)) as string);
+export const applicationBackgroundColor = create<string>('application-background-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? White : Black85)));
 export const fillColorSelected = create<string>('fill-color-selected').withDefault(hexToRgba(Selection100, 0.3));
 export const fillColorSelectedRgb = create<string>('fill-color-selected-rgb').withDefault(rgbString(Selection100));
-export const borderColor = create<string>('border-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)) as string);
+export const borderColor = create<string>('border-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)));
 export const borderColorRgb = create<string>('border-color-rgb').withDefault((element: HTMLElement) => (rgbString(theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)));
 export const borderColorHover = create<string>('border-color-hover').withDefault(Brand100);
 
@@ -40,11 +40,11 @@ export const standardPadding = create<string>('standard-padding').withDefault('1
 
 // Font Family Tokens
 export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
-export const labelFontFamily = create<string>('label-font-family').withDefault(`${OverlineCapsFamily as string}, ${BodyFamily as string}`);
+export const labelFontFamily = create<string>('label-font-family').withDefault(`${OverlineCapsFamily}, ${BodyFamily}`);
 
 // Font Sizing Tokens
 export const labelFontSize = create<string>('label-font-size').withDefault('11px');
 export const contentFontSize = create<string>('content-font-size').withDefault('14px');
 
 // Font Color Tokens
-export const fontColor = create<string>('label-font-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)) as string);
+export const fontColor = create<string>('label-font-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)));

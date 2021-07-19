@@ -1,0 +1,50 @@
+{
+  "name": "@ni/nimble-components",
+  "entries": [
+    {
+      "date": "Fri, 16 Jul 2021 22:52:21 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.3",
+      "version": "1.0.0-beta.3",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.3",
+            "author": "rajsite@users.noreply.github.com",
+            "commit": "9815168fa7197edecccf517696cd90b66e1c3f8e",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Jul 2021 16:01:07 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.2",
+      "version": "1.0.0-beta.2",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.2",
+            "author": "fred.visser@ni.com",
+            "commit": "a65a2166df28414ffd11d558123323e488eff3b6",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Jul 2021 21:07:15 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.1",
+      "version": "1.0.0-beta.1",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Update outline button styles",
+            "author": "christine.karas@ni.com",
+            "commit": "367d4642c85f1f1e0b814d522173d02ab5957812",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    }
+  ]
+}

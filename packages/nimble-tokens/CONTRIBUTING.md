@@ -16,7 +16,7 @@ The source of truth for the colors, fonts, and component design tokens in this r
 For changes to any token values, work with the Visual Design team to update the library, and then perform the following steps:
 
 1. Ensure you have the [Adobe XD plugin for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Adobe.xd&ssr=false#overview) installed.
-2. Open the XD Plugin and load the nimble-tokens-dsp package by selecting the `nimble-tokens` folder.
+2. Open the XD Plugin (invoke [Show All Commands](https://code.visualstudio.com/docs/getstarted/keybindings#_navigation) and execute command `XD: Toggle Adobe XD Panel`) and load the nimble-tokens-dsp package by selecting the `nimble-tokens` folder.
 3. Click the **DSP Setting** button (bottom left). If the button isn't available, open the XD Plugin settings to confirm that the `XD: Global Editor` setting is **checked** for both user and workspace.
 4. Scroll to the bottom of the DSP Setting page and click the **Re-import** button to update the CC LIBRARY LINK.
 5. Save the settings change.
