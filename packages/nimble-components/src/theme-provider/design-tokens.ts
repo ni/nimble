@@ -50,8 +50,9 @@ function getDefaultLineColorForTheme(element: HTMLElement) {
 
 // Color Tokens
 export const applicationBackgroundColor = create<string>('application-background-color').withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise));
-export const fillColorSelected = create<string>('fill-color-selected').withDefault(hexToRgba(Selection100, 0.3));
-export const fillColorSelectedRgb = create<string>('fill-color-selected-rgb').withDefault(rgbString(Selection100));
+const fillColorSelectedTheme = (element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White);
+export const fillColorSelected = create<string>('fill-color-selected').withDefault((element: HTMLElement) => hexToRgba(fillColorSelectedTheme(element), 0.3));
+export const fillColorSelectedRgb = create<string>('fill-color-selected-rgb').withDefault((element: HTMLElement) => rgbString(fillColorSelectedTheme(element)));
 export const borderColor = create<string>('border-color').withDefault((element: HTMLElement) => (getDefaultLineColorForTheme(element)));
 export const borderColorRgb = create<string>('border-color-rgb').withDefault((element: HTMLElement) => (rgbString(getDefaultLineColorForTheme(element))));
 export const borderColorHover = create<string>('border-color-hover').withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White));
