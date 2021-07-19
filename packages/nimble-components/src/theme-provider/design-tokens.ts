@@ -32,7 +32,7 @@ export const fillColorSelected = create<string>('fill-color-selected').withDefau
 export const fillColorSelectedRgb = create<string>('fill-color-selected-rgb').withDefault(rgbString(Selection100));
 export const borderColor = create<string>('border-color').withDefault((element: HTMLElement) => ((theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)));
 export const borderColorRgb = create<string>('border-color-rgb').withDefault((element: HTMLElement) => (rgbString(theme.getValueFor(element) === NimbleTheme.Light ? Black91 : Black15)));
-export const borderColorHover = create<string>('border-color-hover').withDefault(Brand100);
+export const borderColorHover = create<string>('border-color-hover').withDefault(Selection100);
 
 // Component Sizing Tokens
 export const controlHeight = create<string>('control-height').withDefault('32px');
