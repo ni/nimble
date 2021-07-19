@@ -5,7 +5,6 @@ import {
     Black85,
     Black15,
     White,
-    Brand100,
     Selection100,
     BodyFamily,
     OverlineCapsFamily
