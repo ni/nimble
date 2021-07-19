@@ -68,9 +68,13 @@ export const styles = css`
         appearanceBehavior(
             ButtonAppearance.Block,
             css`
-                :host([appearance=${ButtonAppearance.Block}]:not(:active)) {
-                    background-color: rgba(${borderColorRgb}, 0.1);
-                }
+            :host([appearance=${ButtonAppearance.Block}]:not(:active)) {
+                background-color: rgba(${borderColorRgb}, 0.1);
+            }
+
+            :host([appearance=${ButtonAppearance.Block}]:not(:hover):not(:focus)) {
+                border: 1px solid transparent;
+            }
             `
         ),
     );
