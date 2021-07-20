@@ -8,7 +8,7 @@ import {
     Enterprise,
     Selection100,
     BodyFamily,
-    OverlineCapsFamily
+    OverlineCapitalizedFamily
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -67,7 +67,7 @@ export const standardPadding = create<string>('standard-padding').withDefault('1
 
 // Font Family Tokens
 export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
-export const labelFontFamily = create<string>('label-font-family').withDefault(`${OverlineCapsFamily}, ${BodyFamily}`);
+export const labelFontFamily = create<string>('label-font-family').withDefault(`${OverlineCapitalizedFamily}, ${BodyFamily}`);
 
 // Font Sizing Tokens
 export const labelFontSize = create<string>('label-font-size').withDefault('11px');
