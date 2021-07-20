@@ -42,7 +42,6 @@ jobs:
 
       # Lint
       - run: npm run lint
-        continue-on-error: true
 
       # Test
       - run: npm run test
