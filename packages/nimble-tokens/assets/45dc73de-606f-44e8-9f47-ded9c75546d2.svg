@@ -1,0 +1,25 @@
+<svg id="ToggleButton_24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="112" height="39" viewBox="0 0 112 39">
+  <defs>
+    <clipPath id="clip-path">
+      <rect y="1" width="112" height="14" fill="none"/>
+    </clipPath>
+  </defs>
+  <rect id="Background_" data-name="Background " width="48" height="24" rx="12" transform="translate(0 15)" fill="#161617" opacity="0.1"/>
+  <g id="Background_Stroke_" data-name="Background Stroke " transform="translate(0 15)" fill="none" stroke="#161617" stroke-width="1" opacity="0">
+    <rect width="48" height="24" rx="12" stroke="none"/>
+    <rect x="0.5" y="0.5" width="47" height="23" rx="11.5" fill="none"/>
+  </g>
+  <circle id="Toggle_Fill_" data-name="Toggle Fill " cx="8" cy="8" r="8" transform="translate(4 19)" fill="#fff"/>
+  <g id="Toggle_Stroke_" data-name="Toggle Stroke " transform="translate(4 19)" fill="none" stroke="#161617" stroke-width="1">
+    <circle cx="8" cy="8" r="8" stroke="none"/>
+    <circle cx="8" cy="8" r="7.5" fill="none"/>
+  </g>
+  <circle id="Selected" cx="2" cy="2" r="2" transform="translate(10 25)" fill="#161617" opacity="0"/>
+  <g id="Rollover" transform="translate(4 19)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
+    <circle cx="8" cy="8" r="8" stroke="none"/>
+    <circle cx="8" cy="8" r="7" fill="none"/>
+  </g>
+  <g id="Scroll_Group_14" data-name="Scroll Group 14" transform="translate(0 -1)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <text id="SHOW_LABEL" data-name="SHOW LABEL" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SpaceMono-Regular, Space Mono"><tspan x="0" y="0">SHOW LABEL</tspan></text>
+  </g>
+</svg>

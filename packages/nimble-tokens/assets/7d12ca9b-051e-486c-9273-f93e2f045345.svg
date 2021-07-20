@@ -1,0 +1,16 @@
+<svg id="ButtonToggle_Icon_Block32" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="Background" transform="translate(-323.853 -324)">
+    <rect id="Fill_1" data-name="Fill 1" width="32" height="32" transform="translate(323.853 324)" fill="#161617" opacity="0.1"/>
+    <rect id="Fill_2" data-name="Fill 2" width="32" height="1.996" transform="translate(323.853 353.98)" fill="#00b888" opacity="0"/>
+    <g id="Rollover" transform="translate(323.853 324)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
+      <rect width="32" height="32" stroke="none"/>
+      <rect x="1" y="1" width="30" height="30" fill="none"/>
+    </g>
+  </g>
+  <g id="Stack_Group" data-name="Stack Group" transform="translate(-40 1)">
+    <g id="Icon" transform="translate(40)">
+      <rect id="IconAlignment" width="16" height="16" transform="translate(8 7)" fill="#649fff" opacity="0"/>
+      <rect id="Icon-2" data-name="Icon" width="12" height="12" transform="translate(10 9)" fill="#161617"/>
+    </g>
+  </g>
+</svg>

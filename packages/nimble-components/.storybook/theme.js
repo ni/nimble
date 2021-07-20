@@ -2,17 +2,17 @@ import { create } from "@storybook/theming/create";
 import logo from "./nimble-ui-logo.png";
 import {
   Black91,
-  Brand,
-  Brand50,
-  Selection100,
+  Brand100,
+  Brand85,
+  Black75,
   White
 } from "@ni/nimble-tokens/dist/styledictionary/js/tokens";
 
 export default create({
   base: "light",
 
-  colorPrimary: Brand,
-  colorSecondary: Selection100,
+  colorPrimary: Brand100,
+  colorSecondary: Black75,
 
   // UI
   appBg: "white",
@@ -25,13 +25,13 @@ export default create({
   fontCode: "monospace",
 
   // Text colors
-  textColor: "black",
+  textColor: Black91,
   textInverseColor: "rgba(255,255,255,0.9)",
 
   // Toolbar default and active colors
   barTextColor: White,
   barSelectedColor: White,
-  barBg: Brand,
+  barBg: Brand85,
 
   // Form colors
   inputBg: "white",
