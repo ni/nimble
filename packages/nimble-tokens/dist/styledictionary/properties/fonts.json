@@ -1,6 +1,14 @@
 {
   "font": {
-    "Button": {
+    "Header1": {
+      "family": {
+        "value": "Noto Serif"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Subtitle": {
       "family": {
         "value": "Source Sans Pro"
       },
@@ -8,7 +16,7 @@
         "value": "Regular"
       }
     },
-    "OVERLINE - Caps": {
+    "OverlineCapitalized": {
       "family": {
         "value": "Space Mono"
       },
@@ -24,31 +32,7 @@
         "value": "Regular"
       }
     },
-    "Subtitle": {
-      "family": {
-        "value": "Source Sans Pro"
-      },
-      "weight": {
-        "value": "Regular"
-      }
-    },
-    "H2": {
-      "family": {
-        "value": "Source Sans Pro"
-      },
-      "weight": {
-        "value": "Light"
-      }
-    },
-    "H1": {
-      "family": {
-        "value": "Noto Serif"
-      },
-      "weight": {
-        "value": "Regular"
-      }
-    },
-    "H0": {
+    "Header0": {
       "family": {
         "value": "Noto Serif"
       },
@@ -59,25 +43,19 @@
   },
   "size": {
     "font": {
-      "Button": {
-        "value": "14"
+      "Header1": {
+        "value": "24"
       },
-      "OVERLINE - Caps": {
+      "Subtitle": {
+        "value": "12"
+      },
+      "OverlineCapitalized": {
         "value": "12"
       },
       "Body": {
         "value": "14"
       },
-      "Subtitle": {
-        "value": "12"
-      },
-      "H2": {
-        "value": "22"
-      },
-      "H1": {
-        "value": "24"
-      },
-      "H0": {
+      "Header0": {
         "value": "36"
       }
     }

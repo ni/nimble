@@ -1,0 +1,21 @@
+<svg id="Component_139" data-name="Component 139" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="256" height="32" viewBox="0 0 256 32">
+  <defs>
+    <clipPath id="clip-path">
+      <rect y="1" width="200" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Background" transform="translate(0 6.5)">
+    <rect id="Background-2" data-name="Background" width="256" height="32" transform="translate(0 -6.5)" fill="#00b888" opacity="0"/>
+    <rect id="SelectionRectangle" width="2" height="2" transform="translate(0 8.5)" fill="#00b888" opacity="0"/>
+    <rect id="Rollover" width="256" height="2" transform="translate(0 21.552)" fill="#161617" opacity="0"/>
+  </g>
+  <g id="Stacks_Group" data-name="Stacks Group" transform="translate(0 2)">
+    <g id="Scroll_Group_8" data-name="Scroll Group 8" transform="translate(40 5)" clip-path="url(#clip-path)" style="isolation: isolate">
+      <text id="Section" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>
+    </g>
+    <g id="Icon" transform="translate(0 6)">
+      <rect id="IconLocation" width="16" height="16" transform="translate(16)" fill="#c1e0ff" opacity="0"/>
+      <rect id="Icon-2" data-name="Icon" width="12" height="12" transform="translate(18 2)" fill="#161617"/>
+    </g>
+  </g>
+</svg>

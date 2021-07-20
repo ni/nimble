@@ -1,0 +1,37 @@
+<svg id="Component_152" data-name="Component 152" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="32" viewBox="0 0 176 32">
+  <defs>
+    <clipPath id="clip-path">
+      <rect x="16" y="1" width="112" height="18" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Background_Group" data-name="Background Group" transform="translate(0 6.501)">
+    <rect id="Block" width="176" height="32" transform="translate(0 -6.501)" fill="none"/>
+    <g id="Line" transform="translate(0 24.499)" fill="none" stroke="#161617" stroke-width="1" opacity="0.3">
+      <rect width="176" height="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="175" fill="none"/>
+    </g>
+    <g id="Rollover" transform="translate(87 24.499)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
+      <rect width="2" height="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1" fill="none"/>
+    </g>
+  </g>
+  <g id="Stack_Group" data-name="Stack Group" transform="translate(8 6)">
+    <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(8 -1)" clip-path="url(#clip-path)" style="isolation: isolate">
+      <text id="Search" transform="translate(16 14)" fill="#161617" font-size="14" font-family="SourceSansPro-It, Source Sans Pro" font-style="italic" opacity="0.3"><tspan x="0" y="0">Search</tspan></text>
+    </g>
+    <g id="Error_Group" data-name="Error Group" transform="translate(-8 1)">
+      <rect id="IconLocation" width="16" height="16" transform="translate(152 1)" fill="#3cb4e7" opacity="0"/>
+      <path id="Error" d="M6.127,12.518h3.8V15h-3.8ZM6.062,1l.433,9.966H9.56L9.993,1Z" transform="translate(151.938 1)" fill="#c42126" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0"/>
+    </g>
+    <g id="Icon_Group" data-name="Icon Group" transform="translate(8)">
+      <rect id="IconLocation-2" data-name="IconLocation" width="16" height="16" transform="translate(-8 1)" fill="#3cb4e7" opacity="0"/>
+      <path id="Magnify_Glass" data-name="Magnify Glass" d="M1201.563,778.525a5.461,5.461,0,0,0-5.014,7.614l-5.529,3.225.733,1.257,5.546-3.234a5.457,5.457,0,1,0,4.264-8.862m0,9.458a4,4,0,1,1,4-4,4,4,0,0,1-4,4" transform="translate(-1199.02 -776.525)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.6"/>
+    </g>
+    <g id="Close_Group" data-name="Close Group" transform="translate(144 0.722)" opacity="0">
+      <rect id="Rollover-2" data-name="Rollover" width="16" height="16" fill="#00b888" opacity="0"/>
+      <rect id="IconLocation-3" data-name="IconLocation" width="16" height="16" fill="#3cb4e7" opacity="0"/>
+      <path id="Close_Icon" data-name="Close Icon" d="M-1926.5-1873v-4.5h-4.5v-2h4.5v-4.5h2v4.5h4.5v2h-4.5v4.5Z" transform="translate(41.012 2697.612) rotate(45)" fill="#161617"/>
+    </g>
+  </g>
+  <rect id="Text_Focus" data-name="Text Focus" width="1" height="18" transform="translate(30 6)" opacity="0"/>
+</svg>

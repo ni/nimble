@@ -1,0 +1,28 @@
+<svg id="Component_69" data-name="Component 69" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="48" viewBox="0 0 176 48">
+  <defs>
+    <clipPath id="clip-path">
+      <rect y="1" width="135" height="16" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect y="1" width="85" height="14" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <rect x="-45" y="1" width="82" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_3448" data-name="Group 3448" transform="translate(0 17)">
+    <rect id="Rectangle_9406" data-name="Rectangle 9406" width="176" height="31" fill="#d3d5d6" opacity="0.3"/>
+    <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(8 5.001)" clip-path="url(#clip-path)" style="isolation: isolate">
+      <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro" opacity="0.3"><tspan x="0" y="0">Placeholder</tspan></text>
+    </g>
+    <path id="TextFocus" d="M-31-11162v18" transform="translate(39 11168.001)" fill="none" stroke="#000" stroke-width="1" opacity="0"/>
+  </g>
+  <g id="Scroll_Group_2" data-name="Scroll Group 2" transform="translate(0 1)" clip-path="url(#clip-path-2)" style="isolation: isolate">
+    <text id="SHOW_LABEL" data-name="SHOW LABEL" transform="translate(0 12)" fill="#aeb0b3" font-size="11" font-family="SpaceMono-Regular, Space Mono"><tspan x="0" y="0">SHOW LABEL</tspan></text>
+  </g>
+  <g id="Scroll_Group_3" data-name="Scroll Group 3" transform="translate(139 -1)" clip-path="url(#clip-path-3)" style="isolation: isolate">
+    <text id="Metric" transform="translate(37 14)" fill="#aeb0b3" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro" opacity="0"><tspan x="-36.274" y="0">Metric</tspan></text>
+  </g>
+  <rect id="IconLocation" width="16" height="16" transform="translate(152 24)" fill="#3cb4e7" opacity="0"/>
+  <text id="_" data-name="!" transform="translate(157 37)" fill="#c4000c" font-size="14" font-family="Verdana-Bold, Verdana" font-weight="700" opacity="0"><tspan x="0" y="0">!</tspan></text>
+</svg>

@@ -1,0 +1,20 @@
+<svg id="Checkbox" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="136" height="16" viewBox="0 0 136 16">
+  <defs>
+    <clipPath id="clip-path">
+      <rect y="1" width="112" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Scroll_Group_23" data-name="Scroll Group 23" transform="translate(24 -1)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <text id="Option_label" data-name="Option label" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Option label</tspan></text>
+  </g>
+  <g id="Control_Group" data-name="Control Group" transform="translate(0 -1)">
+    <rect id="BackgroundFill" width="16" height="16" transform="translate(0 1)" fill="#fff" opacity="0"/>
+    <rect id="BackgroundFill2" width="8" height="8" transform="translate(4 5)" fill="#00b888" opacity="0"/>
+    <g id="Stroke" transform="translate(0 1)" fill="none" stroke="#161617" stroke-width="1">
+      <rect width="16" height="16" stroke="none"/>
+      <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
+    </g>
+    <path id="CheckMark" d="M761.011,464.592l-1.417-1.441-5.035,5.121-2.13-2.167-1.417,1.442,3.543,3.6.075-.076,0,0Z" transform="translate(-748 -458.152)" fill="#161617" opacity="0"/>
+    <rect id="MixedState" width="8" height="2" transform="translate(4 8)" fill="#161617" opacity="0"/>
+  </g>
+</svg>

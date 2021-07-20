@@ -1,0 +1,17 @@
+<svg id="Radio_Button" data-name="Radio Button" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="136" height="16" viewBox="0 0 136 16">
+  <defs>
+    <clipPath id="clip-path">
+      <rect y="1" width="112" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Scroll_Group_22" data-name="Scroll Group 22" transform="translate(24 -1)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <text id="Option_label" data-name="Option label" transform="translate(0 14)" fill="#0e0f0f" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Option label</tspan></text>
+  </g>
+  <g id="Control_Group" data-name="Control Group" transform="translate(0 -1)">
+    <g id="Background" transform="translate(16 17) rotate(180)" fill="none" stroke="#161617" stroke-width="1">
+      <rect width="16" height="16" rx="8" stroke="none"/>
+      <rect x="0.5" y="0.5" width="15" height="15" rx="7.5" fill="none"/>
+    </g>
+    <circle id="Selection" cx="4" cy="4" r="4" transform="translate(4 5)" fill="#161617" opacity="0"/>
+  </g>
+</svg>
