@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "replace tokens with long-term XD library",
-  "packageName": "@ni/nimble-components",
-  "email": "fred.visser@ni.com",
-  "dependentChangeType": "prerelease"
-}
