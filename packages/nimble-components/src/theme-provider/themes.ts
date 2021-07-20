@@ -1,4 +1,5 @@
 export enum NimbleTheme {
     Light = 'LIGHT',
-    Dark = 'DARK'
+    Dark = 'DARK',
+    Color = 'COLOR'
 }

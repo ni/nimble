@@ -41,7 +41,7 @@ export const globalTypes = {
     toolbar: {
       icon: "circlehollow",
       // array of plain string values for theme.
-      items: ["clear", "LIGHT", "DARK"]
+      items: ["clear", "LIGHT", "DARK", "COLOR"]
     }
   }
 };
