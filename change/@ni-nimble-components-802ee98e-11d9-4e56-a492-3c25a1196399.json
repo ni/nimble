@@ -1,7 +1,7 @@
 {
-  "type": "none",
+  "type": "prerelease",
   "comment": "Refactor design token theming and add COLOR theme",
   "packageName": "@ni/nimble-components",
   "email": "christine.karas@ni.com",
-  "dependentChangeType": "none"
+  "dependentChangeType": "prerelease"
 }
