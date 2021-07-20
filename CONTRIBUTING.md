@@ -32,11 +32,8 @@ This repository uses the following tooling. See below for more info.
 ### Adding a new component
 
 1. Ensure UX specs are up to date and tokens are generated. [Detailed instructions](packages/nimble-tokens/CONTRIBUTING.md).
-
 1. Expose any tokens in the token provider and add web component logic. [Detailed instructions](packages/nimble-components/CONTRIBUTING.md).
-
 1. Add wrappers for each framework. [Instructions for adding Angular wrappers](angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). [Instructions for adding Blazor wrappers](packages/nimble-blazor/CONTRIBUTING.md).
-
 1. Publish and use! 🎉
 
 ## Pull Requests, Releases, and Versioning
