@@ -15,7 +15,6 @@ import { ButtonAppearance } from './types';
 export const styles = css`
     :host {
         display: inline-block;
-        border: 1px solid rgba(${borderColorRgb}, 0.3);
         background-color: transparent;
         height: ${controlHeight};
         color: ${fontColor};
@@ -28,7 +27,6 @@ export const styles = css`
 
     :host(:hover),
     :host(:focus) {
-        border: 1px solid ${borderColorHover};
         box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
     }
 
@@ -39,7 +37,6 @@ export const styles = css`
 
     :host(:active) {
         background-color: ${fillColorSelected};
-        border-color: transparent;
         box-shadow: none;
     }
 
@@ -58,23 +55,58 @@ export const styles = css`
         padding: 0 ${standardPadding};
     }`.withBehaviors(
         appearanceBehavior(
+            ButtonAppearance.Outline,
+            css`
+                :host {
+                    border: 1px solid rgba(${borderColorRgb}, 0.3);
+                }
+
+                :host(:hover),
+                :host(:focus) {
+                    border: 1px solid ${borderColorHover};
+                }
+
+                :host(:active) {
+                    border-color: transparent;
+                }
+            `
+        ),
+        appearanceBehavior(
             ButtonAppearance.Ghost,
             css`
-                :host([appearance=${ButtonAppearance.Ghost}]:not(:hover):not(:focus)) {
+                :host {
                     border: 1px solid transparent;
+                }
+
+                :host(:hover),
+                :host(:focus) {
+                    border: 1px solid ${borderColorHover};
+                }
+
+                :host(:active) {
+                    border-color: transparent;
                 }
             `
         ),
         appearanceBehavior(
             ButtonAppearance.Block,
             css`
-            :host([appearance=${ButtonAppearance.Block}]:not(:active)) {
-                background-color: rgba(${borderColorRgb}, 0.1);
-            }
+                :host {
+                    border: 1px solid transparent;
+                }
 
-            :host([appearance=${ButtonAppearance.Block}]:not(:hover):not(:focus)) {
-                border: 1px solid transparent;
-            }
+                :host(:not(:active)) {
+                    background-color: rgba(${borderColorRgb}, 0.1);
+                }
+
+                :host(:hover),
+                :host(:focus) {
+                    border: 1px solid ${borderColorHover};
+                }
+
+                :host(:active) {
+                    border-color: transparent;
+                }
             `
         ),
     );
