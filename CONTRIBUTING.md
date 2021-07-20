@@ -29,85 +29,15 @@ This repository uses the following tooling. See below for more info.
 [Nimble Angular HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Nimble%20Angular.md&version=GBmaster&_a=preview)
 [Nimble architecture](docs/Architecture.md)
 
-### @ni/nimble-components
+### Adding a new component
 
-1. Create a new folder named after your component with some core files
+1. Ensure UX specs are up to date and tokens are generated. [Detailed instructions](packages/nimble-tokens/CONTRIBUTING.md).
 
-| File                      | Description |
-| ------------------------- | ----------- |
-| index.ts                  | Contains the component class definition and registration. All Typescript logic contained in the component belongs here. |
-| styles.ts                 | Contains the styles relevant to this component. Note that globally-relevant styles that can be tokenized belong in `theme-provider/design-tokens.ts`. |
-| component-name.stories.ts | Contains the Storybook documentation for this component. This should provide API documentation for the component and relevant usage information. |
+1. Expose any tokens in the token provider and add web component logic. [Detailed instructions](packages/nimble-components/CONTRIBUTING.md).
 
-TODO: where does it go?
-- Templates for things that aren't just a composed Foundation component: index.ts?
-- unit tests: TODO once we finalize a framework
-- page objects: TODO next to unit tests
-- chromatic tests: next to or inside the stories file?
+1. Add wrappers for each framework. [Instructions for adding Angular wrappers](angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). [Instructions for adding Blazor wrappers](packages/nimble-blazor/CONTRIBUTING.md).
 
-1. Set up your development environment
-
-To see your component in action, run the commands in **Getting Started** and leave the storybook running. The storybook will hot reload when you save changes, but the styles will not, so on each save that changes index.ts or styles.ts, you'll need to refresh your browser window.
-
-1. Decide how to build on top of FAST
-
-If fast-foundation already contains the component you're adding, use `FoundationElement.compose()` to add the component to Nimble.
-
-```
-import { Button as FoundationButton, buttonTemplate as template, DesignSystem } from '@microsoft/fast-foundation';
-import { styles } from './styles';
-
-const nimbleButton = FoundationButton.compose({
-    baseName: 'button',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true,
-    },
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
-```
-
-If fast-foundation contains a component similar to what you're adding, extend the existing component with Nimble-specific functionality.
-
-```
-import { Button as FoundationButton, buttonTemplate as template, DesignSystem } from '@microsoft/fast-foundation';
-
-class Button extends FoundationButton {
-   // Add new functionality
-}
-
-const nimbleButton = Button.compose({
-   ...
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
-```
-
-TODO: If you need to compose multiple elements from fast-foundation into a new component
-TODO: If FAST does not contain the requisite building blocks for your component
-
-1. Adhere to architectural philosophies
-
-At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
-
-When configuring different variants of a single element, use behaviors. This is a concept taken from fast-elements.
-```
-import { css } from '@microsoft/fast-element';
-
-css`
-`.withBehaviors(
-   ...
-)
-```
-
-TODO: naming conventions
-TODO: design patterns
-
-### @ni/nimble-angular
-
-TODO: describe how to pull in components to @ni-nimble-angular.
+1. Publish and use! 🎉
 
 ## Pull Requests, Releases, and Versioning
 
@@ -120,6 +50,8 @@ This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual
 
 1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**.
 1. The `UI Review` status check is designed to collect feedback from UX and visual designers. Using the Chromatic review tooling, invite designers to review and approve the component changes.
+
+When submitting Pull Requests, use squash merges and copy the PR description into the squash commit message. Including the PR description makes it easier to see relevant history at a glance.
 
 ## Installing dependencies
 
