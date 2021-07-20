@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 20 Jul 2021 15:56:20 GMT
+ * Generated on Tue, 20 Jul 2021 19:35:33 GMT
  */
 
 export const Fail100Dark = "#ff4663";
@@ -23,18 +23,18 @@ export const Pass100 = "#00c12b";
 export const Fail100 = "#c4000c";
 export const Brand100 = "#009b65";
 export const Black80 = "#505153";
-export const H1Family = "Noto Serif";
-export const H1Weight = "Regular";
+export const Header1Family = "Noto Serif";
+export const Header1Weight = "Regular";
 export const SubtitleFamily = "Source Sans Pro";
 export const SubtitleWeight = "Regular";
-export const OverlineCapsFamily = "Space Mono";
-export const OverlineCapsWeight = "Regular";
+export const OverlineCapitalizedFamily = "Space Mono";
+export const OverlineCapitalizedWeight = "Regular";
 export const BodyFamily = "Source Sans Pro";
 export const BodyWeight = "Regular";
-export const H0Family = "Noto Serif";
-export const H0Weight = "Regular";
-export const H1Size = "24rem";
+export const Header0Family = "Noto Serif";
+export const Header0Weight = "Regular";
+export const Header1Size = "24rem";
 export const SubtitleSize = "12rem";
-export const OverlineCapsSize = "12rem";
+export const OverlineCapitalizedSize = "12rem";
 export const BodySize = "14rem";
-export const H0Size = "36rem";
+export const Header0Size = "36rem";

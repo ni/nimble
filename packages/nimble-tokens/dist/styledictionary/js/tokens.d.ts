@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 20 Jul 2021 15:56:20 GMT
+ * Generated on Tue, 20 Jul 2021 19:35:33 GMT
  */
 
 export const Fail100Dark : string;
@@ -23,18 +23,18 @@ export const Pass100 : string;
 export const Fail100 : string;
 export const Brand100 : string;
 export const Black80 : string;
-export const H1Family : string;
-export const H1Weight : string;
+export const Header1Family : string;
+export const Header1Weight : string;
 export const SubtitleFamily : string;
 export const SubtitleWeight : string;
-export const OverlineCapsFamily : string;
-export const OverlineCapsWeight : string;
+export const OverlineCapitalizedFamily : string;
+export const OverlineCapitalizedWeight : string;
 export const BodyFamily : string;
 export const BodyWeight : string;
-export const H0Family : string;
-export const H0Weight : string;
-export const H1Size : string;
+export const Header0Family : string;
+export const Header0Weight : string;
+export const Header1Size : string;
 export const SubtitleSize : string;
-export const OverlineCapsSize : string;
+export const OverlineCapitalizedSize : string;
 export const BodySize : string;
-export const H0Size : string;
+export const Header0Size : string;

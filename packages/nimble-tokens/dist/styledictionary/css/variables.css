@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 20 Jul 2021 15:56:20 GMT
+ * Generated on Tue, 20 Jul 2021 19:35:33 GMT
  */
 
 :root {
@@ -24,19 +24,19 @@
   --fail-100: #c4000c;
   --brand-100: #009b65;
   --black-80: #505153;
-  --h-1-family: Noto Serif;
-  --h-1-weight: Regular;
+  --header-1-family: Noto Serif;
+  --header-1-weight: Regular;
   --subtitle-family: Source Sans Pro;
   --subtitle-weight: Regular;
-  --overline-caps-family: Space Mono;
-  --overline-caps-weight: Regular;
+  --overline-capitalized-family: Space Mono;
+  --overline-capitalized-weight: Regular;
   --body-family: Source Sans Pro;
   --body-weight: Regular;
-  --h-0-family: Noto Serif;
-  --h-0-weight: Regular;
-  --h-1-size: 24rem;
+  --header-0-family: Noto Serif;
+  --header-0-weight: Regular;
+  --header-1-size: 24rem;
   --subtitle-size: 12rem;
-  --overline-caps-size: 12rem;
+  --overline-capitalized-size: 12rem;
   --body-size: 14rem;
-  --h-0-size: 36rem;
+  --header-0-size: 36rem;
 }

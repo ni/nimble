@@ -1,6 +1,6 @@
 {
   "font": {
-    "H1": {
+    "Header1": {
       "family": {
         "value": "Noto Serif"
       },
@@ -16,7 +16,7 @@
         "value": "Regular"
       }
     },
-    "OVERLINE - Caps": {
+    "OverlineCapitalized": {
       "family": {
         "value": "Space Mono"
       },
@@ -32,7 +32,7 @@
         "value": "Regular"
       }
     },
-    "H0": {
+    "Header0": {
       "family": {
         "value": "Noto Serif"
       },
@@ -43,19 +43,19 @@
   },
   "size": {
     "font": {
-      "H1": {
+      "Header1": {
         "value": "24"
       },
       "Subtitle": {
         "value": "12"
       },
-      "OVERLINE - Caps": {
+      "OverlineCapitalized": {
         "value": "12"
       },
       "Body": {
         "value": "14"
       },
-      "H0": {
+      "Header0": {
         "value": "36"
       }
     }
