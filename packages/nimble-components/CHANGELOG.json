@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 20 Jul 2021 15:14:07 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.4",
+      "version": "1.0.0-beta.4",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Refactor design token theming and add COLOR theme",
+            "author": "christine.karas@ni.com",
+            "commit": "5c7bee89b82f95f130cd7d74336c7ce0028656b1",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 16 Jul 2021 22:52:21 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.3",
       "version": "1.0.0-beta.3",
