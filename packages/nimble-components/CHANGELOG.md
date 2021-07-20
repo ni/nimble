@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 20 Jul 2021 15:14:07 GMT and should not be manually modified.
+This log was last generated on Tue, 20 Jul 2021 16:48:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.5
+
+Tue, 20 Jul 2021 16:48:12 GMT
+
+### Changes
+
+- Add button appearances (christine.karas@ni.com)
 
 ## 1.0.0-beta.4
 
