@@ -3,5 +3,5 @@
   "comment": "Add disabled styles for buttons",
   "packageName": "@ni/nimble-components",
   "email": "christine.karas@ni.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
