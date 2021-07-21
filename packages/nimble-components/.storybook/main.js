@@ -5,7 +5,11 @@ module.exports = {
     builder: "webpack5"
   },
   stories: ["../src/**/*.stories.ts"],
-  addons: ["@storybook/addon-essentials", "storybook-addon-xd-designs"],
+  addons: [
+    "@storybook/addon-essentials",
+    "storybook-addon-xd-designs",
+    "@storybook/addon-a11y"
+  ],
   features: {
     previewCsfV3: true
   },
