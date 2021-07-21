@@ -1,7 +1,7 @@
 {
-  "type": "none",
+  "type": "prerelease",
   "comment": "Include @storybook/addon-a11y",
   "packageName": "@ni/nimble-components",
   "email": "fred.visser@ni.com",
-  "dependentChangeType": "none"
+  "dependentChangeType": "prerelease"
 }
