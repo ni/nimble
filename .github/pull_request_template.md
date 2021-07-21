@@ -30,5 +30,4 @@ Include automated/manual test additions or modifications, testing done on a loca
 
 <!--- Review the list and put an x in the boxes that apply or ~~strike through~~ around items that don't (along with an explanation). -->
 
-- [ ] I have included a change request file using `$ npm run change`
-- [ ] I have updated the project documentation to reflect my changes.
+- [ ] I have updated the project documentation to reflect my changes or determined no changes are needed.
