@@ -2,7 +2,18 @@
 
 ## Package overview
 
-This package contains NI-styled web components.
+This package contains a library of NI-styled web components.
+
+The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
+1. A small, performant custom element base class, [FAST Element](https://www.fast.design/docs/fast-element/getting-started).
+1. [Infrastructure for design system features](https://www.fast.design/docs/design-systems/overview) like design tokens and theming.
+1. A library of [core components](https://explore.fast.design/components/) that are
+   - unopinionated in their style and easily stylable
+   - adherent to browser standards like accessibility
+   - while not meeting all of NI's use cases, give us a good starting point and extension capabilities
+   - offer a promising future roadmap
+
+[This video](https://www.youtube.com/watch?v=OHOKYItVQvc) (1 hour but watchable in less time at 2x) is a great way to get up to speed with the architecture of FAST in no time. 💨
 
 ## Getting Started
 
@@ -68,6 +79,7 @@ DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
 ```
 
 TODO: If you need to compose multiple elements from fast-foundation into a new component
+
 TODO: If FAST does not contain the requisite building blocks for your component
 
 ### Adhere to architectural philosophies
@@ -85,4 +97,5 @@ css`
 ```
 
 TODO: naming conventions
+
 TODO: design patterns

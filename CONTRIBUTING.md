@@ -10,6 +10,12 @@ This repository uses the following tooling. See below for more info.
 1. Releases via [beachball](https://microsoft.github.io/beachball/)
 1. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
 
+### Helpful links
+
+- [Design System HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Design%20System%20for%20Angular%20and%20Blazor%20UI%20Components.md&version=GBmaster&_a=preview)
+- [Nimble Angular HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Nimble%20Angular.md&version=GBmaster&_a=preview)
+- [Nimble architecture](docs/Architecture.md)
+
 ## Getting Started
 
 1. From the `nimble` directory:
@@ -18,16 +24,6 @@ This repository uses the following tooling. See below for more info.
    1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
 ## Develop New Components
-
-### Helpful links
-
-[Microsoft FAST](https://www.fast.design/)
-- [microsoft/fast on GitHub](https://github.com/microsoft/fast)
-- [FAST on Discord](https://discord.com/invite/FcSNfg4)
-- [Architecture presentation from Rob Eisenberg](https://www.youtube.com/watch?v=OHOKYItVQvc)
-[Design System HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Design%20System%20for%20Angular%20and%20Blazor%20UI%20Components.md&version=GBmaster&_a=preview)
-[Nimble Angular HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Nimble%20Angular.md&version=GBmaster&_a=preview)
-[Nimble architecture](docs/Architecture.md)
 
 ### Adding a new component
 
