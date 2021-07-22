@@ -75,3 +75,4 @@ export const contentFontSize = create<string>('content-font-size').withDefault('
 
 // Font Color Tokens
 export const fontColor = create<string>('label-font-color').withDefault((element: HTMLElement) => (getDefaultLineColorForTheme(element)));
+export const fontColorDisabled = create<string>('font-color-disabled').withDefault((element: HTMLElement) => (hexToRgba(getDefaultLineColorForTheme(element), 0.3)));

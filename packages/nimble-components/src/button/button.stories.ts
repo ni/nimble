@@ -13,10 +13,19 @@ export default {
     }
 };
 
-const buttonTemplate = `
-    <nimble-button>Button</nimble-button>
+const buttonTemplate = '<nimble-button>Button</nimble-button>';
+export const button = (): string => buttonTemplate;
+
+const buttonWithAppearancesTemplate = `
+    <nimble-button appearance="${ButtonAppearance.Outline}">Outline button</nimble-button>
     <nimble-button appearance="${ButtonAppearance.Ghost}">Ghost button</nimble-button>
     <nimble-button appearance="${ButtonAppearance.Block}">Block button</nimble-button>
+    <br/>
+    <br/>
+    <nimble-button disabled appearance="${ButtonAppearance.Outline}">Disabled outline</nimble-button>
+    <nimble-button disabled appearance="${ButtonAppearance.Ghost}">Disabled ghost</nimble-button>
+    <nimble-button disabled appearance="${ButtonAppearance.Block}">Disabled block</nimble-button>
 `;
 
-export const button = (): string => buttonTemplate;
+export const buttonWithAppearances = (): string => buttonWithAppearancesTemplate;
+buttonWithAppearances.storyName = 'Button appearances';
