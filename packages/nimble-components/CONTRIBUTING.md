@@ -29,14 +29,9 @@ The library is built on the open source [FAST Design System library](https://fas
 | File                      | Description |
 | ------------------------- | ----------- |
 | index.ts                  | Contains the component class definition and registration. All Typescript logic contained in the component belongs here. |
+| template.ts               | Contains the template definition for components for which we aren't using a fast-foundation template. |
 | styles.ts                 | Contains the styles relevant to this component. Note that globally-relevant styles that can be tokenized belong in [theme-provider/design-tokens.ts](src/theme-provider/design-tokens.ts). |
 | component-name.stories.ts | Contains the Storybook documentation for this component. This should provide API documentation for the component and relevant usage information. |
-
-TODO: where does it go?
-- Templates for things that aren't just a composed Foundation component: index.ts?
-- unit tests: TODO once we finalize a framework
-- page objects: TODO next to unit tests
-- chromatic tests: TODO in a logical place alongside unit test directory structure
 
 ### Set up your development environment
 
@@ -45,57 +40,67 @@ To see your component in action, run the commands in **Getting Started** and lea
 ### Decide how to build on top of FAST
 
 If fast-foundation already contains the component you're adding, use `FoundationElement.compose()` to add the component to Nimble.
+Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
 ```ts
-import { Button as FoundationButton, buttonTemplate as template, DesignSystem } from '@microsoft/fast-foundation';
-import { styles } from './styles';
-
-const nimbleButton = FoundationButton.compose({
-    baseName: 'button',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true,
-    },
+import { Button as FoundationButton, /* ... */ } from '@microsoft/fast-foundation';
+const styles = css`
+   /* My custom CSS for the nimble fancy button */
+   :host { color: gold; }
+`;
+const nimbleFancyButton = FoundationButton.compose({
+   styles,
+   // ...
 });
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
+// ...
 ```
 
 If fast-foundation contains a component similar to what you're adding, extend the existing component with Nimble-specific functionality.
+When you extend a foundation component, do not prefix the class name with "Nimble." Namespacing is accomplished through imports.
 
 ```ts
-import { Button as FoundationButton, buttonTemplate as template, DesignSystem } from '@microsoft/fast-foundation';
-
+import { Button as FoundationButton, /* ... */ } from '@microsoft/fast-foundation';
 class Button extends FoundationButton {
    // Add new functionality
 }
-
 const nimbleButton = Button.compose({
    ...
 });
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
+// ...
 ```
 
-TODO: If you need to compose multiple elements from fast-foundation into a new component
-
-TODO: If FAST does not contain the requisite building blocks for your component
+If you need to compose multiple elements into a new component, use previously built Nimble elements or basic HTML elements as your template building blocks.
+Extend `FASTElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
+Use the `html` tagged template helper to define your custom template. See [declaring-templates.md](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-element/docs/guide/declaring-templates.md) for (hopefully up-to-date) tips from FAST.
+**TODO: if you're reading this section because you're adding a brand new thing, congratulations! You have won the honor of filling out this section.**
 
 ### Adhere to architectural philosophies
 
 At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
 
-When configuring different variants of a single element, use behaviors. This is a concept taken from fast-elements.
+When configuring different variants of a single element, use behaviors.
 ```ts
 import { css } from '@microsoft/fast-element';
-
 css`
+  /* ... */
 `.withBehaviors(
-   ...
+  // ...
 )
 ```
 
-TODO: naming conventions
+### Adhere to accessibility guidelines
 
-TODO: design patterns
+Accessibility is a requirement for all new components. For the Nimble design system, this means
+- Focus states are defined for every element and work on all browsers.
+- Colors have sufficient contrast across all themes.
+- **TODO: UX to fill out requirements.**
+
+This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
+
+### Write and run tests
+
+**TODO**
+
+- unit tests
+- page objects
+- chromatic tests
