@@ -24,7 +24,7 @@ This repository contains the source for the following packages:
 - **[nimble-components](packages/nimble-components/)** - styled web components for use in other applications (also used by `nimble-angular` and `nimble-blazor`)
 - **[nimble-tokens](packages/nimble-tokens/)** - design tokens used by the component packages
 
-Consult the README.md for each package to learn more, including how to use it in an application.
+Consult the `README.md` for each package to learn more, including how to use it in an application.
 
 ## Learning
 

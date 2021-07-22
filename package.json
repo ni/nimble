@@ -14,8 +14,8 @@
     "build-angular-example": "cd angular-workspace/dist && copyfiles -E \"example-client-app/**\" ../../site",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
-    "publish": "beachball publish  --message \"applying package updates [skip ci]\"",
-    "publish-ci": "beachball publish --yes --access public"
+    "publish": "beachball publish --message \"applying package updates [skip ci]\"",
+    "publish-ci": "beachball publish --yes --access public --message \"applying package updates [skip ci]\""
   },
   "repository": {
     "type": "git",
