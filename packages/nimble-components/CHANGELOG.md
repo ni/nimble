@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 21 Jul 2021 23:09:43 GMT and should not be manually modified.
+This log was last generated on Thu, 22 Jul 2021 00:43:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.8
+
+Thu, 22 Jul 2021 00:43:05 GMT
+
+### Changes
+
+- Docs for nimble-number-field (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.7
 
