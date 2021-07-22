@@ -19,14 +19,17 @@ export default {
     },
     render: ({
         label,
-        appearance
+        appearance,
+        disabled
     }: {
         label: string,
-        appearance: string
-    }): string => `<nimble-button appearance="${appearance}">${label}</nimble-button>`,
+        appearance: string,
+        disabled: string
+    }): string => `<nimble-button ${disabled} appearance="${appearance}">${label}</nimble-button>`,
     args: {
         label: 'Ghost Button',
-        appearance: 'ghost'
+        appearance: 'ghost',
+        disabled: null
     }
 };
 
@@ -38,4 +41,25 @@ export const ghostButton = {
 };
 export const blockButton = {
     args: { label: 'Block Button', appearance: ButtonAppearance.Block }
+};
+export const outlineButtonDisabled = {
+    args: {
+        label: 'Outline Button',
+        appearance: ButtonAppearance.Outline,
+        disabled: 'disabled'
+    }
+};
+export const ghostButtonDisabled = {
+    args: {
+        label: 'Ghost Button',
+        appearance: ButtonAppearance.Ghost,
+        disabled: 'disabled'
+    }
+};
+export const blockButtonDisabled = {
+    args: {
+        label: 'Block Button',
+        appearance: ButtonAppearance.Block,
+        disabled: 'disabled'
+    }
 };
