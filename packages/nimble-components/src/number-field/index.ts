@@ -7,6 +7,14 @@ import {
 import { styles } from './styles';
 import { nimbleIconNames } from '../shared/icon-font';
 
+/**
+ * A function that returns a number-field registration for configuring the component with a DesignSystem.
+ *
+ * @public
+ * @remarks
+ * Generates HTML Element: \<nimble-number-field\>
+ *
+ */
 const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     baseName: 'number-field',
     template,
