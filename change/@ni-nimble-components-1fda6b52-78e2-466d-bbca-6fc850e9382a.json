@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "Include @storybook/addon-a11y",
+  "comment": "adding args to existing stories",
   "packageName": "@ni/nimble-components",
   "email": "fred.visser@ni.com",
   "dependentChangeType": "none"
