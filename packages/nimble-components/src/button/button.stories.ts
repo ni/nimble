@@ -18,6 +18,10 @@ export default {
         appearance: {
             options: Object.values(ButtonAppearance),
             control: { type: 'radio' }
+        },
+        disabled: {
+            options: ['disabled'],
+            control: { type: 'check' }
         }
     },
     render: ({
@@ -31,8 +35,7 @@ export default {
     }): string => `<nimble-button ${disabled} appearance="${appearance}">${label}</nimble-button>`,
     args: {
         label: 'Ghost Button',
-        appearance: 'ghost',
-        disabled: null
+        appearance: 'ghost'
     }
 };
 
