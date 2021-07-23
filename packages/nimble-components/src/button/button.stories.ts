@@ -44,22 +44,19 @@ export const blockButton = {
 };
 export const outlineButtonDisabled = {
     args: {
-        label: 'Outline Button',
-        appearance: ButtonAppearance.Outline,
+        ...outlineButton.args,
         disabled: 'disabled'
     }
 };
 export const ghostButtonDisabled = {
     args: {
-        label: 'Ghost Button',
-        appearance: ButtonAppearance.Ghost,
+        ...ghostButton.args,
         disabled: 'disabled'
     }
 };
 export const blockButtonDisabled = {
     args: {
-        label: 'Block Button',
-        appearance: ButtonAppearance.Block,
+        ...blockButton.args,
         disabled: 'disabled'
     }
 };
