@@ -29,7 +29,7 @@ The library is built on the open source [FAST Design System library](https://fas
 | File                      | Description |
 | ------------------------- | ----------- |
 | index.ts                  | Contains the component class definition and registration. All Typescript logic contained in the component belongs here. |
-| template.ts               | Contains the template definition for components for which we aren't using a fast-foundation template. |
+| template.ts               | Contains the template definition for components that don't use a fast-foundation template. |
 | styles.ts                 | Contains the styles relevant to this component. Note that globally-relevant styles that can be tokenized belong in [theme-provider/design-tokens.ts](src/theme-provider/design-tokens.ts). |
 | component-name.stories.ts | Contains the Storybook documentation for this component. This should provide API documentation for the component and relevant usage information. |
 
