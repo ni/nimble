@@ -37,6 +37,6 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
 ## Updating icons
 
-1. [Export high-quality, optimized SVG files](https://helpx.adobe.com/illustrator/how-to/export-svg.html) from the Adobe Illustrater icon source file.
+1. [Export high-quality, optimized SVG files](https://helpx.adobe.com/illustrator/how-to/export-svg.html) from the Adobe Illustrator icon source file.
 2. Add and/or replace the updated SVG files in the `assets-icons` folder.
 3. Create a PR to push the changes to this repository.
