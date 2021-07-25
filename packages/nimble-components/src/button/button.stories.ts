@@ -39,6 +39,8 @@ export default {
     }
 };
 
+export const defaultButton = (): string => '<nimble-button>Default Button</nimble-button>';
+
 export const outlineButton = {
     args: { label: 'Outline Button', appearance: ButtonAppearance.Outline }
 };
