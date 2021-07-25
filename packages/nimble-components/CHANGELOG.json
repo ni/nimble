@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Sun, 25 Jul 2021 03:48:56 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.9",
+      "version": "1.0.0-beta.9",
+      "comments": {
+        "none": [
+          {
+            "comment": "adding args to existing stories",
+            "author": "fred.visser@ni.com",
+            "commit": "03036ae3d6c2692c870c3db5b011bf1370ab82ff",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Jul 2021 16:02:06 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.9",
       "version": "1.0.0-beta.9",
