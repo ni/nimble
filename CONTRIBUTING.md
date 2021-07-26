@@ -10,16 +10,28 @@ This repository uses the following tooling. See below for more info.
 1. Releases via [beachball](https://microsoft.github.io/beachball/)
 1. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
 
+### Helpful links
+
+- [Design System HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Design%20System%20for%20Angular%20and%20Blazor%20UI%20Components.md&version=GBmaster&_a=preview)
+- [Nimble Angular HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Nimble%20Angular.md&version=GBmaster&_a=preview)
+- [Nimble architecture](docs/Architecture.md)
+
 ## Getting Started
 
-1. From the `nimble` directory:
+From the `nimble` directory:
    1. Run `npm install`
    1. Run `npm run build`
    1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+      - Note: **you'll need to refresh your browser window to see style changes**.
 
 ## Develop New Components
 
-1. TODO
+### Adding a new component
+
+1. Ensure UX specs are up to date and tokens are generated. [See instruction for contributing to nimble tokens](packages/nimble-tokens/CONTRIBUTING.md).
+1. Expose any tokens in the token provider and add web component logic. [See instruction for contributing to nimble components](packages/nimble-components/CONTRIBUTING.md).
+1. Add wrappers for each framework. [See instructions for adding Angular wrappers](angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). [See instructions for adding Blazor wrappers](packages/nimble-blazor/CONTRIBUTING.md).
+1. Publish and use! 🎉
 
 ## Pull Requests, Releases, and Versioning
 
@@ -32,6 +44,8 @@ This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual
 
 1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**.
 1. The `UI Review` status check is designed to collect feedback from UX and visual designers. Using the Chromatic review tooling, invite designers to review and approve the component changes.
+
+When submitting Pull Requests, use squash merges and copy the PR description into the squash commit message. Including the PR description makes it easier to see relevant history at a glance.
 
 ## Installing dependencies
 
