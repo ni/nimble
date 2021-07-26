@@ -71,8 +71,9 @@ const nimbleButton = Button.compose({
 ```
 
 If you need to compose multiple elements into a new component, use previously built Nimble elements or basic HTML elements as your template building blocks.
-Extend `FASTElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
+Extend `FoundationElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
 Use the `html` tagged template helper to define your custom template. See [declaring-templates.md](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-element/docs/guide/declaring-templates.md) for (hopefully up-to-date) tips from FAST.
+When importing the custom type (e.g. `QueryBuilder`), it is necessary to import that type to the template class using the form `import type { QueryBuilder } from './index';` to avoid cyclical dependencies.
 **TODO: if you're reading this section because you're adding a brand new thing, congratulations! You have won the honor of filling out this section.**
 
 ### Adhere to architectural philosophies
