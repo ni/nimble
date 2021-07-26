@@ -18,18 +18,19 @@ This repository uses the following tooling. See below for more info.
 
 ## Getting Started
 
-1. From the `nimble` directory:
+From the `nimble` directory:
    1. Run `npm install`
    1. Run `npm run build`
    1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+      - Note: **you'll need to refresh your browser window to see style changes**.
 
 ## Develop New Components
 
 ### Adding a new component
 
-1. Ensure UX specs are up to date and tokens are generated. [Detailed instructions](packages/nimble-tokens/CONTRIBUTING.md).
-1. Expose any tokens in the token provider and add web component logic. [Detailed instructions](packages/nimble-components/CONTRIBUTING.md).
-1. Add wrappers for each framework. [Instructions for adding Angular wrappers](angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). [Instructions for adding Blazor wrappers](packages/nimble-blazor/CONTRIBUTING.md).
+1. Ensure UX specs are up to date and tokens are generated. [See instruction for contributing to nimble tokens](packages/nimble-tokens/CONTRIBUTING.md).
+1. Expose any tokens in the token provider and add web component logic. [See instruction for contributing to nimble components](packages/nimble-components/CONTRIBUTING.md).
+1. Add wrappers for each framework. [See instructions for adding Angular wrappers](angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). [See instructions for adding Blazor wrappers](packages/nimble-blazor/CONTRIBUTING.md).
 1. Publish and use! 🎉
 
 ## Pull Requests, Releases, and Versioning

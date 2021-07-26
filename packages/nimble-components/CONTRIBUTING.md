@@ -7,20 +7,21 @@ This package contains a library of NI-styled web components.
 The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
 1. A small, performant custom element base class, [FAST Element](https://www.fast.design/docs/fast-element/getting-started).
 1. [Infrastructure for design system features](https://www.fast.design/docs/design-systems/overview) like design tokens and theming.
-1. A library of [core components](https://explore.fast.design/components/) that are
-   - unopinionated in their style and easily stylable
+1. A library of [core components](https://explore.fast.design/components/) that
+   - are unopinionated in their style and easily stylable
    - adherent to browser standards like accessibility
    - while not meeting all of NI's use cases, give us a good starting point and extension capabilities
-   - offer a promising future roadmap
+   - offer a promising future [roadmap](https://github.com/microsoft/fast/tree/master/specs#web-component-specifications)
 
 [This video](https://www.youtube.com/watch?v=OHOKYItVQvc) (1 hour but watchable in less time at 2x) is a great way to get up to speed with the architecture of FAST in no time. 💨
 
 ## Getting Started
 
-1. From the `nimble` directory:
+From the `nimble` directory:
    1. Run `npm install`
    1. Run `npm run build`
    1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+      - Note: **you'll need to refresh your browser window to see style changes**.
 
 ## Develop New Components
 
@@ -30,12 +31,12 @@ The library is built on the open source [FAST Design System library](https://fas
 | ------------------------- | ----------- |
 | index.ts                  | Contains the component class definition and registration. All Typescript logic contained in the component belongs here. |
 | template.ts               | Contains the template definition for components that don't use a fast-foundation template. |
-| styles.ts                 | Contains the styles relevant to this component. Note that globally-relevant styles that can be tokenized belong in [theme-provider/design-tokens.ts](src/theme-provider/design-tokens.ts). |
+| styles.ts                 | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](src/theme-provider/design-tokens.ts). |
 | component-name.stories.ts | Contains the Storybook documentation for this component. This should provide API documentation for the component and relevant usage information. |
 
 ### Set up your development environment
 
-To see your component in action, run the commands in **Getting Started** and leave the storybook running. The storybook will hot reload when you save changes, but the styles will not, so on each save that changes index.ts or styles.ts, you'll need to refresh your browser window.
+To see your component in action, run the commands in **Getting Started** and leave the storybook running. The storybook will hot reload when you save changes, but the styles will not. On each save that changes index.ts or styles.ts, **you'll need to refresh your browser window to see style changes**.
 
 ### Decide how to build on top of FAST
 
