@@ -14,7 +14,7 @@ export class AppComponent {
     public themes = NimbleTheme;
     private toggle = true;
 
-    public onClick(): void {
+    public switchThemes(): void {
         this.toggle = !this.toggle;
         this.theme = this.toggle ? NimbleTheme.Light : NimbleTheme.Dark;
         this.onoff = this.toggle ? 'off' : 'on';

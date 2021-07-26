@@ -19,6 +19,7 @@ export class NimbleTextFieldComponent implements ControlValueAccessor {
 
     @Input() public placeholder = '';
     @Input() public disabled = false;
+    @Input() public type = 'text';
 
     @Input() public value = '';
     @Output() public valueChange = new EventEmitter();

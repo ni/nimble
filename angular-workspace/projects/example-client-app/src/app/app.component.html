@@ -1,8 +1,8 @@
 <nimble-theme-provider [attr.theme]="theme">
-    <div class="container">
-        <nimble-button (click)="onClick()" >Turn {{onoff}} the lights</nimble-button>
-        <nimble-angular-text-field placeholder="Placeholder text">Text Input</nimble-angular-text-field>
-        <nimble-angular-number-field #number1 [min]="1" [max]="11" [step]="2"></nimble-angular-number-field>
-        <nimble-angular-number-field #number2 [(value)]="number1.value"></nimble-angular-number-field>
+    <nimble-button class="theme-button" (click)="switchThemes()" >Switch to {{theme === themes.Light ? 'Dark' : 'Light'}} theme</nimble-button>
+    <div class="login-container">
+        <nimble-angular-text-field>Username</nimble-angular-text-field>
+        <nimble-angular-text-field type="password">Password</nimble-angular-text-field>
+        <nimble-button>Login</nimble-button>
     </div>
 </nimble-theme-provider>

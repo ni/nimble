@@ -1,17 +1,29 @@
-.container{
-    width: calc(100vw - 32px);
-    height: calc(100vh - 32px);
-    padding: 16px;
+nimble-theme-provider {
     background-color: var(--application-background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.theme-button {
+    display: block;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+.login-container {
     display: flex;
     flex-direction: column;
 }
 
-nimble-button{
+nimble-button {
     margin-bottom: 12px;
     width: fit-content;
 }
 
-nimble-angular-text-field{
+nimble-angular-text-field {
     margin-bottom: 12px;
 }
