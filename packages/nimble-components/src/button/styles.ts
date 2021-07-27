@@ -27,11 +27,13 @@ export const styles = css`
     }
 
     :host(:hover),
-    :host(:focus) {
+    :host(:focus),
+    :host(:focus-within) {
         box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
     }
 
-    :host(:focus:not(:active)) {
+    :host(:focus:not(:active)),
+    :host(:focus-within:not(:active)) {
         outline: 1px solid ${borderColorHover};
         outline-offset: -4px;
     }
@@ -70,7 +72,8 @@ export const styles = css`
                 }
 
                 :host(:hover),
-                :host(:focus) {
+                :host(:focus),
+                :host(:focus-within) {
                     border: 1px solid ${borderColorHover};
                 }
 
@@ -91,7 +94,8 @@ export const styles = css`
                 }
 
                 :host(:hover),
-                :host(:focus) {
+                :host(:focus),
+                :host(:focus-within) {
                     border: 1px solid ${borderColorHover};
                 }
 
@@ -114,7 +118,8 @@ export const styles = css`
                 }
 
                 :host(:hover),
-                :host(:focus) {
+                :host(:focus),
+                :host(:focus-within) {
                     border: 1px solid ${borderColorHover};
                 }
 
