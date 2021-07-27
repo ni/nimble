@@ -3,5 +3,5 @@
   "comment": "Updated example app and added type attribute support",
   "packageName": "@ni/nimble-angular",
   "email": "22551874+scotia673@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
