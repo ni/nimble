@@ -1,4 +1,4 @@
-# Contributing: @ni/nimble-components
+# Contributing to Nimble Components
 
 ## Package overview
 
@@ -18,14 +18,16 @@ The library is built on the open source [FAST Design System library](https://fas
 ## Getting Started
 
 From the `nimble` directory:
-   1. Run `npm install`
-   1. Run `npm run build`
-   1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
-      - Note: **you'll need to refresh your browser window to see style changes**.
+    1. Run `npm install`
+    1. Run `npm run build`
+    1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+        **Note**: You will need to refresh your browser window to see style changes.
 
 ## Develop New Components
 
-### Create a new folder named after your component with some core files
+### Folder structure
+
+Create a new folder named after your component with some core files:
 
 | File                      | Description |
 | ------------------------- | ----------- |
@@ -33,10 +35,29 @@ From the `nimble` directory:
 | template.ts               | Contains the template definition for components that don't use a fast-foundation template. |
 | styles.ts                 | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](src/theme-provider/design-tokens.ts). |
 | component-name.stories.ts | Contains the Storybook documentation for this component. This should provide API documentation for the component and relevant usage information. |
+| component-name.spec.ts | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components. |
 
-### Set up your development environment
+### Development workflow
 
-To see your component in action, run the commands in **Getting Started** and leave the storybook running. The storybook will hot reload when you save changes, but the styles will not. On each save that changes index.ts or styles.ts, **you'll need to refresh your browser window to see style changes**.
+1. Run the commands in [Getting Started](#getting-started) and leave the storybook running.
+
+   Storybook will build its own copy of the component in a temporary folder which is separate from the normal build.
+
+2. Make functional and style changes to the component.
+
+   The storybook will hot reload when you save changes, but the styles will not. On each save that changes `index.ts` or `styles.ts`, **you'll need to refresh your browser window to see style changes**.
+
+3. Create or update tests.
+
+   To build and run the tests, from the `nimble` directory run:
+
+   `npm run tdd -w @ni/nimble-components`
+
+   To watch for changes and automatically re-run tests on changes, from the `nimble` directory run:
+
+   `npm run tdd:watch -w @ni/nimble-components`
+
+   See [Unit tests](#unit-tests) for additional available commands.
 
 ### Decide how to build on top of FAST
 
@@ -99,10 +120,23 @@ Accessibility is a requirement for all new components. For the Nimble design sys
 
 This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
 
-### Write and run tests
+## Unit Tests
 
-**TODO**
+Unit tests are written using karma and jasmine in files named `<component-name>.spec.ts`.
 
-- unit tests
-- page objects
-- chromatic tests
+The following commands can be run from the `nimble` directory:
+
+### Development commands
+
+- `npm run tdd:watch -w @ni/nimble-components`: Starts a process for building the components and running the test suite on file changes.
+
+   This command runs headlessly. See [Debugging commands](debugging-commands) if you need to see the browser or set breakpoints while running.
+- `npm run tdd -w @ni/nimble-components`: Similar to the corresponding `tdd:watch` command but only runs once. Useful for infrastructure changes which do not trigger the watch command.
+
+### Debugging commands
+
+- `npm run test-chrome:debugger -w @ni/nimble-components`: When run opens a chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
+
+   You can also take the page url and open it in a different browser to test interactively.
+
+
