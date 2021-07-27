@@ -8,13 +8,11 @@ import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/theme
 })
 export class LoginComponent {
     public theme: NimbleTheme = NimbleTheme.Light;
-    public onoff = 'off';
     public themes = NimbleTheme;
     private toggle = true;
 
     public switchThemes(): void {
         this.toggle = !this.toggle;
         this.theme = this.toggle ? NimbleTheme.Light : NimbleTheme.Dark;
-        this.onoff = this.toggle ? 'off' : 'on';
     }
 }
