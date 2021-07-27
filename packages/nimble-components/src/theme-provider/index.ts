@@ -6,7 +6,7 @@ import {
 } from '@microsoft/fast-element';
 
 import { theme } from './design-tokens';
-import { NimbleTheme } from './themes';
+import type { NimbleTheme } from './themes';
 
 function designToken<T>(token: DesignToken<T>) {
     return (source: NimbleThemeProvider, key: string): void => {
