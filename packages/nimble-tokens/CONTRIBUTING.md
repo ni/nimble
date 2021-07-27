@@ -37,6 +37,25 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
 ## Updating icons
 
-1. [Export high-quality, optimized SVG files](https://helpx.adobe.com/illustrator/how-to/export-svg.html) from the Adobe Illustrator icon source file.
-2. Add and/or replace the updated SVG files in the `assets-icons` folder.
-3. Create a PR to push the changes to this repository.
+1. Export high-quality, optimized SVG files from the `source/SystemLinkAssets.ai` icon source file, by using the **Export for Screens…** workflow within Adobe Illustrator to export SVG files:
+
+   1. Choose **File » Export » Export for Screens…**
+
+      <img src="doc-assets/ai-export-1.png" alt="Adobe Illustrator screen export step 1" width="600" />
+
+   2. In the Export for Screen prompt, confirm that files will be exported to the `nimble-tokens/assets-icons/` folder, and that the remaining settings match the screenshot below.
+
+      <img src="doc-assets/ai-export-2.png" alt="Adobe Illustrator screen export step 2" width="1000" />
+
+   3. Confirm that the SVG settings match the screenshot below.
+
+      <img src="doc-assets/ai-export-3.png" alt="Adobe Illustrator screen export step 3" width="600" />
+
+   4. Choose to replace any existing files in the `assets-icons` folder.
+
+      <img src="doc-assets/ai-export-4.png" alt="Adobe Illustrator screen export step 4" width="600" />
+
+2. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
+3. Preview the built files by running: `npm run storybook -w @ni/nimble-components`.
+4. Review the changes in [Storybook](http://localhost:6006/?path=/story/icons--svg-icons).
+5. Create a PR to push the changes to this repository.

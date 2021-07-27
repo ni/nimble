@@ -14,10 +14,16 @@ process.on('unhandledRejection', error => {
         styleTemplates: path.resolve(__dirname, 'templates'),
         fontName: 'nimble-icons',
         emptyDist: true,
-        css: true,
+        css: {
+            fontSize: '40px',
+        },
         outSVGReact: false,
         typescript: {
-            extension: 'ts'
-        }
+            extension: 'ts',
+        },
+        svgicons2svgfont: {
+            round: 10e10,
+            // normalize: true,
+        },
     });
 })();
