@@ -31,7 +31,7 @@ const styleMarkup = `
     display: flex;
     justify-content: center; 
   }
-  i {
+  i, svg {
     cursor: pointer;
     background-size: 50px;
     font-size: 3.75em;
@@ -44,7 +44,7 @@ ${styleMarkup}
 <ul>
   ${nimbleIconNameArray
         .map(
-            iconName => `<li><svg><use xlink:href="${svgIconPath}#${iconName}" title="${iconName}"/></svg></li>`
+            iconName => `<li><svg><title>${iconName}</title><use xlink:href="${svgIconPath}#${iconName}"/></svg></li>`
         )
         .join('')}
 </ul>`;
