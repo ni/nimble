@@ -75,4 +75,18 @@ export const styles = css`
     line-height: 16px;
     text-transform: uppercase;
   }
+
+  .nimble-icons-DownArrow,
+  .nimble-icons-UpArrow {
+    display: block;
+    cursor: pointer;
+    font-size: 10px;
+    height: 15px;
+  }
+
+  .nimble-icons-DownArrow:before,
+  .nimble-icons-UpArrow:before {
+    display: block;
+    border-bottom: solid transparent 4px;
+  }
 `;
