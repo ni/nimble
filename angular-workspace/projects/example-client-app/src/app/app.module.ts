@@ -18,7 +18,8 @@ import { LoginComponent } from './login/login.component';
         RouterModule.forRoot([
             { path: '', redirectTo: '/login', pathMatch: 'full' },
             { path: 'login', component: LoginComponent }
-        ])
+        ],
+        { useHash: true })
     ],
     providers: [],
     bootstrap: [AppComponent],
