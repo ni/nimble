@@ -22,8 +22,7 @@ process.on('unhandledRejection', error => {
             extension: 'ts',
         },
         svgicons2svgfont: {
-            round: 10e10,
-            // normalize: true,
+            fontHeight: 1000,
         },
     });
 })();
