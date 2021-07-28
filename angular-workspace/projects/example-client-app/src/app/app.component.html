@@ -1,8 +1,1 @@
-<nimble-theme-provider [attr.theme]="theme">
-    <div class="container">
-        <nimble-button (click)="onClick()" >Turn {{onoff}} the lights</nimble-button>
-        <nimble-angular-text-field placeholder="Placeholder text">Text Input</nimble-angular-text-field>
-        <nimble-angular-number-field #number1 [min]="1" [max]="11" [step]="2"></nimble-angular-number-field>
-        <nimble-angular-number-field #number2 [(value)]="number1.value"></nimble-angular-number-field>
-    </div>
-</nimble-theme-provider>
+<router-outlet></router-outlet>
