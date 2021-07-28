@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 26 Jul 2021 18:03:21 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.9",
+      "version": "1.0.0-beta.9",
+      "comments": {
+        "none": [
+          {
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.9",
+            "author": "christine.karas@ni.com",
+            "commit": "78f239c3e3d6dd9081369402a5ef5f60194050d2",
+            "package": "@ni/nimble-angular"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 25 Jul 2021 03:48:56 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.9",
+      "version": "1.0.0-beta.9",
+      "comments": {
+        "none": [
+          {
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.9",
+            "author": "fred.visser@ni.com",
+            "commit": "03036ae3d6c2692c870c3db5b011bf1370ab82ff",
+            "package": "@ni/nimble-angular"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Jul 2021 16:02:06 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.9",
+      "version": "1.0.0-beta.9",
+      "comments": {
+        "none": [
+          {
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.9",
+            "author": "fred.visser@ni.com",
+            "commit": "63554c885283273b844903b87d0d1f81ba5a3673",
+            "package": "@ni/nimble-angular"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 22 Jul 2021 20:08:12 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.9",
+      "version": "1.0.0-beta.9",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.9",
+            "author": "christine.karas@ni.com",
+            "commit": "25c1f1892ea9d7d897f1d96642cfe8430d4f568a",
+            "package": "@ni/nimble-angular"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Jul 2021 00:43:05 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.8",
       "version": "1.0.0-beta.8",

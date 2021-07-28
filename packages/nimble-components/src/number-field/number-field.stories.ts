@@ -8,10 +8,22 @@ export default {
         design: {
             artboardUrl:
         'https://xd.adobe.com/view/2a5a7401-925e-4fcc-9230-39d8e3c56729-7f09/screen/bd1931c3-ab16-4f62-9249-7be138831280/specs/'
+        },
+        actions: {
+            handles: ['change', 'input']
         }
+    },
+    render: ({ label, value }: { label: string, value: string }): string => `<nimble-number-field id='user' placeholder='${label}' value='${value}'>${label}</nimble-number-field>`,
+    args: {
+        label: 'default label',
+        value: 'number'
     }
 };
 
-const template = '<nimble-number-field>Number Field</nimble-number-field>';
+export const numberField = {
+    args: { label: 'Number Field' }
+};
 
-export const numberField = (): string => template;
+export const numberFieldWithValue = {
+    args: { label: 'Number Field', value: 1234567 }
+};

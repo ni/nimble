@@ -7,7 +7,8 @@ import {
     fontFamily,
     fontColor,
     fillColorSelected,
-    contentFontSize
+    contentFontSize,
+    fontColorDisabled
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/behaviors';
 import { ButtonAppearance } from './types';
@@ -40,6 +41,13 @@ export const styles = css`
         box-shadow: none;
     }
 
+    :host([disabled]) {
+        color: ${fontColorDisabled};
+        background-color: transparent;
+        box-shadow: none;
+        cursor: default;
+    }
+
     .control {
         background-color: transparent;
         height: inherit;
@@ -69,6 +77,10 @@ export const styles = css`
                 :host(:active) {
                     border-color: transparent;
                 }
+
+                :host([disabled]) {
+                    border-color: rgba(${borderColorRgb}, 0.2);
+                }
             `
         ),
         appearanceBehavior(
@@ -83,7 +95,8 @@ export const styles = css`
                     border: 1px solid ${borderColorHover};
                 }
 
-                :host(:active) {
+                :host(:active),
+                :host([disabled]) {
                     border-color: transparent;
                 }
             `
@@ -95,7 +108,8 @@ export const styles = css`
                     border: 1px solid transparent;
                 }
 
-                :host(:not(:active)) {
+                :host(:not(:active)),
+                :host([disabled]) {
                     background-color: rgba(${borderColorRgb}, 0.1);
                 }
 
@@ -106,6 +120,11 @@ export const styles = css`
 
                 :host(:active) {
                     border-color: transparent;
+                }
+
+                :host([disabled]) {
+                    /* This opacity adds to the existing 10% background opacity. */
+                    border-color: rgba(${borderColorRgb}, 0.1);
                 }
             `
         ),

@@ -2,13 +2,18 @@
 
 ## Repository layout
 
-- assets: Managed by Adobe XD DSP plugin
-- assets-*: Store various assets referenced by tokens. ie fonts, icons, etc.
-- data: Managed by Adobe XD DSP plugin
-- dist: Managed by Adobe XD DSP plugin
-- dist-*: Build output for assets needing processing
+| Folder       | Description                                                   |
+| ------------ | ------------------------------------------------------------- |
+| assets       | _Managed by Adobe XD DSP plugin_                              |
+| assets-fonts | Fonts for nimble-components                                   |
+| assets-icons | SVG assets produced by NI visual designers                    |
+| data         | _Managed by Adobe XD DSP plugin_                              |
+| dist         | _Managed by Adobe XD DSP plugin_                              |
+| dist-\*      | Build output for icons and fonts that need further processing |
+| source       | Icon build scripts and font face definitions                  |
 
 ## Editing Tokens
+
 New tokens are added to this package with the Adobe XD Visual Studio plugin.
 
 The source of truth for the colors, fonts, and component design tokens in this repository is an Adobe XD Design Library file maintained by the Visual Design team.
@@ -32,6 +37,6 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
 ## Updating icons
 
-1. [Export high-quality, optimized SVG files](https://helpx.adobe.com/illustrator/how-to/export-svg.html) from the Adobe Illustrater icon source file.
+1. [Export high-quality, optimized SVG files](https://helpx.adobe.com/illustrator/how-to/export-svg.html) from the Adobe Illustrator icon source file.
 2. Add and/or replace the updated SVG files in the `assets-icons` folder.
 3. Create a PR to push the changes to this repository.
