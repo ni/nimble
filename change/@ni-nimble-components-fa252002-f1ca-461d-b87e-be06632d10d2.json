@@ -3,5 +3,5 @@
   "comment": "Updating icons and creating icon Story",
   "packageName": "@ni/nimble-components",
   "email": "fred.visser@ni.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
