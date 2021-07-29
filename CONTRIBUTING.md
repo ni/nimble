@@ -1,4 +1,4 @@
-# Contributing
+# Contributing to Nimble
 
 ## Repository overview
 
@@ -19,19 +19,20 @@ This repository uses the following tooling. See below for more info.
 ## Getting Started
 
 From the `nimble` directory:
-   1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
-   1. Run `npm install`
-   1. Run `npm run build`
-   1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
-      - Note: **you'll need to refresh your browser window to see style changes**.
+1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
+1. Run `npm install`
+1. Run `npm run build`
+1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+
+    **Note**: You will need to refresh your browser window to see style changes made in source.
 
 ## Develop New Components
 
 ### Adding a new component
 
-1. Ensure UX specs are up to date and tokens are generated. [See instructions for contributing to nimble tokens](packages/nimble-tokens/CONTRIBUTING.md).
-1. Expose any tokens in the token provider and add web component logic. [See instructions for contributing to nimble components](packages/nimble-components/CONTRIBUTING.md).
-1. Add wrappers for each framework. [See instructions for adding Angular wrappers](angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). [See instructions for adding Blazor wrappers](packages/nimble-blazor/CONTRIBUTING.md).
+1. Ensure UX specs are up to date and tokens are generated. See instructions for [contributing to nimble tokens](packages/nimble-tokens/CONTRIBUTING.md).
+1. Expose any tokens in the token provider and add web component logic. See instructions for [contributing to nimble components](packages/nimble-components/CONTRIBUTING.md).
+1. Add wrappers for each framework. See instructions for [adding Angular wrappers](angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](packages/nimble-blazor/CONTRIBUTING.md).
 1. Publish and use! 🎉
 
 ## Pull Requests, Releases, and Versioning
@@ -54,7 +55,7 @@ Install packages using the workflow you would expect for npm workspaces and a sl
 
 ### NPM packages
 
-To install npm packages start from the root of the repository and use `npm install <my-package> --workspace=path/to/target`.
+To install npm packages start from the root of the repository and use `npm install <new-package> --workspace=<target-package-name>`.
 
 Example: Install `five` in an npm workspace project:
 

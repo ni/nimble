@@ -1,4 +1,4 @@
-# Contributing
+# Contributing to Nimble Tokens
 
 ## Repository layout
 

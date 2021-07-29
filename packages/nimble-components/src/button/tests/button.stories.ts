@@ -1,6 +1,6 @@
-import './index';
 import { withXD } from 'storybook-addon-xd-designs';
-import { ButtonAppearance } from './types';
+import { ButtonAppearance } from '../types';
+import '../index';
 
 export default {
     title: 'Button',

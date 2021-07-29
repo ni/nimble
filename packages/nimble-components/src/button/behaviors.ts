@@ -1,6 +1,6 @@
-import { Behavior, ElementStyles } from '@microsoft/fast-element';
 import { PropertyStyleSheetBehavior } from '@microsoft/fast-foundation';
-import { ButtonAppearance } from '../button/types';
+import type { Behavior, ElementStyles } from '@microsoft/fast-element';
+import type { ButtonAppearance } from './types';
 
 /**
  * Behavior that will conditionally apply a stylesheet based on the element's
