@@ -41,21 +41,19 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
    1. Choose **File » Export » Export for Screens…**
 
-      <img src="doc-assets/ai-export-1.png" alt="Adobe Illustrator screen export step 1" width="600" />
+      <img src="docs/ai-export-1.png" alt="Adobe Illustrator screen export step 1" width="600" />
 
    2. In the Export for Screen prompt, confirm that files will be exported to the `nimble-tokens/assets-icons/` folder, and that the remaining settings match the screenshot below.
 
-      <img src="doc-assets/ai-export-2.png" alt="Adobe Illustrator screen export step 2" width="1000" />
+      <img src="docs/ai-export-2.png" alt="Adobe Illustrator screen export step 2" width="1000" />
 
    3. Confirm that the SVG settings match the screenshot below.
 
-      <img src="doc-assets/ai-export-3.png" alt="Adobe Illustrator screen export step 3" width="600" />
+      <img src="docs/ai-export-3.png" alt="Adobe Illustrator screen export step 3" width="600" />
 
    4. Choose to replace any existing files in the `assets-icons` folder.
 
-      <img src="doc-assets/ai-export-4.png" alt="Adobe Illustrator screen export step 4" width="600" />
+      <img src="docs/ai-export-4.png" alt="Adobe Illustrator screen export step 4" width="600" />
 
 2. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
-3. Preview the built files by running: `npm run storybook -w @ni/nimble-components`.
-4. Review the changes in [Storybook](http://localhost:6006/?path=/story/icons--svg-icons).
-5. Create a PR to push the changes to this repository.
+3. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** stories to confirm that your changes appear correctly.
