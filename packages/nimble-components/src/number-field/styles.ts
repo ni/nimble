@@ -76,17 +76,24 @@ export const styles = css`
     text-transform: uppercase;
   }
 
-  .nimble-icons-DownArrow,
-  .nimble-icons-UpArrow {
-    display: block;
-    cursor: pointer;
-    font-size: 10px;
-    height: 15px;
+  .controls {
+    display: flex;
+    flex-direction: column;
   }
 
-  .nimble-icons-DownArrow:before,
-  .nimble-icons-UpArrow:before {
-    display: block;
-    border-bottom: solid transparent 4px;
+  .step-up,
+  .step-down {
+    display: contents;
+  }
+
+  .nimble-icons-DownArrow,
+  .nimble-icons-UpArrow {
+    display: inline-flex;
+    height: 15px;
+    width: 15px;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    cursor: pointer;
   }
 `;
