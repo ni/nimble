@@ -20,22 +20,27 @@ The library is built on the open source [FAST Design System library](https://fas
 From the `nimble` directory:
 1. Run `npm install`
 1. Run `npm run build`
-1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+1. Run the different Nimble Components test configurations: 
+    - To view the components and manually test behaviors in Storybook: `npm run storybook -w @ni/nimble-components`
     
-    **Note**: You will need to refresh your browser window to see style changes.
+        **Note**: You will need to refresh your browser window to see style changes made in source.
 
-See [Development workflow](#development-workflow) for creating components and the workflow for making changes.
+    - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
+
+Next steps: See the [Development workflow](#development-workflow) for creating components and the workflow for making changes.
 
 ## Development workflow
 
 1. When creating new components, create the folder structure and decide how to implement the component as described in [Develop new components](#develop-new-components).
-2. Run the commands in [Getting started](#getting-started) and leave the storybook running.
+2. Run the Storybook command from the `nimble` directory:
+
+    `npm run storybook -w @ni/nimble-components`
 
     Storybook will build its own copy of the component in a temporary folder which is separate from the normal build.
 
 3. Make functional and style changes to the component.
 
-    The storybook will hot reload when you save changes, but the styles will not. On each save that changes `index.ts` or `styles.ts`, **you'll need to refresh your browser window to see style changes**.
+    The storybook will hot reload when you save changes, but the styles will not. On each save that changes `index.ts` or `styles.ts`, **you will need to refresh your browser window to see style changes**.
 
 4. Create or update tests.
 
@@ -48,6 +53,10 @@ See [Development workflow](#development-workflow) for creating components and th
     `npm run tdd:watch -w @ni/nimble-components`
 
     See [Unit tests](#unit-tests) for additional available commands.
+
+5. Create changelists for your work by running the following from the `nimble` directory:
+
+    `npm run change`
 
 ## Develop new components
 

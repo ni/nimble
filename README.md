@@ -40,6 +40,6 @@ From the `nimble` directory:
 1. Run `npm run build`
 1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
-    **Note**: You will need to refresh your browser window to see style changes.
+    **Note**: You will need to refresh your browser window to see style changes made in source.
 
 Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify the design system.
