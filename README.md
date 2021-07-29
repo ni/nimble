@@ -20,16 +20,16 @@ The NI Nimble Design System: styled UI components for NI applications.
 
 This repository contains the source for the following packages:
 
--   **[nimble-angular](angular-workspace/projects/ni/nimble-angular/)** - styled Angular components for use in NI Angular applications
--   **[nimble-blazor](packages/nimble-blazor/)** - styled Blazor components for use in NI Blazor applications
--   **[nimble-components](packages/nimble-components/)** - styled web components for use in other applications (also used by `nimble-angular` and `nimble-blazor`)
--   **[nimble-tokens](packages/nimble-tokens/)** - design tokens used by the component packages
+- **[nimble-angular](angular-workspace/projects/ni/nimble-angular/)** - styled Angular components for use in NI Angular applications
+- **[nimble-blazor](packages/nimble-blazor/)** - styled Blazor components for use in NI Blazor applications
+- **[nimble-components](packages/nimble-components/)** - styled web components for use in other applications (also used by `nimble-angular` and `nimble-blazor`)
+- **[nimble-tokens](packages/nimble-tokens/)** - design tokens used by the component packages
 
 Consult the `README.md` for each package to learn more, including how to use it in an application.
 
 ## Learning
 
--   [Architecture](docs/Architecture.md) - Architecture of the design system packages and monorepo
+- [Architecture](docs/Architecture.md) - Architecture of the design system packages and monorepo
 
 ## Contributing
 
