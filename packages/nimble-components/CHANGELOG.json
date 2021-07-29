@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 29 Jul 2021 22:23:50 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.12",
+      "version": "1.0.0-beta.12",
+      "comments": {
+        "none": [
+          {
+            "comment": "Add new nimble logo to SB and top readme",
+            "author": "fred.visser@ni.com",
+            "commit": "cb9ce0ecc9e9569446bef41dc8f521ffdcd278e1",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 29 Jul 2021 20:21:54 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.12",
       "version": "1.0.0-beta.12",

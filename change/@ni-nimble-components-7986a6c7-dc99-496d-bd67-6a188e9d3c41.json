@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Add new nimble logo to SB and top readme",
-  "packageName": "@ni/nimble-components",
-  "email": "fred.visser@ni.com",
-  "dependentChangeType": "none"
-}
