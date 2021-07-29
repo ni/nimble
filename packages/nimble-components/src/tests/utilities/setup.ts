@@ -5,4 +5,4 @@ function importAll(r: __WebpackModuleApi.RequireContext): void {
 }
 
 // Explicitly add to browser test
-importAll(require.context('../', true, /\.spec\.js$/));
+importAll(require.context('../../', true, /\.spec\.js$/));

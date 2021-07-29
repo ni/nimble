@@ -4,7 +4,7 @@
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build-components && npm run build-storybook",
-    "lint": "eslint src && eslint .",
+    "lint": "eslint .",
     "lint-fix": "eslint src --fix",
     "pack": "npm pack",
     "storybook": "start-storybook -p 6006",

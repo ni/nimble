@@ -1,5 +1,5 @@
-import './index';
 import { withXD } from 'storybook-addon-xd-designs';
+import '../index';
 
 export default {
     title: 'Text Field',

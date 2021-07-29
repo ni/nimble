@@ -10,7 +10,7 @@ import {
     contentFontSize,
     fontColorDisabled
 } from '../theme-provider/design-tokens';
-import { appearanceBehavior } from '../utilities/behaviors';
+import { appearanceBehavior } from './behaviors';
 import { ButtonAppearance } from './types';
 
 export const styles = css`

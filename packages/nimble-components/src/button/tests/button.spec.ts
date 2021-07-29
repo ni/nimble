@@ -1,7 +1,7 @@
 import { DOM } from '@microsoft/fast-element';
-import { fixture, Fixture } from '../test-utilities/fixture';
-import type { Button } from './index';
-import './index';
+import { fixture, Fixture } from '../../tests/utilities/fixture';
+import type { Button } from '../index';
+import '../index';
 
 async function setup(): Promise<Fixture<Button>> {
     return fixture<Button>('nimble-button');
