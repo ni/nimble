@@ -136,7 +136,7 @@ The following commands can be run from the `nimble` directory:
 
 ### Debugging commands
 
-- `npm run test-chrome:debugger -w @ni/nimble-components`: When run opens a chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
+- `npm run test-chrome:debugger -w @ni/nimble-components`: When run opens a Chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
 
     You can also take the page url and open it in a different browser to test interactively.
 
