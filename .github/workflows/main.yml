@@ -65,14 +65,7 @@ jobs:
       - if: startsWith(github.ref, 'refs/heads/main')
         env:
           NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
-        # Beachball doesn't update package-lock.json files when publishing.
-        # See https://github.com/microsoft/beachball/issues/525#issue-901698225
-        run: |
-          npm run publish-ci -- -n $NPM_SECRET_TOKEN
-          npm i --package-lock-only
-          git add -A
-          git commit -m "applying package updates [skip ci]"
-          git push --set-upstream origin main
+        run: npm run publish-ci -- -n $NPM_SECRET_TOKEN
 
       # Publish site to GitHub Pages (only from main)
       - name: Install ruby
