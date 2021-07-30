@@ -16,7 +16,7 @@
 
 New tokens are added to this package with the Adobe XD Visual Studio plugin.
 
-The source of truth for the colors, fonts, and component design tokens in this repository is an Adobe XD Design Library file maintained by the Visual Design team.
+The source of truth for the colors, fonts, and component design tokens in this repository is an Adobe XD [Design Library file](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/) maintained by the Visual Design team.
 
 For changes to any token values, work with the Visual Design team to update the library, and then perform the following steps:
 
