@@ -4,9 +4,7 @@
     "version": "0.0.0",
     "private":true,
     "files": [
-        "*.txt",
-        "*.html",
-        "*.js",
-        "*.css"
+        "*",
+        "!*.tgz"
     ]
 }
