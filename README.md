@@ -30,7 +30,9 @@ Consult the `README.md` for each package to learn more, including how to use it 
 ## Community
 We welcome feedback and contributions!
 
-The fastest way to ask questions is to [join the discussion on Teams](https://teams.microsoft.com/l/team/19%3awo8vmMKMsHfltKXxc0bczZo-X4JlQSV5VxpaRJdh13k1%40thread.tacv2/conversations?groupId=9ee065d7-3898-4245-82f6-76e86084b8b1&tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e) (accessible to NI employees only). You can also submit requests and issues [on GitHub](https://github.com/ni/nimble/issues).
+- The fastest way to ask questions is to [join the discussion on Teams](https://teams.microsoft.com/l/team/19%3awo8vmMKMsHfltKXxc0bczZo-X4JlQSV5VxpaRJdh13k1%40thread.tacv2/conversations?groupId=9ee065d7-3898-4245-82f6-76e86084b8b1&tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e) (accessible to NI employees only). 
+- The feature backlog is stored in [Azure DevOps](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20UI%20Component%20Working%20Group/Features) (accessible to NI employees only).
+- You can also submit requests and issues [on GitHub](https://github.com/ni/nimble/issues).
 
 
 ## Learning
