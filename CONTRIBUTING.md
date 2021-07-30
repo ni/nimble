@@ -53,7 +53,7 @@ This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual
 
 ### Code owners
 
-Pull Requests require the approval of at least one code owner. Owners are listed in [CODEOWNERS](./.github/CODEOWNERS).
+Pull Requests require the approval of at least one code owner. Owners are listed in [`CODEOWNERS`](./.github/CODEOWNERS).
 
 ### Completing pull requests
 
