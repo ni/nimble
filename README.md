@@ -35,7 +35,6 @@ We welcome feedback and contributions!
 - The feature backlog is stored in [Azure DevOps](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20UI%20Component%20Working%20Group/Features) (accessible to NI employees only).
 - You can also submit requests and issues [on GitHub](https://github.com/ni/nimble/issues).
 
-
 ## Learning
 
 - [Architecture](docs/Architecture.md) - Architecture of the design system packages and monorepo
