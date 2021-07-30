@@ -28,6 +28,7 @@ This repository contains the source for the following packages:
 Consult the `README.md` for each package to learn more, including how to use it in an application.
 
 ## Community
+
 We welcome feedback and contributions!
 
 - The fastest way to ask questions is to [join the discussion on Teams](https://teams.microsoft.com/l/team/19%3awo8vmMKMsHfltKXxc0bczZo-X4JlQSV5VxpaRJdh13k1%40thread.tacv2/conversations?groupId=9ee065d7-3898-4245-82f6-76e86084b8b1&tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e) (accessible to NI employees only). 
