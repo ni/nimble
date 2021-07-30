@@ -6,5 +6,5 @@
 # These owners will be the default owners for everything in the repo.
 *                           @rajsite @jattasNI @fredvisser
 
-# Owners of specific locations or file patterns in the repo.
+# Owners of specific locations or file patterns in the repo. Locations are relative to the root of the repo.
 # Order is important. The last matching pattern has the most precedence.
