@@ -1,6 +1,6 @@
 {
   "type": "prerelease",
-  "comment": "Switch to ES6 TypeScript code generation",
+  "comment": "Switch to ES2020 TypeScript code generation",
   "packageName": "@ni/nimble-components",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "prerelease"
