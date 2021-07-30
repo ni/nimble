@@ -75,4 +75,25 @@ export const styles = css`
     line-height: 16px;
     text-transform: uppercase;
   }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .step-up,
+  .step-down {
+    display: contents;
+  }
+
+  .nimble-icons-DownArrow,
+  .nimble-icons-UpArrow {
+    display: inline-flex;
+    height: 15px;
+    width: 15px;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    cursor: pointer;
+  }
 `;

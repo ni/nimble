@@ -3,6 +3,8 @@ import { Button as FoundationButton, buttonTemplate as template, DesignSystem } 
 import { styles } from './styles';
 import { ButtonAppearance } from './types';
 
+export type { Button };
+
 class Button extends FoundationButton {
     /**
      * The appearance the button should have.

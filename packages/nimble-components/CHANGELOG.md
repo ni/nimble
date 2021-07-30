@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 22 Jul 2021 20:08:12 GMT and should not be manually modified.
+This log was last generated on Thu, 29 Jul 2021 20:21:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.12
+
+Thu, 29 Jul 2021 20:21:54 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.12 (fred.visser@ni.com)
+
+## 1.0.0-beta.11
+
+Thu, 29 Jul 2021 17:51:14 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.11 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.10
+
+Wed, 28 Jul 2021 20:38:54 GMT
+
+### Changes
+
+- Fix focus states on Firefox (christine.karas@ni.com)
 
 ## 1.0.0-beta.9
 

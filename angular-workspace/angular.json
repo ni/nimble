@@ -110,8 +110,7 @@
                 }
               ],
               "buildOptimizer": false,
-              "optimization": true,
-              "baseHref": "example-client-app"
+              "optimization": true
             },
             "development": {
               "buildOptimizer": false,

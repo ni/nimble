@@ -1,5 +1,5 @@
 <div align="center">
-    <p align="center"><b>ni | nimble | angular schematics</b></p>
+    <p><b>ni | nimble | angular schematics</b></p>
 </div>
 
 # Nimble Angular Schematics

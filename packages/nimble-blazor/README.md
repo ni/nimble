@@ -1,5 +1,5 @@
 <div align="center">
-    <p align="center"><b>ni | nimble | blazor</b></p>
+    <p><b>ni | nimble | blazor</b></p>
 </div>
 
 # Nimble Blazor

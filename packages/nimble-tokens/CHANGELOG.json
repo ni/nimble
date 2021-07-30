@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 29 Jul 2021 20:21:54 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.4",
+      "version": "1.0.0-beta.4",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Updating icons and creating icon Story",
+            "author": "fred.visser@ni.com",
+            "commit": "14ffe192fa29c3d2d460a49642871147e1680f7f",
+            "package": "@ni/nimble-tokens"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 Jul 2021 17:51:14 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.3",
+      "version": "1.0.0-beta.3",
+      "comments": {
+        "none": [
+          {
+            "comment": "Docs update",
+            "author": "rajsite@users.noreply.github.com",
+            "commit": "c2ecbdd894002484828a2cb29b6e40b88f0ab09f",
+            "package": "@ni/nimble-tokens"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Jul 2021 16:02:06 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.3",
       "version": "1.0.0-beta.3",

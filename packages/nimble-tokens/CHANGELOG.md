@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 20 Jul 2021 22:35:42 GMT and should not be manually modified.
+This log was last generated on Thu, 29 Jul 2021 20:21:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.4
+
+Thu, 29 Jul 2021 20:21:54 GMT
+
+### Changes
+
+- Updating icons and creating icon Story (fred.visser@ni.com)
 
 ## 1.0.0-beta.3
 

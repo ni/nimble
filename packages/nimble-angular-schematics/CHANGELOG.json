@@ -1,0 +1,20 @@
+{
+  "name": "@ni/nimble-angular-schematics",
+  "entries": [
+    {
+      "date": "Thu, 29 Jul 2021 17:51:14 GMT",
+      "tag": "@ni/nimble-angular-schematics_v1.0.0-beta.0",
+      "version": "1.0.0-beta.0",
+      "comments": {
+        "none": [
+          {
+            "comment": "Docs update",
+            "author": "rajsite@users.noreply.github.com",
+            "commit": "c2ecbdd894002484828a2cb29b6e40b88f0ab09f",
+            "package": "@ni/nimble-angular-schematics"
+          }
+        ]
+      }
+    }
+  ]
+}
