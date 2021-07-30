@@ -8,7 +8,7 @@
 
 NI-styled UI components for Angular applications
 
-## Getting Started
+## Getting started
 
 You are currently required to set `"buildOptimizer": "false"` in `angular.json`. See [#18](https://github.com/ni/nimble/issues/18) for more info.
 
