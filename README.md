@@ -20,12 +20,20 @@ The NI Nimble Design System: styled UI components for NI applications.
 
 This repository contains the source for the following packages:
 
-- **[nimble-angular](angular-workspace/projects/ni/nimble-angular/)** - styled Angular components for use in NI Angular applications
-- **[nimble-blazor](packages/nimble-blazor/)** - styled Blazor components for use in NI Blazor applications
-- **[nimble-components](packages/nimble-components/)** - styled web components for use in other applications (also used by `nimble-angular` and `nimble-blazor`)
-- **[nimble-tokens](packages/nimble-tokens/)** - design tokens used by the component packages
+- **[`@ni/nimble-angular`](angular-workspace/projects/ni/nimble-angular/)** - styled Angular components for use in NI Angular applications
+- **[`@ni/nimble-blazor`](packages/nimble-blazor/)** - styled Blazor components for use in NI Blazor applications
+- **[`@ni/nimble-components`](packages/nimble-components/)** - styled web components for use in other applications (also used by `nimble-angular` and `nimble-blazor`)
+- **[`@ni/nimble-tokens`](packages/nimble-tokens/)** - design tokens used by the component packages
 
 Consult the `README.md` for each package to learn more, including how to use it in an application.
+
+## Community
+
+We welcome feedback and contributions!
+
+- The fastest way to ask questions is to [join the discussion on Teams](https://teams.microsoft.com/l/team/19%3awo8vmMKMsHfltKXxc0bczZo-X4JlQSV5VxpaRJdh13k1%40thread.tacv2/conversations?groupId=9ee065d7-3898-4245-82f6-76e86084b8b1&tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e) (accessible to NI employees only). 
+- See the [Azure DevOps feature backlog](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20UI%20Component%20Working%20Group/Features) (accessible to NI employees only).
+- You can also submit [requests and issues on GitHub](https://github.com/ni/nimble/issues).
 
 ## Learning
 
