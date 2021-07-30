@@ -1,6 +1,6 @@
 <div align="center">
     <img src="docs/nimble-logo-icon.svg" width="100px"/>
-    <p align="center"><b>ni | nimble</b></p>
+    <p><b>ni | nimble</b></p>
 </div>
 
 # Nimble

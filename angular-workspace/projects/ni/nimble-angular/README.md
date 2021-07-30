@@ -1,5 +1,5 @@
 <div align="center">
-    <p align="center"><b>ni | nimble | angular</b></p>
+    <p><b>ni | nimble | angular</b></p>
 </div>
 
 # Nimble Angular

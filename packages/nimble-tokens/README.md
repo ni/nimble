@@ -1,5 +1,5 @@
 <div align="center">
-    <p align="center"><b>ni | nimble | tokens</b></p>
+    <p><b>ni | nimble | tokens</b></p>
 </div>
 
 # Nimble Tokens

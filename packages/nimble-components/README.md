@@ -1,5 +1,5 @@
 <div align="center">
-    <p align="center"><b>ni | nimble | components</b></p>
+    <p><b>ni | nimble | components</b></p>
 </div>
 
 # Nimble Components
