@@ -72,7 +72,11 @@ jobs:
           npm run publish-ci -- -n $NPM_SECRET_TOKEN
           npm i --package-lock-only
           git add -A
-          if ! git diff-index --quiet HEAD; then
+          if git diff-index --quiet HEAD;
+          then
+            echo "no changes found to push to main"
+          else
+            echo "changes found to push to main"
             git commit -m "applying package updates [skip ci]"
             git push --set-upstream origin main
           fi
