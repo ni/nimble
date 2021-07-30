@@ -16,7 +16,7 @@ This repository uses the following tooling. See below for more info.
 - [Nimble Angular HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Nimble%20Angular.md&version=GBmaster&_a=preview)
 - [Nimble architecture](docs/Architecture.md)
 
-## Getting Started
+## Getting started
 
 From the `nimble` directory:
 1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
@@ -26,7 +26,7 @@ From the `nimble` directory:
 
     **Note**: You will need to refresh your browser window to see style changes made in source.
 
-## Develop New Components
+## Develop new components
 
 ### Adding a new component
 
@@ -35,7 +35,7 @@ From the `nimble` directory:
 1. Add wrappers for each framework. See instructions for [adding Angular wrappers](angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](packages/nimble-blazor/CONTRIBUTING.md).
 1. Publish and use! 🎉
 
-## Pull Request Policies
+## Pull request policies
 
 ### Beachball change file
 
