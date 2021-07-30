@@ -75,8 +75,7 @@ describe("The fixture helper", () => {
         expect(element.isConnected).toEqual(false);
     });
 
-    // TODO it does not look like the fixture source binding works in the nimble setup
-    xit("can bind an element to data", async () => {
+    it("can bind an element to data", async () => {
         const source = new MyModel();
         const { element, disconnect } = await fixture<MyElement>(
             html<MyModel>`
