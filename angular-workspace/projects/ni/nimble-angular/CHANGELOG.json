@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 02 Aug 2021 13:41:33 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.14",
+      "version": "1.0.0-beta.14",
+      "comments": {
+        "none": [
+          {
+            "comment": "Trivial update to docs capitalization",
+            "author": "jattasNI@users.noreply.github.com",
+            "commit": "8135cdb1b6074a8e67936ab429715649c5584dde",
+            "package": "@ni/nimble-angular"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 30 Jul 2021 18:57:47 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.14",
       "version": "1.0.0-beta.14",
