@@ -25,6 +25,12 @@ export const styles = css`
         flex-shrink: 0;
         border: 1px solid ${borderColor};
         transition: box-shadow 0.15s;
+        ${
+            /*
+             * Firefox includes the line height in the outline height calculation (not sure if intended or accidental).
+             * Set it to 0 to ensure the outline is just as high as the control.
+             */ ''
+        } line-height: 0;
     }
 
     :host(:hover:not(:active)) .control {
