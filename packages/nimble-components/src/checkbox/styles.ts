@@ -30,6 +30,7 @@ export const styles = css`
         box-sizing: border-box;
         flex-shrink: 0;
         border: 1px solid ${borderColor};
+        padding: 2px;
         transition: box-shadow 0.15s;
         ${
             /*
