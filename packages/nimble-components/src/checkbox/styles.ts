@@ -41,7 +41,7 @@ export const styles = css`
 
     :host([disabled]) .control {
         background-color: rgba(${borderColorRgb}, 0.1);
-        border-color: rgba(${borderColorRgb}, 0.3);
+        border-color: rgba(${borderColorRgb}, 0.2);
     }
 
     :host(:not([disabled]):not(:active):hover) .control {
@@ -79,6 +79,6 @@ export const styles = css`
     }
 
     :host([disabled]) .checked-indicator {
-        fill: rgba(${borderColorRgb}, 0.4);
+        fill: rgba(${borderColorRgb}, 0.3);
     }
 `;
