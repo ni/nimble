@@ -3,9 +3,11 @@ import { css } from '@microsoft/fast-element';
 import {
     borderColor,
     borderColorHover,
+    borderColorRgb,
     contentFontSize,
     controlHeight,
     fontColor,
+    fontColorDisabled,
     fontFamily
 } from '../theme-provider/design-tokens';
 
@@ -16,6 +18,10 @@ export const styles = css`
         cursor: pointer;
         outline: none;
         user-select: none;
+    }
+
+    :host([disabled]) {
+        cursor: default;
     }
 
     .control {
@@ -33,7 +39,12 @@ export const styles = css`
         } line-height: 0;
     }
 
-    :host(:hover:not(:active)) .control {
+    :host([disabled]) .control {
+        background-color: rgba(${borderColorRgb}, 0.1);
+        border-color: rgba(${borderColorRgb}, 0.3);
+    }
+
+    :host(:not([disabled]):not(:active):hover) .control {
         border-color: ${borderColorHover};
         box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
     }
@@ -52,6 +63,10 @@ export const styles = css`
         cursor: inherit;
     }
 
+    :host([disabled]) .label {
+        color: ${fontColorDisabled};
+    }
+
     .checked-indicator {
         width: 100%;
         height: 100%;
@@ -61,5 +76,9 @@ export const styles = css`
 
     :host([aria-checked='true']) .checked-indicator {
         opacity: 1;
+    }
+
+    :host([disabled]) .checked-indicator {
+        fill: rgba(${borderColorRgb}, 0.4);
     }
 `;
