@@ -84,7 +84,10 @@ export const styles = css`
   .step-up,
   .step-down {
     display: contents;
+    cursor: pointer;
   }
+
+  /* These selectors don't currently apply, and I can't figure out how to size the SVG icons correctly */
 
   .nimble-icons-DownArrow,
   .nimble-icons-UpArrow {
@@ -94,6 +97,5 @@ export const styles = css`
     justify-content: center;
     align-items: center;
     font-size: 10px;
-    cursor: pointer;
   }
 `;

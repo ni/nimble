@@ -7,7 +7,7 @@ import {
 import {
     nimbleIconDownArrow,
     nimbleIconUpArrow
-} from '@ni/nimble-tokens/dist-icons/nimble-icon.model';
+} from '@ni/nimble-tokens/dist-icons/nimble-icons.model';
 import { styles } from './styles';
 
 /**
