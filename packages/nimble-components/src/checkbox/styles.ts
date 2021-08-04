@@ -1,4 +1,6 @@
 import { css } from '@microsoft/fast-element';
+import { focusVisible } from '@microsoft/fast-foundation';
+import { nimbleIconFontStyles } from '../shared/icon-font';
 
 import {
     borderColor,
@@ -12,6 +14,8 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
+    ${nimbleIconFontStyles}
+
     :host {
         display: inline-flex;
         align-items: center;
@@ -31,6 +35,9 @@ export const styles = css`
         flex-shrink: 0;
         border: 1px solid ${borderColor};
         padding: 2px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         transition: box-shadow 0.15s;
         ${
             /*
@@ -50,7 +57,7 @@ export const styles = css`
         box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
     }
 
-    :host(:focus-visible) .control {
+    :host(:${focusVisible}) .control {
         border-color: ${borderColorHover};
         outline: 2px solid ${borderColorHover};
         outline-offset: 2px;
@@ -69,9 +76,8 @@ export const styles = css`
     }
 
     .checked-indicator {
-        width: 100%;
-        height: 100%;
-        fill: ${borderColor};
+        font-size: 10px;
+        color: ${borderColor};
         opacity: 0;
     }
 
@@ -80,6 +86,6 @@ export const styles = css`
     }
 
     :host([disabled]) .checked-indicator {
-        fill: rgba(${borderColorRgb}, 0.3);
+        color: rgba(${borderColorRgb}, 0.3);
     }
 `;
