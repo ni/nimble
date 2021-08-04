@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "add svg-to-ts",
+  "packageName": "@ni/nimble-components",
+  "email": "fred.visser@ni.com",
+  "dependentChangeType": "patch"
+}
