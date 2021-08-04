@@ -1,6 +1,9 @@
 {
     "recommendations": [
         "bashmish.es6-string-css",
-        "webreflection.literally-html"
+        "webreflection.literally-html",
+        "dbaeumer.vscode-eslint",
+        "redhat.vscode-yaml",
+        "editorconfig.editorconfig"
     ]
 }
