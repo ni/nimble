@@ -5,9 +5,9 @@ import {
     numberFieldTemplate as template
 } from '@microsoft/fast-foundation';
 import {
-    nimbleIconDownArrow,
-    nimbleIconUpArrow
-} from '@ni/nimble-tokens/dist-icons/nimble-icons.model';
+    downArrow,
+    upArrow
+} from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
 /**
@@ -25,8 +25,8 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: `${nimbleIconDownArrow.data}`,
-    stepUpGlyph: `${nimbleIconUpArrow.data}`
+    stepDownGlyph: `${downArrow.data}`,
+    stepUpGlyph: `${upArrow.data}`
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());

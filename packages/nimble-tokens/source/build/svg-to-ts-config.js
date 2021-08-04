@@ -1,7 +1,11 @@
+const path = require('path');
+
 const svgToTsConfig = {
-    srcFiles: ['./assets-icons/*.svg'],
+    srcFiles: [
+        path.resolve(__dirname, '../../assets-icons/*.svg')
+    ],
     conversionType: 'constants',
-    prefix: 'nimbleIcon',
+    prefix: '',
     svgoConfig: {
         plugins: [
             {
@@ -9,8 +13,10 @@ const svgToTsConfig = {
             },
         ],
     },
-    fileName: 'nimble-icons.model',
-    outputDirectory: './dist-icons',
+    fileName: 'nimble-icons-inline',
+    outputDirectory: path.resolve(__dirname, '../../dist-icons'),
+    interfaceName: 'NimbleIcons',
+    typeName: 'NimbleIconName'
 };
 
 module.exports = svgToTsConfig;
