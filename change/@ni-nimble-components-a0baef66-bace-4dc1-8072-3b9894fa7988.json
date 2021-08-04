@@ -3,5 +3,5 @@
   "comment": "Add nimble-checkbox component",
   "packageName": "@ni/nimble-components",
   "email": "lukas.kall@ni.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
