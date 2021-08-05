@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Release workflow test",
+  "packageName": "@ni/nimble-tokens",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
