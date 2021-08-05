@@ -73,6 +73,11 @@ export const styles = css`
         color: ${fontColorDisabled};
     }
 
+    slot[name="checked-indicator"] svg {
+        height: 10px;
+        width: 10px;
+    }
+
     slot[name="checked-indicator"] path {
         fill: ${borderColor};
         opacity: 0;
