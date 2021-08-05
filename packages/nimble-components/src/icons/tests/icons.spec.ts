@@ -5,31 +5,28 @@ import { getSpecTypeByList } from '../../tests/utilities/parameterized-test-help
 describe('Icons', () => {
     describe('should have a viewBox', () => {
         const nimbleIcons = Object.values(nimbleIconsMap);
-        const focused: NimbleIconName[] = [];
-        // Enable tests after svg icons fixed
-        // See: https://github.com/ni/nimble/issues/63
-        const disabled: NimbleIconName[] = [
-            'home_16_x_16',
-            'down_arrow_16_x_16',
-            'ni_eagle_16_x_16',
-            'up_arrow_16_x_16'
-        ];
-
-        const getSVGElement = (htmlString: string): SVGElement | null => {
+        const getSVGElement = (htmlString: string): SVGElement => {
             const template = document.createElement('template');
             template.innerHTML = htmlString;
             const svg = template.content.querySelector('svg');
-            return svg;
+            return svg!;
         };
+        const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
 
+        const focused: NimbleIconName[] = [];
+        const disabled: NimbleIconName[] = [];
         for (const icon of nimbleIcons) {
             const specType = getSpecTypeByList(icon.name, focused, disabled);
             specType(`for icon ${icon.name}`, () => {
                 const svg = getSVGElement(icon.data);
+                const paths = getPaths(svg);
                 expect(svg).toBeTruthy();
-                expect(svg!.getAttribute('viewBox')).toBeTruthy();
-                expect(svg!.getAttribute('height')).toBeNull();
-                expect(svg!.getAttribute('width')).toBeNull();
+                expect(svg.getAttribute('viewBox')).toBeTruthy();
+                expect(svg.getAttribute('height')).toBeNull();
+                expect(svg.getAttribute('width')).toBeNull();
+                for (const path of paths) {
+                    expect(path.getAttribute('style')).toBeNull();
+                }
             });
         }
     });
