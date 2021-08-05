@@ -80,7 +80,9 @@ Use the `css` tagged template helper to style the component according to Nimble 
 ```ts
 import { Button as FoundationButton, /* ... */ } from '@microsoft/fast-foundation';
 const styles = css`
-    /* My custom CSS for the nimble fancy button */
+    ${
+        /* My custom CSS for the nimble fancy button */ ''
+    }
     :host { color: gold; }
 `;
 const nimbleFancyButton = FoundationButton.compose({
@@ -129,6 +131,24 @@ Accessibility is a requirement for all new components. For the Nimble design sys
 - **TODO: UX to fill out requirements.**
 
 This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
+
+### Comment CSS
+
+To comment on CSS inside the `css` tagged template helper, use template literal strings with an empty string. This helps minified code output.
+
+```ts
+const styles = css`
+    :host {
+        ${
+            /*
+             * Placing comments in template literals removes them from the compiled code and
+             * helps to minify the code output.
+             */ ''
+        }
+        color: gold;
+    }
+`;
+```
 
 ## Unit tests
 

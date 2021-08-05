@@ -44,7 +44,8 @@ export const styles = css`
              * Firefox includes the line height in the outline height calculation (not sure if intended or accidental).
              * Set it to 0 to ensure the outline is just as high as the control.
              */ ''
-        } line-height: 0;
+        }
+        line-height: 0;
     }
 
     :host([disabled]) .control {
