@@ -123,7 +123,9 @@ export const styles = css`
                 }
 
                 :host([disabled]) {
-                    /* This opacity adds to the existing 10% background opacity. */
+                    ${
+                        /* This opacity adds to the existing 10% background opacity. */ ''
+                    }
                     border-color: rgba(${borderColorRgb}, 0.1);
                 }
             `
