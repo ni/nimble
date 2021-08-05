@@ -78,7 +78,7 @@ If fast-foundation already contains the component you're adding, use `Foundation
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
 ```ts
-import { Button as FoundationButton, /* ... */ } from '@microsoft/fast-foundation';
+import { Button as FoundationButton } from '@microsoft/fast-foundation';
 const styles = css`
     ${
         /* My custom CSS for the nimble fancy button */ ''
@@ -95,7 +95,7 @@ If fast-foundation contains a component similar to what you're adding, extend th
 When you extend a foundation component, do not prefix the class name with "Nimble." Namespacing is accomplished through imports.
 
 ```ts
-import { Button as FoundationButton, /* ... */ } from '@microsoft/fast-foundation';
+import { Button as FoundationButton } from '@microsoft/fast-foundation';
 class Button extends FoundationButton {
     // Add new functionality
 }
@@ -148,6 +148,32 @@ const styles = css`
         color: gold;
     }
 `;
+```
+
+### Leveraging icons
+
+Nimble components should leverage inline svg icons from nimble tokens. The icons are exported from nimble tokens as svg strings similar to the following format:
+
+```ts
+export const fancy16X16: {
+  name: 'fancy_16_x_16';
+  data: string;
+} = {
+  name: 'fancy_16_x_16',
+  data: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!-- svg path data --></svg>`
+};
+```
+
+Use the `data` property to get the svg string:
+
+```ts
+import { fancy16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+
+const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
+    // To populate an existing slot with an svg icon
+    fancyIndicator: `${fancy16X16.data}`
+    // ...
+});
 ```
 
 ## Unit tests

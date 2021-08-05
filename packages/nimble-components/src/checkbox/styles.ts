@@ -1,6 +1,5 @@
 import { css } from '@microsoft/fast-element';
 import { focusVisible } from '@microsoft/fast-foundation';
-import { nimbleIconFontStyles } from '../shared/icon-font';
 
 import {
     borderColor,
@@ -14,8 +13,6 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${nimbleIconFontStyles}
-
     :host {
         display: inline-flex;
         align-items: center;
@@ -76,17 +73,16 @@ export const styles = css`
         color: ${fontColorDisabled};
     }
 
-    .checked-indicator {
-        font-size: 10px;
-        color: ${borderColor};
+    slot[name="checked-indicator"] path {
+        fill: ${borderColor};
         opacity: 0;
     }
 
-    :host([aria-checked='true']) .checked-indicator {
+    :host([aria-checked='true']) slot[name="checked-indicator"] path {
         opacity: 1;
     }
 
-    :host([disabled]) .checked-indicator {
-        color: rgba(${borderColorRgb}, 0.3);
+    :host([disabled]) slot[name="checked-indicator"] path {
+        fill: rgba(${borderColorRgb}, 0.3);
     }
 `;

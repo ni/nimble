@@ -4,8 +4,11 @@ import {
     NumberFieldOptions,
     numberFieldTemplate as template
 } from '@microsoft/fast-foundation';
+import {
+    downArrow16X16,
+    upArrow16X16
+} from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
-import { nimbleIconNames } from '../shared/icon-font';
 
 /**
  * A function that returns a number-field registration for configuring the component with a DesignSystem.
@@ -22,12 +25,8 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: `
-        <i class="${nimbleIconNames.DownArrow}"></i>
-    `,
-    stepUpGlyph: `
-        <i class="${nimbleIconNames.UpArrow}"></i>
-    `
+    stepDownGlyph: `${downArrow16X16.data}`,
+    stepUpGlyph: `${upArrow16X16.data}`
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());

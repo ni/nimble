@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { nimbleIconFontStyles } from '../shared/icon-font';
 import {
     borderColor,
     borderColorHover,
@@ -11,8 +10,6 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-  ${nimbleIconFontStyles}
-
   :host {
     display: inline-block;
     font-family: ${fontFamily};
@@ -83,17 +80,17 @@ export const styles = css`
 
   .step-up,
   .step-down {
-    display: contents;
-  }
-
-  .nimble-icons-DownArrow,
-  .nimble-icons-UpArrow {
     display: inline-flex;
     height: 15px;
     width: 15px;
+    cursor: pointer;
     justify-content: center;
     align-items: center;
-    font-size: 10px;
-    cursor: pointer;
+  }
+
+  .step-up svg,
+  .step-down svg {
+    height: 10px;
+    width: 10px;
   }
 `;

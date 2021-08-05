@@ -1,7 +1,0 @@
-@font-face {
-  font-family: "{{fontname}}";
-
-  src: url("{{cssPath}}{{fontname}}.woff2?t={{timestamp}}") format("woff2"),
-  url("{{cssPath}}{{fontname}}.woff?t={{timestamp}}") format("woff"),
-  url('{{cssPath}}{{fontname}}.ttf?t={{timestamp}}') format('truetype');
-}
