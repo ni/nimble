@@ -1,36 +1,34 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { NimbleIconName } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { getSpecTypeByList } from '../../tests/utilities/parameterized-test-helpers';
 
 describe('Icons', () => {
     describe('should have a viewBox', () => {
         const nimbleIcons = Object.values(nimbleIconsMap);
+        const focused: NimbleIconName[] = [
+        ];
+        const disabled: NimbleIconName[] = [
+            'home_16_x_16',
+            'down_arrow',
+            'ni_eagle_16_x_16',
+            'up_arrow'
+        ];
 
-        // eslint-disable-next-line no-restricted-globals
-        const getSpecType = (icon: NimbleIconName): typeof fit | typeof xit | typeof it => {
-            const focused: NimbleIconName[] = [
-            ];
-
-            const disabled: NimbleIconName[] = [
-                'home_16_x_16',
-                'down_arrow',
-                'ni_eagle_16_x_16',
-                'up_arrow'
-            ];
-
-            if (focused.includes(icon)) {
-                // eslint-disable-next-line no-restricted-globals
-                return fit;
-            }
-            if (disabled.includes(icon)) {
-                return xit;
-            }
-            return it;
+        const getSVGElement = (htmlString: string): SVGElement | null => {
+            const template = document.createElement('template');
+            template.innerHTML = htmlString;
+            const svg = template.content.querySelector('svg');
+            return svg;
         };
 
         for (const icon of nimbleIcons) {
-            const specType = getSpecType(icon.name);
-            specType(`with name ${icon.name} should have a viewBox`, () => {
-                expect(icon.data).toContain('viewBox');
+            const specType = getSpecTypeByList(icon.name, focused, disabled);
+            specType(`for icon ${icon.name}`, () => {
+                const svg = getSVGElement(icon.data);
+                expect(svg).toBeTruthy();
+                expect(svg!.getAttribute('viewBox')).toBeTruthy();
+                expect(svg!.getAttribute('height')).toBeNull();
+                expect(svg!.getAttribute('width')).toBeNull();
             });
         }
     });
