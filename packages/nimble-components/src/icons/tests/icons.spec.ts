@@ -5,15 +5,14 @@ import { getSpecTypeByList } from '../../tests/utilities/parameterized-test-help
 describe('Icons', () => {
     describe('should have a viewBox', () => {
         const nimbleIcons = Object.values(nimbleIconsMap);
-        const focused: NimbleIconName[] = [
-        ];
+        const focused: NimbleIconName[] = [];
         // Enable tests after svg icons fixed
         // See: https://github.com/ni/nimble/issues/63
         const disabled: NimbleIconName[] = [
             'home_16_x_16',
-            'down_arrow',
+            'down_arrow_16_x_16',
             'ni_eagle_16_x_16',
-            'up_arrow'
+            'up_arrow_16_x_16'
         ];
 
         const getSVGElement = (htmlString: string): SVGElement | null => {
