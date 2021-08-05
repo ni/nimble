@@ -27,9 +27,7 @@ const coerceViewBox = (svgText: string): string => {
     svg!.setAttribute('viewBox', `0 0 ${height} ${width}`);
     svg!.removeAttribute('height');
     svg!.removeAttribute('width');
-    const div = document.createElement('div');
-    div.appendChild(templateElement.content);
-    return div.innerHTML;
+    return svg!.outerHTML;
 };
 
 const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
