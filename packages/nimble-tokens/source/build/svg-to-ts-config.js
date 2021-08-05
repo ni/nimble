@@ -7,15 +7,21 @@ const svgToTsConfig = {
     conversionType: 'constants',
     prefix: '',
     svgoConfig: {
+        // https://github.com/svg/svgo#built-in-plugins
         plugins: [
             {
-                cleanupAttrs: true,
+                cleanupAttrs: true
+            },
+            {
+                removeUnknownsAndDefaults: {
+                    keepDataAttrs: false
+                }
             },
         ],
     },
     fileName: 'nimble-icons-inline',
     outputDirectory: path.resolve(__dirname, '../../dist-icons'),
-    interfaceName: 'NimbleIcons',
+    interfaceName: 'NimbleIcon',
     typeName: 'NimbleIconName'
 };
 

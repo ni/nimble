@@ -76,8 +76,7 @@
             "styles": [
               "projects/example-client-app/src/styles.scss",
               "../node_modules/@ni/nimble-tokens/source/space-mono-font-face.css",
-              "../node_modules/@ni/nimble-tokens/source/source-sans-pro-font-face.css",
-              "../node_modules/@ni/nimble-tokens/dist-icons/nimble-icons-font-face.css"
+              "../node_modules/@ni/nimble-tokens/source/source-sans-pro-font-face.css"
             ],
             "scripts": []
           },
