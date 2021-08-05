@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 05 Aug 2021 18:43:46 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.14",
+      "version": "1.0.0-beta.14",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Add nimble-checkbox component",
+            "author": "lukas.kall@ni.com",
+            "commit": "847a0dd7dfabfb13a8d83d83f832ec01824fe4e6",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 30 Jul 2021 18:57:47 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.13",
       "version": "1.0.0-beta.13",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 30 Jul 2021 18:57:47 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Aug 2021 18:43:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.14
+
+Thu, 05 Aug 2021 18:43:46 GMT
+
+### Changes
+
+- Add nimble-checkbox component (lukas.kall@ni.com)
 
 ## 1.0.0-beta.13
 

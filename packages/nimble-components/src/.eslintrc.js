@@ -29,5 +29,12 @@ module.exports = {
         env: {
             jasmine: true
         }
+    }, {
+        files: ['styles.ts'],
+        rules: {
+            // template literals are also used to comment on the css and
+            // the comments should be intended accordingly
+            '@typescript-eslint/indent': ['error', 4, { ignoredNodes: ['TemplateLiteral'] }]
+        }
     }]
 };

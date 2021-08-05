@@ -113,6 +113,7 @@ package-lock.json
 # .vscode often contains user-specific VS Code config but some files are meant to be shared
 .vscode/*
 !.vscode/settings.json
+!.vscode/extensions.json
 
 # macOS
 .DS_Store
