@@ -10,14 +10,8 @@ import {
 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
-/**
- * A function that returns a number-field registration for configuring the component with a DesignSystem.
- *
- * @public
- * @remarks
- * Generates HTML Element: \<nimble-number-field\>
- *
- */
+// Remove when svg icons are fixed
+// See: https://github.com/ni/nimble/issues/63
 const coerceViewBox = (svgText: string): string => {
     const templateElement = document.createElement('template');
     templateElement.innerHTML = svgText;
@@ -30,6 +24,14 @@ const coerceViewBox = (svgText: string): string => {
     return svg!.outerHTML;
 };
 
+/**
+ * A function that returns a number-field registration for configuring the component with a DesignSystem.
+ *
+ * @public
+ * @remarks
+ * Generates HTML Element: \<nimble-number-field\>
+ *
+ */
 const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     baseName: 'number-field',
     template,

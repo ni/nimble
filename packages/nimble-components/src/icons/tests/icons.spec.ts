@@ -7,6 +7,8 @@ describe('Icons', () => {
         const nimbleIcons = Object.values(nimbleIconsMap);
         const focused: NimbleIconName[] = [
         ];
+        // Enable tests after svg icons fixed
+        // See: https://github.com/ni/nimble/issues/63
         const disabled: NimbleIconName[] = [
             'home_16_x_16',
             'down_arrow',
