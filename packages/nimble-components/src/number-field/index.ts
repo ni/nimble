@@ -18,6 +18,20 @@ import { styles } from './styles';
  * Generates HTML Element: \<nimble-number-field\>
  *
  */
+const coerceViewBox = (svgText: string): string => {
+    const templateElement = document.createElement('template');
+    templateElement.innerHTML = svgText;
+    const svg = templateElement.content.firstElementChild;
+    const height = svg!.getAttribute('height') ?? '16';
+    const width = svg!.getAttribute('width') ?? '16';
+    svg!.setAttribute('viewBox', `0 0 ${height} ${width}`);
+    svg!.removeAttribute('height');
+    svg!.removeAttribute('width');
+    const div = document.createElement('div');
+    div.appendChild(templateElement.content);
+    return div.innerHTML;
+};
+
 const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     baseName: 'number-field',
     template,
@@ -25,8 +39,8 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: `${downArrow.data}`,
-    stepUpGlyph: `${upArrow.data}`
+    stepDownGlyph: `${coerceViewBox(downArrow.data)}`,
+    stepUpGlyph: `${coerceViewBox(upArrow.data)}`
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());

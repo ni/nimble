@@ -88,8 +88,9 @@ export const styles = css`
     align-items: center;
   }
 
-  .step-up-glyph,
-  .step-down-glyph {
-    display: contents;
+  .step-up svg,
+  .step-down svg {
+    height: 10px;
+    width: 10px;
   }
 `;
