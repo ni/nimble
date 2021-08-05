@@ -5,24 +5,10 @@ import {
     numberFieldTemplate as template
 } from '@microsoft/fast-foundation';
 import {
-    downArrow,
-    upArrow
+    downArrow16X16,
+    upArrow16X16
 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
-
-// Remove when svg icons are fixed
-// See: https://github.com/ni/nimble/issues/63
-const coerceViewBox = (svgText: string): string => {
-    const templateElement = document.createElement('template');
-    templateElement.innerHTML = svgText;
-    const svg = templateElement.content.firstElementChild;
-    const height = svg!.getAttribute('height') ?? '16';
-    const width = svg!.getAttribute('width') ?? '16';
-    svg!.setAttribute('viewBox', `0 0 ${height} ${width}`);
-    svg!.removeAttribute('height');
-    svg!.removeAttribute('width');
-    return svg!.outerHTML;
-};
 
 /**
  * A function that returns a number-field registration for configuring the component with a DesignSystem.
@@ -39,8 +25,8 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: `${coerceViewBox(downArrow.data)}`,
-    stepUpGlyph: `${coerceViewBox(upArrow.data)}`
+    stepDownGlyph: `${downArrow16X16.data}`,
+    stepUpGlyph: `${upArrow16X16.data}`
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());
