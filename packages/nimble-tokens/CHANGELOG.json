@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 05 Aug 2021 22:21:19 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.5",
+      "version": "1.0.0-beta.5",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "add svg-to-ts",
+            "author": "fred.visser@ni.com",
+            "commit": "ba9287f658f0e54b79f00166f4eb650d064a52f2",
+            "package": "@ni/nimble-tokens"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 29 Jul 2021 20:21:54 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.4",
       "version": "1.0.0-beta.4",

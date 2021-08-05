@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "add svg-to-ts",
-  "packageName": "@ni/nimble-tokens",
-  "email": "fred.visser@ni.com",
-  "dependentChangeType": "prerelease"
-}
