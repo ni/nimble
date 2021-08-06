@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 06 Aug 2021 18:47:09 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.21",
+      "version": "1.0.0-beta.21",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Update to fast-element 1.4.1",
+            "commit": "27935756bca5e3cf11c263210f374be65c8ee798"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 06 Aug 2021 15:45:51 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.20",
       "version": "1.0.0-beta.20",
