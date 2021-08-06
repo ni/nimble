@@ -80,8 +80,10 @@ jobs:
           git merge --ff-only origin/main
           echo "Latest commit after merge main"
           git log -1
+          echo "Clearing node_modules"
+          rm -rf node_modules
           echo "Updating lock file"
-          npm install
+          npm i --package-lock-only
           git add -A
           if git diff-index --quiet HEAD;
           then
