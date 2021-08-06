@@ -18,4 +18,3 @@ If you are using one of the following frameworks see associated wrapper document
 ## Contributing
 
 Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify this library.
- 

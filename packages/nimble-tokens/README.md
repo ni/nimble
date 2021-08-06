@@ -19,4 +19,3 @@ If you are using one of the following frameworks you should consume tokens via c
 ## Contributing
 
 Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify this library.
- 
