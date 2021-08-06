@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 06 Aug 2021 21:21:40 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.21",
+      "version": "1.0.0-beta.21",
+      "comments": {
+        "none": [
+          {
+            "author": "fred.visser@ni.com",
+            "package": "@ni/nimble-components",
+            "comment": "update XD links with correct/latest document",
+            "commit": "5a47e91fc8a572dd147ac070f82c7dbd3051cb7a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 06 Aug 2021 18:47:09 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.21",
       "version": "1.0.0-beta.21",
