@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Fix checkbox svg on windows",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
