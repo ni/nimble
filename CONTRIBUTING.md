@@ -15,10 +15,12 @@ This repository uses the following tooling. See below for more info.
 - [Design System HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Design%20System%20for%20Angular%20and%20Blazor%20UI%20Components.md&version=GBmaster&_a=preview)
 - [Nimble Angular HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Nimble%20Angular.md&version=GBmaster&_a=preview)
 - [Nimble architecture](docs/Architecture.md)
+- [Nimble Components XD Library](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/)
 
 ## Getting started
 
 From the `nimble` directory:
+
 1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
 1. Run `npm install`
 1. Run `npm run build`
