@@ -71,7 +71,7 @@ jobs:
           # See https://github.com/microsoft/beachball/issues/525#issue-901698225
           # Modified to only commit on changes: https://stackoverflow.com/a/68479810
           git log -1
-          git merge --ff-only origin/master
+          git merge --ff-only origin/main
           git log -1
           npm i --package-lock-only
           git add -A
