@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 06 Aug 2021 01:05:01 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.18",
+      "version": "1.0.0-beta.18",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.18",
+            "author": "rajsite@users.noreply.github.com",
+            "commit": "36e882ad80ffe209c11e88e42881d026a023721b",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 06 Aug 2021 00:32:42 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.17",
+      "version": "1.0.0-beta.17",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.17",
+            "author": "rajsite@users.noreply.github.com",
+            "commit": "14a8b23a1c645032566b47e559efd366525b8393",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Aug 2021 23:59:22 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.16",
+      "version": "1.0.0-beta.16",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.16",
+            "author": "rajsite@users.noreply.github.com",
+            "commit": "52167f8cd5438cdaf00308a198fbb7fbc6df32d8",
+            "package": "@ni/nimble-components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 05 Aug 2021 22:21:19 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.15",
       "version": "1.0.0-beta.15",

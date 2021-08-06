@@ -23,7 +23,7 @@
     "@angular/platform-browser": "~12.1.0",
     "@angular/platform-browser-dynamic": "~12.1.0",
     "@angular/router": "~12.1.0",
-    "@ni/nimble-components": "^1.0.0-beta.15",
+    "@ni/nimble-components": "^1.0.0-beta.18",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
