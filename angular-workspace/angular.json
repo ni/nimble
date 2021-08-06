@@ -108,7 +108,7 @@
                   "output": "/"
                 }
               ],
-              "buildOptimizer": false,
+              "buildOptimizer": true,
               "optimization": true,
               "sourceMap": true
             },
