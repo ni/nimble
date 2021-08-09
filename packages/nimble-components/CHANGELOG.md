@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 06 Aug 2021 18:47:09 GMT and should not be manually modified.
+This log was last generated on Mon, 09 Aug 2021 20:21:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.22
+
+Mon, 09 Aug 2021 20:21:46 GMT
+
+### Changes
+
+- add args interface and update checkbox for CSF (fred.visser@ni.com)
 
 ## 1.0.0-beta.21
 
