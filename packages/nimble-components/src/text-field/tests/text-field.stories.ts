@@ -1,3 +1,4 @@
+import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 
@@ -7,7 +8,7 @@ interface TextFieldArgs {
     value: string;
 }
 
-export default {
+const metadata: Meta<TextFieldArgs> = {
     title: 'Text Field',
     decorators: [withXD],
     parameters: {
@@ -27,14 +28,16 @@ export default {
     }
 };
 
-export const textField = {
+export default metadata;
+
+export const textField: Story<TextFieldArgs> = {
     args: { label: 'Text Field' }
 };
 
-export const passwordField = {
+export const passwordField: Story<TextFieldArgs> = {
     args: { label: 'Password Field', type: 'password' }
 };
 
-export const passwordFieldWithValue = {
+export const passwordFieldWithValue: Story<TextFieldArgs> = {
     args: { label: 'Password Field', type: 'password', value: 'password' }
 };

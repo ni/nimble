@@ -1,3 +1,4 @@
+import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 
@@ -7,7 +8,7 @@ interface CheckboxArgs {
     disabled: boolean;
 }
 
-export default {
+const metadata: Meta<CheckboxArgs> = {
     title: 'Checkbox',
     decorators: [withXD],
     parameters: {
@@ -34,9 +35,11 @@ export default {
     }
 };
 
-export const checkbox = {};
+export default metadata;
 
-export const checkboxDisabled = {
+export const checkbox: Story<CheckboxArgs> = {};
+
+export const checkboxDisabled: Story<CheckboxArgs> = {
     args: {
         disabled: true
     }

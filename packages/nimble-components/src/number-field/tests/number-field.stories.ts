@@ -1,12 +1,13 @@
+import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 
 interface NumberFieldArgs {
     label: string;
-    value: string;
+    value: number;
 }
 
-export default {
+const metadata: Meta<NumberFieldArgs> = {
     title: 'Number Field',
     decorators: [withXD],
     parameters: {
@@ -21,14 +22,16 @@ export default {
     render: ({ label, value }: NumberFieldArgs): string => `<nimble-number-field id='user' placeholder='${label}' value='${value}'>${label}</nimble-number-field>`,
     args: {
         label: 'default label',
-        value: 'number'
+        value: undefined
     }
 };
 
-export const numberField = {
+export default metadata;
+
+export const numberField: Story<NumberFieldArgs> = {
     args: { label: 'Number Field' }
 };
 
-export const numberFieldWithValue = {
+export const numberFieldWithValue: Story<NumberFieldArgs> = {
     args: { label: 'Number Field', value: 1234567 }
 };

@@ -1,3 +1,4 @@
+import type { Story, Meta } from '@storybook/html';
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
@@ -27,11 +28,13 @@ const styleMarkup = `
     </style>
 `;
 
-export default {
+const metadata: Meta = {
     title: 'Nimble Icons'
 };
 
-export const icons = (): string => `
+export default metadata;
+
+export const icons: Story = (): string => `
     ${styleMarkup}
     <div class="container">
     ${nimbleIcons

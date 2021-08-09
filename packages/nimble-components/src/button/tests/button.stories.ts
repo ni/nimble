@@ -1,3 +1,4 @@
+import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { ButtonAppearance } from '../types';
 import '../index';
@@ -8,7 +9,7 @@ interface ButtonArgs {
     disabled: string;
 }
 
-export default {
+const metadata: Meta<ButtonArgs> = {
     title: 'Button',
     decorators: [withXD],
     parameters: {
@@ -37,30 +38,32 @@ export default {
     }
 };
 
-export const defaultButton = (): string => '<nimble-button>Default Button</nimble-button>';
+export default metadata;
 
-export const outlineButton = {
+export const defaultButton: Story<ButtonArgs> = (): string => '<nimble-button>Default Button</nimble-button>';
+
+export const outlineButton: Story<ButtonArgs> = {
     args: { label: 'Outline Button', appearance: ButtonAppearance.Outline }
 };
-export const ghostButton = {
+export const ghostButton: Story<ButtonArgs> = {
     args: { label: 'Ghost Button', appearance: ButtonAppearance.Ghost }
 };
-export const blockButton = {
+export const blockButton: Story<ButtonArgs> = {
     args: { label: 'Block Button', appearance: ButtonAppearance.Block }
 };
-export const outlineButtonDisabled = {
+export const outlineButtonDisabled: Story<ButtonArgs> = {
     args: {
         ...outlineButton.args,
         disabled: 'disabled'
     }
 };
-export const ghostButtonDisabled = {
+export const ghostButtonDisabled: Story<ButtonArgs> = {
     args: {
         ...ghostButton.args,
         disabled: 'disabled'
     }
 };
-export const blockButtonDisabled = {
+export const blockButtonDisabled: Story<ButtonArgs> = {
     args: {
         ...blockButton.args,
         disabled: 'disabled'
