@@ -1,6 +1,11 @@
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 
+interface NumberFieldArgs {
+    label: string;
+    value: string;
+}
+
 export default {
     title: 'Number Field',
     decorators: [withXD],
@@ -13,7 +18,7 @@ export default {
             handles: ['change', 'input']
         }
     },
-    render: ({ label, value }: { label: string, value: string }): string => `<nimble-number-field id='user' placeholder='${label}' value='${value}'>${label}</nimble-number-field>`,
+    render: ({ label, value }: NumberFieldArgs): string => `<nimble-number-field id='user' placeholder='${label}' value='${value}'>${label}</nimble-number-field>`,
     args: {
         label: 'default label',
         value: 'number'

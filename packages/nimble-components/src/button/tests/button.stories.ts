@@ -2,6 +2,12 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { ButtonAppearance } from '../types';
 import '../index';
 
+interface ButtonArgs {
+    label: string;
+    appearance: string;
+    disabled: string;
+}
+
 export default {
     title: 'Button',
     decorators: [withXD],
@@ -24,15 +30,7 @@ export default {
             control: { type: 'check' }
         }
     },
-    render: ({
-        label,
-        appearance,
-        disabled
-    }: {
-        label: string,
-        appearance: string,
-        disabled: string
-    }): string => `<nimble-button ${disabled} appearance="${appearance}">${label}</nimble-button>`,
+    render: ({ label, appearance, disabled }: ButtonArgs): string => `<nimble-button ${disabled} appearance="${appearance}">${label}</nimble-button>`,
     args: {
         label: 'Ghost Button',
         appearance: 'ghost'

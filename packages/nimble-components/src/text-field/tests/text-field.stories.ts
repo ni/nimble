@@ -1,6 +1,12 @@
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 
+interface TextFieldArgs {
+    label: string;
+    type: string;
+    value: string;
+}
+
 export default {
     title: 'Text Field',
     decorators: [withXD],
@@ -13,15 +19,7 @@ export default {
             handles: ['change', 'input']
         }
     },
-    render: ({
-        label,
-        type,
-        value
-    }: {
-        label: string,
-        type: string,
-        value: string
-    }): string => `<nimble-text-field placeholder='${label}' type='${type}' value='${value}'>${label}</nimble-text-field>`,
+    render: ({ label, type, value }: TextFieldArgs): string => `<nimble-text-field placeholder='${label}' type='${type}' value='${value}'>${label}</nimble-text-field>`,
     args: {
         label: 'default label',
         type: 'text',
