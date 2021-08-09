@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "add args interface and update checkbox for CSF",
+  "packageName": "@ni/nimble-components",
+  "email": "fred.visser@ni.com",
+  "dependentChangeType": "patch"
+}
