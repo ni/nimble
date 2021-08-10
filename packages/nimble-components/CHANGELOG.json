@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 09 Aug 2021 20:21:46 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.22",
+      "version": "1.0.0-beta.22",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "fred.visser@ni.com",
+            "package": "@ni/nimble-components",
+            "comment": "add args interface and update checkbox for CSF",
+            "commit": "cedb9676f4d87902c3db749b49389efa560ea910"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 06 Aug 2021 21:21:40 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.21",
       "version": "1.0.0-beta.21",

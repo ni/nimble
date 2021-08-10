@@ -1,7 +1,14 @@
+import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 
-export default {
+interface TextFieldArgs {
+    label: string;
+    type: string;
+    value: string;
+}
+
+const metadata: Meta<TextFieldArgs> = {
     title: 'Text Field',
     decorators: [withXD],
     parameters: {
@@ -13,15 +20,7 @@ export default {
             handles: ['change', 'input']
         }
     },
-    render: ({
-        label,
-        type,
-        value
-    }: {
-        label: string,
-        type: string,
-        value: string
-    }): string => `<nimble-text-field placeholder='${label}' type='${type}' value='${value}'>${label}</nimble-text-field>`,
+    render: ({ label, type, value }: TextFieldArgs): string => `<nimble-text-field placeholder='${label}' type='${type}' value='${value}'>${label}</nimble-text-field>`,
     args: {
         label: 'default label',
         type: 'text',
@@ -29,14 +28,16 @@ export default {
     }
 };
 
-export const textField = {
+export default metadata;
+
+export const textField: Story<TextFieldArgs> = {
     args: { label: 'Text Field' }
 };
 
-export const passwordField = {
+export const passwordField: Story<TextFieldArgs> = {
     args: { label: 'Password Field', type: 'password' }
 };
 
-export const passwordFieldWithValue = {
+export const passwordFieldWithValue: Story<TextFieldArgs> = {
     args: { label: 'Password Field', type: 'password', value: 'password' }
 };
