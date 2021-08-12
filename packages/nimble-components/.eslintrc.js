@@ -5,6 +5,7 @@ module.exports = {
         ecmaVersion: 2020
     },
     ignorePatterns: [
+        // Force inclusion of storybook dot file hidden folder
         '!/.storybook',
         'node_modules',
         'dist'
@@ -15,6 +16,7 @@ module.exports = {
             browser: true
         },
         rules: {
+            // Storybook files will not be in published package and are allowed to use devDependencies
             'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
             'import/no-default-export': 'off'
         }
