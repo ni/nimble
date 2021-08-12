@@ -5,22 +5,22 @@ import { NimbleTheme } from '../dist/esm/theme-provider/themes';
 
 const backgrounds = [
     {
-        name: 'light',
+        name: `"${NimbleTheme.Light}" theme on white`,
         value: '#F4F4F4',
         theme: NimbleTheme.Light
     },
     {
-        name: 'green',
+        name: `"${NimbleTheme.Color}" theme on green`,
         value: '#03B585',
         theme: NimbleTheme.Color
     },
     {
-        name: 'dark green',
+        name: `"${NimbleTheme.Color}" theme on dark green`,
         value: '#044123',
         theme: NimbleTheme.Color
     },
     {
-        name: 'dark',
+        name: `"${NimbleTheme.Dark}" theme on black`,
         value: '#252526',
         theme: NimbleTheme.Dark
     }
