@@ -1,66 +1,48 @@
-// import * as FAST from "../src/index-rollup";
+import '@ni/nimble-tokens/source/space-mono-font-face.css';
+import '@ni/nimble-tokens/source/source-sans-pro-font-face.css';
+import '../dist/esm/theme-provider';
+import { NimbleTheme } from '../dist/esm/theme-provider/themes';
 
-// FAST;
+const backgrounds = [
+    {
+        name: `"${NimbleTheme.Light}" theme on white`,
+        value: '#F4F4F4',
+        theme: NimbleTheme.Light
+    },
+    {
+        name: `"${NimbleTheme.Color}" theme on green`,
+        value: '#03B585',
+        theme: NimbleTheme.Color
+    },
+    {
+        name: `"${NimbleTheme.Color}" theme on dark green`,
+        value: '#044123',
+        theme: NimbleTheme.Color
+    },
+    {
+        name: `"${NimbleTheme.Dark}" theme on black`,
+        value: '#252526',
+        theme: NimbleTheme.Dark
+    }
+];
 
-import { addDecorator } from "@storybook/html";
-
-import "@ni/nimble-tokens/source/space-mono-font-face.css";
-import "@ni/nimble-tokens/source/source-sans-pro-font-face.css";
-import "@ni/nimble-components/src/theme-provider/index";
+const [defaultBackground] = backgrounds;
 
 export const parameters = {
-  layout: "fullscreen",
-  backgrounds: {
-    values: [
-      {
-        name: "light-ui",
-        value: "#F4F4F4"
-      },
-      {
-        name: "green-ui",
-        value: "#03B585"
-      },
-      {
-        name: "dark-green-ui",
-        value: "#044123"
-      },
-      {
-        name: "dark-ui",
-        value: "#252526"
-      }
-    ]
-  }
-};
-
-export const globalTypes = {
-  theme: {
-    name: "Theme",
-    description: "Global theme for components",
-    defaultValue: "LIGHT",
-    toolbar: {
-      icon: "circlehollow",
-      // array of plain string values for theme.
-      items: ["clear", "LIGHT", "DARK", "COLOR"]
+    layout: 'fullscreen',
+    backgrounds: {
+        default: defaultBackground.name,
+        values: backgrounds.map(({ name, value }) => ({ name, value }))
     }
-  }
 };
 
-const storyAsString = (story, theme) =>
-  `<nimble-theme-provider theme="${theme}">${story}</nimble-theme-provider>`;
-
-const storyAsNode = (story, theme) => {
-  const wrapper = document.createElement("nimble-theme-provider");
-  // wrapper.attributes = [theme]; TODO - develop with real component
-  wrapper.appendChild(story);
-  return wrapper;
-};
-
-addDecorator((story, context) => {
-  const tale = story();
-  const theme = context?.globals?.theme || "LIGHT";
-  console.log(tale);
-  console.log(theme);
-  return typeof tale === "string"
-    ? storyAsString(tale, theme)
-    : storyAsNode(tale, theme);
-});
+export const decorators = [
+    (story, context) => {
+        const background = backgrounds.find(({ value }) => value === context.globals?.backgrounds?.value) ?? defaultBackground;
+        const tale = story();
+        if (typeof tale !== 'string') {
+            throw new Error('Expected story to render as string');
+        }
+        return `<nimble-theme-provider theme="${background.theme}">${tale}</nimble-theme-provider>`;
+    }
+];

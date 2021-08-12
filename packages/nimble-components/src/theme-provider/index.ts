@@ -38,7 +38,7 @@ class NimbleThemeProvider extends FoundationElement {
 
 const styles = css`
     :host {
-        display: inline-block;
+        display: contents;
     }`;
 
 const template = html`
