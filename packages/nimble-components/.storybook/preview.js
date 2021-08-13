@@ -23,7 +23,12 @@ const backgrounds = [
         name: `"${NimbleTheme.Dark}" theme on black`,
         value: '#252526',
         theme: NimbleTheme.Dark
-    }
+    },
+    {
+        name: `"${NimbleTheme.LegacyBlue}" theme on white`,
+        value: '#FFFFFF',
+        theme: NimbleTheme.LegacyBlue,
+    },
 ];
 
 const [defaultBackground] = backgrounds;

@@ -4,9 +4,10 @@ import {
     borderColorHover,
     fillColorSelectedRgb,
     fontFamily,
-    fontColor,
+    labelFontColor,
     labelFontFamily,
-    labelFontSize
+    labelFontSize,
+    labelTextTransform
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -15,7 +16,7 @@ export const styles = css`
     font-family: ${fontFamily};
     outline: none;
     user-select: none;
-    color: ${fontColor};
+    color: ${labelFontColor};
   }
 
   .root {
@@ -53,12 +54,12 @@ export const styles = css`
   }
 
   .control::selection {
-    color: ${fontColor};
+    color: ${labelFontColor};
     background: rgba(${fillColorSelectedRgb}, 0.3);
   }
 
   .control::placeholder {
-    color: ${fontColor};
+    color: ${labelFontColor};
     opacity: 0.5;
   }
 
@@ -70,7 +71,7 @@ export const styles = css`
     font-family: ${labelFontFamily};
     font-size: ${labelFontSize};
     line-height: 16px;
-    text-transform: uppercase;
+    text-transform: ${labelTextTransform};
   }
 
   .controls {
@@ -92,5 +93,6 @@ export const styles = css`
   .step-down svg {
     height: 10px;
     width: 10px;
+    fill: ${borderColor};
   }
 `;

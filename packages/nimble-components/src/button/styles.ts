@@ -1,14 +1,15 @@
 import { css } from '@microsoft/fast-element';
 import {
-    borderColorRgb,
     borderColorHover,
+    borderColorActive,
     controlHeight,
     standardPadding,
     fontFamily,
-    fontColor,
     fillColorSelected,
     contentFontSize,
-    fontColorDisabled
+    contentFontColorDisabled,
+    contentFontColor,
+    actionColorRgb
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from './behaviors';
 import { ButtonAppearance } from './types';
@@ -18,7 +19,7 @@ export const styles = css`
         display: inline-block;
         background-color: transparent;
         height: ${controlHeight};
-        color: ${fontColor};
+        color: ${contentFontColor};
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         cursor: pointer;
@@ -42,7 +43,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${fontColorDisabled};
+        color: ${contentFontColorDisabled};
         background-color: transparent;
         box-shadow: none;
         cursor: default;
@@ -66,7 +67,7 @@ export const styles = css`
             ButtonAppearance.Outline,
             css`
                 :host {
-                    border: 1px solid rgba(${borderColorRgb}, 0.3);
+                    border: 1px solid rgba(${actionColorRgb}, 0.3);
                 }
 
                 :host(:hover),
@@ -75,11 +76,11 @@ export const styles = css`
                 }
 
                 :host(:active) {
-                    border-color: transparent;
+                    border-color: ${borderColorActive};
                 }
 
                 :host([disabled]) {
-                    border-color: rgba(${borderColorRgb}, 0.2);
+                    border-color: rgba(${borderColorActive}, 0.2);
                 }
             `
         ),
@@ -110,7 +111,7 @@ export const styles = css`
 
                 :host(:not(:active)),
                 :host([disabled]) {
-                    background-color: rgba(${borderColorRgb}, 0.1);
+                    background-color: rgba(${borderColorActive}, 0.1);
                 }
 
                 :host(:hover),
@@ -119,14 +120,14 @@ export const styles = css`
                 }
 
                 :host(:active) {
-                    border-color: transparent;
+                    border-color: ${borderColorActive};
                 }
 
                 :host([disabled]) {
                     ${
                         /* This opacity adds to the existing 10% background opacity. */ ''
                     }
-                    border-color: rgba(${borderColorRgb}, 0.1);
+                    border-color: rgba(${borderColorActive}, 0.1);
                 }
             `
         ),

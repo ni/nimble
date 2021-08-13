@@ -1,27 +1,33 @@
 
 // Do not edit directly
-// Generated on Tue, 20 Jul 2021 19:35:33 GMT
+// Generated on Fri, 13 Aug 2021 20:02:13 GMT
 
-$fail-100-dark: #ff4663;
-$fail-100-light: #c4000c;
+$sl-legacy-blue: #009ff5;
+$information-100-dark-ui: #a46eff;
+$information-100: #804ad9;
+$warning-100-dark-ui: #ff6900;
+$pass-100-light-ui: #009921;
+$pass-100-dark-ui: #00c12b;
+$warning-typography-light-ui: #d94100;
+$pass-typography-light-ui: #00801c;
+$fail-100-light-ui: #c4000c;
+$fail-100-dark-ui: #ff4663;
 $black-75: #818386;
-$enterprise: #074023;
-$fail-85: #cf1a37;
-$selection-100: #00b888;
-$brand-85: #26a97c;
-$black-88: #252526;
 $black-15: #f1f1f2;
 $black-7: #f5f5f5;
-$black-85: #363738;
-$black: #000000;
-$warning-100: #ff4b00;
-$black-91: #161617;
 $white: #ffffff;
-$black-95: #0e0f0f;
-$pass-100: #00c12b;
-$fail-100: #c4000c;
-$brand-100: #009b65;
+$black-88: #252526;
+$black-85: #363738;
 $black-80: #505153;
+$black: #000000;
+$black-95: #0e0f0f;
+$black-91: #161617;
+$enterprise: #074023;
+$selection-100: #00b888;
+$brand-85: #26a97c;
+$brand-100: #009b65;
+$fail-85: #cf1a37;
+$rgb-ni-sky: #3cb4e7;
 $header-1-family: Noto Serif;
 $header-1-weight: Regular;
 $subtitle-family: Source Sans Pro;
@@ -32,8 +38,14 @@ $body-family: Source Sans Pro;
 $body-weight: Regular;
 $header-0-family: Noto Serif;
 $header-0-weight: Regular;
+$header-2-family: Source Sans Pro;
+$header-2-weight: Light;
+$sub-header-family: Source Sans Pro;
+$sub-header-weight: Regular;
 $header-1-size: 24rem;
 $subtitle-size: 12rem;
-$overline-capitalized-size: 12rem;
+$overline-capitalized-size: 11rem;
 $body-size: 14rem;
 $header-0-size: 36rem;
+$header-2-size: 22rem;
+$sub-header-size: 12rem;

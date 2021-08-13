@@ -39,6 +39,22 @@
       "weight": {
         "value": "Regular"
       }
+    },
+    "Header2": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Light"
+      }
+    },
+    "SubHeader": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
     }
   },
   "size": {
@@ -50,13 +66,19 @@
         "value": "12"
       },
       "OverlineCapitalized": {
-        "value": "12"
+        "value": "11"
       },
       "Body": {
         "value": "14"
       },
       "Header0": {
         "value": "36"
+      },
+      "Header2": {
+        "value": "22"
+      },
+      "SubHeader": {
+        "value": "12"
       }
     }
   }

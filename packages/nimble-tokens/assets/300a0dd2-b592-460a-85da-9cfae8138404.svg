@@ -1,0 +1,11 @@
+<svg id="Inputs_Text_LabelOnly_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="32" viewBox="0 0 176 32">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="176" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <rect id="Rectangle_10611" data-name="Rectangle 10611" width="176" height="32" fill="#3cb4e7" opacity="0.3"/>
+  <g id="Scroll_Group_24" data-name="Scroll Group 24" clip-path="url(#clip-path)" style="isolation: isolate">
+    <text id="Read_only_text" data-name="Read only text" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SpaceMono-Regular, Space Mono"><tspan x="0" y="0">Read only text</tspan></text>
+  </g>
+</svg>

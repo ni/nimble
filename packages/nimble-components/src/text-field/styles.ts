@@ -1,6 +1,15 @@
 import { css } from '@microsoft/fast-element';
 
-import { borderColor, borderColorHover, fillColorSelectedRgb, fontFamily, fontColor, labelFontFamily, labelFontSize } from '../theme-provider/design-tokens';
+import {
+    borderColor,
+    borderColorHover,
+    fillColorSelectedRgb,
+    fontFamily,
+    labelFontColor,
+    labelFontFamily,
+    labelFontSize,
+    labelTextTransform
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
 :host {
@@ -8,7 +17,7 @@ export const styles = css`
     font-family: ${fontFamily};
     outline: none;
     user-select: none;
-    color: ${fontColor};
+    color: ${labelFontColor};
 }
 
 .root {
@@ -21,7 +30,7 @@ export const styles = css`
     border-bottom: 2px solid ${borderColor};
 }
 
-.root:hover{
+.root:hover {
     border-bottom: 2px solid ${borderColorHover};
 }
 
@@ -45,17 +54,17 @@ export const styles = css`
     outline: none;
 }
 
-.control::selection{
-    color: ${fontColor};
-    background: rgba(${fillColorSelectedRgb}, 0.3);;
+.control::selection {
+    color: ${labelFontColor};
+    background: rgba(${fillColorSelectedRgb}, 0.3);
 }
 
 .control::placeholder {
-    color: ${fontColor};
+    color: ${labelFontColor};
     opacity: 0.5;
 }
 
-.control:focus-within::placeholder{
+.control:focus-within::placeholder {
     opacity: 1;
 }
 
@@ -63,5 +72,5 @@ export const styles = css`
     font-family: ${labelFontFamily};
     font-size: ${labelFontSize};
     line-height: 16px;
-    text-transform: uppercase;
+    text-transform: ${labelTextTransform};
 }`;

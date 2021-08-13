@@ -180,6 +180,210 @@
           "key": "size"
         }
       ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "a6eab3a7-1c9b-4082-b27c-b7cb6134834d",
+      "name": "Header2",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "85dbcae8-ae6f-46f6-bb4c-dc63ef40e2e2",
+        "last_sync": "2021-08-13T20:01:13.885Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "a6eab3a7-1c9b-4082-b27c-b7cb6134834d",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "a6eab3a7-1c9b-4082-b27c-b7cb6134834d",
+          "type": "custom",
+          "value": "Light",
+          "key": "weight"
+        },
+        {
+          "id": "a6eab3a7-1c9b-4082-b27c-b7cb6134834d",
+          "type": "size",
+          "value": "22",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "0db70f5e-4624-4215-b7eb-a1a42f0060e1",
+      "name": "OverlineCapitalized",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "4cf74686-9a7a-4b31-bc0f-cf69ff13cda7",
+        "last_sync": "2021-08-13T20:01:13.885Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "0db70f5e-4624-4215-b7eb-a1a42f0060e1",
+          "type": "custom",
+          "value": "Space Mono",
+          "key": "family"
+        },
+        {
+          "id": "0db70f5e-4624-4215-b7eb-a1a42f0060e1",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "0db70f5e-4624-4215-b7eb-a1a42f0060e1",
+          "type": "size",
+          "value": "11",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "292e0767-d560-4b62-97eb-def04a145f43",
+      "name": "Body",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "e125232c-0021-4b69-8ffb-53c26acff71e",
+        "last_sync": "2021-08-13T20:01:13.886Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "292e0767-d560-4b62-97eb-def04a145f43",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "292e0767-d560-4b62-97eb-def04a145f43",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "292e0767-d560-4b62-97eb-def04a145f43",
+          "type": "size",
+          "value": "14",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "45da06c6-8a61-4489-93cd-7932abeab00e",
+      "name": "Header0",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "07bc1848-c7d4-4570-8371-9cb90f622ace",
+        "last_sync": "2021-08-13T20:01:13.886Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "45da06c6-8a61-4489-93cd-7932abeab00e",
+          "type": "custom",
+          "value": "Noto Serif",
+          "key": "family"
+        },
+        {
+          "id": "45da06c6-8a61-4489-93cd-7932abeab00e",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "45da06c6-8a61-4489-93cd-7932abeab00e",
+          "type": "size",
+          "value": "36",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "952eb086-0194-4f76-97f3-98328dbe4af8",
+      "name": "SubHeader",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "05497d87-25c2-4386-b059-0b995b0bbcb2",
+        "last_sync": "2021-08-13T20:01:13.886Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "952eb086-0194-4f76-97f3-98328dbe4af8",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "952eb086-0194-4f76-97f3-98328dbe4af8",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "952eb086-0194-4f76-97f3-98328dbe4af8",
+          "type": "size",
+          "value": "12",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "bd0e770a-32f4-448e-925b-330c5bfec212",
+      "name": "Header1",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "03e1f2c2-4663-4fac-95e7-818410da5520",
+        "last_sync": "2021-08-13T20:01:13.886Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "bd0e770a-32f4-448e-925b-330c5bfec212",
+          "type": "custom",
+          "value": "Noto Serif",
+          "key": "family"
+        },
+        {
+          "id": "bd0e770a-32f4-448e-925b-330c5bfec212",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "bd0e770a-32f4-448e-925b-330c5bfec212",
+          "type": "size",
+          "value": "24",
+          "key": "size"
+        }
+      ]
     }
   ]
 }
