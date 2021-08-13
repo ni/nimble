@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element';
+import { focusVisible } from '@microsoft/fast-foundation';
 import {
     borderColorRgb,
     borderColorHover,
@@ -26,18 +27,21 @@ export const styles = css`
         outline: none;
     }
 
-    :host(:hover),
-    :host(:focus-within) {
+    :host(:hover) .control,
+    .control:${focusVisible} {
         box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
     }
 
-    :host(:focus-within:not(:active)) {
+    .control:${focusVisible}:not(:active) {
         outline: 1px solid ${borderColorHover};
         outline-offset: -4px;
     }
 
     :host(:active) {
         background-color: ${fillColorSelected};
+    }
+
+    :host(:active) .control {
         box-shadow: none;
     }
 
@@ -60,25 +64,26 @@ export const styles = css`
         font-size: inherit;
         line-height: inherit;
         outline: none;
+        margin: 0;
         padding: 0 ${standardPadding};
     }`.withBehaviors(
         appearanceBehavior(
             ButtonAppearance.Outline,
             css`
-                :host {
+                :host .control {
                     border: 1px solid rgba(${borderColorRgb}, 0.3);
                 }
 
-                :host(:hover),
-                :host(:focus-within) {
+                :host(:hover) .control,
+                .control:${focusVisible} {
                     border: 1px solid ${borderColorHover};
                 }
 
-                :host(:active) {
+                :host(:active) .control {
                     border-color: transparent;
                 }
 
-                :host([disabled]) {
+                :host([disabled]) .control {
                     border-color: rgba(${borderColorRgb}, 0.2);
                 }
             `
@@ -86,17 +91,17 @@ export const styles = css`
         appearanceBehavior(
             ButtonAppearance.Ghost,
             css`
-                :host {
+                :host .control {
                     border: 1px solid transparent;
                 }
 
-                :host(:hover),
-                :host(:focus-within) {
+                :host(:hover) .control,
+                .control:${focusVisible} {
                     border: 1px solid ${borderColorHover};
                 }
 
-                :host(:active),
-                :host([disabled]) {
+                :host(:active) .control,
+                :host([disabled]) .control {
                     border-color: transparent;
                 }
             `
@@ -104,7 +109,7 @@ export const styles = css`
         appearanceBehavior(
             ButtonAppearance.Block,
             css`
-                :host {
+                :host .control {
                     border: 1px solid transparent;
                 }
 
@@ -113,16 +118,16 @@ export const styles = css`
                     background-color: rgba(${borderColorRgb}, 0.1);
                 }
 
-                :host(:hover),
-                :host(:focus-within) {
+                :host(:hover) .control,
+                .control:${focusVisible} {
                     border: 1px solid ${borderColorHover};
                 }
 
-                :host(:active) {
+                :host(:active) .control {
                     border-color: transparent;
                 }
 
-                :host([disabled]) {
+                :host([disabled]) .control {
                     ${
                         /* This opacity adds to the existing 10% background opacity. */ ''
                     }
