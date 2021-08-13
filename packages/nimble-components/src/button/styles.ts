@@ -2,6 +2,7 @@ import { css } from '@microsoft/fast-element';
 import {
     borderColorHover,
     borderColorActive,
+    borderColorRgb,
     controlHeight,
     standardPadding,
     fontFamily,
@@ -111,7 +112,7 @@ export const styles = css`
 
                 :host(:not(:active)),
                 :host([disabled]) {
-                    background-color: rgba(${borderColorActive}, 0.1);
+                    background-color: rgba(${borderColorRgb}, 0.1);
                 }
 
                 :host(:hover),
