@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "initial legacyBlue theme",
+  "packageName": "@ni/nimble-tokens",
+  "email": "fred.visser@ni.com",
+  "dependentChangeType": "patch"
+}
