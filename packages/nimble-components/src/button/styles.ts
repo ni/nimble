@@ -37,7 +37,7 @@ export const styles = css`
         outline-offset: -4px;
     }
 
-    :host(:active) {
+    :host(:active:not([disabled])) {
         background-color: ${fillColorSelected};
     }
 
@@ -47,9 +47,11 @@ export const styles = css`
 
     :host([disabled]) {
         color: ${fontColorDisabled};
-        background-color: transparent;
-        box-shadow: none;
         cursor: default;
+    }
+
+    :host([disabled]) .control {
+        box-shadow: none;
     }
 
     .control {
