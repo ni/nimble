@@ -38,9 +38,9 @@ module.exports = config => {
             'karma-chrome-launcher',
             'karma-firefox-launcher',
         ],
-        files: ['dist/esm/tests/utilities/setup.js'],
+        files: ['dist/esm/src/tests/utilities/setup.js'],
         preprocessors: {
-            'dist/esm/tests/utilities/setup.js': ['webpack', 'sourcemap'],
+            'dist/esm/src/tests/utilities/setup.js': ['webpack', 'sourcemap'],
         },
         webpackMiddleware: {
             // webpack-dev-middleware configuration
