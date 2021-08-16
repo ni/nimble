@@ -30,7 +30,7 @@ export const buttonThemeMatrix: Story = (): string => `${backgrounds
         background => `
     <nimble-theme-provider theme="${background.theme}">
         <div style="background-color: ${background.value}; padding:20px;">
-            <nimble-button appearance="${ButtonAppearance.Outline}>Outline Button</nimble-button>
+            <nimble-button appearance="${ButtonAppearance.Outline}">Outline Button</nimble-button>
             <nimble-button appearance="${ButtonAppearance.Ghost}">Ghost Button</nimble-button>
             <nimble-button appearance="${ButtonAppearance.Block}">Block Button</nimble-button>
             <nimble-button disabled appearance="${ButtonAppearance.Outline}">Outline Button Disabled</nimble-button>
