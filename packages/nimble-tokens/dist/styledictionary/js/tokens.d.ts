@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Fri, 13 Aug 2021 20:02:13 GMT
+ * Generated on Mon, 16 Aug 2021 14:33:54 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -29,24 +29,21 @@ export const Brand85 : string;
 export const Brand100 : string;
 export const Fail85 : string;
 export const RgbNiSky : string;
-export const Header1Family : string;
-export const Header1Weight : string;
-export const SubtitleFamily : string;
-export const SubtitleWeight : string;
+export const Header2Family : string;
+export const Header2Weight : string;
 export const OverlineCapitalizedFamily : string;
 export const OverlineCapitalizedWeight : string;
 export const BodyFamily : string;
 export const BodyWeight : string;
 export const Header0Family : string;
 export const Header0Weight : string;
-export const Header2Family : string;
-export const Header2Weight : string;
 export const SubHeaderFamily : string;
 export const SubHeaderWeight : string;
-export const Header1Size : string;
-export const SubtitleSize : string;
+export const Header1Family : string;
+export const Header1Weight : string;
+export const Header2Size : string;
 export const OverlineCapitalizedSize : string;
 export const BodySize : string;
 export const Header0Size : string;
-export const Header2Size : string;
 export const SubHeaderSize : string;
+export const Header1Size : string;
