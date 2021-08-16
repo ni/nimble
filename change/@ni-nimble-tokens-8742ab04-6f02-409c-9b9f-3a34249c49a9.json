@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "update DSP from XD library",
+  "packageName": "@ni/nimble-tokens",
+  "email": "fred.visser@ni.com",
+  "dependentChangeType": "patch"
+}
