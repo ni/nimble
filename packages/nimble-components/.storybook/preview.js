@@ -3,7 +3,7 @@ import '@ni/nimble-tokens/source/source-sans-pro-font-face.css';
 import '../dist/esm/theme-provider';
 import { NimbleTheme } from '../dist/esm/theme-provider/themes';
 
-const backgrounds = [
+export const backgrounds = [
     {
         name: `"${NimbleTheme.Light}" theme on white`,
         value: '#F4F4F4',
@@ -38,7 +38,9 @@ export const parameters = {
 
 export const decorators = [
     (story, context) => {
-        const background = backgrounds.find(({ value }) => value === context.globals?.backgrounds?.value) ?? defaultBackground;
+        const background = backgrounds.find(
+            ({ value }) => value === context.globals?.backgrounds?.value
+        ) ?? defaultBackground;
         const tale = story();
         if (typeof tale !== 'string') {
             throw new Error('Expected story to render as string');

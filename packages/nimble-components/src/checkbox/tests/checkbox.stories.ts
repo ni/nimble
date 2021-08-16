@@ -38,9 +38,3 @@ const metadata: Meta<CheckboxArgs> = {
 export default metadata;
 
 export const checkbox: Story<CheckboxArgs> = {};
-
-export const checkboxDisabled: Story<CheckboxArgs> = {
-    args: {
-        disabled: true
-    }
-};
