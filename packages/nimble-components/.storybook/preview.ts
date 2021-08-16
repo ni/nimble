@@ -1,8 +1,13 @@
 import '@ni/nimble-tokens/source/space-mono-font-face.css';
 import '@ni/nimble-tokens/source/source-sans-pro-font-face.css';
-import { NimbleTheme } from '../src/theme-provider/themes.ts';
+import '../dist/esm/src/theme-provider';
+import { NimbleTheme } from '../src/theme-provider/themes';
 
-export const backgrounds = [
+export const backgrounds: {
+    name: string,
+    value: string,
+    theme: string
+}[] = [
     {
         name: `"${NimbleTheme.Light}" theme on white`,
         value: '#F4F4F4',
