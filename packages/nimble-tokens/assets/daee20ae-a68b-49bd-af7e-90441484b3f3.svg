@@ -16,7 +16,7 @@
   <rect id="Stroke-2" data-name="Stroke" width="176" height="32" transform="translate(0 15)" fill="none" opacity="0"/>
   <rect id="InteractionState" width="24" height="24" transform="translate(148 19)" fill="#00b888" opacity="0"/>
   <rect id="IconLocation" width="16" height="16" transform="translate(152 23)" fill="#3cb4e7" opacity="0"/>
-  <path id="Page_Arrow" data-name="Page Arrow" d="M0,0,6,4,0,8" transform="translate(164 27.5) rotate(90)" fill="none" stroke="#363738" stroke-width="2"/>
+  <path id="Page_Arrow" data-name="Page Arrow" d="M0,0,6,4,0,8" transform="translate(164 27.5) rotate(90)" fill="none" stroke="#161617" stroke-width="2"/>
   <g id="Scroll_Group_No_icon" data-name="Scroll Group No icon" transform="translate(8 21.001)" clip-path="url(#clip-path-2)" style="isolation: isolate">
     <text id="Line_item" data-name="Line item" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Line item</tspan></text>
   </g>

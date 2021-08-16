@@ -1,19 +1,11 @@
 {
   "font": {
-    "Header1": {
-      "family": {
-        "value": "Noto Serif"
-      },
-      "weight": {
-        "value": "Regular"
-      }
-    },
-    "Subtitle": {
+    "Header2": {
       "family": {
         "value": "Source Sans Pro"
       },
       "weight": {
-        "value": "Regular"
+        "value": "Light"
       }
     },
     "OverlineCapitalized": {
@@ -39,24 +31,43 @@
       "weight": {
         "value": "Regular"
       }
+    },
+    "SubHeader": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Header1": {
+      "family": {
+        "value": "Noto Serif"
+      },
+      "weight": {
+        "value": "Regular"
+      }
     }
   },
   "size": {
     "font": {
-      "Header1": {
-        "value": "24"
-      },
-      "Subtitle": {
-        "value": "12"
+      "Header2": {
+        "value": "22"
       },
       "OverlineCapitalized": {
-        "value": "12"
+        "value": "11"
       },
       "Body": {
         "value": "14"
       },
       "Header0": {
         "value": "36"
+      },
+      "SubHeader": {
+        "value": "12"
+      },
+      "Header1": {
+        "value": "24"
       }
     }
   }
