@@ -1,28 +1,37 @@
 {
   "color": {
-    "Fail100_Dark": {
-      "value": "#FF4663ff"
+    "SL_LegacyBlue": {
+      "value": "#009FF5ff"
     },
-    "Fail100_Light": {
+    "Information100_DarkUI": {
+      "value": "#A46EFFff"
+    },
+    "Information100": {
+      "value": "#804AD9ff"
+    },
+    "Warning100_DarkUI": {
+      "value": "#FF6900ff"
+    },
+    "Pass100_LightUI": {
+      "value": "#009921ff"
+    },
+    "Pass100_DarkUI": {
+      "value": "#00C12Bff"
+    },
+    "WarningTypography_LightUI": {
+      "value": "#D94100ff"
+    },
+    "PassTypography_LightUI": {
+      "value": "#00801Cff"
+    },
+    "Fail100_LightUI": {
       "value": "#C4000Cff"
+    },
+    "Fail100_DarkUI": {
+      "value": "#FF4663ff"
     },
     "Black75": {
       "value": "#818386ff"
-    },
-    "Enterprise": {
-      "value": "#074023ff"
-    },
-    "Fail85": {
-      "value": "#CF1A37ff"
-    },
-    "Selection100": {
-      "value": "#00B888ff"
-    },
-    "Brand85": {
-      "value": "#26A97Cff"
-    },
-    "Black88": {
-      "value": "#252526ff"
     },
     "Black15": {
       "value": "#F1F1F2ff"
@@ -30,35 +39,44 @@
     "Black7": {
       "value": "#F5F5F5ff"
     },
+    "White": {
+      "value": "#FFFFFFff"
+    },
+    "Black88": {
+      "value": "#252526ff"
+    },
     "Black85": {
       "value": "#363738ff"
+    },
+    "Black80": {
+      "value": "#505153ff"
     },
     "Black": {
       "value": "#000000ff"
     },
-    "Warning100": {
-      "value": "#FF4B00ff"
+    "Black95": {
+      "value": "#0E0F0Fff"
     },
     "Black91": {
       "value": "#161617ff"
     },
-    "White": {
-      "value": "#FFFFFFff"
+    "Enterprise": {
+      "value": "#074023ff"
     },
-    "Black95": {
-      "value": "#0E0F0Fff"
+    "Selection100": {
+      "value": "#00B888ff"
     },
-    "Pass100": {
-      "value": "#00C12Bff"
-    },
-    "Fail100": {
-      "value": "#C4000Cff"
+    "Brand85": {
+      "value": "#26A97Cff"
     },
     "Brand100": {
       "value": "#009B65ff"
     },
-    "Black80": {
-      "value": "#505153ff"
+    "Fail85": {
+      "value": "#CF1A37ff"
+    },
+    "RGB NI Sky": {
+      "value": "#3CB4E7ff"
     }
   }
 }
