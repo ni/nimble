@@ -9,8 +9,8 @@ export const parameters = {
     layout: 'fullscreen',
     backgrounds: {
         default: defaultBackground.name,
-        values: backgrounds.map(({ name, value }) => ({ name, value })),
-    },
+        values: backgrounds.map(({ name, value }) => ({ name, value }))
+    }
 };
 
 export const decorators = [
@@ -23,5 +23,5 @@ export const decorators = [
             throw new Error('Expected story to render as string');
         }
         return `<nimble-theme-provider theme="${background.theme}">${tale}</nimble-theme-provider>`;
-    },
+    }
 ];
