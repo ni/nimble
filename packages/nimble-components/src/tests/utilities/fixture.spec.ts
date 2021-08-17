@@ -10,7 +10,7 @@ import {
     FASTElement,
     html,
     DOM,
-    observable,
+    observable
 } from "@microsoft/fast-element";
 import { uniqueElementName, fixture } from "./fixture";
 
@@ -23,7 +23,7 @@ describe("The fixture helper", () => {
 
     @customElement({
         name,
-        template,
+        template
     })
     class MyElement extends FASTElement {
         @attr value = "value";

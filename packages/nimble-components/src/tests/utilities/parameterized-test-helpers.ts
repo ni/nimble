@@ -18,7 +18,9 @@ type SpecTypes = typeof fit | typeof xit | typeof it;
  * });
  */
 export const getSpecType = <T>(
-    value: T, isFocused: (T) => boolean, isDisabled: (T) => boolean
+    value: T,
+    isFocused: (T) => boolean,
+    isDisabled: (T) => boolean
 ): SpecTypes => {
     if (isFocused(value)) {
         // eslint-disable-next-line no-restricted-globals
@@ -49,5 +51,11 @@ export const getSpecType = <T>(
  * });
  */
 export const getSpecTypeByList = <T>(
-    value: T, focusList: T[], disabledList: T[]
-): SpecTypes => getSpecType(value, x => focusList.includes(x), x => disabledList.includes(x));
+    value: T,
+    focusList: T[],
+    disabledList: T[]
+): SpecTypes => getSpecType(
+    value,
+    x => focusList.includes(x),
+    x => disabledList.includes(x)
+);

@@ -12,14 +12,18 @@ import {
     defaultExecutionContext,
     ExecutionContext,
     HTMLView,
-    ViewTemplate,
-} from '@microsoft/fast-element';
-import { DesignSystem, DesignSystemRegistrationContext, DI } from '@microsoft/fast-foundation';
+    ViewTemplate
+} from "@microsoft/fast-element";
+import {
+    DesignSystem,
+    DesignSystemRegistrationContext,
+    DI
+} from "@microsoft/fast-foundation";
 
 import type {
     FoundationElementDefinition,
-    FoundationElementRegistry,
-} from '@microsoft/fast-foundation';
+    FoundationElementRegistry
+} from "@microsoft/fast-foundation";
 
 /**
  * Options used to customize the creation of the test fixture.
@@ -138,13 +142,19 @@ export async function fixture<TElement = HTMLElement>(
     templateNameOrRegistry:
         | ViewTemplate
         | string
-        | FoundationElementRegistry<FoundationElementDefinition, Constructable<TElement>>
+        | FoundationElementRegistry<
+              FoundationElementDefinition,
+              Constructable<TElement>
+          >
         | [
               FoundationElementRegistry<
                   FoundationElementDefinition,
                   Constructable<TElement>
               >,
-              ...FoundationElementRegistry<FoundationElementDefinition, Constructable>[]
+              ...FoundationElementRegistry<
+                  FoundationElementDefinition,
+                  Constructable
+              >[]
           ],
     options: FixtureOptions = {}
 ): Promise<Fixture<TElement>> {
@@ -212,6 +222,6 @@ export async function fixture<TElement = HTMLElement>(
         parent,
         element,
         connect,
-        disconnect,
+        disconnect
     };
 }

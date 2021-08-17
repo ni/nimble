@@ -83,7 +83,7 @@ export const styles = css`
         opacity: 0;
     }
 
-    :host([aria-checked='true']) slot[name="checked-indicator"] path {
+    :host([aria-checked="true"]) slot[name="checked-indicator"] path {
         opacity: 1;
     }
 

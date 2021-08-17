@@ -42,6 +42,7 @@ jobs:
 
       # Lint
       - run: npm run lint
+      - run: npm run prettier
 
       # Test
       - run: npm run test

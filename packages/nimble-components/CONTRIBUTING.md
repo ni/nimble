@@ -5,6 +5,7 @@
 This package contains a library of NI-styled web components.
 
 The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
+
 1. A small, performant custom element base class, [FAST Element](https://www.fast.design/docs/fast-element/getting-started).
 1. [Infrastructure for design system features](https://www.fast.design/docs/design-systems/overview) like design tokens and theming.
 1. A library of [core components](https://explore.fast.design/components/) that
@@ -18,11 +19,13 @@ The library is built on the open source [FAST Design System library](https://fas
 ## Getting started
 
 From the `nimble` directory:
+
 1. Run `npm install`
 1. Run `npm run build`
-1. Run the different Nimble Components test configurations: 
+1. Run the different Nimble Components test configurations:
+
     - To view the components and manually test behaviors in Storybook: `npm run storybook -w @ni/nimble-components`
-    
+
         **Note**: You will need to refresh your browser window to see style changes made in source.
 
     - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
@@ -64,13 +67,13 @@ Next steps: See the [Development workflow](#development-workflow) for creating c
 
 Create a new folder named after your component with some core files:
 
-| File                      | Description |
-| ------------------------- | ----------- |
-| index.ts                  | Contains the component class definition and registration. All Typescript logic contained in the component belongs here. |
-| styles.ts                 | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](src/theme-provider/design-tokens.ts). |
-| template.ts               | Contains the template definition for components that don't use a fast-foundation template. |
-| tests/component-name.spec.ts | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components. |
-| tests/component-name.stories.ts | Contains the Storybook documentation for this component. This should provide API documentation for the component and relevant usage information. |
+| File                            | Description                                                                                                                                                                                        |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| index.ts                        | Contains the component class definition and registration. All Typescript logic contained in the component belongs here.                                                                            |
+| styles.ts                       | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](src/theme-provider/design-tokens.ts). |
+| template.ts                     | Contains the template definition for components that don't use a fast-foundation template.                                                                                                         |
+| tests/component-name.spec.ts    | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                         |
+| tests/component-name.stories.ts | Contains the Storybook documentation for this component. This should provide API documentation for the component and relevant usage information.                                                   |
 
 ### Decide how to build on top of FAST
 
@@ -78,15 +81,15 @@ If fast-foundation already contains the component you're adding, use `Foundation
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
 ```ts
-import { Button as FoundationButton } from '@microsoft/fast-foundation';
+import { Button as FoundationButton } from "@microsoft/fast-foundation";
 const styles = css`
-    ${
-        /* My custom CSS for the nimble fancy button */ ''
+    ${/* My custom CSS for the nimble fancy button */ ""}
+    :host {
+        color: gold;
     }
-    :host { color: gold; }
 `;
 const nimbleFancyButton = FoundationButton.compose({
-    styles,
+    styles
     // ...
 });
 ```
@@ -95,7 +98,7 @@ If fast-foundation contains a component similar to what you're adding, extend th
 When you extend a foundation component, do not prefix the class name with "Nimble." Namespacing is accomplished through imports.
 
 ```ts
-import { Button as FoundationButton } from '@microsoft/fast-foundation';
+import { Button as FoundationButton } from "@microsoft/fast-foundation";
 class Button extends FoundationButton {
     // Add new functionality
 }
@@ -114,18 +117,21 @@ Use the `html` tagged template helper to define your custom template. See [decla
 At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
 
 When configuring different variants of a single element, use behaviors.
+
 ```ts
-import { css } from '@microsoft/fast-element';
+import { css } from "@microsoft/fast-element";
 css`
     /* ... */
-`.withBehaviors(
+`
+    .withBehaviors
     // ...
-);
+    ();
 ```
 
 ### Adhere to accessibility guidelines
 
 Accessibility is a requirement for all new components. For the Nimble design system, this means
+
 - Focus states are defined for every element and work on all browsers.
 - Colors have sufficient contrast across all themes.
 - **TODO: UX to fill out requirements.**
@@ -143,7 +149,7 @@ const styles = css`
             /*
              * Placing comments in template literals removes them from the compiled code and
              * helps to minify the code output.
-             */ ''
+             */ ""
         }
         color: gold;
     }
@@ -156,18 +162,18 @@ Nimble components should leverage inline svg icons from nimble tokens. The icons
 
 ```ts
 export const fancy16X16: {
-  name: 'fancy_16_x_16';
-  data: string;
+    name: "fancy_16_x_16";
+    data: string;
 } = {
-  name: 'fancy_16_x_16',
-  data: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!-- svg path data --></svg>`
+    name: "fancy_16_x_16",
+    data: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!-- svg path data --></svg>`
 };
 ```
 
 Use the `data` property to get the svg string:
 
 ```ts
-import { fancy16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { fancy16X16 } from "@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline";
 
 const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
     // To populate an existing slot with an svg icon
@@ -186,7 +192,8 @@ The following commands can be run from the `nimble` directory:
 
 - `npm run tdd:watch -w @ni/nimble-components`: Starts a process for building the components and running the test suite on file changes.
 
-   This command runs headlessly. See [Debugging commands](#debugging-commands) if you need to see the browser or set breakpoints while running.
+    This command runs headlessly. See [Debugging commands](#debugging-commands) if you need to see the browser or set breakpoints while running.
+
 - `npm run tdd -w @ni/nimble-components`: Similar to the corresponding `tdd:watch` command but only runs once. Useful for infrastructure changes which do not trigger the watch command.
 
 ### Debugging commands
@@ -198,3 +205,7 @@ The following commands can be run from the `nimble` directory:
 ### Test utilities
 
 The jasmine unit tests utilize [`fixture.ts`](src/tests/utilities/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](src/tests/utilities/fixture.spec.ts).
+
+## Linting
+
+`nimble-components` is linted with `eslint` and `prettier-eslint`. Use `npm run lint` and `npm run prettier` to confirm that your changes are valid. Even better, install the recommended VS Code extensions for both linting packages.Configure **Prettier ESLint** as the default formatter and to format on save.

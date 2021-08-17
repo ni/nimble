@@ -7,6 +7,8 @@
     "build": "npm run build --workspaces --if-present && npm run build-site",
     "lint": "npm run lint --workspaces --if-present",
     "lint-fix": "npm run lint-fix --workspaces --if-present",
+    "prettier": "npm run prettier --workspaces --if-present",
+    "prettier-fix": "npm run prettier-fix --workspaces --if-present",
     "test": "npm test --workspaces --if-present",
     "pack": "npm run pack --workspaces --if-present && npm pack",
     "build-site": "git clean -fdx site/ && npm run build-storybook && npm run build-angular-example",
