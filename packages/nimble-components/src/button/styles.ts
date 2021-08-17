@@ -25,24 +25,8 @@ export const styles = css`
         cursor: pointer;
         text-align: center;
         outline: none;
-    }
-
-    :host(:hover) .control,
-    .control:${focusVisible} {
-        box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
-    }
-
-    .control:${focusVisible}:not(:active) {
-        outline: 1px solid ${borderColorHover};
-        outline-offset: -4px;
-    }
-
-    :host(:active:not([disabled])) {
-        background-color: ${fillColorSelected};
-    }
-
-    :host(:active) .control {
-        box-shadow: none;
+        border: none;
+        box-sizing: border-box;
     }
 
     :host([disabled]) {
@@ -50,14 +34,11 @@ export const styles = css`
         cursor: default;
     }
 
-    :host([disabled]) .control {
-        box-shadow: none;
-    }
-
     .control {
         background-color: transparent;
         height: inherit;
-        border: 0px solid transparent;
+        border: 1px solid transparent;
+        box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
         fill: inherit;
@@ -68,24 +49,55 @@ export const styles = css`
         outline: none;
         margin: 0;
         padding: 0 ${standardPadding};
-    }`.withBehaviors(
+    }
+
+    .control:hover {
+        box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
+        outline: none;
+    }
+
+    .control:${focusVisible} {
+        box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
+        outline: 1px solid ${borderColorHover};
+        outline-offset: -4px;
+    }
+
+    .control:active {
+        box-shadow: none;
+        outline: none;
+    }
+
+    :host([disabled]) .control {
+        box-shadow: none;
+        outline: none;
+    }
+
+    `.withBehaviors(
         appearanceBehavior(
             ButtonAppearance.Outline,
             css`
-                :host .control {
-                    border: 1px solid rgba(${borderColorRgb}, 0.3);
+                .control {
+                    background-color: transparent;
+                    border-color: rgba(${borderColorRgb}, 0.3);
                 }
 
-                :host(:hover) .control,
+                .control:hover {
+                    background-color: transparent;
+                    border-color: ${borderColorHover};
+                }
+
                 .control:${focusVisible} {
-                    border: 1px solid ${borderColorHover};
+                    background-color: transparent;
+                    border-color: ${borderColorHover};
                 }
 
-                :host(:active) .control {
+                .control:active {
+                    background-color: ${fillColorSelected};
                     border-color: transparent;
                 }
 
                 :host([disabled]) .control {
+                    background-color: transparent;
                     border-color: rgba(${borderColorRgb}, 0.2);
                 }
             `
@@ -93,17 +105,28 @@ export const styles = css`
         appearanceBehavior(
             ButtonAppearance.Ghost,
             css`
-                :host .control {
-                    border: 1px solid transparent;
+                .control {
+                    background-color: transparent;
+                    border-color: transparent;
                 }
 
-                :host(:hover) .control,
+                .control:hover {
+                    background-color: transparent;
+                    border-color: ${borderColorHover};
+                }
+
                 .control:${focusVisible} {
-                    border: 1px solid ${borderColorHover};
+                    background-color: transparent;
+                    border-color: ${borderColorHover};
                 }
 
-                :host(:active) .control,
+                .control:active {
+                    background-color: ${fillColorSelected};
+                    border-color: transparent;
+                }
+
                 :host([disabled]) .control {
+                    background-color: transparent;
                     border-color: transparent;
                 }
             `
@@ -111,28 +134,28 @@ export const styles = css`
         appearanceBehavior(
             ButtonAppearance.Block,
             css`
-                :host .control {
-                    border: 1px solid transparent;
-                }
-
-                :host(:not(:active)),
-                :host([disabled]) {
+                .control {
                     background-color: rgba(${borderColorRgb}, 0.1);
+                    border-color: transparent;
                 }
 
-                :host(:hover) .control,
+                .control:hover {
+                    background-color: rgba(${borderColorRgb}, 0.1);
+                    border-color: ${borderColorHover};
+                }
+
                 .control:${focusVisible} {
-                    border: 1px solid ${borderColorHover};
+                    background-color: rgba(${borderColorRgb}, 0.1);
+                    border-color: ${borderColorHover};
                 }
 
-                :host(:active) .control {
+                .control:active {
+                    background-color: ${fillColorSelected};
                     border-color: transparent;
                 }
 
                 :host([disabled]) .control {
-                    ${
-                        /* This opacity adds to the existing 10% background opacity. */ ''
-                    }
+                    background-color: rgba(${borderColorRgb}, 0.1);
                     border-color: rgba(${borderColorRgb}, 0.1);
                 }
             `
