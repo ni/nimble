@@ -1,6 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { backgrounds } from '../../../.storybook/preview';
+import { matrixThemeWrapper } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
 interface TextFieldArgs {
@@ -22,17 +22,10 @@ const metadata: Meta<TextFieldArgs> = {
 
 export default metadata;
 
-export const passwordTextFieldThemeMatrix: Story = (): string => `${backgrounds
-    .map(
-        background => `
-    <nimble-theme-provider theme="${background.theme}">
-        <div style="background-color: ${background.value}; padding:20px;">
-            <nimble-text-field type='password' placeholder='placeholder'>placeholder</nimble-text-field>
-            <nimble-text-field type='password' value='Hello'>With value</nimble-text-field>
-            <nimble-text-field type='password' disabled placeholder='placeholder'>Disabled with placeholder</nimble-text-field>
-            <nimble-text-field type='password' disabled value='Hello'>Disabled with value</nimble-text-field>
-        </div>
-    </nimble-theme-provider>
-`
-    )
-    .join('')}`;
+const matrixComponents = `
+    <nimble-text-field type='password' placeholder='placeholder'>placeholder</nimble-text-field>
+    <nimble-text-field type='password' value='Hello'>With value</nimble-text-field>
+    <nimble-text-field type='password' disabled placeholder='placeholder'>Disabled with placeholder</nimble-text-field>
+    <nimble-text-field type='password' disabled value='Hello'>Disabled with value</nimble-text-field>`;
+
+export const passwordTextFieldThemeMatrix: Story = (): string => matrixThemeWrapper(matrixComponents);

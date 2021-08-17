@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NimbleTheme } from '@ni/nimble-components/dist/esm/src/theme-provider/themes';
+import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/themes';
 
 @Component({
     selector: 'nimble-example-login',
