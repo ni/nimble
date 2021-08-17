@@ -20,7 +20,7 @@ const commonChromeFlags = [
     '--disable-default-apps',
     '--disable-extensions',
     '--disable-infobars',
-    '--disable-translate',
+    '--disable-translate'
 ];
 
 module.exports = config => {
@@ -36,27 +36,27 @@ module.exports = config => {
             'karma-source-map-support',
             'karma-sourcemap-loader',
             'karma-chrome-launcher',
-            'karma-firefox-launcher',
+            'karma-firefox-launcher'
         ],
         files: ['dist/esm/tests/utilities/setup.js'],
         preprocessors: {
-            'dist/esm/tests/utilities/setup.js': ['webpack', 'sourcemap'],
+            'dist/esm/tests/utilities/setup.js': ['webpack', 'sourcemap']
         },
         webpackMiddleware: {
             // webpack-dev-middleware configuration
             // i. e.
-            stats: 'errors-only',
+            stats: 'errors-only'
         },
         webpack: {
             mode: 'none',
             resolve: {
                 extensions: ['.js'],
                 modules: ['dist', 'node_modules'],
-                mainFields: ['module', 'main'],
+                mainFields: ['module', 'main']
             },
             devtool: 'inline-source-map',
             performance: {
-                hints: false,
+                hints: false
             },
             optimization: {
                 nodeEnv: false,
@@ -65,32 +65,32 @@ module.exports = config => {
                 sideEffects: true,
                 concatenateModules: true,
                 splitChunks: {
-                    name: false,
+                    name: false
                 },
                 runtimeChunk: false,
                 checkWasmTypes: false,
-                minimize: false,
+                minimize: false
             },
             module: {
                 rules: [
                     {
                         test: /\.js\.map$/,
-                        use: ['ignore-loader'],
+                        use: ['ignore-loader']
                     },
                     {
                         test: /\.js$/,
                         enforce: 'pre',
                         use: [
                             {
-                                loader: 'source-map-loader',
-                            },
-                        ],
+                                loader: 'source-map-loader'
+                            }
+                        ]
                     }
-                ],
-            },
+                ]
+            }
         },
         mime: {
-            'text/x-typescript': ['ts'],
+            'text/x-typescript': ['ts']
         },
         reporters: ['kjhtml'],
         browsers: ['ChromeHeadlessOpt'],
@@ -98,17 +98,17 @@ module.exports = config => {
             ChromeDebugging: {
                 base: 'Chrome',
                 flags: [...commonChromeFlags, '--remote-debugging-port=9333'],
-                debug: true,
+                debug: true
             },
             ChromeHeadlessOpt: {
                 base: 'ChromeHeadless',
-                flags: [...commonChromeFlags],
-            },
+                flags: [...commonChromeFlags]
+            }
         },
         client: {
-            captureConsole: true,
+            captureConsole: true
         },
-        logLevel: config.LOG_ERROR, // to disable the WARN 404 for image requests
+        logLevel: config.LOG_ERROR // to disable the WARN 404 for image requests
     };
 
     config.set(options);

@@ -1,0 +1,6 @@
+dist
+node_modules
+.storybook
+
+*.md
+*.json
