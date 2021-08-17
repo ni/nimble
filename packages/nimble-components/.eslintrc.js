@@ -1,6 +1,6 @@
 module.exports = {
     root: true,
-    extends: ['@ni', 'prettier'],
+    extends: ['@ni'],
     parserOptions: {
         ecmaVersion: 2020
     },
