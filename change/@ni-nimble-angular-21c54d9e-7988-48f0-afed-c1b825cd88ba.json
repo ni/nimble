@@ -3,5 +3,5 @@
   "comment": "fixing import paths",
   "packageName": "@ni/nimble-angular",
   "email": "fred.visser@ni.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
