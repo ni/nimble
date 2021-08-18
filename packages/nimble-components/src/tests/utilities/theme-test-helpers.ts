@@ -24,6 +24,11 @@ export const backgrounds: {
         name: `"${NimbleTheme.Dark}" theme on black`,
         value: '#252526',
         theme: NimbleTheme.Dark
+    },
+    {
+        name: `"${NimbleTheme.LegacyBlue}" theme on white`,
+        value: '#F4F4F4',
+        theme: NimbleTheme.LegacyBlue
     }
 ];
 
