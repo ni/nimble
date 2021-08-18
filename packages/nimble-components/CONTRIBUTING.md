@@ -114,6 +114,8 @@ Use the `html` tagged template helper to define your custom template. See [decla
 At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
 
 When configuring different variants of a single element, use behaviors.
+
+<!-- prettier-ignore -->
 ```ts
 import { css } from '@microsoft/fast-element';
 css`
