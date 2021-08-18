@@ -40,8 +40,6 @@ const metadata: Meta<ButtonArgs> = {
 
 export default metadata;
 
-export const defaultButton: Story<ButtonArgs> = (): string => '<nimble-button>Default Button</nimble-button>';
-
 export const outlineButton: Story<ButtonArgs> = {
     args: { label: 'Outline Button', appearance: ButtonAppearance.Outline }
 };
@@ -50,22 +48,4 @@ export const ghostButton: Story<ButtonArgs> = {
 };
 export const blockButton: Story<ButtonArgs> = {
     args: { label: 'Block Button', appearance: ButtonAppearance.Block }
-};
-export const outlineButtonDisabled: Story<ButtonArgs> = {
-    args: {
-        ...outlineButton.args,
-        disabled: 'disabled'
-    }
-};
-export const ghostButtonDisabled: Story<ButtonArgs> = {
-    args: {
-        ...ghostButton.args,
-        disabled: 'disabled'
-    }
-};
-export const blockButtonDisabled: Story<ButtonArgs> = {
-    args: {
-        ...blockButton.args,
-        disabled: 'disabled'
-    }
 };

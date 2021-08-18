@@ -29,7 +29,7 @@ const styleMarkup = `
 `;
 
 const metadata: Meta = {
-    title: 'Nimble Icons'
+    title: 'Icons'
 };
 
 export default metadata;
