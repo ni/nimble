@@ -10,7 +10,7 @@ interface CheckboxArgs {
 }
 
 const metadata: Meta<CheckboxArgs> = {
-    title: 'Checkbox/Tests',
+    title: 'Tests/Checkbox',
     decorators: [withXD],
     parameters: {
         design: {

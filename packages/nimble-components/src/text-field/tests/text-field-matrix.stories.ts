@@ -10,7 +10,7 @@ interface TextFieldArgs {
 }
 
 const metadata: Meta<TextFieldArgs> = {
-    title: 'Text Field/Tests',
+    title: 'Tests/Text Field',
     decorators: [withXD],
     parameters: {
         design: {

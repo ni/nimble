@@ -11,7 +11,7 @@ interface ButtonArgs {
 }
 
 const metadata: Meta<ButtonArgs> = {
-    title: 'Button/Tests',
+    title: 'Tests/Button',
     decorators: [withXD],
     parameters: {
         design: {

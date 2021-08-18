@@ -1,7 +1,7 @@
 import '@ni/nimble-tokens/source/space-mono-font-face.css';
 import '@ni/nimble-tokens/source/source-sans-pro-font-face.css';
 import '../dist/esm/theme-provider';
-import { backgrounds } from '../src/tests/utilities/theme-test-helpers.ts';
+import { backgrounds } from '../dist/esm/tests/utilities/theme-test-helpers';
 
 const [defaultBackground] = backgrounds;
 

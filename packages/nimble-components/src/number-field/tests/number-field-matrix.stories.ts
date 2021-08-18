@@ -9,7 +9,7 @@ interface NumberFieldArgs {
 }
 
 const metadata: Meta<NumberFieldArgs> = {
-    title: 'Number Field/Tests',
+    title: 'Tests/Number Field',
     decorators: [withXD],
     parameters: {
         design: {
