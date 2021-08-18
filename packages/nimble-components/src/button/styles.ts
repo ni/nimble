@@ -67,7 +67,7 @@ export const styles = css`
         outline: none;
     }
 
-    :host([disabled]) .control {
+    .control[disabled] {
         box-shadow: none;
         outline: none;
     }
@@ -76,27 +76,27 @@ export const styles = css`
         appearanceBehavior(
             ButtonAppearance.Outline,
             css`
-                .control {
+                :host([appearance='${ButtonAppearance.Outline}']) .control {
                     background-color: transparent;
                     border-color: rgba(${borderColorRgb}, 0.3);
                 }
 
-                .control:hover {
+                :host([appearance='${ButtonAppearance.Outline}']) .control:hover {
                     background-color: transparent;
                     border-color: ${borderColorHover};
                 }
 
-                .control:${focusVisible} {
+                :host([appearance='${ButtonAppearance.Outline}']) .control:${focusVisible} {
                     background-color: transparent;
                     border-color: ${borderColorHover};
                 }
 
-                .control:active {
+                :host([appearance='${ButtonAppearance.Outline}']) .control:active {
                     background-color: ${fillColorSelected};
                     border-color: transparent;
                 }
 
-                :host([disabled]) .control {
+                :host([appearance='${ButtonAppearance.Outline}']) .control[disabled] {
                     background-color: transparent;
                     border-color: rgba(${borderColorRgb}, 0.2);
                 }
@@ -105,27 +105,27 @@ export const styles = css`
         appearanceBehavior(
             ButtonAppearance.Ghost,
             css`
-                .control {
+                :host([appearance='${ButtonAppearance.Ghost}']) .control {
                     background-color: transparent;
                     border-color: transparent;
                 }
 
-                .control:hover {
+                :host([appearance='${ButtonAppearance.Ghost}']) .control:hover {
                     background-color: transparent;
                     border-color: ${borderColorHover};
                 }
 
-                .control:${focusVisible} {
+                :host([appearance='${ButtonAppearance.Ghost}']) .control:${focusVisible} {
                     background-color: transparent;
                     border-color: ${borderColorHover};
                 }
 
-                .control:active {
+                :host([appearance='${ButtonAppearance.Ghost}']) .control:active {
                     background-color: ${fillColorSelected};
                     border-color: transparent;
                 }
 
-                :host([disabled]) .control {
+                :host([appearance='${ButtonAppearance.Ghost}']) .control[disabled] {
                     background-color: transparent;
                     border-color: transparent;
                 }
@@ -134,27 +134,27 @@ export const styles = css`
         appearanceBehavior(
             ButtonAppearance.Block,
             css`
-                .control {
+                :host([appearance='${ButtonAppearance.Block}']) .control {
                     background-color: rgba(${borderColorRgb}, 0.1);
                     border-color: transparent;
                 }
 
-                .control:hover {
+                :host([appearance='${ButtonAppearance.Block}']) .control:hover {
                     background-color: rgba(${borderColorRgb}, 0.1);
                     border-color: ${borderColorHover};
                 }
 
-                .control:${focusVisible} {
+                :host([appearance='${ButtonAppearance.Block}']) .control:${focusVisible} {
                     background-color: rgba(${borderColorRgb}, 0.1);
                     border-color: ${borderColorHover};
                 }
 
-                .control:active {
+                :host([appearance='${ButtonAppearance.Block}']) .control:active {
                     background-color: ${fillColorSelected};
                     border-color: transparent;
                 }
 
-                :host([disabled]) .control {
+                :host([appearance='${ButtonAppearance.Block}']) .control[disabled] {
                     background-color: rgba(${borderColorRgb}, 0.1);
                     border-color: rgba(${borderColorRgb}, 0.1);
                 }
