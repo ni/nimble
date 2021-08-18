@@ -1,11 +1,23 @@
+# Visit and ignore all objects in the root. 
+# Then explicitly allow (!) all TypeScript, JavaScript, Markdown, and JSON files in the root, src, and .storybook folders.
+/*
+!*.ts
+!*.js
+!*.md
+!*.json
+!src/
+!/.storybook/
+
+/src/**/*.*
+!src/**/*.ts
+!src/**/*.js
+!src/**/*.md
+!src/**/*.json
+
+/.storybook/*.*
+!/.storybook/*.js
+
+# Explicitly exclude the below files and folders
 dist
 node_modules
 package.json
-
-# Remove the following lines when prettier is enabled
-.storybook
-src
-*.md
-*.js
-*.json
-*.ts
