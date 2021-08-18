@@ -31,7 +31,3 @@ export default metadata;
 export const numberField: Story<NumberFieldArgs> = {
     args: { label: 'Number Field' }
 };
-
-export const numberFieldWithValue: Story<NumberFieldArgs> = {
-    args: { label: 'Number Field', value: 1234567 }
-};

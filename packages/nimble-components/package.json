@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "1.0.0-beta.23",
+  "version": "1.0.0-beta.26",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build-components && npm run build-storybook",
@@ -39,7 +39,7 @@
     "@microsoft/fast-components": "^2.0.0",
     "@microsoft/fast-element": "^1.4.1",
     "@microsoft/fast-foundation": "^2.0.0",
-    "@ni/nimble-tokens": "^1.0.0-beta.9",
+    "@ni/nimble-tokens": "^1.0.0-beta.10",
     "hex-rgb": "^5.0.0",
     "lodash-es": "^4.17.21"
   },
