@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 18 Aug 2021 17:48:36 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.26",
+      "version": "1.0.0-beta.26",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "christine.karas@ni.com",
+            "package": "@ni/nimble-components",
+            "comment": "Update button focus style",
+            "commit": "89a10cc2b9a4dfd3422ce01b51973b97d6dd0418"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Aug 2021 16:16:15 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.25",
       "version": "1.0.0-beta.25",
