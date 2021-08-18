@@ -1,6 +1,11 @@
 dist
 node_modules
-.storybook
+package.json
 
+# Remove the following lines when prettier is enabled
+.storybook
+src
 *.md
+*.js
 *.json
+*.ts

@@ -11,9 +11,6 @@ import type { ButtonAppearance } from './types';
  *
  * @public
  */
-export function appearanceBehavior(
-    value: ButtonAppearance,
-    styles: ElementStyles
-): Behavior {
+export function appearanceBehavior(value: ButtonAppearance, styles: ElementStyles): Behavior {
     return new PropertyStyleSheetBehavior('appearance', value, styles);
 }

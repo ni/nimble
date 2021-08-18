@@ -38,9 +38,7 @@ export const icons: Story = (): string => `
     ${styleMarkup}
     <div class="container">
     ${nimbleIcons
-        .map(
-            icon => `<div class="icon" title="${icon.name}">${icon.data}</div>`
-        )
+        .map(icon => `<div class="icon" title="${icon.name}">${icon.data}</div>`)
         .join('')}
     </div>
 `;

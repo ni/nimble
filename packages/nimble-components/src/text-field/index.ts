@@ -1,8 +1,4 @@
-import {
-    DesignSystem,
-    TextField as FoundationTextField,
-    textFieldTemplate as template
-} from '@microsoft/fast-foundation';
+import { DesignSystem, TextField as FoundationTextField, textFieldTemplate as template } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
 const nimbleTextField = FoundationTextField.compose({

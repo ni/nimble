@@ -61,74 +61,73 @@ export const styles = css`
         line-height: inherit;
         outline: none;
         padding: 0 ${standardPadding};
-    }
-`.withBehaviors(
+    }`.withBehaviors(
         appearanceBehavior(
             ButtonAppearance.Outline,
             css`
-            :host {
-                border: 1px solid rgba(${borderColorRgb}, 0.3);
-            }
+                :host {
+                    border: 1px solid rgba(${borderColorRgb}, 0.3);
+                }
 
-            :host(:hover),
-            :host(:focus-within) {
-                border: 1px solid ${borderColorHover};
-            }
+                :host(:hover),
+                :host(:focus-within) {
+                    border: 1px solid ${borderColorHover};
+                }
 
-            :host(:active) {
-                border-color: transparent;
-            }
+                :host(:active) {
+                    border-color: transparent;
+                }
 
-            :host([disabled]) {
-                border-color: rgba(${borderColorRgb}, 0.2);
-            }
-        `
+                :host([disabled]) {
+                    border-color: rgba(${borderColorRgb}, 0.2);
+                }
+            `
         ),
         appearanceBehavior(
             ButtonAppearance.Ghost,
             css`
-            :host {
-                border: 1px solid transparent;
-            }
+                :host {
+                    border: 1px solid transparent;
+                }
 
-            :host(:hover),
-            :host(:focus-within) {
-                border: 1px solid ${borderColorHover};
-            }
+                :host(:hover),
+                :host(:focus-within) {
+                    border: 1px solid ${borderColorHover};
+                }
 
-            :host(:active),
-            :host([disabled]) {
-                border-color: transparent;
-            }
-        `
+                :host(:active),
+                :host([disabled]) {
+                    border-color: transparent;
+                }
+            `
         ),
         appearanceBehavior(
             ButtonAppearance.Block,
             css`
-            :host {
-                border: 1px solid transparent;
-            }
-
-            :host(:not(:active)),
-            :host([disabled]) {
-                background-color: rgba(${borderColorRgb}, 0.1);
-            }
-
-            :host(:hover),
-            :host(:focus-within) {
-                border: 1px solid ${borderColorHover};
-            }
-
-            :host(:active) {
-                border-color: transparent;
-            }
-
-            :host([disabled]) {
-                ${
-                    /* This opacity adds to the existing 10% background opacity. */ ''
+                :host {
+                    border: 1px solid transparent;
                 }
-                border-color: rgba(${borderColorRgb}, 0.1);
-            }
-        `
-        )
+
+                :host(:not(:active)),
+                :host([disabled]) {
+                    background-color: rgba(${borderColorRgb}, 0.1);
+                }
+
+                :host(:hover),
+                :host(:focus-within) {
+                    border: 1px solid ${borderColorHover};
+                }
+
+                :host(:active) {
+                    border-color: transparent;
+                }
+
+                :host([disabled]) {
+                    ${
+                        /* This opacity adds to the existing 10% background opacity. */ ''
+                    }
+                    border-color: rgba(${borderColorRgb}, 0.1);
+                }
+            `
+        ),
     );
