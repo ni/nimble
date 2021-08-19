@@ -109,7 +109,7 @@ function getLabelTextSize(element: HTMLElement): string {
     }
 }
 
-const fillColorSelectedTheme = (element: HTMLElement): string => getColorForTheme(element, Selection100, Selection100, White, White);
+const fillColorSelectedTheme = (element: HTMLElement): string => getColorForTheme(element, Selection100, Selection100, White, SlLegacyBlue);
 
 // Color Tokens
 export const actionColorRgb = create<string>('action-color-rgb').withDefault((element: HTMLElement) => rgbString(getColorForTheme(element, Black91, Black15, White, SlLegacyBlue)));
@@ -119,7 +119,6 @@ export const fillColorSelectedRgb = create<string>('fill-color-selected-rgb').wi
 export const borderColor = create<string>('border-color').withDefault((element: HTMLElement) => getDefaultLineColorForTheme(element));
 export const borderColorRgb = create<string>('border-color-rgb').withDefault((element: HTMLElement) => rgbString(getDefaultLineColorForTheme(element)));
 export const borderColorHover = create<string>('border-color-hover').withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White, hexToRgba(SlLegacyBlue, 0.9)));
-export const borderColorActive = create<string>('border-color-active').withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgba(White, 0), hexToRgba(White, 0), hexToRgba(White, 0), SlLegacyBlue));
 
 // Component Sizing Tokens
 export const controlHeight = create<string>('control-height').withDefault('32px');

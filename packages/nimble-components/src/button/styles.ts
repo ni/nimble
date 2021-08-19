@@ -2,7 +2,6 @@ import { css } from '@microsoft/fast-element';
 import { focusVisible } from '@microsoft/fast-foundation';
 import {
     borderColorHover,
-    borderColorActive,
     borderColorRgb,
     controlHeight,
     standardPadding,
@@ -100,7 +99,7 @@ export const styles = css`
 
                 :host([appearance='${ButtonAppearance.Outline}']) .control[disabled] {
                     background-color: transparent;
-                    border-color: rgba(${borderColorActive}, 0.2);
+                    border-color: rgba(${borderColorRgb}, 0.2);
                 }
             `
         ),
@@ -157,8 +156,8 @@ export const styles = css`
                 }
 
                 :host([appearance='${ButtonAppearance.Block}']) .control[disabled] {
-                    background-color: rgba(${borderColorActive}, 0.1);
-                    border-color: rgba(${borderColorActive}, 0.1);
+                    background-color: rgba(${borderColorRgb}, 0.1);
+                    border-color: rgba(${borderColorRgb}, 0.1);
                 }
             `
         ),

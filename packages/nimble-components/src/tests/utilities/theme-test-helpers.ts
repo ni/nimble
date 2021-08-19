@@ -27,7 +27,7 @@ export const backgrounds: {
     },
     {
         name: `"${NimbleTheme.LegacyBlue}" theme on white`,
-        value: '#F4F4F4',
+        value: '#FFFFFF',
         theme: NimbleTheme.LegacyBlue
     }
 ];
