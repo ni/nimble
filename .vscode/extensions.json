@@ -1,10 +1,10 @@
 {
-  "recommendations": [
-    "bashmish.es6-string-css",
-    "webreflection.literally-html",
-    "dbaeumer.vscode-eslint",
-    "redhat.vscode-yaml",
-    "editorconfig.editorconfig",
-    "rvest.vs-code-prettier-eslint"
-  ]
+    "recommendations": [
+        "bashmish.es6-string-css",
+        "webreflection.literally-html",
+        "dbaeumer.vscode-eslint",
+        "redhat.vscode-yaml",
+        "editorconfig.editorconfig",
+        "rvest.vs-code-prettier-eslint"
+    ]
 }
