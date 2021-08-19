@@ -3,5 +3,5 @@
   "comment": "initial legacyBlue theme",
   "packageName": "@ni/nimble-components",
   "email": "fred.visser@ni.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
