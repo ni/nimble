@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 16 Aug 2021 17:17:45 GMT and should not be manually modified.
+This log was last generated on Wed, 18 Aug 2021 17:48:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.26
+
+Wed, 18 Aug 2021 17:48:36 GMT
+
+### Changes
+
+- Update button focus style (christine.karas@ni.com)
+
+## 1.0.0-beta.25
+
+Wed, 18 Aug 2021 16:16:15 GMT
+
+### Changes
+
+- component matrix stories (fred.visser@ni.com)
 
 ## 1.0.0-beta.24
 

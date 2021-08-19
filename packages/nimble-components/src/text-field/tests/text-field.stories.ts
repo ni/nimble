@@ -37,7 +37,3 @@ export const textField: Story<TextFieldArgs> = {
 export const passwordField: Story<TextFieldArgs> = {
     args: { label: 'Password Field', type: 'password' }
 };
-
-export const passwordFieldWithValue: Story<TextFieldArgs> = {
-    args: { label: 'Password Field', type: 'password', value: 'password' }
-};

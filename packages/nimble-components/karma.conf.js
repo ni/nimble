@@ -85,7 +85,7 @@ module.exports = config => {
                                 loader: 'source-map-loader',
                             },
                         ],
-                    }
+                    },
                 ],
             },
         },
