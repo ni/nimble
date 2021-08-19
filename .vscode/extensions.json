@@ -4,6 +4,7 @@
         "webreflection.literally-html",
         "dbaeumer.vscode-eslint",
         "redhat.vscode-yaml",
-        "editorconfig.editorconfig"
+        "editorconfig.editorconfig",
+        "rvest.vs-code-prettier-eslint"
     ]
 }
