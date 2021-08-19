@@ -4,8 +4,9 @@
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build-components && npm run build-storybook",
-    "lint": "eslint .",
-    "lint-fix": "eslint src --fix",
+    "lint": "npm run eslint && npm run prettier",
+    "eslint": "eslint .",
+    "eslint-fix": "eslint src --fix",
     "prettier": "prettier-eslint \"**/*.*\" --list-different --prettier-ignore",
     "prettier-fix": "prettier-eslint \"**/*.*\" --write --prettier-ignore",
     "pack": "npm pack",

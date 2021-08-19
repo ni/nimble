@@ -55,7 +55,7 @@ This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual
 
 ### Linting
 
-This repository is linted with [`eslint`](https://eslint.org) and [`prettier-eslint`](https://github.com/prettier/prettier-eslint). Use `npm run lint` and `npm run prettier` to confirm that your changes are valid. Even better, install the recommended VS Code extensions for both linting packages. Configure **Prettier ESLint** as the default formatter and to format on save.
+This repository is linted with [`eslint`](https://eslint.org) and [`prettier-eslint`](https://github.com/prettier/prettier-eslint). Use `npm run lint` to confirm that your changes are valid. Even better, install the recommended VS Code extensions for both linting packages. Configure **Prettier ESLint** as the default formatter and to format on save.
 
 ### Code owners
 
