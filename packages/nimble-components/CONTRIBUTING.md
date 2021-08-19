@@ -200,7 +200,3 @@ The following commands can be run from the `nimble` directory:
 ### Test utilities
 
 The jasmine unit tests utilize [`fixture.ts`](src/tests/utilities/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](src/tests/utilities/fixture.spec.ts).
-
-## Linting
-
-`nimble-components` is linted with `eslint` and `prettier-eslint`. Use `npm run lint` and `npm run prettier` to confirm that your changes are valid. Even better, install the recommended VS Code extensions for both linting packages.Configure **Prettier ESLint** as the default formatter and to format on save.

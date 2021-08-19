@@ -53,6 +53,10 @@ This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual
 1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**.
 1. The `UI Review` status check is designed to collect feedback from UX and visual designers. Using the Chromatic review tooling, invite designers to review and approve the component changes.
 
+### Linting
+
+This repository is linted with [`eslint`](https://eslint.org) and [`prettier-eslint`](https://github.com/prettier/prettier-eslint). Use `npm run lint` and `npm run prettier` to confirm that your changes are valid. Even better, install the recommended VS Code extensions for both linting packages. Configure **Prettier ESLint** as the default formatter and to format on save.
+
 ### Code owners
 
 Pull Requests require the approval of at least one code owner. Owners are listed in [`CODEOWNERS`](./.github/CODEOWNERS).
