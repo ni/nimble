@@ -200,3 +200,9 @@ The following commands can be run from the `nimble` directory:
 ### Test utilities
 
 The jasmine unit tests utilize [`fixture.ts`](src/tests/utilities/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](src/tests/utilities/fixture.spec.ts).
+
+## Theming
+
+Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`), and one theme that is largely aligned with the current SystemLink theme (i.e. `legacy-blue`). `legacy-blue` simply takes the NI-brand theme and applies SystemLink font styling and colors, so shouldn't require component specific modifications. 
+
+When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.

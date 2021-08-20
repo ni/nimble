@@ -7,8 +7,8 @@ import {
     borderColorRgb,
     contentFontSize,
     controlHeight,
-    fontColor,
-    fontColorDisabled,
+    labelFontColor,
+    labelFontColorDisabled,
     fontFamily
 } from '../theme-provider/design-tokens';
 
@@ -64,13 +64,13 @@ export const styles = css`
     .label {
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
-        color: ${fontColor};
+        color: ${labelFontColor};
         padding-left: 1ch;
         cursor: inherit;
     }
 
     :host([disabled]) .label {
-        color: ${fontColorDisabled};
+        color: ${labelFontColorDisabled};
     }
 
     slot[name="checked-indicator"] svg {
@@ -83,7 +83,7 @@ export const styles = css`
         opacity: 0;
     }
 
-    :host([aria-checked='true']) slot[name="checked-indicator"] path {
+    :host([aria-checked="true"]) slot[name="checked-indicator"] path {
         opacity: 1;
     }
 

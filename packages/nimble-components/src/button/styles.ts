@@ -1,15 +1,16 @@
 import { css } from '@microsoft/fast-element';
 import { focusVisible } from '@microsoft/fast-foundation';
 import {
-    borderColorRgb,
     borderColorHover,
+    borderColorRgb,
     controlHeight,
     standardPadding,
     fontFamily,
-    fontColor,
     fillColorSelected,
     contentFontSize,
-    fontColorDisabled
+    contentFontColorDisabled,
+    contentFontColor,
+    actionColorRgb
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from './behaviors';
 import { ButtonAppearance } from './types';
@@ -19,7 +20,7 @@ export const styles = css`
         display: inline-block;
         background-color: transparent;
         height: ${controlHeight};
-        color: ${fontColor};
+        color: ${contentFontColor};
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         cursor: pointer;
@@ -30,7 +31,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${fontColorDisabled};
+        color: ${contentFontColorDisabled};
         cursor: default;
     }
 
@@ -78,7 +79,7 @@ export const styles = css`
             css`
                 :host([appearance='${ButtonAppearance.Outline}']) .control {
                     background-color: transparent;
-                    border-color: rgba(${borderColorRgb}, 0.3);
+                    border-color: rgba(${actionColorRgb}, 0.3);
                 }
 
                 :host([appearance='${ButtonAppearance.Outline}']) .control:hover {

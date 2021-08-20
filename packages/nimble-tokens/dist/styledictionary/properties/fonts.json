@@ -47,6 +47,22 @@
       "weight": {
         "value": "Regular"
       }
+    },
+    "Header2": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Light"
+      }
+    },
+    "SubHeader": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
     }
   },
   "size": {
