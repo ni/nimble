@@ -73,21 +73,21 @@ export const styles = css`
         color: ${labelFontColorDisabled};
     }
 
-    slot[name="checked-indicator"] svg {
+    slot[name='checked-indicator'] svg {
         height: 10px;
         width: 10px;
     }
 
-    slot[name="checked-indicator"] path {
+    slot[name='checked-indicator'] path {
         fill: ${borderColor};
         opacity: 0;
     }
 
-    :host([aria-checked="true"]) slot[name="checked-indicator"] path {
+    :host([aria-checked='true']) slot[name='checked-indicator'] path {
         opacity: 1;
     }
 
-    :host([disabled]) slot[name="checked-indicator"] path {
+    :host([disabled]) slot[name='checked-indicator'] path {
         fill: rgba(${borderColorRgb}, 0.3);
     }
 `;

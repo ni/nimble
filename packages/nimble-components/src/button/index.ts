@@ -1,5 +1,9 @@
 import { attr } from '@microsoft/fast-element';
-import { Button as FoundationButton, buttonTemplate as template, DesignSystem } from '@microsoft/fast-foundation';
+import {
+    Button as FoundationButton,
+    buttonTemplate as template,
+    DesignSystem
+} from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { ButtonAppearance } from './types';
 
@@ -38,8 +42,8 @@ const nimbleButton = Button.compose({
     template,
     styles,
     shadowOptions: {
-        delegatesFocus: true,
-    },
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());

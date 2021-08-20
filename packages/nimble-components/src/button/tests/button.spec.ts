@@ -16,7 +16,9 @@ describe('Button', () => {
         await connect();
 
         expect(
-            element.shadowRoot?.querySelector('button')?.hasAttribute('autofocus')
+            element.shadowRoot
+                ?.querySelector('button')
+                ?.hasAttribute('autofocus')
         ).toBe(true);
 
         await disconnect();
