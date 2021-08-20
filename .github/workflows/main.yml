@@ -23,7 +23,11 @@ jobs:
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
       - run: echo "Event type ${{github.event.type}}"
-
+      - name: Check object
+        run: |
+          cat << OBJECT
+          ${{ toJson(github) }}
+          OBJECT
       # Install dependencies
       - uses: actions/setup-node@v1
         with:
