@@ -55,7 +55,11 @@ This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual
 
 ### Linting
 
-This repository is linted with [`eslint`](https://eslint.org) and [`prettier-eslint`](https://github.com/prettier/prettier-eslint). Use `npm run lint` to confirm that your changes are valid. Even better, install the recommended VS Code extensions for both linting packages. Configure **Prettier ESLint** as the default formatter and to format on save.
+This repository uses automated linting and automated lint formatting. Use `npm run lint` to confirm that your changes match style guidelines. If there are rules that can be autofixed they can be cleaned up by running `npm run format`.
+
+To enable linting and formatting during development, install the recommended VS Code extensions. The list of recommended VS Code extensions can be found in `.vscode/extensions.json`.
+
+The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Defualt Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed.
 
 ### Code owners
 

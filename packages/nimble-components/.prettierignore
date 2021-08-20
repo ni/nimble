@@ -1,23 +1,26 @@
 # Visit and ignore all objects in the root. 
-# Then explicitly allow (!) all TypeScript, JavaScript, Markdown, and JSON files in the root, src, and .storybook folders.
+# Then explicitly allow all TypeScript, JavaScript, Markdown, and JSON files in the root, src, and .storybook folders.
 /*
-# !*.ts
-# !*.js
-# !*.md
-# !*.json
-# !src/
-# !/.storybook/
+!*.ts
+!*.js
+!*.md
+!*.json
+!src/
+!/.storybook/
 
-# /src/**/*.*
-# !src/**/*.ts
-# !src/**/*.js
-# !src/**/*.md
-# !src/**/*.json
+/src/**/*.*
+!src/**/*.ts
+!src/**/*.js
+!src/**/*.md
+!src/**/*.json
 
-# /.storybook/*.*
-# !/.storybook/*.js
+/.storybook/*.*
+!/.storybook/*.js
 
 # Explicitly exclude the below files and folders
 dist
 node_modules
 package.json
+CHANGELOG.*
+src/tests/utilities/fixture.spec.ts
+src/tests/utilities/fixture.ts

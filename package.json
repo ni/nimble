@@ -6,10 +6,7 @@
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
-    "eslint": "npm run eslint --workspaces --if-present",
-    "eslint-fix": "npm run eslint-fix --workspaces --if-present",
-    "prettier": "npm run prettier --workspaces --if-present",
-    "prettier-fix": "npm run prettier-fix --workspaces --if-present",
+    "format": "npm run format --workspaces --if-present",
     "test": "npm test --workspaces --if-present",
     "pack": "npm run pack --workspaces --if-present",
     "change": "beachball change",

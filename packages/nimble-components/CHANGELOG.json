@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 20 Aug 2021 20:34:16 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.29",
+      "version": "1.0.0-beta.29",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "fred.visser@ni.com",
+            "package": "@ni/nimble-components",
+            "comment": "apply prettier-fix",
+            "commit": "6b51a6e6370eeb019d3643b1044a830db0e51784"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 20 Aug 2021 13:30:31 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.28",
       "version": "1.0.0-beta.28",
