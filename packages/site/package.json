@@ -1,6 +1,7 @@
 {
     "name": "@ni/site",
     "version": "1.0.0-beta.0",
+    "description": "A meta package used for creating GitHub pages site contents",
     "private": true,
     "scripts": {
         "build": "npm run clean && npm run copy-root && npm run copy-storybook && npm run copy-angular-example",
