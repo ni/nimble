@@ -31,7 +31,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm install --global npm@7
       - run: npm ci
-  
+
       # Build
       - run: npm run build
       - run: npm run pack
@@ -112,7 +112,7 @@ jobs:
 
       # Pubish to Chromatic
       - name: Publish to Chromatic
-        if: gthub.event.type == 'PushEvent'
+        if: github.event.type == 'PushEvent'
         uses: chromaui/action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
