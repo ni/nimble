@@ -4,7 +4,7 @@ import {
     Brand100,
     Brand85,
     Black75,
-    White,
+    White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import logo from './nimble-ui-logo.svg';
 
@@ -41,5 +41,5 @@ export default create({
 
     brandTitle: 'Nimble components',
     brandUrl: 'https://github.com/ni/nimble',
-    brandImage: logo,
+    brandImage: logo
 });

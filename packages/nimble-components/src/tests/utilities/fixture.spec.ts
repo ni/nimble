@@ -10,11 +10,11 @@ import {
     FASTElement,
     html,
     DOM,
-    observable,
-} from "@microsoft/fast-element";
-import { uniqueElementName, fixture } from "./fixture";
+    observable
+} from '@microsoft/fast-element';
+import { uniqueElementName, fixture } from './fixture';
 
-describe("The fixture helper", () => {
+describe('The fixture helper', () => {
     const name = uniqueElementName();
     const template = html<MyElement>`
         ${x => x.value}
@@ -23,22 +23,22 @@ describe("The fixture helper", () => {
 
     @customElement({
         name,
-        template,
+        template
     })
     class MyElement extends FASTElement {
-        @attr value = "value";
+        @attr value = 'value';
     }
 
     class MyModel {
-        @observable value = "different value";
+        @observable value = 'different value';
     }
 
-    it("can create a fixture for an element by name", async () => {
+    it('can create a fixture for an element by name', async () => {
         const { element } = await fixture(name);
         expect(element).toBeInstanceOf(MyElement);
     });
 
-    it("can create a fixture for an element by template", async () => {
+    it('can create a fixture for an element by template', async () => {
         const { element } = await fixture(html`
       <${name}>
         Some content here.
@@ -46,10 +46,10 @@ describe("The fixture helper", () => {
     `);
 
         expect(element).toBeInstanceOf(MyElement);
-        expect(element.innerText.trim()).toEqual("Some content here.");
+        expect(element.innerText.trim()).toEqual('Some content here.');
     });
 
-    it("can connect an element", async () => {
+    it('can connect an element', async () => {
         const { element, connect } = await fixture(name);
 
         expect(element.isConnected).toEqual(false);
@@ -61,7 +61,7 @@ describe("The fixture helper", () => {
         document.body.removeChild(element.parentElement!);
     });
 
-    it("can disconnect an element", async () => {
+    it('can disconnect an element', async () => {
         const { element, connect, disconnect } = await fixture(name);
 
         expect(element.isConnected).toEqual(false);
@@ -75,7 +75,7 @@ describe("The fixture helper", () => {
         expect(element.isConnected).toEqual(false);
     });
 
-    it("can bind an element to data", async () => {
+    it('can bind an element to data', async () => {
         const source = new MyModel();
         const { element, disconnect } = await fixture<MyElement>(
             html<MyModel>`
@@ -86,7 +86,7 @@ describe("The fixture helper", () => {
 
         expect(element.value).toEqual(source.value);
 
-        source.value = "something else";
+        source.value = 'something else';
 
         await DOM.nextUpdate();
 
