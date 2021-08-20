@@ -1,0 +1,22 @@
+{
+    "name": "@ni/site",
+    "version": "1.0.0-beta.0",
+    "private": true,
+    "scripts": {
+        "build": "npm run clean && npm run copy-root && npm run copy-storybook && npm run copy-angular-example",
+        "pack": "npm pack",
+        "clean": "rimraf dist && mkdirp dist",
+        "copy-root": "cd root && copyfiles -E -a \"*\" ../dist",
+        "copy-storybook": "cd ../../packages/nimble-components/dist && copyfiles -E \"storybook/**\" ../../../packages/site/dist",
+        "copy-angular-example": "cd ../../angular-workspace/dist && copyfiles -E \"example-client-app/**\" ../../packages/site/dist"
+    },
+    "devDependencies": {
+        "copyfiles": "^2.4.1",
+        "mkdirp": "^1.0.4",
+        "rimraf": "^3.0.2"
+    },
+    "files": [
+        "dist",
+        "!*.tgz"
+    ]
+}
