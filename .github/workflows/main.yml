@@ -22,12 +22,6 @@ jobs:
           fetch-depth: 0 # Required for changelog detection
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
-      - run: echo "Event type ${{github.event.type}}"
-      - name: Check object
-        run: |
-          cat << OBJECT
-          ${{ toJson(github) }}
-          OBJECT
       # Install dependencies
       - uses: actions/setup-node@v1
         with:
@@ -116,7 +110,7 @@ jobs:
 
       # Pubish to Chromatic
       - name: Publish to Chromatic
-        if: github.event.type == 'PushEvent'
+        if: github.event_name == 'push'
         uses: chromaui/action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
