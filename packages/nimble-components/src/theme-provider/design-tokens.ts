@@ -117,21 +117,27 @@ export const actionColorRgb = create<string>('action-color-rgb').withDefault(
         getColorForTheme(element, Black91, Black15, White, SlLegacyBlue)
     )
 );
+
 export const applicationBackgroundColor = create<string>(
     'application-background-color'
 ).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise, SlLegacyBlue));
+
 export const fillColorSelected = create<string>(
     'fill-color-selected'
 ).withDefault((element: HTMLElement) => hexToRgba(fillColorSelectedTheme(element), 0.3));
+
 export const fillColorSelectedRgb = create<string>(
     'fill-color-selected-rgb'
 ).withDefault((element: HTMLElement) => rgbString(fillColorSelectedTheme(element)));
+
 export const borderColor = create<string>('border-color').withDefault(
     (element: HTMLElement) => getDefaultLineColorForTheme(element)
 );
+
 export const borderColorRgb = create<string>('border-color-rgb').withDefault(
     (element: HTMLElement) => rgbString(getDefaultLineColorForTheme(element))
 );
+
 export const borderColorHover = create<string>(
     'border-color-hover'
 ).withDefault((element: HTMLElement) => getColorForTheme(
@@ -162,15 +168,19 @@ export const contentFontSize = create<string>('content-font-size').withDefault('
 export const labelFontColor = create<string>('label-font-color').withDefault(
     (element: HTMLElement) => getDefaultFontColorForTheme(element)
 );
+
 export const contentFontColor = create<string>(
     'content-font-color'
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White, SlLegacyBlue));
+
 export const labelFontColorDisabled = create<string>(
     'label-font-color-disabled'
 ).withDefault((element: HTMLElement) => hexToRgba(getDefaultLineColorForTheme(element), 0.3));
+
 export const labelTextTransform = create<string>(
     'label-text-transform'
 ).withDefault((element: HTMLElement) => getLabelTextTransform(element));
+
 export const contentFontColorDisabled = create<string>(
     'content-font-color-disabled'
 ).withDefault((element: HTMLElement) => hexToRgba(
