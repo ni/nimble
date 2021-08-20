@@ -43,7 +43,7 @@ const styles = css`
     }
 `;
 
-const template = html` <slot></slot> `;
+const template = html`<slot></slot>`;
 
 /**
 A function that returns a registration for configuring the component with a DesignSystem. *

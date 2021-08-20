@@ -12,17 +12,13 @@ import {
     defaultExecutionContext,
     ExecutionContext,
     HTMLView,
-    ViewTemplate
+    ViewTemplate,
 } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    DesignSystemRegistrationContext,
-    DI
-} from '@microsoft/fast-foundation';
+import { DesignSystem, DesignSystemRegistrationContext, DI } from '@microsoft/fast-foundation';
 
 import type {
     FoundationElementDefinition,
-    FoundationElementRegistry
+    FoundationElementRegistry,
 } from '@microsoft/fast-foundation';
 
 /**
@@ -127,7 +123,7 @@ export function uniqueElementName(): string {
 function isElementRegistry<T>(
     obj: any
 ): obj is FoundationElementRegistry<FoundationElementDefinition, any> {
-    return typeof obj.register === 'function';
+    return typeof obj.register === "function";
 }
 
 /**
@@ -142,28 +138,22 @@ export async function fixture<TElement = HTMLElement>(
     templateNameOrRegistry:
         | ViewTemplate
         | string
-        | FoundationElementRegistry<
-              FoundationElementDefinition,
-              Constructable<TElement>
-          >
+        | FoundationElementRegistry<FoundationElementDefinition, Constructable<TElement>>
         | [
               FoundationElementRegistry<
                   FoundationElementDefinition,
                   Constructable<TElement>
               >,
-              ...FoundationElementRegistry<
-                  FoundationElementDefinition,
-                  Constructable
-              >[]
+              ...FoundationElementRegistry<FoundationElementDefinition, Constructable>[]
           ],
     options: FixtureOptions = {}
 ): Promise<Fixture<TElement>> {
     const document = options.document || globalThis.document;
-    const parent = options.parent || document.createElement('div');
+    const parent = options.parent || document.createElement("div");
     const source = options.source || {};
     const context = options.context || defaultExecutionContext;
 
-    if (typeof templateNameOrRegistry === 'string') {
+    if (typeof templateNameOrRegistry === "string") {
         const html = `<${templateNameOrRegistry}></${templateNameOrRegistry}>`;
         templateNameOrRegistry = new ViewTemplate(html, []);
     } else if (isElementRegistry(templateNameOrRegistry)) {
@@ -222,6 +212,6 @@ export async function fixture<TElement = HTMLElement>(
         parent,
         element,
         connect,
-        disconnect
+        disconnect,
     };
 }

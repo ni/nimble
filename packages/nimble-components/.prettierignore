@@ -22,3 +22,5 @@ dist
 node_modules
 package.json
 CHANGELOG.*
+src/tests/utilities/fixture.spec.ts
+src/tests/utilities/fixture.ts
