@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 20 Aug 2021 13:30:31 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.11",
+      "version": "1.0.0-beta.11",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "fred.visser@ni.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "initial legacyBlue theme",
+            "commit": "36bffda238baf4e5d79d733e7210cfe476006450"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Aug 2021 17:17:45 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.10",
       "version": "1.0.0-beta.10",
