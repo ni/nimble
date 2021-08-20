@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 19 Aug 2021 21:05:52 GMT and should not be manually modified.
+This log was last generated on Fri, 20 Aug 2021 13:30:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.28
+
+Fri, 20 Aug 2021 13:30:31 GMT
+
+### Changes
+
+- initial legacyBlue theme (fred.visser@ni.com)
+- Bump @ni/nimble-components to v1.0.0-beta.28 (fred.visser@ni.com)
 
 ## 1.0.0-beta.27
 

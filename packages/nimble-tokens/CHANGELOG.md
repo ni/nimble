@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 16 Aug 2021 17:17:45 GMT and should not be manually modified.
+This log was last generated on Fri, 20 Aug 2021 13:30:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.11
+
+Fri, 20 Aug 2021 13:30:31 GMT
+
+### Changes
+
+- initial legacyBlue theme (fred.visser@ni.com)
 
 ## 1.0.0-beta.10
 

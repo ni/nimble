@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 20 Aug 2021 13:30:31 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.28",
+      "version": "1.0.0-beta.28",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "fred.visser@ni.com",
+            "package": "@ni/nimble-components",
+            "comment": "initial legacyBlue theme",
+            "commit": "36bffda238baf4e5d79d733e7210cfe476006450"
+          },
+          {
+            "author": "fred.visser@ni.com",
+            "package": "@ni/nimble-components",
+            "commit": "36bffda238baf4e5d79d733e7210cfe476006450",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.28"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 19 Aug 2021 21:05:52 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.27",
       "version": "1.0.0-beta.27",
