@@ -148,11 +148,10 @@ export const borderColorHover = create<string>(
     hexToRgba(SlLegacyBlue, 0.9)
 ));
 
-export const borderWidth = create<string>('border-width').withDefault('1px');
-
 // Component Sizing Tokens
 export const controlHeight = create<string>('control-height').withDefault('32px');
 export const standardPadding = create<string>('standard-padding').withDefault('16px');
+export const borderWidth = create<string>('border-width').withDefault('1px');
 
 // Font Family Tokens
 export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
