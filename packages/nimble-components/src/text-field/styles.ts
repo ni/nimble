@@ -3,6 +3,7 @@ import { css } from '@microsoft/fast-element';
 import {
     borderColor,
     borderColorHover,
+    contentFontColorDisabled,
     fillColorSelectedRgb,
     fontFamily,
     labelFontColor,
@@ -20,6 +21,11 @@ export const styles = css`
         color: ${labelFontColor};
     }
 
+    :host([disabled]) {
+        color: ${contentFontColorDisabled};
+        cursor: default;
+    }
+
     .root {
         box-sizing: border-box;
         position: relative;
@@ -27,11 +33,16 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        border-bottom: 2px solid ${borderColor};
+        border-bottom: 1px solid ${borderColor};
     }
 
     .root:hover {
         border-bottom: 2px solid ${borderColorHover};
+    }
+
+    :host([disabled]) .root,
+    :host([disabled]) .root:hover {
+        border-bottom: 1px solid ${contentFontColorDisabled};
     }
 
     .control {
@@ -61,11 +72,16 @@ export const styles = css`
 
     .control::placeholder {
         color: ${labelFontColor};
+        font-style: italic;
         opacity: 0.5;
     }
 
     .control:focus-within::placeholder {
         opacity: 1;
+    }
+
+    .control[disabled]::placeholder {
+        color: ${contentFontColorDisabled};
     }
 
     .label {

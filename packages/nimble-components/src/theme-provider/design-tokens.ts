@@ -184,6 +184,6 @@ export const labelTextTransform = create<string>(
 export const contentFontColorDisabled = create<string>(
     'content-font-color-disabled'
 ).withDefault((element: HTMLElement) => hexToRgba(
-    getColorForTheme(element, Black91, Black15, White, SlLegacyBlue),
+    getColorForTheme(element, Black91, Black15, White, Black75),
     0.3
 ));
