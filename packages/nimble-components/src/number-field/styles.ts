@@ -2,6 +2,7 @@ import { css } from '@microsoft/fast-element';
 import {
     borderColor,
     borderColorHover,
+    borderWidth,
     contentFontColorDisabled,
     fillColorSelectedRgb,
     fontFamily,
@@ -32,7 +33,7 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        border-bottom: 1px solid ${borderColor};
+        border-bottom: ${borderWidth} solid ${borderColor};
     }
 
     .root:hover {
@@ -41,7 +42,7 @@ export const styles = css`
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
-        border-bottom: 1px solid ${contentFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
     }
 
     .control {

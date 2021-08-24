@@ -9,7 +9,8 @@ import {
     controlHeight,
     labelFontColor,
     labelFontColorDisabled,
-    fontFamily
+    fontFamily,
+    borderWidth
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -30,7 +31,7 @@ export const styles = css`
         height: calc(${controlHeight} / 2);
         box-sizing: border-box;
         flex-shrink: 0;
-        border: 1px solid ${borderColor};
+        border: ${borderWidth} solid ${borderColor};
         padding: 2px;
         display: inline-flex;
         align-items: center;
@@ -52,7 +53,7 @@ export const styles = css`
 
     :host(:not([disabled]):not(:active):hover) .control {
         border-color: ${borderColorHover};
-        box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
     }
 
     :host(:${focusVisible}) .control {

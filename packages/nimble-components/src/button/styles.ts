@@ -10,7 +10,8 @@ import {
     contentFontSize,
     contentFontColorDisabled,
     contentFontColor,
-    actionColorRgb
+    actionColorRgb,
+    borderWidth
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from './behaviors';
 import { ButtonAppearance } from './types';
@@ -38,7 +39,7 @@ export const styles = css`
     .control {
         background-color: transparent;
         height: inherit;
-        border: 1px solid transparent;
+        border: ${borderWidth} solid transparent;
         box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
@@ -53,13 +54,13 @@ export const styles = css`
     }
 
     .control:hover {
-        box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
         outline: none;
     }
 
     .control: ${focusVisible} {
-        box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
-        outline: 1px solid ${borderColorHover};
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
+        outline: ${borderWidth} solid ${borderColorHover};
         outline-offset: -4px;
     }
 
