@@ -110,6 +110,7 @@ function getLabelTextSize(element: HTMLElement): string {
 }
 
 const fillColorSelectedTheme = (element: HTMLElement): string => getColorForTheme(element, Selection100, Selection100, White, SlLegacyBlue);
+const fillColorHoverTheme = (element: HTMLElement): string => getColorForTheme(element, Black91, Black15, White, SlLegacyBlue);
 
 // Color Tokens
 export const actionColorRgb = create<string>('action-color-rgb').withDefault(
@@ -129,6 +130,14 @@ export const fillColorSelected = create<string>(
 export const fillColorSelectedRgb = create<string>(
     'fill-color-selected-rgb'
 ).withDefault((element: HTMLElement) => rgbString(fillColorSelectedTheme(element)));
+
+export const fillColorSelectedHover = create<string>(
+    'fill-color-selected-hover'
+).withDefault((element: HTMLElement) => hexToRgba(fillColorSelectedTheme(element), 0.15));
+
+export const fillColorHover = create<string>('fill-color-hover').withDefault(
+    (element: HTMLElement) => hexToRgba(fillColorHoverTheme(element), 0.1)
+);
 
 export const borderColor = create<string>('border-color').withDefault(
     (element: HTMLElement) => getDefaultLineColorForTheme(element)
