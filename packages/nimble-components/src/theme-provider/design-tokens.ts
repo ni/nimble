@@ -160,6 +160,7 @@ export const borderColorHover = create<string>(
 // Component Sizing Tokens
 export const controlHeight = create<string>('control-height').withDefault('32px');
 export const standardPadding = create<string>('standard-padding').withDefault('16px');
+export const borderWidth = create<string>('border-width').withDefault('1px');
 
 // Font Family Tokens
 export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
@@ -192,7 +193,4 @@ export const labelTextTransform = create<string>(
 
 export const contentFontColorDisabled = create<string>(
     'content-font-color-disabled'
-).withDefault((element: HTMLElement) => hexToRgba(
-    getColorForTheme(element, Black91, Black15, White, SlLegacyBlue),
-    0.3
-));
+).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black75), 0.3));

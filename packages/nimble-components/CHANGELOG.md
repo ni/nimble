@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 20 Aug 2021 20:34:16 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Aug 2021 13:56:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.30
+
+Wed, 25 Aug 2021 13:56:22 GMT
+
+### Changes
+
+- updated styling for text and number fields (22551874+scotia673@users.noreply.github.com)
 
 ## 1.0.0-beta.29
 
