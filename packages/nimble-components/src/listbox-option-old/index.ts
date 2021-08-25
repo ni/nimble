@@ -6,10 +6,10 @@ import {
 
 import { styles } from './styles';
 
-const nimbleListboxOption = FoundationListboxOption.compose({
+const nimbleSelect = FoundationListboxOption.compose({
     baseName: 'option',
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleListboxOption());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSelect());

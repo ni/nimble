@@ -2,13 +2,13 @@ import { css } from '@microsoft/fast-element';
 import { focusVisible } from '@microsoft/fast-foundation';
 
 import {
-    borderColor,
+    // borderColor,
     borderColorHover,
-    borderColorRgb,
+    // borderColorRgb,
     contentFontSize,
-    controlHeight,
-    labelFontColor,
-    labelFontColorDisabled,
+    // controlHeight,
+    // labelFontColor,
+    // labelFontColorDisabled,
     fontFamily,
     contentFontColorDisabled,
     standardPadding,
@@ -30,13 +30,13 @@ export const styles = css`
         padding: 8px ${standardPadding};
     }
 
-    :host([aria-selected='true']) {
+    :host(.selected) {
         box-shadow: none;
         outline: none;
         background-color: ${fillColorSelected};
     }
 
-    :host(:hover):host([aria-selected='true']) {
+    :host(:hover.selected) {
         background-color: ${fillColorSelectedHover};
     }
 
@@ -49,7 +49,7 @@ export const styles = css`
         background-color: transparent;
     }
 
-    :host(${focusVisible}) {
+    :host(:${focusVisible}) {
         box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
         outline: 1px solid ${borderColorHover};
         outline-offset: -4px;

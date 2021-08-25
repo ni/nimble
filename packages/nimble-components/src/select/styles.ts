@@ -1,9 +1,10 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    applicationBackgroundColor,
     borderColor,
-    // borderColorHover,
-    // fillColorSelectedRgb,
+    borderColorHover,
+    fillColorSelectedRgb,
     contentFontColor,
     // contentFontColorDisabled,
     contentFontSize,
@@ -17,7 +18,6 @@ import {
 
 export const styles = css`
     ${display('inline-flex')} :host {
-        --elevation: 14;
         box-sizing: border-box;
         color: ${contentFontColor};
         font-family: ${fontFamily};
@@ -28,6 +28,7 @@ export const styles = css`
         outline: none;
         vertical-align: top;
     }
+
     .listbox {
         box-sizing: border-box;
         display: inline-flex;
@@ -37,10 +38,15 @@ export const styles = css`
         position: absolute;
         width: 100%;
         z-index: 1;
+        padding: 4px;
+        box-shadow: 0px 2px 3px #00000029;
+        background-color: ${applicationBackgroundColor};
     }
+
     .listbox[hidden] {
         display: none;
     }
+
     .control {
         align-items: center;
         box-sizing: border-box;
@@ -51,23 +57,37 @@ export const styles = css`
         min-height: 100%;
         width: 100%;
         border-bottom: 2px solid ${borderColor};
+        background-color: transparent;
     }
+
+    :host([disabled]) .control {
+        cursor: default;
+    }
+
+    :host(.open) .control,
+    .control:hover {
+        border-bottom: 2px solid ${borderColorHover};
+    }
+
     :host([open][position="above"]) .listbox {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
+
     :host([open][position="below"]) .listbox {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
+
     :host([open][position="above"]) .listbox {
         border-bottom: 0;
         bottom: ${controlHeight};
     }
+
     :host([open][position="below"]) .listbox {
-        border-top: 0;
-        top: ${controlHeight};
+        top: calc(${controlHeight} + 3px);
     }
+
     .selected-value {
         flex: 1 1 auto;
         font-family: inherit;
@@ -76,31 +96,40 @@ export const styles = css`
         text-overflow: ellipsis;
         overflow: hidden;
     }
+
     .indicator {
         flex: 0 0 auto;
         margin-inline-start: 1em;
+        height: calc(${controlHeight} - 4px);
+        width: calc(${controlHeight} - 4px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
+
+    .control:hover .indicator {
+        background-color: rgba(${fillColorSelectedRgb}, 0.2);
+    }
+
+    .indicator slot[name="indicator"] svg {
+        width: 1em;
+        height: 1em;
+    }
+
     slot[name="listbox"] {
         display: none;
         width: 100%;
     }
+
     :host([open]) slot[name="listbox"] {
         display: flex;
         position: absolute;
     }
+
     .end {
         margin-inline-start: auto;
     }
-    .start,
-    .end,
-    .indicator,
-    .select-indicator,
-    ::slotted(svg) {
-        /* TODO: adaptive typography https://github.com/microsoft/fast/issues/2432 */
-        fill: currentcolor;
-        height: 1em;
-        width: 1em;
-    }
+
     ::slotted([role="option"]),
     ::slotted(option) {
         flex: 0 0 auto;

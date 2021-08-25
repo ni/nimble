@@ -1,9 +1,17 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
+import '../../listbox-option/index';
 
 interface SelectArgs {
+    disabled: boolean;
+    options: OptionArgs[];
+}
+
+interface OptionArgs {
     label: string;
+    value: string;
+    disabled: boolean;
 }
 
 const metadata: Meta<SelectArgs> = {
@@ -18,14 +26,21 @@ const metadata: Meta<SelectArgs> = {
             handles: ['change']
         }
     },
-    render: ({ label }: SelectArgs): string => `
+    render: ({ disabled, options }: SelectArgs): string => `
         <nimble-select
+            ${disabled ? 'disabled' : ''}
         >
-            ${label}
+            ${options.map(option => `<nimble-option value="${option.value}" ${option.disabled ? 'disabled' : ''}>${option.label}</nimble-option>\n`).join('')}
         </nimble-select>
 `,
     args: {
-        label: 'Select label'
+        // label: 'Select label',
+        disabled: false,
+        options: [
+            { label: 'Option 1', value: '1', disabled: false },
+            { label: 'Option 2', value: '2', disabled: true },
+            { label: 'Option 3', value: '3', disabled: false }
+        ]
     }
 };
 
