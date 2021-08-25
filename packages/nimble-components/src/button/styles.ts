@@ -11,7 +11,8 @@ import {
     contentFontColorDisabled,
     contentFontColor,
     actionColorRgb,
-    borderWidth
+    borderWidth,
+    smallDelay
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from './behaviors';
 import { ButtonAppearance } from './types';
@@ -51,6 +52,7 @@ export const styles = css`
         outline: none;
         margin: 0;
         padding: 0 ${standardPadding};
+        transition: box-shadow ${smallDelay};
     }
 
     .control:hover {

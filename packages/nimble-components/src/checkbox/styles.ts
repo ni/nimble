@@ -10,7 +10,8 @@ import {
     labelFontColor,
     labelFontColorDisabled,
     fontFamily,
-    borderWidth
+    borderWidth,
+    smallDelay
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -36,7 +37,7 @@ export const styles = css`
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        transition: box-shadow 0.15s;
+        transition: box-shadow ${smallDelay};
         ${
             /*
              * Firefox includes the line height in the outline height calculation (not sure if intended or accidental).
