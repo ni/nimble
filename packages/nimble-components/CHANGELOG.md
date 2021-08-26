@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 26 Aug 2021 15:36:09 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Aug 2021 17:52:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.32
+
+Thu, 26 Aug 2021 17:52:10 GMT
+
+### Changes
+
+- adding animation delay tokens (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.32 (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.31
 
