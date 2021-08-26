@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 26 Aug 2021 19:36:52 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.33",
+      "version": "1.0.0-beta.33",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6dd1ad97f34fa9c8953ef99f49d9011d23362e90",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.33"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Aug 2021 17:52:10 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.32",
       "version": "1.0.0-beta.32",

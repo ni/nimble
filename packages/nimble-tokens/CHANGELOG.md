@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 26 Aug 2021 17:52:10 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Aug 2021 19:36:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.13
+
+Thu, 26 Aug 2021 19:36:52 GMT
+
+### Changes
+
+- update DSP from XD (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.12
 
