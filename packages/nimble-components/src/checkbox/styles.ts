@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { focusVisible } from '@microsoft/fast-foundation';
+import { focusVisible } from '../utilities/style/focus';
 
 import {
     borderColor,
@@ -63,7 +63,7 @@ export const styles = css`
         box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
     }
 
-    :host(:${focusVisible}) .control {
+    :host(${focusVisible}) .control {
         border-color: ${borderColorHover};
         outline: 2px solid ${borderColorHover};
         outline-offset: 2px;
