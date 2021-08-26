@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 26 Aug 2021 17:52:10 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Aug 2021 19:36:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.33
+
+Thu, 26 Aug 2021 19:36:52 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.33 (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.32
 
