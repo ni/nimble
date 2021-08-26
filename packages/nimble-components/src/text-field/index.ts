@@ -4,7 +4,7 @@ import {
     TextField as FoundationTextField,
     textFieldTemplate as template
 } from '@microsoft/fast-foundation';
-import { alarmActive16X16 } from '../../../nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { alarmActive16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
 class TextField extends FoundationTextField {
