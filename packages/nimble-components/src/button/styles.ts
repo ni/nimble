@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { focusVisible } from '@microsoft/fast-foundation';
+import { focusVisible } from '../utilities/style/focus';
 import {
     borderColorHover,
     borderColorRgb,
@@ -58,7 +58,7 @@ export const styles = css`
         outline: none;
     }
 
-    .control: ${focusVisible} {
+    .control${focusVisible} {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
         outline: ${borderWidth} solid ${borderColorHover};
         outline-offset: -4px;
@@ -87,7 +87,8 @@ export const styles = css`
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Outline}']) .control:${focusVisible} {
+            :host([appearance='${ButtonAppearance.Outline}'])
+                .control${focusVisible} {
                 background-color: transparent;
                 border-color: ${borderColorHover};
             }
@@ -117,7 +118,8 @@ export const styles = css`
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Ghost}']) .control:${focusVisible} {
+            :host([appearance='${ButtonAppearance.Ghost}'])
+                .control${focusVisible} {
                 background-color: transparent;
                 border-color: ${borderColorHover};
             }
@@ -146,7 +148,8 @@ export const styles = css`
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Block}']) .control:${focusVisible} {
+            :host([appearance='${ButtonAppearance.Block}'])
+                .control${focusVisible} {
                 background-color: rgba(${borderColorRgb}, 0.1);
                 border-color: ${borderColorHover};
             }
