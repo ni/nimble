@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="796" height="36" viewBox="0 0 796 36">
+  <defs>
+    <filter id="Fill_1" x="0" y="0" width="796" height="36" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Banner_Alert_InformationPrimary_24_40" transform="translate(6 3)">
+    <g id="Background" transform="translate(-0.5)">
+      <g transform="matrix(1, 0, 0, 1, -5.5, -3)" filter="url(#Fill_1)">
+        <rect id="Fill_1-2" data-name="Fill 1" width="784" height="24" transform="translate(6 3)" fill="#804ad9"/>
+      </g>
+      <rect id="Fill_2" data-name="Fill 2" width="735" height="22" transform="translate(48.02 1)" fill="#fff" opacity="0"/>
+      <g id="Button_Icon_Ghost_16" transform="translate(748.5)">
+        <g id="Background-2" data-name="Background" transform="translate(-327.853 -328)">
+          <rect id="Background-3" data-name="Background" width="16" height="16" transform="translate(327.853 328)" fill="#161617" opacity="0"/>
+          <rect id="Rollover" width="16" height="16" transform="translate(327.853 328)" fill="#00b888" opacity="0"/>
+        </g>
+        <g id="Icon" transform="translate(-8 -7)">
+          <rect id="IconAlignment" width="16" height="16" transform="translate(8 7)" fill="#649fff" opacity="0"/>
+          <rect id="Icon-2" data-name="Icon" width="12" height="12" transform="translate(10 9)" fill="#161617"/>
+        </g>
+      </g>
+      <rect id="Divider_2" data-name="Divider 2" width="2" height="16" transform="translate(734.5 4)" fill="#fff" opacity="0.15"/>
+      <rect id="Divider_1" data-name="Divider 1" width="2" height="16" transform="translate(48.5 4)" fill="#fff" opacity="0.15"/>
+    </g>
+    <g id="Warning_badge" data-name="Warning badge" transform="translate(49 -2)">
+      <text id="Information_message_text._" data-name="Information message text. " transform="translate(15 6)" fill="#fff" font-size="12" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="12">Information message text. </tspan></text>
+      <g id="Icon-3" data-name="Icon">
+        <rect id="Icon_Placement" data-name="Icon Placement" width="16" height="16" transform="translate(-33 6)" fill="#3cb4e7" opacity="0"/>
+        <path id="Union_1" data-name="Union 1" d="M-9825-2979v-1.89h1.245v-4.426H-9825v-1.89h3.855v6.316h1.23v1.89Zm1.543-9.557a1.371,1.371,0,0,1-.436-1,1.461,1.461,0,0,1,.419-1.021,1.4,1.4,0,0,1,1.021-.418,1.371,1.371,0,0,1,1.021.418,1.438,1.438,0,0,1,.4,1.021,1.374,1.374,0,0,1-.4,1,1.4,1.4,0,0,1-1.021.421A1.358,1.358,0,0,1-9823.457-2988.556Z" transform="translate(9797.457 2998.999)" fill="#fff" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

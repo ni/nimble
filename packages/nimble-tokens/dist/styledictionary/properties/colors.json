@@ -6,11 +6,11 @@
     "Information100_DarkUI": {
       "value": "#A46EFFff"
     },
-    "Information100": {
+    "Information100_LightUI": {
       "value": "#804AD9ff"
     },
     "Warning100_DarkUI": {
-      "value": "#FF6900ff"
+      "value": "#FF8126ff"
     },
     "Pass100_LightUI": {
       "value": "#009921ff"
@@ -19,7 +19,7 @@
       "value": "#00C12Bff"
     },
     "WarningTypography_LightUI": {
-      "value": "#D94100ff"
+      "value": "#D3440Dff"
     },
     "PassTypography_LightUI": {
       "value": "#00801Cff"
@@ -28,7 +28,7 @@
       "value": "#C4000Cff"
     },
     "Fail100_DarkUI": {
-      "value": "#FF4663ff"
+      "value": "#FF4646ff"
     },
     "Black75": {
       "value": "#818386ff"
@@ -77,6 +77,12 @@
     },
     "RGB NI Sky": {
       "value": "#3CB4E7ff"
+    },
+    "Banner_Fail_100_DarkUI_": {
+      "value": "#B3000Cff"
+    },
+    "Warning100LightUI": {
+      "value": "#FF4B00ff"
     }
   }
 }

@@ -1,11 +1,11 @@
 /**
  * Do not edit directly
- * Generated on Mon, 16 Aug 2021 14:33:54 GMT
+ * Generated on Thu, 26 Aug 2021 18:52:38 GMT
  */
 
 export const SlLegacyBlue : string;
 export const Information100DarkUi : string;
-export const Information100 : string;
+export const Information100LightUi : string;
 export const Warning100DarkUi : string;
 export const Pass100LightUi : string;
 export const Pass100DarkUi : string;
@@ -29,6 +29,8 @@ export const Brand85 : string;
 export const Brand100 : string;
 export const Fail85 : string;
 export const RgbNiSky : string;
+export const BannerFail100DarkUi : string;
+export const Warning100LightUi : string;
 export const Header2Family : string;
 export const Header2Weight : string;
 export const OverlineCapitalizedFamily : string;
@@ -47,3 +49,4 @@ export const BodySize : string;
 export const Header0Size : string;
 export const SubHeaderSize : string;
 export const Header1Size : string;
+export const SmallDelay : string; // Short animation delay used for control state change animation

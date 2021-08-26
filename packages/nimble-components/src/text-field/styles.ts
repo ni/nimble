@@ -11,7 +11,8 @@ import {
     labelFontColor,
     labelFontFamily,
     labelFontSize,
-    labelTextTransform
+    labelTextTransform,
+    smallDelay
 } from '../theme-provider/design-tokens';
 import { invalidBehavior } from './behaviors';
 
@@ -37,6 +38,13 @@ export const styles = css`
         border-radius: 0px;
         font-family: ${fontFamily};
         border-bottom: ${borderWidth} solid ${borderColor};
+        transition: border-bottom ${smallDelay};
+    }
+
+    @media (prefers-reduced-motion) {
+        .root {
+            transition-duration: 0s;
+        }
     }
 
     .root:hover {

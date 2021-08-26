@@ -11,7 +11,8 @@ import {
     BodyFamily,
     OverlineCapitalizedFamily,
     SlLegacyBlue,
-    Fail100LightUi
+    Fail100LightUi,
+    SmallDelay
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -188,3 +189,6 @@ export const labelTextTransform = create<string>(
 export const contentFontColorDisabled = create<string>(
     'content-font-color-disabled'
 ).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black75), 0.3));
+
+// Animation Tokens
+export const smallDelay = create<string>('small-delay').withDefault(SmallDelay);

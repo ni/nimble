@@ -15,7 +15,16 @@ module.exports = {
         'import/no-default-export': 'error',
 
         // Rules enabled due to strictNullChecks
-        '@typescript-eslint/no-non-null-assertion': 'off'
+        '@typescript-eslint/no-non-null-assertion': 'off',
+
+        'no-restricted-imports': ['error', {
+            paths: [{
+                name: '@microsoft/fast-foundation',
+                importNames: ['focusVisible'],
+                        message: 'Please use focusVisible from src/utilities/style/focus instead.'
+                    }]
+            }
+        ]
     },
     ignorePatterns: [
         '.eslintrc.js'

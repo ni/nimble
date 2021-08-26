@@ -27,7 +27,7 @@
       <path id="Error-2" data-name="Error" d="M6.127,12.518h3.8V15h-3.8ZM6.062,1l.433,9.966H9.56L9.993,1Z" transform="translate(-0.027)" fill="#c4000c"/>
     </g>
   </g>
-  <g id="Label_L" data-name="Label L" transform="translate(9 -1)" clip-path="url(#clip-path-2)" style="isolation: isolate">
+  <g id="Label_L" data-name="Label L" transform="translate(0 -1)" clip-path="url(#clip-path-2)" style="isolation: isolate">
     <text id="SHOW_LABEL" data-name="SHOW LABEL" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SpaceMono-Regular, Space Mono"><tspan x="0" y="0">SHOW LABEL</tspan></text>
   </g>
   <rect id="Text_Focus" data-name="Text Focus" width="1" height="18" transform="translate(16 22)" opacity="0"/>
