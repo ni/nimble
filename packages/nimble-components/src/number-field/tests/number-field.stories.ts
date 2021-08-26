@@ -22,7 +22,6 @@ const metadata: Meta<NumberFieldArgs> = {
     },
     render: ({ label, value, disabled }: NumberFieldArgs): string => `
         <nimble-number-field
-            id='user'
             placeholder='${label}'
             value='${value}'
             ${disabled ? 'disabled' : ''}
