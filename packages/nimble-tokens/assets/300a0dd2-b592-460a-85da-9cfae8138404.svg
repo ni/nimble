@@ -6,6 +6,6 @@
   </defs>
   <rect id="Rectangle_10611" data-name="Rectangle 10611" width="176" height="32" fill="#3cb4e7" opacity="0.3"/>
   <g id="Scroll_Group_24" data-name="Scroll Group 24" clip-path="url(#clip-path)" style="isolation: isolate">
-    <text id="Read_only_text" data-name="Read only text" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SpaceMono-Regular, Space Mono"><tspan x="0" y="0">Read only text</tspan></text>
+    <text id="Read_only_text" data-name="Read only text" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SpaceMono-Regular, Space Mono"><tspan x="0" y="0">READ ONLY TEXT</tspan></text>
   </g>
 </svg>

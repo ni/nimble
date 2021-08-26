@@ -1,18 +1,18 @@
 /**
  * Do not edit directly
- * Generated on Thu, 26 Aug 2021 16:41:53 GMT
+ * Generated on Thu, 26 Aug 2021 18:52:38 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
 export const Information100DarkUi = "#a46eff";
-export const Information100 = "#804ad9";
-export const Warning100DarkUi = "#ff6900";
+export const Information100LightUi = "#804ad9";
+export const Warning100DarkUi = "#ff8126";
 export const Pass100LightUi = "#009921";
 export const Pass100DarkUi = "#00c12b";
-export const WarningTypographyLightUi = "#d94100";
+export const WarningTypographyLightUi = "#d3440d";
 export const PassTypographyLightUi = "#00801c";
 export const Fail100LightUi = "#c4000c";
-export const Fail100DarkUi = "#ff4663";
+export const Fail100DarkUi = "#ff4646";
 export const Black75 = "#818386";
 export const Black15 = "#f1f1f2";
 export const Black7 = "#f5f5f5";
@@ -29,6 +29,8 @@ export const Brand85 = "#26a97c";
 export const Brand100 = "#009b65";
 export const Fail85 = "#cf1a37";
 export const RgbNiSky = "#3cb4e7";
+export const BannerFail100DarkUi = "#b3000c";
+export const Warning100LightUi = "#ff4b00";
 export const Header2Family = "Source Sans Pro";
 export const Header2Weight = "Light";
 export const OverlineCapitalizedFamily = "Space Mono";
