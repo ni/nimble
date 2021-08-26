@@ -10,7 +10,8 @@ import {
     Selection100,
     BodyFamily,
     OverlineCapitalizedFamily,
-    SlLegacyBlue
+    SlLegacyBlue,
+    SmallDelay
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -187,6 +188,4 @@ export const contentFontColorDisabled = create<string>(
 ).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black75), 0.3));
 
 // Animation Tokens
-export const smallDelay = create<string>('small-delay').withDefault('0.15s');
-export const mediumDelay = create<string>('medium-delay').withDefault('0.25s');
-export const largeDelay = create<string>('large-delay').withDefault('0.35s');
+export const smallDelay = create<string>('small-delay').withDefault(SmallDelay);

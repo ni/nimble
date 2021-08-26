@@ -55,6 +55,12 @@ export const styles = css`
         transition: box-shadow ${smallDelay};
     }
 
+    @media (prefers-reduced-motion) {
+        .control {
+            transition-duration: 0s;
+        }
+    }
+
     .control:hover {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
         outline: none;

@@ -1,3 +1,8 @@
 {
-  "custom": {}
+  "custom": {
+    "small-delay": {
+      "value": "0.1s",
+      "comment": "Short animation delay used for control state change animation"
+    }
+  }
 }

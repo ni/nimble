@@ -38,6 +38,12 @@ export const styles = css`
         transition: border-bottom ${smallDelay};
     }
 
+    @media (prefers-reduced-motion) {
+        .root {
+            transition-duration: 0s;
+        }
+    }
+
     .root:hover {
         border-bottom: 2px solid ${borderColorHover};
     }
