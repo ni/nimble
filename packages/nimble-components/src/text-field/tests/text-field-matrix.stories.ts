@@ -26,6 +26,7 @@ const matrixComponents = `
     <nimble-text-field placeholder='placeholder'>placeholder</nimble-text-field>
     <nimble-text-field value='Hello'>With value</nimble-text-field>
     <nimble-text-field disabled placeholder='placeholder'>Disabled with placeholder</nimble-text-field>
-    <nimble-text-field disabled value='Hello'>Disabled with value</nimble-text-field>`;
+    <nimble-text-field disabled value='Hello'>Disabled with value</nimble-text-field>
+    <nimble-text-field invalid value='Hello'>Invalid</nimble-text-field>`;
 
 export const textFieldThemeMatrix: Story = (): string => matrixThemeWrapper(matrixComponents);

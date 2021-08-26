@@ -5,6 +5,7 @@ import {
     borderColorHover,
     borderWidth,
     contentFontColorDisabled,
+    failColor,
     fillColorSelectedRgb,
     fontFamily,
     labelFontColor,
@@ -12,6 +13,7 @@ import {
     labelFontSize,
     labelTextTransform
 } from '../theme-provider/design-tokens';
+import { invalidBehavior } from './behaviors';
 
 export const styles = css`
     :host {
@@ -91,4 +93,38 @@ export const styles = css`
         line-height: 16px;
         text-transform: ${labelTextTransform};
     }
-`;
+
+`.withBehaviors(
+        invalidBehavior(
+            true,
+            css`
+            :host([invalid]) .root {
+                border-bottom: ${borderWidth} solid ${failColor};
+            }
+
+            :host([invalid]) .root:hover {
+                border-bottom: 2px solid ${failColor};
+            }
+
+            :host([invalid]) .control {
+                width: calc(100% - 26px);
+            }
+
+            :host([invalid]) slot[name="end"] {
+                display: inline-flex;
+                position: absolute;
+                height: 100%;
+                width: 16px;
+                padding-right: 10px;
+                justify-content: center;
+                align-items: center;
+            }
+        
+            :host([invalid]) slot[name="end"] svg {
+                height: 16px;
+                width: 16px;
+                fill: ${borderColor};
+            }
+            `
+        )
+    );
