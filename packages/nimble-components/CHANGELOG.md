@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 25 Aug 2021 13:56:22 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Aug 2021 15:36:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.31
+
+Thu, 26 Aug 2021 15:36:09 GMT
+
+### Changes
+
+- Fix focus state (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.30
 
