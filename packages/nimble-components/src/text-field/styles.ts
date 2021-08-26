@@ -101,7 +101,6 @@ export const styles = css`
         line-height: 16px;
         text-transform: ${labelTextTransform};
     }
-
 `.withBehaviors(
         invalidBehavior(
             true,
@@ -118,7 +117,7 @@ export const styles = css`
                 width: calc(100% - 26px);
             }
 
-            :host([invalid]) slot[name="end"] {
+            :host([invalid]) slot[name='end'] {
                 display: inline-flex;
                 position: absolute;
                 height: 100%;
@@ -127,12 +126,12 @@ export const styles = css`
                 justify-content: center;
                 align-items: center;
             }
-        
-            :host([invalid]) slot[name="end"] svg {
+
+            :host([invalid]) slot[name='end'] svg {
                 height: 16px;
                 width: 16px;
                 fill: ${borderColor};
             }
-            `
+        `
         )
     );

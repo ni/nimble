@@ -5,7 +5,7 @@ import '../index';
 interface NumberFieldArgs {
     label: string;
     value: number;
-    disabled; boolean;
+    disabled: boolean;
 }
 
 const metadata: Meta<NumberFieldArgs> = {

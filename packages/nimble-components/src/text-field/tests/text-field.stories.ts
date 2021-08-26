@@ -22,7 +22,13 @@ const metadata: Meta<TextFieldArgs> = {
             handles: ['change', 'input']
         }
     },
-    render: ({ label, type, value, disabled, invalid }: TextFieldArgs): string => `
+    render: ({
+        label,
+        type,
+        value,
+        disabled,
+        invalid
+    }: TextFieldArgs): string => `
         <nimble-text-field
             placeholder='${label}'
             type='${type}'
