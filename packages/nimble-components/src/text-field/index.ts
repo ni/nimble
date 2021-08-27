@@ -24,6 +24,8 @@ class TextField extends FoundationTextField {
             this.invalid = false;
         }
 
+        // https://github.com/microsoft/fast/issues/5116
+        // Will hopefully be able to set this to the end slot in compose in the future
         this.end.innerHTML = `${alarmActive16X16.data}`;
     }
 }
