@@ -17,7 +17,7 @@
   </g>
   <g id="Stack_Group" data-name="Stack Group" transform="translate(8 6)">
     <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(8 -1)" clip-path="url(#clip-path)" style="isolation: isolate">
-      <text id="Search" transform="translate(16 14)" fill="#161617" font-size="14" font-family="SourceSansPro-It, Source Sans Pro" font-style="italic" opacity="0.3"><tspan x="0" y="0">Search</tspan></text>
+      <text id="Search" transform="translate(16 14)" fill="#161617" font-size="14" font-family="SourceSansPro-It, Source Sans Pro" font-style="italic" opacity="0.6"><tspan x="0" y="0">Search</tspan></text>
     </g>
     <g id="Error_Group" data-name="Error Group" transform="translate(-8 1)">
       <rect id="IconLocation" width="16" height="16" transform="translate(152 1)" fill="#3cb4e7" opacity="0"/>
@@ -25,7 +25,7 @@
     </g>
     <g id="Icon_Group" data-name="Icon Group" transform="translate(8)">
       <rect id="IconLocation-2" data-name="IconLocation" width="16" height="16" transform="translate(-8 1)" fill="#3cb4e7" opacity="0"/>
-      <path id="Magnify_Glass" data-name="Magnify Glass" d="M1201.563,778.525a5.461,5.461,0,0,0-5.014,7.614l-5.529,3.225.733,1.257,5.546-3.234a5.457,5.457,0,1,0,4.264-8.862m0,9.458a4,4,0,1,1,4-4,4,4,0,0,1-4,4" transform="translate(-1199.02 -776.525)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.6"/>
+      <path id="Magnify_Glass" data-name="Magnify Glass" d="M1201.563,778.525a5.461,5.461,0,0,0-5.014,7.614l-5.529,3.225.733,1.257,5.546-3.234a5.457,5.457,0,1,0,4.264-8.862m0,9.458a4,4,0,1,1,4-4,4,4,0,0,1-4,4" transform="translate(-1199.02 -776.525)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1"/>
     </g>
     <g id="Button_Icon_Ghost_24" transform="translate(140 -3)" opacity="0">
       <g id="Background" transform="translate(-323.853 -324)">

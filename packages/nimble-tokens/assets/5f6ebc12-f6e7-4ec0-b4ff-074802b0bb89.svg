@@ -20,7 +20,7 @@
   </g>
   <g id="Stacks_Group" data-name="Stacks Group" transform="translate(0 15)">
     <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(8 6.001)" clip-path="url(#clip-path)" style="isolation: isolate">
-      <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-It, Source Sans Pro" font-style="italic" opacity="0.3"><tspan x="0" y="0">Placeholder</tspan></text>
+      <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-It, Source Sans Pro" font-style="italic" opacity="0.6"><tspan x="0" y="0">Placeholder</tspan></text>
     </g>
     <g id="Error" opacity="0">
       <rect id="IconLocation" width="16" height="16" transform="translate(152 8)" fill="#f1f1f2" opacity="0"/>

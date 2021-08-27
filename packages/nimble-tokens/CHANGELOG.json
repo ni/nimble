@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 26 Aug 2021 19:36:52 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.13",
+      "version": "1.0.0-beta.13",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "update DSP from XD",
+            "commit": "6dd1ad97f34fa9c8953ef99f49d9011d23362e90"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Aug 2021 17:52:10 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.12",
+      "version": "1.0.0-beta.12",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "adding animation delay tokens",
+            "commit": "b4fc8e388c320bcc92f0b5f27e4e8ba21d6eb7f9"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 20 Aug 2021 13:30:31 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.11",
       "version": "1.0.0-beta.11",

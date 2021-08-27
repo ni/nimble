@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { focusVisible } from '@microsoft/fast-foundation';
+import { focusVisible } from '../utilities/style/focus';
 import {
     borderColorHover,
     borderColorRgb,
@@ -11,7 +11,8 @@ import {
     contentFontColorDisabled,
     contentFontColor,
     actionColorRgb,
-    borderWidth
+    borderWidth,
+    smallDelay
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from './behaviors';
 import { ButtonAppearance } from './types';
@@ -51,6 +52,13 @@ export const styles = css`
         outline: none;
         margin: 0;
         padding: 0 ${standardPadding};
+        transition: box-shadow ${smallDelay};
+    }
+
+    @media (prefers-reduced-motion) {
+        .control {
+            transition-duration: 0s;
+        }
     }
 
     .control:hover {
@@ -58,7 +66,7 @@ export const styles = css`
         outline: none;
     }
 
-    .control: ${focusVisible} {
+    .control${focusVisible} {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
         outline: ${borderWidth} solid ${borderColorHover};
         outline-offset: -4px;
@@ -87,7 +95,8 @@ export const styles = css`
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Outline}']) .control:${focusVisible} {
+            :host([appearance='${ButtonAppearance.Outline}'])
+                .control${focusVisible} {
                 background-color: transparent;
                 border-color: ${borderColorHover};
             }
@@ -117,7 +126,8 @@ export const styles = css`
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Ghost}']) .control:${focusVisible} {
+            :host([appearance='${ButtonAppearance.Ghost}'])
+                .control${focusVisible} {
                 background-color: transparent;
                 border-color: ${borderColorHover};
             }
@@ -146,7 +156,8 @@ export const styles = css`
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Block}']) .control:${focusVisible} {
+            :host([appearance='${ButtonAppearance.Block}'])
+                .control${focusVisible} {
                 background-color: rgba(${borderColorRgb}, 0.1);
                 border-color: ${borderColorHover};
             }
