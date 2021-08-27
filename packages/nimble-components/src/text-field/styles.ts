@@ -128,11 +128,11 @@ export const styles = css`
         width: 16px;
     }
 
-    :host([disabled]) slot[name='end'] svg {
-        opacity: 0.3;
-    }
-
     :host([invalid]) slot[name='end'] svg path {
         fill: ${failColor};
+    }
+
+    :host([disabled]) slot[name='end'] svg path {
+        fill: ${contentFontColorDisabled};
     }
 `;
