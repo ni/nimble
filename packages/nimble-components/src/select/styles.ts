@@ -14,6 +14,7 @@ import {
     // labelFontFamily,
     // labelFontSize,
     // labelTextTransform
+    smallDelay
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -66,7 +67,8 @@ export const styles = css`
 
     :host(.open) .control,
     .control:hover {
-        border-bottom: 2px solid ${borderColorHover};
+        border-bottom: 2px solid ${borderColorHover};        
+        transition: border-bottom ${smallDelay};
     }
 
     :host([open][position="above"]) .listbox {
@@ -114,6 +116,7 @@ export const styles = css`
     .indicator slot[name="indicator"] svg {
         width: 1em;
         height: 1em;
+        fill: ${contentFontColor};
     }
 
     slot[name="listbox"] {
