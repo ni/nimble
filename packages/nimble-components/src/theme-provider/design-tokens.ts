@@ -142,7 +142,13 @@ export const borderColorRgb = create<string>('border-color-rgb').withDefault(
 );
 
 export const failColor = create<string>('fail-color').withDefault(
-    (element: HTMLElement) => getColorForTheme(element, Fail100LightUi, Fail100DarkUi, White, Fail100LightUi)
+    (element: HTMLElement) => getColorForTheme(
+        element,
+        Fail100LightUi,
+        Fail100DarkUi,
+        White,
+        Fail100LightUi
+    )
 );
 
 export const borderColorHover = create<string>(
