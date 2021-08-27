@@ -38,6 +38,12 @@ const metadata: Meta<TextFieldArgs> = {
         >
             ${label}
         </nimble-text-field>`,
+    argTypes: {
+        type: {
+            options: ['text', 'password'],
+            control: { type: 'select' }
+        }
+    },
     args: {
         label: 'default label',
         type: 'text',
