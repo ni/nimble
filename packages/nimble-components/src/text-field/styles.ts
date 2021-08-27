@@ -14,7 +14,6 @@ import {
     labelTextTransform,
     smallDelay
 } from '../theme-provider/design-tokens';
-import { invalidBehavior } from './behaviors';
 
 export const styles = css`
     :host {
@@ -51,6 +50,14 @@ export const styles = css`
         border-bottom: 2px solid ${borderColorHover};
     }
 
+    :host([invalid]) .root {
+        border-bottom: ${borderWidth} solid ${failColor};
+    }
+
+    :host([invalid]) .root:hover {
+        border-bottom: 2px solid ${failColor};
+    }
+
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
@@ -67,6 +74,10 @@ export const styles = css`
         margin-top: auto;
         margin-bottom: auto;
         border: none;
+    }
+
+    :host([invalid]) .control {
+        width: calc(100% - 26px);
     }
 
     .control:hover,
@@ -101,40 +112,27 @@ export const styles = css`
         line-height: 16px;
         text-transform: ${labelTextTransform};
     }
-`.withBehaviors(
-        invalidBehavior(
-            true,
-            css`
-            :host([invalid]) .root {
-                border-bottom: ${borderWidth} solid ${failColor};
-            }
 
-            :host([invalid]) .root:hover {
-                border-bottom: 2px solid ${failColor};
-            }
+    :host([invalid]) slot[name='end'] {
+        display: inline-flex;
+        position: absolute;
+        height: 100%;
+        width: 16px;
+        padding-right: 10px;
+        justify-content: center;
+        align-items: center;
+    }
 
-            :host([invalid]) .control {
-                width: calc(100% - 26px);
-            }
+    :host([invalid]) slot[name='end'] svg {
+        height: 16px;
+        width: 16px;
+    }
 
-            :host([invalid]) slot[name='end'] {
-                display: inline-flex;
-                position: absolute;
-                height: 100%;
-                width: 16px;
-                padding-right: 10px;
-                justify-content: center;
-                align-items: center;
-            }
+    :host([disabled]) slot[name='end'] svg {
+        opacity: 0.3;
+    }
 
-            :host([invalid]) slot[name='end'] svg {
-                height: 16px;
-                width: 16px;
-            }
-
-            :host([invalid]) slot[name='end'] svg path {
-                fill: ${failColor};
-            }
-        `
-        )
-    );
+    :host([invalid]) slot[name='end'] svg path {
+        fill: ${failColor};
+    }
+`;
