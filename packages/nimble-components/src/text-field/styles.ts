@@ -130,7 +130,10 @@ export const styles = css`
             :host([invalid]) slot[name='end'] svg {
                 height: 16px;
                 width: 16px;
-                fill: ${borderColor};
+            }
+
+            :host([invalid]) slot[name='end'] svg path {
+                fill: ${failColor};
             }
         `
         )
