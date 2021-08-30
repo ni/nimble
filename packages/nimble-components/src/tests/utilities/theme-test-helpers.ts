@@ -77,8 +77,8 @@ export function matrixThemeWrapper(
     ): void => {
         if (currentDimensions && currentDimensions.length >= 1) {
             const [currentDimension, ...remainingDimensions] = currentDimensions;
-            for (const value of currentDimension) {
-                recurseDimensions(remainingDimensions, ...states, value);
+            for (const currentState of currentDimension) {
+                recurseDimensions(remainingDimensions, ...states, currentState);
             }
         } else {
             matrix.push(component(...states));
