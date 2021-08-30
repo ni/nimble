@@ -5,6 +5,8 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
+export { FoundationTextField as TextField };
+
 const nimbleTextField = FoundationTextField.compose({
     baseName: 'text-field',
     template,
