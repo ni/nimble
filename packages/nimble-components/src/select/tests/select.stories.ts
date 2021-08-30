@@ -3,8 +3,14 @@ import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../listbox-option/index';
 
+enum DropDownPosition {
+    Above = 'above',
+    Below = 'below'
+}
+
 interface SelectArgs {
     disabled: boolean;
+    dropDownPosition: DropDownPosition;
     options: OptionArgs[];
 }
 
@@ -26,16 +32,17 @@ const metadata: Meta<SelectArgs> = {
             handles: ['change']
         }
     },
-    render: ({ disabled, options }: SelectArgs): string => `
+    render: ({ disabled, dropDownPosition, options }: SelectArgs): string => `
         <nimble-select
             ${disabled ? 'disabled' : ''}
+            position=${dropDownPosition}
         >
             ${options.map(option => `<nimble-option value="${option.value}" ${option.disabled ? 'disabled' : ''}>${option.label}</nimble-option>\n`).join('')}
         </nimble-select>
 `,
     args: {
-        // label: 'Select label',
         disabled: false,
+        dropDownPosition: DropDownPosition.Below,
         options: [
             { label: 'Option 1', value: '1', disabled: false },
             { label: 'Option 2', value: '2', disabled: true },

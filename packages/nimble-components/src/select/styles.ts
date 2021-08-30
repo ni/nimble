@@ -4,16 +4,12 @@ import {
     applicationBackgroundColor,
     borderColor,
     borderColorHover,
-    fillColorSelectedRgb,
+    borderWidth,
     contentFontColor,
-    // contentFontColorDisabled,
+    contentFontColorDisabled,
     contentFontSize,
     controlHeight,
     fontFamily,
-    // labelFontColor,
-    // labelFontFamily,
-    // labelFontSize,
-    // labelTextTransform
     smallDelay
 } from '../theme-provider/design-tokens';
 
@@ -71,6 +67,11 @@ export const styles = css`
         transition: border-bottom ${smallDelay};
     }
 
+    :host([disabled]) .control,
+    :host([disabled]) .control:hover {
+        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+    }
+
     :host([open][position="above"]) .listbox {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -107,10 +108,6 @@ export const styles = css`
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    .control:hover .indicator {
-        background-color: rgba(${fillColorSelectedRgb}, 0.2);
     }
 
     .indicator slot[name="indicator"] svg {
