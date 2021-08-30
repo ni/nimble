@@ -1,0 +1,10 @@
+{
+  "type": "minor",
+  "comment": {
+    "title": "",
+    "value": ""
+  },
+  "packageName": "@ni/nimble-angular",
+  "email": "jonathan.meyer@ni.com",
+  "dependentChangeType": "patch"
+}
