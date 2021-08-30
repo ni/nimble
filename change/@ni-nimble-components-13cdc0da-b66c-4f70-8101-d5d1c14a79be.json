@@ -1,0 +1,10 @@
+{
+  "type": "prerelease",
+  "comment": {
+    "title": "",
+    "value": ""
+  },
+  "packageName": "@ni/nimble-components",
+  "email": "jonathan.meyer@ni.com",
+  "dependentChangeType": "patch"
+}
