@@ -32,7 +32,7 @@ export const defaultButton: Story<ButtonArgs> = (): string => '<nimble-button>De
 const appearanceStates = Object.entries(ButtonAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
-const matrixComponents = (
+const component = (
     [appearanceName, appearance]: AppearanceState,
     [disabledName, disabled]: DisabledState
 ): string => `
@@ -41,4 +41,4 @@ const matrixComponents = (
     </nimble-button>
     `;
 
-export const buttonThemeMatrix: Story = (): string => matrixThemeWrapper(matrixComponents, [appearanceStates, disabledStates]);
+export const buttonThemeMatrix: Story = (): string => matrixThemeWrapper(component, [appearanceStates, disabledStates]);

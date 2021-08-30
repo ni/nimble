@@ -1,6 +1,6 @@
 import { NimbleTheme } from '../../theme-provider/themes';
 
-const backgrounds = [
+export const backgrounds = [
     {
         name: `"${NimbleTheme.Light}" theme on white`,
         value: '#F4F4F4',
@@ -35,25 +35,29 @@ export const disabledStates = [
 ];
 export type DisabledState = typeof disabledStates[number];
 
-export function matrixThemeWrapper(components: () => string): string;
+/**
+ * Wraps a given component template with a region for each of the available themes.
+ * Takes an optional array of state values that can be used with the template to match the permutations of the provided states.
+ */
+export function matrixThemeWrapper(component: () => string): string;
 
 export function matrixThemeWrapper<State1>(
-    components: (state1: State1) => string,
+    component: (state1: State1) => string,
     dimensions: [State1[]]
 ): string;
 
 export function matrixThemeWrapper<State1, State2>(
-    components: (state1: State1, state2: State2) => string,
+    component: (state1: State1, state2: State2) => string,
     dimensions: [State1[], State2[]]
 ): string;
 
 export function matrixThemeWrapper<State1, State2, State3>(
-    components: (state1: State1, state2: State2, state3: State3) => string,
+    component: (state1: State1, state2: State2, state3: State3) => string,
     dimensions: [State1[], State2[], State3[]]
 ): string;
 
 export function matrixThemeWrapper<State1, State2, State3, State4>(
-    components: (
+    component: (
         state1: State1,
         state2: State2,
         state3: State3,
@@ -63,7 +67,7 @@ export function matrixThemeWrapper<State1, State2, State3, State4>(
 ): string;
 
 export function matrixThemeWrapper(
-    components: (...states: unknown[]) => string,
+    component: (...states: unknown[]) => string,
     dimensions?: unknown[][]
 ): string {
     const matrix: string[] = [];
@@ -77,7 +81,7 @@ export function matrixThemeWrapper(
                 recurseDimensions(remainingDimensions, ...states, value);
             }
         } else {
-            matrix.push(components(...states));
+            matrix.push(component(...states));
         }
     };
     recurseDimensions(dimensions);
