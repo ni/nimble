@@ -63,7 +63,7 @@ export function matrixThemeWrapper<State1, State2, State3, State4>(
         state3: State3,
         state4: State4
     ) => string,
-    dimensions: [State1[], State2[], State3[], State3[]]
+    dimensions: [State1[], State2[], State3[], State4[]]
 ): string;
 
 export function matrixThemeWrapper(
