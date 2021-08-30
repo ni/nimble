@@ -122,7 +122,7 @@ export const actionColorRgb = create<string>('action-color-rgb').withDefault(
 
 export const applicationBackgroundColor = create<string>(
     'application-background-color'
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise, SlLegacyBlue));
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise, White));
 
 export const fillColorSelected = create<string>(
     'fill-color-selected'

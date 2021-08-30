@@ -22,7 +22,7 @@ const options = `
     <nimble-option value="3">Option 3</nimble-option>`;
 
 const matrixComponents = `
-    <nimble-select>${options}</nimble-select>
-    <nimble-select disabled>${options}</nimble-select>`;
+    <nimble-select position="below" open style="margin-bottom: 120px; margin-top: 120px;">${options}</nimble-select>
+    <nimble-select position="above" open style="margin-bottom: 120px; margin-top: 120px;">${options}</nimble-select>`;
 
-export const selectThemeMatrix: Story = (): string => matrixThemeWrapper(matrixComponents);
+export const selectOpenedThemeMatrix: Story = (): string => matrixThemeWrapper(matrixComponents);
