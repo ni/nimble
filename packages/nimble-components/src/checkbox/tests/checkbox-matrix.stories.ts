@@ -33,11 +33,11 @@ const checkedStates = [
 type CheckedState = typeof checkedStates[number];
 
 const component = (
-    [checkedName, checked]: CheckedState,
-    [disabledName, disabled]: DisabledState
+    [disabledName, disabled]: DisabledState,
+    [checkedName, checked]: CheckedState
 ): string => `
     <nimble-checkbox ${checked} ${disabled}>
         ${checkedName} ${disabledName}
     </nimble-checkbox>`;
 
-export const checkboxThemeMatrix: Story = (): string => matrixThemeWrapper(component, [checkedStates, disabledStates]);
+export const checkboxThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates, checkedStates]);

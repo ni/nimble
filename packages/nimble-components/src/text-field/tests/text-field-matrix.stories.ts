@@ -33,11 +33,11 @@ const valueStates = [
 type ValueState = typeof valueStates[number];
 
 const component = (
-    [valueName, value]: ValueState,
-    [disabledName, disabled]: DisabledState
+    [disabledName, disabled]: DisabledState,
+    [valueName, value]: ValueState
 ): string => `
     <nimble-text-field ${value} ${disabled}>
         ${valueName} ${disabledName}
     </nimble-text-field>`;
 
-export const textFieldThemeMatrix: Story = (): string => matrixThemeWrapper(component, [valueStates, disabledStates]);
+export const textFieldThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates, valueStates]);
