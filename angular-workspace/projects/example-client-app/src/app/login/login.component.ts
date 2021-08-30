@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/themes';
+import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
 
 @Component({
     selector: 'nimble-example-login',
@@ -9,6 +10,7 @@ import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/theme
 export class LoginComponent {
     public theme: NimbleTheme = NimbleTheme.Light;
     public themes = NimbleTheme;
+    public buttonAppearance = ButtonAppearance;
     private toggle = true;
 
     public switchThemes(): void {

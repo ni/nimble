@@ -1,10 +1,10 @@
 <nimble-theme-provider [attr.theme]="theme">
     <div class="container">
-        <nimble-button class="theme-button" (click)="switchThemes()" >Switch to {{theme === themes.Light ? 'Dark' : 'Light'}} theme</nimble-button>
+        <nimble-angular-button class="theme-button" (click)="switchThemes()" >Switch to {{theme === themes.Light ? 'Dark' : 'Light'}} theme</nimble-angular-button>
         <div class="login-container">
             <nimble-angular-text-field>Username</nimble-angular-text-field>
             <nimble-angular-text-field type="password">Password</nimble-angular-text-field>
-            <nimble-button>Login</nimble-button>
+            <nimble-angular-button [appearance]="buttonAppearance.Block">Login</nimble-angular-button>
         </div>
     </div>
 </nimble-theme-provider>
