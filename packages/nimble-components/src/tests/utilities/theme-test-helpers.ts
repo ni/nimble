@@ -1,10 +1,6 @@
 import { NimbleTheme } from '../../theme-provider/themes';
 
-export const backgrounds: {
-    name: string,
-    value: string,
-    theme: string
-}[] = [
+const backgrounds = [
     {
         name: `"${NimbleTheme.Light}" theme on white`,
         value: '#F4F4F4',
@@ -31,17 +27,67 @@ export const backgrounds: {
         theme: NimbleTheme.LegacyBlue
     }
 ];
+type Background = typeof backgrounds[number];
 
-export function matrixThemeWrapper(components: string): string {
-    return `${backgrounds
-        .map(
-            background => `
-    <nimble-theme-provider theme="${background.theme}">
-        <div style="background-color: ${background.value}; padding:20px;">
-            ${components}
-        </div>
-    </nimble-theme-provider>
-`
-        )
-        .join('')}`;
+export const disabledStates = [
+    ['', ''],
+    ['Disabled', 'disabled']
+];
+export type DisabledState = typeof disabledStates[number];
+
+export function matrixThemeWrapper(components: () => string): string;
+
+export function matrixThemeWrapper<State1>(
+    components: (state1: State1) => string,
+    dimensions: [State1[]]
+): string;
+
+export function matrixThemeWrapper<State1, State2>(
+    components: (state1: State1, state2: State2) => string,
+    dimensions: [State1[], State2[]]
+): string;
+
+export function matrixThemeWrapper<State1, State2, State3>(
+    components: (state1: State1, state2: State2, state3: State3) => string,
+    dimensions: [State1[], State2[], State3[]]
+): string;
+
+export function matrixThemeWrapper<State1, State2, State3, State4>(
+    components: (
+        state1: State1,
+        state2: State2,
+        state3: State3,
+        state4: State4
+    ) => string,
+    dimensions: [State1[], State2[], State3[], State3[]]
+): string;
+
+export function matrixThemeWrapper(
+    components: (...states: unknown[]) => string,
+    dimensions?: unknown[][]
+): string {
+    const matrix: string[] = [];
+    const recurseDimensions = (
+        currentDimensions?: unknown[][],
+        ...states
+    ): void => {
+        if (currentDimensions && currentDimensions.length >= 1) {
+            const [currentDimension, ...remainingDimensions] = currentDimensions;
+            for (const value of currentDimension) {
+                recurseDimensions(remainingDimensions, ...states, value);
+            }
+        } else {
+            matrix.push(components(...states));
+        }
+    };
+    recurseDimensions(dimensions);
+
+    const themeWrapper = (background: Background): string => `
+        <nimble-theme-provider theme="${background.theme}">
+            <div style="background-color: ${background.value}; padding:20px;">
+                ${matrix.join('')}
+            </div>
+        </nimble-theme-provider>`;
+    const story = backgrounds.map(themeWrapper).join('');
+    return story;
 }

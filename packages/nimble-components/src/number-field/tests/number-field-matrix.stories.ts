@@ -1,6 +1,10 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { matrixThemeWrapper } from '../../tests/utilities/theme-test-helpers';
+import {
+    matrixThemeWrapper,
+    disabledStates,
+    DisabledState
+} from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
 interface NumberFieldArgs {
@@ -20,11 +24,18 @@ const metadata: Meta<NumberFieldArgs> = {
 };
 
 export default metadata;
+const valueStates = [
+    ['Placeholder', 'placeholder="placeholder"'],
+    ['Value', 'value="1234"']
+];
+type ValueState = typeof valueStates[number];
 
-const matrixComponents = `
-    <nimble-number-field placeholder='placeholder'>placeholder</nimble-number-field>
-    <nimble-number-field value='1234'>With value</nimble-number-field>
-    <nimble-number-field disabled placeholder='placeholder'>Disabled with placeholder</nimble-number-field>
-    <nimble-number-field disabled value='1234'>Disabled with value</nimble-number-field>`;
+const matrixComponents = (
+    [valueName, value]: ValueState,
+    [disabledName, disabled]: DisabledState
+): string => `
+    <nimble-number-field ${value} ${disabled}>
+        ${valueName} ${disabledName}
+    </nimble-number-field>`;
 
-export const numberFieldThemeMatrix: Story = (): string => matrixThemeWrapper(matrixComponents);
+export const numberFieldThemeMatrix: Story = (): string => matrixThemeWrapper(matrixComponents, [valueStates, disabledStates]);
