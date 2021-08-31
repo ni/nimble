@@ -1,10 +1,10 @@
 {
   "type": "prerelease",
   "comment": {
-    "title": "",
-    "value": ""
+    "title": "Create type exports for components",
+    "value": "Not all of the nimble components were exporting types that could be used to reference the respective component."
   },
   "packageName": "@ni/nimble-components",
   "email": "jonathan.meyer@ni.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
