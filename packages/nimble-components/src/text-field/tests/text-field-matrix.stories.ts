@@ -28,7 +28,7 @@ export default metadata;
 
 const valueStates = [
     ['Placeholder', 'placeholder="placeholder"'],
-    ['Value', 'value="1234"']
+    ['Value', 'value="Hello"']
 ];
 type ValueState = typeof valueStates[number];
 
