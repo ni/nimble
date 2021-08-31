@@ -1,10 +1,10 @@
 {
-  "type": "minor",
+  "type": "prerelease",
   "comment": {
-    "title": "",
-    "value": ""
+    "title": "Angular nimble button wrapper",
+    "value": "Adding the Angular wrapper for the nimble button component."
   },
   "packageName": "@ni/nimble-angular",
   "email": "jonathan.meyer@ni.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
