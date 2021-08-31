@@ -1,6 +1,10 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { matrixThemeWrapper } from '../../tests/utilities/theme-test-helpers';
+import {
+    matrixThemeWrapper,
+    disabledStates,
+    DisabledState
+} from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
 interface CheckboxArgs {
@@ -22,10 +26,18 @@ const metadata: Meta<CheckboxArgs> = {
 
 export default metadata;
 
-const matrixComponents = `
-    <nimble-checkbox checked>Checked</nimble-checkbox>
-    <nimble-checkbox>Unchecked</nimble-checkbox>
-    <nimble-checkbox disabled checked>Checked</nimble-checkbox>
-    <nimble-checkbox disabled>Unchecked</nimble-checkbox>`;
+const checkedStates = [
+    ['Checked', 'checked'],
+    ['Unchecked', '']
+];
+type CheckedState = typeof checkedStates[number];
 
-export const checkboxThemeMatrix: Story = (): string => matrixThemeWrapper(matrixComponents);
+const component = (
+    [disabledName, disabled]: DisabledState,
+    [checkedName, checked]: CheckedState
+): string => `
+    <nimble-checkbox ${checked} ${disabled}>
+        ${checkedName} ${disabledName}
+    </nimble-checkbox>`;
+
+export const checkboxThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates, checkedStates]);
