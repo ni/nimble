@@ -38,6 +38,7 @@ export const styles = css`
         font-family: ${fontFamily};
         border-bottom: ${borderWidth} solid ${borderColor};
         transition: border-bottom ${smallDelay};
+        align-items: flex-end;
     }
 
     @media (prefers-reduced-motion) {
@@ -76,10 +77,6 @@ export const styles = css`
         border: none;
     }
 
-    :host([invalid]) .control {
-        width: calc(100% - 26px);
-    }
-
     .control:hover,
     .control:focus,
     .control:disabled,
@@ -113,26 +110,23 @@ export const styles = css`
         text-transform: ${labelTextTransform};
     }
 
-    :host([invalid]) slot[name='end'] {
+    :host([invalid]) [part='end'] {
+        align-self: center;
         display: inline-flex;
-        position: absolute;
-        height: 100%;
-        width: 16px;
-        padding-right: 10px;
-        justify-content: center;
-        align-items: center;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
     }
 
-    :host([invalid]) slot[name='end'] svg {
+    :host([invalid]) [part='end'] svg {
         height: 16px;
         width: 16px;
     }
 
-    :host([invalid]) slot[name='end'] svg path {
+    :host([invalid]) [part='end'] path {
         fill: ${failColor};
     }
 
-    :host([disabled]) slot[name='end'] svg path {
+    :host([disabled]) [part='end'] path {
         fill: ${contentFontColorDisabled};
     }
 `;

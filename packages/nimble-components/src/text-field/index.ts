@@ -9,7 +9,7 @@ import { styles } from './styles';
 
 class TextField extends FoundationTextField {
     /**
-     * Whether or not the text field is in an invalid state.
+     * When set to true, changes the appearance of the text field to indicate its contents are invalid.
      *
      * @public
      * @remarks

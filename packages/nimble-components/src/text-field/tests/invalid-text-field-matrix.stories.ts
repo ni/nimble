@@ -1,6 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { matrixThemeWrapper } from '../../tests/utilities/theme-test-helpers';
+import { DisabledState, disabledStates, matrixThemeWrapper } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
 interface TextFieldArgs {
@@ -22,12 +22,18 @@ const metadata: Meta<TextFieldArgs> = {
 
 export default metadata;
 
-const matrixComponents = `
-    <nimble-text-field invalid placeholder='placeholder'>With placeholder</nimble-text-field>
-    <nimble-text-field invalid value='Hello'>With value</nimble-text-field>
-    <nimble-text-field invalid type='password' value='Hello'>With password</nimble-text-field>
-    <nimble-text-field invalid disabled placeholder='placeholder'>Disabled with placeholder</nimble-text-field>
-    <nimble-text-field invalid disabled value='Hello'>Disabled with value</nimble-text-field>
-    <nimble-text-field invalid disabled type='password' value='Hello'>Disabled with password</nimble-text-field>`;
+const valueStates = [
+    ['Placeholder', 'placeholder="placeholder"'],
+    ['Value', 'value="Hello"']
+];
+type ValueState = typeof valueStates[number];
 
-export const invalidTextFieldThemeMatrix: Story = (): string => matrixThemeWrapper(matrixComponents);
+const component = (
+    [disabledName, disabled]: DisabledState,
+    [valueName, value]: ValueState
+): string => `
+    <nimble-text-field invalid ${value} ${disabled}>
+        ${valueName} ${disabledName}
+    </nimble-text-field>`;
+
+export const invalidTextFieldThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates, valueStates]);
