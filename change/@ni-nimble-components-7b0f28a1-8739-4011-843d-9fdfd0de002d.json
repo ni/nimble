@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Matrix states support",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
