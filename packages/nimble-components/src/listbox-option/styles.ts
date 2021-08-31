@@ -1,14 +1,9 @@
 import { css } from '@microsoft/fast-element';
-import { focusVisible } from '@microsoft/fast-foundation';
+import { focusVisible } from '../utilities/style/focus';
 
 import {
-    // borderColor,
     borderColorHover,
-    // borderColorRgb,
     contentFontSize,
-    // controlHeight,
-    // labelFontColor,
-    // labelFontColorDisabled,
     fontFamily,
     contentFontColorDisabled,
     standardPadding,
