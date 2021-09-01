@@ -1,4 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NimbleTextFieldModule, NimbleNumberFieldModule, NimbleSelectModule, NimbleListboxOptionModule } from '@ni/nimble-angular';
@@ -13,6 +14,7 @@ import { LoginComponent } from './login/login.component';
     ],
     imports: [
         BrowserModule,
+        FormsModule,
         NimbleTextFieldModule,
         NimbleNumberFieldModule,
         NimbleSelectModule,

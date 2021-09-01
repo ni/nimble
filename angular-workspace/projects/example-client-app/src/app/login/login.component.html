@@ -1,9 +1,9 @@
 <nimble-theme-provider [attr.theme]="theme">
     <div class="container">
-        <nimble-angular-select class="theme-select" [value]="theme" (valueChange)="themeChanged($event)">
-            <nimble-option [value]="themes.Dark">Dark theme</nimble-option>
+        <nimble-select class="theme-select" ngDefaultControl [(ngModel)]="theme">
             <nimble-option [value]="themes.Light">Light theme</nimble-option>
-        </nimble-angular-select>
+            <nimble-option [value]="themes.Dark">Dark theme</nimble-option>
+        </nimble-select>
         <div class="login-container">
             <nimble-angular-text-field>Username</nimble-angular-text-field>
             <nimble-angular-text-field type="password">Password</nimble-angular-text-field>
