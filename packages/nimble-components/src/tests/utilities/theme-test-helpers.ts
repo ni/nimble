@@ -35,6 +35,12 @@ export const disabledStates = [
 ];
 export type DisabledState = typeof disabledStates[number];
 
+export const invalidStates = [
+    ['', ''],
+    ['Invalid', 'invalid']
+];
+export type InvalidState = typeof invalidStates[number];
+
 /**
  * Wraps a given component template with a region for each of the available themes.
  * Takes an optional array of state values that can be used with the template to match the permutations of the provided states.
