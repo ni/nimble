@@ -5,6 +5,7 @@ import '../index';
 interface NumberFieldArgs {
     label: string;
     value: number;
+    disabled: boolean;
 }
 
 const metadata: Meta<NumberFieldArgs> = {
@@ -19,10 +20,18 @@ const metadata: Meta<NumberFieldArgs> = {
             handles: ['change', 'input']
         }
     },
-    render: ({ label, value }: NumberFieldArgs): string => `<nimble-number-field id='user' placeholder='${label}' value='${value}'>${label}</nimble-number-field>`,
+    render: ({ label, value, disabled }: NumberFieldArgs): string => `
+        <nimble-number-field
+            placeholder='${label}'
+            value='${value}'
+            ${disabled ? 'disabled' : ''}
+        >
+            ${label}
+        </nimble-number-field>`,
     args: {
         label: 'default label',
-        value: undefined
+        value: undefined,
+        disabled: false
     }
 };
 

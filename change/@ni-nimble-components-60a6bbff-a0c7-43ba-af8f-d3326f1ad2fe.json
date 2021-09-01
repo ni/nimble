@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "added support for invalid state and styling to text-field",
+  "packageName": "@ni/nimble-components",
+  "email": "22551874+scotia673@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}

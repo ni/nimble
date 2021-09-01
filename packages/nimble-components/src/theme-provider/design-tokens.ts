@@ -11,7 +11,9 @@ import {
     BodyFamily,
     OverlineCapitalizedFamily,
     SlLegacyBlue,
-    SmallDelay
+    Fail100LightUi,
+    SmallDelay,
+    Fail100DarkUi
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -137,6 +139,16 @@ export const borderColor = create<string>('border-color').withDefault(
 
 export const borderColorRgb = create<string>('border-color-rgb').withDefault(
     (element: HTMLElement) => rgbString(getDefaultLineColorForTheme(element))
+);
+
+export const failColor = create<string>('fail-color').withDefault(
+    (element: HTMLElement) => getColorForTheme(
+        element,
+        Fail100LightUi,
+        Fail100DarkUi,
+        White,
+        Fail100LightUi
+    )
 );
 
 export const borderColorHover = create<string>(
