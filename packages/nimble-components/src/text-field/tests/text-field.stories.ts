@@ -6,6 +6,8 @@ interface TextFieldArgs {
     label: string;
     type: string;
     value: string;
+    disabled: boolean;
+    invalid: boolean;
 }
 
 const metadata: Meta<TextFieldArgs> = {
@@ -20,11 +22,34 @@ const metadata: Meta<TextFieldArgs> = {
             handles: ['change', 'input']
         }
     },
-    render: ({ label, type, value }: TextFieldArgs): string => `<nimble-text-field placeholder='${label}' type='${type}' value='${value}'>${label}</nimble-text-field>`,
+    render: ({
+        label,
+        type,
+        value,
+        disabled,
+        invalid
+    }: TextFieldArgs): string => `
+        <nimble-text-field
+            placeholder='${label}'
+            type='${type}'
+            value='${value}'
+            ${disabled ? 'disabled' : ''}
+            ${invalid ? 'invalid' : ''}
+        >
+            ${label}
+        </nimble-text-field>`,
+    argTypes: {
+        type: {
+            options: ['text', 'password'],
+            control: { type: 'select' }
+        }
+    },
     args: {
         label: 'default label',
         type: 'text',
-        value: ''
+        value: '',
+        disabled: false,
+        invalid: false
     }
 };
 

@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 26 Aug 2021 19:36:52 GMT and should not be manually modified.
+This log was last generated on Wed, 01 Sep 2021 19:35:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.37
+
+Wed, 01 Sep 2021 19:35:53 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.37 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.36
+
+Wed, 01 Sep 2021 15:47:53 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.36 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.35
+
+Tue, 31 Aug 2021 14:55:33 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.35 (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.34
 

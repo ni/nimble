@@ -1,7 +1,11 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { ButtonAppearance } from '../types';
-import { matrixThemeWrapper } from '../../tests/utilities/theme-test-helpers';
+import {
+    matrixThemeWrapper,
+    disabledStates,
+    DisabledState
+} from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
 interface ButtonArgs {
@@ -25,12 +29,16 @@ export default metadata;
 
 export const defaultButton: Story<ButtonArgs> = (): string => '<nimble-button>Default Button</nimble-button>';
 
-const matrixComponents = `
-    <nimble-button appearance="${ButtonAppearance.Outline}">Outline Button</nimble-button>
-    <nimble-button appearance="${ButtonAppearance.Ghost}">Ghost Button</nimble-button>
-    <nimble-button appearance="${ButtonAppearance.Block}">Block Button</nimble-button>
-    <nimble-button disabled appearance="${ButtonAppearance.Outline}">Outline Button Disabled</nimble-button>
-    <nimble-button disabled appearance="${ButtonAppearance.Ghost}">Ghost Button Disabled</nimble-button>
-    <nimble-button disabled appearance="${ButtonAppearance.Block}">Block Button Disabled</nimble-button>`;
+const appearanceStates = Object.entries(ButtonAppearance);
+type AppearanceState = typeof appearanceStates[number];
 
-export const buttonThemeMatrix: Story = (): string => matrixThemeWrapper(matrixComponents);
+const component = (
+    [disabledName, disabled]: DisabledState,
+    [appearanceName, appearance]: AppearanceState
+): string => `
+    <nimble-button appearance="${appearance}" ${disabled}>
+        ${appearanceName} Button ${disabledName}
+    </nimble-button>
+    `;
+
+export const buttonThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates, appearanceStates]);
