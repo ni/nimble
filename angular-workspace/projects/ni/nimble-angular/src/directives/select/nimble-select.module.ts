@@ -5,11 +5,8 @@ import { NimbleSelectDirective } from './nimble-select.directive';
 import '@ni/nimble-components/dist/esm/select';
 
 @NgModule({
-    declarations: [
-        NimbleSelectDirective
-    ],
-    imports: [
-        CommonModule
-    ]
+    declarations: [NimbleSelectDirective],
+    imports: [CommonModule],
+    exports: [NimbleSelectDirective]
 })
 export class NimbleSelectModule { }
