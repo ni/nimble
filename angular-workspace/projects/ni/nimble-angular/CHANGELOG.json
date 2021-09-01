@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 01 Sep 2021 19:35:53 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.37",
+      "version": "1.0.0-beta.37",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "d0d30c55925d27b37780d2f4cd077de73e0089dc",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.37"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Sep 2021 15:47:53 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.36",
       "version": "1.0.0-beta.36",
