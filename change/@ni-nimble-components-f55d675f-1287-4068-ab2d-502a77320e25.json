@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Created nimble-select and nimble-option",
+  "packageName": "@ni/nimble-components",
+  "email": "brianehenry@gmail.com",
+  "dependentChangeType": "patch"
+}
