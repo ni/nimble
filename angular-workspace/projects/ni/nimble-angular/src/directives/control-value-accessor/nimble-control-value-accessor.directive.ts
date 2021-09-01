@@ -4,6 +4,9 @@
  *
  * https://github.com/angular/angular/blob/478131c519cd3e12fbede458d5c6ecdc1ca0c9ce/packages/forms/src/directives/default_value_accessor.ts
  *
+ * Adding this directive to a component makes it so consumers of the component don't have
+ * to specify an "ngDefaultControl" attribute every time they use it with value binding.
+ *
  * At this time there doesn't seem to be a good way to extend a directive with another
  * directive, or to add a directive to the host element of another directive. So the next
  * best solution is to copy the code to our repo and use our own selectors in the directive
