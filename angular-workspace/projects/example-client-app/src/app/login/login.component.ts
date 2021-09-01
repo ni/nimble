@@ -9,8 +9,4 @@ import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/theme
 export class LoginComponent {
     public theme: NimbleTheme = NimbleTheme.Light;
     public themes = NimbleTheme;
-
-    public themeChanged(theme: string): void {
-        this.theme = theme as NimbleTheme;
-    }
 }
