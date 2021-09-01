@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NimbleControlValueAccessorDirective } from './nimble-control-value-accessor.directive';
+import { NimbleControlValueAccessor } from './nimble-control-value-accessor.directive';
 
 @NgModule({
     declarations: [
-        NimbleControlValueAccessorDirective
+        NimbleControlValueAccessor
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        NimbleControlValueAccessorDirective
+        NimbleControlValueAccessor
     ]
 })
 export class NimbleControlValueAccessorModule { }
