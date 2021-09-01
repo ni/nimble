@@ -3,7 +3,9 @@ import { withXD } from 'storybook-addon-xd-designs';
 import {
     matrixThemeWrapper,
     disabledStates,
-    DisabledState
+    DisabledState,
+    InvalidState,
+    invalidStates
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
@@ -32,12 +34,25 @@ const valueStates = [
 ];
 type ValueState = typeof valueStates[number];
 
+const typeStates = [
+    ['Text', 'type="text"'],
+    ['Password', 'type="password"']
+];
+type TypeState = typeof typeStates[number];
+
 const component = (
     [disabledName, disabled]: DisabledState,
+    [invalidName, invalid]: InvalidState,
+    [typeName, type]: TypeState,
     [valueName, value]: ValueState
 ): string => `
-    <nimble-text-field ${value} ${disabled}>
-        ${valueName} ${disabledName}
+    <nimble-text-field ${disabled} ${invalid} ${type} ${value}>
+        ${disabledName} ${invalidName} ${typeName} ${valueName}
     </nimble-text-field>`;
 
-export const textFieldThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates, valueStates]);
+export const textFieldThemeMatrix: Story = (): string => matrixThemeWrapper(component, [
+    disabledStates,
+    invalidStates,
+    typeStates,
+    valueStates
+]);
