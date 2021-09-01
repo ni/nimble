@@ -63,7 +63,7 @@ export const styles = css`
 
     :host(.open) .control,
     .control:hover {
-        border-bottom: 2px solid ${borderColorHover};        
+        border-bottom: 2px solid ${borderColorHover};
         transition: border-bottom ${smallDelay};
     }
 
@@ -72,22 +72,22 @@ export const styles = css`
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
     }
 
-    :host([open][position="above"]) .listbox {
+    :host([open][position='above']) .listbox {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 
-    :host([open][position="below"]) .listbox {
+    :host([open][position='below']) .listbox {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
 
-    :host([open][position="above"]) .listbox {
+    :host([open][position='above']) .listbox {
         border-bottom: 0;
         bottom: ${controlHeight};
     }
 
-    :host([open][position="below"]) .listbox {
+    :host([open][position='below']) .listbox {
         top: calc(${controlHeight} + 3px);
     }
 
@@ -110,18 +110,18 @@ export const styles = css`
         align-items: center;
     }
 
-    .indicator slot[name="indicator"] svg {
+    .indicator slot[name='indicator'] svg {
         width: 1em;
         height: 1em;
         fill: ${contentFontColor};
     }
 
-    slot[name="listbox"] {
+    slot[name='listbox'] {
         display: none;
         width: 100%;
     }
 
-    :host([open]) slot[name="listbox"] {
+    :host([open]) slot[name='listbox'] {
         display: flex;
         position: absolute;
     }
@@ -130,7 +130,7 @@ export const styles = css`
         margin-inline-start: auto;
     }
 
-    ::slotted([role="option"]),
+    ::slotted([role='option']),
     ::slotted(option) {
         flex: 0 0 auto;
     }

@@ -37,7 +37,13 @@ const metadata: Meta<SelectArgs> = {
             ${disabled ? 'disabled' : ''}
             position=${dropDownPosition}
         >
-            ${options.map(option => `<nimble-option value="${option.value}" ${option.disabled ? 'disabled' : ''}>${option.label}</nimble-option>\n`).join('')}
+            ${options
+        .map(
+            option => `<nimble-option value="${option.value}" ${
+                option.disabled ? 'disabled' : ''
+            }>${option.label}</nimble-option>\n`
+        )
+        .join('')}
         </nimble-select>
 `,
     args: {

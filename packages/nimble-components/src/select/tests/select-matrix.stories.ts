@@ -25,10 +25,8 @@ const options = `
     <nimble-option value="2" disabled>Option 2</nimble-option>
     <nimble-option value="3">Option 3</nimble-option>`;
 
-const component = (
-    [_, disabled]: DisabledState
-): string => `
-    <nimble-select ${disabled as string}>${options}</nimble-select>
+const component = ([_, disabled]: DisabledState): string => `
+    <nimble-select ${disabled}>${options}</nimble-select>
 `;
 
 export const selectThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates]);

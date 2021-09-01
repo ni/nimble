@@ -27,9 +27,7 @@ const options = `
     <nimble-option value="2" disabled>Option 2</nimble-option>
     <nimble-option value="3">Option 3</nimble-option>`;
 
-const component = (
-    [_, position]: PositionState
-): string => `
+const component = ([_, position]: PositionState): string => `
     <nimble-select ${position} open style="margin-bottom: 120px; margin-top: 120px;">${options}</nimble-select>
 `;
 
