@@ -1,7 +1,7 @@
 {
   "type": "prerelease",
-  "comment": "update based on UX feedback",
+  "comment": "tweak number and text field styles based on UX updates",
   "packageName": "@ni/nimble-components",
   "email": "22551874+scotia673@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
