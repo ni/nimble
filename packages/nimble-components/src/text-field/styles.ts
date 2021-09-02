@@ -5,6 +5,7 @@ import {
     borderColorHover,
     borderWidth,
     contentFontColorDisabled,
+    failColor,
     fillColorSelectedRgb,
     fontFamily,
     labelFontColor,
@@ -37,6 +38,7 @@ export const styles = css`
         font-family: ${fontFamily};
         border-bottom: ${borderWidth} solid ${borderColor};
         transition: border-bottom ${smallDelay};
+        align-items: flex-end;
     }
 
     @media (prefers-reduced-motion) {
@@ -47,6 +49,14 @@ export const styles = css`
 
     .root:hover {
         border-bottom: 2px solid ${borderColorHover};
+    }
+
+    :host([invalid]) .root {
+        border-bottom: ${borderWidth} solid ${failColor};
+    }
+
+    :host([invalid]) .root:hover {
+        border-bottom: 2px solid ${failColor};
     }
 
     :host([disabled]) .root,
@@ -98,5 +108,25 @@ export const styles = css`
         font-size: ${labelFontSize};
         line-height: 16px;
         text-transform: ${labelTextTransform};
+    }
+
+    :host([invalid]) [part='end'] {
+        align-self: center;
+        display: inline-flex;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+
+    :host([invalid]) [part='end'] svg {
+        height: 16px;
+        width: 16px;
+    }
+
+    :host([invalid]) [part='end'] path {
+        fill: ${failColor};
+    }
+
+    :host([disabled]) [part='end'] path {
+        fill: ${contentFontColorDisabled};
     }
 `;

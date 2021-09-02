@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 26 Aug 2021 19:36:52 GMT and should not be manually modified.
+This log was last generated on Wed, 01 Sep 2021 15:47:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.35
+
+Wed, 01 Sep 2021 15:47:53 GMT
+
+### Changes
+
+- added support for invalid state and styling to text-field (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.34
+
+Tue, 31 Aug 2021 14:55:33 GMT
+
+### Changes
+
+- Matrix states support (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.33
 

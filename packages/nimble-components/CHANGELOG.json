@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 01 Sep 2021 15:47:53 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.35",
+      "version": "1.0.0-beta.35",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "added support for invalid state and styling to text-field",
+            "commit": "4cd054bcea806283696cb6d221818cf13da6aeb6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 31 Aug 2021 14:55:33 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.34",
+      "version": "1.0.0-beta.34",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Matrix states support",
+            "commit": "bfcde3485076803c0b2dd197f76c66a02cb8a7f1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Aug 2021 19:36:52 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.33",
       "version": "1.0.0-beta.33",
