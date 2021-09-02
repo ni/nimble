@@ -10,7 +10,12 @@ import {
 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
-export type { FoundationNumberField as NumberField };
+/**
+ * A nimble-styled HTML number input
+ */
+type NumberField = FoundationNumberField;
+
+export type { NumberField };
 
 /**
  * A function that returns a number-field registration for configuring the component with a DesignSystem.

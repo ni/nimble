@@ -9,6 +9,9 @@ import { styles } from './styles';
 
 export type { TextField };
 
+/**
+ * A nimble-styed HTML text input
+ */
 class TextField extends FoundationTextField {
     /**
      * When set to true, changes the appearance of the text field to indicate its contents are invalid.
