@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 01 Sep 2021 19:35:53 GMT and should not be manually modified.
+This log was last generated on Thu, 02 Sep 2021 13:46:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.38
+
+Thu, 02 Sep 2021 13:46:41 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.38 (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.37
 
