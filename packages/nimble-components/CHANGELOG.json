@@ -2,6 +2,24 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 03 Sep 2021 16:05:47 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.38",
+      "version": "1.0.0-beta.38",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": {
+              "title": "Create type exports for components",
+              "value": "Not all of the nimble components were exporting types that could be used to reference the respective component."
+            },
+            "commit": "a1fc5b430a0d084f82be30c76da30442e8ff6582"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Sep 2021 13:46:41 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.37",
       "version": "1.0.0-beta.37",

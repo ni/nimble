@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 02 Sep 2021 13:46:41 GMT and should not be manually modified.
+This log was last generated on Fri, 03 Sep 2021 16:05:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.39
+
+Fri, 03 Sep 2021 16:05:47 GMT
+
+### Changes
+
+- Fixing up components to export a type for each component. (26874831+atmgrifter00@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.39 (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 1.0.0-beta.38
 
