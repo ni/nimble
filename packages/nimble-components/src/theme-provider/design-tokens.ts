@@ -2,6 +2,7 @@ import { DesignToken } from '@microsoft/fast-foundation';
 import hexRgb from 'hex-rgb';
 import {
     Black91,
+    Black88,
     Black85,
     Black15,
     Black75,
@@ -185,6 +186,10 @@ export const labelFontColor = create<string>('label-font-color').withDefault(
 
 export const contentFontColor = create<string>(
     'content-font-color'
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White, Black88));
+
+export const buttonContentFontColor = create<string>(
+    'button-content-font-color'
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White, SlLegacyBlue));
 
 export const labelFontColorDisabled = create<string>(
@@ -197,7 +202,7 @@ export const labelTextTransform = create<string>(
 
 export const contentFontColorDisabled = create<string>(
     'content-font-color-disabled'
-).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black75), 0.3));
+).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black88), 0.3));
 
 // Animation Tokens
 export const smallDelay = create<string>('small-delay').withDefault(SmallDelay);
