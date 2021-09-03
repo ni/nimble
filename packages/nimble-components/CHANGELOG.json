@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 03 Sep 2021 21:30:56 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.40",
+      "version": "1.0.0-beta.40",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "fix icon issue in firefox",
+            "commit": "11a190aebaa7c9e3c8b341040e68f4b0a86c6d7d"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Sep 2021 21:06:53 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.39",
       "version": "1.0.0-beta.39",
