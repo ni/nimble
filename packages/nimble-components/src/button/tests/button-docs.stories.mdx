@@ -1,0 +1,46 @@
+import { Story, Meta } from '@storybook/addon-docs';
+
+<Meta title="Button" />
+
+# Example Button Guidelines
+
+## TODO: Replace with actual guidelines
+
+## MDX Overview
+
+These documents can use standard _Markdown_, and will replace the default **Docs** page when placed alongside the other stories.
+
+Use the `<Story id="some--id"/>` tag to pull live components into this document, and mix them with Markdown formatted content.
+
+| Type    | Description   | Example                              |
+| ------- | ------------- | ------------------------------------ |
+| Outline | Used for 🐁's | <Story id="button--outline-button"/> |
+| Block   | Used for 🧱's | <Story id="button--block-button"/>   |
+| Ghost   | Used for 👻's | <Story id="button--ghost-button"/>   |
+
+[Links to a specific documentation page](?path=/docs/checkbox--checkbox)
+
+[Links to a specific story canvas](?path=/story/checkbox--checkbox)
+
+### Standard Markdown works too - 🎉
+
+```html
+<nimble-button appearance="${appearance}">${label}</nimble-button>
+```
+
+```ts
+const nimbleButton = Button.compose({
+    baseName: 'button',
+    template,
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+});
+```
+
+## Here's a list
+
+1. first
+2. second
+3. third
