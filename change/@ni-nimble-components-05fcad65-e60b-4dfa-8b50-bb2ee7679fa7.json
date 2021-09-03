@@ -3,5 +3,5 @@
   "comment": "fix icon issue in firefox",
   "packageName": "@ni/nimble-components",
   "email": "22551874+scotia673@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
