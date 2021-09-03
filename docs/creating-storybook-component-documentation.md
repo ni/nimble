@@ -30,7 +30,11 @@ All `*.docs.stories.mdx` files require the following lines at the top of the fil
 ```jsx
 import { Story, Meta } from '@storybook/addon-docs';
 
-<Meta title="COMPONENT_NAME" />;
+<Meta title="COMPONENT_NAME"
+    parameters={{
+        backgrounds: { disable: true }
+    }}
+/>
 ```
 
 To show a live component inline with documentation, use the following syntax (where `some--id` can be copied from the URL of the component view in Storybook):
