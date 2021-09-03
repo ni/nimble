@@ -1,6 +1,9 @@
-  
-import { treeViewTemplate as template, TreeView, DesignSystem } from "@microsoft/fast-foundation";
-import { styles } from "./styles";
+import {
+    treeViewTemplate as template,
+    TreeView,
+    DesignSystem
+} from '@microsoft/fast-foundation';
+import { styles } from './styles';
 
 /**
  * A function that returns a nimble-tree-view registration for configuring the component with a DesignSystem.
@@ -13,9 +16,9 @@ import { styles } from "./styles";
  *
  */
 export const nimbleTreeView = TreeView.compose({
-    baseName: "tree-view",
+    baseName: 'tree-view',
     template,
-    styles,
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeView());

@@ -8,7 +8,7 @@ import {
     borderColorHover,
     fillColorSelected,
     contentFontSize,
-} from '../theme-provider/design-tokens'
+} from '../theme-provider/design-tokens';
 
 const ltr = css`
     .expand-collapse-button svg {
@@ -43,9 +43,8 @@ const rtl = css`
 export const styles: (
     context: ElementDefinitionContext,
     definition: TreeItemOptions
-) => ElementStyles = (context: ElementDefinitionContext, definition: TreeItemOptions) =>
-css`
-    ${display("block")} :host {
+) => ElementStyles = (context: ElementDefinitionContext, definition: TreeItemOptions) => css`
+    ${display('block')} :host {
         contain: content;
         position: relative;
         outline: none;
@@ -157,10 +156,10 @@ css`
         new DirectionalStyleSheetBehavior(ltr, rtl)
     );
 
-//this block controlled indenting the nested items, it might end up being a useful trick
-/*.positioning-region::before {
+// this block controlled indenting the nested items, it might end up being a useful trick
+/* .positioning-region::before {
         content: "";
         display: block;
         width: var(--tree-item-nested-width);
         flex-shrink: 0;
-    }*/
+    } */

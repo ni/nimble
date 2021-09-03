@@ -5,7 +5,7 @@ export const styles = css`
 :host([hidden]) {
     display: none;
 }
-${display("flex")} :host {
+${display('flex')} :host {
     flex-direction: column;
     align-items: stretch;
     min-width: fit-content;
