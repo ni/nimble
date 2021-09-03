@@ -1,4 +1,4 @@
-# Contributing to Nimble Component Documentation
+# Creating Storybook Component Documentation
 
 ## Getting started
 
