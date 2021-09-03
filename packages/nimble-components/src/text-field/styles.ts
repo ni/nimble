@@ -77,6 +77,10 @@ export const styles = css`
         border: none;
     }
 
+    .control::-ms-reveal {
+        display: none;
+    }
+
     .control:hover,
     .control:focus,
     .control:disabled,
