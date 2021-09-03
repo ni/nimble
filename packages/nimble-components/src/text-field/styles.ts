@@ -110,6 +110,10 @@ export const styles = css`
         text-transform: ${labelTextTransform};
     }
 
+    :host [part='end'] {
+        display: none;
+    }
+
     :host([invalid]) [part='end'] {
         align-self: center;
         display: inline-flex;
