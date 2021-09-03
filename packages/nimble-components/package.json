@@ -54,6 +54,7 @@
     "@ni/eslint-config": "^1.0.0",
     "@storybook/addon-a11y": "^6.4.0-alpha.28",
     "@storybook/addon-actions": "^6.4.0-alpha.28",
+    "@storybook/addon-docs": "^6.4.0-alpha.28",
     "@storybook/addon-essentials": "^6.4.0-alpha.28",
     "@storybook/addon-links": "^6.4.0-alpha.28",
     "@storybook/addons": "6.4.0-alpha.28",
