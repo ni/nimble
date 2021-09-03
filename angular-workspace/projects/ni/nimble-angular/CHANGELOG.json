@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 03 Sep 2021 16:05:47 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.39",
+      "version": "1.0.0-beta.39",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Fixing up components to export a type for each component.",
+            "commit": "a1fc5b430a0d084f82be30c76da30442e8ff6582"
+          },
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a1fc5b430a0d084f82be30c76da30442e8ff6582",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.39"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Sep 2021 13:46:41 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.38",
       "version": "1.0.0-beta.38",
