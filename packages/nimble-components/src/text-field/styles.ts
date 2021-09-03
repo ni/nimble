@@ -109,6 +109,10 @@ export const styles = css`
         line-height: 16px;
         text-transform: ${labelTextTransform};
     }
+    
+    :host [part='end'] {
+        display: none;
+    }
 
     :host([invalid]) [part='end'] {
         align-self: center;
