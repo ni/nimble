@@ -2,7 +2,7 @@ import {
     treeItemTemplate as template,
     TreeItem,
     TreeItemOptions,
-    DesignSystem,
+    DesignSystem
 } from '@microsoft/fast-foundation';
 import { upArrow16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
@@ -21,7 +21,7 @@ export const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseName: 'tree-item',
     template,
     styles,
-    expandCollapseGlyph: `${upArrow16X16.data}`,
+    expandCollapseGlyph: `${upArrow16X16.data}`
     /* expandCollapseGlyph: `
         <svg
             viewBox="0 0 16 16"
