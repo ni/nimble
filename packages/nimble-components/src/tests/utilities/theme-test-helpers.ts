@@ -82,7 +82,10 @@ export function matrixThemeWrapper(
         ...states
     ): void => {
         if (currentDimensions && currentDimensions.length >= 1) {
-            const [currentDimension, ...remainingDimensions] = currentDimensions;
+            const [
+                currentDimension,
+                ...remainingDimensions
+            ] = currentDimensions;
             for (const currentState of currentDimension) {
                 recurseDimensions(remainingDimensions, ...states, currentState);
             }

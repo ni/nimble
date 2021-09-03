@@ -116,11 +116,9 @@ function getLabelTextSize(element: HTMLElement): string {
 const fillColorSelectedTheme = (element: HTMLElement): string => getColorForTheme(element, Selection100, Selection100, White, SlLegacyBlue);
 
 // Color Tokens
-export const actionColorRgb = create<string>('action-color-rgb').withDefault(
-    (element: HTMLElement) => rgbString(
-        getColorForTheme(element, Black91, Black15, White, SlLegacyBlue)
-    )
-);
+export const actionColorRgb = create<string>(
+    'action-color-rgb'
+).withDefault((element: HTMLElement) => rgbString(getColorForTheme(element, Black91, Black15, White, SlLegacyBlue)));
 
 export const applicationBackgroundColor = create<string>(
     'application-background-color'
@@ -134,23 +132,23 @@ export const fillColorSelectedRgb = create<string>(
     'fill-color-selected-rgb'
 ).withDefault((element: HTMLElement) => rgbString(fillColorSelectedTheme(element)));
 
-export const borderColor = create<string>('border-color').withDefault(
-    (element: HTMLElement) => getDefaultLineColorForTheme(element)
-);
+export const borderColor = create<string>(
+    'border-color'
+).withDefault((element: HTMLElement) => getDefaultLineColorForTheme(element));
 
-export const borderColorRgb = create<string>('border-color-rgb').withDefault(
-    (element: HTMLElement) => rgbString(getDefaultLineColorForTheme(element))
-);
+export const borderColorRgb = create<string>(
+    'border-color-rgb'
+).withDefault((element: HTMLElement) => rgbString(getDefaultLineColorForTheme(element)));
 
-export const failColor = create<string>('fail-color').withDefault(
-    (element: HTMLElement) => getColorForTheme(
-        element,
-        Fail100LightUi,
-        Fail100DarkUi,
-        White,
-        Fail100LightUi
-    )
-);
+export const failColor = create<string>(
+    'fail-color'
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Fail100LightUi,
+    Fail100DarkUi,
+    White,
+    Fail100LightUi
+));
 
 export const borderColorHover = create<string>(
     'border-color-hover'
@@ -163,26 +161,32 @@ export const borderColorHover = create<string>(
 ));
 
 // Component Sizing Tokens
-export const controlHeight = create<string>('control-height').withDefault('32px');
-export const standardPadding = create<string>('standard-padding').withDefault('16px');
+export const controlHeight = create<string>('control-height').withDefault(
+    '32px'
+);
+export const standardPadding = create<string>('standard-padding').withDefault(
+    '16px'
+);
 export const borderWidth = create<string>('border-width').withDefault('1px');
 
 // Font Family Tokens
 export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
-export const labelFontFamily = create<string>('label-font-family').withDefault(
-    (element: HTMLElement) => getFontForTheme(element)
-);
+export const labelFontFamily = create<string>(
+    'label-font-family'
+).withDefault((element: HTMLElement) => getFontForTheme(element));
 
 // Font Sizing Tokens
-export const labelFontSize = create<string>('label-font-size').withDefault(
-    (element: HTMLElement) => getLabelTextSize(element)
+export const labelFontSize = create<string>(
+    'label-font-size'
+).withDefault((element: HTMLElement) => getLabelTextSize(element));
+export const contentFontSize = create<string>('content-font-size').withDefault(
+    '14px'
 );
-export const contentFontSize = create<string>('content-font-size').withDefault('14px');
 
 // Font Color Tokens
-export const labelFontColor = create<string>('label-font-color').withDefault(
-    (element: HTMLElement) => getDefaultFontColorForTheme(element)
-);
+export const labelFontColor = create<string>(
+    'label-font-color'
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
 
 export const contentFontColor = create<string>(
     'content-font-color'
