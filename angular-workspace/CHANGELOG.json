@@ -2,6 +2,21 @@
   "name": "angular-workspace",
   "entries": [
     {
+      "date": "Fri, 03 Sep 2021 16:05:47 GMT",
+      "tag": "angular-workspace_v0.0.0",
+      "version": "0.0.0",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "angular-workspace",
+            "commit": "a1fc5b430a0d084f82be30c76da30442e8ff6582",
+            "comment": "Bump angular-workspace to v0.0.0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Sep 2021 13:46:41 GMT",
       "tag": "angular-workspace_v0.0.0",
       "version": "0.0.0",

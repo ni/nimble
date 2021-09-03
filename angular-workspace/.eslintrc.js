@@ -10,7 +10,11 @@ module.exports = {
             // *-default-export lines can be deleted once a fix for this issue is published and uptaken
             // https://github.com/ni/javascript-styleguide/issues/39
             'import/prefer-default-export': 'off',
-            'import/no-default-export': 'error'
+            'import/no-default-export': 'error',
+            'no-restricted-imports': ['error', { patterns: 
+                [{ group: ['@microsoft/fast-*'], 
+                message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.' 
+            }]}]
         }
     },
     {
