@@ -5,6 +5,7 @@
         "dbaeumer.vscode-eslint",
         "redhat.vscode-yaml",
         "editorconfig.editorconfig",
-        "rvest.vs-code-prettier-eslint"
+        "rvest.vs-code-prettier-eslint",
+        "silvenon.mdx"
     ]
 }
