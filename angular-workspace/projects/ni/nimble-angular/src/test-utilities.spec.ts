@@ -1,6 +1,14 @@
 // Workaround for https://github.com/angular/angular-cli/issues/18177
 // Capture runtime error logs and convert them to exceptions
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
+declare namespace jasmine {
+    interface Env {
+        afterEach: typeof afterEach;
+        beforeEach: typeof beforeEach;
+    }
+}
+
 {
     let originalError: typeof console.error;
 
