@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 03 Sep 2021 21:30:56 GMT and should not be manually modified.
+This log was last generated on Tue, 07 Sep 2021 20:53:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.42
+
+Tue, 07 Sep 2021 20:53:58 GMT
+
+### Changes
+
+- tweak number and text field styles based on UX updates (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.41
+
+Tue, 07 Sep 2021 20:01:48 GMT
+
+### Changes
+
+- hide password reveal icon in Edge (22551874+scotia673@users.noreply.github.com)
 
 ## 1.0.0-beta.40
 
