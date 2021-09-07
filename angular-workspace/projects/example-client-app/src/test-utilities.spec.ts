@@ -17,7 +17,11 @@ declare namespace jasmine {
         originalError = console.error;
         // eslint-disable-next-line no-console
         console.error = (message): void => {
-            throw new Error(message);
+            if (typeof message === 'string') {
+                throw new Error(message);
+            } else {
+                throw new Error();
+            }
         };
     });
 
