@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "hide password reveal icon in Edge",
+  "packageName": "@ni/nimble-components",
+  "email": "22551874+scotia673@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
