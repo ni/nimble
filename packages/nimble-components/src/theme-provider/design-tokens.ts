@@ -113,6 +113,16 @@ function getLabelTextSize(element: HTMLElement): string {
     }
 }
 
+function getPasswordRevealFilter(element: HTMLElement): string {
+    switch (theme.getValueFor(element)) {
+        case NimbleTheme.Color:
+        case NimbleTheme.Dark:
+            return 'invert(100%)';
+        default:
+            return 'invert(0%)';
+    }
+}
+
 const fillColorSelectedTheme = (element: HTMLElement): string => getColorForTheme(element, Selection100, Selection100, White, SlLegacyBlue);
 
 // Color Tokens
@@ -206,3 +216,8 @@ export const contentFontColorDisabled = create<string>(
 
 // Animation Tokens
 export const smallDelay = create<string>('small-delay').withDefault(SmallDelay);
+
+// Filter Tokens
+export const passwordRevealFilter = create<string>(
+    'password-reveal-filter'
+).withDefault((element: HTMLElement) => getPasswordRevealFilter(element));
