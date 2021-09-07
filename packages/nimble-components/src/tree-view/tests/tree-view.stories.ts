@@ -44,7 +44,7 @@ const metadata: Meta<TreeArgs> = {
             { label: 'Option 1', value: '1', disabled: false },
             { label: 'Option 2', value: '2', disabled: true },
             {
-                label: '<nimble-tree-item slot="item">Nested Option 3</nimble-tree-item>',
+                label: 'Option 3<nimble-tree-item slot="item">Nested Option 3</nimble-tree-item>',
                 value: '3',
                 disabled: false
             }
@@ -61,7 +61,7 @@ export const test = {
         <nimble-tree-view>
             <nimble-tree-item>Root node one</nimble-tree-item>
             <nimble-tree-item>Root node two</nimble-tree-item>
-            <nimble-tree-item>
+            <nimble-tree-item>Root node two and a half
                 <nimble-tree-item slot="item">Nested node one</nimble-tree-item>
                 <nimble-tree-item slot="item">Nested node two</nimble-tree-item>
             </nimble-tree-item>
