@@ -12,6 +12,7 @@ import {
     labelFontFamily,
     labelFontSize,
     labelTextTransform,
+    passwordRevealFilter,
     smallDelay
 } from '../theme-provider/design-tokens';
 
@@ -78,7 +79,7 @@ export const styles = css`
     }
 
     .control::-ms-reveal {
-        display: none;
+        filter: ${passwordRevealFilter};
     }
 
     .control:hover,
