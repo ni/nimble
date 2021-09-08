@@ -39,9 +39,9 @@ const metadata: Meta<SelectArgs> = {
         >
             ${options
         .map(
-            option => `<nimble-option value="${option.value}" ${
+            option => `<nimble-listbox-option value="${option.value}" ${
                 option.disabled ? 'disabled' : ''
-            }>${option.label}</nimble-option>\n`
+            }>${option.label}</nimble-listbox-option>\n`
         )
         .join('')}
         </nimble-select>

@@ -7,7 +7,7 @@ import {
 import { styles } from './styles';
 
 const nimbleListboxOption = FoundationListboxOption.compose({
-    baseName: 'option',
+    baseName: 'listbox-option',
     template,
     styles
 });

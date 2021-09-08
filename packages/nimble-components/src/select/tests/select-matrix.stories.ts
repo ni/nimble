@@ -21,9 +21,9 @@ const metadata: Meta = {
 export default metadata;
 
 const options = `
-    <nimble-option value="1">Option 1</nimble-option>
-    <nimble-option value="2" disabled>Option 2</nimble-option>
-    <nimble-option value="3">Option 3</nimble-option>`;
+    <nimble-listbox-option value="1">Option 1</nimble-listbox-option>
+    <nimble-listbox-option value="2" disabled>Option 2</nimble-listbox-option>
+    <nimble-listbox-option value="3">Option 3</nimble-listbox-option>`;
 
 const component = ([_, disabled]: DisabledState): string => `
     <nimble-select ${disabled}>${options}</nimble-select>

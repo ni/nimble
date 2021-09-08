@@ -1,8 +1,8 @@
 <nimble-theme-provider [attr.theme]="theme">
     <div class="container">
         <nimble-select class="theme-select" [(ngModel)]="theme">
-            <nimble-option [value]="themes.Light">Light theme</nimble-option>
-            <nimble-option [value]="themes.Dark">Dark theme</nimble-option>
+            <nimble-listbox-option [value]="themes.Light">Light theme</nimble-listbox-option>
+            <nimble-listbox-option [value]="themes.Dark">Dark theme</nimble-listbox-option>
         </nimble-select>
         <div class="login-container">
             <nimble-angular-text-field>Username</nimble-angular-text-field>

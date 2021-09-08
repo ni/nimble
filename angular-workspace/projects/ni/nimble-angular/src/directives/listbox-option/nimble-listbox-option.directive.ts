@@ -1,7 +1,7 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 
 @Directive({
-    selector: 'nimble-option'
+    selector: 'nimble-listbox-option'
 })
 export class NimbleListboxOptionDirective {
     @HostBinding('attr.value') @Input() public value: string;
