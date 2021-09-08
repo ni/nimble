@@ -17,8 +17,8 @@ const metadata: Meta = {
 export default metadata;
 
 const positionStates = [
-    ['Below', 'position="below"'],
-    ['Above', 'position="above"']
+    ['Below', 'position="below"', 'margin-bottom: 120px;'],
+    ['Above', 'position="above"', 'margin-top: 120px;']
 ];
 type PositionState = typeof positionStates[number];
 
@@ -27,8 +27,8 @@ const options = `
     <nimble-listbox-option value="2" disabled>Option 2</nimble-listbox-option>
     <nimble-listbox-option value="3">Option 3</nimble-listbox-option>`;
 
-const component = ([_, position]: PositionState): string => `
-    <nimble-select ${position} open style="margin-bottom: 120px; margin-top: 120px;">${options}</nimble-select>
+const component = ([_, position, positionStyle]: PositionState): string => `
+    <nimble-select ${position} open style="${positionStyle}">${options}</nimble-select>
 `;
 
 export const selectOpenedThemeMatrix: Story = (): string => matrixThemeWrapper(component, [positionStates]);

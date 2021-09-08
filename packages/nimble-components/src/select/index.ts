@@ -7,14 +7,30 @@ import {
 import { downArrow16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
-/**
- * A nimble-styled HTML number input
- */
-type Select = FoundationSelect;
-
 export type { Select };
 
-const nimbleSelect = FoundationSelect.compose<SelectOptions>({
+/**
+ * A nimble-styed HTML select
+ */
+class Select extends FoundationSelect {
+    // Workaround for https://github.com/microsoft/fast/issues/5123
+    public setPositioning(): void {
+        if (!this.$fastController.isConnected) {
+            // Don't call setPositioning() until we're connected,
+            // since this.forcedPosition isn't initialized yet.
+            return;
+        }
+        super.setPositioning();
+    }
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        // Call setPositioning() after this.forcedPosition is initialized.
+        this.setPositioning();
+    }
+}
+
+const nimbleSelect = Select.compose<SelectOptions>({
     baseName: 'select',
     template,
     styles,
