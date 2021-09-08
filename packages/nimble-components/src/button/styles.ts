@@ -9,7 +9,7 @@ import {
     fillColorSelected,
     contentFontSize,
     contentFontColorDisabled,
-    contentFontColor,
+    buttonContentFontColor,
     actionColorRgb,
     borderWidth,
     smallDelay
@@ -22,7 +22,7 @@ export const styles = css`
         display: inline-block;
         background-color: transparent;
         height: ${controlHeight};
-        color: ${contentFontColor};
+        color: ${buttonContentFontColor};
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         cursor: pointer;
