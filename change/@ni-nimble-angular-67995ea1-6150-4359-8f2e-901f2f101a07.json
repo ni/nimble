@@ -1,7 +1,7 @@
 {
   "type": "prerelease",
-  "comment": "Created Angular directives for nimble-select, nimble-option, and nimble-control-value-accessor",
+  "comment": "Created Angular directives for nimble-select and nimble-listbox-option",
   "packageName": "@ni/nimble-angular",
   "email": "brianehenry@gmail.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
