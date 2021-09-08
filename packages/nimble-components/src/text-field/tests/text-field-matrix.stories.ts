@@ -43,20 +43,20 @@ const typeStates = [
 type TypeState = typeof typeStates[number];
 
 const component = (
+    [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
     [invalidName, invalid]: InvalidState,
-    [readOnlyName, readonly]: ReadOnlyState,
     [typeName, type]: TypeState,
-    [valueName, value]: ValueState
+    [valueName, value]: ValueState,
 ): string => `
-    <nimble-text-field ${disabled} ${invalid} ${readonly} ${type} ${value}>
-        ${disabledName} ${invalidName} ${readOnlyName} ${typeName} ${valueName}
+    <nimble-text-field ${disabled} ${invalid} ${type} ${value} ${readonly}>
+        ${disabledName} ${invalidName} ${typeName} ${valueName} ${readOnlyName}
     </nimble-text-field>`;
 
 export const textFieldThemeMatrix: Story = (): string => matrixThemeWrapper(component, [
+    readOnlyStates,
     disabledStates,
     invalidStates,
-    readOnlyStates,
     typeStates,
     valueStates
 ]);
