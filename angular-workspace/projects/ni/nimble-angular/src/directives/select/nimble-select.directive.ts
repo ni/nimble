@@ -18,18 +18,18 @@ export class NimbleSelectDirective implements ControlValueAccessor {
     private onTouched: () => void;
     private onChange: (string) => void;
 
-    public constructor(private readonly elementRef: ElementRef<Select>, private readonly renderer2: Renderer2) { }
+    public constructor(private readonly elementRef: ElementRef<Select>, private readonly renderer: Renderer2) { }
 
     public writeValue(value: string): void {
-        this.renderer2.setProperty(this.elementRef.nativeElement, 'value', value);
+        this.renderer.setProperty(this.elementRef.nativeElement, 'value', value);
 
         // Workaround for https://github.com/microsoft/fast/issues/5139
         // The Angular value binding sets the initial value before the FAST select has initialized its options property.
         // We set the selected attribute on the appropriate option element to make sure the initial value is set correctly.
         if (this.elementRef.nativeElement.options.length === 0 && value !== null) {
-            const matchingOption = this.elementRef.nativeElement.querySelector(`nimble-listbox-option[value=${value}]`);
+            const matchingOption = this.elementRef.nativeElement.querySelector(`nimble-listbox-option[value="${value}"]`);
             if (matchingOption !== null) {
-                this.renderer2.setAttribute(matchingOption, 'selected', '');
+                this.renderer.setAttribute(matchingOption, 'selected', '');
             }
         }
     }
@@ -43,7 +43,7 @@ export class NimbleSelectDirective implements ControlValueAccessor {
     }
 
     public setDisabledState?(isDisabled: boolean): void {
-        this.renderer2.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);
+        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);
     }
 
     @HostListener('change')
