@@ -2,7 +2,7 @@
 
 This package was made because storybook-addon-xd-designs does not yet support [storybook 6](https://github.com/morgs32/storybook-addon-xd-designs/issues/26) in its package configuration.
 
-In addition, patches to the example PR for that issue are needed to use wildcard versions because nimble currently relies on `-alpha` prerelease versions of storybook that would be incompatible with a package that only supports released package versions.
+In addition, patches to the example PR for that issue are needed to use wildcard versions because nimble currently relies on `-alpha` prerelease versions of storybook that would be incompatible with a package that only supports released package versions. [GitHub Issue](https://github.com/ni/nimble/issues/107) to track this vendored package.
 
 # Steps to recreate package
 
