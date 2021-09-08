@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Select } from '@ni/nimble-components/dist/esm/select';
 
@@ -15,9 +15,12 @@ import { Select } from '@ni/nimble-components/dist/esm/select';
 export class NimbleSelectDirective implements ControlValueAccessor {
     @Input() public disabled: boolean;
 
-    public constructor(private elementRef: ElementRef<Select>, private renderer2: Renderer2) { }
+    private onTouched: () => void;
+    private onChange: (string) => void;
 
-    writeValue(value: any): void {
+    public constructor(private readonly elementRef: ElementRef<Select>, private readonly renderer2: Renderer2) { }
+
+    public writeValue(value: string): void {
         this.renderer2.setProperty(this.elementRef.nativeElement, 'value', value);
 
         // Workaround for https://github.com/microsoft/fast/issues/5139
@@ -31,24 +34,21 @@ export class NimbleSelectDirective implements ControlValueAccessor {
         }
     }
 
-    registerOnChange(fn: any): void {
+    public registerOnChange(fn: (string) => void): void {
         this.onChange = fn;
     }
 
-    registerOnTouched(fn: any): void {
+    public registerOnTouched(fn: () => void): void {
         this.onTouched = fn;
     }
-    
-    setDisabledState?(isDisabled: boolean): void {
+
+    public setDisabledState?(isDisabled: boolean): void {
         this.renderer2.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);
     }
 
     @HostListener('change')
-    changeListener() {
+    private changeListener(): void {
         this.onChange(this.elementRef.nativeElement.value);
         this.onTouched();
     }
-
-    private onTouched = (): void => {};
-    private onChange = (value: string): void => {};
 }
