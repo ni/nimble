@@ -47,7 +47,7 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [invalidName, invalid]: InvalidState,
     [typeName, type]: TypeState,
-    [valueName, value]: ValueState,
+    [valueName, value]: ValueState
 ): string => `
     <nimble-text-field ${disabled} ${invalid} ${type} ${value} ${readonly}>
         ${disabledName} ${invalidName} ${typeName} ${valueName} ${readOnlyName}
