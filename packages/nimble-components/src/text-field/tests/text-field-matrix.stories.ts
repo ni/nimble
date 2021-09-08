@@ -5,7 +5,9 @@ import {
     disabledStates,
     DisabledState,
     InvalidState,
-    invalidStates
+    invalidStates,
+    ReadOnlyState,
+    readOnlyStates
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
@@ -43,16 +45,18 @@ type TypeState = typeof typeStates[number];
 const component = (
     [disabledName, disabled]: DisabledState,
     [invalidName, invalid]: InvalidState,
+    [readOnlyName, readonly]: ReadOnlyState,
     [typeName, type]: TypeState,
     [valueName, value]: ValueState
 ): string => `
-    <nimble-text-field ${disabled} ${invalid} ${type} ${value}>
-        ${disabledName} ${invalidName} ${typeName} ${valueName}
+    <nimble-text-field ${disabled} ${invalid} ${readonly} ${type} ${value}>
+        ${disabledName} ${invalidName} ${readOnlyName} ${typeName} ${valueName}
     </nimble-text-field>`;
 
 export const textFieldThemeMatrix: Story = (): string => matrixThemeWrapper(component, [
     disabledStates,
     invalidStates,
+    readOnlyStates,
     typeStates,
     valueStates
 ]);

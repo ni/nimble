@@ -29,7 +29,6 @@ export const styles = css`
 
     :host([disabled]) {
         color: ${contentFontColorDisabled};
-        cursor: default;
     }
 
     .root {
@@ -67,6 +66,11 @@ export const styles = css`
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
     }
 
+    :host([readonly]) .root,
+    :host([readonly]) .root:hover {
+        border: none;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
@@ -101,8 +105,12 @@ export const styles = css`
         opacity: 0.6;
     }
 
-    .control:focus-within::placeholder {
+    .control:not([readonly]):focus-within::placeholder {
         opacity: 1;
+    }
+
+    .control[readonly] {
+        cursor: default;
     }
 
     .control[disabled]::placeholder {
