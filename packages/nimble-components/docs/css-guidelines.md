@@ -24,7 +24,7 @@ If you find yourself in complex logic with lots of :not() selectors it's possibl
 
 In a CSS file the rules should be organized by the element they are selecting for. Keeping those selectors grouped together makes it easier to scan a file and see the rules impacting a particular element in one location.
 
-### Comments
+## Comments
 
 To comment on CSS inside the `css` tagged template helper, use template literal strings with an empty string. This helps minified code output.
 
