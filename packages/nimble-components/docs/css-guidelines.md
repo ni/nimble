@@ -23,3 +23,21 @@ If you find yourself in complex logic with lots of :not() selectors it's possibl
 ## Group selectors by target
 
 In a CSS file the rules should be organized by the element they are selecting for. Keeping those selectors grouped together makes it easier to scan a file and see the rules impacting a particular element in one location.
+
+### Comments
+
+To comment on CSS inside the `css` tagged template helper, use template literal strings with an empty string. This helps minified code output.
+
+```ts
+const styles = css`
+    :host {
+        ${
+            /*
+             * Placing comments in template literals removes them from the compiled code and
+             * helps to minify the code output.
+             */ ''
+        }
+        color: gold;
+    }
+`;
+```

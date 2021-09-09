@@ -116,7 +116,15 @@ Use the `html` tagged template helper to define your custom template. See [decla
 
 ### Adhere to architectural philosophies
 
+#### CSS
+
+Component CSS should follow the patterns described in [CSS Guidelines](./docs/css-guidelines.md).
+
+#### Comments
+
 At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
+
+#### Behaviors
 
 When configuring different variants of a single element, use behaviors.
 
@@ -139,24 +147,6 @@ Accessibility is a requirement for all new components. For the Nimble design sys
 -   **TODO: UX to fill out requirements.**
 
 This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
-
-### Comment CSS
-
-To comment on CSS inside the `css` tagged template helper, use template literal strings with an empty string. This helps minified code output.
-
-```ts
-const styles = css`
-    :host {
-        ${
-            /*
-             * Placing comments in template literals removes them from the compiled code and
-             * helps to minify the code output.
-             */ ''
-        }
-        color: gold;
-    }
-`;
-```
 
 ### Leveraging icons
 
