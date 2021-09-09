@@ -46,7 +46,7 @@ const component = (
     [typeName, type]: TypeState,
     [valueName, value]: ValueState
 ): string => `
-    <nimble-text-field ${disabled} ${invalid} ${type} ${value}>
+    <nimble-text-field style="width: 250px; padding: 15px;" ${disabled} ${invalid} ${type} ${value}>
         ${disabledName} ${invalidName} ${typeName} ${valueName}
     </nimble-text-field>`;
 
