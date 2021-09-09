@@ -6,6 +6,7 @@ interface TextFieldArgs {
     label: string;
     type: string;
     value: string;
+    readonly: boolean;
     disabled: boolean;
     invalid: boolean;
 }
@@ -26,6 +27,7 @@ const metadata: Meta<TextFieldArgs> = {
         label,
         type,
         value,
+        readonly,
         disabled,
         invalid
     }: TextFieldArgs): string => `
@@ -33,6 +35,7 @@ const metadata: Meta<TextFieldArgs> = {
             placeholder='${label}'
             type='${type}'
             value='${value}'
+            ${readonly ? 'readonly' : ''}
             ${disabled ? 'disabled' : ''}
             ${invalid ? 'invalid' : ''}
         >
@@ -48,6 +51,7 @@ const metadata: Meta<TextFieldArgs> = {
         label: 'default label',
         type: 'text',
         value: '',
+        readonly: false,
         disabled: false,
         invalid: false
     }

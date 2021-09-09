@@ -2,6 +2,72 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 09 Sep 2021 16:11:55 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.46",
+      "version": "1.0.0-beta.46",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "add readonly text-field support/styling",
+            "commit": "66af1a894f84362404999132a90bc49341f6994c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 Sep 2021 15:38:58 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.45",
+      "version": "1.0.0-beta.45",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "use end slot default value for text-field",
+            "commit": "5628b9e7b144e6870031e5705b9db7896510e43c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 Sep 2021 15:24:52 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.44",
+      "version": "1.0.0-beta.44",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "improve spacing in text-field storybook matrix",
+            "commit": "fea4f040d40eeb298c4553599a7d2aead39c0384"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 Sep 2021 23:12:35 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.43",
+      "version": "1.0.0-beta.43",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Update dependencies",
+            "commit": "a99f8daec279b1a36d43e5f4b4dbacd2dd7fb37d"
+          },
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a99f8daec279b1a36d43e5f4b4dbacd2dd7fb37d",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.43"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 07 Sep 2021 20:53:58 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.42",
       "version": "1.0.0-beta.42",

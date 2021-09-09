@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 07 Sep 2021 20:53:58 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Sep 2021 16:11:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.46
+
+Thu, 09 Sep 2021 16:11:55 GMT
+
+### Changes
+
+- add readonly text-field support/styling (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.45
+
+Thu, 09 Sep 2021 15:38:58 GMT
+
+### Changes
+
+- use end slot default value for text-field (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.44
+
+Thu, 09 Sep 2021 15:24:52 GMT
+
+### Changes
+
+- improve spacing in text-field storybook matrix (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.43
+
+Wed, 08 Sep 2021 23:12:35 GMT
+
+### Changes
+
+- Update dependencies (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.43 (jattasNI@users.noreply.github.com)
 
 ## 1.0.0-beta.42
 

@@ -1,8 +1,40 @@
 # Change Log - angular-workspace
 
-This log was last generated on Tue, 07 Sep 2021 20:53:58 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Sep 2021 16:11:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0
+
+Thu, 09 Sep 2021 16:11:55 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (22551874+scotia673@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 09 Sep 2021 15:38:58 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (22551874+scotia673@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 09 Sep 2021 15:24:52 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (22551874+scotia673@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 08 Sep 2021 23:12:35 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (jattasNI@users.noreply.github.com)
 
 ## 0.0.0
 
