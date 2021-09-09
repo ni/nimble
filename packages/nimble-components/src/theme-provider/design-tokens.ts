@@ -181,13 +181,13 @@ export const borderColorHover = create<string>(
     hexToRgba(SlLegacyBlue, 0.9)
 ));
 
-export const popupBoxShadowColor = create<string>('popup-box-shadow-color').withDefault(
-    (element: HTMLElement) => getColorForTheme(element, Black75, Black85, Black85, Black75)
-);
+export const popupBoxShadowColor = create<string>(
+    'popup-box-shadow-color'
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black75, Black85, Black85, Black75));
 
-export const popupBorderColor = create<string>('popup-border-color').withDefault(
-    (element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black91), 0.3)
-);
+export const popupBorderColor = create<string>(
+    'popup-border-color'
+).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black91), 0.3));
 
 // Component Sizing Tokens
 export const controlHeight = create<string>('control-height').withDefault('32px');
