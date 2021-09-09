@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "add readonly text-field support/styling",
-  "packageName": "@ni/nimble-components",
-  "email": "22551874+scotia673@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}

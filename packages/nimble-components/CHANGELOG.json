@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 09 Sep 2021 16:11:55 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.46",
+      "version": "1.0.0-beta.46",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "add readonly text-field support/styling",
+            "commit": "66af1a894f84362404999132a90bc49341f6994c"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Sep 2021 15:38:58 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.45",
       "version": "1.0.0-beta.45",
