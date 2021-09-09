@@ -4,11 +4,15 @@ import type { Select } from '../index';
 import '../index';
 import '../../listbox-option/index';
 
-async function setup(position?: string, open?: boolean): Promise<Fixture<Select>> {
+async function setup(
+    position?: string,
+    open?: boolean
+): Promise<Fixture<Select>> {
     const viewTemplate = html`
         <nimble-select
             ${position !== undefined ? `position="${position}"` : ''}
-            ${open ? 'open' : ''}>
+            ${open ? 'open' : ''}
+        >
             <nimble-listbox-option value="one">One</nimble-listbox-option>
             <nimble-listbox-option value="two">Two</nimble-listbox-option>
             <nimble-listbox-option value="three">Three</nimble-listbox-option>
