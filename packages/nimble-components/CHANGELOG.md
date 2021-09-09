@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 08 Sep 2021 23:12:35 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Sep 2021 15:24:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.44
+
+Thu, 09 Sep 2021 15:24:52 GMT
+
+### Changes
+
+- improve spacing in text-field storybook matrix (22551874+scotia673@users.noreply.github.com)
 
 ## 1.0.0-beta.43
 
