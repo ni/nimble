@@ -6,7 +6,6 @@ import {
     contentFontSize,
     fontFamily,
     contentFontColorDisabled,
-    standardPadding,
     fillColorSelected,
     fillColorSelectedHover,
     fillColorHover
@@ -22,7 +21,7 @@ export const styles = css`
     }
 
     .content {
-        padding: 8px ${standardPadding};
+        padding: 8px 4px;
     }
 
     :host(.selected) {

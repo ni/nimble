@@ -2,7 +2,6 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
-    borderColor,
     borderColorHover,
     borderWidth,
     contentFontColor,
@@ -10,6 +9,8 @@ import {
     contentFontSize,
     controlHeight,
     fontFamily,
+    popupBorderColor,
+    popupBoxShadowColor,
     smallDelay
 } from '../theme-provider/design-tokens';
 
@@ -36,8 +37,10 @@ export const styles = css`
         width: 100%;
         z-index: 1;
         padding: 4px;
-        box-shadow: 0px 2px 3px #00000029;
+        box-shadow: 0px 2px 3px ${popupBoxShadowColor};
+        border: 1px solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
+        background-clip: padding-box;
     }
 
     .listbox[hidden] {
@@ -53,23 +56,31 @@ export const styles = css`
         font-family: inherit;
         min-height: 100%;
         width: 100%;
-        border-bottom: 2px solid ${borderColor};
+        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
         background-color: transparent;
+        padding-left: 8px;
+        padding-bottom: 1px;
     }
 
     :host([disabled]) .control {
         cursor: default;
     }
 
-    :host(.open) .control,
-    .control:hover {
+    :host(.open:not(:hover)) .control {
+        border-bottom: ${borderWidth} solid ${borderColorHover};
+        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
+    }
+
+    :host(:hover) .control {
         border-bottom: 2px solid ${borderColorHover};
-        transition: border-bottom ${smallDelay};
+        padding-bottom: 0px;
+        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
 
     :host([disabled]) .control,
     :host([disabled]) .control:hover {
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        color: ${contentFontColorDisabled};
     }
 
     :host([open][position='above']) .listbox {
@@ -83,7 +94,6 @@ export const styles = css`
     }
 
     :host([open][position='above']) .listbox {
-        border-bottom: 0;
         bottom: ${controlHeight};
     }
 
@@ -103,8 +113,7 @@ export const styles = css`
     .indicator {
         flex: 0 0 auto;
         margin-inline-start: 1em;
-        height: calc(${controlHeight} - 4px);
-        width: calc(${controlHeight} - 4px);
+        padding-right: 8px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -114,6 +123,10 @@ export const styles = css`
         width: 1em;
         height: 1em;
         fill: ${contentFontColor};
+    }
+
+    :host([disabled]) .indicator slot[name='indicator'] svg {
+        fill: ${contentFontColorDisabled};
     }
 
     slot[name='listbox'] {
