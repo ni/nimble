@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 09 Sep 2021 15:24:52 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.44",
+      "version": "1.0.0-beta.44",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "improve spacing in text-field storybook matrix",
+            "commit": "fea4f040d40eeb298c4553599a7d2aead39c0384"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Sep 2021 23:12:35 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.43",
       "version": "1.0.0-beta.43",
