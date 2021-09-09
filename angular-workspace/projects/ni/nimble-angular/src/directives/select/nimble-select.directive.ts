@@ -22,16 +22,6 @@ export class NimbleSelectDirective implements ControlValueAccessor {
 
     public writeValue(value: string): void {
         this.renderer.setProperty(this.elementRef.nativeElement, 'value', value);
-
-        // Workaround for https://github.com/microsoft/fast/issues/5139
-        // The Angular value binding sets the initial value before the FAST select has initialized its options property.
-        // We set the selected attribute on the appropriate option element to make sure the initial value is set correctly.
-        if (this.elementRef.nativeElement.options.length === 0 && value !== null) {
-            const matchingOption = this.elementRef.nativeElement.querySelector(`nimble-listbox-option[value="${value}"]`);
-            if (matchingOption !== null) {
-                this.renderer.setAttribute(matchingOption, 'selected', '');
-            }
-        }
     }
 
     public registerOnChange(fn: (string) => void): void {
