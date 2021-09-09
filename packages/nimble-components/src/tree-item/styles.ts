@@ -12,7 +12,8 @@ import {
     fontFamily,
     borderColorHover,
     fillColorSelected,
-    contentFontSize
+    contentFontSize,
+    fillColorHover
 } from '../theme-provider/design-tokens';
 
 const ltr = css`
@@ -76,10 +77,7 @@ export const styles: (
             height: 40px;
         }
         .positioning-region:hover {
-            background: ${fillColorSelected};
-        }
-        .positioning-region:active {
-            background: ${fillColorSelected};
+            background: ${fillColorHover};
         }
         .content-region {
             display: inline-flex;
@@ -144,6 +142,9 @@ export const styles: (
         }
         :host(.nested) .expand-collapse-button {
             position: absolute;
+        }
+        :host([selected]) {
+            background: ${fillColorSelected};
         }
         :host([selected])::after {
             /* The background needs to be calculated based on the selected background state
