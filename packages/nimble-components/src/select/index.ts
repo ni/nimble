@@ -25,7 +25,9 @@ class Select extends FoundationSelect {
         // the options property will not be set yet. As a workaround, we mark the listbox-option element with
         // the selected attribute, which will set the initial value correctly.
         if (value !== null && this.options.length === 0) {
-            const matchingOption = this.querySelector(`nimble-listbox-option[value="${value}"]`);
+            const matchingOption = this.querySelector(
+                `nimble-listbox-option[value="${value}"]`
+            );
             if (matchingOption !== null) {
                 matchingOption.setAttribute('selected', '');
             }
@@ -49,7 +51,7 @@ class Select extends FoundationSelect {
     }
 }
 
-const nimbleSelect = Select.compose<SelectOptions>({
+export const nimbleSelect = Select.compose<SelectOptions>({
     baseName: 'select',
     template,
     styles,
