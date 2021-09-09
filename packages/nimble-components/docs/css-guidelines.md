@@ -2,6 +2,11 @@
 
 [WIP] A super rough brain dump of CSS things to watch out for.
 
+## Use design tokens for values that might be configurable
+
+Some attribute values might need to be configurable in context-specific situations like UIs requring different themes, large touch-friendly UIs, or small information-dense UIs. Examples include colors, typography, sizing, and animation parameters. These attribute values should be specified as shared design tokens rather than literals within an individual component's CSS. This makes it easier to change the values dynamically if required in the future and also improves readability and reduces duplication.
+
+
 ## Prefer modern layouts
 
 Prefer flex and grid for layouts. If you find yourself with position absolute / relative and tricky sizing and offsets from top, etc. it might be worth stepping back and seeing if you can take a different approach.
