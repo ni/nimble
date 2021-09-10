@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Add karma reporter to list all tests run during CI",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
