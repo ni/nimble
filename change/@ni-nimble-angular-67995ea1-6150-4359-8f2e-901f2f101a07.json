@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Created Angular directives for nimble-select and nimble-listbox-option",
-  "packageName": "@ni/nimble-angular",
-  "email": "brianehenry@gmail.com",
-  "dependentChangeType": "prerelease"
-}

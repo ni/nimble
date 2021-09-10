@@ -1,7 +1,7 @@
 {
   "type": "prerelease",
-  "comment": "Created nimble-select and nimble-listbox-option",
+  "comment": "asdfasdf",
   "packageName": "@ni/nimble-components",
   "email": "brianehenry@gmail.com",
-  "dependentChangeType": "prerelease"
+  "dependentChangeType": "patch"
 }

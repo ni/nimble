@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "asdfasdf",
+  "packageName": "@ni/nimble-angular",
+  "email": "brianehenry@gmail.com",
+  "dependentChangeType": "patch"
+}
