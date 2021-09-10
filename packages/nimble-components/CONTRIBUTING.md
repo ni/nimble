@@ -75,7 +75,7 @@ Create a new folder named after your component with some core files:
 | tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                               |
 | tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                    |
 | tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                      |
-| tests/component-name-docs.stories.ts   | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See [here](docs/creating-storybook-component-documentation.md) for more information. |
+| tests/component-name-docs.stories.ts   | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See [Creating Storybook Component Documentation](../../docs/creating-storybook-component-documentation.md) for more information. |
 
 ### Decide how to build on top of FAST
 
