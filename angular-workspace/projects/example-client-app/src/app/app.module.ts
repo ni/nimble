@@ -1,4 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NimbleTextFieldModule, NimbleNumberFieldModule } from '@ni/nimble-angular';
@@ -13,6 +14,7 @@ import { LoginComponent } from './login/login.component';
     ],
     imports: [
         BrowserModule,
+        ReactiveFormsModule,
         NimbleTextFieldModule,
         NimbleNumberFieldModule,
         RouterModule.forRoot([
@@ -21,7 +23,7 @@ import { LoginComponent } from './login/login.component';
         ],
         { useHash: true })
     ],
-    providers: [],
+    providers: [FormBuilder],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
