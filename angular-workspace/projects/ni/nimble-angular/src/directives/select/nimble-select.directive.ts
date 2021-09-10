@@ -12,6 +12,9 @@ import { Select } from '@ni/nimble-components/dist/esm/select';
         }
     ]
 })
+/**
+ * Directive for Nimble select control Angular integration
+ */
 export class NimbleSelectDirective implements ControlValueAccessor {
     @Input() public disabled: boolean;
 
