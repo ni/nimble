@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 10 Sep 2021 18:13:15 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Sep 2021 20:29:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.50
+
+Fri, 10 Sep 2021 20:29:33 GMT
+
+### Changes
+
+- Implemented directive for nimble-theme-provider (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.49
+
+Fri, 10 Sep 2021 19:03:37 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.49 (jattasNI@users.noreply.github.com)
 
 ## 1.0.0-beta.48
 
