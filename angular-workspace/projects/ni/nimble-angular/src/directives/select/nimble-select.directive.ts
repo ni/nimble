@@ -24,12 +24,12 @@ export class NimbleSelectDirective implements ControlValueAccessor {
         this.renderer.setProperty(this.elementRef.nativeElement, 'value', value);
     }
 
-    public registerOnChange(fn: (string) => void): void {
-        this.onChange = fn;
+    public registerOnChange(callback: (string) => void): void {
+        this.onChange = callback;
     }
 
-    public registerOnTouched(fn: () => void): void {
-        this.onTouched = fn;
+    public registerOnTouched(callback: () => void): void {
+        this.onTouched = callback;
     }
 
     public setDisabledState?(isDisabled: boolean): void {
