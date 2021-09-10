@@ -16,7 +16,7 @@
     "build-components": "tsc -p ./tsconfig.json",
     "build-components:watch": "tsc -p ./tsconfig.json -w",
     "chromatic": "chromatic",
-    "tdd": "npm run build-components && npm run test",
+    "tdd": "npm run build-components && npm run test-chrome",
     "tdd:watch": "npm run build-components:watch & npm run test-chrome:watch",
     "test-chrome:debugger": "karma start karma.conf.js --browsers=ChromeDebugging",
     "test-chrome:verbose": "karma start karma.conf.verbose.js --browsers=ChromeHeadlessOpt --single-run",
