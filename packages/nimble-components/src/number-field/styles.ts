@@ -47,7 +47,8 @@ export const styles = css`
     }
 
     .root:hover {
-        border-bottom: 2px solid ${borderColorHover};
+        border-color: ${borderColorHover};
+        box-shadow: inset 0px -11px 0px -10px ${borderColorHover};
     }
 
     :host([disabled]) .root,
