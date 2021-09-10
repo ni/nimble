@@ -13,8 +13,7 @@ import {
     labelFontFamily,
     labelFontSize,
     labelTextTransform,
-    passwordRevealFilter,
-    smallDelay
+    passwordRevealFilter
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -39,7 +38,7 @@ export const styles = css`
         border-radius: 0px;
         font-family: ${fontFamily};
         border-bottom: ${borderWidth} solid ${borderColor};
-        transition: border-bottom ${smallDelay};
+        padding-bottom: 1px;
         align-items: flex-end;
     }
 
@@ -50,8 +49,8 @@ export const styles = css`
     }
 
     .root:hover {
-        border-color: ${borderColorHover};
-        box-shadow: inset 0px -11px 0px -10px ${borderColorHover};
+        border-bottom: 2px solid ${borderColorHover};
+        padding-bottom: 0px;
     }
 
     :host([invalid]) .root {
@@ -59,20 +58,18 @@ export const styles = css`
     }
 
     :host([invalid]) .root:hover {
-        border-color: ${failColor};
-        box-shadow: inset 0px -11px 0px -10px ${failColor};
+        border-bottom: 2px solid ${failColor};
+        padding-bottom: 0px;
     }
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
-        box-shadow: none;
     }
 
     :host([readonly]) .root,
     :host([readonly]) .root:hover {
         border: none;
-        box-shadow: none;
     }
 
     .control {

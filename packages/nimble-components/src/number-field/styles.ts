@@ -36,8 +36,9 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        border-bottom: ${borderWidth} solid ${borderColor};
         transition: border-bottom ${smallDelay};
+        border-bottom: ${borderWidth} solid ${borderColor};
+        padding-bottom: 1px;
     }
 
     @media (prefers-reduced-motion) {
@@ -47,8 +48,8 @@ export const styles = css`
     }
 
     .root:hover {
-        border-color: ${borderColorHover};
-        box-shadow: inset 0px -11px 0px -10px ${borderColorHover};
+        border-bottom: 2px solid ${borderColorHover};
+        padding-bottom: 0px;
     }
 
     :host([disabled]) .root,
