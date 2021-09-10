@@ -1,6 +1,9 @@
 <nimble-theme-provider [attr.theme]="theme">
     <div class="container">
-        <nimble-button class="theme-button" (click)="switchThemes()" >Switch to {{theme === themes.Light ? 'Dark' : 'Light'}} theme</nimble-button>
+        <nimble-select class="theme-select" [(ngModel)]="theme">
+            <nimble-listbox-option [value]="themes.Light">Light theme</nimble-listbox-option>
+            <nimble-listbox-option [value]="themes.Dark">Dark theme</nimble-listbox-option>
+        </nimble-select>
         <div [formGroup]="loginForm" class="login-container">
             <nimble-text-field formControlName="username">Username</nimble-text-field>
             <nimble-text-field formControlName="password" type="password" [invalid]="!this.loginForm.controls.password.pristine && !!this.loginForm.controls.password.errors">Password</nimble-text-field>

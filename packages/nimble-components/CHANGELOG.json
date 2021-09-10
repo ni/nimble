@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 10 Sep 2021 19:03:37 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.48",
+      "version": "1.0.0-beta.48",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Fix broken link in CONTRIBUTING.md",
+            "commit": "605139ac8816faf4b3825f8b250258290c7a3373"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Sep 2021 18:13:15 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.47",
+      "version": "1.0.0-beta.47",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Created nimble-select and nimble-listbox-option",
+            "commit": "bd5a5fed85dd22f792454d3619692445657b71b9"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Sep 2021 16:11:55 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.46",
       "version": "1.0.0-beta.46",
