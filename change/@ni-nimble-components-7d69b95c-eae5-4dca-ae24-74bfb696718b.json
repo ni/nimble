@@ -3,5 +3,5 @@
   "comment": "Fix broken link in CONTRIBUTING.md",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
