@@ -59,17 +59,20 @@ export const styles = css`
     }
 
     :host([invalid]) .root:hover {
-        border-bottom: 2px solid ${failColor};
+        border-color: ${failColor};
+        box-shadow: inset 0px -11px 0px -10px ${failColor};
     }
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        box-shadow: none;
     }
 
     :host([readonly]) .root,
     :host([readonly]) .root:hover {
         border: none;
+        box-shadow: none;
     }
 
     .control {
