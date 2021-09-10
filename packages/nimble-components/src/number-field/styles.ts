@@ -10,8 +10,7 @@ import {
     labelFontColor,
     labelFontFamily,
     labelFontSize,
-    labelTextTransform,
-    smallDelay
+    labelTextTransform
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -36,7 +35,6 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        transition: border-bottom ${smallDelay};
         border-bottom: ${borderWidth} solid ${borderColor};
         padding-bottom: 1px;
     }
