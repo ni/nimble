@@ -37,7 +37,7 @@ export const styles = css`
         width: 100%;
         z-index: 1;
         padding: 4px;
-        box-shadow: 0px 2px 3px ${popupBoxShadowColor};
+        box-shadow: 0px 3px 3px ${popupBoxShadowColor};
         border: 1px solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
         background-clip: padding-box;

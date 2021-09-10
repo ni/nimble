@@ -183,7 +183,7 @@ export const borderColorHover = create<string>(
 
 export const popupBoxShadowColor = create<string>(
     'popup-box-shadow-color'
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black75, Black85, Black85, Black75));
+).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black75, Black85, Black85, Black75), 0.3));
 
 export const popupBorderColor = create<string>(
     'popup-border-color'
