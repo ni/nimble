@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 13 Sep 2021 15:09:27 GMT and should not be manually modified.
+This log was last generated on Mon, 13 Sep 2021 20:07:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.52
+
+Mon, 13 Sep 2021 20:07:38 GMT
+
+### Changes
+
+- implement text-field angular directive (22551874+scotia673@users.noreply.github.com)
 
 ## 1.0.0-beta.51
 
