@@ -62,7 +62,9 @@ export const test = {
             <nimble-tree-item>Root node one</nimble-tree-item>
             <nimble-tree-item>Root node two</nimble-tree-item>
             <nimble-tree-item>Root node two and a half
-                <nimble-tree-item slot="item">Nested node one</nimble-tree-item>
+                <nimble-tree-item slot="item">Nested node one
+                    <nimble-tree-item>Two deep</nimble-tree-item>
+                </nimble-tree-item>
                 <nimble-tree-item slot="item">Nested node two</nimble-tree-item>
             </nimble-tree-item>
             <nimble-tree-item>Root node three</nimble-tree-item>

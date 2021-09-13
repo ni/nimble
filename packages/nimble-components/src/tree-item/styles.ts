@@ -75,6 +75,7 @@ export const styles: (
             position: relative;
             box-sizing: border-box;
             height: 40px;
+            user-select: none;
         }
         .positioning-region:hover {
             background: ${fillColorHover};
