@@ -2,6 +2,72 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 13 Sep 2021 15:09:27 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.51",
+      "version": "1.0.0-beta.51",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b65714f9f6cdae25c17c344fdc79ff346524ae5c",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.51"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Sep 2021 20:29:33 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.50",
+      "version": "1.0.0-beta.50",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Implemented directive for nimble-theme-provider",
+            "commit": "34959e241aeb3be2ec743c1586a7825a7daf2f2f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Sep 2021 19:03:37 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.49",
+      "version": "1.0.0-beta.49",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "605139ac8816faf4b3825f8b250258290c7a3373",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.49"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Sep 2021 18:13:15 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.48",
+      "version": "1.0.0-beta.48",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Created Angular directives for nimble-select and nimble-listbox-option",
+            "commit": "bd5a5fed85dd22f792454d3619692445657b71b9"
+          },
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "bd5a5fed85dd22f792454d3619692445657b71b9",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.48"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Sep 2021 16:11:55 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.47",
       "version": "1.0.0-beta.47",

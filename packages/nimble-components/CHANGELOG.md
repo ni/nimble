@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 09 Sep 2021 16:11:55 GMT and should not be manually modified.
+This log was last generated on Mon, 13 Sep 2021 15:09:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.49
+
+Mon, 13 Sep 2021 15:09:27 GMT
+
+### Changes
+
+- Add karma reporter to list all tests run during CI (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.48
+
+Fri, 10 Sep 2021 19:03:37 GMT
+
+### Changes
+
+- Fix broken link in CONTRIBUTING.md (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.47
+
+Fri, 10 Sep 2021 18:13:15 GMT
+
+### Changes
+
+- Created nimble-select and nimble-listbox-option (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.46
 
