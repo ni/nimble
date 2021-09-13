@@ -15,7 +15,6 @@
                 "nimble-components:tdd",
                 "nimble-components:storybook",
                 "nimble-tokens",
-                "angular-workspace:watch",
                 "angular-workspace:serve"
             ],
             "group": "build",
@@ -58,17 +57,7 @@
             "isBackground": true,
             "problemMatcher": [],
             "presentation": {
-                "group": "token-watch-group"
-            }
-        },
-        {
-            "label": "angular-workspace:watch",
-            "type": "shell",
-            "command": "npm run watch -w angular-workspace",
-            "isBackground": true,
-            "problemMatcher": [],
-            "presentation": {
-                "group": "angular-watch-group"
+                "group": "other-watch-group"
             }
         },
         {
@@ -78,7 +67,7 @@
             "isBackground": true,
             "problemMatcher": [],
             "presentation": {
-                "group": "angular-watch-group"
+                "group": "other-watch-group"
             }
         },
         {
