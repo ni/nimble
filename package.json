@@ -13,8 +13,7 @@
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "publish": "beachball publish --message \"applying package updates [skip ci]\"",
     "publish-ci": "beachball publish --yes --access public --message \"applying package updates [skip ci]\"",
-    "validate": "npm run build && npm run lint && npm run test",
-    "watch": "multiview [ npm run watch -w @ni/nimble-tokens ] [ npm run watch -w angular-workspace ] [ npm run watch -w @ni/nimble-components ]"
+    "validate": "npm run build && npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
@@ -41,7 +40,6 @@
     "packages/site"
   ],
   "devDependencies": {
-    "beachball": "^2.6.2",
-    "multiview": "^3.0.1"
+    "beachball": "^2.6.2"
   }
 }

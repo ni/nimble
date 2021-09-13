@@ -7,8 +7,7 @@
     "build:svg-to-ts": "svg-to-ts --config source/build/svg-to-ts-config.js",
     "build:ts": "tsc -p ./tsconfig.json",
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
-    "lint": "eslint .",
-    "watch": "concurrently \"npm:build:ts:watch\""
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -24,7 +23,6 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "devDependencies": {
     "@ni/eslint-config": "^2.0.0",
-    "concurrently": "^6.2.1",
     "eslint": "^7.29.0",
     "eslint-plugin-import": "^2.23.4",
     "style-dictionary": "^3.0.1",

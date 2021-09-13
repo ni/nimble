@@ -22,8 +22,7 @@
     "test-chrome:watch": "karma start karma.conf.js --browsers=ChromeHeadlessOpt --watch-extensions js",
     "test-chrome": "karma start karma.conf.js --browsers=ChromeHeadlessOpt --single-run",
     "test-firefox": "karma start karma.conf.js --browsers=FirefoxHeadless --single-run",
-    "test": "npm run test-chrome",
-    "watch": "concurrently \"npm:build-components:watch\" \"npm:tdd:watch\" \"npm:storybook\""
+    "test": "npm run test-chrome"
   },
   "repository": {
     "type": "git",
@@ -69,7 +68,6 @@
     "babel-loader": "^8.2.2",
     "chromatic": "^5.9.2",
     "circular-dependency-plugin": "^5.2.0",
-    "concurrently": "^6.2.1",
     "css-loader": "^6.2.0",
     "dotenv-webpack": "^7.0.2",
     "eslint": "^7.29.0",
