@@ -113,8 +113,18 @@ function getLabelTextSize(element: HTMLElement): string {
     }
 }
 
+function getPasswordRevealFilter(element: HTMLElement): string {
+    switch (theme.getValueFor(element)) {
+        case NimbleTheme.Color:
+        case NimbleTheme.Dark:
+            return 'invert(100%)';
+        default:
+            return 'invert(0%)';
+    }
+}
+
 const fillColorSelectedTheme = (element: HTMLElement): string => getColorForTheme(element, Selection100, Selection100, White, SlLegacyBlue);
-const fillColorHoverTheme = (element: HTMLElement): string => getColorForTheme(element, Black91, Black15, White, Black91);
+const fillColorHoverTheme = (element: HTMLElement): string => getColorForTheme(element, Black91, Black15, White, SlLegacyBlue);
 
 // Color Tokens
 export const actionColorRgb = create<string>('action-color-rgb').withDefault(
@@ -171,6 +181,17 @@ export const borderColorHover = create<string>(
     hexToRgba(SlLegacyBlue, 0.9)
 ));
 
+export const popupBoxShadowColor = create<string>(
+    'popup-box-shadow-color'
+).withDefault((element: HTMLElement) => hexToRgba(
+    getColorForTheme(element, Black75, Black85, Black85, Black75),
+    0.3
+));
+
+export const popupBorderColor = create<string>(
+    'popup-border-color'
+).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black91), 0.3));
+
 // Component Sizing Tokens
 export const controlHeight = create<string>('control-height').withDefault('32px');
 export const standardPadding = create<string>('standard-padding').withDefault('16px');
@@ -215,3 +236,8 @@ export const contentFontColorDisabled = create<string>(
 
 // Animation Tokens
 export const smallDelay = create<string>('small-delay').withDefault(SmallDelay);
+
+// Filter Tokens
+export const passwordRevealFilter = create<string>(
+    'password-reveal-filter'
+).withDefault((element: HTMLElement) => getPasswordRevealFilter(element));

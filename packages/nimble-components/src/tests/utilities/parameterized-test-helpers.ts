@@ -56,6 +56,6 @@ export const getSpecTypeByList = <T>(
     disabledList: T[]
 ): SpecTypes => getSpecType(
     value,
-    x => focusList.includes(x),
-    x => disabledList.includes(x)
+    (x: T) => focusList.includes(x),
+    (x: T) => disabledList.includes(x)
 );

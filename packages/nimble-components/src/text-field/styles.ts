@@ -5,6 +5,7 @@ import {
     borderColorHover,
     borderWidth,
     contentFontColorDisabled,
+    contentFontSize,
     failColor,
     fillColorSelectedRgb,
     fontFamily,
@@ -12,6 +13,7 @@ import {
     labelFontFamily,
     labelFontSize,
     labelTextTransform,
+    passwordRevealFilter,
     smallDelay
 } from '../theme-provider/design-tokens';
 
@@ -19,6 +21,7 @@ export const styles = css`
     :host {
         display: inline-block;
         font-family: ${fontFamily};
+        font-size: ${contentFontSize};
         outline: none;
         user-select: none;
         color: ${labelFontColor};
@@ -26,7 +29,6 @@ export const styles = css`
 
     :host([disabled]) {
         color: ${contentFontColorDisabled};
-        cursor: default;
     }
 
     .root {
@@ -64,6 +66,11 @@ export const styles = css`
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
     }
 
+    :host([readonly]) .root,
+    :host([readonly]) .root:hover {
+        border: none;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
@@ -75,6 +82,10 @@ export const styles = css`
         margin-top: auto;
         margin-bottom: auto;
         border: none;
+    }
+
+    .control::-ms-reveal {
+        filter: ${passwordRevealFilter};
     }
 
     .control:hover,
@@ -91,12 +102,15 @@ export const styles = css`
 
     .control::placeholder {
         color: ${labelFontColor};
-        font-style: italic;
-        opacity: 0.5;
+        opacity: 0.6;
     }
 
-    .control:focus-within::placeholder {
+    .control:not([readonly]):focus-within::placeholder {
         opacity: 1;
+    }
+
+    .control[readonly] {
+        cursor: default;
     }
 
     .control[disabled]::placeholder {
@@ -110,11 +124,15 @@ export const styles = css`
         text-transform: ${labelTextTransform};
     }
 
+    :host [part='end'] {
+        display: none;
+    }
+
     :host([invalid]) [part='end'] {
         align-self: center;
         display: inline-flex;
-        padding-left: 0.5em;
-        padding-right: 0.5em;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 
     :host([invalid]) [part='end'] svg {

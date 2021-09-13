@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TextField } from '@microsoft/fast-foundation';
+import { TextField } from '@ni/nimble-components/dist/esm/text-field';
 
 @Component({
     selector: 'nimble-angular-text-field',

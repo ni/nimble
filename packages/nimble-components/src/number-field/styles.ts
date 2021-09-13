@@ -4,6 +4,7 @@ import {
     borderColorHover,
     borderWidth,
     contentFontColorDisabled,
+    contentFontSize,
     fillColorSelectedRgb,
     fontFamily,
     labelFontColor,
@@ -17,6 +18,7 @@ export const styles = css`
     :host {
         display: inline-block;
         font-family: ${fontFamily};
+        font-size: ${contentFontSize};
         outline: none;
         user-select: none;
         color: ${labelFontColor};
@@ -80,8 +82,7 @@ export const styles = css`
 
     .control::placeholder {
         color: ${labelFontColor};
-        font-style: italic;
-        opacity: 0.5;
+        opacity: 0.6;
     }
 
     .control:focus-within::placeholder {

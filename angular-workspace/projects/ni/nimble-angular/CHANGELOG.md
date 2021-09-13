@@ -1,8 +1,115 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 02 Sep 2021 13:46:41 GMT and should not be manually modified.
+This log was last generated on Mon, 13 Sep 2021 15:09:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.51
+
+Mon, 13 Sep 2021 15:09:27 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.51 (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.50
+
+Fri, 10 Sep 2021 20:29:33 GMT
+
+### Changes
+
+- Implemented directive for nimble-theme-provider (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.49
+
+Fri, 10 Sep 2021 19:03:37 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.49 (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.48
+
+Fri, 10 Sep 2021 18:13:15 GMT
+
+### Changes
+
+- Created Angular directives for nimble-select and nimble-listbox-option (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.48 (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.47
+
+Thu, 09 Sep 2021 16:11:55 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.47 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.46
+
+Thu, 09 Sep 2021 15:38:58 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.46 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.45
+
+Thu, 09 Sep 2021 15:24:52 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.45 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.44
+
+Wed, 08 Sep 2021 23:12:35 GMT
+
+### Changes
+
+- Update dependencies (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.44 (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.43
+
+Tue, 07 Sep 2021 20:53:58 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.43 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.42
+
+Tue, 07 Sep 2021 20:01:48 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.42 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.41
+
+Fri, 03 Sep 2021 21:30:56 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.41 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.40
+
+Fri, 03 Sep 2021 21:06:53 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.40 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.39
+
+Fri, 03 Sep 2021 16:05:47 GMT
+
+### Changes
+
+- Fixing up components to export a type for each component. (26874831+atmgrifter00@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.39 (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 1.0.0-beta.38
 
