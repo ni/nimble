@@ -1,6 +1,6 @@
 {
   "type": "prerelease",
-  "comment": "add conconcurrently to tokens and components",
+  "comment": "add watch script to tokens",
   "packageName": "@ni/nimble-tokens",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "prerelease"
