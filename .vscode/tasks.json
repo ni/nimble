@@ -1,0 +1,96 @@
+{
+    "version": "2.0.0",
+    "presentation": {
+      "echo": false,
+      "reveal": "always",
+      "focus": false,
+      "panel": "dedicated",
+      "showReuseMessage": true
+    },
+    "tasks": [
+        {
+            "label": "Create Watch Terminals",
+            "dependsOn": [
+                "nimble-components:build",
+                "nimble-components:tdd",
+                "nimble-components:storybook",
+                "nimble-tokens",
+                "angular-workspace:watch",
+                "angular-workspace:serve"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "nimble-components:build",
+            "type": "shell",
+            "command": "npm run build-components:watch -w @ni/nimble-components",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "components-watch-group"
+            }
+        },
+        {
+            "label": "nimble-components:tdd",
+            "type": "shell",
+            "command": "npm run tdd:watch -w @ni/nimble-components",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "components-watch-group"
+            }
+        },
+        {
+            "label": "nimble-components:storybook",
+            "type": "shell",
+            "command": "npm run storybook -w @ni/nimble-components",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "components-watch-group"
+            }
+        },
+        {
+            "label": "nimble-tokens",
+            "type": "shell",
+            "command": "npm run build:svg-to-ts -w @ni/nimble-tokens && npm run build:ts:watch -w @ni/nimble-tokens",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "token-watch-group"
+            }
+        },
+        {
+            "label": "angular-workspace:watch",
+            "type": "shell",
+            "command": "npm run watch -w angular-workspace",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "angular-watch-group"
+            }
+        },
+        {
+            "label": "angular-workspace:serve",
+            "type": "shell",
+            "command": "npm run start -w angular-workspace",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "angular-watch-group"
+            }
+        },
+        {
+            "type": "npm",
+            "script": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "label": "npm: build",
+            "detail": "npm run build --workspaces --if-present"
+        }
+    ]
+  }
