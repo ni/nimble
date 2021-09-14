@@ -10,16 +10,19 @@ DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeView());
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeItem());
 
 async function setup(): Promise<Fixture<TreeView>> {
-    return fixture<TreeView>(new ViewTemplate(
-        `<nimble-tree-view>
+    return fixture<TreeView>(
+        new ViewTemplate(
+            `<nimble-tree-view>
             <nimble-tree-item class="root">Root1
                 <nimble-tree-item class="sub-root">SubRoot
                     <nimble-tree-item class="leaf1">Leaf 1</nimble-tree-item>
                 </nimble-tree-item>
                 <nimble-tree-item class="leaf2">Leaf 2</nimble-tree-item>
             </nimble-tree-item>
-        </nimble-tree-view>`, []
-    ));
+        </nimble-tree-view>`,
+            []
+        )
+    );
 }
 
 describe('TreeView', () => {
@@ -32,27 +35,15 @@ describe('TreeView', () => {
 
         await clickElement(rootItem);
 
-        expect(
-            rootItem
-                ?.hasAttribute('selected')
-        ).toBe(false);
+        expect(rootItem?.hasAttribute('selected')).toBe(false);
 
-        expect(
-            rootItem
-                ?.hasAttribute('expanded')
-        ).toBe(true);
+        expect(rootItem?.hasAttribute('expanded')).toBe(true);
 
         await clickElement(rootItem);
 
-        expect(
-            rootItem
-                ?.hasAttribute('selected')
-        ).toBe(false);
+        expect(rootItem?.hasAttribute('selected')).toBe(false);
 
-        expect(
-            rootItem
-                ?.hasAttribute('expanded')
-        ).toBe(false);
+        expect(rootItem?.hasAttribute('expanded')).toBe(false);
 
         await disconnect();
     });
@@ -68,17 +59,11 @@ describe('TreeView', () => {
         await clickElement(rootItem); // expand root
         await clickElement(leafItem); // select leaf
 
-        expect(
-            leafItem
-                ?.hasAttribute('selected')
-        ).toBe(true);
+        expect(leafItem?.hasAttribute('selected')).toBe(true);
 
         await clickElement(rootItem); // collapse root
 
-        expect(
-            leafItem
-                ?.hasAttribute('selected')
-        ).toBe(true);
+        expect(leafItem?.hasAttribute('selected')).toBe(true);
 
         await disconnect();
     });
@@ -105,14 +90,13 @@ describe('TreeView', () => {
         await DOM.nextUpdate();
 
         const rootItem = element.querySelector<TreeItem>('.root')!;
-        const rootExpandButton = rootItem?.shadowRoot?.querySelector<HTMLElement>('.expand-collapse-button');
+        const rootExpandButton = rootItem?.shadowRoot?.querySelector<HTMLElement>(
+            '.expand-collapse-button'
+        );
 
         await clickElement(rootExpandButton!);
 
-        expect(
-            rootItem
-                ?.hasAttribute('expanded')
-        ).toBe(true);
+        expect(rootItem?.hasAttribute('expanded')).toBe(true);
 
         await disconnect();
     });

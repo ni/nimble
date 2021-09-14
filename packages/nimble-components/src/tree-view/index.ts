@@ -23,7 +23,10 @@ export class TreeView extends FoundationTreeView {
     }
 
     public disconnectedCallback(): void {
-        this.removeEventListener('selected-change', this.handleTreeItemSelected);
+        this.removeEventListener(
+            'selected-change',
+            this.handleTreeItemSelected
+        );
     }
 
     private readonly handleTreeItemSelected = (event: CustomEvent): void => {

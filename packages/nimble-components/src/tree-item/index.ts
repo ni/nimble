@@ -46,9 +46,7 @@ export class TreeItem extends FoundationTreeItem {
     };
 
     private getParentNimbleTreeNode(): HTMLElement | null | undefined {
-        const parentNode: Element | null | undefined = this.parentElement!.closest(
-            "[role='tree']"
-        );
+        const parentNode: Element | null | undefined = this.parentElement!.closest("[role='tree']");
         return parentNode as HTMLElement;
     }
 }
