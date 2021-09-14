@@ -5,6 +5,6 @@ import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
     selector: 'nimble-button'
 })
 export class NimbleButtonDirective {
-    @HostBinding('attr.disabled') @Input() public disabled: boolean;
+    @HostBinding('disabled') @Input() public disabled: boolean;
     @HostBinding('appearance') @Input() public appearance: ButtonAppearance;
 }
