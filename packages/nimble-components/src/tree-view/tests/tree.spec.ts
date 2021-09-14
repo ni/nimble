@@ -1,5 +1,5 @@
 import { DOM, ViewTemplate } from '@microsoft/fast-element';
-import { TreeView, DesignSystem } from '@microsoft/fast-foundation';
+import { TreeView, DesignSystem, TreeItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../tests/utilities/fixture';
 import { nimbleTreeItem } from '../../tree-item';
 import { nimbleTreeView } from '../index';
@@ -28,7 +28,7 @@ describe('TreeView', () => {
         await connect();
         await DOM.nextUpdate();
 
-        const rootItem = element.querySelector<HTMLElement>('.root')!;
+        const rootItem = element.querySelector<TreeItem>('.root')!;
 
         await clickElement(rootItem);
 
@@ -62,8 +62,8 @@ describe('TreeView', () => {
         await connect();
         await DOM.nextUpdate();
 
-        const rootItem = element.querySelector<HTMLElement>('.root')!;
-        const leafItem = element.querySelector<HTMLElement>('.leaf2')!;
+        const rootItem = element.querySelector<TreeItem>('.root')!;
+        const leafItem = element.querySelector<TreeItem>('.leaf2')!;
 
         await clickElement(rootItem); // expand root
         await clickElement(leafItem); // select leaf
@@ -83,12 +83,28 @@ describe('TreeView', () => {
         await disconnect();
     });
 
+    it('when group is clicked, the TreeView currentSelected state does not change', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await DOM.nextUpdate();
+
+        const rootItem = element.querySelector<TreeItem>('.root')!;
+        const leafItem = element.querySelector<TreeItem>('.leaf2')!;
+
+        await clickElement(leafItem); // select leaf
+        await clickElement(rootItem); // collapse root
+
+        expect(element.currentSelected).toBe(leafItem);
+
+        await disconnect();
+    });
+
     it('when glyph is clicked tree group is expanded', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await DOM.nextUpdate();
 
-        const rootItem = element.querySelector<HTMLElement>('.root')!;
+        const rootItem = element.querySelector<TreeItem>('.root')!;
         const rootExpandButton = rootItem?.shadowRoot?.querySelector<HTMLElement>('.expand-collapse-button');
 
         await clickElement(rootExpandButton!);

@@ -32,6 +32,7 @@ export class TreeView extends FoundationTreeView {
             const selectedTreeItem = this.querySelector<TreeItem>('[pinned-selected]');
             if (selectedTreeItem) {
                 selectedTreeItem.selected = true;
+                this.currentSelected = selectedTreeItem;
             }
         }
     };
