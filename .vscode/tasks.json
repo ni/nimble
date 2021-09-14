@@ -11,63 +11,63 @@
         {
             "label": "Create Watch Terminals",
             "dependsOn": [
-                "nimble-components:build",
-                "nimble-components:tdd",
-                "nimble-components:storybook",
-                "nimble-tokens",
-                "angular-workspace:serve"
+                "components:build",
+                "components:tdd",
+                "storybook",
+                "tokens:build",
+                "ng serve"
             ],
             "group": "build",
             "problemMatcher": []
         },
         {
-            "label": "nimble-components:build",
+            "label": "components:build",
             "type": "shell",
             "command": "npm run build-components:watch -w @ni/nimble-components",
             "isBackground": true,
             "problemMatcher": [],
             "presentation": {
-                "group": "components-watch-group"
+                "group": "watch-group"
             }
         },
         {
-            "label": "nimble-components:tdd",
+            "label": "components:tdd",
             "type": "shell",
             "command": "npm run tdd:watch -w @ni/nimble-components",
             "isBackground": true,
             "problemMatcher": [],
             "presentation": {
-                "group": "components-watch-group"
+                "group": "watch-group"
             }
         },
         {
-            "label": "nimble-components:storybook",
+            "label": "storybook",
             "type": "shell",
             "command": "npm run storybook -w @ni/nimble-components",
             "isBackground": true,
             "problemMatcher": [],
             "presentation": {
-                "group": "components-watch-group"
+                "group": "watch-group"
             }
         },
         {
-            "label": "nimble-tokens",
+            "label": "tokens:build",
             "type": "shell",
             "command": "npm run build:svg-to-ts -w @ni/nimble-tokens && npm run build:ts:watch -w @ni/nimble-tokens",
             "isBackground": true,
             "problemMatcher": [],
             "presentation": {
-                "group": "other-watch-group"
+                "group": "watch-group"
             }
         },
         {
-            "label": "angular-workspace:serve",
+            "label": "ng serve",
             "type": "shell",
             "command": "npm run start -w angular-workspace",
             "isBackground": true,
             "problemMatcher": [],
             "presentation": {
-                "group": "other-watch-group"
+                "group": "watch-group"
             }
         },
         {
