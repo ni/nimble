@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 14 Sep 2021 21:19:06 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.16",
+      "version": "1.0.0-beta.16",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "add watch script to tokens",
+            "commit": "0b3136f0f8bee1946f8e8e046d0b553283ec6097"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Sep 2021 16:53:39 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.15",
       "version": "1.0.0-beta.15",
