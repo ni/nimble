@@ -4,6 +4,7 @@ import {
     borderColorHover,
     borderWidth,
     contentFontColor,
+    contentFontColorDisabled,
     contentFontSize,
     controlHeight,
     fillColorHover,
@@ -35,5 +36,15 @@ export const styles = css`
     :host(${focusVisible}) {
         outline: none;
         box-shadow: 0 calc(${borderWidth} * -1) ${borderColorHover} inset;
+    }
+
+    :host(:active) {
+        background: none;
+    }
+
+    :host([disabled]) {
+        cursor: default;
+        color: ${contentFontColorDisabled};
+        background: none;
     }
 `;
