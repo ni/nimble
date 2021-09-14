@@ -6,6 +6,7 @@
     "build": "npm run build:svg-to-ts && npm run build:ts",
     "build:svg-to-ts": "svg-to-ts --config source/build/svg-to-ts-config.js",
     "build:ts": "tsc -p ./tsconfig.json",
+    "build:ts:watch": "tsc -p ./tsconfig.json -w",
     "lint": "eslint ."
   },
   "repository": {
