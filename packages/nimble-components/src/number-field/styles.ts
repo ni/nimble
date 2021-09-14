@@ -10,7 +10,8 @@ import {
     labelFontColor,
     labelFontFamily,
     labelFontSize,
-    labelTextTransform
+    labelTextTransform,
+    smallDelay
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -37,6 +38,7 @@ export const styles = css`
         font-family: ${fontFamily};
         border-bottom: ${borderWidth} solid ${borderColor};
         padding-bottom: 1px;
+        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
 
     @media (prefers-reduced-motion) {
