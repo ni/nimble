@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Add simple tab component",
+  "packageName": "@ni/nimble-components",
+  "email": "lukas.kall@ni.com",
+  "dependentChangeType": "patch"
+}
