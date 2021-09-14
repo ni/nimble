@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 26 Aug 2021 18:52:38 GMT
+ * Generated on Tue, 14 Sep 2021 16:28:36 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -43,10 +43,10 @@ export const SubHeaderFamily = "Source Sans Pro";
 export const SubHeaderWeight = "Regular";
 export const Header1Family = "Noto Serif";
 export const Header1Weight = "Regular";
-export const Header2Size = "22rem";
-export const OverlineCapitalizedSize = "11rem";
-export const BodySize = "14rem";
-export const Header0Size = "36rem";
-export const SubHeaderSize = "12rem";
-export const Header1Size = "24rem";
+export const Header2Size = "22px";
+export const OverlineCapitalizedSize = "11px";
+export const BodySize = "14px";
+export const Header0Size = "36px";
+export const SubHeaderSize = "12px";
+export const Header1Size = "24px";
 export const SmallDelay = "0.1s"; // Short animation delay used for control state change animation

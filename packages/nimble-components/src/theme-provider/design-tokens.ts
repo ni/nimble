@@ -9,12 +9,14 @@ import {
     White,
     Enterprise,
     Selection100,
-    BodyFamily,
-    OverlineCapitalizedFamily,
     SlLegacyBlue,
     Fail100LightUi,
     SmallDelay,
-    Fail100DarkUi
+    Fail100DarkUi,
+    BodyFamily,
+    BodySize,
+    OverlineCapitalizedFamily,
+    OverlineCapitalizedSize
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -109,7 +111,7 @@ function getLabelTextSize(element: HTMLElement): string {
         case NimbleTheme.LegacyBlue:
             return '13px';
         default:
-            return '11px';
+            return OverlineCapitalizedSize;
     }
 }
 
@@ -207,7 +209,7 @@ export const labelFontFamily = create<string>('label-font-family').withDefault(
 export const labelFontSize = create<string>('label-font-size').withDefault(
     (element: HTMLElement) => getLabelTextSize(element)
 );
-export const contentFontSize = create<string>('content-font-size').withDefault('14px');
+export const contentFontSize = create<string>('content-font-size').withDefault(BodySize);
 
 // Font Color Tokens
 export const labelFontColor = create<string>('label-font-color').withDefault(
