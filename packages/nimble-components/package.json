@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "1.0.0-beta.47",
+  "version": "1.0.0-beta.52",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build-components && npm run build-storybook",
@@ -16,13 +16,14 @@
     "build-components": "tsc -p ./tsconfig.json",
     "build-components:watch": "tsc -p ./tsconfig.json -w",
     "chromatic": "chromatic",
-    "tdd": "npm run build-components && npm run test",
+    "tdd": "npm run build-components && npm run test-chrome",
     "tdd:watch": "npm run build-components:watch & npm run test-chrome:watch",
     "test-chrome:debugger": "karma start karma.conf.js --browsers=ChromeDebugging",
+    "test-chrome:verbose": "karma start karma.conf.verbose.js --browsers=ChromeHeadlessOpt --single-run",
     "test-chrome:watch": "karma start karma.conf.js --browsers=ChromeHeadlessOpt --watch-extensions js",
     "test-chrome": "karma start karma.conf.js --browsers=ChromeHeadlessOpt --single-run",
     "test-firefox": "karma start karma.conf.js --browsers=FirefoxHeadless --single-run",
-    "test": "npm run test-chrome"
+    "test": "npm run test-chrome:verbose"
   },
   "repository": {
     "type": "git",
@@ -43,7 +44,7 @@
     "@microsoft/fast-components": "^2.0.0",
     "@microsoft/fast-element": "^1.4.1",
     "@microsoft/fast-foundation": "^2.12.0",
-    "@ni/nimble-tokens": "^1.0.0-beta.14",
+    "@ni/nimble-tokens": "^1.0.0-beta.16",
     "hex-rgb": "^5.0.0",
     "lodash-es": "^4.17.21"
   },
@@ -81,6 +82,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-source-map-support": "^1.4.0",
     "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "^0.0.32",
     "karma-webpack": "^5.0.0",
     "prettier": "^2.0.0",
     "prettier-eslint": "^13.0.0",

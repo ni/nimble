@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 10 Sep 2021 18:13:15 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Sep 2021 20:07:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.56
+
+Wed, 15 Sep 2021 20:07:53 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.56 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.55
+
+Tue, 14 Sep 2021 22:50:16 GMT
+
+### Changes
+
+- Adding button Angular directive (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.54
+
+Tue, 14 Sep 2021 21:19:06 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.54 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.53
+
+Tue, 14 Sep 2021 16:53:39 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.53 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.52
+
+Mon, 13 Sep 2021 20:07:38 GMT
+
+### Changes
+
+- implement text-field angular directive (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.51
+
+Mon, 13 Sep 2021 15:09:27 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.51 (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.50
+
+Fri, 10 Sep 2021 20:29:33 GMT
+
+### Changes
+
+- Implemented directive for nimble-theme-provider (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.49
+
+Fri, 10 Sep 2021 19:03:37 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.49 (jattasNI@users.noreply.github.com)
 
 ## 1.0.0-beta.48
 
