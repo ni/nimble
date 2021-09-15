@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 14 Sep 2021 21:19:06 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Sep 2021 20:07:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.52
+
+Wed, 15 Sep 2021 20:07:53 GMT
+
+### Changes
+
+- fix bottom borders of text-field and number-field (22551874+scotia673@users.noreply.github.com)
 
 ## 1.0.0-beta.51
 
