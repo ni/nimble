@@ -13,7 +13,7 @@ async function waitForAsync(conditionFn: () => boolean): Promise<void> {
 }
 
 async function waitAsync(): Promise<void> {
-    await new Promise(resolve => window.requestAnimationFrame(resolve));
+    await new Promise(window.requestAnimationFrame);
 }
 
 function setSelectValue(select: Select, index: number): void {
@@ -80,7 +80,7 @@ describe('Nimble select control value accessor', () => {
         select1 = testHostComponent.select1.nativeElement;
         select2 = testHostComponent.select2.nativeElement;
         fixture.detectChanges();
-        await waitForAsync(() => select1.options.length !== 0);
+        await waitForAsync(() => select1.options.length !== 0 && select2.options.length !== 0);
     });
 
     describe('when using [ngValue] binding', () => {
