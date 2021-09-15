@@ -21,7 +21,7 @@ function setSelectValue(select: Select, index: number): void {
     select.options[index].dispatchEvent(new Event('click', { bubbles: true }));
 }
 
-fdescribe('Nimble select control value accessor', () => {
+describe('Nimble select control value accessor', () => {
     @Component({
         template: `
             <nimble-select #select1 [(ngModel)]="selectedOption1" [compareWith]="compareWith">
