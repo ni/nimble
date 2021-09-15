@@ -22,6 +22,7 @@ export const styles = css`
         outline: none;
         user-select: none;
         color: ${labelFontColor};
+        height: 48px;
     }
 
     :host([disabled]) {
@@ -61,7 +62,6 @@ export const styles = css`
         -webkit-appearance: none;
         font: inherit;
         background: transparent;
-        border: 0;
         color: inherit;
         height: 28px;
         width: 100%;
