@@ -197,6 +197,7 @@ export const popupBorderColor = create<string>(
 // Component Sizing Tokens
 export const controlHeight = create<string>('control-height').withDefault('32px');
 export const standardPadding = create<string>('standard-padding').withDefault('16px');
+export const labelHeight = create<string>('label-height').withDefault('16px');
 export const borderWidth = create<string>('border-width').withDefault('1px');
 
 // Font Family Tokens

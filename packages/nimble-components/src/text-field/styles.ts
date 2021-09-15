@@ -6,12 +6,14 @@ import {
     borderWidth,
     contentFontColorDisabled,
     contentFontSize,
+    controlHeight,
     failColor,
     fillColorSelectedRgb,
     fontFamily,
     labelFontColor,
     labelFontFamily,
     labelFontSize,
+    labelHeight,
     labelTextTransform,
     passwordRevealFilter,
     smallDelay
@@ -25,7 +27,7 @@ export const styles = css`
         outline: none;
         user-select: none;
         color: ${labelFontColor};
-        height: 48px;
+        height: calc(${labelHeight} + ${controlHeight});
     }
 
     :host([disabled]) {
@@ -123,7 +125,7 @@ export const styles = css`
     .label {
         font-family: ${labelFontFamily};
         font-size: ${labelFontSize};
-        line-height: 16px;
+        line-height: ${labelHeight};
         text-transform: ${labelTextTransform};
     }
 
