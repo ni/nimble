@@ -5,14 +5,14 @@ import { NimbleSelectModule } from '../nimble-select.module';
 import { NimbleListboxOptionModule } from '../../listbox-option';
 import { Select } from '../../../../../../../../packages/nimble-components/dist/esm/select';
 
-export async function waitForAsync(conditionFn: () => boolean): Promise<void> {
+async function waitForAsync(conditionFn: () => boolean): Promise<void> {
     while (!conditionFn()) {
         // eslint-disable-next-line no-await-in-loop
         await waitAsync();
     }
 }
 
-export async function waitAsync(): Promise<void> {
+async function waitAsync(): Promise<void> {
     await new Promise(resolve => window.requestAnimationFrame(resolve));
 }
 
