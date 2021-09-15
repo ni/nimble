@@ -123,6 +123,7 @@ export const styles = css`
     }
 
     .label {
+        display: flex;
         font-family: ${labelFontFamily};
         font-size: ${labelFontSize};
         line-height: ${labelHeight};
