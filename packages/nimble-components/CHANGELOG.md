@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 14 Sep 2021 16:53:39 GMT and should not be manually modified.
+This log was last generated on Tue, 14 Sep 2021 21:19:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.51
+
+Tue, 14 Sep 2021 21:19:06 GMT
+
+### Changes
+
+- Use VSCode Tasks to start watch scripts (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.51 (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.50
 

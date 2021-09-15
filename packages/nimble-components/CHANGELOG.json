@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Sep 2021 21:19:06 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.51",
+      "version": "1.0.0-beta.51",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Use VSCode Tasks to start watch scripts",
+            "commit": "0b3136f0f8bee1946f8e8e046d0b553283ec6097"
+          },
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0b3136f0f8bee1946f8e8e046d0b553283ec6097",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.51"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Sep 2021 16:53:39 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.50",
       "version": "1.0.0-beta.50",
