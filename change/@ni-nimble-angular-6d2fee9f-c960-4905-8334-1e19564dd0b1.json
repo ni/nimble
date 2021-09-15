@@ -3,5 +3,5 @@
   "comment": "Complete ControlValueAccessor for nimble-select",
   "packageName": "@ni/nimble-angular",
   "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
