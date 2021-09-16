@@ -2,6 +2,78 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 16 Sep 2021 15:30:58 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.53",
+      "version": "1.0.0-beta.53",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "9480438+LukasKall@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Add simple tab component",
+            "commit": "3220150b84975ba1de31a0f52e29142fd1ecbc27"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Sep 2021 20:07:53 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.52",
+      "version": "1.0.0-beta.52",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "fix bottom borders of text-field and number-field",
+            "commit": "9bc406bb57cd413b24fbfcdf8b229cf92361666e"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Sep 2021 21:19:06 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.51",
+      "version": "1.0.0-beta.51",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Use VSCode Tasks to start watch scripts",
+            "commit": "0b3136f0f8bee1946f8e8e046d0b553283ec6097"
+          },
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0b3136f0f8bee1946f8e8e046d0b553283ec6097",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.51"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Sep 2021 16:53:39 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.50",
+      "version": "1.0.0-beta.50",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "uptake DSP font sizes in design-tokens.ts",
+            "commit": "829cd2da4ce213c9ae19ac52243d8512f18f1501"
+          },
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "829cd2da4ce213c9ae19ac52243d8512f18f1501",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.50"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 Sep 2021 15:09:27 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.49",
       "version": "1.0.0-beta.49",

@@ -6,12 +6,14 @@ import {
     borderWidth,
     contentFontColorDisabled,
     contentFontSize,
+    controlHeight,
     failColor,
     fillColorSelectedRgb,
     fontFamily,
     labelFontColor,
     labelFontFamily,
     labelFontSize,
+    labelHeight,
     labelTextTransform,
     passwordRevealFilter,
     smallDelay
@@ -25,6 +27,7 @@ export const styles = css`
         outline: none;
         user-select: none;
         color: ${labelFontColor};
+        height: calc(${labelHeight} + ${controlHeight});
     }
 
     :host([disabled]) {
@@ -39,7 +42,8 @@ export const styles = css`
         border-radius: 0px;
         font-family: ${fontFamily};
         border-bottom: ${borderWidth} solid ${borderColor};
-        transition: border-bottom ${smallDelay};
+        padding-bottom: 1px;
+        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: flex-end;
     }
 
@@ -51,6 +55,7 @@ export const styles = css`
 
     .root:hover {
         border-bottom: 2px solid ${borderColorHover};
+        padding-bottom: 0px;
     }
 
     :host([invalid]) .root {
@@ -59,6 +64,7 @@ export const styles = css`
 
     :host([invalid]) .root:hover {
         border-bottom: 2px solid ${failColor};
+        padding-bottom: 0px;
     }
 
     :host([disabled]) .root,
@@ -75,7 +81,6 @@ export const styles = css`
         -webkit-appearance: none;
         font: inherit;
         background: transparent;
-        border: 0;
         color: inherit;
         height: 28px;
         width: 100%;
@@ -118,9 +123,10 @@ export const styles = css`
     }
 
     .label {
+        display: flex;
         font-family: ${labelFontFamily};
         font-size: ${labelFontSize};
-        line-height: 16px;
+        line-height: ${labelHeight};
         text-transform: ${labelTextTransform};
     }
 
