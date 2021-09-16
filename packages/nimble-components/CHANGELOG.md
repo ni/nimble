@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 15 Sep 2021 20:07:53 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Sep 2021 15:30:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.53
+
+Thu, 16 Sep 2021 15:30:58 GMT
+
+### Changes
+
+- Add simple tab component (9480438+LukasKall@users.noreply.github.com)
 
 ## 1.0.0-beta.52
 
