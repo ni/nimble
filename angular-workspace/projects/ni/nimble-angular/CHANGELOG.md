@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 14 Sep 2021 21:19:06 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Sep 2021 20:07:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.56
+
+Wed, 15 Sep 2021 20:07:53 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.56 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.55
+
+Tue, 14 Sep 2021 22:50:16 GMT
+
+### Changes
+
+- Adding button Angular directive (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 1.0.0-beta.54
 

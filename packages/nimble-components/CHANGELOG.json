@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 15 Sep 2021 20:07:53 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.52",
+      "version": "1.0.0-beta.52",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "fix bottom borders of text-field and number-field",
+            "commit": "9bc406bb57cd413b24fbfcdf8b229cf92361666e"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Sep 2021 21:19:06 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.51",
       "version": "1.0.0-beta.51",
