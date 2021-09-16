@@ -85,10 +85,13 @@ export const styles: (
         align-items: center;
         white-space: nowrap;
         width: 100%;
-        padding: 12px;
-        margin-inline-start: 16px;
+        padding-left: 10px;
         font-size: ${contentFontSize};
         user-select: none;
+    }
+
+    .content-region span {
+        width: 16px;
     }
 
     .items {
@@ -96,7 +99,7 @@ export const styles: (
         /*  for reasons unknown this controls the nested indentation, make it larger or shorter by changing the px value
             it must minimally contain arithmetic with an em and a px value
         */
-        font-size: calc(1em + 20px);
+        font-size: calc(1em + 32px);
     }
     .expand-collapse-button {
         background: none;
