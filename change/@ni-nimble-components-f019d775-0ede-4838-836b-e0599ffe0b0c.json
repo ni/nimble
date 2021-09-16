@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Add simple tab component",
+  "packageName": "@ni/nimble-components",
+  "email": "9480438+LukasKall@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
