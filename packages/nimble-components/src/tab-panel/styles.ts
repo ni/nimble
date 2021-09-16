@@ -3,7 +3,8 @@ import { display } from '@microsoft/fast-foundation';
 import {
     contentFontColor,
     contentFontSize,
-    fontFamily
+    fontFamily,
+    standardPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -12,5 +13,6 @@ export const styles = css`
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         color: ${contentFontColor};
+        padding-top: ${standardPadding};
     }
 `;
