@@ -1,8 +1,34 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 13 Sep 2021 15:09:27 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Sep 2021 20:07:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.52
+
+Wed, 15 Sep 2021 20:07:53 GMT
+
+### Changes
+
+- fix bottom borders of text-field and number-field (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.51
+
+Tue, 14 Sep 2021 21:19:06 GMT
+
+### Changes
+
+- Use VSCode Tasks to start watch scripts (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.51 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.50
+
+Tue, 14 Sep 2021 16:53:39 GMT
+
+### Changes
+
+- uptake DSP font sizes in design-tokens.ts (22551874+scotia673@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.50 (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.49
 
