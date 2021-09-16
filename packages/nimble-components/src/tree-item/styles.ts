@@ -8,7 +8,6 @@ import {
 } from '@microsoft/fast-foundation';
 import {
     contentFontColor,
-    applicationBackgroundColor,
     fontFamily,
     borderColorHover,
     fillColorSelected,
@@ -17,6 +16,7 @@ import {
     fillColorSelectedHover
 } from '../theme-provider/design-tokens';
 
+/* ltr and rtl control the rotation of the expand chevron */
 const ltr = css`
     .expand-collapse-button svg {
         transform: rotate(90deg);
@@ -57,7 +57,6 @@ export const styles: (
         position: relative;
         outline: none;
         color: ${contentFontColor};
-        background: ${applicationBackgroundColor};
         cursor: pointer;
         font-family: ${fontFamily};
         --tree-item-nested-width: 0;
@@ -89,15 +88,15 @@ export const styles: (
         font-size: ${contentFontSize};
         user-select: none;
     }
-
+    /* this rule keeps children without an icon text aligned with parents */
     .content-region span {
         width: 16px;
     }
-
     .items {
         display: none;
-        /*  for reasons unknown this controls the nested indentation, make it larger or shorter by changing the px value
+        /*  this controls the nested indentation (by affecting .positioning-region::before)
             it must minimally contain arithmetic with an em and a px value
+            make it larger or shorter by changing the px value
         */
         font-size: calc(1em + 32px);
     }
@@ -113,7 +112,6 @@ export const styles: (
         align-items: center;
         cursor: pointer;
         margin-left: 10px;
-        margin-right: 18px;
     }
     .expand-collapse-button svg {
         width: 16px;
@@ -162,8 +160,8 @@ export const styles: (
     :host([selected]) .positioning-region:hover {
         background: ${fillColorSelectedHover};
     }
+    /* this controls the side border */
     :host([selected])::after {
-        /* this controls the side border */
         background: ${borderColorHover};
         border-radius: 0px;
         content: '';
@@ -175,6 +173,6 @@ export const styles: (
     }
     ::slotted(${context.tagFor(TreeItem)}) {
         --tree-item-nested-width: 1em;
-        --expand-collapse-button-nested-width: -15px;
+        --expand-collapse-button-nested-width: -16px;
     }
     `.withBehaviors(new DirectionalStyleSheetBehavior(ltr, rtl));
