@@ -61,25 +61,3 @@ const metadata: Meta<TabsArgs> = {
 export default metadata;
 
 export const tabs: Story<TabsArgs> = {};
-
-export const disabled: Story<TabsArgs> = {
-    args: {
-        tabs: [
-            {
-                label: 'Tab One',
-                content: 'Content of the first tab',
-                disabled: false
-            },
-            {
-                label: 'Disabled Tab',
-                content: 'Content of the disabled tab',
-                disabled: true
-            },
-            {
-                label: 'Tab Three',
-                content: 'Content of the third tab',
-                disabled: false
-            }
-        ]
-    }
-};
