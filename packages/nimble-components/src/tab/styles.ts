@@ -33,6 +33,10 @@ export const styles = css`
         background-color: ${fillColorHover};
     }
 
+    :host(:focus) {
+        outline: none;
+    }
+
     :host(${focusVisible}) {
         outline: none;
         box-shadow: 0 calc(${borderWidth} * -1) ${borderColorHover} inset;
