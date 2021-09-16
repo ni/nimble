@@ -30,7 +30,8 @@ class Button extends FoundationButton {
      * @public
      * @remarks
      * HTML Attribute: icon
-     * The icon can be set to something of type `NimbleIcon` or
+     * The icon can be set to something of type `NimbleIcon` or a string that is expected to be an HTML
+     * blob representing an icon.
      */
     @attr
     public icon: string | NimbleIcon;
