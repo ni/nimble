@@ -45,6 +45,7 @@ export const styles = css`
         color: inherit;
         border-radius: inherit;
         fill: inherit;
+        display: flex;
         cursor: inherit;
         font-family: inherit;
         font-size: inherit;
@@ -80,6 +81,30 @@ export const styles = css`
     .control[disabled] {
         box-shadow: none;
         outline: none;
+    }
+
+    :host [part='start'] {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    :host span {
+        align-self: center;
+    }
+
+    :host [part='start'].iconContent {
+        width: 16px;
+        margin-right: 4px;
+        fill: ${buttonContentFontColor};
+    }
+
+    :host([disabled]) [part='start'].iconContent {
+        opacity: 0.6;
+    }
+
+    :host [part='content'].iconWithNoButtonContent {
+        margin-right: -4px;
     }
 `.withBehaviors(
         appearanceBehavior(
