@@ -24,6 +24,14 @@ class Button extends FoundationButton {
     @attr
     public appearance: ButtonAppearance;
 
+    /**
+     * The icon to use in the button.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: icon
+     * The icon can be set to something of type `NimbleIcon` or
+     */
     @attr
     public icon: string | NimbleIcon;
 
