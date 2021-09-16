@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { NumberField } from '@microsoft/fast-foundation';
+import { NumberField } from '@ni/nimble-components/dist/esm/number-field';
 
 @Component({
     selector: 'nimble-angular-number-field',

@@ -23,7 +23,7 @@ From the `nimble` directory:
 
 1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
 1. Run `npm install`
-1. Run `npm run build`
+1. Run `npm run build` (or **Terminal»Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
 1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
     **Note**: You will need to refresh your browser window to see style changes made in source.
@@ -60,6 +60,22 @@ This repository uses automated linting and automated lint formatting. Use `npm r
 To enable linting and formatting during development, install the recommended VS Code extensions. The list of recommended VS Code extensions can be found in `.vscode/extensions.json`.
 
 The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Defualt Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed.
+
+### Watch scripts for development
+
+When creating a new component in the `nimble-components` package, it's often sufficient to run the `npm run storybook -w @ni/nimble-components` command to preview the component during development. However, when integration components with Angular or when modifying multiple packages, it's necessary to rebuild multiple components as you modify them. To run `*:watch` scripts for all packages simultaneously, this repository uses VS Code Tasks to automatically launch the scripts in configured terminal tabs.
+
+To launch the watch scripts, open **View»Command palette…** and type `run task`. Select `Tasks: Run Task` and then select `Create Watch Terminals` and press enter. 
+
+You can also configure this task to execute via a keyboard shortcut by [configuring](https://code.visualstudio.com/docs/getstarted/keybindings) the keybindings.json file to include the following:
+
+```json
+{   
+    "key": "ctrl+shift+\\",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Create Watch Terminals"
+}
+```
 
 ### Code owners
 

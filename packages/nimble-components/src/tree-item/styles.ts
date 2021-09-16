@@ -8,14 +8,15 @@ import {
 } from '@microsoft/fast-foundation';
 import {
     contentFontColor,
-    applicationBackgroundColor,
     fontFamily,
     borderColorHover,
     fillColorSelected,
     contentFontSize,
-    fillColorHover
+    fillColorHover,
+    fillColorSelectedHover
 } from '../theme-provider/design-tokens';
 
+/* ltr and rtl control the rotation of the expand chevron */
 const ltr = css`
     .expand-collapse-button svg {
         transform: rotate(90deg);
@@ -49,17 +50,12 @@ const rtl = css`
 export const styles: (
     context: ElementDefinitionContext,
     definition: TreeItemOptions
-) => ElementStyles = (
-    context: ElementDefinitionContext,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    definition: TreeItemOptions
-) => css`
+) => ElementStyles = (context: ElementDefinitionContext) => css`
         ${display('block')} :host {
             contain: content;
             position: relative;
             outline: none;
             color: ${contentFontColor};
-            background: ${applicationBackgroundColor};
             cursor: pointer;
             font-family: ${fontFamily};
             --tree-item-nested-width: 0;
@@ -74,24 +70,34 @@ export const styles: (
             display: flex;
             position: relative;
             box-sizing: border-box;
-            height: 40px;
-            user-select: none;
+            height: 32px;
         }
-        .positioning-region:hover {
-            background: ${fillColorHover};
+        .positioning-region::before {
+            content: '';
+            display: block;
+            width: var(--tree-item-nested-width);
+            flex-shrink: 0;
         }
         .content-region {
             display: inline-flex;
             align-items: center;
             white-space: nowrap;
             width: 100%;
-            height: 16px;
-            padding: 12px;
+            padding-left: 10px;
             font-size: ${contentFontSize};
+            user-select: none;
+        }
+        /* this rule keeps children without an icon text aligned with parents */
+        .content-region span {
+            width: 16px;
         }
         .items {
             display: none;
-            font-size: ${contentFontSize};
+            /*  this controls the nested indentation (by affecting .positioning-region::before)
+            it must minimally contain arithmetic with an em and a px value
+            make it larger or shorter by changing the px value
+        */
+            font-size: calc(1em + 32px);
         }
         .expand-collapse-button {
             background: none;
@@ -99,13 +105,12 @@ export const styles: (
             outline: none;
             width: 16px;
             height: 16px;
-            padding: 0;
+            padding: 0px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             margin-left: 10px;
-            margin-right: 18px;
         }
         .expand-collapse-button svg {
             width: 16px;
@@ -125,6 +130,7 @@ export const styles: (
             height: 16px;
         }
         .start {
+            margin-inline-start: 16px;
             margin-inline-end: 16px;
         }
         .end {
@@ -144,13 +150,17 @@ export const styles: (
         :host(.nested) .expand-collapse-button {
             position: absolute;
         }
-        :host([selected]) {
+        .positioning-region:hover {
+            background: ${fillColorHover};
+        }
+        :host([selected]) .positioning-region {
             background: ${fillColorSelected};
         }
+        :host([selected]) .positioning-region:hover {
+            background: ${fillColorSelectedHover};
+        }
+        /* this controls the side border */
         :host([selected])::after {
-            /* The background needs to be calculated based on the selected background state
-            for this control. We currently have no way of changing that, so setting to
-            accent-foreground-rest for the time being */
             background: ${borderColorHover};
             border-radius: 0px;
             content: '';
@@ -158,18 +168,10 @@ export const styles: (
             position: absolute;
             top: 0px;
             width: 2px;
-            height: 40px;
+            height: 32px;
         }
         ::slotted(${context.tagFor(TreeItem)}) {
             --tree-item-nested-width: 1em;
-            --expand-collapse-button-nested-width: 15px;
+            --expand-collapse-button-nested-width: -16px;
         }
     `.withBehaviors(new DirectionalStyleSheetBehavior(ltr, rtl));
-
-// this block controlled indenting the nested items, it might end up being a useful trick
-/* .positioning-region::before {
-        content: "";
-        display: block;
-        width: var(--tree-item-nested-width);
-        flex-shrink: 0;
-    } */

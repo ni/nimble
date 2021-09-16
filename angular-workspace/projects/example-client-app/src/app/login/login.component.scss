@@ -6,11 +6,13 @@
     height: 100%;
 }
 
-.theme-button {
+.theme-select {
     display: block;
     position: absolute;
     top: 12px;
     left: 12px;
+    width: 150px;
+    min-width: unset;
 }
 
 .login-container {
@@ -23,6 +25,7 @@ nimble-button {
     width: fit-content;
 }
 
-nimble-angular-text-field {
+nimble-text-field {
+    width: 150px;
     margin-bottom: 12px;
 }

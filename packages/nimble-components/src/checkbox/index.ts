@@ -8,6 +8,8 @@ import { succeeded16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-in
 
 import { styles } from './styles';
 
+export { FoundationCheckbox as Checkbox };
+
 const nimbleCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
     baseName: 'checkbox',
     template,

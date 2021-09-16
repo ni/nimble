@@ -5,13 +5,17 @@ import {
     borderColorHover,
     borderWidth,
     contentFontColorDisabled,
+    contentFontSize,
+    controlHeight,
     failColor,
     fillColorSelectedRgb,
     fontFamily,
     labelFontColor,
     labelFontFamily,
     labelFontSize,
+    labelHeight,
     labelTextTransform,
+    passwordRevealFilter,
     smallDelay
 } from '../theme-provider/design-tokens';
 
@@ -19,14 +23,15 @@ export const styles = css`
     :host {
         display: inline-block;
         font-family: ${fontFamily};
+        font-size: ${contentFontSize};
         outline: none;
         user-select: none;
         color: ${labelFontColor};
+        height: calc(${labelHeight} + ${controlHeight});
     }
 
     :host([disabled]) {
         color: ${contentFontColorDisabled};
-        cursor: default;
     }
 
     .root {
@@ -37,7 +42,8 @@ export const styles = css`
         border-radius: 0px;
         font-family: ${fontFamily};
         border-bottom: ${borderWidth} solid ${borderColor};
-        transition: border-bottom ${smallDelay};
+        padding-bottom: 1px;
+        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: flex-end;
     }
 
@@ -49,6 +55,7 @@ export const styles = css`
 
     .root:hover {
         border-bottom: 2px solid ${borderColorHover};
+        padding-bottom: 0px;
     }
 
     :host([invalid]) .root {
@@ -57,6 +64,7 @@ export const styles = css`
 
     :host([invalid]) .root:hover {
         border-bottom: 2px solid ${failColor};
+        padding-bottom: 0px;
     }
 
     :host([disabled]) .root,
@@ -64,17 +72,25 @@ export const styles = css`
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
     }
 
+    :host([readonly]) .root,
+    :host([readonly]) .root:hover {
+        border: none;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
         background: transparent;
-        border: 0;
         color: inherit;
         height: 28px;
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
         border: none;
+    }
+
+    .control::-ms-reveal {
+        filter: ${passwordRevealFilter};
     }
 
     .control:hover,
@@ -91,12 +107,15 @@ export const styles = css`
 
     .control::placeholder {
         color: ${labelFontColor};
-        font-style: italic;
-        opacity: 0.5;
+        opacity: 0.6;
     }
 
-    .control:focus-within::placeholder {
+    .control:not([readonly]):focus-within::placeholder {
         opacity: 1;
+    }
+
+    .control[readonly] {
+        cursor: default;
     }
 
     .control[disabled]::placeholder {
@@ -104,17 +123,22 @@ export const styles = css`
     }
 
     .label {
+        display: flex;
         font-family: ${labelFontFamily};
         font-size: ${labelFontSize};
-        line-height: 16px;
+        line-height: ${labelHeight};
         text-transform: ${labelTextTransform};
+    }
+
+    :host [part='end'] {
+        display: none;
     }
 
     :host([invalid]) [part='end'] {
         align-self: center;
         display: inline-flex;
-        padding-left: 0.5em;
-        padding-right: 0.5em;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 
     :host([invalid]) [part='end'] svg {
