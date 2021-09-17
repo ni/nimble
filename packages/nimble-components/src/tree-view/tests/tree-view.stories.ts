@@ -24,9 +24,6 @@ const metadata: Meta<TreeArgs> = {
     parameters: {
         design: {
             artboardUrl: ''
-        },
-        actions: {
-            handles: ['change']
         }
     },
     // prettier-ignore
