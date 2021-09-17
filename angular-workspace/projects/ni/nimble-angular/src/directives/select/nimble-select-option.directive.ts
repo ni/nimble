@@ -27,10 +27,9 @@ export class NimbleSelectOptionDirective extends NgSelectOption {
     }
 
     public override set value(value: any) {
-        super.value = `${value}`;
-        if (this.select) {
-            this.renderer.setAttribute(this.element.nativeElement, 'value', this.element.nativeElement.value);
-        }
+        const valueAsString = `${value}`;
+        super.value = valueAsString;
+        this.renderer.setAttribute(this.element.nativeElement, 'value', valueAsString);
     }
 
     public override set ngValue(value: any) {
