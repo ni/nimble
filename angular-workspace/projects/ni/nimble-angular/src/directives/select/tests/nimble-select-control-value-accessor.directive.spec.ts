@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NimbleSelectModule } from '../nimble-select.module';
 import { NimbleListboxOptionModule } from '../../listbox-option';
 import { Select } from '../../../../../../../../packages/nimble-components/dist/esm/select';
-import { waitAsync, waitForAsync } from '../../../test-utilities.spec';
+import { waitAsync, waitForAsync } from '../../../async-test-utilities';
 
 function setSelectValue(select: Select, index: number): void {
     select.dispatchEvent(new Event('click'));
