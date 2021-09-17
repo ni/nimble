@@ -3,8 +3,8 @@ import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../tree-item/index';
 import {
-    slHeader32X32,
-    chart40X40
+    jobs16X16,
+    notebook16X16
 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 interface TreeArgs {
@@ -35,11 +35,11 @@ const metadata: Meta<TreeArgs> = {
         <nimble-tree-view>
         ${options.map(option => `
             <nimble-tree-item ${option.expanded ? 'expanded' : ''} value="${option.value}" ${option.disabled ? 'disabled' : ''}>
-                ${option.icon ? `<svg slot="start">${slHeader32X32.data}</svg>` : ''}
+                ${option.icon ? `<svg slot="start">${jobs16X16.data}</svg>` : ''}
                 ${option.label}
                 <nimble-tree-item slot="item">Nested Item 1</nimble-tree-item>
-                <nimble-tree-item slot="item"><svg slot="start">${chart40X40.data}</svg>Nested Item 2</nimble-tree-item>
-                <nimble-tree-item slot="item"><svg slot="start">${chart40X40.data}</svg>Nested Item 3</nimble-tree-item>
+                <nimble-tree-item slot="item"><svg slot="start">${notebook16X16.data}</svg>Nested Item 2</nimble-tree-item>
+                <nimble-tree-item slot="item"><svg slot="start">${notebook16X16.data}</svg>Nested Item 3</nimble-tree-item>
             </nimble-tree-item>\n`)
         .join('')}
         </nimble-tree-view>
