@@ -16,6 +16,7 @@ interface ItemArgs {
     value: string;
     disabled: boolean;
     icon: boolean;
+    expanded: boolean;
 }
 
 const metadata: Meta<TreeArgs> = {
@@ -24,13 +25,16 @@ const metadata: Meta<TreeArgs> = {
     parameters: {
         design: {
             artboardUrl: ''
+        },
+        actions: {
+            handles: ['expanded-change', 'selected-change']
         }
     },
     // prettier-ignore
     render: ({ options }: TreeArgs): string => `
         <nimble-tree-view>
         ${options.map(option => `
-            <nimble-tree-item value="${option.value}" ${option.disabled ? 'disabled' : ''}>
+            <nimble-tree-item ${option.expanded ? 'expanded' : ''} value="${option.value}" ${option.disabled ? 'disabled' : ''}>
                 ${option.icon ? `<svg slot="start">${slHeader32X32.data}</svg>` : ''}
                 ${option.label}
                 <nimble-tree-item slot="item">Nested Item 1</nimble-tree-item>
@@ -42,10 +46,34 @@ const metadata: Meta<TreeArgs> = {
 `,
     args: {
         options: [
-            { label: 'Option 1', value: '1', disabled: false, icon: true },
-            { label: 'Option 2', value: '2', disabled: true, icon: true },
-            { label: 'Option 3', value: '3', disabled: false, icon: true },
-            { label: 'Option 4', value: '3', disabled: false, icon: false }
+            {
+                label: 'Option 1',
+                value: '1',
+                disabled: false,
+                icon: true,
+                expanded: true
+            },
+            {
+                label: 'Option 2',
+                value: '2',
+                disabled: true,
+                icon: true,
+                expanded: false
+            },
+            {
+                label: 'Option 3',
+                value: '3',
+                disabled: false,
+                icon: true,
+                expanded: false
+            },
+            {
+                label: 'Option 4',
+                value: '3',
+                disabled: false,
+                icon: false,
+                expanded: false
+            }
         ]
     }
 };

@@ -47,6 +47,18 @@ export const readOnlyStates = [
 ];
 export type ReadOnlyState = typeof readOnlyStates[number];
 
+export const expandedStates = [
+    ['Collapsed', ''],
+    ['Expanded', 'expanded']
+];
+export type ExpandedState = typeof expandedStates[number];
+
+export const selectedStates = [
+    ['Unselected', ''],
+    ['Selected', 'selected']
+];
+export type SelectedState = typeof selectedStates[number];
+
 /**
  * Wraps a given component template with a region for each of the available themes.
  * Takes an optional array of state values that can be used with the template to match the permutations of the provided states.
