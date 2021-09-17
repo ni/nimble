@@ -58,7 +58,7 @@ describe('Nimble text field control value accessor', () => {
         expect(textField.value).toBe(newValue);
     });
 
-    fit('should update bound property when selected value is changed', async () => {
+    it('should update bound property when selected value is changed', async () => {
         const newValue = 'new value';
         setTextFieldValue(textField, newValue);
         fixture.detectChanges();

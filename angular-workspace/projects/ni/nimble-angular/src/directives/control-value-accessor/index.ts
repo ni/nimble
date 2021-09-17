@@ -1,2 +1,2 @@
 export * from './nimble-control-value-accessor.module';
-export * from './nimble-control-value-accessor.directive';
+export * from './nimble-default-control-value-accessor.directive';
