@@ -5,17 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NimbleSelectModule } from '../nimble-select.module';
 import { NimbleListboxOptionModule } from '../../listbox-option';
 import { Select } from '../../../../../../../../packages/nimble-components/dist/esm/select';
-
-async function waitForAsync(conditionFn: () => boolean): Promise<void> {
-    while (!conditionFn()) {
-        // eslint-disable-next-line no-await-in-loop
-        await waitAsync();
-    }
-}
-
-async function waitAsync(): Promise<void> {
-    await new Promise(window.requestAnimationFrame);
-}
+import { waitAsync, waitForAsync } from '../../../test-utilities.spec';
 
 function setSelectValue(select: Select, index: number): void {
     select.dispatchEvent(new Event('click'));
