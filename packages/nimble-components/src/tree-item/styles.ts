@@ -3,7 +3,6 @@ import { css, ElementStyles } from '@microsoft/fast-element';
 import {
     display,
     ElementDefinitionContext,
-    TreeItem,
     TreeItemOptions
 } from '@microsoft/fast-foundation';
 import {
@@ -170,7 +169,7 @@ export const styles: (
             width: 2px;
             height: 32px;
         }
-        ::slotted(${context.tagFor(TreeItem)}) {
+        ::slotted(${context.name}) {
             --tree-item-nested-width: 1em;
             --expand-collapse-button-nested-width: -16px;
         }
