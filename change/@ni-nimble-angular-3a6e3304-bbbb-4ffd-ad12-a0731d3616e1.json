@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Tree angular integration, CSS fix, and demo in angular example-client-app",
+  "packageName": "@ni/nimble-angular",
+  "email": "malcolm.smith@ni.com",
+  "dependentChangeType": "patch"
+}
