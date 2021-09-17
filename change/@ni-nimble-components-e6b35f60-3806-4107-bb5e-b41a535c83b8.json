@@ -3,5 +3,5 @@
   "comment": "Add tabs-toolbar component",
   "packageName": "@ni/nimble-components",
   "email": "9480438+LukasKall@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
