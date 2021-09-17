@@ -7,6 +7,7 @@ import { styles } from './styles';
 
 export * from '../tab';
 export * from '../tab-panel';
+export * from '../tabs-toolbar';
 
 const nimbleTabs = Tabs.compose({
     baseName: 'tabs',
