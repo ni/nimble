@@ -4,7 +4,8 @@ import {
     display,
     ElementDefinitionContext,
     TreeItem,
-    TreeItemOptions
+    TreeItemOptions,
+    focusVisible
 } from '@microsoft/fast-foundation';
 import {
     contentFontColor,
@@ -13,7 +14,8 @@ import {
     fillColorSelected,
     contentFontSize,
     fillColorHover,
-    fillColorSelectedHover
+    fillColorSelectedHover,
+    borderWidth
 } from '../theme-provider/design-tokens';
 
 /* ltr and rtl control the rotation of the expand chevron */
@@ -23,9 +25,6 @@ const ltr = css`
     }
     :host(.nested) .expand-collapse-button {
         left: var(--expand-collapse-button-nested-width, -16px);
-    }
-    :host([selected])::after {
-        left: 1px;
     }
     :host([expanded]) > .positioning-region .expand-collapse-button svg {
         transform: rotate(180deg);
@@ -38,9 +37,6 @@ const rtl = css`
     }
     :host(.nested) .expand-collapse-button {
         right: var(--expand-collapse-button-nested-width, -16px);
-    }
-    :host([selected])::after {
-        right: 1px;
     }
     :host([expanded]) > .positioning-region .expand-collapse-glyph {
         transform: rotate(135deg);
@@ -65,12 +61,18 @@ export const styles: (
         }
         :host(:focus) .content-region {
             outline: none;
-        }
+        }   
+        :host(:${focusVisible}) .positioning-region {
+            box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
+            outline: ${borderWidth} solid ${borderColorHover};
+            outline-offset: -2px;
+        }   
         .positioning-region {
             display: flex;
             position: relative;
             box-sizing: border-box;
             height: 32px;
+            padding: 0px;
         }
         .positioning-region::before {
             content: '';
