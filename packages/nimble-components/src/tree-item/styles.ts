@@ -4,9 +4,9 @@ import {
     display,
     ElementDefinitionContext,
     TreeItem,
-    TreeItemOptions,
-    focusVisible,
+    TreeItemOptions
 } from '@microsoft/fast-foundation';
+import { focusVisible } from '../utilities/style/focus';
 import {
     contentFontColor,
     fontFamily,
@@ -25,7 +25,10 @@ const ltr = css`
         transform: rotate(90deg);
     }
     :host(.nested) .expand-collapse-button {
-        left: var(--expand-collapse-button-nested-width, calc(${iconSize} * -1));
+        left: var(
+            --expand-collapse-button-nested-width,
+            calc(${iconSize} * -1)
+        );
     }
     :host([expanded]) > .positioning-region .expand-collapse-button svg {
         transform: rotate(180deg);
@@ -37,7 +40,10 @@ const rtl = css`
         transform: rotate(180deg);
     }
     :host(.nested) .expand-collapse-button {
-        right: var(--expand-collapse-button-nested-width, calc(${iconSize} * -1));
+        right: var(
+            --expand-collapse-button-nested-width,
+            calc(${iconSize} * -1)
+        );
     }
     :host([expanded]) > .positioning-region .expand-collapse-glyph {
         transform: rotate(135deg);
@@ -62,12 +68,12 @@ export const styles: (
         }
         :host(:focus) .content-region {
             outline: none;
-        }   
+        }
         :host(:${focusVisible}) .positioning-region {
             box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
             outline: ${borderWidth} solid ${borderColorHover};
             outline-offset: -2px;
-        }   
+        }
         .positioning-region {
             display: flex;
             position: relative;
@@ -98,8 +104,8 @@ export const styles: (
         .items {
             display: none;
             /*  this controls the nested indentation (by affecting .positioning-region::before)
-            it must minimally contain arithmetic with an em and a px value
-            make it larger or shorter by changing the px value
+                it must minimally contain arithmetic with an em and a px value
+                make it larger or shorter by changing the px value
             */
             font-size: calc(1em + (${iconSize} * 2));
         }
