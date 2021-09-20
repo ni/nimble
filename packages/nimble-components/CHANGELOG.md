@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 16 Sep 2021 15:30:58 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Sep 2021 21:01:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.54
+
+Mon, 20 Sep 2021 21:01:58 GMT
+
+### Changes
+
+- change icon fill color with theme (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.53
 
