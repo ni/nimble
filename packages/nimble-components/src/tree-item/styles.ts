@@ -4,7 +4,7 @@ import {
     display,
     ElementDefinitionContext,
     TreeItem,
-    TreeItemOptions,
+    TreeItemOptions
 } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 import {
