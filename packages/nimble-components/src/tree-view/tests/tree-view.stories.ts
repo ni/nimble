@@ -2,9 +2,12 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../tree-item/index';
+import {
+    jobs16X16,
+    notebook16X16
+} from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 interface TreeArgs {
-    disabled: boolean;
     options: ItemArgs[];
 }
 
@@ -12,6 +15,8 @@ interface ItemArgs {
     label: string;
     value: string;
     disabled: boolean;
+    icon: boolean;
+    expanded: boolean;
 }
 
 const metadata: Meta<TreeArgs> = {
@@ -22,31 +27,52 @@ const metadata: Meta<TreeArgs> = {
             artboardUrl: ''
         },
         actions: {
-            handles: ['change']
+            handles: ['expanded-change', 'selected-change']
         }
     },
-    render: ({ disabled, options }: TreeArgs): string => `
-        <nimble-tree-view
-            ${disabled ? 'disabled' : ''}
-        >
-            ${options
-        .map(
-            option => `<nimble-tree-item value="${option.value}" ${
-                option.disabled ? 'disabled' : ''
-            }>${option.label}</nimble-tree-item>\n`
-        )
+    // prettier-ignore
+    render: ({ options }: TreeArgs): string => `
+        <nimble-tree-view>
+        ${options.map(option => `
+            <nimble-tree-item ${option.expanded ? 'expanded' : ''} value="${option.value}" ${option.disabled ? 'disabled' : ''}>
+                ${option.icon ? `<svg slot="start">${jobs16X16.data}</svg>` : ''}
+                ${option.label}
+                <nimble-tree-item slot="item">Nested Item 1</nimble-tree-item>
+                <nimble-tree-item slot="item"><svg slot="start">${notebook16X16.data}</svg>Nested Item 2</nimble-tree-item>
+                <nimble-tree-item slot="item"><svg slot="start">${notebook16X16.data}</svg>Nested Item 3</nimble-tree-item>
+            </nimble-tree-item>\n`)
         .join('')}
         </nimble-tree-view>
 `,
     args: {
-        disabled: false,
         options: [
-            { label: 'Option 1', value: '1', disabled: false },
-            { label: 'Option 2', value: '2', disabled: true },
             {
-                label: 'Option 3<nimble-tree-item slot="item">Nested Option 3</nimble-tree-item>',
+                label: 'Option 1',
+                value: '1',
+                disabled: false,
+                icon: true,
+                expanded: true
+            },
+            {
+                label: 'Option 2',
+                value: '2',
+                disabled: true,
+                icon: true,
+                expanded: false
+            },
+            {
+                label: 'Option 3',
                 value: '3',
-                disabled: false
+                disabled: false,
+                icon: true,
+                expanded: false
+            },
+            {
+                label: 'Option 4',
+                value: '3',
+                disabled: false,
+                icon: false,
+                expanded: false
             }
         ]
     }
@@ -55,16 +81,3 @@ const metadata: Meta<TreeArgs> = {
 export default metadata;
 
 export const treeView: Story<TreeArgs> = {};
-
-export const test = {
-    render: (): string => `
-        <nimble-tree-view>
-            <nimble-tree-item>Root node one</nimble-tree-item>
-            <nimble-tree-item>Root node two</nimble-tree-item>
-            <nimble-tree-item>Root node two and a half
-                <nimble-tree-item slot="item">Nested node one</nimble-tree-item>
-                <nimble-tree-item slot="item">Nested node two</nimble-tree-item>
-            </nimble-tree-item>
-            <nimble-tree-item>Root node three</nimble-tree-item>
-        </nimble-tree-view>`
-};
