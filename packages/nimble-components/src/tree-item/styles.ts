@@ -4,7 +4,7 @@ import {
     display,
     ElementDefinitionContext,
     TreeItem,
-    TreeItemOptions
+    TreeItemOptions,
 } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 import {
@@ -69,7 +69,7 @@ export const styles: (
         :host(:focus) .content-region {
             outline: none;
         }
-        :host(:${focusVisible}) .positioning-region {
+        :host(${focusVisible}) .positioning-region {
             box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
             outline: ${borderWidth} solid ${borderColorHover};
             outline-offset: -2px;
