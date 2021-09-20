@@ -87,8 +87,10 @@ export const styles: (
             font-size: ${contentFontSize};
             user-select: none;
         }
-        /* this rule keeps children without an icon text aligned with parents */
-        .content-region span {
+        /*  this rule keeps children without an icon text aligned with parents 
+            fast-foundataion does not put a specific class name on this span
+        */
+        .content-region span:nth-of-type(1) {
             width: 16px;
         }
         .items {
