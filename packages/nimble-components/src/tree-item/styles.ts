@@ -5,7 +5,7 @@ import {
     ElementDefinitionContext,
     TreeItem,
     TreeItemOptions,
-    focusVisible
+    focusVisible,
 } from '@microsoft/fast-foundation';
 import {
     contentFontColor,
@@ -15,7 +15,8 @@ import {
     contentFontSize,
     fillColorHover,
     fillColorSelectedHover,
-    borderWidth
+    borderWidth,
+    iconSize
 } from '../theme-provider/design-tokens';
 
 /* ltr and rtl control the rotation of the expand chevron */
@@ -24,7 +25,7 @@ const ltr = css`
         transform: rotate(90deg);
     }
     :host(.nested) .expand-collapse-button {
-        left: var(--expand-collapse-button-nested-width, -16px);
+        left: var(--expand-collapse-button-nested-width, calc(${iconSize} * -1));
     }
     :host([expanded]) > .positioning-region .expand-collapse-button svg {
         transform: rotate(180deg);
@@ -36,7 +37,7 @@ const rtl = css`
         transform: rotate(180deg);
     }
     :host(.nested) .expand-collapse-button {
-        right: var(--expand-collapse-button-nested-width, -16px);
+        right: var(--expand-collapse-button-nested-width, calc(${iconSize} * -1));
     }
     :host([expanded]) > .positioning-region .expand-collapse-glyph {
         transform: rotate(135deg);
@@ -71,8 +72,7 @@ export const styles: (
             display: flex;
             position: relative;
             box-sizing: border-box;
-            height: 32px;
-            padding: 0px;
+            height: calc(${iconSize} * 2);
         }
         .positioning-region::before {
             content: '';
@@ -93,22 +93,22 @@ export const styles: (
             fast-foundataion does not put a specific class name on this span
         */
         .content-region span:nth-of-type(1) {
-            width: 16px;
+            width: ${iconSize};
         }
         .items {
             display: none;
             /*  this controls the nested indentation (by affecting .positioning-region::before)
             it must minimally contain arithmetic with an em and a px value
             make it larger or shorter by changing the px value
-        */
-            font-size: calc(1em + 32px);
+            */
+            font-size: calc(1em + (${iconSize} * 2));
         }
         .expand-collapse-button {
             background: none;
             border: none;
             outline: none;
-            width: 16px;
-            height: 16px;
+            width: ${iconSize};
+            height: ${iconSize};
             padding: 0px;
             display: flex;
             justify-content: center;
@@ -117,8 +117,8 @@ export const styles: (
             margin-left: 10px;
         }
         .expand-collapse-button svg {
-            width: 16px;
-            height: 16px;
+            width: ${iconSize};
+            height: ${iconSize};
             transition: transform 0.2s ease-in;
             pointer-events: none;
             fill: currentcolor;
@@ -130,15 +130,15 @@ export const styles: (
         }
 
         ::slotted(svg) {
-            width: 16px;
-            height: 16px;
+            width: ${iconSize};
+            height: ${iconSize};
         }
         .start {
-            margin-inline-start: 16px;
-            margin-inline-end: 16px;
+            margin-inline-start: ${iconSize};
+            margin-inline-end: ${iconSize};
         }
         .end {
-            margin-inline-start: 16px;
+            margin-inline-start: ${iconSize};
         }
         :host([expanded]) > .items {
             display: block;
@@ -149,7 +149,7 @@ export const styles: (
         }
         :host(.nested) .content-region {
             position: relative;
-            margin-inline-start: 16px;
+            margin-inline-start: ${iconSize};
         }
         :host(.nested) .expand-collapse-button {
             position: absolute;
@@ -171,11 +171,11 @@ export const styles: (
             display: block;
             position: absolute;
             top: 0px;
-            width: 2px;
-            height: 32px;
+            width: calc(${borderWidth} * 2);
+            height: calc(${iconSize} * 2);
         }
         ::slotted(${context.tagFor(TreeItem)}) {
             --tree-item-nested-width: 1em;
-            --expand-collapse-button-nested-width: -16px;
+            --expand-collapse-button-nested-width: calc(${iconSize} * -1);
         }
     `.withBehaviors(new DirectionalStyleSheetBehavior(ltr, rtl));
