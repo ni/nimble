@@ -10,7 +10,7 @@ From the `nimble` directory:
 
 ## Documentation Development workflow
 
-1. When documenting a new component, add a `component-name-docs.stories.mdx` file to the `tests` folder. Use the template below, or copy an existing `*.docs.stories.mdx` into this directory. The folder structure is further documented in the [CONTRIBUTING.md](CONTRIBUTING.md) guide.
+1. When documenting a new component, add a `component-name-docs.stories.mdx` file to the `tests` folder. Use the template below, or copy an existing `*.docs.stories.mdx` into this directory. The folder structure is further documented in the [CONTRIBUTING.md](../CONTRIBUTING.md) guide.
 2. Run the Storybook command from the `nimble` directory:
 
     `npm run storybook -w @ni/nimble-components`
