@@ -180,8 +180,8 @@ export const styles: (
             width: calc(${borderWidth} * 2);
             height: calc(${iconSize} * 2);
         }
-        ::slotted(${context.tagFor(TreeItem)}) {
+        ::slotted(${context.name}) {
             --tree-item-nested-width: 1em;
-            --expand-collapse-button-nested-width: calc(${iconSize} * -1);
+            --expand-collapse-button-nested-width: -16px;
         }
     `.withBehaviors(new DirectionalStyleSheetBehavior(ltr, rtl));
