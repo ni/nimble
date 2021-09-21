@@ -14,7 +14,7 @@ import { styles } from './styles';
  *
  * @public
  * @remarks
- * Generates HTML Element: \<fast-tree-item\>
+ * Generates HTML Element: \<nimble-tree-item\>
  *
  */
 export class TreeItem extends FoundationTreeItem {
