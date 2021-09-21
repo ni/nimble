@@ -1,16 +1,16 @@
 import { css } from '@microsoft/fast-element';
-import { display, focusVisible } from '@microsoft/fast-foundation';
+import { display } from '@microsoft/fast-foundation';
+import { focusVisible } from '../utilities/style/focus';
 
 import {
     controlHeight,
     fontFamily,
     contentFontSize,
     fillColorSelected,
-    fillColorSelectedHover,
     fillColorHover,
     contentFontColor,
     borderColorHover,
-    applicationBackgroundColor,
+    borderWidth,
     contentFontColorDisabled
 } from '../theme-provider/design-tokens';
 
@@ -64,10 +64,10 @@ export const styles = css`
     :host(.indent-2) .end {
         grid-column: 4;
     }
-
-    :host(:${focusVisible}) {
-        border-color: ${borderColorHover};
-        background: ${applicationBackgroundColor};
+    :host(${focusVisible}) {
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
+        outline: ${borderWidth} solid ${borderColorHover};
+        outline-offset: -2px;
     }
     :host(:hover) {
         background: ${fillColorHover};
