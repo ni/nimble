@@ -93,13 +93,14 @@ export const styles = css`
         align-self: center;
     }
 
-    :host [part='start'].iconContent {
+    :host [part='icon'].iconContent {
         width: 16px;
+        height: 16px;
         margin-right: 4px;
         fill: ${buttonContentFontColor};
     }
 
-    :host([disabled]) [part='start'].iconContent {
+    :host([disabled]) [part='icon'].iconContent {
         opacity: 0.6;
     }
 

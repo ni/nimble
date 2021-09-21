@@ -1,7 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { ButtonAppearance } from '../types';
-import { Icons, NimbleIcon } from '../../icons/types';
 import '../index';
 
 interface ButtonArgs {
@@ -31,24 +30,19 @@ const metadata: Meta<ButtonArgs> = {
         disabled: {
             options: ['disabled'],
             control: { type: 'check' }
-        },
-        icon: {
-            options: Object.values(Icons).map(icon => (icon as NimbleIcon).name),
-            control: { type: 'select' }
         }
     },
-    render: ({ label, appearance, disabled, icon }: ButtonArgs): string => `<nimble-button ${disabled} appearance="${appearance}" icon="${icon}">${label}</nimble-button>`,
+    render: ({ label, appearance, disabled }: ButtonArgs): string => `<nimble-button ${disabled} appearance="${appearance}" >${label}</nimble-button>`,
     args: {
         label: 'Ghost Button',
-        appearance: 'ghost',
-        icon: Icons.locked.name
+        appearance: 'ghost'
     }
 };
 
 export default metadata;
 
 export const outlineButton: Story<ButtonArgs> = {
-    args: { label: 'Outline Button', appearance: ButtonAppearance.Outline, icon: Icons.delete.name }
+    args: { label: 'Outline Button', appearance: ButtonAppearance.Outline }
 };
 export const ghostButton: Story<ButtonArgs> = {
     args: { label: 'Ghost Button', appearance: ButtonAppearance.Ghost }

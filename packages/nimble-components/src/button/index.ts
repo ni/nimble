@@ -1,15 +1,12 @@
-import { attr, Notifier, Observable } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import {
     Button as FoundationButton,
     buttonTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 import { ButtonAppearance } from './types';
-
-const nimbleIcons = Object.values(nimbleIconsMap);
+import { appendIconSlotElement } from '../icons/icon-helpers';
 
 export type { Button };
 
@@ -24,19 +21,8 @@ class Button extends FoundationButton {
     @attr
     public appearance: ButtonAppearance;
 
-    /**
-     * The icon to use in the button.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: icon
-     * The icon can be set to something of type `NimbleIcon` or a string that is expected to be an HTML
-     * blob representing an icon.
-     */
-    @attr
-    public icon: string | NimbleIcon;
-
-    private notifier: Notifier;
+    private iconSlotContainerElement: HTMLElement;
+    private iconSlotElement: HTMLSlotElement;
 
     public connectedCallback(): void {
         super.connectedCallback();
@@ -44,47 +30,30 @@ class Button extends FoundationButton {
             this.appearance = ButtonAppearance.Outline;
         }
 
-        this.notifier = Observable.getNotifier(this);
-        this.notifier.subscribe(this, 'defaultSlottedContent');
+        const slotElements = appendIconSlotElement(this.start);
+        this.iconSlotContainerElement = slotElements.container;
+        this.iconSlotElement = slotElements.slot;
+
+        this.iconSlotElement.addEventListener('slotchange', this.iconChanged);
         this.iconChanged();
     }
 
     public disconnectedCallback(): void {
-        this.notifier.unsubscribe(this, 'defaultSlottedContent');
+        this.iconSlotElement.removeEventListener('slotchange', this.iconChanged);
     }
 
-    public handleChange(_source: unknown, propertyName: string): void {
-        switch (propertyName) {
-            case 'defaultSlottedContent':
-                this.updateContentState();
-                break;
-            default:
-                break;
+    private readonly iconChanged = (): void => {
+        if (this.iconSlotElement.assignedNodes().length > 0) {
+            this.iconSlotContainerElement.classList.add('iconContent');
+        } else {
+            this.iconSlotContainerElement.classList.remove('iconContent');
         }
-    }
 
-    private iconChanged(): void {
-        if (this.isConnected) {
-            if (this.icon) {
-                const iconValue = typeof this.icon === 'string' ? this.icon : this.icon.name;
-                const nimbleIcon = nimbleIcons.find(value => iconValue === value.name);
-                if (nimbleIcon) {
-                    this.start.innerHTML = `${nimbleIcon.data}`;
-                } else {
-                    this.start.innerHTML = iconValue;
-                }
-
-                this.startContainer.classList.add('iconContent');
-            } else {
-                this.startContainer.classList.remove('iconContent');
-            }
-
-            this.updateContentState();
-        }
-    }
+        this.updateContentState();
+    };
 
     private updateContentState(): void {
-        if (this.icon) {
+        if (this.iconSlotElement.assignedNodes().length > 0) {
             const buttonContentElement = this.shadowRoot?.querySelector('.content');
             if (buttonContentElement) {
                 if (this.defaultSlottedContent.length === 0) {
