@@ -39,7 +39,10 @@ class Button extends FoundationButton {
     }
 
     public disconnectedCallback(): void {
-        this.iconSlotElement.removeEventListener('slotchange', this.iconChanged);
+        this.iconSlotElement.removeEventListener(
+            'slotchange',
+            this.iconChanged
+        );
     }
 
     private readonly iconChanged = (): void => {
@@ -57,9 +60,13 @@ class Button extends FoundationButton {
             const buttonContentElement = this.shadowRoot?.querySelector('.content');
             if (buttonContentElement) {
                 if (this.defaultSlottedContent.length === 0) {
-                    buttonContentElement.classList.add('iconWithNoButtonContent');
+                    buttonContentElement.classList.add(
+                        'iconWithNoButtonContent'
+                    );
                 } else {
-                    buttonContentElement.classList.remove('iconWithNoButtonContent');
+                    buttonContentElement.classList.remove(
+                        'iconWithNoButtonContent'
+                    );
                 }
             }
         }

@@ -54,10 +54,7 @@ describe('Button', () => {
 
         await connect();
 
-        expect(
-            element.shadowRoot
-                ?.querySelector('.iconContent')
-        ).toBeNull();
+        expect(element.shadowRoot?.querySelector('.iconContent')).toBeNull();
 
         await disconnect();
     });
@@ -67,10 +64,7 @@ describe('Button', () => {
 
         await connect();
 
-        expect(
-            element.shadowRoot
-                ?.querySelector('.iconContent')
-        ).toBeDefined();
+        expect(element.shadowRoot?.querySelector('.iconContent')).toBeDefined();
 
         await disconnect();
     });
