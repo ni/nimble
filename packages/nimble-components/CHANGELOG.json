@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 20 Sep 2021 21:01:58 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.54",
+      "version": "1.0.0-beta.54",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "change icon fill color with theme",
+            "commit": "ae681695dc6b94e93a4df11213b9eda8b2911bad"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Sep 2021 15:30:58 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.53",
       "version": "1.0.0-beta.53",
