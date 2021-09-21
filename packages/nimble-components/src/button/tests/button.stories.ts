@@ -7,7 +7,6 @@ interface ButtonArgs {
     label: string;
     appearance: string;
     disabled: string;
-    icon: string;
 }
 
 const metadata: Meta<ButtonArgs> = {
@@ -32,7 +31,7 @@ const metadata: Meta<ButtonArgs> = {
             control: { type: 'check' }
         }
     },
-    render: ({ label, appearance, disabled }: ButtonArgs): string => `<nimble-button ${disabled} appearance="${appearance}" >${label}</nimble-button>`,
+    render: ({ label, appearance, disabled }: ButtonArgs): string => `<nimble-button ${disabled} appearance="${appearance}">${label}</nimble-button>`,
     args: {
         label: 'Ghost Button',
         appearance: 'ghost'
