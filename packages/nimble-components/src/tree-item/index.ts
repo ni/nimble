@@ -31,7 +31,8 @@ export class TreeItem extends FoundationTreeItem {
         // this handler will be called for every TreeItem from the target to the root as the 'selected-change' bubbles up
         if (event.target === this) {
             this.expanded = !this.expanded;
-            if (this.childElementCount > 0 && this.selected) {
+            const treeItemChildren = this.querySelectorAll('nimble-tree-item');
+            if (treeItemChildren.length > 0 && this.selected) {
                 this.selected = false; // do not allow tree groups to display as 'selected' the way leaf tree items can
             } else {
                 const treeView = this.getParentNimbleTreeNode();
