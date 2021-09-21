@@ -2,30 +2,28 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 
 import {
-    applicationBackgroundColor,
-    borderWidth,
-    borderColor,
-    popupBorderColor,
-    popupBoxShadowColor
+    applicationBackgroundColor, borderWidth, popupBorderColor, popupBoxShadowColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('grid')}
-    :host {
+    ${display('block')} :host {
+        --elevation: 11;
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
         padding: 4px;
-        min-width: 168px;
-        width: max-content;
+        max-width: 368px;
+        min-width: 64px;
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
+    }
+    :host([slot="submenu"]) {
+        width: max-content;
     }
     ::slotted(hr) {
         box-sizing: content-box;
-        height: 2px;
-        margin: 4px;
+        height: 0;
+        margin: 0;
         border: none;
-        background: ${borderColor};
-        opacity: 0.1;
+        border-top: ${borderWidth} solid ${popupBorderColor};
     }
 `;
