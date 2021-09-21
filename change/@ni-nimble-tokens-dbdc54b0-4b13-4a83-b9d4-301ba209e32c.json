@@ -1,9 +1,6 @@
 {
   "type": "prerelease",
-  "comment": {
-    "title": "",
-    "value": ""
-  },
+  "comment": "Changes to support icons in nimble button",
   "packageName": "@ni/nimble-tokens",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "patch"
