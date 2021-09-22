@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "First pass at the menu",
+  "packageName": "@ni/nimble-components",
+  "email": "michael.brandt@ni.com",
+  "dependentChangeType": "patch"
+}
