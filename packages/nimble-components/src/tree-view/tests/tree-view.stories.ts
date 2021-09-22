@@ -37,9 +37,9 @@ const metadata: Meta<TreeArgs> = {
             <nimble-tree-item ${option.expanded ? 'expanded' : ''} value="${option.value}" ${option.disabled ? 'disabled' : ''}>
                 ${option.icon ? `<svg slot="start">${jobs16X16.data}</svg>` : ''}
                 ${option.label}
-                <nimble-tree-item slot="item">Nested Item 1</nimble-tree-item>
-                <nimble-tree-item slot="item"><svg slot="start">${notebook16X16.data}</svg>Nested Item 2</nimble-tree-item>
-                <nimble-tree-item slot="item"><svg slot="start">${notebook16X16.data}</svg>Nested Item 3</nimble-tree-item>
+                <nimble-tree-item>Nested Item 1</nimble-tree-item>
+                <nimble-tree-item><svg slot="start">${notebook16X16.data}</svg>Nested Item 2</nimble-tree-item>
+                <nimble-tree-item><svg slot="start">${notebook16X16.data}</svg>Nested Item 3</nimble-tree-item>
             </nimble-tree-item>\n`)
         .join('')}
         </nimble-tree-view>
