@@ -135,7 +135,7 @@ export const styles: (
             fill: currentcolor;
         }
 
-        ::slotted(svg) {
+        slot[name='start']::slotted(*) {
             width: ${iconSize};
             height: ${iconSize};
         }

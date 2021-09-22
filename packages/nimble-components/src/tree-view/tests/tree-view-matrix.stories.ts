@@ -32,10 +32,10 @@ const component = (
     [selectedName, selected]: SelectedState
 ): string => `
     <nimble-tree-view>
-        <nimble-tree-item ${expanded} ${disabled} ${selected}><svg slot="start">${jobs16X16.data}</svg>${expandedName} ${disabledName} ${selectedName} 
+        <nimble-tree-item ${expanded} ${disabled} ${selected}><span slot="start">${jobs16X16.data}</span>${expandedName} ${disabledName} ${selectedName} 
             <nimble-tree-item ${disabled}>Nested Item 1</nimble-tree-item>
-            <nimble-tree-item ${disabled}><svg slot="start">${notebook16X16.data}</svg>Nested Item 2</nimble-tree-item>
-            <nimble-tree-item ${disabled}><svg slot="start">${notebook16X16.data}</svg>Nested Item 3</nimble-tree-item>
+            <nimble-tree-item ${disabled}><span slot="start">${notebook16X16.data}</span>Nested Item 2</nimble-tree-item>
+            <nimble-tree-item ${disabled}><span slot="start">${notebook16X16.data}</span>Nested Item 3</nimble-tree-item>
         </nimble-tree-item>
     </nimble-tree-view>
 `;
