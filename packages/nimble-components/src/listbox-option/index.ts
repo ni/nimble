@@ -30,7 +30,11 @@ class ListboxOption extends FoundationListboxOption {
     }
 
     private reflectValueAttributeIfUnset(): void {
-        if (typeof this.value === 'string' && this.value.length !== 0 && this.getAttribute('value') === null) {
+        if (
+            typeof this.value === 'string'
+            && this.value.length !== 0
+            && this.getAttribute('value') === null
+        ) {
             this.setAttribute('value', this.value);
         }
     }
