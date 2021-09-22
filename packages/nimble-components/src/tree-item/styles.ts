@@ -43,11 +43,49 @@ export const styles: (
             outline: ${borderWidth} solid ${borderColorHover};
             outline-offset: -2px;
         }
+        :host([expanded]) > .items {
+            display: block;
+        }
+        :host([disabled]) .content-region {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        :host(.nested) .content-region {
+            position: relative;
+            margin-inline-start: ${iconSize};
+        }
+        :host(.nested) .expand-collapse-button {
+            position: absolute;
+        }
+        :host([selected]) .positioning-region {
+            background: ${fillColorSelected};
+        }
+        :host([selected]) .positioning-region:hover {
+            background: ${fillColorSelectedHover};
+        }
+        ${/* this controls the side border */''}
+        :host([selected])::after {
+            background: ${borderColorHover};
+            border-radius: 0px;
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0px;
+            width: calc(${borderWidth} * 2);
+            height: calc(${iconSize} * 2);
+        }
+        ::slotted(${context.tagFor(TreeItem)}) {
+            --tree-item-nested-width: 1em;
+            --expand-collapse-button-nested-width: calc(${iconSize} * -1);
+        }
         .positioning-region {
             display: flex;
             position: relative;
             box-sizing: border-box;
             height: calc(${iconSize} * 2);
+        }
+        .positioning-region:hover {
+            background: ${fillColorHover};
         }
         .positioning-region::before {
             content: '';
@@ -120,44 +158,6 @@ export const styles: (
         }
         .end {
             margin-inline-start: ${iconSize};
-        }
-        :host([expanded]) > .items {
-            display: block;
-        }
-        :host([disabled]) .content-region {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        :host(.nested) .content-region {
-            position: relative;
-            margin-inline-start: ${iconSize};
-        }
-        :host(.nested) .expand-collapse-button {
-            position: absolute;
-        }
-        .positioning-region:hover {
-            background: ${fillColorHover};
-        }
-        :host([selected]) .positioning-region {
-            background: ${fillColorSelected};
-        }
-        :host([selected]) .positioning-region:hover {
-            background: ${fillColorSelectedHover};
-        }
-        ${/* this controls the side border */''}
-        :host([selected])::after {
-            background: ${borderColorHover};
-            border-radius: 0px;
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0px;
-            width: calc(${borderWidth} * 2);
-            height: calc(${iconSize} * 2);
-        }
-        ::slotted(${context.tagFor(TreeItem)}) {
-            --tree-item-nested-width: 1em;
-            --expand-collapse-button-nested-width: calc(${iconSize} * -1);
         }
     `.withBehaviors(new DirectionalStyleSheetBehavior(css`
         ${/* ltr styles */ ''}
