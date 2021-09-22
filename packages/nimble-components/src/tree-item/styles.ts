@@ -19,37 +19,6 @@ import {
     iconSize
 } from '../theme-provider/design-tokens';
 
-/* ltr and rtl control the rotation of the expand chevron */
-const ltr = css`
-    .expand-collapse-button svg {
-        transform: rotate(90deg);
-    }
-    :host(.nested) .expand-collapse-button {
-        left: var(
-            --expand-collapse-button-nested-width,
-            calc(${iconSize} * -1)
-        );
-    }
-    :host([expanded]) > .positioning-region .expand-collapse-button svg {
-        transform: rotate(180deg);
-    }
-`;
-
-const rtl = css`
-    .expand-collapse-button svg {
-        transform: rotate(180deg);
-    }
-    :host(.nested) .expand-collapse-button {
-        right: var(
-            --expand-collapse-button-nested-width,
-            calc(${iconSize} * -1)
-        );
-    }
-    :host([expanded]) > .positioning-region .expand-collapse-glyph {
-        transform: rotate(135deg);
-    }
-`;
-
 export const styles: (
     context: ElementDefinitionContext,
     definition: TreeItemOptions
@@ -190,4 +159,31 @@ export const styles: (
             --tree-item-nested-width: 1em;
             --expand-collapse-button-nested-width: calc(${iconSize} * -1);
         }
-    `.withBehaviors(new DirectionalStyleSheetBehavior(ltr, rtl));
+    `.withBehaviors(new DirectionalStyleSheetBehavior(css`
+        ${/* ltr styles */ ''}
+        .expand-collapse-button svg {
+            transform: rotate(90deg);
+        }
+        :host(.nested) .expand-collapse-button {
+            left: var(
+                --expand-collapse-button-nested-width,
+                calc(${iconSize} * -1)
+            );
+        }
+        :host([expanded]) > .positioning-region .expand-collapse-button svg {
+            transform: rotate(180deg);
+        }`, css`
+        ${/* rtl styles */ ''}
+        .expand-collapse-button svg {
+            transform: rotate(180deg);
+        }
+        :host(.nested) .expand-collapse-button {
+            right: var(
+                --expand-collapse-button-nested-width,
+                calc(${iconSize} * -1)
+            );
+        }
+        :host([expanded]) > .positioning-region .expand-collapse-glyph {
+            transform: rotate(135deg);
+        }
+    `));
