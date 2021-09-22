@@ -63,7 +63,7 @@ export const styles: (
         :host([selected]) .positioning-region:hover {
             background: ${fillColorSelectedHover};
         }
-        ${/* this controls the side border */''}
+        ${/* this controls the side border */ ''}
         :host([selected])::after {
             background: ${borderColorHover};
             border-radius: 0px;
@@ -104,9 +104,9 @@ export const styles: (
         }
         ${
             /*
-             * this rule keeps children without an icon text aligned with parents 
+             * this rule keeps children without an icon text aligned with parents
              * fast-foundataion does not put a specific class name on this span
-             */''
+             */ ''
         }
         .content-region span:nth-of-type(1) {
             width: ${iconSize};
@@ -118,7 +118,7 @@ export const styles: (
                  * this controls the nested indentation (by affecting .positioning-region::before)
                  * it must minimally contain arithmetic with an em and a px value
                  * make it larger or shorter by changing the px value
-                 */''
+                 */ ''
             }
             font-size: calc(1em + (${iconSize} * 2));
         }
@@ -146,7 +146,9 @@ export const styles: (
             width: ${iconSize};
             height: ${iconSize};
         }
-        ${/* the start and end classes are applied when the corresponding slots are filled */ ''}
+        ${
+            /* the start and end classes are applied when the corresponding slots are filled */ ''
+        }
         .start,
         .end {
             display: flex;
@@ -159,31 +161,40 @@ export const styles: (
         .end {
             margin-inline-start: ${iconSize};
         }
-    `.withBehaviors(new DirectionalStyleSheetBehavior(css`
-        ${/* ltr styles */ ''}
-        .expand-collapse-button svg {
-            transform: rotate(90deg);
-        }
-        :host(.nested) .expand-collapse-button {
-            left: var(
-                --expand-collapse-button-nested-width,
-                calc(${iconSize} * -1)
+    `.withBehaviors(
+                new DirectionalStyleSheetBehavior(
+                    css`
+                ${/* ltr styles */ ''}
+                .expand-collapse-button svg {
+                    transform: rotate(90deg);
+                }
+                :host(.nested) .expand-collapse-button {
+                    left: var(
+                        --expand-collapse-button-nested-width,
+                        calc(${iconSize} * -1)
+                    );
+                }
+                :host([expanded])
+                    > .positioning-region
+                    .expand-collapse-button
+                    svg {
+                    transform: rotate(180deg);
+                }
+            `,
+                    css`
+                ${/* rtl styles */ ''}
+                .expand-collapse-button svg {
+                    transform: rotate(180deg);
+                }
+                :host(.nested) .expand-collapse-button {
+                    right: var(
+                        --expand-collapse-button-nested-width,
+                        calc(${iconSize} * -1)
+                    );
+                }
+                :host([expanded]) > .positioning-region .expand-collapse-glyph {
+                    transform: rotate(135deg);
+                }
+            `
+                )
             );
-        }
-        :host([expanded]) > .positioning-region .expand-collapse-button svg {
-            transform: rotate(180deg);
-        }`, css`
-        ${/* rtl styles */ ''}
-        .expand-collapse-button svg {
-            transform: rotate(180deg);
-        }
-        :host(.nested) .expand-collapse-button {
-            right: var(
-                --expand-collapse-button-nested-width,
-                calc(${iconSize} * -1)
-            );
-        }
-        :host([expanded]) > .positioning-region .expand-collapse-glyph {
-            transform: rotate(135deg);
-        }
-    `));
