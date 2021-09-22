@@ -21,23 +21,13 @@ class ListboxOption extends FoundationListboxOption {
         super.value = `${value}`;
 
         if (this.$fastController.isConnected) {
-            this.reflectValueAttributeIfUnset();
+            this.setAttribute('value', this.value);
         }
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.reflectValueAttributeIfUnset();
-    }
-
-    private reflectValueAttributeIfUnset(): void {
-        if (
-            typeof this.value === 'string'
-            && this.value.length !== 0
-            && this.getAttribute('value') === null
-        ) {
-            this.setAttribute('value', this.value);
-        }
+        this.setAttribute('value', this.value);
     }
 }
 
