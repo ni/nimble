@@ -1,5 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     :host([hidden]) {
@@ -11,7 +12,7 @@ export const styles = css`
         min-width: fit-content;
         font-size: 0;
     }
-    :host:focus-visible {
+    :host(${focusVisible}) {
         outline: none;
     }
 `;

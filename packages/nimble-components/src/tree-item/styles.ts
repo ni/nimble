@@ -32,10 +32,10 @@ export const styles: (
             font-family: ${fontFamily};
             --tree-item-nested-width: 0;
         }
-        :host(:focus) > .positioning-region {
+        :host(${focusVisible}) > .positioning-region {
             outline: none;
         }
-        :host(:focus) .content-region {
+        :host(${focusVisible}) .content-region {
             outline: none;
         }
         :host(${focusVisible}) .positioning-region {
