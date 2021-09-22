@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 22 Sep 2021 17:04:37 GMT and should not be manually modified.
+This log was last generated on Wed, 22 Sep 2021 23:22:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.61
+
+Wed, 22 Sep 2021 23:22:04 GMT
+
+### Changes
+
+- Complete ControlValueAccessor for nimble-select (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.61 (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.60
 

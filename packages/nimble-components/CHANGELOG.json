@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 22 Sep 2021 23:22:04 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.57",
+      "version": "1.0.0-beta.57",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Re-export FAST's DOM.nextUpdate() for usage in Angular tests",
+            "commit": "4733a0f930f8e1a47f7ba3caa0a7c463be829f89"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Sep 2021 17:04:37 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.56",
       "version": "1.0.0-beta.56",

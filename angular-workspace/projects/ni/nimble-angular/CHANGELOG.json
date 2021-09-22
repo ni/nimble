@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 22 Sep 2021 23:22:04 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.61",
+      "version": "1.0.0-beta.61",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Complete ControlValueAccessor for nimble-select",
+            "commit": "4733a0f930f8e1a47f7ba3caa0a7c463be829f89"
+          },
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "4733a0f930f8e1a47f7ba3caa0a7c463be829f89",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.61"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Sep 2021 17:04:37 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.60",
       "version": "1.0.0-beta.60",
