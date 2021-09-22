@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { NimbleSelectModule } from '../nimble-select.module';
 import { NimbleListboxOptionModule } from '../../listbox-option';
 import { Select } from '../../../../../../../../packages/nimble-components/dist/esm/select';
-import { waitAsync, waitForAsync } from '../../../async-test-utilities';
+import { domNextUpdate } from '../../../../../../../../packages/nimble-components/dist/esm/tests/utilities/domNextUpdate';
+import { waitMicrotask, waitTask } from '../../../async-test-utilities';
 
 function setSelectValue(select: Select, index: number): void {
     select.dispatchEvent(new Event('click'));
@@ -58,10 +59,11 @@ describe('Nimble select control value accessor', () => {
             testHostComponent = fixture.componentInstance;
             select = testHostComponent.select.nativeElement;
             fixture.detectChanges();
-            await waitForAsync(() => select.options.length !== 0);
+            // wait for select's 'options' property to be updated from slotted content
+            await waitTask();
         });
 
-        it('sets correct initial selected value', async () => {
+        it('sets correct initial selected value', () => {
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[1]);
             expect(select.selectedIndex).toBe(1);
         });
@@ -69,12 +71,12 @@ describe('Nimble select control value accessor', () => {
         it('updates selected value when bound property is changed', async () => {
             testHostComponent.selectedOption = testHostComponent.selectOptions[2];
             fixture.detectChanges();
-            await waitAsync();
+            await Promise.resolve();
 
             expect(select.selectedIndex).toBe(2);
         });
 
-        it('updates bound property when selected value is changed', async () => {
+        it('updates bound property when selected value is changed', () => {
             setSelectValue(select, 2);
             fixture.detectChanges();
 
@@ -86,7 +88,7 @@ describe('Nimble select control value accessor', () => {
             const newValue = JSON.parse(JSON.stringify(testHostComponent.selectOptions[2])) as { name: string, value: number };
             testHostComponent.selectedOption = newValue;
             fixture.detectChanges();
-            await waitAsync();
+            await Promise.resolve();
 
             expect(select.selectedIndex).toBe(2);
         });
@@ -94,8 +96,9 @@ describe('Nimble select control value accessor', () => {
         it('sets "disabled" attribute with value of bound property', async () => {
             testHostComponent.selectDisabled = true;
             fixture.detectChanges();
+            await domNextUpdate();
 
-            await waitForAsync(() => select.getAttribute('disabled') === '');
+            expect(select.getAttribute('disabled')).toBe('');
             expect(select.disabled).toBe(true);
         });
     });
@@ -140,10 +143,11 @@ describe('Nimble select control value accessor', () => {
                 testHostComponent = fixture.componentInstance;
                 select = testHostComponent.select.nativeElement;
                 fixture.detectChanges();
-                await waitForAsync(() => select.options.length !== 0);
+                // wait for select's 'options' property to be updated from slotted content
+                await waitTask();
             });
 
-            it('sets correct initial selected value', async () => {
+            it('sets correct initial selected value', () => {
                 expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[1].value.toString());
                 expect(select.selectedIndex).toBe(1);
             });
@@ -151,7 +155,7 @@ describe('Nimble select control value accessor', () => {
             it('updates selected value when bound property is changed', async () => {
                 testHostComponent.selectedOption = testHostComponent.selectOptions[2].value.toString();
                 fixture.detectChanges();
-                await waitAsync();
+                await waitMicrotask();
 
                 expect(select.selectedIndex).toBe(2);
             });
@@ -209,7 +213,8 @@ describe('Nimble select control value accessor', () => {
                 testHostComponent = fixture.componentInstance;
                 select = testHostComponent.select.nativeElement;
                 fixture.detectChanges();
-                await waitForAsync(() => select.options.length !== 0);
+                // wait for select's 'options' property to be updated from slotted content
+                await waitTask();
             });
 
             it('does not set correct initial selected value', async () => {
@@ -224,7 +229,7 @@ describe('Nimble select control value accessor', () => {
             it('updates selected value when bound property is changed', async () => {
                 testHostComponent.selectedOption = testHostComponent.selectOptions[2].value.toString();
                 fixture.detectChanges();
-                await waitAsync();
+                await waitMicrotask();
 
                 expect(select.selectedIndex).toBe(2);
             });
