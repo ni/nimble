@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Re-export FAST's DOM.nextUpdate() for usage in Angular tests",
+  "packageName": "@ni/nimble-components",
+  "email": "5454342+brianehenry@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
