@@ -135,15 +135,15 @@ export const styles: (
             pointer-events: none;
             fill: currentcolor;
         }
+        slot[name='start']::slotted(*) {
+            width: ${iconSize};
+            height: ${iconSize};
+        }
+        ${/* the start and end classes are applied when the corresponding slots are filled */ ''}
         .start,
         .end {
             display: flex;
             fill: currentcolor;
-        }
-
-        slot[name='start']::slotted(*) {
-            width: ${iconSize};
-            height: ${iconSize};
         }
         .start {
             margin-inline-start: ${iconSize};
