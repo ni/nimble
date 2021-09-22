@@ -10,6 +10,11 @@ export const parameters = {
     backgrounds: {
         default: defaultBackground.name,
         values: backgrounds.map(({ name, value }) => ({ name, value }))
+    },
+    options: {
+        storySort: {
+            order: ['Getting Started']
+        }
     }
 };
 

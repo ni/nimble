@@ -24,6 +24,7 @@ const styleMarkup = `
         .icon svg {
             height: 32px;
             width: 32px;
+            fill: var(--content-font-color);
         }
     </style>
 `;
