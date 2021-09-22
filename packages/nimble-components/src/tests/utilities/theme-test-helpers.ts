@@ -1,3 +1,4 @@
+import { delete16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { NimbleTheme } from '../../theme-provider/themes';
 
 export const backgrounds = [
@@ -46,6 +47,12 @@ export const readOnlyStates = [
     ['Read-Only', 'readonly']
 ];
 export type ReadOnlyState = typeof readOnlyStates[number];
+
+export const iconStates = [
+    '',
+    `<div slot="icon">${delete16X16.data}</div>`
+];
+export type IconState = typeof iconStates[number];
 
 /**
  * Wraps a given component template with a region for each of the available themes.

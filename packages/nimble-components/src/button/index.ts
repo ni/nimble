@@ -1,12 +1,12 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import {
     Button as FoundationButton,
+    ButtonOptions,
     buttonTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { ButtonAppearance } from './types';
-import { appendIconSlotElement } from '../icons/icon-helpers';
 
 export type { Button };
 
@@ -21,8 +21,7 @@ class Button extends FoundationButton {
     @attr
     public appearance: ButtonAppearance;
 
-    private iconSlotContainerElement: HTMLElement;
-    private iconSlotElement: HTMLSlotElement;
+    private iconSlotElement: HTMLSlotElement | undefined | null;
 
     public connectedCallback(): void {
         super.connectedCallback();
@@ -30,33 +29,20 @@ class Button extends FoundationButton {
             this.appearance = ButtonAppearance.Outline;
         }
 
-        const slotElements = appendIconSlotElement(this.start);
-        this.iconSlotContainerElement = slotElements.container;
-        this.iconSlotElement = slotElements.slot;
-
-        this.iconSlotElement.addEventListener('slotchange', this.iconChanged);
-        this.iconChanged();
+        this.iconSlotElement = this.shadowRoot?.querySelector<HTMLSlotElement>('[name="icon"]');
+        this.iconSlotElement?.addEventListener('slotchange', this.iconChanged);
     }
 
     public disconnectedCallback(): void {
-        this.iconSlotElement.removeEventListener(
-            'slotchange',
-            this.iconChanged
-        );
+        this.iconSlotElement?.removeEventListener('slotchange', this.iconChanged);
     }
 
     private readonly iconChanged = (): void => {
-        if (this.iconSlotElement.assignedNodes().length > 0) {
-            this.iconSlotContainerElement.classList.add('iconContent');
-        } else {
-            this.iconSlotContainerElement.classList.remove('iconContent');
-        }
-
         this.updateContentState();
     };
 
     private updateContentState(): void {
-        if (this.iconSlotElement.assignedNodes().length > 0) {
+        if (this.iconSlotElement && this.iconSlotElement.assignedNodes().length > 0) {
             const buttonContentElement = this.shadowRoot?.querySelector('.content');
             if (buttonContentElement) {
                 if (this.defaultSlottedContent.length === 0) {
@@ -82,9 +68,10 @@ class Button extends FoundationButton {
  * Generates HTML Element: \<nimble-button\>
  *
  */
-const nimbleButton = Button.compose({
+const nimbleButton = Button.compose<ButtonOptions>({
     baseName: 'button',
     template,
+    start: html`<span part='icon'><slot name='icon'></slot></slot>`,
     styles,
     shadowOptions: {
         delegatesFocus: true

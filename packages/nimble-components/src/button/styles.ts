@@ -46,6 +46,7 @@ export const styles = css`
         border-radius: inherit;
         fill: inherit;
         display: flex;
+        gap: 4px;
         cursor: inherit;
         font-family: inherit;
         font-size: inherit;
@@ -83,29 +84,18 @@ export const styles = css`
         outline: none;
     }
 
-    :host [part='start'] {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-    }
-
     :host span {
         align-self: center;
     }
 
-    :host [part='icon'].iconContent {
+    :host slot[name=icon]::slotted(*) {
         width: 16px;
         height: 16px;
-        margin-right: 4px;
         fill: ${buttonContentFontColor};
     }
 
-    :host([disabled]) [part='icon'].iconContent {
+    :host([disabled]) slot[name=icon]::slotted(*) {
         opacity: 0.6;
-    }
-
-    :host [part='content'].iconWithNoButtonContent {
-        margin-right: -4px;
     }
 `.withBehaviors(
         appearanceBehavior(
