@@ -95,18 +95,24 @@ export const styles: (
             font-size: ${contentFontSize};
             user-select: none;
         }
-        /*  this rule keeps children without an icon text aligned with parents 
-            fast-foundataion does not put a specific class name on this span
-        */
+        ${
+            /*
+             * this rule keeps children without an icon text aligned with parents 
+             * fast-foundataion does not put a specific class name on this span
+             */''
+        }
         .content-region span:nth-of-type(1) {
             width: ${iconSize};
         }
         .items {
             display: none;
-            /*  this controls the nested indentation (by affecting .positioning-region::before)
-                it must minimally contain arithmetic with an em and a px value
-                make it larger or shorter by changing the px value
-            */
+            ${
+                /*
+                 * this controls the nested indentation (by affecting .positioning-region::before)
+                 * it must minimally contain arithmetic with an em and a px value
+                 * make it larger or shorter by changing the px value
+                 */''
+            }
             font-size: calc(1em + (${iconSize} * 2));
         }
         .expand-collapse-button {
@@ -169,7 +175,7 @@ export const styles: (
         :host([selected]) .positioning-region:hover {
             background: ${fillColorSelectedHover};
         }
-        /* this controls the side border */
+        ${/* this controls the side border */''}
         :host([selected])::after {
             background: ${borderColorHover};
             border-radius: 0px;
