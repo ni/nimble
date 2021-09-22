@@ -11,6 +11,7 @@ export type { ListboxOption };
  * A nimble-styled HTML listbox option
  */
 class ListboxOption extends FoundationListboxOption {
+    // Workaround for https://github.com/microsoft/fast/issues/5219
     public get value(): string {
         return super.value;
     }
