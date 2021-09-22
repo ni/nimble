@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 20 Sep 2021 21:01:58 GMT and should not be manually modified.
+This log was last generated on Wed, 22 Sep 2021 16:46:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.55
+
+Wed, 22 Sep 2021 16:46:58 GMT
+
+### Changes
+
+- Add tabs-toolbar component (9480438+LukasKall@users.noreply.github.com)
 
 ## 1.0.0-beta.54
 
