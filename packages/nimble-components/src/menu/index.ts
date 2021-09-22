@@ -11,7 +11,7 @@ export { FoundationMenu as Menu };
 export const nimbleMenu = FoundationMenu.compose({
     baseName: 'menu',
     template,
-    styles,
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenu());

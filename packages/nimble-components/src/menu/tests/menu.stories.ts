@@ -19,8 +19,7 @@ const metadata: Meta = {
     decorators: [withXD],
     parameters: {
         design: {
-            artboardUrl:
-                ''
+            artboardUrl: ''
         },
         actions: {
             handles: ['change']
@@ -28,9 +27,17 @@ const metadata: Meta = {
     },
     render: ({ options }: MenuArgs): string => `
         <nimble-menu>
-        ${options.map(option => `
-            <nimble-menu-item${option.disabled ? 'disabled' : ''}>${option.icon ? `<svg slot="start">${admin16X16.data}</svg>` : ''}${option.text}</nimble-menu-item>
-            `).join('')}
+        ${options
+        .map(
+            option => `
+            <nimble-menu-item${option.disabled ? 'disabled' : ''}>${
+    option.icon
+        ? `<svg slot="start">${admin16X16.data}</svg>`
+        : ''
+}${option.text}</nimble-menu-item>
+            `
+        )
+        .join('')}
         </nimble-menu>
 `,
     args: {
@@ -38,18 +45,18 @@ const metadata: Meta = {
             {
                 text: 'Item 1',
                 disabled: false,
-                icon: false,
+                icon: false
             },
             {
                 text: 'Item 2',
                 disabled: false,
-                icon: false,
+                icon: false
             },
             {
                 text: 'Item 3',
                 disabled: false,
-                icon: false,
-            },
+                icon: false
+            }
         ]
     }
 };

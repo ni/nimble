@@ -15,7 +15,7 @@ export const nimbleMenuItem = FoundationMenuItem.compose<MenuItemOptions>({
     styles,
     checkboxIndicator: '',
     expandCollapseGlyph: '',
-    radioIndicator: '',
+    radioIndicator: ''
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenuItem());
