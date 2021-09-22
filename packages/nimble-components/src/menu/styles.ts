@@ -2,7 +2,10 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 
 import {
-    applicationBackgroundColor, borderWidth, popupBorderColor, popupBoxShadowColor
+    applicationBackgroundColor,
+    borderWidth,
+    popupBorderColor,
+    popupBoxShadowColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -16,7 +19,7 @@ export const styles = css`
         min-width: 64px;
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
     }
-    :host([slot="submenu"]) {
+    :host([slot='submenu']) {
         width: max-content;
     }
     ::slotted(hr) {

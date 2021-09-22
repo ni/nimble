@@ -47,7 +47,10 @@ export const styles = css`
         grid-row: 1;
     }
     :host(.indent-2) {
-        grid-template-columns: minmax(42px, auto) minmax(42px, auto) 1fr minmax(42px, auto) minmax(42px, auto);
+        grid-template-columns: minmax(42px, auto) minmax(42px, auto) 1fr minmax(
+                42px,
+                auto
+            ) minmax(42px, auto);
     }
     :host(.indent-2) .content {
         grid-column: 3;
@@ -72,12 +75,12 @@ export const styles = css`
     :host(:hover) {
         background: ${fillColorHover};
     }
-    :host([aria-checked="true"]),
+    :host([aria-checked='true']),
     :host(:active),
     :host(.expanded) {
         background: ${fillColorSelected};
     }
     :host([disabled]) {
-        color: ${contentFontColorDisabled}
+        color: ${contentFontColorDisabled};
     }
 `;
