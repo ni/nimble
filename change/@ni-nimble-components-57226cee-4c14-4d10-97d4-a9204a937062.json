@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "re-enable theme switch and doc changes",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}

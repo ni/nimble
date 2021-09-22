@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 22 Sep 2021 17:04:37 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.56",
+      "version": "1.0.0-beta.56",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "re-enable theme switch and doc changes",
+            "commit": "a487e938560a7560cfee2f8daaa88fa5a9f728ff"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Sep 2021 16:46:58 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.55",
       "version": "1.0.0-beta.55",
