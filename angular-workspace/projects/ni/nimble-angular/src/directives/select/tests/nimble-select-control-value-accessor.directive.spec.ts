@@ -2,11 +2,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { Select } from '@ni/nimble-components/dist/esm/select';
 import { NimbleSelectModule } from '../nimble-select.module';
 import { NimbleListboxOptionModule } from '../../listbox-option';
-import { Select } from '../../../../../../../../packages/nimble-components/dist/esm/select';
-import { domNextUpdate } from '../../../../../../../../packages/nimble-components/dist/esm/tests/utilities/domNextUpdate';
-import { waitMicrotask, waitTask } from '../../../async-test-utilities';
+import { waitAnimationFrame, waitMicrotask, waitTask } from '../../../async-test-utilities';
 
 function setSelectValue(select: Select, index: number): void {
     select.dispatchEvent(new Event('click'));
@@ -71,7 +70,7 @@ describe('Nimble select control value accessor', () => {
         it('updates selected value when bound property is changed', async () => {
             testHostComponent.selectedOption = testHostComponent.selectOptions[2];
             fixture.detectChanges();
-            await Promise.resolve();
+            await waitMicrotask();
 
             expect(select.selectedIndex).toBe(2);
         });
@@ -88,7 +87,7 @@ describe('Nimble select control value accessor', () => {
             const newValue = JSON.parse(JSON.stringify(testHostComponent.selectOptions[2])) as { name: string, value: number };
             testHostComponent.selectedOption = newValue;
             fixture.detectChanges();
-            await Promise.resolve();
+            await waitMicrotask();
 
             expect(select.selectedIndex).toBe(2);
         });
@@ -96,7 +95,7 @@ describe('Nimble select control value accessor', () => {
         it('sets "disabled" attribute with value of bound property', async () => {
             testHostComponent.selectDisabled = true;
             fixture.detectChanges();
-            await domNextUpdate();
+            await waitAnimationFrame();
 
             expect(select.getAttribute('disabled')).toBe('');
             expect(select.disabled).toBe(true);
