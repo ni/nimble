@@ -57,6 +57,16 @@ jobs:
           echo exit with error if there are changes.
           git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
+      # Run Lighthouse page performance test suite
+      - uses: actions/checkout@v2
+      - name: Audit Angular Example App using Lighthouse
+        uses: treosh/lighthouse-ci-action@v8
+        with:
+          configPath: '.github/lighthouse/lighthouserc.json'
+          # budgetPath: ./budget.json # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+
       # Publish
       - name: Set Git User
         if: startsWith(github.ref, 'refs/heads/main')
@@ -73,16 +83,6 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: ./packages/nimble-components
           exitZeroOnChanges: true # Option to prevent the workflow from failing
-
-      # Run Lighthouse page performance test suite
-      - uses: actions/checkout@v2
-      - name: Audit Angular Example App using Lighthouse
-        uses: treosh/lighthouse-ci-action@v8
-        with:
-          configPath: '.github/lighthouse/lighthouserc.json'
-          # budgetPath: ./budget.json # test performance budgets
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
 
       # Publish site to GitHub Pages (only from main)
       - name: Install ruby
