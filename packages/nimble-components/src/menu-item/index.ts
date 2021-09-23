@@ -12,10 +12,7 @@ export { FoundationMenuItem as MenuItem };
 export const nimbleMenuItem = FoundationMenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
     template,
-    styles,
-    checkboxIndicator: '',
-    expandCollapseGlyph: '',
-    radioIndicator: ''
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenuItem());
