@@ -93,10 +93,6 @@ export const styles = css`
     }
 
     [part='start'] {
-        display: none;
-    }
-
-    [part='start'] {
         display: contents;
     }
 
