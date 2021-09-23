@@ -32,6 +32,9 @@ export class TreeItem extends FoundationTreeItem {
      * collapse. By default, we will not allow tree items that have sub tree items to be selected (and thus render as such).
      * In addition, clicking anywhere on a tree item with children (not just the expand/collapse icon) will initiate
      * expand/collapse.
+     *
+     * The 'pinned-selected' attribute is set so that the Nimble TreeView can leverage it to manage the current selection
+     * correctly when a parent group is expanded/collapsed.
      * @param event The 'selected-change' event emitted by the FAST TreeItem
      */
     private readonly handleItemSelected = (event: CustomEvent): void => {

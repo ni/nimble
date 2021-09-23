@@ -29,6 +29,10 @@ export class TreeView extends FoundationTreeView {
         );
     }
 
+    /**
+     * This handler keeps the TreeView from deselecting a selected item when a parent TreeItem is expanded/collapsed
+     * @param event The 'selected-change' event emitted by a TreeItem
+     */
     private readonly handleTreeItemSelected = (event: CustomEvent): void => {
         const treeItem = event.target as TreeItem;
         if (treeItem && treeItem.childElementCount > 0) {
