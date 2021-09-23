@@ -1,0 +1,7 @@
+{
+    "ci": {
+      "collect": {
+        "staticDistDir": "../angular-workspace/dist/example-client-app"
+      }
+    }
+  }
