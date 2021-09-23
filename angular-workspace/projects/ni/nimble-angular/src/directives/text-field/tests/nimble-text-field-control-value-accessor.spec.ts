@@ -2,8 +2,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { TextField } from '@ni/nimble-components/dist/esm/text-field';
 import { NimbleTextFieldModule } from '../nimble-text-field.module';
-import { TextField } from '../../../../../../../../packages/nimble-components/dist/esm/text-field';
 import { waitAnimationFrame, waitMicrotask } from '../../../async-test-utilities';
 
 function setTextFieldValue(textField: TextField, value: string): void {
