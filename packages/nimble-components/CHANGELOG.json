@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 23 Sep 2021 20:37:34 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.59",
+      "version": "1.0.0-beta.59",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Changes to support icons in nimble button",
+            "commit": "0d9eea382a68f5e0b5cc063b91afdad4314d7d88"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Sep 2021 19:34:21 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.58",
+      "version": "1.0.0-beta.58",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "nimble tree view and item with rough styling",
+            "commit": "4a348242549f3d43f6b9a4aee6f639a470d573f2"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Sep 2021 23:22:04 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.57",
+      "version": "1.0.0-beta.57",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Re-export FAST's DOM.nextUpdate() for usage in Angular tests",
+            "commit": "4733a0f930f8e1a47f7ba3caa0a7c463be829f89"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Sep 2021 17:04:37 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.56",
+      "version": "1.0.0-beta.56",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "re-enable theme switch and doc changes",
+            "commit": "a487e938560a7560cfee2f8daaa88fa5a9f728ff"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Sep 2021 16:46:58 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.55",
+      "version": "1.0.0-beta.55",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "9480438+LukasKall@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Add tabs-toolbar component",
+            "commit": "7fa20da1f0a33fb3b85da03b472fcb0203cf146c"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Sep 2021 21:01:58 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.54",
       "version": "1.0.0-beta.54",

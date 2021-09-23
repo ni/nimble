@@ -3,6 +3,7 @@ import { css, ElementStyles } from '@microsoft/fast-element';
 import {
     display,
     ElementDefinitionContext,
+    TreeItem,
     TreeItemOptions
 } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
@@ -18,42 +19,12 @@ import {
     iconSize
 } from '../theme-provider/design-tokens';
 
-/* ltr and rtl control the rotation of the expand chevron */
-const ltr = css`
-    .expand-collapse-button svg {
-        transform: rotate(90deg);
-    }
-    :host(.nested) .expand-collapse-button {
-        left: var(
-            --expand-collapse-button-nested-width,
-            calc(${iconSize} * -1)
-        );
-    }
-    :host([expanded]) > .positioning-region .expand-collapse-button svg {
-        transform: rotate(180deg);
-    }
-`;
-
-const rtl = css`
-    .expand-collapse-button svg {
-        transform: rotate(180deg);
-    }
-    :host(.nested) .expand-collapse-button {
-        right: var(
-            --expand-collapse-button-nested-width,
-            calc(${iconSize} * -1)
-        );
-    }
-    :host([expanded]) > .positioning-region .expand-collapse-glyph {
-        transform: rotate(135deg);
-    }
-`;
-
 export const styles: (
     context: ElementDefinitionContext,
     definition: TreeItemOptions
 ) => ElementStyles = (context: ElementDefinitionContext) => css`
-        ${display('block')} :host {
+        ${display('block')}
+        :host {
             contain: content;
             position: relative;
             outline: none;
@@ -62,23 +33,44 @@ export const styles: (
             font-family: ${fontFamily};
             --tree-item-nested-width: 0;
         }
-        :host(:focus) > .positioning-region {
-            outline: none;
+
+        ${/* this controls the side border */ ''}
+        :host([selected])::after {
+            background: ${borderColorHover};
+            border-radius: 0px;
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0px;
+            width: calc(${borderWidth} * 2);
+            height: calc(${iconSize} * 2);
         }
-        :host(:focus) .content-region {
-            outline: none;
-        }
-        :host(${focusVisible}) .positioning-region {
-            box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
-            outline: ${borderWidth} solid ${borderColorHover};
-            outline-offset: -2px;
-        }
+
         .positioning-region {
             display: flex;
             position: relative;
             box-sizing: border-box;
             height: calc(${iconSize} * 2);
         }
+
+        .positioning-region:hover {
+            background: ${fillColorHover};
+        }
+
+        :host(${focusVisible}) .positioning-region {
+            box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
+            outline: ${borderWidth} solid ${borderColorHover};
+            outline-offset: -2px;
+        }
+
+        :host([selected]) .positioning-region {
+            background: ${fillColorSelected};
+        }
+
+        :host([selected]) .positioning-region:hover {
+            background: ${fillColorSelectedHover};
+        }
+
         .positioning-region::before {
             content: '';
             display: block;
@@ -94,20 +86,21 @@ export const styles: (
             font-size: ${contentFontSize};
             user-select: none;
         }
-        /*  this rule keeps children without an icon text aligned with parents 
-            fast-foundataion does not put a specific class name on this span
-        */
-        .content-region span:nth-of-type(1) {
-            width: ${iconSize};
+
+        :host(${focusVisible}) .content-region {
+            outline: none;
         }
-        .items {
-            display: none;
-            /*  this controls the nested indentation (by affecting .positioning-region::before)
-                it must minimally contain arithmetic with an em and a px value
-                make it larger or shorter by changing the px value
-            */
-            font-size: calc(1em + (${iconSize} * 2));
+
+        :host(.nested) .content-region {
+            position: relative;
+            margin-inline-start: ${iconSize};
         }
+
+        :host([disabled]) .content-region {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .expand-collapse-button {
             background: none;
             border: none;
@@ -121,6 +114,11 @@ export const styles: (
             cursor: pointer;
             margin-left: 10px;
         }
+
+        :host(.nested) .expand-collapse-button {
+            position: absolute;
+        }
+
         .expand-collapse-button svg {
             width: ${iconSize};
             height: ${iconSize};
@@ -128,59 +126,95 @@ export const styles: (
             pointer-events: none;
             fill: currentcolor;
         }
-        .start,
-        .end {
-            display: flex;
-            fill: currentcolor;
+
+        ${
+            /* this rule keeps children without an icon text aligned with parents */ ''
+        }
+        span[part="start"] {
+            width: ${iconSize};
         }
 
-        ::slotted(svg) {
-            width: ${iconSize};
-            height: ${iconSize};
+        ${
+            /* the start class is applied when the corresponding slots is filled */ ''
         }
         .start {
+            display: flex;
+            fill: currentcolor;
             margin-inline-start: ${iconSize};
             margin-inline-end: ${iconSize};
         }
-        .end {
-            margin-inline-start: ${iconSize};
+
+        slot[name='start']::slotted(*) {
+            width: ${iconSize};
+            height: ${iconSize};
         }
-        :host([expanded]) > .items {
-            display: block;
-        }
-        :host([disabled]) .content-region {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        :host(.nested) .content-region {
-            position: relative;
-            margin-inline-start: ${iconSize};
-        }
-        :host(.nested) .expand-collapse-button {
-            position: absolute;
-        }
-        .positioning-region:hover {
-            background: ${fillColorHover};
-        }
-        :host([selected]) .positioning-region {
-            background: ${fillColorSelected};
-        }
-        :host([selected]) .positioning-region:hover {
-            background: ${fillColorSelectedHover};
-        }
-        /* this controls the side border */
-        :host([selected])::after {
-            background: ${borderColorHover};
-            border-radius: 0px;
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0px;
-            width: calc(${borderWidth} * 2);
-            height: calc(${iconSize} * 2);
-        }
-        ::slotted(${context.name}) {
+
+        ::slotted(${context.tagFor(TreeItem)}) {
             --tree-item-nested-width: 1em;
-            --expand-collapse-button-nested-width: -16px;
+            --expand-collapse-button-nested-width: calc(${iconSize} * -1);
         }
-    `.withBehaviors(new DirectionalStyleSheetBehavior(ltr, rtl));
+
+        ${
+            /* the end class is applied when the corresponding slots is filled */ ''
+        }
+        .end {
+            display: flex;
+            fill: currentcolor;
+            margin-inline-start: ${iconSize};
+        }
+
+        .items {
+            display: none;
+            ${
+                /*
+                 * this controls the nested indentation (by affecting .positioning-region::before)
+                 * it must minimally contain arithmetic with an em and a px value
+                 * make it larger or shorter by changing the px value
+                 */ ''
+            }
+            font-size: calc(1em + (${iconSize} * 2));
+        }
+
+        :host([expanded]) .items {
+            display: block;
+        }
+    `
+// prettier-ignore
+    .withBehaviors(
+        new DirectionalStyleSheetBehavior(
+            css`
+                    ${/* ltr styles */ ''}
+                    :host(.nested) .expand-collapse-button {
+                        left: var(
+                            --expand-collapse-button-nested-width,
+                            calc(${iconSize} * -1)
+                        );
+                    }
+
+                    .expand-collapse-button svg {
+                        transform: rotate(90deg);
+                    }
+
+                    :host([expanded]) .expand-collapse-button svg {
+                        transform: rotate(180deg);
+                    }
+                `,
+            css`
+                    ${/* rtl styles */ ''}
+                    :host(.nested) .expand-collapse-button {
+                        right: var(
+                            --expand-collapse-button-nested-width,
+                            calc(${iconSize} * -1)
+                        );
+                    }
+
+                    .expand-collapse-button svg {
+                        transform: rotate(180deg);
+                    }
+
+                    :host([expanded]) .expand-collapse-button svg {
+                        transform: rotate(135deg);
+                    }
+                `
+        )
+    );
