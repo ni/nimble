@@ -77,7 +77,7 @@ export const styles: (
             width: var(--tree-item-nested-width);
             flex-shrink: 0;
         }
-        
+ 
         .content-region {
             display: inline-flex;
             align-items: center;
