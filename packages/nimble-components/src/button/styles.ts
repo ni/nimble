@@ -29,8 +29,12 @@ export const styles = css`
         outline: none;
         border: none;
         box-sizing: border-box;
-        /* Not sure why but this is needed to get buttons with icons and
-        buttons without icons to align on the same line when the button is inline-flex */
+        ${
+            /*
+                Not sure why but this is needed to get buttons with icons and buttons
+                without icons to align on the same line when the button is inline-flex
+            */ ''
+        }
         vertical-align: middle;
     }
 
@@ -114,9 +118,9 @@ export const styles = css`
         opacity: 0.6;
     }
 `.withBehaviors(
-        appearanceBehavior(
-            ButtonAppearance.Outline,
-            css`
+                appearanceBehavior(
+                    ButtonAppearance.Outline,
+                    css`
             .control {
                 background-color: transparent;
                 border-color: rgba(${actionColorRgb}, 0.3);
@@ -142,10 +146,10 @@ export const styles = css`
                 border-color: rgba(${borderColorRgb}, 0.2);
             }
         `
-        ),
-        appearanceBehavior(
-            ButtonAppearance.Ghost,
-            css`
+                ),
+                appearanceBehavior(
+                    ButtonAppearance.Ghost,
+                    css`
             .control {
                 background-color: transparent;
                 border-color: transparent;
@@ -171,10 +175,10 @@ export const styles = css`
                 border-color: transparent;
             }
         `
-        ),
-        appearanceBehavior(
-            ButtonAppearance.Block,
-            css`
+                ),
+                appearanceBehavior(
+                    ButtonAppearance.Block,
+                    css`
             .control {
                 background-color: rgba(${borderColorRgb}, 0.1);
                 border-color: transparent;
@@ -200,5 +204,5 @@ export const styles = css`
                 border-color: rgba(${borderColorRgb}, 0.1);
             }
         `
-        )
-    );
+                )
+            );
