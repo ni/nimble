@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 22 Sep 2021 23:22:04 GMT and should not be manually modified.
+This log was last generated on Thu, 23 Sep 2021 19:34:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.58
+
+Thu, 23 Sep 2021 19:34:21 GMT
+
+### Changes
+
+- nimble tree view and item with rough styling (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.57
 
