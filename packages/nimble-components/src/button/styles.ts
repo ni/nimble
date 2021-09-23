@@ -19,17 +19,19 @@ import { ButtonAppearance } from './types';
 
 export const styles = css`
     :host {
-        display: inline-block;
+        display: inline-flex;
         background-color: transparent;
         height: ${controlHeight};
         color: ${buttonContentFontColor};
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         cursor: pointer;
-        text-align: center;
         outline: none;
         border: none;
         box-sizing: border-box;
+        /* Not sure why but this is needed to get buttons with icons and
+        buttons without icons to align on the same line when the button is inline-flex */
+        vertical-align: middle;
     }
 
     :host([disabled]) {
@@ -40,17 +42,19 @@ export const styles = css`
     .control {
         background-color: transparent;
         height: inherit;
+        width: inherit;
         border: ${borderWidth} solid transparent;
         box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
         fill: inherit;
-        display: flex;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         gap: 4px;
         cursor: inherit;
         font-family: inherit;
         font-size: inherit;
-        line-height: inherit;
         outline: none;
         margin: 0;
         padding: 0 ${standardPadding};
@@ -84,46 +88,60 @@ export const styles = css`
         outline: none;
     }
 
-    :host span {
-        align-self: center;
+    .content {
+        display: inline-flex;
     }
 
-    :host slot[name=icon]::slotted(*) {
+    [part="start"] {
+        display: none;
+    }
+
+    [part="start"].icon {
+        display: inline-flex;
+    }
+
+    [part="icon"] {
+        display: contents;
+    }
+
+    slot[name="icon"]::slotted(*) {
         width: 16px;
         height: 16px;
         fill: ${buttonContentFontColor};
     }
 
-    :host([disabled]) slot[name=icon]::slotted(*) {
+    [part="end"] {
+        display: none;
+    }
+
+    :host([disabled]) slot[name="icon"]::slotted(*) {
         opacity: 0.6;
     }
 `.withBehaviors(
         appearanceBehavior(
             ButtonAppearance.Outline,
             css`
-            :host([appearance='${ButtonAppearance.Outline}']) .control {
+            .control {
                 background-color: transparent;
                 border-color: rgba(${actionColorRgb}, 0.3);
             }
 
-            :host([appearance='${ButtonAppearance.Outline}']) .control:hover {
+            .control:hover {
                 background-color: transparent;
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Outline}'])
-                .control${focusVisible} {
+            .control${focusVisible} {
                 background-color: transparent;
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Outline}']) .control:active {
+            .control:active {
                 background-color: ${fillColorSelected};
                 border-color: transparent;
             }
 
-            :host([appearance='${ButtonAppearance.Outline}'])
-                .control[disabled] {
+            .control[disabled] {
                 background-color: transparent;
                 border-color: rgba(${borderColorRgb}, 0.2);
             }
@@ -132,28 +150,27 @@ export const styles = css`
         appearanceBehavior(
             ButtonAppearance.Ghost,
             css`
-            :host([appearance='${ButtonAppearance.Ghost}']) .control {
+            .control {
                 background-color: transparent;
                 border-color: transparent;
             }
 
-            :host([appearance='${ButtonAppearance.Ghost}']) .control:hover {
+            .control:hover {
                 background-color: transparent;
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Ghost}'])
-                .control${focusVisible} {
+            .control${focusVisible} {
                 background-color: transparent;
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Ghost}']) .control:active {
+            .control:active {
                 background-color: ${fillColorSelected};
                 border-color: transparent;
             }
 
-            :host([appearance='${ButtonAppearance.Ghost}']) .control[disabled] {
+            .control[disabled] {
                 background-color: transparent;
                 border-color: transparent;
             }
@@ -162,28 +179,27 @@ export const styles = css`
         appearanceBehavior(
             ButtonAppearance.Block,
             css`
-            :host([appearance='${ButtonAppearance.Block}']) .control {
+            .control {
                 background-color: rgba(${borderColorRgb}, 0.1);
                 border-color: transparent;
             }
 
-            :host([appearance='${ButtonAppearance.Block}']) .control:hover {
+            .control:hover {
                 background-color: rgba(${borderColorRgb}, 0.1);
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Block}'])
-                .control${focusVisible} {
+            .control${focusVisible} {
                 background-color: rgba(${borderColorRgb}, 0.1);
                 border-color: ${borderColorHover};
             }
 
-            :host([appearance='${ButtonAppearance.Block}']) .control:active {
+            .control:active {
                 background-color: ${fillColorSelected};
                 border-color: transparent;
             }
 
-            :host([appearance='${ButtonAppearance.Block}']) .control[disabled] {
+            .control[disabled] {
                 background-color: rgba(${borderColorRgb}, 0.1);
                 border-color: rgba(${borderColorRgb}, 0.1);
             }

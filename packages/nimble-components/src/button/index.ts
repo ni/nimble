@@ -1,4 +1,4 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr, html, ref } from '@microsoft/fast-element';
 import {
     Button as FoundationButton,
     ButtonOptions,
@@ -21,41 +21,20 @@ class Button extends FoundationButton {
     @attr
     public appearance: ButtonAppearance;
 
-    private iconSlotElement: HTMLSlotElement | undefined | null;
+    public icon: HTMLSlotElement;
 
     public connectedCallback(): void {
         super.connectedCallback();
         if (!this.appearance) {
             this.appearance = ButtonAppearance.Outline;
         }
-
-        this.iconSlotElement = this.shadowRoot?.querySelector<HTMLSlotElement>('[name="icon"]');
-        this.iconSlotElement?.addEventListener('slotchange', this.iconChanged);
     }
 
-    public disconnectedCallback(): void {
-        this.iconSlotElement?.removeEventListener('slotchange', this.iconChanged);
-    }
-
-    private readonly iconChanged = (): void => {
-        this.updateContentState();
-    };
-
-    private updateContentState(): void {
-        if (this.iconSlotElement && this.iconSlotElement.assignedNodes().length > 0) {
-            const buttonContentElement = this.shadowRoot?.querySelector('.content');
-            if (buttonContentElement) {
-                if (this.defaultSlottedContent.length === 0) {
-                    buttonContentElement.classList.add(
-                        'iconWithNoButtonContent'
-                    );
-                } else {
-                    buttonContentElement.classList.remove(
-                        'iconWithNoButtonContent'
-                    );
-                }
-            }
-        }
+    public handleIconContentChange(): void {
+        this.startContainer.classList.toggle(
+            'icon',
+            this.icon.assignedNodes().length > 0
+        );
     }
 }
 
@@ -71,7 +50,16 @@ class Button extends FoundationButton {
 const nimbleButton = Button.compose<ButtonOptions>({
     baseName: 'button',
     template,
-    start: html`<span part='icon'><slot name='icon'></slot></slot>`,
+    start: html<Button>`
+        <span part="icon"}>
+            <slot
+                name="icon"
+                ${ref('icon')}
+                @slotchange="${(x): void => x.handleIconContentChange()}"
+            >
+            </slot>
+        </span>
+    `,
     styles,
     shadowOptions: {
         delegatesFocus: true
