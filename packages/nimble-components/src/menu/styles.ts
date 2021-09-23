@@ -9,7 +9,8 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('block')} :host {
+    ${display('block')}
+    :host {
         --elevation: 11;
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
