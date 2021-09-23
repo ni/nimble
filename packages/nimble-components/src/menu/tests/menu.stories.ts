@@ -33,15 +33,15 @@ const metadata: Meta = {
         options: [
             {
                 text: 'Item 1',
-                disabled: false,
+                disabled: false
             },
             {
                 text: 'Item 2',
-                disabled: false,
+                disabled: false
             },
             {
                 text: 'Item 3',
-                disabled: false,
+                disabled: false
             }
         ]
     }
