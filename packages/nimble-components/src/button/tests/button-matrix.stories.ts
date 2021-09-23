@@ -41,8 +41,16 @@ const component = (
 ): string => `
     <nimble-button appearance="${appearance}" ${disabled}>
         ${icon}
-        ${appearanceName === noContent ? '' : `${appearanceName} Button ${disabledName}`}
+        ${
+    appearanceName === noContent
+        ? ''
+        : `${appearanceName} Button ${disabledName}`
+}
     </nimble-button>
     `;
 
-export const buttonThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates, appearanceStates, iconStates]);
+export const buttonThemeMatrix: Story = (): string => matrixThemeWrapper(component, [
+    disabledStates,
+    appearanceStates,
+    iconStates
+]);

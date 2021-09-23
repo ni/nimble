@@ -1,4 +1,4 @@
-import { attr, html, ref } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import {
     Button as FoundationButton,
     ButtonOptions,
@@ -21,20 +21,11 @@ class Button extends FoundationButton {
     @attr
     public appearance: ButtonAppearance;
 
-    public icon: HTMLSlotElement;
-
     public connectedCallback(): void {
         super.connectedCallback();
         if (!this.appearance) {
             this.appearance = ButtonAppearance.Outline;
         }
-    }
-
-    public handleIconContentChange(): void {
-        this.startContainer.classList.toggle(
-            'icon',
-            this.icon.assignedNodes().length > 0
-        );
     }
 }
 
@@ -50,16 +41,7 @@ class Button extends FoundationButton {
 const nimbleButton = Button.compose<ButtonOptions>({
     baseName: 'button',
     template,
-    start: html<Button>`
-        <span part="icon"}>
-            <slot
-                name="icon"
-                ${ref('icon')}
-                @slotchange="${(x): void => x.handleIconContentChange()}"
-            >
-            </slot>
-        </span>
-    `,
+    start: html<Button>`<span part="icon"><slot name="icon"></slot></span>`,
     styles,
     shadowOptions: {
         delegatesFocus: true

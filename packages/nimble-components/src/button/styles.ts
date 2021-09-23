@@ -89,32 +89,32 @@ export const styles = css`
     }
 
     .content {
-        display: inline-flex;
-    }
-
-    [part="start"] {
-        display: none;
-    }
-
-    [part="start"].icon {
-        display: inline-flex;
-    }
-
-    [part="icon"] {
         display: contents;
     }
 
-    slot[name="icon"]::slotted(*) {
+    [part='start'] {
+        display: none;
+    }
+
+    [part='start'] {
+        display: contents;
+    }
+
+    [part='icon'] {
+        display: contents;
+    }
+
+    slot[name='icon']::slotted(*) {
         width: 16px;
         height: 16px;
         fill: ${buttonContentFontColor};
     }
 
-    [part="end"] {
+    [part='end'] {
         display: none;
     }
 
-    :host([disabled]) slot[name="icon"]::slotted(*) {
+    :host([disabled]) slot[name='icon']::slotted(*) {
         opacity: 0.6;
     }
 `.withBehaviors(

@@ -48,10 +48,7 @@ export const readOnlyStates = [
 ];
 export type ReadOnlyState = typeof readOnlyStates[number];
 
-export const iconStates = [
-    '',
-    `<div slot="icon">${search16X16.data}</div>`
-];
+export const iconStates = ['', `<div slot="icon">${search16X16.data}</div>`];
 export type IconState = typeof iconStates[number];
 
 /**
