@@ -14,14 +14,14 @@ async function setup(): Promise<Fixture<TreeView>> {
     return fixture<TreeView>(
         new ViewTemplate(
             `<nimble-tree-view>
-            <nimble-tree-item class="root">Root1
-                <nimble-tree-item class="sub-root">SubRoot
-                    <nimble-tree-item class="leaf1">Leaf 1</nimble-tree-item>
+                <nimble-tree-item class="root">Root1
+                    <nimble-tree-item class="sub-root">SubRoot
+                        <nimble-tree-item class="leaf1">Leaf 1</nimble-tree-item>
+                    </nimble-tree-item>
+                    <nimble-tree-item class="leaf2">Leaf 2</nimble-tree-item>
+                    <nimble-tree-item class="leafWithIcon"><svg slot="start">${notebook16X16.data}</svg>Leaf 1</nimble-tree-item>
                 </nimble-tree-item>
-                <nimble-tree-item class="leaf2">Leaf 2</nimble-tree-item>
-                <nimble-tree-item class="leafWithIcon"><svg slot="start">${notebook16X16.data}</svg>Leaf 1</nimble-tree-item>
-                </nimble-tree-item>
-        </nimble-tree-view>`,
+            </nimble-tree-view>`,
             []
         )
     );
@@ -32,19 +32,14 @@ describe('TreeView', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await DOM.nextUpdate();
-
         const rootItem = element.querySelector<TreeItem>('.root')!;
 
         await clickElement(rootItem);
-
         expect(rootItem?.hasAttribute('selected')).toBe(false);
-
         expect(rootItem?.hasAttribute('expanded')).toBe(true);
 
         await clickElement(rootItem);
-
         expect(rootItem?.hasAttribute('selected')).toBe(false);
-
         expect(rootItem?.hasAttribute('expanded')).toBe(false);
 
         await disconnect();
@@ -54,17 +49,14 @@ describe('TreeView', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await DOM.nextUpdate();
-
         const rootItem = element.querySelector<TreeItem>('.root')!;
         const leafItem = element.querySelector<TreeItem>('.leaf2')!;
 
         await clickElement(rootItem); // expand root
         await clickElement(leafItem); // select leaf
-
         expect(leafItem?.hasAttribute('selected')).toBe(true);
 
         await clickElement(rootItem); // collapse root
-
         expect(leafItem?.hasAttribute('selected')).toBe(true);
 
         await disconnect();
@@ -74,13 +66,11 @@ describe('TreeView', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await DOM.nextUpdate();
-
         const rootItem = element.querySelector<TreeItem>('.root')!;
         const leafItem = element.querySelector<TreeItem>('.leaf2')!;
 
         await clickElement(leafItem); // select leaf
         await clickElement(rootItem); // collapse root
-
         expect(element.currentSelected).toBe(leafItem);
 
         await disconnect();
@@ -90,14 +80,12 @@ describe('TreeView', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await DOM.nextUpdate();
-
         const rootItem = element.querySelector<TreeItem>('.root')!;
         const rootExpandButton = rootItem?.shadowRoot?.querySelector<HTMLElement>(
             '.expand-collapse-button'
         );
 
         await clickElement(rootExpandButton!);
-
         expect(rootItem?.hasAttribute('expanded')).toBe(true);
 
         await disconnect();
