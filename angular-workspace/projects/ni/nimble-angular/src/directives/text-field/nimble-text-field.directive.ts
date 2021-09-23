@@ -5,4 +5,5 @@ import { Directive, HostBinding, Input } from '@angular/core';
 })
 export class NimbleTextFieldDirective {
     @HostBinding('attr.readonly') @Input() public readonly: boolean;
+    @HostBinding('invalid') @Input() public invalid: boolean;
 }
