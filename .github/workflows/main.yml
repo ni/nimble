@@ -58,7 +58,6 @@ jobs:
           git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
       # Run Lighthouse page performance test suite
-      - uses: actions/checkout@v2
       - name: Audit Angular Example App using Lighthouse
         uses: treosh/lighthouse-ci-action@v8
         with:
