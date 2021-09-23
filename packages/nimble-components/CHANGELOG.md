@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 23 Sep 2021 19:34:21 GMT and should not be manually modified.
+This log was last generated on Thu, 23 Sep 2021 20:37:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.59
+
+Thu, 23 Sep 2021 20:37:34 GMT
+
+### Changes
+
+- Changes to support icons in nimble button (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 1.0.0-beta.58
 
