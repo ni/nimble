@@ -2,20 +2,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { Select } from '@ni/nimble-components/dist/esm/select';
 import { NimbleSelectModule } from '../nimble-select.module';
 import { NimbleListboxOptionModule } from '../../listbox-option';
-import { Select } from '../../../../../../../../packages/nimble-components/dist/esm/select';
-
-async function waitForAsync(conditionFn: () => boolean): Promise<void> {
-    while (!conditionFn()) {
-        // eslint-disable-next-line no-await-in-loop
-        await waitAsync();
-    }
-}
-
-async function waitAsync(): Promise<void> {
-    await new Promise(window.requestAnimationFrame);
-}
+import { waitAnimationFrame, waitMicrotask, waitTask } from '../../../async-test-utilities';
 
 function setSelectValue(select: Select, index: number): void {
     select.dispatchEvent(new Event('click'));
@@ -23,10 +13,10 @@ function setSelectValue(select: Select, index: number): void {
 }
 
 describe('Nimble select control value accessor', () => {
-    describe('when using [ngValue] binding', () => {
+    describe('when using option\'s [ngValue] binding and select\'s [ngModel] binding', () => {
         @Component({
             template: `
-                <nimble-select #select [(ngModel)]="selectedOption" [compareWith]="compareWith">
+                <nimble-select #select [(ngModel)]="selectedOption" [compareWith]="compareWith" [disabled]="selectDisabled">
                     <nimble-listbox-option *ngFor="let option of selectOptions"
                         [ngValue]="option">
                         {{ option.name }}
@@ -44,6 +34,8 @@ describe('Nimble select control value accessor', () => {
             ];
 
             public selectedOption = this.selectOptions[1];
+
+            public selectDisabled = false;
 
             public compareWith(option1: { name: string, value: number }, option2: { name: string, value: number }): boolean {
                 return option1 && option2 && option1.value === option2.value;
@@ -66,100 +58,187 @@ describe('Nimble select control value accessor', () => {
             testHostComponent = fixture.componentInstance;
             select = testHostComponent.select.nativeElement;
             fixture.detectChanges();
-            await waitForAsync(() => select.options.length !== 0);
+            // wait for select's 'options' property to be updated from slotted content
+            await waitTask();
         });
 
-        it('should set correct initial selected value', async () => {
+        it('sets correct initial selected value', () => {
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[1]);
             expect(select.selectedIndex).toBe(1);
         });
 
-        it('should update selected value when bound property is changed', async () => {
+        it('updates selected value when bound property is changed', async () => {
             testHostComponent.selectedOption = testHostComponent.selectOptions[2];
             fixture.detectChanges();
-            await waitAsync();
+            await waitMicrotask();
 
             expect(select.selectedIndex).toBe(2);
         });
 
-        it('should update bound property when selected value is changed', async () => {
+        it('updates bound property when selected value is changed', () => {
             setSelectValue(select, 2);
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2]);
         });
 
-        it('should use "compareWith" function to determine value equality', async () => {
+        it('uses "compareWith" function to determine value equality', async () => {
             // copy object to test equality checking
             const newValue = JSON.parse(JSON.stringify(testHostComponent.selectOptions[2])) as { name: string, value: number };
             testHostComponent.selectedOption = newValue;
             fixture.detectChanges();
-            await waitAsync();
+            await waitMicrotask();
 
             expect(select.selectedIndex).toBe(2);
+        });
+
+        it('sets "disabled" attribute with value of bound property', async () => {
+            testHostComponent.selectDisabled = true;
+            fixture.detectChanges();
+            await waitAnimationFrame();
+
+            expect(select.getAttribute('disabled')).toBe('');
+            expect(select.disabled).toBe(true);
         });
     });
 
-    describe('when using [value] binding', () => {
-        @Component({
-            template: `
-                <nimble-select #select [(ngModel)]="selectedOption">
-                    <nimble-listbox-option *ngFor="let option of selectOptions"
-                        [value]="option.value">
-                        {{ option.name }}
-                    </nimble-listbox-option>
-                </nimble-select>
-             `
-        })
-        class TestHostComponent {
-            @ViewChild('select', { static: true }) public select: ElementRef<Select>;
+    describe('when using option\'s [value] binding', () => {
+        describe('and select\'s [ngModel] binding', () => {
+            @Component({
+                template: `
+                    <nimble-select #select [(ngModel)]="selectedOption">
+                        <nimble-listbox-option *ngFor="let option of selectOptions"
+                            [value]="option.value">
+                            {{ option.name }}
+                        </nimble-listbox-option>
+                    </nimble-select>
+                 `
+            })
+            class TestHostComponent {
+                @ViewChild('select', { static: true }) public select: ElementRef<Select>;
 
-            public selectOptions: { name: string, value: number }[] = [
-                { name: 'Option 1', value: 1 },
-                { name: 'Option 2', value: 2 },
-                { name: 'Option 3', value: 3 }
-            ];
+                public selectOptions: { name: string, value: number }[] = [
+                    { name: 'Option 1', value: 1 },
+                    { name: 'Option 2', value: 2 },
+                    { name: 'Option 3', value: 3 }
+                ];
 
-            public selectedOption = this.selectOptions[1].value.toString();
-        }
+                public selectedOption = this.selectOptions[1].value.toString();
+            }
 
-        let select: Select;
-        let fixture: ComponentFixture<TestHostComponent>;
-        let testHostComponent: TestHostComponent;
+            let select: Select;
+            let fixture: ComponentFixture<TestHostComponent>;
+            let testHostComponent: TestHostComponent;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
-                declarations: [TestHostComponent],
-                imports: [NimbleSelectModule, NimbleListboxOptionModule, FormsModule]
-            }).compileComponents();
+            beforeEach(async () => {
+                await TestBed.configureTestingModule({
+                    declarations: [TestHostComponent],
+                    imports: [NimbleSelectModule, NimbleListboxOptionModule, FormsModule]
+                }).compileComponents();
+            });
+
+            beforeEach(async () => {
+                fixture = TestBed.createComponent(TestHostComponent);
+                testHostComponent = fixture.componentInstance;
+                select = testHostComponent.select.nativeElement;
+                fixture.detectChanges();
+                // wait for select's 'options' property to be updated from slotted content
+                await waitTask();
+            });
+
+            it('sets correct initial selected value', () => {
+                expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[1].value.toString());
+                expect(select.selectedIndex).toBe(1);
+            });
+
+            it('updates selected value when bound property is changed', async () => {
+                testHostComponent.selectedOption = testHostComponent.selectOptions[2].value.toString();
+                fixture.detectChanges();
+                await waitMicrotask();
+
+                expect(select.selectedIndex).toBe(2);
+            });
+
+            it('updates bound property when selected value is changed', async () => {
+                setSelectValue(select, 2);
+                fixture.detectChanges();
+
+                expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2].value.toString());
+            });
         });
 
-        beforeEach(async () => {
-            fixture = TestBed.createComponent(TestHostComponent);
-            testHostComponent = fixture.componentInstance;
-            select = testHostComponent.select.nativeElement;
-            fixture.detectChanges();
-            await waitForAsync(() => select.options.length !== 0);
-        });
+        describe('and select\'s [value] binding (without ngModel)', () => {
+            @Component({
+                template: `
+                    <nimble-select #select [value]="selectedOption" (change)="selectionChanged()" [disabled]="selectDisabled">
+                        <nimble-listbox-option *ngFor="let option of selectOptions"
+                            [value]="option.value">
+                            {{ option.name }}
+                        </nimble-listbox-option>
+                    </nimble-select>
+                 `
+            })
+            class TestHostComponent {
+                @ViewChild('select', { static: true }) public select: ElementRef<Select>;
 
-        it('should set correct initial selected value', async () => {
-            expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[1].value.toString());
-            expect(select.selectedIndex).toBe(1);
-        });
+                public selectOptions: { name: string, value: number }[] = [
+                    { name: 'Option 1', value: 1 },
+                    { name: 'Option 2', value: 2 },
+                    { name: 'Option 3', value: 3 }
+                ];
 
-        it('should update selected value when bound property is changed', async () => {
-            testHostComponent.selectedOption = testHostComponent.selectOptions[2].value.toString();
-            fixture.detectChanges();
-            await waitAsync();
+                public selectedOption = this.selectOptions[1].value.toString();
 
-            expect(select.selectedIndex).toBe(2);
-        });
+                public selectDisabled = false;
 
-        it('should update bound property when selected value is changed', async () => {
-            setSelectValue(select, 2);
-            fixture.detectChanges();
+                public selectionChanged(): void {
+                    this.selectedOption = this.select.nativeElement.value;
+                }
+            }
 
-            expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2].value.toString());
+            let select: Select;
+            let fixture: ComponentFixture<TestHostComponent>;
+            let testHostComponent: TestHostComponent;
+
+            beforeEach(async () => {
+                await TestBed.configureTestingModule({
+                    declarations: [TestHostComponent],
+                    imports: [NimbleSelectModule, NimbleListboxOptionModule, FormsModule]
+                }).compileComponents();
+            });
+
+            beforeEach(async () => {
+                fixture = TestBed.createComponent(TestHostComponent);
+                testHostComponent = fixture.componentInstance;
+                select = testHostComponent.select.nativeElement;
+                fixture.detectChanges();
+                // wait for select's 'options' property to be updated from slotted content
+                await waitTask();
+            });
+
+            it('does not set correct initial selected value', async () => {
+                expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[1].value.toString());
+
+                // This reproduces the same behavior that the built-in HTML select control has. When binding to
+                // the control value using [value] instead of [ngModel], and when using ngFor or some other programmatic
+                // means of populating the select options, the initial value will not be set correctly.
+                expect(select.selectedIndex).toBe(0);
+            });
+
+            it('updates selected value when bound property is changed', async () => {
+                testHostComponent.selectedOption = testHostComponent.selectOptions[2].value.toString();
+                fixture.detectChanges();
+                await waitMicrotask();
+
+                expect(select.selectedIndex).toBe(2);
+            });
+
+            it('updates bound property when selected value is changed', async () => {
+                setSelectValue(select, 2);
+                fixture.detectChanges();
+
+                expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2].value.toString());
+            });
         });
     });
 });

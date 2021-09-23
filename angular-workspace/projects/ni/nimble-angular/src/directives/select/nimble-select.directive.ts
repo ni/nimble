@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
     selector: 'nimble-select',
@@ -7,5 +7,4 @@ import { Directive, Input } from '@angular/core';
  * Directive for Nimble select control Angular integration
  */
 export class NimbleSelectDirective {
-    @Input() public disabled: boolean;
 }
