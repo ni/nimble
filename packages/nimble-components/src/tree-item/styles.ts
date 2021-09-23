@@ -179,41 +179,43 @@ export const styles: (
         :host([expanded]) .items {
             display: block;
         }
-    `.withBehaviors(
-                    new DirectionalStyleSheetBehavior(
-                        css`
-                ${/* ltr styles */ ''}
-                :host(.nested) .expand-collapse-button {
-                    left: var(
-                        --expand-collapse-button-nested-width,
-                        calc(${iconSize} * -1)
-                    );
-                }
+    `
+// prettier-ignore
+    .withBehaviors(
+        new DirectionalStyleSheetBehavior(
+            css`
+                    ${/* ltr styles */ ''}
+                    :host(.nested) .expand-collapse-button {
+                        left: var(
+                            --expand-collapse-button-nested-width,
+                            calc(${iconSize} * -1)
+                        );
+                    }
 
-                .expand-collapse-button svg {
-                    transform: rotate(90deg);
-                }
+                    .expand-collapse-button svg {
+                        transform: rotate(90deg);
+                    }
 
-                :host([expanded]) .expand-collapse-button svg {
-                    transform: rotate(180deg);
-                }
-            `,
-                        css`
-                ${/* rtl styles */ ''}
-                :host(.nested) .expand-collapse-button {
-                    right: var(
-                        --expand-collapse-button-nested-width,
-                        calc(${iconSize} * -1)
-                    );
-                }
+                    :host([expanded]) .expand-collapse-button svg {
+                        transform: rotate(180deg);
+                    }
+                `,
+            css`
+                    ${/* rtl styles */ ''}
+                    :host(.nested) .expand-collapse-button {
+                        right: var(
+                            --expand-collapse-button-nested-width,
+                            calc(${iconSize} * -1)
+                        );
+                    }
 
-                .expand-collapse-button svg {
-                    transform: rotate(180deg);
-                }
+                    .expand-collapse-button svg {
+                        transform: rotate(180deg);
+                    }
 
-                :host([expanded]) .expand-collapse-button svg {
-                    transform: rotate(135deg);
-                }
-            `
-                    )
-                );
+                    :host([expanded]) .expand-collapse-button svg {
+                        transform: rotate(135deg);
+                    }
+                `
+        )
+    );
