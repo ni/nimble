@@ -27,12 +27,19 @@ export class TreeItem extends FoundationTreeItem {
         this.removeEventListener('selected-change', this.handleItemSelected);
     }
 
+    /**
+     * We are modifying the built-in behavior of selected state of the FAST TreeItem, as well as what initiates expand/
+     * collapse. By default, we will not allow tree items that have sub tree items to be selected (and thus render as such).
+     * In addition, clicking anywhere on a tree item with children (not just the expand/collapse icon) will initiate
+     * expand/collapse.
+     * @param event The 'selected-change' event emitted by the FAST TreeItem
+     */
     private readonly handleItemSelected = (event: CustomEvent): void => {
         // this handler will be called for every TreeItem from the target to the root as the 'selected-change' bubbles up
         if (event.target === this) {
-            this.expanded = !this.expanded;
-            const treeItemChildren = this.querySelectorAll('nimble-tree-item');
-            if (treeItemChildren.length > 0 && this.selected) {
+            const treeItemChild = this.querySelector('nimble-tree-item');
+            if (treeItemChild && this.selected) {
+                this.expanded = !this.expanded;
                 this.selected = false; // do not allow tree groups to display as 'selected' the way leaf tree items can
             } else {
                 const treeView = this.getParentNimbleTreeNode();
@@ -46,6 +53,10 @@ export class TreeItem extends FoundationTreeItem {
         }
     };
 
+    /**
+     * This was copied directly from the FAST TreeItem implementation
+     * @returns the root tree view
+     */
     private getParentNimbleTreeNode(): HTMLElement | null | undefined {
         const parentNode: Element | null | undefined = this.parentElement!.closest("[role='tree']");
         return parentNode as HTMLElement;

@@ -1,5 +1,6 @@
 import { DOM, ViewTemplate } from '@microsoft/fast-element';
 import { TreeView, DesignSystem, TreeItem } from '@microsoft/fast-foundation';
+import { notebook16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { fixture, Fixture } from '../../tests/utilities/fixture';
 import { nimbleTreeItem } from '../../tree-item';
 import { nimbleTreeView } from '../index';
@@ -18,7 +19,8 @@ async function setup(): Promise<Fixture<TreeView>> {
                     <nimble-tree-item class="leaf1">Leaf 1</nimble-tree-item>
                 </nimble-tree-item>
                 <nimble-tree-item class="leaf2">Leaf 2</nimble-tree-item>
-            </nimble-tree-item>
+                <nimble-tree-item class="leafWithIcon"><svg slot="start">${notebook16X16.data}</svg>Leaf 1</nimble-tree-item>
+                </nimble-tree-item>
         </nimble-tree-view>`,
             []
         )
