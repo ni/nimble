@@ -35,7 +35,10 @@ export class TreeView extends FoundationTreeView {
      * @param event The 'selected-change' event emitted by a TreeItem
      */
     private readonly handleTreeItemSelected = (event: CustomEvent): void => {
-        if (event.target instanceof TreeItem && event.target.childElementCount > 0) {
+        if (
+            event.target instanceof TreeItem
+            && event.target.childElementCount > 0
+        ) {
             const selectedTreeItem = this.querySelector<TreeItem>('[pinned-selected]');
             if (selectedTreeItem) {
                 selectedTreeItem.selected = true;
