@@ -40,7 +40,7 @@ export class TreeItem extends FoundationTreeItem {
     private readonly handleItemSelected = (event: CustomEvent): void => {
         // this handler will be called for every TreeItem from the target to the root as the 'selected-change' bubbles up
         if (event.target === this) {
-            const treeItemChild = this.querySelector('nimble-tree-item');
+            const treeItemChild = this.querySelector('[role="treeitem"]');
             if (treeItemChild && this.selected) {
                 this.expanded = !this.expanded;
                 this.selected = false; // do not allow tree groups to display as 'selected' the way leaf tree items can
@@ -60,13 +60,13 @@ export class TreeItem extends FoundationTreeItem {
      * This was copied directly from the FAST TreeItem implementation
      * @returns the root tree view
      */
-    private getParentNimbleTreeNode(): HTMLElement | null | undefined {
-        const parentNode: Element | null | undefined = this.parentElement!.closest("[role='tree']");
+    private getParentNimbleTreeNode(): HTMLElement | null {
+        const parentNode: Element | null = this.parentElement!.closest("[role='tree']");
         return parentNode as HTMLElement;
     }
 }
 
-export const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
+const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseName: 'tree-item',
     template,
     styles,

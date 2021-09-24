@@ -1,14 +1,10 @@
 import { DOM, ViewTemplate } from '@microsoft/fast-element';
-import { TreeView, DesignSystem, TreeItem } from '@microsoft/fast-foundation';
+import type { TreeView, TreeItem } from '@microsoft/fast-foundation';
 import { notebook16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { fixture, Fixture } from '../../tests/utilities/fixture';
-import { nimbleTreeItem } from '../../tree-item';
-import { nimbleTreeView } from '../index';
 import { clickElement } from '../../tests/utilities/component-test-helpers';
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeView());
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeItem());
+import '..';
+import '../../tree-item';
 
 async function setup(): Promise<Fixture<TreeView>> {
     return fixture<TreeView>(

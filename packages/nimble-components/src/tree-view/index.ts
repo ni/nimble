@@ -3,7 +3,7 @@ import {
     TreeView as FoundationTreeView,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import type { TreeItem } from '../tree-item';
+import { TreeItem } from '../tree-item';
 import { styles } from './styles';
 
 /**
@@ -23,6 +23,7 @@ export class TreeView extends FoundationTreeView {
     }
 
     public disconnectedCallback(): void {
+        super.disconnectedCallback();
         this.removeEventListener(
             'selected-change',
             this.handleTreeItemSelected
@@ -34,8 +35,7 @@ export class TreeView extends FoundationTreeView {
      * @param event The 'selected-change' event emitted by a TreeItem
      */
     private readonly handleTreeItemSelected = (event: CustomEvent): void => {
-        const treeItem = event.target as TreeItem;
-        if (treeItem && treeItem.childElementCount > 0) {
+        if (event.target instanceof TreeItem && event.target.childElementCount > 0) {
             const selectedTreeItem = this.querySelector<TreeItem>('[pinned-selected]');
             if (selectedTreeItem) {
                 selectedTreeItem.selected = true;
@@ -45,7 +45,7 @@ export class TreeView extends FoundationTreeView {
     };
 }
 
-export const nimbleTreeView = TreeView.compose({
+const nimbleTreeView = TreeView.compose({
     baseName: 'tree-view',
     template,
     styles
