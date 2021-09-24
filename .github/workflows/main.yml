@@ -78,7 +78,7 @@ jobs:
       - name: Performance Audit with Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.8.x
-          lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
+          lhci autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
