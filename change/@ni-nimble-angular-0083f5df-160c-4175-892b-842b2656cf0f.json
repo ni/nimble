@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Refactor text field's ControlValueAccessor to extend Angular's DefaultValueAccessor",
+  "packageName": "@ni/nimble-angular",
+  "email": "5454342+brianehenry@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
