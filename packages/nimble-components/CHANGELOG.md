@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 23 Sep 2021 20:37:34 GMT and should not be manually modified.
+This log was last generated on Fri, 24 Sep 2021 19:09:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.60
+
+Fri, 24 Sep 2021 19:09:11 GMT
+
+### Changes
+
+- Introducing new select/expand behavior (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 1.0.0-beta.59
 
