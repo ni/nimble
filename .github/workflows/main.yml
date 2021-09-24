@@ -76,9 +76,7 @@ jobs:
 
       # Run Lighthouse audit
       - name: Performance Audit with Lighthouse CI
-        run: |
-          npm install -g @lhci/cli@0.8.x
-          lhci autorun
+        run: npm run performance
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
