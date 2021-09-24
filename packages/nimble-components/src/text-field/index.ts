@@ -5,7 +5,7 @@ import {
     TextFieldOptions,
     textFieldTemplate as template
 } from '@microsoft/fast-foundation';
-import { alarmActive16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { statusAlarmActive16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
 export type { TextField };
@@ -39,7 +39,7 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    end: `${alarmActive16X16.data}`
+    end: `${statusAlarmActive16X16.data}`
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextField());

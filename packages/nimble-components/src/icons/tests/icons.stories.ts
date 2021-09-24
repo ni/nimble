@@ -26,6 +26,10 @@ const styleMarkup = `
             width: 32px;
             fill: var(--content-font-color);
         }
+
+        .icon svg path {
+            fill: var(--content-font-color);
+        }
     </style>
 `;
 

@@ -4,7 +4,7 @@ import {
     CheckboxOptions,
     checkboxTemplate as template
 } from '@microsoft/fast-foundation';
-import { succeeded16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { statusSucceeded16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 import { styles } from './styles';
 
@@ -14,7 +14,7 @@ const nimbleCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
     baseName: 'checkbox',
     template,
     styles,
-    checkedIndicator: `${succeeded16X16.data}`
+    checkedIndicator: `${statusSucceeded16X16.data}`
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCheckbox());
