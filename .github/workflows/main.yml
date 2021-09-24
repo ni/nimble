@@ -79,6 +79,8 @@ jobs:
         run: |
           npm install -g @lhci/cli@0.8.x
           lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       # Publish site to GitHub Pages (only from main)
       - name: Install ruby
