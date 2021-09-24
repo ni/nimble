@@ -2,6 +2,57 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 24 Sep 2021 19:09:11 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.64",
+      "version": "1.0.0-beta.64",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "37b9dc1e958d65891226d5701717165755797912",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.64"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Sep 2021 20:37:34 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.63",
+      "version": "1.0.0-beta.63",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Changes to support icons in the nimble button",
+            "commit": "0d9eea382a68f5e0b5cc063b91afdad4314d7d88"
+          },
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "0d9eea382a68f5e0b5cc063b91afdad4314d7d88",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.63"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Sep 2021 19:34:21 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.62",
+      "version": "1.0.0-beta.62",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "4a348242549f3d43f6b9a4aee6f639a470d573f2",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.62"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Sep 2021 23:22:04 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.61",
       "version": "1.0.0-beta.61",

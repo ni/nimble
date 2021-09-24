@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 24 Sep 2021 19:09:11 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.60",
+      "version": "1.0.0-beta.60",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Introducing new select/expand behavior",
+            "commit": "37b9dc1e958d65891226d5701717165755797912"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Sep 2021 20:37:34 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.59",
+      "version": "1.0.0-beta.59",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Changes to support icons in nimble button",
+            "commit": "0d9eea382a68f5e0b5cc063b91afdad4314d7d88"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Sep 2021 19:34:21 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.58",
+      "version": "1.0.0-beta.58",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "nimble tree view and item with rough styling",
+            "commit": "4a348242549f3d43f6b9a4aee6f639a470d573f2"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Sep 2021 23:22:04 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.57",
       "version": "1.0.0-beta.57",

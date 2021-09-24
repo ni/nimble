@@ -1,3 +1,4 @@
+import { search16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { NimbleTheme } from '../../theme-provider/themes';
 
 export const backgrounds = [
@@ -46,6 +47,20 @@ export const readOnlyStates = [
     ['Read-Only', 'readonly']
 ];
 export type ReadOnlyState = typeof readOnlyStates[number];
+
+export const iconStates = ['', `<div slot="icon">${search16X16.data}</div>`];
+export type IconState = typeof iconStates[number];
+export const expandedStates = [
+    ['Collapsed', ''],
+    ['Expanded', 'expanded']
+];
+export type ExpandedState = typeof expandedStates[number];
+
+export const selectedStates = [
+    ['Unselected', ''],
+    ['Selected', 'selected']
+];
+export type SelectedState = typeof selectedStates[number];
 
 /**
  * Wraps a given component template with a region for each of the available themes.
