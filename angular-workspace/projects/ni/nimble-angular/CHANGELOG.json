@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 24 Sep 2021 22:21:55 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.65",
+      "version": "1.0.0-beta.65",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Refactor text field's ControlValueAccessor to extend Angular's DefaultValueAccessor",
+            "commit": "5190229e0b5b08753edd32b3b5b7e501344a8ecb"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 24 Sep 2021 19:09:11 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.64",
       "version": "1.0.0-beta.64",
