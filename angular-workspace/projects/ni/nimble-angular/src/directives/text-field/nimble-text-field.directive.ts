@@ -15,7 +15,6 @@ import { TextField } from '@ni/nimble-components/dist/esm/text-field';
 export class NimbleTextFieldDirective implements ControlValueAccessor {
     @HostBinding('attr.disabled') @Input() public disabled: boolean;
     @HostBinding('attr.readonly') @Input() public readonly: boolean;
-    @HostBinding('invalid') @Input() public invalid: boolean;
 
     private onTouched: () => void;
     private onChange: (string) => void;
