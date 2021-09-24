@@ -150,7 +150,7 @@ export const styles = css`
         fill: ${failColor};
     }
 
-    :host(.invalid) [part='end'] path {
+    :host([disabled]) [part='end'] path {
         fill: ${contentFontColorDisabled};
     }
 `;
