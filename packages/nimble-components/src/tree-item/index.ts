@@ -24,6 +24,7 @@ export class TreeItem extends FoundationTreeItem {
     }
 
     public disconnectedCallback(): void {
+        super.disconnectedCallback();
         this.removeEventListener('selected-change', this.handleItemSelected);
     }
 
