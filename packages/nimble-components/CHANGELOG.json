@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 27 Sep 2021 15:05:02 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.61",
+      "version": "1.0.0-beta.61",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Switch to html template",
+            "commit": "07c44dbb648867cb325a62d076d0f287eea5c5af"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 24 Sep 2021 19:09:11 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.60",
+      "version": "1.0.0-beta.60",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Introducing new select/expand behavior",
+            "commit": "37b9dc1e958d65891226d5701717165755797912"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Sep 2021 20:37:34 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.59",
+      "version": "1.0.0-beta.59",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Changes to support icons in nimble button",
+            "commit": "0d9eea382a68f5e0b5cc063b91afdad4314d7d88"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Sep 2021 19:34:21 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.58",
+      "version": "1.0.0-beta.58",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "nimble tree view and item with rough styling",
+            "commit": "4a348242549f3d43f6b9a4aee6f639a470d573f2"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Sep 2021 23:22:04 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.57",
+      "version": "1.0.0-beta.57",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Re-export FAST's DOM.nextUpdate() for usage in Angular tests",
+            "commit": "4733a0f930f8e1a47f7ba3caa0a7c463be829f89"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Sep 2021 17:04:37 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.56",
       "version": "1.0.0-beta.56",
