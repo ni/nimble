@@ -4,7 +4,6 @@ import {
     menuItemTemplate as template,
     MenuItemOptions
 } from '@microsoft/fast-foundation';
-import { html } from '@microsoft/fast-element';
 
 import { styles } from './styles';
 
