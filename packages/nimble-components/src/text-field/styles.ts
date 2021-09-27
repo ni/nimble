@@ -10,6 +10,7 @@ import {
     failColor,
     fillColorSelectedRgb,
     fontFamily,
+    iconSize,
     labelFontColor,
     labelFontFamily,
     labelFontSize,
@@ -142,8 +143,8 @@ export const styles = css`
     }
 
     :host([invalid]) [part='end'] svg {
-        height: 16px;
-        width: 16px;
+        height: ${iconSize};
+        width: ${iconSize};
     }
 
     :host([invalid]) [part='end'] path {

@@ -9,6 +9,7 @@ import {
     controlHeight,
     labelFontColor,
     labelFontColorDisabled,
+    iconSize,
     fontFamily,
     borderWidth,
     smallDelay
@@ -82,8 +83,8 @@ export const styles = css`
     }
 
     slot[name='checked-indicator'] svg {
-        height: 10px;
-        width: 10px;
+        height: ${iconSize};
+        width: ${iconSize};
     }
 
     slot[name='checked-indicator'] path {
