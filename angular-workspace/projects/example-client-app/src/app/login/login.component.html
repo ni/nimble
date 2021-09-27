@@ -7,7 +7,7 @@
         <div [formGroup]="loginForm" class="login-container">
             <nimble-text-field formControlName="username">Username</nimble-text-field>
             <nimble-text-field formControlName="password" type="password" [invalid]="!this.loginForm.controls.password.pristine && !!this.loginForm.controls.password.errors">Password</nimble-text-field>
-            <nimble-button [disabled]="!!this.loginForm.controls.password.errors">Login</nimble-button>
+            <nimble-button [disabled]="!!this.loginForm.controls.password.errors" [appearance]="buttonAppearance.Block">Login</nimble-button>
         </div>
     </div>
 </nimble-theme-provider>

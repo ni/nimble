@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 26 Aug 2021 18:52:38 GMT
+ * Generated on Tue, 14 Sep 2021 16:28:36 GMT
  */
 
 :root {
@@ -44,11 +44,11 @@
   --sub-header-weight: Regular;
   --header-1-family: Noto Serif;
   --header-1-weight: Regular;
-  --header-2-size: 22rem;
-  --overline-capitalized-size: 11rem;
-  --body-size: 14rem;
-  --header-0-size: 36rem;
-  --sub-header-size: 12rem;
-  --header-1-size: 24rem;
+  --header-2-size: 22px;
+  --overline-capitalized-size: 11px;
+  --body-size: 14px;
+  --header-0-size: 36px;
+  --sub-header-size: 12px;
+  --header-1-size: 24px;
   --small-delay: 0.1s; /* Short animation delay used for control state change animation */
 }

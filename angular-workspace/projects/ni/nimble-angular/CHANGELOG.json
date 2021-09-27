@@ -2,6 +2,126 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 22 Sep 2021 17:04:37 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.60",
+      "version": "1.0.0-beta.60",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a487e938560a7560cfee2f8daaa88fa5a9f728ff",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.60"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Sep 2021 16:46:58 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.59",
+      "version": "1.0.0-beta.59",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "9480438+LukasKall@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7fa20da1f0a33fb3b85da03b472fcb0203cf146c",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.59"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Sep 2021 21:01:58 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.58",
+      "version": "1.0.0-beta.58",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ae681695dc6b94e93a4df11213b9eda8b2911bad",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.58"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 16 Sep 2021 15:30:58 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.57",
+      "version": "1.0.0-beta.57",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "9480438+LukasKall@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "3220150b84975ba1de31a0f52e29142fd1ecbc27",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.57"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Sep 2021 20:07:53 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.56",
+      "version": "1.0.0-beta.56",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "9bc406bb57cd413b24fbfcdf8b229cf92361666e",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.56"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Sep 2021 22:50:16 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.55",
+      "version": "1.0.0-beta.55",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Adding button Angular directive",
+            "commit": "036a4535fb0076815bec3e8915dc072e18f7cf9e"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Sep 2021 21:19:06 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.54",
+      "version": "1.0.0-beta.54",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "0b3136f0f8bee1946f8e8e046d0b553283ec6097",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.54"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Sep 2021 16:53:39 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.53",
+      "version": "1.0.0-beta.53",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "829cd2da4ce213c9ae19ac52243d8512f18f1501",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.53"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 Sep 2021 20:07:38 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.52",
       "version": "1.0.0-beta.52",

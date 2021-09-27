@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 08 Sep 2021 23:12:35 GMT and should not be manually modified.
+This log was last generated on Tue, 14 Sep 2021 21:19:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.16
+
+Tue, 14 Sep 2021 21:19:06 GMT
+
+### Changes
+
+- add watch script to tokens (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.15
+
+Tue, 14 Sep 2021 16:53:39 GMT
+
+### Changes
+
+- remove scss and change rem to px for css (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.14
 
