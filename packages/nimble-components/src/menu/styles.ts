@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 
 import {
     applicationBackgroundColor,
@@ -9,14 +8,14 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('block')}
     :host {
+        display: block;
         --elevation: 11;
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
         padding: 4px;
-        max-width: 368px;
+        max-width: 176px;
         min-width: 64px;
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
     }
