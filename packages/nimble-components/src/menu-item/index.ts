@@ -13,7 +13,6 @@ export { FoundationMenuItem as MenuItem };
 export const nimbleMenuItem = FoundationMenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
     template,
-    start: html<FoundationMenuItem>`<span part="icon"><slot name="icon"></slot><span>`,
     styles
 });
 
