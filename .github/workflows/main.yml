@@ -74,6 +74,12 @@ jobs:
           workingDir: ./packages/nimble-components
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
+      # Run Lighthouse audit
+      - name: Performance Audit with Lighthouse CI
+        run: npm run performance
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
       # Publish site to GitHub Pages (only from main)
       - name: Install ruby
         if: startsWith(github.ref, 'refs/heads/main')

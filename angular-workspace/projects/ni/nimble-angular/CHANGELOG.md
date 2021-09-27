@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 24 Sep 2021 19:09:11 GMT and should not be manually modified.
+This log was last generated on Fri, 24 Sep 2021 22:21:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.65
+
+Fri, 24 Sep 2021 22:21:55 GMT
+
+### Changes
+
+- Refactor text field's ControlValueAccessor to extend Angular's DefaultValueAccessor (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.64
 

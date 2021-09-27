@@ -121,3 +121,6 @@ package-lock.json
 
 # local npmrc files
 .npmrc
+
+# lighthouse build directory
+.lighthouseci/
