@@ -2,7 +2,6 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../menu-item/index';
-import { admin16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 interface MenuArgs {
     options: ItemArgs[];
