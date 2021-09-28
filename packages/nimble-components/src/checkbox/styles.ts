@@ -85,6 +85,7 @@ export const styles = css`
     slot[name='checked-indicator'] svg {
         height: ${iconSize};
         width: ${iconSize};
+        overflow: visible;
     }
 
     slot[name='checked-indicator'] path {
