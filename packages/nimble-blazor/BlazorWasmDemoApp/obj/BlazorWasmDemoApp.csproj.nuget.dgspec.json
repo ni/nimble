@@ -1,0 +1,86 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/jesse/Documents/GitHub/nimble/packages/nimble-blazor/BlazorWasmDemoApp/BlazorWasmDemoApp.csproj": {}
+  },
+  "projects": {
+    "/Users/jesse/Documents/GitHub/nimble/packages/nimble-blazor/BlazorWasmDemoApp/BlazorWasmDemoApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/jesse/Documents/GitHub/nimble/packages/nimble-blazor/BlazorWasmDemoApp/BlazorWasmDemoApp.csproj",
+        "projectName": "BlazorWasmDemoApp",
+        "projectPath": "/Users/jesse/Documents/GitHub/nimble/packages/nimble-blazor/BlazorWasmDemoApp/BlazorWasmDemoApp.csproj",
+        "packagesPath": "/Users/jesse/.nuget/packages/",
+        "outputPath": "/Users/jesse/Documents/GitHub/nimble/packages/nimble-blazor/BlazorWasmDemoApp/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/jesse/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Components.WebAssembly": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.DevServer": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "System.Net.Http.Json": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Runtime.browser-wasm",
+              "version": "[5.0.10, 5.0.10]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.401/RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "browser-wasm": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
