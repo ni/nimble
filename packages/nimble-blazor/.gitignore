@@ -403,3 +403,6 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+# Files copied from nimble-components into NimbleBlazor by the npm build command
+NimbleBlazor/wwwroot/nimble-components/

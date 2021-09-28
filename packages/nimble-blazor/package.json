@@ -3,7 +3,9 @@
   "version": "1.0.0-beta.0",
   "private": true,
   "description": "Blazor components for the NI Nimble Design System",
-  "scripts": {},
+  "scripts": {
+    "build": "shx cp -R ./node_modules/@ni/nimble-components/dist/esm ./NimbleBlazor/wwwroot/nimble-components/"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
