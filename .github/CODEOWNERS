@@ -4,7 +4,8 @@
 # More info: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/about-code-owners
 
 # These owners will be the default owners for everything in the repo.
-*                           @rajsite @jattasNI @fredvisser
+* @rajsite @jattasNI @fredvisser
 
 # Owners of specific locations or file patterns in the repo. Locations are relative to the root of the repo.
 # Order is important. The last matching pattern has the most precedence.
+/angular-workspace/projects/ni/nimble-angular @brianehenry @rajsite
