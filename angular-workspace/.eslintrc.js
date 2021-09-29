@@ -20,10 +20,12 @@ module.exports = {
     {
         files: ['*.html'],
         extends: [
-            // Should extend '@ni/eslint-config/angular-template' once a package is published which exports it
-            'plugin:@angular-eslint/template/recommended'
+            '@ni/eslint-config-angular/template'
         ],
         rules: {
+            // nimble-angular shouldn't provide user-visible strings so doesn't need i18n
+            // example-client-app is just for demo purposes and isn't anticipated to be localized
+            '@angular-eslint/template/i18n': 'off'
         }
     }]
 };
