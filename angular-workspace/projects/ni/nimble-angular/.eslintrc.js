@@ -15,10 +15,6 @@ module.exports = {
         ],
         tsconfigRootDir: __dirname,
         createDefaultProgram: true
-      },
-      rules: {
-        // Add "ControlValueAccessor" as a permitted suffix for directives since we want them to match Angular's naming convention
-        "@angular-eslint/directive-class-suffix": ["error", {suffixes: ["Directive", "ControlValueAccessor"]}]
       }
     },
     {
