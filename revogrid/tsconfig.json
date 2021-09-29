@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "outDir": "./dist/",
+      "noImplicitAny": false,
+      "module": "es6",
+      "jsx": "preserve",
+      "allowJs": true,
+      "moduleResolution": "node"
+    }
+  }
