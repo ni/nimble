@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NI.CSharp.Analyzers" Version="1.2.17" />
+  </ItemGroup>
+  
 </Project>
