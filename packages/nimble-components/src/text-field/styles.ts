@@ -59,11 +59,11 @@ export const styles = css`
         padding-bottom: 0px;
     }
 
-    :host([invalid]) .root {
+    :host(.invalid) .root {
         border-bottom: ${borderWidth} solid ${failColor};
     }
 
-    :host([invalid]) .root:hover {
+    :host(.invalid) .root:hover {
         border-bottom: 2px solid ${failColor};
         padding-bottom: 0px;
     }
@@ -135,19 +135,19 @@ export const styles = css`
         display: none;
     }
 
-    :host([invalid]) [part='end'] {
+    :host(.invalid) [part='end'] {
         align-self: center;
         display: inline-flex;
         padding-left: 8px;
         padding-right: 8px;
     }
 
-    :host([invalid]) [part='end'] svg {
+    :host(.invalid) [part='end'] svg {
         height: ${iconSize};
         width: ${iconSize};
     }
 
-    :host([invalid]) [part='end'] path {
+    :host(.invalid) [part='end'] path {
         fill: ${failColor};
     }
 

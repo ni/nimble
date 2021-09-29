@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 28 Sep 2021 16:05:04 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.62",
+      "version": "1.0.0-beta.62",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Refactored invalid property on text field to class",
+            "commit": "b90cf78dc25bf60338108c22570e00f708e02f5f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 27 Sep 2021 15:05:02 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.61",
       "version": "1.0.0-beta.61",
