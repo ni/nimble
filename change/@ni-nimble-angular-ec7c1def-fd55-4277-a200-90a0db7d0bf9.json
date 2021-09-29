@@ -1,7 +1,7 @@
 {
   "type": "prerelease",
-  "comment": "Stricter linting for templates and directives",
+  "comment": "Rename ControlValueAccessor directives",
   "packageName": "@ni/nimble-angular",
   "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
