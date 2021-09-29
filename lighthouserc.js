@@ -2,7 +2,7 @@ module.exports = {
   ci: {
     collect: {
       staticDistDir: './angular-workspace/dist/example-client-app',
-      numberOfRuns: 1,
+      numberOfRuns: 2,
     },
     assert: {
       assertions: {
