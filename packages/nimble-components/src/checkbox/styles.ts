@@ -9,6 +9,7 @@ import {
     controlHeight,
     labelFontColor,
     labelFontColorDisabled,
+    labelHeight,
     iconSize,
     fontFamily,
     borderWidth,
@@ -74,6 +75,7 @@ export const styles = css`
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         color: ${labelFontColor};
+        line-height: ${labelHeight};
         padding-left: 1ch;
         cursor: inherit;
     }
