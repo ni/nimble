@@ -3,8 +3,8 @@ module.exports = {
     overrides: [{
         files: ['*.ts'],
         extends: [
-            '@ni/eslint-config/typescript',
-            '@ni/eslint-config/typescript-requiring-type-checking'
+            '@ni/eslint-config-angular',
+            '@ni/eslint-config-typescript/requiring-type-checking'
         ],
         rules: {
             // *-default-export lines can be deleted once a fix for this issue is published and uptaken
