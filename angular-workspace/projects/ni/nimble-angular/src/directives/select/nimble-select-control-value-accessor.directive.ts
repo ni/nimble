@@ -17,9 +17,9 @@ import { NG_VALUE_ACCESSOR, SelectControlValueAccessor } from '@angular/forms';
     host: { '(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => NimbleSelectControlValueAccessor),
+        useExisting: forwardRef(() => NimbleSelectControlValueAccessorDirective),
         multi: true
     }]
 })
-export class NimbleSelectControlValueAccessor extends SelectControlValueAccessor {
+export class NimbleSelectControlValueAccessorDirective extends SelectControlValueAccessor {
 }
