@@ -2,6 +2,42 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 29 Sep 2021 20:17:48 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.68",
+      "version": "1.0.0-beta.68",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "381d6ab92b5495a4194c9c94c234f0f064972b8b",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.68"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 Sep 2021 16:05:04 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.67",
+      "version": "1.0.0-beta.67",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Removed invalid property from text field directive and updated example app",
+            "commit": "b90cf78dc25bf60338108c22570e00f708e02f5f"
+          },
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b90cf78dc25bf60338108c22570e00f708e02f5f",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.67"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 27 Sep 2021 15:05:02 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.66",
       "version": "1.0.0-beta.66",

@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 27 Sep 2021 15:05:02 GMT and should not be manually modified.
+This log was last generated on Wed, 29 Sep 2021 20:17:48 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.63
+
+Wed, 29 Sep 2021 20:17:48 GMT
+
+### Changes
+
+- Remove manually added peer dependencies (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.63 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.62
+
+Tue, 28 Sep 2021 16:05:04 GMT
+
+### Changes
+
+- Refactored invalid property on text field to class (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.61
 
