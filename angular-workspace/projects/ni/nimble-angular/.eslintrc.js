@@ -17,6 +17,17 @@ module.exports = {
         createDefaultProgram: true
       },
       rules: {
+        // Add "ControlValueAccessor" as a permitted suffix for directives since we want them to match Angular's naming convention
+        "@angular-eslint/directive-class-suffix": ["error", {suffixes: ["Directive", "ControlValueAccessor"]}]
+      }
+    },
+    {
+      files: [
+        '*.spec.ts'
+      ],
+      rules: {
+        // No value in requiring a selector for components that are only used within a test file
+        "@angular-eslint/use-component-selector": "off"
       }
     },
     {

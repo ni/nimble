@@ -1,8 +1,8 @@
 module.exports = {
     root: true,
     extends: [
-        '@ni/eslint-config/typescript',
-        '@ni/eslint-config/typescript-requiring-type-checking'
+        '@ni/eslint-config-typescript',
+        '@ni/eslint-config-typescript/requiring-type-checking'
     ],
     parserOptions: {
         project: '../tsconfig.json',
@@ -17,36 +17,50 @@ module.exports = {
         // Rules enabled due to strictNullChecks
         '@typescript-eslint/no-non-null-assertion': 'off',
 
-        'no-restricted-imports': ['error', {
-            paths: [{
-                name: '@microsoft/fast-foundation',
-                importNames: ['focusVisible'],
-                        message: 'Please use focusVisible from src/utilities/style/focus instead.'
-                    }]
+        'no-restricted-imports': [
+            'error',
+            {
+                paths: [
+                    {
+                        name: '@microsoft/fast-foundation',
+                        importNames: ['focusVisible'],
+                        message:
+                            'Please use focusVisible from src/utilities/style/focus instead.'
+                    }
+                ]
             }
         ]
     },
-    ignorePatterns: [
-        '.eslintrc.js'
-    ],
-    overrides: [{
-        files: ['*.stories.ts'],
-        rules: {
-            // Storybook files will not be in published package and are allowed to use devDependencies
-            'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-            'import/no-default-export': 'off'
+    ignorePatterns: ['.eslintrc.js'],
+    overrides: [
+        {
+            files: ['*.stories.ts'],
+            rules: {
+                // Storybook files will not be in published package and are allowed to use devDependencies
+                'import/no-extraneous-dependencies': [
+                    'error',
+                    { devDependencies: true }
+                ],
+                'import/no-default-export': 'off'
+            }
+        },
+        {
+            files: ['*.spec.ts'],
+            env: {
+                jasmine: true
+            }
+        },
+        {
+            files: ['styles.ts'],
+            rules: {
+                // template literals are also used to comment on the css and
+                // the comments should be intended accordingly
+                '@typescript-eslint/indent': [
+                    'error',
+                    4,
+                    { ignoredNodes: ['TemplateLiteral'] }
+                ]
+            }
         }
-    }, {
-        files: ['*.spec.ts'],
-        env: {
-            jasmine: true
-        }
-    }, {
-        files: ['styles.ts'],
-        rules: {
-            // template literals are also used to comment on the css and
-            // the comments should be intended accordingly
-            '@typescript-eslint/indent': ['error', 4, { ignoredNodes: ['TemplateLiteral'] }]
-        }
-    }]
+    ]
 };
