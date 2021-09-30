@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Rename ControlValueAccessor directives",
-  "packageName": "@ni/nimble-angular",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}

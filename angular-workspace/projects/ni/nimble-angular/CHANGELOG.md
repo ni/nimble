@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 30 Sep 2021 17:53:18 GMT and should not be manually modified.
+This log was last generated on Thu, 30 Sep 2021 19:04:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.71
+
+Thu, 30 Sep 2021 19:04:10 GMT
+
+### Changes
+
+- Rename ControlValueAccessor directives (jattasNI@users.noreply.github.com)
 
 ## 1.0.0-beta.70
 

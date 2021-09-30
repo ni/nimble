@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 30 Sep 2021 19:04:10 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.71",
+      "version": "1.0.0-beta.71",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Rename ControlValueAccessor directives",
+            "commit": "ac2ad92dd88706f176804a712e0566ca580414ab"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 30 Sep 2021 17:53:18 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.70",
       "version": "1.0.0-beta.70",
