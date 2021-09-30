@@ -10,6 +10,8 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 @Directive({
     selector:
       'nimble-text-field[formControlName],nimble-text-field[formControl],nimble-text-field[ngModel]',
+    // The following host metadata is duplicated from DefaultValueAccessor
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
     host: {
         '(input)': '$any(this)._handleInput($event.target.value)',
         '(blur)': 'onTouched()',

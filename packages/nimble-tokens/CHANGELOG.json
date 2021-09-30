@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 30 Sep 2021 16:40:43 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.18",
+      "version": "1.0.0-beta.18",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "set font-display: swap;",
+            "commit": "9eba3ef35ee01c6de1320883a307ade38b667390"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 29 Sep 2021 20:17:48 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.17",
+      "version": "1.0.0-beta.17",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "Remove manually added peer dependencies",
+            "commit": "381d6ab92b5495a4194c9c94c234f0f064972b8b"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Sep 2021 21:19:06 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.16",
       "version": "1.0.0-beta.16",

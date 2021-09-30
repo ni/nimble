@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "1.0.0-beta.67",
+  "version": "1.0.0-beta.69",
   "description": "Angular components for the NI Nimble Design System",
   "repository": {
     "type": "git",
@@ -18,16 +18,10 @@
     "@angular/common": "^12.1.0",
     "@angular/core": "^12.1.0",
     "@angular/forms": "^12.1.0",
-    "@ni/nimble-components": "^1.0.0-beta.62"
+    "@ni/nimble-components": "^1.0.0-beta.64"
   },
   "dependencies": {
     "tslib": "^2.2.0"
-  },
-  "devDependencies": {
-    "@ni/eslint-config": "^2.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "eslint": "^7.29.0",
-    "eslint-plugin-import": "^2.23.4"
   },
   "files": [
     "bundles/**",
