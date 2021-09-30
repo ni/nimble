@@ -1,4 +1,4 @@
-import { search16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { controlsSearch16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { NimbleTheme } from '../../theme-provider/themes';
 
 export const backgrounds = [
@@ -48,7 +48,10 @@ export const readOnlyStates = [
 ];
 export type ReadOnlyState = typeof readOnlyStates[number];
 
-export const iconStates = ['', `<div slot="icon">${search16X16.data}</div>`];
+export const iconStates = [
+    '',
+    `<div slot="icon">${controlsSearch16X16.data}</div>`
+];
 export type IconState = typeof iconStates[number];
 export const expandedStates = [
     ['Collapsed', ''],

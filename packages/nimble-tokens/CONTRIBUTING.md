@@ -37,7 +37,7 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
 ## Updating icons
 
-1. Export high-quality, optimized SVG files from the `source/SystemLinkAssets.ai` icon source file, by using the **Export for Screens…** workflow within Adobe Illustrator to export SVG files:
+1. Export high-quality, optimized SVG files from the `source/Nimble_Iconography.ai` icon source file, by using the **Export for Screens…** workflow within Adobe Illustrator to export SVG files:
 
    1. Choose **File » Export » Export for Screens…**
 

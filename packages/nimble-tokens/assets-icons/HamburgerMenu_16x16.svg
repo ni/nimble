@@ -1,1 +1,4 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path id="Menu_Button" data-name="Menu Button" d="M1,13V11H15v2ZM1,9V7H15V9ZM1,5V3H15V5Z" opacity="0.7"/></svg>
+<svg id="Layer_1" data-name="Layer 1"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+    <path id="Menu_Button" data-name="Menu Button" d="M2,13V11H14v2ZM2,9V7H14V9ZM2,5V3H14V5Z"/>
+</svg>
