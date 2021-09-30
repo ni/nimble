@@ -8,7 +8,10 @@ const isProduction = process.env.NODE_ENV == "production";
 const stylesHandler = "style-loader";
 
 const config = {
-  entry: "./src/index.ts",
+  entry: {
+    index: "./src/index.ts",
+    index2: "./src/index2.ts",
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
   },
@@ -19,9 +22,14 @@ const config = {
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      template: "index.html",
+      template: "./src/index.html",
+      chunks: ["index"]
     }),
-
+    new HtmlWebpackPlugin({
+      template: "./src/index2.html",
+      filename: "index2.html",
+      chunks: ["index2"]
+    })
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
