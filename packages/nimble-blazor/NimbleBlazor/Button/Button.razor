@@ -1,6 +1,21 @@
-﻿<h3>Component1</h3>
+﻿@inject IJSRuntime jsRuntime
+<nimble-button>@Text</nimble-button>
 
 @code {
+    protected override async Task OnInitializedAsync()
+    {
+        await using var jsModule = await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./nimble-components/esm/button/index.js");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        System.Console.WriteLine("OnAfterRenderAsync");
+        if (firstRender)
+        {
+            await using var jsModule = await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./nimble-components/esm/button/index.js");
+        }
+     }
+
     /// <summary>
     /// The text displayed on the button
     /// </summary>

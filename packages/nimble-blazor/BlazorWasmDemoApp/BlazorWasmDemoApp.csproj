@@ -11,4 +11,9 @@
     <PackageReference Include="NI.CSharp.Analyzers" Version="1.2.17" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NimbleBlazor\NimbleBlazor.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
