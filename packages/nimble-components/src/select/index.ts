@@ -4,7 +4,7 @@ import {
     SelectOptions,
     selectTemplate as template
 } from '@microsoft/fast-foundation';
-import { downArrow16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { controlsArrowExpanderDown16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
 export type { Select };
@@ -55,7 +55,7 @@ export const nimbleSelect = Select.compose<SelectOptions>({
     baseName: 'select',
     template,
     styles,
-    indicator: downArrow16X16.data
+    indicator: controlsArrowExpanderDown16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSelect());

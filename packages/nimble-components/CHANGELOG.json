@@ -2,6 +2,42 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 30 Sep 2021 17:53:18 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.65",
+      "version": "1.0.0-beta.65",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Update icons and callers",
+            "commit": "5a3426d76fd9dfdabda9eca73a3416c08aa02e03"
+          },
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5a3426d76fd9dfdabda9eca73a3416c08aa02e03",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.65"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Sep 2021 16:40:43 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.64",
+      "version": "1.0.0-beta.64",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9eba3ef35ee01c6de1320883a307ade38b667390",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.64"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 29 Sep 2021 20:17:48 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.63",
       "version": "1.0.0-beta.63",

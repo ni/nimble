@@ -9,6 +9,7 @@ import {
     contentFontSize,
     controlHeight,
     fontFamily,
+    iconSize,
     popupBorderColor,
     popupBoxShadowColor,
     smallDelay
@@ -120,8 +121,8 @@ export const styles = css`
     }
 
     .indicator slot[name='indicator'] svg {
-        width: 1em;
-        height: 1em;
+        width: ${iconSize};
+        height: ${iconSize};
         fill: ${contentFontColor};
     }
 
