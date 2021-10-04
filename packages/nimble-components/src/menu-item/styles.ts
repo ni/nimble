@@ -24,6 +24,7 @@ export const styles = css`
         justify-items: start;
         align-items: center;
         padding-left: 8px;
+        padding-right: 8px;
         margin: 0 0;
         white-space: nowrap;
         color: ${contentFontColor};
