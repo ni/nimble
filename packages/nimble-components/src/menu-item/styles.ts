@@ -15,7 +15,7 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('grid')}
+    ${display('flex')}
     :host {
         contain: layout;
         overflow: visible;
