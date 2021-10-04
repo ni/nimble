@@ -11,7 +11,6 @@ import {
 export const styles = css`
     ${display('grid')}
     :host {
-        --elevation: 11;
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
