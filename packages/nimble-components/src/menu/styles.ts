@@ -16,7 +16,6 @@ export const styles = css`
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
         padding: 4px;
-        max-width: 176px;
         min-width: 64px;
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
     }
