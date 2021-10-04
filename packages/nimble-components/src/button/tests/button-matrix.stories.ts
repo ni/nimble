@@ -4,7 +4,9 @@ import { ButtonAppearance } from '../types';
 import {
     matrixThemeWrapper,
     disabledStates,
-    DisabledState
+    DisabledState,
+    iconStates,
+    IconState
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
@@ -28,17 +30,27 @@ const metadata: Meta<ButtonArgs> = {
 export default metadata;
 
 export const defaultButton: Story<ButtonArgs> = (): string => '<nimble-button>Default Button</nimble-button>';
-
-const appearanceStates = Object.entries(ButtonAppearance);
+const noContent = 'NO_CONTENT';
+const appearanceStates = [...Object.entries(ButtonAppearance), [noContent, '']];
 type AppearanceState = typeof appearanceStates[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,
-    [appearanceName, appearance]: AppearanceState
+    [appearanceName, appearance]: AppearanceState,
+    icon: IconState
 ): string => `
     <nimble-button appearance="${appearance}" ${disabled}>
-        ${appearanceName} Button ${disabledName}
+        ${icon}
+        ${
+    appearanceName === noContent
+        ? ''
+        : `${appearanceName} Button ${disabledName}`
+}
     </nimble-button>
     `;
 
-export const buttonThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates, appearanceStates]);
+export const buttonThemeMatrix: Story = (): string => matrixThemeWrapper(component, [
+    disabledStates,
+    appearanceStates,
+    iconStates
+]);

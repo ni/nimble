@@ -1,8 +1,58 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 22 Sep 2021 17:04:37 GMT and should not be manually modified.
+This log was last generated on Mon, 27 Sep 2021 15:05:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.66
+
+Mon, 27 Sep 2021 15:05:02 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.66 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.65
+
+Fri, 24 Sep 2021 22:21:55 GMT
+
+### Changes
+
+- Refactor text field's ControlValueAccessor to extend Angular's DefaultValueAccessor (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.64
+
+Fri, 24 Sep 2021 19:09:11 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.64 (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.63
+
+Thu, 23 Sep 2021 20:37:34 GMT
+
+### Changes
+
+- Changes to support icons in the nimble button (26874831+atmgrifter00@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.63 (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.62
+
+Thu, 23 Sep 2021 19:34:21 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.62 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.61
+
+Wed, 22 Sep 2021 23:22:04 GMT
+
+### Changes
+
+- Complete ControlValueAccessor for nimble-select (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.61 (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.60
 
