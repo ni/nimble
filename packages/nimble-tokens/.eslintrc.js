@@ -1,7 +1,7 @@
 module.exports = {
     root: true,
     extends: [
-        '@ni'
+        '@ni/eslint-config-javascript'
     ],
     rules: {
     }

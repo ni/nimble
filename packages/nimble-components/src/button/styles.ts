@@ -1,18 +1,19 @@
 import { css } from '@microsoft/fast-element';
 import { focusVisible } from '../utilities/style/focus';
 import {
+    actionColorRgb,
     borderColorHover,
     borderColorRgb,
-    controlHeight,
-    standardPadding,
-    fontFamily,
-    fillColorSelected,
-    contentFontSize,
-    contentFontColorDisabled,
-    buttonContentFontColor,
-    actionColorRgb,
     borderWidth,
-    smallDelay
+    buttonContentFontColor,
+    contentFontColorDisabled,
+    contentFontSize,
+    controlHeight,
+    fillColorSelected,
+    fontFamily,
+    iconSize,
+    smallDelay,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from './behaviors';
 import { ButtonAppearance } from './types';
@@ -105,8 +106,8 @@ export const styles = css`
     }
 
     slot[name='icon']::slotted(*) {
-        width: 16px;
-        height: 16px;
+        width: ${iconSize};
+        height: ${iconSize};
         fill: ${buttonContentFontColor};
     }
 

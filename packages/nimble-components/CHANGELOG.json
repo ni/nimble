@@ -2,6 +2,93 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 30 Sep 2021 17:53:18 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.65",
+      "version": "1.0.0-beta.65",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Update icons and callers",
+            "commit": "5a3426d76fd9dfdabda9eca73a3416c08aa02e03"
+          },
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5a3426d76fd9dfdabda9eca73a3416c08aa02e03",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.65"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Sep 2021 16:40:43 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.64",
+      "version": "1.0.0-beta.64",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9eba3ef35ee01c6de1320883a307ade38b667390",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.64"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 29 Sep 2021 20:17:48 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.63",
+      "version": "1.0.0-beta.63",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Remove manually added peer dependencies",
+            "commit": "381d6ab92b5495a4194c9c94c234f0f064972b8b"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "381d6ab92b5495a4194c9c94c234f0f064972b8b",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.63"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 Sep 2021 16:05:04 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.62",
+      "version": "1.0.0-beta.62",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Refactored invalid property on text field to class",
+            "commit": "b90cf78dc25bf60338108c22570e00f708e02f5f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 27 Sep 2021 15:05:02 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.61",
+      "version": "1.0.0-beta.61",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Switch to html template",
+            "commit": "07c44dbb648867cb325a62d076d0f287eea5c5af"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 24 Sep 2021 19:09:11 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.60",
       "version": "1.0.0-beta.60",

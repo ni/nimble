@@ -5,8 +5,8 @@ import {
     numberFieldTemplate as template
 } from '@microsoft/fast-foundation';
 import {
-    downArrow16X16,
-    upArrow16X16
+    controlsArrowExpanderDown16X16,
+    controlsArrowExpanderUp16X16
 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
@@ -32,8 +32,8 @@ const nimbleNumberField = FoundationNumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: `${downArrow16X16.data}`,
-    stepUpGlyph: `${upArrow16X16.data}`
+    stepDownGlyph: `${controlsArrowExpanderDown16X16.data}`,
+    stepUpGlyph: `${controlsArrowExpanderUp16X16.data}`
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());

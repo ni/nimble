@@ -15,8 +15,15 @@ module.exports = {
         ],
         tsconfigRootDir: __dirname,
         createDefaultProgram: true
-      },
+      }
+    },
+    {
+      files: [
+        '*.spec.ts'
+      ],
       rules: {
+        // No value in requiring a selector for components that are only used within a test file
+        "@angular-eslint/use-component-selector": "off"
       }
     },
     {

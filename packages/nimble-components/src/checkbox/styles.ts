@@ -9,6 +9,8 @@ import {
     controlHeight,
     labelFontColor,
     labelFontColorDisabled,
+    labelHeight,
+    iconSize,
     fontFamily,
     borderWidth,
     smallDelay
@@ -73,6 +75,7 @@ export const styles = css`
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         color: ${labelFontColor};
+        line-height: ${labelHeight};
         padding-left: 1ch;
         cursor: inherit;
     }
@@ -82,8 +85,9 @@ export const styles = css`
     }
 
     slot[name='checked-indicator'] svg {
-        height: 10px;
-        width: 10px;
+        height: ${iconSize};
+        width: ${iconSize};
+        overflow: visible;
     }
 
     slot[name='checked-indicator'] path {

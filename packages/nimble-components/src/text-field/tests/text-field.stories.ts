@@ -35,9 +35,9 @@ const metadata: Meta<TextFieldArgs> = {
             placeholder='${label}'
             type='${type}'
             value='${value}'
+            class='${invalid ? 'invalid' : ''}'
             ${readonly ? 'readonly' : ''}
             ${disabled ? 'disabled' : ''}
-            ${invalid ? 'invalid' : ''}
         >
             ${label}
         </nimble-text-field>`,
