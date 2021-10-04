@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
@@ -14,8 +15,8 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
+    ${display('grid')}
     :host {
-        display: grid;
         contain: layout;
         overflow: visible;
         box-sizing: border-box;
