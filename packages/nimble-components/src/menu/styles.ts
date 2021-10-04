@@ -16,10 +16,8 @@ export const styles = css`
         margin: 0;
         padding: 4px;
         min-width: 64px;
-        box-shadow: 0px 2px 3px ${popupBoxShadowColor};
-    }
-    :host([slot='submenu']) {
         width: max-content;
+        box-shadow: 0px 2px 3px ${popupBoxShadowColor};
     }
     ::slotted(hr) {
         box-sizing: content-box;
