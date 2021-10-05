@@ -8,6 +8,7 @@ import {
     contentFontSize,
     fillColorSelected,
     fillColorHover,
+
     contentFontColor,
     borderColorHover,
     borderWidth,
@@ -46,5 +47,9 @@ export const styles = css`
     }
     :host([disabled]) {
         color: ${contentFontColorDisabled};
+        fill: currentcolor;
+    }
+    :host([disabled]:hover) {
+        background: transparent;
     }
 `;
