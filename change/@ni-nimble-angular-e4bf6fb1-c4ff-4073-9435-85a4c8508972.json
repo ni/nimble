@@ -3,5 +3,5 @@
   "comment": "Nimble tree angular integration; add page to example client app after login that uses tree",
   "packageName": "@ni/nimble-angular",
   "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
