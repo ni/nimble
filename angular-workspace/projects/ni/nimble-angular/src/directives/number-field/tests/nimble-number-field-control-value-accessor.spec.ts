@@ -45,12 +45,12 @@ describe('Nimble number field control value accessor', () => {
             fixture.detectChanges();
         });
 
-        it('sets correct initial selected value', () => {
+        it('sets correct initial value', () => {
             expect(testHostComponent.value).toBe(testHostComponent.initialValue);
             expect(parseFloat(numberField.value)).toBe(testHostComponent.initialValue);
         });
 
-        it('updates selected value when bound property is changed', async () => {
+        it('updates value when bound property is changed', async () => {
             const newValue = 1;
             testHostComponent.value = newValue;
             fixture.detectChanges();
@@ -59,7 +59,7 @@ describe('Nimble number field control value accessor', () => {
             expect(parseFloat(numberField.value)).toBe(newValue);
         });
 
-        it('updates bound property when selected value is changed', async () => {
+        it('updates bound property when value is changed', async () => {
             const newValue = 1;
             setNumberFieldValue(numberField, newValue);
             fixture.detectChanges();
@@ -112,12 +112,12 @@ describe('Nimble number field control value accessor', () => {
             fixture.detectChanges();
         });
 
-        it('should set correct initial selected value', () => {
+        it('should set correct initial value', () => {
             expect(testHostComponent.value).toBe(testHostComponent.initialValue);
             expect(parseFloat(numberField.value)).toBe(testHostComponent.initialValue);
         });
 
-        it('should update selected value when bound property is changed', async () => {
+        it('should update value when bound property is changed', async () => {
             const newValue = 1;
             testHostComponent.value = newValue;
             fixture.detectChanges();
@@ -126,7 +126,7 @@ describe('Nimble number field control value accessor', () => {
             expect(parseFloat(numberField.value)).toBe(newValue);
         });
 
-        it('should update bound property when selected value is changed', async () => {
+        it('should update bound property when value is changed', async () => {
             const newValue = 1;
             setNumberFieldValue(numberField, newValue);
             fixture.detectChanges();
