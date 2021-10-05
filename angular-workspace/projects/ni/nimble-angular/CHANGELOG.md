@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 27 Sep 2021 15:05:02 GMT and should not be manually modified.
+This log was last generated on Thu, 30 Sep 2021 19:04:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.71
+
+Thu, 30 Sep 2021 19:04:10 GMT
+
+### Changes
+
+- Rename ControlValueAccessor directives (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.70
+
+Thu, 30 Sep 2021 17:53:18 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.70 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.69
+
+Thu, 30 Sep 2021 16:40:43 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.69 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.68
+
+Wed, 29 Sep 2021 20:17:48 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.68 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.67
+
+Tue, 28 Sep 2021 16:05:04 GMT
+
+### Changes
+
+- Removed invalid property from text field directive and updated example app (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.67 (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.66
 

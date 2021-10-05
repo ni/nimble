@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 14 Sep 2021 21:19:06 GMT and should not be manually modified.
+This log was last generated on Thu, 30 Sep 2021 17:53:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.19
+
+Thu, 30 Sep 2021 17:53:18 GMT
+
+### Changes
+
+- Update icons and callers (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.18
+
+Thu, 30 Sep 2021 16:40:43 GMT
+
+### Changes
+
+- set font-display: swap; (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.17
+
+Wed, 29 Sep 2021 20:17:48 GMT
+
+### Changes
+
+- Remove manually added peer dependencies (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.16
 
