@@ -23,7 +23,9 @@ module.exports = {
       ],
       rules: {
         // No value in requiring a selector for components that are only used within a test file
-        "@angular-eslint/use-component-selector": "off"
+        "@angular-eslint/use-component-selector": "off",
+        // Multiple component definitions in a test file is acceptable
+        "max-classes-per-file": "off"
       }
     },
     {
