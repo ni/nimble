@@ -14,4 +14,9 @@ We can make Nimble components integrate well with Angular forms and `ngModel` bi
 
 ## Testing
 
-The Angular directives need code coverage via unit tests. We should test the `ControlValueAccessor` behavior with and without two-way value binding (e.g. using `[(ngModel)]` binding, and using `[value]` and `(change)` binding). Any other custom behavior implemented in the directives (lifecycle hooks, new properties) should be tested. However, it shouldn't be necessary to test properties which only use a simple `HostBinding` decorator.
+The Angular directives need code coverage via unit tests.
+* We should test the `ControlValueAccessor` behavior:
+  * Using form value binding (e.g. `[(ngModel)]` binding)
+  * Using manual value binding (e.g. `[value]` and `(change)` binding)
+* Any other custom behavior implemented in the directives (lifecycle hooks, new properties) should be tested.
+  *  However, it shouldn't be necessary to test properties which only use a simple `HostBinding` decorator.
