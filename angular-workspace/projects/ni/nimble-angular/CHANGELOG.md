@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 30 Sep 2021 19:04:10 GMT and should not be manually modified.
+This log was last generated on Tue, 05 Oct 2021 17:15:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.72
+
+Tue, 05 Oct 2021 17:15:41 GMT
+
+### Changes
+
+- Implemented number field CVA and directive, and removed old wrapper component (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.71
 
