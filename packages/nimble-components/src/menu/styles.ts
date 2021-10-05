@@ -4,6 +4,7 @@ import { display } from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
     borderWidth,
+    borderColor,
     popupBorderColor,
     popupBoxShadowColor
 } from '../theme-provider/design-tokens';
@@ -21,9 +22,10 @@ export const styles = css`
     }
     ::slotted(hr) {
         box-sizing: content-box;
-        height: 0;
+        height: 2px;
         margin: 0;
         border: none;
-        border-top: ${borderWidth} solid ${popupBorderColor};
+        background: ${borderColor};
+        opacity: 0.1;
     }
 `;
