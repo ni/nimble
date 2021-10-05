@@ -8,6 +8,7 @@ import {
     controlHeight,
     fillColorSelectedRgb,
     fontFamily,
+    iconSize,
     labelFontColor,
     labelFontFamily,
     labelFontSize,
@@ -122,8 +123,8 @@ export const styles = css`
 
     .step-up svg,
     .step-down svg {
-        height: 10px;
-        width: 10px;
+        height: ${iconSize};
+        width: ${iconSize};
         fill: ${borderColor};
     }
 `;

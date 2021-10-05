@@ -109,7 +109,6 @@ export const styles: (
             width: ${iconSize};
             height: ${iconSize};
             padding: 0px;
-            display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
