@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "TreeView and TreeItem angular integration and tests",
-  "packageName": "@ni/nimble-angular",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
