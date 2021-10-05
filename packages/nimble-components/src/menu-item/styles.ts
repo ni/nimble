@@ -48,6 +48,7 @@ export const styles = css`
     :host([disabled]) {
         color: ${contentFontColorDisabled};
         fill: currentcolor;
+        cursor: default;
     }
     :host([disabled]:hover) {
         background: transparent;
