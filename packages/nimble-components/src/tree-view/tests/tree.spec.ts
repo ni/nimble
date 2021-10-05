@@ -47,14 +47,21 @@ describe('TreeView', () => {
         await disconnect();
     });
 
-    it('root should not be selected after bring clicked, but should be expanded', async () => {
+    it('root should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
+        let expandedChangeFireCount = 0;
+        model.root.addEventListener('expanded-change', () => {
+            expandedChangeFireCount += 1;
+        });
+
         await clickElement(model.root);
         expect(model.root.hasAttribute('selected')).toBe(false);
         expect(model.root.hasAttribute('expanded')).toBe(true);
+        expect(expandedChangeFireCount).toEqual(1);
 
         await clickElement(model.root);
         expect(model.root.hasAttribute('selected')).toBe(false);
         expect(model.root.hasAttribute('expanded')).toBe(false);
+        expect(expandedChangeFireCount).toEqual(2);
     });
 
     it('leaf should stay selected after parent is expanded\\collapsed', async () => {
