@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 05 Oct 2021 20:50:12 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.66",
+      "version": "1.0.0-beta.66",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Move storybook addon xd to root",
+            "commit": "13daae04dc4687f6f67cf5aad646f85406235d88"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 30 Sep 2021 17:53:18 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.65",
       "version": "1.0.0-beta.65",

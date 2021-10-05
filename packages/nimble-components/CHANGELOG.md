@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 30 Sep 2021 17:53:18 GMT and should not be manually modified.
+This log was last generated on Tue, 05 Oct 2021 20:50:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.66
+
+Tue, 05 Oct 2021 20:50:12 GMT
+
+### Changes
+
+- Move storybook addon xd to root (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.65
 

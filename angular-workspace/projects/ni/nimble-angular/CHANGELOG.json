@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 05 Oct 2021 20:50:12 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.73",
+      "version": "1.0.0-beta.73",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "13daae04dc4687f6f67cf5aad646f85406235d88",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.73"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Oct 2021 17:15:41 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.72",
+      "version": "1.0.0-beta.72",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Implemented number field CVA and directive, and removed old wrapper component",
+            "commit": "2889a6ccb2d885758a8d92d74a7cae718327a99c"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 30 Sep 2021 19:04:10 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.71",
       "version": "1.0.0-beta.71",
