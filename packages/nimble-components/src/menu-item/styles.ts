@@ -8,7 +8,6 @@ import {
     contentFontSize,
     fillColorSelected,
     fillColorHover,
-
     contentFontColor,
     borderColorHover,
     borderWidth,
