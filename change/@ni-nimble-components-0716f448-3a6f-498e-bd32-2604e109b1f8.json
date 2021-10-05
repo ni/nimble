@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Add nimble tree angular integration; nimble TreeItem fires expanded-change when item text is clicked",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
