@@ -3,5 +3,5 @@
   "comment": "Implemented number field CVA and directive, and removed old wrapper component",
   "packageName": "@ni/nimble-angular",
   "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
