@@ -20,6 +20,7 @@ export default metadata;
 const component = (): string => `
     <nimble-menu>
         <nimble-menu-item>Item 1</nimble-menu-item>
+        <hr>
         <nimble-menu-item disabled>Item 2</nimble-menu-item>
         <nimble-menu-item>Item 3</nimble-menu-item>
     </nimble-menu>
