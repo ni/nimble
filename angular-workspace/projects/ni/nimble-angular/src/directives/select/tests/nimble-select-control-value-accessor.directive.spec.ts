@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-classes-per-file
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
