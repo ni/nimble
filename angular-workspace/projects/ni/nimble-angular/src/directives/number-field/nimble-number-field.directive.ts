@@ -1,5 +1,8 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 
+/**
+ * Directive to provide Angular integration for the nimble-number-field.
+ */
 @Directive({
     selector: 'nimble-number-field'
 })

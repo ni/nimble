@@ -3,6 +3,9 @@ import { NgSelectOption } from '@angular/forms';
 import { ListboxOption } from '@ni/nimble-components/dist/esm/listbox-option';
 import { NimbleSelectControlValueAccessorDirective } from '../select';
 
+/**
+ * Directive to provide Angular integration for the nimble-listbox-option.
+ */
 @Directive({
     selector: 'nimble-listbox-option'
 })

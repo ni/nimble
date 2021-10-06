@@ -30,5 +30,8 @@
     "fesm2015/**",
     "*.d.ts",
     "*.js"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-plugin-jsdoc": "^36.1.0"
+  }
 }
