@@ -10,6 +10,7 @@ module.exports = {
         tsconfigRootDir: __dirname
     },
     rules: {
+        // Require non-empty JSDoc comment on class declarations
         'jsdoc/require-jsdoc': [
             'error',
             {
@@ -19,6 +20,10 @@ module.exports = {
                     FunctionDeclaration: false
                 }
             }
+        ],
+        'jsdoc/require-description': [
+            'error',
+            { contexts: ['ClassDeclaration'] }
         ],
 
         // *-default-export lines can be deleted once a fix for this issue is published and uptaken
