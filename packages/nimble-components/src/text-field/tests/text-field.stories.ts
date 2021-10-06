@@ -13,6 +13,19 @@ interface TextFieldArgs {
     invalid: boolean;
 }
 
+const textFieldTemplate = html<TextFieldArgs>`
+    <nimble-text-field
+        placeholder="${x => x.label}"
+        type="${x => x.type}"
+        value="${x => x.value}"
+        class="${x => (x.invalid ? 'invalid' : '')}"
+        ?readonly="${x => x.readonly}"
+        ?disabled="${x => x.disabled}"
+    >
+        ${x => x.label}
+    </nimble-text-field>
+`;
+
 const metadata: Meta<TextFieldArgs> = {
     title: 'Text Field',
     decorators: [withXD],
@@ -25,18 +38,7 @@ const metadata: Meta<TextFieldArgs> = {
             handles: ['change', 'input']
         }
     },
-    render: createRenderer(html`
-        <nimble-text-field
-            placeholder="${x => x.label}"
-            type="${x => x.type}"
-            value="${x => x.value}"
-            class="${x => (x.invalid ? 'invalid' : '')}"
-            ?readonly="${x => x.readonly}"
-            ?disabled="${x => x.disabled}"
-        >
-            ${x => x.label}
-        </nimble-text-field>
-    `),
+    render: createRenderer(textFieldTemplate),
     argTypes: {
         type: {
             options: ['text', 'password'],

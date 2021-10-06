@@ -17,6 +17,24 @@ interface OptionArgs {
     disabled: boolean;
 }
 
+const nimbleOptionTemplate = html<OptionArgs>`
+    <nimble-listbox-option
+        value="${x => x.value}"
+        ?disabled="${x => x.disabled}"
+    >
+        ${x => x.label}
+    </nimble-listbox-option>
+`;
+
+const nimbleSelectTemplate = html<SelectArgs>`
+    <nimble-select
+        ?disabled="${x => x.disabled}"
+        position="${x => x.dropDownPosition}"
+    >
+        ${repeat(x => x.options, nimbleOptionTemplate)}
+    </nimble-select>
+`;
+
 const metadata: Meta<SelectArgs> = {
     title: 'Select',
     decorators: [withXD],
@@ -29,22 +47,7 @@ const metadata: Meta<SelectArgs> = {
             handles: ['change']
         }
     },
-    // prettier-ignore
-    render: createRenderer(html`
-        <nimble-select
-            ?disabled="${x => x.disabled}"
-            position="${x => x.dropDownPosition}"
-        >
-            ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-listbox-option
-                    value="${x => x.value}"
-                    ?disabled="${x => x.disabled}"
-                >
-                    ${x => x.label}
-                </nimble-listbox-option>
-            `)}
-        </nimble-select>
-    `),
+    render: createRenderer(nimbleSelectTemplate),
     argTypes: {
         dropDownPosition: {
             options: ['above', 'below'],

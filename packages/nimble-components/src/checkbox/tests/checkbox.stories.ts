@@ -10,6 +10,15 @@ interface CheckboxArgs {
     disabled: boolean;
 }
 
+const checkboxTemplate = html<CheckboxArgs>`
+    <nimble-checkbox
+        ?checked="${x => x.checked}"
+        ?disabled="${x => x.disabled}"
+    >
+        ${x => x.label}
+    </nimble-checkbox>
+`;
+
 const metadata: Meta<CheckboxArgs> = {
     title: 'Checkbox',
     decorators: [withXD],
@@ -22,14 +31,7 @@ const metadata: Meta<CheckboxArgs> = {
             handles: ['change']
         }
     },
-    render: createRenderer(html`
-        <nimble-checkbox
-            ?checked="${x => x.checked}"
-            ?disabled="${x => x.disabled}"
-        >
-            ${x => x.label}
-        </nimble-checkbox>
-    `),
+    render: createRenderer(checkboxTemplate),
     args: {
         label: 'Checkbox label',
         checked: false,

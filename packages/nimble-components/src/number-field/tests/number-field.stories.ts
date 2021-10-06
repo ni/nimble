@@ -10,6 +10,16 @@ interface NumberFieldArgs {
     disabled: boolean;
 }
 
+const numberFieldTemplate = html<NumberFieldArgs>`
+    <nimble-number-field
+        placeholder="${x => x.label}"
+        value="${x => x.value}"
+        ?disabled="${x => x.disabled}"
+    >
+        ${x => x.label}
+    </nimble-number-field>
+`;
+
 const metadata: Meta<NumberFieldArgs> = {
     title: 'Number Field',
     decorators: [withXD],
@@ -22,15 +32,7 @@ const metadata: Meta<NumberFieldArgs> = {
             handles: ['change', 'input']
         }
     },
-    render: createRenderer(html`
-        <nimble-number-field
-            placeholder="${x => x.label}"
-            value="${x => x.value}"
-            ?disabled="${x => x.disabled}"
-        >
-            ${x => x.label}
-        </nimble-number-field>
-    `),
+    render: createRenderer(numberFieldTemplate),
     args: {
         label: 'default label',
         value: 42,

@@ -21,6 +21,33 @@ interface ItemArgs {
     expanded: boolean;
 }
 
+const jobsIconTemplate = html`<span slot="start">${jobs16X16.data}</span>`;
+
+const treeItemTemplate = html<ItemArgs>`
+    <nimble-tree-item
+        ?expanded="${x => x.expanded}"
+        value="${x => x.value}"
+        ?disabled="${x => x.disabled}"
+    >
+        ${when(x => x.icon, jobsIconTemplate)} ${x => x.label}
+        <nimble-tree-item> Nested Item 1 </nimble-tree-item>
+        <nimble-tree-item>
+            <span slot="start">${notebook16X16.data}</span>
+            Nested Item 2
+        </nimble-tree-item>
+        <nimble-tree-item>
+            <span slot="start">${notebook16X16.data}</span>
+            Nested Item 3
+        </nimble-tree-item>
+    </nimble-tree-item>
+`;
+
+const treeViewTemplate = html<TreeArgs>`
+    <nimble-tree-view>
+        ${repeat(x => x.options, treeItemTemplate)}
+    </nimble-tree-view>
+`;
+
 const metadata: Meta<TreeArgs> = {
     title: 'Tree View',
     decorators: [withXD],
@@ -32,24 +59,7 @@ const metadata: Meta<TreeArgs> = {
             handles: ['expanded-change', 'selected-change']
         }
     },
-    // prettier-ignore
-    render: createRenderer(html`
-        <nimble-tree-view>
-            ${repeat(x => x.options, html<ItemArgs>`
-                <nimble-tree-item
-                    ?expanded="${x => x.expanded}"
-                    value="${x => x.value}"
-                    ?disabled="${x => x.disabled}"
-                >
-                    ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
-                    ${x => x.label}
-                    <nimble-tree-item>Nested Item 1</nimble-tree-item>
-                    <nimble-tree-item><span slot="start">${notebook16X16.data}</span>Nested Item 2</nimble-tree-item>
-                    <nimble-tree-item><span slot="start">${notebook16X16.data}</span>Nested Item 3</nimble-tree-item>
-                </nimble-tree-item>
-            `)}
-        </nimble-tree-view>
-`),
+    render: createRenderer(treeViewTemplate),
     args: {
         options: [
             {
