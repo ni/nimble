@@ -1,5 +1,6 @@
 module.exports = {
     root: true,
+    plugins: ['jsdoc'],
     extends: [
         '@ni/eslint-config-typescript',
         '@ni/eslint-config-typescript/requiring-type-checking'
@@ -9,6 +10,17 @@ module.exports = {
         tsconfigRootDir: __dirname
     },
     rules: {
+        'jsdoc/require-jsdoc': [
+            'error',
+            {
+                publicOnly: false,
+                require: {
+                    ClassDeclaration: true,
+                    FunctionDeclaration: false
+                }
+            }
+        ],
+
         // *-default-export lines can be deleted once a fix for this issue is published and uptaken
         // https://github.com/ni/javascript-styleguide/issues/39
         'import/prefer-default-export': 'off',
@@ -48,6 +60,10 @@ module.exports = {
             files: ['*.spec.ts'],
             env: {
                 jasmine: true
+            },
+            rules: {
+                // Classes defined in test code aren't part of the public API so don't need docs
+                'jsdoc/require-jsdoc': 'off'
             }
         },
         {
