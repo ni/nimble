@@ -2,6 +2,8 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../listbox-option/index';
+import { html, repeat } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 interface SelectArgs {
     disabled: boolean;
@@ -27,20 +29,22 @@ const metadata: Meta<SelectArgs> = {
             handles: ['change']
         }
     },
-    render: ({ disabled, dropDownPosition, options }: SelectArgs): string => `
+    // prettier-ignore
+    render: createRenderer(html`
         <nimble-select
-            ${disabled ? 'disabled' : ''}
-            position=${dropDownPosition}
+            ?disabled="${x => x.disabled}"
+            position="${x => x.dropDownPosition}"
         >
-            ${options
-        .map(
-            option => `<nimble-listbox-option value="${option.value}" ${
-                option.disabled ? 'disabled' : ''
-            }>${option.label}</nimble-listbox-option>\n`
-        )
-        .join('')}
+            ${repeat(x => x.options, html<OptionArgs>`
+                <nimble-listbox-option
+                    value="${x => x.value}"
+                    ?disabled="${x => x.disabled}"
+                >
+                    ${x => x.label}
+                </nimble-listbox-option>
+            `)}
         </nimble-select>
-`,
+    `),
     argTypes: {
         dropDownPosition: {
             options: ['above', 'below'],

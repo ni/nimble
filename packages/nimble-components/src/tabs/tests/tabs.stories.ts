@@ -1,6 +1,8 @@
+import { html, repeat, when } from '@microsoft/fast-element';
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../../button';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../index';
 
 interface TabsArgs {
@@ -23,27 +25,29 @@ const metadata: Meta<TabsArgs> = {
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b/specs'
         }
     },
-    render: ({ tabs, toolbar }): string => `
+    // prettier-ignore
+    render: createRenderer(html`
         <nimble-tabs>
-            ${
-    toolbar
-        ? `<nimble-tabs-toolbar>${toolbar}</nimble-tabs-toolbar>`
-        : ''
-}
-            ${tabs
-        .map(
-            tab => `<nimble-tab ${tab.disabled ? 'disabled' : ''}>${
-                tab.label
-            }</nimble-tab>`
-        )
-        .join('')}
-            ${tabs
-        .map(
-            tab => `<nimble-tab-panel>${tab.content}</nimble-tab-panel>`
-        )
-        .join('')}
+            ${when(x => x.toolbar, html<TabsArgs>`
+                <nimble-tabs-toolbar
+                    :innerHTML="${x => x.toolbar}"
+                >
+                </nimble-tabs-toolbar>
+            `)}
+            ${repeat(x => x.tabs, html<TabArgs>`
+                <nimble-tab
+                    ?disabled="${x => x.disabled}"
+                >
+                    ${x => x.label}
+                </nimble-tab>
+            `)}
+            ${repeat(x => x.tabs, html<TabArgs>`
+                <nimble-tab-panel>
+                    ${x => x.content}
+                </nimble-tab-panel>
+            `)}
         </nimble-tabs>
-    `,
+    `),
     args: {
         tabs: [
             {

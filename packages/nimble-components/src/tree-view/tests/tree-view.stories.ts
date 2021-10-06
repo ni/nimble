@@ -6,6 +6,8 @@ import {
     jobs16X16,
     notebook16X16
 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { html, repeat, when } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 interface TreeArgs {
     options: ItemArgs[];
@@ -31,19 +33,23 @@ const metadata: Meta<TreeArgs> = {
         }
     },
     // prettier-ignore
-    render: ({ options }: TreeArgs): string => `
+    render: createRenderer(html`
         <nimble-tree-view>
-        ${options.map(option => `
-            <nimble-tree-item ${option.expanded ? 'expanded' : ''} value="${option.value}" ${option.disabled ? 'disabled' : ''}>
-                ${option.icon ? `<span slot="start">${jobs16X16.data}</span>` : ''}
-                ${option.label}
-                <nimble-tree-item>Nested Item 1</nimble-tree-item>
-                <nimble-tree-item><span slot="start">${notebook16X16.data}</span>Nested Item 2</nimble-tree-item>
-                <nimble-tree-item><span slot="start">${notebook16X16.data}</span>Nested Item 3</nimble-tree-item>
-            </nimble-tree-item>\n`)
-        .join('')}
+            ${repeat(x => x.options, html<ItemArgs>`
+                <nimble-tree-item
+                    ?expanded="${x => x.expanded}"
+                    value="${x => x.value}"
+                    ?disabled="${x => x.disabled}"
+                >
+                    ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                    ${x => x.label}
+                    <nimble-tree-item>Nested Item 1</nimble-tree-item>
+                    <nimble-tree-item><span slot="start">${notebook16X16.data}</span>Nested Item 2</nimble-tree-item>
+                    <nimble-tree-item><span slot="start">${notebook16X16.data}</span>Nested Item 3</nimble-tree-item>
+                </nimble-tree-item>
+            `)}
         </nimble-tree-view>
-`,
+`),
     args: {
         options: [
             {

@@ -1,9 +1,12 @@
 import type { Story, Meta } from '@storybook/html';
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { html, repeat } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
 
-const styleMarkup = `
+const styleMarkup = html`
     <style>
         .container {
             margin: 0;
@@ -35,13 +38,12 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const icons: Story = (): string => `
+// prettier-ignore
+export const icons: Story = createRenderer(html`
     ${styleMarkup}
     <div class="container">
-    ${nimbleIcons
-        .map(
-            icon => `<div class="icon" title="${icon.name}">${icon.data}</div>`
-        )
-        .join('')}
+    ${repeat(() => nimbleIcons, html<NimbleIcon>`
+        <div class="icon" title="${x => x.name}" :innerHTML="${x => x.data}"></div>
+    `)}
     </div>
-`;
+`);

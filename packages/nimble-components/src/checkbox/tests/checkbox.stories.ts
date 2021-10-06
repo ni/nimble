@@ -1,5 +1,7 @@
+import { html } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../index';
 
 interface CheckboxArgs {
@@ -20,14 +22,14 @@ const metadata: Meta<CheckboxArgs> = {
             handles: ['change']
         }
     },
-    render: ({ label, checked, disabled }: CheckboxArgs): string => `
+    render: createRenderer(html`
         <nimble-checkbox
-            ${checked ? 'checked' : ''}
-            ${disabled ? 'disabled' : ''}
+            ?checked="${x => x.checked}"
+            ?disabled="${x => x.disabled}"
         >
-            ${label}
+            ${x => x.label}
         </nimble-checkbox>
-`,
+    `),
     args: {
         label: 'Checkbox label',
         checked: false,
