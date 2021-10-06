@@ -44,8 +44,6 @@ const iconTemplate = html<NimbleIcon>`
 
 const iconsTemplate = html`
     ${styleTemplate}
-    <div class="container">
-        ${repeat(() => nimbleIcons, iconTemplate)}
-    </div>
+    <div class="container">${repeat(() => nimbleIcons, iconTemplate)}</div>
 `;
 export const icons: Story = createRenderer(iconsTemplate);
