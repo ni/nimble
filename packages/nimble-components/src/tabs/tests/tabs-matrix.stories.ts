@@ -1,9 +1,12 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { html, ViewTemplate } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import {
     DisabledState,
     disabledStates,
-    matrixThemeWrapper
+    createMatrix,
+    themeWrapper
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
@@ -20,13 +23,20 @@ const metadata: Meta = {
 
 export default metadata;
 
-const component = ([disabledName, disabled]: DisabledState): string => `
+const component = ([
+    disabledName,
+    disabled
+]: DisabledState): ViewTemplate => html`
     <nimble-tabs>
-        <nimble-tab >Tab One</nimble-tab>
-        <nimble-tab ${disabled}>Tab Two ${disabledName}</nimble-tab>
+        <nimble-tab>Tab One</nimble-tab>
+        <nimble-tab ?disabled="${() => disabled}">
+            Tab Two ${() => disabledName}
+        </nimble-tab>
         <nimble-tab-panel>Tab content one</nimble-tab-panel>
         <nimble-tab-panel>Tab content two</nimble-tab-panel>
     </nimble-tabs>
 `;
 
-export const selectThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates]);
+export const selectThemeMatrix: Story = createRenderer(
+    themeWrapper(createMatrix(component, [disabledStates]))
+);
