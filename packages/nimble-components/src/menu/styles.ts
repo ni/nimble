@@ -23,7 +23,7 @@ export const styles = css`
     ::slotted(hr) {
         box-sizing: content-box;
         height: 2px;
-        margin: 0;
+        margin: 4px;
         border: none;
         background: ${borderColor};
         opacity: 0.1;
