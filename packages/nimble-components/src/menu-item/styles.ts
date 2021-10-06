@@ -57,6 +57,7 @@ export const styles = css`
     }
     :host(.indent-1) {
         grid-template-columns: ${iconSize} 1fr;
+        column-gap: 8px;
     }
     :host(.indent-1) .content {
         grid-column: 2;
