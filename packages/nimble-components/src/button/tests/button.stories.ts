@@ -13,17 +13,6 @@ interface ButtonArgs {
     icon: boolean;
 }
 
-const iconTemplate = html`<div slot="icon">${controlsSearch16X16.data}</div>`;
-
-const buttonTemplate = html<ButtonArgs>`
-    <nimble-button
-        ?disabled="${x => x.disabled}"
-        appearance="${x => x.appearance}"
-    >
-        ${when(x => x.icon, iconTemplate)} ${x => x.label}
-    </nimble-button>
-`;
-
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',
     decorators: [withXD],
@@ -42,7 +31,18 @@ const metadata: Meta<ButtonArgs> = {
             control: { type: 'radio' }
         }
     },
-    render: createRenderer(buttonTemplate),
+    // prettier-ignore
+    render: createRenderer(html`
+        <nimble-button
+            ?disabled="${x => x.disabled}"
+            appearance="${x => x.appearance}"
+        >
+            ${when(x => x.icon, html`
+                <div slot="icon">${controlsSearch16X16.data}</div>
+            `)}
+            ${x => x.label}
+        </nimble-button>
+`),
     args: {
         label: 'Ghost Button',
         appearance: 'ghost',

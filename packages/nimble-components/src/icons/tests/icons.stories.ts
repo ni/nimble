@@ -6,7 +6,7 @@ import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
 
-const styleTemplate = html`
+const styleMarkup = html`
     <style>
         .container {
             margin: 0;
@@ -38,12 +38,12 @@ const metadata: Meta = {
 
 export default metadata;
 
-const iconTemplate = html<NimbleIcon>`
-    <div class="icon" title="${x => x.name}" :innerHTML="${x => x.data}"></div>
-`;
-
-const iconsTemplate = html`
-    ${styleTemplate}
-    <div class="container">${repeat(() => nimbleIcons, iconTemplate)}</div>
-`;
-export const icons: Story = createRenderer(iconsTemplate);
+// prettier-ignore
+export const icons: Story = createRenderer(html`
+    ${styleMarkup}
+    <div class="container">
+    ${repeat(() => nimbleIcons, html<NimbleIcon>`
+        <div class="icon" title="${x => x.name}" :innerHTML="${x => x.data}"></div>
+    `)}
+    </div>
+`);

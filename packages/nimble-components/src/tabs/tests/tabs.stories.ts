@@ -16,26 +16,6 @@ interface TabArgs {
     disabled: boolean;
 }
 
-const toolbarTemplate = html<TabsArgs>`
-    <nimble-tabs-toolbar :innerHTML="${x => x.toolbar}"></nimble-tabs-toolbar>
-`;
-
-const tabTemplate = html<TabArgs>`
-    <nimble-tab ?disabled="${x => x.disabled}">${x => x.label}</nimble-tab>
-`;
-
-const tabPanelTemplate = html<TabArgs>`
-    <nimble-tab-panel>${x => x.content}</nimble-tab-panel>
-`;
-
-const tabsTemplate = html<TabsArgs>`
-    <nimble-tabs>
-        ${when(x => x.toolbar, toolbarTemplate)}
-        ${repeat(x => x.tabs, tabTemplate)}
-        ${repeat(x => x.tabs, tabPanelTemplate)}
-    </nimble-tabs>
-`;
-
 const metadata: Meta<TabsArgs> = {
     title: 'Tabs',
     decorators: [withXD],
@@ -45,7 +25,29 @@ const metadata: Meta<TabsArgs> = {
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b/specs'
         }
     },
-    render: createRenderer(tabsTemplate),
+    // prettier-ignore
+    render: createRenderer(html`
+        <nimble-tabs>
+            ${when(x => x.toolbar, html<TabsArgs>`
+                <nimble-tabs-toolbar
+                    :innerHTML="${x => x.toolbar}"
+                >
+                </nimble-tabs-toolbar>
+            `)}
+            ${repeat(x => x.tabs, html<TabArgs>`
+                <nimble-tab
+                    ?disabled="${x => x.disabled}"
+                >
+                    ${x => x.label}
+                </nimble-tab>
+            `)}
+            ${repeat(x => x.tabs, html<TabArgs>`
+                <nimble-tab-panel>
+                    ${x => x.content}
+                </nimble-tab-panel>
+            `)}
+        </nimble-tabs>
+    `),
     args: {
         tabs: [
             {
@@ -59,9 +61,9 @@ const metadata: Meta<TabsArgs> = {
                 disabled: false
             },
             {
-                label: 'Disabled Tab',
+                label: 'Tab Three',
                 content: 'Content of the third tab',
-                disabled: true
+                disabled: false
             }
         ]
     }
