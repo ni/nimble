@@ -68,7 +68,8 @@ module.exports = {
             },
             rules: {
                 // Classes defined in test code aren't part of the public API so don't need docs
-                'jsdoc/require-jsdoc': 'off'
+                'jsdoc/require-jsdoc': 'off',
+                'jsdoc/require-description': 'off'
             }
         },
         {
