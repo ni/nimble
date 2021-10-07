@@ -1,7 +1,10 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { html, ViewTemplate } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import {
-    matrixThemeWrapper,
+    createMatrix,
+    themeWrapper,
     disabledStates,
     DisabledState
 } from '../../tests/utilities/theme-test-helpers';
@@ -25,17 +28,24 @@ const metadata: Meta<NumberFieldArgs> = {
 
 export default metadata;
 const valueStates = [
-    ['Placeholder', 'placeholder="placeholder"'],
-    ['Value', 'value="1234"']
+    ['Placeholder', null, 'placeholder'],
+    ['Value', '1234', null]
 ];
 type ValueState = typeof valueStates[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,
-    [valueName, value]: ValueState
-): string => `
-    <nimble-number-field ${value} ${disabled}>
-        ${valueName} ${disabledName}
-    </nimble-number-field>`;
+    [valueName, valueValue, placehoderValue]: ValueState
+): ViewTemplate => html`
+    <nimble-number-field
+        value="${() => valueValue}"
+        placeholder="${() => placehoderValue}"
+        ?disabled="${() => disabled}"
+    >
+        ${() => valueName} ${() => disabledName}
+    </nimble-number-field>
+`;
 
-export const numberFieldThemeMatrix: Story = (): string => matrixThemeWrapper(component, [disabledStates, valueStates]);
+export const numberFieldThemeMatrix: Story = createRenderer(
+    themeWrapper(createMatrix(component, [disabledStates, valueStates]))
+);
