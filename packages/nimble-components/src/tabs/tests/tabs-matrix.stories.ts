@@ -37,6 +37,6 @@ const component = ([
     </nimble-tabs>
 `;
 
-export const selectThemeMatrix: Story = createRenderer(
+export const tabsThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [disabledStates]))
 );
