@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 07 Oct 2021 20:48:36 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.69",
+      "version": "1.0.0-beta.69",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Lint rules requiring class documentation",
+            "commit": "5a18e9a2322e9bb2844099775c9bd06773cdcc15"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Oct 2021 20:27:57 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.69",
+      "version": "1.0.0-beta.69",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Fix title in storybook",
+            "commit": "42be39038ef391050ad0df3138b251fb7ba601fb"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Oct 2021 20:02:52 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.68",
       "version": "1.0.0-beta.68",
