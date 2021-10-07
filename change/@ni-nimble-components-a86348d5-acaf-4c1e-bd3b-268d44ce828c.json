@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Use createRenderer helper for html tagged template",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
