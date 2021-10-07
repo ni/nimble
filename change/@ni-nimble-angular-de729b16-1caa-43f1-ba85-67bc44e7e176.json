@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Checkbox Angular integration",
-  "packageName": "@ni/nimble-angular",
-  "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
