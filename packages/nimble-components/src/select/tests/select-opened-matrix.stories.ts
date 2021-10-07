@@ -1,6 +1,11 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { matrixThemeWrapper } from '../../tests/utilities/theme-test-helpers';
+import { html, ViewTemplate } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import {
+    createMatrix,
+    themeWrapper
+} from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
 const metadata: Meta = {
@@ -17,18 +22,23 @@ const metadata: Meta = {
 export default metadata;
 
 const positionStates = [
-    ['Below', 'position="below"', 'margin-bottom: 120px;'],
-    ['Above', 'position="above"', 'margin-top: 120px;']
+    ['below', 'margin-bottom: 120px;'],
+    ['above', 'margin-top: 120px;']
 ];
 type PositionState = typeof positionStates[number];
 
-const options = `
-    <nimble-listbox-option value="1">Option 1</nimble-listbox-option>
-    <nimble-listbox-option value="2" disabled>Option 2</nimble-listbox-option>
-    <nimble-listbox-option value="3">Option 3</nimble-listbox-option>`;
-
-const component = ([_, position, positionStyle]: PositionState): string => `
-    <nimble-select ${position} open style="${positionStyle}">${options}</nimble-select>
+// prettier-ignore
+const component = ([
+    position,
+    positionStyle
+]: PositionState): ViewTemplate => html`
+    <nimble-select open position="${() => position}" style="${() => positionStyle}">
+        <nimble-listbox-option value="1">Option 1</nimble-listbox-option>
+        <nimble-listbox-option value="2" disabled>Option 2</nimble-listbox-option>
+        <nimble-listbox-option value="3">Option 3</nimble-listbox-option>
+    </nimble-select>
 `;
 
-export const selectOpenedThemeMatrix: Story = (): string => matrixThemeWrapper(component, [positionStates]);
+export const selectOpenedThemeMatrix: Story = createRenderer(
+    themeWrapper(createMatrix(component, [positionStates]))
+);

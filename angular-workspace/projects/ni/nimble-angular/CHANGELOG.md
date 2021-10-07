@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 05 Oct 2021 17:15:41 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Oct 2021 20:02:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.76
+
+Thu, 07 Oct 2021 20:02:52 GMT
+
+### Changes
+
+- Nimble tree angular integration; add page to example client app after login that uses tree (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.76 (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.75
+
+Thu, 07 Oct 2021 19:39:48 GMT
+
+### Changes
+
+- Checkbox Angular integration (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.74
+
+Thu, 07 Oct 2021 19:14:44 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.74 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.73
+
+Tue, 05 Oct 2021 20:50:12 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.73 (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.72
 

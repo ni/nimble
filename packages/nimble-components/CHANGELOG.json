@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 07 Oct 2021 20:02:52 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.68",
+      "version": "1.0.0-beta.68",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Nimble TreeItem now fires expanded-change when tree item content is clicked (already did so when expand/collapse glyph was clicked)",
+            "commit": "b23b1b7a9929b7be3ca3c059a7e388a15add01e7"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Oct 2021 19:14:44 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.67",
+      "version": "1.0.0-beta.67",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Use createRenderer helper for html tagged template",
+            "commit": "8b51361442e238cab5eb34bca471f0b49e6e3149"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Oct 2021 20:50:12 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.66",
+      "version": "1.0.0-beta.66",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Move storybook addon xd to root",
+            "commit": "13daae04dc4687f6f67cf5aad646f85406235d88"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 30 Sep 2021 17:53:18 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.65",
       "version": "1.0.0-beta.65",

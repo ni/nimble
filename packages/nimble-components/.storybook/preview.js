@@ -24,9 +24,15 @@ export const decorators = [
             ({ value }) => value === context.globals?.backgrounds?.value
         ) ?? defaultBackground;
         const tale = story();
-        if (typeof tale !== 'string') {
-            throw new Error('Expected story to render as string');
+        if (typeof tale === 'string') {
+            return `<nimble-theme-provider theme="${background.theme}">${tale}</nimble-theme-provider>`;
         }
-        return `<nimble-theme-provider theme="${background.theme}">${tale}</nimble-theme-provider>`;
+        if (tale instanceof Node) {
+            const nimbleThemeProvider = document.createElement('nimble-theme-provider');
+            nimbleThemeProvider.setAttribute('theme', background.theme);
+            nimbleThemeProvider.append(tale);
+            return nimbleThemeProvider;
+        }
+        throw new Error('Expected story to render as string or as a Node');
     }
 ];
