@@ -5,11 +5,12 @@ import '../index';
 
 async function setup(): Promise<Fixture<Button>> {
     return fixture<Button>(
-        // prettier-ignore
-        html`<nimble-button>
-                <div slot='icon'><span></span></div>
+        html`
+            <nimble-button>
+                <div slot="icon"><span></span></div>
                 Button
-            </nimble-button>`
+            </nimble-button>
+        `
     );
 }
 

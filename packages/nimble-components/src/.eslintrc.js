@@ -17,6 +17,7 @@ module.exports = {
         // Rules enabled due to strictNullChecks
         '@typescript-eslint/no-non-null-assertion': 'off',
 
+        '@typescript-eslint/explicit-function-return-type': ['error', {allowExpressions: true}],
         'no-restricted-imports': [
             'error',
             {
