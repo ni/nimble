@@ -6,8 +6,11 @@ import { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
 })
 export class NimbleTreeItemDirective {
     @HostBinding('disabled') @Input() public disabled: boolean;
-    @HostBinding('selected') @Input() public selected: boolean;
     @HostBinding('expanded') @Input() public expanded: boolean;
+    @HostBinding('selected')
+    @HostBinding('attr.aria-selected') // Needed because fast-foundation TreeView sets initial selection with an aria-selected query
+    @Input() public selected: boolean;
+
     @Output() public selectedChange = new EventEmitter<boolean>();
     @Output() public expandedChange = new EventEmitter<boolean>();
 
@@ -30,12 +33,5 @@ export class NimbleTreeItemDirective {
             this.expanded = treeItemElement.expanded;
             this.expandedChange.emit(treeItemElement.expanded);
         }
-    }
-
-    // The fast-foundation TreeView sets initial selection via querying for
-    // aria-selected on child tree items, so we have a binding for it so that
-    // initial selection state gets set up correctly on the TreeView
-    @HostBinding('attr.aria-selected') private get ariaSelected(): boolean {
-        return this.selected;
     }
 }

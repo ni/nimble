@@ -48,20 +48,18 @@ describe('TreeView', () => {
     });
 
     it('root should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
-        let expandedChangeFireCount = 0;
-        model.root.addEventListener('expanded-change', () => {
-            expandedChangeFireCount += 1;
-        });
+        const expandedChange = jasmine.createSpy();
+        model.root.addEventListener('expanded-change', expandedChange);
 
         await clickElement(model.root);
         expect(model.root.hasAttribute('selected')).toBe(false);
         expect(model.root.hasAttribute('expanded')).toBe(true);
-        expect(expandedChangeFireCount).toEqual(1);
+        expect(expandedChange.calls.count()).toEqual(1);
 
         await clickElement(model.root);
         expect(model.root.hasAttribute('selected')).toBe(false);
         expect(model.root.hasAttribute('expanded')).toBe(false);
-        expect(expandedChangeFireCount).toEqual(2);
+        expect(expandedChange.calls.count()).toEqual(2);
     });
 
     it('leaf should stay selected after parent is expanded\\collapsed', async () => {

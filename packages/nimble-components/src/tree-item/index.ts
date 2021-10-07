@@ -46,6 +46,7 @@ export class TreeItem extends FoundationTreeItem {
                 this.expanded = !this.expanded;
                 this.dispatchEvent(new CustomEvent('expanded-change'));
                 this.selected = false; // do not allow tree groups to display as 'selected' the way leaf tree items can
+                event.stopImmediatePropagation();
             } else {
                 const treeView = this.getParentNimbleTreeNode();
                 const currentPinnedSelection = treeView?.querySelector<TreeItem>('[pinned-selected]');

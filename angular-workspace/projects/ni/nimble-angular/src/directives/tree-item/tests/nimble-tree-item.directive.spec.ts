@@ -34,10 +34,10 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
         public parent3Disabled = true;
     }
 
-    let parent1: TreeItem;
-    let parent3: TreeItem;
-    let child1: TreeItem;
-    let child2: TreeItem;
+    let parent1Element: TreeItem;
+    let parent3Element: TreeItem;
+    let child1Element: TreeItem;
+    let child2Element: TreeItem;
     let fixture: ComponentFixture<TestHostComponent>;
     let testHostComponent: TestHostComponent;
 
@@ -51,33 +51,33 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(TestHostComponent);
         testHostComponent = fixture.componentInstance;
-        parent1 = testHostComponent.parent1.nativeElement;
-        parent3 = testHostComponent.parent3.nativeElement;
-        child1 = testHostComponent.child1.nativeElement;
-        child2 = testHostComponent.child2.nativeElement;
+        parent1Element = testHostComponent.parent1.nativeElement;
+        parent3Element = testHostComponent.parent3.nativeElement;
+        child1Element = testHostComponent.child1.nativeElement;
+        child2Element = testHostComponent.child2.nativeElement;
         fixture.detectChanges();
     });
 
     it('the TreeItem DOM element reflects correct initial state set via NimbleTreeItemDirective', () => {
-        expect(parent1.expanded).toBe(true);
-        expect(child1.selected).toBe(true);
-        expect(parent3.disabled).toBe(true);
+        expect(parent1Element.expanded).toBe(true);
+        expect(child1Element.selected).toBe(true);
+        expect(parent3Element.disabled).toBe(true);
     });
 
     describe('NimbleTreeItemDirective properties are correctly updated after interactive updates to the tree item', () => {
         it('for selection', () => {
-            child2.click();
+            child2Element.click();
             fixture.detectChanges();
 
-            expect(child2.selected).toBe(true);
+            expect(child2Element.selected).toBe(true);
             expect(testHostComponent.child2Selected).toBe(true);
         });
 
         it('for expand/collapse', () => {
-            parent1.click();
+            parent1Element.click();
             fixture.detectChanges();
 
-            expect(parent1.expanded).toBe(false);
+            expect(parent1Element.expanded).toBe(false);
             expect(testHostComponent.parent1Expanded).toBe(false);
         });
     });
@@ -87,21 +87,21 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
             testHostComponent.child2Selected = true;
             fixture.detectChanges();
 
-            expect(child2.selected).toBe(true);
+            expect(child2Element.selected).toBe(true);
         });
 
         it('for expand/collapse', () => {
             testHostComponent.parent1Expanded = false;
             fixture.detectChanges();
 
-            expect(parent1.expanded).toBe(false);
+            expect(parent1Element.expanded).toBe(false);
         });
 
         it('for disabled', () => {
             testHostComponent.parent3Disabled = false;
             fixture.detectChanges();
 
-            expect(parent3.disabled).toBe(false);
+            expect(parent3Element.disabled).toBe(false);
         });
     });
 });
