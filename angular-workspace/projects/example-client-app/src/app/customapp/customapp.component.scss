@@ -1,0 +1,17 @@
+.container {
+    background-color: var(--application-background-color);
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    height: 100%;
+    padding: 2px;
+}
+
+.theme-select {
+    display: block;
+    top: 12px;
+    left: 12px;
+    width: 150px;
+    min-width: unset;
+    margin-bottom: 30px;
+}

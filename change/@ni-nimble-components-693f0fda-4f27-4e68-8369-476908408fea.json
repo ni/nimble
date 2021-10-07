@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Nimble TreeItem now fires expanded-change when tree item content is clicked (already did so when expand/collapse glyph was clicked)",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
