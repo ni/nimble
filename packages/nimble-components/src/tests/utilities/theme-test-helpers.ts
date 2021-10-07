@@ -1,3 +1,4 @@
+import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
 import { controlsSearch16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { NimbleTheme } from '../../theme-provider/themes';
 
@@ -30,88 +31,90 @@ export const backgrounds = [
 ];
 type Background = typeof backgrounds[number];
 
-export const disabledStates = [
-    ['', ''],
-    ['Disabled', 'disabled']
+export type DisabledState = [string, boolean];
+export const disabledStates: DisabledState[] = [
+    ['', false],
+    ['Disabled', true]
 ];
-export type DisabledState = typeof disabledStates[number];
 
-export const invalidStates = [
+export type InvalidState = [string, string];
+export const invalidStates: InvalidState[] = [
     ['', ''],
     ['Invalid', 'invalid']
 ];
-export type InvalidState = typeof invalidStates[number];
 
-export const readOnlyStates = [
-    ['', ''],
-    ['Read-Only', 'readonly']
+export type ReadOnlyState = [string, boolean];
+export const readOnlyStates: ReadOnlyState[] = [
+    ['', false],
+    ['Read-Only', true]
 ];
-export type ReadOnlyState = typeof readOnlyStates[number];
 
-export const iconStates = [
-    '',
-    `<div slot="icon">${controlsSearch16X16.data}</div>`
+export type IconState = ViewTemplate;
+export const iconStates: ViewTemplate[] = [
+    // An empty template requires a space to prevent errors
+    // prettier-ignore
+    html` `,
+    html`<div slot="icon">${controlsSearch16X16.data}</div>`
 ];
-export type IconState = typeof iconStates[number];
-export const expandedStates = [
-    ['Collapsed', ''],
-    ['Expanded', 'expanded']
-];
-export type ExpandedState = typeof expandedStates[number];
 
-export const selectedStates = [
-    ['Unselected', ''],
-    ['Selected', 'selected']
+export type ExpandedState = [string, boolean];
+export const expandedStates: ExpandedState[] = [
+    ['Collapsed', false],
+    ['Expanded', true]
 ];
-export type SelectedState = typeof selectedStates[number];
+
+export type SelectedState = [string, boolean];
+export const selectedStates: SelectedState[] = [
+    ['Unselected', false],
+    ['Selected', true]
+];
 
 /**
- * Wraps a given component template with a region for each of the available themes.
- * Takes an optional array of state values that can be used with the template to match the permutations of the provided states.
+ * Takes an array of state values that can be used with the template to match the permutations of the provided states.
  */
-export function matrixThemeWrapper(component: () => string): string;
+export function createMatrix(component: () => ViewTemplate): ViewTemplate;
 
-export function matrixThemeWrapper<State1>(
-    component: (state1: State1) => string,
+export function createMatrix<State1>(
+    component: (state1: State1) => ViewTemplate,
     dimensions: [State1[]]
-): string;
+): ViewTemplate;
 
-export function matrixThemeWrapper<State1, State2>(
-    component: (state1: State1, state2: State2) => string,
+export function createMatrix<State1, State2>(
+    component: (state1: State1, state2: State2) => ViewTemplate,
     dimensions: [State1[], State2[]]
-): string;
+): ViewTemplate;
 
-export function matrixThemeWrapper<State1, State2, State3>(
-    component: (state1: State1, state2: State2, state3: State3) => string,
+export function createMatrix<State1, State2, State3>(
+    component: (state1: State1, state2: State2, state3: State3) => ViewTemplate,
     dimensions: [State1[], State2[], State3[]]
-): string;
+): ViewTemplate;
 
-export function matrixThemeWrapper<State1, State2, State3, State4>(
+export function createMatrix<State1, State2, State3, State4>(
     component: (
         state1: State1,
         state2: State2,
         state3: State3,
         state4: State4
-    ) => string,
+    ) => ViewTemplate,
     dimensions: [State1[], State2[], State3[], State4[]]
-): string;
+): ViewTemplate;
 
-export function matrixThemeWrapper<State1, State2, State3, State4, State5>(
+export function createMatrix<State1, State2, State3, State4, State5>(
     component: (
         state1: State1,
         state2: State2,
         state3: State3,
         state4: State4,
         state5: State5
-    ) => string,
+    ) => ViewTemplate,
     dimensions: [State1[], State2[], State3[], State4[], State5[]]
-): string;
+): ViewTemplate;
 
-export function matrixThemeWrapper(
-    component: (...states: unknown[]) => string,
+export function createMatrix(
+    component: (...states: unknown[]) => ViewTemplate,
     dimensions?: unknown[][]
-): string {
-    const matrix: string[] = [];
+): ViewTemplate {
+    const matrix: ViewTemplate[] = [];
     const recurseDimensions = (
         currentDimensions?: unknown[][],
         ...states: unknown[]
@@ -126,13 +129,24 @@ export function matrixThemeWrapper(
         }
     };
     recurseDimensions(dimensions);
-
-    const themeWrapper = (background: Background): string => `
-        <nimble-theme-provider theme="${background.theme}">
-            <div style="background-color: ${background.value}; padding:20px;">
-                ${matrix.join('')}
-            </div>
-        </nimble-theme-provider>`;
-    const story = backgrounds.map(themeWrapper).join('');
-    return story;
+    // prettier-ignore
+    return html`
+        ${repeat(() => matrix, html`
+            ${(x: ViewTemplate): ViewTemplate => x}
+        `)}
+    `;
 }
+
+/**
+ * Wraps a given component template with a region for each of the available themes.
+ */
+// prettier-ignore
+export const themeWrapper = (template: ViewTemplate): ViewTemplate => html`
+    ${repeat(() => backgrounds, html<Background>`
+    <nimble-theme-provider theme="${x => x.theme}">
+        <div style="background-color: ${x => x.value}; padding:20px;">
+            ${template}
+        </div>
+    </nimble-theme-provider>
+    `)}
+`;
