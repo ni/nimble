@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "1.0.0-beta.68",
+  "version": "1.0.0-beta.69",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build-components && npm run build-storybook",
@@ -70,6 +70,7 @@
     "circular-dependency-plugin": "^5.2.0",
     "css-loader": "^6.2.0",
     "dotenv-webpack": "^7.0.2",
+    "eslint-plugin-jsdoc": "^36.1.0",
     "html-webpack-plugin": "^5.3.1",
     "jasmine-core": "^3.7.0",
     "karma": "^6.3.0",
