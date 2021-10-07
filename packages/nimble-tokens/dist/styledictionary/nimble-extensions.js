@@ -1,4 +1,6 @@
 const config = require('./config');
+const fs = require('fs');
+const _ = require('lodash');
 const StyleDictionary = require('style-dictionary');
 
 // Workaround to include TypeScript definitions in output.
@@ -34,3 +36,67 @@ StyleDictionary.registerTransformGroup({
         'color/hex',
     ]
 });
+
+const colorTemplate = _.template( fs.readFileSync('templates/XamlColor.template') );
+StyleDictionary.registerFormat({
+    name: 'xaml/XamlColor',
+    formatter: colorTemplate
+});
+
+StyleDictionary.registerTransform({
+    name: 'attribute/ctiwithapp',
+    type: 'attribute',
+    transformer : (prop) => {
+        if (prop.path[0] === 'application') {
+            const [ /* string "application" */, /* product name */, category, type] = prop.path;
+            return {
+                category,
+                type
+            };
+        } else {
+            // Fallback to the original 'attribute/cti' transformer
+            return StyleDictionary.transform['attribute/cti'].transformer(prop);
+        }
+    }
+});
+
+StyleDictionary.registerTransformGroup({
+    name: 'nxg-xaml-color',
+    transforms: [
+      'attribute/ctiwithapp',
+      'size/px',
+      'color/hex8android'
+    ],
+    buildPath: 'build/nxg/',
+    files: [
+      {
+        filter: 'isNXGXamlColor',
+        format: 'xaml/XamlColor',
+        destination: 'Colors.xaml'
+      }
+    ]
+  });
+
+  const xamlStyleDictionary = StyleDictionary.extend(
+    {
+        "source": [
+          "properties/colors.json",
+          "properties/fonts.json",
+          "properties/custom.json",
+          "properties/sizes.json"
+        ],
+        "platforms": {
+            "xaml": {
+                "files": [
+                    {
+                        "destination": "colors.xaml",
+                        "format": "xaml/XamlColor"
+                    }
+                ],
+                "transformGroup": "nxg-xaml-color",
+                "buildPath": "xaml/"
+            }
+        }   
+  });
+  
+  xamlStyleDictionary.buildAllPlatforms();
