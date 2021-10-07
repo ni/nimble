@@ -2,7 +2,10 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
-import { createMatrix, themeWrapper } from '../../tests/utilities/theme-test-helpers';
+import {
+    createMatrix,
+    themeWrapper
+} from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
 const metadata: Meta = {
@@ -28,4 +31,6 @@ const component = (): ViewTemplate => html`
     </nimble-menu>
 `;
 
-export const menuThemeMatrix: Story = createRenderer(themeWrapper(createMatrix(component)));
+export const menuThemeMatrix: Story = createRenderer(
+    themeWrapper(createMatrix(component))
+);
