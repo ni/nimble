@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Lint rules requiring class documentation",
-  "packageName": "@ni/nimble-angular",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
