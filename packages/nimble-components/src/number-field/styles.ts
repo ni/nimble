@@ -59,6 +59,7 @@ export const styles = css`
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        padding-bottom: 0px;
     }
 
     .control {
