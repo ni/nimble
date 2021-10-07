@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 07 Oct 2021 21:18:11 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Oct 2021 22:14:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.71
+
+Thu, 07 Oct 2021 22:14:29 GMT
+
+### Changes
+
+- Fixed contents of disabled fields shifting on hover  (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.70
 

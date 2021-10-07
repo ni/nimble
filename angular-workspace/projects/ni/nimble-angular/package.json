@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "1.0.0-beta.78",
+  "version": "1.0.0-beta.79",
   "description": "Angular components for the NI Nimble Design System",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
     "@angular/common": "^12.1.0",
     "@angular/core": "^12.1.0",
     "@angular/forms": "^12.1.0",
-    "@ni/nimble-components": "^1.0.0-beta.70"
+    "@ni/nimble-components": "^1.0.0-beta.71"
   },
   "dependencies": {
     "tslib": "^2.2.0"
