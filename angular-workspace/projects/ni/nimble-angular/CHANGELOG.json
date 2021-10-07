@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 07 Oct 2021 20:48:36 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.77",
+      "version": "1.0.0-beta.77",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Lint rules requiring class documentation",
+            "commit": "5a18e9a2322e9bb2844099775c9bd06773cdcc15"
+          },
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "5a18e9a2322e9bb2844099775c9bd06773cdcc15",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.77"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Oct 2021 20:27:57 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.77",
       "version": "1.0.0-beta.77",
