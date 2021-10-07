@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 07 Oct 2021 20:02:52 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.76",
+      "version": "1.0.0-beta.76",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Nimble tree angular integration; add page to example client app after login that uses tree",
+            "commit": "b23b1b7a9929b7be3ca3c059a7e388a15add01e7"
+          },
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b23b1b7a9929b7be3ca3c059a7e388a15add01e7",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.76"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Oct 2021 19:39:48 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.75",
       "version": "1.0.0-beta.75",

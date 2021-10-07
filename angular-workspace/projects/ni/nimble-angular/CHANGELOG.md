@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 07 Oct 2021 19:39:48 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Oct 2021 20:02:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.76
+
+Thu, 07 Oct 2021 20:02:52 GMT
+
+### Changes
+
+- Nimble tree angular integration; add page to example client app after login that uses tree (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.76 (20709258+msmithNI@users.noreply.github.com)
 
 ## 1.0.0-beta.75
 
