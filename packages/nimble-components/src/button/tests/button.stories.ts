@@ -34,9 +34,7 @@ const metadata: Meta<ButtonArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}">
-            ${when(x => x.icon, html`
-                <div slot="icon">${controlsSearch16X16.data}</div>
-            `)}
+            ${when(x => x.icon, html`<div slot="icon">${controlsSearch16X16.data}</div>`)}
             ${x => x.label}
         </nimble-button>
 `),

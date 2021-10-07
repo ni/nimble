@@ -28,18 +28,12 @@ const metadata: Meta<TabsArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-tabs>
-            ${when(x => x.toolbar, html<TabsArgs>`
-                <nimble-tabs-toolbar :innerHTML="${x => x.toolbar}"></nimble-tabs-toolbar>
+            ${when(x => x.toolbar, html<TabsArgs>`<nimble-tabs-toolbar :innerHTML="${x => x.toolbar}"></nimble-tabs-toolbar>`)}
+            ${repeat(x => x.tabs, html<TabArgs>`
+                <nimble-tab ?disabled="${x => x.disabled}">${x => x.label}</nimble-tab>
             `)}
             ${repeat(x => x.tabs, html<TabArgs>`
-                <nimble-tab ?disabled="${x => x.disabled}">
-                    ${x => x.label}
-                </nimble-tab>
-            `)}
-            ${repeat(x => x.tabs, html<TabArgs>`
-                <nimble-tab-panel>
-                    ${x => x.content}
-                </nimble-tab-panel>
+                <nimble-tab-panel>${x => x.content}</nimble-tab-panel>
             `)}
         </nimble-tabs>
     `),
