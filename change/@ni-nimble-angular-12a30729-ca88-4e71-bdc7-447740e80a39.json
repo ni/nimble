@@ -3,5 +3,5 @@
   "comment": "Removed support for manual value binding of form controls in Angular",
   "packageName": "@ni/nimble-angular",
   "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
