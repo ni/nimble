@@ -2,6 +2,8 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../menu-item/index';
+import { html, repeat } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 interface MenuArgs {
     options: ItemArgs[];
@@ -12,7 +14,7 @@ interface ItemArgs {
     disabled: boolean;
 }
 
-const metadata: Meta = {
+const metadata: Meta<MenuArgs> = {
     title: 'Menu',
     decorators: [withXD],
     parameters: {
@@ -25,11 +27,12 @@ const metadata: Meta = {
         }
     },
     // prettier-ignore
-    render: ({ options }: MenuArgs): string => `
-        <nimble-menu>${options.map(option => `
-            <nimble-menu-item ${option.disabled ? 'disabled' : ''}>${option.text}</nimble-menu-item>`).join('')}
+    render: createRenderer(html`
+        <nimble-menu>
+        ${repeat(x => x.options, html<ItemArgs>`
+            <nimble-menu-item ?disabled="${x => x.disabled}">${x => x.text}</nimble-menu-item>`)}
         </nimble-menu>
-`,
+`),
     args: {
         options: [
             {
@@ -50,4 +53,4 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const menu: Story = {};
+export const menu: Story<MenuArgs> = {};
