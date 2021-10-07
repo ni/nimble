@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 07 Oct 2021 19:39:48 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.75",
+      "version": "1.0.0-beta.75",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Checkbox Angular integration",
+            "commit": "ff78798c3d085644ff02bac542e26c3f1b977e59"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Oct 2021 19:14:44 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.74",
       "version": "1.0.0-beta.74",
