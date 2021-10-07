@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 07 Oct 2021 21:18:11 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.70",
+      "version": "1.0.0-beta.70",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "First pass at the menu",
+            "commit": "0a1fba241f591c025cd9bbe20d0d93a7d6ce0436"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Oct 2021 20:48:36 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.69",
       "version": "1.0.0-beta.69",
