@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 07 Oct 2021 20:02:52 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.68",
+      "version": "1.0.0-beta.68",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Nimble TreeItem now fires expanded-change when tree item content is clicked (already did so when expand/collapse glyph was clicked)",
+            "commit": "b23b1b7a9929b7be3ca3c059a7e388a15add01e7"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Oct 2021 19:14:44 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.67",
       "version": "1.0.0-beta.67",
