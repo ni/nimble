@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 07 Oct 2021 19:14:44 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.67",
+      "version": "1.0.0-beta.67",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Use createRenderer helper for html tagged template",
+            "commit": "8b51361442e238cab5eb34bca471f0b49e6e3149"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 05 Oct 2021 20:50:12 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.66",
       "version": "1.0.0-beta.66",

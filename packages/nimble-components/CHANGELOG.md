@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 05 Oct 2021 20:50:12 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Oct 2021 19:14:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.67
+
+Thu, 07 Oct 2021 19:14:44 GMT
+
+### Changes
+
+- Use createRenderer helper for html tagged template (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.66
 
