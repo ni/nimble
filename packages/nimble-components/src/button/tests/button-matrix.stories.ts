@@ -39,10 +39,7 @@ const component = (
     [appearanceName, appearance]: AppearanceState,
     icon: IconState
 ): ViewTemplate => html`
-    <nimble-button
-        appearance="${() => appearance}"
-        ?disabled=${() => disabled}
-    >
+    <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled}>
         ${() => icon}
         ${() => (appearanceName === noContent ? '' : `${appearanceName} Button ${disabledName}`)}
     </nimble-button>

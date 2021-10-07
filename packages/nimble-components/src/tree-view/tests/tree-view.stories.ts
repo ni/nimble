@@ -36,11 +36,7 @@ const metadata: Meta<TreeArgs> = {
     render: createRenderer(html`
         <nimble-tree-view>
             ${repeat(x => x.options, html<ItemArgs>`
-                <nimble-tree-item
-                    ?expanded="${x => x.expanded}"
-                    value="${x => x.value}"
-                    ?disabled="${x => x.disabled}"
-                >
+                <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}" ?disabled="${x => x.disabled}">
                     ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
                     ${x => x.label}
                     <nimble-tree-item>Nested Item 1</nimble-tree-item>

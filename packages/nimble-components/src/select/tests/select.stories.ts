@@ -31,15 +31,9 @@ const metadata: Meta<SelectArgs> = {
     },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-select
-            ?disabled="${x => x.disabled}"
-            position="${x => x.dropDownPosition}"
-        >
+        <nimble-select ?disabled="${x => x.disabled}" position="${x => x.dropDownPosition}">
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-listbox-option
-                    value="${x => x.value}"
-                    ?disabled="${x => x.disabled}"
-                >
+                <nimble-listbox-option value="${x => x.value}" ?disabled="${x => x.disabled}">
                     ${x => x.label}
                 </nimble-listbox-option>
             `)}

@@ -29,15 +29,10 @@ const metadata: Meta<TabsArgs> = {
     render: createRenderer(html`
         <nimble-tabs>
             ${when(x => x.toolbar, html<TabsArgs>`
-                <nimble-tabs-toolbar
-                    :innerHTML="${x => x.toolbar}"
-                >
-                </nimble-tabs-toolbar>
+                <nimble-tabs-toolbar :innerHTML="${x => x.toolbar}"></nimble-tabs-toolbar>
             `)}
             ${repeat(x => x.tabs, html<TabArgs>`
-                <nimble-tab
-                    ?disabled="${x => x.disabled}"
-                >
+                <nimble-tab ?disabled="${x => x.disabled}">
                     ${x => x.label}
                 </nimble-tab>
             `)}
