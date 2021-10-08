@@ -15,7 +15,7 @@ describe('Nimble number field control value accessor', () => {
     describe('using [(ngModel)] binding', () => {
         @Component({
             template: `
-                <nimble-number-field #numberField [(ngModel)]="value" [disabled]="fieldDisabled" [min]="0" [asdf]="true"></nimble-number-field>
+                <nimble-number-field #numberField [(ngModel)]="value" [disabled]="fieldDisabled" [min]="0"></nimble-number-field>
              `
         })
         class TestHostComponent {
