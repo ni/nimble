@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Added missing nimble-angular exports and removed calls to compileComponents in tests",
+  "packageName": "@ni/nimble-angular",
+  "email": "5454342+brianehenry@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
