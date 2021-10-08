@@ -3,6 +3,10 @@
     "small-delay": {
       "value": "0.1s",
       "comment": "Short animation delay used for control state change animation"
+    },
+    "medium-delay": {
+      "value": "0.15s",
+      "comment": "Medium animation delay for control state change animation"
     }
   }
 }

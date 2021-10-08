@@ -12,6 +12,7 @@ import {
     SlLegacyBlue,
     Fail100LightUi,
     SmallDelay,
+    MediumDelay,
     Fail100DarkUi,
     BodyFamily,
     BodySize,
@@ -240,6 +241,7 @@ export const contentFontColorDisabled = create<string>(
 
 // Animation Tokens
 export const smallDelay = create<string>('small-delay').withDefault(SmallDelay);
+export const mediumDelay = create<string>('medium-delay').withDefault(MediumDelay);
 
 // Filter Tokens
 export const passwordRevealFilter = create<string>(
