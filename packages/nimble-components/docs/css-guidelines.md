@@ -46,7 +46,7 @@ Some takeaways from the example:
 
 - Note that the groups of selectors are organized by target. For example the target of the selector `:host[disabled] .end {}` is `.end` and not `:host` so it is grouped with the other `.end` selectors.
 
-- Note that selectors within groups are organized with the selectors that always apply first. For example the `:host {}` selector always applies, irregardless of the state of the element so is first in the group. The rest are ordered based on the other recommendations in this document.
+- Note that selectors within groups are organized with the selectors that always apply first. For example the `:host {}` selector always applies, regardless of the state of the element, so it is first in the group. The rest are ordered based on the other recommendations in this document.
 
 - Note that the pseudo-elements are always grouped directly after their target element. For example with the above DOM structure we might expect the `::after` pseudo-element selector to be positioned right before `.end` based on the DOM order. 
 
@@ -64,7 +64,7 @@ For example:
 ```css
 :host {}
 :host(:hover) {}
-.host${focusVisible} {} /* focusVisible is specific to FAST */
+:host(${focusVisible}) {} /* focusVisible is specific to FAST */
 :host(:active) {}
 :host(:invalid) {}
 :host(.custom-state) {}
@@ -83,7 +83,7 @@ Examples include colors, typography, sizing, and animation parameters. These att
 
 Prefer flex and grid for layouts. If you find yourself with position absolute / relative and tricky sizing and offsets from top, etc. it might be worth stepping back and seeing if you can take a different approach.
 
-When stepping back try to start at the top-level of the control which is likely in a flex layout and see where parts go. You can also use display: contents to make an element ignore its own sizing and propagate a child's sizing up. Useful if you are finding yourself in deep layers of nested flex layouts.
+When stepping back try to start at the top-level of the control which is likely in a flex layout and see where parts go. You can also use `display: contents` to make an element ignore its own sizing and propagate a child's sizing up. Useful to potentially avoid deep layers of nested flex layouts.
 
 ## Avoid styling functional elements
 
