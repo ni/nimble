@@ -9,7 +9,7 @@ export const template = html<Icon>`
 /**
  * The base class for icon components
  */
-export class Icon extends FoundationElement {
+export abstract class Icon extends FoundationElement {
     public constructor(public icon: NimbleIcon) {
         super();
     }
