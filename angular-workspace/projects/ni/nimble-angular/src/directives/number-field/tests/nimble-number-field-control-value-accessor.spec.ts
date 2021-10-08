@@ -33,7 +33,7 @@ describe('Nimble number field control value accessor', () => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent],
             imports: [NimbleNumberFieldModule, FormsModule]
-        })
+        });
     });
 
     beforeEach(async () => {
