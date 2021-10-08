@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { SettingsIcon };
 
+/**
+ * The icon component for the 'settings' icon
+ */
 class SettingsIcon extends Icon {
     public constructor() {
         super(settings16X16);

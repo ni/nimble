@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { CheckIcon };
 
+/**
+ *  The icon component for the 'check' icon
+ */
 class CheckIcon extends Icon {
     public constructor() {
         super(controlsCheckboxCheck16X16);

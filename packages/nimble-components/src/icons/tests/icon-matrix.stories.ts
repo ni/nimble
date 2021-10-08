@@ -1,5 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
     themeWrapper
@@ -7,7 +8,6 @@ import {
 import '../index';
 import '../check/index';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
-import { html, ViewTemplate } from '@microsoft/fast-element';
 
 interface IconArgs {
     status: string;
@@ -34,16 +34,11 @@ const iconStates = [
 ];
 type IconState = typeof iconStates[number];
 
-const component = (
-    [stateName, state]: IconState
-): ViewTemplate => html`
-        <span>${stateName}</span>
-        <nimble-check-icon class="${state}">
-        </nimble-check-icon>
-    `;
+const component = ([stateName, state]: IconState): ViewTemplate => html`
+    <span>${stateName}</span>
+    <nimble-check-icon class="${state}"> </nimble-check-icon>
+`;
 
 export const iconThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [iconStates])
-    )
+    themeWrapper(createMatrix(component, [iconStates]))
 );

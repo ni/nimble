@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { AccessControlIcon };
 
+/**
+ * The icon component for the 'access-control' icon
+ */
 class AccessControlIcon extends Icon {
     public constructor() {
         super(accessControlKey16X16);
@@ -28,4 +31,6 @@ const nimbleAccessControlIcon = AccessControlIcon.compose({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAccessControlIcon());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleAccessControlIcon());

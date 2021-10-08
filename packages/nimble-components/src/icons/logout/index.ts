@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { LogoutIcon };
 
+/**
+ * The icon component for the 'logout' icon
+ */
 class LogoutIcon extends Icon {
     public constructor() {
         super(logout16X16);

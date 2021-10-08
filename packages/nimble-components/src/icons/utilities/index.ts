@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { UtilitiesIcon };
 
+/**
+ * The icon component for the 'utilities' icon
+ */
 class UtilitiesIcon extends Icon {
     public constructor() {
         super(boxUtilities16X16);

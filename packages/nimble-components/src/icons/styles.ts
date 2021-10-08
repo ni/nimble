@@ -1,11 +1,11 @@
 import { css } from '@microsoft/fast-element';
-import { 
+import {
     contentFontColor,
     iconSize,
     warningColor,
     failColor,
     passColor
- } from '../theme-provider/design-tokens';
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
     :host {

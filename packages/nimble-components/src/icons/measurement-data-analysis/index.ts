@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { MeasurementDataAnalysisIcon };
 
+/**
+ * The icon component for the 'measurement-data-analysis' icon
+ */
 class MeasurementDataAnalysisIcon extends Icon {
     public constructor() {
         super(measurementDataAnalysis16X16);
@@ -28,4 +31,6 @@ const nimbleMeasurementDataAnalysisIcon = MeasurementDataAnalysisIcon.compose({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMeasurementDataAnalysisIcon());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleMeasurementDataAnalysisIcon());

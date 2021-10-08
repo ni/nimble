@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { ManagedSystemsIcon };
 
+/**
+ * The icon component for the 'managed-systems' icon
+ */
 class ManagedSystemsIcon extends Icon {
     public constructor() {
         super(managedSystems16X16);
@@ -28,4 +31,6 @@ const nimbleManagedSystemsIcon = ManagedSystemsIcon.compose({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleManagedSystemsIcon());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleManagedSystemsIcon());

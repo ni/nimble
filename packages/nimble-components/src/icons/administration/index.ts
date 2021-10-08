@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { AdministrationIcon };
 
+/**
+ * The icon component for the 'administration' icon
+ */
 class AdministrationIcon extends Icon {
     public constructor() {
         super(administration16X16);
@@ -28,4 +31,6 @@ const nimbleAdministrationIcon = AdministrationIcon.compose({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAdministrationIcon());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleAdministrationIcon());

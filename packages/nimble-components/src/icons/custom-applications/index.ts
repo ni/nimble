@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { CustomApplicationsIcon };
 
+/**
+ * The icon component for the 'custom-applications' icon
+ */
 class CustomApplicationsIcon extends Icon {
     public constructor() {
         super(customApplications16X16);
@@ -28,4 +31,6 @@ const nimbleCustomApplicationsIcon = CustomApplicationsIcon.compose({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCustomApplicationsIcon());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleCustomApplicationsIcon());

@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { AdminIcon };
 
+/**
+ * The icon component for the 'admin' icon
+ */
 class AdminIcon extends Icon {
     public constructor() {
         super(admin16X16);

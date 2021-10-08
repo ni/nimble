@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { LoginIcon };
 
+/**
+ * The icon component for the 'login' icon
+ */
 class LoginIcon extends Icon {
     public constructor() {
         super(login16X16);

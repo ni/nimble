@@ -5,6 +5,9 @@ import { styles } from '../styles';
 
 export type { TestInsightsIcon };
 
+/**
+ * The icon component for the 'test-insights' icon
+ */
 class TestInsightsIcon extends Icon {
     public constructor() {
         super(testInsights16X16);
@@ -28,4 +31,6 @@ const nimbleTestInsightsIcon = TestInsightsIcon.compose({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTestInsightsIcon());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleTestInsightsIcon());

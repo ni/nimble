@@ -1,19 +1,19 @@
 import type { Story, Meta } from '@storybook/html';
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import "../index";
-import "../delete/index";
-import "../check/index";
-import "../custom-applications/index";
-import "../login/index";
-import "../logout/index";
-import "../managed-systems/index";
-import "../measurement-data-analysis/index";
-import "../settings/index";
-import "../test-insights/index";
-import "../utilities/index";
-import "../access-control/index"
-import "../admin/index";
-import "../administration/index";
+import '../index';
+import '../delete/index';
+import '../check/index';
+import '../custom-applications/index';
+import '../login/index';
+import '../logout/index';
+import '../managed-systems/index';
+import '../measurement-data-analysis/index';
+import '../settings/index';
+import '../test-insights/index';
+import '../utilities/index';
+import '../access-control/index';
+import '../admin/index';
+import '../administration/index';
 import { withXD } from 'storybook-addon-xd-designs';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { html, repeat, when } from '@microsoft/fast-element';
@@ -58,13 +58,13 @@ const metadata: Meta<IconArgs> = {
     // prettier-ignore
     render: createRenderer(html`
                 ${styleMarkup}
-                ${when (x => !x.useComponents, html`
+                ${when(x => !x.useComponents, html`
                     <div class="container">
                         ${repeat(() => nimbleIcons, html<NimbleIcon>`
                             <div class="icon" title="${x => x.name}" :innerHTML="${x => x.data}"></div>
                         `)}
                     </div>`)}
-                ${when (x => x.useComponents, html`
+                ${when(x => x.useComponents, html`
                     <nimble-delete-icon></nimble-delete-icon>
                     <nimble-check-icon></nimble-check-icon>
                     <nimble-access-control-icon></nimble-access-control-icon>
