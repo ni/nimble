@@ -1,5 +1,8 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 
+/**
+ * Directive for Angular integration for the theme provider
+ */
 @Directive({
     selector: 'nimble-theme-provider'
 })
