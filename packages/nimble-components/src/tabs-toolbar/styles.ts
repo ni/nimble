@@ -11,15 +11,20 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('flex')} :host {
+    ${display('flex')}
+
+    :host {
+        align-items: center;
+        height: ${controlHeight};
         box-sizing: border-box;
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         color: ${contentFontColor};
-        height: ${controlHeight};
     }
 
     .separator {
+        display: inline-block;
+        height: ${controlHeight};
         border-left: calc(${borderWidth} * 2) solid rgba(${borderColorRgb}, 0.3);
         margin: calc(${standardPadding} / 4) calc(${standardPadding} / 2);
     }
