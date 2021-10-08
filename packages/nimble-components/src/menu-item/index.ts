@@ -11,7 +11,12 @@ import { styles } from './styles';
 /**
  * A nimble-styled menu-item
  */
-export { FoundationMenuItem as MenuItem };
+
+export class MenuItem extends FoundationMenuItem {
+    public hasIcon(): boolean | undefined {
+        return this.querySelector('[slot=icon]') != null;
+    }
+}
 
 /**
  * A function that returns a nimble-menu-item registration for configuring the component with a DesignSystem.
@@ -22,10 +27,10 @@ export { FoundationMenuItem as MenuItem };
  * Generates HTML Element: \<nimble-menu-item\>
  *
  */
-export const nimbleMenuItem = FoundationMenuItem.compose<MenuItemOptions>({
+export const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
     template,
-    start: html<FoundationMenuItem>`<span part="icon"><slot name="icon"></slot><span>`,
+    start: html<MenuItem>`<span part="icon"><slot name="icon"></slot><span>`,
     styles
 });
 
