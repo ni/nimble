@@ -31,6 +31,12 @@ export const styles = css`
         transition: transform ${smallDelay} ease-in-out;
     }
 
+    @media(prefers-reduced-motion) {
+        .activeIndicatorTransition {
+            transition: transform 0.01s;
+        }
+    }
+    
     .tabpanel {
         grid-row: 2;
         grid-column-start: 1;

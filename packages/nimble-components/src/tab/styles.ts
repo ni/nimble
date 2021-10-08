@@ -44,6 +44,12 @@ export const styles = css`
         transition: box-shadow ${mediumDelay} ease-in-out;
     }
 
+    @media(prefers-reduced-motion) {
+        :host(${focusVisible}) {
+            transition-duration: 0.01s;
+        }
+    }
+
     :host(:active) {
         background: none;
     }
