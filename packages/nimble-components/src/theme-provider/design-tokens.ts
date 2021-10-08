@@ -16,7 +16,11 @@ import {
     BodyFamily,
     BodySize,
     OverlineCapitalizedFamily,
-    OverlineCapitalizedSize
+    OverlineCapitalizedSize,
+    Warning100LightUi,
+    Warning100DarkUi,
+    Pass100LightUi,
+    Pass100DarkUi
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -163,15 +167,39 @@ export const borderColorRgb = create<string>('border-color-rgb').withDefault(
     (element: HTMLElement) => rgbString(getDefaultLineColorForTheme(element))
 );
 
-export const failColor = create<string>('fail-color').withDefault(
-    (element: HTMLElement) => getColorForTheme(
+export const failColorTheme = (element: HTMLElement) => getColorForTheme(
         element,
         Fail100LightUi,
         Fail100DarkUi,
-        White,
+        Fail100DarkUi,
         Fail100LightUi
-    )
+    );
+
+export const failColor = create<string>('fail-color').withDefault(
+    (element: HTMLElement) => failColorTheme(element)
 );
+
+export const warningColorTheme = (element: HTMLElement) => getColorForTheme(
+    element, 
+    Warning100LightUi, 
+    Warning100DarkUi, 
+    Warning100DarkUi, 
+    Warning100LightUi
+    );
+
+export const warningColor = create<string>('warning-color').withDefault(
+    (element: HTMLElement) => warningColorTheme(element));
+
+export const passColorTheme = (element: HTMLElement) => getColorForTheme(
+    element,
+    Pass100LightUi,
+    Pass100DarkUi,
+    Pass100DarkUi,
+    Pass100LightUi
+    );
+
+export const passColor = create<string>('pass-color').withDefault(
+    (element: HTMLElement) => passColorTheme(element));
 
 export const borderColorHover = create<string>(
     'border-color-hover'
