@@ -5,6 +5,7 @@ import {
     borderWidth,
     contentFontColor,
     contentFontSize,
+    controlHeight,
     fontFamily,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -15,6 +16,7 @@ export const styles = css`
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         color: ${contentFontColor};
+        height: ${controlHeight};
     }
 
     .separator {
