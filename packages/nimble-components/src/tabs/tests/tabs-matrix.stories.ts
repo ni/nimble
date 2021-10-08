@@ -27,10 +27,11 @@ export default metadata;
 type TabsToolbarState = boolean;
 const tabsToolbarState: TabsToolbarState[] = [false, true];
 
-const component = (toolbar: TabsToolbarState, [
-    disabledName,
-    disabled
-]: DisabledState): ViewTemplate => html`
+// prettier-ignore
+const component = (
+    toolbar: TabsToolbarState,
+    [disabledName, disabled]: DisabledState
+): ViewTemplate => html`
     <nimble-tabs style="padding: 15px;">
         ${when(() => toolbar, html`
             <nimble-tabs-toolbar>
