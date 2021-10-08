@@ -45,11 +45,11 @@ describe('Nimble select control value accessor', () => {
         let fixture: ComponentFixture<TestHostComponent>;
         let testHostComponent: TestHostComponent;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleSelectModule, NimbleListboxOptionModule, FormsModule]
-            }).compileComponents();
+            });
         });
 
         beforeEach(async () => {

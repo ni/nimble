@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 07 Oct 2021 22:14:29 GMT and should not be manually modified.
+This log was last generated on Fri, 08 Oct 2021 16:05:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.80
+
+Fri, 08 Oct 2021 16:05:18 GMT
+
+### Changes
+
+- Added missing nimble-angular exports and removed calls to compileComponents in tests (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.79
 
