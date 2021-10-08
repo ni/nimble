@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { Story, Meta, StoryContext } from '@storybook/html';
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import "../index";
 import "../delete/index";
@@ -15,8 +15,16 @@ import "../access-control/index"
 import "../admin/index";
 import "../administration/index";
 import { withXD } from 'storybook-addon-xd-designs';
+import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { html, repeat, when } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
+
+interface IconArgs {
+    useComponents: boolean;
+    label: string;
+}
 
 const styleMarkup = `
     <style>
@@ -44,45 +52,34 @@ const styleMarkup = `
     </style>
 `;
 
-interface IconArgs {
-    useComponents: boolean;
-    label: string;
-}
-
 const metadata: Meta<IconArgs> = {
     title: 'Icons',
     decorators: [withXD],
     // prettier-ignore
-    render: ({ label, useComponents }: IconArgs): string => {
-        if (useComponents) {
-            return `
-                <nimble-delete-icon></nimble-delete-icon>
-                <nimble-check-icon></nimble-check-icon>
-                <nimble-access-control-icon></nimble-access-control-icon>
-                <nimble-login-icon></nimble-login-icon>
-                <nimble-logout-icon></nimble-logout-icon>
-                <nimble-managed-systems-icon></nimble-managed-systems-icon>
-                <nimble-test-insights-icon></nimble-test-insights-icon>
-                <nimble-settings-icon></nimble-settings-icon>
-                <nimble-utilities-icon></nimble-utilities-icon>
-                <nimble-admin-icon></nimble-admin-icon>
-                <nimble-administration-icon></nimble-administration-icon>
-                <nimble-custom-applications-icon></nimble-custom-applications-icon>
-                <nimble-measurement-data-analysis-icon><nimble-measurement-data-analysis-icon>
-            `;
-        } else {
-            return `
+    render: createRenderer(html`
                 ${styleMarkup}
-                <div class="container">
-                ${nimbleIcons
-                    .map(
-                        icon => `<div class="icon" title="${icon.name}">${icon.data}</div>`
-                    )
-                    .join('')}
-                </div>
-            `;
-        }
-    },
+                ${when (x => !x.useComponents, html`
+                    <div class="container">
+                        ${repeat(() => nimbleIcons, html<NimbleIcon>`
+                            <div class="icon" title="${x => x.name}" :innerHTML="${x => x.data}"></div>
+                        `)}
+                    </div>`)}
+                ${when (x => x.useComponents, html`
+                    <nimble-delete-icon></nimble-delete-icon>
+                    <nimble-check-icon></nimble-check-icon>
+                    <nimble-access-control-icon></nimble-access-control-icon>
+                    <nimble-login-icon></nimble-login-icon>
+                    <nimble-logout-icon></nimble-logout-icon>
+                    <nimble-managed-systems-icon></nimble-managed-systems-icon>
+                    <nimble-test-insights-icon></nimble-test-insights-icon>
+                    <nimble-settings-icon></nimble-settings-icon>
+                    <nimble-utilities-icon></nimble-utilities-icon>
+                    <nimble-admin-icon></nimble-admin-icon>
+                    <nimble-administration-icon></nimble-administration-icon>
+                    <nimble-custom-applications-icon></nimble-custom-applications-icon>
+                    <nimble-measurement-data-analysis-icon><nimble-measurement-data-analysis-icon>
+                `)}
+            `),
     args: {
         label: 'Raw Icons',
         useComponents: false

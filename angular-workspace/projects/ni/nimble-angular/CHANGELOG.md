@@ -1,8 +1,73 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 30 Sep 2021 19:04:10 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Oct 2021 22:14:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.79
+
+Thu, 07 Oct 2021 22:14:29 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.79 (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.78
+
+Thu, 07 Oct 2021 21:18:11 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.78 (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 1.0.0-beta.77
+
+Thu, 07 Oct 2021 20:27:57 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.77 (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.76
+
+Thu, 07 Oct 2021 20:02:52 GMT
+
+### Changes
+
+- Nimble tree angular integration; add page to example client app after login that uses tree (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.76 (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.75
+
+Thu, 07 Oct 2021 19:39:48 GMT
+
+### Changes
+
+- Checkbox Angular integration (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.74
+
+Thu, 07 Oct 2021 19:14:44 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.74 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.73
+
+Tue, 05 Oct 2021 20:50:12 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.73 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.72
+
+Tue, 05 Oct 2021 17:15:41 GMT
+
+### Changes
+
+- Implemented number field CVA and directive, and removed old wrapper component (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.71
 

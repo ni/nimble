@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-classes-per-file
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
@@ -45,12 +44,12 @@ describe('Nimble text field control value accessor', () => {
             fixture.detectChanges();
         });
 
-        it('sets correct initial selected value', () => {
+        it('sets correct initial value', () => {
             expect(testHostComponent.value).toBe(testHostComponent.initialValue);
             expect(textField.value).toBe(testHostComponent.initialValue);
         });
 
-        it('updates selected value when bound property is changed', async () => {
+        it('updates value when bound property is changed', async () => {
             const newValue = 'new value';
             testHostComponent.value = newValue;
             fixture.detectChanges();
@@ -59,7 +58,7 @@ describe('Nimble text field control value accessor', () => {
             expect(textField.value).toBe(newValue);
         });
 
-        it('updates bound property when selected value is changed', async () => {
+        it('updates bound property when value is changed', async () => {
             const newValue = 'new value';
             setTextFieldValue(textField, newValue);
             fixture.detectChanges();
@@ -112,12 +111,12 @@ describe('Nimble text field control value accessor', () => {
             fixture.detectChanges();
         });
 
-        it('should set correct initial selected value', () => {
+        it('should set correct initial value', () => {
             expect(testHostComponent.value).toBe(testHostComponent.initialValue);
             expect(textField.value).toBe(testHostComponent.initialValue);
         });
 
-        it('should update selected value when bound property is changed', async () => {
+        it('should update value when bound property is changed', async () => {
             const newValue = 'new value';
             testHostComponent.value = newValue;
             fixture.detectChanges();
@@ -126,7 +125,7 @@ describe('Nimble text field control value accessor', () => {
             expect(textField.value).toBe(newValue);
         });
 
-        it('should update bound property when selected value is changed', async () => {
+        it('should update bound property when value is changed', async () => {
             const newValue = 'new value';
             setTextFieldValue(textField, newValue);
             fixture.detectChanges();
