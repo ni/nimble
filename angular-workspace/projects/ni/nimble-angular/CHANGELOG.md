@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 08 Oct 2021 20:59:39 GMT and should not be manually modified.
+This log was last generated on Fri, 08 Oct 2021 22:06:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.82
+
+Fri, 08 Oct 2021 22:06:37 GMT
+
+### Changes
+
+- Removed support for manual value binding of form controls in Angular (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.81
 
