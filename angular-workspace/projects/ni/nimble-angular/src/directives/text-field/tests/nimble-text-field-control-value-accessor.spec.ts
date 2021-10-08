@@ -30,11 +30,11 @@ describe('Nimble text field control value accessor', () => {
         let fixture: ComponentFixture<TestHostComponent>;
         let testHostComponent: TestHostComponent;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleTextFieldModule, FormsModule]
-            }).compileComponents();
+            });
         });
 
         beforeEach(async () => {
