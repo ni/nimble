@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 08 Oct 2021 20:59:39 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.72",
+      "version": "1.0.0-beta.72",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "add height to tab-toolbar",
+            "commit": "2d0298dc2c9ec956358888cf6e6a487502bda4c0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Oct 2021 22:14:29 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.71",
       "version": "1.0.0-beta.71",
