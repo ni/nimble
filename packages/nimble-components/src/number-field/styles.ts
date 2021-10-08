@@ -5,11 +5,14 @@ import {
     borderWidth,
     contentFontColorDisabled,
     contentFontSize,
+    controlHeight,
     fillColorSelectedRgb,
     fontFamily,
+    iconSize,
     labelFontColor,
     labelFontFamily,
     labelFontSize,
+    labelHeight,
     labelTextTransform,
     smallDelay
 } from '../theme-provider/design-tokens';
@@ -22,6 +25,7 @@ export const styles = css`
         outline: none;
         user-select: none;
         color: ${labelFontColor};
+        height: calc(${labelHeight} + ${controlHeight});
     }
 
     :host([disabled]) {
@@ -37,7 +41,8 @@ export const styles = css`
         border-radius: 0px;
         font-family: ${fontFamily};
         border-bottom: ${borderWidth} solid ${borderColor};
-        transition: border-bottom ${smallDelay};
+        padding-bottom: 1px;
+        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
 
     @media (prefers-reduced-motion) {
@@ -48,18 +53,19 @@ export const styles = css`
 
     .root:hover {
         border-bottom: 2px solid ${borderColorHover};
+        padding-bottom: 0px;
     }
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        padding-bottom: 1px;
     }
 
     .control {
         -webkit-appearance: none;
         font: inherit;
         background: transparent;
-        border: 0;
         color: inherit;
         height: 28px;
         width: 100%;
@@ -94,9 +100,10 @@ export const styles = css`
     }
 
     .label {
+        display: flex;
         font-family: ${labelFontFamily};
         font-size: ${labelFontSize};
-        line-height: 16px;
+        line-height: ${labelHeight};
         text-transform: ${labelTextTransform};
     }
 
@@ -117,8 +124,8 @@ export const styles = css`
 
     .step-up svg,
     .step-down svg {
-        height: 10px;
-        width: 10px;
+        height: ${iconSize};
+        width: ${iconSize};
         fill: ${borderColor};
     }
 `;

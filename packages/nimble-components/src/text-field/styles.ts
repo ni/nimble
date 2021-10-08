@@ -6,12 +6,15 @@ import {
     borderWidth,
     contentFontColorDisabled,
     contentFontSize,
+    controlHeight,
     failColor,
     fillColorSelectedRgb,
     fontFamily,
+    iconSize,
     labelFontColor,
     labelFontFamily,
     labelFontSize,
+    labelHeight,
     labelTextTransform,
     passwordRevealFilter,
     smallDelay
@@ -25,11 +28,11 @@ export const styles = css`
         outline: none;
         user-select: none;
         color: ${labelFontColor};
+        height: calc(${labelHeight} + ${controlHeight});
     }
 
     :host([disabled]) {
         color: ${contentFontColorDisabled};
-        cursor: default;
     }
 
     .root {
@@ -40,7 +43,8 @@ export const styles = css`
         border-radius: 0px;
         font-family: ${fontFamily};
         border-bottom: ${borderWidth} solid ${borderColor};
-        transition: border-bottom ${smallDelay};
+        padding-bottom: 1px;
+        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: flex-end;
     }
 
@@ -52,26 +56,33 @@ export const styles = css`
 
     .root:hover {
         border-bottom: 2px solid ${borderColorHover};
+        padding-bottom: 0px;
     }
 
-    :host([invalid]) .root {
+    :host(.invalid) .root {
         border-bottom: ${borderWidth} solid ${failColor};
     }
 
-    :host([invalid]) .root:hover {
+    :host(.invalid) .root:hover {
         border-bottom: 2px solid ${failColor};
+        padding-bottom: 0px;
     }
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        padding-bottom: 1px;
+    }
+
+    :host([readonly]) .root,
+    :host([readonly]) .root:hover {
+        border: none;
     }
 
     .control {
         -webkit-appearance: none;
         font: inherit;
         background: transparent;
-        border: 0;
         color: inherit;
         height: 28px;
         width: 100%;
@@ -101,8 +112,12 @@ export const styles = css`
         opacity: 0.6;
     }
 
-    .control:focus-within::placeholder {
+    .control:not([readonly]):focus-within::placeholder {
         opacity: 1;
+    }
+
+    .control[readonly] {
+        cursor: default;
     }
 
     .control[disabled]::placeholder {
@@ -110,9 +125,10 @@ export const styles = css`
     }
 
     .label {
+        display: flex;
         font-family: ${labelFontFamily};
         font-size: ${labelFontSize};
-        line-height: 16px;
+        line-height: ${labelHeight};
         text-transform: ${labelTextTransform};
     }
 
@@ -120,19 +136,19 @@ export const styles = css`
         display: none;
     }
 
-    :host([invalid]) [part='end'] {
+    :host(.invalid) [part='end'] {
         align-self: center;
         display: inline-flex;
         padding-left: 8px;
         padding-right: 8px;
     }
 
-    :host([invalid]) [part='end'] svg {
-        height: 16px;
-        width: 16px;
+    :host(.invalid) [part='end'] svg {
+        height: ${iconSize};
+        width: ${iconSize};
     }
 
-    :host([invalid]) [part='end'] path {
+    :host(.invalid) [part='end'] path {
         fill: ${failColor};
     }
 

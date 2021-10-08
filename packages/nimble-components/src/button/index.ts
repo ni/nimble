@@ -1,6 +1,7 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import {
     Button as FoundationButton,
+    ButtonOptions,
     buttonTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
@@ -9,6 +10,9 @@ import { ButtonAppearance } from './types';
 
 export type { Button };
 
+/**
+ * A nimble-styled HTML button
+ */
 class Button extends FoundationButton {
     /**
      * The appearance the button should have.
@@ -37,9 +41,10 @@ class Button extends FoundationButton {
  * Generates HTML Element: \<nimble-button\>
  *
  */
-const nimbleButton = Button.compose({
+const nimbleButton = Button.compose<ButtonOptions>({
     baseName: 'button',
     template,
+    start: html<Button>`<span part="icon"><slot name="icon"></slot></span>`,
     styles,
     shadowOptions: {
         delegatesFocus: true

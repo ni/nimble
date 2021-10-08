@@ -1,8 +1,301 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 08 Sep 2021 23:12:35 GMT and should not be manually modified.
+This log was last generated on Fri, 08 Oct 2021 16:05:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.80
+
+Fri, 08 Oct 2021 16:05:18 GMT
+
+### Changes
+
+- Added missing nimble-angular exports and removed calls to compileComponents in tests (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.79
+
+Thu, 07 Oct 2021 22:14:29 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.79 (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.78
+
+Thu, 07 Oct 2021 21:18:11 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.78 (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 1.0.0-beta.77
+
+Thu, 07 Oct 2021 20:27:57 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.77 (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.76
+
+Thu, 07 Oct 2021 20:02:52 GMT
+
+### Changes
+
+- Nimble tree angular integration; add page to example client app after login that uses tree (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.76 (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.75
+
+Thu, 07 Oct 2021 19:39:48 GMT
+
+### Changes
+
+- Checkbox Angular integration (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.74
+
+Thu, 07 Oct 2021 19:14:44 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.74 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.73
+
+Tue, 05 Oct 2021 20:50:12 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.73 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.72
+
+Tue, 05 Oct 2021 17:15:41 GMT
+
+### Changes
+
+- Implemented number field CVA and directive, and removed old wrapper component (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.71
+
+Thu, 30 Sep 2021 19:04:10 GMT
+
+### Changes
+
+- Rename ControlValueAccessor directives (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.70
+
+Thu, 30 Sep 2021 17:53:18 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.70 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.69
+
+Thu, 30 Sep 2021 16:40:43 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.69 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.68
+
+Wed, 29 Sep 2021 20:17:48 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.68 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.67
+
+Tue, 28 Sep 2021 16:05:04 GMT
+
+### Changes
+
+- Removed invalid property from text field directive and updated example app (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.67 (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.66
+
+Mon, 27 Sep 2021 15:05:02 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.66 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.65
+
+Fri, 24 Sep 2021 22:21:55 GMT
+
+### Changes
+
+- Refactor text field's ControlValueAccessor to extend Angular's DefaultValueAccessor (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.64
+
+Fri, 24 Sep 2021 19:09:11 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.64 (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.63
+
+Thu, 23 Sep 2021 20:37:34 GMT
+
+### Changes
+
+- Changes to support icons in the nimble button (26874831+atmgrifter00@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.63 (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.62
+
+Thu, 23 Sep 2021 19:34:21 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.62 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.61
+
+Wed, 22 Sep 2021 23:22:04 GMT
+
+### Changes
+
+- Complete ControlValueAccessor for nimble-select (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.61 (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.60
+
+Wed, 22 Sep 2021 17:04:37 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.60 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.59
+
+Wed, 22 Sep 2021 16:46:58 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.59 (9480438+LukasKall@users.noreply.github.com)
+
+## 1.0.0-beta.58
+
+Mon, 20 Sep 2021 21:01:58 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.58 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.57
+
+Thu, 16 Sep 2021 15:30:58 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.57 (9480438+LukasKall@users.noreply.github.com)
+
+## 1.0.0-beta.56
+
+Wed, 15 Sep 2021 20:07:53 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.56 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.55
+
+Tue, 14 Sep 2021 22:50:16 GMT
+
+### Changes
+
+- Adding button Angular directive (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.54
+
+Tue, 14 Sep 2021 21:19:06 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.54 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.53
+
+Tue, 14 Sep 2021 16:53:39 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.53 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.52
+
+Mon, 13 Sep 2021 20:07:38 GMT
+
+### Changes
+
+- implement text-field angular directive (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.51
+
+Mon, 13 Sep 2021 15:09:27 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.51 (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.50
+
+Fri, 10 Sep 2021 20:29:33 GMT
+
+### Changes
+
+- Implemented directive for nimble-theme-provider (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.49
+
+Fri, 10 Sep 2021 19:03:37 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.49 (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.48
+
+Fri, 10 Sep 2021 18:13:15 GMT
+
+### Changes
+
+- Created Angular directives for nimble-select and nimble-listbox-option (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.48 (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.47
+
+Thu, 09 Sep 2021 16:11:55 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.47 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.46
+
+Thu, 09 Sep 2021 15:38:58 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.46 (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.45
+
+Thu, 09 Sep 2021 15:24:52 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.45 (22551874+scotia673@users.noreply.github.com)
 
 ## 1.0.0-beta.44
 

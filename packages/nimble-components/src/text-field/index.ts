@@ -1,47 +1,27 @@
-import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextField as FoundationTextField,
+    TextFieldOptions,
     textFieldTemplate as template
 } from '@microsoft/fast-foundation';
-import { alarmActive16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { statusAlarmActive16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
-
-export type { TextField };
 
 /**
  * A nimble-styed HTML text input
  */
-class TextField extends FoundationTextField {
-    /**
-     * When set to true, changes the appearance of the text field to indicate its contents are invalid.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: invalid
-     */
-    @attr({ mode: 'boolean' })
-    public invalid: boolean;
+type TextField = FoundationTextField;
 
-    public connectedCallback(): void {
-        super.connectedCallback();
-        if (!this.invalid) {
-            this.invalid = false;
-        }
+export type { TextField };
 
-        // https://github.com/microsoft/fast/issues/5116
-        // Will hopefully be able to set this to the end slot in compose in the future
-        this.end.innerHTML = `${alarmActive16X16.data}`;
-    }
-}
-
-const nimbleTextField = TextField.compose({
+const nimbleTextField = FoundationTextField.compose<TextFieldOptions>({
     baseName: 'text-field',
     template,
     styles,
     shadowOptions: {
         delegatesFocus: true
-    }
+    },
+    end: `${statusAlarmActive16X16.data}`
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextField());

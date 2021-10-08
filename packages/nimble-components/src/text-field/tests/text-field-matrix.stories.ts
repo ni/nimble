@@ -1,11 +1,16 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { html, ViewTemplate } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import {
-    matrixThemeWrapper,
+    createMatrix,
+    themeWrapper,
     disabledStates,
     DisabledState,
     InvalidState,
-    invalidStates
+    invalidStates,
+    ReadOnlyState,
+    readOnlyStates
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
@@ -29,30 +34,46 @@ const metadata: Meta<TextFieldArgs> = {
 export default metadata;
 
 const valueStates = [
-    ['Placeholder', 'placeholder="placeholder"'],
-    ['Value', 'value="Hello"']
+    ['Placeholder', null, 'placeholder'],
+    ['Value', 'Hello', null]
 ];
 type ValueState = typeof valueStates[number];
 
 const typeStates = [
-    ['Text', 'type="text"'],
-    ['Password', 'type="password"']
+    ['Text', 'text'],
+    ['Password', 'password']
 ];
 type TypeState = typeof typeStates[number];
 
 const component = (
+    [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
     [invalidName, invalid]: InvalidState,
     [typeName, type]: TypeState,
-    [valueName, value]: ValueState
-): string => `
-    <nimble-text-field ${disabled} ${invalid} ${type} ${value}>
-        ${disabledName} ${invalidName} ${typeName} ${valueName}
-    </nimble-text-field>`;
+    [valueName, valueValue, placeholderValue]: ValueState
+): ViewTemplate => html`
+    <nimble-text-field
+        style="width: 250px; padding: 15px;"
+        class="${() => invalid}"
+        ?disabled="${() => disabled}"
+        type="${() => type}"
+        value="${() => valueValue}"
+        placeholder="${() => placeholderValue}"
+        ?readonly="${() => readonly}"
+    >
+        ${() => disabledName} ${() => invalidName} ${() => typeName}
+        ${() => valueName} ${() => readOnlyName}
+    </nimble-text-field>
+`;
 
-export const textFieldThemeMatrix: Story = (): string => matrixThemeWrapper(component, [
-    disabledStates,
-    invalidStates,
-    typeStates,
-    valueStates
-]);
+export const textFieldThemeMatrix: Story = createRenderer(
+    themeWrapper(
+        createMatrix(component, [
+            readOnlyStates,
+            disabledStates,
+            invalidStates,
+            typeStates,
+            valueStates
+        ])
+    )
+);

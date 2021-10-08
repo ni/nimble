@@ -1,12 +1,16 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { controlsSearch16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import '../index';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 interface ButtonArgs {
     label: string;
     appearance: string;
-    disabled: string;
+    disabled: boolean;
+    icon: boolean;
 }
 
 const metadata: Meta<ButtonArgs> = {
@@ -25,16 +29,20 @@ const metadata: Meta<ButtonArgs> = {
         appearance: {
             options: Object.values(ButtonAppearance),
             control: { type: 'radio' }
-        },
-        disabled: {
-            options: ['disabled'],
-            control: { type: 'check' }
         }
     },
-    render: ({ label, appearance, disabled }: ButtonArgs): string => `<nimble-button ${disabled} appearance="${appearance}">${label}</nimble-button>`,
+    // prettier-ignore
+    render: createRenderer(html`
+        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}">
+            ${when(x => x.icon, html`<div slot="icon">${controlsSearch16X16.data}</div>`)}
+            ${x => x.label}
+        </nimble-button>
+`),
     args: {
         label: 'Ghost Button',
-        appearance: 'ghost'
+        appearance: 'ghost',
+        icon: false,
+        disabled: false
     }
 };
 

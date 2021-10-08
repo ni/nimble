@@ -114,9 +114,13 @@ package-lock.json
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
+!.vscode/tasks.json
 
 # macOS
 .DS_Store
 
 # local npmrc files
 .npmrc
+
+# lighthouse build directory
+.lighthouseci/

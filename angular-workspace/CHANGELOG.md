@@ -1,8 +1,232 @@
 # Change Log - angular-workspace
 
-This log was last generated on Wed, 08 Sep 2021 23:12:35 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Oct 2021 22:14:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0
+
+Thu, 07 Oct 2021 22:14:29 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (5454342+brianehenry@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 07 Oct 2021 21:18:11 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 07 Oct 2021 20:27:57 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (jattasNI@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 07 Oct 2021 20:02:52 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (20709258+msmithNI@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 07 Oct 2021 19:14:44 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Tue, 05 Oct 2021 20:50:12 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 30 Sep 2021 17:53:18 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (1458528+fredvisser@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 30 Sep 2021 16:40:43 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (1458528+fredvisser@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 29 Sep 2021 20:17:48 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Tue, 28 Sep 2021 16:05:04 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (5454342+brianehenry@users.noreply.github.com)
+
+## 0.0.0
+
+Mon, 27 Sep 2021 15:05:02 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Fri, 24 Sep 2021 19:09:11 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (26874831+atmgrifter00@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 23 Sep 2021 20:37:34 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (26874831+atmgrifter00@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 23 Sep 2021 19:34:21 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (1458528+fredvisser@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 22 Sep 2021 23:22:04 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (5454342+brianehenry@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 22 Sep 2021 17:04:37 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (1458528+fredvisser@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 22 Sep 2021 16:46:58 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (9480438+LukasKall@users.noreply.github.com)
+
+## 0.0.0
+
+Mon, 20 Sep 2021 21:01:58 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (1458528+fredvisser@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 16 Sep 2021 15:30:58 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (9480438+LukasKall@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 15 Sep 2021 20:07:53 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (22551874+scotia673@users.noreply.github.com)
+
+## 0.0.0
+
+Tue, 14 Sep 2021 21:19:06 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (1458528+fredvisser@users.noreply.github.com)
+
+## 0.0.0
+
+Tue, 14 Sep 2021 16:53:39 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (1458528+fredvisser@users.noreply.github.com)
+
+## 0.0.0
+
+Mon, 13 Sep 2021 15:09:27 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (jattasNI@users.noreply.github.com)
+
+## 0.0.0
+
+Fri, 10 Sep 2021 19:03:37 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (jattasNI@users.noreply.github.com)
+
+## 0.0.0
+
+Fri, 10 Sep 2021 18:13:15 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (5454342+brianehenry@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 09 Sep 2021 16:11:55 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (22551874+scotia673@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 09 Sep 2021 15:38:58 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (22551874+scotia673@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 09 Sep 2021 15:24:52 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (22551874+scotia673@users.noreply.github.com)
 
 ## 0.0.0
 

@@ -9,12 +9,14 @@ import {
     White,
     Enterprise,
     Selection100,
-    BodyFamily,
-    OverlineCapitalizedFamily,
     SlLegacyBlue,
     Fail100LightUi,
     SmallDelay,
-    Fail100DarkUi
+    Fail100DarkUi,
+    BodyFamily,
+    BodySize,
+    OverlineCapitalizedFamily,
+    OverlineCapitalizedSize
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -109,7 +111,7 @@ function getLabelTextSize(element: HTMLElement): string {
         case NimbleTheme.LegacyBlue:
             return '13px';
         default:
-            return '11px';
+            return OverlineCapitalizedSize;
     }
 }
 
@@ -124,6 +126,7 @@ function getPasswordRevealFilter(element: HTMLElement): string {
 }
 
 const fillColorSelectedTheme = (element: HTMLElement): string => getColorForTheme(element, Selection100, Selection100, White, SlLegacyBlue);
+const fillColorHoverTheme = (element: HTMLElement): string => getColorForTheme(element, Black91, Black15, White, SlLegacyBlue);
 
 // Color Tokens
 export const actionColorRgb = create<string>('action-color-rgb').withDefault(
@@ -134,7 +137,7 @@ export const actionColorRgb = create<string>('action-color-rgb').withDefault(
 
 export const applicationBackgroundColor = create<string>(
     'application-background-color'
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise, SlLegacyBlue));
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise, White));
 
 export const fillColorSelected = create<string>(
     'fill-color-selected'
@@ -143,6 +146,14 @@ export const fillColorSelected = create<string>(
 export const fillColorSelectedRgb = create<string>(
     'fill-color-selected-rgb'
 ).withDefault((element: HTMLElement) => rgbString(fillColorSelectedTheme(element)));
+
+export const fillColorSelectedHover = create<string>(
+    'fill-color-selected-hover'
+).withDefault((element: HTMLElement) => hexToRgba(fillColorSelectedTheme(element), 0.15));
+
+export const fillColorHover = create<string>('fill-color-hover').withDefault(
+    (element: HTMLElement) => hexToRgba(fillColorHoverTheme(element), 0.1)
+);
 
 export const borderColor = create<string>('border-color').withDefault(
     (element: HTMLElement) => getDefaultLineColorForTheme(element)
@@ -172,10 +183,23 @@ export const borderColorHover = create<string>(
     hexToRgba(SlLegacyBlue, 0.9)
 ));
 
+export const popupBoxShadowColor = create<string>(
+    'popup-box-shadow-color'
+).withDefault((element: HTMLElement) => hexToRgba(
+    getColorForTheme(element, Black75, Black85, Black85, Black75),
+    0.3
+));
+
+export const popupBorderColor = create<string>(
+    'popup-border-color'
+).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black91), 0.3));
+
 // Component Sizing Tokens
 export const controlHeight = create<string>('control-height').withDefault('32px');
 export const standardPadding = create<string>('standard-padding').withDefault('16px');
+export const labelHeight = create<string>('label-height').withDefault('16px');
 export const borderWidth = create<string>('border-width').withDefault('1px');
+export const iconSize = create<string>('icon-size').withDefault('16px');
 
 // Font Family Tokens
 export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
@@ -187,7 +211,7 @@ export const labelFontFamily = create<string>('label-font-family').withDefault(
 export const labelFontSize = create<string>('label-font-size').withDefault(
     (element: HTMLElement) => getLabelTextSize(element)
 );
-export const contentFontSize = create<string>('content-font-size').withDefault('14px');
+export const contentFontSize = create<string>('content-font-size').withDefault(BodySize);
 
 // Font Color Tokens
 export const labelFontColor = create<string>('label-font-color').withDefault(

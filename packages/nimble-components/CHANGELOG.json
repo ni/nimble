@@ -2,6 +2,465 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 07 Oct 2021 22:14:29 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.71",
+      "version": "1.0.0-beta.71",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Fixed contents of disabled fields shifting on hover ",
+            "commit": "e61642d958da4263a119fac85dba820b2756986f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Oct 2021 21:18:11 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.70",
+      "version": "1.0.0-beta.70",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "First pass at the menu",
+            "commit": "0a1fba241f591c025cd9bbe20d0d93a7d6ce0436"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Oct 2021 20:48:36 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.69",
+      "version": "1.0.0-beta.69",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Lint rules requiring class documentation",
+            "commit": "5a18e9a2322e9bb2844099775c9bd06773cdcc15"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Oct 2021 20:27:57 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.69",
+      "version": "1.0.0-beta.69",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Fix title in storybook",
+            "commit": "42be39038ef391050ad0df3138b251fb7ba601fb"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Oct 2021 20:02:52 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.68",
+      "version": "1.0.0-beta.68",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Nimble TreeItem now fires expanded-change when tree item content is clicked (already did so when expand/collapse glyph was clicked)",
+            "commit": "b23b1b7a9929b7be3ca3c059a7e388a15add01e7"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Oct 2021 19:14:44 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.67",
+      "version": "1.0.0-beta.67",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Use createRenderer helper for html tagged template",
+            "commit": "8b51361442e238cab5eb34bca471f0b49e6e3149"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Oct 2021 20:50:12 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.66",
+      "version": "1.0.0-beta.66",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Move storybook addon xd to root",
+            "commit": "13daae04dc4687f6f67cf5aad646f85406235d88"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Sep 2021 17:53:18 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.65",
+      "version": "1.0.0-beta.65",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Update icons and callers",
+            "commit": "5a3426d76fd9dfdabda9eca73a3416c08aa02e03"
+          },
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5a3426d76fd9dfdabda9eca73a3416c08aa02e03",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.65"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Sep 2021 16:40:43 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.64",
+      "version": "1.0.0-beta.64",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9eba3ef35ee01c6de1320883a307ade38b667390",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.64"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 29 Sep 2021 20:17:48 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.63",
+      "version": "1.0.0-beta.63",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Remove manually added peer dependencies",
+            "commit": "381d6ab92b5495a4194c9c94c234f0f064972b8b"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "381d6ab92b5495a4194c9c94c234f0f064972b8b",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.63"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 Sep 2021 16:05:04 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.62",
+      "version": "1.0.0-beta.62",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Refactored invalid property on text field to class",
+            "commit": "b90cf78dc25bf60338108c22570e00f708e02f5f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 27 Sep 2021 15:05:02 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.61",
+      "version": "1.0.0-beta.61",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Switch to html template",
+            "commit": "07c44dbb648867cb325a62d076d0f287eea5c5af"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 24 Sep 2021 19:09:11 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.60",
+      "version": "1.0.0-beta.60",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Introducing new select/expand behavior",
+            "commit": "37b9dc1e958d65891226d5701717165755797912"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Sep 2021 20:37:34 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.59",
+      "version": "1.0.0-beta.59",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Changes to support icons in nimble button",
+            "commit": "0d9eea382a68f5e0b5cc063b91afdad4314d7d88"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Sep 2021 19:34:21 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.58",
+      "version": "1.0.0-beta.58",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "nimble tree view and item with rough styling",
+            "commit": "4a348242549f3d43f6b9a4aee6f639a470d573f2"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Sep 2021 23:22:04 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.57",
+      "version": "1.0.0-beta.57",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Re-export FAST's DOM.nextUpdate() for usage in Angular tests",
+            "commit": "4733a0f930f8e1a47f7ba3caa0a7c463be829f89"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Sep 2021 17:04:37 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.56",
+      "version": "1.0.0-beta.56",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "re-enable theme switch and doc changes",
+            "commit": "a487e938560a7560cfee2f8daaa88fa5a9f728ff"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Sep 2021 16:46:58 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.55",
+      "version": "1.0.0-beta.55",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "9480438+LukasKall@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Add tabs-toolbar component",
+            "commit": "7fa20da1f0a33fb3b85da03b472fcb0203cf146c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Sep 2021 21:01:58 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.54",
+      "version": "1.0.0-beta.54",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "change icon fill color with theme",
+            "commit": "ae681695dc6b94e93a4df11213b9eda8b2911bad"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 16 Sep 2021 15:30:58 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.53",
+      "version": "1.0.0-beta.53",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "9480438+LukasKall@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Add simple tab component",
+            "commit": "3220150b84975ba1de31a0f52e29142fd1ecbc27"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Sep 2021 20:07:53 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.52",
+      "version": "1.0.0-beta.52",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "fix bottom borders of text-field and number-field",
+            "commit": "9bc406bb57cd413b24fbfcdf8b229cf92361666e"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Sep 2021 21:19:06 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.51",
+      "version": "1.0.0-beta.51",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Use VSCode Tasks to start watch scripts",
+            "commit": "0b3136f0f8bee1946f8e8e046d0b553283ec6097"
+          },
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0b3136f0f8bee1946f8e8e046d0b553283ec6097",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.51"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Sep 2021 16:53:39 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.50",
+      "version": "1.0.0-beta.50",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "uptake DSP font sizes in design-tokens.ts",
+            "commit": "829cd2da4ce213c9ae19ac52243d8512f18f1501"
+          },
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "829cd2da4ce213c9ae19ac52243d8512f18f1501",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.50"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 13 Sep 2021 15:09:27 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.49",
+      "version": "1.0.0-beta.49",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Add karma reporter to list all tests run during CI",
+            "commit": "b65714f9f6cdae25c17c344fdc79ff346524ae5c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Sep 2021 19:03:37 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.48",
+      "version": "1.0.0-beta.48",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Fix broken link in CONTRIBUTING.md",
+            "commit": "605139ac8816faf4b3825f8b250258290c7a3373"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Sep 2021 18:13:15 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.47",
+      "version": "1.0.0-beta.47",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Created nimble-select and nimble-listbox-option",
+            "commit": "bd5a5fed85dd22f792454d3619692445657b71b9"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 Sep 2021 16:11:55 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.46",
+      "version": "1.0.0-beta.46",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "add readonly text-field support/styling",
+            "commit": "66af1a894f84362404999132a90bc49341f6994c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 Sep 2021 15:38:58 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.45",
+      "version": "1.0.0-beta.45",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "use end slot default value for text-field",
+            "commit": "5628b9e7b144e6870031e5705b9db7896510e43c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 Sep 2021 15:24:52 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.44",
+      "version": "1.0.0-beta.44",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "22551874+scotia673@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "improve spacing in text-field storybook matrix",
+            "commit": "fea4f040d40eeb298c4553599a7d2aead39c0384"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Sep 2021 23:12:35 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.43",
       "version": "1.0.0-beta.43",

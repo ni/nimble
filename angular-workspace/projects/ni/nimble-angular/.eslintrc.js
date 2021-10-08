@@ -3,6 +3,7 @@ module.exports = {
   ignorePatterns: [
     '!**/*'
   ],
+  plugins: ['jsdoc'],
   overrides: [
     {
       files: [
@@ -17,6 +18,42 @@ module.exports = {
         createDefaultProgram: true
       },
       rules: {
+        // Require non-empty JSDoc comment on classes
+        'jsdoc/require-jsdoc': [
+          'error',
+          {
+              publicOnly: false,
+              require: {
+                  ClassDeclaration: true,
+                  FunctionDeclaration: false
+              }
+          }
+        ],
+        'jsdoc/require-description': [
+          'error', 
+          { contexts: ['ClassDeclaration']}
+        ],
+      }
+    },
+    {
+        // Don't require class docs on modules (they're trivial) or tests (not public API)
+        files: [
+        '*.module.ts', '*.spec.ts'
+      ], 
+      rules: {            
+        'jsdoc/require-jsdoc': 'off',
+        'jsdoc/require-description': 'off'
+      }
+    },
+    {
+      files: [
+        '*.spec.ts'
+      ],
+      rules: {
+        // No value in requiring a selector for components that are only used within a test file
+        "@angular-eslint/use-component-selector": "off",
+        // Multiple component definitions in a test file is acceptable
+        "max-classes-per-file": "off"
       }
     },
     {

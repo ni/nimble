@@ -1,8 +1,236 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 08 Sep 2021 23:12:35 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Oct 2021 22:14:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.71
+
+Thu, 07 Oct 2021 22:14:29 GMT
+
+### Changes
+
+- Fixed contents of disabled fields shifting on hover  (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.70
+
+Thu, 07 Oct 2021 21:18:11 GMT
+
+### Changes
+
+- First pass at the menu (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 1.0.0-beta.69
+
+Thu, 07 Oct 2021 20:27:57 GMT
+
+### Changes
+
+- Fix title in storybook (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.68
+
+Thu, 07 Oct 2021 20:02:52 GMT
+
+### Changes
+
+- Nimble TreeItem now fires expanded-change when tree item content is clicked (already did so when expand/collapse glyph was clicked) (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.67
+
+Thu, 07 Oct 2021 19:14:44 GMT
+
+### Changes
+
+- Use createRenderer helper for html tagged template (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.66
+
+Tue, 05 Oct 2021 20:50:12 GMT
+
+### Changes
+
+- Move storybook addon xd to root (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.65
+
+Thu, 30 Sep 2021 17:53:18 GMT
+
+### Changes
+
+- Update icons and callers (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.65 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.64
+
+Thu, 30 Sep 2021 16:40:43 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.64 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.63
+
+Wed, 29 Sep 2021 20:17:48 GMT
+
+### Changes
+
+- Remove manually added peer dependencies (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.63 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.62
+
+Tue, 28 Sep 2021 16:05:04 GMT
+
+### Changes
+
+- Refactored invalid property on text field to class (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.61
+
+Mon, 27 Sep 2021 15:05:02 GMT
+
+### Changes
+
+- Switch to html template (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.60
+
+Fri, 24 Sep 2021 19:09:11 GMT
+
+### Changes
+
+- Introducing new select/expand behavior (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.59
+
+Thu, 23 Sep 2021 20:37:34 GMT
+
+### Changes
+
+- Changes to support icons in nimble button (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.58
+
+Thu, 23 Sep 2021 19:34:21 GMT
+
+### Changes
+
+- nimble tree view and item with rough styling (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.57
+
+Wed, 22 Sep 2021 23:22:04 GMT
+
+### Changes
+
+- Re-export FAST's DOM.nextUpdate() for usage in Angular tests (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.56
+
+Wed, 22 Sep 2021 17:04:37 GMT
+
+### Changes
+
+- re-enable theme switch and doc changes (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.55
+
+Wed, 22 Sep 2021 16:46:58 GMT
+
+### Changes
+
+- Add tabs-toolbar component (9480438+LukasKall@users.noreply.github.com)
+
+## 1.0.0-beta.54
+
+Mon, 20 Sep 2021 21:01:58 GMT
+
+### Changes
+
+- change icon fill color with theme (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.53
+
+Thu, 16 Sep 2021 15:30:58 GMT
+
+### Changes
+
+- Add simple tab component (9480438+LukasKall@users.noreply.github.com)
+
+## 1.0.0-beta.52
+
+Wed, 15 Sep 2021 20:07:53 GMT
+
+### Changes
+
+- fix bottom borders of text-field and number-field (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.51
+
+Tue, 14 Sep 2021 21:19:06 GMT
+
+### Changes
+
+- Use VSCode Tasks to start watch scripts (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.51 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.50
+
+Tue, 14 Sep 2021 16:53:39 GMT
+
+### Changes
+
+- uptake DSP font sizes in design-tokens.ts (22551874+scotia673@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.50 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.49
+
+Mon, 13 Sep 2021 15:09:27 GMT
+
+### Changes
+
+- Add karma reporter to list all tests run during CI (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.48
+
+Fri, 10 Sep 2021 19:03:37 GMT
+
+### Changes
+
+- Fix broken link in CONTRIBUTING.md (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.47
+
+Fri, 10 Sep 2021 18:13:15 GMT
+
+### Changes
+
+- Created nimble-select and nimble-listbox-option (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.46
+
+Thu, 09 Sep 2021 16:11:55 GMT
+
+### Changes
+
+- add readonly text-field support/styling (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.45
+
+Thu, 09 Sep 2021 15:38:58 GMT
+
+### Changes
+
+- use end slot default value for text-field (22551874+scotia673@users.noreply.github.com)
+
+## 1.0.0-beta.44
+
+Thu, 09 Sep 2021 15:24:52 GMT
+
+### Changes
+
+- improve spacing in text-field storybook matrix (22551874+scotia673@users.noreply.github.com)
 
 ## 1.0.0-beta.43
 

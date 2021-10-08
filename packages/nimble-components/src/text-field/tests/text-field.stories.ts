@@ -1,11 +1,14 @@
+import { html } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../index';
 
 interface TextFieldArgs {
     label: string;
     type: string;
     value: string;
+    readonly: boolean;
     disabled: boolean;
     invalid: boolean;
 }
@@ -22,22 +25,18 @@ const metadata: Meta<TextFieldArgs> = {
             handles: ['change', 'input']
         }
     },
-    render: ({
-        label,
-        type,
-        value,
-        disabled,
-        invalid
-    }: TextFieldArgs): string => `
+    render: createRenderer(html`
         <nimble-text-field
-            placeholder='${label}'
-            type='${type}'
-            value='${value}'
-            ${disabled ? 'disabled' : ''}
-            ${invalid ? 'invalid' : ''}
+            placeholder="${x => x.label}"
+            type="${x => x.type}"
+            value="${x => x.value}"
+            class="${x => (x.invalid ? 'invalid' : '')}"
+            ?readonly="${x => x.readonly}"
+            ?disabled="${x => x.disabled}"
         >
-            ${label}
-        </nimble-text-field>`,
+            ${x => x.label}
+        </nimble-text-field>
+    `),
     argTypes: {
         type: {
             options: ['text', 'password'],
@@ -48,6 +47,7 @@ const metadata: Meta<TextFieldArgs> = {
         label: 'default label',
         type: 'text',
         value: '',
+        readonly: false,
         disabled: false,
         invalid: false
     }
