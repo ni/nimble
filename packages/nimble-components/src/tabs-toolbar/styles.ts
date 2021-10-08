@@ -24,7 +24,7 @@ export const styles = css`
 
     .separator {
         display: inline-block;
-        height: ${controlHeight};
+        height: 24px;
         border-left: calc(${borderWidth} * 2) solid rgba(${borderColorRgb}, 0.3);
         margin: calc(${standardPadding} / 4) calc(${standardPadding} / 2);
     }
