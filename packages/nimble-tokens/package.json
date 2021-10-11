@@ -7,6 +7,7 @@
     "build:svg-to-ts": "svg-to-ts --config source/build/svg-to-ts-config.js",
     "build:ts": "tsc -p ./tsconfig.json",
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
+    "build:nuget": "nuget pack ./package.nuspec -BasePath ./dist/styledictionary/xaml/content -OutputDirectory ./dist-nuget",
     "lint": "eslint ."
   },
   "repository": {
