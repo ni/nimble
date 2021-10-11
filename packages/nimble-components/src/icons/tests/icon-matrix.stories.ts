@@ -8,29 +8,27 @@ import {
 import '../index';
 import '../check/index';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { IconStatus } from './types';
 
-interface IconArgs {
-    status: string;
-}
-
-const metadata: Meta<IconArgs> = {
+const metadata: Meta = {
     title: 'Tests/Icon',
     decorators: [withXD],
     parameters: {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs'
-        }
+        },
+        controls: { hideNoControlsWarning: true }
     }
 };
 
 export default metadata;
 
 const iconStates = [
-    ['Pass', 'pass'],
-    ['Fail', 'fail'],
-    ['Warning', 'warning'],
-    ['Regular', '']
+    ['Pass', IconStatus.Pass],
+    ['Fail', IconStatus.Fail],
+    ['Warning', IconStatus.Warning],
+    ['Regular', IconStatus.Regular]
 ];
 type IconState = typeof iconStates[number];
 

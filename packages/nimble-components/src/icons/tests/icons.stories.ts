@@ -17,16 +17,10 @@ import '../administration/index';
 import { withXD } from 'storybook-addon-xd-designs';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { html, repeat } from '@microsoft/fast-element';
+import { IconStatus } from './types';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
-
-enum IconStatus {
-    Fail = 'fail',
-    Warning = 'warning',
-    Pass = 'pass',
-    Regular = 'regular'
-}
 
 interface IconArgs {
     status: IconStatus;
