@@ -73,6 +73,7 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: ./packages/nimble-components
           storybookBuildDir: ./dist/storybook
+          exitOnceUploaded: true # Do not wait for test resuls
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
       # Run Lighthouse audit
