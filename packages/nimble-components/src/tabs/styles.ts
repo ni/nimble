@@ -7,7 +7,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('inline-grid')} :host {
+    ${display('grid')}
+
+    :host {
         box-sizing: border-box;
         grid-template-columns: auto auto 1fr;
         grid-template-rows: auto 1fr;
