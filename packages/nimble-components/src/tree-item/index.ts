@@ -80,11 +80,11 @@ export class TreeItem extends FoundationTreeItem {
         this.setAttribute('selected', 'true');
     }
 
-    private setGroupSelectionOnAllParentTreeItems(treeItem: TreeItem):void {
+    private setGroupSelectionOnAllParentTreeItems(treeItem: TreeItem): void {
         const currentParent = treeItem?.parentElement as TreeItem;
         if (currentParent?.getAttribute('role') === 'treeitem') {
-            currentParent?.setAttribute(this.groupSelectedAttribute, 'true');
-            return this.setGroupSelectionOnAllParentTreeItems(currentParent);
+            currentParent.setAttribute(this.groupSelectedAttribute, 'true');
+            this.setGroupSelectionOnAllParentTreeItems(currentParent);
         }
     }
 
