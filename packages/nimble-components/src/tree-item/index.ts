@@ -71,27 +71,21 @@ export class TreeItem extends FoundationTreeItem {
             );
         }
 
-        const currentGroupSelection = treeView?.querySelector<TreeItem>(
+        const currentGroupSelection = treeView?.querySelectorAll<TreeItem>(
             `[${this.groupSelectedAttribute}]`
         );
-        currentGroupSelection?.removeAttribute(this.groupSelectedAttribute);
-        const selectedGroup = this.getTreeItemGroup(event.target as TreeItem);
-        selectedGroup?.setAttribute(this.groupSelectedAttribute, 'true');
+        currentGroupSelection?.forEach(treeItem => treeItem.removeAttribute(this.groupSelectedAttribute));
+        this.setGroupSelectionOnAllParentTreeItems(event.target as TreeItem);
         this.setAttribute(this.pinnedSelectedAttribute, 'true');
         this.setAttribute('selected', 'true');
     }
 
-    private getTreeItemGroup(treeItem: TreeItem): HTMLElement | null {
-        const currentParent = treeItem.parentElement as TreeItem;
-        if (currentParent?.parentElement?.getAttribute('role') === 'tree') {
-            return currentParent;
+    private setGroupSelectionOnAllParentTreeItems(treeItem: TreeItem):void {
+        const currentParent = treeItem?.parentElement as TreeItem;
+        if (currentParent?.getAttribute('role') === 'treeitem') {
+            currentParent?.setAttribute(this.groupSelectedAttribute, 'true');
+            return this.setGroupSelectionOnAllParentTreeItems(currentParent);
         }
-
-        if (!currentParent) {
-            return null;
-        }
-
-        return this.getTreeItemGroup(currentParent);
     }
 
     /**
