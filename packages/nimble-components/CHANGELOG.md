@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 11 Oct 2021 19:53:26 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Oct 2021 21:29:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.75
+
+Mon, 11 Oct 2021 21:29:26 GMT
+
+### Changes
+
+- remove unnecessary metas and typo (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.74
 
