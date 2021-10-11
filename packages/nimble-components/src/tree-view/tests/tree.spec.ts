@@ -98,7 +98,7 @@ describe('TreeView', () => {
         expect(model.leaf3.hasAttribute('group-selected')).toBe(false);
     });
 
-    fit('when first leaf is clicked twice, leaf remains selected', async () => {
+    it('when first leaf is clicked twice, leaf remains selected', async () => {
         await clickElement(model.leaf1);
         await clickElement(model.leaf1);
         expect(model.leaf1.hasAttribute('selected')).toBe(true);

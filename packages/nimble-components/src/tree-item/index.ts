@@ -53,21 +53,27 @@ export class TreeItem extends FoundationTreeItem {
         }
     };
 
-    private handleTreeGroupSelected(event: CustomEvent) {
+    private handleTreeGroupSelected(event: CustomEvent): void {
         this.expanded = !this.expanded;
         this.dispatchEvent(new CustomEvent('expanded-change'));
         this.selected = false; // do not allow tree groups to display as 'selected' the way leaf tree items can
         event.stopImmediatePropagation();
     }
 
-    private handleTreeLeafSelected(event: CustomEvent) {
+    private handleTreeLeafSelected(event: CustomEvent): void {
         const treeView = this.getParentNimbleTreeNode();
-        const currentPinnedSelection = treeView?.querySelector<TreeItem>(`[${this.pinnedSelectedAttribute}]`);
+        const currentPinnedSelection = treeView?.querySelector<TreeItem>(
+            `[${this.pinnedSelectedAttribute}]`
+        );
         if (currentPinnedSelection) {
-            currentPinnedSelection.removeAttribute(this.pinnedSelectedAttribute);
+            currentPinnedSelection.removeAttribute(
+                this.pinnedSelectedAttribute
+            );
         }
 
-        const currentGroupSelection = treeView?.querySelector<TreeItem>(`[${this.groupSelectedAttribute}]`);
+        const currentGroupSelection = treeView?.querySelector<TreeItem>(
+            `[${this.groupSelectedAttribute}]`
+        );
         currentGroupSelection?.removeAttribute(this.groupSelectedAttribute);
         const selectedGroup = this.getTreeItemGroup(event.target as TreeItem);
         selectedGroup?.setAttribute(this.groupSelectedAttribute, 'true');
@@ -76,14 +82,16 @@ export class TreeItem extends FoundationTreeItem {
     }
 
     private getTreeItemGroup(treeItem: TreeItem): HTMLElement | null {
-        let currentParent = treeItem.parentElement as TreeItem;
+        const currentParent = treeItem.parentElement as TreeItem;
         if (currentParent?.parentElement?.getAttribute('role') === 'tree') {
             return currentParent;
-        } else if (!currentParent) {
+        }
+
+        if (!currentParent) {
             return null;
         }
 
-        return this.getTreeItemGroup(currentParent)
+        return this.getTreeItemGroup(currentParent);
     }
 
     /**
