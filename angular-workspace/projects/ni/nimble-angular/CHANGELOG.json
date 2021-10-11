@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 08 Oct 2021 22:06:37 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.82",
+      "version": "1.0.0-beta.82",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Removed support for manual value binding of form controls in Angular",
+            "commit": "a81170811d4d5580744a0b2940a8a34c6a49ae22"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 08 Oct 2021 20:59:39 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.81",
       "version": "1.0.0-beta.81",
