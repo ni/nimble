@@ -17,7 +17,8 @@ const metadata: Meta = {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf/specs/'
-        }
+        },
+        controls: { hideNoControlsWarning: true }
     }
 };
 
