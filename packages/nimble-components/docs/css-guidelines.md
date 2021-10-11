@@ -4,7 +4,7 @@
 
 In a CSS file the rules should be organized by the element they are selecting for. Keeping those selectors grouped together makes it easier to scan a file and see the rules impacting a particular element in one location.
 
-In addition, groups of selectors should be organized in document order, ie the order the elements appear when scanning the DOM structure in devtools.
+In addition, groups of selectors should be organized in document order, i.e. the order the elements appear when scanning the DOM structure in devtools.
 
 For example for the following runtime DOM:
 
@@ -78,6 +78,8 @@ Useful reference: [When do the :hover, :focus, and :active pseudo-classes apply?
 Some attribute values might need to be configurable in context-specific situations like UIs requring different themes, large touch-friendly UIs, or small information-dense UIs.
 
 Examples include colors, typography, sizing, and animation parameters. These attribute values should be specified as shared design tokens rather than literals within an individual component's CSS. This makes it easier to change the values dynamically if required in the future and also improves readability and reduces duplication.
+
+To find existing tokens or add new ones see [`design-tokens.ts`](../src/theme-provider/design-tokens.ts).
 
 ## Prefer modern layouts
 
