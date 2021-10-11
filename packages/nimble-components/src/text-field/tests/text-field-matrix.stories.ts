@@ -14,13 +14,7 @@ import {
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
-interface TextFieldArgs {
-    label: string;
-    type: string;
-    value: string;
-}
-
-const metadata: Meta<TextFieldArgs> = {
+const metadata: Meta = {
     title: 'Tests/Text Field',
     decorators: [withXD],
     parameters: {

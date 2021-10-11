@@ -10,12 +10,7 @@ import {
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
-interface NumberFieldArgs {
-    label: string;
-    value: number;
-}
-
-const metadata: Meta<NumberFieldArgs> = {
+const metadata: Meta = {
     title: 'Tests/Number Field',
     decorators: [withXD],
     parameters: {
@@ -35,11 +30,11 @@ type ValueState = typeof valueStates[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,
-    [valueName, valueValue, placehoderValue]: ValueState
+    [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-number-field
         value="${() => valueValue}"
-        placeholder="${() => placehoderValue}"
+        placeholder="${() => placeholderValue}"
         ?disabled="${() => disabled}"
     >
         ${() => valueName} ${() => disabledName}
