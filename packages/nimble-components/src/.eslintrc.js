@@ -34,7 +34,9 @@ module.exports = {
         // Rules enabled due to strictNullChecks
         '@typescript-eslint/no-non-null-assertion': 'off',
 
+        // Improves readability of templates to avoid return types in template expressions
         '@typescript-eslint/explicit-function-return-type': ['error', {allowExpressions: true}],
+
         'no-restricted-imports': [
             'error',
             {
