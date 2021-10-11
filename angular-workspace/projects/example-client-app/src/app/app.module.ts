@@ -3,8 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NimbleTextFieldModule, NimbleNumberFieldModule, NimbleSelectModule, NimbleListboxOptionModule,
-    NimbleButtonModule, NimbleTreeViewModule, NimbleTreeItemModule } from '@ni/nimble-angular';
-import { NimbleThemeProviderModule } from 'projects/ni/nimble-angular/src/directives/theme-provider';
+    NimbleButtonModule, NimbleTreeViewModule, NimbleTreeItemModule, NimbleThemeProviderModule } from '@ni/nimble-angular';
 
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';

@@ -27,11 +27,11 @@ describe('Nimble checkbox control value accessor', () => {
     let fixture: ComponentFixture<TestHostComponent>;
     let testHostComponent: TestHostComponent;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
+    beforeEach(() => {
+        TestBed.configureTestingModule({
             declarations: [TestHostComponent],
             imports: [NimbleCheckboxModule, FormsModule]
-        }).compileComponents();
+        });
     });
 
     beforeEach(async () => {
