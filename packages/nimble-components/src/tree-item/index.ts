@@ -18,6 +18,9 @@ import { styles } from './styles';
  *
  */
 export class TreeItem extends FoundationTreeItem {
+    private readonly pinnedSelectedAttribute = 'pinned-selected';
+    private readonly groupSelectedAttribute = 'group-selected';
+
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('selected-change', this.handleItemSelected);
@@ -43,21 +46,45 @@ export class TreeItem extends FoundationTreeItem {
         if (event.target === this) {
             const treeItemChild = this.querySelector('[role="treeitem"]');
             if (treeItemChild && this.selected) {
-                this.expanded = !this.expanded;
-                this.dispatchEvent(new CustomEvent('expanded-change'));
-                this.selected = false; // do not allow tree groups to display as 'selected' the way leaf tree items can
-                event.stopImmediatePropagation();
+                this.handleTreeGroupSelected(event);
             } else {
-                const treeView = this.getParentNimbleTreeNode();
-                const currentPinnedSelection = treeView?.querySelector<TreeItem>('[pinned-selected]');
-                if (currentPinnedSelection) {
-                    currentPinnedSelection.removeAttribute('pinned-selected');
-                }
-
-                this.setAttribute('pinned-selected', 'true');
+                this.handleTreeLeafSelected(event);
             }
         }
     };
+
+    private handleTreeGroupSelected(event: CustomEvent) {
+        this.expanded = !this.expanded;
+        this.dispatchEvent(new CustomEvent('expanded-change'));
+        this.selected = false; // do not allow tree groups to display as 'selected' the way leaf tree items can
+        event.stopImmediatePropagation();
+    }
+
+    private handleTreeLeafSelected(event: CustomEvent) {
+        const treeView = this.getParentNimbleTreeNode();
+        const currentPinnedSelection = treeView?.querySelector<TreeItem>(`[${this.pinnedSelectedAttribute}]`);
+        if (currentPinnedSelection) {
+            currentPinnedSelection.removeAttribute(this.pinnedSelectedAttribute);
+        }
+
+        const currentGroupSelection = treeView?.querySelector<TreeItem>(`[${this.groupSelectedAttribute}]`);
+        currentGroupSelection?.removeAttribute(this.groupSelectedAttribute);
+        const selectedGroup = this.getTreeItemGroup(event.target as TreeItem);
+        selectedGroup?.setAttribute(this.groupSelectedAttribute, 'true');
+        this.setAttribute(this.pinnedSelectedAttribute, 'true');
+        this.setAttribute('selected', 'true');
+    }
+
+    private getTreeItemGroup(treeItem: TreeItem): HTMLElement | null {
+        let currentParent = treeItem.parentElement as TreeItem;
+        if (currentParent?.parentElement?.getAttribute('role') === 'tree') {
+            return currentParent;
+        } else if (!currentParent) {
+            return null;
+        }
+
+        return this.getTreeItemGroup(currentParent)
+    }
 
     /**
      * This was copied directly from the FAST TreeItem implementation

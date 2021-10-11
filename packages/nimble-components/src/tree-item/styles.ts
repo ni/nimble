@@ -35,7 +35,7 @@ export const styles: (
         }
 
         ${/* this controls the side border */ ''}
-        :host([selected])::after {
+        :host([group-selected])::after {
             background: ${borderColorHover};
             border-radius: 0px;
             content: '';
