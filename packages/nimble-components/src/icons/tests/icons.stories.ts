@@ -16,13 +16,20 @@ import '../admin/index';
 import '../administration/index';
 import { withXD } from 'storybook-addon-xd-designs';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { html, repeat, when } from '@microsoft/fast-element';
+import { html, repeat } from '@microsoft/fast-element';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
 
+enum IconStatus {
+    Fail = 'fail',
+    Warning = 'warning',
+    Pass = 'pass',
+    Regular = 'regular'
+}
+
 interface IconArgs {
-    useComponents: boolean;
+    status: IconStatus;
     label: string;
 }
 
@@ -55,43 +62,67 @@ const styleMarkup = `
 const metadata: Meta<IconArgs> = {
     title: 'Icons',
     decorators: [withXD],
-    // prettier-ignore
-    render: createRenderer(html`
-                ${styleMarkup}
-                ${when(x => !x.useComponents, html`
-                    <div class="container">
-                        ${repeat(() => nimbleIcons, html<NimbleIcon>`
-                            <div class="icon" title="${x => x.name}" :innerHTML="${x => x.data}"></div>
-                        `)}
-                    </div>`)}
-                ${when(x => x.useComponents, html`
-                    <nimble-delete-icon></nimble-delete-icon>
-                    <nimble-check-icon></nimble-check-icon>
-                    <nimble-access-control-icon></nimble-access-control-icon>
-                    <nimble-login-icon></nimble-login-icon>
-                    <nimble-logout-icon></nimble-logout-icon>
-                    <nimble-managed-systems-icon></nimble-managed-systems-icon>
-                    <nimble-test-insights-icon></nimble-test-insights-icon>
-                    <nimble-settings-icon></nimble-settings-icon>
-                    <nimble-utilities-icon></nimble-utilities-icon>
-                    <nimble-admin-icon></nimble-admin-icon>
-                    <nimble-administration-icon></nimble-administration-icon>
-                    <nimble-custom-applications-icon></nimble-custom-applications-icon>
-                    <nimble-measurement-data-analysis-icon><nimble-measurement-data-analysis-icon>
-                `)}
-            `),
     args: {
         label: 'Raw Icons',
-        useComponents: false
+        status: IconStatus.Regular
+    },
+    argTypes: {
+        status: {
+            options: Object.values(IconStatus),
+            control: { type: 'radio' }
+        }
     }
 };
 
 export default metadata;
 
 export const rawIcons: Story<IconArgs> = {
-    args: { label: 'Raw Icons', useComponents: false }
+    args: { label: 'Raw Icons' },
+    render: createRenderer(html`
+        ${styleMarkup}
+        <div class="container">
+            ${repeat(
+        () => nimbleIcons,
+        html<NimbleIcon>`
+                    <div
+                        class="icon"
+                        title="${x => x.name}"
+                        :innerHTML="${x => x.data}"
+                    ></div>
+                `
+    )}
+        </div>
+    `)
 };
 
 export const componentIcons: Story<IconArgs> = {
-    args: { label: 'Component Icons', useComponents: true }
+    args: { label: 'Component Icons', status: IconStatus.Regular },
+    render: createRenderer(html`
+        <nimble-delete-icon class="${x => x.status}"></nimble-delete-icon>
+        <nimble-check-icon class="${x => x.status}"></nimble-check-icon>
+        <nimble-access-control-icon
+            class="${x => x.status}"
+        ></nimble-access-control-icon>
+        <nimble-login-icon class="${x => x.status}"></nimble-login-icon>
+        <nimble-logout-icon class="${x => x.status}"></nimble-logout-icon>
+        <nimble-managed-systems-icon
+            class="${x => x.status}"
+        ></nimble-managed-systems-icon>
+        <nimble-test-insights-icon
+            class="${x => x.status}"
+        ></nimble-test-insights-icon>
+        <nimble-settings-icon class="${x => x.status}"></nimble-settings-icon>
+        <nimble-utilities-icon class="${x => x.status}"></nimble-utilities-icon>
+        <nimble-admin-icon class="${x => x.status}"></nimble-admin-icon>
+        <nimble-administration-icon
+            class="${x => x.status}"
+        ></nimble-administration-icon>
+        <nimble-custom-applications-icon
+            class="${x => x.status}"
+        ></nimble-custom-applications-icon>
+        <nimble-measurement-data-analysis-icon class="${x => x.status}"
+            ><nimble-measurement-data-analysis-icon>
+            </nimble-measurement-data-analysis-icon
+        ></nimble-measurement-data-analysis-icon>
+    `)
 };

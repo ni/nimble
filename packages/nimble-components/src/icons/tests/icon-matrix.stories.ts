@@ -35,7 +35,7 @@ const iconStates = [
 type IconState = typeof iconStates[number];
 
 const component = ([stateName, state]: IconState): ViewTemplate => html`
-    <span>${stateName}</span>
+    <nimble-text-field readonly value="${stateName}"></<nimble-text-field>
     <nimble-check-icon class="${state}"> </nimble-check-icon>
 `;
 
