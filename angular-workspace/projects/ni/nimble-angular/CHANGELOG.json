@@ -2,6 +2,81 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 11 Oct 2021 21:29:26 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.85",
+      "version": "1.0.0-beta.85",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "77b856589ebc0b027c52385dfac781b78e917be9",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.85"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Oct 2021 19:53:26 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.84",
+      "version": "1.0.0-beta.84",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "9595e26e2f50bc3f0bee2ceac4d99d28a64dee11",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.84"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Oct 2021 16:48:30 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.83",
+      "version": "1.0.0-beta.83",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "112311cf845e8dcf869fc844488e6df6c6b05456",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.83"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 08 Oct 2021 22:06:37 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.82",
+      "version": "1.0.0-beta.82",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Removed support for manual value binding of form controls in Angular",
+            "commit": "a81170811d4d5580744a0b2940a8a34c6a49ae22"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 08 Oct 2021 20:59:39 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.81",
+      "version": "1.0.0-beta.81",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "2d0298dc2c9ec956358888cf6e6a487502bda4c0",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.81"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 08 Oct 2021 16:05:18 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.80",
       "version": "1.0.0-beta.80",

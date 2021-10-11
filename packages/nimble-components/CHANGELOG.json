@@ -2,6 +2,72 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 11 Oct 2021 21:29:26 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.75",
+      "version": "1.0.0-beta.75",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "remove unnecessary metas and typo",
+            "commit": "77b856589ebc0b027c52385dfac781b78e917be9"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Oct 2021 19:53:26 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.74",
+      "version": "1.0.0-beta.74",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "add medium-delay token/animation to focus state",
+            "commit": "9595e26e2f50bc3f0bee2ceac4d99d28a64dee11"
+          },
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9595e26e2f50bc3f0bee2ceac4d99d28a64dee11",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.74"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Oct 2021 16:48:30 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.73",
+      "version": "1.0.0-beta.73",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Make tabs inline flex",
+            "commit": "112311cf845e8dcf869fc844488e6df6c6b05456"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 08 Oct 2021 20:59:39 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.72",
+      "version": "1.0.0-beta.72",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "add height to tab-toolbar",
+            "commit": "2d0298dc2c9ec956358888cf6e6a487502bda4c0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Oct 2021 22:14:29 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.71",
       "version": "1.0.0-beta.71",

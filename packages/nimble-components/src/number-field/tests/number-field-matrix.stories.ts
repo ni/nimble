@@ -10,19 +10,15 @@ import {
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
-interface NumberFieldArgs {
-    label: string;
-    value: number;
-}
-
-const metadata: Meta<NumberFieldArgs> = {
+const metadata: Meta = {
     title: 'Tests/Number Field',
     decorators: [withXD],
     parameters: {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf/specs/'
-        }
+        },
+        controls: { hideNoControlsWarning: true }
     }
 };
 
@@ -35,11 +31,11 @@ type ValueState = typeof valueStates[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,
-    [valueName, valueValue, placehoderValue]: ValueState
+    [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-number-field
         value="${() => valueValue}"
-        placeholder="${() => placehoderValue}"
+        placeholder="${() => placeholderValue}"
         ?disabled="${() => disabled}"
     >
         ${() => valueName} ${() => disabledName}

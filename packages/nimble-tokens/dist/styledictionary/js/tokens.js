@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 14 Sep 2021 16:28:36 GMT
+ * Generated on Fri, 08 Oct 2021 15:20:23 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -50,3 +50,4 @@ export const Header0Size = "36px";
 export const SubHeaderSize = "12px";
 export const Header1Size = "24px";
 export const SmallDelay = "0.1s"; // Short animation delay used for control state change animation
+export const MediumDelay = "0.15s"; // Medium animation delay for control state change animation

@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 07 Oct 2021 22:14:29 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Oct 2021 21:29:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.75
+
+Mon, 11 Oct 2021 21:29:26 GMT
+
+### Changes
+
+- remove unnecessary metas and typo (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.74
+
+Mon, 11 Oct 2021 19:53:26 GMT
+
+### Changes
+
+- add medium-delay token/animation to focus state (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.74 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.73
+
+Mon, 11 Oct 2021 16:48:30 GMT
+
+### Changes
+
+- Make tabs inline flex (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.72
+
+Fri, 08 Oct 2021 20:59:39 GMT
+
+### Changes
+
+- add height to tab-toolbar (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.71
 
