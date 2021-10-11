@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "add medium-delay token/animation to focus state",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
