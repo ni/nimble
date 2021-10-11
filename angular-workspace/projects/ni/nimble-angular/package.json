@@ -24,12 +24,7 @@
     "tslib": "^2.2.0"
   },
   "files": [
-    "bundles/**",
-    "components/**",
-    "esm2015/**",
-    "fesm2015/**",
-    "*.d.ts",
-    "*.js"
+    "dist/**"
   ],
   "devDependencies": {
     "eslint-plugin-jsdoc": "^36.1.0"
