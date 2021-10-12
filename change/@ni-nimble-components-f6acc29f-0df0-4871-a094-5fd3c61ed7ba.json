@@ -3,5 +3,5 @@
   "comment": "Added styling to allow icons in the start slot of the nimble-menu.",
   "packageName": "@ni/nimble-components",
   "email": "35616474+michaeldbrandt@users.noreply.github.com",
-  "dependentChangeType": "pre-release"
+  "dependentChangeType": "prerelease"
 }
