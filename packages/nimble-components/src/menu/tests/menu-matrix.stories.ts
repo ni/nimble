@@ -1,4 +1,5 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { admin16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
@@ -28,7 +29,7 @@ const component = (): ViewTemplate => html`
         <nimble-menu-item>Item 1</nimble-menu-item>
         <hr>
         <nimble-menu-item disabled>Item 2</nimble-menu-item>
-        <nimble-menu-item>Item 3</nimble-menu-item>
+        <nimble-menu-item><svg slot="start">${admin16X16.data}</svg>Item 3</nimble-menu-item>
     </nimble-menu>
 `;
 
