@@ -1,10 +1,7 @@
 {
   "type": "prerelease",
-  "comment": {
-    "title": "",
-    "value": ""
-  },
+  "comment": "Fixed nimble-angular to include build output in package",
   "packageName": "@ni/nimble-angular",
   "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
+  "dependentChangeType": "patch"
 }
