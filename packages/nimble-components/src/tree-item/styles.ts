@@ -3,7 +3,6 @@ import { css, ElementStyles } from '@microsoft/fast-element';
 import {
     display,
     ElementDefinitionContext,
-    TreeItem,
     TreeItemOptions
 } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
