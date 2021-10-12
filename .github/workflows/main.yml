@@ -30,13 +30,9 @@ jobs:
       - run: npm install --global npm@7
       - run: npm ci
 
-
       # Build
       - run: npm run build
 
-      # Lint
-      - run: npm run lint
-      
       # Pack
       - run: npm run pack
       - uses: actions/upload-artifact@v2
@@ -46,6 +42,9 @@ jobs:
             packages/**/*.tgz
             angular-workspace/**/*.tgz
           if-no-files-found: error
+
+      # Lint
+      - run: npm run lint
 
       # Test
       - run: npm run test
