@@ -30,6 +30,9 @@ jobs:
       - run: npm install --global npm@7
       - run: npm ci
 
+      # Lint
+      - run: npm run lint
+
       # Build
       - run: npm run build
       - run: npm run pack
@@ -40,9 +43,6 @@ jobs:
             packages/**/*.tgz
             angular-workspace/**/*.tgz
           if-no-files-found: error
-
-      # Lint
-      - run: npm run lint
 
       # Test
       - run: npm run test
