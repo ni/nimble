@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 12 Oct 2021 23:01:07 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.87",
+      "version": "1.0.0-beta.87",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Fixed nimble-angular to include build output in package",
+            "commit": "4010f167415c7bbf258f8b48a70abcc9f5c1ac1c"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 Oct 2021 23:26:07 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.86",
       "version": "1.0.0-beta.86",
