@@ -1,7 +1,7 @@
 import {
     DesignSystem,
     MenuItem as FoundationMenuItem,
-    menuItemTemplate as foundationMenuItemTemplate,
+    menuItemTemplate as template,
     MenuItemOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
@@ -22,7 +22,7 @@ export { FoundationMenuItem as MenuItem };
  */
 export const nimbleMenuItem = FoundationMenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
-    template: foundationMenuItemTemplate,
+    template,
     styles
 });
 
