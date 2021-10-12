@@ -9,9 +9,7 @@ import { styles } from './styles';
 /**
  * A nimble-styled menu-item
  */
-export class MenuItem extends FoundationMenuItem {
-    public icon: HTMLSlotElement;
-}
+export { FoundationMenuItem as MenuItem }
 
 /**
  * A function that returns a nimble-menu-item registration for configuring the component with a DesignSystem.
@@ -22,7 +20,7 @@ export class MenuItem extends FoundationMenuItem {
  * Generates HTML Element: \<nimble-menu-item\>
  *
  */
-export const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
+export const nimbleMenuItem = FoundationMenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
     template: foundationMenuItemTemplate,
     styles
