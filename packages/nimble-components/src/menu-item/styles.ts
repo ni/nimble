@@ -55,19 +55,28 @@ export const styles = css`
     :host([disabled]:hover) {
         background: transparent;
     }
-    :host(.indent-1) {
+    :host(.nimble-indent) {
         grid-template-columns: ${iconSize} 1fr;
         column-gap: 8px;
     }
-    :host(.indent-1) .content {
+    :host(.nimble-indent) .content {
         grid-column: 2;
     }
-    [part='start'] {
+    [part='icon'] {
         display: contents;
     }
-    slot[name='start']::slotted(*) {
+    slot[name='icon']::slotted(*) {
         fill: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
+    }
+    :host(.nimble-indent) .icon {
+        grid-column: 1;
+    }
+    [part='start'] {
+        display: none;
+    }
+    [part='end'] {
+        display: none;
     }
 `;
