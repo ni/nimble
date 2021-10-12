@@ -11,7 +11,7 @@ import type { MenuItem } from './index';
  *
  * @public
  */
-export const menuItemTemplate: (
+export const nimbleMenuItemTemplate: (
     context: ElementDefinitionContext,
     definition: MenuItemOptions
 ) => ViewTemplate<MenuItem> = (
@@ -50,6 +50,9 @@ export const menuItemTemplate: (
                 `)}
         </div>
         ${startSlotTemplate(context, definition)}
+        <span class="icon" part="icon">
+            <slot name="icon" ${ref('icon')}></slot>
+        </span>
         <span class="content" part="content">
             <slot></slot>
         </span>
