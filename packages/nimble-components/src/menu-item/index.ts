@@ -9,7 +9,7 @@ import { styles } from './styles';
 /**
  * A nimble-styled menu-item
  */
-export { FoundationMenuItem as MenuItem }
+export { FoundationMenuItem as MenuItem };
 
 /**
  * A function that returns a nimble-menu-item registration for configuring the component with a DesignSystem.
