@@ -22,8 +22,6 @@ describe('Drawer', () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
         await DOM.nextUpdate();
-        // eslint-disable-next-line no-console,@typescript-eslint/unbound-method
-        console.log(element.tagName, element.outerHTML, element.show);
     });
 
     afterEach(async () => {
