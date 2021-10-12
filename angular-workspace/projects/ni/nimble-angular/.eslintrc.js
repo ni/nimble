@@ -2,6 +2,7 @@ module.exports = {
     extends: '../../../.eslintrc.js',
     ignorePatterns: [
         '!**/*',
+        // Files temporarily copied to project directory during pack
         'bundles/**',
         'directives/**',
         'esm2015/**',
