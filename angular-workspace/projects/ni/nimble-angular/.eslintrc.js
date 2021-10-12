@@ -1,7 +1,13 @@
 module.exports = {
     extends: '../../../.eslintrc.js',
     ignorePatterns: [
-        '!**/*'
+        '!**/*',
+        'bundles/**',
+        'directives/**',
+        'esm2015/**',
+        'fesm2015/**',
+        'ni-nimble-angular.d.ts',
+        'public-api.d.ts'
     ],
     plugins: ['jsdoc'],
     overrides: [
