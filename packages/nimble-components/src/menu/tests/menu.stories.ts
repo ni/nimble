@@ -30,7 +30,7 @@ const metadata: Meta = {
     render: ({ options }: MenuArgs): string => `
         <nimble-menu>${options.map(option => `
             <nimble-menu-item ${option.disabled ? 'disabled' : ''}>
-            ${option.icon ? `<svg slot="icon">${admin16X16.data}</svg>` : ''}
+            ${option.icon ? `<svg slot="start">${admin16X16.data}</svg>` : ''}
             ${option.text}</nimble-menu-item>`).join('')}
         </nimble-menu>
 `,
