@@ -29,7 +29,7 @@ const component = (): ViewTemplate => html`
         <nimble-menu-item>Item 1</nimble-menu-item>
         <hr>
         <nimble-menu-item disabled>Item 2</nimble-menu-item>
-        <nimble-menu-item><svg slot="start">${admin16X16.data}</svg>Item 3</nimble-menu-item>
+        <nimble-menu-item><div slot="start">${admin16X16.data}</div>Item 3</nimble-menu-item>
     </nimble-menu>
 `;
 
