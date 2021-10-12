@@ -3,6 +3,14 @@ var cpFile = require('cp-file');
 var path = require('path');
 var fs = require('fs');
 
+/**
+ * We want to publish out of the project directory, not the build output (dist) directory. Angular
+ * seems to encourage publishing out of the dist directory, by copying the package.json and README
+ * to that directory. But the Beachball tooling doesn't publish packages that aren't tracked by git
+ * (which the dist directory is not). So instead, we copy the build output to the project directory
+ * before packing so that it can be included.
+ */
+
 var sourceDir = path.resolve('../../../dist/ni/nimble-angular');
 var sources = [
   'bundles/**',
@@ -12,7 +20,6 @@ var sources = [
   'ni-nimble-angular.d.ts',
   'public-api.d.ts'
 ];
-
 var destinationDir = process.cwd();
 
 for (var i = 0; i < sources.length; i++) {
