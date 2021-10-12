@@ -3,6 +3,8 @@ import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../menu-item/index';
 import { admin16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { html, repeat, when } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 interface MenuArgs {
     options: ItemArgs[];
@@ -27,13 +29,16 @@ const metadata: Meta = {
         }
     },
     // prettier-ignore
-    render: ({ options }: MenuArgs): string => `
-        <nimble-menu>${options.map(option => `
-            <nimble-menu-item ${option.disabled ? 'disabled' : ''}>
-            ${option.icon ? `<svg slot="start">${admin16X16.data}</svg>` : ''}
-            ${option.text}</nimble-menu-item>`).join('')}
+    render: createRenderer<MenuArgs>(html`
+        <nimble-menu>
+            ${repeat(x => x.options, html<ItemArgs>`
+                <nimble-menu-item ?disabled="${x => x.disabled}">
+                    ${when(x => x.icon, html`<div slot="start">${admin16X16.data}</div>`)}
+                    ${x => x.text}
+                </nimble-menu-item>
+            `)}
         </nimble-menu>
-`,
+        `),
     args: {
         options: [
             {
