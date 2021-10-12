@@ -96,9 +96,7 @@ export class Drawer extends FoundationDialog {
     private animateDialog(keyframes: PropertyIndexedKeyframes, options: KeyframeAnimationOptions, onFinished: () => void): void {
         this.cancelCurrentAnimation();
         const animation = this.dialog.animate(keyframes, options);
-        animation.addEventListener('finish', () => {
-            onFinished();
-        });
+        animation.addEventListener('finish', onFinished);
     }
 
     private cancelCurrentAnimation(): void {
