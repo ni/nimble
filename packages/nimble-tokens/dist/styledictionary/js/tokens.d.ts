@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 14 Sep 2021 16:28:36 GMT
+ * Generated on Fri, 08 Oct 2021 15:20:23 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -50,3 +50,4 @@ export const Header0Size : string;
 export const SubHeaderSize : string;
 export const Header1Size : string;
 export const SmallDelay : string; // Short animation delay used for control state change animation
+export const MediumDelay : string; // Medium animation delay for control state change animation
