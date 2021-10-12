@@ -1,21 +1,16 @@
 import {
     DesignSystem,
     MenuItem as FoundationMenuItem,
-    menuItemTemplate as template,
     MenuItemOptions
 } from '@microsoft/fast-foundation';
-import { html } from '@microsoft/fast-element';
-
 import { styles } from './styles';
+import { nimbleMenuItemTemplate } from './template';
 
 /**
  * A nimble-styled menu-item
  */
-
 export class MenuItem extends FoundationMenuItem {
-    public hasIcon(): boolean | undefined {
-        return this.querySelector('[slot=icon]') != null;
-    }
+    public icon: HTMLSlotElement;
 }
 
 /**
@@ -29,8 +24,7 @@ export class MenuItem extends FoundationMenuItem {
  */
 export const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
-    template,
-    start: html<MenuItem>`<span part="icon"><slot name="icon"></slot><span>`,
+    template: nimbleMenuItemTemplate,
     styles
 });
 
