@@ -1,26 +1,14 @@
 import type { Story, Meta } from '@storybook/html';
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import '../index';
-import '../delete/index';
-import '../check/index';
-import '../custom-applications/index';
-import '../login/index';
-import '../logout/index';
-import '../managed-systems/index';
-import '../measurement-data-analysis/index';
-import '../settings/index';
-import '../test-insights/index';
-import '../utilities/index';
-import '../access-control/index';
-import '../admin/index';
-import '../administration/index';
 import { withXD } from 'storybook-addon-xd-designs';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { html, repeat } from '@microsoft/fast-element';
+import * as nimbleIconComponentsMap from '../../icons/all-icons';
 import { IconStatus } from './types';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
+const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
 
 interface IconArgs {
     status: IconStatus;
@@ -88,20 +76,13 @@ export const componentIcons: Story<IconArgs> = {
             control: { type: 'radio' }
         }
     },
-    // prettier-ignore
     render: createRenderer(html`
-        <nimble-delete-icon class="${x => x.status}"></nimble-delete-icon>
-        <nimble-check-icon class="${x => x.status}"></nimble-check-icon>
-        <nimble-access-control-icon class="${x => x.status}"></nimble-access-control-icon>
-        <nimble-login-icon class="${x => x.status}"></nimble-login-icon>
-        <nimble-logout-icon class="${x => x.status}"></nimble-logout-icon>
-        <nimble-managed-systems-icon class="${x => x.status}"></nimble-managed-systems-icon>
-        <nimble-test-insights-icon class="${x => x.status}"></nimble-test-insights-icon>
-        <nimble-settings-icon class="${x => x.status}"></nimble-settings-icon>
-        <nimble-utilities-icon class="${x => x.status}"></nimble-utilities-icon>
-        <nimble-admin-icon class="${x => x.status}"></nimble-admin-icon>
-        <nimble-administration-icon class="${x => x.status}"></nimble-administration-icon>
-        <nimble-custom-applications-icon class="${x => x.status}"></nimble-custom-applications-icon>
-        <nimble-measurement-data-analysis-icon class="${x => x.status}"></nimble-measurement-data-analysis-icon>
+        <div
+            :innerHTML=${x => nimbleIconComponents
+        .map(
+            element => `<${element.iconName} class=${x.status}></${element.iconName}>`
+        )
+        .join('')}
+        ></div>
     `)
 };

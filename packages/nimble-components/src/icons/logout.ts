@@ -1,9 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { logout16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { Icon, template } from '..';
-import { styles } from '../styles';
+import { Icon } from '../icon-base';
+import { template } from '../icon-base/template';
+import { styles } from '../icon-base/styles';
 
 export type { LogoutIcon };
+export const baseName = 'logout-icon';
 
 /**
  * The icon component for the 'logout' icon
@@ -23,12 +25,9 @@ class LogoutIcon extends Icon {
  *
  */
 const nimbleLogoutIcon = LogoutIcon.compose({
-    baseName: 'logout-icon',
+    baseName,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleLogoutIcon());

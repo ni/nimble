@@ -1,9 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { customApplications16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { Icon, template } from '..';
-import { styles } from '../styles';
+import { Icon } from '../icon-base';
+import { template } from '../icon-base/template';
+import { styles } from '../icon-base/styles';
 
 export type { CustomApplicationsIcon };
+export const baseName = 'custom-applications-icon';
 
 /**
  * The icon component for the 'custom-applications' icon
@@ -23,12 +25,9 @@ class CustomApplicationsIcon extends Icon {
  *
  */
 const nimbleCustomApplicationsIcon = CustomApplicationsIcon.compose({
-    baseName: 'custom-applications-icon',
+    baseName,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate()

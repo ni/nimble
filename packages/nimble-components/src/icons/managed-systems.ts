@@ -1,9 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { managedSystems16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { Icon, template } from '..';
-import { styles } from '../styles';
+import { Icon } from '../icon-base';
+import { template } from '../icon-base/template';
+import { styles } from '../icon-base/styles';
 
 export type { ManagedSystemsIcon };
+export const baseName = 'managed-systems-icon';
 
 /**
  * The icon component for the 'managed-systems' icon
@@ -23,12 +25,9 @@ class ManagedSystemsIcon extends Icon {
  *
  */
 const nimbleManagedSystemsIcon = ManagedSystemsIcon.compose({
-    baseName: 'managed-systems-icon',
+    baseName,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate()

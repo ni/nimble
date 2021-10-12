@@ -1,9 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { administration16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { Icon, template } from '..';
-import { styles } from '../styles';
+import { Icon } from '../icon-base';
+import { template } from '../icon-base/template';
+import { styles } from '../icon-base/styles';
 
 export type { AdministrationIcon };
+export const baseName = 'administration-icon';
 
 /**
  * The icon component for the 'administration' icon
@@ -23,12 +25,9 @@ class AdministrationIcon extends Icon {
  *
  */
 const nimbleAdministrationIcon = AdministrationIcon.compose({
-    baseName: 'administration-icon',
+    baseName,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate()

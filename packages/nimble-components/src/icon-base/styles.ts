@@ -36,5 +36,7 @@ export const styles = css`
 
     .icon svg {
         fill: var(--icon-color);
+        width: 100%;
+        height: 100%;
     }
 `;

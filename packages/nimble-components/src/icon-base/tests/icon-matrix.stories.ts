@@ -6,7 +6,7 @@ import {
     themeWrapper
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
-import '../check/index';
+import '../../icons/check';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import { IconStatus } from './types';
 

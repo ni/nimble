@@ -1,9 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { measurementDataAnalysis16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { Icon, template } from '..';
-import { styles } from '../styles';
+import { Icon } from '../icon-base';
+import { template } from '../icon-base/template';
+import { styles } from '../icon-base/styles';
 
 export type { MeasurementDataAnalysisIcon };
+export const baseName = 'measurement-data-analysis-icon';
 
 /**
  * The icon component for the 'measurement-data-analysis' icon
@@ -23,12 +25,9 @@ class MeasurementDataAnalysisIcon extends Icon {
  *
  */
 const nimbleMeasurementDataAnalysisIcon = MeasurementDataAnalysisIcon.compose({
-    baseName: 'measurement-data-analysis-icon',
+    baseName,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate()

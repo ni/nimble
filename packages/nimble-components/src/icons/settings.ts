@@ -1,9 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { settings16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { Icon, template } from '..';
-import { styles } from '../styles';
+import { Icon } from '../icon-base';
+import { template } from '../icon-base/template';
+import { styles } from '../icon-base/styles';
 
 export type { SettingsIcon };
+export const baseName = 'settings-icon';
 
 /**
  * The icon component for the 'settings' icon
@@ -23,12 +25,9 @@ class SettingsIcon extends Icon {
  *
  */
 const nimbleSettingsIcon = SettingsIcon.compose({
-    baseName: 'settings-icon',
+    baseName,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSettingsIcon());

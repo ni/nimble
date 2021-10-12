@@ -1,9 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { testInsights16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { Icon, template } from '..';
-import { styles } from '../styles';
+import { Icon } from '../icon-base';
+import { template } from '../icon-base/template';
+import { styles } from '../icon-base/styles';
 
 export type { TestInsightsIcon };
+export const baseName = 'test-insights-icon';
 
 /**
  * The icon component for the 'test-insights' icon
@@ -23,12 +25,9 @@ class TestInsightsIcon extends Icon {
  *
  */
 const nimbleTestInsightsIcon = TestInsightsIcon.compose({
-    baseName: 'test-insights-icon',
+    baseName,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate()

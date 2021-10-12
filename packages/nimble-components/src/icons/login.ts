@@ -1,9 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { login16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { Icon, template } from '..';
-import { styles } from '../styles';
+import { Icon } from '../icon-base';
+import { template } from '../icon-base/template';
+import { styles } from '../icon-base/styles';
 
 export type { LoginIcon };
+export const baseName = 'login-icon';
 
 /**
  * The icon component for the 'login' icon
@@ -23,12 +25,9 @@ class LoginIcon extends Icon {
  *
  */
 const nimbleLoginIcon = LoginIcon.compose({
-    baseName: 'login-icon',
+    baseName,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleLoginIcon());

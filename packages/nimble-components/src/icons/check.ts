@@ -1,9 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { controlsCheckboxCheck16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { Icon, template } from '..';
-import { styles } from '../styles';
+import { Icon } from '../icon-base';
+import { template } from '../icon-base/template';
+import { styles } from '../icon-base/styles';
 
 export type { CheckIcon };
+export const baseName = 'check-icon';
 
 /**
  *  The icon component for the 'check' icon
@@ -23,12 +25,9 @@ class CheckIcon extends Icon {
  *
  */
 const nimbleCheckIcon = CheckIcon.compose({
-    baseName: 'check-icon',
+    baseName,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCheckIcon());
