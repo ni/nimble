@@ -16,7 +16,7 @@ interface ItemArgs {
     icon: boolean;
 }
 
-const metadata: Meta = {
+const metadata: Meta<MenuArgs> = {
     title: 'Menu',
     decorators: [withXD],
     parameters: {
