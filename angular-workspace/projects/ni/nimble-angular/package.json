@@ -35,10 +35,9 @@
     "public-api.d.ts"
   ],
   "devDependencies": {
+    "cp-file": "^9.1.0",
     "eslint-plugin-jsdoc": "^36.1.0",
-    "copyfiles": "^2.4.1",
-    "glob": "^7.2.0",
-    "cp-file": "^9.1.0"
+    "glob": "^7.2.0"
   },
   "main": "bundles/ni-nimble-angular.umd.js",
   "module": "fesm2015/ni-nimble-angular.js",
