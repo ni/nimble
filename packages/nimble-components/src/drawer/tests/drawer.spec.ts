@@ -28,7 +28,11 @@ describe('Drawer', () => {
     });
 
     async function waitForDrawerAnimationsCompleted(): Promise<void> {
-        await Promise.all(element.dialog.getAnimations().map(async animation => animation.finished));
+        await Promise.all(
+            element.dialog
+                .getAnimations()
+                .map(async animation => animation.finished)
+        );
         await DOM.nextUpdate();
     }
 

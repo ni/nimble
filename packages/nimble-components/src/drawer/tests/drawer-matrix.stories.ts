@@ -25,7 +25,10 @@ const component = (): ViewTemplate => html`
     <nimble-drawer location="right" modal>
         <p>Example Content</p>
     </nimble-drawer>
-    <nimble-button onclick="event.target.previousElementSibling.state = 'opening';">Show Drawer</nimble-button>
+    <nimble-button
+        onclick="event.target.previousElementSibling.state = 'opening';"
+        >Show Drawer</nimble-button
+    >
 `;
 
 export const drawerThemeMatrix: Story = createRenderer(

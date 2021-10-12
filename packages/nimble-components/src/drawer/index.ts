@@ -1,6 +1,14 @@
 import { attr } from '@microsoft/fast-element';
-import { DesignSystem, Dialog as FoundationDialog, dialogTemplate as template } from '@microsoft/fast-foundation';
-import { slideAnimationKeyframes, slideAnimationOptions, slideAnimationId } from './animations';
+import {
+    DesignSystem,
+    Dialog as FoundationDialog,
+    dialogTemplate as template
+} from '@microsoft/fast-foundation';
+import {
+    slideAnimationKeyframes,
+    slideAnimationOptions,
+    slideAnimationId
+} from './animations';
 import { styles } from './styles';
 import { DrawerLocation, DrawerState } from './types';
 
@@ -70,13 +78,17 @@ export class Drawer extends FoundationDialog {
                     this.hidden = true;
                     break;
                 default:
-                    throw new Error('Unsupported state value. Expected: opening/opened/closing/closed');
+                    throw new Error(
+                        'Unsupported state value. Expected: opening/opened/closing/closed'
+                    );
             }
         }
     }
 
     private animateOpening(): void {
-        const keyframes = this.location === DrawerLocation.Right ? slideAnimationKeyframes.rightSide : slideAnimationKeyframes.leftSide;
+        const keyframes = this.location === DrawerLocation.Right
+            ? slideAnimationKeyframes.rightSide
+            : slideAnimationKeyframes.leftSide;
         this.animateDialog(keyframes, slideAnimationOptions.slideIn, () => {
             this.state = DrawerState.Opened;
         });
@@ -84,16 +96,26 @@ export class Drawer extends FoundationDialog {
 
     private animateClosing(): void {
         if (!this.hidden) {
-            const keyframes = this.location === DrawerLocation.Right ? slideAnimationKeyframes.rightSide : slideAnimationKeyframes.leftSide;
-            this.animateDialog(keyframes, slideAnimationOptions.slideOut, () => {
-                this.state = DrawerState.Closed;
-            });
+            const keyframes = this.location === DrawerLocation.Right
+                ? slideAnimationKeyframes.rightSide
+                : slideAnimationKeyframes.leftSide;
+            this.animateDialog(
+                keyframes,
+                slideAnimationOptions.slideOut,
+                () => {
+                    this.state = DrawerState.Closed;
+                }
+            );
         } else {
             this.state = DrawerState.Closed;
         }
     }
 
-    private animateDialog(keyframes: PropertyIndexedKeyframes, options: KeyframeAnimationOptions, onFinished: () => void): void {
+    private animateDialog(
+        keyframes: PropertyIndexedKeyframes,
+        options: KeyframeAnimationOptions,
+        onFinished: () => void
+    ): void {
         this.cancelCurrentAnimation();
         const animation = this.dialog.animate(keyframes, options);
         animation.addEventListener('finish', onFinished);

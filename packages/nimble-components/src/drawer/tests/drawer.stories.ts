@@ -44,7 +44,12 @@ const metadata: Meta<DrawerArgs> = {
             control: { type: 'select' }
         },
         state: {
-            options: [DrawerState.Opening, DrawerState.Opened, DrawerState.Closing, DrawerState.Closed],
+            options: [
+                DrawerState.Opening,
+                DrawerState.Opened,
+                DrawerState.Closing,
+                DrawerState.Closed
+            ],
             control: { type: 'select' }
         }
     },
@@ -52,7 +57,7 @@ const metadata: Meta<DrawerArgs> = {
         location: DrawerLocation.Left,
         state: DrawerState.Opened,
         modal: true,
-        content: '<div><p>Example Content</p></div>',
+        content: '<div><p>Example Content</p></div>'
     }
 };
 
@@ -60,18 +65,24 @@ const drawerHeaderFooterContent = html`
     <div class="header" style="margin-left: 20px; margin-top: 20px;">
         <h3>Header</h3>
     </div>
-    <div class="content" style="flex: 1 1; margin-left: 20px; margin-top: 20px; overflow-y: auto;">
+    <div
+        class="content"
+        style="flex: 1 1; margin-left: 20px; margin-top: 20px; overflow-y: auto;"
+    >
         <p>Drawer Example with Header and Footer</p>
         <p>3 divs (header/content/footer)</p>
         <p>Content has "flex: 1 1;" style</p>
         <div style="height: 1000px;">
-        (Large-height content to ensure content scrollbar appears)
+            (Large-height content to ensure content scrollbar appears)
         </div>
     </div>
-    <div class="footer" style="position: relative; height: 70px; border-top: 2px solid #e7e7e7; ">
+    <div
+        class="footer"
+        style="position: relative; height: 70px; border-top: 2px solid #e7e7e7; "
+    >
         <div style="position: absolute; right: 20px; top: 20px;">
-            <nimble-button appearance='ghost'>Cancel</nimble-button>
-            <nimble-button appearance='outline'>OK</nimble-button>
+            <nimble-button appearance="ghost">Cancel</nimble-button>
+            <nimble-button appearance="outline">OK</nimble-button>
         </div>
     </div>
 `;

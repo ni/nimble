@@ -1,6 +1,14 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { applicationBackgroundColor, borderWidth, contentFontSize, fontFamily, labelFontColor, popupBorderColor, popupBoxShadowColor } from '../theme-provider/design-tokens';
+import {
+    applicationBackgroundColor,
+    borderWidth,
+    contentFontSize,
+    fontFamily,
+    labelFontColor,
+    popupBorderColor,
+    popupBoxShadowColor
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('block')} :host {
@@ -25,11 +33,11 @@ export const styles = css`
         bottom: auto;
     }
 
-    :host([location="left"]) {
+    :host([location='left']) {
         left: 0px;
     }
 
-    :host([location="right"]) {
+    :host([location='right']) {
         right: 0px;
     }
 
@@ -53,12 +61,12 @@ export const styles = css`
         display: flex;
         inset: 0px;
     }
-    
-    :host([modal][location="left"]) .positioning-region {
+
+    :host([modal][location='left']) .positioning-region {
         border-right: none;
     }
 
-    :host([modal][location="right"]) .positioning-region {
+    :host([modal][location='right']) .positioning-region {
         border-left: none;
     }
 
@@ -97,12 +105,12 @@ export const styles = css`
         visibility: hidden;
     }
 
-    :host([location="left"]) .control {
+    :host([location='left']) .control {
         left: 0px;
         border-right: ${borderWidth} solid ${popupBoxShadowColor};
     }
 
-    :host([location="right"]) .control {
+    :host([location='right']) .control {
         right: 0px;
         border-left: ${borderWidth} solid ${popupBoxShadowColor};
     }

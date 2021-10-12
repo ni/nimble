@@ -3,5 +3,5 @@
   "comment": "Sidenav/Drawer component",
   "packageName": "@ni/nimble-components",
   "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }

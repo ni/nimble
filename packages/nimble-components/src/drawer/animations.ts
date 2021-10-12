@@ -1,6 +1,8 @@
 export const slideAnimationId = 'DrawerSlideAnimation';
 
-export const slideAnimationKeyframes: { [name: string]: PropertyIndexedKeyframes } = {
+export const slideAnimationKeyframes: {
+    [name: string]: PropertyIndexedKeyframes
+} = {
     leftSide: {
         transform: ['translateX(-100%)', 'translateX(-100%)', 'translateX(0%)'],
         visibility: ['hidden', 'visible', 'visible'],
@@ -13,7 +15,9 @@ export const slideAnimationKeyframes: { [name: string]: PropertyIndexedKeyframes
     }
 };
 
-export const slideAnimationOptions: { [name: string]: KeyframeAnimationOptions } = {
+export const slideAnimationOptions: {
+    [name: string]: KeyframeAnimationOptions
+} = {
     slideIn: {
         duration: 250,
         easing: 'ease-out',
