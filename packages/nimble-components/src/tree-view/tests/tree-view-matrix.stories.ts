@@ -38,13 +38,13 @@ const component = (
     <nimble-tree-view>
         <nimble-tree-item
             ?expanded="${() => expanded}"
-            ?disabled="${() => disabled}"
-            ?selected="${() => selected}"
+            ?disabled="${() => disabled}"            
         >
             <span slot="start">${jobs16X16.data}</span>
             ${() => expandedName} ${() => disabledName} ${() => selectedName}
 
-            <nimble-tree-item ?disabled="${() => disabled}">
+            <nimble-tree-item ?disabled="${() => disabled}" ?selected="${() => selected}">
+                <span slot="start">${jobs16X16.data}</span>
                 Nested Item 1
             </nimble-tree-item>
             <nimble-tree-item ?disabled="${() => disabled}">

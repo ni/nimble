@@ -10,7 +10,7 @@ class Model {
     public root1: TreeItem;
     public root2: TreeItem;
     public leaf1: TreeItem;
-    public leaf2: TreeItem;
+    public leaf2: TreeItem; // starts off selected
     public leaf3: TreeItem;
     public leafWithIcon: TreeItem;
     public subRoot1: TreeItem;
@@ -26,7 +26,7 @@ async function setup(source: Model): Promise<Fixture<TreeView>> {
                 <nimble-tree-item ${ref('subRoot1')}>SubRoot
                     <nimble-tree-item ${ref('leaf1')}>Leaf 1</nimble-tree-item>
                 </nimble-tree-item>
-                <nimble-tree-item ${ref('leaf2')}>Leaf 2</nimble-tree-item>
+                <nimble-tree-item ${ref('leaf2')} selected>Leaf 2</nimble-tree-item>
                 <nimble-tree-item ${ref('leafWithIcon')}><svg slot="start">${notebook16X16.data}</svg>Leaf 1</nimble-tree-item>
             </nimble-tree-item>
             <nimble-tree-item ${ref('root2')}>Root2
@@ -56,6 +56,11 @@ describe('TreeView', () => {
         await disconnect();
     });
 
+    it('root1 should have "group-selected" attribute set after initialization', async () => {
+        expect(model.root1.hasAttribute('group-selected')).toBe(true);
+        expect(model.root2.hasAttribute('group-selected')).toBe(false);
+    });
+
     it('root1 should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
         const expandedChange = jasmine.createSpy();
         model.root1.addEventListener('expanded-change', expandedChange);
@@ -73,17 +78,17 @@ describe('TreeView', () => {
 
     it('leaf should stay selected after parent is expanded\\collapsed', async () => {
         await clickElement(model.root1); // expand root1
-        await clickElement(model.leaf2); // select leaf
-        expect(model.leaf2.hasAttribute('selected')).toBe(true);
+        await clickElement(model.leaf1); // select leaf
+        expect(model.leaf1.hasAttribute('selected')).toBe(true);
 
         await clickElement(model.root1); // collapse root1
-        expect(model.leaf2.hasAttribute('selected')).toBe(true);
+        expect(model.leaf1.hasAttribute('selected')).toBe(true);
     });
 
     it('when group is clicked, the TreeView currentSelected state does not change', async () => {
-        await clickElement(model.leaf2); // select leaf
+        await clickElement(model.leaf1); // select leaf
         await clickElement(model.root1); // collapse root1
-        expect(element.currentSelected).toBe(model.leaf2);
+        expect(element.currentSelected).toBe(model.leaf1);
     });
 
     it('when leaf item is selected, only root parent tree item has "group-selected" attribute', async () => {

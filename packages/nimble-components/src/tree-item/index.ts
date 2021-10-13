@@ -24,10 +24,8 @@ export class TreeItem extends FoundationTreeItem {
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('selected-change', this.handleItemSelected);
-
-        // Correct invalid initial selection if present
-        if (this.hasChildren()) {
-            this.selected = false;
+        if (this.selected) {
+            this.setGroupSelectionOnRootParentTreeItem(this);
         }
     }
 
@@ -70,16 +68,15 @@ export class TreeItem extends FoundationTreeItem {
     }
 
     private clearTreeItemSelection(treeView: TreeView): void {
-        const currentPinnedSelection = treeView?.querySelector<TreeItem>(
+        const currentPinnedSelection = treeView?.querySelectorAll<TreeItem>(
             `[${pinnedSelectedAttribute}]`
         );
-        if (currentPinnedSelection) {
-            currentPinnedSelection.removeAttribute(pinnedSelectedAttribute);
-        }
+        currentPinnedSelection?.forEach(treeItem => treeItem.removeAttribute(pinnedSelectedAttribute));
 
-        const currentSelection = treeView?.querySelector<TreeItem>(`[selected]`);
-        if (currentSelection) {
-            currentSelection.removeAttribute('selected');
+        const currentSelection = treeView?.querySelectorAll<TreeItem>(`[selected]`);
+        currentSelection.forEach(treeItem => treeItem.removeAttribute('selected'));
+        if (currentSelection.length > 1) {
+            console.info("NOTICE: The TreeView had an invalid selection state. The current state should now be valid.")
         }
     }
 
