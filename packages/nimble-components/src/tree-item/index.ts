@@ -20,7 +20,6 @@ import { pinnedSelectedAttribute, groupSelectedAttribute } from './types';
  *
  */
 export class TreeItem extends FoundationTreeItem {
-
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('selected-change', this.handleItemSelected);
@@ -64,19 +63,22 @@ export class TreeItem extends FoundationTreeItem {
         const currentGroupSelection = treeView?.querySelectorAll<TreeItem>(
             `[${groupSelectedAttribute}]`
         );
-        currentGroupSelection?.forEach(treeItem => treeItem.removeAttribute(groupSelectedAttribute));
+        currentGroupSelection.forEach(treeItem => treeItem.removeAttribute(groupSelectedAttribute));
     }
 
     private clearTreeItemSelection(treeView: TreeView): void {
         const currentPinnedSelection = treeView?.querySelectorAll<TreeItem>(
             `[${pinnedSelectedAttribute}]`
         );
-        currentPinnedSelection?.forEach(treeItem => treeItem.removeAttribute(pinnedSelectedAttribute));
+        currentPinnedSelection.forEach(treeItem => treeItem.removeAttribute(pinnedSelectedAttribute));
 
-        const currentSelection = treeView?.querySelectorAll<TreeItem>(`[selected]`);
+        const currentSelection = treeView?.querySelectorAll<TreeItem>('[selected]');
         currentSelection.forEach(treeItem => treeItem.removeAttribute('selected'));
         if (currentSelection.length > 1) {
-            console.info("NOTICE: The TreeView had an invalid selection state. The current state should now be valid.")
+            // eslint-disable-next-line no-console
+            console.log(
+                'NOTICE: The TreeView had an invalid selection state. The current state should now be valid.'
+            );
         }
     }
 
@@ -93,7 +95,7 @@ export class TreeItem extends FoundationTreeItem {
         this.clearTreeGroupSelection(treeView);
         this.setGroupSelectionOnRootParentTreeItem(event.target as TreeItem);
         this.setAttribute(pinnedSelectedAttribute, 'true');
-        this.selected = true;    
+        this.selected = true;
     }
 
     private setGroupSelectionOnRootParentTreeItem(treeItem: TreeItem): void {

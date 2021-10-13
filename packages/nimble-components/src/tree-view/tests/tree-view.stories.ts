@@ -40,19 +40,19 @@ const metadata: Meta<TreeArgs> = {
                     ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
                     ${x => x.label}
                     <nimble-tree-item>
-                         ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                         ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
                          Sub Group
                         <nimble-tree-item>
-                            ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                            ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
                             Nested Item 1
                         </nimble-tree-item>
                     </nimble-tree-item>
                     <nimble-tree-item>
-                        ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                        ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
                         Nested Item 2
                     </nimble-tree-item>
                     <nimble-tree-item>
-                        ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                        ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
                         Nested Item 3
                      </nimble-tree-item>
                 </nimble-tree-item>
