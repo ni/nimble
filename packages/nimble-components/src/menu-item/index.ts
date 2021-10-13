@@ -4,32 +4,13 @@ import {
     menuItemTemplate as template,
     MenuItemOptions
 } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
-import { MenuItemContent } from './types';
 
 import { styles } from './styles';
 
 /**
  * A nimble-styled menu-item
  */
-export class MenuItem extends FoundationMenuItem {
-    /**
-     * The appearance the button should have.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: interaction
-     */
-    @attr
-    public content: MenuItemContent;
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-        if (!this.content) {
-            this.content = MenuItemContent.Default;
-        }
-    }
-}
+export { FoundationMenuItem as MenuItem };
 
 /**
  * A function that returns a nimble-menu-item registration for configuring the component with a DesignSystem.
@@ -40,7 +21,7 @@ export class MenuItem extends FoundationMenuItem {
  * Generates HTML Element: \<nimble-menu-item\>
  *
  */
-export const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
+export const nimbleMenuItem = FoundationMenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
     template,
     styles
