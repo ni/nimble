@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
+import type { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
 import { NimbleTreeItemModule } from '..';
 import { NimbleTreeViewModule } from '../../tree-view';
 
@@ -56,6 +56,10 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
         child1Element = testHostComponent.child1.nativeElement;
         child2Element = testHostComponent.child2.nativeElement;
         fixture.detectChanges();
+    });
+
+    it('custom element is defined', () => {
+        expect(customElements.get('nimble-tree-item')).not.toBeUndefined();
     });
 
     it('the TreeItem DOM element reflects correct initial state set via NimbleTreeItemDirective', () => {
