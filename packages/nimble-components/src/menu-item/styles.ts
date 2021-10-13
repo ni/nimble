@@ -67,10 +67,10 @@ export const styles = css`
         width: ${iconSize};
         height: ${iconSize};
     }
-    :host(.indent-1) slot[name='start']::slotted(*) {
+    :host(.indent-1) .start {
         grid-column: 1;
     }
-    :host(.indent-1) slot[name='content']::slotted(*) {
+    :host(.indent-1) .content {
         grid-column: 2;
     }
 `;
