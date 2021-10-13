@@ -37,43 +37,19 @@ StyleDictionary.registerTransformGroup({
     ]
 });
 
+// Templates and transforms to build XAML compatible token resource dictionaries
 const colorTemplate = _.template( fs.readFileSync('templates/XamlColor.template') );
 StyleDictionary.registerFormat({
     name: 'xaml/XamlColor',
     formatter: colorTemplate
 });
 
-StyleDictionary.registerTransform({
-    name: 'attribute/ctiwithapp',
-    type: 'attribute',
-    transformer : (prop) => {
-        if (prop.path[0] === 'application') {
-            const [ /* string "application" */, /* product name */, category, type] = prop.path;
-            return {
-                category,
-                type
-            };
-        } else {
-            // Fallback to the original 'attribute/cti' transformer
-            return StyleDictionary.transform['attribute/cti'].transformer(prop);
-        }
-    }
-});
-
 StyleDictionary.registerTransformGroup({
-    name: 'nxg-xaml-color',
+    name: 'ni-xaml-color',
     transforms: [
-      'attribute/ctiwithapp',
+      'attribute/cti',
       'size/px',
       'color/hex8android'
-    ],
-    buildPath: 'build/nxg/',
-    files: [
-      {
-        filter: 'isNXGXamlColor',
-        format: 'xaml/XamlColor',
-        destination: 'Colors.xaml'
-      }
     ]
   });
 
@@ -93,7 +69,7 @@ StyleDictionary.registerTransformGroup({
                         "format": "xaml/XamlColor"
                     }
                 ],
-                "transformGroup": "nxg-xaml-color",
+                "transformGroup": "ni-xaml-color",
                 "buildPath": "xaml/"
             }
         }   
