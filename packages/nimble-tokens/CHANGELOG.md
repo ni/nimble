@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 11 Oct 2021 19:53:26 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Oct 2021 18:29:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.21
+
+Wed, 13 Oct 2021 18:29:44 GMT
+
+### Changes
+
+- Fix nimble-tokens package contents (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.20
 
