@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Improved nimble-angular build script logging",
+  "packageName": "@ni/nimble-angular",
+  "email": "5454342+brianehenry@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
