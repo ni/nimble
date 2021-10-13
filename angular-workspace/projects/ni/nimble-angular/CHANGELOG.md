@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 13 Oct 2021 18:29:44 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Oct 2021 20:36:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.89
+
+Wed, 13 Oct 2021 20:36:32 GMT
+
+### Changes
+
+- Fixed NimbleButtonModule not importing button custom element (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.88
 

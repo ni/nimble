@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 13 Oct 2021 20:36:32 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.89",
+      "version": "1.0.0-beta.89",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Fixed NimbleButtonModule not importing button custom element",
+            "commit": "32302c751493dcef8d885e75d75360c57ba63c66"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Oct 2021 18:29:44 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.88",
       "version": "1.0.0-beta.88",
