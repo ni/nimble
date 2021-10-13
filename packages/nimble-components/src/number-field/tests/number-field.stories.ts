@@ -1,5 +1,7 @@
+import { html } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../index';
 
 interface NumberFieldArgs {
@@ -20,17 +22,18 @@ const metadata: Meta<NumberFieldArgs> = {
             handles: ['change', 'input']
         }
     },
-    render: ({ label, value, disabled }: NumberFieldArgs): string => `
+    render: createRenderer(html`
         <nimble-number-field
-            placeholder='${label}'
-            value='${value}'
-            ${disabled ? 'disabled' : ''}
+            placeholder="${x => x.label}"
+            value="${x => x.value}"
+            ?disabled="${x => x.disabled}"
         >
-            ${label}
-        </nimble-number-field>`,
+            ${x => x.label}
+        </nimble-number-field>
+    `),
     args: {
         label: 'default label',
-        value: undefined,
+        value: 42,
         disabled: false
     }
 };

@@ -1,7 +1,10 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { html, ViewTemplate } from '@microsoft/fast-element';
+import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import {
-    matrixThemeWrapper,
+    createMatrix,
+    themeWrapper,
     disabledStates,
     DisabledState,
     InvalidState,
@@ -11,34 +14,29 @@ import {
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
-interface TextFieldArgs {
-    label: string;
-    type: string;
-    value: string;
-}
-
-const metadata: Meta<TextFieldArgs> = {
+const metadata: Meta = {
     title: 'Tests/Text Field',
     decorators: [withXD],
     parameters: {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/842889a5-67ba-4350-91c1-55eee48f4fa2/specs/'
-        }
+        },
+        controls: { hideNoControlsWarning: true }
     }
 };
 
 export default metadata;
 
 const valueStates = [
-    ['Placeholder', 'placeholder="placeholder"'],
-    ['Value', 'value="Hello"']
+    ['Placeholder', null, 'placeholder'],
+    ['Value', 'Hello', null]
 ];
 type ValueState = typeof valueStates[number];
 
 const typeStates = [
-    ['Text', 'type="text"'],
-    ['Password', 'type="password"']
+    ['Text', 'text'],
+    ['Password', 'password']
 ];
 type TypeState = typeof typeStates[number];
 
@@ -47,16 +45,30 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [invalidName, invalid]: InvalidState,
     [typeName, type]: TypeState,
-    [valueName, value]: ValueState
-): string => `
-    <nimble-text-field style="width: 250px; padding: 15px;" class="${invalid}" ${disabled} ${type} ${value} ${readonly}>
-        ${disabledName} ${invalidName} ${typeName} ${valueName} ${readOnlyName}
-    </nimble-text-field>`;
+    [valueName, valueValue, placeholderValue]: ValueState
+): ViewTemplate => html`
+    <nimble-text-field
+        style="width: 250px; padding: 15px;"
+        class="${() => invalid}"
+        ?disabled="${() => disabled}"
+        type="${() => type}"
+        value="${() => valueValue}"
+        placeholder="${() => placeholderValue}"
+        ?readonly="${() => readonly}"
+    >
+        ${() => disabledName} ${() => invalidName} ${() => typeName}
+        ${() => valueName} ${() => readOnlyName}
+    </nimble-text-field>
+`;
 
-export const textFieldThemeMatrix: Story = (): string => matrixThemeWrapper(component, [
-    readOnlyStates,
-    disabledStates,
-    invalidStates,
-    typeStates,
-    valueStates
-]);
+export const textFieldThemeMatrix: Story = createRenderer(
+    themeWrapper(
+        createMatrix(component, [
+            readOnlyStates,
+            disabledStates,
+            invalidStates,
+            typeStates,
+            valueStates
+        ])
+    )
+);

@@ -1,10 +1,10 @@
 import { Directive } from '@angular/core';
 
-@Directive({
-    selector: 'nimble-select',
-})
 /**
  * Directive for Nimble select control Angular integration
  */
+@Directive({
+    selector: 'nimble-select',
+})
 export class NimbleSelectDirective {
 }

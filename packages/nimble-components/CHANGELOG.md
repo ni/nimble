@@ -1,8 +1,89 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 05 Oct 2021 20:50:12 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Oct 2021 23:26:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.76
+
+Mon, 11 Oct 2021 23:26:07 GMT
+
+### Changes
+
+- CSS Guidelines super rough draft (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.75
+
+Mon, 11 Oct 2021 21:29:26 GMT
+
+### Changes
+
+- remove unnecessary metas and typo (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.74
+
+Mon, 11 Oct 2021 19:53:26 GMT
+
+### Changes
+
+- add medium-delay token/animation to focus state (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.74 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.73
+
+Mon, 11 Oct 2021 16:48:30 GMT
+
+### Changes
+
+- Make tabs inline flex (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.72
+
+Fri, 08 Oct 2021 20:59:39 GMT
+
+### Changes
+
+- add height to tab-toolbar (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.71
+
+Thu, 07 Oct 2021 22:14:29 GMT
+
+### Changes
+
+- Fixed contents of disabled fields shifting on hover  (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.70
+
+Thu, 07 Oct 2021 21:18:11 GMT
+
+### Changes
+
+- First pass at the menu (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 1.0.0-beta.69
+
+Thu, 07 Oct 2021 20:27:57 GMT
+
+### Changes
+
+- Fix title in storybook (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.68
+
+Thu, 07 Oct 2021 20:02:52 GMT
+
+### Changes
+
+- Nimble TreeItem now fires expanded-change when tree item content is clicked (already did so when expand/collapse glyph was clicked) (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.67
+
+Thu, 07 Oct 2021 19:14:44 GMT
+
+### Changes
+
+- Use createRenderer helper for html tagged template (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.66
 

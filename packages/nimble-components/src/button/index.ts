@@ -10,6 +10,9 @@ import { ButtonAppearance } from './types';
 
 export type { Button };
 
+/**
+ * A nimble-styled HTML button
+ */
 class Button extends FoundationButton {
     /**
      * The appearance the button should have.

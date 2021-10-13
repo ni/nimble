@@ -9,6 +9,7 @@ import {
     controlHeight,
     fillColorHover,
     fontFamily,
+    mediumDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
@@ -40,6 +41,13 @@ export const styles = css`
     :host(${focusVisible}) {
         outline: none;
         box-shadow: 0 calc(${borderWidth} * -1) ${borderColorHover} inset;
+        transition: box-shadow ${mediumDelay} ease-in-out;
+    }
+
+    @media (prefers-reduced-motion) {
+        :host(${focusVisible}) {
+            transition-duration: 0.01s;
+        }
     }
 
     :host(:active) {
