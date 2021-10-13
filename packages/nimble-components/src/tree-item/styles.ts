@@ -3,6 +3,7 @@ import { css, ElementStyles } from '@microsoft/fast-element';
 import {
     display,
     ElementDefinitionContext,
+    TreeItem,
     TreeItemOptions
 } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
@@ -148,7 +149,7 @@ export const styles: (
             height: ${iconSize};
         }
 
-        ::slotted(${context.name}) {
+        ::slotted(${context.tagFor(TreeItem)}) {
             --tree-item-nested-width: 1em;
             --expand-collapse-button-nested-width: calc(${iconSize} * -1);
         }

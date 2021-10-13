@@ -5,7 +5,9 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { controlsArrowExpanderUp16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import type { TreeView } from '../tree-view';
 import { styles } from './styles';
+import { pinnedSelectedAttribute, groupSelectedAttribute } from './types';
 
 /**
  * A function that returns a nimble-tree-item registration for configuring the component with a DesignSystem.
@@ -18,12 +20,15 @@ import { styles } from './styles';
  *
  */
 export class TreeItem extends FoundationTreeItem {
-    private readonly pinnedSelectedAttribute = 'pinned-selected';
-    private readonly groupSelectedAttribute = 'group-selected';
 
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('selected-change', this.handleItemSelected);
+
+        // Correct invalid initial selection if present
+        if (this.hasChildren()) {
+            this.selected = false;
+        }
     }
 
     public disconnectedCallback(): void {
@@ -44,14 +49,39 @@ export class TreeItem extends FoundationTreeItem {
     private readonly handleItemSelected = (event: CustomEvent): void => {
         // this handler will be called for every TreeItem from the target to the root as the 'selected-change' bubbles up
         if (event.target === this) {
-            const treeItemChild = this.querySelector('[role="treeitem"]');
-            if (treeItemChild && this.selected) {
+            if (this.hasChildren() && this.selected) {
                 this.handleTreeGroupSelected(event);
             } else {
                 this.handleTreeLeafSelected(event);
             }
         }
     };
+
+    private hasChildren(): boolean {
+        const treeItemChild = this.querySelector('[role="treeitem"]');
+        return treeItemChild !== null;
+    }
+
+    private clearTreeGroupSelection(treeView: TreeView): void {
+        const currentGroupSelection = treeView?.querySelectorAll<TreeItem>(
+            `[${groupSelectedAttribute}]`
+        );
+        currentGroupSelection?.forEach(treeItem => treeItem.removeAttribute(groupSelectedAttribute));
+    }
+
+    private clearTreeItemSelection(treeView: TreeView): void {
+        const currentPinnedSelection = treeView?.querySelector<TreeItem>(
+            `[${pinnedSelectedAttribute}]`
+        );
+        if (currentPinnedSelection) {
+            currentPinnedSelection.removeAttribute(pinnedSelectedAttribute);
+        }
+
+        const currentSelection = treeView?.querySelector<TreeItem>(`[selected]`);
+        if (currentSelection) {
+            currentSelection.removeAttribute('selected');
+        }
+    }
 
     private handleTreeGroupSelected(event: CustomEvent): void {
         this.expanded = !this.expanded;
@@ -61,30 +91,22 @@ export class TreeItem extends FoundationTreeItem {
     }
 
     private handleTreeLeafSelected(event: CustomEvent): void {
-        const treeView = this.getParentNimbleTreeNode();
-        const currentPinnedSelection = treeView?.querySelector<TreeItem>(
-            `[${this.pinnedSelectedAttribute}]`
-        );
-        if (currentPinnedSelection) {
-            currentPinnedSelection.removeAttribute(
-                this.pinnedSelectedAttribute
-            );
-        }
-
-        const currentGroupSelection = treeView?.querySelectorAll<TreeItem>(
-            `[${this.groupSelectedAttribute}]`
-        );
-        currentGroupSelection?.forEach(treeItem => treeItem.removeAttribute(this.groupSelectedAttribute));
-        this.setGroupSelectionOnAllParentTreeItems(event.target as TreeItem);
-        this.setAttribute(this.pinnedSelectedAttribute, 'true');
-        this.setAttribute('selected', 'true');
+        const treeView = this.getParentNimbleTreeNode()!;
+        this.clearTreeItemSelection(treeView);
+        this.clearTreeGroupSelection(treeView);
+        this.setGroupSelectionOnRootParentTreeItem(event.target as TreeItem);
+        this.setAttribute(pinnedSelectedAttribute, 'true');
+        this.selected = true;    
     }
 
-    private setGroupSelectionOnAllParentTreeItems(treeItem: TreeItem): void {
-        const currentParent = treeItem?.parentElement as TreeItem;
-        if (currentParent?.getAttribute('role') === 'treeitem') {
-            currentParent.setAttribute(this.groupSelectedAttribute, 'true');
-            this.setGroupSelectionOnAllParentTreeItems(currentParent);
+    private setGroupSelectionOnRootParentTreeItem(treeItem: TreeItem): void {
+        let currentParent = treeItem?.parentElement as TreeItem;
+        while (currentParent?.parentElement?.getAttribute('role') !== 'tree') {
+            currentParent = currentParent.parentElement as TreeItem;
+        }
+
+        if (currentParent) {
+            currentParent.setAttribute(groupSelectedAttribute, 'true');
         }
     }
 
@@ -92,14 +114,15 @@ export class TreeItem extends FoundationTreeItem {
      * This was copied directly from the FAST TreeItem implementation
      * @returns the root tree view
      */
-    private getParentNimbleTreeNode(): HTMLElement | null {
+    private getParentNimbleTreeNode(): TreeView | null {
         const parentNode: Element | null = this.parentElement!.closest("[role='tree']");
-        return parentNode as HTMLElement;
+        return parentNode as TreeView;
     }
 }
 
 const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseName: 'tree-item',
+    baseClass: FoundationTreeItem,
     template,
     styles,
     expandCollapseGlyph: `${controlsArrowExpanderUp16X16.data}`

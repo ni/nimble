@@ -86,10 +86,10 @@ describe('TreeView', () => {
         expect(element.currentSelected).toBe(model.leaf2);
     });
 
-    it('when leaf item is selected, all parent tree items have "group-selected" attribute', async () => {
+    it('when leaf item is selected, only root parent tree item has "group-selected" attribute', async () => {
         await clickElement(model.leaf3);
         expect(model.root2.hasAttribute('group-selected')).toBe(true);
-        expect(model.subRoot2.hasAttribute('group-selected')).toBe(true);
+        expect(model.subRoot2.hasAttribute('group-selected')).toBe(false);
         expect(model.root1.hasAttribute('group-selected')).toBe(false);
         expect(model.leaf3.hasAttribute('group-selected')).toBe(false);
 

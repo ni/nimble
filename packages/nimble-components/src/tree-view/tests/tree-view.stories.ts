@@ -39,11 +39,22 @@ const metadata: Meta<TreeArgs> = {
                 <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}" ?disabled="${x => x.disabled}">
                     ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
                     ${x => x.label}
-                    <nimble-tree-item>Sub Group
-                        <nimble-tree-item>Nested Item 1</nimble-tree-item>
+                    <nimble-tree-item>
+                         ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                         Sub Group
+                        <nimble-tree-item>
+                            ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                            Nested Item 1
+                        </nimble-tree-item>
                     </nimble-tree-item>
-                    <nimble-tree-item><span slot="start">${notebook16X16.data}</span>Nested Item 2</nimble-tree-item>
-                    <nimble-tree-item><span slot="start">${notebook16X16.data}</span>Nested Item 3</nimble-tree-item>
+                    <nimble-tree-item>
+                        ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                        Nested Item 2
+                    </nimble-tree-item>
+                    <nimble-tree-item>
+                        ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                        Nested Item 3
+                     </nimble-tree-item>
                 </nimble-tree-item>
             `)}
         </nimble-tree-view>
