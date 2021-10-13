@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { NumberField } from '@ni/nimble-components/dist/esm/number-field';
+import type { NumberField } from '@ni/nimble-components/dist/esm/number-field';
 import { NimbleNumberFieldModule } from '../nimble-number-field.module';
 import { waitAnimationFrame, waitMicrotask } from '../../../async-test-utilities';
 
