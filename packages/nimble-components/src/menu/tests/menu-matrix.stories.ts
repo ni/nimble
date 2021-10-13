@@ -28,7 +28,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// TODO: this is a little confusing to look at.  Once we have headers they can be used to indicate what each menu is demonstrating
 // prettier-ignore
 const component = (
     icon: MenuIconState,
