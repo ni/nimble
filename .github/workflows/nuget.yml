@@ -38,7 +38,7 @@ jobs:
         if-no-files-found: error
 
     # Publish
-    - if: startsWith(github.ref, 'refs/tags/v')
+    - if: startsWith(github.ref, 'refs/tags/@ni/nimble-tokens_v')
       name: nuget publish
       run: |
         nuget push $NIMBLE_NUGET_PATH -ApiKey ${{secrets.NUGET_TOKEN}} -Source "https://api.nuget.org/v3/index.json"
