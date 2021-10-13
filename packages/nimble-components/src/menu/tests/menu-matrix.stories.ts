@@ -10,7 +10,8 @@ import {
 import '../index';
 
 /* TODO: there is an IconState helper in '../../tests/utilities/theme-test-helpers'
-when the other components are updated to use the start slot then we should use that helper instead. */
+when the other components are updated to use the start slot or <nimble-icon> then we should use that helper instead.
+https://ni.visualstudio.com/DevCentral/_workitems/edit/1636227/?workitem=1695650 */
 type MenuIconState = boolean;
 const menuIconStates: MenuIconState[] = [false, true];
 
