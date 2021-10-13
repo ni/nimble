@@ -6,7 +6,12 @@ import {
     borderWidth,
     borderColor,
     popupBorderColor,
-    popupBoxShadowColor
+    popupBoxShadowColor,
+    labelFontFamily,
+    labelFontSize,
+    labelHeight,
+    labelTextTransform,
+    labelFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -15,7 +20,7 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
-        padding: 4px;
+        padding: 8px;
         min-width: 168px;
         width: max-content;
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
@@ -27,5 +32,14 @@ export const styles = css`
         border: none;
         background: ${borderColor};
         opacity: 0.1;
+    }
+    ::slotted(header) {
+        display: flex;
+        font-family: ${labelFontFamily};
+        font-size: ${labelFontSize};
+        line-height: ${labelHeight};
+        color: ${labelFontColor};
+        text-transform: ${labelTextTransform};
+        padding: 8px;
     }
 `;

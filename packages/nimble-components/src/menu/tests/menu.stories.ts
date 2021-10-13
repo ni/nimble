@@ -29,7 +29,12 @@ const metadata: Meta<MenuArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-menu>
-        ${repeat(x => x.options, html<ItemArgs>`
+            <header>Header 1</header>
+        ${repeat(x => x.options.slice(3), html<ItemArgs>`
+            <nimble-menu-item ?disabled="${x => x.disabled}">${x => x.text}</nimble-menu-item>`)}
+            <hr>
+            <header>Header 2</header>
+        ${repeat(x => x.options.slice(-3), html<ItemArgs>`
             <nimble-menu-item ?disabled="${x => x.disabled}">${x => x.text}</nimble-menu-item>`)}
         </nimble-menu>
 `),
@@ -45,6 +50,18 @@ const metadata: Meta<MenuArgs> = {
             },
             {
                 text: 'Item 3',
+                disabled: false
+            },
+            {
+                text: 'Item 4',
+                disabled: false
+            },
+            {
+                text: 'Item 5',
+                disabled: false
+            },
+            {
+                text: 'Item 6',
                 disabled: false
             }
         ]
