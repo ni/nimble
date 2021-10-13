@@ -3,5 +3,5 @@
   "comment": "Fix nimble-tokens package contents",
   "packageName": "@ni/nimble-tokens",
   "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
