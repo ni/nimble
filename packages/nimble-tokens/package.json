@@ -29,9 +29,12 @@
   },
   "files": [
     "assets-fonts/**",
-    "dist/**",
+    "dist/styledictionary/css/**",
+    "dist/styledictionary/js/**",
+    "dist/styledictionary/properties/**",
+    "dist/styledictionary/scss/**",
     "dist-icons/**",
     "dist-icons-esm/**",
-    "source/**"
+    "source/*.css"
   ]
 }
