@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 13 Oct 2021 21:31:30 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.90",
+      "version": "1.0.0-beta.90",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Improved nimble-angular build script logging",
+            "commit": "b44c9221eeefb5e6a884ed8a1d804bff933668a0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Oct 2021 20:36:32 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.89",
       "version": "1.0.0-beta.89",

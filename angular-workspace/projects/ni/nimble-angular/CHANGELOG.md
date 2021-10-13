@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 13 Oct 2021 20:36:32 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Oct 2021 21:31:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.90
+
+Wed, 13 Oct 2021 21:31:30 GMT
+
+### Changes
+
+- Improved nimble-angular build script logging (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.89
 
