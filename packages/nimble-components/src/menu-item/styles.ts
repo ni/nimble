@@ -59,9 +59,6 @@ export const styles = css`
         grid-template-columns: ${iconSize} 1fr;
         column-gap: 8px;
     }
-    :host(.indent-1) .content {
-        grid-column: 2;
-    }
     [part='start'] {
         display: contents;
     }
@@ -70,7 +67,10 @@ export const styles = css`
         width: ${iconSize};
         height: ${iconSize};
     }
-    :host(.indent-1) .start {
+    :host(.indent-1) slot[name='start']::slotted(*) {
         grid-column: 1;
+    }
+    :host(.indent-1) slot[name='content']::slotted(*) {
+        grid-column: 2;
     }
 `;
