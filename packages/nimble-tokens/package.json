@@ -26,5 +26,15 @@
     "style-dictionary": "^3.0.2",
     "svg-to-ts": "^6.0.1",
     "typescript": "^4.3.2"
-  }
+  },
+  "files": [
+    "assets-fonts/**",
+    "dist/styledictionary/css/**",
+    "dist/styledictionary/js/**",
+    "dist/styledictionary/properties/**",
+    "dist/styledictionary/scss/**",
+    "dist-icons/**",
+    "dist-icons-esm/**",
+    "source/*.css"
+  ]
 }
