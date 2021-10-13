@@ -18,6 +18,7 @@ import {
     borderWidth,
     iconSize
 } from '../theme-provider/design-tokens';
+import { groupSelectedAttribute } from './types';
 
 export const styles: (
     context: ElementDefinitionContext,
@@ -35,7 +36,7 @@ export const styles: (
         }
 
         ${/* this controls the side border */ ''}
-        :host([group-selected])::after {
+        :host([${groupSelectedAttribute}])::after {
             background: ${borderColorHover};
             border-radius: 0px;
             content: '';
