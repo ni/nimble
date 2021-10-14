@@ -1,8 +1,5 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { settings16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { Icon } from '../icon-base';
-import { template } from '../icon-base/template';
-import { styles } from '../icon-base/styles';
+import { Icon, registerIcon } from '../icon-base';
 
 export type { SettingsIcon };
 export const baseName = 'settings-icon';
@@ -16,18 +13,4 @@ class SettingsIcon extends Icon {
     }
 }
 
-/**
- * A function that returns a nimble-settings-icon registration for configuring the component with a DesignSystem.
- *
- * @public
- * @remarks
- * Generates HTML Element: \<nimble-settings-icon\>
- *
- */
-const nimbleSettingsIcon = SettingsIcon.compose({
-    baseName,
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSettingsIcon());
+registerIcon(baseName, SettingsIcon);

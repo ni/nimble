@@ -12,20 +12,24 @@ import { baseName as settingsName } from './settings';
 import { baseName as testInsightsName } from './test-insights';
 import { baseName as utilitiesName } from './utilities';
 
-export const accessControl = { iconName: `nimble-${accessControlName}` };
-export const admin = { iconName: `nimble-${adminName}` };
-export const administration = { iconName: `nimble-${administrationName}` };
-export const check = { iconName: `nimble-${checkName}` };
-export const customApplications = {
-    iconName: `nimble-${customApplicationsName}`
+export interface NimbleIconComponent {
+    componentName: string;
+}
+
+export const accessControl: NimbleIconComponent = { componentName: `nimble-${accessControlName}` };
+export const admin: NimbleIconComponent = { componentName: `nimble-${adminName}` };
+export const administration: NimbleIconComponent = { componentName: `nimble-${administrationName}` };
+export const check: NimbleIconComponent = { componentName: `nimble-${checkName}` };
+export const customApplications: NimbleIconComponent = {
+    componentName: `nimble-${customApplicationsName}`
 };
-export const deleteIcon = { iconName: `nimble-${deleteName}` };
-export const login = { iconName: `nimble-${loginName}` };
-export const logout = { iconName: `nimble-${logoutName}` };
-export const managedSystems = { iconName: `nimble-${managedSystemsName}` };
-export const measurementDataAnalysis = {
-    iconName: `nimble-${measurementDataAnalysisName}`
+export const deleteIcon: NimbleIconComponent = { componentName: `nimble-${deleteName}` };
+export const login: NimbleIconComponent = { componentName: `nimble-${loginName}` };
+export const logout: NimbleIconComponent = { componentName: `nimble-${logoutName}` };
+export const managedSystems: NimbleIconComponent = { componentName: `nimble-${managedSystemsName}` };
+export const measurementDataAnalysis: NimbleIconComponent = {
+    componentName: `nimble-${measurementDataAnalysisName}`
 };
-export const settings = { iconName: `nimble-${settingsName}` };
-export const testInsights = { iconName: `nimble-${testInsightsName}` };
-export const utilities = { iconName: `nimble-${utilitiesName}` };
+export const settings: NimbleIconComponent = { componentName: `nimble-${settingsName}` };
+export const testInsights: NimbleIconComponent = { componentName: `nimble-${testInsightsName}` };
+export const utilities: NimbleIconComponent = { componentName: `nimble-${utilitiesName}` };

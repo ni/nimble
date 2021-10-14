@@ -4,6 +4,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { html, repeat } from '@microsoft/fast-element';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
+import type { NimbleIconComponent } from '../../icons/all-icons';
 import { IconStatus } from './types';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
@@ -66,6 +67,22 @@ export const rawIcons: Story<IconArgs> = {
     `)
 };
 
+// The binding in this template generates a new template on the fly
+// which is not a recommended practice by FAST. This is done because
+// bindings can't be used for the element tag name, i.e.:
+// static string interpolation works: html`<${tagName}></${tagName}>`
+// dynamic template binding doesn't work: html`<${() => tagName}></${() => tagName}>`
+const iconTemplate = html<NimbleIconComponent, IconArgs>`
+    ${(x, c) => html`
+        <${x.componentName}
+            class="${c.parent.status}"
+            title=${x.componentName}
+            style="padding: 5px;"
+        >
+        </${x.componentName}>
+    `}
+`;
+
 // prettier-ignore
 export const componentIcons: Story<IconArgs> = {
     args: { status: IconStatus.Regular },
@@ -76,8 +93,8 @@ export const componentIcons: Story<IconArgs> = {
         }
     },
     render: createRenderer(html`
-        <div class="container" :innerHTML=
-            ${x => nimbleIconComponents.map(element => `<${element.iconName} class="${x.status}" title="${element.iconName}" style="padding: 5px"></${element.iconName}>`).join('')}>
+        <div class="container">
+            ${repeat(() => nimbleIconComponents, iconTemplate)}
         </div>
     `)
 };
