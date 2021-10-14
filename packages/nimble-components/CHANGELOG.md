@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 14 Oct 2021 15:34:51 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Oct 2021 16:03:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.79
+
+Thu, 14 Oct 2021 16:03:43 GMT
+
+### Changes
+
+- Initial pass at set of icon components. (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 1.0.0-beta.78
 
