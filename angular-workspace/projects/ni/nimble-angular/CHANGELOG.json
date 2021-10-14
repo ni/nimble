@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 14 Oct 2021 16:03:43 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.92",
+      "version": "1.0.0-beta.92",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "9bbae9cd2938cff6cef120e9f0b300b157b15bfc",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.92"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Oct 2021 15:34:51 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.91",
+      "version": "1.0.0-beta.91",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "695224f78cb8eb509a414fcb3b97e8c3ffd990e9",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.91"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Oct 2021 21:31:30 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.90",
+      "version": "1.0.0-beta.90",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Improved nimble-angular build script logging",
+            "commit": "b44c9221eeefb5e6a884ed8a1d804bff933668a0"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Oct 2021 20:36:32 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.89",
+      "version": "1.0.0-beta.89",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Fixed NimbleButtonModule not importing button custom element",
+            "commit": "32302c751493dcef8d885e75d75360c57ba63c66"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Oct 2021 18:29:44 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.88",
       "version": "1.0.0-beta.88",
