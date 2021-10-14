@@ -14,20 +14,15 @@ import {
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 
-interface TextFieldArgs {
-    label: string;
-    type: string;
-    value: string;
-}
-
-const metadata: Meta<TextFieldArgs> = {
+const metadata: Meta = {
     title: 'Tests/Text Field',
     decorators: [withXD],
     parameters: {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/842889a5-67ba-4350-91c1-55eee48f4fa2/specs/'
-        }
+        },
+        controls: { hideNoControlsWarning: true }
     }
 };
 

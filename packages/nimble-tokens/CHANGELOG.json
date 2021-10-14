@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 13 Oct 2021 18:29:44 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.21",
+      "version": "1.0.0-beta.21",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "Fix nimble-tokens package contents",
+            "commit": "23367f7bd720d8bc0d54cc5e9a676d8a75ea62c4"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Oct 2021 19:53:26 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.20",
+      "version": "1.0.0-beta.20",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "add medium-delay token/animation to focus state",
+            "commit": "9595e26e2f50bc3f0bee2ceac4d99d28a64dee11"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 30 Sep 2021 17:53:18 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.19",
       "version": "1.0.0-beta.19",

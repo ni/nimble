@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { Checkbox } from '@ni/nimble-components/dist/esm/checkbox';
+import type { Checkbox } from '@ni/nimble-components/dist/esm/checkbox';
 import { NimbleCheckboxModule } from '../nimble-checkbox.module';
 import { waitAnimationFrame, waitMicrotask } from '../../../async-test-utilities';
 

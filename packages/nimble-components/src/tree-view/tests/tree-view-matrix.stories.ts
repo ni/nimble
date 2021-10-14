@@ -25,7 +25,8 @@ const metadata: Meta = {
     parameters: {
         design: {
             artboardUrl: ''
-        }
+        },
+        controls: { hideNoControlsWarning: true }
     }
 };
 

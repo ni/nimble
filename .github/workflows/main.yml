@@ -32,13 +32,15 @@ jobs:
 
       # Build
       - run: npm run build
+
+      # Pack
       - run: npm run pack
       - uses: actions/upload-artifact@v2
         with:
           name: packages
           path: |
             packages/**/*.tgz
-            angular-workspace/dist/**/*.tgz
+            angular-workspace/**/*.tgz
           if-no-files-found: error
 
       # Lint
@@ -72,6 +74,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: ./packages/nimble-components
+          storybookBuildDir: ./dist/storybook
+          exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
       # Run Lighthouse audit
