@@ -5,7 +5,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
-export const nimbleTab = Tab.compose({
+const nimbleTab = Tab.compose({
     baseName: 'tab',
     template,
     styles
