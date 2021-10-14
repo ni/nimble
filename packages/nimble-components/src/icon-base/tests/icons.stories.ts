@@ -3,10 +3,11 @@ import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-i
 import { withXD } from 'storybook-addon-xd-designs';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { html, repeat } from '@microsoft/fast-element';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
-import type { NimbleIconComponent } from '../../icons/all-icons';
 import { IconStatus } from './types';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import type { Icon } from '..';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
@@ -67,19 +68,20 @@ export const rawIcons: Story<IconArgs> = {
     `)
 };
 
+type IconClass = typeof Icon;
 // The binding in this template generates a new template on the fly
 // which is not a recommended practice by FAST. This is done because
 // bindings can't be used for the element tag name, i.e.:
 // static string interpolation works: html`<${tagName}></${tagName}>`
 // dynamic template binding doesn't work: html`<${() => tagName}></${() => tagName}>`
-const iconTemplate = html<NimbleIconComponent, IconArgs>`
+const iconTemplate = html<IconClass, IconArgs>`
     ${(x, c) => html`
-        <${x.componentName}
+        <${DesignSystem.tagFor(x)}
             class="${c.parent.status}"
-            title=${x.componentName}
+            title=${DesignSystem.tagFor(x)}
             style="padding: 5px;"
         >
-        </${x.componentName}>
+        </${DesignSystem.tagFor(x)}>
     `}
 `;
 
