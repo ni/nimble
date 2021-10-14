@@ -157,7 +157,7 @@ export function createMatrix(
  * @param themes The set of themes to use (if unspecified, will use all available backgrounds/themes)
  */
 // prettier-ignore
-export const themeWrapper = (template: ViewTemplate, backgroundsThemes: Background[]): ViewTemplate => html`
+export const themeWrapper = (template: ViewTemplate, backgroundsThemes: Background[] = backgrounds): ViewTemplate => html`
     ${repeat(() => backgroundsThemes, html<Background>`
     <nimble-theme-provider theme="${x => x.theme}">
         <div style="background-color: ${x => x.value}; padding:20px;">
