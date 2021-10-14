@@ -1,6 +1,7 @@
 const config = require('./config');
 const fs = require('fs');
 const _ = require('lodash');
+const path = require('path');
 const StyleDictionary = require('style-dictionary');
 
 // Workaround to include TypeScript definitions in output.
@@ -38,7 +39,7 @@ StyleDictionary.registerTransformGroup({
 });
 
 // Templates and transforms to build XAML compatible token resource dictionaries
-const colorTemplate = _.template( fs.readFileSync('templates/XamlColor.template') );
+const colorTemplate = _.template(fs.readFileSync(path.resolve(__dirname, './templates/XamlColor.template')));
 StyleDictionary.registerFormat({
     name: 'xaml/XamlColor',
     formatter: colorTemplate
