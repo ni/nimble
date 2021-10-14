@@ -36,6 +36,7 @@ const iconStates: IconState[] = [
     ['With Icon', true]
 ];
 
+// prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
     [expandedName, expanded]: ExpandedState,
