@@ -20,7 +20,7 @@ jobs:
       with:
         node-version: '12'
         registry-url: 'https://registry.npmjs.org'
-    - run: npm ci
+    - run: npm install --global npm@7
 
     # Build
     - name: build tokens nuget
