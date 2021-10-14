@@ -25,14 +25,6 @@ export const styles = css`
         --min-drawer-width: 300px;
     }
 
-    :host([modal]) {
-        position: static;
-        width: auto;
-        height: auto;
-        top: auto;
-        bottom: auto;
-    }
-
     :host([location='left']) {
         left: 0px;
     }
@@ -47,10 +39,7 @@ export const styles = css`
         justify-content: center;
         width: fit-content;
         height: 100%;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        inset: 0px;
         overflow: hidden;
         z-index: 999;
     }
@@ -59,31 +48,19 @@ export const styles = css`
         width: 100%;
         position: fixed;
         display: flex;
-        inset: 0px;
-    }
-
-    :host([modal][location='left']) .positioning-region {
-        border-right: none;
-    }
-
-    :host([modal][location='right']) .positioning-region {
-        border-left: none;
     }
 
     .overlay {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0px;
         background: ${popupBorderColor};
         touch-action: none;
     }
 
     .control {
         position: relative;
-        top: 0;
-        bottom: 0;
+        top: 0px;
+        bottom: 0px;
         width: fit-content;
         height: 100vh;
         display: flex;
