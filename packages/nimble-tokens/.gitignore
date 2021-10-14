@@ -2,5 +2,5 @@ dist-icons
 dist-icons-esm
 dist-nuget
 
-source/NimbleXamlTokens/bin
-source/NimbleXamlTokens/obj
+source/NimbleTokens/bin
+source/NimbleTokens/obj
