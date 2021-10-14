@@ -2,6 +2,51 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 13 Oct 2021 21:31:30 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.90",
+      "version": "1.0.0-beta.90",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Improved nimble-angular build script logging",
+            "commit": "b44c9221eeefb5e6a884ed8a1d804bff933668a0"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Oct 2021 20:36:32 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.89",
+      "version": "1.0.0-beta.89",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Fixed NimbleButtonModule not importing button custom element",
+            "commit": "32302c751493dcef8d885e75d75360c57ba63c66"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Oct 2021 18:29:44 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.88",
+      "version": "1.0.0-beta.88",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "23367f7bd720d8bc0d54cc5e9a676d8a75ea62c4",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.88"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Oct 2021 23:01:07 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.87",
       "version": "1.0.0-beta.87",
