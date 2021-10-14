@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import {
     disabledStates,
@@ -12,6 +12,7 @@ import {
 } from '../../tests/utilities/theme-test-helpers';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../index';
+import '../../icons/access-control';
 
 const metadata: Meta = {
     title: 'Tests/Button',
@@ -41,7 +42,7 @@ const component = (
     icon: IconState
 ): ViewTemplate => html`
     <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled}>
-        ${() => icon}
+        ${when(() => icon, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
         ${() => (appearanceName === noContent ? '' : `${appearanceName} Button ${disabledName}`)}
     </nimble-button>
 `;

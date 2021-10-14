@@ -1,5 +1,4 @@
 import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
-import { controlsSearch16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { NimbleTheme } from '../../theme-provider/themes';
 
 export const backgrounds = [
@@ -49,12 +48,10 @@ export const readOnlyStates: ReadOnlyState[] = [
     ['Read-Only', true]
 ];
 
-export type IconState = ViewTemplate;
-export const iconStates: ViewTemplate[] = [
-    // An empty template requires a space to prevent errors
-    // prettier-ignore
-    html` `,
-    html`<div slot="icon">${controlsSearch16X16.data}</div>`
+export type IconState = boolean;
+export const iconStates: IconState[] = [
+    false,
+    true
 ];
 
 export type ExpandedState = [string, boolean];
