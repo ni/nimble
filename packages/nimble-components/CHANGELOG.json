@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 14 Oct 2021 19:47:51 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.80",
+      "version": "1.0.0-beta.80",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Added styling to allow icons in the start slot of the nimble-menu.",
+            "commit": "5b0c0b022f07e11c7a947c78b25b0b8eeeb6341b"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 14 Oct 2021 16:03:43 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.79",
       "version": "1.0.0-beta.79",

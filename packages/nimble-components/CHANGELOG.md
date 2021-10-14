@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 14 Oct 2021 16:03:43 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Oct 2021 19:47:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.80
+
+Thu, 14 Oct 2021 19:47:51 GMT
+
+### Changes
+
+- Added styling to allow icons in the start slot of the nimble-menu. (35616474+michaeldbrandt@users.noreply.github.com)
 
 ## 1.0.0-beta.79
 
