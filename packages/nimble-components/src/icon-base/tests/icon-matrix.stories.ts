@@ -21,19 +21,19 @@ const metadata: Meta = {
 
 export default metadata;
 
-const iconStates = [
+const iconStatusStates = [
     ['Pass', IconStatus.Pass],
     ['Fail', IconStatus.Fail],
     ['Warning', IconStatus.Warning],
     ['Regular', IconStatus.Regular]
 ];
-type IconState = typeof iconStates[number];
+type IconStatusState = typeof iconStatusStates[number];
 
-const component = ([stateName, state]: IconState): ViewTemplate => html`
+const component = ([stateName, state]: IconStatusState): ViewTemplate => html`
     <span style="color: ${contentFontColor.createCSS()};">${stateName}</span>
     <nimble-check-icon class="${state}"></nimble-check-icon>
 `;
 
 export const iconThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [iconStates]))
+    themeWrapper(createMatrix(component, [iconStatusStates]))
 );
