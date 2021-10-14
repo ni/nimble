@@ -1,9 +1,13 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import {
-    createMatrix,
+    colorThemeDarkGreenBackground,
+    colorThemeGreenBackground,
+    darkThemeBlackBackground,
+    legacyBlueThemeWhiteBackground,
+    lightThemeWhiteBackground,
     themeWrapper
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
@@ -21,16 +25,28 @@ const metadata: Meta = {
 
 export default metadata;
 
-const component = (): ViewTemplate => html`
-    <nimble-drawer location="right" modal>
-        <p>Example Content</p>
+const component = html`
+    <nimble-drawer state="opened" location="right" modal>
+        <p style="margin: 10px;">Example Content</p>
     </nimble-drawer>
-    <nimble-button
-        onclick="event.target.previousElementSibling.state = 'opening';"
-        >Show Drawer</nimble-button
-    >
 `;
 
-export const drawerThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component))
+export const drawerLightThemeWhiteBackground: Story = createRenderer(
+    themeWrapper(component, [lightThemeWhiteBackground])
+);
+
+export const drawerColorThemeGreenBackground: Story = createRenderer(
+    themeWrapper(component, [colorThemeGreenBackground])
+);
+
+export const drawerColorThemeDarkGreenBackground: Story = createRenderer(
+    themeWrapper(component, [colorThemeDarkGreenBackground])
+);
+
+export const drawerDarkThemeBlackBackground: Story = createRenderer(
+    themeWrapper(component, [darkThemeBlackBackground])
+);
+
+export const drawerLegacyBlueThemeWhiteBackground: Story = createRenderer(
+    themeWrapper(component, [legacyBlueThemeWhiteBackground])
 );

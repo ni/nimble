@@ -57,7 +57,7 @@ const metadata: Meta<DrawerArgs> = {
         location: DrawerLocation.Left,
         state: DrawerState.Opened,
         modal: true,
-        content: '<div><p>Example Content</p></div>'
+        content: '<div style="margin: 10px;"><p>Example Content</p></div>'
     }
 };
 

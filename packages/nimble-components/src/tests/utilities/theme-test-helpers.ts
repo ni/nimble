@@ -2,34 +2,49 @@ import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
 import { controlsSearch16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { NimbleTheme } from '../../theme-provider/themes';
 
-export const backgrounds = [
-    {
-        name: `"${NimbleTheme.Light}" theme on white`,
-        value: '#F4F4F4',
-        theme: NimbleTheme.Light
-    },
-    {
-        name: `"${NimbleTheme.Color}" theme on green`,
-        value: '#03B585',
-        theme: NimbleTheme.Color
-    },
-    {
-        name: `"${NimbleTheme.Color}" theme on dark green`,
-        value: '#044123',
-        theme: NimbleTheme.Color
-    },
-    {
-        name: `"${NimbleTheme.Dark}" theme on black`,
-        value: '#252526',
-        theme: NimbleTheme.Dark
-    },
-    {
-        name: `"${NimbleTheme.LegacyBlue}" theme on white`,
-        value: '#FFFFFF',
-        theme: NimbleTheme.LegacyBlue
-    }
+interface Background {
+    name: string;
+    value: string;
+    theme: NimbleTheme;
+}
+
+export const lightThemeWhiteBackground: Background = {
+    name: `"${NimbleTheme.Light}" theme on white`,
+    value: '#F4F4F4',
+    theme: NimbleTheme.Light
+};
+
+export const colorThemeGreenBackground: Background = {
+    name: `"${NimbleTheme.Color}" theme on green`,
+    value: '#03B585',
+    theme: NimbleTheme.Color
+};
+
+export const colorThemeDarkGreenBackground: Background = {
+    name: `"${NimbleTheme.Color}" theme on dark green`,
+    value: '#044123',
+    theme: NimbleTheme.Color
+};
+
+export const darkThemeBlackBackground: Background = {
+    name: `"${NimbleTheme.Dark}" theme on black`,
+    value: '#252526',
+    theme: NimbleTheme.Dark
+};
+
+export const legacyBlueThemeWhiteBackground: Background = {
+    name: `"${NimbleTheme.LegacyBlue}" theme on white`,
+    value: '#FFFFFF',
+    theme: NimbleTheme.LegacyBlue
+};
+
+export const backgrounds: Background[] = [
+    lightThemeWhiteBackground,
+    colorThemeGreenBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    legacyBlueThemeWhiteBackground
 ];
-type Background = typeof backgrounds[number];
 
 export type DisabledState = [string, boolean];
 export const disabledStates: DisabledState[] = [
@@ -138,11 +153,12 @@ export function createMatrix(
 }
 
 /**
- * Wraps a given component template with a region for each of the available themes.
+ * Wraps a given component template with a region for each of the input backgrounds/themes.
+ * @param themes The set of themes to use (if unspecified, will use all available backgrounds/themes)
  */
 // prettier-ignore
-export const themeWrapper = (template: ViewTemplate): ViewTemplate => html`
-    ${repeat(() => backgrounds, html<Background>`
+export const themeWrapper = (template: ViewTemplate, backgroundsThemes: Background[]): ViewTemplate => html`
+    ${repeat(() => backgroundsThemes, html<Background>`
     <nimble-theme-provider theme="${x => x.theme}">
         <div style="background-color: ${x => x.value}; padding:20px;">
             ${template}
