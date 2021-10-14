@@ -22,7 +22,5 @@ export const registerIcon = (baseName: string, iconClass: IconClass): void => {
         baseClass: iconClass
     });
 
-    DesignSystem.getOrCreate()
-        .withPrefix('nimble')
-        .register(composedIcon());
+    DesignSystem.getOrCreate().withPrefix('nimble').register(composedIcon());
 };

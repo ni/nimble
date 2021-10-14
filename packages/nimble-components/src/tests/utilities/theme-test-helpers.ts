@@ -49,10 +49,7 @@ export const readOnlyStates: ReadOnlyState[] = [
 ];
 
 export type IconState = boolean;
-export const iconStates: IconState[] = [
-    false,
-    true
-];
+export const iconStates: IconState[] = [false, true];
 
 export type ExpandedState = [string, boolean];
 export const expandedStates: ExpandedState[] = [
