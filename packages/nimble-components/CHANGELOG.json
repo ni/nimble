@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 14 Oct 2021 16:03:43 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.79",
+      "version": "1.0.0-beta.79",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Initial pass at set of icon components.",
+            "commit": "9bbae9cd2938cff6cef120e9f0b300b157b15bfc"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 14 Oct 2021 15:34:51 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.78",
       "version": "1.0.0-beta.78",
