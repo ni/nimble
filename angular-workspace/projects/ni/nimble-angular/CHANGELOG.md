@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 12 Oct 2021 23:01:07 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Oct 2021 19:47:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.93
+
+Thu, 14 Oct 2021 19:47:51 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.93 (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 1.0.0-beta.92
+
+Thu, 14 Oct 2021 16:03:43 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.92 (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.91
+
+Thu, 14 Oct 2021 15:34:51 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.91 (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.90
+
+Wed, 13 Oct 2021 21:31:30 GMT
+
+### Changes
+
+- Improved nimble-angular build script logging (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.89
+
+Wed, 13 Oct 2021 20:36:32 GMT
+
+### Changes
+
+- Fixed NimbleButtonModule not importing button custom element (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.88
+
+Wed, 13 Oct 2021 18:29:44 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.88 (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.87
 

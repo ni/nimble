@@ -34,13 +34,19 @@ const deleteCopiedFiles = () => {
 
 const copyFiles = () => {
     console.log('Copying new pack files');
+    let fileCount = 0;
     for (const source of sources) {
         const filesToCopy = glob.sync(path.join(sourceDir, source), { nodir: true });
+        if (filesToCopy.length === 0) {
+            throw new Error(`No files found from source ${source}`);
+        }
         for (const fileToCopy of filesToCopy) {
             const relativeSource = path.relative(sourceDir, fileToCopy);
             cpFile.sync(fileToCopy, path.join(destinationDir, relativeSource));
         }
+        fileCount += filesToCopy.length;
     }
+    console.log(`Copied ${fileCount} files`);
 };
 
 const arg = process.argv[2] || '';
