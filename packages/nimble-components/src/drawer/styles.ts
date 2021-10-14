@@ -22,7 +22,7 @@ export const styles = css`
         outline: none;
         user-select: none;
         color: ${labelFontColor};
-        --min-drawer-width: 300px;
+        --drawer-width: 400px;
     }
 
     :host([location='left']) {
@@ -69,7 +69,7 @@ export const styles = css`
         box-sizing: border-box;
         border-radius: 0px;
         border-width: 0px;
-        min-width: var(--min-drawer-width);
+        width: var(--drawer-width);
         background-color: ${applicationBackgroundColor};
     }
 
