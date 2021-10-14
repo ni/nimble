@@ -11,6 +11,7 @@ interface DrawerArgs {
     location: DrawerLocation;
     state: DrawerState;
     modal: boolean;
+    preventDismiss: boolean;
     content: string;
 }
 
@@ -27,6 +28,7 @@ const metadata: Meta<DrawerArgs> = {
     render: createRenderer(html`
         <nimble-drawer
             ?modal="${x => x.modal}"
+            ?prevent-dismiss="${x => x.preventDismiss}"
             location="${x => x.location}"
             state="${x => x.state}"            
             :innerHTML="${x => x.content}">
@@ -57,6 +59,7 @@ const metadata: Meta<DrawerArgs> = {
         location: DrawerLocation.Left,
         state: DrawerState.Opened,
         modal: true,
+        preventDismiss: false,
         content: '<div style="margin: 10px;"><p>Example Content</p></div>'
     }
 };

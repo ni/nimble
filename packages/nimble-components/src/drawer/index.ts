@@ -15,7 +15,7 @@ import { DrawerLocation, DrawerState } from './types';
 /**
  * Drawer/Sidenav control. Shows content in a panel on the left / right side of the screen,
  * which animates to be visible with a slide-in / slide-out animation.
- * Configured via 'location', 'state', 'modal' properties.
+ * Configured via 'location', 'state', 'modal', 'preventDismiss' properties.
  */
 export class Drawer extends FoundationDialog {
     @attr
@@ -23,6 +23,14 @@ export class Drawer extends FoundationDialog {
 
     @attr
     public state: DrawerState = DrawerState.Closed;
+
+    /**
+     * True to prevent dismissing the drawer when the overlay outside the drawer is clicked.
+     * Only applicable when 'modal' is set to true (i.e. when the overlay is used).
+     * HTML Attribute: prevent-dismiss
+     */
+    @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
+    public preventDismiss = false;
 
     public connectedCallback(): void {
         if (!this.hasAttribute('modal')) {
@@ -47,8 +55,10 @@ export class Drawer extends FoundationDialog {
     }
 
     public override dismiss(): void {
-        super.dismiss();
-        this.hide();
+        if (!this.preventDismiss) {
+            super.dismiss();
+            this.hide();
+        }
     }
 
     private hiddenChanged(): void {
