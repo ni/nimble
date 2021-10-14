@@ -12,10 +12,6 @@ import { baseName as settingsName } from './settings';
 import { baseName as testInsightsName } from './test-insights';
 import { baseName as utilitiesName } from './utilities';
 
-export interface IconTestName {
-    iconName: string;
-}
-
 export const accessControl = { iconName: `nimble-${accessControlName}` };
 export const admin = { iconName: `nimble-${adminName}` };
 export const administration = { iconName: `nimble-${administrationName}` };

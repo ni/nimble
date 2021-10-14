@@ -47,6 +47,7 @@ const metadata: Meta<IconArgs> = {
 
 export default metadata;
 
+// prettier-ignore
 export const rawIcons: Story<IconArgs> = {
     parameters: {
         controls: { hideNoControlsWarning: true }
@@ -54,20 +55,18 @@ export const rawIcons: Story<IconArgs> = {
     render: createRenderer(html`
         ${styleMarkup}
         <div class="container">
-            ${repeat(
-        () => nimbleIcons,
-        html<NimbleIcon>`
-                    <div
-                        class="icon"
-                        title="${x => x.name}"
-                        :innerHTML="${x => x.data}"
-                    ></div>
-                `
-    )}
+            ${repeat(() => nimbleIcons, html<NimbleIcon>`
+                <div
+                    class="icon"
+                    title="${x => x.name}"
+                    :innerHTML="${x => x.data}"
+                ></div>
+            `)}
         </div>
     `)
 };
 
+// prettier-ignore
 export const componentIcons: Story<IconArgs> = {
     args: { status: IconStatus.Regular },
     argTypes: {
@@ -77,12 +76,8 @@ export const componentIcons: Story<IconArgs> = {
         }
     },
     render: createRenderer(html`
-        <div
-            :innerHTML=${x => nimbleIconComponents
-        .map(
-            element => `<${element.iconName} class=${x.status}></${element.iconName}>`
-        )
-        .join('')}
-        ></div>
+        <div class="container" :innerHTML=
+            ${x => nimbleIconComponents.map(element => `<${element.iconName} class="${x.status}" title="${element.iconName}" style="padding: 5px"></${element.iconName}>`).join('')}>
+        </div>
     `)
 };
