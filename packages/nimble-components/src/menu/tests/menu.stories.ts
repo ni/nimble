@@ -2,7 +2,8 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../menu-item/index';
-import { html, repeat } from '@microsoft/fast-element';
+import { admin16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 interface MenuArgs {
@@ -12,6 +13,7 @@ interface MenuArgs {
 interface ItemArgs {
     text: string;
     disabled: boolean;
+    icon: boolean;
 }
 
 const metadata: Meta<MenuArgs> = {
@@ -27,42 +29,32 @@ const metadata: Meta<MenuArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createRenderer<MenuArgs>(html`
         <nimble-menu>
-            <header>Header 1</header>
-        ${repeat(x => x.options.slice(3), html<ItemArgs>`
-            <nimble-menu-item ?disabled="${x => x.disabled}">${x => x.text}</nimble-menu-item>`)}
-            <hr>
-            <header>Header 2</header>
-        ${repeat(x => x.options.slice(-3), html<ItemArgs>`
-            <nimble-menu-item ?disabled="${x => x.disabled}">${x => x.text}</nimble-menu-item>`)}
+            ${repeat(x => x.options, html<ItemArgs>`
+                <nimble-menu-item ?disabled="${x => x.disabled}">
+                    ${when(x => x.icon, html`<div slot="start">${admin16X16.data}</div>`)}
+                    ${x => x.text}
+                </nimble-menu-item>
+            `)}
         </nimble-menu>
-`),
+        `),
     args: {
         options: [
             {
                 text: 'Item 1',
-                disabled: false
+                disabled: false,
+                icon: false
             },
             {
                 text: 'Item 2',
-                disabled: false
+                disabled: false,
+                icon: false
             },
             {
                 text: 'Item 3',
-                disabled: false
-            },
-            {
-                text: 'Item 4',
-                disabled: false
-            },
-            {
-                text: 'Item 5',
-                disabled: false
-            },
-            {
-                text: 'Item 6',
-                disabled: false
+                disabled: false,
+                icon: false
             }
         ]
     }
@@ -70,4 +62,4 @@ const metadata: Meta<MenuArgs> = {
 
 export default metadata;
 
-export const menu: Story<MenuArgs> = {};
+export const menu: Story = {};

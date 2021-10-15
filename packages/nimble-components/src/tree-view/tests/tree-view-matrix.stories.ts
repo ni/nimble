@@ -1,6 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import '../index';
 import '../../tree-item/index';
 import {
@@ -30,29 +30,39 @@ const metadata: Meta = {
     }
 };
 
+type IconState = [string, boolean];
+const iconStates: IconState[] = [
+    ['No Icon', false],
+    ['With Icon', true]
+];
+
+// prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
     [expandedName, expanded]: ExpandedState,
-    [selectedName, selected]: SelectedState
+    [selectedName, selected]: SelectedState,
+    [iconName, icon]: IconState
 ): ViewTemplate => html`
-    <nimble-tree-view>
+    <nimble-tree-view style="padding: 10px">
         <nimble-tree-item
             ?expanded="${() => expanded}"
             ?disabled="${() => disabled}"
-            ?selected="${() => selected}"
         >
-            <span slot="start">${jobs16X16.data}</span>
-            ${() => expandedName} ${() => disabledName} ${() => selectedName}
-
-            <nimble-tree-item ?disabled="${() => disabled}">
+            ${when(() => icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+            ${() => expandedName} ${() => disabledName} ${() => selectedName} ${() => iconName}
+            <nimble-tree-item
+                ?disabled="${() => disabled}"
+                ?selected="${() => selected}"
+            >
+            ${when(() => icon, html`<span slot="start">${notebook16X16.data}</span>`)}
                 Nested Item 1
             </nimble-tree-item>
             <nimble-tree-item ?disabled="${() => disabled}">
-                <span slot="start">${notebook16X16.data}</span>
+            ${when(() => icon, html`<span slot="start">${notebook16X16.data}</span>`)}
                 Nested Item 2
             </nimble-tree-item>
             <nimble-tree-item ?disabled="${() => disabled}">
-                <span slot="start">${notebook16X16.data}</span>
+            ${when(() => icon, html`<span slot="start">${notebook16X16.data}</span>`)}
                 Nested Item 3
             </nimble-tree-item>
         </nimble-tree-item>
@@ -66,7 +76,8 @@ export const treeViewThemeMatrix: Story = createRenderer(
         createMatrix(component, [
             disabledStates,
             expandedStates,
-            selectedStates
+            selectedStates,
+            iconStates
         ])
     )
 );
