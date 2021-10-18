@@ -3,5 +3,5 @@
   "comment": "Add Angular support for tab elements",
   "packageName": "@ni/nimble-angular",
   "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
