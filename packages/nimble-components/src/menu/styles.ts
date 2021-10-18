@@ -42,7 +42,7 @@ export const styles = css`
         text-transform: ${labelTextTransform};
         padding: 4px;
     }
-    ::slotted(:not(hr)){
+    ::slotted(:not(hr)) {
         padding-left: 8px;
         padding-right: 8px;
     }

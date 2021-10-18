@@ -2,7 +2,10 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../menu-item/index';
-import { admin16X16, logout16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import {
+    admin16X16,
+    logout16X16
+} from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
@@ -91,7 +94,7 @@ const metadata: Meta<MenuArgs> = {
                 icon: false
             }
         ],
-        slottedComponent: false,
+        slottedComponent: false
     }
 };
 

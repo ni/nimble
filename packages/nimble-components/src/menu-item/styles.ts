@@ -10,7 +10,6 @@ import {
     fillColorHover,
     contentFontColor,
     borderColorHover,
-    borderWidth,
     contentFontColorDisabled,
     iconSize
 } from '../theme-provider/design-tokens';
