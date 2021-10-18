@@ -40,6 +40,10 @@ export const styles = css`
         line-height: ${labelHeight};
         color: ${labelFontColor};
         text-transform: ${labelTextTransform};
-        padding: 8px;
+        padding: 4px;
+    }
+    ::slotted(:not(hr)){
+        padding-left: 8px;
+        padding-right: 8px;
     }
 `;
