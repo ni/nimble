@@ -42,14 +42,14 @@ const metadata: Meta<MenuArgs> = {
                 `)}
             ${when(x => !x.slottedComponent, html<MenuArgs>`
                 <header>Header 1</header>
-                ${repeat(x => x.itemOptions.slice(3), html<ItemArgs>`
+                ${repeat(x => x.itemOptions.slice(0, 3), html<ItemArgs>`
                     <nimble-menu-item ?disabled="${x => x.disabled}">
                         ${when(x => x.icon, html`<div slot="start">${admin16X16.data}</div>`)}
                         ${x => x.text}
                     </nimble-menu-item>
                 `)}
                 <header>Header 2</header>
-                ${repeat(x => x.itemOptions.slice(-3), html<ItemArgs>`
+                ${repeat(x => x.itemOptions.slice(3, 6), html<ItemArgs>`
                     <nimble-menu-item ?disabled="${x => x.disabled}">
                         ${when(x => x.icon, html`<div slot="start">${admin16X16.data}</div>`)}
                         ${x => x.text}
