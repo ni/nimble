@@ -35,6 +35,7 @@ const component = (
 ): ViewTemplate => html`
     <span style="padding: 15px; display:inline-flex;">
         <nimble-menu>
+            <header>Header</header>
             <nimble-menu-item>Item 1</nimble-menu-item>
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
