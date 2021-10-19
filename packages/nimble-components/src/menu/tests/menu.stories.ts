@@ -9,7 +9,6 @@ import '../../icons/logout';
 
 interface MenuArgs {
     itemOptions: ItemArgs[];
-    slottedComponent: boolean;
 }
 
 interface ItemArgs {
@@ -30,33 +29,28 @@ const metadata: Meta<MenuArgs> = {
             handles: ['change']
         }
     },
+};
+
+export default metadata;
+
+export const menu: Story<MenuArgs> = {
     // prettier-ignore
     render: createRenderer<MenuArgs>(html`
         <nimble-menu>
-            ${when(x => x.slottedComponent, html`
-                <div style="display: grid; font-family: Source Sans Pro; font-size: 11px;">
-                    <div style="font-weight: bold; color: black;">lvadmin User</div>
-                    <div style="color: gray;">lvadmin</div>
-                </div>
-                <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Account</nimble-menu-item>
-                <nimble-menu-item><nimble-logout-icon></nimble-logout-icon>Log out</nimble-menu-item>
-                `)}
-            ${when(x => !x.slottedComponent, html<MenuArgs>`
-                <header>Header 1</header>
-                ${repeat(x => x.itemOptions.slice(0, 3), html<ItemArgs>`
-                    <nimble-menu-item ?disabled="${x => x.disabled}">
-                        ${when(x => x.icon, html`<nimble-admin-icon></nimble-admin-icon>`)}
-                        ${x => x.text}
-                    </nimble-menu-item>
-                `)}
-                <hr>
-                <header>Header 2</header>
-                ${repeat(x => x.itemOptions.slice(3, 6), html<ItemArgs>`
-                    <nimble-menu-item ?disabled="${x => x.disabled}">
-                        ${when(x => x.icon, html`<nimble-admin-icon></nimble-admin-icon>`)}
-                        ${x => x.text}
-                    </nimble-menu-item>
-                `)}
+            <header>Header 1</header>
+            ${repeat(x => x.itemOptions.slice(0, 3), html<ItemArgs>`
+                <nimble-menu-item ?disabled="${x => x.disabled}">
+                    ${when(x => x.icon, html`<nimble-admin-icon></nimble-admin-icon>`)}
+                    ${x => x.text}
+                </nimble-menu-item>
+            `)}
+            <hr>
+            <header>Header 2</header>
+            ${repeat(x => x.itemOptions.slice(3, 6), html<ItemArgs>`
+                <nimble-menu-item ?disabled="${x => x.disabled}">
+                    ${when(x => x.icon, html`<nimble-admin-icon></nimble-admin-icon>`)}
+                    ${x => x.text}
+                </nimble-menu-item>
             `)}
         </nimble-menu>
         `),
@@ -92,17 +86,20 @@ const metadata: Meta<MenuArgs> = {
                 disabled: false,
                 icon: false
             }
-        ],
-        slottedComponent: false
+        ]
     }
 };
 
-export default metadata;
-
-export const menu: Story<MenuArgs> = {
-    args: { slottedComponent: false }
-};
-
-export const slottedMenu: Story<MenuArgs> = {
-    args: { slottedComponent: true }
+export const customMenu: Story = {
+    // prettier-ignore
+    render: createRenderer(html`
+        <nimble-menu>
+            <div style="display: grid; font-family: Source Sans Pro; font-size: 11px;">
+                <div style="font-weight: bold; color: black;">lvadmin User</div>
+                <div style="color: gray;">lvadmin</div>
+            </div>
+            <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Account</nimble-menu-item>
+            <nimble-menu-item><nimble-logout-icon></nimble-logout-icon>Log out</nimble-menu-item>
+        </nimble-menu>
+    `)
 };
