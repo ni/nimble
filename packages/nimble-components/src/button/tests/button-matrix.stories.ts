@@ -5,8 +5,8 @@ import { ButtonAppearance } from '../types';
 import {
     disabledStates,
     DisabledState,
-    iconStates,
-    IconState,
+    iconVisibleStates,
+    IconVisibleState,
     createMatrix,
     themeWrapper
 } from '../../tests/utilities/theme-test-helpers';
@@ -39,16 +39,16 @@ type AppearanceState = typeof appearanceStates[number];
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
-    icon: IconState
+    iconVisible: IconVisibleState
 ): ViewTemplate => html`
     <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled}>
-        ${when(() => icon, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
+        ${when(() => iconVisible, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
         ${() => (appearanceName === noContent ? '' : `${appearanceName} Button ${disabledName}`)}
     </nimble-button>
 `;
 
 export const buttonThemeMatrix: Story = createRenderer(
     themeWrapper(
-        createMatrix(component, [disabledStates, appearanceStates, iconStates])
+        createMatrix(component, [disabledStates, appearanceStates, iconVisibleStates])
     )
 );

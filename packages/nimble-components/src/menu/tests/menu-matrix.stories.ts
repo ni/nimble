@@ -5,8 +5,8 @@ import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import {
     createMatrix,
     themeWrapper,
-    iconStates,
-    IconState
+    iconVisibleStates,
+    IconVisibleState
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 import '../../icons/access-control';
@@ -27,7 +27,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    icon: IconState
+    iconVisible: IconVisibleState
 ): ViewTemplate => html`
     <span style="padding: 15px; display:inline-flex;">
         <nimble-menu>
@@ -35,7 +35,7 @@ const component = (
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
             <nimble-menu-item>
-                ${when(() => icon, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
+                ${when(() => iconVisible, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
                 Item 3
             </nimble-menu-item>
         </nimble-menu>
@@ -43,5 +43,5 @@ const component = (
 `;
 
 export const menuThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [iconStates]))
+    themeWrapper(createMatrix(component, [iconVisibleStates]))
 );

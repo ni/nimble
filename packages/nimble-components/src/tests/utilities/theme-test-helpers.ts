@@ -48,8 +48,8 @@ export const readOnlyStates: ReadOnlyState[] = [
     ['Read-Only', true]
 ];
 
-export type IconState = boolean;
-export const iconStates: IconState[] = [false, true];
+export type IconVisibleState = boolean;
+export const iconVisibleStates: IconVisibleState[] = [false, true];
 
 export type ExpandedState = [string, boolean];
 export const expandedStates: ExpandedState[] = [

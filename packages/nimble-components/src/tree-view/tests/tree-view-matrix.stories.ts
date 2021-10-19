@@ -15,8 +15,8 @@ import {
     expandedStates,
     SelectedState,
     selectedStates,
-    IconState,
-    iconStates
+    IconVisibleState,
+    iconVisibleStates
 } from '../../tests/utilities/theme-test-helpers';
 
 const metadata: Meta = {
@@ -35,28 +35,28 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [expandedName, expanded]: ExpandedState,
     [selectedName, selected]: SelectedState,
-    icon: IconState
+    iconVisible: IconVisibleState
 ): ViewTemplate => html`
     <nimble-tree-view style="padding: 10px">
         <nimble-tree-item
             ?expanded="${() => expanded}"
             ?disabled="${() => disabled}"
         >
-            ${when(() => icon, html`<nimble-measurement-data-analysis-icon></nimble-measurement-data-analysis-icon>`)}
+            ${when(() => iconVisible, html`<nimble-measurement-data-analysis-icon></nimble-measurement-data-analysis-icon>`)}
             ${() => expandedName} ${() => disabledName} ${() => selectedName}
             <nimble-tree-item
                 ?disabled="${() => disabled}"
                 ?selected="${() => selected}"
             >
-            ${when(() => icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
+            ${when(() => iconVisible, html`<nimble-settings-icon></nimble-settings-icon>`)}
                 Nested Item 1
             </nimble-tree-item>
             <nimble-tree-item ?disabled="${() => disabled}">
-            ${when(() => icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
+            ${when(() => iconVisible, html`<nimble-settings-icon></nimble-settings-icon>`)}
                 Nested Item 2
             </nimble-tree-item>
             <nimble-tree-item ?disabled="${() => disabled}">
-            ${when(() => icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
+            ${when(() => iconVisible, html`<nimble-settings-icon></nimble-settings-icon>`)}
                 Nested Item 3
             </nimble-tree-item>
         </nimble-tree-item>
@@ -71,7 +71,7 @@ export const treeViewThemeMatrix: Story = createRenderer(
             disabledStates,
             expandedStates,
             selectedStates,
-            iconStates
+            iconVisibleStates
         ])
     )
 );
