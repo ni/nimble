@@ -49,6 +49,10 @@ const component = (
 
 export const buttonThemeMatrix: Story = createRenderer(
     themeWrapper(
-        createMatrix(component, [disabledStates, appearanceStates, iconVisibleStates])
+        createMatrix(component, [
+            disabledStates,
+            appearanceStates,
+            iconVisibleStates
+        ])
     )
 );
