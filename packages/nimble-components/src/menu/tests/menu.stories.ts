@@ -2,12 +2,10 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../menu-item/index';
-import {
-    admin16X16,
-    logout16X16
-} from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import '../../icons/admin';
+import '../../icons/logout';
 
 interface MenuArgs {
     itemOptions: ItemArgs[];
@@ -40,21 +38,22 @@ const metadata: Meta<MenuArgs> = {
                     <div style="font-weight: bold; color: black;">lvadmin User</div>
                     <div style="color: gray;">lvadmin</div>
                 </div>
-                <nimble-menu-item><div slot="start">${admin16X16.data}</div>Account</nimble-menu-item>
-                <nimble-menu-item><div slot="start">${logout16X16.data}</div>Log out</nimble-menu-item>
+                <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Account</nimble-menu-item>
+                <nimble-menu-item><div slot="start"><nimble-logout-icon></nimble-logout-icon></div>Log out</nimble-menu-item>
                 `)}
             ${when(x => !x.slottedComponent, html<MenuArgs>`
                 <header>Header 1</header>
                 ${repeat(x => x.itemOptions.slice(0, 3), html<ItemArgs>`
                     <nimble-menu-item ?disabled="${x => x.disabled}">
-                        ${when(x => x.icon, html`<div slot="start">${admin16X16.data}</div>`)}
+                        ${when(x => x.icon, html`<nimble-admin-icon></nimble-admin-icon>`)}
                         ${x => x.text}
                     </nimble-menu-item>
                 `)}
+                <hr>
                 <header>Header 2</header>
                 ${repeat(x => x.itemOptions.slice(3, 6), html<ItemArgs>`
                     <nimble-menu-item ?disabled="${x => x.disabled}">
-                        ${when(x => x.icon, html`<div slot="start">${admin16X16.data}</div>`)}
+                        ${when(x => x.icon, html`<nimble-admin-icon></nimble-admin-icon>`)}
                         ${x => x.text}
                     </nimble-menu-item>
                 `)}
