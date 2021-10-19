@@ -100,6 +100,10 @@ export const styles = css`
         display: contents;
     }
 
+    slot[name='start']::slotted(*) {
+        --icon-color: ${buttonContentFontColor};
+    }
+
     :host([disabled]) slot[name='start']::slotted(*) {
         opacity: 0.6;
     }
