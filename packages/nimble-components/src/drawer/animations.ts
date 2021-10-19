@@ -1,32 +1,56 @@
-export const slideAnimationId = 'DrawerSlideAnimation';
-
-export const slideAnimationKeyframes: {
-    [name: string]: PropertyIndexedKeyframes
-} = {
-    leftSide: {
-        transform: ['translateX(-100%)', 'translateX(-100%)', 'translateX(0%)'],
-        visibility: ['hidden', 'visible', 'visible'],
-        offset: [0, 0.01, 1]
+const slideLeftKeyframes: Keyframe[] = [
+    {
+        transform: 'translateX(-100%)',
+        visibility: 'hidden',
+        offset: 0
     },
-    rightSide: {
-        transform: ['translateX(100%)', 'translateX(100%)', 'translateX(0%)'],
-        visibility: ['hidden', 'visible', 'visible'],
-        offset: [0, 0.01, 1]
+    {
+        transform: 'translateX(-100%)',
+        visibility: 'visible',
+        offset: 0.01
+    },
+    {
+        transform: 'translateX(0%)',
+        visibility: 'visible',
+        offset: 1
     }
+];
+
+const slideRightKeyframes: Keyframe[] = [
+    {
+        transform: 'translateX(100%)',
+        visibility: 'hidden',
+        offset: 0
+    },
+    {
+        transform: 'translateX(100%)',
+        visibility: 'visible',
+        offset: 0.01
+    },
+    {
+        transform: 'translateX(0%)',
+        visibility: 'visible',
+        offset: 1
+    }
+];
+
+const fadeOverlayKeyframes: Keyframe[] = [{ opacity: 0 }, { opacity: 1 }];
+
+const slideInOptions = {
+    duration: 1,
+    easing: 'ease-out'
 };
 
-export const slideAnimationOptions: {
-    [name: string]: KeyframeAnimationOptions
-} = {
-    slideIn: {
-        duration: 250,
-        easing: 'ease-out',
-        id: slideAnimationId
-    },
-    slideOut: {
-        duration: 250,
-        easing: 'ease-in',
-        direction: 'reverse',
-        id: slideAnimationId
-    }
+const slideOutOptions = {
+    duration: 1,
+    easing: 'ease-in',
+    direction: 'reverse'
+};
+
+export const animationConfig = {
+    slideLeftKeyframes,
+    slideRightKeyframes,
+    fadeOverlayKeyframes,
+    slideInOptions,
+    slideOutOptions
 };

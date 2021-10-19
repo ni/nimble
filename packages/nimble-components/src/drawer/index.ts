@@ -1,16 +1,16 @@
+import { AnimateGroup, AnimateTo } from '@microsoft/fast-animation';
 import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Dialog as FoundationDialog,
     dialogTemplate as template
 } from '@microsoft/fast-foundation';
-import {
-    slideAnimationKeyframes,
-    slideAnimationOptions,
-    slideAnimationId
-} from './animations';
+import { drawerAnimationDurationMs } from '../theme-provider/design-tokens';
+import { animationConfig } from './animations';
 import { styles } from './styles';
 import { DrawerLocation, DrawerState } from './types';
+
+const animationDurationWhenDisabledMilliseconds = 0.001;
 
 /**
  * Drawer/Sidenav control. Shows content in a panel on the left / right side of the screen,
@@ -32,18 +32,48 @@ export class Drawer extends FoundationDialog {
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
+    private animationDurationMilliseconds =
+    animationDurationWhenDisabledMilliseconds;
+
+    private animationGroup?: AnimateGroup;
+    private animationsEnabledChangedHandler?: (MediaQueryListEvent) => void;
+    private prefersReducedMotionMediaQuery?: MediaQueryList;
+
     public connectedCallback(): void {
+        // Update 'modal' before super.connectedCallback so FAST Dialog doesn't add 'modal' attribute always
         if (!this.hasAttribute('modal')) {
             this.modal = false;
         }
+        // disable trapFocus before super.connectedCallback as FAST Dialog will immediately queue work to
+        // change focus if it's true before connectedCallback
         this.trapFocus = false;
         super.connectedCallback();
+        this.prefersReducedMotionMediaQuery = window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+        );
+        this.updateAnimationDuration();
+        this.animationsEnabledChangedHandler = () => this.updateAnimationDuration();
+        this.prefersReducedMotionMediaQuery.addEventListener(
+            'change',
+            this.animationsEnabledChangedHandler
+        );
         this.stateChanged();
     }
 
     public disconnectedCallback(): void {
         super.disconnectedCallback();
         this.cancelCurrentAnimation();
+        if (
+            this.prefersReducedMotionMediaQuery
+            && this.animationsEnabledChangedHandler
+        ) {
+            this.prefersReducedMotionMediaQuery.removeEventListener(
+                'change',
+                this.animationsEnabledChangedHandler
+            );
+            this.prefersReducedMotionMediaQuery = undefined;
+            this.animationsEnabledChangedHandler = undefined;
+        }
     }
 
     public override show(): void {
@@ -61,6 +91,9 @@ export class Drawer extends FoundationDialog {
         }
     }
 
+    /**
+     * Called by FAST when 'hidden' property changes
+     */
     private hiddenChanged(): void {
         if (this.hidden && this.state !== DrawerState.Closed) {
             this.state = DrawerState.Closed;
@@ -69,6 +102,16 @@ export class Drawer extends FoundationDialog {
         }
     }
 
+    /**
+     * Called by FAST when 'location' property changes
+     */
+    private locationChanged(): void {
+        this.cancelCurrentAnimation();
+    }
+
+    /**
+     * Called by FAST when 'state' property changes
+     */
     private stateChanged(): void {
         if (this.isConnected) {
             this.cancelCurrentAnimation();
@@ -95,48 +138,61 @@ export class Drawer extends FoundationDialog {
         }
     }
 
+    private updateAnimationDuration(): void {
+        const disableAnimations = this.prefersReducedMotionMediaQuery?.matches;
+        this.animationDurationMilliseconds = disableAnimations
+            ? animationDurationWhenDisabledMilliseconds
+            : drawerAnimationDurationMs.getValueFor(this);
+    }
+
     private animateOpening(): void {
-        const keyframes = this.location === DrawerLocation.Right
-            ? slideAnimationKeyframes.rightSide
-            : slideAnimationKeyframes.leftSide;
-        this.animateDialog(keyframes, slideAnimationOptions.slideIn, () => {
-            this.state = DrawerState.Opened;
-        });
+        this.animateOpenClose(true);
     }
 
     private animateClosing(): void {
         if (!this.hidden) {
-            const keyframes = this.location === DrawerLocation.Right
-                ? slideAnimationKeyframes.rightSide
-                : slideAnimationKeyframes.leftSide;
-            this.animateDialog(
-                keyframes,
-                slideAnimationOptions.slideOut,
-                () => {
-                    this.state = DrawerState.Closed;
-                }
-            );
+            this.animateOpenClose(false);
         } else {
             this.state = DrawerState.Closed;
         }
     }
 
-    private animateDialog(
-        keyframes: PropertyIndexedKeyframes,
-        options: KeyframeAnimationOptions,
-        onFinished: () => void
-    ): void {
-        this.cancelCurrentAnimation();
-        const animation = this.dialog.animate(keyframes, options);
-        animation.addEventListener('finish', onFinished);
+    private animateOpenClose(drawerOpening: boolean): void {
+        const options = {
+            ...(drawerOpening
+                ? animationConfig.slideInOptions
+                : animationConfig.slideOutOptions),
+            duration: this.animationDurationMilliseconds
+        };
+        const drawerKeyframes = this.location === DrawerLocation.Right
+            ? animationConfig.slideRightKeyframes
+            : animationConfig.slideLeftKeyframes;
+        const dialogAnimation = new AnimateTo(this.dialog, undefined, options);
+        dialogAnimation.addKeyframes(drawerKeyframes);
+        const animations = [dialogAnimation];
+        const overlay = this.shadowRoot?.querySelector('.overlay');
+        if (overlay) {
+            const overlayAnimation = new AnimateTo(
+                overlay as HTMLElement,
+                undefined,
+                options
+            );
+            overlayAnimation.addKeyframes(animationConfig.fadeOverlayKeyframes);
+            animations.push(overlayAnimation);
+        }
+
+        const animationGroup = new AnimateGroup(animations);
+        animationGroup.onFinish = () => {
+            this.state = drawerOpening
+                ? DrawerState.Opened
+                : DrawerState.Closed;
+        };
+        this.animationGroup = animationGroup;
+        animationGroup.play();
     }
 
     private cancelCurrentAnimation(): void {
-        this.dialog.getAnimations().forEach(animation => {
-            if (animation.id === slideAnimationId) {
-                animation.cancel();
-            }
-        });
+        this.animationGroup?.cancel();
     }
 }
 

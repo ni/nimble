@@ -33,7 +33,7 @@ export const styles = css`
         right: 0px;
     }
 
-    :host .positioning-region {
+    .positioning-region {
         display: block;
         position: relative;
         justify-content: center;
@@ -62,10 +62,10 @@ export const styles = css`
         top: 0px;
         bottom: 0px;
         width: fit-content;
-        height: 100vh;
-        display: flex;
+        height: 100%;
+        display: grid;
+        grid-template-rows: max-content auto max-content;
         flex-direction: column;
-        z-index: 1;
         box-sizing: border-box;
         border-radius: 0px;
         border-width: 0px;
@@ -90,5 +90,30 @@ export const styles = css`
     :host([location='right']) .control {
         right: 0px;
         border-left: ${borderWidth} solid ${popupBoxShadowColor};
+    }
+
+    ${
+        /*
+            Styling for a 3-panel drawer with header, footer, and a content
+            region filling the remaining space/height
+        */ ''
+    }
+
+    ::slotted(header) {
+        padding: var(--standard-padding);
+        font-size: 125%;
+    }
+
+    ::slotted(section) {
+        padding: var(--standard-padding);
+        grid-row: 2;
+        overflow-y: auto;
+    }
+
+    ::slotted(footer) {
+        padding: var(--standard-padding);
+        display: flex;
+        justify-content: flex-end;
+        border-top: ${borderWidth} solid ${popupBorderColor};
     }
 `;

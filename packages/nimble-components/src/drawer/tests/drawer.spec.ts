@@ -5,12 +5,7 @@ import type { Drawer } from '..';
 import { DrawerState } from '../types';
 
 async function setup(): Promise<Fixture<Drawer>> {
-    return fixture<Drawer>(
-        // prettier-ignore
-        html`
-        <nimble-drawer>
-        </nimble-drawer>`
-    );
+    return fixture<Drawer>(html` <nimble-drawer> </nimble-drawer>`);
 }
 
 describe('Drawer', () => {
