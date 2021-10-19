@@ -17,5 +17,8 @@ We can make Nimble components integrate well with Angular forms and `ngModel` bi
 The Angular directives need code coverage via unit tests.
 * We should test the `ControlValueAccessor` behavior using form value binding (e.g. `[(ngModel)]` binding)
   * We've decided to only support using Nimble form controls in Angular using `[ngModel]`, `[formControl]`, and `[formControlName]` attributes. Other methods of binding the value of form controls (e.g. `[value]` or `(change)`) are not supported and do not need to be tested. 
+* We should also test that importing the Angular module associated with a Nimble element will also import the Nimble custom element itself.
+  * For example, `expect(customElements.get('nimble-foo')).not.toBeUndefined();`
+  * Tests should not import the Nimble element directly. Use `import type` if the element's type is needed.
 * Any other custom behavior implemented in the directives (lifecycle hooks, new properties) should be tested.
   *  However, it shouldn't be necessary to test properties which only use a simple `HostBinding` decorator.

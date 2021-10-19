@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 19 Oct 2021 20:01:50 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.94",
+      "version": "1.0.0-beta.94",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Add Angular support for tab elements",
+            "commit": "c6fcc82a3a6e9d72d52912e147102f2056b762e2"
+          },
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "c6fcc82a3a6e9d72d52912e147102f2056b762e2",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.94"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 14 Oct 2021 19:47:51 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.93",
       "version": "1.0.0-beta.93",
