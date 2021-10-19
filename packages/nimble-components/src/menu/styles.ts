@@ -20,7 +20,7 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
-        padding: 8px;
+        padding: 4px;
         min-width: 168px;
         width: max-content;
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
@@ -44,6 +44,7 @@ export const styles = css`
         line-height: ${labelHeight};
         color: ${labelFontColor};
         text-transform: ${labelTextTransform};
-        padding: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 `;
