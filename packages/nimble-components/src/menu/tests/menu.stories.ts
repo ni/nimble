@@ -39,7 +39,7 @@ const metadata: Meta<MenuArgs> = {
                     <div style="color: gray;">lvadmin</div>
                 </div>
                 <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Account</nimble-menu-item>
-                <nimble-menu-item><div slot="start"><nimble-logout-icon></nimble-logout-icon></div>Log out</nimble-menu-item>
+                <nimble-menu-item><nimble-logout-icon></nimble-logout-icon>Log out</nimble-menu-item>
                 `)}
             ${when(x => !x.slottedComponent, html<MenuArgs>`
                 <header>Header 1</header>

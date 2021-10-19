@@ -1,5 +1,4 @@
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { admin16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
@@ -8,6 +7,7 @@ import {
     themeWrapper
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
+import '../../icons/admin';
 
 /* TODO: there is an IconState helper in '../../tests/utilities/theme-test-helpers'
 when the other components are updated to use the start slot or <nimble-icon> then we should use that helper instead.
@@ -39,7 +39,7 @@ const component = (
             <nimble-menu-item>Item 1</nimble-menu-item>
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
-            <nimble-menu-item>${when(() => icon, html`<div slot="start">${admin16X16.data}</div>`)}Item 3</nimble-menu-item>
+            <nimble-menu-item>${when(() => icon, html`<nimble-admin-icon></nimble-admin-icon>`)}Item 3</nimble-menu-item>
         </nimble-menu>
     </span>
 `;
