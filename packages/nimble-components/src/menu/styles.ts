@@ -25,6 +25,10 @@ export const styles = css`
         width: max-content;
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
     }
+    ::slotted(*) {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
     ::slotted(hr) {
         box-sizing: content-box;
         height: 2px;
@@ -41,9 +45,5 @@ export const styles = css`
         color: ${labelFontColor};
         text-transform: ${labelTextTransform};
         padding: 4px;
-    }
-    ::slotted(:not(hr)) {
-        padding-left: 8px;
-        padding-right: 8px;
     }
 `;
