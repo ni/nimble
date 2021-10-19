@@ -22,7 +22,6 @@ export const styles = css`
         outline: none;
         user-select: none;
         color: ${labelFontColor};
-        --drawer-width: 400px;
     }
 
     :host([location='left']) {

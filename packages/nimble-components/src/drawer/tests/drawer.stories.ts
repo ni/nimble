@@ -3,7 +3,6 @@ import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../../button/index';
-import '../../checkbox/index';
 import '../index';
 import { DrawerLocation, DrawerState } from '../types';
 import type { Drawer } from '../index';
