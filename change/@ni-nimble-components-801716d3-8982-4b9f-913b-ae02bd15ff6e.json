@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Export types for tab-related elements",
+  "packageName": "@ni/nimble-components",
+  "email": "5454342+brianehenry@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}

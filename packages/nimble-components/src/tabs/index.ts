@@ -11,6 +11,8 @@ export * from '../tab';
 export * from '../tab-panel';
 export * from '../tabs-toolbar';
 
+export type { Tabs };
+
 const nimbleTabs = Tabs.compose<TabsOptions>({
     baseName: 'tabs',
     template,
