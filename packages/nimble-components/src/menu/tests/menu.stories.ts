@@ -9,12 +9,12 @@ import {
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
-export interface MenuArgs {
+interface MenuArgs {
     itemOptions: ItemArgs[];
     slottedComponent: boolean;
 }
 
-export interface ItemArgs {
+interface ItemArgs {
     text: string;
     disabled: boolean;
     icon: boolean;
