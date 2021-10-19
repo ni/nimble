@@ -28,7 +28,7 @@ const metadata: Meta<MenuArgs> = {
         actions: {
             handles: ['change']
         }
-    },
+    }
 };
 
 export default metadata;
