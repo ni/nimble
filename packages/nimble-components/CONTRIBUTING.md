@@ -169,7 +169,7 @@ import { fancy16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline
 
 const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
     // To populate an existing slot with an svg icon
-    fancyIndicator: `${fancy16X16.data}`
+    fancyIndicator: fancy16X16.data
     // ...
 });
 ```

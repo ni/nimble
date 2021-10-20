@@ -9,6 +9,9 @@ import {
     themeWrapper
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
+import '../../tab';
+import '../../tab-panel';
+import '../../tabs-toolbar';
 import '../../button';
 
 const metadata: Meta = {

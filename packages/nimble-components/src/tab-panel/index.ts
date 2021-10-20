@@ -7,7 +7,7 @@ import { styles } from './styles';
 
 export type { TabPanel };
 
-export const nimbleTabPanel = TabPanel.compose({
+const nimbleTabPanel = TabPanel.compose({
     baseName: 'tab-panel',
     template,
     styles

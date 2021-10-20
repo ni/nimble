@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { Tab, Tabs } from '@ni/nimble-components/dist/esm/tabs';
+import type { Tabs } from '@ni/nimble-components/dist/esm/tabs';
+import type { Tab } from '@ni/nimble-components/dist/esm/tab';
 import { waitTask } from '../../../async-test-utilities';
 import { NimbleTabsModule } from '../nimble-tabs.module';
 

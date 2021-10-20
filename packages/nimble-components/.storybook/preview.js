@@ -1,15 +1,15 @@
 import '@ni/nimble-tokens/source/space-mono-font-face.css';
 import '@ni/nimble-tokens/source/source-sans-pro-font-face.css';
 import '../dist/esm/theme-provider';
-import { backgrounds } from '../dist/esm/tests/utilities/theme-test-helpers';
+import { backgroundStates } from '../dist/esm/tests/utilities/theme-test-helpers';
 
-const [defaultBackground] = backgrounds;
+const [defaultBackground] = backgroundStates;
 
 export const parameters = {
     layout: 'fullscreen',
     backgrounds: {
         default: defaultBackground.name,
-        values: backgrounds.map(({ name, value }) => ({ name, value }))
+        values: backgroundStates.map(({ name, value }) => ({ name, value }))
     },
     options: {
         storySort: {
@@ -20,7 +20,7 @@ export const parameters = {
 
 export const decorators = [
     (story, context) => {
-        const background = backgrounds.find(
+        const background = backgroundStates.find(
             ({ value }) => value === context.globals?.backgrounds?.value
         ) ?? defaultBackground;
         const tale = story();

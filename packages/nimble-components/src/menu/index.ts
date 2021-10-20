@@ -20,7 +20,7 @@ export { FoundationMenu as Menu };
  * Generates HTML Element: \<nimble-menu\>
  *
  */
-export const nimbleMenu = FoundationMenu.compose({
+const nimbleMenu = FoundationMenu.compose({
     baseName: 'menu',
     template,
     styles

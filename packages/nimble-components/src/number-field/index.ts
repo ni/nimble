@@ -32,8 +32,8 @@ const nimbleNumberField = FoundationNumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: `${controlsArrowExpanderDown16X16.data}`,
-    stepUpGlyph: `${controlsArrowExpanderUp16X16.data}`
+    stepDownGlyph: controlsArrowExpanderDown16X16.data,
+    stepUpGlyph: controlsArrowExpanderUp16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());
