@@ -21,7 +21,9 @@ import {
     Warning100LightUi,
     Warning100DarkUi,
     Pass100LightUi,
-    Pass100DarkUi
+    Pass100DarkUi,
+    Header2Size,
+    Header2Family
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -238,12 +240,14 @@ export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
 export const labelFontFamily = create<string>('label-font-family').withDefault(
     (element: HTMLElement) => getFontForTheme(element)
 );
+export const drawerHeaderFontFamily = create<string>('drawer-header-font-family').withDefault(Header2Family);
 
 // Font Sizing Tokens
 export const labelFontSize = create<string>('label-font-size').withDefault(
     (element: HTMLElement) => getLabelTextSize(element)
 );
 export const contentFontSize = create<string>('content-font-size').withDefault(BodySize);
+export const drawerHeaderFontSize = create<string>('drawer-header-font-size').withDefault(Header2Size);
 
 // Font Color Tokens
 export const labelFontColor = create<string>('label-font-color').withDefault(

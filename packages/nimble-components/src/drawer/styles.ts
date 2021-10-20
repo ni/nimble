@@ -1,13 +1,11 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    Header2Family,
-    Header2Size
-} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import {
     applicationBackgroundColor,
     borderWidth,
     contentFontSize,
+    drawerHeaderFontFamily,
+    drawerHeaderFontSize,
     fontFamily,
     labelFontColor,
     popupBorderColor,
@@ -104,8 +102,8 @@ export const styles = css`
 
     ::slotted(header) {
         padding: var(--standard-padding);
-        font-family: ${Header2Family};
-        font-size: ${Header2Size};
+        font-family: ${drawerHeaderFontFamily};
+        font-size: ${drawerHeaderFontSize};
     }
 
     ::slotted(section) {
