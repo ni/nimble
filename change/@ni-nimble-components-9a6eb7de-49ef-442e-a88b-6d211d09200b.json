@@ -1,6 +1,6 @@
 {
   "type": "prerelease",
-  "comment": "Test utility forlder layout",
+  "comment": "Test utility folder layout",
   "packageName": "@ni/nimble-components",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "prerelease"
