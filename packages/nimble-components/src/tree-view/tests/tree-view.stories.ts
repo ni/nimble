@@ -8,8 +8,10 @@ import {
 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { SelectionMode } from '../types';
 
 interface TreeArgs {
+    selectionMode: SelectionMode;
     options: ItemArgs[];
 }
 
@@ -32,9 +34,15 @@ const metadata: Meta<TreeArgs> = {
             handles: ['expanded-change', 'selected-change']
         }
     },
+    argTypes: {
+        selectionMode: {
+            options: Object.values(SelectionMode),
+            control: { type: 'radio' }
+        }
+    },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-tree-view>
+        <nimble-tree-view selectionMode="${x => x.selectionMode}">
             ${repeat(x => x.options, html<ItemArgs>`
                 <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}" ?disabled="${x => x.disabled}">
                     ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
@@ -42,9 +50,9 @@ const metadata: Meta<TreeArgs> = {
                     <nimble-tree-item>
                          ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
                          Sub Group
-                        <nimble-tree-item>
+                        <nimble-tree-item ?selected="${x => x.expanded}">
                             ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
-                            Nested Item 1
+                            <a href="http://www.ni.com">Nested Item 1</a>
                         </nimble-tree-item>
                     </nimble-tree-item>
                     <nimble-tree-item>
@@ -60,6 +68,7 @@ const metadata: Meta<TreeArgs> = {
         </nimble-tree-view>
 `),
     args: {
+        selectionMode: SelectionMode.LeavesOnly,
         options: [
             {
                 label: 'Option 1',
