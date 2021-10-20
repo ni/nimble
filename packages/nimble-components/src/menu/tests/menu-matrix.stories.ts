@@ -4,16 +4,12 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import {
     createMatrix,
+    IconVisibleState,
+    iconVisibleStates,
     themeWrapper
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 import '../../icons/admin';
-
-/* TODO: there is an IconState helper in '../../tests/utilities/theme-test-helpers'
-when the other components are updated to use the start slot or <nimble-icon> then we should use that helper instead.
-https://ni.visualstudio.com/DevCentral/_workitems/edit/1636227/?workitem=1695650 */
-type MenuIconState = boolean;
-const menuIconStates: MenuIconState[] = [false, true];
 
 const metadata: Meta = {
     title: 'Tests/Menu',
@@ -31,7 +27,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    icon: MenuIconState
+    icon: IconVisibleState
 ): ViewTemplate => html`
     <span style="padding: 15px; display:inline-flex;">
         <nimble-menu>
@@ -45,5 +41,5 @@ const component = (
 `;
 
 export const menuThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [menuIconStates]))
+    themeWrapper(createMatrix(component, [iconVisibleStates]))
 );
