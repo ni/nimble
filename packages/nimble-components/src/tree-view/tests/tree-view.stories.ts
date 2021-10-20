@@ -5,7 +5,7 @@ import '../../tree-item/index';
 import '../../icons/measurement-data-analysis';
 import '../../icons/settings';
 import { html, repeat, when } from '@microsoft/fast-element';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 
 interface TreeArgs {
     options: ItemArgs[];

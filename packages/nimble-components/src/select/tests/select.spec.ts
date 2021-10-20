@@ -1,5 +1,5 @@
 import { DOM, html } from '@microsoft/fast-element';
-import { fixture, Fixture } from '../../tests/utilities/fixture';
+import { fixture, Fixture } from '../../utilities/tests/fixture';
 import type { Select } from '../index';
 import '../index';
 import '../../listbox-option/index';

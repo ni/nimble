@@ -4,10 +4,10 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
     themeWrapper
-} from '../../tests/utilities/theme-test-helpers';
+} from '../../utilities/tests/matrix';
 
 import '../../icons/check';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 import { IconStatus } from './types';
 import { contentFontColor } from '../../theme-provider/design-tokens';
 

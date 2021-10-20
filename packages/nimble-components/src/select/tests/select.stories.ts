@@ -3,7 +3,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../listbox-option/index';
 import { html, repeat } from '@microsoft/fast-element';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 
 interface SelectArgs {
     disabled: boolean;

@@ -4,7 +4,7 @@ import { html, repeat, when } from '@microsoft/fast-element';
 import '../index';
 import '../../menu-item/index';
 import '../../icons/access-control';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 
 interface MenuArgs {
     options: ItemArgs[];

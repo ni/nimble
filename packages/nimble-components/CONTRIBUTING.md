@@ -196,7 +196,11 @@ The following commands can be run from the `nimble` directory:
 
 ### Test utilities
 
-The jasmine unit tests utilize [`fixture.ts`](src/tests/utilities/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](src/tests/utilities/fixture.spec.ts).
+Test utilities located in a `/src/testing` directory are available for tests in the repository and are also available for consumers of the built package to help with testing.
+
+Test utilties located in `/src/utilities/tests` are testing utilities internal to the repository and are not included in the built package.
+
+The jasmine unit tests utilize [`fixture.ts`](src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](src/utilities/tests/fixture.spec.ts).
 
 ## Theming
 
