@@ -81,6 +81,7 @@ export class Drawer extends FoundationDialog {
                 propertyName
             ));
             this.propertyChangeNotifier = undefined;
+            this.propertyChangeSubscriber = undefined;
         }
         if (
             this.prefersReducedMotionMediaQuery
