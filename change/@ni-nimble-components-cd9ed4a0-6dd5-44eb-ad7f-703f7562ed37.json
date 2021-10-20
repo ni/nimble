@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Added styling and support for headers and non-interactive items in nimble-menu.",
-  "packageName": "@ni/nimble-components",
-  "email": "35616474+michaeldbrandt@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}

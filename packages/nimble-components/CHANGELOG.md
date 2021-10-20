@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 20 Oct 2021 00:24:57 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Oct 2021 19:37:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.83
+
+Wed, 20 Oct 2021 19:37:53 GMT
+
+### Changes
+
+- Added styling and support for headers and non-interactive items in nimble-menu. (35616474+michaeldbrandt@users.noreply.github.com)
 
 ## 1.0.0-beta.82
 
