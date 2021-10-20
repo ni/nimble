@@ -1,9 +1,9 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { controlsSearch16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import '../index';
+import '../../icons/access-control';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 interface ButtonArgs {
@@ -34,7 +34,7 @@ const metadata: Meta<ButtonArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}">
-            ${when(x => x.icon, html`<div slot="icon">${controlsSearch16X16.data}</div>`)}
+            ${when(x => x.icon, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
             ${x => x.label}
         </nimble-button>
 `),

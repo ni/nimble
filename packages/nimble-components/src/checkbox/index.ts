@@ -14,7 +14,7 @@ const nimbleCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
     baseName: 'checkbox',
     template,
     styles,
-    checkedIndicator: `${controlsCheckboxCheck16X16.data}`
+    checkedIndicator: controlsCheckboxCheck16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCheckbox());

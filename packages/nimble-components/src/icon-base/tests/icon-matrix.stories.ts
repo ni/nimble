@@ -5,10 +5,11 @@ import {
     createMatrix,
     themeWrapper
 } from '../../tests/utilities/theme-test-helpers';
-import '../index';
+
 import '../../icons/check';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import { IconStatus } from './types';
+import { contentFontColor } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Icon',
@@ -20,19 +21,19 @@ const metadata: Meta = {
 
 export default metadata;
 
-const iconStates = [
+const iconStatusStates = [
     ['Pass', IconStatus.Pass],
     ['Fail', IconStatus.Fail],
     ['Warning', IconStatus.Warning],
     ['Regular', IconStatus.Regular]
 ];
-type IconState = typeof iconStates[number];
+type IconStatusState = typeof iconStatusStates[number];
 
-const component = ([stateName, state]: IconState): ViewTemplate => html`
-    <nimble-text-field readonly value="${stateName}"></<nimble-text-field>
-    <nimble-check-icon class="${state}"> </nimble-check-icon>
+const component = ([stateName, state]: IconStatusState): ViewTemplate => html`
+    <span style="color: ${contentFontColor.createCSS()};">${stateName}</span>
+    <nimble-check-icon class="${state}"></nimble-check-icon>
 `;
 
 export const iconThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [iconStates]))
+    themeWrapper(createMatrix(component, [iconStatusStates]))
 );

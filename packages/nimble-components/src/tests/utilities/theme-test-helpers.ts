@@ -1,8 +1,13 @@
 import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
-import { controlsSearch16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { NimbleTheme } from '../../theme-provider/themes';
 
-export const backgrounds = [
+export interface BackgroundState {
+    name: string;
+    value: string;
+    theme: NimbleTheme;
+}
+
+export const backgroundStates: BackgroundState[] = [
     {
         name: `"${NimbleTheme.Light}" theme on white`,
         value: '#F4F4F4',
@@ -29,7 +34,6 @@ export const backgrounds = [
         theme: NimbleTheme.LegacyBlue
     }
 ];
-type Background = typeof backgrounds[number];
 
 export type DisabledState = [string, boolean];
 export const disabledStates: DisabledState[] = [
@@ -49,13 +53,8 @@ export const readOnlyStates: ReadOnlyState[] = [
     ['Read-Only', true]
 ];
 
-export type IconState = ViewTemplate;
-export const iconStates: ViewTemplate[] = [
-    // An empty template requires a space to prevent errors
-    // prettier-ignore
-    html` `,
-    html`<div slot="icon">${controlsSearch16X16.data}</div>`
-];
+export type IconVisibleState = boolean;
+export const iconVisibleStates: IconVisibleState[] = [false, true];
 
 export type ExpandedState = [string, boolean];
 export const expandedStates: ExpandedState[] = [
@@ -140,13 +139,13 @@ export function createMatrix(
 /**
  * Wraps a given component template with a region for each of the available themes.
  */
-// prettier-ignore
-export const themeWrapper = (template: ViewTemplate): ViewTemplate => html`
-    ${repeat(() => backgrounds, html<Background>`
-    <nimble-theme-provider theme="${x => x.theme}">
-        <div style="background-color: ${x => x.value}; padding:20px;">
-            ${template}
-        </div>
-    </nimble-theme-provider>
-    `)}
-`;
+export const themeWrapper = (template: ViewTemplate): ViewTemplate => createMatrix(
+    ({ theme, value }: BackgroundState) => html`
+            <nimble-theme-provider theme="${theme}">
+                <div style="background-color: ${value}; padding:20px;">
+                    ${template}
+                </div>
+            </nimble-theme-provider>
+        `,
+    [backgroundStates]
+);

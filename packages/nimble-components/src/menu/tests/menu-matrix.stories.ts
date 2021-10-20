@@ -4,7 +4,9 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import {
     createMatrix,
-    themeWrapper
+    themeWrapper,
+    iconVisibleStates,
+    IconVisibleState
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
 import '../../icons/admin';
@@ -31,7 +33,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    icon: MenuIconState
+    iconVisible: IconVisibleState
 ): ViewTemplate => html`
     <span style="padding: 15px; display:inline-flex;">
         <nimble-menu>
@@ -45,5 +47,5 @@ const component = (
 `;
 
 export const menuThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [menuIconStates]))
+    themeWrapper(createMatrix(component, [iconVisibleStates]))
 );

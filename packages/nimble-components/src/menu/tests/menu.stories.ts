@@ -1,5 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { html, repeat, when } from '@microsoft/fast-element';
 import '../index';
 import '../../menu-item/index';
 import { html, repeat, when } from '@microsoft/fast-element';

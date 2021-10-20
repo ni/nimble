@@ -21,7 +21,7 @@ const nimbleTextField = FoundationTextField.compose<TextFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    end: `${statusAlarmActive16X16.data}`
+    end: statusAlarmActive16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextField());
