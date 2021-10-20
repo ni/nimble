@@ -41,6 +41,7 @@
     "dist/esm/**"
   ],
   "dependencies": {
+    "@microsoft/fast-animation": "^4.1.5",
     "@microsoft/fast-components": "^2.0.0",
     "@microsoft/fast-element": "^1.4.1",
     "@microsoft/fast-foundation": "^2.12.0",
