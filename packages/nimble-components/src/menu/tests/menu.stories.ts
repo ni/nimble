@@ -15,6 +15,7 @@ interface ItemArgs {
     text: string;
     disabled: boolean;
     icon: boolean;
+    type: 'nimble-menu-item' | 'header' | 'hr';
 }
 
 const metadata: Meta<MenuArgs> = {
@@ -37,54 +38,79 @@ export const menu: Story<MenuArgs> = {
     // prettier-ignore
     render: createRenderer<MenuArgs>(html`
         <nimble-menu>
-            <header>Header 1</header>
-            ${repeat(x => x.itemOptions.slice(0, 3), html<ItemArgs>`
-                <nimble-menu-item ?disabled="${x => x.disabled}">
-                    ${when(x => x.icon, html`<nimble-admin-icon></nimble-admin-icon>`)}
-                    ${x => x.text}
-                </nimble-menu-item>
-            `)}
-            <hr>
-            <header>Header 2</header>
-            ${repeat(x => x.itemOptions.slice(3, 6), html<ItemArgs>`
-                <nimble-menu-item ?disabled="${x => x.disabled}">
-                    ${when(x => x.icon, html`<nimble-admin-icon></nimble-admin-icon>`)}
-                    ${x => x.text}
-                </nimble-menu-item>
+            ${repeat(x => x.itemOptions, html<ItemArgs>`
+                ${when(x => x.type === 'nimble-menu-item', html<ItemArgs>`
+                    <nimble-menu-item ?disabled="${x => x.disabled}">
+                        ${when(x => x.icon, html`<nimble-admin-icon></nimble-admin-icon>`)}
+                        ${x => x.text}
+                    </nimble-menu-item>
+                `)}
+                ${when(x => x.type === 'header', html<ItemArgs>`
+                    <header>
+                        ${x => x.text}
+                    </header>
+                `)}
+                ${when(x => x.type === 'hr', html<ItemArgs>`
+                    <hr>
+                `)}
             `)}
         </nimble-menu>
         `),
     args: {
         itemOptions: [
             {
+                text: 'Header 1',
+                disabled: false,
+                icon: false,
+                type: 'header'
+            },
+            {
                 text: 'Item 1',
                 disabled: false,
-                icon: false
+                icon: false,
+                type: 'nimble-menu-item'
             },
             {
                 text: 'Item 2',
                 disabled: false,
-                icon: false
+                icon: false,
+                type: 'nimble-menu-item'
             },
             {
                 text: 'Item 3',
                 disabled: false,
-                icon: false
+                icon: false,
+                type: 'nimble-menu-item'
+            },
+            {
+                text: 'Divider',
+                disabled: false,
+                icon: false,
+                type: 'hr'
+            },
+            {
+                text: 'Header 2',
+                disabled: false,
+                icon: false,
+                type: 'header'
             },
             {
                 text: 'Item 4',
                 disabled: false,
-                icon: false
+                icon: false,
+                type: 'nimble-menu-item'
             },
             {
                 text: 'Item 5',
                 disabled: false,
-                icon: false
+                icon: false,
+                type: 'nimble-menu-item'
             },
             {
                 text: 'Item 6',
                 disabled: false,
-                icon: false
+                icon: false,
+                type: 'nimble-menu-item'
             }
         ]
     }
