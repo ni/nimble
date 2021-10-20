@@ -21,7 +21,7 @@ export const parameters = {
 export const decorators = [
     (story, context) => {
         const background = backgroundStates.find(
-            ({ value }) => value === context.globals?.backgroundStates?.value
+            ({ value }) => value === context.globals?.backgrounds?.value
         ) ?? defaultBackground;
         const tale = story();
         if (typeof tale === 'string') {
