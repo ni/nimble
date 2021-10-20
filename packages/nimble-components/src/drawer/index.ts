@@ -22,7 +22,7 @@ const animationDurationWhenDisabledMilliseconds = 0.001;
  * which animates to be visible with a slide-in / slide-out animation.
  * Configured via 'location', 'state', 'modal', 'preventDismiss' properties.
  */
-export class Drawer extends FoundationDialog implements Subscriber {
+export class Drawer extends FoundationDialog {
     @attr
     public location: DrawerLocation = DrawerLocation.Left;
 
@@ -46,6 +46,7 @@ export class Drawer extends FoundationDialog implements Subscriber {
     private animationGroup?: AnimateGroup;
     private animationsEnabledChangedHandler?: (MediaQueryListEvent) => void;
     private prefersReducedMotionMediaQuery?: MediaQueryList;
+    private propertyChangeSubscriber?: Subscriber;
 
     public connectedCallback(): void {
         // disable trapFocus before super.connectedCallback as FAST Dialog will immediately queue work to
@@ -63,15 +64,22 @@ export class Drawer extends FoundationDialog implements Subscriber {
         );
         this.onStateChanged();
         const notifier = Observable.getNotifier(this);
-        this.propertiesToWatch.forEach(propertyName => notifier.subscribe(this, propertyName));
+        const subscriber: Subscriber = {
+            handleChange: (_source: unknown, propertyName: string) => this.onPropertyChange(propertyName)
+        };
+        this.propertiesToWatch.forEach(propertyName => notifier.subscribe(subscriber, propertyName));
+        this.propertyChangeSubscriber = subscriber;
         this.propertyChangeNotifier = notifier;
     }
 
     public disconnectedCallback(): void {
         super.disconnectedCallback();
         this.cancelCurrentAnimation();
-        if (this.propertyChangeNotifier) {
-            this.propertiesToWatch.forEach(propertyName => this.propertyChangeNotifier!.unsubscribe(this, propertyName));
+        if (this.propertyChangeNotifier && this.propertyChangeSubscriber) {
+            this.propertiesToWatch.forEach(propertyName => this.propertyChangeNotifier!.unsubscribe(
+                this.propertyChangeSubscriber!,
+                propertyName
+            ));
             this.propertyChangeNotifier = undefined;
         }
         if (
@@ -104,9 +112,7 @@ export class Drawer extends FoundationDialog implements Subscriber {
         }
     }
 
-    public override handleChange(source: unknown, propertyName: string): void {
-        super.handleChange(source, propertyName);
-
+    private onPropertyChange(propertyName: string): void {
         switch (propertyName) {
             case 'hidden':
                 this.onHiddenChanged();
