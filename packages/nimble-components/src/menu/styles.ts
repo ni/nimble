@@ -6,7 +6,12 @@ import {
     borderWidth,
     borderColor,
     popupBorderColor,
-    popupBoxShadowColor
+    popupBoxShadowColor,
+    labelFontFamily,
+    labelFontSize,
+    labelHeight,
+    labelTextTransform,
+    labelFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -20,6 +25,10 @@ export const styles = css`
         width: max-content;
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
     }
+    ::slotted(*) {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
     ::slotted(hr) {
         box-sizing: content-box;
         height: 2px;
@@ -27,5 +36,15 @@ export const styles = css`
         border: none;
         background: ${borderColor};
         opacity: 0.1;
+    }
+    ::slotted(header) {
+        display: flex;
+        font-family: ${labelFontFamily};
+        font-size: ${labelFontSize};
+        line-height: ${labelHeight};
+        color: ${labelFontColor};
+        text-transform: ${labelTextTransform};
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 `;
