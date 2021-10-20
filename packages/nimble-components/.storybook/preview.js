@@ -7,7 +7,7 @@ const [defaultBackground] = backgroundStates;
 
 export const parameters = {
     layout: 'fullscreen',
-    backgroundStates: {
+    backgrounds: {
         default: defaultBackground.name,
         values: backgroundStates.map(({ name, value }) => ({ name, value }))
     },
