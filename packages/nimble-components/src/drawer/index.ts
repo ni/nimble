@@ -40,10 +40,6 @@ export class Drawer extends FoundationDialog {
     private prefersReducedMotionMediaQuery?: MediaQueryList;
 
     public connectedCallback(): void {
-        // Update 'modal' before super.connectedCallback so FAST Dialog doesn't add 'modal' attribute always
-        if (!this.hasAttribute('modal')) {
-            this.modal = false;
-        }
         // disable trapFocus before super.connectedCallback as FAST Dialog will immediately queue work to
         // change focus if it's true before connectedCallback
         this.trapFocus = false;
@@ -77,10 +73,12 @@ export class Drawer extends FoundationDialog {
     }
 
     public override show(): void {
+        // Not calling super.show() as that will immediately show the drawer, whereas 'Opening' state will animate
         this.state = DrawerState.Opening;
     }
 
     public override hide(): void {
+        // Not calling super.hide() as that will immediately hide the drawer, whereas 'Closing' state will animate
         this.state = DrawerState.Closing;
     }
 

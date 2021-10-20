@@ -21,6 +21,9 @@ const metadata: Meta = {
 
 export default metadata;
 
+// The drawer uses a customized theme wrapper (not themeWrapper like the other controls) because only
+// a single drawer can be visible at a time. So, we create different stories for each theme, rather
+// than having a single Theme Matrix story (as multiple drawers wouldn't render correctly in that mode).
 const singleThemeWrapper = (
     template: ViewTemplate,
     backgroundState: BackgroundState
@@ -42,7 +45,7 @@ const singleThemeWrapper = (
 
 const component = html`
     <nimble-drawer state="opened" location="right" modal>
-        <p style="margin: 10px;">Example Content</p>
+        <p style="margin: 10px;">Drawer containing text content</p>
     </nimble-drawer>
 `;
 

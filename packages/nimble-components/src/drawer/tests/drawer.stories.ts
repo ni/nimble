@@ -21,13 +21,13 @@ interface DrawerArgs {
     drawer: Drawer;
 }
 
-const simpleDrawerContent = '<section>Example Content</section>';
+const simpleDrawerContent = '<section>This is a drawer which can slide in from either side of the screen and display custom content.</section>';
 
 // prettier-ignore
 const drawerHeaderFooterContentTemplate = html`
     <header>Header</header>
     <section>
-        <p>Drawer Example with Header and Footer</p>
+        <p>This is a drawer with header and footer regions.</p>
         <p>
             Uses header, section, footer HTML elements
             <br/>
@@ -55,7 +55,7 @@ const metadata: Meta<DrawerArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-drawer ${ref('drawer')}
-            ?modal="${x => x.modal}"
+            modal="${x => x.modal}"
             ?prevent-dismiss="${x => x.preventDismiss}"
             location="${x => x.location}"
             state="${x => x.state}"            
