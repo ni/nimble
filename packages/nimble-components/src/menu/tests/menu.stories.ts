@@ -1,9 +1,9 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { html, repeat, when } from '@microsoft/fast-element';
 import '../index';
 import '../../menu-item/index';
-import { admin16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { html, repeat, when } from '@microsoft/fast-element';
+import '../../icons/access-control';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
 interface MenuArgs {
@@ -33,7 +33,7 @@ const metadata: Meta<MenuArgs> = {
         <nimble-menu>
             ${repeat(x => x.options, html<ItemArgs>`
                 <nimble-menu-item ?disabled="${x => x.disabled}">
-                    ${when(x => x.icon, html`<div slot="start">${admin16X16.data}</div>`)}
+                    ${when(x => x.icon, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
                     ${x => x.text}
                 </nimble-menu-item>
             `)}

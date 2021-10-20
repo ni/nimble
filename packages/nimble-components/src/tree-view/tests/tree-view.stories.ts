@@ -2,10 +2,8 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../tree-item/index';
-import {
-    jobs16X16,
-    notebook16X16
-} from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import '../../icons/measurement-data-analysis';
+import '../../icons/settings';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 
@@ -37,22 +35,22 @@ const metadata: Meta<TreeArgs> = {
         <nimble-tree-view>
             ${repeat(x => x.options, html<ItemArgs>`
                 <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}" ?disabled="${x => x.disabled}">
-                    ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                    ${when(x => x.icon, html`<nimble-measurement-data-analysis-icon></nimble-measurement-data-analysis-icon>`)}
                     ${x => x.label}
                     <nimble-tree-item>
-                         ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
+                         ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                          Sub Group
                         <nimble-tree-item>
-                            ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
+                            ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                             Nested Item 1
                         </nimble-tree-item>
                     </nimble-tree-item>
                     <nimble-tree-item>
-                        ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
+                        ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                         Nested Item 2
                     </nimble-tree-item>
                     <nimble-tree-item>
-                        ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
+                        ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                         Nested Item 3
                      </nimble-tree-item>
                 </nimble-tree-item>
