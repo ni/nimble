@@ -3,7 +3,6 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat, when } from '@microsoft/fast-element';
 import '../index';
 import '../../menu-item/index';
-import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../../icons/admin';
 import '../../icons/logout';
