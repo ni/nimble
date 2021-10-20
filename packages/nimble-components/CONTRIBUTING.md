@@ -149,6 +149,7 @@ Accessibility is a requirement for all new components. For the Nimble design sys
 This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
 
 ### Animations
+
 We're using the [fast-animation package](https://www.npmjs.com/package/@microsoft/fast-animation) for some animations (see the Drawer component as an example). That package allows us to create and start animations from JS/TS code, gives us ways to group/sequence multiple animations together, and lets us be notified when animations complete.
 
 For new component animations, using fast-animation is preferred for complex/sequenced animations, and animations which will have additional JS/TS logic when they finish. CSS animations can still be used for simple standalone animations with no start/end JS/TS logic.
