@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 20 Oct 2021 19:37:53 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.83",
+      "version": "1.0.0-beta.83",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Added styling and support for headers and non-interactive items in nimble-menu.",
+            "commit": "e8c3201ceb17b6d81519d8da52986d5319385ba2"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 20 Oct 2021 00:24:57 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.82",
       "version": "1.0.0-beta.82",

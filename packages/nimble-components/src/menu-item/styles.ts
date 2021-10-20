@@ -10,7 +10,6 @@ import {
     fillColorHover,
     contentFontColor,
     borderColorHover,
-    borderWidth,
     contentFontColorDisabled,
     iconSize
 } from '../theme-provider/design-tokens';
@@ -37,8 +36,7 @@ export const styles = css`
         font-size: ${contentFontSize};
     }
     :host(${focusVisible}) {
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
-        outline: ${borderWidth} solid ${borderColorHover};
+        outline: 2px solid ${borderColorHover};
         outline-offset: -2px;
     }
     :host(:hover) {
