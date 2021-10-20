@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Integrate nimble icon",
+  "packageName": "@ni/nimble-angular",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
