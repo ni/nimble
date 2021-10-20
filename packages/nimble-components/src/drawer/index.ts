@@ -1,5 +1,10 @@
 import { AnimateGroup, AnimateTo } from '@microsoft/fast-animation';
-import { attr } from '@microsoft/fast-element';
+import {
+    attr,
+    Notifier,
+    Observable,
+    Subscriber
+} from '@microsoft/fast-element';
 import {
     DesignSystem,
     Dialog as FoundationDialog,
@@ -17,7 +22,7 @@ const animationDurationWhenDisabledMilliseconds = 0.001;
  * which animates to be visible with a slide-in / slide-out animation.
  * Configured via 'location', 'state', 'modal', 'preventDismiss' properties.
  */
-export class Drawer extends FoundationDialog {
+export class Drawer extends FoundationDialog implements Subscriber {
     @attr
     public location: DrawerLocation = DrawerLocation.Left;
 
@@ -31,6 +36,9 @@ export class Drawer extends FoundationDialog {
      */
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
+
+    private readonly propertiesToWatch = ['hidden', 'location', 'state'];
+    private propertyChangeNotifier?: Notifier;
 
     private animationDurationMilliseconds =
     animationDurationWhenDisabledMilliseconds;
@@ -53,12 +61,19 @@ export class Drawer extends FoundationDialog {
             'change',
             this.animationsEnabledChangedHandler
         );
-        this.stateChanged();
+        this.onStateChanged();
+        const notifier = Observable.getNotifier(this);
+        this.propertiesToWatch.forEach(propertyName => notifier.subscribe(this, propertyName));
+        this.propertyChangeNotifier = notifier;
     }
 
     public disconnectedCallback(): void {
         super.disconnectedCallback();
         this.cancelCurrentAnimation();
+        if (this.propertyChangeNotifier) {
+            this.propertiesToWatch.forEach(propertyName => this.propertyChangeNotifier!.unsubscribe(this, propertyName));
+            this.propertyChangeNotifier = undefined;
+        }
         if (
             this.prefersReducedMotionMediaQuery
             && this.animationsEnabledChangedHandler
@@ -89,10 +104,25 @@ export class Drawer extends FoundationDialog {
         }
     }
 
-    /**
-     * Called by FAST when 'hidden' property changes
-     */
-    private hiddenChanged(): void {
+    public override handleChange(source: unknown, propertyName: string): void {
+        super.handleChange(source, propertyName);
+
+        switch (propertyName) {
+            case 'hidden':
+                this.onHiddenChanged();
+                break;
+            case 'location':
+                this.onLocationChanged();
+                break;
+            case 'state':
+                this.onStateChanged();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private onHiddenChanged(): void {
         if (this.hidden && this.state !== DrawerState.Closed) {
             this.state = DrawerState.Closed;
         } else if (!this.hidden && this.state === DrawerState.Closed) {
@@ -100,17 +130,11 @@ export class Drawer extends FoundationDialog {
         }
     }
 
-    /**
-     * Called by FAST when 'location' property changes
-     */
-    private locationChanged(): void {
+    private onLocationChanged(): void {
         this.cancelCurrentAnimation();
     }
 
-    /**
-     * Called by FAST when 'state' property changes
-     */
-    private stateChanged(): void {
+    private onStateChanged(): void {
         if (this.isConnected) {
             this.cancelCurrentAnimation();
             switch (this.state) {
