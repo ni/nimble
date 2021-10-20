@@ -19,10 +19,9 @@ export const styles = css`
         bottom: 0;
         width: fit-content;
         height: 100%;
+        outline: none;
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
-        outline: none;
-        user-select: none;
         color: ${labelFontColor};
     }
 

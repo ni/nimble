@@ -154,7 +154,7 @@ We're using the [fast-animation package](https://www.npmjs.com/package/@microsof
 
 For new component animations, using fast-animation is preferred for complex/sequenced animations, and animations which will have additional JS/TS logic when they finish. CSS animations can still be used for simple standalone animations with no start/end JS/TS logic.
 
-In either case, animations should honor the [prefers-reduced-motion CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). This repo has examples to support that in both TS code (for fast-animation) and in CSS, search for `prefers-reduced-motion` for examples.
+In either case, animations should honor the [prefers-reduced-motion CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). This repo has examples to support that in both TS code (for fast-animation) and in CSS, [search for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) for examples.
 
 ### Leveraging icons
 
