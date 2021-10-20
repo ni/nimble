@@ -1,19 +1,15 @@
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { admin16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import {
     createMatrix,
+    IconVisibleState,
+    iconVisibleStates,
     themeWrapper
 } from '../../tests/utilities/theme-test-helpers';
 import '../index';
-
-/* TODO: there is an IconState helper in '../../tests/utilities/theme-test-helpers'
-when the other components are updated to use the start slot or <nimble-icon> then we should use that helper instead.
-https://ni.visualstudio.com/DevCentral/_workitems/edit/1636227/?workitem=1695650 */
-type MenuIconState = boolean;
-const menuIconStates: MenuIconState[] = [false, true];
+import '../../icons/admin';
 
 const metadata: Meta = {
     title: 'Tests/Menu',
@@ -31,18 +27,19 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    icon: MenuIconState
+    icon: IconVisibleState
 ): ViewTemplate => html`
     <span style="padding: 15px; display:inline-flex;">
         <nimble-menu>
+            <header>Header</header>
             <nimble-menu-item>Item 1</nimble-menu-item>
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
-            <nimble-menu-item>${when(() => icon, html`<div slot="start">${admin16X16.data}</div>`)}Item 3</nimble-menu-item>
+            <nimble-menu-item>${when(() => icon, html`<nimble-admin-icon></nimble-admin-icon>`)}Item 3</nimble-menu-item>
         </nimble-menu>
     </span>
 `;
 
 export const menuThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [menuIconStates]))
+    themeWrapper(createMatrix(component, [iconVisibleStates]))
 );

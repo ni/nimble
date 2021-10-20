@@ -115,7 +115,7 @@ const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseClass: FoundationTreeItem,
     template,
     styles,
-    expandCollapseGlyph: `${controlsArrowExpanderUp16X16.data}`
+    expandCollapseGlyph: controlsArrowExpanderUp16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeItem());
