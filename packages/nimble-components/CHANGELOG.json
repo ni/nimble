@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 20 Oct 2021 00:24:57 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.82",
+      "version": "1.0.0-beta.82",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Integrate nimble icons",
+            "commit": "21161f55ee8e3c2936b0800362bc2d1f5eb7cb5c"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 19 Oct 2021 20:01:50 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.81",
       "version": "1.0.0-beta.81",

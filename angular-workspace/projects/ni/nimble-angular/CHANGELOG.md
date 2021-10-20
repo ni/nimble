@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 19 Oct 2021 20:01:50 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Oct 2021 00:24:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.95
+
+Wed, 20 Oct 2021 00:24:57 GMT
+
+### Changes
+
+- Integrate nimble icon (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.95 (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.94
 
