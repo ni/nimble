@@ -3,5 +3,5 @@
   "comment": "Adding Angular directives for nimble-menu and nimble-menu-item.",
   "packageName": "@ni/nimble-angular",
   "email": "35616474+michaeldbrandt@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
