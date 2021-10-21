@@ -1,0 +1,22 @@
+import { Story, Meta } from '@storybook/addon-docs';
+
+<Meta title="Menu" />
+
+# Menu
+
+## Adding a custom header
+
+The menu can be configured to display a custom header with arbitrary content.  This includes other nimble controls, or even custom elements.
+
+<Story id="menu--custom-menu"/>
+
+    <nimble-menu>
+        <div>
+            <div>lvadmin User</div>
+            <div>lvadmin</div>
+        </div>
+        <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Account</nimble-menu-item>
+        <nimble-menu-item><nimble-logout-icon></nimble-logout-icon>Log out</nimble-menu-item>
+    </nimble-menu>
+
+Only `<header>` and `<hr>` tags within the custom content will be automatically styled by Nimble. Only `<nimble-menu-item>` tags will automatically support keyboard navigation.

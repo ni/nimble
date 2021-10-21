@@ -14,3 +14,7 @@ export * from './directives/tree-item';
 export * from './directives/checkbox';
 export * from './directives/menu';
 export * from './directives/menu-item';
+export * from './directives/tabs';
+export * from './directives/tab';
+export * from './directives/tab-panel';
+export * from './directives/tabs-toolbar';

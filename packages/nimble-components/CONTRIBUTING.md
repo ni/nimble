@@ -148,6 +148,14 @@ Accessibility is a requirement for all new components. For the Nimble design sys
 
 This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
 
+### Animations
+
+We're using the [fast-animation package](https://www.npmjs.com/package/@microsoft/fast-animation) for some animations (see the Drawer component as an example). That package allows us to create and start animations from JS/TS code, gives us ways to group/sequence multiple animations together, and lets us be notified when animations complete.
+
+For new component animations, using fast-animation is preferred for complex/sequenced animations, and animations which will have additional JS/TS logic when they finish. CSS animations can still be used for simple standalone animations with no start/end JS/TS logic.
+
+In either case, animations should honor the [prefers-reduced-motion CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). This repo has examples to support that in both TS code (for fast-animation) and in CSS, [search for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) for examples.
+
 ### Leveraging icons
 
 Nimble components should leverage inline svg icons from nimble tokens. The icons are exported from nimble tokens as svg strings similar to the following format:
@@ -169,7 +177,7 @@ import { fancy16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline
 
 const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
     // To populate an existing slot with an svg icon
-    fancyIndicator: `${fancy16X16.data}`
+    fancyIndicator: fancy16X16.data
     // ...
 });
 ```

@@ -3,9 +3,9 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NimbleTextFieldModule, NimbleNumberFieldModule, NimbleSelectModule, NimbleListboxOptionModule,
-    NimbleButtonModule, NimbleTreeViewModule, NimbleTreeItemModule, NimbleThemeProviderModule, NimbleMenuModule,
+    NimbleButtonModule, NimbleTreeViewModule, NimbleTreeItemModule, NimbleThemeProviderModule,
+    NimbleTabModule, NimbleTabPanelModule, NimbleTabsModule, NimbleTabsToolbarModule, NimbleMenuModule,
     NimbleMenuItemModule } from '@ni/nimble-angular';
-
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { LoginComponent } from './login/login.component';
@@ -32,6 +32,10 @@ import { HeaderComponent } from './header/header.component';
         NimbleTreeItemModule,
         NimbleMenuModule,
         NimbleMenuItemModule,
+        NimbleTabsModule,
+        NimbleTabModule,
+        NimbleTabPanelModule,
+        NimbleTabsToolbarModule,
         RouterModule.forRoot([
             { path: '', redirectTo: '/login', pathMatch: 'full' },
             { path: 'login', component: LoginComponent },

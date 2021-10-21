@@ -1,9 +1,12 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import '../../button';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../index';
+import '../../tab';
+import '../../tab-panel';
+import '../../tabs-toolbar';
+import '../../button';
 
 interface TabsArgs {
     tabs: TabArgs[];

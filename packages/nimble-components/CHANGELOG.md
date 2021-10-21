@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 14 Oct 2021 19:47:51 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Oct 2021 23:37:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.84
+
+Wed, 20 Oct 2021 23:37:42 GMT
+
+### Changes
+
+- Sidenav/Drawer component (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.83
+
+Wed, 20 Oct 2021 19:37:53 GMT
+
+### Changes
+
+- Added styling and support for headers and non-interactive items in nimble-menu. (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 1.0.0-beta.82
+
+Wed, 20 Oct 2021 00:24:57 GMT
+
+### Changes
+
+- Integrate nimble icons (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.81
+
+Tue, 19 Oct 2021 20:01:50 GMT
+
+### Changes
+
+- Export types for tab-related elements (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.80
 

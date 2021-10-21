@@ -1,8 +1,42 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 14 Oct 2021 19:47:51 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Oct 2021 23:37:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.97
+
+Wed, 20 Oct 2021 23:37:42 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.97 (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.96
+
+Wed, 20 Oct 2021 19:37:53 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.96 (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 1.0.0-beta.95
+
+Wed, 20 Oct 2021 00:24:57 GMT
+
+### Changes
+
+- Integrate nimble icon (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.95 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.94
+
+Tue, 19 Oct 2021 20:01:50 GMT
+
+### Changes
+
+- Add Angular support for tab elements (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.94 (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.93
 
