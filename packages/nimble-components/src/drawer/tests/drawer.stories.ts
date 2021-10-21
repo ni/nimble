@@ -5,7 +5,6 @@ import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../../button/index';
 import '../index';
 import { DrawerLocation, DrawerState } from '../types';
-import type { Drawer } from '../index';
 
 enum ExampleContentType {
     SimpleTextContent = 'SimpleTextContent',
@@ -18,7 +17,6 @@ interface DrawerArgs {
     modal: string;
     preventDismiss: boolean;
     content: ExampleContentType;
-    drawer: Drawer;
 }
 
 const simpleContent = html`
