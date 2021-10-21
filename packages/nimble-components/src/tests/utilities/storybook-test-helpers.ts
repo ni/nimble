@@ -8,7 +8,7 @@ const removeFastCommentNodes = (node: Node): void => {
         const nodes = Array.from(node.childNodes);
         nodes.forEach(child => removeFastCommentNodes(child));
     }
-    if (node.nodeType === 8) {
+    if (node.nodeType === Node.COMMENT_NODE) {
         node.parentNode!.removeChild(node);
     }
 };

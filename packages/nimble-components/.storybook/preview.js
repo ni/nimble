@@ -27,9 +27,9 @@ export const decorators = [
             ({ value }) => value === context.globals?.backgrounds?.value
         ) ?? defaultBackground;
         const tale = story();
-        if (typeof tale === 'string') {
-            return `<nimble-theme-provider theme="${background.theme}">${tale}</nimble-theme-provider>`;
+        if (typeof tale !== 'string') {
+            throw new Error('Expected story to render as string');
         }
-        throw new Error('Expected story to render as string or as a Node');
+        return `<nimble-theme-provider theme="${background.theme}">${tale}</nimble-theme-provider>`;
     }
 ];
