@@ -15,6 +15,9 @@ export const parameters = {
         storySort: {
             order: ['Getting Started']
         }
+    },
+    controls: {
+        expanded: true
     }
 };
 
@@ -26,12 +29,6 @@ export const decorators = [
         const tale = story();
         if (typeof tale === 'string') {
             return `<nimble-theme-provider theme="${background.theme}">${tale}</nimble-theme-provider>`;
-        }
-        if (tale instanceof Node) {
-            const nimbleThemeProvider = document.createElement('nimble-theme-provider');
-            nimbleThemeProvider.setAttribute('theme', background.theme);
-            nimbleThemeProvider.append(tale);
-            return nimbleThemeProvider;
         }
         throw new Error('Expected story to render as string or as a Node');
     }
