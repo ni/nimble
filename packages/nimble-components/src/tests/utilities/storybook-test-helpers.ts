@@ -1,14 +1,14 @@
 import type { ViewTemplate } from '@microsoft/fast-element';
 
 /**
- * Removes comment nodes that FAST insert which look like <!--fast-11q2o9:1-->
+ * Removes all HTML comment nodes. FAST inserts comments which look like <!--fast-11q2o9:1-->
  */
 const removeFastCommentNodes = (node: Node): void => {
     if (node.hasChildNodes()) {
         const nodes = Array.from(node.childNodes);
         nodes.forEach(child => removeFastCommentNodes(child));
     }
-    if (node.nodeType === 8 && node.nodeValue?.includes('fast-')) {
+    if (node.nodeType === 8) {
         node.parentNode!.removeChild(node);
     }
 };
@@ -24,7 +24,7 @@ const renderFastFragmentAsHtml = (fragment: DocumentFragment): string => {
     const html = el.innerHTML;
     const trimmedHTML = html
         .split('\n')
-        .map(line => line.trim())
+        .filter(line => line.trim() !== '')
         .join('\n');
     return trimmedHTML;
 };
