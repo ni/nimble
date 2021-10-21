@@ -94,13 +94,6 @@ describe('TreeView', () => {
         expect(buttonClicked.calls.count()).toEqual(1);
     });
 
-    it('when disabled group is clicked, it is not expanded', async () => {
-        model.root1.disabled = true;
-        await clickElement(model.root1);
-
-        expect(model.root1.expanded).toBe(false);
-    });
-
     it('when glyph is clicked tree group is expanded', async () => {
         const rootExpandButton = model.root1.shadowRoot?.querySelector<HTMLElement>(
             '.expand-collapse-button'
@@ -137,6 +130,13 @@ describe('TreeView', () => {
 
             await clickElement(model.root1); // collapse root1
             expect(model.leaf1.hasAttribute('selected')).toBe(true);
+        });
+
+        it('when disabled group is clicked, it is not expanded', async () => {
+            model.root1.disabled = true;
+            await clickElement(model.root1);
+
+            expect(model.root1.expanded).toBe(false);
         });
     });
 

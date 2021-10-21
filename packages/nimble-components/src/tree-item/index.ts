@@ -58,6 +58,12 @@ export class TreeItem extends FoundationTreeItem {
             return;
         }
 
+        const treeItem = event.target as TreeItem;
+        if (treeItem?.disabled) {
+            event.preventDefault();
+            return;
+        }
+
         // prettier-ignore
         if ((this.treeView?.selectionMode === SelectionMode.LeavesOnly && !this.hasChildren())
             || this.treeView?.selectionMode === SelectionMode.All) {
