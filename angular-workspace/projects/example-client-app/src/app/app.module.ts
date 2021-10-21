@@ -4,15 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NimbleTextFieldModule, NimbleNumberFieldModule, NimbleSelectModule, NimbleListboxOptionModule,
     NimbleButtonModule, NimbleTreeViewModule, NimbleTreeItemModule, NimbleThemeProviderModule } from '@ni/nimble-angular';
+import { NimbleMenuModule } from 'projects/ni/nimble-angular/src/directives/menu';
+import { NimbleMenuItemModule } from 'projects/ni/nimble-angular/src/directives/menu-item';
 
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
+        HeaderComponent,
         CustomAppComponent
     ],
     imports: [
@@ -27,6 +31,8 @@ import { LoginComponent } from './login/login.component';
         NimbleButtonModule,
         NimbleTreeViewModule,
         NimbleTreeItemModule,
+        NimbleMenuModule,
+        NimbleMenuItemModule,
         RouterModule.forRoot([
             { path: '', redirectTo: '/login', pathMatch: 'full' },
             { path: 'login', component: LoginComponent },
