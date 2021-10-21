@@ -14,12 +14,12 @@ export class HeaderComponent {
         this.toggleMenuHidden();
     }
 
-    public onUserSettingsClick(): void {
+    public onUserSettingsSelected(): void {
         // do some navigation here
         this.toggleMenuHidden();
     }
 
-    public onLogoutClick(): void {
+    public onLogoutSelected(): void {
         // do some navigation here
         this.toggleMenuHidden();
     }
