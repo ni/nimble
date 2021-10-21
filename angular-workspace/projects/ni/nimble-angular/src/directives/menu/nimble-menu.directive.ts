@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive } from '@angular/core';
 /**
  * Directive to provide Angular integration for the menu.
  */
@@ -6,5 +6,4 @@ import { Directive, HostBinding, Input } from '@angular/core';
     selector: 'nimble-menu'
 })
 export class NimbleMenuDirective {
-    @HostBinding('hidden') @Input() public hidden: boolean;
 }
