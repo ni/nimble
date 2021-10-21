@@ -3,6 +3,8 @@ import { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
 import { TreeView } from '@ni/nimble-components/dist/esm/tree-view';
 import { SelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
 
+export type { TreeView };
+
 /**
  * Directive to provide Angular integration for the tree view.
  */

@@ -37,7 +37,7 @@ export class TreeItem extends FoundationTreeItem {
         this.addEventListener('selected-change', this.handleSelectedChange);
         this.treeView = this.getParentNimbleTreeNode();
         if (this.treeView && this.selected) {
-            this.setGroupSelectionOnRootParentTreeItem();
+            this.setGroupSelectionOnRootParentTreeItem(this);
         }
     }
 
@@ -67,7 +67,7 @@ export class TreeItem extends FoundationTreeItem {
         // prettier-ignore
         if ((this.treeView?.selectionMode === SelectionMode.LeavesOnly && !this.hasChildren())
             || this.treeView?.selectionMode === SelectionMode.All) {
-            this.setGroupSelectionOnRootParentTreeItem();
+            this.setGroupSelectionOnRootParentTreeItem(treeItem);
         } else if (this.hasChildren()) {
             this.expanded = !this.expanded;
             this.$emit('expanded-change', this);
@@ -92,11 +92,10 @@ export class TreeItem extends FoundationTreeItem {
         currentGroupSelection?.forEach(treeItem => treeItem.removeAttribute(groupSelectedAttribute));
     }
 
-    private setGroupSelectionOnRootParentTreeItem(): void {
+    private setGroupSelectionOnRootParentTreeItem(treeItem: HTMLElement): void {
         this.clearTreeGroupSelection();
 
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
-        let currentItem: HTMLElement | null | undefined = this;
+        let currentItem: HTMLElement | null | undefined = treeItem;
         while (currentItem?.parentElement !== this.treeView) {
             currentItem = currentItem?.parentElement;
         }

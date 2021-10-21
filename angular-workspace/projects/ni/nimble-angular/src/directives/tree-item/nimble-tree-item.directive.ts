@@ -1,6 +1,8 @@
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
 
+export type { TreeItem };
+
 /**
  * Directive to provide Angular integration for the tree item.
  */
