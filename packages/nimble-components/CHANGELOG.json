@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 20 Oct 2021 23:37:42 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.84",
+      "version": "1.0.0-beta.84",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Sidenav/Drawer component",
+            "commit": "76b34f6825b49ce80dd681c2248b8f985bf8d5db"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 20 Oct 2021 19:37:53 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.83",
       "version": "1.0.0-beta.83",

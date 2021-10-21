@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "1.0.0-beta.83",
+  "version": "1.0.0-beta.84",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build-components && npm run build-storybook",
@@ -41,6 +41,7 @@
     "dist/esm/**"
   ],
   "dependencies": {
+    "@microsoft/fast-animation": "^4.1.5",
     "@microsoft/fast-components": "^2.0.0",
     "@microsoft/fast-element": "^1.4.1",
     "@microsoft/fast-foundation": "^2.22.0",
