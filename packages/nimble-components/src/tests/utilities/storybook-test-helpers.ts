@@ -17,7 +17,10 @@ const removeCommentNodes = (node: Node): void => {
  * Renders a ViewTemplate as elements in a DocumentFragment.
  * Bindings, such as event binding, will be active.
  */
-const renderViewTemplate = <TSource>(viewTemplate: ViewTemplate<TSource>, source: TSource): DocumentFragment => {
+const renderViewTemplate = <TSource>(
+    viewTemplate: ViewTemplate<TSource>,
+    source: TSource
+): DocumentFragment => {
     const fragment = document.createDocumentFragment();
     viewTemplate.render(source, fragment);
     return fragment;
@@ -28,7 +31,10 @@ const renderViewTemplate = <TSource>(viewTemplate: ViewTemplate<TSource>, source
  * but the resulting elements are discarded. Bindings, such as event bindings, are not
  * serialized in the resulting HTML string.
  */
-const renderViewTemplateAsHtml = <TSource>(viewTemplate: ViewTemplate<TSource>, source: TSource): string => {
+const renderViewTemplateAsHtml = <TSource>(
+    viewTemplate: ViewTemplate<TSource>,
+    source: TSource
+): string => {
     const fragment = renderViewTemplate(viewTemplate, source);
     const dummyElement = document.createElement('div');
     dummyElement.append(fragment);
