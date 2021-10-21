@@ -12,3 +12,5 @@ export * from './directives/control-value-accessor';
 export * from './directives/tree-view';
 export * from './directives/tree-item';
 export * from './directives/checkbox';
+export * from './directives/menu';
+export * from './directives/menu-item';
