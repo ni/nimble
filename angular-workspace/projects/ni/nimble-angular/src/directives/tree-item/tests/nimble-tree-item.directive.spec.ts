@@ -17,7 +17,7 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
                     Parent 2
                     <nimble-tree-item #child2>Child 2</nimble-tree-item>
                 </nimble-tree-item>
-                <nimble-tree-item #parent3 [(disabled)]="parent3Disabled">
+                <nimble-tree-item #parent3 [disabled]="parent3Disabled">
                     Parent 3
                 </nimble-tree-item>
             </nimble-tree-view>
