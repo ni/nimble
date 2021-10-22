@@ -20,7 +20,8 @@ const commonChromeFlags = [
     '--disable-default-apps',
     '--disable-extensions',
     '--disable-infobars',
-    '--disable-translate'
+    '--disable-translate',
+    '--force-prefers-reduced-motion'
 ];
 
 module.exports = config => {
