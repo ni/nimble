@@ -15,7 +15,7 @@ describe('Nimble tree view', () => {
                 </nimble-tree-item>
                 <nimble-tree-item [(expanded)]="parent2Expanded">
                     Parent 2
-                    <nimble-tree-item #child2 [selected]="child2Selected">Child 2</nimble-tree-item>
+                    <nimble-tree-item #child2>Child 2</nimble-tree-item>
                 </nimble-tree-item>
                 <nimble-tree-item #parent3>
                     Parent 3
