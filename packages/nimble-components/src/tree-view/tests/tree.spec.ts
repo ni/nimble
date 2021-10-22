@@ -17,7 +17,7 @@ class Model {
     public leaf1: TreeItem;
     public leaf2: TreeItem; // starts off selected
     public leaf3: TreeItem;
-    public leafWithIcon: TreeItem;
+    public leafWithIconDisabled: TreeItem;
     public subRoot1: TreeItem;
     public subRoot2: TreeItem;
     public button: Button;
@@ -33,11 +33,11 @@ async function setup(source: Model): Promise<Fixture<TreeView>> {
                     <nimble-tree-item ${ref('leaf1')}><nimble-button ${ref('button')}>Leaf1</nimble-button></nimble-tree-item>
                 </nimble-tree-item>
                 <nimble-tree-item ${ref('leaf2')} selected>Leaf 2</nimble-tree-item>
-                <nimble-tree-item ${ref('leafWithIcon')}><svg slot="start">${notebook16X16.data}</svg>Leaf 1</nimble-tree-item>
+                <nimble-tree-item ${ref('leafWithIconDisabled')} disabled><svg slot="start">${notebook16X16.data}</svg>Leaf With Icon</nimble-tree-item>
             </nimble-tree-item>
             <nimble-tree-item ${ref('root2')}>Root2
                 <nimble-tree-item ${ref('subRoot2')}>SubRoot 2
-                    <nimble-tree-item ${ref('leaf3')}>Leaf 1</nimble-tree-item>
+                    <nimble-tree-item ${ref('leaf3')}>Leaf 3</nimble-tree-item>
                 </nimble-tree-item>
             </nimble-tree-item>
         </nimble-tree-view>`,
@@ -86,12 +86,25 @@ describe('TreeView', () => {
         expect(model.leaf1.hasAttribute('selected')).toBe(true);
     });
 
-    it('item inside a tree item handles events when clicked', async () => {
+    const treeItemChildClickTestCases = [
+        { disabled: true },
+        { disabled: false }
+    ];
+    // prettier-ignore
+    treeItemChildClickTestCases.forEach(testCase => it(`item inside a tree item handles events when clicked when item is
+                                                        ${testCase.disabled ? 'disabled' : 'not disabled'}`, async () => {
         const buttonClicked = jasmine.createSpy();
+        model.button.disabled = testCase.disabled;
         model.button.addEventListener('click', buttonClicked);
         await clickElement(model.button);
 
         expect(buttonClicked.calls.count()).toEqual(1);
+    }));
+
+    it('when disabled tree item is clicked it is not selected', async () => {
+        await clickElement(model.leafWithIconDisabled);
+
+        expect(model.leafWithIconDisabled.hasAttribute('selected')).toBe(false);
     });
 
     it('when glyph is clicked tree group is expanded', async () => {
@@ -104,7 +117,7 @@ describe('TreeView', () => {
     });
 
     describe('with `selectionMode` set to `leavesOnly`', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             model.treeView.selectionMode = SelectionMode.LeavesOnly;
         });
 
@@ -141,7 +154,7 @@ describe('TreeView', () => {
     });
 
     describe('with `selectionMode` set to `all`', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             model.treeView.selectionMode = SelectionMode.All;
         });
 

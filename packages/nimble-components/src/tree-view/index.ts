@@ -18,7 +18,7 @@ import { SelectionMode } from './types';
  *
  */
 export class TreeView extends FoundationTreeView {
-    @attr
+    @attr({ attribute: 'selection-mode' })
     public selectionMode: SelectionMode = SelectionMode.All;
 }
 

@@ -40,20 +40,20 @@ const metadata: Meta<TreeArgs> = {
     },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-tree-view selectionMode="${x => x.selectionMode}">
+        <nimble-tree-view selection-mode="${x => x.selectionMode}">
             ${repeat(x => x.options, html<ItemArgs>`
-                <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}" ?disabled="${x => x.disabled}">
+                <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}">
                     ${when(x => x.icon, html`<nimble-measurement-data-analysis-icon></nimble-measurement-data-analysis-icon>`)}
                     ${x => x.label}
-                    <nimble-tree-item>
+                    <nimble-tree-item ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}">
                          ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                          Sub Group
-                        <nimble-tree-item ?selected="${x => x.expanded}">
+                        <nimble-tree-item ?disabled="${x => x.disabled}">
                             ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                             <a href="http://www.ni.com">Nested Item 1</a>
                         </nimble-tree-item>
                     </nimble-tree-item>
-                    <nimble-tree-item>
+                    <nimble-tree-item ?selected="${x => x.expanded}">
                         ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                         Nested Item 2
                     </nimble-tree-item>
@@ -73,14 +73,14 @@ const metadata: Meta<TreeArgs> = {
                 value: '1',
                 disabled: false,
                 icon: true,
-                expanded: true
+                expanded: false
             },
             {
                 label: 'Option 2',
                 value: '2',
                 disabled: true,
                 icon: true,
-                expanded: false
+                expanded: true
             },
             {
                 label: 'Option 3',

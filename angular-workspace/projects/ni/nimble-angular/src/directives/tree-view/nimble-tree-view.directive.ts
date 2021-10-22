@@ -12,7 +12,7 @@ export type { TreeView };
     selector: 'nimble-tree-view'
 })
 export class NimbleTreeViewDirective {
-    @HostBinding('attr.selectionMode') @Input() public selectionMode: SelectionMode | undefined;
+    @HostBinding('attr.selection-mode') @Input() public selectionMode: SelectionMode | undefined;
     @Output() public selectedChange = new EventEmitter<TreeItem>();
 
     public constructor(private readonly treeViewReference: ElementRef<TreeView>) {

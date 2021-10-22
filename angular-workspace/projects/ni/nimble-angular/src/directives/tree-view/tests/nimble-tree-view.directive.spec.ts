@@ -11,13 +11,13 @@ describe('Nimble tree view', () => {
             <nimble-tree-view [selectionMode]="selectionMode" (selectedChange)="itemSelected($event)">
                 <nimble-tree-item #parent1 [(expanded)]="parent1Expanded">
                     Parent 1
-                    <nimble-tree-item #child1 [(selected)]="child1Selected">Child 1</nimble-tree-item>
+                    <nimble-tree-item #child1 [selected]="child1Selected">Child 1</nimble-tree-item>
                 </nimble-tree-item>
                 <nimble-tree-item [(expanded)]="parent2Expanded">
                     Parent 2
-                    <nimble-tree-item #child2 [(selected)]="child2Selected">Child 2</nimble-tree-item>
+                    <nimble-tree-item #child2 [selected]="child2Selected">Child 2</nimble-tree-item>
                 </nimble-tree-item>
-                <nimble-tree-item #parent3 [(disabled)]="parent3Disabled">
+                <nimble-tree-item #parent3>
                     Parent 3
                 </nimble-tree-item>
             </nimble-tree-view>
