@@ -4,12 +4,12 @@
     "description": "A meta package used for creating GitHub pages site contents",
     "private": true,
     "scripts": {
-        "build": "npm run clean && npm run copy-root && npm run copy-storybook && npm run copy-angular-example",
+        "build": "npm run clean && npm run copy-root && npm run copy-storybook && npm run copy-angular-example-to-storybook",
         "pack": "npm pack",
         "clean": "rimraf dist && mkdirp dist",
         "copy-root": "cd root && copyfiles -E -a \"*\" ../dist",
         "copy-storybook": "cd ../../packages/nimble-components/dist && copyfiles -E \"storybook/**\" ../../../packages/site/dist",
-        "copy-angular-example": "cd ../../angular-workspace/dist && copyfiles -E \"example-client-app/**\" ../../packages/site/dist"
+        "copy-angular-example-to-storybook": "cd ../../angular-workspace/dist && copyfiles -E \"example-client-app/**\" ../../packages/site/dist/storybook"
     },
     "devDependencies": {
         "copyfiles": "^2.4.1",
