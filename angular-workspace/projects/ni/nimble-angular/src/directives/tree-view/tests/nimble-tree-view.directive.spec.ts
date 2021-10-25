@@ -32,10 +32,7 @@ describe('Nimble tree view', () => {
         }
     }
 
-    let parent1Element: TreeItem;
-    let child1Element: TreeItem;
     let fixture: ComponentFixture<TestHostComponent>;
-    let testHostComponent: TestHostComponent;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -46,43 +43,10 @@ describe('Nimble tree view', () => {
 
     beforeEach(() => {
         fixture = TestBed.createComponent(TestHostComponent);
-        testHostComponent = fixture.componentInstance;
-        parent1Element = testHostComponent.parent1.nativeElement;
-        child1Element = testHostComponent.child1.nativeElement;
         fixture.detectChanges();
     });
 
     it('custom element is defined', () => {
         expect(customElements.get('nimble-tree-view')).not.toBeUndefined();
-    });
-
-    describe('NimbleTreeViewDirective selectedChange event', () => {
-        it('is emitted for leaf tree items', () => {
-            child1Element.click();
-            fixture.detectChanges();
-
-            expect(testHostComponent.selectedItem).toBe(child1Element);
-        });
-
-        it('is not emitted for tree parent items when selectionMode is set to LeavesOnly', () => {
-            testHostComponent.selectionMode = SelectionMode.LeavesOnly;
-            fixture.detectChanges();
-            child1Element.click(); // select child first
-
-            parent1Element.click();
-            fixture.detectChanges();
-
-            // selection stayed on child
-            expect(testHostComponent.selectedItem).toBe(child1Element);
-        });
-
-        it('is emitted for tree parent items when selectionMode is set to All', () => {
-            testHostComponent.selectionMode = SelectionMode.All;
-            fixture.detectChanges();
-            parent1Element.click();
-            fixture.detectChanges();
-
-            expect(testHostComponent.selectedItem).toBe(parent1Element);
-        });
     });
 });

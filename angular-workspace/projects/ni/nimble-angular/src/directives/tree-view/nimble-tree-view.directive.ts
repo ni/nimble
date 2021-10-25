@@ -1,5 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
-import { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
+import { Directive, HostBinding, Input } from '@angular/core';
 import { TreeView } from '@ni/nimble-components/dist/esm/tree-view';
 import { SelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
 
@@ -14,14 +13,4 @@ export { SelectionMode };
 })
 export class NimbleTreeViewDirective {
     @HostBinding('attr.selection-mode') @Input() public selectionMode: SelectionMode;
-    @Output() public selectedChange = new EventEmitter<TreeItem>();
-
-    public constructor(private readonly treeViewReference: ElementRef<TreeView>) {
-    }
-
-    @HostListener('selected-change', ['$event'])
-    private onSelectedChange($event: Event): void {
-        const selectedTreeItem = $event.target as TreeItem;
-        this.selectedChange.emit(selectedTreeItem);
-    }
 }

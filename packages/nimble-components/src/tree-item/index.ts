@@ -56,6 +56,8 @@ export class TreeItem extends FoundationTreeItem {
 
         const treeItem = this.getImmediateTreeItem(event.target as HTMLElement);
         if (treeItem?.disabled || treeItem !== this) {
+            // don't allow base TreeItem to emit a 'selected-change' event when a disabled item is clicked
+            event.stopImmediatePropagation();
             return;
         }
 
@@ -65,14 +67,18 @@ export class TreeItem extends FoundationTreeItem {
             // if either a leaf tree item, or in a mode that supports select on groups,
             // process click as a select
             this.setGroupSelectionOnRootParentTreeItem(treeItem);
+            if (this.selected) {
+                // if already selected, prevent base-class from issuing selected-change event
+                event.stopImmediatePropagation();
+            }
         } else {
             // implicit hasChildren && leavesOnly, so only allow expand/collapse, not select
             this.expanded = !this.expanded;
             this.$emit('expanded-change', this);
 
             // don't allow base class to process click event, as all we want to happen
-            // here is toggling 'expanded', and to issue the change event
-            event.preventDefault();
+            // here is toggling 'expanded', and to issue the expanded-change event
+            event.stopImmediatePropagation();
         }
     };
 
@@ -80,7 +86,7 @@ export class TreeItem extends FoundationTreeItem {
     // which is what the FAST TreeItem allows
     private readonly handleSelectedChange = (event: Event): void => {
         // only process selection
-        if (event.target === this && !this.disabled) {
+        if (event.target === this) {
             this.selected = true;
         }
     };
