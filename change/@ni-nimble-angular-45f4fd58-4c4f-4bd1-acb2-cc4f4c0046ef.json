@@ -3,5 +3,5 @@
   "comment": "Drawer Angular integration and example-client-app demo",
   "packageName": "@ni/nimble-angular",
   "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
