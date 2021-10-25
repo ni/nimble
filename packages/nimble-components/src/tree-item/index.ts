@@ -49,21 +49,13 @@ export class TreeItem extends FoundationTreeItem {
     }
 
     private readonly handleClickOverride = (event: MouseEvent): void => {
-        const expandCollapseGlyph = this.shadowRoot?.querySelector<HTMLElement>(
-            '.expand-collapse-button'
-        );
-        if (event.composedPath().includes(expandCollapseGlyph as EventTarget)) {
-            // allow base class to handle click event for glyph, but disallow further
-            // handling of click events that are bubbled up.
-            event.stopPropagation();
+        if (event.composedPath().includes(this.expandCollapseButton)) {
+            // just have base class handle click event for glyph
             return;
         }
 
-        // may have clicked item inside tree item, in which case we want to get the i
         const treeItem = this.getImmediateTreeItem(event.target as HTMLElement);
         if (treeItem?.disabled || treeItem !== this) {
-            // prevent bubbling and root handling of event, but let contained elements process click event
-            event.stopImmediatePropagation();
             return;
         }
 
@@ -73,8 +65,6 @@ export class TreeItem extends FoundationTreeItem {
             // if either a leaf tree item, or in a mode that supports select on groups,
             // process click as a select
             this.setGroupSelectionOnRootParentTreeItem(treeItem);
-            // always prevent bubbling of click event
-            event.stopPropagation();
         } else {
             // implicit hasChildren && leavesOnly, so only allow expand/collapse, not select
             this.expanded = !this.expanded;
@@ -83,8 +73,6 @@ export class TreeItem extends FoundationTreeItem {
             // don't allow base class to process click event, as all we want to happen
             // here is toggling 'expanded', and to issue the change event
             event.preventDefault();
-            // always prevent bubbling of click event
-            event.stopPropagation();
         }
     };
 
@@ -92,7 +80,7 @@ export class TreeItem extends FoundationTreeItem {
     // which is what the FAST TreeItem allows
     private readonly handleSelectedChange = (event: Event): void => {
         // only process selection
-        if (event.target === this) {
+        if (event.target === this && !this.disabled) {
             this.selected = true;
         }
     };

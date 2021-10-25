@@ -86,20 +86,22 @@ describe('TreeView', () => {
         expect(model.leaf1.hasAttribute('selected')).toBe(true);
     });
 
-    const treeItemChildClickTestCases = [
-        { disabled: true },
-        { disabled: false }
-    ];
-    // prettier-ignore
-    treeItemChildClickTestCases.forEach(testCase => it(`item inside a tree item handles events when clicked when item is
-                                                        ${testCase.disabled ? 'disabled' : 'not disabled'}`, async () => {
+    it('item inside a tree item handles events when clicked', async () => {
         const buttonClicked = jasmine.createSpy();
-        model.button.disabled = testCase.disabled;
         model.button.addEventListener('click', buttonClicked);
         await clickElement(model.button);
 
         expect(buttonClicked.calls.count()).toEqual(1);
-    }));
+    });
+
+    it('item inside a tree item handles events when clicked when item is disabled', async () => {
+        const buttonClicked = jasmine.createSpy();
+        model.button.disabled = true;
+        model.button.addEventListener('click', buttonClicked);
+        await clickElement(model.button);
+
+        expect(buttonClicked.calls.count()).toEqual(1);
+    });
 
     it('when disabled tree item is clicked it is not selected', async () => {
         await clickElement(model.leafWithIconDisabled);

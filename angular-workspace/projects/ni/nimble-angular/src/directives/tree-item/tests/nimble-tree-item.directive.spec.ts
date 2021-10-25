@@ -1,9 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
-import { SelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
-import { NimbleTreeItemModule } from '..';
-import { NimbleTreeViewModule } from '../../tree-view';
+import { NimbleTreeItemModule, TreeItem } from '..';
+import { NimbleTreeViewModule, SelectionMode } from '../../tree-view';
 
 describe('Nimble tree item directive (using 2-way binding)', () => {
     @Component({
@@ -11,7 +9,7 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
             <nimble-tree-view [selectionMode]="selectionMode">
                 <nimble-tree-item #parent1 [(expanded)]="parent1Expanded">
                     Parent 1
-                    <nimble-tree-item #child1 [selected]="true">Child 1</nimble-tree-item>
+                    <nimble-tree-item #child1 selected>Child 1</nimble-tree-item>
                 </nimble-tree-item>
                 <nimble-tree-item [(expanded)]="parent2Expanded">
                     Parent 2

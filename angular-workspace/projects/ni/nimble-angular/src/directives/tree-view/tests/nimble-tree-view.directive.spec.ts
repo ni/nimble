@@ -1,9 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
-import { SelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
-import { NimbleTreeItemModule } from '../../tree-item';
-import { NimbleTreeViewModule } from '..';
+import { NimbleTreeItemModule, TreeItem } from '../../tree-item';
+import { NimbleTreeViewModule, SelectionMode } from '..';
 
 describe('Nimble tree view', () => {
     @Component({
@@ -27,7 +25,7 @@ describe('Nimble tree view', () => {
         @ViewChild('parent1', { static: true }) public parent1: ElementRef<TreeItem>;
         @ViewChild('child1', { static: true }) public child1: ElementRef<TreeItem>;
         public selectedItem: TreeItem;
-        public selectionMode: SelectionMode | undefined;
+        public selectionMode: SelectionMode;
 
         public itemSelected(treeItem: TreeItem): void {
             this.selectedItem = treeItem;
@@ -81,14 +79,6 @@ describe('Nimble tree view', () => {
         it('is emitted for tree parent items when selectionMode is set to All', () => {
             testHostComponent.selectionMode = SelectionMode.All;
             fixture.detectChanges();
-            parent1Element.click();
-            fixture.detectChanges();
-
-            expect(testHostComponent.selectedItem).toBe(parent1Element);
-        });
-
-        it('is emitted for tree parent items when selectionMode is undefined', () => {
-            testHostComponent.selectionMode = undefined;
             parent1Element.click();
             fixture.detectChanges();
 

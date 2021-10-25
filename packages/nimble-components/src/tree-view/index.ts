@@ -19,7 +19,14 @@ import { SelectionMode } from './types';
  */
 export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
-    public selectionMode: SelectionMode = SelectionMode.All;
+    public selectionMode: SelectionMode;
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        if (!this.selectionMode) {
+            this.selectionMode = SelectionMode.All;
+        }
+    }
 }
 
 const nimbleTreeView = TreeView.compose({
