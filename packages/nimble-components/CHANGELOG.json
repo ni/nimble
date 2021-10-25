@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 25 Oct 2021 15:12:50 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.85",
+      "version": "1.0.0-beta.85",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Include angular build in storybook",
+            "commit": "5879014cf2f5a6d31a4877c0f21c544e3e777422"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 20 Oct 2021 23:37:42 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.84",
       "version": "1.0.0-beta.84",
