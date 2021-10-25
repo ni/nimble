@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Include angular build in storybook",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
