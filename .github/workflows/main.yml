@@ -74,7 +74,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: ./packages/nimble-components
-          storybookBuildDir: ./dist/storybook
+          storybookBuildDir: ../../packages/site/dist/storybook
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
