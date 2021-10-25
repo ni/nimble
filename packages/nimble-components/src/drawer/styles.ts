@@ -14,7 +14,7 @@ import {
 
 export const styles = css`
     ${display('block')} :host {
-        position: absolute;
+        position: relative;
         top: 0;
         bottom: 0;
         width: fit-content;
@@ -23,6 +23,10 @@ export const styles = css`
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         color: ${labelFontColor};
+    }
+
+    :host([modal]) {
+        position: absolute;
     }
 
     :host([location='left']) {
