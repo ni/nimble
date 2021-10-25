@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 25 Oct 2021 18:06:36 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.86",
+      "version": "1.0.0-beta.86",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Render storybook as string",
+            "commit": "ef8bbda58914599b33a79aad5f6bb4458708174b"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 25 Oct 2021 15:12:50 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.85",
       "version": "1.0.0-beta.85",
