@@ -9,6 +9,7 @@ import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/theme
 export class HeaderComponent {
     @Input() public theme: NimbleTheme = NimbleTheme.Light;
     public hideMenu = true;
+    public disableUserSettings = true;
 
     public onMenuButtonClick(): void {
         this.toggleMenuHidden();
