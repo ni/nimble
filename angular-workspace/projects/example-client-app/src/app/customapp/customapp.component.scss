@@ -4,14 +4,46 @@
     justify-content: left;
     flex-direction: column;
     height: 100%;
-    padding: 2px;
+    padding: 0px 2px 0px 10px;
+}
+
+.options-container > * {
+    margin: 10px 10px 10px 0;
 }
 
 .theme-select {
     display: block;
-    top: 12px;
-    left: 12px;
     width: 150px;
-    min-width: unset;
-    margin-bottom: 30px;
+    min-width: unset; 
+}
+
+.drawer-location-select {
+    width: 200px;
+}
+
+.drawer-container {
+    font-family: var(--font-family);
+    height: 100%;
+    --drawer-width: 300px;
+}
+
+/* Styling for a pinnable drawer */
+
+.drawer-container.pinned {
+    display: grid;
+    grid-template-areas: "drawer content";
+    grid-template-columns: var(--drawer-width) 1fr;
+}
+
+.drawer-container.pinned.location-right {
+    grid-template-areas: "content drawer";
+    grid-template-columns: 1fr var(--drawer-width);
+}
+
+.drawer-container .content {
+    grid-area: content;
+}
+
+.drawer-container nimble-drawer {
+    grid-area: drawer;
 }
