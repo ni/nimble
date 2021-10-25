@@ -1,11 +1,9 @@
-<nimble-theme-provider [theme]="theme">
-    <div class="header">
-        <div class="menu-container">
-            <nimble-button (click)="onMenuButtonClick()">Menu</nimble-button>
-            <nimble-menu class="menu" [hidden]="hideMenu">
-                <nimble-menu-item (change)="onUserSettingsSelected()" [disabled]="disableUserSettings">User Settings</nimble-menu-item>
-                <nimble-menu-item (change)="onLogoutSelected()">Logout</nimble-menu-item>
-            </nimble-menu>
-        </div>
+<div class="header">
+    <div class="menu-container">
+        <nimble-button (click)="onMenuButtonClick()">Menu</nimble-button>
+        <nimble-menu class="menu" [hidden]="hideMenu">
+            <nimble-menu-item (change)="onUserSettingsSelected()" [disabled]="disableUserSettings">User Settings</nimble-menu-item>
+            <nimble-menu-item (change)="onLogoutSelected()">Logout</nimble-menu-item>
+        </nimble-menu>
     </div>
-</nimble-theme-provider>
+</div>
