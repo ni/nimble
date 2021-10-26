@@ -6,7 +6,7 @@ import { NimbleTreeViewModule, SelectionMode } from '..';
 describe('Nimble tree view', () => {
     @Component({
         template: `
-            <nimble-tree-view [selectionMode]="selectionMode" (selectedChange)="itemSelected($event)">
+            <nimble-tree-view [selectionMode]="selectionMode">
                 <nimble-tree-item #parent1 [(expanded)]="parent1Expanded">
                     Parent 1
                     <nimble-tree-item #child1 [selected]="child1Selected">Child 1</nimble-tree-item>
