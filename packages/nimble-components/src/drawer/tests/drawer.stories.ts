@@ -1,7 +1,7 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 import '../../button/index';
 import '../index';
 import { DrawerLocation, DrawerState } from '../types';

@@ -18,7 +18,7 @@ import {
     borderWidth,
     iconSize
 } from '../theme-provider/design-tokens';
-import { groupSelectedAttribute } from './types';
+import { groupSelectedAttribute } from '../tree-view/types';
 
 export const styles: (
     context: ElementDefinitionContext,

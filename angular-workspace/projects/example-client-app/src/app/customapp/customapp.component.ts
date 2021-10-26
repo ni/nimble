@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
 import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/themes';
 import { DrawerLocation } from '@ni/nimble-angular';
+import { SelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
 
 @Component({
     selector: 'nimble-example-customapp',

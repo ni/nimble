@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 26 Oct 2021 19:50:21 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.88",
+      "version": "1.0.0-beta.88",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Test utility folder layout",
+            "commit": "ac867691ccefa665f27b565511ada1b31ff2e146"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Oct 2021 16:10:28 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.87",
+      "version": "1.0.0-beta.87",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "TreeView/TreeItem refactor",
+            "commit": "cbfbc90759b717a21be5285b0e48fc50d89f8544"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 25 Oct 2021 18:06:36 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.86",
       "version": "1.0.0-beta.86",

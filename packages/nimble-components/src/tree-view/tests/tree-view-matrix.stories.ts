@@ -5,7 +5,7 @@ import '../index';
 import '../../tree-item/index';
 import '../../icons/measurement-data-analysis';
 import '../../icons/settings';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 import {
     createMatrix,
     themeWrapper,
@@ -17,7 +17,7 @@ import {
     selectedStates,
     IconVisibleState,
     iconVisibleStates
-} from '../../tests/utilities/theme-test-helpers';
+} from '../../utilities/tests/matrix';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',

@@ -1,6 +1,6 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { NimbleIconName } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { getSpecTypeByList } from '../../tests/utilities/parameterized-test-helpers';
+import { getSpecTypeByList } from '../../utilities/tests/parameterized';
 
 describe('Icons', () => {
     describe('should have a viewBox', () => {

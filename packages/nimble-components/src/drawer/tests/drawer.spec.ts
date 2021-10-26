@@ -1,5 +1,5 @@
 import { DOM, html } from '@microsoft/fast-element';
-import { fixture, Fixture } from '../../tests/utilities/fixture';
+import { fixture, Fixture } from '../../utilities/tests/fixture';
 import '..';
 import type { Drawer } from '..';
 import { DrawerState } from '../types';

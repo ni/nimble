@@ -1,11 +1,11 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 import {
     BackgroundState,
     backgroundStates
-} from '../../tests/utilities/theme-test-helpers';
+} from '../../utilities/tests/matrix';
 import '../index';
 
 const metadata: Meta = {
