@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 26 Oct 2021 16:10:28 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.101",
+      "version": "1.0.0-beta.101",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "TreeView/TreeItem refactor",
+            "commit": "cbfbc90759b717a21be5285b0e48fc50d89f8544"
+          },
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "cbfbc90759b717a21be5285b0e48fc50d89f8544",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.101"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 25 Oct 2021 22:56:09 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.100",
       "version": "1.0.0-beta.100",

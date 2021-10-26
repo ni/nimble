@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 25 Oct 2021 22:56:09 GMT and should not be manually modified.
+This log was last generated on Tue, 26 Oct 2021 16:10:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.101
+
+Tue, 26 Oct 2021 16:10:28 GMT
+
+### Changes
+
+- TreeView/TreeItem refactor (26874831+atmgrifter00@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.101 (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 1.0.0-beta.100
 
