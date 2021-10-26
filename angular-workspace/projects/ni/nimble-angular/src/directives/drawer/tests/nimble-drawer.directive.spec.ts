@@ -2,11 +2,12 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DrawerState, DrawerLocation, Drawer } from '../nimble-drawer.directive';
 import { NimbleDrawerModule } from '..';
+import { waitAnimationFrame } from '../../../async-test-utilities';
 
 describe('Nimble drawer directive', () => {
     @Component({
         template: `
-            <nimble-drawer #drawerConfigured [location]="drawerLocation" [state]="drawerState" [modal]="isDrawerModal">
+            <nimble-drawer #drawerConfigured [location]="drawerLocation" [(state)]="drawerState" [modal]="isDrawerModal">
                 Drawer Content
             </nimble-drawer>
             <nimble-drawer #drawerUnconfigured>
@@ -41,6 +42,13 @@ describe('Nimble drawer directive', () => {
         drawerUnconfigured = testHostComponent.drawerUnconfigured.nativeElement;
         fixture.detectChanges();
     });
+
+    async function waitForDrawerState(drawer: Drawer, state: DrawerState): Promise<void> {
+        while (drawer.state !== state) {
+            // eslint-disable-next-line no-await-in-loop
+            await waitAnimationFrame();
+        }
+    }
 
     it('custom element is defined', () => {
         expect(customElements.get('nimble-drawer')).not.toBeUndefined();
@@ -79,5 +87,13 @@ describe('Nimble drawer directive', () => {
 
             expect(drawerConfigured.modal).toBe(true);
         });
+    });
+
+    it('when "location" property changes on drawer DOM element, directive state updates correctly', async () => {
+        drawerConfigured.state = DrawerState.Closing;
+        await waitForDrawerState(drawerConfigured, DrawerState.Closed);
+        fixture.detectChanges();
+
+        expect(testHostComponent.drawerState).toEqual(DrawerState.Closed);
     });
 });

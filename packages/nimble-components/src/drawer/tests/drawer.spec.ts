@@ -67,4 +67,12 @@ describe('Drawer', () => {
         expect(element.hidden).toBe(true);
         expect(element.state).toEqual('closed');
     });
+
+    it('updates to "state" property fire the "state-change" event', async () => {
+        const stateChange = jasmine.createSpy();
+        element.addEventListener('state-change', stateChange);
+        element.state = DrawerState.Opened;
+
+        expect(stateChange.calls.count()).toEqual(1);
+    });
 });
