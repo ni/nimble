@@ -1,6 +1,6 @@
 {
   "type": "prerelease",
-  "comment": "Drawer Angular integration and example-client-app demo",
+  "comment": "Angular directive for nimble-drawer",
   "packageName": "@ni/nimble-angular",
   "email": "20709258+msmithNI@users.noreply.github.com",
   "dependentChangeType": "prerelease"
