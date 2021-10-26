@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { DrawerLocation, DrawerState, NimbleDrawerDirective } from '@ni/nimble-angular';
+import { SelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
 
 @Component({
     selector: 'nimble-example-nav-drawer',
@@ -9,6 +10,7 @@ import { DrawerLocation, DrawerState, NimbleDrawerDirective } from '@ni/nimble-a
 export class NavDrawerComponent {
     public isDrawerPinned = false;
     public drawerLocations = DrawerLocation;
+    public selectionMode: SelectionMode = SelectionMode.LeavesOnly;
     @Input() public location: DrawerLocation = DrawerLocation.Right;
     @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public drawer: NimbleDrawerDirective;
 
