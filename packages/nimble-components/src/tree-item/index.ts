@@ -27,11 +27,6 @@ export class TreeItem extends FoundationTreeItem {
         this.addEventListener('click', this.handleClickOverride);
     }
 
-    public hasChildren(): boolean {
-        const treeItemChild = this.querySelector('[role="treeitem"]');
-        return treeItemChild !== null;
-    }
-
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('selected-change', this.handleSelectedChange);
@@ -48,6 +43,11 @@ export class TreeItem extends FoundationTreeItem {
         this.treeView = null;
     }
 
+    private hasChildTreeItems(): boolean {
+        const treeItemChild = this.querySelector('[role="treeitem"]');
+        return treeItemChild !== null;
+    }
+
     private readonly handleClickOverride = (event: MouseEvent): void => {
         if (event.composedPath().includes(this.expandCollapseButton)) {
             // just have base class handle click event for glyph
@@ -62,7 +62,7 @@ export class TreeItem extends FoundationTreeItem {
         }
 
         const leavesOnly = this.treeView?.selectionMode === SelectionMode.LeavesOnly;
-        const hasChildren = this.hasChildren();
+        const hasChildren = this.hasChildTreeItems();
         if ((leavesOnly && !hasChildren) || !leavesOnly) {
             // if either a leaf tree item, or in a mode that supports select on groups,
             // process click as a select
