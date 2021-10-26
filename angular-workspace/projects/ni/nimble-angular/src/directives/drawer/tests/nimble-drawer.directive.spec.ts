@@ -2,7 +2,6 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DrawerState, DrawerLocation, Drawer } from '../nimble-drawer.directive';
 import { NimbleDrawerModule } from '..';
-import { waitAnimationFrame } from '../../../async-test-utilities';
 
 describe('Nimble drawer directive', () => {
     @Component({
@@ -44,10 +43,14 @@ describe('Nimble drawer directive', () => {
     });
 
     async function waitForDrawerState(drawer: Drawer, state: DrawerState): Promise<void> {
-        while (drawer.state !== state) {
-            // eslint-disable-next-line no-await-in-loop
-            await waitAnimationFrame();
-        }
+        return new Promise(resolve => {
+            drawer.addEventListener('state-change', function handler() {
+                if (drawer.state === state) {
+                    drawer.removeEventListener('state-change', handler);
+                    resolve();
+                }
+            });
+        });
     }
 
     it('custom element is defined', () => {
