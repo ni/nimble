@@ -1,0 +1,17 @@
+.header {
+    background-color: var(--application-background-color);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu {
+    position: absolute;
+    z-index: 1;
+    right: 1px;
+    top: 32px;
+}
