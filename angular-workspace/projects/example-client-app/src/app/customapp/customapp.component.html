@@ -1,10 +1,11 @@
 <nimble-theme-provider [theme]="theme">
+    <nimble-example-header [theme]="theme"></nimble-example-header>
     <div class="container">
         <nimble-select class="theme-select" [(ngModel)]="theme">
             <nimble-listbox-option [value]="themes.Light">Light theme</nimble-listbox-option>
             <nimble-listbox-option [value]="themes.Dark">Dark theme</nimble-listbox-option>
         </nimble-select>
-        <nimble-tree-view>
+        <nimble-tree-view [selectionMode]="selectionMode">
             <nimble-tree-item>
                 Systems Management
                 <nimble-tree-item>Systems</nimble-tree-item>

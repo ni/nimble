@@ -1,37 +1,43 @@
 import { DOM, html, ref } from '@microsoft/fast-element';
-import type { TreeView, TreeItem } from '@microsoft/fast-foundation';
 import { notebook16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { clickElement } from '../../utilities/tests/component';
+import { SelectionMode } from '../types';
+import type { TreeView } from '..';
+import type { TreeItem } from '../../tree-item';
+import type { Button } from '../../button';
 import '..';
 import '../../tree-item';
+import '../../button';
 
 class Model {
-    public root1: TreeItem;
+    public treeView: TreeView;
+    public root1: TreeItem; // starts off expanded
     public root2: TreeItem;
     public leaf1: TreeItem;
     public leaf2: TreeItem; // starts off selected
     public leaf3: TreeItem;
-    public leafWithIcon: TreeItem;
+    public leafWithIconDisabled: TreeItem;
     public subRoot1: TreeItem;
     public subRoot2: TreeItem;
+    public button: Button;
 }
 
 async function setup(source: Model): Promise<Fixture<TreeView>> {
     return fixture<TreeView>(
         // prettier-ignore
         html<Model>`
-        <nimble-tree-view>
+        <nimble-tree-view ${ref('treeView')}>
             <nimble-tree-item ${ref('root1')}>Root1
                 <nimble-tree-item ${ref('subRoot1')}>SubRoot
-                    <nimble-tree-item ${ref('leaf1')}>Leaf 1</nimble-tree-item>
+                    <nimble-tree-item ${ref('leaf1')}><nimble-button ${ref('button')}>Leaf1</nimble-button></nimble-tree-item>
                 </nimble-tree-item>
                 <nimble-tree-item ${ref('leaf2')} selected>Leaf 2</nimble-tree-item>
-                <nimble-tree-item ${ref('leafWithIcon')}><svg slot="start">${notebook16X16.data}</svg>Leaf 1</nimble-tree-item>
+                <nimble-tree-item ${ref('leafWithIconDisabled')} disabled><svg slot="start">${notebook16X16.data}</svg>Leaf With Icon</nimble-tree-item>
             </nimble-tree-item>
             <nimble-tree-item ${ref('root2')}>Root2
                 <nimble-tree-item ${ref('subRoot2')}>SubRoot 2
-                    <nimble-tree-item ${ref('leaf3')}>Leaf 1</nimble-tree-item>
+                    <nimble-tree-item ${ref('leaf3')}>Leaf 3</nimble-tree-item>
                 </nimble-tree-item>
             </nimble-tree-item>
         </nimble-tree-view>`,
@@ -40,14 +46,13 @@ async function setup(source: Model): Promise<Fixture<TreeView>> {
 }
 
 describe('TreeView', () => {
-    let element: TreeView;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let model: Model;
 
     beforeEach(async () => {
         model = new Model();
-        ({ element, connect, disconnect } = await setup(model));
+        ({ connect, disconnect } = await setup(model));
         await connect();
         await DOM.nextUpdate();
     });
@@ -59,36 +64,6 @@ describe('TreeView', () => {
     it('root1 should have "group-selected" attribute set after initialization', async () => {
         expect(model.root1.hasAttribute('group-selected')).toBe(true);
         expect(model.root2.hasAttribute('group-selected')).toBe(false);
-    });
-
-    it('root1 should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
-        const expandedChange = jasmine.createSpy();
-        model.root1.addEventListener('expanded-change', expandedChange);
-
-        await clickElement(model.root1);
-        expect(model.root1.hasAttribute('selected')).toBe(false);
-        expect(model.root1.hasAttribute('expanded')).toBe(true);
-        expect(expandedChange.calls.count()).toEqual(1);
-
-        await clickElement(model.root1);
-        expect(model.root1.hasAttribute('selected')).toBe(false);
-        expect(model.root1.hasAttribute('expanded')).toBe(false);
-        expect(expandedChange.calls.count()).toEqual(2);
-    });
-
-    it('leaf should stay selected after parent is expanded\\collapsed', async () => {
-        await clickElement(model.root1); // expand root1
-        await clickElement(model.leaf1); // select leaf
-        expect(model.leaf1.hasAttribute('selected')).toBe(true);
-
-        await clickElement(model.root1); // collapse root1
-        expect(model.leaf1.hasAttribute('selected')).toBe(true);
-    });
-
-    it('when group is clicked, the TreeView currentSelected state does not change', async () => {
-        await clickElement(model.leaf1); // select leaf
-        await clickElement(model.root1); // collapse root1
-        expect(element.currentSelected).toBe(model.leaf1);
     });
 
     it('when leaf item is selected, only root parent tree item has "group-selected" attribute', async () => {
@@ -111,6 +86,29 @@ describe('TreeView', () => {
         expect(model.leaf1.hasAttribute('selected')).toBe(true);
     });
 
+    it('item inside a tree item handles events when clicked', async () => {
+        const buttonClicked = jasmine.createSpy();
+        model.button.addEventListener('click', buttonClicked);
+        await clickElement(model.button);
+
+        expect(buttonClicked.calls.count()).toEqual(1);
+    });
+
+    it('item inside a tree item handles events when clicked when item is disabled', async () => {
+        const buttonClicked = jasmine.createSpy();
+        model.button.disabled = true;
+        model.button.addEventListener('click', buttonClicked);
+        await clickElement(model.button);
+
+        expect(buttonClicked.calls.count()).toEqual(1);
+    });
+
+    it('when disabled tree item is clicked it is not selected', async () => {
+        await clickElement(model.leafWithIconDisabled);
+
+        expect(model.leafWithIconDisabled.hasAttribute('selected')).toBe(false);
+    });
+
     it('when glyph is clicked tree group is expanded', async () => {
         const rootExpandButton = model.root1.shadowRoot?.querySelector<HTMLElement>(
             '.expand-collapse-button'
@@ -118,5 +116,54 @@ describe('TreeView', () => {
 
         await clickElement(rootExpandButton!);
         expect(model.root1.hasAttribute('expanded')).toBe(true);
+    });
+
+    describe('with `selectionMode` set to `leavesOnly`', () => {
+        beforeEach(() => {
+            model.treeView.selectionMode = SelectionMode.LeavesOnly;
+        });
+
+        it('root1 should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
+            const expandedChange = jasmine.createSpy();
+            model.treeView.addEventListener('expanded-change', expandedChange);
+
+            await clickElement(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+            expect(model.root1.hasAttribute('expanded')).toBe(true);
+            expect(expandedChange.calls.count()).toEqual(1);
+
+            await clickElement(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+            expect(model.root1.hasAttribute('expanded')).toBe(false);
+            expect(expandedChange.calls.count()).toEqual(2);
+        });
+
+        it('leaf should stay selected after parent is expanded\\collapsed', async () => {
+            await clickElement(model.root1); // expand root1
+            await clickElement(model.leaf1); // select leaf
+            expect(model.leaf1.hasAttribute('selected')).toBe(true);
+
+            await clickElement(model.root1); // collapse root1
+            expect(model.leaf1.hasAttribute('selected')).toBe(true);
+        });
+
+        it('when disabled group is clicked, it is not expanded', async () => {
+            model.root1.disabled = true;
+            await clickElement(model.root1);
+
+            expect(model.root1.expanded).toBe(false);
+        });
+    });
+
+    describe('with `selectionMode` set to `all`', () => {
+        beforeEach(() => {
+            model.treeView.selectionMode = SelectionMode.All;
+        });
+
+        it('root1 should be selected after being clicked', async () => {
+            await clickElement(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(true);
+            expect(model.root1.hasAttribute('expanded')).toBe(false);
+        });
     });
 });

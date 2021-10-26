@@ -1,11 +1,10 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@microsoft/fast-element';
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../../button/index';
 import '../index';
 import { DrawerLocation, DrawerState } from '../types';
-import type { Drawer } from '../index';
 
 enum ExampleContentType {
     SimpleTextContent = 'SimpleTextContent',
@@ -15,33 +14,41 @@ enum ExampleContentType {
 interface DrawerArgs {
     location: DrawerLocation;
     state: DrawerState;
-    modal: boolean;
+    modal: string;
     preventDismiss: boolean;
     content: ExampleContentType;
-    drawer: Drawer;
 }
 
-const simpleDrawerContent = '<section>This is a drawer which can slide in from either side of the screen and display custom content.</section>';
+const simpleContent = html`
+    <section>
+        This is a drawer which can slide in from either side of the screen and
+        display custom content.
+    </section>
+`;
 
 // prettier-ignore
-const drawerHeaderFooterContentTemplate = html`
+const headerFooterContent = html`
     <header>Header</header>
     <section>
-        <p>This is a drawer with header and footer regions.</p>
-        <p>
-            Uses header, section, footer HTML elements
-            <br/>
-            (Drawer element includes styling for them)
+        <p>This is a drawer with <code>header</code>, <code>section</code>, and <code>footer</code> elements.</p>
+        <p>When placed in a <code>nimble-drawer</code> they will be automatically styled for you!</p>
+
+        <p style="height: 1000px;">
+            This is a tall piece of content so you can see how scrolling behaves. Scroll down to see more 👇.
         </p>
-        <div style="height: 1000px;">
-            (Large-height content to ensure content scrollbar appears)
-        </div>
+        <p>
+            You made it to the end! 🎉
+        </p>
     </section>
     <footer>
         <nimble-button appearance="ghost">Cancel</nimble-button>
         <nimble-button appearance="outline">OK</nimble-button>
     </footer>`;
-const drawerHeaderFooterContent = drawerHeaderFooterContentTemplate.html as string;
+
+const content: { [key in ExampleContentType]: ViewTemplate } = {
+    [ExampleContentType.SimpleTextContent]: simpleContent,
+    [ExampleContentType.HeaderContentFooter]: headerFooterContent
+};
 
 const metadata: Meta<DrawerArgs> = {
     title: 'Drawer',
@@ -54,16 +61,17 @@ const metadata: Meta<DrawerArgs> = {
     },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-drawer ${ref('drawer')}
+        <nimble-drawer id="myNimbleDrawer"
             modal="${x => x.modal}"
             ?prevent-dismiss="${x => x.preventDismiss}"
             location="${x => x.location}"
-            state="${x => x.state}"            
-            :innerHTML="${x => x.content}">
+            state="${x => x.state}"
+        >
+            ${x => content[x.content]}
         </nimble-drawer>
         <nimble-button
             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-            @click="${({ drawer }) => { drawer.state = drawer.hidden ? DrawerState.Opening : DrawerState.Closing; }}"
+            onclick="myNimbleDrawer.state = myNimbleDrawer.hidden ? '${DrawerState.Opening}' : '${DrawerState.Closing}'"
         >
             Show/Hide Drawer (animated)
         </nimble-button>
@@ -82,16 +90,17 @@ const metadata: Meta<DrawerArgs> = {
             ],
             control: { type: 'select' }
         },
+        modal: {
+            options: ['true', 'false'],
+            control: { type: 'select' },
+            description:
+                'Note: The value is the string "true" or "false" unlike normal boolean attributes.'
+        },
         content: {
             options: [
                 ExampleContentType.SimpleTextContent,
                 ExampleContentType.HeaderContentFooter
             ],
-            mapping: {
-                [ExampleContentType.SimpleTextContent]: simpleDrawerContent,
-                [ExampleContentType.HeaderContentFooter]:
-                    drawerHeaderFooterContent
-            },
             control: {
                 type: 'radio',
                 labels: {
@@ -106,7 +115,7 @@ const metadata: Meta<DrawerArgs> = {
     args: {
         location: DrawerLocation.Left,
         state: DrawerState.Opened,
-        modal: true,
+        modal: 'true',
         preventDismiss: false,
         content: ExampleContentType.SimpleTextContent
     }
