@@ -6,8 +6,10 @@ import '../../icons/measurement-data-analysis';
 import '../../icons/settings';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { SelectionMode } from '../types';
 
 interface TreeArgs {
+    selectionMode: SelectionMode;
     options: ItemArgs[];
 }
 
@@ -30,22 +32,28 @@ const metadata: Meta<TreeArgs> = {
             handles: ['expanded-change', 'selected-change']
         }
     },
+    argTypes: {
+        selectionMode: {
+            options: Object.values(SelectionMode),
+            control: { type: 'radio' }
+        }
+    },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-tree-view>
+        <nimble-tree-view selection-mode="${x => x.selectionMode}">
             ${repeat(x => x.options, html<ItemArgs>`
-                <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}" ?disabled="${x => x.disabled}">
+                <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}">
                     ${when(x => x.icon, html`<nimble-measurement-data-analysis-icon></nimble-measurement-data-analysis-icon>`)}
                     ${x => x.label}
-                    <nimble-tree-item>
+                    <nimble-tree-item ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}">
                          ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                          Sub Group
-                        <nimble-tree-item>
+                        <nimble-tree-item ?disabled="${x => x.disabled}">
                             ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
-                            Nested Item 1
+                            <a href="http://www.ni.com">Nested Item 1</a>
                         </nimble-tree-item>
                     </nimble-tree-item>
-                    <nimble-tree-item>
+                    <nimble-tree-item ?selected="${x => x.expanded}">
                         ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                         Nested Item 2
                     </nimble-tree-item>
@@ -58,20 +66,21 @@ const metadata: Meta<TreeArgs> = {
         </nimble-tree-view>
 `),
     args: {
+        selectionMode: SelectionMode.LeavesOnly,
         options: [
             {
                 label: 'Option 1',
                 value: '1',
                 disabled: false,
                 icon: true,
-                expanded: true
+                expanded: false
             },
             {
                 label: 'Option 2',
                 value: '2',
                 disabled: true,
                 icon: true,
-                expanded: false
+                expanded: true
             },
             {
                 label: 'Option 3',
