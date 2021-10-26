@@ -37,9 +37,6 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
-  "files": [
-    "dist/esm/**"
-  ],
   "dependencies": {
     "@microsoft/fast-animation": "^4.1.5",
     "@microsoft/fast-components": "^2.0.0",

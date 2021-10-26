@@ -6,7 +6,7 @@ import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
 import { IconStatus } from './types';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 import type { Icon } from '..';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
