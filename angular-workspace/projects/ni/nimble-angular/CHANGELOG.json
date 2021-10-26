@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 26 Oct 2021 19:50:21 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.102",
+      "version": "1.0.0-beta.102",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Test utility folder layout",
+            "commit": "ac867691ccefa665f27b565511ada1b31ff2e146"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ac867691ccefa665f27b565511ada1b31ff2e146",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.102"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Oct 2021 16:10:28 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.101",
       "version": "1.0.0-beta.101",

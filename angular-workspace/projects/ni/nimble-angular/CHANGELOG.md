@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 26 Oct 2021 16:10:28 GMT and should not be manually modified.
+This log was last generated on Tue, 26 Oct 2021 19:50:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.102
+
+Tue, 26 Oct 2021 19:50:21 GMT
+
+### Changes
+
+- Test utility folder layout (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.102 (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.101
 
