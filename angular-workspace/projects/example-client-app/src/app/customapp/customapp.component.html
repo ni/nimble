@@ -1,4 +1,5 @@
 <nimble-theme-provider [theme]="theme">
+    <nimble-example-header [theme]="theme"></nimble-example-header>
     <div class="drawer-container" [ngClass]="{'pinned': isDrawerPinned, 'location-right': drawerLocation === drawerLocations.Right}">
         <nimble-drawer #drawerReference [location]="drawerLocation" [modal]="!isDrawerPinned">
             <nimble-tree-view>
