@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
 import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/themes';
-import { DrawerLocation, DrawerState, NimbleDrawerDirective } from '@ni/nimble-angular';
+import { DrawerLocation } from '@ni/nimble-angular';
 
 @Component({
     selector: 'nimble-example-customapp',
@@ -15,11 +15,4 @@ export class CustomAppComponent {
     public themes = NimbleTheme;
     public drawerLocations = DrawerLocation;
     public buttonAppearances = ButtonAppearance;
-
-    @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public drawer: NimbleDrawerDirective;
-
-    public drawerTogglePinned(): void {
-        this.isDrawerPinned = !this.isDrawerPinned;
-        this.drawer.state = this.isDrawerPinned ? DrawerState.Opened : DrawerState.Closed;
-    }
 }
