@@ -4,14 +4,28 @@
     justify-content: left;
     flex-direction: column;
     height: 100%;
-    padding: 2px;
+    padding: 0px 2px 0px 10px;
+}
+
+.options-container > * {
+    margin: 10px 10px 10px 0;
 }
 
 .theme-select {
     display: block;
-    top: 12px;
-    left: 12px;
     width: 150px;
-    min-width: unset;
-    margin-bottom: 30px;
+    min-width: unset; 
+}
+
+.drawer-location-select {
+    width: 200px;
+}
+
+nimble-example-header {
+    display: block;
+}
+
+nimble-example-nav-drawer {
+    display: block;
+    height: calc(100% - var(--control-height)); /* 100% - header height */
 }

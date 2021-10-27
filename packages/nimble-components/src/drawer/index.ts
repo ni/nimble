@@ -164,6 +164,7 @@ export class Drawer extends FoundationDialog {
                         'Unsupported state value. Expected: opening/opened/closing/closed'
                     );
             }
+            this.$emit('state-change');
         }
     }
 

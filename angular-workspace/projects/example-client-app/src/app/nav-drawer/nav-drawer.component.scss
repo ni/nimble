@@ -1,0 +1,24 @@
+.drawer-container {
+    font-family: var(--font-family);
+    height: 100%;
+    --drawer-width: 300px;
+}
+
+.drawer-container.pinned {
+    display: grid;
+    grid-template-areas: "drawer content";
+    grid-template-columns: var(--drawer-width) 1fr;
+}
+
+.drawer-container.pinned.location-right {
+    grid-template-areas: "content drawer";
+    grid-template-columns: 1fr var(--drawer-width);
+}
+
+.drawer-container .content {
+    grid-area: content;
+}
+
+.drawer-container nimble-drawer {
+    grid-area: drawer;
+}

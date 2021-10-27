@@ -78,7 +78,10 @@
               "../node_modules/@ni/nimble-tokens/source/space-mono-font-face.css",
               "../node_modules/@ni/nimble-tokens/source/source-sans-pro-font-face.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "@microsoft/fast-animation"
+            ]
           },
           "configurations": {
             "production": {
