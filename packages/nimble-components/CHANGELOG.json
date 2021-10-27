@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 27 Oct 2021 16:30:36 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.89",
+      "version": "1.0.0-beta.89",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Drawer fires state-change event when state property changes; update drawer CSS (to work better when non-modal)",
+            "commit": "077a58357c6cbd7bea96baf86d08f26596ea81c1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Oct 2021 19:50:21 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.88",
       "version": "1.0.0-beta.88",

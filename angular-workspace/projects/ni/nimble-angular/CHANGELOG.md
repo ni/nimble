@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 26 Oct 2021 19:50:21 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Oct 2021 16:30:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.103
+
+Wed, 27 Oct 2021 16:30:36 GMT
+
+### Changes
+
+- Angular directive for nimble-drawer; update readme with known issue (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.103 (20709258+msmithNI@users.noreply.github.com)
 
 ## 1.0.0-beta.102
 

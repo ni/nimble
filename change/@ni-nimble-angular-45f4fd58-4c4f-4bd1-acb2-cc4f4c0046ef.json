@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Angular directive for nimble-drawer; update readme with known issue",
-  "packageName": "@ni/nimble-angular",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}

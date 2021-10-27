@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Drawer fires state-change event when state property changes; update drawer CSS (to work better when non-modal)",
-  "packageName": "@ni/nimble-components",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}

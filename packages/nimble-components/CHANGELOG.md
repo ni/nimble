@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 26 Oct 2021 19:50:21 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Oct 2021 16:30:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.89
+
+Wed, 27 Oct 2021 16:30:36 GMT
+
+### Changes
+
+- Drawer fires state-change event when state property changes; update drawer CSS (to work better when non-modal) (20709258+msmithNI@users.noreply.github.com)
 
 ## 1.0.0-beta.88
 
