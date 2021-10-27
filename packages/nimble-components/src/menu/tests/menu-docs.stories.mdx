@@ -1,22 +1,46 @@
-import { Story, Meta } from '@storybook/addon-docs';
+import { Story, Source, Meta } from '@storybook/addon-docs';
 
 <Meta title="Menu" />
 
 # Menu
 
+Menus provide the user access to commands for an application. Application menus typically contain global commands and shared commands 
+(like Cut, Copy, Paste). Context menus provide a specific set of relevant commands for a particular context.
+
+## Standard menu configuration
+
+The `nimble-menu` supports several child elements including `<header>`, `<hr>`, and `<nimble-menu-item>`, and will format them 
+and any `nimble-icons` added as children of `<nimble-menu-item>`.
+
+```html
+<nimble-menu>
+    <header>Header 1</header>
+    <nimble-menu-item>Item 1</nimble-menu-item>
+    <nimble-menu-item>Item 2</nimble-menu-item>
+    <nimble-menu-item>Item 3</nimble-menu-item>
+    <hr>
+    <header>Header 2</header>
+    <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Item 4</nimble-menu-item>
+    <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Item 5</nimble-menu-item>
+    <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Item 6</nimble-menu-item>
+</nimble-menu>
+```
+
+<Story id="menu--menu" height="300px"/>
+
 ## Adding a custom header
 
-The menu can be configured to display a custom header with arbitrary content.  This includes other nimble controls, or even custom elements.
+The menu can be configured to display a custom header with arbitrary content.  This could include other nimble components, or even custom elements.
 
-<Story id="menu--custom-menu"/>
+<Story id="menu--custom-menu" height="150px"/>
 
-    <nimble-menu>
-        <div>
-            <div>lvadmin User</div>
-            <div>lvadmin</div>
-        </div>
-        <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Account</nimble-menu-item>
-        <nimble-menu-item><nimble-logout-icon></nimble-logout-icon>Log out</nimble-menu-item>
-    </nimble-menu>
-
-Only `<header>` and `<hr>` tags within the custom content will be automatically styled by Nimble. Only `<nimble-menu-item>` tags will automatically support keyboard navigation.
+```html
+<nimble-menu>
+    <div>
+        <div>lvadmin User</div>
+        <div>lvadmin</div>
+    </div>
+    <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Account</nimble-menu-item>
+    <nimble-menu-item><nimble-logout-icon></nimble-logout-icon>Log out</nimble-menu-item>
+</nimble-menu>`}
+```

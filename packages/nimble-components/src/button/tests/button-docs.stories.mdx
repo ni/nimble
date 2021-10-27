@@ -1,46 +1,22 @@
-import { Story, Meta } from '@storybook/addon-docs';
+import { Story, Source, Meta } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
 
 <Meta title="Button" />
 
-# Example Button Guidelines
+# Buttons
 
-## TODO: Replace with actual guidelines
+The command button is one of the most common and ubiquitous types of buttons. They are used in dialogs, the configuration pane, and other general areas of the UI.
 
-## MDX Overview
+## Button modes
 
-These documents can use standard _Markdown_, and will replace the default **Docs** page when placed alongside the other stories.
-
-Use the `<Story id="some--id"/>` tag to pull live components into this document, and mix them with Markdown formatted content.
-
-| Type    | Description   | Example                              |
-| ------- | ------------- | ------------------------------------ |
-| Outline | Used for 🐁's | <Story id="button--outline-button"/> |
-| Block   | Used for 🧱's | <Story id="button--block-button"/>   |
-| Ghost   | Used for 👻's | <Story id="button--ghost-button"/>   |
-
-[Links to a specific documentation page](?path=/docs/checkbox--checkbox)
-
-[Links to a specific story canvas](?path=/story/checkbox--checkbox)
-
-### Standard Markdown works too - 🎉
+| Type    | Description | Example                              |
+| ------- | ----------- | ------------------------------------ |
+| Outline | Used for …  | <Story id="button--outline-button"/> |
+| Block   | Used for …  | <Story id="button--block-button"/>   |
+| Ghost   | Used for …  | <Story id="button--ghost-button"/>   |
 
 ```html
-<nimble-button appearance="${appearance}">${label}</nimble-button>
+<nimble-button appearance="ghost">
+    <nimble-access-control-icon></nimble-access-control-icon>Button text
+</nimble-button>
 ```
-
-```ts
-const nimbleButton = Button.compose({
-    baseName: 'button',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-```
-
-## Here's a list
-
-1. first
-2. second
-3. third

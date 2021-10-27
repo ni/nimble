@@ -20,6 +20,9 @@ const metadata: Meta<CheckboxArgs> = {
         },
         actions: {
             handles: ['change']
+        },
+        docs: {
+            inlineStories: false
         }
     },
     render: createRenderer(html`
@@ -40,3 +43,5 @@ const metadata: Meta<CheckboxArgs> = {
 export default metadata;
 
 export const checkbox: Story<CheckboxArgs> = {};
+
+export const test: Story = () => '<nimble-checkbox>Foobar</nimble-checkbox>';

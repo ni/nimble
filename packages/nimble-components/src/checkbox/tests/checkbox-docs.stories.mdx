@@ -1,0 +1,23 @@
+import { Story, Source, Meta, ArgsTable, Canvas } from '@storybook/addon-docs';
+import test from './checkbox.stories';
+
+<Meta title="Checkbox" ></Meta>
+
+# Checkbox
+
+Checkboxes are used to turn an option on/off or to select/deselect an item.
+
+## Configuration
+
+```html
+<nimble-checkbox>Checkbox 1</nimble-checkbox>
+```
+<Canvas>
+    <Story id="checkbox--test" />
+</Canvas>
+
+<Canvas>
+    <Story name="Checkbox" story={test} />
+</Canvas>
+
+<ArgsTable story="Checkbox" />
