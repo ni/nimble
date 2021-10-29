@@ -50,7 +50,7 @@ const metadata: Meta<IconArgs> = {
 export default metadata;
 
 // prettier-ignore
-export const rawIcons: Story<IconArgs> = {
+export const rawIcons = {
     parameters: {
         controls: { hideNoControlsWarning: true }
     },
@@ -86,7 +86,7 @@ const iconTemplate = html<IconClass, IconArgs>`
 `;
 
 // prettier-ignore
-export const componentIcons: Story<IconArgs> = {
+export const componentIcons = {
     args: { status: IconStatus.Regular },
     argTypes: {
         status: {

@@ -34,7 +34,7 @@ const metadata: Meta<MenuArgs> = {
 
 export default metadata;
 
-export const menu: Story<MenuArgs> = {
+export const menu = {
     // prettier-ignore
     render: createRenderer<MenuArgs>(html`
         <nimble-menu>
@@ -116,7 +116,7 @@ export const menu: Story<MenuArgs> = {
     }
 };
 
-export const customMenu: Story = {
+export const customMenu = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-menu>

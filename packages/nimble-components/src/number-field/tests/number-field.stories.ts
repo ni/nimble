@@ -40,6 +40,6 @@ const metadata: Meta<NumberFieldArgs> = {
 
 export default metadata;
 
-export const numberField: Story<NumberFieldArgs> = {
+export const numberField = {
     args: { label: 'Number Field' }
 };

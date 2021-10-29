@@ -102,4 +102,4 @@ const metadata: Meta<TreeArgs> = {
 
 export default metadata;
 
-export const treeView: Story<TreeArgs> = {};
+export const treeView = {};

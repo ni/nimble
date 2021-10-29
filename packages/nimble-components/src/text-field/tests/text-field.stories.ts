@@ -55,10 +55,10 @@ const metadata: Meta<TextFieldArgs> = {
 
 export default metadata;
 
-export const textField: Story<TextFieldArgs> = {
+export const textField = {
     args: { label: 'Text Field' }
 };
 
-export const passwordField: Story<TextFieldArgs> = {
+export const passwordField = {
     args: { label: 'Password Field', type: 'password' }
 };
