@@ -22,6 +22,12 @@ const metadata: Meta<MenuArgs> = {
     title: 'Menu',
     decorators: [withXD],
     parameters: {
+        docs: {
+            description: {
+                component:
+                    'Menus provide the user access to commands for an application. Application menus typically contain global commands and shared commands (like Cut, Copy, Paste). Context menus provide a specific set of relevant commands for a particular context.'
+            }
+        },
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/c098395e-30f8-4bd4-b8c5-394326b59919/specs'
@@ -35,6 +41,13 @@ const metadata: Meta<MenuArgs> = {
 export default metadata;
 
 export const menu: Story<MenuArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'The `nimble-menu` supports several child elements including `<header>`, `<hr>`, and `<nimble-menu-item>`, and will format them and any `nimble-icons` added as children of `<nimble-menu-item>`.'
+            }
+        }
+    },
     // prettier-ignore
     render: createRenderer<MenuArgs>(html`
         <nimble-menu>
@@ -117,6 +130,14 @@ export const menu: Story<MenuArgs> = {
 };
 
 export const customMenu: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'The menu can be configured to display a custom header with arbitrary content.  This could include other nimble components, or even custom elements.'
+            }
+        }
+    },
+    // pre
     // prettier-ignore
     render: createRenderer(html`
         <nimble-menu>

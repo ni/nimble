@@ -1,7 +1,6 @@
-import { Story, Source, Meta, ArgsTable, Canvas } from '@storybook/addon-docs';
-import test from './checkbox.stories';
+import { Story, Source, Meta, ArgsTable, Canvas, PRIMARY_STORY, Primary, Stories } from '@storybook/addon-docs';
 
-<Meta title="Checkbox" ></Meta>
+<Meta title="Checkbox" />
 
 # Checkbox
 
@@ -12,12 +11,13 @@ Checkboxes are used to turn an option on/off or to select/deselect an item.
 ```html
 <nimble-checkbox>Checkbox 1</nimble-checkbox>
 ```
-<Canvas>
-    <Story id="checkbox--test" />
-</Canvas>
+
+<Stories />
+
+<Primary />
 
 <Canvas>
-    <Story name="Checkbox" story={test} />
+    <Story id='checkbox--checkbox' />
 </Canvas>
 
-<ArgsTable story="Checkbox" />
+<ArgsTable story={PRIMARY_STORY} />

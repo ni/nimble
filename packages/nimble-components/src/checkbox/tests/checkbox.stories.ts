@@ -1,8 +1,18 @@
+import React from 'react';
 import { html } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../index';
+import {
+    Title,
+    Subtitle,
+    Description,
+    Primary,
+    ArgsTable,
+    Stories,
+    PRIMARY_STORY
+} from '@storybook/addon-docs';
 
 interface CheckboxArgs {
     label: string;
@@ -14,15 +24,21 @@ const metadata: Meta<CheckboxArgs> = {
     title: 'Checkbox',
     decorators: [withXD],
     parameters: {
+        docs: {
+            description: {
+                component:
+                    'Checkboxes are used to turn an option on/off or to select/deselect an item.'
+            },
+            source: {
+                code: 'Some custom string here'
+            }
+        },
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs'
         },
         actions: {
             handles: ['change']
-        },
-        docs: {
-            inlineStories: false
         }
     },
     render: createRenderer(html`
@@ -43,5 +59,3 @@ const metadata: Meta<CheckboxArgs> = {
 export default metadata;
 
 export const checkbox: Story<CheckboxArgs> = {};
-
-export const test: Story = () => '<nimble-checkbox>Foobar</nimble-checkbox>';
