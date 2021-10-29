@@ -1,18 +1,8 @@
-import React from 'react';
 import { html } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
 import '../index';
-import {
-    Title,
-    Subtitle,
-    Description,
-    Primary,
-    ArgsTable,
-    Stories,
-    PRIMARY_STORY
-} from '@storybook/addon-docs';
 
 interface CheckboxArgs {
     label: string;
@@ -28,9 +18,6 @@ const metadata: Meta<CheckboxArgs> = {
             description: {
                 component:
                     'Checkboxes are used to turn an option on/off or to select/deselect an item.'
-            },
-            source: {
-                code: 'Some custom string here'
             }
         },
         design: {

@@ -13,10 +13,20 @@ interface ButtonArgs {
     icon: boolean;
 }
 
+const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that 
+enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an 
+action, or performing a delete operation. A common convention for informing users that a button launches 
+a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".`;
+
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',
     decorators: [withXD],
     parameters: {
+        docs: {
+            description: {
+                component: overviewText
+            }
+        },
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'

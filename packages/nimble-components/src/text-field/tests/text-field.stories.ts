@@ -17,6 +17,11 @@ const metadata: Meta<TextFieldArgs> = {
     title: 'Text Field',
     decorators: [withXD],
     parameters: {
+        docs: {
+            description: {
+                component: 'A basic single-line text field.'
+            }
+        },
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/842889a5-67ba-4350-91c1-55eee48f4fa2/specs/'

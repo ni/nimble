@@ -21,10 +21,21 @@ interface ItemArgs {
     expanded: boolean;
 }
 
+const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#TreeView) - A tree view widget 
+presents a hierarchical list. Any item in the hierarchy may have child items, and items that have 
+children may be expanded or collapsed to show or hide the children. For example, in a file system 
+navigator that uses a tree view to display folders and files, an item representing a folder can be 
+expanded to reveal the contents of the folder, which may be files, folders, or both.`;
+
 const metadata: Meta<TreeArgs> = {
     title: 'Tree View',
     decorators: [withXD],
     parameters: {
+        docs: {
+            description: {
+                component: overviewText
+            }
+        },
         design: {
             artboardUrl: ''
         },

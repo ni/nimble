@@ -19,10 +19,20 @@ interface TabArgs {
     disabled: boolean;
 }
 
+const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#tabpanel) - Tabs are a set of layered 
+sections of content, known as tab panels, that display one panel of content at a time. Each tab panel has an 
+associated tab element, that when activated, displays the panel. The list of tab elements is arranged along 
+one edge of the currently displayed panel, most commonly the top edge.`;
+
 const metadata: Meta<TabsArgs> = {
     title: 'Tabs',
     decorators: [withXD],
     parameters: {
+        docs: {
+            description: {
+                component: overviewText
+            }
+        },
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b/specs'

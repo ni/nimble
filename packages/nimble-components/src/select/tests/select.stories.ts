@@ -22,7 +22,6 @@ const metadata: Meta<SelectArgs> = {
     decorators: [withXD],
     parameters: {
         docs: {
-            inlineStories: true,
             description: {
                 component:
                     'Select is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user cannot manually enter values.'

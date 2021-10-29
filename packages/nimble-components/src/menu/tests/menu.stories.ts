@@ -18,14 +18,19 @@ interface ItemArgs {
     type: 'nimble-menu-item' | 'header' | 'hr';
 }
 
+const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#menu) - A menu is a widget that offers a list of choices to the user, 
+such as a set of actions or functions. Menu widgets behave like native operating system menus, such as the menus that pull down from the 
+menubars commonly found at the top of many desktop application windows. A menu is usually opened, or made visible, by activating a menu button, 
+choosing an item in a menu that opens a sub menu, or by invoking a command, such as Shift + F10 in Windows, that opens a context specific menu. 
+When a user activates a choice in a menu, the menu usually closes unless the choice opened a submenu.`;
+
 const metadata: Meta<MenuArgs> = {
     title: 'Menu',
     decorators: [withXD],
     parameters: {
         docs: {
             description: {
-                component:
-                    'Menus provide the user access to commands for an application. Application menus typically contain global commands and shared commands (like Cut, Copy, Paste). Context menus provide a specific set of relevant commands for a particular context.'
+                component: overviewText
             }
         },
         design: {
