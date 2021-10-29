@@ -1,5 +1,5 @@
 import { DOM, html } from '@microsoft/fast-element';
-import { fixture, Fixture } from '../../tests/utilities/fixture';
+import { fixture, Fixture } from '../../utilities/tests/fixture';
 import '..';
 import type { Drawer } from '..';
 import { DrawerState } from '../types';
@@ -66,5 +66,13 @@ describe('Drawer', () => {
         await waitForDrawerAnimationsCompleted();
         expect(element.hidden).toBe(true);
         expect(element.state).toEqual('closed');
+    });
+
+    it('updates to "state" property fire the "state-change" event', async () => {
+        const stateChange = jasmine.createSpy();
+        element.addEventListener('state-change', stateChange);
+        element.state = DrawerState.Opened;
+
+        expect(stateChange.calls.count()).toEqual(1);
     });
 });

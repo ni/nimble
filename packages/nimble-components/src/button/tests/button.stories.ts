@@ -4,7 +4,7 @@ import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import '../index';
 import '../../icons/access-control';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 
 interface ButtonArgs {
     label: string;

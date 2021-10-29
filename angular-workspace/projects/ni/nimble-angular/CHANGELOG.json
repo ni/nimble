@@ -2,6 +2,48 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 27 Oct 2021 16:30:36 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.103",
+      "version": "1.0.0-beta.103",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Angular directive for nimble-drawer; update readme with known issue",
+            "commit": "077a58357c6cbd7bea96baf86d08f26596ea81c1"
+          },
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "077a58357c6cbd7bea96baf86d08f26596ea81c1",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.103"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Oct 2021 19:50:21 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.102",
+      "version": "1.0.0-beta.102",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Test utility folder layout",
+            "commit": "ac867691ccefa665f27b565511ada1b31ff2e146"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ac867691ccefa665f27b565511ada1b31ff2e146",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.102"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Oct 2021 16:10:28 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.101",
       "version": "1.0.0-beta.101",

@@ -1,7 +1,7 @@
 import { DOM, html, ref } from '@microsoft/fast-element';
 import { notebook16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { fixture, Fixture } from '../../tests/utilities/fixture';
-import { clickElement } from '../../tests/utilities/component-test-helpers';
+import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { clickElement } from '../../utilities/tests/component';
 import { SelectionMode } from '../types';
 import type { TreeView } from '..';
 import type { TreeItem } from '../../tree-item';

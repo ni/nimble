@@ -1,0 +1,33 @@
+<div class="drawer-container" [ngClass]="{'pinned': isDrawerPinned, 'location-right': location === drawerLocations.Right}">
+    <nimble-drawer #drawerReference [location]="location" [modal]="!isDrawerPinned">
+        <nimble-tree-view [selectionMode]="selectionMode">
+            <nimble-tree-item>
+                Systems Management
+                <nimble-tree-item>Systems</nimble-tree-item>
+                <nimble-tree-item>Assets</nimble-tree-item>
+                <nimble-tree-item [disabled]="true">Package Repository</nimble-tree-item>
+                <nimble-tree-item>Reports</nimble-tree-item>
+                <nimble-tree-item>Assets</nimble-tree-item>
+                <nimble-tree-item>Jobs</nimble-tree-item>
+            </nimble-tree-item>
+            <nimble-tree-item>
+                Test Insights
+                <nimble-tree-item>Dashboard</nimble-tree-item>
+                <nimble-tree-item>Results</nimble-tree-item>
+                <nimble-tree-item>Products</nimble-tree-item>
+                <nimble-tree-item>Reports</nimble-tree-item>
+            </nimble-tree-item>
+            <nimble-tree-item>
+                Measurement Data Analysis
+                <nimble-tree-item>Data Navigation</nimble-tree-item>
+                <nimble-tree-item>Data Analysis</nimble-tree-item>
+                <nimble-tree-item>Analysis Automation</nimble-tree-item>
+            </nimble-tree-item>
+            <nimble-tree-item [expanded]="true">
+                Custom Applications
+                <nimble-tree-item [selected]="true">App 1</nimble-tree-item>
+            </nimble-tree-item>
+        </nimble-tree-view>
+    </nimble-drawer>
+    <ng-content></ng-content>
+</div>

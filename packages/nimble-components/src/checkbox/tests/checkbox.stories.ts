@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
 
 interface CheckboxArgs {
