@@ -120,7 +120,7 @@ const metadata: Meta<DrawerArgs> = {
     },
     args: {
         location: DrawerLocation.Left,
-        state: DrawerState.Opened,
+        state: DrawerState.Opening,
         modal: 'true',
         preventDismiss: false,
         content: ExampleContentType.SimpleTextContent

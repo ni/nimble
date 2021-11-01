@@ -17,7 +17,7 @@ const metadata: Meta<CheckboxArgs> = {
         docs: {
             description: {
                 component:
-                    'Checkboxes are used to turn an option on/off or to select/deselect an item.'
+                    'Per [W3C](https://w3c.github.io/aria-practices/#checkbox) – The dual-state checkbox is the most common type, as it allows the user to toggle between two choices -- checked and not checked.'
             }
         },
         design: {
