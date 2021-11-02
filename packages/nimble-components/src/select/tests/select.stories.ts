@@ -21,6 +21,12 @@ const metadata: Meta<SelectArgs> = {
     title: 'Select',
     decorators: [withXD],
     parameters: {
+        docs: {
+            description: {
+                component:
+                    'Select is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user cannot manually enter values.'
+            }
+        },
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e/specs'
