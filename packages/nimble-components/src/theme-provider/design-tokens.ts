@@ -21,7 +21,9 @@ import {
     Warning100LightUi,
     Warning100DarkUi,
     Pass100LightUi,
-    Pass100DarkUi
+    Pass100DarkUi,
+    Header2Size,
+    Header2Family
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -231,18 +233,25 @@ export const standardPadding = create<string>('standard-padding').withDefault('1
 export const labelHeight = create<string>('label-height').withDefault('16px');
 export const borderWidth = create<string>('border-width').withDefault('1px');
 export const iconSize = create<string>('icon-size').withDefault('16px');
+export const drawerWidth = create<string>('drawer-width').withDefault('784px');
 
 // Font Family Tokens
 export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
 export const labelFontFamily = create<string>('label-font-family').withDefault(
     (element: HTMLElement) => getFontForTheme(element)
 );
+export const drawerHeaderFontFamily = create<string>(
+    'drawer-header-font-family'
+).withDefault(Header2Family);
 
 // Font Sizing Tokens
 export const labelFontSize = create<string>('label-font-size').withDefault(
     (element: HTMLElement) => getLabelTextSize(element)
 );
 export const contentFontSize = create<string>('content-font-size').withDefault(BodySize);
+export const drawerHeaderFontSize = create<string>(
+    'drawer-header-font-size'
+).withDefault(Header2Size);
 
 // Font Color Tokens
 export const labelFontColor = create<string>('label-font-color').withDefault(
@@ -272,6 +281,9 @@ export const contentFontColorDisabled = create<string>(
 // Animation Tokens
 export const smallDelay = create<string>('small-delay').withDefault(SmallDelay);
 export const mediumDelay = create<string>('medium-delay').withDefault(MediumDelay);
+export const drawerAnimationDurationMs = create<number>(
+    'drawer-animation-duration-ms'
+).withDefault(250);
 
 // Filter Tokens
 export const passwordRevealFilter = create<string>(

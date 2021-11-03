@@ -2,14 +2,14 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../tree-item/index';
-import {
-    jobs16X16,
-    notebook16X16
-} from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import '../../icons/measurement-data-analysis';
+import '../../icons/settings';
 import { html, repeat, when } from '@microsoft/fast-element';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
+import { SelectionMode } from '../types';
 
 interface TreeArgs {
+    selectionMode: SelectionMode;
     options: ItemArgs[];
 }
 
@@ -21,10 +21,21 @@ interface ItemArgs {
     expanded: boolean;
 }
 
+const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#TreeView) - A tree view widget 
+presents a hierarchical list. Any item in the hierarchy may have child items, and items that have 
+children may be expanded or collapsed to show or hide the children. For example, in a file system 
+navigator that uses a tree view to display folders and files, an item representing a folder can be 
+expanded to reveal the contents of the folder, which may be files, folders, or both.`;
+
 const metadata: Meta<TreeArgs> = {
     title: 'Tree View',
     decorators: [withXD],
     parameters: {
+        docs: {
+            description: {
+                component: overviewText
+            }
+        },
         design: {
             artboardUrl: ''
         },
@@ -32,27 +43,33 @@ const metadata: Meta<TreeArgs> = {
             handles: ['expanded-change', 'selected-change']
         }
     },
+    argTypes: {
+        selectionMode: {
+            options: Object.values(SelectionMode),
+            control: { type: 'radio' }
+        }
+    },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-tree-view>
+        <nimble-tree-view selection-mode="${x => x.selectionMode}">
             ${repeat(x => x.options, html<ItemArgs>`
-                <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}" ?disabled="${x => x.disabled}">
-                    ${when(x => x.icon, html`<span slot="start">${jobs16X16.data}</span>`)}
+                <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}">
+                    ${when(x => x.icon, html`<nimble-measurement-data-analysis-icon></nimble-measurement-data-analysis-icon>`)}
                     ${x => x.label}
-                    <nimble-tree-item>
-                         ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
+                    <nimble-tree-item ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}">
+                         ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                          Sub Group
-                        <nimble-tree-item>
-                            ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
-                            Nested Item 1
+                        <nimble-tree-item ?disabled="${x => x.disabled}">
+                            ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
+                            <a href="http://www.ni.com">Nested Item 1</a>
                         </nimble-tree-item>
                     </nimble-tree-item>
-                    <nimble-tree-item>
-                        ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
+                    <nimble-tree-item ?selected="${x => x.expanded}">
+                        ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                         Nested Item 2
                     </nimble-tree-item>
                     <nimble-tree-item>
-                        ${when(x => x.icon, html`<span slot="start">${notebook16X16.data}</span>`)}
+                        ${when(x => x.icon, html`<nimble-settings-icon></nimble-settings-icon>`)}
                         Nested Item 3
                      </nimble-tree-item>
                 </nimble-tree-item>
@@ -60,20 +77,21 @@ const metadata: Meta<TreeArgs> = {
         </nimble-tree-view>
 `),
     args: {
+        selectionMode: SelectionMode.LeavesOnly,
         options: [
             {
                 label: 'Option 1',
                 value: '1',
                 disabled: false,
                 icon: true,
-                expanded: true
+                expanded: false
             },
             {
                 label: 'Option 2',
                 value: '2',
                 disabled: true,
                 icon: true,
-                expanded: false
+                expanded: true
             },
             {
                 label: 'Option 3',

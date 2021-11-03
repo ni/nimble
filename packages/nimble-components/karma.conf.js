@@ -20,7 +20,8 @@ const commonChromeFlags = [
     '--disable-default-apps',
     '--disable-extensions',
     '--disable-infobars',
-    '--disable-translate'
+    '--disable-translate',
+    '--force-prefers-reduced-motion'
 ];
 
 module.exports = config => {
@@ -38,9 +39,9 @@ module.exports = config => {
             'karma-chrome-launcher',
             'karma-firefox-launcher'
         ],
-        files: ['dist/esm/tests/utilities/setup.js'],
+        files: ['dist/esm/utilities/tests/setup.js'],
         preprocessors: {
-            'dist/esm/tests/utilities/setup.js': ['webpack', 'sourcemap']
+            'dist/esm/utilities/tests/setup.js': ['webpack', 'sourcemap']
         },
         webpackMiddleware: {
             // webpack-dev-middleware configuration

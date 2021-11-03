@@ -6,8 +6,8 @@ import {
 } from '@microsoft/fast-foundation';
 import { controlsArrowExpanderUp16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { TreeView } from '../tree-view';
+import { groupSelectedAttribute, SelectionMode } from '../tree-view/types';
 import { styles } from './styles';
-import { pinnedSelectedAttribute, groupSelectedAttribute } from './types';
 
 /**
  * A function that returns a nimble-tree-item registration for configuring the component with a DesignSystem.
@@ -20,100 +20,114 @@ import { pinnedSelectedAttribute, groupSelectedAttribute } from './types';
  *
  */
 export class TreeItem extends FoundationTreeItem {
+    private treeView: TreeView | null;
+
+    public constructor() {
+        super();
+        this.addEventListener('click', this.handleClickOverride);
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
-        this.addEventListener('selected-change', this.handleItemSelected);
-        if (this.selected) {
+        this.addEventListener('selected-change', this.handleSelectedChange);
+        this.treeView = this.getParentTreeView();
+        if (this.treeView && this.selected) {
             this.setGroupSelectionOnRootParentTreeItem(this);
         }
     }
 
     public disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.removeEventListener('selected-change', this.handleItemSelected);
+        this.removeEventListener('click', this.handleClickOverride);
+        this.removeEventListener('selected-change', this.handleSelectedChange);
+        this.treeView = null;
     }
 
-    /**
-     * We are modifying the built-in behavior of selected state of the FAST TreeItem, as well as what initiates expand/
-     * collapse. By default, we will not allow tree items that have sub tree items to be selected (and thus render as such).
-     * In addition, clicking anywhere on a tree item with children (not just the expand/collapse icon) will initiate
-     * expand/collapse.
-     *
-     * The 'pinned-selected' attribute is set so that the Nimble TreeView can leverage it to manage the current selection
-     * correctly when a parent group is expanded/collapsed.
-     * @param event The 'selected-change' event emitted by the FAST TreeItem
-     */
-    private readonly handleItemSelected = (event: CustomEvent): void => {
-        // this handler will be called for every TreeItem from the target to the root as the 'selected-change' bubbles up
-        if (event.target === this) {
-            if (this.hasChildren() && this.selected) {
-                this.handleTreeGroupSelected(event);
-            } else {
-                this.handleTreeLeafSelected(event);
-            }
-        }
-    };
-
-    private hasChildren(): boolean {
+    private hasChildTreeItems(): boolean {
         const treeItemChild = this.querySelector('[role="treeitem"]');
         return treeItemChild !== null;
     }
 
-    private clearTreeGroupSelection(treeView: TreeView): void {
-        const currentGroupSelection = treeView?.querySelectorAll<TreeItem>(
+    private readonly handleClickOverride = (event: MouseEvent): void => {
+        if (event.composedPath().includes(this.expandCollapseButton)) {
+            // just have base class handle click event for glyph
+            return;
+        }
+
+        const treeItem = this.getImmediateTreeItem(event.target as HTMLElement);
+        if (treeItem?.disabled || treeItem !== this) {
+            // don't allow base TreeItem to emit a 'selected-change' event when a disabled item is clicked
+            event.stopImmediatePropagation();
+            return;
+        }
+
+        const leavesOnly = this.treeView?.selectionMode === SelectionMode.LeavesOnly;
+        const hasChildren = this.hasChildTreeItems();
+        if ((leavesOnly && !hasChildren) || !leavesOnly) {
+            // if either a leaf tree item, or in a mode that supports select on groups,
+            // process click as a select
+            this.setGroupSelectionOnRootParentTreeItem(treeItem);
+            if (this.selected) {
+                // if already selected, prevent base-class from issuing selected-change event
+                event.stopImmediatePropagation();
+            }
+        } else {
+            // implicit hasChildren && leavesOnly, so only allow expand/collapse, not select
+            this.expanded = !this.expanded;
+            this.$emit('expanded-change', this);
+
+            // don't allow base class to process click event, as all we want to happen
+            // here is toggling 'expanded', and to issue the expanded-change event
+            event.stopImmediatePropagation();
+        }
+    };
+
+    // This prevents the toggling of selected state when a TreeItem is clicked multiple times,
+    // which is what the FAST TreeItem allows
+    private readonly handleSelectedChange = (event: Event): void => {
+        // only process selection
+        if (event.target === this) {
+            this.selected = true;
+        }
+    };
+
+    private clearTreeGroupSelection(): void {
+        const currentGroupSelection = this.treeView?.querySelectorAll<TreeItem>(
             `[${groupSelectedAttribute}]`
         );
-        currentGroupSelection.forEach(treeItem => treeItem.removeAttribute(groupSelectedAttribute));
+        currentGroupSelection?.forEach(treeItem => treeItem.removeAttribute(groupSelectedAttribute));
     }
 
-    private clearTreeItemSelection(treeView: TreeView): void {
-        const currentPinnedSelection = treeView?.querySelectorAll<TreeItem>(
-            `[${pinnedSelectedAttribute}]`
-        );
-        currentPinnedSelection.forEach(treeItem => treeItem.removeAttribute(pinnedSelectedAttribute));
+    private setGroupSelectionOnRootParentTreeItem(treeItem: HTMLElement): void {
+        this.clearTreeGroupSelection();
 
-        const currentSelection = treeView?.querySelectorAll<TreeItem>('[selected]');
-        currentSelection.forEach(treeItem => treeItem.removeAttribute('selected'));
-        if (currentSelection.length > 1) {
-            // eslint-disable-next-line no-console
-            console.log(
-                'NOTICE: The TreeView had an invalid selection state. The current state should now be valid.'
-            );
+        let currentItem: HTMLElement | null | undefined = treeItem;
+        while (currentItem?.parentElement !== this.treeView) {
+            currentItem = currentItem?.parentElement;
+        }
+
+        if (currentItem) {
+            currentItem.setAttribute(groupSelectedAttribute, 'true');
         }
     }
 
-    private handleTreeGroupSelected(event: CustomEvent): void {
-        this.expanded = !this.expanded;
-        this.dispatchEvent(new CustomEvent('expanded-change'));
-        this.selected = false; // do not allow tree groups to display as 'selected' the way leaf tree items can
-        event.stopImmediatePropagation();
-    }
-
-    private handleTreeLeafSelected(event: CustomEvent): void {
-        const treeView = this.getParentNimbleTreeNode()!;
-        this.clearTreeItemSelection(treeView);
-        this.clearTreeGroupSelection(treeView);
-        this.setGroupSelectionOnRootParentTreeItem(event.target as TreeItem);
-        this.setAttribute(pinnedSelectedAttribute, 'true');
-        this.selected = true;
-    }
-
-    private setGroupSelectionOnRootParentTreeItem(treeItem: TreeItem): void {
-        let currentParent = treeItem?.parentElement as TreeItem;
-        while (currentParent?.parentElement?.getAttribute('role') !== 'tree') {
-            currentParent = currentParent.parentElement as TreeItem;
+    private getImmediateTreeItem(element: HTMLElement): TreeItem {
+        let foundElement: HTMLElement | null | undefined = element;
+        while (
+            foundElement
+            && !(foundElement?.getAttribute('role') === 'treeitem')
+        ) {
+            foundElement = foundElement?.parentElement;
         }
 
-        if (currentParent) {
-            currentParent.setAttribute(groupSelectedAttribute, 'true');
-        }
+        return foundElement as TreeItem;
     }
 
     /**
      * This was copied directly from the FAST TreeItem implementation
      * @returns the root tree view
      */
-    private getParentNimbleTreeNode(): TreeView | null {
+    private getParentTreeView(): TreeView | null {
         const parentNode: Element | null = this.parentElement!.closest("[role='tree']");
         return parentNode as TreeView;
     }
@@ -124,7 +138,7 @@ const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseClass: FoundationTreeItem,
     template,
     styles,
-    expandCollapseGlyph: `${controlsArrowExpanderUp16X16.data}`
+    expandCollapseGlyph: controlsArrowExpanderUp16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeItem());

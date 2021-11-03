@@ -11,7 +11,6 @@ import {
     controlHeight,
     fillColorSelected,
     fontFamily,
-    iconSize,
     smallDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -101,22 +100,16 @@ export const styles = css`
         display: contents;
     }
 
-    [part='icon'] {
-        display: contents;
+    slot[name='start']::slotted(*) {
+        --icon-color: ${buttonContentFontColor};
     }
 
-    slot[name='icon']::slotted(*) {
-        width: ${iconSize};
-        height: ${iconSize};
-        fill: ${buttonContentFontColor};
+    :host([disabled]) slot[name='start']::slotted(*) {
+        opacity: 0.6;
     }
 
     [part='end'] {
         display: none;
-    }
-
-    :host([disabled]) slot[name='icon']::slotted(*) {
-        opacity: 0.6;
     }
 `
     // prettier-ignore

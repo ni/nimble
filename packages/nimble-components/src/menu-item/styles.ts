@@ -10,17 +10,19 @@ import {
     fillColorHover,
     contentFontColor,
     borderColorHover,
-    borderWidth,
-    contentFontColorDisabled
+    contentFontColorDisabled,
+    iconSize
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('flex')}
+    ${display('grid')}
     :host {
         contain: layout;
         overflow: visible;
         box-sizing: border-box;
         height: ${controlHeight};
+        grid-template-columns: 0px 1fr;
+        grid-template-rows: 1fr;
         justify-items: start;
         align-items: center;
         padding-left: 8px;
@@ -34,8 +36,7 @@ export const styles = css`
         font-size: ${contentFontSize};
     }
     :host(${focusVisible}) {
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
-        outline: ${borderWidth} solid ${borderColorHover};
+        outline: 2px solid ${borderColorHover};
         outline-offset: -2px;
     }
     :host(:hover) {
@@ -51,5 +52,23 @@ export const styles = css`
     }
     :host([disabled]:hover) {
         background: transparent;
+    }
+    :host(.indent-1) {
+        grid-template-columns: ${iconSize} 1fr;
+        column-gap: 8px;
+    }
+    [part='start'] {
+        display: contents;
+    }
+    slot[name='start']::slotted(*) {
+        fill: currentcolor;
+        width: ${iconSize};
+        height: ${iconSize};
+    }
+    :host(.indent-1) .start {
+        grid-column: 1;
+    }
+    :host(.indent-1) .content {
+        grid-column: 2;
     }
 `;

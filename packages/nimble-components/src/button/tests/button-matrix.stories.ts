@@ -1,17 +1,18 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import {
     disabledStates,
     DisabledState,
-    iconStates,
-    IconState,
+    iconVisibleStates,
+    IconVisibleState,
     createMatrix,
     themeWrapper
-} from '../../tests/utilities/theme-test-helpers';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+} from '../../utilities/tests/matrix';
+import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
+import '../../icons/access-control';
 
 const metadata: Meta = {
     title: 'Tests/Button',
@@ -38,16 +39,20 @@ type AppearanceState = typeof appearanceStates[number];
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
-    icon: IconState
+    iconVisible: IconVisibleState
 ): ViewTemplate => html`
     <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled}>
-        ${() => icon}
+        ${when(() => iconVisible, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
         ${() => (appearanceName === noContent ? '' : `${appearanceName} Button ${disabledName}`)}
     </nimble-button>
 `;
 
 export const buttonThemeMatrix: Story = createRenderer(
     themeWrapper(
-        createMatrix(component, [disabledStates, appearanceStates, iconStates])
+        createMatrix(component, [
+            disabledStates,
+            appearanceStates,
+            iconVisibleStates
+        ])
     )
 );

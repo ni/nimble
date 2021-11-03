@@ -1,4 +1,4 @@
-import { domNextUpdate } from '@ni/nimble-components/dist/esm/tests/utilities/domNextUpdate';
+import { domNextUpdate } from '@ni/nimble-components/dist/esm/testing/dom-next-update';
 
 /**
  * Resolves with the next Microtask.

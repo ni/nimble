@@ -1,8 +1,96 @@
 # Change Log - angular-workspace
 
-This log was last generated on Thu, 14 Oct 2021 16:03:43 GMT and should not be manually modified.
+This log was last generated on Tue, 02 Nov 2021 14:46:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0
+
+Tue, 02 Nov 2021 14:46:47 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (1458528+fredvisser@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 27 Oct 2021 16:30:36 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (20709258+msmithNI@users.noreply.github.com)
+
+## 0.0.0
+
+Tue, 26 Oct 2021 19:50:21 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Tue, 26 Oct 2021 16:10:28 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (26874831+atmgrifter00@users.noreply.github.com)
+
+## 0.0.0
+
+Mon, 25 Oct 2021 18:06:36 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Mon, 25 Oct 2021 15:12:50 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 20 Oct 2021 23:37:42 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (20709258+msmithNI@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 20 Oct 2021 19:37:53 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 20 Oct 2021 00:24:57 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Tue, 19 Oct 2021 20:01:50 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (5454342+brianehenry@users.noreply.github.com)
+
+## 0.0.0
+
+Thu, 14 Oct 2021 19:47:51 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (35616474+michaeldbrandt@users.noreply.github.com)
 
 ## 0.0.0
 

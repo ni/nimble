@@ -1,10 +1,10 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { controlsSearch16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import '../index';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import '../../icons/access-control';
+import { createRenderer } from '../../utilities/tests/storybook';
 
 interface ButtonArgs {
     label: string;
@@ -13,10 +13,20 @@ interface ButtonArgs {
     icon: boolean;
 }
 
+const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that 
+enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an 
+action, or performing a delete operation. A common convention for informing users that a button launches 
+a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".`;
+
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',
     decorators: [withXD],
     parameters: {
+        docs: {
+            description: {
+                component: overviewText
+            }
+        },
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
@@ -34,7 +44,7 @@ const metadata: Meta<ButtonArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}">
-            ${when(x => x.icon, html`<div slot="icon">${controlsSearch16X16.data}</div>`)}
+            ${when(x => x.icon, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
             ${x => x.label}
         </nimble-button>
 `),

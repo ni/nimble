@@ -1,8 +1,96 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 14 Oct 2021 16:03:43 GMT and should not be manually modified.
+This log was last generated on Tue, 02 Nov 2021 14:46:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.90
+
+Tue, 02 Nov 2021 14:46:47 GMT
+
+### Changes
+
+- updated component docs (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.89
+
+Wed, 27 Oct 2021 16:30:36 GMT
+
+### Changes
+
+- Drawer fires state-change event when state property changes; update drawer CSS (to work better when non-modal) (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.88
+
+Tue, 26 Oct 2021 19:50:21 GMT
+
+### Changes
+
+- Test utility folder layout (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.87
+
+Tue, 26 Oct 2021 16:10:28 GMT
+
+### Changes
+
+- TreeView/TreeItem refactor (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.86
+
+Mon, 25 Oct 2021 18:06:36 GMT
+
+### Changes
+
+- Render storybook as string (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.85
+
+Mon, 25 Oct 2021 15:12:50 GMT
+
+### Changes
+
+- Include angular build in storybook (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.84
+
+Wed, 20 Oct 2021 23:37:42 GMT
+
+### Changes
+
+- Sidenav/Drawer component (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.83
+
+Wed, 20 Oct 2021 19:37:53 GMT
+
+### Changes
+
+- Added styling and support for headers and non-interactive items in nimble-menu. (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 1.0.0-beta.82
+
+Wed, 20 Oct 2021 00:24:57 GMT
+
+### Changes
+
+- Integrate nimble icons (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.81
+
+Tue, 19 Oct 2021 20:01:50 GMT
+
+### Changes
+
+- Export types for tab-related elements (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.80
+
+Thu, 14 Oct 2021 19:47:51 GMT
+
+### Changes
+
+- Added styling to allow icons in the start slot of the nimble-menu. (35616474+michaeldbrandt@users.noreply.github.com)
 
 ## 1.0.0-beta.79
 

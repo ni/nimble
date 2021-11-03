@@ -1,8 +1,117 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 14 Oct 2021 16:03:43 GMT and should not be manually modified.
+This log was last generated on Wed, 03 Nov 2021 02:29:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.105
+
+Wed, 03 Nov 2021 02:29:23 GMT
+
+### Changes
+
+- Export NimbleTheme enum (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.104
+
+Tue, 02 Nov 2021 14:46:47 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.104 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.103
+
+Wed, 27 Oct 2021 16:30:36 GMT
+
+### Changes
+
+- Angular directive for nimble-drawer; update readme with known issue (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.103 (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.102
+
+Tue, 26 Oct 2021 19:50:21 GMT
+
+### Changes
+
+- Test utility folder layout (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.102 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.101
+
+Tue, 26 Oct 2021 16:10:28 GMT
+
+### Changes
+
+- TreeView/TreeItem refactor (26874831+atmgrifter00@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.101 (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.100
+
+Mon, 25 Oct 2021 22:56:09 GMT
+
+### Changes
+
+- Adding Angular directives for nimble-menu and nimble-menu-item. (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 1.0.0-beta.99
+
+Mon, 25 Oct 2021 18:06:36 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.99 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.98
+
+Mon, 25 Oct 2021 15:12:50 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.98 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.97
+
+Wed, 20 Oct 2021 23:37:42 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.97 (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.96
+
+Wed, 20 Oct 2021 19:37:53 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.96 (35616474+michaeldbrandt@users.noreply.github.com)
+
+## 1.0.0-beta.95
+
+Wed, 20 Oct 2021 00:24:57 GMT
+
+### Changes
+
+- Integrate nimble icon (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.95 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.94
+
+Tue, 19 Oct 2021 20:01:50 GMT
+
+### Changes
+
+- Add Angular support for tab elements (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-angular to v1.0.0-beta.94 (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.93
+
+Thu, 14 Oct 2021 19:47:51 GMT
+
+### Changes
+
+- Bump @ni/nimble-angular to v1.0.0-beta.93 (35616474+michaeldbrandt@users.noreply.github.com)
 
 ## 1.0.0-beta.92
 

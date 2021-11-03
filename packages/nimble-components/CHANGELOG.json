@@ -2,6 +2,171 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 02 Nov 2021 14:46:47 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.90",
+      "version": "1.0.0-beta.90",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "updated component docs",
+            "commit": "92296dd71732e053c05e6e33b298c727099e8d84"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Oct 2021 16:30:36 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.89",
+      "version": "1.0.0-beta.89",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Drawer fires state-change event when state property changes; update drawer CSS (to work better when non-modal)",
+            "commit": "077a58357c6cbd7bea96baf86d08f26596ea81c1"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Oct 2021 19:50:21 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.88",
+      "version": "1.0.0-beta.88",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Test utility folder layout",
+            "commit": "ac867691ccefa665f27b565511ada1b31ff2e146"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Oct 2021 16:10:28 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.87",
+      "version": "1.0.0-beta.87",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "TreeView/TreeItem refactor",
+            "commit": "cbfbc90759b717a21be5285b0e48fc50d89f8544"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 25 Oct 2021 18:06:36 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.86",
+      "version": "1.0.0-beta.86",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Render storybook as string",
+            "commit": "ef8bbda58914599b33a79aad5f6bb4458708174b"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 25 Oct 2021 15:12:50 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.85",
+      "version": "1.0.0-beta.85",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Include angular build in storybook",
+            "commit": "5879014cf2f5a6d31a4877c0f21c544e3e777422"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Oct 2021 23:37:42 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.84",
+      "version": "1.0.0-beta.84",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Sidenav/Drawer component",
+            "commit": "76b34f6825b49ce80dd681c2248b8f985bf8d5db"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Oct 2021 19:37:53 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.83",
+      "version": "1.0.0-beta.83",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Added styling and support for headers and non-interactive items in nimble-menu.",
+            "commit": "e8c3201ceb17b6d81519d8da52986d5319385ba2"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Oct 2021 00:24:57 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.82",
+      "version": "1.0.0-beta.82",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Integrate nimble icons",
+            "commit": "21161f55ee8e3c2936b0800362bc2d1f5eb7cb5c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 Oct 2021 20:01:50 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.81",
+      "version": "1.0.0-beta.81",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Export types for tab-related elements",
+            "commit": "c6fcc82a3a6e9d72d52912e147102f2056b762e2"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Oct 2021 19:47:51 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.80",
+      "version": "1.0.0-beta.80",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Added styling to allow icons in the start slot of the nimble-menu.",
+            "commit": "5b0c0b022f07e11c7a947c78b25b0b8eeeb6341b"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 14 Oct 2021 16:03:43 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.79",
       "version": "1.0.0-beta.79",

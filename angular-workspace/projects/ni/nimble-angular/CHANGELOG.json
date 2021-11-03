@@ -2,6 +2,231 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 03 Nov 2021 02:29:23 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.105",
+      "version": "1.0.0-beta.105",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Export NimbleTheme enum",
+            "commit": "253b2f5b4428a910bc54b1a7df32bcaac76fe668"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 Nov 2021 14:46:47 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.104",
+      "version": "1.0.0-beta.104",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "92296dd71732e053c05e6e33b298c727099e8d84",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.104"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Oct 2021 16:30:36 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.103",
+      "version": "1.0.0-beta.103",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Angular directive for nimble-drawer; update readme with known issue",
+            "commit": "077a58357c6cbd7bea96baf86d08f26596ea81c1"
+          },
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "077a58357c6cbd7bea96baf86d08f26596ea81c1",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.103"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Oct 2021 19:50:21 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.102",
+      "version": "1.0.0-beta.102",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Test utility folder layout",
+            "commit": "ac867691ccefa665f27b565511ada1b31ff2e146"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ac867691ccefa665f27b565511ada1b31ff2e146",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.102"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Oct 2021 16:10:28 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.101",
+      "version": "1.0.0-beta.101",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "TreeView/TreeItem refactor",
+            "commit": "cbfbc90759b717a21be5285b0e48fc50d89f8544"
+          },
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "cbfbc90759b717a21be5285b0e48fc50d89f8544",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.101"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 25 Oct 2021 22:56:09 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.100",
+      "version": "1.0.0-beta.100",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Adding Angular directives for nimble-menu and nimble-menu-item.",
+            "commit": "c7a24731a043ae1dfc05d766ed4d9c57ddba7bfd"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 25 Oct 2021 18:06:36 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.99",
+      "version": "1.0.0-beta.99",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ef8bbda58914599b33a79aad5f6bb4458708174b",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.99"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 25 Oct 2021 15:12:50 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.98",
+      "version": "1.0.0-beta.98",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "5879014cf2f5a6d31a4877c0f21c544e3e777422",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.98"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Oct 2021 23:37:42 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.97",
+      "version": "1.0.0-beta.97",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "76b34f6825b49ce80dd681c2248b8f985bf8d5db",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.97"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Oct 2021 19:37:53 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.96",
+      "version": "1.0.0-beta.96",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e8c3201ceb17b6d81519d8da52986d5319385ba2",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.96"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Oct 2021 00:24:57 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.95",
+      "version": "1.0.0-beta.95",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Integrate nimble icon",
+            "commit": "21161f55ee8e3c2936b0800362bc2d1f5eb7cb5c"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "21161f55ee8e3c2936b0800362bc2d1f5eb7cb5c",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.95"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 Oct 2021 20:01:50 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.94",
+      "version": "1.0.0-beta.94",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Add Angular support for tab elements",
+            "commit": "c6fcc82a3a6e9d72d52912e147102f2056b762e2"
+          },
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "c6fcc82a3a6e9d72d52912e147102f2056b762e2",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.94"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Oct 2021 19:47:51 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.93",
+      "version": "1.0.0-beta.93",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "5b0c0b022f07e11c7a947c78b25b0b8eeeb6341b",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.93"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 14 Oct 2021 16:03:43 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.92",
       "version": "1.0.0-beta.92",

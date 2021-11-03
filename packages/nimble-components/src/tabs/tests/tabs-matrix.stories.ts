@@ -1,14 +1,17 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 import {
     DisabledState,
     disabledStates,
     createMatrix,
     themeWrapper
-} from '../../tests/utilities/theme-test-helpers';
+} from '../../utilities/tests/matrix';
 import '../index';
+import '../../tab';
+import '../../tab-panel';
+import '../../tabs-toolbar';
 import '../../button';
 
 const metadata: Meta = {

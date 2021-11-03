@@ -1,6 +1,6 @@
 # Creating Storybook Component Documentation
 
-## Getting started
+## Getting Started
 
 From the `nimble` directory:
 
@@ -8,38 +8,27 @@ From the `nimble` directory:
 1. Run `npm run build`
 1. To view the component documentation in Storybook: `npm run storybook -w @ni/nimble-components`
 
-## Documentation Development workflow
+## Documentation Workflow
+Add a `docs.description.component` string to the component `parameters` object. E.g.
 
-1. When documenting a new component, add a `component-name-docs.stories.mdx` file to the `tests` folder. Use the template below, or copy an existing `*.docs.stories.mdx` into this directory. The folder structure is further documented in the [CONTRIBUTING.md](../CONTRIBUTING.md) guide.
-2. Run the Storybook command from the `nimble` directory:
-
-    `npm run storybook -w @ni/nimble-components`
-
-3. Update the `component-name-docs.stories.mdx` file with design guidance.
-
-    The storybook will hot reload when you save changes, so you can preview changes in Storybook. **If page doesn't look quite right, you may need to refresh the page.**
-
-4. Create changelists for your work by running the following from the `nimble` directory:
-
-    `npm run change`
-
-## Documentation template
-
-All `*.docs.stories.mdx` files require the following line at the top of the file. The `title` attribute should match the component name (e.g. Button, Checkbox, Number Field, etc.), so that these docs will be associated with the component in Storybook.
-
-```jsx
-import { Story, Meta } from '@storybook/addon-docs';
-
-<Meta title="COMPONENT_NAME" />
+```ts
+const metadata: Meta<ComponentArgs> = {
+    title: 'SomeComponent',
+    decorators: [withXD],
+    parameters: {
+        docs: {
+            description: {
+                component: '**Some component description**'
+            }
+        },
+        ...
 ```
 
-To show a live component inline with documentation, use the following syntax (where `some--id` can be copied from the URL of the component view in Storybook):
+If the component has a [W3C ARIA description](https://w3c.github.io/aria-practices/), consider using that to describe the component purpose.
 
-```jsx
-<Story id="some--id" />
-```
+### Markdown
 
-You can also link to other documents or components –
+The description supports Markdown, so can link to other documents or components. E.g.
 
 ```md
 [Links to a specific documentation page](?path=/docs/some--id)
@@ -47,3 +36,10 @@ You can also link to other documents or components –
 ```
 
 All other Markdown formatting is supported. See any [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) for more information.
+
+### Testing 
+
+When you run Storybook (See **Getting Started** above), you should see the component description within the **Docs** tab. E.g. 
+
+![DocsPage overview](docsPage-overview.png)
+

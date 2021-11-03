@@ -6,8 +6,8 @@ import {
     DisabledState,
     createMatrix,
     themeWrapper
-} from '../../tests/utilities/theme-test-helpers';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+} from '../../utilities/tests/matrix';
+import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
 
 const metadata: Meta = {

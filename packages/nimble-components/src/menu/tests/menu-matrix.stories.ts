@@ -1,12 +1,15 @@
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../tests/utilities/storybook-test-helpers';
+import { createRenderer } from '../../utilities/tests/storybook';
 import {
     createMatrix,
+    IconVisibleState,
+    iconVisibleStates,
     themeWrapper
-} from '../../tests/utilities/theme-test-helpers';
+} from '../../utilities/tests/matrix';
 import '../index';
+import '../../icons/admin';
 
 const metadata: Meta = {
     title: 'Tests/Menu',
@@ -23,15 +26,20 @@ const metadata: Meta = {
 export default metadata;
 
 // prettier-ignore
-const component = (): ViewTemplate => html`
-    <nimble-menu>
-        <nimble-menu-item>Item 1</nimble-menu-item>
-        <hr>
-        <nimble-menu-item disabled>Item 2</nimble-menu-item>
-        <nimble-menu-item>Item 3</nimble-menu-item>
-    </nimble-menu>
+const component = (
+    icon: IconVisibleState
+): ViewTemplate => html`
+    <span style="padding: 15px; display:inline-flex;">
+        <nimble-menu>
+            <header>Header</header>
+            <nimble-menu-item>Item 1</nimble-menu-item>
+            <hr>
+            <nimble-menu-item disabled>Item 2</nimble-menu-item>
+            <nimble-menu-item>${when(() => icon, html`<nimble-admin-icon></nimble-admin-icon>`)}Item 3</nimble-menu-item>
+        </nimble-menu>
+    </span>
 `;
 
 export const menuThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component))
+    themeWrapper(createMatrix(component, [iconVisibleStates]))
 );
