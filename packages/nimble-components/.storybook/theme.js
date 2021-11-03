@@ -6,7 +6,7 @@ import {
     Black75,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import logo from './nimble-ui-logo.svg';
+import logo from './nimble-ui-logo.png';
 
 export default create({
     base: 'light',

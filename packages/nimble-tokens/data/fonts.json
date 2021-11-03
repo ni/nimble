@@ -18,19 +18,19 @@
       },
       "tokens": [
         {
-          "id": "13768f90-6968-4b39-9423-20d4b8960eef",
+          "id": "cafd0716-f544-4317-988d-da94269d9e85",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "13768f90-6968-4b39-9423-20d4b8960eef",
+          "id": "cafd0716-f544-4317-988d-da94269d9e85",
           "type": "custom",
           "value": "Light",
           "key": "weight"
         },
         {
-          "id": "13768f90-6968-4b39-9423-20d4b8960eef",
+          "id": "cafd0716-f544-4317-988d-da94269d9e85",
           "type": "size",
           "value": "22",
           "key": "size"
@@ -41,7 +41,7 @@
       "class": "collection",
       "type": "font",
       "id": "3f62c63f-c73c-44b4-ae20-f5c40dc2296a",
-      "name": "OverlineCapitalized",
+      "name": "ControlLabel_1",
       "tags": [],
       "related_entity_ids": [],
       "ext-com_adobe-cclib": {
@@ -52,19 +52,19 @@
       },
       "tokens": [
         {
-          "id": "d0707116-1d77-4f3b-bbfc-3998bc07217c",
+          "id": "b65b9a57-31ba-4f82-8179-23f170a75838",
           "type": "custom",
-          "value": "Space Mono",
+          "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "d0707116-1d77-4f3b-bbfc-3998bc07217c",
+          "id": "b65b9a57-31ba-4f82-8179-23f170a75838",
           "type": "custom",
-          "value": "Regular",
+          "value": "Semibold",
           "key": "weight"
         },
         {
-          "id": "d0707116-1d77-4f3b-bbfc-3998bc07217c",
+          "id": "b65b9a57-31ba-4f82-8179-23f170a75838",
           "type": "size",
           "value": "11",
           "key": "size"
@@ -86,19 +86,19 @@
       },
       "tokens": [
         {
-          "id": "a01c2667-5960-4f56-8f5b-3ed594e149af",
+          "id": "ea3d72a2-0723-49f2-92c8-e8d1f7de46f1",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "a01c2667-5960-4f56-8f5b-3ed594e149af",
+          "id": "ea3d72a2-0723-49f2-92c8-e8d1f7de46f1",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "a01c2667-5960-4f56-8f5b-3ed594e149af",
+          "id": "ea3d72a2-0723-49f2-92c8-e8d1f7de46f1",
           "type": "size",
           "value": "14",
           "key": "size"
@@ -154,19 +154,19 @@
       },
       "tokens": [
         {
-          "id": "0348eaa8-7b5a-4f12-b137-d1266ef1d05f",
+          "id": "57cf1952-a3c0-45eb-96e1-ec02edc5de24",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "0348eaa8-7b5a-4f12-b137-d1266ef1d05f",
+          "id": "57cf1952-a3c0-45eb-96e1-ec02edc5de24",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "0348eaa8-7b5a-4f12-b137-d1266ef1d05f",
+          "id": "57cf1952-a3c0-45eb-96e1-ec02edc5de24",
           "type": "size",
           "value": "12",
           "key": "size"
@@ -210,65 +210,31 @@
     {
       "class": "collection",
       "type": "font",
-      "id": "a6eab3a7-1c9b-4082-b27c-b7cb6134834d",
-      "name": "Header2",
+      "id": "c47fe7b0-75aa-42c9-8bf4-07fb273bccce",
+      "name": "GroupLabel_1",
       "tags": [],
       "related_entity_ids": [],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
-        "id": "85dbcae8-ae6f-46f6-bb4c-dc63ef40e2e2",
-        "last_sync": "2021-08-13T20:01:13.885Z",
+        "id": "9138c11a-5e69-4393-bbc4-2c9430381f1f",
+        "last_sync": "2021-11-02T21:24:45.115Z",
         "sync": true
       },
       "tokens": [
         {
-          "id": "13768f90-6968-4b39-9423-20d4b8960eef",
-          "type": "custom",
-          "value": "Source Sans Pro",
-          "key": "family"
-        },
-        {
-          "id": "13768f90-6968-4b39-9423-20d4b8960eef",
-          "type": "custom",
-          "value": "Light",
-          "key": "weight"
-        },
-        {
-          "id": "13768f90-6968-4b39-9423-20d4b8960eef",
-          "type": "size",
-          "value": "22",
-          "key": "size"
-        }
-      ]
-    },
-    {
-      "class": "collection",
-      "type": "font",
-      "id": "0db70f5e-4624-4215-b7eb-a1a42f0060e1",
-      "name": "OverlineCapitalized",
-      "tags": [],
-      "related_entity_ids": [],
-      "ext-com_adobe-cclib": {
-        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
-        "id": "4cf74686-9a7a-4b31-bc0f-cf69ff13cda7",
-        "last_sync": "2021-08-13T20:01:13.885Z",
-        "sync": true
-      },
-      "tokens": [
-        {
-          "id": "d0707116-1d77-4f3b-bbfc-3998bc07217c",
+          "id": "c47fe7b0-75aa-42c9-8bf4-07fb273bccce",
           "type": "custom",
           "value": "Space Mono",
           "key": "family"
         },
         {
-          "id": "d0707116-1d77-4f3b-bbfc-3998bc07217c",
+          "id": "c47fe7b0-75aa-42c9-8bf4-07fb273bccce",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "d0707116-1d77-4f3b-bbfc-3998bc07217c",
+          "id": "c47fe7b0-75aa-42c9-8bf4-07fb273bccce",
           "type": "size",
           "value": "11",
           "key": "size"
@@ -278,135 +244,33 @@
     {
       "class": "collection",
       "type": "font",
-      "id": "292e0767-d560-4b62-97eb-def04a145f43",
-      "name": "Body",
+      "id": "e584d3db-58d3-47c2-8e51-04b7ab8352fa",
+      "name": "ControlLabel_2",
       "tags": [],
       "related_entity_ids": [],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
-        "id": "e125232c-0021-4b69-8ffb-53c26acff71e",
-        "last_sync": "2021-08-13T20:01:13.886Z",
+        "id": "9b64b4c9-b5e3-40cb-b674-ad39b72b1c29",
+        "last_sync": "2021-11-02T21:24:45.116Z",
         "sync": true
       },
       "tokens": [
         {
-          "id": "a01c2667-5960-4f56-8f5b-3ed594e149af",
+          "id": "e584d3db-58d3-47c2-8e51-04b7ab8352fa",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "a01c2667-5960-4f56-8f5b-3ed594e149af",
+          "id": "e584d3db-58d3-47c2-8e51-04b7ab8352fa",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "a01c2667-5960-4f56-8f5b-3ed594e149af",
+          "id": "e584d3db-58d3-47c2-8e51-04b7ab8352fa",
           "type": "size",
-          "value": "14",
-          "key": "size"
-        }
-      ]
-    },
-    {
-      "class": "collection",
-      "type": "font",
-      "id": "45da06c6-8a61-4489-93cd-7932abeab00e",
-      "name": "Header0",
-      "tags": [],
-      "related_entity_ids": [],
-      "ext-com_adobe-cclib": {
-        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
-        "id": "07bc1848-c7d4-4570-8371-9cb90f622ace",
-        "last_sync": "2021-08-13T20:01:13.886Z",
-        "sync": true
-      },
-      "tokens": [
-        {
-          "id": "93af8632-7b8d-4b97-ac0c-4739a43adf61",
-          "type": "custom",
-          "value": "Noto Serif",
-          "key": "family"
-        },
-        {
-          "id": "93af8632-7b8d-4b97-ac0c-4739a43adf61",
-          "type": "custom",
-          "value": "Regular",
-          "key": "weight"
-        },
-        {
-          "id": "93af8632-7b8d-4b97-ac0c-4739a43adf61",
-          "type": "size",
-          "value": "36",
-          "key": "size"
-        }
-      ]
-    },
-    {
-      "class": "collection",
-      "type": "font",
-      "id": "952eb086-0194-4f76-97f3-98328dbe4af8",
-      "name": "SubHeader",
-      "tags": [],
-      "related_entity_ids": [],
-      "ext-com_adobe-cclib": {
-        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
-        "id": "05497d87-25c2-4386-b059-0b995b0bbcb2",
-        "last_sync": "2021-08-13T20:01:13.886Z",
-        "sync": true
-      },
-      "tokens": [
-        {
-          "id": "0348eaa8-7b5a-4f12-b137-d1266ef1d05f",
-          "type": "custom",
-          "value": "Source Sans Pro",
-          "key": "family"
-        },
-        {
-          "id": "0348eaa8-7b5a-4f12-b137-d1266ef1d05f",
-          "type": "custom",
-          "value": "Regular",
-          "key": "weight"
-        },
-        {
-          "id": "0348eaa8-7b5a-4f12-b137-d1266ef1d05f",
-          "type": "size",
-          "value": "12",
-          "key": "size"
-        }
-      ]
-    },
-    {
-      "class": "collection",
-      "type": "font",
-      "id": "bd0e770a-32f4-448e-925b-330c5bfec212",
-      "name": "Header1",
-      "tags": [],
-      "related_entity_ids": [],
-      "ext-com_adobe-cclib": {
-        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
-        "id": "03e1f2c2-4663-4fac-95e7-818410da5520",
-        "last_sync": "2021-08-13T20:01:13.886Z",
-        "sync": true
-      },
-      "tokens": [
-        {
-          "id": "19dcf1b7-9182-481c-8670-ec36e159ef77",
-          "type": "custom",
-          "value": "Noto Serif",
-          "key": "family"
-        },
-        {
-          "id": "19dcf1b7-9182-481c-8670-ec36e159ef77",
-          "type": "custom",
-          "value": "Regular",
-          "key": "weight"
-        },
-        {
-          "id": "19dcf1b7-9182-481c-8670-ec36e159ef77",
-          "type": "size",
-          "value": "24",
+          "value": "12.800000190734863",
           "key": "size"
         }
       ]
