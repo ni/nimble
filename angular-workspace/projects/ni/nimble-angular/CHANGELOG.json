@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 03 Nov 2021 02:29:23 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.105",
+      "version": "1.0.0-beta.105",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Export NimbleTheme enum",
+            "commit": "253b2f5b4428a910bc54b1a7df32bcaac76fe668"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Nov 2021 14:46:47 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.104",
       "version": "1.0.0-beta.104",
