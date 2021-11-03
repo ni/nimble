@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "update DSP from XD and change logo",
+  "packageName": "@ni/nimble-tokens",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
