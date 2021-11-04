@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 02 Nov 2021 21:24:24 GMT
+ * Generated on Thu, 04 Nov 2021 18:59:45 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -29,12 +29,14 @@ export const Brand85 = "#26a97c";
 export const Brand100 = "#009b65";
 export const Fail85 = "#cf1a37";
 export const RgbNiSky = "#3cb4e7";
-export const BannerFail100DarkUi = "#b3000c";
+export const BannerFail100DarkUi = "#d63434";
 export const Warning100LightUi = "#ff4b00";
+export const Black30 = "#d3d5d6";
+export const Black50 = "#aeb0b3";
 export const Header2Family = "Source Sans Pro";
 export const Header2Weight = "Light";
-export const OverlineCapitalizedFamily = "Space Mono";
-export const OverlineCapitalizedWeight = "Regular";
+export const ControlLabel1Family = "Source Sans Pro";
+export const ControlLabel1Weight = "Semibold";
 export const BodyFamily = "Source Sans Pro";
 export const BodyWeight = "Regular";
 export const Header0Family = "Noto Serif";
@@ -43,11 +45,17 @@ export const SubHeaderFamily = "Source Sans Pro";
 export const SubHeaderWeight = "Regular";
 export const Header1Family = "Noto Serif";
 export const Header1Weight = "Regular";
+export const GroupLabel1Family = "Space Mono";
+export const GroupLabel1Weight = "Regular";
+export const ControlLabel2Family = "Source Sans Pro";
+export const ControlLabel2Weight = "Regular";
 export const Header2Size = "22px";
-export const OverlineCapitalizedSize = "11px";
+export const ControlLabel1Size = "11px";
 export const BodySize = "14px";
 export const Header0Size = "36px";
 export const SubHeaderSize = "12px";
 export const Header1Size = "24px";
+export const GroupLabel1Size = "11px";
+export const ControlLabel2Size = "12.800000190734863px";
 export const SmallDelay = "0.1s"; // Short animation delay used for control state change animation
 export const MediumDelay = "0.15s"; // Medium animation delay for control state change animation

@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 02 Nov 2021 21:24:24 GMT
+ * Generated on Thu, 04 Nov 2021 18:59:45 GMT
  */
 
 :root {
@@ -30,12 +30,14 @@
   --brand-100: #009b65;
   --fail-85: #cf1a37;
   --rgb-ni-sky: #3cb4e7;
-  --banner-fail-100-dark-ui: #b3000c;
+  --banner-fail-100-dark-ui: #d63434;
   --warning-100-light-ui: #ff4b00;
+  --black-30: #d3d5d6;
+  --black-50: #aeb0b3;
   --header-2-family: Source Sans Pro;
   --header-2-weight: Light;
-  --overline-capitalized-family: Space Mono;
-  --overline-capitalized-weight: Regular;
+  --control-label-1-family: Source Sans Pro;
+  --control-label-1-weight: Semibold;
   --body-family: Source Sans Pro;
   --body-weight: Regular;
   --header-0-family: Noto Serif;
@@ -44,12 +46,18 @@
   --sub-header-weight: Regular;
   --header-1-family: Noto Serif;
   --header-1-weight: Regular;
+  --group-label-1-family: Space Mono;
+  --group-label-1-weight: Regular;
+  --control-label-2-family: Source Sans Pro;
+  --control-label-2-weight: Regular;
   --header-2-size: 22px;
-  --overline-capitalized-size: 11px;
+  --control-label-1-size: 11px;
   --body-size: 14px;
   --header-0-size: 36px;
   --sub-header-size: 12px;
   --header-1-size: 24px;
+  --group-label-1-size: 11px;
+  --control-label-2-size: 12.800000190734863px;
   --small-delay: 0.1s; /* Short animation delay used for control state change animation */
   --medium-delay: 0.15s; /* Medium animation delay for control state change animation */
 }

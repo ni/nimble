@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 02 Nov 2021 21:24:24 GMT
+ * Generated on Thu, 04 Nov 2021 18:59:45 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -31,10 +31,12 @@ export const Fail85 : string;
 export const RgbNiSky : string;
 export const BannerFail100DarkUi : string;
 export const Warning100LightUi : string;
+export const Black30 : string;
+export const Black50 : string;
 export const Header2Family : string;
 export const Header2Weight : string;
-export const OverlineCapitalizedFamily : string;
-export const OverlineCapitalizedWeight : string;
+export const ControlLabel1Family : string;
+export const ControlLabel1Weight : string;
 export const BodyFamily : string;
 export const BodyWeight : string;
 export const Header0Family : string;
@@ -43,11 +45,17 @@ export const SubHeaderFamily : string;
 export const SubHeaderWeight : string;
 export const Header1Family : string;
 export const Header1Weight : string;
+export const GroupLabel1Family : string;
+export const GroupLabel1Weight : string;
+export const ControlLabel2Family : string;
+export const ControlLabel2Weight : string;
 export const Header2Size : string;
-export const OverlineCapitalizedSize : string;
+export const ControlLabel1Size : string;
 export const BodySize : string;
 export const Header0Size : string;
 export const SubHeaderSize : string;
 export const Header1Size : string;
+export const GroupLabel1Size : string;
+export const ControlLabel2Size : string;
 export const SmallDelay : string; // Short animation delay used for control state change animation
 export const MediumDelay : string; // Medium animation delay for control state change animation

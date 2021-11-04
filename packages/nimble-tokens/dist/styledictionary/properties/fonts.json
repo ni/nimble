@@ -8,12 +8,12 @@
         "value": "Light"
       }
     },
-    "OverlineCapitalized": {
+    "ControlLabel_1": {
       "family": {
-        "value": "Space Mono"
+        "value": "Source Sans Pro"
       },
       "weight": {
-        "value": "Regular"
+        "value": "Semibold"
       }
     },
     "Body": {
@@ -47,6 +47,22 @@
       "weight": {
         "value": "Regular"
       }
+    },
+    "GroupLabel_1": {
+      "family": {
+        "value": "Space Mono"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "ControlLabel_2": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
     }
   },
   "size": {
@@ -54,7 +70,7 @@
       "Header2": {
         "value": "22"
       },
-      "OverlineCapitalized": {
+      "ControlLabel_1": {
         "value": "11"
       },
       "Body": {
@@ -68,6 +84,12 @@
       },
       "Header1": {
         "value": "24"
+      },
+      "GroupLabel_1": {
+        "value": "11"
+      },
+      "ControlLabel_2": {
+        "value": "12.800000190734863"
       }
     }
   }
