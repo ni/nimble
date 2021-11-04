@@ -16,8 +16,8 @@ import {
     Fail100DarkUi,
     BodyFamily,
     BodySize,
-    OverlineCapitalizedFamily,
-    OverlineCapitalizedSize,
+    ControlLabel2Family,
+    ControlLabel2Size,
     Warning100LightUi,
     Warning100DarkUi,
     Pass100LightUi,
@@ -100,7 +100,7 @@ function getFontForTheme(element: HTMLElement): string {
         case NimbleTheme.LegacyBlue:
             return `${BodyFamily}`;
         default:
-            return `${OverlineCapitalizedFamily}, ${BodyFamily}`;
+            return `${ControlLabel2Family}, ${BodyFamily}`;
     }
 }
 
@@ -118,7 +118,7 @@ function getLabelTextSize(element: HTMLElement): string {
         case NimbleTheme.LegacyBlue:
             return '13px';
         default:
-            return OverlineCapitalizedSize;
+            return ControlLabel2Size;
     }
 }
 
