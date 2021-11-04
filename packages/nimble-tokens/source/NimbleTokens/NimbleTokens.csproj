@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Content Include="../../dist/styledictionary/xaml/**/*.*"/>
+    <Content Include="../../dist/styledictionary/cs/**/*.*"/>
   </ItemGroup>
 
 </Project>

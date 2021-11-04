@@ -2,6 +2,7 @@ const config = require('./config');
 const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
+const chroma = require('chroma-js');
 const StyleDictionary = require('style-dictionary');
 
 // Workaround to include TypeScript definitions in output.
@@ -57,10 +58,7 @@ StyleDictionary.registerTransformGroup({
   const xamlStyleDictionary = StyleDictionary.extend(
     {
         "source": [
-          "properties/colors.json",
-          "properties/fonts.json",
-          "properties/custom.json",
-          "properties/sizes.json"
+          "properties/colors.json"
         ],
         "platforms": {
             "xaml": {
@@ -75,5 +73,50 @@ StyleDictionary.registerTransformGroup({
             }
         }   
   });
+
+// Templates and transforms to build C# token class
+const colorClassTemplate = _.template(fs.readFileSync(path.resolve(__dirname, './templates/ColorClass.template')));
+StyleDictionary.registerFormat({
+    name: 'cs/ColorClass',
+    formatter: colorClassTemplate
+});
+
+StyleDictionary.registerTransform({
+    type: `value`,
+    transitive: true,
+    name: `color/FromRgb`,
+    matcher: (token) => token.attributes.category === 'color',
+    transformer: (token) => chroma(token.value).rgb()
+})
+
+StyleDictionary.registerTransformGroup({
+    name: 'ni-color-class',
+    transforms: [
+        'attribute/cti',
+        'name/ti/camel',
+        'color/FromRgb'
+    ]
+});
+
+  const csClassStyleDictionary = StyleDictionary.extend(
+    {
+        "source": [
+          "properties/colors.json",
+        ],
+        "platforms": {
+            "xaml": {
+                "files": [
+                    {
+                        "destination": "colors.cs",
+                        "format": "cs/ColorClass"
+                    }
+                ],
+                "transformGroup": "ni-color-class",
+                "buildPath": "cs/"
+            }
+        }   
+  });
   
   xamlStyleDictionary.buildAllPlatforms();
+  csClassStyleDictionary.buildAllPlatforms();
+

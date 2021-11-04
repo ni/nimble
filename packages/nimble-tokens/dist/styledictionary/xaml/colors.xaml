@@ -5,35 +5,35 @@
 
 <!--
   Do not edit directly
-  Generated on Wed, 13 Oct 2021 16:34:06 GMT
+  Generated on Thu, 04 Nov 2021 17:33:26 GMT
 -->
-        <Color x:Key="SL_LegacyBlue"> #ff009ff5</Color>
-        <Color x:Key="Information100_DarkUI"> #ffa46eff</Color>
-        <Color x:Key="Information100_LightUI"> #ff804ad9</Color>
-        <Color x:Key="Warning100_DarkUI"> #ffff8126</Color>
-        <Color x:Key="Pass100_LightUI"> #ff009921</Color>
-        <Color x:Key="Pass100_DarkUI"> #ff00c12b</Color>
-        <Color x:Key="WarningTypography_LightUI"> #ffd3440d</Color>
-        <Color x:Key="PassTypography_LightUI"> #ff00801c</Color>
-        <Color x:Key="Fail100_LightUI"> #ffc4000c</Color>
-        <Color x:Key="Fail100_DarkUI"> #ffff4646</Color>
-        <Color x:Key="Black75"> #ff818386</Color>
-        <Color x:Key="Black15"> #fff1f1f2</Color>
-        <Color x:Key="Black7"> #fff5f5f5</Color>
-        <Color x:Key="White"> #ffffffff</Color>
-        <Color x:Key="Black88"> #ff252526</Color>
-        <Color x:Key="Black85"> #ff363738</Color>
-        <Color x:Key="Black80"> #ff505153</Color>
-        <Color x:Key="Black"> #ff000000</Color>
-        <Color x:Key="Black95"> #ff0e0f0f</Color>
-        <Color x:Key="Black91"> #ff161617</Color>
-        <Color x:Key="Enterprise"> #ff074023</Color>
-        <Color x:Key="Selection100"> #ff00b888</Color>
-        <Color x:Key="Brand85"> #ff26a97c</Color>
-        <Color x:Key="Brand100"> #ff009b65</Color>
-        <Color x:Key="Fail85"> #ffcf1a37</Color>
-        <Color x:Key="RGB NI Sky"> #ff3cb4e7</Color>
-        <Color x:Key="Banner_Fail_100_DarkUI_"> #ffb3000c</Color>
-        <Color x:Key="Warning100LightUI"> #ffff4b00</Color>
-        
+    <Color x:Key="SL_LegacyBlue">#ff009ff5</Color>
+    <Color x:Key="Information100_DarkUI">#ffa46eff</Color>
+    <Color x:Key="Information100_LightUI">#ff804ad9</Color>
+    <Color x:Key="Warning100_DarkUI">#ffff8126</Color>
+    <Color x:Key="Pass100_LightUI">#ff009921</Color>
+    <Color x:Key="Pass100_DarkUI">#ff00c12b</Color>
+    <Color x:Key="WarningTypography_LightUI">#ffd3440d</Color>
+    <Color x:Key="PassTypography_LightUI">#ff00801c</Color>
+    <Color x:Key="Fail100_LightUI">#ffc4000c</Color>
+    <Color x:Key="Fail100_DarkUI">#ffff4646</Color>
+    <Color x:Key="Black75">#ff818386</Color>
+    <Color x:Key="Black15">#fff1f1f2</Color>
+    <Color x:Key="Black7">#fff5f5f5</Color>
+    <Color x:Key="White">#ffffffff</Color>
+    <Color x:Key="Black88">#ff252526</Color>
+    <Color x:Key="Black85">#ff363738</Color>
+    <Color x:Key="Black80">#ff505153</Color>
+    <Color x:Key="Black">#ff000000</Color>
+    <Color x:Key="Black95">#ff0e0f0f</Color>
+    <Color x:Key="Black91">#ff161617</Color>
+    <Color x:Key="Enterprise">#ff074023</Color>
+    <Color x:Key="Selection100">#ff00b888</Color>
+    <Color x:Key="Brand85">#ff26a97c</Color>
+    <Color x:Key="Brand100">#ff009b65</Color>
+    <Color x:Key="Fail85">#ffcf1a37</Color>
+    <Color x:Key="RGB NI Sky">#ff3cb4e7</Color>
+    <Color x:Key="Banner_Fail_100_DarkUI_">#ffb3000c</Color>
+    <Color x:Key="Warning100LightUI">#ffff4b00</Color>
+
 </ResourceDictionary>

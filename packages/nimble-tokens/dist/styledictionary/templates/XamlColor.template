@@ -17,7 +17,7 @@ var props = _.filter(allProperties, function(prop) {
     print("-->");
   }
 %>
-        <% _.each(props, function(prop) {
-        %><Color x:Key="<%= prop.name %>"> <%= prop.value %></Color>
-        <% }); %>
+<% _.each(props, function(prop) {
+%>    <Color x:Key="<%= prop.name %>"><%= prop.value %></Color>
+<% }); %>
 </ResourceDictionary>
