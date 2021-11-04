@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 02 Nov 2021 14:46:47 GMT and should not be manually modified.
+This log was last generated on Wed, 03 Nov 2021 02:29:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.105
+
+Wed, 03 Nov 2021 02:29:23 GMT
+
+### Changes
+
+- Export NimbleTheme enum (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 1.0.0-beta.104
 

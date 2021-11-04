@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "1.0.0-beta.104",
+  "version": "1.0.0-beta.105",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
     "prepack": "node build/copyBuildOutputForPack.js",
