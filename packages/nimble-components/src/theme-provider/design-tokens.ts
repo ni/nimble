@@ -16,8 +16,8 @@ import {
     Fail100DarkUi,
     BodyFamily,
     BodySize,
-    ControlLabel2Family,
-    ControlLabel2Size,
+    ControlLabel1Family,
+    ControlLabel1Size,
     Warning100LightUi,
     Warning100DarkUi,
     Pass100LightUi,
@@ -100,7 +100,7 @@ function getFontForTheme(element: HTMLElement): string {
         case NimbleTheme.LegacyBlue:
             return `${BodyFamily}`;
         default:
-            return `${ControlLabel2Family}, ${BodyFamily}`;
+            return `${ControlLabel1Family}, ${BodyFamily}`;
     }
 }
 
@@ -109,7 +109,7 @@ function getLabelTextTransform(element: HTMLElement): string {
         case NimbleTheme.LegacyBlue:
             return 'none';
         default:
-            return 'uppercase';
+            return 'none';
     }
 }
 
@@ -118,7 +118,7 @@ function getLabelTextSize(element: HTMLElement): string {
         case NimbleTheme.LegacyBlue:
             return '13px';
         default:
-            return ControlLabel2Size;
+            return ControlLabel1Size;
     }
 }
 
@@ -255,7 +255,7 @@ export const drawerHeaderFontSize = create<string>(
 
 // Font Color Tokens
 export const labelFontColor = create<string>('label-font-color').withDefault(
-    (element: HTMLElement) => getDefaultFontColorForTheme(element)
+    (element: HTMLElement) => hexToRgba(getDefaultFontColorForTheme(element), 0.6)
 );
 
 export const contentFontColor = create<string>(

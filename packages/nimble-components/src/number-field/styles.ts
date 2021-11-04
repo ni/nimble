@@ -3,6 +3,7 @@ import {
     borderColor,
     borderColorHover,
     borderWidth,
+    contentFontColor,
     contentFontColorDisabled,
     contentFontSize,
     controlHeight,
@@ -24,7 +25,7 @@ export const styles = css`
         font-size: ${contentFontSize};
         outline: none;
         user-select: none;
-        color: ${labelFontColor};
+        color: ${contentFontColor};
         height: calc(${labelHeight} + ${controlHeight});
     }
 
