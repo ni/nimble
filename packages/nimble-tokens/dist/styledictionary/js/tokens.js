@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 04 Nov 2021 18:59:45 GMT
+ * Generated on Fri, 05 Nov 2021 16:00:15 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -34,21 +34,21 @@ export const Warning100LightUi = "#ff4b00";
 export const Black30 = "#d3d5d6";
 export const Black50 = "#aeb0b3";
 export const Header2Family = "Source Sans Pro";
-export const Header2Weight = "Light";
+export const Header2Weight = "300";
 export const ControlLabel1Family = "Source Sans Pro";
-export const ControlLabel1Weight = "Semibold";
+export const ControlLabel1Weight = "600";
 export const BodyFamily = "Source Sans Pro";
-export const BodyWeight = "Regular";
+export const BodyWeight = "400";
 export const Header0Family = "Noto Serif";
-export const Header0Weight = "Regular";
+export const Header0Weight = "400";
 export const SubHeaderFamily = "Source Sans Pro";
-export const SubHeaderWeight = "Regular";
+export const SubHeaderWeight = "400";
 export const Header1Family = "Noto Serif";
-export const Header1Weight = "Regular";
+export const Header1Weight = "400";
 export const GroupLabel1Family = "Space Mono";
-export const GroupLabel1Weight = "Regular";
+export const GroupLabel1Weight = "400";
 export const ControlLabel2Family = "Source Sans Pro";
-export const ControlLabel2Weight = "Regular";
+export const ControlLabel2Weight = "400";
 export const Header2Size = "22px";
 export const ControlLabel1Size = "11px";
 export const BodySize = "14px";

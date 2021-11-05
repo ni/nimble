@@ -18,6 +18,7 @@ import {
     BodySize,
     ControlLabel1Family,
     ControlLabel1Size,
+    ControlLabel1Weight,
     Warning100LightUi,
     Warning100DarkUi,
     Pass100LightUi,
@@ -25,7 +26,8 @@ import {
     Header2Size,
     Header2Family,
     GroupLabel1Family,
-    GroupLabel1Size
+    GroupLabel1Size,
+    GroupLabel1Weight
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -183,7 +185,7 @@ export const fillColorHover = create<string>('fill-color-hover').withDefault(
 );
 
 export const borderColor = create<string>('border-color').withDefault(
-    (element: HTMLElement) => getDefaultLineColorForTheme(element)
+    (element: HTMLElement) => hexToRgba(getDefaultLineColorForTheme(element), 0.3)
 );
 
 export const borderColorRgb = create<string>('border-color-rgb').withDefault(
@@ -279,10 +281,20 @@ export const drawerHeaderFontSize = create<string>(
     'drawer-header-font-size'
 ).withDefault(Header2Size);
 
+// Font Weight Tokens
+export const groupLabelFontWeight = create<string>(
+    'group-label-font-weight'
+).withDefault(GroupLabel1Weight);
+export const labelFontWeight = create<string>('label-font-weight').withDefault(ControlLabel1Weight);
+
 // Font Color Tokens
 export const labelFontColor = create<string>('label-font-color').withDefault(
     (element: HTMLElement) => hexToRgba(getDefaultFontColorForTheme(element), 0.6)
 );
+
+export const groupLabelFontColor = create<string>(
+    'group-label-font-color'
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
 
 export const contentFontColor = create<string>(
     'content-font-color'

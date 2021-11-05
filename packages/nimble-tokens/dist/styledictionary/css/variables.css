@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 04 Nov 2021 18:59:45 GMT
+ * Generated on Fri, 05 Nov 2021 16:00:15 GMT
  */
 
 :root {
@@ -35,21 +35,21 @@
   --black-30: #d3d5d6;
   --black-50: #aeb0b3;
   --header-2-family: Source Sans Pro;
-  --header-2-weight: Light;
+  --header-2-weight: 300;
   --control-label-1-family: Source Sans Pro;
-  --control-label-1-weight: Semibold;
+  --control-label-1-weight: 600;
   --body-family: Source Sans Pro;
-  --body-weight: Regular;
+  --body-weight: 400;
   --header-0-family: Noto Serif;
-  --header-0-weight: Regular;
+  --header-0-weight: 400;
   --sub-header-family: Source Sans Pro;
-  --sub-header-weight: Regular;
+  --sub-header-weight: 400;
   --header-1-family: Noto Serif;
-  --header-1-weight: Regular;
+  --header-1-weight: 400;
   --group-label-1-family: Space Mono;
-  --group-label-1-weight: Regular;
+  --group-label-1-weight: 400;
   --control-label-2-family: Source Sans Pro;
-  --control-label-2-weight: Regular;
+  --control-label-2-weight: 400;
   --header-2-size: 22px;
   --control-label-1-size: 11px;
   --body-size: 14px;

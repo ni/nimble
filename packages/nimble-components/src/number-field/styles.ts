@@ -13,6 +13,7 @@ import {
     labelFontColor,
     labelFontFamily,
     labelFontSize,
+    labelFontWeight,
     labelHeight,
     labelTextTransform,
     smallDelay
@@ -89,7 +90,6 @@ export const styles = css`
 
     .control::placeholder {
         color: ${labelFontColor};
-        opacity: 0.6;
     }
 
     .control:focus-within::placeholder {
@@ -105,6 +105,7 @@ export const styles = css`
         color: ${labelFontColor};
         font-family: ${labelFontFamily};
         font-size: ${labelFontSize};
+        font-weight: ${labelFontWeight};
         line-height: ${labelHeight};
         text-transform: ${labelTextTransform};
     }
