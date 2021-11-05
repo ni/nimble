@@ -23,7 +23,9 @@ import {
     Pass100LightUi,
     Pass100DarkUi,
     Header2Size,
-    Header2Family
+    Header2Family,
+    GroupLabel1Family,
+    GroupLabel1Size
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './themes';
 
@@ -101,6 +103,24 @@ function getFontForTheme(element: HTMLElement): string {
             return `${BodyFamily}`;
         default:
             return `${ControlLabel1Family}, ${BodyFamily}`;
+    }
+}
+
+function getGroupLabelFontForTheme(element: HTMLElement): string {
+    switch (theme.getValueFor(element)) {
+        case NimbleTheme.LegacyBlue:
+            return `${BodyFamily}`;
+        default:
+            return `${GroupLabel1Family}, ${BodyFamily}`;
+    }
+}
+
+function getGroupLabelTextTransform(element: HTMLElement): string {
+    switch (theme.getValueFor(element)) {
+        case NimbleTheme.LegacyBlue:
+            return 'none';
+        default:
+            return 'uppercase';
     }
 }
 
@@ -240,6 +260,9 @@ export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
 export const labelFontFamily = create<string>('label-font-family').withDefault(
     (element: HTMLElement) => getFontForTheme(element)
 );
+export const groupLabelFontFamily = create<string>(
+    'group-label-font-family'
+).withDefault((element: HTMLElement) => getGroupLabelFontForTheme(element));
 export const drawerHeaderFontFamily = create<string>(
     'drawer-header-font-family'
 ).withDefault(Header2Family);
@@ -249,6 +272,9 @@ export const labelFontSize = create<string>('label-font-size').withDefault(
     (element: HTMLElement) => getLabelTextSize(element)
 );
 export const contentFontSize = create<string>('content-font-size').withDefault(BodySize);
+export const groupLabelFontSize = create<string>(
+    'group-label-font-size'
+).withDefault(GroupLabel1Size);
 export const drawerHeaderFontSize = create<string>(
     'drawer-header-font-size'
 ).withDefault(Header2Size);
@@ -273,6 +299,10 @@ export const labelFontColorDisabled = create<string>(
 export const labelTextTransform = create<string>(
     'label-text-transform'
 ).withDefault((element: HTMLElement) => getLabelTextTransform(element));
+
+export const groupLabelTextTransform = create<string>(
+    'group-label-text-transform'
+).withDefault((element: HTMLElement) => getGroupLabelTextTransform(element));
 
 export const contentFontColorDisabled = create<string>(
     'content-font-color-disabled'

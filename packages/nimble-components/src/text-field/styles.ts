@@ -127,6 +127,7 @@ export const styles = css`
 
     .label {
         display: flex;
+        color: ${labelFontColor};
         font-family: ${labelFontFamily};
         font-size: ${labelFontSize};
         line-height: ${labelHeight};
