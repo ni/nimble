@@ -119,7 +119,7 @@ export const styles = css`
             css`
                 .control {
                     background-color: transparent;
-                    border-color: rgba(${actionColorRgb}, 0.3);
+                    border-color: rgba(${actionColorRgb}, 0.5);
                 }
 
                 .control:hover {

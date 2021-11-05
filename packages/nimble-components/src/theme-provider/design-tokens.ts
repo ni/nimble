@@ -185,7 +185,7 @@ export const fillColorHover = create<string>('fill-color-hover').withDefault(
 );
 
 export const borderColor = create<string>('border-color').withDefault(
-    (element: HTMLElement) => hexToRgba(getDefaultLineColorForTheme(element), 0.3)
+    (element: HTMLElement) => getDefaultLineColorForTheme(element)
 );
 
 export const borderColorRgb = create<string>('border-color-rgb').withDefault(

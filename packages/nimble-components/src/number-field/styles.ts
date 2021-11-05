@@ -1,6 +1,7 @@
 import { css } from '@microsoft/fast-element';
 import {
     borderColor,
+    borderColorRgb,
     borderColorHover,
     borderWidth,
     contentFontColor,
@@ -42,7 +43,7 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        border-bottom: ${borderWidth} solid ${borderColor};
+        border-bottom: ${borderWidth} solid rgba(${borderColorRgb}, 0.3);
         padding-bottom: 1px;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
