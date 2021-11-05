@@ -18,10 +18,10 @@ var props = _.filter(allProperties, function(prop) {
 public static class NimbleColorTokens {
 
 <% _.each(props, function(prop) {
-%>    public static Color <%= prop.name %>Color = Color.FromRgb(<%= prop.value %>);
+%>    public static readonly Color <%= prop.name %>Color = Color.FromRgb(<%= prop.value %>);
 <% }); %>
 
 <% _.each(props, function(prop) {
-%>    public static SolidColorBrush <%= prop.name %>Brush = new SolidColorBrush(<%= prop.name %>Color);
+%>    public static readonly SolidColorBrush <%= prop.name %>Brush = new SolidColorBrush(<%= prop.name %>Color);
 <% }); %>
 }
