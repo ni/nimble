@@ -2,39 +2,39 @@
 
 /**
     Do not edit directly
-    Generated on Fri, 05 Nov 2021 19:59:22 GMT
+    Generated on Tue, 09 Nov 2021 20:22:08 GMT
 **/
 
 public static class NimbleColorTokens {
 
-    public static readonly Color slLegacyBlueColor = Color.FromRgb(0,159,245);
-    public static readonly Color information100DarkUiColor = Color.FromRgb(164,110,255);
-    public static readonly Color information100LightUiColor = Color.FromRgb(128,74,217);
-    public static readonly Color warning100DarkUiColor = Color.FromRgb(255,129,38);
-    public static readonly Color pass100LightUiColor = Color.FromRgb(0,153,33);
-    public static readonly Color pass100DarkUiColor = Color.FromRgb(0,193,43);
-    public static readonly Color warningTypographyLightUiColor = Color.FromRgb(211,68,13);
-    public static readonly Color passTypographyLightUiColor = Color.FromRgb(0,128,28);
-    public static readonly Color fail100LightUiColor = Color.FromRgb(196,0,12);
-    public static readonly Color fail100DarkUiColor = Color.FromRgb(255,70,70);
-    public static readonly Color black75Color = Color.FromRgb(129,131,134);
-    public static readonly Color black15Color = Color.FromRgb(241,241,242);
-    public static readonly Color black7Color = Color.FromRgb(245,245,245);
-    public static readonly Color whiteColor = Color.FromRgb(255,255,255);
-    public static readonly Color black88Color = Color.FromRgb(37,37,38);
-    public static readonly Color black85Color = Color.FromRgb(54,55,56);
-    public static readonly Color black80Color = Color.FromRgb(80,81,83);
-    public static readonly Color blackColor = Color.FromRgb(0,0,0);
-    public static readonly Color black95Color = Color.FromRgb(14,15,15);
-    public static readonly Color black91Color = Color.FromRgb(22,22,23);
-    public static readonly Color enterpriseColor = Color.FromRgb(7,64,35);
-    public static readonly Color selection100Color = Color.FromRgb(0,184,136);
-    public static readonly Color brand85Color = Color.FromRgb(38,169,124);
-    public static readonly Color brand100Color = Color.FromRgb(0,155,101);
-    public static readonly Color fail85Color = Color.FromRgb(207,26,55);
-    public static readonly Color rgbNiSkyColor = Color.FromRgb(60,180,231);
-    public static readonly Color bannerFail100DarkUiColor = Color.FromRgb(179,0,12);
-    public static readonly Color warning100LightUiColor = Color.FromRgb(255,75,0);
+    public static readonly Color slLegacyBlueColor = Color.FromRgb(0, 159, 245);
+    public static readonly Color information100DarkUiColor = Color.FromRgb(164, 110, 255);
+    public static readonly Color information100LightUiColor = Color.FromRgb(128, 74, 217);
+    public static readonly Color warning100DarkUiColor = Color.FromRgb(255, 129, 38);
+    public static readonly Color pass100LightUiColor = Color.FromRgb(0, 153, 33);
+    public static readonly Color pass100DarkUiColor = Color.FromRgb(0, 193, 43);
+    public static readonly Color warningTypographyLightUiColor = Color.FromRgb(211, 68, 13);
+    public static readonly Color passTypographyLightUiColor = Color.FromRgb(0, 128, 28);
+    public static readonly Color fail100LightUiColor = Color.FromRgb(196, 0, 12);
+    public static readonly Color fail100DarkUiColor = Color.FromRgb(255, 70, 70);
+    public static readonly Color black75Color = Color.FromRgb(129, 131, 134);
+    public static readonly Color black15Color = Color.FromRgb(241, 241, 242);
+    public static readonly Color black7Color = Color.FromRgb(245, 245, 245);
+    public static readonly Color whiteColor = Color.FromRgb(255, 255, 255);
+    public static readonly Color black88Color = Color.FromRgb(37, 37, 38);
+    public static readonly Color black85Color = Color.FromRgb(54, 55, 56);
+    public static readonly Color black80Color = Color.FromRgb(80, 81, 83);
+    public static readonly Color blackColor = Color.FromRgb(0, 0, 0);
+    public static readonly Color black95Color = Color.FromRgb(14, 15, 15);
+    public static readonly Color black91Color = Color.FromRgb(22, 22, 23);
+    public static readonly Color enterpriseColor = Color.FromRgb(7, 64, 35);
+    public static readonly Color selection100Color = Color.FromRgb(0, 184, 136);
+    public static readonly Color brand85Color = Color.FromRgb(38, 169, 124);
+    public static readonly Color brand100Color = Color.FromRgb(0, 155, 101);
+    public static readonly Color fail85Color = Color.FromRgb(207, 26, 55);
+    public static readonly Color rgbNiSkyColor = Color.FromRgb(60, 180, 231);
+    public static readonly Color bannerFail100DarkUiColor = Color.FromRgb(179, 0, 12);
+    public static readonly Color warning100LightUiColor = Color.FromRgb(255, 75, 0);
 
 
     public static readonly SolidColorBrush slLegacyBlueBrush = new SolidColorBrush(slLegacyBlueColor);

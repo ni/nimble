@@ -2,7 +2,7 @@ const config = require('./config');
 const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
-const chroma = require('chroma-js');
+const hexRgb = require('hex-rgb');
 const StyleDictionary = require('style-dictionary');
 
 // Workaround to include TypeScript definitions in output.
@@ -86,7 +86,10 @@ StyleDictionary.registerTransform({
     transitive: true,
     name: `color/FromRgb`,
     matcher: (token) => token.attributes.category === 'color',
-    transformer: (token) => chroma(token.value).rgb()
+    transformer: (token) => {
+        const color = hexRgb(token.value);
+        return `${color.red}, ${color.green}, ${color.blue}`;
+    }
 })
 
 StyleDictionary.registerTransformGroup({
