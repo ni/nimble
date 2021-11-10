@@ -2,7 +2,7 @@
   <rect id="Top_Cover" data-name="Top Cover" width="784" height="126" fill="#fff"/>
   <rect id="Divider_Top" data-name="Divider Top" width="784" height="2" transform="translate(0 124)" fill="#161617" opacity="0.1"/>
   <g id="Header" transform="translate(64 32)">
-    <text id="Add_systems" data-name="Add systems" transform="translate(0 22)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="22" font-family="SourceSansPro-Light, Source Sans Pro" font-weight="300" letter-spacing="0.01em"><tspan x="0" y="0">Add systems</tspan></text>
+    <text id="Add_systems" data-name="Add systems" transform="translate(0 22)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="22" font-family="SourceSansPro-Regular, Source Sans Pro" letter-spacing="0.01em"><tspan x="0" y="0">Add systems</tspan></text>
   </g>
   <g id="Stacks_Group_Tab" data-name="Stacks Group Tab" transform="translate(0 -16)">
     <g id="Tabs_Horizontal_Text_Single_32" transform="translate(216 92)">

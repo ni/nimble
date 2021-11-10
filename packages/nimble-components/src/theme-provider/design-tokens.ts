@@ -23,8 +23,8 @@ import {
     Warning100DarkUi,
     Pass100LightUi,
     Pass100DarkUi,
-    Header2Size,
-    Header2Family,
+    Title2Size,
+    Title2Family,
     GroupLabel1Family,
     GroupLabel1Size,
     GroupLabel1Weight
@@ -267,7 +267,7 @@ export const groupLabelFontFamily = create<string>(
 ).withDefault((element: HTMLElement) => getGroupLabelFontForTheme(element));
 export const drawerHeaderFontFamily = create<string>(
     'drawer-header-font-family'
-).withDefault(Header2Family);
+).withDefault(Title2Family);
 
 // Font Sizing Tokens
 export const labelFontSize = create<string>('label-font-size').withDefault(
@@ -279,7 +279,7 @@ export const groupLabelFontSize = create<string>(
 ).withDefault(GroupLabel1Size);
 export const drawerHeaderFontSize = create<string>(
     'drawer-header-font-size'
-).withDefault(Header2Size);
+).withDefault(Title2Size);
 
 // Font Weight Tokens
 export const groupLabelFontWeight = create<string>(

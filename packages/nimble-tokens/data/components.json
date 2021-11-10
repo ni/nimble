@@ -619,24 +619,6 @@
       "class": "component",
       "type": "page",
       "tags": [],
-      "id": "8d8ab161-b66b-470a-8e80-c72675d12b8e",
-      "related_entity_ids": [],
-      "snippets": {
-        "trigger": "",
-        "languages": {}
-      },
-      "name": "Component 54",
-      "ext-com_adobe-cclib": {
-        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
-        "id": "659d2c3a-a1f8-47c9-a72a-20806a318bfc",
-        "last_sync": "2021-08-26T18:52:14.122Z",
-        "sync": true
-      }
-    },
-    {
-      "class": "component",
-      "type": "page",
-      "tags": [],
       "id": "bca5e81b-d6b4-409f-9409-2eae17f640f4",
       "related_entity_ids": [],
       "snippets": {
@@ -1147,7 +1129,7 @@
         "trigger": "",
         "languages": {}
       },
-      "name": "Inputs_TextContainer_Editable_Outiline",
+      "name": "Inputs_TextContainer_Editable_Block",
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "8d738cc0-d9f3-4bd6-817d-4e968be8f305",
@@ -1728,6 +1710,24 @@
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "84972a98-8218-41cb-b592-d3494826c8a6",
         "last_sync": "2021-08-13T20:01:13.885Z",
+        "sync": true
+      }
+    },
+    {
+      "class": "component",
+      "type": "page",
+      "tags": [],
+      "id": "8d8ab161-b66b-470a-8e80-c72675d12b8e",
+      "related_entity_ids": [],
+      "snippets": {
+        "trigger": "",
+        "languages": {}
+      },
+      "name": "RSlide_HeaderSub_Tab",
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "659d2c3a-a1f8-47c9-a72a-20806a318bfc",
+        "last_sync": "2021-08-26T18:52:14.122Z",
         "sync": true
       }
     },
