@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 02 Nov 2021 14:46:47 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Nov 2021 17:31:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.91
+
+Wed, 10 Nov 2021 17:31:11 GMT
+
+### Changes
+
+- update DSP from XD and change logo (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.91 (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.90
 

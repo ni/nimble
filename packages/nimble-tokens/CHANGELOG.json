@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 10 Nov 2021 17:31:11 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.22",
+      "version": "1.0.0-beta.22",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "update DSP from XD and change logo",
+            "commit": "e9262c6cab9f21b6fa23055633e8ce205cc41dda"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Oct 2021 18:29:44 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.21",
       "version": "1.0.0-beta.21",
