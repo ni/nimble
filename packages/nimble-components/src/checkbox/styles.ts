@@ -5,10 +5,10 @@ import {
     borderColor,
     borderColorHover,
     borderColorRgb,
+    contentFontColor,
+    contentFontColorDisabled,
     contentFontSize,
     controlHeight,
-    labelFontColor,
-    labelFontColorDisabled,
     labelHeight,
     iconSize,
     fontFamily,
@@ -74,14 +74,14 @@ export const styles = css`
     .label {
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
-        color: ${labelFontColor};
+        color: ${contentFontColor};
         line-height: ${labelHeight};
         padding-left: 1ch;
         cursor: inherit;
     }
 
     :host([disabled]) .label {
-        color: ${labelFontColorDisabled};
+        color: ${contentFontColorDisabled};
     }
 
     slot[name='checked-indicator'] svg {

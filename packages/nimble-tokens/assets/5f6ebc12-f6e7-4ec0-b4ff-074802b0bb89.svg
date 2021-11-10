@@ -1,26 +1,23 @@
-<svg id="Inputs_Text_Outline_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="46" viewBox="0 0 176 46">
+<svg id="Inputs_Text_Outline_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="48" viewBox="0 0 176 48">
   <defs>
     <clipPath id="clip-path">
-      <rect y="1" width="135" height="17" fill="none"/>
+      <rect y="1" width="136" height="17" fill="none"/>
     </clipPath>
     <clipPath id="clip-path-2">
       <rect y="1" width="85" height="14" fill="none"/>
     </clipPath>
   </defs>
-  <g id="Background_Group" data-name="Background Group" transform="translate(0 20.501)">
+  <g id="Background_Group" data-name="Background Group" transform="translate(0 22.501)">
     <rect id="Block" width="176" height="32" transform="translate(0 -6.501)" fill="none" opacity="0"/>
     <g id="Line" transform="translate(0 -6.501)" fill="none" stroke="#161617" stroke-width="1" opacity="0.3">
       <rect width="176" height="32" stroke="none"/>
       <rect x="0.5" y="0.5" width="175" height="31" fill="none"/>
     </g>
-    <g id="Rollover" transform="translate(0 -6.501)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
-      <rect width="176" height="32" stroke="none"/>
-      <rect x="0.5" y="0.5" width="175" height="31" fill="none"/>
-    </g>
+    <rect id="Rollover" width="2" height="2" transform="translate(86 23.499)" fill="#00b888" opacity="0"/>
   </g>
-  <g id="Stacks_Group" data-name="Stacks Group" transform="translate(0 15)">
+  <g id="Stacks_Group" data-name="Stacks Group" transform="translate(0 17)">
     <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(8 6.001)" clip-path="url(#clip-path)" style="isolation: isolate">
-      <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-It, Source Sans Pro" font-style="italic" opacity="0.6"><tspan x="0" y="0">Placeholder</tspan></text>
+      <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro" opacity="0.6"><tspan x="0" y="0">Placeholder</tspan></text>
     </g>
     <g id="Error" opacity="0">
       <rect id="IconLocation" width="16" height="16" transform="translate(152 8)" fill="#f1f1f2" opacity="0"/>
@@ -28,7 +25,9 @@
     </g>
   </g>
   <g id="Label_L" data-name="Label L" transform="translate(0 -1)" clip-path="url(#clip-path-2)" style="isolation: isolate">
-    <text id="SHOW_LABEL" data-name="SHOW LABEL" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SpaceMono-Regular, Space Mono"><tspan x="0" y="0">SHOW LABEL</tspan></text>
+    <text id="Show_label" data-name="Show label" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6"><tspan x="0" y="0">Show label</tspan></text>
+    <text id="Show_label-2" data-name="Show label" transform="translate(471 141)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6"><tspan x="0" y="0">Show label</tspan></text>
+    <text id="Show_label-3" data-name="Show label" transform="translate(674 244)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6"><tspan x="0" y="0">Show label</tspan></text>
   </g>
-  <rect id="Text_Focus" data-name="Text Focus" width="1" height="18" transform="translate(7 22)" opacity="0"/>
+  <rect id="Text_Focus" data-name="Text Focus" width="1" height="18" transform="translate(7 24)" opacity="0"/>
 </svg>

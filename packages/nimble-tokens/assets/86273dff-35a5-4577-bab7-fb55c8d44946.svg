@@ -1,7 +1,11 @@
 <svg id="Button_Icon_Ghost_24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
   <g id="Background" transform="translate(-323.853 -324)">
     <rect id="Background-2" data-name="Background" width="24" height="24" transform="translate(323.853 324)" fill="#161617" opacity="0"/>
-    <rect id="Rollover" width="16" height="16" transform="translate(327.853 328)" fill="#00b888" opacity="0"/>
+    <rect id="Mousedown" width="24" height="24" transform="translate(323.853 324)" fill="none" opacity="0"/>
+    <g id="Rollover" transform="translate(323.853 324)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
+      <rect width="24" height="24" stroke="none"/>
+      <rect x="0.5" y="0.5" width="23" height="23" fill="none"/>
+    </g>
   </g>
   <g id="Icon" transform="translate(-4 -3)">
     <rect id="IconAlignment" width="16" height="16" transform="translate(8 7)" fill="#649fff" opacity="0"/>

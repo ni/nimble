@@ -15,32 +15,32 @@
     <rect id="Bottom_Cover" data-name="Bottom Cover" width="784" height="98" transform="translate(0 580)" fill="#fff"/>
     <rect id="Divider_Bottom" data-name="Divider Bottom" width="784" height="2" transform="translate(0 580)" fill="#161617" opacity="0.1"/>
     <g id="Command_Buttons" data-name="Command Buttons" transform="translate(498 614)">
-      <g id="Button_Text_Ghost_32">
-        <g id="Background" transform="translate(-323.853 -324.5)">
-          <rect id="Fill_1" data-name="Fill 1" width="103" height="32" transform="translate(323.853 324.5)" fill="none" opacity="0"/>
-          <rect id="Fill_2" data-name="Fill 2" width="103" height="2" transform="translate(323.853 354.5)" fill="none" opacity="0"/>
-          <rect id="Stroke" width="103" height="32" transform="translate(323.853 324.5)" fill="none" opacity="0"/>
-          <rect id="Rollover" width="103" height="32" transform="translate(323.853 324.5)" fill="none" opacity="0"/>
+      <g id="Button_Text_Ghost_32" transform="translate(0 1)">
+        <g id="Background" transform="translate(-323.853 -324)">
+          <rect id="Fill_1" data-name="Fill 1" width="100" height="32" transform="translate(323.853 324)" fill="none" opacity="0"/>
+          <rect id="Fill_2" data-name="Fill 2" width="100" height="2" transform="translate(323.853 353.5)" fill="none" opacity="0"/>
+          <rect id="Stroke" width="100" height="32" transform="translate(323.853 324)" fill="none" opacity="0"/>
+          <rect id="Rollover" width="100" height="32" transform="translate(323.853 324)" fill="none" opacity="0"/>
         </g>
-        <g id="Stack_Group" data-name="Stack Group" transform="translate(-16 7)">
-          <text id="Cancel" transform="translate(48 14)" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Cancel</tspan></text>
+        <g id="Stack_Group" data-name="Stack Group" transform="translate(-16)">
+          <text id="Cancel" transform="translate(48 20)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="12.8" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Cancel</tspan></text>
         </g>
       </g>
-      <g id="Button_Text_Outline_32" transform="translate(119)">
+      <g id="Button_Text_Outline_32" transform="translate(119 1)">
         <g id="Background-2" data-name="Background" transform="translate(-323.853 -324.5)">
-          <rect id="Fill_1-2" data-name="Fill 1" width="103" height="32" transform="translate(323.853 324.5)" fill="#161617" opacity="0.003"/>
-          <rect id="Fill_2-2" data-name="Fill 2" width="103" height="2" transform="translate(323.853 354.5)" fill="#161617" opacity="0"/>
+          <rect id="Fill_1-2" data-name="Fill 1" width="102" height="32" transform="translate(323.853 324.5)" fill="#161617" opacity="0.003"/>
+          <rect id="Fill_2-2" data-name="Fill 2" width="102" height="2" transform="translate(323.853 354.5)" fill="#161617" opacity="0"/>
           <g id="Stroke-2" data-name="Stroke" transform="translate(323.853 324.5)" fill="none" stroke="#161617" stroke-width="1" opacity="0.5">
-            <rect width="103" height="32" stroke="none"/>
-            <rect x="0.5" y="0.5" width="102" height="31" fill="none"/>
+            <rect width="102" height="32" stroke="none"/>
+            <rect x="0.5" y="0.5" width="101" height="31" fill="none"/>
           </g>
           <g id="Rollover-2" data-name="Rollover" transform="translate(323.853 324.5)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
-            <rect width="103" height="32" stroke="none"/>
-            <rect x="1" y="1" width="101" height="30" fill="none"/>
+            <rect width="102" height="32" stroke="none"/>
+            <rect x="1" y="1" width="100" height="30" fill="none"/>
           </g>
         </g>
-        <g id="Stack_Group-2" data-name="Stack Group" transform="translate(-5 7)">
-          <text id="OK" transform="translate(48 14)" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">OK</tspan></text>
+        <g id="Stack_Group-2" data-name="Stack Group" transform="translate(-5)">
+          <text id="OK" transform="translate(48 20)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="12.8" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">OK</tspan></text>
         </g>
       </g>
     </g>
