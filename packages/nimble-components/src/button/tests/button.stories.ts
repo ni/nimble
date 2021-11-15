@@ -1,6 +1,8 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
+import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/dom';
 import { ButtonAppearance } from '../types';
 import '../index';
 import '../../icons/access-control';
@@ -49,7 +51,11 @@ const metadata: Meta<ButtonArgs> = {
 export default metadata;
 
 export const outlineButton = {
-    args: { label: 'Outline Button', appearance: ButtonAppearance.Outline }
+    args: { label: 'Outline Button', appearance: ButtonAppearance.Outline },
+    play: () => {
+        userEvent.click(screen.getAllByText(/outline button/i)[0]);
+        console.log('button play');
+    }
 };
 export const ghostButton = {
     args: { label: 'Ghost Button', appearance: ButtonAppearance.Ghost }

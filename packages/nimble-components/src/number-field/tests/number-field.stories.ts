@@ -1,6 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/dom';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
 
