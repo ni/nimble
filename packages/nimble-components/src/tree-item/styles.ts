@@ -24,8 +24,7 @@ export const styles: (
     context: ElementDefinitionContext,
     definition: TreeItemOptions
 ) => ElementStyles = (context: ElementDefinitionContext) => css`
-        ${display('block')}
-        :host {
+        ${display('block')} :host {
             contain: content;
             position: relative;
             outline: none;

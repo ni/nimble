@@ -108,3 +108,18 @@ const styles = css`
     }
 `;
 ```
+
+## Use FAST's `display` utility for styling host element
+
+For consistent styling, use FAST's `display` utility when setting a `display` style on the host element.
+
+```
+import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
+
+export const styles = css`
+    ${display('flex')} :host {}
+`;
+```
+
+This utility will generate the appropriate display style, as well as a style rule to hide the host element when its `hidden` attribute is set.
