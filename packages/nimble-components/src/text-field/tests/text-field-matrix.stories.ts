@@ -10,7 +10,9 @@ import {
     InvalidState,
     invalidStates,
     ReadOnlyState,
-    readOnlyStates
+    readOnlyStates,
+    HiddenState,
+    hiddenStates
 } from '../../utilities/tests/matrix';
 import '../index';
 
@@ -45,7 +47,8 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [invalidName, invalid]: InvalidState,
     [typeName, type]: TypeState,
-    [valueName, valueValue, placeholderValue]: ValueState
+    [valueName, valueValue, placeholderValue]: ValueState,
+    hidden: HiddenState
 ): ViewTemplate => html`
     <nimble-text-field
         style="width: 250px; padding: 15px;"
@@ -55,6 +58,7 @@ const component = (
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         ?readonly="${() => readonly}"
+        ?hidden="${() => hidden}"
     >
         ${() => disabledName} ${() => invalidName} ${() => typeName}
         ${() => valueName} ${() => readOnlyName}
@@ -68,7 +72,8 @@ export const textFieldThemeMatrix: Story = createRenderer(
             disabledStates,
             invalidStates,
             typeStates,
-            valueStates
+            valueStates,
+            hiddenStates
         ])
     )
 );

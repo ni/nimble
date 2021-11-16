@@ -6,7 +6,9 @@ import {
     createMatrix,
     themeWrapper,
     disabledStates,
-    DisabledState
+    DisabledState,
+    HiddenState,
+    hiddenStates
 } from '../../utilities/tests/matrix';
 import '../index';
 
@@ -25,14 +27,15 @@ const metadata: Meta = {
 export default metadata;
 
 // prettier-ignore
-const component = ([_, disabled]: DisabledState): ViewTemplate => html`
-    <nimble-select ?disabled="${() => disabled}">
+const component = ([_, disabled]: DisabledState, hidden: HiddenState): ViewTemplate => html`
+    <nimble-select ?disabled="${() => disabled}" ?hidden="${() => hidden}">
         <nimble-listbox-option value="1">Option 1</nimble-listbox-option>
         <nimble-listbox-option value="2" disabled>Option 2</nimble-listbox-option>
         <nimble-listbox-option value="3">Option 3</nimble-listbox-option>
+        <nimble-listbox-option value="4" hidden>Option 4</nimble-listbox-option>
     </nimble-select>
 `;
 
 export const selectThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [disabledStates]))
+    themeWrapper(createMatrix(component, [disabledStates, hiddenStates]))
 );

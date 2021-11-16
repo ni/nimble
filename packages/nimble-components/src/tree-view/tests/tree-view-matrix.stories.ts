@@ -16,7 +16,9 @@ import {
     SelectedState,
     selectedStates,
     IconVisibleState,
-    iconVisibleStates
+    iconVisibleStates,
+    hiddenStates,
+    HiddenState
 } from '../../utilities/tests/matrix';
 
 const metadata: Meta = {
@@ -35,9 +37,10 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [expandedName, expanded]: ExpandedState,
     [selectedName, selected]: SelectedState,
-    iconVisible: IconVisibleState
+    iconVisible: IconVisibleState,
+    hidden: HiddenState
 ): ViewTemplate => html`
-    <nimble-tree-view style="padding: 10px">
+    <nimble-tree-view style="padding: 10px" ?hidden="${() => hidden}">
         <nimble-tree-item
             ?expanded="${() => expanded}"
             ?disabled="${() => disabled}"
@@ -59,6 +62,9 @@ const component = (
             ${when(() => iconVisible, html`<nimble-settings-icon></nimble-settings-icon>`)}
                 Nested Item 3
             </nimble-tree-item>
+            <nimble-tree-item hidden>
+                Nested Item 4
+            </nimble-tree-item>
         </nimble-tree-item>
     </nimble-tree-view>
 `;
@@ -71,7 +77,8 @@ export const treeViewThemeMatrix: Story = createRenderer(
             disabledStates,
             expandedStates,
             selectedStates,
-            iconVisibleStates
+            iconVisibleStates,
+            hiddenStates
         ])
     )
 );

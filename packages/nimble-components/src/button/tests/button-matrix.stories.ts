@@ -8,7 +8,9 @@ import {
     iconVisibleStates,
     IconVisibleState,
     createMatrix,
-    themeWrapper
+    themeWrapper,
+    HiddenState,
+    hiddenStates
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
@@ -39,9 +41,10 @@ type AppearanceState = typeof appearanceStates[number];
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
-    iconVisible: IconVisibleState
+    iconVisible: IconVisibleState,
+    hidden: HiddenState
 ): ViewTemplate => html`
-    <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled}>
+    <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled} ?hidden=${() => hidden}>
         ${when(() => iconVisible, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
         ${() => (appearanceName === noContent ? '' : `${appearanceName} Button ${disabledName}`)}
     </nimble-button>
@@ -52,7 +55,8 @@ export const buttonThemeMatrix: Story = createRenderer(
         createMatrix(component, [
             disabledStates,
             appearanceStates,
-            iconVisibleStates
+            iconVisibleStates,
+            hiddenStates
         ])
     )
 );

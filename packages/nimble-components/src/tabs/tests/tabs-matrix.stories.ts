@@ -6,7 +6,9 @@ import {
     DisabledState,
     disabledStates,
     createMatrix,
-    themeWrapper
+    themeWrapper,
+    HiddenState,
+    hiddenStates
 } from '../../utilities/tests/matrix';
 import '../index';
 import '../../tab';
@@ -34,9 +36,10 @@ const tabsToolbarState: TabsToolbarState[] = [false, true];
 // prettier-ignore
 const component = (
     toolbar: TabsToolbarState,
-    [disabledName, disabled]: DisabledState
+    [disabledName, disabled]: DisabledState,
+    hidden: HiddenState
 ): ViewTemplate => html`
-    <nimble-tabs style="padding: 15px;">
+    <nimble-tabs style="padding: 15px;" ?hidden="${() => hidden}">
         ${when(() => toolbar, html`
             <nimble-tabs-toolbar>
                 <nimble-button appearance="ghost">Toolbar Button</nimble-button>
@@ -46,11 +49,13 @@ const component = (
         <nimble-tab ?disabled="${() => disabled}">
             Tab Two ${() => disabledName}
         </nimble-tab>
+        <nimble-tab hidden>Tab Three</nimble-tab>
         <nimble-tab-panel>Tab content one</nimble-tab-panel>
         <nimble-tab-panel>Tab content two</nimble-tab-panel>
+        <nimble-tab-panel>Tab content three</nimble-tab-panel>
     </nimble-tabs>
 `;
 
 export const tabsThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [tabsToolbarState, disabledStates]))
+    themeWrapper(createMatrix(component, [tabsToolbarState, disabledStates, hiddenStates]))
 );
