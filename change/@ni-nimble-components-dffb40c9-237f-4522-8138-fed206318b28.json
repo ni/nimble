@@ -3,5 +3,5 @@
   "comment": "Make hidden styling consistent",
   "packageName": "@ni/nimble-components",
   "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
