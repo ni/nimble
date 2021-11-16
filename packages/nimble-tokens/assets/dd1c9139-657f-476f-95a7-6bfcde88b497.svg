@@ -1,12 +1,15 @@
-<svg id="Tabs_Horizontal_Text_Button_Stack_32" xmlns="http://www.w3.org/2000/svg" width="369" height="32" viewBox="0 0 369 32">
-  <g id="Button_IconText_Ghost_32" transform="translate(246)">
-    <g id="Background" opacity="0">
-      <rect id="Background-2" data-name="Background" width="123" height="32" fill="#161617" opacity="0"/>
-      <rect id="Rollover" width="123" height="2" transform="translate(0 30)" fill="none" opacity="0"/>
+<svg id="Tabs_Horizontal_Text_Button_Stack_32" xmlns="http://www.w3.org/2000/svg" width="363" height="33" viewBox="0 0 363 33">
+  <g id="Button_IconText_Ghost_32" transform="translate(246 1)">
+    <g id="Background" transform="translate(0 0)">
+      <rect id="Background-2" data-name="Background" width="117" height="32" transform="translate(0 0)" fill="#00b888" opacity="0"/>
+      <g id="Rollover" transform="translate(0 0)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
+        <rect width="117" height="32" stroke="none"/>
+        <rect x="1" y="1" width="115" height="30" fill="none"/>
+      </g>
       <rect id="SelectionRectangle" height="2" transform="translate(61 30)" fill="#00b888" opacity="0"/>
     </g>
-    <g id="Stacks_Group" data-name="Stacks Group">
-      <text id="Text_button" data-name="Text button" transform="translate(40 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Text button</tspan></text>
+    <g id="Stacks_Group" data-name="Stacks Group" transform="translate(0 -1)">
+      <text id="Text_button" data-name="Text button" transform="translate(40 21)" fill="#161617" font-size="12.8" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Text button</tspan></text>
       <g id="Icon" transform="translate(0 1)">
         <rect id="IconLocation_16x16" data-name="IconLocation 16x16" width="16" height="16" transform="translate(16 7)" fill="#3cb4e7" opacity="0"/>
         <rect id="Icon_12x12" data-name="Icon 12x12" width="12" height="12" transform="translate(18 9)" fill="#161617" opacity="0"/>
@@ -14,12 +17,12 @@
       </g>
     </g>
   </g>
-  <rect id="Rectangle_10622" data-name="Rectangle 10622" width="2" height="24" transform="translate(236 4)" fill="#161617" opacity="0.3"/>
+  <rect id="Rectangle_10622" data-name="Rectangle 10622" width="2" height="24" transform="translate(236 4)" fill="#161617" opacity="0.15"/>
   <g id="Tabs_Horizontal_Text_Single_32" transform="translate(152)">
     <g id="Background-3" data-name="Background">
       <rect id="Background-4" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
       <rect id="Rollover-2" data-name="Rollover" width="76" height="2" transform="translate(0 30)" fill="#161617" opacity="0"/>
-      <rect id="SelectionRectangle-2" data-name="SelectionRectangle" height="2" transform="translate(49 30)" fill="#00b888" opacity="0"/>
+      <rect id="SelectionRectangle-2" data-name="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#00b888" opacity="0"/>
     </g>
     <g id="Stacks_Group-2" data-name="Stacks Group">
       <text id="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>
@@ -29,7 +32,7 @@
     <g id="Background-5" data-name="Background">
       <rect id="Background-6" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
       <rect id="Rollover-3" data-name="Rollover" width="76" height="2" transform="translate(0 30)" fill="#161617" opacity="0"/>
-      <rect id="SelectionRectangle-3" data-name="SelectionRectangle" height="2" transform="translate(49 30)" fill="#00b888" opacity="0"/>
+      <rect id="SelectionRectangle-3" data-name="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#00b888" opacity="0"/>
     </g>
     <g id="Stacks_Group-3" data-name="Stacks Group">
       <text id="Section-2" data-name="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>
@@ -38,7 +41,7 @@
   <g id="Tabs_Horizontal_Text_Single_32-3" data-name="Tabs_Horizontal_Text_Single_32">
     <g id="Background-7" data-name="Background">
       <rect id="Background-8" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
-      <rect id="Rollover-4" data-name="Rollover" width="76" height="2" transform="translate(0 30)" fill="#161617" opacity="0"/>
+      <rect id="Rollover-4" data-name="Rollover" width="76" height="1.984" transform="translate(0 30)" fill="#161617" opacity="0"/>
       <rect id="SelectionRectangle-4" data-name="SelectionRectangle" width="76" height="2" transform="translate(0 30)" fill="#00b888"/>
     </g>
     <g id="Stacks_Group-4" data-name="Stacks Group">
