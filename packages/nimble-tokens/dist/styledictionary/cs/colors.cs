@@ -2,7 +2,7 @@
 
 /**
     Do not edit directly
-    Generated on Tue, 09 Nov 2021 20:22:08 GMT
+    Generated on Tue, 16 Nov 2021 19:28:34 GMT
 **/
 
 public static class NimbleColorTokens {
@@ -33,8 +33,10 @@ public static class NimbleColorTokens {
     public static readonly Color brand100Color = Color.FromRgb(0, 155, 101);
     public static readonly Color fail85Color = Color.FromRgb(207, 26, 55);
     public static readonly Color rgbNiSkyColor = Color.FromRgb(60, 180, 231);
-    public static readonly Color bannerFail100DarkUiColor = Color.FromRgb(179, 0, 12);
+    public static readonly Color bannerFail100DarkUiColor = Color.FromRgb(214, 52, 52);
     public static readonly Color warning100LightUiColor = Color.FromRgb(255, 75, 0);
+    public static readonly Color black30Color = Color.FromRgb(211, 213, 214);
+    public static readonly Color black50Color = Color.FromRgb(174, 176, 179);
 
 
     public static readonly SolidColorBrush slLegacyBlueBrush = new SolidColorBrush(slLegacyBlueColor);
@@ -65,5 +67,7 @@ public static class NimbleColorTokens {
     public static readonly SolidColorBrush rgbNiSkyBrush = new SolidColorBrush(rgbNiSkyColor);
     public static readonly SolidColorBrush bannerFail100DarkUiBrush = new SolidColorBrush(bannerFail100DarkUiColor);
     public static readonly SolidColorBrush warning100LightUiBrush = new SolidColorBrush(warning100LightUiColor);
+    public static readonly SolidColorBrush black30Brush = new SolidColorBrush(black30Color);
+    public static readonly SolidColorBrush black50Brush = new SolidColorBrush(black50Color);
 
 }
