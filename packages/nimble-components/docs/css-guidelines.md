@@ -113,7 +113,7 @@ const styles = css`
 
 For consistent styling, use FAST's `display` utility when setting a `display` style on the host element.
 
-```
+```ts
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 
