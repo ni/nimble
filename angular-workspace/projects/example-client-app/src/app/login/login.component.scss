@@ -3,16 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-}
-
-.theme-select {
-    display: block;
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    width: 150px;
-    min-width: unset;
+    height: calc(100vh - var(--header-height));
 }
 
 .login-container {
