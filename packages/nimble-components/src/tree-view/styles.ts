@@ -3,7 +3,9 @@ import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
-    ${display('flex')} :host {
+    ${display('flex')}
+    
+    :host {
         flex-direction: column;
         align-items: stretch;
         min-width: fit-content;

@@ -11,7 +11,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('flex')} :host {
+    ${display('flex')}
+    
+    :host {
         align-items: center;
         height: ${controlHeight};
         box-sizing: border-box;

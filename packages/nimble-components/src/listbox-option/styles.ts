@@ -13,7 +13,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('flex')} :host {
+    ${display('flex')}
+    
+    :host {
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         cursor: pointer;

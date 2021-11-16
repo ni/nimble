@@ -9,7 +9,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('inline-flex')} :host {
+    ${display('inline-flex')}
+    
+    :host {
         align-items: center;
         user-select: none;
         width: ${iconSize};

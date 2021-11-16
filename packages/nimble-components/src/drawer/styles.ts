@@ -13,7 +13,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('block')} :host {
+    ${display('block')}
+    
+    :host {
         position: relative;
         top: 0;
         bottom: 0;

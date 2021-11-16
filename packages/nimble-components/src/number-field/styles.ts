@@ -22,7 +22,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('inline-block')} :host {
+    ${display('inline-block')}
+    
+    :host {
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         outline: none;

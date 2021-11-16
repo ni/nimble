@@ -16,7 +16,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('grid')} :host {
+    ${display('grid')}
+    
+    :host {
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;

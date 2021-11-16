@@ -8,7 +8,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('block')} :host {
+    ${display('block')}
+    
+    :host {
         box-sizing: border-box;
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
