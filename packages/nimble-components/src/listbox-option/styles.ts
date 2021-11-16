@@ -14,7 +14,7 @@ import {
 
 export const styles = css`
     ${display('flex')}
-    
+
     :host {
         font-family: ${fontFamily};
         font-size: ${contentFontSize};

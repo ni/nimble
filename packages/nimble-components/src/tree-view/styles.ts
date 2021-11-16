@@ -4,7 +4,7 @@ import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('flex')}
-    
+
     :host {
         flex-direction: column;
         align-items: stretch;

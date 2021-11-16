@@ -9,7 +9,7 @@ import {
 
 export const styles = css`
     ${display('block')}
-    
+
     :host {
         box-sizing: border-box;
         font-family: ${fontFamily};

@@ -57,5 +57,11 @@ const component = (
 `;
 
 export const tabsThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [tabsToolbarState, disabledStates, hiddenStates]))
+    themeWrapper(
+        createMatrix(component, [
+            tabsToolbarState,
+            disabledStates,
+            hiddenStates
+        ])
+    )
 );

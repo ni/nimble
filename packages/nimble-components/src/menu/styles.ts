@@ -17,7 +17,7 @@ import {
 
 export const styles = css`
     ${display('grid')}
-    
+
     :host {
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};

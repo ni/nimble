@@ -47,5 +47,7 @@ const component = (
 `;
 
 export const numberFieldThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [disabledStates, valueStates, hiddenStates]))
+    themeWrapper(
+        createMatrix(component, [disabledStates, valueStates, hiddenStates])
+    )
 );

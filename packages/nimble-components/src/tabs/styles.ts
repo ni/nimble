@@ -8,7 +8,7 @@ import {
 
 export const styles = css`
     ${display('grid')}
-    
+
     :host {
         box-sizing: border-box;
         grid-template-columns: auto auto 1fr;

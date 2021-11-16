@@ -20,7 +20,7 @@ import { ButtonAppearance } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
-    
+
     :host {
         background-color: transparent;
         height: ${controlHeight};

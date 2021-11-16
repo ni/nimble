@@ -25,7 +25,7 @@ import {
 
 export const styles = css`
     ${display('inline-block')}
-    
+
     :host {
         font-family: ${fontFamily};
         font-size: ${contentFontSize};

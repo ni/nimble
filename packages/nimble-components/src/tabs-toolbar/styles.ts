@@ -12,7 +12,7 @@ import {
 
 export const styles = css`
     ${display('flex')}
-    
+
     :host {
         align-items: center;
         height: ${controlHeight};

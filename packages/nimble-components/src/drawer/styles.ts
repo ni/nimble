@@ -14,7 +14,7 @@ import {
 
 export const styles = css`
     ${display('block')}
-    
+
     :host {
         position: relative;
         top: 0;

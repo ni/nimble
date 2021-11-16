@@ -17,7 +17,7 @@ import {
 
 export const styles = css`
     ${display('inline-flex')}
-    
+
     :host {
         box-sizing: border-box;
         color: ${contentFontColor};

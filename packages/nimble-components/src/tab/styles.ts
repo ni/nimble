@@ -16,7 +16,7 @@ import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('inline-flex')}
-    
+
     :host {
         box-sizing: border-box;
         font-family: ${fontFamily};
