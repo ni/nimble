@@ -3,7 +3,6 @@
     display: flex;
     justify-content: left;
     flex-direction: column;
-    height: calc(100vh - var(--header-height));
     padding: 0px 2px 0px 10px;
 }
 
@@ -19,9 +18,4 @@
 
 nimble-example-header {
     display: block;
-}
-
-nimble-example-nav-drawer {
-    display: block;
-    height: calc(100% - var(--header-height));
 }
