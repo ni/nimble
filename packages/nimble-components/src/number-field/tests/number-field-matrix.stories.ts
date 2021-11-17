@@ -43,9 +43,7 @@ const component = (
 `;
 
 export const numberFieldThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [disabledStates, valueStates])
-    )
+    themeWrapper(createMatrix(component, [disabledStates, valueStates]))
 );
 
 export const hiddenNumberField = createRenderer(

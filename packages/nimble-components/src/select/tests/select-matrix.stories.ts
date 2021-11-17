@@ -39,8 +39,7 @@ export const selectThemeMatrix: Story = createRenderer(
 );
 
 export const hiddenSelect = createRenderer(
-    html`
-    <nimble-select hidden>
+    html` <nimble-select hidden>
         <nimble-listbox-option value="1">Option 1</nimble-listbox-option>
     </nimble-select>`
 );
