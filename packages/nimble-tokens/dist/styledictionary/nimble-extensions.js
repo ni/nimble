@@ -56,10 +56,13 @@ StyleDictionary.registerTransformGroup({
 });
 
 // Templates and transforms to build XAML compatible token resource dictionaries
-const colorTemplate = _.template(fs.readFileSync(path.resolve(__dirname, './templates/XamlColor.template')));
+const xamlColorTemplatePath = path.resolve(__dirname, './templates/XamlColor.template');
+console.log(`XamlColor template path: ${xamlColorTemplatePath }`);
+const xamlColorTemplate = _.template(fs.readFileSync(xamlColorTemplatePath));
+
 StyleDictionary.registerFormat({
     name: 'xaml/XamlColor',
-    formatter: colorTemplate
+    formatter: xamlColorTemplate
 });
 
 StyleDictionary.registerTransformGroup({
@@ -91,10 +94,13 @@ StyleDictionary.registerTransformGroup({
   });
 
 // Templates and transforms to build C# token class
-const colorClassTemplate = _.template(fs.readFileSync(path.resolve(__dirname, './templates/ColorClass.template')));
+const cSharpClassColorTemplatePath = path.resolve(__dirname, './templates/cSharpClassColor.template');
+console.log(`cSharpClassColor template path: ${cSharpClassColorTemplatePath }`);
+const cSharpClassColorTemplate = _.template(fs.readFileSync(cSharpClassColorTemplatePath));
+
 StyleDictionary.registerFormat({
-    name: 'cs/ColorClass',
-    formatter: colorClassTemplate
+    name: 'cs/cSharpClassColor',
+    formatter: cSharpClassColorTemplate
 });
 
 StyleDictionary.registerTransform({
@@ -127,7 +133,7 @@ StyleDictionary.registerTransformGroup({
                 "files": [
                     {
                         "destination": "colors.cs",
-                        "format": "cs/ColorClass"
+                        "format": "cs/cSharpClassColor"
                     }
                 ],
                 "transformGroup": "ni-color-class",

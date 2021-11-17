@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - '*'
-    tags:
-      - '@ni/nimble-tokens_v*'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -38,21 +36,14 @@ jobs:
 
       # Pack
       - run: npm run pack
+      - run: npm run pack:nuget -w @ni/nimble-tokens
       - uses: actions/upload-artifact@v2
         with:
           name: packages
           path: |
             packages/**/*.tgz
+            packages/**/*.nupkg
             angular-workspace/**/*.tgz
-          if-no-files-found: error
-
-      # Build Nuget
-      - name: build tokens nuget
-        run: npm run build:nuget -w @ni/nimble-tokens
-      - uses: actions/upload-artifact@v2
-        with:
-          name: nuget package
-          path: packages/**/*.nupkg
           if-no-files-found: error
 
       # Lint
