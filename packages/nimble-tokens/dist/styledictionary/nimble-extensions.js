@@ -99,7 +99,7 @@ console.log(`cSharpClassColor template path: ${cSharpClassColorTemplatePath }`);
 const cSharpClassColorTemplate = _.template(fs.readFileSync(cSharpClassColorTemplatePath));
 
 StyleDictionary.registerFormat({
-    name: 'cs/cSharpClassColor',
+    name: 'cSharpClass/Color',
     formatter: cSharpClassColorTemplate
 });
 
@@ -133,11 +133,11 @@ StyleDictionary.registerTransformGroup({
                 "files": [
                     {
                         "destination": "colors.cs",
-                        "format": "cs/cSharpClassColor"
+                        "format": "cSharpClass/Color"
                     }
                 ],
                 "transformGroup": "ni-color-class",
-                "buildPath": "cs/"
+                "buildPath": "csharp/"
             }
         }   
   });

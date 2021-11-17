@@ -2,7 +2,7 @@
 
 /**
     Do not edit directly
-    Generated on Tue, 16 Nov 2021 19:28:34 GMT
+    Generated on Wed, 17 Nov 2021 19:43:39 GMT
 **/
 
 public static class NimbleColorTokens {
