@@ -10,6 +10,7 @@
     <Description>Design tokens used within the Nimble Design System.</Description>
     <Copyright>Copyright 2021</Copyright>
     <PackageTags>Nimble NI tokens</PackageTags>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
   </PropertyGroup>
 
   <ItemGroup>
