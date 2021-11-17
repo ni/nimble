@@ -123,7 +123,7 @@ StyleDictionary.registerTransformGroup({
     ]
 });
 
-  const csClassStyleDictionary = StyleDictionary.extend(
+  const cSharpClassStyleDictionary = StyleDictionary.extend(
     {
         "source": [
           "properties/colors.json",
@@ -143,5 +143,5 @@ StyleDictionary.registerTransformGroup({
   });
   
   xamlStyleDictionary.buildAllPlatforms();
-  csClassStyleDictionary.buildAllPlatforms();
+  cSharpClassStyleDictionary.buildAllPlatforms();
 
