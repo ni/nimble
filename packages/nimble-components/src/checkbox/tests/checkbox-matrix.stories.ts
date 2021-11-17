@@ -5,9 +5,7 @@ import {
     disabledStates,
     DisabledState,
     createMatrix,
-    themeWrapper,
-    HiddenState,
-    hiddenStates
+    themeWrapper
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
@@ -34,18 +32,20 @@ const checkedStates: CheckedState[] = [
 
 const component = (
     [disabledName, disabled]: DisabledState,
-    [checkedName, checked]: CheckedState,
-    hidden: HiddenState
+    [checkedName, checked]: CheckedState
 ): ViewTemplate => html`<nimble-checkbox
     ?checked="${() => checked}"
     ?disabled="${() => disabled}"
-    ?hidden=${() => hidden}
 >
     ${checkedName} ${disabledName}
 </nimble-checkbox>`;
 
 export const checkboxThemeMatrix: Story = createRenderer(
     themeWrapper(
-        createMatrix(component, [disabledStates, checkedStates, hiddenStates])
+        createMatrix(component, [disabledStates, checkedStates])
     )
+);
+
+export const hiddenCheckbox = createRenderer(
+    html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
 );

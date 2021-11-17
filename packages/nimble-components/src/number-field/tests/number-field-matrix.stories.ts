@@ -6,9 +6,7 @@ import {
     createMatrix,
     themeWrapper,
     disabledStates,
-    DisabledState,
-    HiddenState,
-    hiddenStates
+    DisabledState
 } from '../../utilities/tests/matrix';
 import '../index';
 
@@ -33,14 +31,12 @@ type ValueState = typeof valueStates[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,
-    [valueName, valueValue, placeholderValue]: ValueState,
-    hidden: HiddenState
+    [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-number-field
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         ?disabled="${() => disabled}"
-        ?hidden="${() => hidden}"
     >
         ${() => valueName} ${() => disabledName}
     </nimble-number-field>
@@ -48,6 +44,10 @@ const component = (
 
 export const numberFieldThemeMatrix: Story = createRenderer(
     themeWrapper(
-        createMatrix(component, [disabledStates, valueStates, hiddenStates])
+        createMatrix(component, [disabledStates, valueStates])
     )
+);
+
+export const hiddenNumberField = createRenderer(
+    html`<nimble-number-field hidden>Hidden number field</nimble-number-field>`
 );

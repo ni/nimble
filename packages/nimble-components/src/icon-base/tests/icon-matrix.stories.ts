@@ -3,8 +3,6 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
-    HiddenState,
-    hiddenStates,
     themeWrapper
 } from '../../utilities/tests/matrix';
 
@@ -33,19 +31,23 @@ type IconStatusState = typeof iconStatusStates[number];
 
 const component = (
     [stateName, state]: IconStatusState,
-    hidden: HiddenState
 ): ViewTemplate => html`
     <span
         style="color: ${contentFontColor.createCSS()};"
-        ?hidden=${() => hidden}
         >${stateName}</span
     >
     <nimble-check-icon
         class="${state}"
-        ?hidden=${() => hidden}
     ></nimble-check-icon>
 `;
 
 export const iconThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [iconStatusStates, hiddenStates]))
+    themeWrapper(createMatrix(component, [iconStatusStates]))
+);
+
+export const hiddenIcon = createRenderer(
+    html`
+    <div>
+        <nimble-check-icon class="pass" hidden></nimble-check-icon>
+    </div>`
 );

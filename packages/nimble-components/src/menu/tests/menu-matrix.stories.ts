@@ -4,8 +4,6 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import {
     createMatrix,
-    HiddenState,
-    hiddenStates,
     IconVisibleState,
     iconVisibleStates,
     themeWrapper
@@ -29,11 +27,10 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    icon: IconVisibleState,
-    hidden: HiddenState
+    icon: IconVisibleState
 ): ViewTemplate => html`
     <span style="display:inline-flex;">
-        <nimble-menu style="padding: 15px;" ?hidden=${() => hidden}>
+        <nimble-menu style="padding: 15px;">
             <header>Header</header>
             <nimble-menu-item>Item 1</nimble-menu-item>
             <hr>
@@ -45,5 +42,12 @@ const component = (
 `;
 
 export const menuThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [iconVisibleStates, hiddenStates]))
+    themeWrapper(createMatrix(component, [iconVisibleStates]))
+);
+
+export const hiddenMenu = createRenderer(
+    html`
+    <nimble-menu hidden>
+        <nimble-menu-item>Item 1</nimble-menu-item>
+    </nimble-menu>`
 );
