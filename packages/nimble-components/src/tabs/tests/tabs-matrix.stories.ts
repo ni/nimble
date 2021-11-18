@@ -13,6 +13,7 @@ import '../../tab';
 import '../../tab-panel';
 import '../../tabs-toolbar';
 import '../../button';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Tabs',
@@ -57,9 +58,9 @@ export const tabsThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [tabsToolbarState, disabledStates]))
 );
 
-export const hiddenTabs = createRenderer(
+export const hiddenTabs = createRenderer(hiddenWrapper(
     html`<nimble-tabs hidden>
         <nimble-tab>Tab One</nimble-tab>
         <nimble-tab-panel>Tab content one</nimble-tab-panel>
     </nimble-tabs>`
-);
+));

@@ -9,6 +9,7 @@ import {
     DisabledState
 } from '../../utilities/tests/matrix';
 import '../index';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Number Field',
@@ -46,6 +47,6 @@ export const numberFieldThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [disabledStates, valueStates]))
 );
 
-export const hiddenNumberField = createRenderer(
+export const hiddenNumberField = createRenderer(hiddenWrapper(
     html`<nimble-number-field hidden>Hidden number field</nimble-number-field>`
-);
+));

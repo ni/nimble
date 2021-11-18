@@ -18,6 +18,7 @@ import {
     IconVisibleState,
     iconVisibleStates
 } from '../../utilities/tests/matrix';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',
@@ -79,8 +80,8 @@ export const treeViewThemeMatrix: Story = createRenderer(
     )
 );
 
-export const hiddenTreeView = createRenderer(
+export const hiddenTreeView = createRenderer(hiddenWrapper(
     html`<nimble-tree-view hidden>
         <nimble-tree-item>Item 1</nimble-tree-item>
     </nimble-tree-view>`
-);
+));
