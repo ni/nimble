@@ -58,7 +58,7 @@ export const tabsThemeMatrix: Story = createRenderer(
 );
 
 export const hiddenTabs = createRenderer(
-    html` <nimble-tabs hidden>
+    html`<nimble-tabs hidden>
         <nimble-tab>Tab One</nimble-tab>
         <nimble-tab-panel>Tab content one</nimble-tab-panel>
     </nimble-tabs>`

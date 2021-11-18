@@ -36,7 +36,9 @@ export const iconThemeMatrix: Story = createRenderer(
 );
 
 export const hiddenIcon = createRenderer(
-    html` <div>
+    html`
+    <!-- Wrap the icon in a div to work around https://github.com/ni/nimble/issues/201 -->
+    <div>
         <nimble-check-icon class="pass" hidden></nimble-check-icon>
     </div>`
 );
