@@ -10,6 +10,42 @@ NI-styled UI components for Angular applications
 
 ## Getting started
 
+*This guide assumes you have an existing Angular application and are using NPM 7 or greater.*
+
+1. Install Nimble Angular from the [public NPM registry](https://www.npmjs.com/package/@ni/nimble-angular) by running `npm install @ni/nimble-angular`.
+2. The steps to use components from Nimble Angular are similar to using components from any other Angular library. You can see the [Example Client App](https://github.com/ni/nimble/tree/main/angular-workspace/projects/example-client-app) project for an example.
+   1. Update your `app.module.ts` to import the module for each component you want to use:
+        ```ts
+        import { NimbleTextFieldModule } from '@ni/nimble-angular';
+
+        @NgModule ({
+        imports: [
+            NimbleTextFieldModule,
+        ]
+        })
+        class AppModule {}
+        ```
+   2. Add the comoponent to your `app.component.html` (or to the template for another component in your application):
+        ```html
+        <nimble-text-field>User name</nimble-text-field>
+        ```
+   3. If needed, import the Nimble component's directive in `app.component.ts` (or the TypeScript file backing another component) to use its programmatic API: 
+        ```ts
+        import { NimbleTextFieldDirective } from '@ni/nimble-angular';
+
+        class AppComponent {
+            @ViewChild('myTextField', { read: NimbleTextFieldDirective }) public textField: NimbleTextFieldDirective;
+
+            public toggleReadOnly() {
+                textField.readonly = !textField.readonly;
+            }
+        }
+        ```
+            
+### Learn more
+
+See the [README.md for the @ni/nimble repository](https://github.com/ni/nimble#readme) for a list of available components and documentation of their API and usage.
+
 ### Using Nimble form controls
 
 For best results, always use `ngModel`, `formControl`, or `formControlName` bindings when integrating Nimble form controls in Angular. Binding to the control's native value property or event (e.g. `[value]` or `(change)`) is not supported, and can cause build failures and other issues. If a value change event is necessary, use `ngModel (ngModelChange)="onChange()"`.
@@ -30,30 +66,3 @@ Currently clients consuming the nimble Angular integration may need to make the 
 ## Contributing
 
 Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify this library.
-
-<!--
-# NimbleAngular
-
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
-
-## Code scaffolding
-
-Run `ng generate component component-name --project nimble-angular` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project nimble-angular`.
-> Note: Don't forget to add `--project nimble-angular` or else it will be added to the default project in your `angular.json` file. 
-
-## Build
-
-Run `ng build nimble-angular` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build nimble-angular`, go to the dist folder `cd dist/nimble-angular` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test nimble-angular` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
--->
