@@ -10,8 +10,6 @@ NI-styled UI components for Angular applications
 
 ## Getting started
 
-You are currently required to set `"buildOptimizer": "false"` in `angular.json`. See [#18](https://github.com/ni/nimble/issues/18) for more info.
-
 ### Using Nimble form controls
 
 For best results, always use `ngModel`, `formControl`, or `formControlName` bindings when integrating Nimble form controls in Angular. Binding to the control's native value property or event (e.g. `[value]` or `(change)`) is not supported, and can cause build failures and other issues. If a value change event is necessary, use `ngModel (ngModelChange)="onChange()"`.
