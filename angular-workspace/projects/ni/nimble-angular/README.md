@@ -25,7 +25,7 @@ NI-styled UI components for Angular applications
         })
         class AppModule {}
         ```
-   2. Add the comoponent to your `app.component.html` (or to the template for another component in your application):
+   2. Add the component to your `app.component.html` (or to the template for another component in your application):
         ```html
         <nimble-text-field>User name</nimble-text-field>
         ```
