@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Update documentation",
+  "packageName": "@ni/nimble-angular-schematics",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
