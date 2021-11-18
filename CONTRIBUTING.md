@@ -37,6 +37,16 @@ From the `nimble` directory:
 1. Add wrappers for each framework. See instructions for [adding Angular wrappers](angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](packages/nimble-blazor/CONTRIBUTING.md).
 1. Publish and use! 🎉
 
+## Documentation policies
+
+1. Documentation for consumers of Nimble should go in `README.md` files. 
+2. Documentation for contributors should go in `CONTRIBUTING.md` files. 
+3. Documentation is hierarchical throughout the repo: 
+   - repo-wide documentation exists at the root
+   - package-specific documentation exists for each package
+   - documentation of specific utilities or components can exist next to the source or in dedicated `docs` folders throughout the repo. Be sure to link to lower-level documents from higher-level ones to aid in discovery.
+5. Links in documentation should use absolute paths to `github.com/ni/nimble/...` (`main` branch), not relative paths. This ensures links across packages will work when viewed outside of GitHub, for example on `npmjs.org` or in an installed package.
+
 ## Pull request policies
 
 ### Beachball change file
