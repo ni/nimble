@@ -3,5 +3,5 @@
   "comment": "Update documentation with usage instructions",
   "packageName": "@ni/nimble-angular",
   "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
