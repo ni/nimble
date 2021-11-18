@@ -45,6 +45,8 @@ export const checkboxThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [disabledStates, checkedStates]))
 );
 
-export const hiddenCheckbox = createRenderer(hiddenWrapper(
-    html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
-));
+export const hiddenCheckbox = createRenderer(
+    hiddenWrapper(
+        html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
+    )
+);

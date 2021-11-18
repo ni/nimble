@@ -58,6 +58,6 @@ export const buttonThemeMatrix: Story = createRenderer(
     )
 );
 
-export const hiddenButton = createRenderer(hiddenWrapper(
-    html`<nimble-button hidden>Hidden Button</nimble-button>`
-));
+export const hiddenButton = createRenderer(
+    hiddenWrapper(html`<nimble-button hidden>Hidden Button</nimble-button>`)
+);

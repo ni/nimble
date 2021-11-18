@@ -8,6 +8,5 @@ export const hiddenWrapper = (template: ViewTemplate): ViewTemplate => {
     return html`<span style="border: 1px solid black;">
         <span style="color: black;">Intentionally blank</span>
         ${template}
-    </span>
-    `;
+    </span> `;
 };
