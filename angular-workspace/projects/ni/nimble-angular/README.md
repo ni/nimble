@@ -19,9 +19,9 @@ NI-styled UI components for Angular applications
         import { NimbleTextFieldModule } from '@ni/nimble-angular';
 
         @NgModule ({
-        imports: [
-            NimbleTextFieldModule,
-        ]
+            imports: [
+                NimbleTextFieldModule,
+            ]
         })
         class AppModule {}
         ```
