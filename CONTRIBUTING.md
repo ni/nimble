@@ -89,7 +89,7 @@ You can also configure this task to execute via a keyboard shortcut by [configur
 
 ### Code owners
 
-Pull Requests require the approval of at least one code owner. Owners are listed in [`CODEOWNERS`](./.github/CODEOWNERS).
+Pull Requests require the approval of at least one code owner. Owners are listed in [`CODEOWNERS`](https://github.com/ni/nimble/blob/main/.github/CODEOWNERS).
 
 ### Completing pull requests
 
