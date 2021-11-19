@@ -9,6 +9,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Checkbox',
@@ -42,4 +43,10 @@ const component = (
 
 export const checkboxThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [disabledStates, checkedStates]))
+);
+
+export const hiddenCheckbox = createRenderer(
+    hiddenWrapper(
+        html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
+    )
 );

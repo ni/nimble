@@ -10,6 +10,7 @@ import {
 } from '../../utilities/tests/matrix';
 import '../index';
 import '../../icons/admin';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Menu',
@@ -36,10 +37,19 @@ const component = (
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
             <nimble-menu-item>${when(() => icon, html`<nimble-admin-icon></nimble-admin-icon>`)}Item 3</nimble-menu-item>
+            <nimble-menu-item hidden>Item 4</nimble-menu-item>
         </nimble-menu>
     </span>
 `;
 
 export const menuThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [iconVisibleStates]))
+);
+
+export const hiddenMenu = createRenderer(
+    hiddenWrapper(
+        html`<nimble-menu hidden>
+            <nimble-menu-item>Item 1</nimble-menu-item>
+        </nimble-menu>`
+    )
 );

@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 import {
     contentFontColor,
     iconSize,
@@ -8,8 +9,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
+    ${display('inline-flex')}
+
     :host {
-        display: inline-flex;
         align-items: center;
         user-select: none;
         width: ${iconSize};

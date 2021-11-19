@@ -7,6 +7,7 @@ import '../../icons/check';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { IconStatus } from './types';
 import { contentFontColor } from '../../theme-provider/design-tokens';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Icon',
@@ -33,4 +34,10 @@ const component = ([stateName, state]: IconStatusState): ViewTemplate => html`
 
 export const iconThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [iconStatusStates]))
+);
+
+export const hiddenIcon = createRenderer(
+    hiddenWrapper(
+        html`<nimble-check-icon class="pass" hidden></nimble-check-icon>`
+    )
 );
