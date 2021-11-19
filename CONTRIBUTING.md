@@ -45,7 +45,7 @@ From the `nimble` directory:
    - repo-wide documentation exists at the root
    - package-specific documentation exists for each package
    - documentation of specific utilities or components can exist next to the source or in dedicated `docs` folders throughout the repo. Be sure to link to lower-level documents from higher-level ones to aid in discovery.
-5. Links in documentation should use absolute paths to `github.com/ni/nimble/...` (`main` branch), not relative paths. This ensures links across packages will work when viewed outside of GitHub, for example on `npmjs.org` or in an installed package.
+5. Links in documentation within the repo should use relative paths from the root of the repo (i.e. `/packages/nimble-components/docs/`, not `../nimble-components/docs`). This ensures links across packages will work both on GitHub and on `npmjs.org`.
 
 ## Pull request policies
 
@@ -89,7 +89,7 @@ You can also configure this task to execute via a keyboard shortcut by [configur
 
 ### Code owners
 
-Pull Requests require the approval of at least one code owner. Owners are listed in [`CODEOWNERS`](https://github.com/ni/nimble/blob/main/.github/CODEOWNERS).
+Pull Requests require the approval of at least one code owner. Owners are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
 
 ### Completing pull requests
 

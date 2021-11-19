@@ -13,7 +13,7 @@ NI-styled UI components for Angular applications
 *This guide assumes you have an existing Angular application and are using NPM 7 or greater.*
 
 1. Install Nimble Angular from the [public NPM registry](https://www.npmjs.com/package/@ni/nimble-angular) by running `npm install @ni/nimble-angular`.
-2. The steps to use components from Nimble Angular are similar to using components from any other Angular library. You can see the [Example Client App](https://github.com/ni/nimble/tree/main/angular-workspace/projects/example-client-app) project for an example.
+2. The steps to use components from Nimble Angular are similar to using components from any other Angular library. You can see the [Example Client App](/angular-workspace/projects/example-client-app) project for an example.
    1. Update your `app.module.ts` to import the module for each component you want to use:
         ```ts
         import { NimbleTextFieldModule } from '@ni/nimble-angular';
@@ -44,7 +44,7 @@ NI-styled UI components for Angular applications
             
 ### Learn more
 
-See the [README.md for the @ni/nimble repository](https://github.com/ni/nimble#readme) for a list of available components and documentation of their API and usage.
+See the [README.md for the ni/nimble repository](/README.md) for a list of available components and documentation of their API and usage.
 
 ### Using Nimble form controls
 

@@ -118,7 +118,7 @@ Use the `html` tagged template helper to define your custom template. See [decla
 
 #### CSS
 
-Component CSS should follow the patterns described in [CSS Guidelines](https://github.com/ni/nimble/blob/main/packages/nimble-components/docs/css-guidelines.md).
+Component CSS should follow the patterns described in [CSS Guidelines](/packages/nimble-components/docs/css-guidelines.md).
 
 #### Comments
 
