@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 19 Nov 2021 16:42:10 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.92",
+      "version": "1.0.0-beta.92",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "comment": "Make hidden styling consistent",
+            "commit": "02986b95774d759606e180892062c910c3f425fd"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Nov 2021 17:31:11 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.91",
       "version": "1.0.0-beta.91",
