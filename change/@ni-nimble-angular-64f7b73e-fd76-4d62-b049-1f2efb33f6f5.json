@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Manage all npm publishing in separate pipeline",
-  "packageName": "@ni/nimble-angular",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
