@@ -3,6 +3,8 @@ name: 'publish'
 on:
   push:
     tags:
+    - "@ni/nimble-tokens_v*"
+    - "@ni/nimble-components_v*"
     - "@ni/nimble-angular_v*"
 
 jobs:
@@ -22,14 +24,35 @@ jobs:
       # Build
       - run: npm run build
 
-      # Pack (skipped, assuming tagged commits already packed)
+      # Pack
+      - run: npm run pack
+      - uses: actions/upload-artifact@v2
+        with:
+          name: packages
+          path: |
+            packages/**/*.tgz
+            angular-workspace/**/*.tgz
+          if-no-files-found: error
 
       # Test (skipped, assuming tagged commits already tested)
 
       # Publish
+      - name: Publish @ni/nimble-tokens
+        if: startsWith(github.ref, 'refs/tags/@ni/nimble-tokens_v')
+        run: npm publish
+        working-directory: ./packages/nimble-tokens
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Publish Angular
-      - if: startsWith(github.ref, 'refs/tags/@ni/nimble-angular_v')
+      - name: Publish @ni/nimble-components
+        if: startsWith(github.ref, 'refs/tags/@ni/nimble-components_v')
+        run: npm publish
+        working-directory: ./packages/nimble-components
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @ni/nimble-angular
+        if: startsWith(github.ref, 'refs/tags/@ni/nimble-angular_v')
         run: npm publish
         working-directory: ./angular-workspace/dist/ni/nimble-angular
         env:
