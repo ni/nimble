@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 19 Nov 2021 16:42:10 GMT and should not be manually modified.
+This log was last generated on Mon, 22 Nov 2021 17:38:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.108
+
+Mon, 22 Nov 2021 17:38:38 GMT
+
+### Changes
+
+- Separate angular publish from main (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.107
 
