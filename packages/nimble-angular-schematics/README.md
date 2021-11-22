@@ -16,4 +16,4 @@ TODO
 
 ## Contributing
 
-Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify this library.
+Follow the instructions in [CONTRIBUTING.md](/packages/nimble-angular-schematics/CONTRIBUTING.md) to modify this library.

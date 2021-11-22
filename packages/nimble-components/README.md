@@ -17,4 +17,4 @@ If you are using one of the following frameworks see associated wrapper document
 
 ## Contributing
 
-Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify this library.
+Follow the instructions in [CONTRIBUTING.md](/packages/nimble-components/CONTRIBUTING.md) to modify this library.

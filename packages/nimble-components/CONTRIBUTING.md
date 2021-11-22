@@ -70,7 +70,7 @@ Create a new folder named after your component with some core files:
 | File                                   | Description                                                                                                                                                                                                                                    |
 | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | index.ts                               | Contains the component class definition and registration. All Typescript logic contained in the component belongs here.                                                                                                                        |
-| styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](src/theme-provider/design-tokens.ts).                                             |
+| styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts).                 |
 | template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                     |
 | tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                     |
 | tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                          |
@@ -204,16 +204,16 @@ The following commands can be run from the `nimble` directory:
 
 ### Test utilities
 
-Test utilities located in [`/src/testing`](src/testing) may be used for testing:
+Test utilities located in [`/src/testing`](/packages/nimble-components/src/testing) may be used for testing:
 
 -   performed inside the `@ni/nimble-components` package or
 -   by other packages in the monorepo or users consuming the built package
 
-Test utilties located in [`/src/utilities/tests`](src/utilities/tests) are just for tests in the `@ni/nimble-components` package and are not shared externally.
+Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/src/utilities/tests) are just for tests in the `@ni/nimble-components` package and are not shared externally.
 
 #### Fixtures
 
-The jasmine unit tests utilize [`fixture.ts`](src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](src/utilities/tests/fixture.spec.ts).
+The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/fixture.spec.ts).
 
 ## Theming
 

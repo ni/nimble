@@ -20,10 +20,10 @@ The NI Nimble Design System: styled UI components for NI applications.
 
 This repository contains the source for the following packages:
 
-- **[`@ni/nimble-angular`](angular-workspace/projects/ni/nimble-angular/)** - styled Angular components for use in NI Angular applications
-- **[`@ni/nimble-blazor`](packages/nimble-blazor/)** - styled Blazor components for use in NI Blazor applications
-- **[`@ni/nimble-components`](packages/nimble-components/)** - styled web components for use in other applications (also used by `nimble-angular` and `nimble-blazor`)
-- **[`@ni/nimble-tokens`](packages/nimble-tokens/)** - design tokens used by the component packages
+- **[`@ni/nimble-angular`](/angular-workspace/projects/ni/nimble-angular/)** - styled Angular components for use in NI Angular applications
+- **[`@ni/nimble-blazor`](/packages/nimble-blazor/)** - styled Blazor components for use in NI Blazor applications
+- **[`@ni/nimble-components`](/packages/nimble-components/)** - styled web components for use in other applications (also used by `nimble-angular` and `nimble-blazor`)
+- **[`@ni/nimble-tokens`](/packages/nimble-tokens/)** - design tokens used by the component packages
 
 Consult the `README.md` for each package to learn more, including how to use it in an application.
 
@@ -37,7 +37,7 @@ We welcome feedback and contributions!
 
 ## Learning
 
-- [Architecture](docs/Architecture.md) - Architecture of the design system packages and monorepo
+- [Architecture](/docs/Architecture.md) - Architecture of the design system packages and monorepo
 
 ## Contributing
 
@@ -52,7 +52,7 @@ From the `nimble` directory:
 
     **Note**: You will need to refresh your browser window to see style changes made in source.
 
-Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify the design system.
+Follow the instructions in [CONTRIBUTING.md](/CONTRIBUTING.md) to modify the design system.
 
 ## Component Status
 
