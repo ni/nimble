@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Remove xhtml style self-closing tags",
-  "packageName": "@ni/nimble-tokens",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
