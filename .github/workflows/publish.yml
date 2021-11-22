@@ -1,0 +1,36 @@
+name: 'publish'
+
+on:
+  push:
+    tags:
+    - "@ni/nimble-angular_v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      # Install dependencies
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install --global npm@7
+      - run: npm ci
+
+      # Build
+      - run: npm run build
+
+      # Pack (skipped, assuming tagged commits already packed)
+
+      # Test (skipped, assuming tagged commits already tested)
+
+      # Publish
+
+      # Publish Angular
+      - if: startsWith(github.ref, 'refs/tags/@ni/nimble-angular_v')
+        run: npm publish
+        working-directory: ./angular-workspace/dist/ni/nimble-angular
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
