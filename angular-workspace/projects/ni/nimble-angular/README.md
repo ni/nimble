@@ -44,7 +44,7 @@ NI-styled UI components for Angular applications
             
 ### Learn more
 
-See the [README.md for the ni/nimble repository](/README.md) for a list of available components and documentation of their API and usage.
+See the [README.md for the ni/nimble repository](/README.md) for documentation of individual components.
 
 ### Using Nimble form controls
 
