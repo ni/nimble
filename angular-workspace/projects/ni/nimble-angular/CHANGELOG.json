@@ -2,6 +2,81 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 22 Nov 2021 20:29:22 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.111",
+      "version": "1.0.0-beta.111",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "d0715f5b12b11add6a46868b1179e6183b3419c8",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.111"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Nov 2021 19:45:19 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.110",
+      "version": "1.0.0-beta.110",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Update publish cli flag",
+            "commit": "dae78846f7a0b80d0cfd189c3a9862cce585f5b0"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Nov 2021 19:00:09 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.109",
+      "version": "1.0.0-beta.109",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Manage all npm publishing in separate pipeline",
+            "commit": "e39813b97320d65ca311fa80d5c32984bf155290"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Nov 2021 17:38:38 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.108",
+      "version": "1.0.0-beta.108",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "comment": "Separate angular publish from main",
+            "commit": "d970297255cf9279263de17746d5c21cab132e4d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Nov 2021 16:42:10 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.107",
+      "version": "1.0.0-beta.107",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "02986b95774d759606e180892062c910c3f425fd",
+            "comment": "Bump @ni/nimble-angular to v1.0.0-beta.107"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Nov 2021 17:31:11 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.106",
       "version": "1.0.0-beta.106",

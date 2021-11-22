@@ -16,6 +16,7 @@ import {
 
 export const styles = css`
     ${display('grid')}
+
     :host {
         contain: layout;
         overflow: visible;

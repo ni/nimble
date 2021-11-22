@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - '*'
-    tags:
-      - 'v*'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -16,6 +14,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-18.04
+    if: "!contains(github.event.head_commit.message, '[package-publish]')"
     steps:
       - uses: actions/checkout@v2
         with:
@@ -105,7 +104,7 @@ jobs:
         run: npm run publish-ci -- -n $NPM_SECRET_TOKEN
       # Beachball doesn't update package-lock.json files when publishing.
       # See https://github.com/microsoft/beachball/issues/525#issue-901698225
-      # Modified to only commit on changes: https://stackoverflow.com/a/68479810      
+      # Modified to only commit on changes: https://stackoverflow.com/a/68479810
       - name: Lockfile update
         if: startsWith(github.ref, 'refs/heads/main')
         run: |

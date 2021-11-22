@@ -18,6 +18,7 @@ import {
     IconVisibleState,
     iconVisibleStates
 } from '../../utilities/tests/matrix';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',
@@ -59,6 +60,9 @@ const component = (
             ${when(() => iconVisible, html`<nimble-settings-icon></nimble-settings-icon>`)}
                 Nested Item 3
             </nimble-tree-item>
+            <nimble-tree-item hidden>
+                Nested Item 4
+            </nimble-tree-item>
         </nimble-tree-item>
     </nimble-tree-view>
 `;
@@ -73,5 +77,13 @@ export const treeViewThemeMatrix: Story = createRenderer(
             selectedStates,
             iconVisibleStates
         ])
+    )
+);
+
+export const hiddenTreeView = createRenderer(
+    hiddenWrapper(
+        html`<nimble-tree-view hidden>
+            <nimble-tree-item>Item 1</nimble-tree-item>
+        </nimble-tree-view>`
     )
 );

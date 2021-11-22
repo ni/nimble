@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 22 Nov 2021 20:29:22 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.23",
+      "version": "1.0.0-beta.23",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "Update CONTRIBUTING.md to trigger build",
+            "commit": "d0715f5b12b11add6a46868b1179e6183b3419c8"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Nov 2021 17:31:11 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.22",
       "version": "1.0.0-beta.22",
