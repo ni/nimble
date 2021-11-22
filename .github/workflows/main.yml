@@ -102,28 +102,3 @@ jobs:
         env:
           NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm run publish-ci -- -n $NPM_SECRET_TOKEN
-      # Beachball doesn't update package-lock.json files when publishing.
-      # See https://github.com/microsoft/beachball/issues/525#issue-901698225
-      # Modified to only commit on changes: https://stackoverflow.com/a/68479810
-      - name: Lockfile update
-        if: startsWith(github.ref, 'refs/heads/main')
-        run: |
-          echo "Latest commit before merge main"
-          git log -1
-          echo "Merging from main"
-          git merge --ff-only origin/main
-          echo "Latest commit after merge main"
-          git log -1
-          echo "Clearing node_modules"
-          rm -rf node_modules
-          echo "Updating lock file"
-          npm i --package-lock-only
-          git add -A
-          if git diff-index --quiet HEAD;
-          then
-            echo "no changes found to push to main"
-          else
-            echo "changes found to push to main"
-            git commit -m "applying package lock updates [skip ci]"
-            git push --set-upstream origin main
-          fi
