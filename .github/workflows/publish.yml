@@ -19,7 +19,10 @@ jobs:
           node-version: '12'
           registry-url: 'https://registry.npmjs.org'
       - run: npm install --global npm@7
-      - run: npm ci
+      # Use npm install instead of npm ci
+      # Mostly safe as the tags should be a result of recent successful npm ci in main
+      # Avoids a race condition with the updated lock file publishing
+      - run: npm install
 
       # Build
       - run: npm run build
