@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Separate angular publish from main",
+  "packageName": "@ni/nimble-angular",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
