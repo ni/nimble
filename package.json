@@ -35,6 +35,7 @@
     "packages/nimble-tokens",
     "packages/nimble-components",
     "angular-workspace",
+    "angular-workspace/projects/ni/nimble-angular",
     "packages/nimble-angular-schematics",
     "packages/nimble-blazor",
     "packages/site"
