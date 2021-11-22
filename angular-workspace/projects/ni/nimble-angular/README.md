@@ -16,28 +16,30 @@ NI-styled UI components for Angular applications
 2. The steps to use components from Nimble Angular are similar to using components from any other Angular library. You can see the [Example Client App](/angular-workspace/projects/example-client-app) project for an example.
    1. Update your `app.module.ts` to import the module for each component you want to use:
         ```ts
-        import { NimbleTextFieldModule } from '@ni/nimble-angular';
+        import { NimbleDrawerModule } from '@ni/nimble-angular';
 
         @NgModule ({
             imports: [
-                NimbleTextFieldModule,
+                NimbleDrawerModule,
             ]
         })
         class AppModule {}
         ```
    2. Add the component to your `app.component.html` (or to the template for another component in your application):
         ```html
-        <nimble-text-field>User name</nimble-text-field>
+        <nimble-drawer #drawerReference [location]="location">This is a drawer</nimble-drawer>
         ```
-   3. If needed, import the Nimble component's directive in `app.component.ts` (or the TypeScript file backing another component) to use its programmatic API: 
+   3. If needed, import the Nimble component's directive and types in `app.component.ts` (or the TypeScript file backing another component) to use its programmatic API: 
         ```ts
-        import { NimbleTextFieldDirective } from '@ni/nimble-angular';
+        import { DrawerLocation, NimbleDrawerDirective } from '@ni/nimble-angular';
 
+        @Component({ /* ... */ })
         class AppComponent {
-            @ViewChild('myTextField', { read: NimbleTextFieldDirective }) public textField: NimbleTextFieldDirective;
+            @Input() public location: DrawerLocation = DrawerLocation.Right;
+            @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public drawer: NimbleDrawerDirective;
 
-            public toggleReadOnly() {
-                textField.readonly = !textField.readonly;
+            public openDrawer() {
+                this.drawer.show();
             }
         }
         ```
