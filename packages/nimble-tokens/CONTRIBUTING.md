@@ -23,7 +23,7 @@ For changes to any token values, work with the Visual Design team to update the 
 1. Ensure you have the [Adobe XD extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Adobe.xd&ssr=false#overview) installed.
 2. Open the XD extension (invoke [Show All Commands](https://code.visualstudio.com/docs/getstarted/keybindings#_navigation) and execute command `XD: Toggle Adobe XD Panel`) and load the nimble-tokens-dsp package by selecting the `nimble-tokens` folder.
 3. Click the **DSP Setting** button (bottom left). If the button is not available, open the XD extension settings to confirm that the `XD: Global Editor` setting is **checked** for both user and workspace.
-4. Delete the `*.svg` files in the `nimble-tokens/assets` folder. The import process will populate this folder, but won't remove unnecessary files.
+4. Delete the `*.svg` files in the `nimble-tokens/assets` folder. The import process will populate this folder, but will not remove unnecessary files.
 5. Scroll to the bottom of the DSP Setting page and click the **Re-import** button to update the CC LIBRARY LINK.
 6. Save the settings change.
 7. Click the **Start Editing** button and then the **Stop Editing** button to trigger a token build.
