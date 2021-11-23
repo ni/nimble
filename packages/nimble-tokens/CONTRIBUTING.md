@@ -2,15 +2,15 @@
 
 ## Repository layout
 
-| Folder       | Description                                                   |
-| ------------ | ------------------------------------------------------------- |
-| assets       | _Managed by Adobe XD DSP extension_                           |
-| assets-fonts | Fonts for nimble-components                                   |
-| assets-icons | SVG assets produced by NI visual designers                    |
-| data         | _Managed by Adobe XD DSP extension_                           |
-| dist         | _Managed by Adobe XD DSP extension_                           |
-| dist-\*      | Build output for icons and fonts that need further processing |
-| source       | Icon build scripts and font face definitions                  |
+| Folder       | Description                                  |
+| ------------ | ---------------------------------------------|
+| assets       | _Managed by Adobe XD DSP extension_          |
+| assets-fonts | Fonts for nimble-components                  |
+| assets-icons | SVG assets produced by NI visual designers   |
+| data         | _Managed by Adobe XD DSP extension_          |
+| dist         | _Managed by Adobe XD DSP extension_          |
+| dist-\*      | Built assets to use in nimble-components     |
+| source       | Icon build scripts and font face definitions |
 
 ## Editing Tokens
 
