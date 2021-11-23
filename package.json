@@ -12,7 +12,7 @@
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "publish": "beachball publish --message \"applying package updates [skip ci]\"",
-    "publish-ci": "beachball publish --no-publish --yes --access public --message \"applying package updates [package-publish]\"",
+    "publish-ci": "beachball publish -c ./beachball.config.js",
     "validate": "npm run build && npm run lint && npm run test",
     "performance": "lhci autorun"
   },

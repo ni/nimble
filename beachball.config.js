@@ -60,6 +60,10 @@ const postbump = (_packagePath, packageName, packageVersion) => {
 };
 
 module.exports = {
+    publish: false,
+    message: 'applying package updates [package-publish]',
+    access: 'public',
+    yes: true,
     hooks: {
         postbump
     }

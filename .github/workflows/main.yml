@@ -96,9 +96,7 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/main')
         run: dpl --provider=pages --repo=ni/nimble --local_dir=packages/site/dist --skip_cleanup --name="${{ env.GITHUB_SERVICE_USER }}" --email="${{ env.GITHUB_SERVICE_EMAIL }}" --github-token=${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
-      # Publish NPM packages (only from main)
+      # Update package versions and tag but not publish to npm (only from main)
       - name: Beachball publish
         if: startsWith(github.ref, 'refs/heads/main')
-        env:
-          NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm run publish-ci -- -n $NPM_SECRET_TOKEN
+        run: npm run publish-ci
