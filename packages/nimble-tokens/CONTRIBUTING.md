@@ -14,7 +14,7 @@
 
 ## Editing Tokens
 
-New tokens are added to this package with the Adobe XD Visual Studio extension.
+New tokens are added to this package with the [Adobe XD Visual Studio extension](https://marketplace.visualstudio.com/items?itemName=Adobe.xd&ssr=false#overview).
 
 The source of truth for the colors, fonts, and component design tokens in this repository is an Adobe XD [Design Library file](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/) maintained by the Visual Design team.
 
