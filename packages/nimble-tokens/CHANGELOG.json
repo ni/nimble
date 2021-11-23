@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 23 Nov 2021 00:41:11 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.27",
+      "version": "1.0.0-beta.27",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "fd9cbb71e65fa40da28f7babd2d161f0205b2aa3",
+            "comment": "applying package updates [package-publish]"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 23 Nov 2021 00:23:48 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.26",
       "version": "1.0.0-beta.26",

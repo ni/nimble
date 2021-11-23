@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 23 Nov 2021 00:41:11 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.97",
+      "version": "1.0.0-beta.97",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0-beta.27",
+            "commit": "fd9cbb71e65fa40da28f7babd2d161f0205b2aa3"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 23 Nov 2021 00:23:48 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.96",
       "version": "1.0.0-beta.96",
