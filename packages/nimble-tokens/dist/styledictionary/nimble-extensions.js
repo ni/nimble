@@ -1,43 +1,43 @@
-const config = require('./config');
 const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
 const hexRgb = require('hex-rgb');
 const StyleDictionary = require('style-dictionary');
+const config = require('./config');
 
 // Workaround to include TypeScript definitions in output.
 // See: https://github.com/AdobeXD/design-system-package-dsp/issues/22
 
 config.platforms.js.files.push({
-    "destination": "tokens.d.ts",
-    "format": "typescript/es6-declarations"
+    destination: 'tokens.d.ts',
+    format: 'typescript/es6-declarations'
 });
 
 module.exports = config;
 
 StyleDictionary.registerTransform({
-    type: `value`,
+    type: 'value',
     transitive: true,
-    name: `font/weight`,
-    matcher: (token) => token.attributes.category === 'font',
-    transformer: (token) => {
-        if (token.value == 'Light') token.value = '300'; 
-        else if (token.value == 'Regular') token.value = '400'; 
-        else if (token.value == 'Semibold') token.value = '600'; 
-        else if (token.value == 'Bold') token.value = '700'; 
+    name: 'font/weight',
+    matcher: token => token.attributes.category === 'font',
+    transformer: token => {
+        if (token.value === 'Light') token.value = '300';
+        else if (token.value === 'Regular') token.value = '400';
+        else if (token.value === 'Semibold') token.value = '600';
+        else if (token.value === 'Bold') token.value = '700';
         return token.value;
     }
-})
+});
 
 // Combination of DSP & Nimble transform overrides
 StyleDictionary.registerTransformGroup({
     name: 'css',
     transforms: [
         'attribute/cti',
-        'name/dsp/kebab', //replaces 'name/cti/kebab',
+        'name/dsp/kebab', // replaces 'name/cti/kebab',
         'time/seconds',
         'content/icon',
-        'size/px', //replaces size/rem from DSP config
+        'size/px', // replaces size/rem from DSP config
         'color/css',
         'font/weight'
     ]
@@ -48,8 +48,8 @@ StyleDictionary.registerTransformGroup({
     name: 'js',
     transforms: [
         'attribute/cti',
-        'name/dsp/pascal', //replaces 'name/cti/pascal',
-        'size/px', //replaces size/rem from DSP config
+        'name/dsp/pascal', // replaces 'name/cti/pascal',
+        'size/px', // replaces size/rem from DSP config
         'color/hex',
         'font/weight'
     ]
@@ -57,7 +57,7 @@ StyleDictionary.registerTransformGroup({
 
 // Templates and transforms to build XAML compatible token resource dictionaries
 const xamlColorTemplatePath = path.resolve(__dirname, './templates/XamlColor.template');
-console.log(`XamlColor template path: ${xamlColorTemplatePath }`);
+console.log(`XamlColor template path: ${xamlColorTemplatePath}`);
 const xamlColorTemplate = _.template(fs.readFileSync(xamlColorTemplatePath));
 
 StyleDictionary.registerFormat({
@@ -68,34 +68,35 @@ StyleDictionary.registerFormat({
 StyleDictionary.registerTransformGroup({
     name: 'ni-xaml-color',
     transforms: [
-      'attribute/cti',
-      'size/px',
-      'color/hex8android'
+        'attribute/cti',
+        'size/px',
+        'color/hex8android'
     ]
-  });
+});
 
-  const xamlStyleDictionary = StyleDictionary.extend(
+const xamlStyleDictionary = StyleDictionary.extend(
     {
-        "source": [
-          "properties/colors.json"
+        source: [
+            'properties/colors.json'
         ],
-        "platforms": {
-            "xaml": {
-                "files": [
+        platforms: {
+            xaml: {
+                files: [
                     {
-                        "destination": "colors.xaml",
-                        "format": "xaml/XamlColor"
+                        destination: 'colors.xaml',
+                        format: 'xaml/XamlColor'
                     }
                 ],
-                "transformGroup": "ni-xaml-color",
-                "buildPath": "xaml/"
+                transformGroup: 'ni-xaml-color',
+                buildPath: 'xaml/'
             }
-        }   
-  });
+        }
+    }
+);
 
 // Templates and transforms to build C# token class
 const cSharpClassColorTemplatePath = path.resolve(__dirname, './templates/cSharpClassColor.template');
-console.log(`cSharpClassColor template path: ${cSharpClassColorTemplatePath }`);
+console.log(`cSharpClassColor template path: ${cSharpClassColorTemplatePath}`);
 const cSharpClassColorTemplate = _.template(fs.readFileSync(cSharpClassColorTemplatePath));
 
 StyleDictionary.registerFormat({
@@ -104,15 +105,15 @@ StyleDictionary.registerFormat({
 });
 
 StyleDictionary.registerTransform({
-    type: `value`,
+    type: 'value',
     transitive: true,
-    name: `color/FromRgb`,
-    matcher: (token) => token.attributes.category === 'color',
-    transformer: (token) => {
+    name: 'color/FromRgb',
+    matcher: token => token.attributes.category === 'color',
+    transformer: token => {
         const color = hexRgb(token.value);
         return `${color.red}, ${color.green}, ${color.blue}`;
     }
-})
+});
 
 StyleDictionary.registerTransformGroup({
     name: 'ni-color-class',
@@ -123,25 +124,25 @@ StyleDictionary.registerTransformGroup({
     ]
 });
 
-  const cSharpClassStyleDictionary = StyleDictionary.extend(
+const cSharpClassStyleDictionary = StyleDictionary.extend(
     {
-        "source": [
-          "properties/colors.json",
+        source: [
+            'properties/colors.json',
         ],
-        "platforms": {
-            "xaml": {
-                "files": [
+        platforms: {
+            xaml: {
+                files: [
                     {
-                        "destination": "colors.cs",
-                        "format": "cSharpClass/Color"
+                        destination: 'colors.cs',
+                        format: 'cSharpClass/Color'
                     }
                 ],
-                "transformGroup": "ni-color-class",
-                "buildPath": "csharp/"
+                transformGroup: 'ni-color-class',
+                buildPath: 'csharp/'
             }
-        }   
-  });
-  
-  xamlStyleDictionary.buildAllPlatforms();
-  cSharpClassStyleDictionary.buildAllPlatforms();
+        }
+    }
+);
 
+xamlStyleDictionary.buildAllPlatforms();
+cSharpClassStyleDictionary.buildAllPlatforms();
