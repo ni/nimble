@@ -8,6 +8,7 @@ describe('hello world', () => {
         const postbump = createPostbump(lockFile);
         postbump('', '', '');
         const result = fs.readFileSync(lockFile, { encoding: 'utf-8' });
-        expect(result).toBe('hello');
+        const resultNormalized = JSON.stringify(JSON.parse(result));
+        expect(resultNormalized).toBe('{}');
     });
 });
