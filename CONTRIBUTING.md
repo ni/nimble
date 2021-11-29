@@ -14,7 +14,7 @@ This repository uses the following tooling. See below for more info.
 
 - [Design System HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Design%20System%20for%20Angular%20and%20Blazor%20UI%20Components.md&version=GBmaster&_a=preview)
 - [Nimble Angular HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Nimble%20Angular.md&version=GBmaster&_a=preview)
-- [Nimble architecture](docs/Architecture.md)
+- [Nimble architecture](/docs/Architecture.md)
 - [Nimble Components XD Library](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/)
 
 ## Getting started
@@ -32,8 +32,8 @@ From the `nimble` directory:
 
 ### Adding a new component
 
-1. Ensure UX specs are up to date and tokens are generated. See instructions for [contributing to nimble tokens](packages/nimble-tokens/CONTRIBUTING.md).
-2. Expose any tokens in the token provider and add web component logic. See instructions for [contributing to nimble components](packages/nimble-components/CONTRIBUTING.md).
+1. Ensure UX specs are up to date and tokens are generated. See instructions for [contributing to nimble tokens](/packages/nimble-tokens/CONTRIBUTING.md).
+2. Expose any tokens in the token provider and add web component logic. See instructions for [contributing to nimble components](/packages/nimble-components/CONTRIBUTING.md).
 3. Add wrappers for each framework. See instructions for [adding Angular wrappers](/angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](/packages/nimble-blazor/CONTRIBUTING.md).
 4. Publish and use! 🎉
 
