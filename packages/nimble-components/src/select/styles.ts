@@ -16,7 +16,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('inline-flex')} :host {
+    ${display('inline-flex')}
+
+    :host {
         box-sizing: border-box;
         color: ${contentFontColor};
         font-family: ${fontFamily};

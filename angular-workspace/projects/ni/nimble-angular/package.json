@@ -1,11 +1,7 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "1.0.0-beta.106",
+  "version": "1.0.0-beta.117",
   "description": "Angular components for the NI Nimble Design System",
-  "scripts": {
-    "prepack": "node build/copyBuildOutputForPack.js",
-    "postpack": "node build/copyBuildOutputForPack.js clean"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -22,29 +18,9 @@
     "@angular/common": "^12.1.0",
     "@angular/core": "^12.1.0",
     "@angular/forms": "^12.1.0",
-    "@ni/nimble-components": "^1.0.0-beta.91"
+    "@ni/nimble-components": "^1.0.0-beta.99"
   },
   "dependencies": {
     "tslib": "^2.2.0"
-  },
-  "files": [
-    "bundles/**",
-    "directives/**",
-    "esm2015/**",
-    "fesm2015/**",
-    "ni-nimble-angular.d.ts",
-    "public-api.d.ts"
-  ],
-  "devDependencies": {
-    "cp-file": "^9.1.0",
-    "eslint-plugin-jsdoc": "^36.1.0",
-    "glob": "^7.2.0"
-  },
-  "main": "bundles/ni-nimble-angular.umd.js",
-  "module": "fesm2015/ni-nimble-angular.js",
-  "es2015": "fesm2015/ni-nimble-angular.js",
-  "esm2015": "esm2015/ni-nimble-angular.js",
-  "fesm2015": "fesm2015/ni-nimble-angular.js",
-  "typings": "ni-nimble-angular.d.ts",
-  "sideEffects": false
+  }
 }

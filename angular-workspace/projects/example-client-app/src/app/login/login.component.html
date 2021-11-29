@@ -1,15 +1,7 @@
-<nimble-theme-provider [theme]="theme">
-    <div class="container">
-        <nimble-select class="theme-select" [(ngModel)]="theme">
-            <nimble-listbox-option [value]="themes.Light">Light theme</nimble-listbox-option>
-            <nimble-listbox-option [value]="themes.Dark">Dark theme</nimble-listbox-option>
-        </nimble-select>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="login-container">
-                <nimble-text-field formControlName="username" [ngClass]="{'invalid': !this.loginForm.controls.username.pristine && this.loginForm.controls.username.invalid}">Username</nimble-text-field>
-                <nimble-text-field formControlName="password" type="password" [ngClass]="{'invalid': !this.loginForm.controls.password.pristine && this.loginForm.controls.password.invalid}">Password</nimble-text-field>
-                <nimble-button type="submit" [disabled]="!!this.loginForm.controls.username.errors || !!this.loginForm.controls.password.errors" [appearance]="buttonAppearance.Block">Login</nimble-button>
-            </div>
-        </form>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="login-container">
+        <nimble-text-field formControlName="username" [ngClass]="{'invalid': !this.loginForm.controls.username.pristine && this.loginForm.controls.username.invalid}">Username</nimble-text-field>
+        <nimble-text-field formControlName="password" type="password" [ngClass]="{'invalid': !this.loginForm.controls.password.pristine && this.loginForm.controls.password.invalid}">Password</nimble-text-field>
+        <nimble-button type="submit" [disabled]="!!this.loginForm.controls.username.errors || !!this.loginForm.controls.password.errors" [appearance]="buttonAppearance.Block">Login</nimble-button>
     </div>
-</nimble-theme-provider>
+</form>
