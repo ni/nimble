@@ -1,0 +1,23 @@
+<svg id="Nav_Tree_Group_Selected_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="248" height="32" viewBox="0 0 248 32">
+  <defs>
+    <clipPath id="clip-path">
+      <rect y="2" width="160" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Background">
+    <rect id="Background-2" data-name="Background" width="248" height="32" fill="#00b888" opacity="0"/>
+    <rect id="Rollover" width="248" height="32" fill="#00b888" opacity="0"/>
+    <rect id="SelectionRectangle" width="2" height="32" fill="#00b888"/>
+    <rect id="Selected" width="248" height="2" transform="translate(0 15)" fill="#00b888" opacity="0"/>
+  </g>
+  <g id="Error_Group" data-name="Error Group" transform="translate(-8 7)">
+    <rect id="IconLocation" width="16" height="16" transform="translate(224)" fill="#3cb4e7" opacity="0"/>
+  </g>
+  <g id="Icon" transform="translate(16 7)">
+    <rect id="IconLocation-2" data-name="IconLocation" width="16" height="16" fill="#c1e0ff" opacity="0"/>
+    <path id="Controls_Arrow_Expander_Down_16x16" d="M3.5,4.918l1.421-.913L7.972,8.853,11.088,4l1.412.926L7.956,12Z" transform="translate(0 16) rotate(-90)" fill="#161617"/>
+  </g>
+  <g id="Scroll_Group_39" data-name="Scroll Group 39" transform="translate(40 6)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <text id="Group_label" data-name="Group label" transform="translate(0 14)" fill="#161617" font-size="11" font-family="SpaceMono-Regular, Space Mono"><tspan x="0" y="0">GROUP LABEL</tspan></text>
+  </g>
+</svg>

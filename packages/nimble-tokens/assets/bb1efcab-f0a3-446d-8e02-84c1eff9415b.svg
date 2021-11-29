@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="145" height="111.5" viewBox="0 0 145 111.5">
+  <defs>
+    <filter id="Rectangle_10522" x="0" y="100.5" width="145" height="11" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feFlood flood-opacity="0.102"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="_17" data-name="17" transform="translate(4.5)">
+    <g transform="matrix(1, 0, 0, 1, -4.5, 0)" filter="url(#Rectangle_10522)">
+      <rect id="Rectangle_10522-2" data-name="Rectangle 10522" width="136" height="2" transform="translate(4.5 104)" fill="#fff" opacity="0"/>
+    </g>
+    <text id="SYSTEMS" transform="translate(68 64)" fill="#161617" font-size="12" font-family="SpaceMono-Regular, Space Mono" style="isolation: isolate"><tspan x="-25.704" y="0">SYSTEMS</tspan></text>
+    <text id="_17-2" data-name="17" transform="translate(68 38)" fill="#161617" font-size="36" font-family="NotoSerif, Noto Serif" letter-spacing="0.01em" style="isolation: isolate"><tspan x="-20.307" y="0">17</tspan></text>
+  </g>
+</svg>

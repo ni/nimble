@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Fri, 08 Oct 2021 15:20:23 GMT
+ * Generated on Wed, 17 Nov 2021 19:43:39 GMT
  */
 
 :root {
@@ -30,26 +30,70 @@
   --brand-100: #009b65;
   --fail-85: #cf1a37;
   --rgb-ni-sky: #3cb4e7;
-  --banner-fail-100-dark-ui: #b3000c;
+  --banner-fail-100-dark-ui: #d63434;
   --warning-100-light-ui: #ff4b00;
-  --header-2-family: Source Sans Pro;
-  --header-2-weight: Light;
-  --overline-capitalized-family: Space Mono;
-  --overline-capitalized-weight: Regular;
+  --black-30: #d3d5d6;
+  --black-50: #aeb0b3;
+  --title-2-family: Source Sans Pro;
+  --title-2-weight: 400;
+  --control-label-1-family: Source Sans Pro;
+  --control-label-1-weight: 600;
   --body-family: Source Sans Pro;
-  --body-weight: Regular;
+  --body-weight: 400;
   --header-0-family: Noto Serif;
-  --header-0-weight: Regular;
+  --header-0-weight: 400;
   --sub-header-family: Source Sans Pro;
-  --sub-header-weight: Regular;
+  --sub-header-weight: 400;
   --header-1-family: Noto Serif;
-  --header-1-weight: Regular;
-  --header-2-size: 22px;
-  --overline-capitalized-size: 11px;
+  --header-1-weight: 400;
+  --group-label-1-family: Space Mono;
+  --group-label-1-weight: 400;
+  --button-label-1-family: Source Sans Pro;
+  --button-label-1-weight: 400;
+  --title-1-family: Source Sans Pro;
+  --title-1-weight: 400;
+  --link-color-ui-family: Source Sans Pro;
+  --link-color-ui-weight: 400;
+  --link-dark-ui-family: Source Sans Pro;
+  --link-dark-ui-weight: 400;
+  --headline-2-family: Noto Serif;
+  --headline-2-weight: 400;
+  --placeholder-family: Source Sans Pro;
+  --placeholder-weight: 400;
+  --tooltip-caption-family: Source Sans Pro;
+  --tooltip-caption-weight: 400;
+  --body-emphasized-family: Source Sans Pro;
+  --body-emphasized-weight: 600;
+  --subtitle-1-family: Source Sans Pro;
+  --subtitle-1-weight: 300;
+  --title-3-family: Source Sans Pro;
+  --title-3-weight: 400;
+  --subtitle-2-family: Source Sans Pro;
+  --subtitle-2-weight: 300;
+  --link-light-ui-family: Source Sans Pro;
+  --link-light-ui-weight: 400;
+  --headline-1-family: Noto Serif;
+  --headline-1-weight: 400;
+  --title-2-size: 22px;
+  --control-label-1-size: 11px;
   --body-size: 14px;
   --header-0-size: 36px;
   --sub-header-size: 12px;
   --header-1-size: 24px;
+  --group-label-1-size: 11px;
+  --button-label-1-size: 12.800000190734863px;
+  --title-1-size: 19px;
+  --link-color-ui-size: 14px;
+  --link-dark-ui-size: 14px;
+  --headline-2-size: 29.100000381469727px;
+  --placeholder-size: 14px;
+  --tooltip-caption-size: 11px;
+  --body-emphasized-size: 14px;
+  --subtitle-1-size: 12.800000190734863px;
+  --title-3-size: 25px;
+  --subtitle-2-size: 16px;
+  --link-light-ui-size: 14px;
+  --headline-1-size: 25px;
   --small-delay: 0.1s; /* Short animation delay used for control state change animation */
   --medium-delay: 0.15s; /* Medium animation delay for control state change animation */
 }

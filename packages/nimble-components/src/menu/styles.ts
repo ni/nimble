@@ -5,17 +5,19 @@ import {
     applicationBackgroundColor,
     borderWidth,
     borderColor,
+    groupLabelTextTransform,
+    groupLabelFontColor,
+    groupLabelFontFamily,
+    groupLabelFontSize,
+    groupLabelFontWeight,
     popupBorderColor,
     popupBoxShadowColor,
-    labelFontFamily,
-    labelFontSize,
-    labelHeight,
-    labelTextTransform,
-    labelFontColor
+    labelHeight
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('grid')}
+
     :host {
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
@@ -39,11 +41,12 @@ export const styles = css`
     }
     ::slotted(header) {
         display: flex;
-        font-family: ${labelFontFamily};
-        font-size: ${labelFontSize};
+        font-family: ${groupLabelFontFamily};
+        font-size: ${groupLabelFontSize};
+        font-weight: ${groupLabelFontWeight};
         line-height: ${labelHeight};
-        color: ${labelFontColor};
-        text-transform: ${labelTextTransform};
+        color: ${groupLabelFontColor};
+        text-transform: ${groupLabelTextTransform};
         padding-top: 4px;
         padding-bottom: 4px;
     }

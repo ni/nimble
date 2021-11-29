@@ -3,7 +3,7 @@
     <g id="Background">
       <rect id="Background-2" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
       <rect id="Rollover" width="76" height="2" transform="translate(0 30)" fill="#161617" opacity="0"/>
-      <rect id="SelectionRectangle" height="2" transform="translate(49 30)" fill="#00b888" opacity="0"/>
+      <rect id="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#00b888" opacity="0"/>
     </g>
     <g id="Stacks_Group" data-name="Stacks Group">
       <text id="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>
@@ -13,7 +13,7 @@
     <g id="Background-3" data-name="Background">
       <rect id="Background-4" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
       <rect id="Rollover-2" data-name="Rollover" width="76" height="2" transform="translate(0 30)" fill="#161617" opacity="0"/>
-      <rect id="SelectionRectangle-2" data-name="SelectionRectangle" height="2" transform="translate(49 30)" fill="#00b888" opacity="0"/>
+      <rect id="SelectionRectangle-2" data-name="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#00b888" opacity="0"/>
     </g>
     <g id="Stacks_Group-2" data-name="Stacks Group">
       <text id="Section-2" data-name="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>
@@ -23,7 +23,7 @@
     <g id="Background-5" data-name="Background">
       <rect id="Background-6" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
       <rect id="Rollover-3" data-name="Rollover" width="76" height="2" transform="translate(0 30)" fill="#161617" opacity="0"/>
-      <rect id="SelectionRectangle-3" data-name="SelectionRectangle" width="76" height="2" transform="translate(0 30)" fill="#00b888"/>
+      <rect id="SelectionRectangle-3" data-name="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#00b888" opacity="0"/>
     </g>
     <g id="Stacks_Group-3" data-name="Stacks Group">
       <text id="Section-3" data-name="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>

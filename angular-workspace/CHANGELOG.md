@@ -1,8 +1,88 @@
 # Change Log - angular-workspace
 
-This log was last generated on Wed, 27 Oct 2021 16:30:36 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Nov 2021 01:46:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0
+
+Tue, 23 Nov 2021 01:46:37 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.99
+
+## 0.0.0
+
+Tue, 23 Nov 2021 01:15:54 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.98
+
+## 0.0.0
+
+Tue, 23 Nov 2021 00:41:11 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.97
+
+## 0.0.0
+
+Tue, 23 Nov 2021 00:23:48 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Tue, 23 Nov 2021 00:05:58 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Mon, 22 Nov 2021 21:49:37 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Mon, 22 Nov 2021 20:29:22 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (rajsite@users.noreply.github.com)
+
+## 0.0.0
+
+Fri, 19 Nov 2021 16:42:10 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (5454342+brianehenry@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 10 Nov 2021 17:31:11 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (1458528+fredvisser@users.noreply.github.com)
+
+## 0.0.0
+
+Tue, 02 Nov 2021 14:46:47 GMT
+
+### Changes
+
+- Bump angular-workspace to v0.0.0 (1458528+fredvisser@users.noreply.github.com)
 
 ## 0.0.0
 

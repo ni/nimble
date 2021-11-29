@@ -3,17 +3,19 @@ import { display } from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
     borderWidth,
+    contentFontColor,
     contentFontSize,
     drawerHeaderFontFamily,
     drawerHeaderFontSize,
     fontFamily,
-    labelFontColor,
     popupBorderColor,
     popupBoxShadowColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('block')} :host {
+    ${display('block')}
+
+    :host {
         position: relative;
         top: 0;
         bottom: 0;
@@ -22,7 +24,7 @@ export const styles = css`
         outline: none;
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
-        color: ${labelFontColor};
+        color: ${contentFontColor};
     }
 
     :host([modal]) {

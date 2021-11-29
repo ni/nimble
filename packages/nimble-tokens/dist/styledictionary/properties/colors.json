@@ -79,10 +79,16 @@
       "value": "#3CB4E7ff"
     },
     "Banner_Fail_100_DarkUI_": {
-      "value": "#B3000Cff"
+      "value": "#D63434ff"
     },
     "Warning100LightUI": {
       "value": "#FF4B00ff"
+    },
+    "Black30": {
+      "value": "#D3D5D6ff"
+    },
+    "Black50": {
+      "value": "#AEB0B3ff"
     }
   }
 }

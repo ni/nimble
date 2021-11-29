@@ -5,9 +5,9 @@
       <rect width="32" height="32" stroke="none"/>
       <rect x="0.5" y="0.5" width="31" height="31" fill="none"/>
     </g>
-    <g id="Rollover" transform="translate(327.853 328)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
-      <rect width="16" height="16" stroke="none"/>
-      <rect x="1" y="1" width="14" height="14" fill="none"/>
+    <g id="Rollover" transform="translate(319.853 320)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
+      <rect width="32" height="32" stroke="none"/>
+      <rect x="1" y="1" width="30" height="30" fill="none"/>
     </g>
     <g id="Mousedown" transform="translate(319.853 320)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
       <rect width="32" height="32" stroke="none"/>

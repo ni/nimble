@@ -1,14 +1,15 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
     borderColor,
     borderColorHover,
     borderColorRgb,
+    contentFontColor,
+    contentFontColorDisabled,
     contentFontSize,
     controlHeight,
-    labelFontColor,
-    labelFontColorDisabled,
     labelHeight,
     iconSize,
     fontFamily,
@@ -17,8 +18,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
+    ${display('inline-flex')}
+
     :host {
-        display: inline-flex;
         align-items: center;
         cursor: pointer;
         outline: none;
@@ -74,14 +76,14 @@ export const styles = css`
     .label {
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
-        color: ${labelFontColor};
+        color: ${contentFontColor};
         line-height: ${labelHeight};
         padding-left: 1ch;
         cursor: inherit;
     }
 
     :host([disabled]) .label {
-        color: ${labelFontColorDisabled};
+        color: ${contentFontColorDisabled};
     }
 
     slot[name='checked-indicator'] svg {

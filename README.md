@@ -53,3 +53,31 @@ From the `nimble` directory:
     **Note**: You will need to refresh your browser window to see style changes made in source.
 
 Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify the design system.
+
+## Component Status
+
+| Components             | Design | Web Components     | Angular Integration | Blazor Integration |
+|------------------------|--------|--------------------|---------------------|--------------------|
+| Text Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/42001df1-2969-438e-b353-4327d7a15102) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--outline-button) | :white_check_mark: | :o: |
+| Text and Icon Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/a378bcdb-5c4b-4298-b3b1-28d8b1a37af2) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--outline-button) | :white_check_mark: | :o: |
+| Icon Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--outline-button) | :arrows_counterclockwise: | :o: |
+| Toggle Icon Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | :o: | :o: | :o: |
+| Split Icon Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | :o: | :o: | :o: |
+| Icon Menu Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | :o: | :o: | :o: |
+| Checkbox | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/checkbox--checkbox) | :white_check_mark: | :o: |
+| Radio | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) | :o: | :o: | :o: |
+| Toggle Switch | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) | :o: | :o: | :o: |
+| Number Field | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf) | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/number-field--number-field) | :white_check_mark: | :o: |
+| Text Field - Single | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/842889a5-67ba-4350-91c1-55eee48f4fa2) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/text-field--text-field) | :white_check_mark: | :o: |
+| Text Field - Multiline | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/) | :o: | :o: | :o: |
+| Search Field | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/842889a5-67ba-4350-91c1-55eee48f4fa2) | :o: | :o: | :o: |
+| Dropdown (Select) | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/select--select) | :white_check_mark: | :o: |
+| Combo box | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae) | :o: | :o: | :o: |
+| Tabs | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tabs--tabs) | :white_check_mark: | :o: |
+| Drawer | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/drawer--drawer) | :white_check_mark: | :o: |
+| Menu | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/c098395e-30f8-4bd4-b8c5-394326b59919) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/menu--custom-menu) | :white_check_mark: | :o: |
+| Banners | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/29c405f7-08ea-48b6-973f-546970b9dbab) | :o: | :o: | :o: |
+| Icons | | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/icons--component-icons) | :o: | :o: |
+| Tree View | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tree-view--tree-view) | :white_check_mark: | :o: |
+
+[Source](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/Eb1_BLjOOI1IsvUWay5VdAwB_G0a20kOZeFHWzSsvIXUBw?e=aGNMTg)

@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 import {
     actionColorRgb,
@@ -18,8 +19,9 @@ import { appearanceBehavior } from './behaviors';
 import { ButtonAppearance } from './types';
 
 export const styles = css`
+    ${display('inline-flex')}
+
     :host {
-        display: inline-flex;
         background-color: transparent;
         height: ${controlHeight};
         color: ${buttonContentFontColor};
@@ -119,7 +121,7 @@ export const styles = css`
             css`
                 .control {
                     background-color: transparent;
-                    border-color: rgba(${actionColorRgb}, 0.3);
+                    border-color: rgba(${actionColorRgb}, 0.5);
                 }
 
                 .control:hover {

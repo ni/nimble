@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Fri, 08 Oct 2021 15:20:23 GMT
+ * Generated on Wed, 17 Nov 2021 19:43:39 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -31,10 +31,12 @@ export const Fail85 : string;
 export const RgbNiSky : string;
 export const BannerFail100DarkUi : string;
 export const Warning100LightUi : string;
-export const Header2Family : string;
-export const Header2Weight : string;
-export const OverlineCapitalizedFamily : string;
-export const OverlineCapitalizedWeight : string;
+export const Black30 : string;
+export const Black50 : string;
+export const Title2Family : string;
+export const Title2Weight : string;
+export const ControlLabel1Family : string;
+export const ControlLabel1Weight : string;
 export const BodyFamily : string;
 export const BodyWeight : string;
 export const Header0Family : string;
@@ -43,11 +45,53 @@ export const SubHeaderFamily : string;
 export const SubHeaderWeight : string;
 export const Header1Family : string;
 export const Header1Weight : string;
-export const Header2Size : string;
-export const OverlineCapitalizedSize : string;
+export const GroupLabel1Family : string;
+export const GroupLabel1Weight : string;
+export const ButtonLabel1Family : string;
+export const ButtonLabel1Weight : string;
+export const Title1Family : string;
+export const Title1Weight : string;
+export const LinkColorUiFamily : string;
+export const LinkColorUiWeight : string;
+export const LinkDarkUiFamily : string;
+export const LinkDarkUiWeight : string;
+export const Headline2Family : string;
+export const Headline2Weight : string;
+export const PlaceholderFamily : string;
+export const PlaceholderWeight : string;
+export const TooltipCaptionFamily : string;
+export const TooltipCaptionWeight : string;
+export const BodyEmphasizedFamily : string;
+export const BodyEmphasizedWeight : string;
+export const Subtitle1Family : string;
+export const Subtitle1Weight : string;
+export const Title3Family : string;
+export const Title3Weight : string;
+export const Subtitle2Family : string;
+export const Subtitle2Weight : string;
+export const LinkLightUiFamily : string;
+export const LinkLightUiWeight : string;
+export const Headline1Family : string;
+export const Headline1Weight : string;
+export const Title2Size : string;
+export const ControlLabel1Size : string;
 export const BodySize : string;
 export const Header0Size : string;
 export const SubHeaderSize : string;
 export const Header1Size : string;
+export const GroupLabel1Size : string;
+export const ButtonLabel1Size : string;
+export const Title1Size : string;
+export const LinkColorUiSize : string;
+export const LinkDarkUiSize : string;
+export const Headline2Size : string;
+export const PlaceholderSize : string;
+export const TooltipCaptionSize : string;
+export const BodyEmphasizedSize : string;
+export const Subtitle1Size : string;
+export const Title3Size : string;
+export const Subtitle2Size : string;
+export const LinkLightUiSize : string;
+export const Headline1Size : string;
 export const SmallDelay : string; // Short animation delay used for control state change animation
 export const MediumDelay : string; // Medium animation delay for control state change animation

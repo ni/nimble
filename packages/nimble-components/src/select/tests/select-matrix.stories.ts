@@ -9,6 +9,7 @@ import {
     DisabledState
 } from '../../utilities/tests/matrix';
 import '../index';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -30,9 +31,18 @@ const component = ([_, disabled]: DisabledState): ViewTemplate => html`
         <nimble-listbox-option value="1">Option 1</nimble-listbox-option>
         <nimble-listbox-option value="2" disabled>Option 2</nimble-listbox-option>
         <nimble-listbox-option value="3">Option 3</nimble-listbox-option>
+        <nimble-listbox-option value="4" hidden>Option 4</nimble-listbox-option>
     </nimble-select>
 `;
 
 export const selectThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [disabledStates]))
+);
+
+export const hiddenSelect = createRenderer(
+    hiddenWrapper(
+        html`<nimble-select hidden>
+            <nimble-listbox-option value="1">Option 1</nimble-listbox-option>
+        </nimble-select>`
+    )
 );

@@ -1,9 +1,11 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 
 import {
-    borderColor,
+    borderColorRgb,
     borderColorHover,
     borderWidth,
+    contentFontColor,
     contentFontColorDisabled,
     contentFontSize,
     controlHeight,
@@ -14,6 +16,7 @@ import {
     labelFontColor,
     labelFontFamily,
     labelFontSize,
+    labelFontWeight,
     labelHeight,
     labelTextTransform,
     passwordRevealFilter,
@@ -21,13 +24,14 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
+    ${display('inline-block')}
+
     :host {
-        display: inline-block;
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         outline: none;
         user-select: none;
-        color: ${labelFontColor};
+        color: ${contentFontColor};
         height: calc(${labelHeight} + ${controlHeight});
     }
 
@@ -42,7 +46,7 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        border-bottom: ${borderWidth} solid ${borderColor};
+        border-bottom: ${borderWidth} solid rgba(${borderColorRgb}, 0.3);
         padding-bottom: 1px;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: flex-end;
@@ -109,7 +113,6 @@ export const styles = css`
 
     .control::placeholder {
         color: ${labelFontColor};
-        opacity: 0.6;
     }
 
     .control:not([readonly]):focus-within::placeholder {
@@ -126,8 +129,10 @@ export const styles = css`
 
     .label {
         display: flex;
+        color: ${labelFontColor};
         font-family: ${labelFontFamily};
         font-size: ${labelFontSize};
+        font-weight: ${labelFontWeight};
         line-height: ${labelHeight};
         text-transform: ${labelTextTransform};
     }

@@ -1,8 +1,89 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 27 Oct 2021 16:30:36 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Nov 2021 01:46:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.99
+
+Tue, 23 Nov 2021 01:46:37 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.29
+
+## 1.0.0-beta.98
+
+Tue, 23 Nov 2021 01:15:54 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.28
+
+## 1.0.0-beta.97
+
+Tue, 23 Nov 2021 00:41:11 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.27
+
+## 1.0.0-beta.96
+
+Tue, 23 Nov 2021 00:23:48 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.96 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.95
+
+Tue, 23 Nov 2021 00:05:58 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.95 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.94
+
+Mon, 22 Nov 2021 21:49:37 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.94 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.93
+
+Mon, 22 Nov 2021 20:29:22 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.93 (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.92
+
+Fri, 19 Nov 2021 16:42:10 GMT
+
+### Changes
+
+- Make hidden styling consistent (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.91
+
+Wed, 10 Nov 2021 17:31:11 GMT
+
+### Changes
+
+- update DSP from XD and change logo (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.91 (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.90
+
+Tue, 02 Nov 2021 14:46:47 GMT
+
+### Changes
+
+- updated component docs (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.89
 
