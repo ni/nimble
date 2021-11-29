@@ -42,6 +42,6 @@
   ],
   "devDependencies": {
     "@lhci/cli": "^0.8.1",
-    "beachball": "^2.6.2"
+    "beachball": "^2.20.0"
   }
 }

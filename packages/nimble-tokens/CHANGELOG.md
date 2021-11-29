@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 22 Nov 2021 20:29:22 GMT and should not be manually modified.
+This log was last generated on Mon, 29 Nov 2021 19:31:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.30
+
+Mon, 29 Nov 2021 19:31:25 GMT
+
+### Changes
+
+- XAML StyleDictionary NuGet export (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.29
+
+Tue, 23 Nov 2021 01:46:37 GMT
+
+### Changes
+
+- Change to trigger build (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.28
+
+Tue, 23 Nov 2021 01:15:54 GMT
+
+### Changes
+
+- applying package updates [package-publish] (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.27
+
+Tue, 23 Nov 2021 00:41:11 GMT
+
+### Changes
+
+- applying package updates [package-publish] (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.26
+
+Tue, 23 Nov 2021 00:23:48 GMT
+
+### Changes
+
+- applying package updates [package-publish] (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.25
+
+Tue, 23 Nov 2021 00:05:58 GMT
+
+### Changes
+
+- Minor change to trigger build (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.24
+
+Mon, 22 Nov 2021 21:49:37 GMT
+
+### Changes
+
+- Remove xhtml style self-closing tags (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.23
 
