@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <Authors>NI</Authors>
+    <RepositoryUrl>https://github.com/ni/nimble</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+    <Description>Design tokens used within the Nimble Design System.</Description>
+    <Copyright>Copyright 2021</Copyright>
+    <PackageTags>Nimble NI tokens</PackageTags>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="../../dist/styledictionary/xaml/**/*.*"/>
+    <Content Include="../../dist/styledictionary/cs/**/*.*"/>
+  </ItemGroup>
+
+</Project>

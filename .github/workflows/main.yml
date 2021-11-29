@@ -22,6 +22,9 @@ jobs:
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
       # Install dependencies
+      - uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: 5.0.x
       - uses: actions/setup-node@v1
         with:
           node-version: '12'
@@ -34,11 +37,13 @@ jobs:
 
       # Pack
       - run: npm run pack
+      - run: npm run pack:nuget -w @ni/nimble-tokens
       - uses: actions/upload-artifact@v2
         with:
           name: packages
           path: |
             packages/**/*.tgz
+            packages/**/*.nupkg
             angular-workspace/**/*.tgz
           if-no-files-found: error
 
