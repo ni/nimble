@@ -5,8 +5,8 @@
 From the `nimble` directory:
 
 1. Run `npm install`
-1. Run `npm run build`
-1. To view the component documentation in Storybook: `npm run storybook -w @ni/nimble-components`
+2. Run `npm run build`
+3. To view the component documentation in Storybook: `npm run storybook -w @ni/nimble-components`
 
 ## Documentation Workflow
 Add a `docs.description.component` string to the component `parameters` object. E.g.

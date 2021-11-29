@@ -46,9 +46,9 @@ We welcome feedback and contributions!
 From the `nimble` directory:
 
 1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
-1. Run `npm install`
-1. Run `npm run build`
-1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+2. Run `npm install`
+3. Run `npm run build`
+4. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
     **Note**: You will need to refresh your browser window to see style changes made in source.
 

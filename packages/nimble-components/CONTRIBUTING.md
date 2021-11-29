@@ -7,8 +7,8 @@ This package contains a library of NI-styled web components.
 The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
 
 1. A small, performant custom element base class, [FAST Element](https://www.fast.design/docs/fast-element/getting-started).
-1. [Infrastructure for design system features](https://www.fast.design/docs/design-systems/overview) like design tokens and theming.
-1. A library of [core components](https://explore.fast.design/components/) that
+2. [Infrastructure for design system features](https://www.fast.design/docs/design-systems/overview) like design tokens and theming.
+3. A library of [core components](https://explore.fast.design/components/) that
     - are unopinionated in their style and easily stylable
     - adherent to browser standards like accessibility
     - while not meeting all of NI's use cases, give us a good starting point and extension capabilities
@@ -21,8 +21,8 @@ The library is built on the open source [FAST Design System library](https://fas
 From the `nimble` directory:
 
 1. Run `npm install`
-1. Run `npm run build`
-1. Run the different Nimble Components test configurations:
+2. Run `npm run build`
+3. Run the different Nimble Components test configurations:
 
     - To view the components and manually test behaviors in Storybook: `npm run storybook -w @ni/nimble-components`
 
