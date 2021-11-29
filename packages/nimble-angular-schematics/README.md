@@ -6,7 +6,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/nimble-angular-schematics.svg)](https://www.npmjs.com/package/@ni/nimble-angular-schematics)
 
-This repository is a schematic implementation for the [@ni/nimble-angular](../../angular-workspace/projects/ni/nimble-angular) package.
+This repository is a schematic implementation for the [@ni/nimble-angular](/angular-workspace/projects/ni/nimble-angular) package.
 
 It contains a template that extends the standard `ng generate component` template to include a Storybook file (`*.stories.ts`), and to modify the generated module file (`*.module.ts`) to explicitly export the component.
 
@@ -16,4 +16,4 @@ TODO
 
 ## Contributing
 
-Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify this library.
+Follow the instructions in [CONTRIBUTING.md](/packages/nimble-angular-schematics/CONTRIBUTING.md) to modify this library.

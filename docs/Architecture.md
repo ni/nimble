@@ -2,4 +2,4 @@
 
 ## Package diagram
 
-![Architecture overview diagram](architecture-overview.png)
+![Architecture overview diagram](/docs/architecture-overview.png)
