@@ -32,7 +32,7 @@ For changes to any token values, work with the Visual Design team to update the 
 4. Scroll to the bottom of the DSP Setting page and click the **Re-import** button to update the CC LIBRARY LINK.
 5. Save the settings change.
 6. Click the **Start Editing** button and then the **Stop Editing** button to trigger the StyleDictionary token build.
-7. From the `nimble` directory, run `npm run pack:nuget -w @ni/nimble-tokens` to create the `NimbleTokens.**.nupkg` file.  
+7. From the `nimble` directory, run `npm run pack:nuget -w @ni/nimble-tokens` to create the `NimbleTokens.**.nupkg` file.
 8. Commit these changes to the repo.
 
 For any token metadata changes (e.g. documentation, code snippets, etc.):
