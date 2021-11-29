@@ -16,7 +16,7 @@
 
 1. Ensure you have the [Adobe XD extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Adobe.xd&ssr=false#overview) installed.
 1. From the `nimble` directory, run `npm install -w @ni/nimble-tokens`
-1. [Download](https://dotnet.microsoft.com/download/dotnet) and install a supported version of .NET.
+1. [Download](https://dotnet.microsoft.com/download/dotnet) and install the latest version of .NET 5.0 or .NET 6.0.
 
 ## Editing Tokens
 
