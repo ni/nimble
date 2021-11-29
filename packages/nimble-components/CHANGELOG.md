@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 23 Nov 2021 01:46:37 GMT and should not be manually modified.
+This log was last generated on Mon, 29 Nov 2021 19:31:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.100
+
+Mon, 29 Nov 2021 19:31:25 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.30
 
 ## 1.0.0-beta.99
 
