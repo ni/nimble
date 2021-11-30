@@ -2,6 +2,156 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 30 Nov 2021 17:43:05 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.31",
+      "version": "1.0.0-beta.31",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "4aa8f02ea678a3758b042ad939483bedf199bea2",
+            "comment": "Support npm run pack:nuget cross-platform"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 29 Nov 2021 20:17:04 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.31",
+      "version": "1.0.0-beta.31",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8b863b95e7c31aa99a4df23f9ac1456471570d2f",
+            "comment": "Update documentation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 29 Nov 2021 19:31:25 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.30",
+      "version": "1.0.0-beta.30",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "64321e05b3b085d5b4082287dc97daf5926f00ac",
+            "comment": "XAML StyleDictionary NuGet export"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 Nov 2021 01:46:37 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.29",
+      "version": "1.0.0-beta.29",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "54c1e5e007a6e563dc31cb0e512c93ee7b6899ea",
+            "comment": "Change to trigger build"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 Nov 2021 01:15:54 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.28",
+      "version": "1.0.0-beta.28",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "42f1418752cf0187225aef26c99d524a5b2cefeb",
+            "comment": "applying package updates [package-publish]"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 Nov 2021 00:41:11 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.27",
+      "version": "1.0.0-beta.27",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "fd9cbb71e65fa40da28f7babd2d161f0205b2aa3",
+            "comment": "applying package updates [package-publish]"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 Nov 2021 00:23:48 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.26",
+      "version": "1.0.0-beta.26",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "applying package updates [package-publish]",
+            "commit": "a1e5f799935d94df527914ddc21a3980bd1cc461"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 Nov 2021 00:05:58 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.25",
+      "version": "1.0.0-beta.25",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "Minor change to trigger build",
+            "commit": "890550db5f9844e1b01253c0edaf88556774dafa"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Nov 2021 21:49:37 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.24",
+      "version": "1.0.0-beta.24",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "Remove xhtml style self-closing tags",
+            "commit": "3bbef147ee139be39ed97b5802b69fe869d47278"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Nov 2021 20:29:22 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.23",
+      "version": "1.0.0-beta.23",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "comment": "Update CONTRIBUTING.md to trigger build",
+            "commit": "d0715f5b12b11add6a46868b1179e6183b3419c8"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Nov 2021 17:31:11 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.22",
       "version": "1.0.0-beta.22",

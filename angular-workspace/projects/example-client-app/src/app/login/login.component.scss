@@ -1,18 +1,10 @@
-.container {
+:host {
     background-color: var(--application-background-color);
     display: flex;
+    flex: auto;
     justify-content: center;
     align-items: center;
     height: 100%;
-}
-
-.theme-select {
-    display: block;
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    width: 150px;
-    min-width: unset;
 }
 
 .login-container {

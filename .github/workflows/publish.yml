@@ -1,0 +1,62 @@
+name: 'publish'
+
+on:
+  push:
+    tags:
+    - "@ni/nimble-tokens_v*"
+    - "@ni/nimble-components_v*"
+    - "@ni/nimble-angular_v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      # Install dependencies
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install --global npm@7
+      # Use npm install instead of npm ci
+      # Mostly safe as the tags should be a result of recent successful npm ci in main
+      # Avoids a race condition with the updated lock file publishing
+      - run: npm install
+
+      # Build
+      - run: npm run build
+
+      # Pack
+      - run: npm run pack
+      - uses: actions/upload-artifact@v2
+        with:
+          name: packages
+          path: |
+            packages/**/*.tgz
+            angular-workspace/**/*.tgz
+          if-no-files-found: error
+
+      # Test (skipped, assuming tagged commits already tested)
+
+      # Publish
+      - name: Publish @ni/nimble-tokens
+        if: startsWith(github.ref, 'refs/tags/@ni/nimble-tokens_v')
+        run: npm publish
+        working-directory: ./packages/nimble-tokens
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @ni/nimble-components
+        if: startsWith(github.ref, 'refs/tags/@ni/nimble-components_v')
+        run: npm publish
+        working-directory: ./packages/nimble-components
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @ni/nimble-angular
+        if: startsWith(github.ref, 'refs/tags/@ni/nimble-angular_v')
+        run: npm publish
+        working-directory: ./angular-workspace/dist/ni/nimble-angular
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

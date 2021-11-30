@@ -79,7 +79,7 @@ Some attribute values might need to be configurable in context-specific situatio
 
 Examples include colors, typography, sizing, and animation parameters. These attribute values should be specified as shared design tokens rather than literals within an individual component's CSS. This makes it easier to change the values dynamically if required in the future and also improves readability and reduces duplication.
 
-To find existing tokens or add new ones see [`design-tokens.ts`](../src/theme-provider/design-tokens.ts).
+To find existing tokens or add new ones see [`design-tokens.ts`](/packages/nimble-components/src/theme-provider/design-tokens.ts).
 
 ## Prefer modern layouts
 
@@ -108,3 +108,20 @@ const styles = css`
     }
 `;
 ```
+
+## Use FAST's `display` utility for styling host element
+
+For consistent styling, use FAST's `display` utility when setting a `display` style on the host element.
+
+```ts
+import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
+
+export const styles = css`
+    ${display('flex')}
+    
+    :host { /* ... */ }
+`;
+```
+
+This utility will generate the appropriate display style, as well as a style rule to hide the host element when its `hidden` attribute is set.
