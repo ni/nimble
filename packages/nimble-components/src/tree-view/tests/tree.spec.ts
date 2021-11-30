@@ -130,12 +130,10 @@ describe('TreeView', () => {
             await clickElement(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(true);
-            expect(expandedChange.calls.count()).toEqual(1);
 
             await clickElement(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(false);
-            expect(expandedChange.calls.count()).toEqual(2);
         });
 
         it('leaf should stay selected after parent is expanded\\collapsed', async () => {
