@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NimbleTextFieldDirective } from './nimble-text-field.directive';
-import { NimbleControlValueAccessorModule } from '../control-value-accessor';
+import { NimbleControlValueAccessorModule } from '../control-value-accessor/nimble-control-value-accessor.module';
 
 import '@ni/nimble-components/dist/esm/text-field';
 

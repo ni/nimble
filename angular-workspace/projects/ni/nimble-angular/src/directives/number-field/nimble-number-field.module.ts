@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NimbleNumberFieldDirective } from './nimble-number-field.directive';
-import { NimbleControlValueAccessorModule } from '../control-value-accessor';
+import { NimbleControlValueAccessorModule } from '../control-value-accessor/nimble-control-value-accessor.module';
 
 import '@ni/nimble-components/dist/esm/number-field';
 
