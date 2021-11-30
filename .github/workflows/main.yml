@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - '*'
-    tags:
-      - 'v*'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -16,6 +14,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-18.04
+    if: "!contains(github.event.head_commit.message, '[bump-versions]')"
     steps:
       - uses: actions/checkout@v2
         with:
@@ -23,6 +22,9 @@ jobs:
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
       # Install dependencies
+      - uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: 5.0.x
       - uses: actions/setup-node@v1
         with:
           node-version: '12'
@@ -35,11 +37,13 @@ jobs:
 
       # Pack
       - run: npm run pack
+      - run: npm run pack:nuget -w @ni/nimble-tokens
       - uses: actions/upload-artifact@v2
         with:
           name: packages
           path: |
             packages/**/*.tgz
+            packages/**/*.nupkg
             angular-workspace/**/*.tgz
           if-no-files-found: error
 
@@ -97,34 +101,7 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/main')
         run: dpl --provider=pages --repo=ni/nimble --local_dir=packages/site/dist --skip_cleanup --name="${{ env.GITHUB_SERVICE_USER }}" --email="${{ env.GITHUB_SERVICE_EMAIL }}" --github-token=${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
-      # Publish NPM packages (only from main)
-      - name: Beachball publish
+      # Update package versions and tag but not publish to npm (only from main)
+      - name: Beachball bump versions
         if: startsWith(github.ref, 'refs/heads/main')
-        env:
-          NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm run publish-ci -- -n $NPM_SECRET_TOKEN
-      # Beachball doesn't update package-lock.json files when publishing.
-      # See https://github.com/microsoft/beachball/issues/525#issue-901698225
-      # Modified to only commit on changes: https://stackoverflow.com/a/68479810      
-      - name: Lockfile update
-        if: startsWith(github.ref, 'refs/heads/main')
-        run: |
-          echo "Latest commit before merge main"
-          git log -1
-          echo "Merging from main"
-          git merge --ff-only origin/main
-          echo "Latest commit after merge main"
-          git log -1
-          echo "Clearing node_modules"
-          rm -rf node_modules
-          echo "Updating lock file"
-          npm i --package-lock-only
-          git add -A
-          if git diff-index --quiet HEAD;
-          then
-            echo "no changes found to push to main"
-          else
-            echo "changes found to push to main"
-            git commit -m "applying package lock updates [skip ci]"
-            git push --set-upstream origin main
-          fi
+        run: npm run bump-versions

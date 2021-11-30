@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 import {
     borderColor,
     borderColorRgb,
@@ -21,8 +22,9 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
+    ${display('inline-block')}
+
     :host {
-        display: inline-block;
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         outline: none;

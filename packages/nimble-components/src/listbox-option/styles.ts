@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
@@ -12,11 +13,12 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
+    ${display('flex')}
+
     :host {
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         cursor: pointer;
-        display: flex;
         justify-content: left;
     }
 

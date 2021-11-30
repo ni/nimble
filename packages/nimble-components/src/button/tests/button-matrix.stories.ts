@@ -13,6 +13,7 @@ import {
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
 import '../../icons/access-control';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Button',
@@ -55,4 +56,8 @@ export const buttonThemeMatrix: Story = createRenderer(
             iconVisibleStates
         ])
     )
+);
+
+export const hiddenButton = createRenderer(
+    hiddenWrapper(html`<nimble-button hidden>Hidden Button</nimble-button>`)
 );
