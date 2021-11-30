@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Switch to a View Engine based build",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Switch to a View Engine based build",
-  "packageName": "@ni/nimble-angular",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
