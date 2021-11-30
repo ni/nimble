@@ -123,7 +123,7 @@ describe('TreeView', () => {
             model.treeView.selectionMode = SelectionMode.LeavesOnly;
         });
 
-        it('root1 should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
+        it('root1 should not be selected after being clicked, but should be expanded', async () => {
             const expandedChange = jasmine.createSpy();
             model.treeView.addEventListener('expanded-change', expandedChange);
 

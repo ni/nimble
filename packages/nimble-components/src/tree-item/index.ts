@@ -67,21 +67,17 @@ export class TreeItem extends FoundationTreeItem {
             // if either a leaf tree item, or in a mode that supports select on groups,
             // process click as a select
             if (!this.selected) {
-                // if already selected, prevent base-class from issuing selected-change event
                 this.selected = true;
                 this.$emit('selected-change', this);
             }
-
-            event.stopImmediatePropagation();
         } else {
             // implicit hasChildren && leavesOnly, so only allow expand/collapse, not select
             this.expanded = !this.expanded;
             this.$emit('expanded-change', this);
-
-            // don't allow base class to process click event, as all we want to happen
-            // here is toggling 'expanded', and to issue the expanded-change event
-            event.stopImmediatePropagation();
         }
+
+        // don't allow base class to process click event
+        event.stopImmediatePropagation();
     };
 
     // This prevents the toggling of selected state when a TreeItem is clicked multiple times,
