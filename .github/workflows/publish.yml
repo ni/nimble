@@ -42,21 +42,18 @@ jobs:
       # Publish
       - name: Publish @ni/nimble-tokens
         if: startsWith(github.ref, 'refs/tags/@ni/nimble-tokens_v')
-        run: npm publish
-        working-directory: ./packages/nimble-tokens
+        run: npm run publish -w @ni/nimble-tokens
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish @ni/nimble-components
         if: startsWith(github.ref, 'refs/tags/@ni/nimble-components_v')
-        run: npm publish
-        working-directory: ./packages/nimble-components
+        run: npm run publish -w @ni/nimble-components
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish @ni/nimble-angular
         if: startsWith(github.ref, 'refs/tags/@ni/nimble-angular_v')
-        run: npm publish
-        working-directory: ./angular-workspace/dist/ni/nimble-angular
+        run: npm run publish -w angular-workspace
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

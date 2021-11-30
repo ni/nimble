@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 30 Nov 2021 20:05:08 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.101",
+      "version": "1.0.0-beta.101",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ca4ee0c87c9877010de3f15db1203ad8d5cd1d02",
+            "comment": "Switch to a View Engine based build"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 29 Nov 2021 20:17:04 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.101",
       "version": "1.0.0-beta.101",
