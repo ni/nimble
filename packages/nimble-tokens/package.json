@@ -7,7 +7,9 @@
     "build:svg-to-ts": "svg-to-ts --config source/build/svg-to-ts-config.js",
     "build:ts": "tsc -p ./tsconfig.json",
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
+    "pack": "npm pack",
     "pack:nuget": "cross-env-shell dotnet pack ./source/NimbleTokens --configuration Release -p:PackageVersion=$npm_package_version",
+    "publish": "npm publish",
     "lint": "eslint ."
   },
   "repository": {
