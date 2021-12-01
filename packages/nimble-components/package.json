@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "1.0.0-beta.99",
+  "version": "1.0.0-beta.102",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build-components && npm run build-storybook",
@@ -11,6 +11,7 @@
     "prettier": "prettier-eslint \"**/*.*\" --list-different --prettier-ignore",
     "prettier-fix": "prettier-eslint \"**/*.*\" --write --prettier-ignore",
     "pack": "npm pack",
+    "publish": "npm publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o dist/storybook",
     "build-components": "tsc -p ./tsconfig.json",
@@ -42,7 +43,7 @@
     "@microsoft/fast-components": "^2.0.0",
     "@microsoft/fast-element": "^1.6.1",
     "@microsoft/fast-foundation": "^2.22.0",
-    "@ni/nimble-tokens": "^1.0.0-beta.29",
+    "@ni/nimble-tokens": "^1.0.0-beta.32",
     "hex-rgb": "^5.0.0",
     "lodash-es": "^4.17.21"
   },

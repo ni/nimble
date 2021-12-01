@@ -10,7 +10,43 @@ NI-styled UI components for Angular applications
 
 ## Getting started
 
-You are currently required to set `"buildOptimizer": "false"` in `angular.json`. See [#18](https://github.com/ni/nimble/issues/18) for more info.
+*This guide assumes you have an existing Angular application and are using NPM 7 or greater.*
+
+1. Install Nimble Angular from the [public NPM registry](https://www.npmjs.com/package/@ni/nimble-angular) by running `npm install @ni/nimble-angular`.
+2. The steps to use components from Nimble Angular are similar to using components from any other Angular library. You can see the [Example Client App](/angular-workspace/projects/example-client-app) project for an example.
+   1. Update your `app.module.ts` to import the module for each component you want to use:
+        ```ts
+        import { NimbleDrawerModule } from '@ni/nimble-angular';
+
+        @NgModule ({
+            imports: [
+                NimbleDrawerModule,
+            ]
+        })
+        class AppModule {}
+        ```
+   2. Add the component to your `app.component.html` (or to the template for another component in your application):
+        ```html
+        <nimble-drawer #drawerReference [location]="location">This is a drawer</nimble-drawer>
+        ```
+   3. If needed, import the Nimble component's directive and types in `app.component.ts` (or the TypeScript file backing another component) to use its programmatic API: 
+        ```ts
+        import { DrawerLocation, NimbleDrawerDirective } from '@ni/nimble-angular';
+
+        @Component({ /* ... */ })
+        class AppComponent {
+            @Input() public location: DrawerLocation = DrawerLocation.Right;
+            @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public drawer: NimbleDrawerDirective;
+
+            public openDrawer() {
+                this.drawer.show();
+            }
+        }
+        ```
+            
+### Learn more
+
+See the [README.md for the ni/nimble repository](/README.md) for documentation of individual components.
 
 ### Using Nimble form controls
 
@@ -31,4 +67,4 @@ Currently clients consuming the nimble Angular integration may need to make the 
 
 ## Contributing
 
-Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify this library.
+Follow the instructions in [CONTRIBUTING.md](/angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md) to modify this library.
