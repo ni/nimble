@@ -5,7 +5,7 @@
 
 <!--
   Do not edit directly
-  Generated on Wed, 17 Nov 2021 19:43:39 GMT
+  Generated on Wed, 01 Dec 2021 15:38:41 GMT
 -->
     <Color x:Key="SL_LegacyBlue">#ff009ff5</Color>
     <Color x:Key="Information100_DarkUI">#ffa46eff</Color>
@@ -37,5 +37,37 @@
     <Color x:Key="Warning100LightUI">#ffff4b00</Color>
     <Color x:Key="Black30">#ffd3d5d6</Color>
     <Color x:Key="Black50">#ffaeb0b3</Color>
+
+
+    <SolidColorBrush x:Key="SL_LegacyBlueBrush" Color="{StaticResource SL_LegacyBlue}"/>
+    <SolidColorBrush x:Key="Information100_DarkUIBrush" Color="{StaticResource Information100_DarkUI}"/>
+    <SolidColorBrush x:Key="Information100_LightUIBrush" Color="{StaticResource Information100_LightUI}"/>
+    <SolidColorBrush x:Key="Warning100_DarkUIBrush" Color="{StaticResource Warning100_DarkUI}"/>
+    <SolidColorBrush x:Key="Pass100_LightUIBrush" Color="{StaticResource Pass100_LightUI}"/>
+    <SolidColorBrush x:Key="Pass100_DarkUIBrush" Color="{StaticResource Pass100_DarkUI}"/>
+    <SolidColorBrush x:Key="WarningTypography_LightUIBrush" Color="{StaticResource WarningTypography_LightUI}"/>
+    <SolidColorBrush x:Key="PassTypography_LightUIBrush" Color="{StaticResource PassTypography_LightUI}"/>
+    <SolidColorBrush x:Key="Fail100_LightUIBrush" Color="{StaticResource Fail100_LightUI}"/>
+    <SolidColorBrush x:Key="Fail100_DarkUIBrush" Color="{StaticResource Fail100_DarkUI}"/>
+    <SolidColorBrush x:Key="Black75Brush" Color="{StaticResource Black75}"/>
+    <SolidColorBrush x:Key="Black15Brush" Color="{StaticResource Black15}"/>
+    <SolidColorBrush x:Key="Black7Brush" Color="{StaticResource Black7}"/>
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
+    <SolidColorBrush x:Key="Black88Brush" Color="{StaticResource Black88}"/>
+    <SolidColorBrush x:Key="Black85Brush" Color="{StaticResource Black85}"/>
+    <SolidColorBrush x:Key="Black80Brush" Color="{StaticResource Black80}"/>
+    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+    <SolidColorBrush x:Key="Black95Brush" Color="{StaticResource Black95}"/>
+    <SolidColorBrush x:Key="Black91Brush" Color="{StaticResource Black91}"/>
+    <SolidColorBrush x:Key="EnterpriseBrush" Color="{StaticResource Enterprise}"/>
+    <SolidColorBrush x:Key="Selection100Brush" Color="{StaticResource Selection100}"/>
+    <SolidColorBrush x:Key="Brand85Brush" Color="{StaticResource Brand85}"/>
+    <SolidColorBrush x:Key="Brand100Brush" Color="{StaticResource Brand100}"/>
+    <SolidColorBrush x:Key="Fail85Brush" Color="{StaticResource Fail85}"/>
+    <SolidColorBrush x:Key="RGB NI SkyBrush" Color="{StaticResource RGB NI Sky}"/>
+    <SolidColorBrush x:Key="Banner_Fail_100_DarkUI_Brush" Color="{StaticResource Banner_Fail_100_DarkUI_}"/>
+    <SolidColorBrush x:Key="Warning100LightUIBrush" Color="{StaticResource Warning100LightUI}"/>
+    <SolidColorBrush x:Key="Black30Brush" Color="{StaticResource Black30}"/>
+    <SolidColorBrush x:Key="Black50Brush" Color="{StaticResource Black50}"/>
 
 </ResourceDictionary>

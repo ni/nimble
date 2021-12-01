@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 01 Dec 2021 17:51:36 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.33",
+      "version": "1.0.0-beta.33",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "1c30ce6e23081f6a8c82712ae1d4620a67313c2d",
+            "comment": "applying Joel's suggested template changes"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Dec 2021 15:38:13 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.32",
       "version": "1.0.0-beta.32",
