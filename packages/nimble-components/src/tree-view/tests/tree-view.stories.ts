@@ -113,4 +113,4 @@ const metadata: Meta<TreeArgs> = {
 
 export default metadata;
 
-export const treeView = {};
+export const TreeView = {};

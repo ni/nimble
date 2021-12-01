@@ -46,6 +46,6 @@ const metadata: Meta<NumberFieldArgs> = {
 
 export default metadata;
 
-export const numberField = {
+export const NumberField = {
     args: { label: 'Number Field' }
 };

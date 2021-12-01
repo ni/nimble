@@ -73,6 +73,7 @@
     "css-loader": "^6.2.0",
     "dotenv-webpack": "^7.0.2",
     "eslint-plugin-jsdoc": "^36.1.0",
+    "eslint-plugin-storybook": "^0.5.1",
     "html-webpack-plugin": "^5.3.1",
     "i": "^0.3.7",
     "jasmine-core": "^3.7.0",

@@ -73,9 +73,9 @@ const metadata: Meta<TabsArgs> = {
 
 export default metadata;
 
-export const tabs = {};
+export const Tabs = {};
 
-export const toolbar = {
+export const Toolbar = {
     args: {
         toolbar:
             '<nimble-button appearance="ghost">Toolbar Button</nimble-button>'

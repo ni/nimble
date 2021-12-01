@@ -3,7 +3,8 @@ module.exports = {
     plugins: ['jsdoc'],
     extends: [
         '@ni/eslint-config-typescript',
-        '@ni/eslint-config-typescript/requiring-type-checking'
+        '@ni/eslint-config-typescript/requiring-type-checking',
+        'plugin:storybook/recommended'
     ],
     parserOptions: {
         project: '../tsconfig.json',
@@ -35,7 +36,10 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
 
         // Improves readability of templates to avoid return types in template expressions
-        '@typescript-eslint/explicit-function-return-type': ['error', {allowExpressions: true}],
+        '@typescript-eslint/explicit-function-return-type': [
+            'error',
+            { allowExpressions: true }
+        ],
 
         'no-restricted-imports': [
             'error',
@@ -61,7 +65,15 @@ module.exports = {
                     'error',
                     { devDependencies: true }
                 ],
-                'import/no-default-export': 'off'
+                'import/no-default-export': 'off',
+                '@typescript-eslint/naming-convention': [
+                    'error',
+                    {
+                        selector: 'variable',
+                        modifiers: ['exported'],
+                        format: null
+                    }
+                ]
             }
         },
         {

@@ -54,11 +54,11 @@ const component = (
     </nimble-tabs>
 `;
 
-export const tabsThemeMatrix = createRenderer(
+export const TabsThemeMatrix = createRenderer(
     themeWrapper(createMatrix(component, [tabsToolbarState, disabledStates]))
 );
 
-export const hiddenTabs = createRenderer(
+export const HiddenTabs = createRenderer(
     hiddenWrapper(
         html`<nimble-tabs hidden>
             <nimble-tab>Tab One</nimble-tab>
