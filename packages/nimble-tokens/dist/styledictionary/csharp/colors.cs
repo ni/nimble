@@ -2,8 +2,10 @@
 
 /**
     Do not edit directly
-    Generated on Wed, 17 Nov 2021 19:43:39 GMT
+    Generated on Wed, 01 Dec 2021 15:38:41 GMT
 **/
+
+using System.Windows.Media;
 
 public static class NimbleColorTokens {
 
