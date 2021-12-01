@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Drawer updates (bugfix for content/footer mode, add configurable top/bottom offsets for drawer)",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
