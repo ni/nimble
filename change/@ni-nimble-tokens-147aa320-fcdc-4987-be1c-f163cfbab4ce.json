@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "applying Joel's suggested template changes",
+  "packageName": "@ni/nimble-tokens",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
