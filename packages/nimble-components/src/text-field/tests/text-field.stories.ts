@@ -1,8 +1,6 @@
 import { html } from '@microsoft/fast-element';
-import type { Story, Meta } from '@storybook/html';
+import type { Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import userEvent from '@testing-library/user-event';
-import { screen } from '@testing-library/dom';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
 
@@ -63,14 +61,7 @@ const metadata: Meta<TextFieldArgs> = {
 export default metadata;
 
 export const textField = {
-    args: { label: 'Text Field' },
-    play: () => {
-        userEvent.type(
-            screen.getAllByPlaceholderText('Text Field')[0],
-            'some test text'
-        );
-        console.log('textfield play');
-    }
+    args: { label: 'Text Field' }
 };
 
 export const passwordField = {

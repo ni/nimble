@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { Meta } from '@storybook/html';
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { withXD } from 'storybook-addon-xd-designs';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';

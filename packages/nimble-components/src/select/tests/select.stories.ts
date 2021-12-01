@@ -1,6 +1,5 @@
 import type { Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { within, userEvent } from '@storybook/testing-library';
 import '../index';
 import '../../listbox-option/index';
 import { html, repeat } from '@microsoft/fast-element';
@@ -65,9 +64,4 @@ const metadata: Meta<SelectArgs> = {
 
 export default metadata;
 
-export const select = {
-    play: async ({ args, canvasElement }) => {
-        const canvas = within(canvasElement);
-        await userEvent.click(canvas.getByRole('combobox'));
-    }
-};
+export const select = {};
