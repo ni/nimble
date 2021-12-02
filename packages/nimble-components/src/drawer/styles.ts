@@ -7,6 +7,7 @@ import {
     contentFontSize,
     drawerHeaderFontFamily,
     drawerHeaderFontSize,
+    drawerWidth,
     drawerTop,
     drawerBottom,
     fontFamily,
@@ -55,6 +56,8 @@ export const styles = css`
     :host([modal]) .positioning-region {
         width: 100%;
         position: fixed;
+        top: ${drawerTop};
+        bottom: ${drawerBottom};
         display: flex;
     }
 
@@ -77,7 +80,7 @@ export const styles = css`
         box-sizing: border-box;
         border-radius: 0px;
         border-width: 0px;
-        width: var(--drawer-width);
+        width: ${drawerWidth};
         height: 100%;
         background-color: ${applicationBackgroundColor};
     }
