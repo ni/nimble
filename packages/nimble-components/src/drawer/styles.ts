@@ -87,8 +87,6 @@ export const styles = css`
 
     :host([modal]) .control {
         position: absolute;
-        top: ${drawerTop};
-        bottom: ${drawerBottom};
         height: calc(100vh - ${drawerBottom} - ${drawerTop});
     }
 
