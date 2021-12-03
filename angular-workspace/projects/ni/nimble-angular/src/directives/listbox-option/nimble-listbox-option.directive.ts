@@ -1,7 +1,8 @@
-import { Directive, ElementRef, Host, HostBinding, Input, Optional, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Host, Input, Optional, Renderer2 } from '@angular/core';
 import { NgSelectOption } from '@angular/forms';
 import { ListboxOption } from '@ni/nimble-components/dist/esm/listbox-option';
 import { NimbleSelectControlValueAccessorDirective } from '../select/nimble-select-control-value-accessor.directive';
+import { toBooleanProperty } from '../utilities/template-value-helpers';
 
 /**
  * Directive to provide Angular integration for the listbox option.
@@ -10,10 +11,17 @@ import { NimbleSelectControlValueAccessorDirective } from '../select/nimble-sele
     selector: 'nimble-listbox-option'
 })
 export class NimbleListboxOptionDirective extends NgSelectOption {
-    @HostBinding('attr.disabled') @Input() public disabled: boolean;
+    public get disabled(): boolean {
+        return this.element.nativeElement.disabled;
+    }
+
+    @Input() public set disabled(value: boolean) {
+        this.renderer.setProperty(this.element.nativeElement, 'disabled', toBooleanProperty(value));
+    }
 
     public constructor(
-        element: ElementRef<ListboxOption>, renderer: Renderer2,
+        private readonly element: ElementRef<ListboxOption>,
+        private readonly renderer: Renderer2,
         @Optional() @Host() select: NimbleSelectControlValueAccessorDirective
     ) {
         super(element, renderer, select);

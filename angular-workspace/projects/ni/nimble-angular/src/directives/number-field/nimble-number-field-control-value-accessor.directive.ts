@@ -15,8 +15,8 @@ import { NG_VALUE_ACCESSOR, NumberValueAccessor } from '@angular/forms';
     host: { '(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => NimbleNumberControlValueAccessorDirective),
+        useExisting: forwardRef(() => NimbleNumberFieldControlValueAccessorDirective),
         multi: true
     }]
 })
-export class NimbleNumberControlValueAccessorDirective extends NumberValueAccessor {}
+export class NimbleNumberFieldControlValueAccessorDirective extends NumberValueAccessor {}
