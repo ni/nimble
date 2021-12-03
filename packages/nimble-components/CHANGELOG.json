@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 03 Dec 2021 20:54:09 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.105",
+      "version": "1.0.0-beta.105",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3811811a9c07e054bb0946476e33390c0e9d20e6",
+            "comment": "Drawer updates (bugfix for content/footer mode, make drawer width configurable in Storybook)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Dec 2021 18:58:22 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.104",
       "version": "1.0.0-beta.104",
