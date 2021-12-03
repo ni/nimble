@@ -12,13 +12,20 @@ enum ExampleContentType {
     HeaderContentFooter = 'HeaderContentFooter'
 }
 
+enum DrawerWidthOptions {
+    Default = 'Default',
+    Small320 = 'Small320',
+    Medium500 = 'Medium500',
+    FitContent = 'FitContent'
+}
+
 interface DrawerArgs {
     location: DrawerLocation;
     state: DrawerState;
     modal: string;
     preventDismiss: boolean;
     content: ExampleContentType;
-    width: string;
+    width: DrawerWidthOptions;
 }
 
 const simpleContent = html`
@@ -52,6 +59,13 @@ const content: { [key in ExampleContentType]: ViewTemplate } = {
     [ExampleContentType.HeaderContentFooter]: headerFooterContent
 };
 
+const widths: { [key in DrawerWidthOptions]: string } = {
+    [DrawerWidthOptions.Default]: drawerWidth.getValueFor(document.body),
+    [DrawerWidthOptions.Small320]: '300px',
+    [DrawerWidthOptions.Medium500]: '500px',
+    [DrawerWidthOptions.FitContent]: 'fit-content'
+};
+
 const metadata: Meta<DrawerArgs> = {
     title: 'Drawer',
     decorators: [withXD],
@@ -74,7 +88,7 @@ const metadata: Meta<DrawerArgs> = {
             ?prevent-dismiss="${x => x.preventDismiss}"
             location="${x => x.location}"
             state="${x => x.state}" 
-            style="${x => `${drawerWidth.cssCustomProperty}:${x.width};`}"
+            style="${x => `${drawerWidth.cssCustomProperty}:${widths[x.width]};`}"
         >
             ${x => content[x.content]}
         </nimble-drawer>
@@ -121,7 +135,24 @@ const metadata: Meta<DrawerArgs> = {
             }
         },
         width: {
-            description: `Set via CSS Variable: ${drawerWidth.cssCustomProperty}. Can be any CSS width value, including min/max/fit-content.`
+            description: `Set via CSS Variable: ${drawerWidth.cssCustomProperty}. Can be any CSS width value, including min/max/fit-content.`,
+            options: [
+                DrawerWidthOptions.Default,
+                DrawerWidthOptions.Small320,
+                DrawerWidthOptions.Medium500,
+                DrawerWidthOptions.FitContent
+            ],
+            control: {
+                type: 'select',
+                labels: {
+                    [DrawerWidthOptions.Default]: `Default (${drawerWidth.getValueFor(
+                        document.body
+                    )})`,
+                    [DrawerWidthOptions.Small320]: 'Small - 300px',
+                    [DrawerWidthOptions.Medium500]: 'Medium - 500px',
+                    [DrawerWidthOptions.FitContent]: 'fit-content'
+                }
+            }
         }
     },
     args: {
@@ -130,7 +161,7 @@ const metadata: Meta<DrawerArgs> = {
         modal: 'true',
         preventDismiss: false,
         content: ExampleContentType.SimpleTextContent,
-        width: drawerWidth.getValueFor(document.body)
+        width: DrawerWidthOptions.Default
     }
 };
 
