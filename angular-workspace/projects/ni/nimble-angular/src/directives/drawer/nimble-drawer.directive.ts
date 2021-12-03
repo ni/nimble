@@ -29,12 +29,12 @@ export class NimbleDrawerDirective {
         this.renderer.setProperty(this.el.nativeElement, 'state', value);
     }
 
-    public get disabled(): boolean {
+    public get modal(): boolean {
         return this.el.nativeElement.modal;
     }
 
-    @Input() public set disabled(value: boolean) {
-        this.renderer.setProperty(this.el.nativeElement, 'disabled', toBooleanProperty(value));
+    @Input() public set modal(value: boolean) {
+        this.renderer.setProperty(this.el.nativeElement, 'modal', toBooleanProperty(value));
     }
 
     @Output() public stateChange = new EventEmitter<DrawerState>();
