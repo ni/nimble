@@ -3,8 +3,7 @@ module.exports = {
     plugins: ['jsdoc'],
     extends: [
         '@ni/eslint-config-typescript',
-        '@ni/eslint-config-typescript/requiring-type-checking',
-        'plugin:storybook/recommended'
+        '@ni/eslint-config-typescript/requiring-type-checking'
     ],
     parserOptions: {
         project: '../tsconfig.json',
@@ -59,6 +58,7 @@ module.exports = {
     overrides: [
         {
             files: ['*.stories.ts'],
+            extends: ['plugin:storybook/recommended'],
             rules: {
                 // Storybook files will not be in published package and are allowed to use devDependencies
                 'import/no-extraneous-dependencies': [
@@ -66,14 +66,7 @@ module.exports = {
                     { devDependencies: true }
                 ],
                 'import/no-default-export': 'off',
-                '@typescript-eslint/naming-convention': [
-                    'error',
-                    {
-                        selector: 'variable',
-                        modifiers: ['exported'],
-                        format: null
-                    }
-                ]
+                'storybook/prefer-pascal-case': 'off'
             }
         },
         {

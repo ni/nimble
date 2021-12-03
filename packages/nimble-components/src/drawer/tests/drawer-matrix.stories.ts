@@ -62,22 +62,22 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const DrawerLightThemeWhiteBackground: Story = createRenderer(
+export const drawerLightThemeWhiteBackground: Story = createRenderer(
     singleThemeWrapper(component, lightThemeWhiteBackground)
 );
 
-export const DrawerColorThemeGreenBackground: Story = createRenderer(
+export const drawerColorThemeGreenBackground: Story = createRenderer(
     singleThemeWrapper(component, colorThemeGreenBackground)
 );
 
-export const DrawerColorThemeDarkGreenBackground: Story = createRenderer(
+export const drawerColorThemeDarkGreenBackground: Story = createRenderer(
     singleThemeWrapper(component, colorThemeDarkGreenBackground)
 );
 
-export const DrawerDarkThemeBlackBackground: Story = createRenderer(
+export const drawerDarkThemeBlackBackground: Story = createRenderer(
     singleThemeWrapper(component, darkThemeBlackBackground)
 );
 
-export const DrawerLegacyBlueThemeWhiteBackground: Story = createRenderer(
+export const drawerLegacyBlueThemeWhiteBackground: Story = createRenderer(
     singleThemeWrapper(component, legacyBlueThemeWhiteBackground)
 );

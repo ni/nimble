@@ -60,10 +60,10 @@ const metadata: Meta<TextFieldArgs> = {
 
 export default metadata;
 
-export const TextField = {
+export const textField = {
     args: { label: 'Text Field' }
 };
 
-export const PasswordField = {
+export const passwordField = {
     args: { label: 'Password Field', type: 'password' }
 };

@@ -41,11 +41,11 @@ const component = (
     ${checkedName} ${disabledName}
 </nimble-checkbox>`;
 
-export const CheckboxThemeMatrix: Story = createRenderer(
+export const checkboxThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [disabledStates, checkedStates]))
 );
 
-export const HiddenCheckbox: Story = createRenderer(
+export const hiddenCheckbox: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
     )

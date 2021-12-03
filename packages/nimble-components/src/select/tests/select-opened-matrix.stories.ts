@@ -38,6 +38,6 @@ const component = ([
     </nimble-select>
 `;
 
-export const SelectOpenedThemeMatrix: Story = createRenderer(
+export const selectOpenedThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [positionStates]))
 );

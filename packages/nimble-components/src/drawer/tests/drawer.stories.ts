@@ -129,4 +129,4 @@ const metadata: Meta<DrawerArgs> = {
 
 export default metadata;
 
-export const Drawer = {};
+export const drawer = {};

@@ -58,13 +58,13 @@ const metadata: Meta<ButtonArgs> = {
 
 export default metadata;
 
-export const OutlineButton = {
+export const outlineButton = {
     args: { label: 'Outline Button', appearance: ButtonAppearance.Outline }
 };
 
-export const GhostButton = {
+export const ghostButton = {
     args: { label: 'Ghost Button', appearance: ButtonAppearance.Ghost }
 };
-export const BlockButton = {
+export const blockButton = {
     args: { label: 'Block Button', appearance: ButtonAppearance.Block }
 };

@@ -45,4 +45,4 @@ const metadata: Meta<CheckboxArgs> = {
 
 export default metadata;
 
-export const Checkbox = {};
+export const checkbox = {};
