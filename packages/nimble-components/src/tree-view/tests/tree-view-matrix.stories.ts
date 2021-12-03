@@ -69,7 +69,7 @@ const component = (
 
 export default metadata;
 
-export const treeViewThemeMatrix: Story = createRenderer(
+export const TreeViewThemeMatrix: Story = createRenderer(
     themeWrapper(
         createMatrix(component, [
             disabledStates,
@@ -80,7 +80,7 @@ export const treeViewThemeMatrix: Story = createRenderer(
     )
 );
 
-export const hiddenTreeView = createRenderer(
+export const HiddenTreeView = createRenderer(
     hiddenWrapper(
         html`<nimble-tree-view hidden>
             <nimble-tree-item>Item 1</nimble-tree-item>

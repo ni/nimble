@@ -35,11 +35,11 @@ const component = ([_, disabled]: DisabledState): ViewTemplate => html`
     </nimble-select>
 `;
 
-export const selectThemeMatrix: Story = createRenderer(
+export const SelectThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [disabledStates]))
 );
 
-export const hiddenSelect = createRenderer(
+export const HiddenSelect = createRenderer(
     hiddenWrapper(
         html`<nimble-select hidden>
             <nimble-listbox-option value="1">Option 1</nimble-listbox-option>

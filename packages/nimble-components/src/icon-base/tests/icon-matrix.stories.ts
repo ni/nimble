@@ -32,11 +32,11 @@ const component = ([stateName, state]: IconStatusState): ViewTemplate => html`
     <nimble-check-icon class="${state}"></nimble-check-icon>
 `;
 
-export const iconThemeMatrix: Story = createRenderer(
+export const IconThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [iconStatusStates]))
 );
 
-export const hiddenIcon = createRenderer(
+export const HiddenIcon = createRenderer(
     hiddenWrapper(
         html`<nimble-check-icon class="pass" hidden></nimble-check-icon>`
     )

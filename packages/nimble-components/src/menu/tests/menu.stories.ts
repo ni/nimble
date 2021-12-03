@@ -45,7 +45,7 @@ const metadata: Meta<MenuArgs> = {
 
 export default metadata;
 
-export const menu = {
+export const Menu = {
     parameters: {
         docs: {
             description: {
@@ -134,7 +134,7 @@ export const menu = {
     }
 };
 
-export const customMenu = {
+export const CustomMenu = {
     parameters: {
         docs: {
             description: {

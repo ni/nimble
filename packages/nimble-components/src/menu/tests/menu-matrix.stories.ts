@@ -42,11 +42,11 @@ const component = (
     </span>
 `;
 
-export const menuThemeMatrix: Story = createRenderer(
+export const MenuThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [iconVisibleStates]))
 );
 
-export const hiddenMenu = createRenderer(
+export const HiddenMenu = createRenderer(
     hiddenWrapper(
         html`<nimble-menu hidden>
             <nimble-menu-item>Item 1</nimble-menu-item>

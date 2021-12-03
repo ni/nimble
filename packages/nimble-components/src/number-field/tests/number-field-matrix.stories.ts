@@ -43,11 +43,11 @@ const component = (
     </nimble-number-field>
 `;
 
-export const numberFieldThemeMatrix: Story = createRenderer(
+export const NumberFieldThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [disabledStates, valueStates]))
 );
 
-export const hiddenNumberField = createRenderer(
+export const HiddenNumberField: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-number-field hidden
             >Hidden number field</nimble-number-field
