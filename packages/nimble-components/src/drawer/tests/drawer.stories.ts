@@ -14,7 +14,7 @@ enum ExampleContentType {
 
 enum DrawerWidthOptions {
     Default = 'Default',
-    Small320 = 'Small320',
+    Small300 = 'Small300',
     Medium500 = 'Medium500',
     FitContent = 'FitContent'
 }
@@ -61,7 +61,7 @@ const content: { [key in ExampleContentType]: ViewTemplate } = {
 
 const widths: { [key in DrawerWidthOptions]: string } = {
     [DrawerWidthOptions.Default]: drawerWidth.getValueFor(document.body),
-    [DrawerWidthOptions.Small320]: '300px',
+    [DrawerWidthOptions.Small300]: '300px',
     [DrawerWidthOptions.Medium500]: '500px',
     [DrawerWidthOptions.FitContent]: 'fit-content'
 };
@@ -138,7 +138,7 @@ const metadata: Meta<DrawerArgs> = {
             description: `Set via CSS Variable: ${drawerWidth.cssCustomProperty}. Can be any CSS width value, including min/max/fit-content.`,
             options: [
                 DrawerWidthOptions.Default,
-                DrawerWidthOptions.Small320,
+                DrawerWidthOptions.Small300,
                 DrawerWidthOptions.Medium500,
                 DrawerWidthOptions.FitContent
             ],
@@ -148,7 +148,7 @@ const metadata: Meta<DrawerArgs> = {
                     [DrawerWidthOptions.Default]: `Default (${drawerWidth.getValueFor(
                         document.body
                     )})`,
-                    [DrawerWidthOptions.Small320]: 'Small - 300px',
+                    [DrawerWidthOptions.Small300]: 'Small - 300px',
                     [DrawerWidthOptions.Medium500]: 'Medium - 500px',
                     [DrawerWidthOptions.FitContent]: 'fit-content'
                 }
