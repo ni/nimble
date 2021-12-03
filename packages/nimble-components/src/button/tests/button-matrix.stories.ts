@@ -29,7 +29,7 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const DefaultButton = createRenderer(
+export const DefaultButton: Story = createRenderer(
     html`<nimble-button>Default Button</nimble-button>`
 );
 const noContent = 'NO_CONTENT';
@@ -58,6 +58,6 @@ export const ButtonThemeMatrix: Story = createRenderer(
     )
 );
 
-export const HiddenButton = createRenderer(
+export const HiddenButton: Story = createRenderer(
     hiddenWrapper(html`<nimble-button hidden>Hidden Button</nimble-button>`)
 );

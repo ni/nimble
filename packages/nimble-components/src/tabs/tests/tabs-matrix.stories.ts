@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/html';
+import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
@@ -54,11 +54,11 @@ const component = (
     </nimble-tabs>
 `;
 
-export const TabsThemeMatrix = createRenderer(
+export const TabsThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [tabsToolbarState, disabledStates]))
 );
 
-export const HiddenTabs = createRenderer(
+export const HiddenTabs: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-tabs hidden>
             <nimble-tab>Tab One</nimble-tab>

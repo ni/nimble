@@ -80,7 +80,7 @@ export const TreeViewThemeMatrix: Story = createRenderer(
     )
 );
 
-export const HiddenTreeView = createRenderer(
+export const HiddenTreeView: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-tree-view hidden>
             <nimble-tree-item>Item 1</nimble-tree-item>

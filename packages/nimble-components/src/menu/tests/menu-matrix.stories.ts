@@ -46,7 +46,7 @@ export const MenuThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [iconVisibleStates]))
 );
 
-export const HiddenMenu = createRenderer(
+export const HiddenMenu: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-menu hidden>
             <nimble-menu-item>Item 1</nimble-menu-item>

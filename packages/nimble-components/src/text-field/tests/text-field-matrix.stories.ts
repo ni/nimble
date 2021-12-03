@@ -74,7 +74,7 @@ export const TextFieldThemeMatrix: Story = createRenderer(
     )
 );
 
-export const HiddenTextField = createRenderer(
+export const HiddenTextField: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-text-field hidden>Hidden text field</nimble-text-field>`
     )
