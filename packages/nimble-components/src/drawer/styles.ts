@@ -8,8 +8,6 @@ import {
     drawerHeaderFontFamily,
     drawerHeaderFontSize,
     drawerWidth,
-    drawerTop,
-    drawerBottom,
     fontFamily,
     popupBorderColor,
     popupBoxShadowColor
@@ -56,8 +54,6 @@ export const styles = css`
     :host([modal]) .positioning-region {
         width: 100%;
         position: fixed;
-        top: ${drawerTop};
-        bottom: ${drawerBottom};
         display: flex;
     }
 
@@ -65,8 +61,6 @@ export const styles = css`
     .overlay {
         position: fixed;
         inset: 0px;
-        top: ${drawerTop};
-        bottom: ${drawerBottom};
         background: ${popupBorderColor};
         touch-action: none;
     }
@@ -74,6 +68,7 @@ export const styles = css`
     .control {
         position: relative;
         top: 0px;
+        bottom: 0px;
         display: grid;
         grid-template-rows: max-content auto max-content;
         flex-direction: column;
@@ -87,7 +82,7 @@ export const styles = css`
 
     :host([modal]) .control {
         position: absolute;
-        height: calc(100vh - ${drawerBottom} - ${drawerTop});
+        height: 100%;
     }
 
     :host(.hidden) .control {

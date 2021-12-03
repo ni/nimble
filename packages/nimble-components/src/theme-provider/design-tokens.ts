@@ -256,8 +256,6 @@ export const labelHeight = create<string>('label-height').withDefault('16px');
 export const borderWidth = create<string>('border-width').withDefault('1px');
 export const iconSize = create<string>('icon-size').withDefault('16px');
 export const drawerWidth = create<string>('drawer-width').withDefault('784px');
-export const drawerTop = create<string>('drawer-top').withDefault('0px');
-export const drawerBottom = create<string>('drawer-bottom').withDefault('0px');
 
 // Font Family Tokens
 export const fontFamily = create<string>('font-family').withDefault(BodyFamily);

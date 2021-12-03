@@ -4,11 +4,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../../button/index';
 import '../index';
-import {
-    drawerWidth,
-    drawerTop,
-    drawerBottom
-} from '../../theme-provider/design-tokens';
+import { drawerWidth } from '../../theme-provider/design-tokens';
 import { DrawerLocation, DrawerState } from '../types';
 
 enum ExampleContentType {
@@ -23,8 +19,6 @@ interface DrawerArgs {
     preventDismiss: boolean;
     content: ExampleContentType;
     width: string;
-    top: string;
-    bottom: string;
 }
 
 const simpleContent = html`
@@ -80,7 +74,7 @@ const metadata: Meta<DrawerArgs> = {
             ?prevent-dismiss="${x => x.preventDismiss}"
             location="${x => x.location}"
             state="${x => x.state}" 
-            style="${x => `${drawerWidth.cssCustomProperty}:${x.width}; ${drawerTop.cssCustomProperty}:${x.top}; ${drawerBottom.cssCustomProperty}:${x.bottom};`}"
+            style="${x => `${drawerWidth.cssCustomProperty}:${x.width};`}"
         >
             ${x => content[x.content]}
         </nimble-drawer>
@@ -128,12 +122,6 @@ const metadata: Meta<DrawerArgs> = {
         },
         width: {
             description: `Set via CSS Variable: ${drawerWidth.cssCustomProperty}. Can be any CSS width value, including min/max/fit-content.`
-        },
-        top: {
-            description: `Set via CSS Variable: ${drawerTop.cssCustomProperty}. Only applies when "modal" is true.`
-        },
-        bottom: {
-            description: `Set via CSS Variable: ${drawerBottom.cssCustomProperty}. Only applies when "modal" is true.`
         }
     },
     args: {
@@ -142,9 +130,7 @@ const metadata: Meta<DrawerArgs> = {
         modal: 'true',
         preventDismiss: false,
         content: ExampleContentType.SimpleTextContent,
-        width: drawerWidth.getValueFor(document.body),
-        top: drawerTop.getValueFor(document.body),
-        bottom: drawerBottom.getValueFor(document.body)
+        width: drawerWidth.getValueFor(document.body)
     }
 };
 
