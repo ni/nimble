@@ -7,7 +7,6 @@ import '@ni/nimble-components/dist/esm/text-field';
 @NgModule({
     declarations: [NimbleTextFieldDirective, NimbleTextFieldControlValueAccessorDirective],
     imports: [CommonModule],
-    providers: [],
     exports: [NimbleTextFieldDirective, NimbleTextFieldControlValueAccessorDirective]
 })
 export class NimbleTextFieldModule {}

@@ -5,9 +5,8 @@ import { NimbleNumberFieldControlValueAccessorDirective } from './nimble-number-
 import '@ni/nimble-components/dist/esm/number-field';
 
 @NgModule({
-    declarations: [NimbleNumberFieldDirective],
-    imports: [CommonModule, NimbleNumberFieldControlValueAccessorDirective],
-    providers: [],
+    declarations: [NimbleNumberFieldDirective, NimbleNumberFieldControlValueAccessorDirective],
+    imports: [CommonModule],
     exports: [NimbleNumberFieldDirective, NimbleNumberFieldControlValueAccessorDirective]
 })
 export class NimbleNumberFieldModule {}
