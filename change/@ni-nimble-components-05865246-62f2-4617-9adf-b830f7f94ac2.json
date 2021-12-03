@@ -3,5 +3,5 @@
   "comment": "Add icons for succeeded and fail",
   "packageName": "@ni/nimble-components",
   "email": "christine.spangler@ni.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
