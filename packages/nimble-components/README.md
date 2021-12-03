@@ -17,7 +17,7 @@ If you are using one of the following frameworks see associated wrapper document
 1. Angular: See the [nimble-angular](/angular-workspace/projects/ni/nimble-angular) documentation.
 2. Blazor WebAssembly or Blazor Server: See the [nimble-blazor](/packages/nimble-blazor) documentation.
 
-### Installation
+### Using `nimble-components` Without a Framework
 
 To use `@ni/nimble-components` directly, follow these steps:
 
