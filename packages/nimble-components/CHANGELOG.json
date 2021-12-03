@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 03 Dec 2021 18:58:22 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.104",
+      "version": "1.0.0-beta.104",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "32167177+haworthia@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "367801981ae06d80f6885346234f610b8bd4907d",
+            "comment": "Add icons for succeeded and fail"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Dec 2021 17:51:36 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.103",
       "version": "1.0.0-beta.103",
