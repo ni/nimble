@@ -11,20 +11,20 @@ import { toBooleanProperty } from '../utilities/template-value-helpers';
 })
 export class NimbleButtonDirective {
     public get appearance(): ButtonAppearance {
-        return this.el.nativeElement.appearance;
+        return this.elementRef.nativeElement.appearance;
     }
 
     @Input() public set appearance(value: ButtonAppearance) {
-        this.renderer.setProperty(this.el.nativeElement, 'appearance', value);
+        this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
     }
 
     public get disabled(): boolean {
-        return this.el.nativeElement.disabled;
+        return this.elementRef.nativeElement.disabled;
     }
 
     @Input() public set disabled(value: boolean) {
-        this.renderer.setProperty(this.el.nativeElement, 'disabled', toBooleanProperty(value));
+        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
-    public constructor(private readonly renderer: Renderer2, private readonly el: ElementRef<Button>) {}
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Button>) {}
 }

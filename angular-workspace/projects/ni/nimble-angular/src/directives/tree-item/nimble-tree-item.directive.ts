@@ -12,38 +12,38 @@ export type { TreeItem };
 })
 export class NimbleTreeItemDirective {
     public get disabled(): boolean {
-        return this.el.nativeElement.disabled;
+        return this.elementRef.nativeElement.disabled;
     }
 
     @Input() public set disabled(value: boolean) {
-        this.renderer.setProperty(this.el.nativeElement, 'disabled', toBooleanProperty(value));
+        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
     public get expanded(): boolean {
-        return this.el.nativeElement.expanded;
+        return this.elementRef.nativeElement.expanded;
     }
 
     @Input() public set expanded(value: boolean) {
-        this.renderer.setProperty(this.el.nativeElement, 'expanded', toBooleanProperty(value));
+        this.renderer.setProperty(this.elementRef.nativeElement, 'expanded', toBooleanProperty(value));
     }
 
     public get selected(): boolean {
-        return this.el.nativeElement.selected;
+        return this.elementRef.nativeElement.selected;
     }
 
     @Input() public set selected(value: boolean) {
-        this.renderer.setProperty(this.el.nativeElement, 'selected', toBooleanProperty(value));
+        this.renderer.setProperty(this.elementRef.nativeElement, 'selected', toBooleanProperty(value));
         // Needed because fast-foundation TreeView sets initial selection with an aria-selected query
-        this.renderer.setAttribute(this.el.nativeElement, 'selected', toBooleanAriaAttribute(value));
+        this.renderer.setAttribute(this.elementRef.nativeElement, 'selected', toBooleanAriaAttribute(value));
     }
 
     @Output() public expandedChange = new EventEmitter<boolean>();
 
-    public constructor(private readonly renderer: Renderer2, private readonly el: ElementRef<TreeItem>) {}
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TreeItem>) {}
 
     @HostListener('expanded-change', ['$event'])
     private onExpandedChange($event: Event): void {
-        if ($event.target === this.el.nativeElement) {
+        if ($event.target === this.elementRef.nativeElement) {
             this.expandedChange.emit(this.expanded);
         }
     }

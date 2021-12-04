@@ -10,12 +10,12 @@ import { toBooleanProperty } from '../utilities/template-value-helpers';
 })
 export class NimbleTabDirective {
     public get disabled(): boolean {
-        return this.el.nativeElement.disabled;
+        return this.elementRef.nativeElement.disabled;
     }
 
     @Input() public set disabled(value: boolean) {
-        this.renderer.setProperty(this.el.nativeElement, 'disabled', toBooleanProperty(value));
+        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
-    public constructor(private readonly renderer: Renderer2, private readonly el: ElementRef<Tab>) {}
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Tab>) {}
 }

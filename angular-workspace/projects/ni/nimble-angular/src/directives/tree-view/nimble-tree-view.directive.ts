@@ -13,12 +13,12 @@ export { SelectionMode };
 })
 export class NimbleTreeViewDirective {
     public get selectionMode(): SelectionMode {
-        return this.el.nativeElement.selectionMode;
+        return this.elementRef.nativeElement.selectionMode;
     }
 
     @Input() public set selectionMode(value: SelectionMode) {
-        this.renderer.setProperty(this.el.nativeElement, 'selectionMode', value);
+        this.renderer.setProperty(this.elementRef.nativeElement, 'selectionMode', value);
     }
 
-    public constructor(private readonly renderer: Renderer2, private readonly el: ElementRef<TreeView>) {}
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TreeView>) {}
 }

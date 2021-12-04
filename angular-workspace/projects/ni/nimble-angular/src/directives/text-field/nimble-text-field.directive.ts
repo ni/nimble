@@ -10,12 +10,12 @@ import { toBooleanProperty } from '../utilities/template-value-helpers';
 })
 export class NimbleTextFieldDirective {
     public get readOnly(): boolean {
-        return this.el.nativeElement.readOnly;
+        return this.elementRef.nativeElement.readOnly;
     }
 
     @Input() public set readOnly(value: boolean) {
-        this.renderer.setProperty(this.el.nativeElement, 'readOnly', toBooleanProperty(value));
+        this.renderer.setProperty(this.elementRef.nativeElement, 'readOnly', toBooleanProperty(value));
     }
 
-    public constructor(private readonly renderer: Renderer2, private readonly el: ElementRef<TextField>) {}
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TextField>) {}
 }

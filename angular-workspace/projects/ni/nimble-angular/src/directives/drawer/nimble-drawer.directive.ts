@@ -14,32 +14,32 @@ export { DrawerLocation, DrawerState };
 })
 export class NimbleDrawerDirective {
     public get location(): DrawerLocation {
-        return this.el.nativeElement.location;
+        return this.elementRef.nativeElement.location;
     }
 
     @Input() public set location(value: DrawerLocation) {
-        this.renderer.setProperty(this.el.nativeElement, 'location', value);
+        this.renderer.setProperty(this.elementRef.nativeElement, 'location', value);
     }
 
     public get state(): DrawerState {
-        return this.el.nativeElement.state;
+        return this.elementRef.nativeElement.state;
     }
 
     @Input() public set state(value: DrawerState) {
-        this.renderer.setProperty(this.el.nativeElement, 'state', value);
+        this.renderer.setProperty(this.elementRef.nativeElement, 'state', value);
     }
 
     public get modal(): boolean {
-        return this.el.nativeElement.modal;
+        return this.elementRef.nativeElement.modal;
     }
 
     @Input() public set modal(value: boolean) {
-        this.renderer.setProperty(this.el.nativeElement, 'modal', toBooleanProperty(value));
+        this.renderer.setProperty(this.elementRef.nativeElement, 'modal', toBooleanProperty(value));
     }
 
     @Output() public stateChange = new EventEmitter<DrawerState>();
 
-    public constructor(private readonly renderer: Renderer2, private readonly el: ElementRef<Drawer>) {}
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Drawer>) {}
 
     public show(): void {
         this.state = DrawerState.Opening;
@@ -51,7 +51,7 @@ export class NimbleDrawerDirective {
 
     @HostListener('state-change', ['$event'])
     private onStateChanged($event: Event): void {
-        if ($event.target === this.el.nativeElement) {
+        if ($event.target === this.elementRef.nativeElement) {
             this.stateChange.emit(this.state);
         }
     }

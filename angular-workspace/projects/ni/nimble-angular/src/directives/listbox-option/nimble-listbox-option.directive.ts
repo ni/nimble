@@ -12,18 +12,18 @@ import { toBooleanProperty } from '../utilities/template-value-helpers';
 })
 export class NimbleListboxOptionDirective extends NgSelectOption {
     public get disabled(): boolean {
-        return this.element.nativeElement.disabled;
+        return this.elementRef.nativeElement.disabled;
     }
 
     @Input() public set disabled(value: boolean) {
-        this.renderer.setProperty(this.element.nativeElement, 'disabled', toBooleanProperty(value));
+        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
     public constructor(
-        private readonly element: ElementRef<ListboxOption>,
+        private readonly elementRef: ElementRef<ListboxOption>,
         private readonly renderer: Renderer2,
         @Optional() @Host() select: NimbleSelectControlValueAccessorDirective
     ) {
-        super(element, renderer, select);
+        super(elementRef, renderer, select);
     }
 }
