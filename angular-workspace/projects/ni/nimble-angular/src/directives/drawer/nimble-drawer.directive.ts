@@ -50,7 +50,7 @@ export class NimbleDrawerDirective {
     }
 
     @HostListener('state-change', ['$event'])
-    private onStateChanged($event: Event): void {
+    public onStateChanged($event: Event): void {
         if ($event.target === this.elementRef.nativeElement) {
             this.stateChange.emit(this.state);
         }

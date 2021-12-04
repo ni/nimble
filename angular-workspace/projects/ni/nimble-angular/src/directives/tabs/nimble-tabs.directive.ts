@@ -21,7 +21,7 @@ export class NimbleTabsDirective {
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Tabs>) {}
 
     @HostListener('change', ['$event'])
-    private onChange($event: Event): void {
+    public onChange($event: Event): void {
         if ($event.target === this.elementRef.nativeElement) {
             this.activeidChange.emit(this.activeid);
         }

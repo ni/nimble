@@ -42,7 +42,7 @@ export class NimbleTreeItemDirective {
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TreeItem>) {}
 
     @HostListener('expanded-change', ['$event'])
-    private onExpandedChange($event: Event): void {
+    public onExpandedChange($event: Event): void {
         if ($event.target === this.elementRef.nativeElement) {
             this.expandedChange.emit(this.expanded);
         }
