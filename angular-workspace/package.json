@@ -14,7 +14,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false",
     "lint": "ng lint",
-    "lint-fix": "ng lint --fix"
+    "format": "ng lint --fix"
   },
   "private": true,
   "dependencies": {
