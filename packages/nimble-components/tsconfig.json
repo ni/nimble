@@ -13,7 +13,7 @@
         "importHelpers": true,
         "resolveJsonModule": true,
         "sourceMap": true,
-        // Set to True to workaround – https://github.com/storybookjs/storybook/issues/16839
+        // Set to 'true' to work around – https://github.com/ni/nimble/issues/219
         "skipLibCheck": true,
         "lib": ["DOM", "ES2015", "ES2016.Array.Include", "ES2017.Object"],
         // Whitelist imported @types instead of using them all
