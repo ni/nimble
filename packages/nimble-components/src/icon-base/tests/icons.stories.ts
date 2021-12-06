@@ -86,7 +86,7 @@ const iconTemplate = html<IconClass, IconArgs>`
 `;
 
 // prettier-ignore
-export const componentIcons: StoryObj = {
+export const componentIcons: StoryObj<IconArgs> = {
     args: { status: IconStatus.Regular },
     argTypes: {
         status: {

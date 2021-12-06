@@ -129,4 +129,4 @@ const metadata: Meta<DrawerArgs> = {
 
 export default metadata;
 
-export const drawer: StoryObj = {};
+export const drawer: StoryObj<DrawerArgs> = {};

@@ -45,4 +45,4 @@ const metadata: Meta<CheckboxArgs> = {
 
 export default metadata;
 
-export const checkbox: StoryObj = {};
+export const checkbox: StoryObj<CheckboxArgs> = {};

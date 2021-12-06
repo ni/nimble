@@ -64,4 +64,4 @@ const metadata: Meta<SelectArgs> = {
 
 export default metadata;
 
-export const select: StoryObj = {};
+export const select: StoryObj<SelectArgs> = {};
