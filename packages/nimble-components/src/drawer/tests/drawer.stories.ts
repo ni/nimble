@@ -4,11 +4,19 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../../button/index';
 import '../index';
+import { drawerWidth } from '../../theme-provider/design-tokens';
 import { DrawerLocation, DrawerState } from '../types';
 
 enum ExampleContentType {
     SimpleTextContent = 'SimpleTextContent',
     HeaderContentFooter = 'HeaderContentFooter'
+}
+
+enum DrawerWidthOptions {
+    Default = 'Default',
+    Small300 = 'Small300',
+    Medium500 = 'Medium500',
+    FitContent = 'FitContent'
 }
 
 interface DrawerArgs {
@@ -17,6 +25,7 @@ interface DrawerArgs {
     modal: string;
     preventDismiss: boolean;
     content: ExampleContentType;
+    width: DrawerWidthOptions;
 }
 
 const simpleContent = html`
@@ -50,6 +59,13 @@ const content: { [key in ExampleContentType]: ViewTemplate } = {
     [ExampleContentType.HeaderContentFooter]: headerFooterContent
 };
 
+const widths: { [key in DrawerWidthOptions]: string } = {
+    [DrawerWidthOptions.Default]: drawerWidth.getValueFor(document.body),
+    [DrawerWidthOptions.Small300]: '300px',
+    [DrawerWidthOptions.Medium500]: '500px',
+    [DrawerWidthOptions.FitContent]: 'fit-content'
+};
+
 const metadata: Meta<DrawerArgs> = {
     title: 'Drawer',
     decorators: [withXD],
@@ -71,7 +87,8 @@ const metadata: Meta<DrawerArgs> = {
             modal="${x => x.modal}"
             ?prevent-dismiss="${x => x.preventDismiss}"
             location="${x => x.location}"
-            state="${x => x.state}"
+            state="${x => x.state}" 
+            style="${x => `${drawerWidth.cssCustomProperty}:${widths[x.width]};`}"
         >
             ${x => content[x.content]}
         </nimble-drawer>
@@ -116,6 +133,26 @@ const metadata: Meta<DrawerArgs> = {
                         'Header/Content/Footer Example'
                 }
             }
+        },
+        width: {
+            description: `Set via CSS Variable: ${drawerWidth.cssCustomProperty}. Can be any CSS width value, including min/max/fit-content.`,
+            options: [
+                DrawerWidthOptions.Default,
+                DrawerWidthOptions.Small300,
+                DrawerWidthOptions.Medium500,
+                DrawerWidthOptions.FitContent
+            ],
+            control: {
+                type: 'select',
+                labels: {
+                    [DrawerWidthOptions.Default]: `Default (${drawerWidth.getValueFor(
+                        document.body
+                    )})`,
+                    [DrawerWidthOptions.Small300]: 'Small - 300px',
+                    [DrawerWidthOptions.Medium500]: 'Medium - 500px',
+                    [DrawerWidthOptions.FitContent]: 'fit-content'
+                }
+            }
         }
     },
     args: {
@@ -123,7 +160,8 @@ const metadata: Meta<DrawerArgs> = {
         state: DrawerState.Opening,
         modal: 'true',
         preventDismiss: false,
-        content: ExampleContentType.SimpleTextContent
+        content: ExampleContentType.SimpleTextContent,
+        width: DrawerWidthOptions.Default
     }
 };
 

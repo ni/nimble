@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 01 Dec 2021 17:51:36 GMT and should not be manually modified.
+This log was last generated on Fri, 03 Dec 2021 20:54:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.105
+
+Fri, 03 Dec 2021 20:54:09 GMT
+
+### Changes
+
+- Drawer updates (bugfix for content/footer mode, make drawer width configurable in Storybook) (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.104
+
+Fri, 03 Dec 2021 18:58:22 GMT
+
+### Changes
+
+- Add icons for succeeded and fail (32167177+haworthia@users.noreply.github.com)
 
 ## 1.0.0-beta.103
 
