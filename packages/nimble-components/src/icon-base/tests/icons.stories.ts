@@ -50,7 +50,7 @@ const metadata: Meta<IconArgs> = {
 export default metadata;
 
 // prettier-ignore
-export const rawIcons: StoryObj = {
+export const rawIcons: StoryObj<IconArgs> = {
     parameters: {
         controls: { hideNoControlsWarning: true }
     },
