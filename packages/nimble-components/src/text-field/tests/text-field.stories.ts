@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import type { Meta } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
@@ -60,10 +60,10 @@ const metadata: Meta<TextFieldArgs> = {
 
 export default metadata;
 
-export const textField = {
+export const textField: StoryObj = {
     args: { label: 'Text Field' }
 };
 
-export const passwordField = {
+export const passwordField: StoryObj = {
     args: { label: 'Password Field', type: 'password' }
 };

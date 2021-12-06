@@ -1,5 +1,5 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import type { Meta } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../../button/index';
@@ -129,4 +129,4 @@ const metadata: Meta<DrawerArgs> = {
 
 export default metadata;
 
-export const drawer = {};
+export const drawer: StoryObj = {};

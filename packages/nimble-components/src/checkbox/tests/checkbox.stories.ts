@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import type { Meta } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../index';
@@ -45,4 +45,4 @@ const metadata: Meta<CheckboxArgs> = {
 
 export default metadata;
 
-export const checkbox = {};
+export const checkbox: StoryObj = {};
