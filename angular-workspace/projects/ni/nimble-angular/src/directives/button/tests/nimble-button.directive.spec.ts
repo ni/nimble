@@ -31,6 +31,8 @@ describe('Nimble button', () => {
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
+        let directive: NimbleButtonDirective;
+        let nativeElement: Button;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -39,14 +41,16 @@ describe('Nimble button', () => {
             }).compileComponents();
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
+            directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('has expected defaults', () => {
-            const directive = fixture.componentInstance.directive;
-            const nativeElement = fixture.componentInstance.elementRef.nativeElement;
-
+        it('has expected defaults for disabled', () => {
             expect(directive.disabled).toBeFalse();
             expect(nativeElement.disabled).toBeFalse();
+        });
+
+        it('has expected defaults for appearance', () => {
             expect(directive.appearance).toBe(ButtonAppearance.Outline);
             expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
         });
@@ -66,6 +70,8 @@ describe('Nimble button', () => {
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
+        let directive: NimbleButtonDirective;
+        let nativeElement: Button;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -74,14 +80,16 @@ describe('Nimble button', () => {
             }).compileComponents();
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
+            directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('will use template string values', () => {
-            const directive = fixture.componentInstance.directive;
-            const nativeElement = fixture.componentInstance.elementRef.nativeElement;
-
+        it('will use template string values for disabled', () => {
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
+        });
+
+        it('will use template string values for appearance', () => {
             expect(directive.appearance).toBe(ButtonAppearance.Ghost);
             expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
         });
@@ -104,6 +112,8 @@ describe('Nimble button', () => {
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
+        let directive: NimbleButtonDirective;
+        let nativeElement: Button;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -112,22 +122,28 @@ describe('Nimble button', () => {
             }).compileComponents();
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
+            directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding', async () => {
-            const directive = fixture.componentInstance.directive;
-            const nativeElement = fixture.componentInstance.elementRef.nativeElement;
-
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
+        it('can be configured with property binding for disabled', async () => {
             expect(directive.disabled).toBeFalse();
             expect(nativeElement.disabled).toBeFalse();
 
             fixture.componentInstance.disabled = true;
-            fixture.componentInstance.appearance = ButtonAppearance.Ghost;
             fixture.detectChanges();
 
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
+        });
+
+        it('can be configured with property binding for appearance', async () => {
+            expect(directive.appearance).toBe(ButtonAppearance.Outline);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
+
+            fixture.componentInstance.appearance = ButtonAppearance.Ghost;
+            fixture.detectChanges();
+
             expect(directive.appearance).toBe(ButtonAppearance.Ghost);
             expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
         });
@@ -150,6 +166,8 @@ describe('Nimble button', () => {
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
+        let directive: NimbleButtonDirective;
+        let nativeElement: Button;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -158,23 +176,28 @@ describe('Nimble button', () => {
             }).compileComponents();
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
+            directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with attribute binding', () => {
-            const directive = fixture.componentInstance.directive;
-            const nativeElement = fixture.componentInstance.elementRef.nativeElement;
-
-            expect(directive.appearance).toBe(ButtonAppearance.Outline);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
+        it('can be configured with attribute binding for disabled', () => {
             expect(directive.disabled).toBeFalse();
             expect(nativeElement.disabled).toBeFalse();
 
             fixture.componentInstance.disabled = '';
-            fixture.componentInstance.appearance = ButtonAppearance.Ghost;
             fixture.detectChanges();
 
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for appearance', () => {
+            expect(directive.appearance).toBe(ButtonAppearance.Outline);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
+
+            fixture.componentInstance.appearance = ButtonAppearance.Ghost;
+            fixture.detectChanges();
+
             expect(directive.appearance).toBe(ButtonAppearance.Ghost);
             expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
         });
