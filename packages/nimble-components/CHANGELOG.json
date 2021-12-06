@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 03 Dec 2021 20:54:09 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.105",
+      "version": "1.0.0-beta.105",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3811811a9c07e054bb0946476e33390c0e9d20e6",
+            "comment": "Drawer updates (bugfix for content/footer mode, make drawer width configurable in Storybook)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Dec 2021 18:58:22 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.104",
+      "version": "1.0.0-beta.104",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "32167177+haworthia@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "367801981ae06d80f6885346234f610b8bd4907d",
+            "comment": "Add icons for succeeded and fail"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Dec 2021 17:51:36 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.103",
+      "version": "1.0.0-beta.103",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0-beta.33",
+            "commit": "1c30ce6e23081f6a8c82712ae1d4620a67313c2d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Dec 2021 15:38:13 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.102",
+      "version": "1.0.0-beta.102",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0-beta.32",
+            "commit": "360b04df3d0c1a3ba5e0e3c82cfd42dc945a7b7f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 30 Nov 2021 20:05:08 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.101",
       "version": "1.0.0-beta.101",

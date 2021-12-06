@@ -20,4 +20,8 @@ var props = _.filter(allProperties, function(prop) {
 <% _.each(props, function(prop) {
 %>    <Color x:Key="<%= prop.name %>"><%= prop.value %></Color>
 <% }); %>
+
+<% _.each(props, function(prop) {
+%>    <SolidColorBrush x:Key="<%= prop.name %>Brush" Color="{StaticResource <%= prop.name %>}"/>
+<% }); %>
 </ResourceDictionary>

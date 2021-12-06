@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 03 Dec 2021 20:54:09 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.124",
+      "version": "1.0.0-beta.124",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.105",
+            "commit": "3811811a9c07e054bb0946476e33390c0e9d20e6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Dec 2021 18:58:22 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.123",
+      "version": "1.0.0-beta.123",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.104",
+            "commit": "367801981ae06d80f6885346234f610b8bd4907d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Dec 2021 17:51:36 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.122",
+      "version": "1.0.0-beta.122",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.103",
+            "commit": "1c30ce6e23081f6a8c82712ae1d4620a67313c2d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Dec 2021 15:38:13 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.121",
+      "version": "1.0.0-beta.121",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.102",
+            "commit": "360b04df3d0c1a3ba5e0e3c82cfd42dc945a7b7f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 30 Nov 2021 20:05:08 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.120",
       "version": "1.0.0-beta.120",
