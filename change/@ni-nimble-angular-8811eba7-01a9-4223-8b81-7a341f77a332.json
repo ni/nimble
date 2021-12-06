@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Implement stateless directives",
-  "packageName": "@ni/nimble-angular",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}

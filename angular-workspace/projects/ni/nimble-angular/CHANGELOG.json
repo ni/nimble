@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 06 Dec 2021 23:30:24 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.126",
+      "version": "1.0.0-beta.126",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "70b8d71a82f41a9df0c178975748e69da76616e0",
+            "comment": "Implement stateless directives"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 06 Dec 2021 19:56:32 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.125",
       "version": "1.0.0-beta.125",
