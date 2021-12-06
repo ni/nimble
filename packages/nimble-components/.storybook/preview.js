@@ -6,7 +6,6 @@ import { backgroundStates } from '../dist/esm/utilities/tests/matrix';
 const [defaultBackground] = backgroundStates;
 
 export const parameters = {
-    layout: 'fullscreen',
     backgrounds: {
         default: defaultBackground.name,
         values: backgroundStates.map(({ name, value }) => ({ name, value }))

@@ -13,7 +13,8 @@
         "importHelpers": true,
         "resolveJsonModule": true,
         "sourceMap": true,
-        "skipLibCheck": false,
+        // Set to 'true' to work around – https://github.com/ni/nimble/issues/219
+        "skipLibCheck": true,
         "lib": ["DOM", "ES2015", "ES2016.Array.Include", "ES2017.Object"],
         // Whitelist imported @types instead of using them all
         "types": ["jasmine", "webpack-env"],
