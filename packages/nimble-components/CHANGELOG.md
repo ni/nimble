@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 03 Dec 2021 20:54:09 GMT and should not be manually modified.
+This log was last generated on Mon, 06 Dec 2021 19:56:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.106
+
+Mon, 06 Dec 2021 19:56:32 GMT
+
+### Changes
+
+- upgrade to 6.4 final (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.105
 

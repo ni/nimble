@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { withXD } from 'storybook-addon-xd-designs';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
@@ -50,7 +50,7 @@ const metadata: Meta<IconArgs> = {
 export default metadata;
 
 // prettier-ignore
-export const rawIcons: Story<IconArgs> = {
+export const rawIcons: StoryObj<IconArgs> = {
     parameters: {
         controls: { hideNoControlsWarning: true }
     },
@@ -86,7 +86,7 @@ const iconTemplate = html<IconClass, IconArgs>`
 `;
 
 // prettier-ignore
-export const componentIcons: Story<IconArgs> = {
+export const componentIcons: StoryObj<IconArgs> = {
     args: { status: IconStatus.Regular },
     argTypes: {
         status: {
