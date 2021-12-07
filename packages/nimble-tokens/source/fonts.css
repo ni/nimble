@@ -4,8 +4,7 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: local(''),
-       url('../assets-fonts/Roboto-Regular.woff2') format('woff2'),
+  src: url('../assets-fonts/Roboto-Regular.woff2') format('woff2'),
        url('../assets-fonts/Roboto-Regular.ttf') format('truetype');
   font-display: swap;
 }
@@ -14,8 +13,7 @@
   font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 400;
-  src: local(''),
-       url('../assets-fonts/SourceSansPro-Regular.woff2') format('woff2'),
+  src: url('../assets-fonts/SourceSansPro-Regular.woff2') format('woff2'),
        url('../assets-fonts/SourceSansPro-Regular.ttf') format('truetype');
   font-display: swap;
 }
@@ -24,8 +22,7 @@
   font-family: 'Space Mono';
   font-style: normal;
   font-weight: 400;
-  src: local(''),
-       url('../assets-fonts/SpaceMono-Regular.woff2') format('woff2'),
+  src: url('../assets-fonts/SpaceMono-Regular.woff2') format('woff2'),
        url('../assets-fonts/SpaceMono-Regular.ttf') format('truetype');
   font-display: swap;
 }
