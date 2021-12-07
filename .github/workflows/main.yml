@@ -14,7 +14,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-18.04
-    if: "!contains(github.event.head_commit.message, '[package-publish]')"
+    if: "!contains(github.event.head_commit.message, '[bump-versions]')"
     steps:
       - uses: actions/checkout@v2
         with:
@@ -22,6 +22,9 @@ jobs:
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
       # Install dependencies
+      - uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: 5.0.x
       - uses: actions/setup-node@v1
         with:
           node-version: '12'
@@ -34,11 +37,13 @@ jobs:
 
       # Pack
       - run: npm run pack
+      - run: npm run pack:nuget -w @ni/nimble-tokens
       - uses: actions/upload-artifact@v2
         with:
           name: packages
           path: |
             packages/**/*.tgz
+            packages/**/*.nupkg
             angular-workspace/**/*.tgz
           if-no-files-found: error
 
@@ -97,6 +102,6 @@ jobs:
         run: dpl --provider=pages --repo=ni/nimble --local_dir=packages/site/dist --skip_cleanup --name="${{ env.GITHUB_SERVICE_USER }}" --email="${{ env.GITHUB_SERVICE_EMAIL }}" --github-token=${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
       # Update package versions and tag but not publish to npm (only from main)
-      - name: Beachball publish
+      - name: Beachball bump versions
         if: startsWith(github.ref, 'refs/heads/main')
-        run: npm run publish-ci
+        run: npm run bump-versions

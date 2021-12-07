@@ -39,7 +39,7 @@ export const selectThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [disabledStates]))
 );
 
-export const hiddenSelect = createRenderer(
+export const hiddenSelect: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-select hidden>
             <nimble-listbox-option value="1">Option 1</nimble-listbox-option>

@@ -7,8 +7,8 @@ This package contains a library of NI-styled web components.
 The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
 
 1. A small, performant custom element base class, [FAST Element](https://www.fast.design/docs/fast-element/getting-started).
-1. [Infrastructure for design system features](https://www.fast.design/docs/design-systems/overview) like design tokens and theming.
-1. A library of [core components](https://explore.fast.design/components/) that
+2. [Infrastructure for design system features](https://www.fast.design/docs/design-systems/overview) like design tokens and theming.
+3. A library of [core components](https://explore.fast.design/components/) that
     - are unopinionated in their style and easily stylable
     - adherent to browser standards like accessibility
     - while not meeting all of NI's use cases, give us a good starting point and extension capabilities
@@ -21,8 +21,8 @@ The library is built on the open source [FAST Design System library](https://fas
 From the `nimble` directory:
 
 1. Run `npm install`
-1. Run `npm run build`
-1. Run the different Nimble Components test configurations:
+2. Run `npm run build`
+3. Run the different Nimble Components test configurations:
 
     - To view the components and manually test behaviors in Storybook: `npm run storybook -w @ni/nimble-components`
 
@@ -67,15 +67,15 @@ Next steps: See the [Development workflow](#development-workflow) for creating c
 
 Create a new folder named after your component with some core files:
 
-| File                                   | Description                                                                                                                                                                                                                                    |
-| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| index.ts                               | Contains the component class definition and registration. All Typescript logic contained in the component belongs here.                                                                                                                        |
-| styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](src/theme-provider/design-tokens.ts).                                             |
-| template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                     |
-| tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                     |
-| tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                          |
-| tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                            |
-| tests/component-name-docs.stories.ts   | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See [Creating Storybook Component Documentation](docs/creating-storybook-component-documentation.md) for more information. |
+| File                                   | Description                                                                                                                                                                                                                                                                |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| index.ts                               | Contains the component class definition and registration. All Typescript logic contained in the component belongs here.                                                                                                                                                    |
+| styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts).                                             |
+| template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                                                 |
+| tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
+| tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                                                      |
+| tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
+| tests/component-name-docs.stories.ts   | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See [Creating Storybook Component Documentation](/packages/nimble-components/docs/creating-storybook-component-documentation.md) for more information. |
 
 ### Decide how to build on top of FAST
 
@@ -118,7 +118,7 @@ Use the `html` tagged template helper to define your custom template. See [decla
 
 #### CSS
 
-Component CSS should follow the patterns described in [CSS Guidelines](./docs/css-guidelines.md).
+Component CSS should follow the patterns described in [CSS Guidelines](/packages/nimble-components/docs/css-guidelines.md).
 
 #### Comments
 
@@ -204,16 +204,16 @@ The following commands can be run from the `nimble` directory:
 
 ### Test utilities
 
-Test utilities located in [`/src/testing`](src/testing) may be used for testing:
+Test utilities located in [`/src/testing`](/packages/nimble-components/src/testing) may be used for testing:
 
 -   performed inside the `@ni/nimble-components` package or
 -   by other packages in the monorepo or users consuming the built package
 
-Test utilties located in [`/src/utilities/tests`](src/utilities/tests) are just for tests in the `@ni/nimble-components` package and are not shared externally.
+Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/src/utilities/tests) are just for tests in the `@ni/nimble-components` package and are not shared externally.
 
 #### Fixtures
 
-The jasmine unit tests utilize [`fixture.ts`](src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](src/utilities/tests/fixture.spec.ts).
+The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/fixture.spec.ts).
 
 ## Theming
 

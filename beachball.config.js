@@ -2,9 +2,16 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 
+// Workaround for the following issues:
 // Beachball issue: https://github.com/microsoft/beachball/issues/525
 // NPM issue 1: https://github.com/npm/cli/issues/3756
 // NPM issue 2: https://github.com/npm/cli/issues/3757
+
+/**
+ * Returns a beachball postbump hook implementation that bumps package
+ * references specified in the root package-lock.json file during
+ * beachball package version bumps.
+ */
 const postbump = (_packagePath, packageName, packageVersion) => {
     console.log(`Updating lockfile for package ${packageName} to version ${packageVersion}`);
     const lockPath = path.resolve(__dirname, './package-lock.json');

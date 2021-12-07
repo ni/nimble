@@ -35,7 +35,10 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
 
         // Improves readability of templates to avoid return types in template expressions
-        '@typescript-eslint/explicit-function-return-type': ['error', {allowExpressions: true}],
+        '@typescript-eslint/explicit-function-return-type': [
+            'error',
+            { allowExpressions: true }
+        ],
 
         'no-restricted-imports': [
             'error',
@@ -55,13 +58,15 @@ module.exports = {
     overrides: [
         {
             files: ['*.stories.ts'],
+            extends: ['plugin:storybook/recommended'],
             rules: {
                 // Storybook files will not be in published package and are allowed to use devDependencies
                 'import/no-extraneous-dependencies': [
                     'error',
                     { devDependencies: true }
                 ],
-                'import/no-default-export': 'off'
+                'import/no-default-export': 'off',
+                'storybook/prefer-pascal-case': 'off'
             }
         },
         {

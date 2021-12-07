@@ -1,8 +1,65 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 23 Nov 2021 01:46:37 GMT and should not be manually modified.
+This log was last generated on Mon, 06 Dec 2021 19:56:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.106
+
+Mon, 06 Dec 2021 19:56:32 GMT
+
+### Changes
+
+- upgrade to 6.4 final (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.105
+
+Fri, 03 Dec 2021 20:54:09 GMT
+
+### Changes
+
+- Drawer updates (bugfix for content/footer mode, make drawer width configurable in Storybook) (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.104
+
+Fri, 03 Dec 2021 18:58:22 GMT
+
+### Changes
+
+- Add icons for succeeded and fail (32167177+haworthia@users.noreply.github.com)
+
+## 1.0.0-beta.103
+
+Wed, 01 Dec 2021 17:51:36 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.33
+
+## 1.0.0-beta.102
+
+Wed, 01 Dec 2021 15:38:13 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.32
+
+## 1.0.0-beta.101
+
+Mon, 29 Nov 2021 20:17:04 GMT
+
+### Changes
+
+- Update documentation (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.31
+
+## 1.0.0-beta.100
+
+Mon, 29 Nov 2021 19:31:25 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.30
 
 ## 1.0.0-beta.99
 

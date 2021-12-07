@@ -2,6 +2,147 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 06 Dec 2021 23:30:24 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.126",
+      "version": "1.0.0-beta.126",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "70b8d71a82f41a9df0c178975748e69da76616e0",
+            "comment": "Implement stateless directives"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 Dec 2021 19:56:32 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.125",
+      "version": "1.0.0-beta.125",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.106",
+            "commit": "2f623efaba40c8d9a7693d7a8d4a7178f489a8dd"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Dec 2021 20:54:09 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.124",
+      "version": "1.0.0-beta.124",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.105",
+            "commit": "3811811a9c07e054bb0946476e33390c0e9d20e6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Dec 2021 18:58:22 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.123",
+      "version": "1.0.0-beta.123",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.104",
+            "commit": "367801981ae06d80f6885346234f610b8bd4907d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Dec 2021 17:51:36 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.122",
+      "version": "1.0.0-beta.122",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.103",
+            "commit": "1c30ce6e23081f6a8c82712ae1d4620a67313c2d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Dec 2021 15:38:13 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.121",
+      "version": "1.0.0-beta.121",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.102",
+            "commit": "360b04df3d0c1a3ba5e0e3c82cfd42dc945a7b7f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Nov 2021 20:05:08 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.120",
+      "version": "1.0.0-beta.120",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ca4ee0c87c9877010de3f15db1203ad8d5cd1d02",
+            "comment": "Switch to a View Engine based build"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 29 Nov 2021 20:17:04 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.119",
+      "version": "1.0.0-beta.119",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "8b863b95e7c31aa99a4df23f9ac1456471570d2f",
+            "comment": "Update documentation with usage instructions"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.101",
+            "commit": "8b863b95e7c31aa99a4df23f9ac1456471570d2f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 29 Nov 2021 19:31:25 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.118",
+      "version": "1.0.0-beta.118",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.100",
+            "commit": "64321e05b3b085d5b4082287dc97daf5926f00ac"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 23 Nov 2021 01:46:37 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.117",
       "version": "1.0.0-beta.117",

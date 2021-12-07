@@ -13,7 +13,8 @@ module.exports = {
             }
         },
         'storybook-addon-xd-designs',
-        '@storybook/addon-a11y'
+        '@storybook/addon-a11y',
+        '@storybook/addon-interactions'
     ],
     features: {
         previewCsfV3: true

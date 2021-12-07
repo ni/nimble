@@ -5,16 +5,16 @@
 This repository uses the following tooling. See below for more info.
 
 1. A monorepo containing multiple packages managed via [NPM workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
-1. Linting via [ESLint](https://eslint.org/) following the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide)
-1. Testing via [Karma](http://karma-runner.github.io/6.3/index.html) and [Jasmine](https://jasmine.github.io/)
-1. Releases via [beachball](https://microsoft.github.io/beachball/)
-1. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
+2. Linting via [ESLint](https://eslint.org/) following the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide)
+3. Testing via [Karma](http://karma-runner.github.io/6.3/index.html) and [Jasmine](https://jasmine.github.io/)
+4. Releases via [beachball](https://microsoft.github.io/beachball/)
+5. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
 
 ### Helpful links
 
 - [Design System HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Design%20System%20for%20Angular%20and%20Blazor%20UI%20Components.md&version=GBmaster&_a=preview)
 - [Nimble Angular HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Nimble%20Angular.md&version=GBmaster&_a=preview)
-- [Nimble architecture](docs/Architecture.md)
+- [Nimble architecture](/docs/Architecture.md)
 - [Nimble Components XD Library](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/)
 
 ## Getting started
@@ -22,9 +22,9 @@ This repository uses the following tooling. See below for more info.
 From the `nimble` directory:
 
 1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
-1. Run `npm install`
-1. Run `npm run build` (or **Terminal»Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
-1. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+2. Run `npm install`
+3. Run `npm run build` (or **Terminal»Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
+4. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
     **Note**: You will need to refresh your browser window to see style changes made in source.
 
@@ -32,10 +32,20 @@ From the `nimble` directory:
 
 ### Adding a new component
 
-1. Ensure UX specs are up to date and tokens are generated. See instructions for [contributing to nimble tokens](packages/nimble-tokens/CONTRIBUTING.md).
-1. Expose any tokens in the token provider and add web component logic. See instructions for [contributing to nimble components](packages/nimble-components/CONTRIBUTING.md).
-1. Add wrappers for each framework. See instructions for [adding Angular wrappers](angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](packages/nimble-blazor/CONTRIBUTING.md).
-1. Publish and use! 🎉
+1. Ensure UX specs are up to date and tokens are generated. See instructions for [contributing to nimble tokens](/packages/nimble-tokens/CONTRIBUTING.md).
+2. Expose any tokens in the token provider and add web component logic. See instructions for [contributing to nimble components](/packages/nimble-components/CONTRIBUTING.md).
+3. Add wrappers for each framework. See instructions for [adding Angular wrappers](/angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](/packages/nimble-blazor/CONTRIBUTING.md).
+4. Publish and use! 🎉
+
+## Documentation policies
+
+1. Documentation for consumers of Nimble should go in `README.md` files. 
+2. Documentation for contributors should go in `CONTRIBUTING.md` files. 
+3. Documentation is hierarchical throughout the repo: 
+   - repo-wide documentation exists at the root
+   - package-specific documentation exists for each package
+   - documentation of specific utilities or components can exist next to the source or in dedicated `docs` folders throughout the repo. Be sure to link to lower-level documents from higher-level ones to aid in discovery.
+4. Links in documentation within the repo should use relative paths from the root of the repo (i.e. `/packages/nimble-components/docs/`, not `../nimble-components/docs`). This ensures links across packages will work both on GitHub and on `npmjs.org`.
 
 ## Pull request policies
 
@@ -44,14 +54,15 @@ From the `nimble` directory:
 This repository uses [beachball](https://microsoft.github.io/beachball/) to automate publishing its packages to NPM. The basic workflow is as follows:
 
 1. Every pull request that affects a published package must contain a "change file" which specifies how it affects the versions of each package and includes a description of the change. Developers generate this change file by running `npm run change` before creating the pull request.
-1. After the pull request completes, a CI pipeline will inspect the change files to generate changelogs, bump versions in package.json, and publish the newly built packages to NPM.
+2. After the pull request completes, a CI pipeline will inspect the change files to generate changelogs, bump versions in package.json files, and create git tags for the updated package versions.
+3. A pipeline will run for each newly created git tag and invoke the `npm run publish` command for the associated package.
 
 ### Chromatic visual component tests
 
 This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual component review, and adds GitHub status checks to the build pipeline. The workflow is as follows:
 
 1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**.
-1. The `UI Review` status check is designed to collect feedback from UX and visual designers. Using the Chromatic review tooling, invite designers to review and approve the component changes.
+2. The `UI Review` status check is designed to collect feedback from UX and visual designers. Using the Chromatic review tooling, invite designers to review and approve the component changes.
 
 ### Linting
 
@@ -79,7 +90,7 @@ You can also configure this task to execute via a keyboard shortcut by [configur
 
 ### Code owners
 
-Pull Requests require the approval of at least one code owner. Owners are listed in [`CODEOWNERS`](./.github/CODEOWNERS).
+Pull Requests require the approval of at least one code owner. Owners are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
 
 ### Completing pull requests
 
