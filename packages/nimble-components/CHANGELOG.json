@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 07 Dec 2021 16:36:46 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.107",
+      "version": "1.0.0-beta.107",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1e6f2e614dc493efec2570455fe90102e2da2eda",
+            "comment": "Add Roboto font and token for legacy content font"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0-beta.34",
+            "commit": "1e6f2e614dc493efec2570455fe90102e2da2eda"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 06 Dec 2021 19:56:32 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.106",
       "version": "1.0.0-beta.106",

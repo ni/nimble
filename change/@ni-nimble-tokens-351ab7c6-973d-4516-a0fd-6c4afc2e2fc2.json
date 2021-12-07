@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Add Roboto font and token for legacy content font",
-  "packageName": "@ni/nimble-tokens",
-  "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
