@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 08 Dec 2021 00:40:11 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.108",
+      "version": "1.0.0-beta.108",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "51f9b40f86470200dd67ba9011aa0414b2c56ce2",
+            "comment": "Update TreeItem to prevent future breakage"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 07 Dec 2021 16:36:46 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.107",
       "version": "1.0.0-beta.107",
