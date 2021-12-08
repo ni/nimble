@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../index';
 import '../../tree-item/index';
@@ -113,4 +113,4 @@ const metadata: Meta<TreeArgs> = {
 
 export default metadata;
 
-export const treeView: Story<TreeArgs> = {};
+export const treeView: StoryObj<TreeArgs> = {};

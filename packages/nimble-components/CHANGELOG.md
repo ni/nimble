@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 01 Dec 2021 17:51:36 GMT and should not be manually modified.
+This log was last generated on Tue, 07 Dec 2021 16:36:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.107
+
+Tue, 07 Dec 2021 16:36:46 GMT
+
+### Changes
+
+- Add Roboto font and token for legacy content font (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.34
+
+## 1.0.0-beta.106
+
+Mon, 06 Dec 2021 19:56:32 GMT
+
+### Changes
+
+- upgrade to 6.4 final (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.105
+
+Fri, 03 Dec 2021 20:54:09 GMT
+
+### Changes
+
+- Drawer updates (bugfix for content/footer mode, make drawer width configurable in Storybook) (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.104
+
+Fri, 03 Dec 2021 18:58:22 GMT
+
+### Changes
+
+- Add icons for succeeded and fail (32167177+haworthia@users.noreply.github.com)
 
 ## 1.0.0-beta.103
 
