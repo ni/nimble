@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TreeView } from '@ni/nimble-components/dist/esm/tree-view';
-import type { SelectionModeValue } from '@ni/nimble-components/dist/esm/tree-view/types';
+import type { SelectionModeAttribute } from '@ni/nimble-components/dist/esm/tree-view/types';
 import { SelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
 
 export type { TreeView };
@@ -19,7 +19,7 @@ export class NimbleTreeViewDirective {
 
     // selectionMode property intentionally maps to the selection-mode attribute
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('selection-mode') public set selectionMode(value: SelectionMode | SelectionModeValue) {
+    @Input('selection-mode') public set selectionMode(value: SelectionMode | SelectionModeAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'selectionMode', value);
     }
 

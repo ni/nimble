@@ -2,10 +2,12 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 
+export type { TabsToolbar };
+
 /**
  * A nimble-styled container for toolbar content next to tabs.
  */
-export class TabsToolbar extends FoundationElement {}
+class TabsToolbar extends FoundationElement {}
 
 const nimbleTabsToolbar = TabsToolbar.compose({
     baseName: 'tabs-toolbar',

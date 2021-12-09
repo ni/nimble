@@ -1,10 +1,10 @@
-export type DrawerLocationValue = 'left' | 'right';
+export type DrawerLocationAttribute = 'left' | 'right';
 export enum DrawerLocation {
     Left = 'left',
     Right = 'right'
 }
 
-export type DrawerStateValue = 'opening' | 'opened' | 'closing' | 'closed';
+export type DrawerStateAttribute = 'opening' | 'opened' | 'closing' | 'closed';
 export enum DrawerState {
     Opening = 'opening',
     Opened = 'opened',

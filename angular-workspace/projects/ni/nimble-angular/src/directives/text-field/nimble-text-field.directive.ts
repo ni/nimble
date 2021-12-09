@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TextField } from '@ni/nimble-components/dist/esm/text-field';
-import type { TextFieldTypeValue } from '@ni/nimble-components/dist/esm/text-field/types';
+import type { TextFieldTypeAttribute } from '@ni/nimble-components/dist/esm/text-field/types';
 import { TextFieldType } from '@ni/nimble-components/dist/esm/text-field/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
@@ -29,7 +29,7 @@ export class NimbleTextFieldDirective {
         return this.elementRef.nativeElement.type;
     }
 
-    @Input() public set type(value: TextFieldType | TextFieldTypeValue) {
+    @Input() public set type(value: TextFieldType | TextFieldTypeAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'type', value);
     }
 

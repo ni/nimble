@@ -10,6 +10,8 @@ import { styles } from './styles';
 import { theme } from './design-tokens';
 import type { NimbleTheme } from './types';
 
+export type { NimbleThemeProvider };
+
 function designToken<T>(token: DesignToken<T>) {
     return (source: NimbleThemeProvider, key: string): void => {
         source[`${key}Changed`] = function keyChanged(
@@ -26,7 +28,6 @@ function designToken<T>(token: DesignToken<T>) {
     };
 }
 
-export type { NimbleThemeProvider };
 /**
  * The NimbleThemeProvider implementation
  * @internal

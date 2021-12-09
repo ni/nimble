@@ -9,6 +9,8 @@ import type { TreeView } from '../tree-view';
 import { groupSelectedAttribute, SelectionMode } from '../tree-view/types';
 import { styles } from './styles';
 
+export type { TreeItem };
+
 /**
  * A function that returns a nimble-tree-item registration for configuring the component with a DesignSystem.
  * Implements {@link @microsoft/fast-foundation#treeItemTemplate}
@@ -19,7 +21,7 @@ import { styles } from './styles';
  * Generates HTML Element: \<nimble-tree-item\>
  *
  */
-export class TreeItem extends FoundationTreeItem {
+class TreeItem extends FoundationTreeItem {
     private treeView: TreeView | null;
 
     public constructor() {

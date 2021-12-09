@@ -7,6 +7,8 @@ import {
 import { styles } from './styles';
 import { SelectionMode } from './types';
 
+export type { TreeView };
+
 /**
  * A function that returns a nimble-tree-view registration for configuring the component with a DesignSystem.
  * Implements {@link @microsoft/fast-foundation#treeViewTemplate}
@@ -17,7 +19,7 @@ import { SelectionMode } from './types';
  * Generates HTML Element: \<nimble-tree-view\>
  *
  */
-export class TreeView extends FoundationTreeView {
+class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: SelectionMode;
 
