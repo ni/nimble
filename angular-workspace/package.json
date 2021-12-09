@@ -10,7 +10,7 @@
     "pack": "npm run pack:library && npm run pack:application",
     "pack:library": "npm run build:library && cd dist/ni/nimble-angular && npm pack",
     "pack:application": "cd dist/example-client-app && npm pack",
-    "publish": "npm run build:library && cd dist/ni/nimble-angular && npm publish",
+    "invoke-publish": "npm run build:library && cd dist/ni/nimble-angular && npm publish",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false",
     "lint": "ng lint",
