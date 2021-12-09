@@ -42,7 +42,7 @@ NI-styled UI components for Angular applications
             }
         }
         ```
-            
+
 ### Learn more
 
 See the [README.md for the ni/nimble repository](/README.md) for documentation of individual components.
