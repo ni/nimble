@@ -4,10 +4,11 @@ import {
     DesignTokenValue,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import { attr, css } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { template } from './template';
+import { styles } from './styles';
 import { theme } from './design-tokens';
-import type { NimbleTheme } from './themes';
+import type { NimbleTheme } from './types';
 
 function designToken<T>(token: DesignToken<T>) {
     return (source: NimbleThemeProvider, key: string): void => {
@@ -37,12 +38,6 @@ class NimbleThemeProvider extends FoundationElement {
     @designToken(theme)
     public theme: NimbleTheme;
 }
-
-const styles = css`
-    :host {
-        display: contents;
-    }
-`;
 
 const nimbleDesignSystemProvider = NimbleThemeProvider.compose({
     baseName: 'theme-provider',

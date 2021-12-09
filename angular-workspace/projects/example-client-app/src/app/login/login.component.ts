@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
-import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/themes';
 
 @Component({
     selector: 'nimble-example-login',
@@ -11,11 +9,7 @@ import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/theme
 })
 export class LoginComponent {
     public loginForm: FormGroup;
-    public theme: NimbleTheme = NimbleTheme.Light;
-    public themes = NimbleTheme;
-    public buttonAppearance = ButtonAppearance;
-
-    public constructor(private readonly formBuilder: FormBuilder, private readonly router: Router) {
+    public constructor(private readonly formBuilder: FormBuilder, @Inject(Router) private readonly router: Router) {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]

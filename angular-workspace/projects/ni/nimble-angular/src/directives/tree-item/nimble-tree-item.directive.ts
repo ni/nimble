@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
-import { toBooleanAriaAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, toBooleanAriaAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { TreeItem };
 
@@ -15,7 +15,7 @@ export class NimbleTreeItemDirective {
         return this.elementRef.nativeElement.disabled;
     }
 
-    @Input() public set disabled(value: boolean) {
+    @Input() public set disabled(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
@@ -23,7 +23,7 @@ export class NimbleTreeItemDirective {
         return this.elementRef.nativeElement.expanded;
     }
 
-    @Input() public set expanded(value: boolean) {
+    @Input() public set expanded(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'expanded', toBooleanProperty(value));
     }
 
@@ -31,7 +31,7 @@ export class NimbleTreeItemDirective {
         return this.elementRef.nativeElement.selected;
     }
 
-    @Input() public set selected(value: boolean) {
+    @Input() public set selected(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'selected', toBooleanProperty(value));
         // Needed because fast-foundation TreeView sets initial selection with an aria-selected query
         this.renderer.setAttribute(this.elementRef.nativeElement, 'selected', toBooleanAriaAttribute(value));

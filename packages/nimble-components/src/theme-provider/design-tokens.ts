@@ -29,7 +29,7 @@ import {
     GroupLabel1Size,
     GroupLabel1Weight
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import { NimbleTheme } from './themes';
+import { NimbleTheme } from './types';
 
 function rgbString(hexValue: string): string {
     const { red, green, blue } = hexRgb(hexValue);

@@ -1,6 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { DrawerLocation, DrawerState, NimbleDrawerDirective } from '@ni/nimble-angular';
-import { SelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
+import { DrawerLocation, DrawerState, NimbleDrawerDirective, SelectionMode } from '@ni/nimble-angular';
 
 @Component({
     selector: 'nimble-example-nav-drawer',

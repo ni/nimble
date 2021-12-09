@@ -1,5 +1,7 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
-import { Tabs } from '@ni/nimble-components/dist/esm/tabs';
+import type { Tabs } from '@ni/nimble-components/dist/esm/tabs';
+
+export type { Tabs };
 
 /**
  * Directive to provide Angular integration for the tabs element.
