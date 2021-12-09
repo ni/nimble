@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 08 Dec 2021 00:40:11 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.128",
+      "version": "1.0.0-beta.128",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.108",
+            "commit": "51f9b40f86470200dd67ba9011aa0414b2c56ce2"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 Dec 2021 16:36:46 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.127",
+      "version": "1.0.0-beta.127",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.107",
+            "commit": "1e6f2e614dc493efec2570455fe90102e2da2eda"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 06 Dec 2021 23:30:24 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.126",
       "version": "1.0.0-beta.126",

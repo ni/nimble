@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 01 Dec 2021 17:51:36 GMT and should not be manually modified.
+This log was last generated on Tue, 07 Dec 2021 16:36:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.34
+
+Tue, 07 Dec 2021 16:36:46 GMT
+
+### Changes
+
+- Add Roboto font and token for legacy content font (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.33
 

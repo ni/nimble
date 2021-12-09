@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 17 Nov 2021 19:43:39 GMT
+ * Generated on Wed, 24 Nov 2021 20:33:32 GMT
  */
 
 :root {
@@ -74,6 +74,7 @@
   --link-light-ui-weight: 400;
   --headline-1-family: Noto Serif;
   --headline-1-weight: 400;
+  --legacy-content-family: 'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif;
   --title-2-size: 22px;
   --control-label-1-size: 11px;
   --body-size: 14px;
