@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 07 Dec 2021 16:36:46 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Dec 2021 20:35:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.35
+
+Thu, 09 Dec 2021 20:35:29 GMT
+
+### Changes
+
+- Update publish command (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.34
 
