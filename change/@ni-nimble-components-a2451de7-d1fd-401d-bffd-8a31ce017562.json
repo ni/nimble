@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Directive attribute string support and type export",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
