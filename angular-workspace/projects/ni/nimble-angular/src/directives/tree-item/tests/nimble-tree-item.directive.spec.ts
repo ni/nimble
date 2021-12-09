@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTreeItemModule } from '../nimble-tree-item.module';
 import type { TreeItem } from '../nimble-tree-item.directive';
 import { NimbleTreeViewModule } from '../../tree-view/nimble-tree-view.module';
-import { SelectionMode } from '../../tree-view/nimble-tree-view.directive';
+import { TreeViewSelectionMode } from '../../tree-view/nimble-tree-view.directive';
 
 describe('Nimble tree item directive (using 2-way binding)', () => {
     @Component({
@@ -31,7 +31,7 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
         public parent1Expanded = true;
         public parent2Expanded = true;
         public parent3Disabled = true;
-        public selectionMode = SelectionMode.LeavesOnly;
+        public selectionMode = TreeViewSelectionMode.LeavesOnly;
     }
 
     let parent1Element: TreeItem;

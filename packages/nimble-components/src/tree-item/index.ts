@@ -6,7 +6,10 @@ import {
 } from '@microsoft/fast-foundation';
 import { controlsArrowExpanderUp16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { TreeView } from '../tree-view';
-import { groupSelectedAttribute, SelectionMode } from '../tree-view/types';
+import {
+    groupSelectedAttribute,
+    TreeViewSelectionMode
+} from '../tree-view/types';
 import { styles } from './styles';
 
 export type { TreeItem };
@@ -63,7 +66,7 @@ class TreeItem extends FoundationTreeItem {
             return;
         }
 
-        const leavesOnly = this.treeView?.selectionMode === SelectionMode.LeavesOnly;
+        const leavesOnly = this.treeView?.selectionMode === TreeViewSelectionMode.LeavesOnly;
         const hasChildren = this.hasChildTreeItems();
         if ((leavesOnly && !hasChildren) || !leavesOnly) {
             // if either a leaf tree item, or in a mode that supports select on groups,

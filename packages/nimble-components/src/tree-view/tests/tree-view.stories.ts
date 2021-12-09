@@ -6,10 +6,10 @@ import '../../icons/measurement-data-analysis';
 import '../../icons/settings';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
-import { SelectionMode } from '../types';
+import { TreeViewSelectionMode } from '../types';
 
 interface TreeArgs {
-    selectionMode: SelectionMode;
+    selectionMode: TreeViewSelectionMode;
     options: ItemArgs[];
 }
 
@@ -45,7 +45,7 @@ const metadata: Meta<TreeArgs> = {
     },
     argTypes: {
         selectionMode: {
-            options: Object.values(SelectionMode),
+            options: Object.values(TreeViewSelectionMode),
             control: { type: 'radio' }
         }
     },
@@ -77,7 +77,7 @@ const metadata: Meta<TreeArgs> = {
         </nimble-tree-view>
 `),
     args: {
-        selectionMode: SelectionMode.LeavesOnly,
+        selectionMode: TreeViewSelectionMode.LeavesOnly,
         options: [
             {
                 label: 'Option 1',

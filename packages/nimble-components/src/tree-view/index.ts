@@ -5,7 +5,7 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { SelectionMode } from './types';
+import { TreeViewSelectionMode } from './types';
 
 export type { TreeView };
 
@@ -21,12 +21,12 @@ export type { TreeView };
  */
 class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
-    public selectionMode: SelectionMode;
+    public selectionMode: TreeViewSelectionMode;
 
     public connectedCallback(): void {
         super.connectedCallback();
         if (!this.selectionMode) {
-            this.selectionMode = SelectionMode.All;
+            this.selectionMode = TreeViewSelectionMode.All;
         }
     }
 }
