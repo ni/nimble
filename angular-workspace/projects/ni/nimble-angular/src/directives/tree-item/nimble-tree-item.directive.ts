@@ -1,5 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
-import { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
+import type { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
 import { BooleanValueOrAttribute, toBooleanAriaAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { TreeItem };
