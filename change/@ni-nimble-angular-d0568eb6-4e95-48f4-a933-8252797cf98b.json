@@ -3,5 +3,5 @@
   "comment": "Directive attribute string support and type export",
   "packageName": "@ni/nimble-angular",
   "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
