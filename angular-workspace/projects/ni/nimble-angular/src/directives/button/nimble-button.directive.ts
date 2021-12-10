@@ -3,6 +3,8 @@ import { Button } from '@ni/nimble-components/dist/esm/button';
 import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
 import { toBooleanProperty } from '../utilities/template-value-helpers';
 
+export { ButtonAppearance };
+
 /**
  * Directive to provide Angular integration for the button.
  */

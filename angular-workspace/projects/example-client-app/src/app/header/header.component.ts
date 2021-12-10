@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { DrawerLocation, NimbleDrawerDirective, NimbleTheme } from '@ni/nimble-angular';
-import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
+import { DrawerLocation, NimbleDrawerDirective, NimbleTheme, ButtonAppearance } from '@ni/nimble-angular';
 
 @Component({
     selector: 'nimble-example-header',

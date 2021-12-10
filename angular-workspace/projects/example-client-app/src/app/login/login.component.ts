@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
-import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/themes';
+import { ButtonAppearance, NimbleTheme } from '@ni/nimble-angular';
 
 @Component({
     selector: 'nimble-example-login',

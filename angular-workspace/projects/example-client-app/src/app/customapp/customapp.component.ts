@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
-import { DrawerLocation } from '@ni/nimble-angular';
+import { DrawerLocation, ButtonAppearance } from '@ni/nimble-angular';
 
 @Component({
     selector: 'nimble-example-customapp',
