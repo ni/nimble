@@ -69,6 +69,6 @@ describe('Nimble tabs', () => {
         tabTwo.nativeElement.click();
         fixture.detectChanges();
 
-        expect(testHostComponent.activeTabId).toBe(tabTwo.nativeElement.getAttribute('id'));
+        expect(testHostComponent.activeTabId).toBe(tabTwo.nativeElement.id);
     });
 });

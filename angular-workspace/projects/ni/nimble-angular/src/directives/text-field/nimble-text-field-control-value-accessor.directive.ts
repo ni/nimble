@@ -20,8 +20,8 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => NimbleDefaultControlValueAccessorDirective),
+        useExisting: forwardRef(() => NimbleTextFieldControlValueAccessorDirective),
         multi: true
     }]
 })
-export class NimbleDefaultControlValueAccessorDirective extends DefaultValueAccessor {}
+export class NimbleTextFieldControlValueAccessorDirective extends DefaultValueAccessor {}

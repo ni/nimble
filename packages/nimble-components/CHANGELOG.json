@@ -2,6 +2,78 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 09 Dec 2021 20:35:29 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.109",
+      "version": "1.0.0-beta.109",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "059e20f28599e532d203a07c76bd799fd00d181a",
+            "comment": "Update publish command"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0-beta.35",
+            "commit": "059e20f28599e532d203a07c76bd799fd00d181a"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 Dec 2021 00:40:11 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.108",
+      "version": "1.0.0-beta.108",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "51f9b40f86470200dd67ba9011aa0414b2c56ce2",
+            "comment": "Update TreeItem to prevent future breakage"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 Dec 2021 16:36:46 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.107",
+      "version": "1.0.0-beta.107",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1e6f2e614dc493efec2570455fe90102e2da2eda",
+            "comment": "Add Roboto font and token for legacy content font"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0-beta.34",
+            "commit": "1e6f2e614dc493efec2570455fe90102e2da2eda"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 Dec 2021 19:56:32 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.106",
+      "version": "1.0.0-beta.106",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2f623efaba40c8d9a7693d7a8d4a7178f489a8dd",
+            "comment": "upgrade to 6.4 final"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Dec 2021 20:54:09 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.105",
       "version": "1.0.0-beta.105",

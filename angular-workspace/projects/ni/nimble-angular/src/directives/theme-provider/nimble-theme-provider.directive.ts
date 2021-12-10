@@ -1,5 +1,6 @@
-import { Directive, HostBinding, Input } from '@angular/core';
-import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/themes'
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { NimbleThemeProvider } from '@ni/nimble-components/dist/esm/theme-provider';
+import { NimbleTheme } from '@ni/nimble-components/dist/esm/theme-provider/themes';
 
 export { NimbleTheme };
 
@@ -10,5 +11,13 @@ export { NimbleTheme };
     selector: 'nimble-theme-provider'
 })
 export class NimbleThemeProviderDirective {
-    @HostBinding('attr.theme') @Input() public theme: string;
+    public get theme(): NimbleTheme {
+        return this.elementRef.nativeElement.theme;
+    }
+
+    @Input() public set theme(value: NimbleTheme) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'theme', value);
+    }
+
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<NimbleThemeProvider>) {}
 }

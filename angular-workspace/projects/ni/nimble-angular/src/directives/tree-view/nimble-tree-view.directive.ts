@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { TreeView } from '@ni/nimble-components/dist/esm/tree-view';
 import { SelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
 
@@ -12,5 +12,13 @@ export { SelectionMode };
     selector: 'nimble-tree-view'
 })
 export class NimbleTreeViewDirective {
-    @HostBinding('attr.selection-mode') @Input() public selectionMode: SelectionMode;
+    public get selectionMode(): SelectionMode {
+        return this.elementRef.nativeElement.selectionMode;
+    }
+
+    @Input() public set selectionMode(value: SelectionMode) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'selectionMode', value);
+    }
+
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TreeView>) {}
 }

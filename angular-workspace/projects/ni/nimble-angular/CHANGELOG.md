@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 03 Dec 2021 20:54:09 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Dec 2021 20:35:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.129
+
+Thu, 09 Dec 2021 20:35:29 GMT
+
+### Changes
+
+- Update publish command (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.109
+
+## 1.0.0-beta.128
+
+Wed, 08 Dec 2021 00:40:11 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.108
+
+## 1.0.0-beta.127
+
+Tue, 07 Dec 2021 16:36:46 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.107
+
+## 1.0.0-beta.126
+
+Mon, 06 Dec 2021 23:30:24 GMT
+
+### Changes
+
+- Implement stateless directives (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.125
+
+Mon, 06 Dec 2021 19:56:32 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.106
 
 ## 1.0.0-beta.124
 

@@ -159,6 +159,11 @@
       "weight": {
         "value": "Regular"
       }
+    },
+    "LegacyContent": {
+      "family": {
+        "value": "'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif"
+      }
     }
   },
   "size": {

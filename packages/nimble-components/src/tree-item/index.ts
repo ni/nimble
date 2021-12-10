@@ -66,28 +66,26 @@ export class TreeItem extends FoundationTreeItem {
         if ((leavesOnly && !hasChildren) || !leavesOnly) {
             // if either a leaf tree item, or in a mode that supports select on groups,
             // process click as a select
-            this.setGroupSelectionOnRootParentTreeItem(treeItem);
-            if (this.selected) {
-                // if already selected, prevent base-class from issuing selected-change event
-                event.stopImmediatePropagation();
+            if (!this.selected) {
+                this.selected = true;
+                this.$emit('selected-change', this);
             }
         } else {
             // implicit hasChildren && leavesOnly, so only allow expand/collapse, not select
             this.expanded = !this.expanded;
             this.$emit('expanded-change', this);
-
-            // don't allow base class to process click event, as all we want to happen
-            // here is toggling 'expanded', and to issue the expanded-change event
-            event.stopImmediatePropagation();
         }
+
+        // don't allow base class to process click event
+        event.stopImmediatePropagation();
     };
 
     // This prevents the toggling of selected state when a TreeItem is clicked multiple times,
     // which is what the FAST TreeItem allows
     private readonly handleSelectedChange = (event: Event): void => {
         // only process selection
-        if (event.target === this) {
-            this.selected = true;
+        if (event.target === this && this.selected) {
+            this.setGroupSelectionOnRootParentTreeItem(this);
         }
     };
 

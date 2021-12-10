@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 09 Dec 2021 20:35:29 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.35",
+      "version": "1.0.0-beta.35",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "059e20f28599e532d203a07c76bd799fd00d181a",
+            "comment": "Update publish command"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 Dec 2021 16:36:46 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.34",
+      "version": "1.0.0-beta.34",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "1e6f2e614dc493efec2570455fe90102e2da2eda",
+            "comment": "Add Roboto font and token for legacy content font"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Dec 2021 17:51:36 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.33",
       "version": "1.0.0-beta.33",

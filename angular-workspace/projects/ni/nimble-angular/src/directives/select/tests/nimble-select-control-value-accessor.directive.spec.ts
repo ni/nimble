@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import type { Select } from '@ni/nimble-components/dist/esm/select';
 import { NimbleSelectModule } from '../nimble-select.module';
-import { NimbleListboxOptionModule } from '../../listbox-option';
+import { NimbleListboxOptionModule } from '../../listbox-option/nimble-listbox-option.module';
 import { waitAnimationFrame, waitMicrotask, waitTask } from '../../../async-test-utilities';
 
 function setSelectValue(select: Select, index: number): void {

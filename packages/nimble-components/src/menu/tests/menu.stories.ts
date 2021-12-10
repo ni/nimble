@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
@@ -45,7 +45,7 @@ const metadata: Meta<MenuArgs> = {
 
 export default metadata;
 
-export const menu: Story<MenuArgs> = {
+export const menu: StoryObj<MenuArgs> = {
     parameters: {
         docs: {
             description: {
@@ -134,7 +134,7 @@ export const menu: Story<MenuArgs> = {
     }
 };
 
-export const customMenu: Story = {
+export const customMenu: StoryObj<MenuArgs> = {
     parameters: {
         docs: {
             description: {

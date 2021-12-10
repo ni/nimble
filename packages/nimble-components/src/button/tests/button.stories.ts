@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
@@ -58,12 +58,13 @@ const metadata: Meta<ButtonArgs> = {
 
 export default metadata;
 
-export const outlineButton: Story<ButtonArgs> = {
+export const outlineButton: StoryObj<ButtonArgs> = {
     args: { label: 'Outline Button', appearance: ButtonAppearance.Outline }
 };
-export const ghostButton: Story<ButtonArgs> = {
+
+export const ghostButton: StoryObj<ButtonArgs> = {
     args: { label: 'Ghost Button', appearance: ButtonAppearance.Ghost }
 };
-export const blockButton: Story<ButtonArgs> = {
+export const blockButton: StoryObj<ButtonArgs> = {
     args: { label: 'Block Button', appearance: ButtonAppearance.Block }
 };

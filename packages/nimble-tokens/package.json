@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "1.0.0-beta.33",
+  "version": "1.0.0-beta.35",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts",
@@ -9,7 +9,7 @@
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
     "pack": "npm pack",
     "pack:nuget": "cross-env-shell dotnet pack ./source/NimbleTokens --configuration Release -p:PackageVersion=$npm_package_version",
-    "publish": "npm publish",
+    "invoke-publish": "npm publish",
     "lint": "eslint ."
   },
   "repository": {

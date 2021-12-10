@@ -1,8 +1,42 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 03 Dec 2021 20:54:09 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Dec 2021 20:35:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.109
+
+Thu, 09 Dec 2021 20:35:29 GMT
+
+### Changes
+
+- Update publish command (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.35
+
+## 1.0.0-beta.108
+
+Wed, 08 Dec 2021 00:40:11 GMT
+
+### Changes
+
+- Update TreeItem to prevent future breakage (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.107
+
+Tue, 07 Dec 2021 16:36:46 GMT
+
+### Changes
+
+- Add Roboto font and token for legacy content font (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.34
+
+## 1.0.0-beta.106
+
+Mon, 06 Dec 2021 19:56:32 GMT
+
+### Changes
+
+- upgrade to 6.4 final (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.105
 
