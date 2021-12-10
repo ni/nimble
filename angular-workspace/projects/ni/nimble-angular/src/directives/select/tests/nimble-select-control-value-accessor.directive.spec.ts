@@ -1,10 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import type { Select } from '@ni/nimble-components/dist/esm/select';
 import { NimbleSelectModule } from '../nimble-select.module';
 import { NimbleListboxOptionModule } from '../../listbox-option/nimble-listbox-option.module';
-import { waitAnimationFrame, waitMicrotask, waitTask } from '../../../async-test-utilities';
+import { waitTask, processDomUpdates } from '../../../async-test-utilities';
 
 function setSelectValue(select: Select, index: number): void {
     select.dispatchEvent(new Event('click'));
@@ -61,18 +61,22 @@ describe('Nimble select control value accessor', () => {
             await waitTask();
         });
 
+        afterEach(() => {
+            processDomUpdates();
+        });
+
         it('sets correct initial selected value', () => {
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[1]);
             expect(select.selectedIndex).toBe(1);
         });
 
-        it('updates selected value when bound property is changed', async () => {
+        it('updates selected value when bound property is changed', fakeAsync(() => {
             testHostComponent.selectedOption = testHostComponent.selectOptions[2];
             fixture.detectChanges();
-            await waitMicrotask();
+            tick();
 
             expect(select.selectedIndex).toBe(2);
-        });
+        }));
 
         it('updates bound property when selected value is changed', () => {
             setSelectValue(select, 2);
@@ -81,24 +85,25 @@ describe('Nimble select control value accessor', () => {
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2]);
         });
 
-        it('uses "compareWith" function to determine value equality', async () => {
+        it('uses "compareWith" function to determine value equality', fakeAsync(() => {
             // copy object to test equality checking
             const newValue = JSON.parse(JSON.stringify(testHostComponent.selectOptions[2])) as { name: string, value: number };
             testHostComponent.selectedOption = newValue;
             fixture.detectChanges();
-            await waitMicrotask();
+            tick();
 
             expect(select.selectedIndex).toBe(2);
-        });
+        }));
 
-        it('sets "disabled" attribute with value of bound property', async () => {
+        it('sets "disabled" attribute with value of bound property', fakeAsync(() => {
             testHostComponent.selectDisabled = true;
             fixture.detectChanges();
-            await waitAnimationFrame();
+            tick();
+            processDomUpdates();
 
             expect(select.getAttribute('disabled')).toBe('');
             expect(select.disabled).toBe(true);
-        });
+        }));
     });
 
     describe('when using option\'s [value] binding', () => {
@@ -128,11 +133,11 @@ describe('Nimble select control value accessor', () => {
         let fixture: ComponentFixture<TestHostComponent>;
         let testHostComponent: TestHostComponent;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleSelectModule, NimbleListboxOptionModule, FormsModule]
-            }).compileComponents();
+            });
         });
 
         beforeEach(async () => {
@@ -144,20 +149,24 @@ describe('Nimble select control value accessor', () => {
             await waitTask();
         });
 
+        afterEach(() => {
+            processDomUpdates();
+        });
+
         it('sets correct initial selected value', () => {
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[1].value.toString());
             expect(select.selectedIndex).toBe(1);
         });
 
-        it('updates selected value when bound property is changed', async () => {
+        it('updates selected value when bound property is changed', fakeAsync(() => {
             testHostComponent.selectedOption = testHostComponent.selectOptions[2].value.toString();
             fixture.detectChanges();
-            await waitMicrotask();
+            tick();
 
             expect(select.selectedIndex).toBe(2);
-        });
+        }));
 
-        it('updates bound property when selected value is changed', async () => {
+        it('updates bound property when selected value is changed', () => {
             setSelectValue(select, 2);
             fixture.detectChanges();
 

@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import type { TextField } from '@ni/nimble-components/dist/esm/text-field';
 import { NimbleTextFieldModule } from '../nimble-text-field.module';
-import { waitAnimationFrame, waitMicrotask } from '../../../async-test-utilities';
+import { processDomUpdates } from '../../../async-test-utilities';
 
 function setTextFieldValue(textField: TextField, value: string): void {
     textField.value = value;
@@ -36,11 +36,16 @@ describe('Nimble text field control value accessor', () => {
         });
     });
 
-    beforeEach(async () => {
+    beforeEach(fakeAsync(() => {
         fixture = TestBed.createComponent(TestHostComponent);
         testHostComponent = fixture.componentInstance;
         textField = testHostComponent.textField.nativeElement;
         fixture.detectChanges();
+        tick();
+    }));
+
+    afterEach(() => {
+        processDomUpdates();
     });
 
     it('sets correct initial value', () => {
@@ -48,16 +53,16 @@ describe('Nimble text field control value accessor', () => {
         expect(textField.value).toBe(testHostComponent.initialValue);
     });
 
-    it('updates value when bound property is changed', async () => {
+    it('updates value when bound property is changed', fakeAsync(() => {
         const newValue = 'new value';
         testHostComponent.value = newValue;
         fixture.detectChanges();
-        await waitMicrotask();
+        tick();
 
         expect(textField.value).toBe(newValue);
-    });
+    }));
 
-    it('updates bound property when value is changed', async () => {
+    it('updates bound property when value is changed', () => {
         const newValue = 'new value';
         setTextFieldValue(textField, newValue);
         fixture.detectChanges();
@@ -65,12 +70,13 @@ describe('Nimble text field control value accessor', () => {
         expect(testHostComponent.value).toBe(newValue);
     });
 
-    it('sets "disabled" attribute with value of bound property', async () => {
+    it('sets "disabled" attribute with value of bound property', fakeAsync(() => {
         testHostComponent.fieldDisabled = true;
         fixture.detectChanges();
-        await waitAnimationFrame();
+        tick();
+        processDomUpdates();
 
         expect(textField.getAttribute('disabled')).toBe('');
         expect(textField.disabled).toBe(true);
-    });
+    }));
 });

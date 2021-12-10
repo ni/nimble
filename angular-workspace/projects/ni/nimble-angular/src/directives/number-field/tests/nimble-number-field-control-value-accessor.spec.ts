@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import type { NumberField } from '@ni/nimble-components/dist/esm/number-field';
 import { NimbleNumberFieldModule } from '../nimble-number-field.module';
-import { waitAnimationFrame, waitMicrotask } from '../../../async-test-utilities';
+import { processDomUpdates } from '../../../async-test-utilities';
 
 function setNumberFieldValue(numberField: NumberField, value: number): void {
     numberField.value = value.toString();
@@ -36,11 +36,16 @@ describe('Nimble number field control value accessor', () => {
         });
     });
 
-    beforeEach(async () => {
+    beforeEach(fakeAsync(() => {
         fixture = TestBed.createComponent(TestHostComponent);
         testHostComponent = fixture.componentInstance;
         numberField = testHostComponent.numberField.nativeElement;
         fixture.detectChanges();
+        tick();
+    }));
+
+    afterEach(() => {
+        processDomUpdates();
     });
 
     it('sets correct initial value', () => {
@@ -48,16 +53,16 @@ describe('Nimble number field control value accessor', () => {
         expect(parseFloat(numberField.value)).toBe(testHostComponent.initialValue);
     });
 
-    it('updates value when bound property is changed', async () => {
+    it('updates value when bound property is changed', fakeAsync(() => {
         const newValue = 1;
         testHostComponent.value = newValue;
         fixture.detectChanges();
-        await waitMicrotask();
+        tick();
 
         expect(parseFloat(numberField.value)).toBe(newValue);
-    });
+    }));
 
-    it('updates bound property when value is changed', async () => {
+    it('updates bound property when value is changed', () => {
         const newValue = 1;
         setNumberFieldValue(numberField, newValue);
         fixture.detectChanges();
@@ -65,12 +70,13 @@ describe('Nimble number field control value accessor', () => {
         expect(testHostComponent.value).toBe(newValue);
     });
 
-    it('sets "disabled" attribute with value of bound property', async () => {
+    it('sets "disabled" attribute with value of bound property', fakeAsync(() => {
         testHostComponent.fieldDisabled = true;
         fixture.detectChanges();
-        await waitAnimationFrame();
+        tick();
+        processDomUpdates();
 
         expect(numberField.getAttribute('disabled')).toBe('');
         expect(numberField.disabled).toBe(true);
-    });
+    }));
 });

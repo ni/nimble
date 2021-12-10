@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import type { Checkbox } from '@ni/nimble-components/dist/esm/checkbox';
 import { NimbleCheckboxModule } from '../nimble-checkbox.module';
-import { waitAnimationFrame, waitMicrotask } from '../../../async-test-utilities';
+import { processDomUpdates } from '../../../async-test-utilities';
 
 function toggleCheckboxValue(checkbox: Checkbox): void {
     checkbox.click();
@@ -34,11 +34,16 @@ describe('Nimble checkbox control value accessor', () => {
         });
     });
 
-    beforeEach(async () => {
+    beforeEach(fakeAsync(() => {
         fixture = TestBed.createComponent(TestHostComponent);
         testHostComponent = fixture.componentInstance;
         checkbox = testHostComponent.checkbox.nativeElement;
         fixture.detectChanges();
+        tick();
+    }));
+
+    afterEach(() => {
+        processDomUpdates();
     });
 
     it('sets correct initial value', () => {
@@ -46,28 +51,29 @@ describe('Nimble checkbox control value accessor', () => {
         expect(checkbox.checked).toBe(testHostComponent.initialValue);
     });
 
-    it('updates value when bound property is changed', async () => {
+    it('updates value when bound property is changed', fakeAsync(() => {
         const newValue = false;
         testHostComponent.value = newValue;
         fixture.detectChanges();
-        await waitMicrotask();
+        tick();
 
         expect(checkbox.checked).toBe(newValue);
-    });
+    }));
 
-    it('updates bound property when value is changed', async () => {
+    it('updates bound property when value is changed', () => {
         toggleCheckboxValue(checkbox);
         fixture.detectChanges();
 
         expect(testHostComponent.value).toBe(false);
     });
 
-    it('sets "disabled" attribute with value of bound property', async () => {
+    it('sets "disabled" attribute with value of bound property', fakeAsync(() => {
         testHostComponent.fieldDisabled = true;
         fixture.detectChanges();
-        await waitAnimationFrame();
+        tick();
+        processDomUpdates();
 
         expect(checkbox.getAttribute('disabled')).toBe('');
         expect(checkbox.disabled).toBe(true);
-    });
+    }));
 });

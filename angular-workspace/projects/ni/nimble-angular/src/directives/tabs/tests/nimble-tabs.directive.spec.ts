@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import type { Tabs } from '@ni/nimble-components/dist/esm/tabs';
 import type { Tab } from '@ni/nimble-components/dist/esm/tab';
-import { waitTask } from '../../../async-test-utilities';
+import { processDomUpdates, waitTask } from '../../../async-test-utilities';
 import { NimbleTabsModule } from '../nimble-tabs.module';
 
 describe('Nimble tabs', () => {
@@ -42,27 +42,32 @@ describe('Nimble tabs', () => {
         testHostComponent = fixture.componentInstance;
         tabs = testHostComponent.tabs.nativeElement;
         fixture.detectChanges();
+        // wait for tabs's 'tabs' and 'tabpanels' properties to be updated from slotted content
+        await waitTask();
+    });
+
+    afterEach(() => {
+        processDomUpdates();
     });
 
     it('custom element is defined', () => {
         expect(customElements.get('nimble-tabs')).not.toBeUndefined();
     });
 
-    it('sets correct initial activeid', async () => {
+    it('sets correct initial activeid', () => {
         expect(tabs.activeid).toBe(testHostComponent.initialActiveTabId);
-        await waitTask();
         expect(tabs.activetab.getAttribute('id')).toBe(testHostComponent.initialActiveTabId);
     });
 
-    it('updates activeid when bound property is changed', async () => {
+    it('updates activeid when bound property is changed', fakeAsync(() => {
         const newActiveTabId = '2';
         testHostComponent.activeTabId = newActiveTabId;
         fixture.detectChanges();
+        tick();
 
         expect(tabs.activeid).toBe(newActiveTabId);
-        await waitTask();
         expect(tabs.activetab.getAttribute('id')).toBe(testHostComponent.initialActiveTabId);
-    });
+    }));
 
     it('updates bound property when active tab is changed', () => {
         const tabTwo = testHostComponent.tabElements.toArray()[1];

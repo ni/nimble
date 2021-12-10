@@ -1,4 +1,4 @@
-import { domNextUpdate } from '@ni/nimble-components/dist/esm/testing/dom-next-update';
+import { domNextUpdate, processUpdates } from '@ni/nimble-components/dist/esm/testing/dom-next-update';
 
 /**
  * Resolves with the next Microtask.
@@ -26,3 +26,5 @@ export async function waitTask(): Promise<void> {
  * 1. Waiting for attribute values to be reflected from properties in Nimble components.
  */
 export const waitAnimationFrame = domNextUpdate;
+
+export const processDomUpdates = processUpdates;

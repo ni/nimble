@@ -4,8 +4,8 @@ import { NimbleNumberFieldModule, NimbleTextFieldModule } from '@ni/nimble-angul
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
+    beforeEach(() => {
+        TestBed.configureTestingModule({
             declarations: [
                 AppComponent
             ],
@@ -14,7 +14,7 @@ describe('AppComponent', () => {
                 NimbleNumberFieldModule
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA]
-        }).compileComponents();
+        });
     });
 
     it('should create the app', () => {
