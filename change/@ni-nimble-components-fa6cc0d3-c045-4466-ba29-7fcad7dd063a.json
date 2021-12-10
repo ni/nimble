@@ -3,5 +3,5 @@
   "comment": "Use legacy font family var in legacy theme",
   "packageName": "@ni/nimble-components",
   "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
