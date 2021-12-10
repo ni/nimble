@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 09 Dec 2021 20:35:29 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Dec 2021 16:32:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.110
+
+Fri, 10 Dec 2021 16:32:53 GMT
+
+### Changes
+
+- Improve usage docs for nimble-components (jattasNI@users.noreply.github.com)
 
 ## 1.0.0-beta.109
 
