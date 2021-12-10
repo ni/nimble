@@ -3,5 +3,5 @@
   "comment": "Improvements to nimble-tokens README",
   "packageName": "@ni/nimble-tokens",
   "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
