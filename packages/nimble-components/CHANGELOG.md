@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 09 Dec 2021 20:35:29 GMT and should not be manually modified.
+This log was last generated on Mon, 13 Dec 2021 14:41:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.111
+
+Mon, 13 Dec 2021 14:41:26 GMT
+
+### Changes
+
+- Use legacy font family var in legacy theme (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.110
+
+Fri, 10 Dec 2021 16:32:53 GMT
+
+### Changes
+
+- Improve usage docs for nimble-components (jattasNI@users.noreply.github.com)
 
 ## 1.0.0-beta.109
 

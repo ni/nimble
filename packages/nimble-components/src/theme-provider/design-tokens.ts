@@ -27,7 +27,8 @@ import {
     Title2Family,
     GroupLabel1Family,
     GroupLabel1Size,
-    GroupLabel1Weight
+    GroupLabel1Weight,
+    LegacyContentFamily
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './types';
 
@@ -102,7 +103,16 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
 function getFontForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
         case NimbleTheme.LegacyBlue:
+            return `${LegacyContentFamily}`;
+        default:
             return `${BodyFamily}`;
+    }
+}
+
+function getLabelFontForTheme(element: HTMLElement): string {
+    switch (theme.getValueFor(element)) {
+        case NimbleTheme.LegacyBlue:
+            return `${LegacyContentFamily}`;
         default:
             return `${ControlLabel1Family}, ${BodyFamily}`;
     }
@@ -111,7 +121,7 @@ function getFontForTheme(element: HTMLElement): string {
 function getGroupLabelFontForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
         case NimbleTheme.LegacyBlue:
-            return `${BodyFamily}`;
+            return `${LegacyContentFamily}`;
         default:
             return `${GroupLabel1Family}, ${BodyFamily}`;
     }
@@ -258,9 +268,11 @@ export const iconSize = create<string>('icon-size').withDefault('16px');
 export const drawerWidth = create<string>('drawer-width').withDefault('784px');
 
 // Font Family Tokens
-export const fontFamily = create<string>('font-family').withDefault(BodyFamily);
-export const labelFontFamily = create<string>('label-font-family').withDefault(
+export const fontFamily = create<string>('font-family').withDefault(
     (element: HTMLElement) => getFontForTheme(element)
+);
+export const labelFontFamily = create<string>('label-font-family').withDefault(
+    (element: HTMLElement) => getLabelFontForTheme(element)
 );
 export const groupLabelFontFamily = create<string>(
     'group-label-font-family'
