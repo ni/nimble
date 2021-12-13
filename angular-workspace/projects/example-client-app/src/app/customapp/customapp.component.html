@@ -5,7 +5,7 @@
             <nimble-tab>Drawer</nimble-tab>
             <nimble-tab>Numeric</nimble-tab>
             <nimble-tab>Checkbox</nimble-tab>
-            <nimble-tab [disabled]="true">Disabled tab</nimble-tab>
+            <nimble-tab disabled>Disabled tab</nimble-tab>
             <nimble-tabs-toolbar>
                 <nimble-button (click)="navDrawer.open()">Open drawer</nimble-button>
             </nimble-tabs-toolbar>
@@ -15,10 +15,10 @@
             <nimble-tab-panel>
                 <div class="options-container">
                     Drawer/Sidenav:
-                    <nimble-button [appearance]="buttonAppearances.Outline" (click)="navDrawer.open()">
+                    <nimble-button appearance="outline" (click)="navDrawer.open()">
                         Open
                     </nimble-button>
-                    <nimble-button [appearance]="buttonAppearances.Outline" (click)="navDrawer.togglePinned()">
+                    <nimble-button appearance="outline" (click)="navDrawer.togglePinned()">
                         Pin/Unpin
                     </nimble-button>
                     <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">

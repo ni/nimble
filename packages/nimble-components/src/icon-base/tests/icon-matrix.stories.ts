@@ -5,7 +5,7 @@ import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
 
 import '../../icons/check';
 import { createRenderer } from '../../utilities/tests/storybook';
-import { IconStatus } from './types';
+import { IconStatus } from '../types';
 import { contentFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 

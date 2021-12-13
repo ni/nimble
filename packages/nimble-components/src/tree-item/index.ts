@@ -6,8 +6,13 @@ import {
 } from '@microsoft/fast-foundation';
 import { controlsArrowExpanderUp16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { TreeView } from '../tree-view';
-import { groupSelectedAttribute, SelectionMode } from '../tree-view/types';
+import {
+    groupSelectedAttribute,
+    TreeViewSelectionMode
+} from '../tree-view/types';
 import { styles } from './styles';
+
+export type { TreeItem };
 
 /**
  * A function that returns a nimble-tree-item registration for configuring the component with a DesignSystem.
@@ -19,7 +24,7 @@ import { styles } from './styles';
  * Generates HTML Element: \<nimble-tree-item\>
  *
  */
-export class TreeItem extends FoundationTreeItem {
+class TreeItem extends FoundationTreeItem {
     private treeView: TreeView | null;
 
     public constructor() {
@@ -61,7 +66,7 @@ export class TreeItem extends FoundationTreeItem {
             return;
         }
 
-        const leavesOnly = this.treeView?.selectionMode === SelectionMode.LeavesOnly;
+        const leavesOnly = this.treeView?.selectionMode === TreeViewSelectionMode.LeavesOnly;
         const hasChildren = this.hasChildTreeItems();
         if ((leavesOnly && !hasChildren) || !leavesOnly) {
             // if either a leaf tree item, or in a mode that supports select on groups,

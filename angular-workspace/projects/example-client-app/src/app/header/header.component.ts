@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { DrawerLocation, NimbleDrawerDirective, NimbleTheme } from '@ni/nimble-angular';
-import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
+import { NimbleDrawerDirective, NimbleTheme } from '@ni/nimble-angular';
 
 @Component({
     selector: 'nimble-example-header',
@@ -15,12 +14,10 @@ export class HeaderComponent {
     @Output() public themeChange = new EventEmitter();
 
     public themes = NimbleTheme;
-    public buttonAppearances = ButtonAppearance;
-    public location: DrawerLocation = DrawerLocation.Right;
     public hideMenu = true;
     public disableUserSettings = true;
 
-    public constructor(private readonly router: Router) { }
+    public constructor(@Inject(Router) private readonly router: Router) { }
 
     public onMenuButtonClick(): void {
         this.toggleMenuHidden();

@@ -1,26 +1,21 @@
 /**
- * Conversion helpers for values coming from Angular templates via
- * strings specified in templates or via property bindings
+ * Conversion helpers for values coming from template attributes or property bindings
  */
 
-// Values coming from template strings (ie not using bindings) are just string values.
-// So eventhough the type of the property in the nimble directive is typed (i.e. boolean),
-// Angular will pass the string representation from the template resulting in the boolean
-// typed property being assigned a string.
-// See: https://github.com/angular/angular/issues/6919
+// Values assigned to directives can come from template attributes, ie <my-element my-number="4"></my-element>
+// or from property bindings, ie <my-element [my-number]="someNumber"></my-element>
+// So setters for our directives accept both string values from template attributes and
+// the expected property type. This file has helpers for common property types.
+// More context: https://v13.angular.io/guide/template-typecheck#input-setter-coercion
 
-// For example, when used in a component as <tree-item selected></tree-item>
-// the string value '' (empty string) will be assigned to the TreeItemDirective.selected property
-// eventhough TreeItemDirective.selected is defined as boolean.
-// When binding to a boolean value explicitly as in <tree-item [selected]="myBoolean"></tree-item> then
-// TreeItemDirective.selected will be assigned a boolean as expected.
-
-export type BooleanAttribute = '' | null;
+type BooleanAttribute = '' | null;
+export type BooleanValueOrAttribute = boolean | BooleanAttribute;
+export type NumberValueOrAttribute = number | string;
 
 /**
  * Converts values from templates (empty string or null) or boolean bindings to a boolean property representation
  */
-export const toBooleanProperty = (value: boolean | BooleanAttribute): boolean => {
+export const toBooleanProperty = (value: BooleanValueOrAttribute): boolean => {
     if (value === false || value === null) {
         return false;
     }
@@ -32,7 +27,7 @@ export const toBooleanProperty = (value: boolean | BooleanAttribute): boolean =>
  * Converts values from templates (empty string or null) or boolean bindings to an Aria boolean
  * attribute representation (the strings "true" or "false")
  */
-export const toBooleanAriaAttribute = (value: boolean | BooleanAttribute): 'true' | 'false' => {
+export const toBooleanAriaAttribute = (value: BooleanValueOrAttribute): 'true' | 'false' => {
     if (value === false || value === null) {
         return 'false';
     }
@@ -43,6 +38,12 @@ export const toBooleanAriaAttribute = (value: boolean | BooleanAttribute): 'true
 /**
  * Converts values from templates (number representation as a string) or number bindings to a number property representation
  */
-export const toNumberProperty = (value: number | string): number => {
+export const toNumberProperty = (value: NumberValueOrAttribute): number => {
+    // Angular: https://github.com/angular/angular/blob/2664bc2b3ef4ee5fd671f915828cfcc274a36c77/packages/forms/src/directives/number_value_accessor.ts#L67
+    // And Fast: https://github.com/microsoft/fast/blob/46bb6d9aab2c37105f4434db3795e176c2354a4f/packages/web-components/fast-element/src/components/attributes.ts#L100
+    // Handle numeric conversions from the view differently
+    // Since Number(val) https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-number-constructor-number-value
+    // and val * 1 https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-applystringornumericbinaryoperator
+    // Are identical (use ToNumeric algorithm), went with Number() for clarity
     return Number(value);
 };

@@ -1,15 +1,15 @@
 import {
     DesignSystem,
-    Menu as FoundationMenu,
+    Menu,
     menuTemplate as template
 } from '@microsoft/fast-foundation';
-
 import { styles } from './styles';
+
+export type { Menu };
 
 /**
  * A nimble-styled menu
  */
-export { FoundationMenu as Menu };
 
 /**
  * A function that returns a nimble-menu registration for configuring the component with a DesignSystem.
@@ -20,7 +20,7 @@ export { FoundationMenu as Menu };
  * Generates HTML Element: \<nimble-menu\>
  *
  */
-const nimbleMenu = FoundationMenu.compose({
+const nimbleMenu = Menu.compose({
     baseName: 'menu',
     template,
     styles
