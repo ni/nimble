@@ -4,13 +4,9 @@
 # More info: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/about-code-owners
 
 # These owners will be the default owners for everything in the repo.
-* @ni/nimble-core-approvers
+* @rajsite @jattasNI @fredvisser
 
 # Owners of specific locations or file patterns in the repo. Locations are relative to the root of the repo.
 # Order is important. The last matching pattern has the most precedence.
-/packages/nimble-tokens @ni/nimble-tokens-approvers
-/packages/nimble-components @ni/nimble-components-approvers
-/angular-workspace/ @ni/nimble-angular-approvers
-
-# No explicit owners for change files
+/angular-workspace/projects/ni/nimble-angular @brianehenry @rajsite
 /change
