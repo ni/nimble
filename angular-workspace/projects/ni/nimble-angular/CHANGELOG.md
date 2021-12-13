@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 13 Dec 2021 14:41:26 GMT and should not be manually modified.
+This log was last generated on Mon, 13 Dec 2021 20:30:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.132
+
+Mon, 13 Dec 2021 20:30:22 GMT
+
+### Changes
+
+- Directive attribute string support and type export (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.112
 
 ## 1.0.0-beta.131
 

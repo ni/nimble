@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 13 Dec 2021 20:30:22 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.112",
+      "version": "1.0.0-beta.112",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "01e5672297683896ec85f6b73ffb8f2c78e2ef1d",
+            "comment": "Directive attribute string support and type export"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 Dec 2021 14:41:26 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.111",
       "version": "1.0.0-beta.111",
