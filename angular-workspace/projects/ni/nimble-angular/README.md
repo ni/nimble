@@ -27,15 +27,14 @@ NI-styled UI components for Angular applications
         ```
    2. Add the component to your `app.component.html` (or to the template for another component in your application):
         ```html
-        <nimble-drawer #drawerReference [location]="location">This is a drawer</nimble-drawer>
+        <nimble-drawer #drawerReference location="right">This is a drawer</nimble-drawer>
         ```
    3. If needed, import the Nimble component's directive and types in `app.component.ts` (or the TypeScript file backing another component) to use its programmatic API: 
         ```ts
-        import { DrawerLocation, NimbleDrawerDirective } from '@ni/nimble-angular';
+        import { NimbleDrawerDirective } from '@ni/nimble-angular';
 
         @Component({ /* ... */ })
         class AppComponent {
-            @Input() public location: DrawerLocation = DrawerLocation.Right;
             @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public drawer: NimbleDrawerDirective;
 
             public openDrawer() {

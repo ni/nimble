@@ -1,6 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { MenuItem } from '@ni/nimble-components/dist/esm/menu-item';
-import { toBooleanProperty } from '../utilities/template-value-helpers';
+import type { MenuItem } from '@ni/nimble-components/dist/esm/menu-item';
+import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+
+export type { MenuItem };
+
 /**
  * Directive to provide Angular integration for the menu.
  */
@@ -12,7 +15,7 @@ export class NimbleMenuItemDirective {
         return this.elementRef.nativeElement.disabled;
     }
 
-    @Input() public set disabled(value: boolean) {
+    @Input() public set disabled(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 

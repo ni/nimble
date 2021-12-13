@@ -1,5 +1,5 @@
 import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
-import { NimbleTheme } from '../../theme-provider/themes';
+import { NimbleTheme } from '../../theme-provider/types';
 
 export interface BackgroundState {
     name: string;

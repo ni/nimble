@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 13 Dec 2021 20:30:22 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.132",
+      "version": "1.0.0-beta.132",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "01e5672297683896ec85f6b73ffb8f2c78e2ef1d",
+            "comment": "Directive attribute string support and type export"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.112",
+            "commit": "01e5672297683896ec85f6b73ffb8f2c78e2ef1d"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 Dec 2021 14:41:26 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.131",
       "version": "1.0.0-beta.131",

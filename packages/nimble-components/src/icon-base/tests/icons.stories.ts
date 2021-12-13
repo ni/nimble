@@ -5,7 +5,7 @@ import type { NimbleIcon } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-i
 import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
-import { IconStatus } from './types';
+import { IconStatus } from '../types';
 import { createRenderer } from '../../utilities/tests/storybook';
 import type { Icon } from '..';
 

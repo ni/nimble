@@ -1,20 +1,19 @@
 import {
     DesignSystem,
-    TextField as FoundationTextField,
+    TextField,
     TextFieldOptions,
     textFieldTemplate as template
 } from '@microsoft/fast-foundation';
 import { statusAlarmActive16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
+export type { TextField };
+
 /**
  * A nimble-styed HTML text input
  */
-type TextField = FoundationTextField;
 
-export type { TextField };
-
-const nimbleTextField = FoundationTextField.compose<TextFieldOptions>({
+const nimbleTextField = TextField.compose<TextFieldOptions>({
     baseName: 'text-field',
     template,
     styles,

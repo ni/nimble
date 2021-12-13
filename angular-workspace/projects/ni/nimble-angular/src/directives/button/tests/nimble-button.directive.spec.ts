@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Button } from '@ni/nimble-components/dist/esm/button';
+import type { Button } from '@ni/nimble-components/dist/esm/button';
 import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
-import { BooleanAttribute } from '../../utilities/template-value-helpers';
+import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
 import { NimbleButtonDirective } from '../nimble-button.directive';
 import { NimbleButtonModule } from '../nimble-button.module';
 
@@ -161,7 +161,7 @@ describe('Nimble button', () => {
         class TestHostComponent {
             @ViewChild('button', { read: NimbleButtonDirective }) public directive: NimbleButtonDirective;
             @ViewChild('button', { read: ElementRef }) public elementRef: ElementRef<Button>;
-            public disabled: BooleanAttribute = null;
+            public disabled: BooleanValueOrAttribute = null;
             public appearance: ButtonAppearance = ButtonAppearance.Outline;
         }
 

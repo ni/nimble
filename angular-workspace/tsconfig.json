@@ -25,7 +25,10 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    // Require type only imports where possible
+    // so imports with side-effects are explicit
+    "importsNotUsedAsValues": "error"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
