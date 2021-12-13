@@ -8,5 +8,9 @@
 
 # Owners of specific locations or file patterns in the repo. Locations are relative to the root of the repo.
 # Order is important. The last matching pattern has the most precedence.
-/angular-workspace/projects/ni/nimble-angular @brianehenry @rajsite
+/packages/nimble-tokens @ni/nimble-tokens-approvers
+/packages/nimble-components @ni/nimble-components-approvers
+/angular-workspace/ @ni/nimble-angular-approvers
+
+# No explicit owners for change files
 /change
