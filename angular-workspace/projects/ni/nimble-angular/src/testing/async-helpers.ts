@@ -1,6 +1,6 @@
-import { queueAsyncUpdate, processUpdateQueueSync as processUpdateQueueSyncOriginal } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { processUpdates, waitForUpdatesAsync as waitForUpdatesAsyncOriginal } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 
-export { queueAsyncUpdate };
+export { processUpdates };
 
 /**
  * Immediately processes all updates in queue.
@@ -10,4 +10,4 @@ export { queueAsyncUpdate };
  * frame. This should also be called after every fakeAsync test to clear the internal
  * process queue and allow subsequent tests to run normally.
  */
-export const processUpdateQueueSync = processUpdateQueueSyncOriginal;
+export const waitForUpdatesAsync = waitForUpdatesAsyncOriginal;

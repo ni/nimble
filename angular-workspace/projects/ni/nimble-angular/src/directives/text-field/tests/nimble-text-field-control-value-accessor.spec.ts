@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import type { TextField } from '@ni/nimble-components/dist/esm/text-field';
-import { processUpdateQueueSync } from '../../../testing/async-helpers';
+import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleTextFieldModule } from '../nimble-text-field.module';
 
 function setTextFieldValue(textField: TextField, value: string): void {
@@ -45,7 +45,7 @@ describe('Nimble text field control value accessor', () => {
     }));
 
     afterEach(() => {
-        processUpdateQueueSync();
+        processUpdates();
     });
 
     it('sets correct initial value', () => {
@@ -74,7 +74,7 @@ describe('Nimble text field control value accessor', () => {
         testHostComponent.fieldDisabled = true;
         fixture.detectChanges();
         tick();
-        processUpdateQueueSync();
+        processUpdates();
 
         expect(textField.getAttribute('disabled')).toBe('');
         expect(textField.disabled).toBe(true);

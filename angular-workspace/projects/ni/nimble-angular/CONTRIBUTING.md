@@ -27,4 +27,4 @@ The Angular directives need code coverage via unit tests.
   * Templates setting values via property bindings, for example: `<my-element [disabled]="isDisabled"></my-element`.
   * Templates setting values via attribute bindings, for example: `<my-element [attr.disabled]="isDisabled"></my-element`.
 * When testing asynchronous behavior, prefer using `fakeAsync`. See [Testing Asynchronous Behavior in Components](https://ni.visualstudio.com/DevCentral/_wiki/wikis/AppCentral.wiki/15402/Testing-Asynchronous-Behavior-in-Components).
-  * When using the `fakeAsync` utility, use the `processUpdateQueueSync()` utility to immediately process the Nimble components' internal update queue. The `processUpdateQueueSync()` should be called after each `fakeAsync` test.
+  * When using the `fakeAsync` utility, use the `processUpdates()` utility to immediately process the Nimble components' internal update queue. The `processUpdates()` should be called after each `fakeAsync` test.

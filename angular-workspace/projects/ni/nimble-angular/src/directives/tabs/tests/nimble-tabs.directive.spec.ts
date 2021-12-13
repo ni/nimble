@@ -4,7 +4,7 @@ import type { Tabs } from '@ni/nimble-components/dist/esm/tabs';
 import type { Tab } from '@ni/nimble-components/dist/esm/tab';
 import { waitTask } from '../../../async-test-utilities';
 import { NimbleTabsModule } from '../nimble-tabs.module';
-import { processUpdateQueueSync } from '../../../testing/async-helpers';
+import { processUpdates } from '../../../testing/async-helpers';
 
 describe('Nimble tabs', () => {
     @Component({
@@ -48,7 +48,7 @@ describe('Nimble tabs', () => {
     });
 
     afterEach(() => {
-        processUpdateQueueSync();
+        processUpdates();
     });
 
     it('custom element is defined', () => {
