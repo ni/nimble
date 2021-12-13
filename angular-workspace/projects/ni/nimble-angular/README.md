@@ -56,7 +56,7 @@ For best results, always use `ngModel`, `formControl`, or `formControlName` bind
 
 Angular's `fakeAsync` utility is useful for writing quickly-executing tests, but it can cause issues when testing components containing Nimble elements. Nimble uses an internal process queue to schedule work. If a `fakeAsync` test schedules work on the queue (by creating or interacting with Nimble elements) and the queue isn't processed by the end of the test, the queue will never be processed and subsequent tests may fail.
 
-To avoid this, call `DOM.processUpdates()` after each `fakeAsync` test. This will synchronously process the internal queue and put it in a good state for subsequent tests. The `DOM.processUpdates()` method can also be called mid-test to synchronously complete operations which would otherwise require waiting for an animation frame.
+To avoid this, call `processUpdateQueueSync()` after each `fakeAsync` test. This will synchronously process the internal queue and put it in a good state for subsequent tests. The `processUpdateQueueSync()` method can also be called mid-test to synchronously complete operations which would otherwise require waiting for an animation frame.
 
 ## Known Issues
 
