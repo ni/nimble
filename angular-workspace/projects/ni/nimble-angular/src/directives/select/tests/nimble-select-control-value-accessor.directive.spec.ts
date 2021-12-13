@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import type { Select } from '@ni/nimble-components/dist/esm/select';
 import { NimbleSelectModule } from '../nimble-select.module';
 import { NimbleListboxOptionModule } from '../../listbox-option/nimble-listbox-option.module';
-import { waitTask, processDomUpdates } from '../../../async-test-utilities';
+import { waitTask } from '../../../async-test-utilities';
+import { processUpdateQueueSync } from '../../../testing/async-helpers';
 
 function setSelectValue(select: Select, index: number): void {
     select.dispatchEvent(new Event('click'));
@@ -62,7 +63,7 @@ describe('Nimble select control value accessor', () => {
         });
 
         afterEach(() => {
-            processDomUpdates();
+            processUpdateQueueSync();
         });
 
         it('sets correct initial selected value', () => {
@@ -99,7 +100,7 @@ describe('Nimble select control value accessor', () => {
             testHostComponent.selectDisabled = true;
             fixture.detectChanges();
             tick();
-            processDomUpdates();
+            processUpdateQueueSync();
 
             expect(select.getAttribute('disabled')).toBe('');
             expect(select.disabled).toBe(true);
@@ -150,7 +151,7 @@ describe('Nimble select control value accessor', () => {
         });
 
         afterEach(() => {
-            processDomUpdates();
+            processUpdateQueueSync();
         });
 
         it('sets correct initial selected value', () => {

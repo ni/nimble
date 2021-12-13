@@ -2,8 +2,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import type { Checkbox } from '@ni/nimble-components/dist/esm/checkbox';
+import { processUpdateQueueSync } from '../../../testing/async-helpers';
 import { NimbleCheckboxModule } from '../nimble-checkbox.module';
-import { processDomUpdates } from '../../../async-test-utilities';
 
 function toggleCheckboxValue(checkbox: Checkbox): void {
     checkbox.click();
@@ -43,7 +43,7 @@ describe('Nimble checkbox control value accessor', () => {
     }));
 
     afterEach(() => {
-        processDomUpdates();
+        processUpdateQueueSync();
     });
 
     it('sets correct initial value', () => {
@@ -71,7 +71,7 @@ describe('Nimble checkbox control value accessor', () => {
         testHostComponent.fieldDisabled = true;
         fixture.detectChanges();
         tick();
-        processDomUpdates();
+        processUpdateQueueSync();
 
         expect(checkbox.getAttribute('disabled')).toBe('');
         expect(checkbox.disabled).toBe(true);

@@ -2,8 +2,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import type { NumberField } from '@ni/nimble-components/dist/esm/number-field';
+import { processUpdateQueueSync } from '../../../testing/async-helpers';
 import { NimbleNumberFieldModule } from '../nimble-number-field.module';
-import { processDomUpdates } from '../../../async-test-utilities';
 
 function setNumberFieldValue(numberField: NumberField, value: number): void {
     numberField.value = value.toString();
@@ -45,7 +45,7 @@ describe('Nimble number field control value accessor', () => {
     }));
 
     afterEach(() => {
-        processDomUpdates();
+        processUpdateQueueSync();
     });
 
     it('sets correct initial value', () => {
@@ -74,7 +74,7 @@ describe('Nimble number field control value accessor', () => {
         testHostComponent.fieldDisabled = true;
         fixture.detectChanges();
         tick();
-        processDomUpdates();
+        processUpdateQueueSync();
 
         expect(numberField.getAttribute('disabled')).toBe('');
         expect(numberField.disabled).toBe(true);
