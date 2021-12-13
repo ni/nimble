@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 13 Dec 2021 14:41:26 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.111",
+      "version": "1.0.0-beta.111",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "72bc8603e87e6e4cf572bce77660cbd156909ddf",
+            "comment": "Use legacy font family var in legacy theme"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Dec 2021 16:32:53 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.110",
       "version": "1.0.0-beta.110",
