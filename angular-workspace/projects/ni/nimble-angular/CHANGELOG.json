@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 14 Dec 2021 04:09:05 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.133",
+      "version": "1.0.0-beta.133",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "bb44040248029a7c49be1c7cf15d9a133c837d68",
+            "comment": "Refactor tests to be more synchronous"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.113",
+            "commit": "bb44040248029a7c49be1c7cf15d9a133c837d68"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 Dec 2021 20:30:22 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.132",
       "version": "1.0.0-beta.132",

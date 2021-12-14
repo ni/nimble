@@ -2,6 +2,21 @@
   "name": "angular-workspace",
   "entries": [
     {
+      "date": "Tue, 14 Dec 2021 04:09:05 GMT",
+      "tag": "angular-workspace_v0.0.0",
+      "version": "0.0.0",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "angular-workspace",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.113",
+            "commit": "bb44040248029a7c49be1c7cf15d9a133c837d68"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 Dec 2021 20:30:22 GMT",
       "tag": "angular-workspace_v0.0.0",
       "version": "0.0.0",

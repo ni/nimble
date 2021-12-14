@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Dec 2021 04:09:05 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.113",
+      "version": "1.0.0-beta.113",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bb44040248029a7c49be1c7cf15d9a133c837d68",
+            "comment": "Re-export FAST's DOM.processUpdates method"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 Dec 2021 20:30:22 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.112",
       "version": "1.0.0-beta.112",
