@@ -40,11 +40,11 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
     let fixture: ComponentFixture<TestHostComponent>;
     let testHostComponent: TestHostComponent;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
+    beforeEach(() => {
+        TestBed.configureTestingModule({
             declarations: [TestHostComponent],
             imports: [NimbleTreeViewModule, NimbleTreeItemModule]
-        }).compileComponents();
+        });
     });
 
     beforeEach(() => {

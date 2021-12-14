@@ -34,11 +34,11 @@ describe('Nimble button', () => {
         let directive: NimbleButtonDirective;
         let nativeElement: Button;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleButtonModule]
-            }).compileComponents();
+            });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
@@ -73,11 +73,11 @@ describe('Nimble button', () => {
         let directive: NimbleButtonDirective;
         let nativeElement: Button;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleButtonModule]
-            }).compileComponents();
+            });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
@@ -115,18 +115,18 @@ describe('Nimble button', () => {
         let directive: NimbleButtonDirective;
         let nativeElement: Button;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleButtonModule]
-            }).compileComponents();
+            });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding for disabled', async () => {
+        it('can be configured with property binding for disabled', () => {
             expect(directive.disabled).toBeFalse();
             expect(nativeElement.disabled).toBeFalse();
 
@@ -137,7 +137,7 @@ describe('Nimble button', () => {
             expect(nativeElement.disabled).toBeTrue();
         });
 
-        it('can be configured with property binding for appearance', async () => {
+        it('can be configured with property binding for appearance', () => {
             expect(directive.appearance).toBe(ButtonAppearance.Outline);
             expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
 
@@ -169,11 +169,11 @@ describe('Nimble button', () => {
         let directive: NimbleButtonDirective;
         let nativeElement: Button;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleButtonModule]
-            }).compileComponents();
+            });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
