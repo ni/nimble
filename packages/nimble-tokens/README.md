@@ -16,9 +16,13 @@ If you are using one of the following frameworks you should consume tokens via c
 2. Blazor WebAssembly or Blazor Server: See the [nimble-blazor](/packages/nimble-blazor) documentation.
 3. Vanilla / Frameworkless: See the [nimble-components](/packages/nimble-components) documentation.
 
+## Using Higher Level Tokens in Themes
+
+The above libraries also offer a theming system which is independent of other components from the library. Adopting the theming system can be a cheaper way to update a legacy application to approximate the NI brand without the development and testing burden of adopting a new component library. See [the theming documentation in `nimble-components`](/packages/nimble-components/README.md#theming) for more information.
+
 ## Using Nimble Tokens Directly
 
-You can consume tokens directly without using a Nimble component library. Adopting only Nimble typography and colors can be a cheaper way to update a legacy application to approximate the NI brand without the development and testing burden of adopting a new component library.
+You can consume low level Nimble tokens directly without using a Nimble component library. The low level tokens are less likely to change as NI designs evolve (consider whether this is a good thing for your application before deciding which approach to use).
 
 To add the Nimble tokens package to your application, install it from [the public NPM registry](https://www.npmjs.com/package/@ni/nimble-tokens) by running `npm install @ni/nimble-tokens`.
 

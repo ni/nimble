@@ -27,7 +27,8 @@ function designToken<T>(token: DesignToken<T>) {
 
 export type { NimbleThemeProvider };
 /**
- * The NimbleThemeProvider implementation
+ * The NimbleThemeProvider implementation. Add this component to the page and set its `theme` attribute to control
+ * the values of design tokens that provide colors and fonts as CSS custom properties to any descendant components.
  * @internal
  */
 class NimbleThemeProvider extends FoundationElement {
