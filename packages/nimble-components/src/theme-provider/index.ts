@@ -12,6 +12,12 @@ import type { NimbleTheme } from './types';
 
 export type { NimbleThemeProvider };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-theme-provider': NimbleThemeProvider;
+    }
+}
+
 function designToken<T>(token: DesignToken<T>) {
     return (source: NimbleThemeProvider, key: string): void => {
         source[`${key}Changed`] = function keyChanged(

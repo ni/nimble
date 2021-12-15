@@ -7,6 +7,12 @@ import { styles } from './styles';
 
 export type { Tab };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-tab': Tab;
+    }
+}
+
 const nimbleTab = Tab.compose({
     baseName: 'tab',
     template,

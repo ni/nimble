@@ -8,6 +8,12 @@ import { styles } from './styles';
 
 export type { MenuItem };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-menu-item': MenuItem;
+    }
+}
+
 /**
  * A nimble-styled menu-item
  */

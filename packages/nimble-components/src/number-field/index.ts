@@ -12,6 +12,12 @@ import { styles } from './styles';
 
 export type { NumberField };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-number-field': NumberField;
+    }
+}
+
 /**
  * A nimble-styled HTML number input
  */

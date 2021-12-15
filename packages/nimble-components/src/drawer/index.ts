@@ -17,6 +17,12 @@ import { DrawerLocation, DrawerState } from './types';
 
 export type { Drawer };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-drawer': Drawer;
+    }
+}
+
 const animationDurationWhenDisabledMilliseconds = 0.001;
 
 /**

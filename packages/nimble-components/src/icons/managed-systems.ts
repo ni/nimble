@@ -1,6 +1,12 @@
 import { managedSystems16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-managed-systems-icon': ManagedSystemsIcon;
+    }
+}
+
 /**
  * The icon component for the 'managed-systems' icon
  */

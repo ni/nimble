@@ -14,6 +14,12 @@ import { styles } from './styles';
 
 export type { TreeItem };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-tree-item': TreeItem;
+    }
+}
+
 /**
  * A function that returns a nimble-tree-item registration for configuring the component with a DesignSystem.
  * Implements {@link @microsoft/fast-foundation#treeItemTemplate}
