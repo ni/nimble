@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 15 Dec 2021 20:22:01 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.114",
+      "version": "1.0.0-beta.114",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f8e9021c95cade3ffb44e129d93f55c752c0dd12",
+            "comment": "Add HTMLElementTagNameMap extensions for Nimble elements"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Dec 2021 04:09:05 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.113",
       "version": "1.0.0-beta.113",
