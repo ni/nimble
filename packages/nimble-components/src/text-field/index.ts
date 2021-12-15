@@ -9,6 +9,12 @@ import { styles } from './styles';
 
 export type { TextField };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-text-field': TextField;
+    }
+}
+
 /**
  * A nimble-styed HTML text input
  */

@@ -4,6 +4,12 @@ import { template } from './template';
 
 export type { TabsToolbar };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-tabs-toolbar': TabsToolbar;
+    }
+}
+
 /**
  * A nimble-styled container for toolbar content next to tabs.
  */

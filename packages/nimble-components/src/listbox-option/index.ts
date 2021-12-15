@@ -7,6 +7,12 @@ import { styles } from './styles';
 
 export type { ListboxOption };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-listbox-option': ListboxOption;
+    }
+}
+
 /**
  * A nimble-styled HTML listbox option
  */

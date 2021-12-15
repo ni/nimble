@@ -7,6 +7,12 @@ import { styles } from './styles';
 
 export type { Menu };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-menu': Menu;
+    }
+}
+
 /**
  * A nimble-styled menu
  */

@@ -9,6 +9,12 @@ import { TreeViewSelectionMode } from './types';
 
 export type { TreeView };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-tree-view': TreeView;
+    }
+}
+
 /**
  * A function that returns a nimble-tree-view registration for configuring the component with a DesignSystem.
  * Implements {@link @microsoft/fast-foundation#treeViewTemplate}

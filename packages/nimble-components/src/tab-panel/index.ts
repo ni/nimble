@@ -7,6 +7,12 @@ import { styles } from './styles';
 
 export type { TabPanel };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-tab-panel': TabPanel;
+    }
+}
+
 const nimbleTabPanel = TabPanel.compose({
     baseName: 'tab-panel',
     template,

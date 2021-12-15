@@ -9,6 +9,12 @@ import { styles } from './styles';
 
 export type { Checkbox };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-checkbox': Checkbox;
+    }
+}
+
 const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
     baseName: 'checkbox',
     template,

@@ -1,6 +1,12 @@
 import { delete16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-delete-icon': DeleteIcon;
+    }
+}
+
 /**
  * The icon component for the 'delete' icon
  */

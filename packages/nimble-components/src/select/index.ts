@@ -9,6 +9,12 @@ import { styles } from './styles';
 
 export type { Select };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-select': Select;
+    }
+}
+
 /**
  * A nimble-styed HTML select
  */
