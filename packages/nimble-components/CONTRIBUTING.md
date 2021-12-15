@@ -182,6 +182,21 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
 });
 ```
 
+### TypeScript integration
+
+For any custom element definition, extend TypeScript's `HTMLElementTagNameMap` to register the new element. For example:
+
+```js
+declare global {
+    interface HTMLElementTagNameMap {
+        // register tag name and type of custom element
+        'nimble-button': Button;
+    }
+}
+```
+
+This enables TypeScript to infer the type of a returned element based on its tag name for DOM methods such as `document.createElement()` and `document.querySelector()`.
+
 ## Unit tests
 
 Unit tests are written using karma and jasmine in files named `<component-name>.spec.ts`.
