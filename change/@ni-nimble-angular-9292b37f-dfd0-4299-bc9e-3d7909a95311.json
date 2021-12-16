@@ -3,5 +3,5 @@
   "comment": "Update versions of @ni/javascript-styleguide dependencies",
   "packageName": "@ni/nimble-angular",
   "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
