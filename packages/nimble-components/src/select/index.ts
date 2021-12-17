@@ -32,7 +32,7 @@ class Select extends FoundationSelect {
         // the selected attribute, which will set the initial value correctly.
         if (value !== null && this.options.length === 0) {
             const matchingOption = this.querySelector(
-                `nimble-listbox-option[value="${value}"]`
+                `[role="option"][value="${value}"]`
             );
             if (matchingOption !== null) {
                 matchingOption.setAttribute('selected', '');
