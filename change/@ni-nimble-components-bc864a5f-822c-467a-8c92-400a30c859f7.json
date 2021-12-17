@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Don't hardcode nimble-listbox-option in query",
+  "packageName": "@ni/nimble-components",
+  "email": "mert.akinc@ni.com",
+  "dependentChangeType": "patch"
+}
