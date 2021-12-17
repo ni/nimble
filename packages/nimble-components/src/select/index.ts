@@ -59,6 +59,7 @@ class Select extends FoundationSelect {
 
 export const nimbleSelect = Select.compose<SelectOptions>({
     baseName: 'select',
+    baseClass: FoundationSelect,
     template,
     styles,
     indicator: controlsArrowExpanderDown16X16.data
