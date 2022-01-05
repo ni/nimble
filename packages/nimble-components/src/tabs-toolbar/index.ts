@@ -17,6 +17,7 @@ class TabsToolbar extends FoundationElement {}
 
 const nimbleTabsToolbar = TabsToolbar.compose({
     baseName: 'tabs-toolbar',
+    baseClass: FoundationElement,
     template,
     styles
 });

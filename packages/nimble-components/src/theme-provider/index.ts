@@ -48,6 +48,7 @@ class NimbleThemeProvider extends FoundationElement {
 
 const nimbleDesignSystemProvider = NimbleThemeProvider.compose({
     baseName: 'theme-provider',
+    baseClass: FoundationElement,
     styles,
     template
 });
