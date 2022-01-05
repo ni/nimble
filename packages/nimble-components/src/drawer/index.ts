@@ -61,8 +61,10 @@ class Drawer extends FoundationDialog {
         // change focus if it's true before connectedCallback
         this.trapFocus = false;
         super.connectedCallback();
-        this.animationsEnabledChangedHandler = (disabled: boolean) => this.updateAnimationDuration(disabled);
-        PrefersReducedMotionWatcher.instance.registerCallback(
+        this.updateAnimationDuration();
+        this.animationsEnabledChangedHandler = () => this.updateAnimationDuration();
+        PrefersReducedMotionWatcher.instance.mediaQuery.addEventListener(
+            'change',
             this.animationsEnabledChangedHandler
         );
         this.onStateChanged();
@@ -87,7 +89,8 @@ class Drawer extends FoundationDialog {
             this.propertyChangeSubscriber = undefined;
         }
         if (this.animationsEnabledChangedHandler) {
-            PrefersReducedMotionWatcher.instance.deregisterCallback(
+            PrefersReducedMotionWatcher.instance.mediaQuery.removeEventListener(
+                'change',
                 this.animationsEnabledChangedHandler
             );
             this.animationsEnabledChangedHandler = undefined;
@@ -166,7 +169,8 @@ class Drawer extends FoundationDialog {
         }
     }
 
-    private updateAnimationDuration(disableAnimations: boolean): void {
+    private updateAnimationDuration(): void {
+        const disableAnimations: boolean = PrefersReducedMotionWatcher.instance.mediaQuery.matches;
         this.animationDurationMilliseconds = disableAnimations
             ? animationDurationWhenDisabledMilliseconds
             : drawerAnimationDurationMs.getValueFor(this);
