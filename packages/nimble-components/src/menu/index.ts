@@ -1,6 +1,6 @@
 import {
     DesignSystem,
-    Menu,
+    Menu as FoundationMenu,
     menuTemplate as template
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
@@ -16,6 +16,7 @@ declare global {
 /**
  * A nimble-styled menu
  */
+class Menu extends FoundationMenu {}
 
 /**
  * A function that returns a nimble-menu registration for configuring the component with a DesignSystem.
@@ -28,6 +29,7 @@ declare global {
  */
 const nimbleMenu = Menu.compose({
     baseName: 'menu',
+    baseClass: FoundationMenu,
     template,
     styles
 });
