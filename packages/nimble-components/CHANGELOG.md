@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 15 Dec 2021 20:22:01 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Dec 2021 22:32:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.115
+
+Fri, 17 Dec 2021 22:32:22 GMT
+
+### Changes
+
+- Update versions of @ni/javascript-styleguide dependencies (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.36
 
 ## 1.0.0-beta.114
 
