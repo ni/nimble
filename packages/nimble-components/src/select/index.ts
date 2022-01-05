@@ -31,12 +31,12 @@ class Select extends FoundationSelect {
         // the options property will not be set yet. As a workaround, we mark the listbox-option element with
         // the selected attribute, which will set the initial value correctly.
         if (value !== null && this.options.length === 0) {
-            const matchingOption = this.querySelector(
-                `[role="option"][value="${value}"]`
-            );
-            if (matchingOption !== null) {
-                matchingOption.setAttribute('selected', '');
-            }
+            const options = this.querySelectorAll('option,[role="option"]');
+            options.forEach(option => {
+                if (option.getAttribute('value') === value) {
+                    option.setAttribute('selected', '');
+                }
+            });
         }
     }
 
