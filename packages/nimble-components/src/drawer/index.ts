@@ -53,7 +53,7 @@ class Drawer extends FoundationDialog {
     animationDurationWhenDisabledMilliseconds;
 
     private animationGroup?: AnimateGroup;
-    private animationsEnabledChangedHandler?: (boolean) => void;
+    private animationsEnabledChangedHandler?: () => void;
     private propertyChangeSubscriber?: Subscriber;
 
     public connectedCallback(): void {
