@@ -105,6 +105,7 @@ class Button extends FoundationButton {
     // Add new functionality
 }
 const nimbleButton = Button.compose({
+    baseClass: FoundationButton // when extending a FAST component, specify baseClass
     // ...
 });
 ```
