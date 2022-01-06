@@ -1,6 +1,6 @@
 import {
     DesignSystem,
-    MenuItem,
+    MenuItem as FoundationMenuItem,
     menuItemTemplate as template,
     MenuItemOptions
 } from '@microsoft/fast-foundation';
@@ -17,6 +17,7 @@ declare global {
 /**
  * A nimble-styled menu-item
  */
+class MenuItem extends FoundationMenuItem {}
 
 /**
  * A function that returns a nimble-menu-item registration for configuring the component with a DesignSystem.
@@ -29,6 +30,7 @@ declare global {
  */
 export const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
+    baseClass: FoundationMenuItem,
     template,
     styles
 });

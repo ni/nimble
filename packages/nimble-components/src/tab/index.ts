@@ -1,6 +1,6 @@
 import {
     DesignSystem,
-    Tab,
+    Tab as FoundationTab,
     tabTemplate as template
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
@@ -13,8 +13,14 @@ declare global {
     }
 }
 
+/**
+ * A nimble-styled HTML tab
+ */
+class Tab extends FoundationTab {}
+
 const nimbleTab = Tab.compose({
     baseName: 'tab',
+    baseClass: FoundationTab,
     template,
     styles
 });
