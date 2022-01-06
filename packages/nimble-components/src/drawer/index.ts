@@ -234,7 +234,7 @@ class Drawer extends FoundationDialog {
     }
 }
 
-export const nimbleDrawer = Drawer.compose({
+const nimbleDrawer = Drawer.compose({
     baseName: 'drawer',
     template,
     styles
