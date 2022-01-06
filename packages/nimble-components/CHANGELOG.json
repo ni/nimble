@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 17 Dec 2021 22:32:22 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.115",
+      "version": "1.0.0-beta.115",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6a7c92a6bd3c333321b29d501c99c8dc1cc8eed1",
+            "comment": "Update versions of @ni/javascript-styleguide dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0-beta.36",
+            "commit": "6a7c92a6bd3c333321b29d501c99c8dc1cc8eed1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Dec 2021 20:22:01 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.114",
       "version": "1.0.0-beta.114",

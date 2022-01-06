@@ -11,6 +11,7 @@ import {
     dialogTemplate as template
 } from '@microsoft/fast-foundation';
 import { drawerAnimationDurationMs } from '../theme-provider/design-tokens';
+import { PrefersReducedMotionWatcher } from '../utilities/style/prefers-reduced-motion';
 import { animationConfig } from './animations';
 import { styles } from './styles';
 import { DrawerLocation, DrawerState } from './types';
@@ -52,8 +53,7 @@ class Drawer extends FoundationDialog {
     animationDurationWhenDisabledMilliseconds;
 
     private animationGroup?: AnimateGroup;
-    private animationsEnabledChangedHandler?: (MediaQueryListEvent) => void;
-    private prefersReducedMotionMediaQuery?: MediaQueryList;
+    private animationsEnabledChangedHandler?: () => void;
     private propertyChangeSubscriber?: Subscriber;
 
     public connectedCallback(): void {
@@ -61,12 +61,9 @@ class Drawer extends FoundationDialog {
         // change focus if it's true before connectedCallback
         this.trapFocus = false;
         super.connectedCallback();
-        this.prefersReducedMotionMediaQuery = window.matchMedia(
-            '(prefers-reduced-motion: reduce)'
-        );
         this.updateAnimationDuration();
         this.animationsEnabledChangedHandler = () => this.updateAnimationDuration();
-        this.prefersReducedMotionMediaQuery.addEventListener(
+        PrefersReducedMotionWatcher.instance.mediaQuery.addEventListener(
             'change',
             this.animationsEnabledChangedHandler
         );
@@ -91,15 +88,11 @@ class Drawer extends FoundationDialog {
             this.propertyChangeNotifier = undefined;
             this.propertyChangeSubscriber = undefined;
         }
-        if (
-            this.prefersReducedMotionMediaQuery
-            && this.animationsEnabledChangedHandler
-        ) {
-            this.prefersReducedMotionMediaQuery.removeEventListener(
+        if (this.animationsEnabledChangedHandler) {
+            PrefersReducedMotionWatcher.instance.mediaQuery.removeEventListener(
                 'change',
                 this.animationsEnabledChangedHandler
             );
-            this.prefersReducedMotionMediaQuery = undefined;
             this.animationsEnabledChangedHandler = undefined;
         }
     }
@@ -177,7 +170,7 @@ class Drawer extends FoundationDialog {
     }
 
     private updateAnimationDuration(): void {
-        const disableAnimations = this.prefersReducedMotionMediaQuery?.matches;
+        const disableAnimations: boolean = PrefersReducedMotionWatcher.instance.mediaQuery.matches;
         this.animationDurationMilliseconds = disableAnimations
             ? animationDurationWhenDisabledMilliseconds
             : drawerAnimationDurationMs.getValueFor(this);

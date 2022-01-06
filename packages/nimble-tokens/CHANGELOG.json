@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 17 Dec 2021 22:32:22 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.36",
+      "version": "1.0.0-beta.36",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "6a7c92a6bd3c333321b29d501c99c8dc1cc8eed1",
+            "comment": "Update versions of @ni/javascript-styleguide dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Dec 2021 20:35:29 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.35",
       "version": "1.0.0-beta.35",
