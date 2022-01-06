@@ -11,16 +11,16 @@ import '../../tree-item';
 import '../../button';
 
 class Model {
-    public treeView: TreeView;
-    public root1: TreeItem; // starts off expanded
-    public root2: TreeItem;
-    public leaf1: TreeItem;
-    public leaf2: TreeItem; // starts off selected
-    public leaf3: TreeItem;
-    public leafWithIconDisabled: TreeItem;
-    public subRoot1: TreeItem;
-    public subRoot2: TreeItem;
-    public button: Button;
+    public treeView!: TreeView;
+    public root1!: TreeItem; // starts off expanded
+    public root2!: TreeItem;
+    public leaf1!: TreeItem;
+    public leaf2!: TreeItem; // starts off selected
+    public leaf3!: TreeItem;
+    public leafWithIconDisabled!: TreeItem;
+    public subRoot1!: TreeItem;
+    public subRoot2!: TreeItem;
+    public button!: Button;
 }
 
 async function setup(source: Model): Promise<Fixture<TreeView>> {

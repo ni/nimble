@@ -31,7 +31,7 @@ declare global {
  *
  */
 class TreeItem extends FoundationTreeItem {
-    private treeView: TreeView | null;
+    private treeView: TreeView | null = null;
 
     public constructor() {
         super();

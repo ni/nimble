@@ -1,6 +1,5 @@
 import {
     DesignSystem,
-    DesignToken,
     DesignTokenValue,
     FoundationElement
 } from '@microsoft/fast-foundation';
@@ -8,7 +7,7 @@ import { attr } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { theme } from './design-tokens';
-import type { NimbleTheme } from './types';
+import { NimbleTheme } from './types';
 
 export type { NimbleThemeProvider };
 
@@ -16,22 +15,6 @@ declare global {
     interface HTMLElementTagNameMap {
         'nimble-theme-provider': NimbleThemeProvider;
     }
-}
-
-function designToken<T>(token: DesignToken<T>) {
-    return (source: NimbleThemeProvider, key: string): void => {
-        source[`${key}Changed`] = function keyChanged(
-            this: NimbleThemeProvider,
-            _prev: T | undefined,
-            next: T | undefined
-        ): void {
-            if (next !== undefined && next !== null) {
-                token.setValueFor(this, next as DesignTokenValue<T>);
-            } else {
-                token.deleteValueFor(this);
-            }
-        };
-    };
 }
 
 /**
@@ -42,8 +25,18 @@ class NimbleThemeProvider extends FoundationElement {
     @attr({
         attribute: 'theme'
     })
-    @designToken(theme)
-    public theme: NimbleTheme;
+    public theme: NimbleTheme = NimbleTheme.Light;
+
+    public themeChanged(
+        _prev: NimbleTheme | undefined,
+        next: NimbleTheme | undefined
+    ): void {
+        if (next !== undefined && next !== null) {
+            theme.setValueFor(this, next as DesignTokenValue<NimbleTheme>);
+        } else {
+            theme.deleteValueFor(this);
+        }
+    }
 }
 
 const nimbleDesignSystemProvider = NimbleThemeProvider.compose({
