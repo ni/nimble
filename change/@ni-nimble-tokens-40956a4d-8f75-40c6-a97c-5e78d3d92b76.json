@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Update versions of @ni/javascript-styleguide dependencies",
-  "packageName": "@ni/nimble-tokens",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
