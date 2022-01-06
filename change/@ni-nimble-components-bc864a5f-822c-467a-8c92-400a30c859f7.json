@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Don't hardcode nimble-listbox-option in query",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
