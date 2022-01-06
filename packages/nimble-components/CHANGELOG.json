@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 06 Jan 2022 19:28:47 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.116",
+      "version": "1.0.0-beta.116",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "370673029669f79b24154081d4dac15be1deb68c",
+            "comment": "Refactor prefers-reduced-motion watching logic into utility"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Dec 2021 22:32:22 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.115",
       "version": "1.0.0-beta.115",

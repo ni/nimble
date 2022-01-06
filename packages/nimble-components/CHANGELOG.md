@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 17 Dec 2021 22:32:22 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Jan 2022 19:28:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.116
+
+Thu, 06 Jan 2022 19:28:47 GMT
+
+### Changes
+
+- Refactor prefers-reduced-motion watching logic into utility (7282195+m-akinc@users.noreply.github.com)
 
 ## 1.0.0-beta.115
 
