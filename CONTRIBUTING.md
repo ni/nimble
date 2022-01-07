@@ -32,10 +32,11 @@ From the `nimble` directory:
 
 ### Adding a new component
 
-1. Ensure UX specs are up to date and tokens are generated. See instructions for [contributing to nimble tokens](/packages/nimble-tokens/CONTRIBUTING.md).
-2. Expose any tokens in the token provider and add web component logic. See instructions for [contributing to nimble components](/packages/nimble-components/CONTRIBUTING.md).
-3. Add wrappers for each framework. See instructions for [adding Angular wrappers](/angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](/packages/nimble-blazor/CONTRIBUTING.md).
-4. Publish and use! 🎉
+1. Write a spec describing the API and behavior of the component. See instructions for [component specs](/packages/nimble-components/specs/README.md).
+2. Ensure UX specs are up to date and tokens are generated. See instructions for [contributing to nimble tokens](/packages/nimble-tokens/CONTRIBUTING.md).
+3. Expose any tokens in the token provider and add web component logic. See instructions for [contributing to nimble components](/packages/nimble-components/CONTRIBUTING.md).
+4. Add wrappers for each framework. See instructions for [adding Angular wrappers](/angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](/packages/nimble-blazor/CONTRIBUTING.md).
+5. Publish and use! 🎉
 
 ## Documentation policies
 
