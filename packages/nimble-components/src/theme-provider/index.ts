@@ -25,7 +25,14 @@ class NimbleThemeProvider extends FoundationElement {
     @attr({
         attribute: 'theme'
     })
-    public theme: NimbleTheme = NimbleTheme.Light;
+    public theme!: NimbleTheme;
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        if (!this.theme) {
+            this.theme = NimbleTheme.Light;
+        }
+    }
 
     public themeChanged(
         _prev: NimbleTheme | undefined,

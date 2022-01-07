@@ -28,7 +28,7 @@ class Button extends FoundationButton {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance: ButtonAppearance;
+    public appearance!: ButtonAppearance;
 
     public connectedCallback(): void {
         super.connectedCallback();

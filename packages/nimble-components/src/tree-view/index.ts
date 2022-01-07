@@ -27,7 +27,7 @@ declare global {
  */
 class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
-    public selectionMode: TreeViewSelectionMode;
+    public selectionMode!: TreeViewSelectionMode;
 
     public connectedCallback(): void {
         super.connectedCallback();
