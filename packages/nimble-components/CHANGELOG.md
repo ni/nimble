@@ -1,8 +1,164 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 23 Nov 2021 01:46:37 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jan 2022 00:04:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.118
+
+Fri, 07 Jan 2022 00:04:56 GMT
+
+### Changes
+
+- Add baseClass in call to compose for Button and Select (7282195+m-akinc@users.noreply.github.com)
+
+## 1.0.0-beta.117
+
+Thu, 06 Jan 2022 23:21:51 GMT
+
+### Changes
+
+- Don't hardcode nimble-listbox-option in query (7282195+m-akinc@users.noreply.github.com)
+
+## 1.0.0-beta.116
+
+Thu, 06 Jan 2022 19:28:47 GMT
+
+### Changes
+
+- Refactor prefers-reduced-motion watching logic into utility (7282195+m-akinc@users.noreply.github.com)
+
+## 1.0.0-beta.115
+
+Fri, 17 Dec 2021 22:32:22 GMT
+
+### Changes
+
+- Update versions of @ni/javascript-styleguide dependencies (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.36
+
+## 1.0.0-beta.114
+
+Wed, 15 Dec 2021 20:22:01 GMT
+
+### Changes
+
+- Add HTMLElementTagNameMap extensions for Nimble elements (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.113
+
+Tue, 14 Dec 2021 04:09:05 GMT
+
+### Changes
+
+- Re-export FAST's DOM.processUpdates method (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.112
+
+Mon, 13 Dec 2021 20:30:22 GMT
+
+### Changes
+
+- Directive attribute string support and type export (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.111
+
+Mon, 13 Dec 2021 14:41:26 GMT
+
+### Changes
+
+- Use legacy font family var in legacy theme (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.110
+
+Fri, 10 Dec 2021 16:32:53 GMT
+
+### Changes
+
+- Improve usage docs for nimble-components (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.109
+
+Thu, 09 Dec 2021 20:35:29 GMT
+
+### Changes
+
+- Update publish command (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.35
+
+## 1.0.0-beta.108
+
+Wed, 08 Dec 2021 00:40:11 GMT
+
+### Changes
+
+- Update TreeItem to prevent future breakage (26874831+atmgrifter00@users.noreply.github.com)
+
+## 1.0.0-beta.107
+
+Tue, 07 Dec 2021 16:36:46 GMT
+
+### Changes
+
+- Add Roboto font and token for legacy content font (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.34
+
+## 1.0.0-beta.106
+
+Mon, 06 Dec 2021 19:56:32 GMT
+
+### Changes
+
+- upgrade to 6.4 final (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.105
+
+Fri, 03 Dec 2021 20:54:09 GMT
+
+### Changes
+
+- Drawer updates (bugfix for content/footer mode, make drawer width configurable in Storybook) (20709258+msmithNI@users.noreply.github.com)
+
+## 1.0.0-beta.104
+
+Fri, 03 Dec 2021 18:58:22 GMT
+
+### Changes
+
+- Add icons for succeeded and fail (32167177+haworthia@users.noreply.github.com)
+
+## 1.0.0-beta.103
+
+Wed, 01 Dec 2021 17:51:36 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.33
+
+## 1.0.0-beta.102
+
+Wed, 01 Dec 2021 15:38:13 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.32
+
+## 1.0.0-beta.101
+
+Mon, 29 Nov 2021 20:17:04 GMT
+
+### Changes
+
+- Update documentation (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.31
+
+## 1.0.0-beta.100
+
+Mon, 29 Nov 2021 19:31:25 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.30
 
 ## 1.0.0-beta.99
 

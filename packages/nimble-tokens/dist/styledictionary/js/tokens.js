@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 10 Nov 2021 15:57:17 GMT
+ * Generated on Wed, 24 Nov 2021 20:33:32 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -73,6 +73,7 @@ export const LinkLightUiFamily = "Source Sans Pro";
 export const LinkLightUiWeight = "400";
 export const Headline1Family = "Noto Serif";
 export const Headline1Weight = "400";
+export const LegacyContentFamily = "'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif";
 export const Title2Size = "22px";
 export const ControlLabel1Size = "11px";
 export const BodySize = "14px";

@@ -1,8 +1,8 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import '../index';
-import '../../tree-item/index';
+import '..';
+import '../../tree-item';
 import '../../icons/measurement-data-analysis';
 import '../../icons/settings';
 import { createRenderer } from '../../utilities/tests/storybook';
@@ -80,7 +80,7 @@ export const treeViewThemeMatrix: Story = createRenderer(
     )
 );
 
-export const hiddenTreeView = createRenderer(
+export const hiddenTreeView: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-tree-view hidden>
             <nimble-tree-item>Item 1</nimble-tree-item>

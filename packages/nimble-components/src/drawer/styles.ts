@@ -7,6 +7,7 @@ import {
     contentFontSize,
     drawerHeaderFontFamily,
     drawerHeaderFontSize,
+    drawerWidth,
     fontFamily,
     popupBorderColor,
     popupBoxShadowColor
@@ -56,6 +57,7 @@ export const styles = css`
         display: flex;
     }
 
+    ${/* Note: overlay is only present in the DOM when modal=true */ ''}
     .overlay {
         position: fixed;
         inset: 0px;
@@ -67,15 +69,14 @@ export const styles = css`
         position: relative;
         top: 0px;
         bottom: 0px;
-        width: fit-content;
-        height: 100%;
         display: grid;
         grid-template-rows: max-content auto max-content;
         flex-direction: column;
         box-sizing: border-box;
         border-radius: 0px;
         border-width: 0px;
-        width: var(--drawer-width);
+        width: ${drawerWidth};
+        height: 100%;
         background-color: ${applicationBackgroundColor};
     }
 
@@ -121,6 +122,7 @@ export const styles = css`
         padding: var(--standard-padding);
         display: flex;
         justify-content: flex-end;
+        grid-row: 3;
         border-top: ${borderWidth} solid ${popupBorderColor};
     }
 `;

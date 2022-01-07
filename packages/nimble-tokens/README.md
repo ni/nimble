@@ -12,10 +12,10 @@ NI design tokens to use across NI applications. Design tokens are primitive elem
 
 If you are using one of the following frameworks you should consume tokens via components implemented in the following libraries:
 
-1. Angular: See the [nimble-angular](../../angular-workspace/projects/ni/nimble-angular) documentation.
-2. Blazor WebAssembly or Blazor Server: See the [nimble-blazor](../nimble-blazor) documentation.
-3. Vanilla / Frameworkless: See the [nimble-components](../nimble-components) documentation.
+1. Angular: See the [nimble-angular](/angular-workspace/projects/ni/nimble-angular) documentation.
+2. Blazor WebAssembly or Blazor Server: See the [nimble-blazor](/packages/nimble-blazor) documentation.
+3. Vanilla / Frameworkless: See the [nimble-components](/packages/nimble-components) documentation.
 
 ## Contributing
 
-Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify this library.
+Follow the instructions in [CONTRIBUTING.md](/packages/nimble-tokens/CONTRIBUTING.md) to modify this library.

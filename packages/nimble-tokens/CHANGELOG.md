@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 23 Nov 2021 01:46:37 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Dec 2021 22:32:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.36
+
+Fri, 17 Dec 2021 22:32:22 GMT
+
+### Changes
+
+- Update versions of @ni/javascript-styleguide dependencies (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.35
+
+Thu, 09 Dec 2021 20:35:29 GMT
+
+### Changes
+
+- Update publish command (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.34
+
+Tue, 07 Dec 2021 16:36:46 GMT
+
+### Changes
+
+- Add Roboto font and token for legacy content font (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.33
+
+Wed, 01 Dec 2021 17:51:36 GMT
+
+### Changes
+
+- applying Joel's suggested template changes (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.32
+
+Wed, 01 Dec 2021 15:38:13 GMT
+
+### Changes
+
+- missed a path (1458528+fredvisser@users.noreply.github.com)
+
+## 1.0.0-beta.31
+
+Mon, 29 Nov 2021 20:17:04 GMT
+
+### Changes
+
+- Update documentation (jattasNI@users.noreply.github.com)
+
+## 1.0.0-beta.30
+
+Mon, 29 Nov 2021 19:31:25 GMT
+
+### Changes
+
+- XAML StyleDictionary NuGet export (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.0.0-beta.29
 

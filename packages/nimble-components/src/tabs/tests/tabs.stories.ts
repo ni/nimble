@@ -1,8 +1,8 @@
 import { html, repeat, when } from '@microsoft/fast-element';
-import type { Meta, Story } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
-import '../index';
+import '..';
 import '../../tab';
 import '../../tab-panel';
 import '../../tabs-toolbar';
@@ -73,9 +73,9 @@ const metadata: Meta<TabsArgs> = {
 
 export default metadata;
 
-export const tabs: Story<TabsArgs> = {};
+export const tabs: StoryObj<TabsArgs> = {};
 
-export const toolbar: Story<TabsArgs> = {
+export const toolbar: StoryObj<TabsArgs> = {
     args: {
         toolbar:
             '<nimble-button appearance="ghost">Toolbar Button</nimble-button>'

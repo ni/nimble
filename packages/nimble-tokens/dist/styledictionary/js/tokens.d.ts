@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 10 Nov 2021 15:57:17 GMT
+ * Generated on Wed, 24 Nov 2021 20:33:32 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -73,6 +73,7 @@ export const LinkLightUiFamily : string;
 export const LinkLightUiWeight : string;
 export const Headline1Family : string;
 export const Headline1Weight : string;
+export const LegacyContentFamily : string;
 export const Title2Size : string;
 export const ControlLabel1Size : string;
 export const BodySize : string;

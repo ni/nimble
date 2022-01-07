@@ -6,8 +6,19 @@ import {
 } from '@microsoft/fast-foundation';
 import { controlsArrowExpanderUp16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { TreeView } from '../tree-view';
-import { groupSelectedAttribute, SelectionMode } from '../tree-view/types';
+import {
+    groupSelectedAttribute,
+    TreeViewSelectionMode
+} from '../tree-view/types';
 import { styles } from './styles';
+
+export type { TreeItem };
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-tree-item': TreeItem;
+    }
+}
 
 /**
  * A function that returns a nimble-tree-item registration for configuring the component with a DesignSystem.
@@ -19,7 +30,7 @@ import { styles } from './styles';
  * Generates HTML Element: \<nimble-tree-item\>
  *
  */
-export class TreeItem extends FoundationTreeItem {
+class TreeItem extends FoundationTreeItem {
     private treeView: TreeView | null;
 
     public constructor() {
@@ -61,33 +72,31 @@ export class TreeItem extends FoundationTreeItem {
             return;
         }
 
-        const leavesOnly = this.treeView?.selectionMode === SelectionMode.LeavesOnly;
+        const leavesOnly = this.treeView?.selectionMode === TreeViewSelectionMode.LeavesOnly;
         const hasChildren = this.hasChildTreeItems();
         if ((leavesOnly && !hasChildren) || !leavesOnly) {
             // if either a leaf tree item, or in a mode that supports select on groups,
             // process click as a select
-            this.setGroupSelectionOnRootParentTreeItem(treeItem);
-            if (this.selected) {
-                // if already selected, prevent base-class from issuing selected-change event
-                event.stopImmediatePropagation();
+            if (!this.selected) {
+                this.selected = true;
+                this.$emit('selected-change', this);
             }
         } else {
             // implicit hasChildren && leavesOnly, so only allow expand/collapse, not select
             this.expanded = !this.expanded;
             this.$emit('expanded-change', this);
-
-            // don't allow base class to process click event, as all we want to happen
-            // here is toggling 'expanded', and to issue the expanded-change event
-            event.stopImmediatePropagation();
         }
+
+        // don't allow base class to process click event
+        event.stopImmediatePropagation();
     };
 
     // This prevents the toggling of selected state when a TreeItem is clicked multiple times,
     // which is what the FAST TreeItem allows
     private readonly handleSelectedChange = (event: Event): void => {
         // only process selection
-        if (event.target === this) {
-            this.selected = true;
+        if (event.target === this && this.selected) {
+            this.setGroupSelectionOnRootParentTreeItem(this);
         }
     };
 

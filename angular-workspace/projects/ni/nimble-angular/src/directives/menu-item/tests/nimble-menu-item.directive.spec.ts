@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { NimbleMenuItemModule } from '..';
+import { NimbleMenuItemModule } from '../nimble-menu-item.module';
 
 describe('Nimble menu item', () => {
     beforeEach(() => {

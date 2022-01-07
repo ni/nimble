@@ -3,7 +3,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
-import '../index';
+import '..';
 
 const metadata: Meta = {
     title: 'Tests/Select',

@@ -5,13 +5,24 @@ import {
     checkboxTemplate as template
 } from '@microsoft/fast-foundation';
 import { controlsCheckboxCheck16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-
 import { styles } from './styles';
 
-export { FoundationCheckbox as Checkbox };
+export type { Checkbox };
 
-const nimbleCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-checkbox': Checkbox;
+    }
+}
+
+/**
+ * A nimble-styled checkbox control.
+ */
+class Checkbox extends FoundationCheckbox {}
+
+const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
     baseName: 'checkbox',
+    baseClass: FoundationCheckbox,
     template,
     styles,
     checkedIndicator: controlsCheckboxCheck16X16.data

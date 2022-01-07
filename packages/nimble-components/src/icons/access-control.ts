@@ -1,6 +1,12 @@
 import { accessControlKey16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-access-control-icon': AccessControlIcon;
+    }
+}
+
 /**
  * The icon component for the 'access-control' icon
  */

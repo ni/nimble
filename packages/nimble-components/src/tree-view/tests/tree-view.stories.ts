@@ -1,15 +1,15 @@
-import type { Story, Meta } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import '../index';
-import '../../tree-item/index';
+import '..';
+import '../../tree-item';
 import '../../icons/measurement-data-analysis';
 import '../../icons/settings';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
-import { SelectionMode } from '../types';
+import { TreeViewSelectionMode } from '../types';
 
 interface TreeArgs {
-    selectionMode: SelectionMode;
+    selectionMode: TreeViewSelectionMode;
     options: ItemArgs[];
 }
 
@@ -45,7 +45,7 @@ const metadata: Meta<TreeArgs> = {
     },
     argTypes: {
         selectionMode: {
-            options: Object.values(SelectionMode),
+            options: Object.values(TreeViewSelectionMode),
             control: { type: 'radio' }
         }
     },
@@ -77,7 +77,7 @@ const metadata: Meta<TreeArgs> = {
         </nimble-tree-view>
 `),
     args: {
-        selectionMode: SelectionMode.LeavesOnly,
+        selectionMode: TreeViewSelectionMode.LeavesOnly,
         options: [
             {
                 label: 'Option 1',
@@ -113,4 +113,4 @@ const metadata: Meta<TreeArgs> = {
 
 export default metadata;
 
-export const treeView: Story<TreeArgs> = {};
+export const treeView: StoryObj<TreeArgs> = {};

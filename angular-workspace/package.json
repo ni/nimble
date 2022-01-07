@@ -4,14 +4,17 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build @ni/nimble-angular && ng build example-client-app",
-    "pack": "npm run pack-nimble-angular && npm run pack-example-client-app",
-    "pack-nimble-angular": "cd dist/ni/nimble-angular && npm pack",
-    "pack-example-client-app": "cd dist/example-client-app && npm pack",
+    "build": "npm run build:library && npm run build:application",
+    "build:library": "ng build @ni/nimble-angular",
+    "build:application": "ng build example-client-app",
+    "pack": "npm run pack:library && npm run pack:application",
+    "pack:library": "npm run build:library && cd dist/ni/nimble-angular && npm pack",
+    "pack:application": "cd dist/example-client-app && npm pack",
+    "invoke-publish": "npm run build:library && cd dist/ni/nimble-angular && npm publish",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false",
     "lint": "ng lint",
-    "lint-fix": "ng lint --fix"
+    "format": "ng lint --fix"
   },
   "private": true,
   "dependencies": {
@@ -23,7 +26,7 @@
     "@angular/platform-browser": "^12.1.0",
     "@angular/platform-browser-dynamic": "^12.1.0",
     "@angular/router": "^12.1.0",
-    "@ni/nimble-components": "^1.0.0-beta.99",
+    "@ni/nimble-components": "^1.0.0-beta.118",
     "rxjs": "^7.3.0",
     "tslib": "^2.2.0",
     "zone.js": "^0.11.4"
@@ -32,7 +35,7 @@
     "@angular-devkit/build-angular": "^12.1.0",
     "@angular/cli": "^12.1.0",
     "@angular/compiler-cli": "^12.1.0",
-    "@ni/eslint-config-angular": "^3.0.0",
+    "@ni/eslint-config-angular": "^3.3.1",
     "@types/jasmine": "^3.6.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "^3.7.0",

@@ -8,7 +8,7 @@ import {
     iconVisibleStates,
     themeWrapper
 } from '../../utilities/tests/matrix';
-import '../index';
+import '..';
 import '../../icons/admin';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -46,7 +46,7 @@ export const menuThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [iconVisibleStates]))
 );
 
-export const hiddenMenu = createRenderer(
+export const hiddenMenu: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-menu hidden>
             <nimble-menu-item>Item 1</nimble-menu-item>

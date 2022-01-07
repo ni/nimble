@@ -1,7 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NimbleTreeItemModule, TreeItem } from '..';
-import { NimbleTreeViewModule, SelectionMode } from '../../tree-view';
+import { NimbleTreeItemModule } from '../nimble-tree-item.module';
+import type { TreeItem } from '../nimble-tree-item.directive';
+import { NimbleTreeViewModule } from '../../tree-view/nimble-tree-view.module';
+import { TreeViewSelectionMode } from '../../tree-view/nimble-tree-view.directive';
 
 describe('Nimble tree item directive (using 2-way binding)', () => {
     @Component({
@@ -29,7 +31,7 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
         public parent1Expanded = true;
         public parent2Expanded = true;
         public parent3Disabled = true;
-        public selectionMode = SelectionMode.LeavesOnly;
+        public selectionMode = TreeViewSelectionMode.LeavesOnly;
     }
 
     let parent1Element: TreeItem;
@@ -38,11 +40,11 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
     let fixture: ComponentFixture<TestHostComponent>;
     let testHostComponent: TestHostComponent;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
+    beforeEach(() => {
+        TestBed.configureTestingModule({
             declarations: [TestHostComponent],
             imports: [NimbleTreeViewModule, NimbleTreeItemModule]
-        }).compileComponents();
+        });
     });
 
     beforeEach(() => {

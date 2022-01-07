@@ -1,8 +1,12 @@
+import {
+    DesignSystem,
+    Select as FoundationSelect
+} from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import type { Select } from '../index';
-import '../index';
-import '../../listbox-option/index';
+import type { Select } from '..';
+import '..';
+import '../../listbox-option';
 
 async function setup(
     position?: string,
@@ -45,5 +49,11 @@ describe('Select', () => {
         expect(element.getAttribute('position')).toBe(position);
 
         await disconnect();
+    });
+
+    it('should have its tag returned by tagFor(FoundationSelect)', () => {
+        expect(html`${DesignSystem.tagFor(FoundationSelect)}`.html).toBe(
+            'nimble-select'
+        );
     });
 });

@@ -10,11 +10,52 @@ NI-styled UI components for Angular applications
 
 ## Getting started
 
-You are currently required to set `"buildOptimizer": "false"` in `angular.json`. See [#18](https://github.com/ni/nimble/issues/18) for more info.
+*This guide assumes you have an existing Angular application and are using NPM 7 or greater.*
+
+1. Install Nimble Angular from the [public NPM registry](https://www.npmjs.com/package/@ni/nimble-angular) by running `npm install @ni/nimble-angular`.
+2. The steps to use components from Nimble Angular are similar to using components from any other Angular library. You can see the [Example Client App](/angular-workspace/projects/example-client-app) project for an example.
+   1. Update your `app.module.ts` to import the module for each component you want to use:
+        ```ts
+        import { NimbleDrawerModule } from '@ni/nimble-angular';
+
+        @NgModule ({
+            imports: [
+                NimbleDrawerModule,
+            ]
+        })
+        class AppModule {}
+        ```
+   2. Add the component to your `app.component.html` (or to the template for another component in your application):
+        ```html
+        <nimble-drawer #drawerReference location="right">This is a drawer</nimble-drawer>
+        ```
+   3. If needed, import the Nimble component's directive and types in `app.component.ts` (or the TypeScript file backing another component) to use its programmatic API: 
+        ```ts
+        import { NimbleDrawerDirective } from '@ni/nimble-angular';
+
+        @Component({ /* ... */ })
+        class AppComponent {
+            @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public drawer: NimbleDrawerDirective;
+
+            public openDrawer() {
+                this.drawer.show();
+            }
+        }
+        ```
+
+### Learn more
+
+See the [README.md for the ni/nimble repository](/README.md) for documentation of individual components.
 
 ### Using Nimble form controls
 
 For best results, always use `ngModel`, `formControl`, or `formControlName` bindings when integrating Nimble form controls in Angular. Binding to the control's native value property or event (e.g. `[value]` or `(change)`) is not supported, and can cause build failures and other issues. If a value change event is necessary, use `ngModel (ngModelChange)="onChange()"`.
+
+### Testing with Nimble elements and `fakeAsync`
+
+Angular's `fakeAsync` utility is useful for writing quickly-executing tests, but it can cause issues when testing components containing Nimble elements. Nimble uses an internal process queue to schedule work. If a `fakeAsync` test schedules work on the queue (by creating or interacting with Nimble elements) and the queue isn't processed by the end of the test, the queue will never be processed and subsequent tests may fail.
+
+To avoid this, call `processUpdates()` after each `fakeAsync` test. This will synchronously process the internal queue and put it in a good state for subsequent tests. The `processUpdates()` method can also be called mid-test to synchronously complete operations which would otherwise require waiting for an animation frame.
 
 ## Known Issues
 
@@ -31,4 +72,4 @@ Currently clients consuming the nimble Angular integration may need to make the 
 
 ## Contributing
 
-Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) to modify this library.
+Follow the instructions in [CONTRIBUTING.md](/angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md) to modify this library.

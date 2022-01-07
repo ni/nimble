@@ -26,16 +26,14 @@ module.exports = {
             { contexts: ['ClassDeclaration'] }
         ],
 
-        // *-default-export lines can be deleted once a fix for this issue is published and uptaken
-        // https://github.com/ni/javascript-styleguide/issues/39
-        'import/prefer-default-export': 'off',
-        'import/no-default-export': 'error',
-
         // Rules enabled due to strictNullChecks
         '@typescript-eslint/no-non-null-assertion': 'off',
 
         // Improves readability of templates to avoid return types in template expressions
-        '@typescript-eslint/explicit-function-return-type': ['error', {allowExpressions: true}],
+        '@typescript-eslint/explicit-function-return-type': [
+            'error',
+            { allowExpressions: true }
+        ],
 
         'no-restricted-imports': [
             'error',
@@ -55,13 +53,15 @@ module.exports = {
     overrides: [
         {
             files: ['*.stories.ts'],
+            extends: ['plugin:storybook/recommended'],
             rules: {
                 // Storybook files will not be in published package and are allowed to use devDependencies
                 'import/no-extraneous-dependencies': [
                     'error',
                     { devDependencies: true }
                 ],
-                'import/no-default-export': 'off'
+                'import/no-default-export': 'off',
+                'storybook/prefer-pascal-case': 'off'
             }
         },
         {

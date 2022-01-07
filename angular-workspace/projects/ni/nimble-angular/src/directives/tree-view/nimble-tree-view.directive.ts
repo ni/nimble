@@ -1,9 +1,10 @@
-import { Directive, HostBinding, Input } from '@angular/core';
-import { TreeView } from '@ni/nimble-components/dist/esm/tree-view';
-import { SelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import type { TreeView } from '@ni/nimble-components/dist/esm/tree-view';
+import type { TreeViewSelectionModeAttribute } from '@ni/nimble-components/dist/esm/tree-view/types';
+import { TreeViewSelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
 
 export type { TreeView };
-export { SelectionMode };
+export { TreeViewSelectionMode };
 
 /**
  * Directive to provide Angular integration for the tree view.
@@ -12,5 +13,15 @@ export { SelectionMode };
     selector: 'nimble-tree-view'
 })
 export class NimbleTreeViewDirective {
-    @HostBinding('attr.selection-mode') @Input() public selectionMode: SelectionMode;
+    public get selectionMode(): TreeViewSelectionMode {
+        return this.elementRef.nativeElement.selectionMode;
+    }
+
+    // selectionMode property intentionally maps to the selection-mode attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('selection-mode') public set selectionMode(value: TreeViewSelectionMode | TreeViewSelectionModeAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'selectionMode', value);
+    }
+
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TreeView>) {}
 }

@@ -1,7 +1,7 @@
-import type { Story, Meta } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import '../index';
-import '../../listbox-option/index';
+import '..';
+import '../../listbox-option';
 import { html, repeat } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 
@@ -64,4 +64,4 @@ const metadata: Meta<SelectArgs> = {
 
 export default metadata;
 
-export const select: Story<SelectArgs> = {};
+export const select: StoryObj<SelectArgs> = {};

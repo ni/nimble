@@ -79,7 +79,7 @@ Some attribute values might need to be configurable in context-specific situatio
 
 Examples include colors, typography, sizing, and animation parameters. These attribute values should be specified as shared design tokens rather than literals within an individual component's CSS. This makes it easier to change the values dynamically if required in the future and also improves readability and reduces duplication.
 
-To find existing tokens or add new ones see [`design-tokens.ts`](../src/theme-provider/design-tokens.ts).
+To find existing tokens or add new ones see [`design-tokens.ts`](/packages/nimble-components/src/theme-provider/design-tokens.ts).
 
 ## Prefer modern layouts
 

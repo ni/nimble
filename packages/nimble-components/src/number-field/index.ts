@@ -10,12 +10,18 @@ import {
 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
+export type { NumberField };
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-number-field': NumberField;
+    }
+}
+
 /**
  * A nimble-styled HTML number input
  */
-type NumberField = FoundationNumberField;
-
-export type { NumberField };
+class NumberField extends FoundationNumberField {}
 
 /**
  * A function that returns a number-field registration for configuring the component with a DesignSystem.
@@ -25,8 +31,9 @@ export type { NumberField };
  * Generates HTML Element: \<nimble-number-field\>
  *
  */
-const nimbleNumberField = FoundationNumberField.compose<NumberFieldOptions>({
+const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     baseName: 'number-field',
+    baseClass: FoundationNumberField,
     template,
     styles,
     shadowOptions: {

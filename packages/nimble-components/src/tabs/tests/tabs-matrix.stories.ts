@@ -8,7 +8,7 @@ import {
     createMatrix,
     themeWrapper
 } from '../../utilities/tests/matrix';
-import '../index';
+import '..';
 import '../../tab';
 import '../../tab-panel';
 import '../../tabs-toolbar';
@@ -58,7 +58,7 @@ export const tabsThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [tabsToolbarState, disabledStates]))
 );
 
-export const hiddenTabs = createRenderer(
+export const hiddenTabs: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-tabs hidden>
             <nimble-tab>Tab One</nimble-tab>

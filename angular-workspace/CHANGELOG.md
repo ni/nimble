@@ -1,8 +1,160 @@
 # Change Log - angular-workspace
 
-This log was last generated on Tue, 23 Nov 2021 01:46:37 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jan 2022 00:04:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0
+
+Fri, 07 Jan 2022 00:04:56 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.118
+
+## 0.0.0
+
+Thu, 06 Jan 2022 23:21:51 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.117
+
+## 0.0.0
+
+Thu, 06 Jan 2022 19:28:47 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.116
+
+## 0.0.0
+
+Fri, 17 Dec 2021 22:32:22 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.115
+
+## 0.0.0
+
+Wed, 15 Dec 2021 20:22:01 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.114
+
+## 0.0.0
+
+Tue, 14 Dec 2021 04:09:05 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.113
+
+## 0.0.0
+
+Mon, 13 Dec 2021 20:30:22 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.112
+
+## 0.0.0
+
+Mon, 13 Dec 2021 14:41:26 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.111
+
+## 0.0.0
+
+Fri, 10 Dec 2021 16:32:53 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.110
+
+## 0.0.0
+
+Thu, 09 Dec 2021 20:35:29 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.109
+
+## 0.0.0
+
+Wed, 08 Dec 2021 00:40:11 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.108
+
+## 0.0.0
+
+Tue, 07 Dec 2021 16:36:46 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.107
+
+## 0.0.0
+
+Mon, 06 Dec 2021 19:56:32 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.106
+
+## 0.0.0
+
+Fri, 03 Dec 2021 20:54:09 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.105
+
+## 0.0.0
+
+Fri, 03 Dec 2021 18:58:22 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.104
+
+## 0.0.0
+
+Wed, 01 Dec 2021 17:51:36 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.103
+
+## 0.0.0
+
+Wed, 01 Dec 2021 15:38:13 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.102
+
+## 0.0.0
+
+Mon, 29 Nov 2021 20:17:04 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.101
+
+## 0.0.0
+
+Mon, 29 Nov 2021 19:31:25 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.100
 
 ## 0.0.0
 

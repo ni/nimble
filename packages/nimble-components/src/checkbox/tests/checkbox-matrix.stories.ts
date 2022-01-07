@@ -8,7 +8,7 @@ import {
     themeWrapper
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
-import '../index';
+import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -45,7 +45,7 @@ export const checkboxThemeMatrix: Story = createRenderer(
     themeWrapper(createMatrix(component, [disabledStates, checkedStates]))
 );
 
-export const hiddenCheckbox = createRenderer(
+export const hiddenCheckbox: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
     )

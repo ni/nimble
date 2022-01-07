@@ -10,6 +10,12 @@ import { ButtonAppearance } from './types';
 
 export type { Button };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-button': Button;
+    }
+}
+
 /**
  * A nimble-styled HTML button
  */
@@ -43,6 +49,7 @@ class Button extends FoundationButton {
  */
 const nimbleButton = Button.compose<ButtonOptions>({
     baseName: 'button',
+    baseClass: FoundationButton,
     template,
     styles,
     shadowOptions: {

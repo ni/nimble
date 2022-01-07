@@ -12,7 +12,7 @@ import {
     ReadOnlyState,
     readOnlyStates
 } from '../../utilities/tests/matrix';
-import '../index';
+import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -74,7 +74,7 @@ export const textFieldThemeMatrix: Story = createRenderer(
     )
 );
 
-export const hiddenTextField = createRenderer(
+export const hiddenTextField: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-text-field hidden>Hidden text field</nimble-text-field>`
     )

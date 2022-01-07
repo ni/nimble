@@ -1,8 +1,181 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 23 Nov 2021 01:46:37 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jan 2022 00:04:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.138
+
+Fri, 07 Jan 2022 00:04:56 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.118
+
+## 1.0.0-beta.137
+
+Thu, 06 Jan 2022 23:21:51 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.117
+
+## 1.0.0-beta.136
+
+Thu, 06 Jan 2022 19:28:47 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.116
+
+## 1.0.0-beta.135
+
+Fri, 17 Dec 2021 22:32:22 GMT
+
+### Changes
+
+- Update versions of @ni/javascript-styleguide dependencies (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.115
+
+## 1.0.0-beta.134
+
+Wed, 15 Dec 2021 20:22:01 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.114
+
+## 1.0.0-beta.133
+
+Tue, 14 Dec 2021 04:09:05 GMT
+
+### Changes
+
+- Refactor tests to be more synchronous (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.113
+
+## 1.0.0-beta.132
+
+Mon, 13 Dec 2021 20:30:22 GMT
+
+### Changes
+
+- Directive attribute string support and type export (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.112
+
+## 1.0.0-beta.131
+
+Mon, 13 Dec 2021 14:41:26 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.111
+
+## 1.0.0-beta.130
+
+Fri, 10 Dec 2021 16:32:53 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.110
+
+## 1.0.0-beta.129
+
+Thu, 09 Dec 2021 20:35:29 GMT
+
+### Changes
+
+- Update publish command (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.109
+
+## 1.0.0-beta.128
+
+Wed, 08 Dec 2021 00:40:11 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.108
+
+## 1.0.0-beta.127
+
+Tue, 07 Dec 2021 16:36:46 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.107
+
+## 1.0.0-beta.126
+
+Mon, 06 Dec 2021 23:30:24 GMT
+
+### Changes
+
+- Implement stateless directives (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.125
+
+Mon, 06 Dec 2021 19:56:32 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.106
+
+## 1.0.0-beta.124
+
+Fri, 03 Dec 2021 20:54:09 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.105
+
+## 1.0.0-beta.123
+
+Fri, 03 Dec 2021 18:58:22 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.104
+
+## 1.0.0-beta.122
+
+Wed, 01 Dec 2021 17:51:36 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.103
+
+## 1.0.0-beta.121
+
+Wed, 01 Dec 2021 15:38:13 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.102
+
+## 1.0.0-beta.120
+
+Tue, 30 Nov 2021 20:05:08 GMT
+
+### Changes
+
+- Switch to a View Engine based build (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.119
+
+Mon, 29 Nov 2021 20:17:04 GMT
+
+### Changes
+
+- Update documentation with usage instructions (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.101
+
+## 1.0.0-beta.118
+
+Mon, 29 Nov 2021 19:31:25 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.100
 
 ## 1.0.0-beta.117
 

@@ -4,13 +4,20 @@ import {
     menuItemTemplate as template,
     MenuItemOptions
 } from '@microsoft/fast-foundation';
-
 import { styles } from './styles';
+
+export type { MenuItem };
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-menu-item': MenuItem;
+    }
+}
 
 /**
  * A nimble-styled menu-item
  */
-export { FoundationMenuItem as MenuItem };
+class MenuItem extends FoundationMenuItem {}
 
 /**
  * A function that returns a nimble-menu-item registration for configuring the component with a DesignSystem.
@@ -21,8 +28,9 @@ export { FoundationMenuItem as MenuItem };
  * Generates HTML Element: \<nimble-menu-item\>
  *
  */
-export const nimbleMenuItem = FoundationMenuItem.compose<MenuItemOptions>({
+export const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
+    baseClass: FoundationMenuItem,
     template,
     styles
 });

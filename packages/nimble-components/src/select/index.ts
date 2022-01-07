@@ -9,6 +9,12 @@ import { styles } from './styles';
 
 export type { Select };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-select': Select;
+    }
+}
+
 /**
  * A nimble-styed HTML select
  */
@@ -25,12 +31,12 @@ class Select extends FoundationSelect {
         // the options property will not be set yet. As a workaround, we mark the listbox-option element with
         // the selected attribute, which will set the initial value correctly.
         if (value !== null && this.options.length === 0) {
-            const matchingOption = this.querySelector(
-                `nimble-listbox-option[value="${value}"]`
-            );
-            if (matchingOption !== null) {
-                matchingOption.setAttribute('selected', '');
-            }
+            const options = this.querySelectorAll('option,[role="option"]');
+            options.forEach(option => {
+                if (option.getAttribute('value') === value) {
+                    option.setAttribute('selected', '');
+                }
+            });
         }
     }
 
@@ -53,6 +59,7 @@ class Select extends FoundationSelect {
 
 export const nimbleSelect = Select.compose<SelectOptions>({
     baseName: 'select',
+    baseClass: FoundationSelect,
     template,
     styles,
     indicator: controlsArrowExpanderDown16X16.data

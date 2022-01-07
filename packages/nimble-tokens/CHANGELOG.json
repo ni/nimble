@@ -2,6 +2,156 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 07 Jan 2022 19:58:55 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.36",
+      "version": "1.0.0-beta.36",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "bf3f06dc6b78c070a480210941cf2bcf404faf18",
+            "comment": "Update to latest eslint rules"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Dec 2021 22:32:22 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.36",
+      "version": "1.0.0-beta.36",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "6a7c92a6bd3c333321b29d501c99c8dc1cc8eed1",
+            "comment": "Update versions of @ni/javascript-styleguide dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 Dec 2021 20:35:29 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.35",
+      "version": "1.0.0-beta.35",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "059e20f28599e532d203a07c76bd799fd00d181a",
+            "comment": "Update publish command"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 Dec 2021 16:36:46 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.34",
+      "version": "1.0.0-beta.34",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "1e6f2e614dc493efec2570455fe90102e2da2eda",
+            "comment": "Add Roboto font and token for legacy content font"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Dec 2021 17:51:36 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.33",
+      "version": "1.0.0-beta.33",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "1c30ce6e23081f6a8c82712ae1d4620a67313c2d",
+            "comment": "applying Joel's suggested template changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Dec 2021 15:38:13 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.32",
+      "version": "1.0.0-beta.32",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "360b04df3d0c1a3ba5e0e3c82cfd42dc945a7b7f",
+            "comment": "missed a path"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Nov 2021 20:05:08 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.31",
+      "version": "1.0.0-beta.31",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ca4ee0c87c9877010de3f15db1203ad8d5cd1d02",
+            "comment": "Switch to a View Engine based build"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Nov 2021 17:43:05 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.31",
+      "version": "1.0.0-beta.31",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "4aa8f02ea678a3758b042ad939483bedf199bea2",
+            "comment": "Support npm run pack:nuget cross-platform"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 29 Nov 2021 20:17:04 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.31",
+      "version": "1.0.0-beta.31",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8b863b95e7c31aa99a4df23f9ac1456471570d2f",
+            "comment": "Update documentation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 29 Nov 2021 19:31:25 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.30",
+      "version": "1.0.0-beta.30",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "64321e05b3b085d5b4082287dc97daf5926f00ac",
+            "comment": "XAML StyleDictionary NuGet export"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 23 Nov 2021 01:46:37 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.29",
       "version": "1.0.0-beta.29",

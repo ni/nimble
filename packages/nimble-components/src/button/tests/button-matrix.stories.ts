@@ -11,7 +11,7 @@ import {
     themeWrapper
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
-import '../index';
+import '..';
 import '../../icons/access-control';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -29,7 +29,7 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const defaultButton = createRenderer(
+export const defaultButton: Story = createRenderer(
     html`<nimble-button>Default Button</nimble-button>`
 );
 const noContent = 'NO_CONTENT';
@@ -58,6 +58,6 @@ export const buttonThemeMatrix: Story = createRenderer(
     )
 );
 
-export const hiddenButton = createRenderer(
+export const hiddenButton: Story = createRenderer(
     hiddenWrapper(html`<nimble-button hidden>Hidden Button</nimble-button>`)
 );
