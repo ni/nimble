@@ -27,13 +27,6 @@ class NimbleThemeProvider extends FoundationElement {
     })
     public theme!: NimbleTheme;
 
-    public connectedCallback(): void {
-        super.connectedCallback();
-        if (!this.theme) {
-            this.theme = NimbleTheme.Light;
-        }
-    }
-
     public themeChanged(
         _prev: NimbleTheme | undefined,
         next: NimbleTheme | undefined
