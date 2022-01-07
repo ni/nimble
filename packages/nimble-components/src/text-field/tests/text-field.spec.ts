@@ -3,7 +3,7 @@ import {
     TextField as FoundationTextField
 } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
-import '../index';
+import '..';
 
 describe('TextField', () => {
     it('should have its tag returned by tagFor(FoundationTextField)', () => {

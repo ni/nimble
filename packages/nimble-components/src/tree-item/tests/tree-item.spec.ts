@@ -3,7 +3,7 @@ import {
     TreeItem as FoundationTreeItem
 } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
-import '../index';
+import '..';
 
 describe('TreeItem', () => {
     it('should have its tag returned by tagFor(FoundationTreeItem)', () => {

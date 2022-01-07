@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import '../index';
-import '../../tree-item/index';
+import '..';
+import '../../tree-item';
 import '../../icons/measurement-data-analysis';
 import '../../icons/settings';
 import { html, repeat, when } from '@microsoft/fast-element';
