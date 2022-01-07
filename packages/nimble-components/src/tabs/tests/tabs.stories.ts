@@ -2,7 +2,7 @@ import { html, repeat, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
-import '../index';
+import '..';
 import '../../tab';
 import '../../tab-panel';
 import '../../tabs-toolbar';
