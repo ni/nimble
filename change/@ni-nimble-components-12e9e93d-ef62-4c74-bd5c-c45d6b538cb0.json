@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Refactor prefers-reduced-motion watching logic into utility",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}

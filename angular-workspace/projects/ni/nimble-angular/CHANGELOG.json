@@ -2,6 +2,51 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 07 Jan 2022 00:04:56 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.138",
+      "version": "1.0.0-beta.138",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.118",
+            "commit": "e57e209d6ede28d37c1e33b8f1f6f81c568bbaf6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jan 2022 23:21:51 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.137",
+      "version": "1.0.0-beta.137",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.117",
+            "commit": "3d35734ae3c8edbca3128b77cbce0ed5be0fd36a"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jan 2022 19:28:47 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.136",
+      "version": "1.0.0-beta.136",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.116",
+            "commit": "370673029669f79b24154081d4dac15be1deb68c"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Dec 2021 22:32:22 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.135",
       "version": "1.0.0-beta.135",

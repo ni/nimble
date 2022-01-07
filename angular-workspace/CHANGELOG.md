@@ -1,8 +1,32 @@
 # Change Log - angular-workspace
 
-This log was last generated on Fri, 17 Dec 2021 22:32:22 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jan 2022 00:04:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0
+
+Fri, 07 Jan 2022 00:04:56 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.118
+
+## 0.0.0
+
+Thu, 06 Jan 2022 23:21:51 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.117
+
+## 0.0.0
+
+Thu, 06 Jan 2022 19:28:47 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.116
 
 ## 0.0.0
 

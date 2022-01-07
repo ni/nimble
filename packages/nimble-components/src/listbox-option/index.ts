@@ -39,6 +39,7 @@ class ListboxOption extends FoundationListboxOption {
 
 const nimbleListboxOption = ListboxOption.compose({
     baseName: 'listbox-option',
+    baseClass: FoundationListboxOption,
     template,
     styles
 });
