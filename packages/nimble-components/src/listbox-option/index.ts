@@ -40,6 +40,7 @@ class ListboxOption extends FoundationListboxOption {
 const nimbleListboxOption = ListboxOption.compose({
     baseName: 'listbox-option',
     baseClass: FoundationListboxOption,
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

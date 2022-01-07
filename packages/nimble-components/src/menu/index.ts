@@ -30,6 +30,7 @@ class Menu extends FoundationMenu {}
 const nimbleMenu = Menu.compose({
     baseName: 'menu',
     baseClass: FoundationMenu,
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

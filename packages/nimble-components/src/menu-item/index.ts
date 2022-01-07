@@ -28,9 +28,10 @@ class MenuItem extends FoundationMenuItem {}
  * Generates HTML Element: \<nimble-menu-item\>
  *
  */
-export const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
+const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
     baseClass: FoundationMenuItem,
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

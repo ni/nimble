@@ -5,7 +5,6 @@
         "moduleResolution": "node",
         "outDir": "dist/esm",
         "strict": true,
-        "strictFunctionTypes": false,
         "experimentalDecorators": true,
         "target": "ES2020",
         "module": "ES2020",

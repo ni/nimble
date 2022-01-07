@@ -145,7 +145,9 @@ class TreeItem extends FoundationTreeItem {
 const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseName: 'tree-item',
     baseClass: FoundationTreeItem,
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
+    // @ts-expect-error FAST styles have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     styles,
     expandCollapseGlyph: controlsArrowExpanderUp16X16.data
 });
