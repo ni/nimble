@@ -1,3 +1,7 @@
+import {
+    DesignSystem,
+    TreeView as FoundationTreeView
+} from '@microsoft/fast-foundation';
 import { DOM, html, ref } from '@microsoft/fast-element';
 import { notebook16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
@@ -165,5 +169,11 @@ describe('TreeView', () => {
             expect(model.root1.hasAttribute('selected')).toBe(true);
             expect(model.root1.hasAttribute('expanded')).toBe(false);
         });
+    });
+
+    it('should have its tag returned by tagFor(FoundationTreeView)', () => {
+        expect(html`${DesignSystem.tagFor(FoundationTreeView)}`.html).toBe(
+            'nimble-tree-view'
+        );
     });
 });

@@ -1,6 +1,6 @@
 import {
     DesignSystem,
-    NumberField,
+    NumberField as FoundationNumberField,
     NumberFieldOptions,
     numberFieldTemplate as template
 } from '@microsoft/fast-foundation';
@@ -21,6 +21,7 @@ declare global {
 /**
  * A nimble-styled HTML number input
  */
+class NumberField extends FoundationNumberField {}
 
 /**
  * A function that returns a number-field registration for configuring the component with a DesignSystem.
@@ -32,6 +33,7 @@ declare global {
  */
 const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     baseName: 'number-field',
+    baseClass: FoundationNumberField,
     template,
     styles,
     shadowOptions: {

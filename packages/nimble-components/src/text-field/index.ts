@@ -1,6 +1,6 @@
 import {
     DesignSystem,
-    TextField,
+    TextField as FoundationTextField,
     TextFieldOptions,
     textFieldTemplate as template
 } from '@microsoft/fast-foundation';
@@ -18,9 +18,11 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
+class TextField extends FoundationTextField {}
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
     baseName: 'text-field',
+    baseClass: FoundationTextField,
     template,
     styles,
     shadowOptions: {

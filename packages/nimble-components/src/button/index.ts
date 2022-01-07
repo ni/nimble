@@ -49,6 +49,7 @@ class Button extends FoundationButton {
  */
 const nimbleButton = Button.compose<ButtonOptions>({
     baseName: 'button',
+    baseClass: FoundationButton,
     template,
     styles,
     shadowOptions: {

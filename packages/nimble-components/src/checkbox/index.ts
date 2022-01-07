@@ -1,6 +1,6 @@
 import {
     DesignSystem,
-    Checkbox,
+    Checkbox as FoundationCheckbox,
     CheckboxOptions,
     checkboxTemplate as template
 } from '@microsoft/fast-foundation';
@@ -15,8 +15,14 @@ declare global {
     }
 }
 
+/**
+ * A nimble-styled checkbox control.
+ */
+class Checkbox extends FoundationCheckbox {}
+
 const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
     baseName: 'checkbox',
+    baseClass: FoundationCheckbox,
     template,
     styles,
     checkedIndicator: controlsCheckboxCheck16X16.data
