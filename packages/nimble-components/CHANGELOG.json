@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 07 Jan 2022 19:58:55 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.118",
+      "version": "1.0.0-beta.118",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bf3f06dc6b78c070a480210941cf2bcf404faf18",
+            "comment": "Update to latest eslint rules"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Jan 2022 00:04:56 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.118",
       "version": "1.0.0-beta.118",
