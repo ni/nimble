@@ -7,7 +7,7 @@ import { attr } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { theme } from './design-tokens';
-import { NimbleTheme } from './types';
+import type { NimbleTheme } from './types';
 
 export type { NimbleThemeProvider };
 
