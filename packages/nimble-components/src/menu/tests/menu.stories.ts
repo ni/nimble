@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
-import '../index';
-import '../../menu-item/index';
+import '..';
+import '../../menu-item';
 import '../../icons/admin';
 import '../../icons/logout';
 

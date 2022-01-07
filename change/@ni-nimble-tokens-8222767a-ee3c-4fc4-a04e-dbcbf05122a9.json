@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Update to latest eslint rules",
+  "packageName": "@ni/nimble-tokens",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
