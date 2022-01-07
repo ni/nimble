@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Add baseClass in call to compose for Button and Select",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}

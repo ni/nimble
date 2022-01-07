@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 06 Jan 2022 23:21:51 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jan 2022 00:04:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.118
+
+Fri, 07 Jan 2022 00:04:56 GMT
+
+### Changes
+
+- Add baseClass in call to compose for Button and Select (7282195+m-akinc@users.noreply.github.com)
 
 ## 1.0.0-beta.117
 

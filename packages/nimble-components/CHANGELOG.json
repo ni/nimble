@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 07 Jan 2022 00:04:56 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.118",
+      "version": "1.0.0-beta.118",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e57e209d6ede28d37c1e33b8f1f6f81c568bbaf6",
+            "comment": "Add baseClass in call to compose for Button and Select"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Jan 2022 23:21:51 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.117",
       "version": "1.0.0-beta.117",
