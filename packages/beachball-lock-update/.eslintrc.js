@@ -4,7 +4,6 @@ module.exports = {
         '@ni/eslint-config-javascript'
     ],
     rules: {
-        'no-console': 'off',
-        'import/extensions': 'off'
+        'no-console': 'off'
     }
 };
