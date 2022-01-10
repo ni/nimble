@@ -1,4 +1,4 @@
-# Spec Title
+# Nimble Component Name
 
 ## Overview
 
