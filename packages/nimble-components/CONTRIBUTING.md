@@ -32,7 +32,7 @@ From the `nimble` directory:
 
 ## Component spec process
 
-Before building a new component, create a spec document to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [README.md in the specs folder](/packages/nimble-components/specs/README.md).
+Before building a new component, create a spec document to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [README.md in the specs folder](/specs/README.md).
 
 ## Development workflow
 
