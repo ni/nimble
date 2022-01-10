@@ -21,6 +21,7 @@ class Tab extends FoundationTab {}
 const nimbleTab = Tab.compose({
     baseName: 'tab',
     baseClass: FoundationTab,
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });
