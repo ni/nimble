@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Turn on strict type checking and resolve violations",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
