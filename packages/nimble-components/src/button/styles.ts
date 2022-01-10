@@ -67,6 +67,11 @@ export const styles = css`
         transition: box-shadow ${smallDelay};
     }
 
+    :host(.icon-only) .control {
+        width: ${controlHeight};
+        padding: 0px;
+    }
+
     @media (prefers-reduced-motion) {
         .control {
             transition-duration: 0s;

@@ -30,10 +30,25 @@ class Button extends FoundationButton {
     @attr
     public appearance!: ButtonAppearance;
 
+    private readonly observer = new MutationObserver(() => this.checkForEmptyText());
+
     public connectedCallback(): void {
         super.connectedCallback();
         if (!this.appearance) {
             this.appearance = ButtonAppearance.Outline;
+        }
+
+        const contentElement = this.control.querySelector('[part="content"]')!;
+        this.observer.observe(contentElement, { childList: true });
+        this.checkForEmptyText();
+    }
+
+    private checkForEmptyText(): void {
+        const innerText = this.innerText;
+        if (innerText.trim().length === 0) {
+            this.classList.add('icon-only');
+        } else {
+            this.classList.remove('icon-only');
         }
     }
 }
