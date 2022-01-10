@@ -33,6 +33,7 @@
 
 *Review each of the following areas. Highlight any gaps which might require additional work or bugs to be filed to FAST.*
 
+- *User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?*
 - *Styling: Does FAST provide APIs to achieve the styling in the visual design spec?*
 - *Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?*
 - *Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?*
