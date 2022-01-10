@@ -68,6 +68,8 @@ Outline the component structure with a diagram of its visual tree (shadow dom). 
 
 *Important aspects of the planned implementation with careful consideration of web standards and integration.*
 
+*Highlight any alternative implementations you considered in each section.*
+
 ### States
 
 *Key component states, valid state transitions, and how interactions trigger a state transition.*
@@ -120,12 +122,6 @@ Outline the component structure with a diagram of its visual tree (shadow dom). 
 *What additions or changes are needed for user documentation and demos? Are there any architectural/engineering docs we should create as well, perhaps due to some interesting technical challenge or design decisions related to this component?*
 
 ---
-## Appendix
+## Open Issues
 
-### Resources
-
-*Any related resource links such as web standards, discussion threads, diagrams, etc.*
-
-### Next Steps
-
-*What next steps, if any, are there? Is there some functionality that would be a nice-to-have or a common feature in other implementations that could be added but is not considered part of the MVP?*
+*Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.*
