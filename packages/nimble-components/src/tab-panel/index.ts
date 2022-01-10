@@ -21,6 +21,7 @@ class TabPanel extends FoundationTabPanel {}
 const nimbleTabPanel = TabPanel.compose({
     baseName: 'tab-panel',
     baseClass: FoundationTabPanel,
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });
