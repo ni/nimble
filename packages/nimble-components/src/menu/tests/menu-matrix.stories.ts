@@ -8,7 +8,7 @@ import {
     iconVisibleStates,
     themeWrapper
 } from '../../utilities/tests/matrix';
-import '../index';
+import '..';
 import '../../icons/admin';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 

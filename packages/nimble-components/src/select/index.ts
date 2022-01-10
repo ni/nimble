@@ -57,9 +57,10 @@ class Select extends FoundationSelect {
     }
 }
 
-export const nimbleSelect = Select.compose<SelectOptions>({
+const nimbleSelect = Select.compose<SelectOptions>({
     baseName: 'select',
     baseClass: FoundationSelect,
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     indicator: controlsArrowExpanderDown16X16.data

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 07 Jan 2022 19:58:55 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.36",
+      "version": "1.0.0-beta.36",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "bf3f06dc6b78c070a480210941cf2bcf404faf18",
+            "comment": "Update to latest eslint rules"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Dec 2021 22:32:22 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.36",
       "version": "1.0.0-beta.36",

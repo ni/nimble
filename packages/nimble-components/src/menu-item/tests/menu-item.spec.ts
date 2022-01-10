@@ -3,7 +3,7 @@ import {
     MenuItem as FoundationMenuItem
 } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
-import '../index';
+import '..';
 
 describe('MenuItem', () => {
     it('should have its tag returned by tagFor(FoundationMenuItem)', () => {
