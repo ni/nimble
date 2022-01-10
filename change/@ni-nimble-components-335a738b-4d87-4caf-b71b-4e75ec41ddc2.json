@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Correct styling of icon buttons",
+  "packageName": "@ni/nimble-components",
+  "email": "molly.kreis@ni.com",
+  "dependentChangeType": "patch"
+}
