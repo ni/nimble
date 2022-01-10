@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Add doc string for icons in storybook that explains intent and slotting caveat",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
