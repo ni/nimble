@@ -1,17 +1,14 @@
 # Spec Title
 
-
 ## Overview
 
 *The name of the component, along with a high-level description.*
 
 ### Background
 
-*Relevant historical or background information, related existing issues, etc.*
-
-### Use Cases
-
-*Primary use cases for this component. These should be based on typical patterns seen in the industry and requests from customers.*
+*Relevant historical or background information*
+*Link to Visual Design spec*
+*Link to relevant work items, related existing issues, etc.*
 
 ### Non-goals
 
