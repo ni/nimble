@@ -3,7 +3,7 @@ import {
     ListboxOption as FoundationListboxOption
 } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
-import '../index';
+import '..';
 
 describe('ListboxOption', () => {
     it('should have its tag returned by tagFor(FoundationListboxOption)', () => {

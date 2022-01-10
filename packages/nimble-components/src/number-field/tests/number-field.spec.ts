@@ -3,7 +3,7 @@ import {
     NumberField as FoundationNumberField
 } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
-import '../index';
+import '..';
 
 describe('NumberField', () => {
     it('should have its tag returned by tagFor(FoundationNumberField)', () => {
