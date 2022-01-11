@@ -28,7 +28,7 @@ If you have an existing application that incorporates a module bundler like [Web
 
 ## Theming
 
-This package contains a theming system to which enables changing the appearance of controls based on user preferences or application designs. All built in components are styled in several themes. An application can also read the tokens underlying the themes to style other parts of the application or modify the tokens underlying the themes to customize the appearance beyond what Nimble offers.
+This package contains a theming system which enables changing the appearance of controls based on user preferences or application designs. All built in components are styled in several themes. An application can also read the tokens underlying the themes to style other parts of the application or modify the tokens underlying the themes to customize the appearance beyond what Nimble offers.
 
 The theming system is composed of:
 
