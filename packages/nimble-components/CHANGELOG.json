@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 11 Jan 2022 22:03:36 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.120",
+      "version": "1.0.0-beta.120",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0b650a6a5ab39b0b9e83edefee3bd3b086d8b989",
+            "comment": "Correct styling of icon buttons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Jan 2022 18:14:33 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.119",
+      "version": "1.0.0-beta.119",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1c5f793aba1db095eb608addf7770df6fff0f5e9",
+            "comment": "Turn on strict type checking and resolve violations"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Jan 2022 19:58:55 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.118",
       "version": "1.0.0-beta.118",

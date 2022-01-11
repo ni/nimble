@@ -1,0 +1,20 @@
+{
+  "name": "@ni/beachball-lock-update",
+  "entries": [
+    {
+      "date": "Tue, 11 Jan 2022 21:20:37 GMT",
+      "tag": "@ni/beachball-lock-update_v1.0.0-beta.0",
+      "version": "1.0.0-beta.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/beachball-lock-update",
+            "commit": "03bca9bc6f224b4ccc55998779bbc86511471bb4",
+            "comment": "Create beachball-lock-update package"
+          }
+        ]
+      }
+    }
+  ]
+}

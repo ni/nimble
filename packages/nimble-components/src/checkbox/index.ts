@@ -23,6 +23,7 @@ class Checkbox extends FoundationCheckbox {}
 const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
     baseName: 'checkbox',
     baseClass: FoundationCheckbox,
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     checkedIndicator: controlsCheckboxCheck16X16.data

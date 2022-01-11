@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 07 Jan 2022 00:04:56 GMT and should not be manually modified.
+This log was last generated on Tue, 11 Jan 2022 22:03:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.120
+
+Tue, 11 Jan 2022 22:03:36 GMT
+
+### Changes
+
+- Correct styling of icon buttons (20542556+mollykreis@users.noreply.github.com)
+
+## 1.0.0-beta.119
+
+Mon, 10 Jan 2022 18:14:33 GMT
+
+### Changes
+
+- Turn on strict type checking and resolve violations (7282195+m-akinc@users.noreply.github.com)
 
 ## 1.0.0-beta.118
 
