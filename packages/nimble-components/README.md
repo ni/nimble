@@ -32,15 +32,24 @@ This package contains a theming system which enables changing the appearance of 
 
 The theming system is composed of:
 
-1. higher level [design tokens](/packages/nimble-components/src/theme-provider/design-tokens.ts) which map values from `nimble-tokens` to CSS variables and TypeScript constants that map to parts of controls instead of lower level values. These are implemented using [`DesignToken`s from the underlying FAST library](https://www.fast.design/docs/design-systems/design-tokens/).
+1. higher level [design tokens](/packages/nimble-components/src/theme-provider/design-tokens.ts) which map lower level values from `nimble-tokens` to CSS variables and TypeScript constants that style parts of controls. These are implemented using [`DesignToken`s from the underlying FAST library](https://www.fast.design/docs/design-systems/design-tokens/).
 2. a [theme provider component](/packages/nimble-components/src/theme-provider/index.ts) which organizes the higher level tokens into themes.
 
 ### Using the Theming System
 
-1. Include the `<nimble-theme-provider>` element on your page and optionally set its `theme` attribute. This has no appearance of its own but defines tokens that are used by descendant components.
+1. Include the `<nimble-theme-provider>` element on your page and optionally set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components. It will typically be at the root of the application:
+
+```html
+<body>
+    <nimble-theme-provider>
+        <!-- everything else -->
+    </nimble-theme-provider>
+</body>
+```
+
 2. _Optional_ Add other Nimble components as descendants of the theme provider and they will inherit the theme.
 3. _Optional_ Style non-Nimble components using the CSS custom properties which the theme provider defines for tokens.
-4. _Optional_ Change the values of those custom properties to customize the theme for all or part of your application.
+4. _Optional_ Customize the theme for all or part of your application. Approaches for doing this are an area of active research; please reach out to the Nimble team to discuss your use case.
 
 ## Contributing
 
