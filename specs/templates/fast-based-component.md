@@ -16,14 +16,17 @@
 
 ### API
 
-*If copying FAST's API, please state so and provide a summary of the API here.*
-*If deviating from FAST's API, highlight and provide an explanation for the changes.*
+*Include a permalink to FAST's API documentation (from the FAST component spec on GitHub, press `y` to update the URL bar to show the latest commit)*
+*Provide a brief summary of the API below. For each section:*
+    *If exposing FAST's API without changes, you can just write "Unchanged".*
+    *If deviating from FAST's API, highlight and provide an explanation for the changes.*
 
 *The API summary should include:*
 - *Component Name*
 - *Properties/Attributes*
 - *Methods*
 - *Events*
+- *Slots*
 
 ### Angular integration 
 
