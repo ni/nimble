@@ -12,8 +12,10 @@
 # Specs
 /specs @rajsite @jattasNI @fredvisser @atmgrifter00
 *.spec.md @rajsite @jattasNI @fredvisser @atmgrifter00
-/change
 
 # Specific packages
 /angular-workspace/projects/ni/nimble-angular @brianehenry @rajsite
 /packages/beachball-lock-update @rajsite @jattasNI
+
+# Change files don't need explicit reviewers
+/change
