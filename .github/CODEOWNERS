@@ -8,6 +8,14 @@
 
 # Owners of specific locations or file patterns in the repo. Locations are relative to the root of the repo.
 # Order is important. The last matching pattern has the most precedence.
+
+# Specs
+/specs @rajsite @jattasNI @fredvisser @atmgrifter00
+*.spec.md @rajsite @jattasNI @fredvisser @atmgrifter00
+
+# Specific packages
 /angular-workspace/projects/ni/nimble-angular @brianehenry @rajsite
-/change
 /packages/beachball-lock-update @rajsite @jattasNI
+
+# Change files don't need explicit reviewers
+/change
