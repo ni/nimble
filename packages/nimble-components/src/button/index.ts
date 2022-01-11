@@ -43,12 +43,16 @@ class Button extends FoundationButton {
         this.checkForEmptyText();
     }
 
+    public disconnectedCallback(): void {
+        this.observer.disconnect();
+    }
+
     private checkForEmptyText(): void {
         const innerText = this.innerText;
         if (innerText.trim().length === 0) {
-            this.classList.add('icon-only');
+            this.classList.add('empty-text');
         } else {
-            this.classList.remove('icon-only');
+            this.classList.remove('empty-text');
         }
     }
 }
