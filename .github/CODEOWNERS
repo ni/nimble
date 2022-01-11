@@ -8,7 +8,11 @@
 
 # Owners of specific locations or file patterns in the repo. Locations are relative to the root of the repo.
 # Order is important. The last matching pattern has the most precedence.
-/angular-workspace/projects/ni/nimble-angular @brianehenry @rajsite
+
+# Specs
 /specs @rajsite @jattasNI @fredvisser @atmgrifter00
 *.spec.md @rajsite @jattasNI @fredvisser @atmgrifter00
 /change
+
+# Specific packages
+/angular-workspace/projects/ni/nimble-angular @brianehenry @rajsite
