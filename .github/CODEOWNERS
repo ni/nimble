@@ -10,3 +10,4 @@
 # Order is important. The last matching pattern has the most precedence.
 /angular-workspace/projects/ni/nimble-angular @brianehenry @rajsite
 /change
+/packages/beachball-lock-update @rajsite @jattasNI

@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Create beachball-lock-update package",
+  "packageName": "@ni/beachball-lock-update",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
