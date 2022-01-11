@@ -20,7 +20,6 @@ _Events_: Unchanged
 
 _Slots_: Unchanged
 
-
 ### Angular Integration
 
 The slider will have an Angular directive in the `nimble-angular` package which allows binding to the attributes listed above. The slider will also have a `ControlValueAccessor` for use in Angular forms, which will be based upon [Angular's built-in RangeValueAccessor](https://v12.angular.io/api/forms/RangeValueAccessor#rangevalueaccessor).
@@ -80,7 +79,7 @@ A few issues with the FAST slider implementation may affect our usage.
 ## Open issues
 
 1. What color customization options should the slider expose?
-   - Will consumers of the slider want to customize the track color of the slider?
-   - Should we have support CSS classes like `fail`, `warning`, and `pass` with themed color schemes?
-   - Should we allow specifiying an arbitrary track color?
-   - We should have a conversation with Brandon to resolve this
+    - Will consumers of the slider want to customize the track color of the slider?
+    - Should we have support CSS classes like `fail`, `warning`, and `pass` with themed color schemes?
+    - Should we allow specifiying an arbitrary track color?
+    - We should have a conversation with Brandon to resolve this
