@@ -42,7 +42,9 @@ class Button extends FoundationButton {
     }
 
     private checkForEmptyText(): void {
-        const hasTextContent = this.defaultSlottedContent.some(x => x.textContent?.trim().length !== 0);
+        const hasTextContent = this.defaultSlottedContent.some(
+            x => x.textContent?.trim().length !== 0
+        );
         if (hasTextContent) {
             this.control.classList.remove('empty-text');
         } else {
