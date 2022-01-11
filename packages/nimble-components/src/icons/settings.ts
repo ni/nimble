@@ -1,6 +1,12 @@
 import { settings16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-settings-icon': SettingsIcon;
+    }
+}
+
 /**
  * The icon component for the 'settings' icon
  */

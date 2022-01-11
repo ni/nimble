@@ -19,8 +19,8 @@ type SpecTypes = typeof fit | typeof xit | typeof it;
  */
 export const getSpecType = <T>(
     value: T,
-    isFocused: (T) => boolean,
-    isDisabled: (T) => boolean
+    isFocused: (value: T) => boolean,
+    isDisabled: (value: T) => boolean
 ): SpecTypes => {
     if (isFocused(value)) {
         // eslint-disable-next-line no-restricted-globals

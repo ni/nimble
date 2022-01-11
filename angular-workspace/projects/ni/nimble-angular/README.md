@@ -27,15 +27,14 @@ NI-styled UI components for Angular applications
         ```
    2. Add the component to your `app.component.html` (or to the template for another component in your application):
         ```html
-        <nimble-drawer #drawerReference [location]="location">This is a drawer</nimble-drawer>
+        <nimble-drawer #drawerReference location="right">This is a drawer</nimble-drawer>
         ```
    3. If needed, import the Nimble component's directive and types in `app.component.ts` (or the TypeScript file backing another component) to use its programmatic API: 
         ```ts
-        import { DrawerLocation, NimbleDrawerDirective } from '@ni/nimble-angular';
+        import { NimbleDrawerDirective } from '@ni/nimble-angular';
 
         @Component({ /* ... */ })
         class AppComponent {
-            @Input() public location: DrawerLocation = DrawerLocation.Right;
             @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public drawer: NimbleDrawerDirective;
 
             public openDrawer() {
@@ -51,6 +50,12 @@ See the [README.md for the ni/nimble repository](/README.md) for documentation o
 ### Using Nimble form controls
 
 For best results, always use `ngModel`, `formControl`, or `formControlName` bindings when integrating Nimble form controls in Angular. Binding to the control's native value property or event (e.g. `[value]` or `(change)`) is not supported, and can cause build failures and other issues. If a value change event is necessary, use `ngModel (ngModelChange)="onChange()"`.
+
+### Testing with Nimble elements and `fakeAsync`
+
+Angular's `fakeAsync` utility is useful for writing quickly-executing tests, but it can cause issues when testing components containing Nimble elements. Nimble uses an internal process queue to schedule work. If a `fakeAsync` test schedules work on the queue (by creating or interacting with Nimble elements) and the queue isn't processed by the end of the test, the queue will never be processed and subsequent tests may fail.
+
+To avoid this, call `processUpdates()` after each `fakeAsync` test. This will synchronously process the internal queue and put it in a good state for subsequent tests. The `processUpdates()` method can also be called mid-test to synchronously complete operations which would otherwise require waiting for an animation frame.
 
 ## Known Issues
 

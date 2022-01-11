@@ -30,7 +30,9 @@ From the `nimble` directory:
 
     - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
 
-Next steps: See the [Development workflow](#development-workflow) for creating components and the workflow for making changes.
+## Component spec process
+
+Before building a new component, create a spec document to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
 
 ## Development workflow
 
@@ -69,7 +71,8 @@ Create a new folder named after your component with some core files:
 
 | File                                   | Description                                                                                                                                                                                                                                                                |
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| index.ts                               | Contains the component class definition and registration. All Typescript logic contained in the component belongs here.                                                                                                                                                    |
+| component-name.spec.md                 | Contains the original API and implementation specification for the component.                                                                                                                                                                                              |
+| index.ts                               | Contains the component class definition and registration. All TypeScript logic contained in the component belongs here.                                                                                                                                                    |
 | styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts).                                             |
 | template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                                                 |
 | tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
@@ -79,7 +82,8 @@ Create a new folder named after your component with some core files:
 
 ### Decide how to build on top of FAST
 
-If fast-foundation already contains the component you're adding, use `FoundationElement.compose()` to add the component to Nimble.
+If fast-foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble." Namespacing is accomplished through imports. Use `FoundationElement.compose()` to add the component to Nimble. In the argument to `compose`, provide a `baseClass` value if your component is the Nimble equivalent of the FAST component that it extends. (No two Nimble components should specify the same `baseClass` value.)
+
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
 ```ts
@@ -90,21 +94,12 @@ const styles = css`
         color: gold;
     }
 `;
-const nimbleFancyButton = FoundationButton.compose({
-    styles
-    // ...
-});
-```
-
-If fast-foundation contains a component similar to what you're adding, extend the existing component with Nimble-specific functionality.
-When you extend a foundation component, do not prefix the class name with "Nimble." Namespacing is accomplished through imports.
-
-```ts
-import { Button as FoundationButton } from '@microsoft/fast-foundation';
 class Button extends FoundationButton {
-    // Add new functionality
+    // Add new functionality (or leave empty if just restyling the FAST component)
 }
 const nimbleButton = Button.compose({
+    baseClass: FoundationButton,
+    styles
     // ...
 });
 ```
@@ -181,6 +176,21 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
     // ...
 });
 ```
+
+### TypeScript integration
+
+For any custom element definition, extend TypeScript's `HTMLElementTagNameMap` to register the new element. For example:
+
+```js
+declare global {
+    interface HTMLElementTagNameMap {
+        // register tag name and type of custom element
+        'nimble-button': Button;
+    }
+}
+```
+
+This enables TypeScript to infer the type of a returned element based on its tag name for DOM methods such as `document.createElement()` and `document.querySelector()`.
 
 ## Unit tests
 

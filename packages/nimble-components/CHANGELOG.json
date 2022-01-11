@@ -2,6 +2,177 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 11 Jan 2022 22:03:36 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.120",
+      "version": "1.0.0-beta.120",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0b650a6a5ab39b0b9e83edefee3bd3b086d8b989",
+            "comment": "Correct styling of icon buttons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Jan 2022 18:14:33 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.119",
+      "version": "1.0.0-beta.119",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1c5f793aba1db095eb608addf7770df6fff0f5e9",
+            "comment": "Turn on strict type checking and resolve violations"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jan 2022 19:58:55 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.118",
+      "version": "1.0.0-beta.118",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bf3f06dc6b78c070a480210941cf2bcf404faf18",
+            "comment": "Update to latest eslint rules"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jan 2022 00:04:56 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.118",
+      "version": "1.0.0-beta.118",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e57e209d6ede28d37c1e33b8f1f6f81c568bbaf6",
+            "comment": "Add baseClass in call to compose for Button and Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jan 2022 23:21:51 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.117",
+      "version": "1.0.0-beta.117",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3d35734ae3c8edbca3128b77cbce0ed5be0fd36a",
+            "comment": "Don't hardcode nimble-listbox-option in query"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jan 2022 19:28:47 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.116",
+      "version": "1.0.0-beta.116",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "370673029669f79b24154081d4dac15be1deb68c",
+            "comment": "Refactor prefers-reduced-motion watching logic into utility"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Dec 2021 22:32:22 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.115",
+      "version": "1.0.0-beta.115",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6a7c92a6bd3c333321b29d501c99c8dc1cc8eed1",
+            "comment": "Update versions of @ni/javascript-styleguide dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0-beta.36",
+            "commit": "6a7c92a6bd3c333321b29d501c99c8dc1cc8eed1"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Dec 2021 20:22:01 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.114",
+      "version": "1.0.0-beta.114",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f8e9021c95cade3ffb44e129d93f55c752c0dd12",
+            "comment": "Add HTMLElementTagNameMap extensions for Nimble elements"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Dec 2021 04:09:05 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.113",
+      "version": "1.0.0-beta.113",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bb44040248029a7c49be1c7cf15d9a133c837d68",
+            "comment": "Re-export FAST's DOM.processUpdates method"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 13 Dec 2021 20:30:22 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.112",
+      "version": "1.0.0-beta.112",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "01e5672297683896ec85f6b73ffb8f2c78e2ef1d",
+            "comment": "Directive attribute string support and type export"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 13 Dec 2021 14:41:26 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.111",
+      "version": "1.0.0-beta.111",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "72bc8603e87e6e4cf572bce77660cbd156909ddf",
+            "comment": "Use legacy font family var in legacy theme"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Dec 2021 16:32:53 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.110",
       "version": "1.0.0-beta.110",

@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Button } from '@ni/nimble-components/dist/esm/button';
+import type { Button } from '@ni/nimble-components/dist/esm/button';
 import { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
-import { BooleanAttribute } from '../../utilities/template-value-helpers';
+import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
 import { NimbleButtonDirective } from '../nimble-button.directive';
 import { NimbleButtonModule } from '../nimble-button.module';
 
@@ -34,11 +34,11 @@ describe('Nimble button', () => {
         let directive: NimbleButtonDirective;
         let nativeElement: Button;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleButtonModule]
-            }).compileComponents();
+            });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
@@ -73,11 +73,11 @@ describe('Nimble button', () => {
         let directive: NimbleButtonDirective;
         let nativeElement: Button;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleButtonModule]
-            }).compileComponents();
+            });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
@@ -115,18 +115,18 @@ describe('Nimble button', () => {
         let directive: NimbleButtonDirective;
         let nativeElement: Button;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleButtonModule]
-            }).compileComponents();
+            });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding for disabled', async () => {
+        it('can be configured with property binding for disabled', () => {
             expect(directive.disabled).toBeFalse();
             expect(nativeElement.disabled).toBeFalse();
 
@@ -137,7 +137,7 @@ describe('Nimble button', () => {
             expect(nativeElement.disabled).toBeTrue();
         });
 
-        it('can be configured with property binding for appearance', async () => {
+        it('can be configured with property binding for appearance', () => {
             expect(directive.appearance).toBe(ButtonAppearance.Outline);
             expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
 
@@ -161,7 +161,7 @@ describe('Nimble button', () => {
         class TestHostComponent {
             @ViewChild('button', { read: NimbleButtonDirective }) public directive: NimbleButtonDirective;
             @ViewChild('button', { read: ElementRef }) public elementRef: ElementRef<Button>;
-            public disabled: BooleanAttribute = null;
+            public disabled: BooleanValueOrAttribute = null;
             public appearance: ButtonAppearance = ButtonAppearance.Outline;
         }
 
@@ -169,11 +169,11 @@ describe('Nimble button', () => {
         let directive: NimbleButtonDirective;
         let nativeElement: Button;
 
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
+        beforeEach(() => {
+            TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleButtonModule]
-            }).compileComponents();
+            });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;

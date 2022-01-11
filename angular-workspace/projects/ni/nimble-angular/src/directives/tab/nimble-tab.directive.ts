@@ -1,6 +1,8 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { Tab } from '@ni/nimble-components/dist/esm/tab';
-import { toBooleanProperty } from '../utilities/template-value-helpers';
+import type { Tab } from '@ni/nimble-components/dist/esm/tab';
+import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+
+export type { Tab };
 
 /**
  * Directive to provide Angular integration for the tab element.
@@ -13,7 +15,7 @@ export class NimbleTabDirective {
         return this.elementRef.nativeElement.disabled;
     }
 
-    @Input() public set disabled(value: boolean) {
+    @Input() public set disabled(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 

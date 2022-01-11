@@ -1,8 +1,12 @@
+import {
+    DesignSystem,
+    TreeView as FoundationTreeView
+} from '@microsoft/fast-foundation';
 import { DOM, html, ref } from '@microsoft/fast-element';
 import { notebook16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { clickElement } from '../../utilities/tests/component';
-import { SelectionMode } from '../types';
+import { TreeViewSelectionMode } from '../types';
 import type { TreeView } from '..';
 import type { TreeItem } from '../../tree-item';
 import type { Button } from '../../button';
@@ -11,16 +15,16 @@ import '../../tree-item';
 import '../../button';
 
 class Model {
-    public treeView: TreeView;
-    public root1: TreeItem; // starts off expanded
-    public root2: TreeItem;
-    public leaf1: TreeItem;
-    public leaf2: TreeItem; // starts off selected
-    public leaf3: TreeItem;
-    public leafWithIconDisabled: TreeItem;
-    public subRoot1: TreeItem;
-    public subRoot2: TreeItem;
-    public button: Button;
+    public treeView!: TreeView;
+    public root1!: TreeItem; // starts off expanded
+    public root2!: TreeItem;
+    public leaf1!: TreeItem;
+    public leaf2!: TreeItem; // starts off selected
+    public leaf3!: TreeItem;
+    public leafWithIconDisabled!: TreeItem;
+    public subRoot1!: TreeItem;
+    public subRoot2!: TreeItem;
+    public button!: Button;
 }
 
 async function setup(source: Model): Promise<Fixture<TreeView>> {
@@ -120,7 +124,7 @@ describe('TreeView', () => {
 
     describe('with `selectionMode` set to `leavesOnly`', () => {
         beforeEach(() => {
-            model.treeView.selectionMode = SelectionMode.LeavesOnly;
+            model.treeView.selectionMode = TreeViewSelectionMode.LeavesOnly;
         });
 
         it('root1 should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
@@ -157,7 +161,7 @@ describe('TreeView', () => {
 
     describe('with `selectionMode` set to `all`', () => {
         beforeEach(() => {
-            model.treeView.selectionMode = SelectionMode.All;
+            model.treeView.selectionMode = TreeViewSelectionMode.All;
         });
 
         it('root1 should be selected after being clicked', async () => {
@@ -165,5 +169,11 @@ describe('TreeView', () => {
             expect(model.root1.hasAttribute('selected')).toBe(true);
             expect(model.root1.hasAttribute('expanded')).toBe(false);
         });
+    });
+
+    it('should have its tag returned by tagFor(FoundationTreeView)', () => {
+        expect(html`${DesignSystem.tagFor(FoundationTreeView)}`.html).toBe(
+            'nimble-tree-view'
+        );
     });
 });

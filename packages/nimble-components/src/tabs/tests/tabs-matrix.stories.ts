@@ -8,7 +8,7 @@ import {
     createMatrix,
     themeWrapper
 } from '../../utilities/tests/matrix';
-import '../index';
+import '..';
 import '../../tab';
 import '../../tab-panel';
 import '../../tabs-toolbar';

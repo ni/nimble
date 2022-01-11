@@ -1,6 +1,8 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { NumberField } from '@ni/nimble-components/dist/esm/number-field';
-import { toBooleanProperty, toNumberProperty } from '../utilities/template-value-helpers';
+import type { NumberField } from '@ni/nimble-components/dist/esm/number-field';
+import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '../utilities/template-value-helpers';
+
+export type { NumberField };
 
 /**
  * Directive to provide Angular integration for the number field.
@@ -13,7 +15,10 @@ export class NimbleNumberFieldDirective {
         return this.elementRef.nativeElement.readOnly;
     }
 
-    @Input() public set readOnly(value: boolean) {
+    // readOnly property maps to the readonly attribute
+    // https://github.com/microsoft/fast/blob/46bb6d9aab2c37105f4434db3795e176c2354a4f/packages/web-components/fast-foundation/src/number-field/number-field.ts#L38
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('readonly') public set readOnly(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'readOnly', toBooleanProperty(value));
     }
 
@@ -21,7 +26,7 @@ export class NimbleNumberFieldDirective {
         return this.elementRef.nativeElement.min;
     }
 
-    @Input() public set min(value: number) {
+    @Input() public set min(value: NumberValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'min', toNumberProperty(value));
     }
 
@@ -29,7 +34,7 @@ export class NimbleNumberFieldDirective {
         return this.elementRef.nativeElement.max;
     }
 
-    @Input() public set max(value: number) {
+    @Input() public set max(value: NumberValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'max', toNumberProperty(value));
     }
 
@@ -37,7 +42,7 @@ export class NimbleNumberFieldDirective {
         return this.elementRef.nativeElement.step;
     }
 
-    @Input() public set step(value: number) {
+    @Input() public set step(value: NumberValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'step', toNumberProperty(value));
     }
 

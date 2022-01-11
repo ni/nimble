@@ -1,8 +1,91 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 10 Dec 2021 16:32:53 GMT and should not be manually modified.
+This log was last generated on Tue, 11 Jan 2022 22:03:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.140
+
+Tue, 11 Jan 2022 22:03:36 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.120
+
+## 1.0.0-beta.139
+
+Mon, 10 Jan 2022 18:14:33 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.119
+
+## 1.0.0-beta.138
+
+Fri, 07 Jan 2022 00:04:56 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.118
+
+## 1.0.0-beta.137
+
+Thu, 06 Jan 2022 23:21:51 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.117
+
+## 1.0.0-beta.136
+
+Thu, 06 Jan 2022 19:28:47 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.116
+
+## 1.0.0-beta.135
+
+Fri, 17 Dec 2021 22:32:22 GMT
+
+### Changes
+
+- Update versions of @ni/javascript-styleguide dependencies (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.115
+
+## 1.0.0-beta.134
+
+Wed, 15 Dec 2021 20:22:01 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.114
+
+## 1.0.0-beta.133
+
+Tue, 14 Dec 2021 04:09:05 GMT
+
+### Changes
+
+- Refactor tests to be more synchronous (5454342+brianehenry@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.113
+
+## 1.0.0-beta.132
+
+Mon, 13 Dec 2021 20:30:22 GMT
+
+### Changes
+
+- Directive attribute string support and type export (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.112
+
+## 1.0.0-beta.131
+
+Mon, 13 Dec 2021 14:41:26 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.111
 
 ## 1.0.0-beta.130
 

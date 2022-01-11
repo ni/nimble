@@ -6,7 +6,7 @@ import {
     BackgroundState,
     backgroundStates
 } from '../../utilities/tests/matrix';
-import '../index';
+import '..';
 
 const metadata: Meta = {
     title: 'Tests/Drawer',

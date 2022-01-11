@@ -7,6 +7,12 @@ import { styles } from './styles';
 
 export type { ListboxOption };
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-listbox-option': ListboxOption;
+    }
+}
+
 /**
  * A nimble-styled HTML listbox option
  */
@@ -33,6 +39,8 @@ class ListboxOption extends FoundationListboxOption {
 
 const nimbleListboxOption = ListboxOption.compose({
     baseName: 'listbox-option',
+    baseClass: FoundationListboxOption,
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

@@ -8,7 +8,7 @@ import {
     disabledStates,
     DisabledState
 } from '../../utilities/tests/matrix';
-import '../index';
+import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {

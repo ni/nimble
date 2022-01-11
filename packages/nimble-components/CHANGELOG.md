@@ -1,8 +1,89 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 10 Dec 2021 16:32:53 GMT and should not be manually modified.
+This log was last generated on Tue, 11 Jan 2022 22:03:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.120
+
+Tue, 11 Jan 2022 22:03:36 GMT
+
+### Changes
+
+- Correct styling of icon buttons (20542556+mollykreis@users.noreply.github.com)
+
+## 1.0.0-beta.119
+
+Mon, 10 Jan 2022 18:14:33 GMT
+
+### Changes
+
+- Turn on strict type checking and resolve violations (7282195+m-akinc@users.noreply.github.com)
+
+## 1.0.0-beta.118
+
+Fri, 07 Jan 2022 00:04:56 GMT
+
+### Changes
+
+- Add baseClass in call to compose for Button and Select (7282195+m-akinc@users.noreply.github.com)
+
+## 1.0.0-beta.117
+
+Thu, 06 Jan 2022 23:21:51 GMT
+
+### Changes
+
+- Don't hardcode nimble-listbox-option in query (7282195+m-akinc@users.noreply.github.com)
+
+## 1.0.0-beta.116
+
+Thu, 06 Jan 2022 19:28:47 GMT
+
+### Changes
+
+- Refactor prefers-reduced-motion watching logic into utility (7282195+m-akinc@users.noreply.github.com)
+
+## 1.0.0-beta.115
+
+Fri, 17 Dec 2021 22:32:22 GMT
+
+### Changes
+
+- Update versions of @ni/javascript-styleguide dependencies (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.36
+
+## 1.0.0-beta.114
+
+Wed, 15 Dec 2021 20:22:01 GMT
+
+### Changes
+
+- Add HTMLElementTagNameMap extensions for Nimble elements (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.113
+
+Tue, 14 Dec 2021 04:09:05 GMT
+
+### Changes
+
+- Re-export FAST's DOM.processUpdates method (5454342+brianehenry@users.noreply.github.com)
+
+## 1.0.0-beta.112
+
+Mon, 13 Dec 2021 20:30:22 GMT
+
+### Changes
+
+- Directive attribute string support and type export (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.111
+
+Mon, 13 Dec 2021 14:41:26 GMT
+
+### Changes
+
+- Use legacy font family var in legacy theme (5454342+brianehenry@users.noreply.github.com)
 
 ## 1.0.0-beta.110
 

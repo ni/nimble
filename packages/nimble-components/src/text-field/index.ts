@@ -7,15 +7,23 @@ import {
 import { statusAlarmActive16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
+export type { TextField };
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-text-field': TextField;
+    }
+}
+
 /**
  * A nimble-styed HTML text input
  */
-type TextField = FoundationTextField;
+class TextField extends FoundationTextField {}
 
-export type { TextField };
-
-const nimbleTextField = FoundationTextField.compose<TextFieldOptions>({
+const nimbleTextField = TextField.compose<TextFieldOptions>({
     baseName: 'text-field',
+    baseClass: FoundationTextField,
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     shadowOptions: {

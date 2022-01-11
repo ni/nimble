@@ -27,11 +27,11 @@ describe('Nimble drawer directive', () => {
     let drawerConfigured: Drawer;
     let drawerUnconfigured: Drawer;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
+    beforeEach(() => {
+        TestBed.configureTestingModule({
             declarations: [TestHostComponent],
             imports: [NimbleDrawerModule]
-        }).compileComponents();
+        });
     });
 
     beforeEach(() => {

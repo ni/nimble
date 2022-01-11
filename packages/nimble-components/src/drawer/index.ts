@@ -11,9 +11,18 @@ import {
     dialogTemplate as template
 } from '@microsoft/fast-foundation';
 import { drawerAnimationDurationMs } from '../theme-provider/design-tokens';
+import { PrefersReducedMotionWatcher } from '../utilities/style/prefers-reduced-motion';
 import { animationConfig } from './animations';
 import { styles } from './styles';
 import { DrawerLocation, DrawerState } from './types';
+
+export type { Drawer };
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-drawer': Drawer;
+    }
+}
 
 const animationDurationWhenDisabledMilliseconds = 0.001;
 
@@ -22,7 +31,7 @@ const animationDurationWhenDisabledMilliseconds = 0.001;
  * which animates to be visible with a slide-in / slide-out animation.
  * Configured via 'location', 'state', 'modal', 'preventDismiss' properties.
  */
-export class Drawer extends FoundationDialog {
+class Drawer extends FoundationDialog {
     @attr
     public location: DrawerLocation = DrawerLocation.Left;
 
@@ -44,8 +53,7 @@ export class Drawer extends FoundationDialog {
     animationDurationWhenDisabledMilliseconds;
 
     private animationGroup?: AnimateGroup;
-    private animationsEnabledChangedHandler?: (MediaQueryListEvent) => void;
-    private prefersReducedMotionMediaQuery?: MediaQueryList;
+    private animationsEnabledChangedHandler?: () => void;
     private propertyChangeSubscriber?: Subscriber;
 
     public connectedCallback(): void {
@@ -53,12 +61,9 @@ export class Drawer extends FoundationDialog {
         // change focus if it's true before connectedCallback
         this.trapFocus = false;
         super.connectedCallback();
-        this.prefersReducedMotionMediaQuery = window.matchMedia(
-            '(prefers-reduced-motion: reduce)'
-        );
         this.updateAnimationDuration();
         this.animationsEnabledChangedHandler = () => this.updateAnimationDuration();
-        this.prefersReducedMotionMediaQuery.addEventListener(
+        PrefersReducedMotionWatcher.instance.mediaQuery.addEventListener(
             'change',
             this.animationsEnabledChangedHandler
         );
@@ -83,15 +88,11 @@ export class Drawer extends FoundationDialog {
             this.propertyChangeNotifier = undefined;
             this.propertyChangeSubscriber = undefined;
         }
-        if (
-            this.prefersReducedMotionMediaQuery
-            && this.animationsEnabledChangedHandler
-        ) {
-            this.prefersReducedMotionMediaQuery.removeEventListener(
+        if (this.animationsEnabledChangedHandler) {
+            PrefersReducedMotionWatcher.instance.mediaQuery.removeEventListener(
                 'change',
                 this.animationsEnabledChangedHandler
             );
-            this.prefersReducedMotionMediaQuery = undefined;
             this.animationsEnabledChangedHandler = undefined;
         }
     }
@@ -169,7 +170,7 @@ export class Drawer extends FoundationDialog {
     }
 
     private updateAnimationDuration(): void {
-        const disableAnimations = this.prefersReducedMotionMediaQuery?.matches;
+        const disableAnimations: boolean = PrefersReducedMotionWatcher.instance.mediaQuery.matches;
         this.animationDurationMilliseconds = disableAnimations
             ? animationDurationWhenDisabledMilliseconds
             : drawerAnimationDurationMs.getValueFor(this);
@@ -226,8 +227,9 @@ export class Drawer extends FoundationDialog {
     }
 }
 
-export const nimbleDrawer = Drawer.compose({
+const nimbleDrawer = Drawer.compose({
     baseName: 'drawer',
+    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });
