@@ -30,29 +30,23 @@ class Button extends FoundationButton {
     @attr
     public appearance!: ButtonAppearance;
 
-    private readonly observer = new MutationObserver(() => this.checkForEmptyText());
-
     public connectedCallback(): void {
         super.connectedCallback();
         if (!this.appearance) {
             this.appearance = ButtonAppearance.Outline;
         }
+    }
 
-        const contentElement = this.control.querySelector('[part="content"]')!;
-        this.observer.observe(contentElement, { childList: true });
+    public defaultSlottedContentChanged(): void {
         this.checkForEmptyText();
     }
 
-    public disconnectedCallback(): void {
-        this.observer.disconnect();
-    }
-
     private checkForEmptyText(): void {
-        const innerText = this.innerText;
-        if (innerText.trim().length === 0) {
-            this.classList.add('empty-text');
+        const hasTextContent = this.defaultSlottedContent.some(x => x.textContent?.trim().length !== 0);
+        if (hasTextContent) {
+            this.control.classList.remove('empty-text');
         } else {
-            this.classList.remove('empty-text');
+            this.control.classList.add('empty-text');
         }
     }
 }

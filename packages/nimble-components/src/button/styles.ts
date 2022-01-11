@@ -67,7 +67,7 @@ export const styles = css`
         transition: box-shadow ${smallDelay};
     }
 
-    :host(.empty-text) .control {
+    .control.empty-text {
         width: ${controlHeight};
         padding: 0px;
     }
