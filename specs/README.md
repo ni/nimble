@@ -6,7 +6,7 @@ The process to create and approve a spec is:
 
 1. In a new branch, create a copy of one of the following spec templates as described below:
    - if proposing other architecture or infrastructure changes, use the [high-level design template](specs/high-level-design.md) and place the spec at `/specs/title-of-your-proposal/README.md`.
-   - if proposing a new component, use one of these templates and place the spec at `packages/nimble-components/src/component-name/component-name.spec.md`
+   - if proposing a new component, use one of the following templates and place the spec at `packages/nimble-components/src/component-name/component-name.spec.md`:
       - use the [FAST-based component template](/specs/templates/fast-based-component.md) if leveraging a FAST component.
       - use the [custom component template](/specs/templates/custom-component.md) if building a new component from scratch or on top of a different library.
 2. Fill in the fields of the spec. Be sure to remove any boilerplate from the spec template which was not used. 

@@ -1,4 +1,4 @@
-# Nimble Component Name
+# Nimble Component Name [Template]
 
 ## Overview
 
