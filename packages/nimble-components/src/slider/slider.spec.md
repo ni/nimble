@@ -4,7 +4,7 @@
 
 The `nimble-slider` component allows the user to move a `thumb` element along a vertical or horizontal axis to select a value. `nimble-slider` is also considered an input field and must work within a `<form>` as other input fields do.
 
-`nimble-slider` will be based on FAST Foundation's `slider`, and will not expose any additional functionailty or changed behavior. See [FAST Foundation slider spec](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/slider/slider.spec.md).
+`nimble-slider` will be based on FAST Foundation's `slider`, and will not expose any additional functionailty or changed behavior. See [FAST Foundation slider spec](https://github.com/microsoft/fast/blob/5fce1b50f35898550c71659d13d3fa2c0bf1e075/packages/web-components/fast-foundation/src/slider/slider.spec.md).
 
 ### API
 
@@ -14,29 +14,16 @@ _Component Name_:
 
 -   `nimble-slider`
 
-_Attributes:_
+_Attributes:_ Unchanged
 
--   `min` - minimum allowed value for the slider
--   `max` - maximum allowed value for the slider
--   `step` - limits the values of the `slider` to increments of the `step` value added to the minimum value of the
-    `slider`'s total range. The default value is 1. The minimum and maximum values of a `slider`'s range are always valid results regardless of the `step` prop. The `step` prop is used as the value for incrementing the thumb by pressing the arrow keys.
--   `value` - Allows authors to specify the initial selected range of the `slider`. It defaults to a (step constrained) value at the midpoint on the `slider`'s total range.
--   `orientation` - horizontal or vertical values allowed.
--   `mode` - only supported value is `single-value`. FAST specifies additional modes in its spec, but those modes are not yet implemented.
+_Events_: Unchanged
 
-_Events_
+_Slots_: Unchanged
 
--   `change` - raise the change event for external parties to be informed of the `slider`'s value change.
-
-_Slots_
-
--   `track` - the `horizontal` or `vertical` track along which the thumb slides
--   `thumb` - the control the user drags along the track to change the value of the slider
--   `default` slot - Providing child elements to the `nimble-slider` will be hosted in the default slot and presented as track labels. See `nimble-slider-label` below.
 
 ### Angular Integration
 
-The slider will have an Angular directive in the `nimble-angular` package which allows binding to the attributes listed above. The slider will also have a `ControlValueAccessor` for use in Angular forms.
+The slider will have an Angular directive in the `nimble-angular` package which allows binding to the attributes listed above. The slider will also have a `ControlValueAccessor` for use in Angular forms, which will be based upon [Angular's built-in RangeValueAccessor](https://v12.angular.io/api/forms/RangeValueAccessor#rangevalueaccessor).
 
 ### Color customization
 
@@ -56,18 +43,11 @@ _Component Name_
 
 -   `nimble-slider-label`
 
-_Attributes_
+_Attributes_: Unchanged
 
--   `hide-mark` - boolean to show/hide the mark. Default is false.
--   `position` - used to position the label at the corresponding value on the track
+_Slots_: Unchanged
 
-_Slots_
-
--   `label` - replace the label with your dom
-
-_Parts_
-
--   `label` - style the label shown under the mark
+_Parts_: Unchanged
 
 ### Angular Integration
 
@@ -98,3 +78,9 @@ A few issues with the FAST slider implementation may affect our usage.
     - [Filed an issue to FAST](https://github.com/microsoft/fast/issues/5506)
 
 ## Open issues
+
+1. What color customization options should the slider expose?
+   - Will consumers of the slider want to customize the track color of the slider?
+   - Should we have support CSS classes like `fail`, `warning`, and `pass` with themed color schemes?
+   - Should we allow specifiying an arbitrary track color?
+   - We should have a conversation with Brandon to resolve this
