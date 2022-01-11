@@ -10,4 +10,5 @@
 # Order is important. The last matching pattern has the most precedence.
 /angular-workspace/projects/ni/nimble-angular @brianehenry @rajsite
 /specs @rajsite @jattasNI @fredvisser @atmgrifter00
+*.spec.md @rajsite @jattasNI @fredvisser @atmgrifter00
 /change
