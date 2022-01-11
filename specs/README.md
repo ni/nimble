@@ -9,6 +9,5 @@ The process to create and approve a spec is:
    - if building a new component from scratch or on top of a different library, use the [full template](/specs/TEMPLATE.md).
    - if proposing other architecture or infrastructure changes, use the [high-level design template](specs/TEMPLATE-HLD.md).
 2. Fill in the fields of the spec. Be sure to remove any boilerplate from the spec template which was not used. 
-3. If it's a component spec, add a link to your spec from the [component status table in the root README.md](/README.md#component-status).
-4. Create a pull request for the branch to discuss the spec with Nimble maintainers.
-5. Approval and merging of the pull request indicates approval to proceed with the proposed approach! 🥳
+3. Create a pull request for the branch to discuss the spec with Nimble maintainers.
+4. Approval and merging of the pull request indicates approval to proceed with the proposed approach! 🥳
