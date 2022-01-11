@@ -63,7 +63,7 @@ Follow the instructions in [CONTRIBUTING.md](/CONTRIBUTING.md) to modify the des
 |------------------------|--------|--------------------|---------------------|--------------------|
 | Text Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/42001df1-2969-438e-b353-4327d7a15102) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--outline-button) | :white_check_mark: | :o: |
 | Text and Icon Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/a378bcdb-5c4b-4298-b3b1-28d8b1a37af2) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--outline-button) | :white_check_mark: | :o: |
-| Icon Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--outline-button) | :arrows_counterclockwise: | :o: |
+| Icon Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--icon-ghost-button) | :white_check_mark: | :o: |
 | Toggle Icon Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | :o: | :o: | :o: |
 | Split Icon Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | :o: | :o: | :o: |
 | Icon Menu Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | :o: | :o: | :o: |
