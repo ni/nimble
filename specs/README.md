@@ -2,6 +2,8 @@
 
 Before building a new component or making other large architecture or infrastructure changes, create a spec document and review it in a pull request to get agreement on the approach.
 
+For smaller architectural changes, opening an issue and gathering consensus on a proposal can also be a lighter-weight alternative to a spec. If you're unsure which approach to use, feel free to open an issue to discuss.
+
 The process to create and approve a spec is:
 
 1. In a new branch, create a copy of one of the following spec templates as described below:
