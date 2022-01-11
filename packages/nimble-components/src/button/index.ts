@@ -36,6 +36,21 @@ class Button extends FoundationButton {
             this.appearance = ButtonAppearance.Outline;
         }
     }
+
+    public defaultSlottedContentChanged(): void {
+        this.checkForEmptyText();
+    }
+
+    private checkForEmptyText(): void {
+        const hasTextContent = this.defaultSlottedContent.some(
+            x => (x.textContent ?? '').trim().length !== 0
+        );
+        if (hasTextContent) {
+            this.control.classList.remove('empty-text');
+        } else {
+            this.control.classList.add('empty-text');
+        }
+    }
 }
 
 /**
