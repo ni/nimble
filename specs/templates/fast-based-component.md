@@ -26,6 +26,7 @@
 - *Properties/Attributes*
 - *Methods*
 - *Events*
+- *CSS classes and custom properties that affect the component*
 - *Slots*
 
 ### Angular integration 

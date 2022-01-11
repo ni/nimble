@@ -44,19 +44,24 @@
 - *Props/Attrs*
 - *Methods*
 - *Events*
+- *CSS classes and custom properties that affect the component*
 
 *Consider high and low-level APIs. Attempt to design a powerful and extensible low-level API with a high-level API for developer/designer ergonomics and simplicity.*
 
 ### Anatomy 
 
-Outline the component structure with a diagram of its visual tree (shadow dom). Enumerate key areas of visual customization, such as:*
+*Outline the component structure with a diagram of its visual tree (shadow dom). Enumerate key areas of visual customization, such as:*
 
 - *Slot Names*
 - *Host Classes*
 - *Slotted Content/Slotted Classes*
 - *CSS Parts*
 
-*Work closely with the visual design partner to co-develop the API and anatomy along side the visual design.
+*Work closely with the visual design partner to co-develop the API and anatomy along side the visual design.*
+
+### Angular integration 
+
+*Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration.*
 
 ### Visual Appearance
 
