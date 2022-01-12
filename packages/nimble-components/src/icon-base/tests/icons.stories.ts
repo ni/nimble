@@ -91,7 +91,8 @@ export const componentIcons: StoryObj<IconArgs> = {
     argTypes: {
         status: {
             options: Object.values(IconStatus),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: 'Setting the `pass`, `fail`, or `warning` state on the host element sets  `--icon-color` to a predefined value. You may also directly set `--icon-color` to any color that you wish.'
         }
     },
     render: createRenderer(html`

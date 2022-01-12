@@ -39,6 +39,10 @@ const metadata: Meta<ButtonArgs> = {
         appearance: {
             options: Object.values(ButtonAppearance),
             control: { type: 'radio' }
+        },
+        icon: {
+            description:
+                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
         }
     },
     // prettier-ignore

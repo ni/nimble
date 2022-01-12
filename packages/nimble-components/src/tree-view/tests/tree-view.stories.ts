@@ -42,7 +42,40 @@ const metadata: Meta<TreeArgs> = {
         actions: {
             handles: ['expanded-change', 'selected-change']
         }
+    }
+};
+
+export default metadata;
+
+export const treeItem: StoryObj<ItemArgs> = {
+    argTypes: {
+        icon: {
+            description:
+                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+        }
     },
+    // prettier-ignore
+    render: createRenderer(html`
+        <nimble-tree-view>
+            <nimble-tree-item ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}" value="${x => x.value}">
+                ${when(x => x.icon, html`<nimble-measurement-data-analysis-icon slot="start"></nimble-measurement-data-analysis-icon>`)}
+                ${x => x.label}
+                <nimble-tree-item>
+                   Sub Item
+                </nimble-tree-item>
+            </nimble-tree-item>
+        </nimble-tree-view>
+`),
+    args: {
+        label: 'Item',
+        value: '1',
+        disabled: false,
+        icon: true,
+        expanded: true
+    }
+};
+
+export const complexTreeView: StoryObj<TreeArgs> = {
     argTypes: {
         selectionMode: {
             options: Object.values(TreeViewSelectionMode),
@@ -54,7 +87,7 @@ const metadata: Meta<TreeArgs> = {
         <nimble-tree-view selection-mode="${x => x.selectionMode}">
             ${repeat(x => x.options, html<ItemArgs>`
                 <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}">
-                    ${when(x => x.icon, html`<nimble-measurement-data-analysis-icon></nimble-measurement-data-analysis-icon>`)}
+                    ${when(x => x.icon, html`<nimble-measurement-data-analysis-icon slot="start"></nimble-measurement-data-analysis-icon>`)}
                     ${x => x.label}
                     <nimble-tree-item ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}">
                          ${when(x => x.icon, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
@@ -110,7 +143,3 @@ const metadata: Meta<TreeArgs> = {
         ]
     }
 };
-
-export default metadata;
-
-export const treeView: StoryObj<TreeArgs> = {};

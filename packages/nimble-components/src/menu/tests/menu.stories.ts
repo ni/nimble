@@ -11,10 +11,13 @@ interface MenuArgs {
     itemOptions: ItemArgs[];
 }
 
-interface ItemArgs {
+interface MenuItemArgs {
     text: string;
     disabled: boolean;
     icon: boolean;
+}
+
+interface ItemArgs extends MenuItemArgs {
     type: 'nimble-menu-item' | 'header' | 'hr';
 }
 
@@ -44,6 +47,37 @@ const metadata: Meta<MenuArgs> = {
 };
 
 export default metadata;
+
+export const menuItem: StoryObj<MenuItemArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'The `nimble-menu` supports several child elements including `<header>`, `<hr>`, and `<nimble-menu-item>`, and will format them and any `nimble-icons` added as children of `<nimble-menu-item>`.'
+            }
+        }
+    },
+    // prettier-ignore
+    render: createRenderer<MenuItemArgs>(html`
+        <nimble-menu>
+            <nimble-menu-item ?disabled="${x => x.disabled}">
+                ${when(x => x.icon, html`<nimble-admin-icon slot="start"></nimble-admin-icon>`)}
+                ${x => x.text}
+            </nimble-menu-item>
+        </nimble-menu>
+        `),
+    args: {
+        text: 'Menu Item',
+        disabled: false,
+        icon: true,
+    },
+    argTypes: {
+        icon: {
+            description:
+                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+            }
+        }
+    }
+};
 
 export const menu: StoryObj<MenuArgs> = {
     parameters: {
