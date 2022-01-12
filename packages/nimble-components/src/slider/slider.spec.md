@@ -4,7 +4,15 @@
 
 The `nimble-slider` component allows the user to move a `thumb` element along a vertical or horizontal axis to select a value. `nimble-slider` is also considered an input field and must work within a `<form>` as other input fields do.
 
+### Background
+
 `nimble-slider` will be based on FAST Foundation's `slider`, and will not expose any additional functionailty or changed behavior. See [FAST Foundation slider spec](https://github.com/microsoft/fast/blob/5fce1b50f35898550c71659d13d3fa2c0bf1e075/packages/web-components/fast-foundation/src/slider/slider.spec.md).
+
+TODO: Link to visual design spec
+
+---
+
+## Design
 
 ### API
 
@@ -24,9 +32,9 @@ _Slots_: Unchanged
 
 The slider will have an Angular directive in the `nimble-angular` package which allows binding to the attributes listed above. The slider will also have a `ControlValueAccessor` for use in Angular forms, which will be based upon [Angular's built-in RangeValueAccessor](https://v12.angular.io/api/forms/RangeValueAccessor#rangevalueaccessor).
 
-### Color customization
+### Additional requirements
 
-Consumers of the slider may want to customize the fill color of the slider track. We should make sure to support this by letting users override a CSS variable in the slider's styles. We should also document the variable name to override, as well as possibly provide suggestions for theme-aware variables to use as alternate colors.
+-   None
 
 # Slider Label
 
@@ -51,6 +59,10 @@ _Parts_: Unchanged
 ### Angular Integration
 
 The slider label will have an Angular directive in the `nimble-angular` package which allows binding to the attributes listed above.
+
+### Additional Requirements
+
+-   None
 
 ## Example usage
 
