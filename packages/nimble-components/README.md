@@ -32,7 +32,7 @@ This package contains a theming system which enables changing the appearance of 
 
 The theming system is composed of:
 
-1. higher level [design tokens](/packages/nimble-components/src/theme-provider/design-tokens.ts) which map lower level values from `nimble-tokens` to CSS variables and TypeScript constants that style parts of controls. These are implemented using [`DesignToken`s from the underlying FAST library](https://www.fast.design/docs/design-systems/design-tokens/).
+1. high-level theme-aware [design tokens](/packages/nimble-components/src/theme-provider/design-tokens.ts) which map low-level values from `nimble-tokens` to CSS variables and TypeScript constants that style parts of controls.
 2. a [theme provider component](/packages/nimble-components/src/theme-provider/index.ts) which organizes the higher level tokens into themes.
 
 ### Using the Theming System
@@ -48,7 +48,9 @@ The theming system is composed of:
 ```
 
 2. _Optional_ Add other Nimble components as descendants of the theme provider and they will inherit the theme.
-3. _Optional_ Style non-Nimble components using the CSS custom properties which the theme provider defines for tokens.
+3. _Optional_ Style non-Nimble components using the values which the theme provider defines for tokens.
+    - Tokens are exposed as CSS custom properties and as TypeScript constants using the [FAST Design Token](https://www.fast.design/docs/design-systems/design-tokens) implementation.
+    - These tokens are not yet documented but you can see their names in [`design-tokens.ts`](/packages/nimble-components/src/theme-provider/design-tokens.ts).
 4. _Optional_ Customize the theme for all or part of your application. Approaches for doing this are an area of active research; please reach out to the Nimble team to discuss your use case.
 
 ## Contributing

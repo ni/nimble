@@ -6,7 +6,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/nimble-tokens.svg)](https://www.npmjs.com/package/@ni/nimble-tokens)
 
-NI design tokens to use across NI applications. Design tokens are primitive elements of component style like color, typography, and spacing.
+NI low-level design tokens . Design tokens are primitive elements of component style like color, typography, and spacing.
 
 ## Getting Started
 
@@ -16,21 +16,21 @@ If you are using one of the following frameworks you should consume tokens via c
 2. Blazor WebAssembly or Blazor Server: See the [nimble-blazor](/packages/nimble-blazor) documentation.
 3. Vanilla / Frameworkless: See the [nimble-components](/packages/nimble-components) documentation.
 
-## Using Higher Level Tokens in Themes
+## Using Higher-Level Theme-Aware Tokens
 
-The above libraries also offer a theming system which is independent of other components from the library. Adopting the theming system can be a cheaper way to update a legacy application to approximate the NI brand without the development and testing burden of adopting a new component library. See [the theming documentation in `nimble-components`](/packages/nimble-components/README.md#theming) for more information.
+The above libraries also offer a theming system which is independent of other components from the library. Adopting this theming system can be a cheaper way to update a legacy application to approximate the NI brand without the development and testing burden of adopting a new component library. See [the theming documentation in `nimble-components`](/packages/nimble-components/README.md#theming) for more information.
 
 ## Using Nimble Tokens Directly
 
-You can consume low level Nimble tokens directly without using a Nimble component library. The low level tokens are less likely to change as NI designs evolve (consider whether this is a good thing for your application before deciding which approach to use).
+In limited special cases, you may consume low-level Nimble tokens directly. This is only recommended in cases where the high-level tokens don't work (for example desktop applications or legacy browsers that don't support custom elements).
 
 To add the Nimble tokens package to your application, install it from [the public NPM registry](https://www.npmjs.com/package/@ni/nimble-tokens) by running `npm install @ni/nimble-tokens`.
 
-### Understanding Nimble Color Tokens
+### Understanding Low-Level Color Tokens
 
 You can [view the available color tokens here](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/fed406fd-7568-40a9-8b1a-359f54c23186/). To understand their meaning, explore other pages of the document in Specs Mode (click the `</>` icon on the right side) and view how color tokens are applied to Nimble components.
 
-### Using Nimble Tokens
+### Using Low-Level Tokens
 
 The tokens are available in several formats:
 
