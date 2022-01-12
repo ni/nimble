@@ -3,6 +3,7 @@ name: 'publish'
 on:
   push:
     tags:
+    - "@ni/beachball-lock-update_v*"
     - "@ni/nimble-tokens_v*"
     - "@ni/nimble-components_v*"
     - "@ni/nimble-angular_v*"
@@ -40,6 +41,12 @@ jobs:
       # Test (skipped, assuming tagged commits already tested)
 
       # Publish
+      - name: Publish @ni/beachball-lock-update
+        if: startsWith(github.ref, 'refs/tags/@ni/beachball-lock-update_v')
+        run: npm run invoke-publish -w @ni/beachball-lock-update
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish @ni/nimble-tokens
         if: startsWith(github.ref, 'refs/tags/@ni/nimble-tokens_v')
         run: npm run invoke-publish -w @ni/nimble-tokens

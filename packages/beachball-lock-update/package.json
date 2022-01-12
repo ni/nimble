@@ -1,11 +1,12 @@
 {
   "name": "@ni/beachball-lock-update",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Beachball script to update package-lock.json files in npm workspace monorepos",
   "main": "./src/index.js",
   "scripts": {
     "lint": "eslint --ext=.js,.mjs .",
-    "test": "jasmine"
+    "test": "jasmine",
+    "invoke-publish": "npm publish"
   },
   "repository": {
     "type": "git",
