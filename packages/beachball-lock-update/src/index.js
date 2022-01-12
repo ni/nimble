@@ -28,7 +28,7 @@ const createPostbump = packageLockPath => {
                         if (key === packageName) {
                             // Package dependency
                             // "@awesome/package": "^1.2.3-beta.4"
-                            // Note: Ignore if package dependency version is '*' (used in monorepos for private packages declaring dependencies)
+                            // Note: Ignore if package dependency version is '*' (used in monorepos for private packages declaring dependencies within the monorepo)
                             if (currentValue[key] === '*') {
                                 console.log(`Skipping update for lockfile path with wildcard version (${formatJSONPath(jsonPath)}) {"${key}":"${currentValue[key]}"}`);
                             } else {
