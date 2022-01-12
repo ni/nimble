@@ -26,12 +26,19 @@ const createPostbump = packageLockPath => {
                 for (const [key, value] of Object.entries(currentValue)) {
                     if (typeof value === 'string') {
                         if (key === packageName) {
+                            // Package dependency
                             // "@awesome/package": "^1.2.3-beta.4"
-                            // Note: Uses a hard coded semantic range specifier
-                            const update = `^${packageVersion}`;
-                            console.log(`Updating lockfile path (${formatJSONPath(jsonPath)}) from {"${key}":"${currentValue[key]}"} to {"${key}":"${update}"}.`);
-                            currentValue[key] = update;
+                            // Note: Ignore if package dependency version is '*' (used in monorepos for private packages declaring dependencies)
+                            if (currentValue[key] === '*') {
+                                console.log(`Skipping update for lockfile path with wildcard version (${formatJSONPath(jsonPath)}) {"${key}":"${currentValue[key]}"}`);
+                            } else {
+                                // Note: Uses a hard coded semantic range specifier
+                                const update = `^${packageVersion}`;
+                                console.log(`Updating lockfile path (${formatJSONPath(jsonPath)}) from {"${key}":"${currentValue[key]}"} to {"${key}":"${update}"}.`);
+                                currentValue[key] = update;
+                            }
                         } else if (key === 'version' && currentValue.name === packageName) {
+                            // Package definition
                             // "name": "@awesome/package",
                             // "version": "1.2.3-beta.4"
                             const update = packageVersion;
