@@ -13,9 +13,9 @@ interface ButtonArgs {
     icon: boolean;
 }
 
-const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that 
-enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an 
-action, or performing a delete operation. A common convention for informing users that a button launches 
+const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that
+enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an
+action, or performing a delete operation. A common convention for informing users that a button launches
 a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".`;
 
 const metadata: Meta<ButtonArgs> = {
@@ -44,7 +44,7 @@ const metadata: Meta<ButtonArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}">
-            ${when(x => x.icon, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
+            ${when(x => x.icon, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
             ${x => x.label}
         </nimble-button>
 `),

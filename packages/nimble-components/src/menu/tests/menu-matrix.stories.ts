@@ -36,7 +36,7 @@ const component = (
             <nimble-menu-item>Item 1</nimble-menu-item>
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
-            <nimble-menu-item>${when(() => icon, html`<nimble-admin-icon></nimble-admin-icon>`)}Item 3</nimble-menu-item>
+            <nimble-menu-item>${when(() => icon, html`<nimble-admin-icon slot="start"></nimble-admin-icon>`)}Item 3</nimble-menu-item>
             <nimble-menu-item hidden>Item 4</nimble-menu-item>
         </nimble-menu>
     </span>

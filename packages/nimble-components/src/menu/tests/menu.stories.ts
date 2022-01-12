@@ -18,10 +18,10 @@ interface ItemArgs {
     type: 'nimble-menu-item' | 'header' | 'hr';
 }
 
-const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#menu) - A menu is a widget that offers a list of choices to the user, 
-such as a set of actions or functions. Menu widgets behave like native operating system menus, such as the menus that pull down from the 
-menubars commonly found at the top of many desktop application windows. A menu is usually opened, or made visible, by activating a menu button, 
-choosing an item in a menu that opens a sub menu, or by invoking a command, such as Shift + F10 in Windows, that opens a context specific menu. 
+const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#menu) - A menu is a widget that offers a list of choices to the user,
+such as a set of actions or functions. Menu widgets behave like native operating system menus, such as the menus that pull down from the
+menubars commonly found at the top of many desktop application windows. A menu is usually opened, or made visible, by activating a menu button,
+choosing an item in a menu that opens a sub menu, or by invoking a command, such as Shift + F10 in Windows, that opens a context specific menu.
 When a user activates a choice in a menu, the menu usually closes unless the choice opened a submenu.`;
 
 const metadata: Meta<MenuArgs> = {
@@ -59,7 +59,7 @@ export const menu: StoryObj<MenuArgs> = {
             ${repeat(x => x.itemOptions, html<ItemArgs>`
                 ${when(x => x.type === 'nimble-menu-item', html<ItemArgs>`
                     <nimble-menu-item ?disabled="${x => x.disabled}">
-                        ${when(x => x.icon, html`<nimble-admin-icon></nimble-admin-icon>`)}
+                        ${when(x => x.icon, html`<nimble-admin-icon slot="start"></nimble-admin-icon>`)}
                         ${x => x.text}
                     </nimble-menu-item>
                 `)}
@@ -150,8 +150,8 @@ export const customMenu: StoryObj<MenuArgs> = {
                 <div style="font-weight: bold; color: black;">lvadmin User</div>
                 <div style="color: gray;">lvadmin</div>
             </div>
-            <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Account</nimble-menu-item>
-            <nimble-menu-item><nimble-logout-icon></nimble-logout-icon>Log out</nimble-menu-item>
+            <nimble-menu-item><nimble-admin-icon slot="start"></nimble-admin-icon>Account</nimble-menu-item>
+            <nimble-menu-item><nimble-logout-icon slot="start"></nimble-logout-icon>Log out</nimble-menu-item>
         </nimble-menu>
     `)
 };
