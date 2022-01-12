@@ -22,7 +22,7 @@ The above libraries also offer a theming system which is independent of other co
 
 ## Using Nimble Tokens Directly
 
-In limited special cases, you may consume low-level Nimble tokens directly. This is only recommended in cases where the high-level tokens don't work (for example desktop applications or legacy browsers that don't support custom elements).
+In limited special cases, you may consume low-level Nimble tokens directly. This is only recommended in cases where the high-level tokens don't work (for example desktop applications or legacy browsers that don't support custom elements) as these tokens are unaware of themes and don't contain guidance mapping them to specific component parts.
 
 To add the Nimble tokens package to your application, install it from [the public NPM registry](https://www.npmjs.com/package/@ni/nimble-tokens) by running `npm install @ni/nimble-tokens`.
 
