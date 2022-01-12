@@ -5,8 +5,6 @@ import { ButtonAppearance } from '../types';
 import {
     disabledStates,
     DisabledState,
-    iconVisibleStates,
-    IconVisibleState,
     createMatrix,
     themeWrapper
 } from '../../utilities/tests/matrix';
