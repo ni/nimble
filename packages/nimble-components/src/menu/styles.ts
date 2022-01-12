@@ -39,7 +39,7 @@ export const styles = css`
         background: ${borderColor};
         opacity: 0.1;
     }
-    ::slotted(header) {
+    ::slotted(nimble-menu-header) {
         display: flex;
         font-family: ${groupLabelFontFamily};
         font-size: ${groupLabelFontSize};

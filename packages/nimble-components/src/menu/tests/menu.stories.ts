@@ -49,7 +49,7 @@ export const menu: StoryObj<MenuArgs> = {
     parameters: {
         docs: {
             description: {
-                story: 'The `nimble-menu` supports several child elements including `<header>`, `<hr>`, and `<nimble-menu-item>`, and will format them and any `nimble-icons` added as children of `<nimble-menu-item>`.'
+                story: 'The `nimble-menu` supports several child elements including `<nimble-menu-header>`, `<hr>`, and `<nimble-menu-item>`, and will format them and any `nimble-icons` added as children of `<nimble-menu-item>`.'
             }
         }
     },
@@ -64,9 +64,9 @@ export const menu: StoryObj<MenuArgs> = {
                     </nimble-menu-item>
                 `)}
                 ${when(x => x.type === 'header', html<ItemArgs>`
-                    <header>
+                    <nimble-menu-header>
                         ${x => x.text}
-                    </header>
+                    </nimble-menu-header>
                 `)}
                 ${when(x => x.type === 'hr', html<ItemArgs>`
                     <hr>
