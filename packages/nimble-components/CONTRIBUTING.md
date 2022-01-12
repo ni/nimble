@@ -63,6 +63,8 @@ Before building a new component, create a spec document to get agreement on the 
 
     `npm run change`
 
+6. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
+
 ## Develop new components
 
 ### Folder structure
