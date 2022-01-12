@@ -68,13 +68,12 @@ export const menuItem: StoryObj<MenuItemArgs> = {
     args: {
         text: 'Menu Item',
         disabled: false,
-        icon: true,
+        icon: true
     },
     argTypes: {
         icon: {
             description:
                 'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
-            }
         }
     }
 };
