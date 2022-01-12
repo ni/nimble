@@ -27,7 +27,7 @@ NI-styled UI components for Angular applications
         })
         class AppModule {}
         ```
-   2. Include the `<nimble-theme-provider>` element to your `app.component.html` and optionally set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components. See [the theming documentation in `nimble-components`](/packages/nimble-components/README.md#theming) for more information. 
+   2. Add the `<nimble-theme-provider>` element to your `app.component.html` and optionally set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components. See [the theming documentation in `nimble-components`](/packages/nimble-components/README.md#theming) for more information. 
         ```html
         <nimble-theme-provider [theme]="theme">
             <router-outlet></router-outlet>
