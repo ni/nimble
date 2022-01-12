@@ -30,4 +30,4 @@ Note: This package does a simple search and replace inside the `package-lock.jso
         }
     };
     ```
-4. Enjoy!
+4. Enjoy!!
