@@ -17,13 +17,37 @@ describe('beachball lock update', () => {
         const packageName = 'my-package';
         const packageVersion = '2.0.0';
         postbump('', packageName, packageVersion);
-        const result = fs.readFileSync(lockFile, { encoding: 'utf-8' });
-        const resultNormalized = JSON.parse(result);
-        expect(resultNormalized).toEqual({
+        const result = JSON.parse(fs.readFileSync(lockFile, { encoding: 'utf-8' }));
+        expect(result).toEqual({
             packages: {
                 'a-package': {
                     dependencies: {
                         'my-package': '^2.0.0'
+                    }
+                }
+            }
+        });
+    });
+    it('skip processing package references with version "*"', async () => {
+        const lockFile = tempy.writeSync(JSON.stringify({
+            packages: {
+                'a-package': {
+                    dependencies: {
+                        'my-package': '*'
+                    }
+                }
+            }
+        }));
+        const postbump = createPostbump(lockFile);
+        const packageName = 'my-package';
+        const packageVersion = '2.0.0';
+        postbump('', packageName, packageVersion);
+        const result = JSON.parse(fs.readFileSync(lockFile, { encoding: 'utf-8' }));
+        expect(result).toEqual({
+            packages: {
+                'a-package': {
+                    dependencies: {
+                        'my-package': '*'
                     }
                 }
             }
@@ -42,9 +66,8 @@ describe('beachball lock update', () => {
         const packageName = 'my-package';
         const packageVersion = '2.0.0';
         postbump('', packageName, packageVersion);
-        const result = fs.readFileSync(lockFile, { encoding: 'utf-8' });
-        const resultNormalized = JSON.parse(result);
-        expect(resultNormalized).toEqual({
+        const result = JSON.parse(fs.readFileSync(lockFile, { encoding: 'utf-8' }));
+        expect(result).toEqual({
             packages: {
                 'package-folder/my-package': {
                     name: 'my-package',
