@@ -3,5 +3,5 @@
   "comment": "Increase test cases covered by button matrix stories",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "prerelease"
 }
