@@ -30,7 +30,9 @@ From the `nimble` directory:
 
     - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
 
-Next steps: See the [Development workflow](#development-workflow) for creating components and the workflow for making changes.
+## Component spec process
+
+Before building a new component, create a spec document to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
 
 ## Development workflow
 
@@ -61,6 +63,8 @@ Next steps: See the [Development workflow](#development-workflow) for creating c
 
     `npm run change`
 
+6. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
+
 ## Develop new components
 
 ### Folder structure
@@ -69,7 +73,8 @@ Create a new folder named after your component with some core files:
 
 | File                                   | Description                                                                                                                                                                                                                                                                |
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| index.ts                               | Contains the component class definition and registration. All Typescript logic contained in the component belongs here.                                                                                                                                                    |
+| component-name.spec.md                 | Contains the original API and implementation specification for the component.                                                                                                                                                                                              |
+| index.ts                               | Contains the component class definition and registration. All TypeScript logic contained in the component belongs here.                                                                                                                                                    |
 | styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts).                                             |
 | template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                                                 |
 | tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
