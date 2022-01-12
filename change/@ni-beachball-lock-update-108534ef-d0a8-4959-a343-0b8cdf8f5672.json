@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add publish for beachball-lock-update-package",
+  "packageName": "@ni/beachball-lock-update",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
