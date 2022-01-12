@@ -59,6 +59,12 @@ Follow the instructions in [CONTRIBUTING.md](/CONTRIBUTING.md) to modify the des
 
 ## Component Status
 
+<!--
+NOTE: To update the component status:
+    1. Update the value in the spreadsheet: https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/Eb1_BLjOOI1IsvUWay5VdAwB_G0a20kOZeFHWzSsvIXUBw?e=aGNMTg
+    2. Create a PR to update this README with the result in the spreadsheet
+-->
+
 | Components             | Design | Web Components     | Angular Integration | Blazor Integration |
 |------------------------|--------|--------------------|---------------------|--------------------|
 | Text Button | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/42001df1-2969-438e-b353-4327d7a15102) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--outline-button) | :white_check_mark: | :o: |
@@ -82,5 +88,3 @@ Follow the instructions in [CONTRIBUTING.md](/CONTRIBUTING.md) to modify the des
 | Banners | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/29c405f7-08ea-48b6-973f-546970b9dbab) | :o: | :o: | :o: |
 | Icons | | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/icons--component-icons) | :o: | :o: |
 | Tree View | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tree-view--tree-view) | :white_check_mark: | :o: |
-
-[Source](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/Eb1_BLjOOI1IsvUWay5VdAwB_G0a20kOZeFHWzSsvIXUBw?e=aGNMTg)
