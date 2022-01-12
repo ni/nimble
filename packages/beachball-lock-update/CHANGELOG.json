@@ -2,6 +2,36 @@
   "name": "@ni/beachball-lock-update",
   "entries": [
     {
+      "date": "Wed, 12 Jan 2022 18:12:32 GMT",
+      "tag": "@ni/beachball-lock-update_v1.0.1",
+      "version": "1.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/beachball-lock-update",
+            "commit": "b57c779de442494c3e5fbc7ccafce2a57d57cb91",
+            "comment": "Add publish for beachball-lock-update-package"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 12 Jan 2022 17:35:03 GMT",
+      "tag": "@ni/beachball-lock-update_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/beachball-lock-update",
+            "commit": "fe41a8869de3af7dcc5747b0fd74085ba984a8dd",
+            "comment": "Add wildcard support for package dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 11 Jan 2022 21:20:37 GMT",
       "tag": "@ni/beachball-lock-update_v1.0.0-beta.0",
       "version": "1.0.0-beta.0",
