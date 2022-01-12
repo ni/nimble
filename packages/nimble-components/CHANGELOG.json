@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 12 Jan 2022 21:25:30 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.121",
+      "version": "1.0.0-beta.121",
+      "comments": {
+        "none": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3c4182cee01a1dc677d68b06a64b21e356bd4f9c",
+            "comment": "Create slider spec document"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 12 Jan 2022 19:57:11 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.121",
       "version": "1.0.0-beta.121",
