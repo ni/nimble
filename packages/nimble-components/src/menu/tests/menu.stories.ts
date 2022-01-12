@@ -146,9 +146,9 @@ export const customMenu: StoryObj<MenuArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-menu>
-            <div style="display: grid; font-family: Source Sans Pro; font-size: 11px;">
+            <div style="display: grid; font-family: Source Sans Pro; font-size: 14px;">
                 <div style="font-weight: bold; color: black;">lvadmin User</div>
-                <div style="color: gray;">lvadmin</div>
+                <div style="color: black;">lvadmin</div>
             </div>
             <nimble-menu-item><nimble-admin-icon></nimble-admin-icon>Account</nimble-menu-item>
             <nimble-menu-item><nimble-logout-icon></nimble-logout-icon>Log out</nimble-menu-item>
