@@ -44,15 +44,7 @@ const styleMarkup = `
 
 const metadata: Meta<IconArgs> = {
     title: 'Icons',
-    decorators: [withXD],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    'A predefined set of icons to be used within other Nimble components, such as buttons, menu items, and tree items. Caveat: if added directly to an unnamed `<slot>` element, the icon will not appear. This is the case when adding directly to the `<nimble-theme-provider>` element.'
-            }
-        }
-    }
+    decorators: [withXD]
 };
 
 export default metadata;
