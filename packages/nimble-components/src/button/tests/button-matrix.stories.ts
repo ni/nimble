@@ -32,7 +32,11 @@ export const defaultButton: Story = createRenderer(
 );
 
 type PartVisibilityState = [boolean, boolean];
-const partVisibilityStates: PartVisibilityState[] = [[true, true], [true, false], [false, true]];
+const partVisibilityStates: PartVisibilityState[] = [
+    [true, true],
+    [true, false],
+    [false, true]
+];
 
 const appearanceStates = Object.entries(ButtonAppearance);
 type AppearanceState = typeof appearanceStates[number];
