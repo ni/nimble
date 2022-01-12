@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add wildcard support for package dependencies",
-  "packageName": "@ni/beachball-lock-update",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
