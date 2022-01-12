@@ -32,19 +32,22 @@ export default metadata;
 export const defaultButton: Story = createRenderer(
     html`<nimble-button>Default Button</nimble-button>`
 );
-const noContent = 'NO_CONTENT';
-const appearanceStates = [...Object.entries(ButtonAppearance), [noContent, '']];
+
+type PartVisibilityState = [boolean, boolean];
+const partVisibilityStates: PartVisibilityState[] = [[true, true], [true, false], [false, true]];
+
+const appearanceStates = Object.entries(ButtonAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
-    iconVisible: IconVisibleState
+    [labelVisible, iconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
     <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled}>
         ${when(() => iconVisible, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
-        ${() => (appearanceName === noContent ? '' : `${appearanceName} Button ${disabledName}`)}
+        ${() => (labelVisible ? `${appearanceName} Button ${disabledName}` : '')}
     </nimble-button>
 `;
 
@@ -53,7 +56,7 @@ export const buttonThemeMatrix: Story = createRenderer(
         createMatrix(component, [
             disabledStates,
             appearanceStates,
-            iconVisibleStates
+            partVisibilityStates
         ])
     )
 );
