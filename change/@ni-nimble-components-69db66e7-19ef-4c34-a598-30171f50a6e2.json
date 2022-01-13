@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Drawer takes focus by default when opened and modal=true",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
