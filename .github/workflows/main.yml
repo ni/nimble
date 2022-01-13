@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - '*'
+      - '**'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
