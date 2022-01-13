@@ -1,35 +1,33 @@
+// Note: Initial slide animation keyframe (scale=0) is used because the drawer/dialog needs to have
+// the correct computed width already before the slide (translateX) starts, but we don't want it to be visible
+// at that point. We also can't use visibility=hidden as that results in the FAST dialog focusing code
+// no longer focusing the first element when a modal drawer is shown.
 const slideLeftKeyframes: Keyframe[] = [
     {
-        transform: 'translateX(-100%)',
-        visibility: 'hidden',
+        transform: 'scale(0)',
         offset: 0
     },
     {
         transform: 'translateX(-100%)',
-        visibility: 'visible',
         offset: 0.01
     },
     {
         transform: 'translateX(0%)',
-        visibility: 'visible',
         offset: 1
     }
 ];
 
 const slideRightKeyframes: Keyframe[] = [
     {
-        transform: 'translateX(100%)',
-        visibility: 'hidden',
+        transform: 'scale(0)',
         offset: 0
     },
     {
         transform: 'translateX(100%)',
-        visibility: 'visible',
         offset: 0.01
     },
     {
         transform: 'translateX(0%)',
-        visibility: 'visible',
         offset: 1
     }
 ];

@@ -46,7 +46,13 @@ class Drawer extends FoundationDialog {
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
-    private readonly propertiesToWatch = ['hidden', 'location', 'state'];
+    private readonly propertiesToWatch = [
+        'hidden',
+        'location',
+        'modal',
+        'state'
+    ];
+
     private propertyChangeNotifier?: Notifier;
 
     private animationDurationMilliseconds =
@@ -57,9 +63,11 @@ class Drawer extends FoundationDialog {
     private propertyChangeSubscriber?: Subscriber;
 
     public connectedCallback(): void {
-        // disable trapFocus before super.connectedCallback as FAST Dialog will immediately queue work to
-        // change focus if it's true before connectedCallback
-        this.trapFocus = false;
+        if (!this.modal) {
+            // disable trapFocus before super.connectedCallback as FAST Dialog will immediately queue work to
+            // change focus if it's true before connectedCallback
+            this.trapFocus = false;
+        }
         super.connectedCallback();
         this.updateAnimationDuration();
         this.animationsEnabledChangedHandler = () => this.updateAnimationDuration();
@@ -122,6 +130,9 @@ class Drawer extends FoundationDialog {
             case 'location':
                 this.onLocationChanged();
                 break;
+            case 'modal':
+                this.onModalChanged();
+                break;
             case 'state':
                 this.onStateChanged();
                 break;
@@ -140,6 +151,10 @@ class Drawer extends FoundationDialog {
 
     private onLocationChanged(): void {
         this.cancelCurrentAnimation();
+    }
+
+    private onModalChanged(): void {
+        this.trapFocus = this.modal;
     }
 
     private onStateChanged(): void {
