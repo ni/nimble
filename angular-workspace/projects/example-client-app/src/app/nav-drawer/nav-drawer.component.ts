@@ -22,6 +22,5 @@ export class NavDrawerComponent {
 
     public togglePinned(): void {
         this.isDrawerPinned = !this.isDrawerPinned;
-        this.drawer.modal = !this.isDrawerPinned;
     }
 }
