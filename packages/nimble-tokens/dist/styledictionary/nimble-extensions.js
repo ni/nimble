@@ -35,12 +35,38 @@ StyleDictionary.registerTransform({
     }
 });
 
+// Workaround as name/dsp/kebab does not support prefixes
+// See: https://github.com/AdobeXD/design-system-package-dsp/issues/27
+const { type, matcher, transformer } = StyleDictionary.transform['name/dsp/kebab'];
+StyleDictionary.registerTransform({
+    name: 'name/nimble/kebab',
+    type,
+    matcher,
+    transformer: function (prop) {
+        return `ni-nimble-base-${transformer(prop)}`;
+    }
+});
+
 // Combination of DSP & Nimble transform overrides
 StyleDictionary.registerTransformGroup({
     name: 'css',
     transforms: [
         'attribute/cti',
-        'name/dsp/kebab', // replaces 'name/cti/kebab',
+        'name/nimble/kebab', // replaces name/dsp/kebab from DSP config
+        'time/seconds',
+        'content/icon',
+        'size/px', // replaces size/rem from DSP config
+        'color/css',
+        'font/weight'
+    ]
+});
+
+// Combination of DSP & Nimble transform overrides
+StyleDictionary.registerTransformGroup({
+    name: 'scss',
+    transforms: [
+        'attribute/cti',
+        'name/nimble/kebab', // replaces name/dsp/kebab from DSP config
         'time/seconds',
         'content/icon',
         'size/px', // replaces size/rem from DSP config
@@ -111,9 +137,9 @@ StyleDictionary.registerFormat({
 });
 
 StyleDictionary.registerTransform({
+    name: 'color/FromRgb',
     type: 'value',
     transitive: true,
-    name: 'color/FromRgb',
     matcher: token => token.attributes.category === 'color',
     transformer: token => {
         const color = hexRgb(token.value);
