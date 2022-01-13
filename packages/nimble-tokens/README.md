@@ -41,7 +41,7 @@ Tokens like colors, font families, and spacing are available as CSS and SCSS var
 1. Assuming your application uses the [Webpack css-loader](https://webpack.js.org/loaders/css-loader/#url), in your application CSS, add `@import url('~@ni/nimble-tokens/dist/styledictionary/css/variables.css');` (replacing `css` with `scss` as needed).
 2. Use the variables from that file to style your UI:
 ```css
-body { background-color: var(--white); }
+body { background-color: var(--ni-nimble-base-white); }
 ```
 
 #### JavaScript and TypeScript
