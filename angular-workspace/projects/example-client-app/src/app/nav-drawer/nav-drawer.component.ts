@@ -16,6 +16,10 @@ export class NavDrawerComponent {
         this.drawer.show();
     }
 
+    public close(): void {
+        this.drawer.hide();
+    }
+
     public togglePinned(): void {
         this.isDrawerPinned = !this.isDrawerPinned;
         this.drawer.modal = !this.isDrawerPinned;

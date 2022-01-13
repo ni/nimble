@@ -18,6 +18,9 @@
                     <nimble-button appearance="outline" (click)="navDrawer.open()">
                         Open
                     </nimble-button>
+                    <nimble-button appearance="outline" (click)="navDrawer.close()">
+                        Close
+                    </nimble-button>
                     <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
                         <nimble-listbox-option [value]="drawerLocations.Left">Drawer: Left-side</nimble-listbox-option>
                         <nimble-listbox-option [value]="drawerLocations.Right">Drawer: Right-side</nimble-listbox-option>

@@ -46,6 +46,7 @@ const singleThemeWrapper = (
 const component = html`
     <nimble-drawer state="opened" location="right" modal>
         <p style="margin: 10px;">Drawer containing text content</p>
+        <nimble-button>Button (focused when drawer is opened)</nimble-button>
     </nimble-drawer>
 `;
 
