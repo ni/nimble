@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Add nimble-base prefix to tokens",
+  "packageName": "@ni/nimble-tokens",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}

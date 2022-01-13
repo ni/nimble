@@ -149,7 +149,7 @@
       },
       {
         "label": "SCSS",
-        "export_tokens": false,
+        "export_tokens": true,
         "snippet_id": "scss",
         "syntax": "text/x-sass",
         "ext-com_adobe_xd-styledictionary_id": "scss"
