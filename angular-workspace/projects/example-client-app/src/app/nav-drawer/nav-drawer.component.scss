@@ -21,4 +21,8 @@
 
 .drawer-container nimble-drawer {
     grid-area: drawer;
+
+    section {
+        --standard-padding: 0px;
+    }
 }

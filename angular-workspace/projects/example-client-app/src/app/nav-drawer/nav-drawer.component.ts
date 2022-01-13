@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { DrawerLocation, DrawerState, NimbleDrawerDirective } from '@ni/nimble-angular';
+import { DrawerLocation, NimbleDrawerDirective } from '@ni/nimble-angular';
 
 @Component({
     selector: 'nimble-example-nav-drawer',
@@ -18,6 +18,6 @@ export class NavDrawerComponent {
 
     public togglePinned(): void {
         this.isDrawerPinned = !this.isDrawerPinned;
-        this.drawer.state = this.isDrawerPinned ? DrawerState.Opened : DrawerState.Closed;
+        this.drawer.modal = !this.isDrawerPinned;
     }
 }
