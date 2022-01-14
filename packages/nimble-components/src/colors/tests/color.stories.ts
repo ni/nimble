@@ -57,7 +57,7 @@ const styleMarkup = `
 `;
 
 const metadata: Meta = {
-    title: 'Colors',
+    title: 'Tokens/Colors',
     decorators: [withXD]
 };
 
@@ -78,7 +78,7 @@ export const baseColors: StoryObj = {
                         title="${x => x.name}"
                         style='background: ${x => x.data}'
                     ></div>
-                    <p>${x => x.name}</p>
+                    <p>${x => x.name}<br/>${x => x.data}</p>
                 </div>
             `)}
         </div>
