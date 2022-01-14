@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 13 Jan 2022 19:48:52 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.37",
+      "version": "1.0.0-beta.37",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "adb7088528996e382f2ec6c5e59feb2d5d3b8d86",
+            "comment": "Add nimble-base prefix to tokens"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Jan 2022 19:58:55 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.36",
       "version": "1.0.0-beta.36",
