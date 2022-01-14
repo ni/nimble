@@ -3,6 +3,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import * as nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
 import { createRenderer } from '../../utilities/tests/storybook';
+import '../../theme-provider';
 
 interface NimbleColor {
     name: string;
@@ -46,9 +47,10 @@ const styleMarkup = `
         }
 
         .color-label {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
-            color: gray;
+            font-family: var(--label-font-family);
+            font-size: var(--label-font-weight);
+            font-weight: var(--label-font-weight);
+            color: var(--label-font-color);
             text-align: center;
             margin: 10px;
         }
