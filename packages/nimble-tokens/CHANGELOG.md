@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 17 Dec 2021 22:32:22 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Jan 2022 19:48:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.37
+
+Thu, 13 Jan 2022 19:48:52 GMT
+
+### Changes
+
+- Add nimble-base prefix to tokens (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.36
 
