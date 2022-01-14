@@ -48,7 +48,7 @@ const styleMarkup = `
 
         .color-label {
             font-family: var(--label-font-family);
-            font-size: var(--label-font-weight);
+            font-size: var(--label-font-size);
             font-weight: var(--label-font-weight);
             color: var(--label-font-color);
             text-align: center;
