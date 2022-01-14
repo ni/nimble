@@ -45,7 +45,7 @@ const styleMarkup = `
             border: 1px solid lightgray;
         }
 
-        p {
+        .color-label {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 11px;
             color: gray;
@@ -56,9 +56,23 @@ const styleMarkup = `
     </style>
 `;
 
+const overviewText = `Base colors are defined by the visual design team, managed in the <a href='https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/89e665af-d24c-4f5e-b547-294caeccd29a'>Nimble_Component</a> Adobe XD spec, and exported in <code>nimble-tokens</code>.
+Most client applications shouldn't use these tokens directly. See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-tokens">nimble-token</a> readme for more information.`;
+
 const metadata: Meta = {
-    title: 'Tokens/Colors',
-    decorators: [withXD]
+    title: 'Tokens/Base Colors',
+    decorators: [withXD],
+    parameters: {
+        docs: {
+            description: {
+                component: overviewText
+            }
+        },
+        design: {
+            artboardUrl:
+                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/89e665af-d24c-4f5e-b547-294caeccd29a/specs/'
+        }
+    }
 };
 
 export default metadata;
@@ -78,7 +92,7 @@ export const baseColors: StoryObj = {
                         title="${x => x.name}"
                         style='background: ${x => x.data}'
                     ></div>
-                    <p>${x => x.name}<br/>${x => x.data}</p>
+                    <div class="color-label">${x => x.name}<br/>${x => x.data}</div>
                 </div>
             `)}
         </div>
