@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 18 Jan 2022 16:10:22 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.122",
+      "version": "1.0.0-beta.122",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "346e17fe569f695cd2cc1efffc552c143e3a379f",
+            "comment": "Base color swatch for Storybook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 13 Jan 2022 19:48:52 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.122",
       "version": "1.0.0-beta.122",
