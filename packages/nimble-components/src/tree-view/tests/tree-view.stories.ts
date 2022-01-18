@@ -75,7 +75,7 @@ export const treeItem: StoryObj<ItemArgs> = {
     }
 };
 
-export const complexTreeView: StoryObj<TreeArgs> = {
+export const multipleTreeItems: StoryObj<TreeArgs> = {
     argTypes: {
         selectionMode: {
             options: Object.values(TreeViewSelectionMode),
