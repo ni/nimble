@@ -32,7 +32,7 @@ This package contains a theming system which enables changing the appearance of 
 
 The theming system is composed of:
 
-1. high-level theme-aware [design tokens](/packages/nimble-components/src/theme-provider/design-tokens.ts) which map low-level values from `nimble-tokens` to CSS variables and TypeScript constants that style parts of controls.
+1. theme-aware [design tokens](/packages/nimble-components/src/theme-provider/design-tokens.ts) which map base tokens from `nimble-tokens` to CSS variables and TypeScript constants that style parts of controls.
 2. a [theme provider component](/packages/nimble-components/src/theme-provider/index.ts) which organizes the higher level tokens into themes.
 
 ### Using the Theming System
