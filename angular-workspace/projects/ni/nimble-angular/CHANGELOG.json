@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 13 Jan 2022 19:48:52 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.142",
+      "version": "1.0.0-beta.142",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.122",
+            "commit": "adb7088528996e382f2ec6c5e59feb2d5d3b8d86"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 12 Jan 2022 19:57:11 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.141",
       "version": "1.0.0-beta.141",
