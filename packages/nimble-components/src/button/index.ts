@@ -50,11 +50,9 @@ class Button extends FoundationButton {
             this.appearance = ButtonAppearance.Outline;
         }
 
-        if (!this.control.getAttribute('aria-labelledby')) {
-            const content = this.control.querySelector('.content')!;
-            content.id = this.contentId;
-            this.control.setAttribute('aria-labelledby', this.contentId);
-        }
+        const content = this.control.querySelector('.content')!;
+        content.id = this.contentId;
+        this.control.setAttribute('aria-labelledby', this.contentId);
     }
 }
 
