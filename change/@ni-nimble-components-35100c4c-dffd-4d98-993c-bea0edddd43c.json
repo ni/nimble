@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Documentation of theming system",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
