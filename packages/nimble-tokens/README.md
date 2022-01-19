@@ -62,7 +62,6 @@ import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 Tokens values are also available as:
  - [C# strings](/packages/nimble-tokens/dist/styledictionary/csharp/colors.cs)
  - [XAML resources](/packages/nimble-tokens/dist/styledictionary/xaml/colors.xaml)
- - [JSON](/packages/nimble-tokens/dist/styledictionary/properties/colors.json).
 
 
 #### Font Faces
