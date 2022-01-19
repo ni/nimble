@@ -42,8 +42,7 @@ const metadata: Meta<ButtonArgs> = {
             control: { type: 'radio' }
         },
         contentHidden: {
-            description:
-                'This is set using the "content-hidden" attribute.'
+            description: 'This is set using the "content-hidden" attribute.'
         }
     },
     // prettier-ignore
