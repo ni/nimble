@@ -20,7 +20,7 @@ If you are using one of the following frameworks you should consume tokens via c
 
 The above libraries also offer a theming system which is independent of other components from the library. Adopting this theming system can be a cheaper way to update a legacy application to approximate the NI brand without the development and testing burden of adopting a new component library. Applications should typically use this theming system rather than depending on `nimble-tokens` directly. See [the theming documentation in `nimble-components`](/packages/nimble-components/README.md#theming) for more information.
 
-## Using Nimble Tokens Directly
+## Using Nimble Base Tokens Directly
 
 In limited special cases, you may consume base Nimble tokens directly. This is only recommended in cases where the theme-aware tokens don't work (for example desktop applications or legacy browsers that don't support custom elements) as these tokens are unaware of themes and don't contain guidance mapping them to specific component parts.
 
