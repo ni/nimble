@@ -37,11 +37,11 @@ The theming system is composed of:
 
 ### Using the Theming System
 
-1. Include the `<nimble-theme-provider>` element on your page and optionally set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components. It will typically be at the root of the application:
+1. Include the `<nimble-theme-provider>` element on your page and set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components. It will typically be at the root of the application:
 
 ```html
 <body>
-    <nimble-theme-provider>
+    <nimble-theme-provider theme="light">
         <!-- everything else -->
     </nimble-theme-provider>
 </body>
