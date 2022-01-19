@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 19 Jan 2022 23:57:51 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.123",
+      "version": "1.0.0-beta.123",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ea95cabc05e601aff06d41e3cedc002da0a9a0b0",
+            "comment": "Documentation of theming system"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0-beta.38",
+            "commit": "ea95cabc05e601aff06d41e3cedc002da0a9a0b0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 18 Jan 2022 16:10:22 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.122",
       "version": "1.0.0-beta.122",
