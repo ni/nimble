@@ -5,7 +5,7 @@ import { focusVisible } from '../utilities/style/focus';
 import {
     borderColor,
     borderColorHover,
-    borderColorRgb,
+    borderColorRgbPartial,
     contentFontColor,
     contentFontColorDisabled,
     contentFontSize,
@@ -58,8 +58,8 @@ export const styles = css`
     }
 
     :host([disabled]) .control {
-        background-color: rgba(${borderColorRgb}, 0.1);
-        border-color: rgba(${borderColorRgb}, 0.2);
+        background-color: rgba(${borderColorRgbPartial}, 0.1);
+        border-color: rgba(${borderColorRgbPartial}, 0.2);
     }
 
     :host(:not([disabled]):not(:active):hover) .control {
@@ -102,6 +102,6 @@ export const styles = css`
     }
 
     :host([disabled]) slot[name='checked-indicator'] path {
-        fill: rgba(${borderColorRgb}, 0.3);
+        fill: rgba(${borderColorRgbPartial}, 0.3);
     }
 `;

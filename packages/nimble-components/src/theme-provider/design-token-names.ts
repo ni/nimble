@@ -1,11 +1,11 @@
-export const actionColorRgb = 'action-color-rgb';
+export const actionColorRgbPartial = 'action-color-rgb-partial';
 export const applicationBackgroundColor = 'application-background-color';
 export const fillColorSelected = 'fill-color-selected';
-export const fillColorSelectedRgb = 'fill-color-selected-rgb';
+export const fillColorSelectedRgbPartial = 'fill-color-selected-rgb-partial';
 export const fillColorSelectedHover = 'fill-color-selected-hover';
 export const fillColorHover = 'fill-color-hover';
 export const borderColor = 'border-color';
-export const borderColorRgb = 'border-color-rgb';
+export const borderColorRgbPartial = 'border-color-rgb-partial';
 export const failColor = 'fail-color';
 export const warningColor = 'warning-color';
 export const passColor = 'pass-color';

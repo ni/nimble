@@ -43,11 +43,11 @@ export const theme = DesignToken.create<NimbleTheme>({
 }).withDefault(NimbleTheme.Light);
 
 // Color Tokens
-export const actionColorRgb = createTokenWithPrefix<string>(tokenNames.actionColorRgb).withDefault(
-    (element: HTMLElement) => rgbString(
-        getColorForTheme(element, Black91, Black15, White, SlLegacyBlue)
-    )
-);
+export const actionColorRgbPartial = createTokenWithPrefix<string>(
+    tokenNames.actionColorRgbPartial
+).withDefault((element: HTMLElement) => hexToRgbPartial(
+    getColorForTheme(element, Black91, Black15, White, SlLegacyBlue)
+));
 
 export const applicationBackgroundColor = createTokenWithPrefix<string>(
     tokenNames.applicationBackgroundColor
@@ -55,39 +55,39 @@ export const applicationBackgroundColor = createTokenWithPrefix<string>(
 
 export const fillColorSelected = createTokenWithPrefix<string>(
     tokenNames.fillColorSelected
-).withDefault((element: HTMLElement) => hexToRgba(getFillColorSelectedForTheme(element), 0.3));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillColorSelectedForTheme(element), 0.3));
 
-export const fillColorSelectedRgb = createTokenWithPrefix<string>(
-    tokenNames.fillColorSelectedRgb
-).withDefault((element: HTMLElement) => rgbString(getFillColorSelectedForTheme(element)));
+export const fillColorSelectedRgbPartial = createTokenWithPrefix<string>(
+    tokenNames.fillColorSelectedRgbPartial
+).withDefault((element: HTMLElement) => hexToRgbPartial(getFillColorSelectedForTheme(element)));
 
 export const fillColorSelectedHover = createTokenWithPrefix<string>(
     tokenNames.fillColorSelectedHover
-).withDefault((element: HTMLElement) => hexToRgba(getFillColorSelectedForTheme(element), 0.15));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillColorSelectedForTheme(element), 0.15));
 
-export const fillColorHover = createTokenWithPrefix<string>(tokenNames.fillColorHover).withDefault(
-    (element: HTMLElement) => hexToRgba(getFillColorHoverForTheme(element), 0.1)
-);
+export const fillColorHover = createTokenWithPrefix<string>(
+    tokenNames.fillColorHover
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillColorHoverForTheme(element), 0.1));
 
-export const borderColor = createTokenWithPrefix<string>(tokenNames.borderColor).withDefault(
-    (element: HTMLElement) => getDefaultLineColorForTheme(element)
-);
+export const borderColor = createTokenWithPrefix<string>(
+    tokenNames.borderColor
+).withDefault((element: HTMLElement) => getDefaultLineColorForTheme(element));
 
-export const borderColorRgb = createTokenWithPrefix<string>(tokenNames.borderColorRgb).withDefault(
-    (element: HTMLElement) => rgbString(getDefaultLineColorForTheme(element))
-);
+export const borderColorRgbPartial = createTokenWithPrefix<string>(
+    tokenNames.borderColorRgbPartial
+).withDefault((element: HTMLElement) => hexToRgbPartial(getDefaultLineColorForTheme(element)));
 
-export const failColor = createTokenWithPrefix<string>(tokenNames.failColor).withDefault(
-    (element: HTMLElement) => getFailColorForTheme(element)
-);
+export const failColor = createTokenWithPrefix<string>(
+    tokenNames.failColor
+).withDefault((element: HTMLElement) => getFailColorForTheme(element));
 
-export const warningColor = createTokenWithPrefix<string>(tokenNames.warningColor).withDefault(
-    (element: HTMLElement) => getWarningColorForTheme(element)
-);
+export const warningColor = createTokenWithPrefix<string>(
+    tokenNames.warningColor
+).withDefault((element: HTMLElement) => getWarningColorForTheme(element));
 
-export const passColor = createTokenWithPrefix<string>(tokenNames.passColor).withDefault(
-    (element: HTMLElement) => getPassColorForTheme(element)
-);
+export const passColor = createTokenWithPrefix<string>(
+    tokenNames.passColor
+).withDefault((element: HTMLElement) => getPassColorForTheme(element));
 
 export const borderColorHover = createTokenWithPrefix<string>(
     tokenNames.borderColorHover
@@ -96,7 +96,7 @@ export const borderColorHover = createTokenWithPrefix<string>(
     Selection100,
     Selection100,
     White,
-    hexToRgba(SlLegacyBlue, 0.9)
+    hexToRgbaCssColor(SlLegacyBlue, 0.9)
 ));
 
 // Component Color Tokens
@@ -106,30 +106,45 @@ export const iconColor = createTokenWithPrefix<string>(
 
 export const popupBoxShadowColor = createTokenWithPrefix<string>(
     tokenNames.popupBoxShadowColor
-).withDefault((element: HTMLElement) => hexToRgba(
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(
     getColorForTheme(element, Black75, Black85, Black85, Black75),
     0.3
 ));
 
 export const popupBorderColor = createTokenWithPrefix<string>(
     tokenNames.popupBorderColor
-).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black91), 0.3));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(
+    getColorForTheme(element, Black91, Black15, White, Black91),
+    0.3
+));
 
 // Component Sizing Tokens
-export const controlHeight = createTokenWithPrefix<string>(tokenNames.controlHeight).withDefault('32px');
-export const standardPadding = createTokenWithPrefix<string>(tokenNames.standardPadding).withDefault('16px');
-export const labelHeight = createTokenWithPrefix<string>(tokenNames.labelHeight).withDefault('16px');
-export const borderWidth = createTokenWithPrefix<string>(tokenNames.borderWidth).withDefault('1px');
-export const iconSize = createTokenWithPrefix<string>(tokenNames.iconSize).withDefault('16px');
-export const drawerWidth = createTokenWithPrefix<string>(tokenNames.drawerWidth).withDefault('784px');
+export const controlHeight = createTokenWithPrefix<string>(
+    tokenNames.controlHeight
+).withDefault('32px');
+export const standardPadding = createTokenWithPrefix<string>(
+    tokenNames.standardPadding
+).withDefault('16px');
+export const labelHeight = createTokenWithPrefix<string>(
+    tokenNames.labelHeight
+).withDefault('16px');
+export const borderWidth = createTokenWithPrefix<string>(
+    tokenNames.borderWidth
+).withDefault('1px');
+export const iconSize = createTokenWithPrefix<string>(
+    tokenNames.iconSize
+).withDefault('16px');
+export const drawerWidth = createTokenWithPrefix<string>(
+    tokenNames.drawerWidth
+).withDefault('784px');
 
 // Font Family Tokens
-export const fontFamily = createTokenWithPrefix<string>(tokenNames.fontFamily).withDefault(
-    (element: HTMLElement) => getFontForTheme(element)
-);
-export const labelFontFamily = createTokenWithPrefix<string>(tokenNames.labelFontFamily).withDefault(
-    (element: HTMLElement) => getLabelFontForTheme(element)
-);
+export const fontFamily = createTokenWithPrefix<string>(
+    tokenNames.fontFamily
+).withDefault((element: HTMLElement) => getFontForTheme(element));
+export const labelFontFamily = createTokenWithPrefix<string>(
+    tokenNames.labelFontFamily
+).withDefault((element: HTMLElement) => getLabelFontForTheme(element));
 export const groupLabelFontFamily = createTokenWithPrefix<string>(
     tokenNames.groupLabelFontFamily
 ).withDefault((element: HTMLElement) => getGroupLabelFontForTheme(element));
@@ -138,10 +153,12 @@ export const drawerHeaderFontFamily = createTokenWithPrefix<string>(
 ).withDefault(Title2Family);
 
 // Font Sizing Tokens
-export const labelFontSize = createTokenWithPrefix<string>(tokenNames.labelFontSize).withDefault(
-    (element: HTMLElement) => getLabelTextSizeForTheme(element)
-);
-export const contentFontSize = createTokenWithPrefix<string>(tokenNames.contentFontSize).withDefault(BodySize);
+export const labelFontSize = createTokenWithPrefix<string>(
+    tokenNames.labelFontSize
+).withDefault((element: HTMLElement) => getLabelTextSizeForTheme(element));
+export const contentFontSize = createTokenWithPrefix<string>(
+    tokenNames.contentFontSize
+).withDefault(BodySize);
 export const groupLabelFontSize = createTokenWithPrefix<string>(
     tokenNames.groupLabelFontSize
 ).withDefault(GroupLabel1Size);
@@ -154,12 +171,14 @@ export const groupLabelFontWeight = createTokenWithPrefix<string>(
     tokenNames.groupLabelFontWeight
 ).withDefault(GroupLabel1Weight);
 
-export const labelFontWeight = createTokenWithPrefix<string>(tokenNames.labelFontWeight).withDefault(ControlLabel1Weight);
+export const labelFontWeight = createTokenWithPrefix<string>(
+    tokenNames.labelFontWeight
+).withDefault(ControlLabel1Weight);
 
 // Font Color Tokens
-export const labelFontColor = createTokenWithPrefix<string>(tokenNames.labelFontColor).withDefault(
-    (element: HTMLElement) => hexToRgba(getDefaultFontColorForTheme(element), 0.6)
-);
+export const labelFontColor = createTokenWithPrefix<string>(
+    tokenNames.labelFontColor
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6));
 
 export const groupLabelFontColor = createTokenWithPrefix<string>(
     tokenNames.groupLabelFontColor
@@ -175,7 +194,7 @@ export const buttonContentFontColor = createTokenWithPrefix<string>(
 
 export const labelFontColorDisabled = createTokenWithPrefix<string>(
     tokenNames.labelFontColorDisabled
-).withDefault((element: HTMLElement) => hexToRgba(getDefaultLineColorForTheme(element), 0.3));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultLineColorForTheme(element), 0.3));
 
 export const labelTextTransform = createTokenWithPrefix<string>(
     tokenNames.labelTextTransform
@@ -187,11 +206,18 @@ export const groupLabelTextTransform = createTokenWithPrefix<string>(
 
 export const contentFontColorDisabled = createTokenWithPrefix<string>(
     tokenNames.contentFontColorDisabled
-).withDefault((element: HTMLElement) => hexToRgba(getColorForTheme(element, Black91, Black15, White, Black88), 0.3));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(
+    getColorForTheme(element, Black91, Black15, White, Black88),
+    0.3
+));
 
 // Animation Tokens
-export const smallDelay = createTokenWithPrefix<string>(tokenNames.smallDelay).withDefault(SmallDelay);
-export const mediumDelay = createTokenWithPrefix<string>(tokenNames.mediumDelay).withDefault(MediumDelay);
+export const smallDelay = createTokenWithPrefix<string>(
+    tokenNames.smallDelay
+).withDefault(SmallDelay);
+export const mediumDelay = createTokenWithPrefix<string>(
+    tokenNames.mediumDelay
+).withDefault(MediumDelay);
 export const drawerAnimationDurationMs = DesignToken.create<number>(
     tokenNames.drawerAnimationDurationMs
 ).withDefault(250);
@@ -202,9 +228,9 @@ export const passwordRevealFilter = createTokenWithPrefix<string>(
 ).withDefault((element: HTMLElement) => getPasswordRevealFilterForTheme(element));
 
 // Localization Tokens
-export const direction = createTokenWithPrefix<Direction>(tokenNames.direction).withDefault(
-    Direction.ltr
-);
+export const direction = createTokenWithPrefix<Direction>(
+    tokenNames.direction
+).withDefault(Direction.ltr);
 
 // Private helpers functions
 
@@ -212,12 +238,12 @@ function createTokenWithPrefix<T>(name: string): CSSDesignToken<T> {
     return DesignToken.create<T>(`ni-nimble-${name}`);
 }
 
-function rgbString(hexValue: string): string {
+function hexToRgbPartial(hexValue: string): string {
     const { red, green, blue } = hexRgb(hexValue);
     return `${red}, ${green}, ${blue}`;
 }
 
-function hexToRgba(hexValue: string, alpha: number): string {
+function hexToRgbaCssColor(hexValue: string, alpha: number): string {
     const { red, green, blue } = hexRgb(hexValue);
     return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
@@ -274,23 +300,25 @@ function getPassColorForTheme(element: HTMLElement): string {
 }
 
 function getDefaultLineColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        Black91,
-        Black15,
-        White,
-        Black91
-    );
+    return getColorForTheme(element, Black91, Black15, White, Black91);
 }
 
 function getDefaultFontColorForTheme(element: HTMLElement): string {
+    return getColorForTheme(element, Black91, Black15, White, Black75);
+}
+
+function getFillColorSelectedForTheme(element: HTMLElement): string {
     return getColorForTheme(
         element,
-        Black91,
-        Black15,
+        Selection100,
+        Selection100,
         White,
-        Black75
+        SlLegacyBlue
     );
+}
+
+function getFillColorHoverForTheme(element: HTMLElement): string {
+    return getColorForTheme(element, Black91, Black15, White, SlLegacyBlue);
 }
 
 function getFontForTheme(element: HTMLElement): string {
@@ -355,12 +383,4 @@ function getPasswordRevealFilterForTheme(element: HTMLElement): string {
         default:
             return 'invert(0%)';
     }
-}
-
-function getFillColorSelectedForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Selection100, Selection100, White, SlLegacyBlue);
-}
-
-function getFillColorHoverForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White, SlLegacyBlue);
 }

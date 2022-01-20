@@ -153,7 +153,9 @@ export const styles: (
 
         ::slotted(${context.tagFor(TreeItem)}) {
             --private-tree-item-nested-width: 1em;
-            --private-expand-collapse-button-nested-width: calc(${iconSize} * -1);
+            --private-expand-collapse-button-nested-width: calc(
+                ${iconSize} * -1
+            );
         }
 
         ${

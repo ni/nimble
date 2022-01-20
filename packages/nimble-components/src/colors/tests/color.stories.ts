@@ -4,24 +4,30 @@ import { html, repeat } from '@microsoft/fast-element';
 import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '../../theme-provider';
-import { labelFontColor, labelFontFamily, labelFontSize, labelFontWeight } from '../../theme-provider/design-tokens';
+import {
+    labelFontColor,
+    labelFontFamily,
+    labelFontSize,
+    labelFontWeight
+} from '../../theme-provider/design-tokens';
 
 interface NimbleColor {
     name: string;
     data: string;
 }
 
-const nimbleBaseColors: NimbleColor[] = Object.entries(nimbleColorsMapJson.color)
-    .map(([key, valueObj]) => ({
-        name: key,
-        data: valueObj.value
-    }));
+const nimbleBaseColors: NimbleColor[] = Object.entries(
+    nimbleColorsMapJson.color
+).map(([key, valueObj]) => ({
+    name: key,
+    data: valueObj.value
+}));
 
 const styleMarkup = html`
     <style>
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr) ) ;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             grid-column-gap: 10px;
             grid-row-gap: 10px;
         }
@@ -47,7 +53,6 @@ const styleMarkup = html`
             color: var(${labelFontColor.cssCustomProperty});
             text-align: center;
         }
-
     </style>
 `;
 
