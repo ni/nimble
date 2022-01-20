@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 13 Jan 2022 19:48:52 GMT and should not be manually modified.
+This log was last generated on Wed, 19 Jan 2022 23:57:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.123
+
+Wed, 19 Jan 2022 23:57:51 GMT
+
+### Changes
+
+- Documentation of theming system (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v1.0.0-beta.38
 
 ## 1.0.0-beta.122
 
