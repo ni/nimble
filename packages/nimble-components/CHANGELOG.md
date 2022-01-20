@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 19 Jan 2022 23:57:51 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Jan 2022 04:13:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.124
+
+Thu, 20 Jan 2022 04:13:54 GMT
+
+### Changes
+
+- Add contentHidden attribute to button rather than implicitly determine a button has no text content (20542556+mollykreis@users.noreply.github.com)
 
 ## 1.0.0-beta.123
 

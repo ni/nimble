@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 20 Jan 2022 04:13:54 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.144",
+      "version": "1.0.0-beta.144",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ca752a52520a40b5a7103eaf91d9b8d222a6e0ef",
+            "comment": "Add contentHidden to Angular button directive"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.124",
+            "commit": "ca752a52520a40b5a7103eaf91d9b8d222a6e0ef"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 19 Jan 2022 23:57:51 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.143",
       "version": "1.0.0-beta.143",
