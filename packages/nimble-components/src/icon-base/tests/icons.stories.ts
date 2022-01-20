@@ -91,7 +91,8 @@ export const componentIcons: StoryObj<IconArgs> = {
     argTypes: {
         status: {
             options: Object.values(IconStatus),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: 'Set the `pass`, `fail`, or `warning` CSS class on the element to switch between the theme-aware color options.  The `--icon-color` CSS custom property can be used to override the theme-aware colors.'
         }
     },
     render: createRenderer(html`

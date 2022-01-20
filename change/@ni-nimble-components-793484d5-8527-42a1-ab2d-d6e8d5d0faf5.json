@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Remove default slot from Nimble icons. This is a breaking change. Clients using Nimble icons inside Nimble buttons, menu items, or tree items must now explicitly set the 'slot' attribute on those icons to 'start' in order for them to be styled properly.",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}
