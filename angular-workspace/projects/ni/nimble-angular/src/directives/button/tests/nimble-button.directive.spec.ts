@@ -54,6 +54,11 @@ describe('Nimble button', () => {
             expect(directive.appearance).toBe(ButtonAppearance.Outline);
             expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
         });
+
+        it('has expected defaults for contentHidden', () => {
+            expect(directive.contentHidden).toBeFalse();
+            expect(nativeElement.contentHidden).toBeFalse();
+        });
     });
 
     describe('with template string values', () => {
@@ -61,7 +66,8 @@ describe('Nimble button', () => {
             template: `
                 <nimble-button #button
                     disabled
-                    appearance="${ButtonAppearance.Ghost}">
+                    appearance="${ButtonAppearance.Ghost}"
+                    content-hidden>
                 </nimble-button>`
         })
         class TestHostComponent {
@@ -93,6 +99,11 @@ describe('Nimble button', () => {
             expect(directive.appearance).toBe(ButtonAppearance.Ghost);
             expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
         });
+
+        it('will use template string values for contentHidden', () => {
+            expect(directive.contentHidden).toBeTrue();
+            expect(nativeElement.contentHidden).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -100,7 +111,8 @@ describe('Nimble button', () => {
             template: `
                 <nimble-button #button
                     [disabled]="disabled"
-                    [appearance]="appearance">
+                    [appearance]="appearance"
+                    [content-hidden]="contentHidden">
                 </nimble-button>
             `
         })
@@ -109,6 +121,7 @@ describe('Nimble button', () => {
             @ViewChild('button', { read: ElementRef }) public elementRef: ElementRef<Button>;
             public disabled = false;
             public appearance = ButtonAppearance.Outline;
+            public contentHidden = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -147,6 +160,17 @@ describe('Nimble button', () => {
             expect(directive.appearance).toBe(ButtonAppearance.Ghost);
             expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
         });
+
+        it('can be configured with property binding for contentHidden', () => {
+            expect(directive.contentHidden).toBeFalse();
+            expect(nativeElement.contentHidden).toBeFalse();
+
+            fixture.componentInstance.contentHidden = true;
+            fixture.detectChanges();
+
+            expect(directive.contentHidden).toBeTrue();
+            expect(nativeElement.contentHidden).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -154,7 +178,8 @@ describe('Nimble button', () => {
             template: `
                 <nimble-button #button
                     [attr.disabled]="disabled"
-                    [attr.appearance]="appearance">
+                    [attr.appearance]="appearance"
+                    [attr.content-hidden]="contentHidden">
                 </nimble-button>
             `
         })
@@ -163,6 +188,7 @@ describe('Nimble button', () => {
             @ViewChild('button', { read: ElementRef }) public elementRef: ElementRef<Button>;
             public disabled: BooleanValueOrAttribute = null;
             public appearance: ButtonAppearance = ButtonAppearance.Outline;
+            public contentHidden: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -200,6 +226,17 @@ describe('Nimble button', () => {
 
             expect(directive.appearance).toBe(ButtonAppearance.Ghost);
             expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
+        });
+
+        it('can be configured with attribute binding for contentHidden', () => {
+            expect(directive.contentHidden).toBeFalse();
+            expect(nativeElement.contentHidden).toBeFalse();
+
+            fixture.componentInstance.contentHidden = '';
+            fixture.detectChanges();
+
+            expect(directive.contentHidden).toBeTrue();
+            expect(nativeElement.contentHidden).toBeTrue();
         });
     });
 });

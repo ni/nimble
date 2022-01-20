@@ -47,9 +47,9 @@ const component = (
     [appearanceName, appearance]: AppearanceState,
     [labelVisible, iconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
-    <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled}>
+    <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled} ?content-hidden=${() => !labelVisible}>
         ${when(() => iconVisible, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
-        ${() => (labelVisible ? `${appearanceName} Button ${disabledName}` : '')}
+        ${() => `${appearanceName} Button ${disabledName}`}
     </nimble-button>
 `;
 
