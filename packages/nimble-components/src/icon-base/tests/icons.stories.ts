@@ -8,6 +8,7 @@ import * as nimbleIconComponentsMap from '../../icons/all-icons';
 import { IconStatus } from '../types';
 import { createRenderer } from '../../utilities/tests/storybook';
 import type { Icon } from '..';
+import { contentFontColor } from '../../theme-provider/design-tokens';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
@@ -16,7 +17,7 @@ interface IconArgs {
     status: IconStatus;
 }
 
-const styleMarkup = `
+const styleMarkup = html`
     <style>
         .container {
             margin: 0;
@@ -37,7 +38,7 @@ const styleMarkup = `
         .icon svg {
             height: 32px;
             width: 32px;
-            fill: var(--content-font-color);
+            fill: var(${contentFontColor.cssCustomProperty});
         }
     </style>
 `;

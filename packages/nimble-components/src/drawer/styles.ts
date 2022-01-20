@@ -10,7 +10,8 @@ import {
     drawerWidth,
     fontFamily,
     popupBorderColor,
-    popupBoxShadowColor
+    popupBoxShadowColor,
+    standardPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -107,19 +108,19 @@ export const styles = css`
     }
 
     ::slotted(header) {
-        padding: var(--standard-padding);
+        padding: ${standardPadding}
         font-family: ${drawerHeaderFontFamily};
         font-size: ${drawerHeaderFontSize};
     }
 
     ::slotted(section) {
-        padding: var(--standard-padding);
+        padding: ${standardPadding}
         grid-row: 2;
         overflow-y: auto;
     }
 
     ::slotted(footer) {
-        padding: var(--standard-padding);
+        padding: ${standardPadding}
         display: flex;
         justify-content: flex-end;
         grid-row: 3;

@@ -12,6 +12,7 @@ import {
     controlHeight,
     fillColorSelected,
     fontFamily,
+    iconColor,
     smallDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -35,6 +36,7 @@ export const styles = css`
             /*
                 Not sure why but this is needed to get buttons with icons and buttons
                 without icons to align on the same line when the button is inline-flex
+                See: https://github.com/microsoft/fast/issues/5414
             */ ''
         }
         vertical-align: middle;
@@ -108,7 +110,7 @@ export const styles = css`
     }
 
     slot[name='start']::slotted(*) {
-        --icon-color: ${buttonContentFontColor};
+        ${iconColor.cssCustomProperty}: ${buttonContentFontColor};
     }
 
     :host([disabled]) slot[name='start']::slotted(*) {
