@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Theme-aware token prefix and token import files",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
