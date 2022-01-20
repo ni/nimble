@@ -18,26 +18,27 @@ The visual design spec can be found [here](https://xd.adobe.com/view/8ce280ab-15
 
 [FAST API button documentation](https://github.com/microsoft/fast/blob/6db5ed1a1fa14a1dfab17154fcf005c682fccace/packages/web-components/fast-foundation/src/button/button.spec.md)
 
-*Component Name* `nimble-toggle-button`
+_Component Name_ `nimble-toggle-button`
 
-*Properties/Attributes*
-  - attributes existing on the `nimble-button`
-    - appearance
-    - contentHidden
-  - additional attributes for the `nimble-toggle-button`
-    - toggled - boolean attribute that specifies whether or not the button is toggled on (true) or off (false); defaults to false
-  - `nimble-toggle-button` will expose `type` from the underlying button, but it will be set to a default value of `button`
+_Properties/Attributes_
 
-*Methods -- unchanged*
+-   attributes existing on the `nimble-button`
+    -   appearance
+    -   contentHidden
+-   additional attributes for the `nimble-toggle-button`
+    -   toggled - boolean attribute that specifies whether or not the button is toggled on (true) or off (false); defaults to false
+-   `nimble-toggle-button` will expose `type` from the underlying button, but it will be set to a default value of `button`
 
-*Events*
-  - additional events for the `nimble-toggle-button`
-    - `change: CustomEvent` - no custom data
+_Methods -- unchanged_
 
-*CSS classes and custom properties that affect the component -- unchanged*
+_Events_
 
-*Slots*
-  - unchanged from `nimble-button`
+-   additional events for the `nimble-toggle-button`
+    -   `change: CustomEvent` - no custom data
+
+_CSS classes and custom properties that affect the component -- unchanged_
+
+_Slots -- unchanged from `nimble-button`_
 
 ### Angular integration
 
@@ -48,10 +49,12 @@ A ControlValueAccessor will not be written for the toggle button, as there is no
 ### Additional requirements
 
 _Accessibility_:
-  - The `nimble-toggle-button` will manage the `aria-pressed` attribute on the internal button based on the value of `toggled`
-  - Since the `nimble-toggle-button` is based on an underlying button, it can be toggled in any way that the underlying button can be pressed
+
+-   The `nimble-toggle-button` will manage the `aria-pressed` attribute on the internal button based on the value of `toggled`
+-   Since the `nimble-toggle-button` is based on an underlying button, it can be toggled in any way that the underlying button can be pressed
 
 ## Example usage
+
 ```html
 <nimble-toggle-button toggled content-hidden>
     <nimble-access-control-icon slot="start"></nimble-access-control-icon>
@@ -63,4 +66,4 @@ _Accessibility_:
 
 ## Open Issues
 
-- None
+-   None
