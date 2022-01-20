@@ -11,6 +11,7 @@ interface ButtonArgs {
     appearance: string;
     disabled: boolean;
     icon: boolean;
+    contentHidden: boolean;
 }
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that
@@ -47,7 +48,7 @@ const metadata: Meta<ButtonArgs> = {
     },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}">
+        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" ?content-hidden="${x => x.contentHidden}">
             ${when(x => x.icon, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
             ${x => x.label}
         </nimble-button>
@@ -56,6 +57,7 @@ const metadata: Meta<ButtonArgs> = {
         label: 'Ghost Button',
         appearance: 'ghost',
         icon: false,
+        contentHidden: false,
         disabled: false
     }
 };
@@ -73,5 +75,10 @@ export const blockButton: StoryObj<ButtonArgs> = {
     args: { label: 'Block Button', appearance: ButtonAppearance.Block }
 };
 export const iconGhostButton: StoryObj<ButtonArgs> = {
-    args: { label: '', icon: true, appearance: ButtonAppearance.Ghost }
+    args: {
+        label: 'Icon Button',
+        icon: true,
+        contentHidden: true,
+        appearance: ButtonAppearance.Ghost
+    }
 };
