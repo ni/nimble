@@ -108,19 +108,19 @@ export const styles = css`
     }
 
     ::slotted(header) {
-        padding: ${standardPadding}
+        padding: ${standardPadding};
         font-family: ${drawerHeaderFontFamily};
         font-size: ${drawerHeaderFontSize};
     }
 
     ::slotted(section) {
-        padding: ${standardPadding}
+        padding: ${standardPadding};
         grid-row: 2;
         overflow-y: auto;
     }
 
     ::slotted(footer) {
-        padding: ${standardPadding}
+        padding: ${standardPadding};
         display: flex;
         justify-content: flex-end;
         grid-row: 3;
