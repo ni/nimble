@@ -69,7 +69,7 @@ export const styles = css`
         transition: box-shadow ${smallDelay};
     }
 
-    .control.empty-text {
+    :host([content-hidden]) .control {
         width: ${controlHeight};
         padding: 0px;
     }
@@ -103,6 +103,10 @@ export const styles = css`
 
     .content {
         display: contents;
+    }
+
+    :host([content-hidden]) .content {
+        display: none;
     }
 
     [part='start'] {

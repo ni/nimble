@@ -38,5 +38,15 @@ export class NimbleButtonDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'type', value);
     }
 
+    public get contentHidden(): boolean {
+        return this.elementRef.nativeElement.contentHidden;
+    }
+
+    // contentHidden property intentionally maps to the content-hidden attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('content-hidden') public set contentHidden(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Button>) {}
 }
