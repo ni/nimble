@@ -1,4 +1,3 @@
-import type { TextFieldAppearance } from '@microsoft/fast-components';
 import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
@@ -8,6 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { statusAlarmActive16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
+import { TextFieldAppearance } from './types';
 
 export type { TextField };
 
@@ -30,6 +30,13 @@ class TextField extends FoundationTextField {
      */
     @attr
     public appearance!: TextFieldAppearance;
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        if (!this.appearance) {
+            this.appearance = TextFieldAppearance.Underline;
+        }
+    }
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
