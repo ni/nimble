@@ -9,6 +9,8 @@ import { IconStatus } from '../types';
 import { createRenderer } from '../../utilities/tests/storybook';
 import type { Icon } from '..';
 import { contentFontColor } from '../../theme-provider/design-tokens';
+import { iconColor } from '../../theme-provider/design-token-names';
+import { scssPropertyFromTokenName } from '../../theme-provider/design-token-helpers';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
@@ -93,7 +95,7 @@ export const componentIcons: StoryObj<IconArgs> = {
         status: {
             options: Object.values(IconStatus),
             control: { type: 'radio' },
-            description: 'Set the `pass`, `fail`, or `warning` CSS class on the element to switch between the theme-aware color options.  The `--icon-color` CSS custom property can be used to override the theme-aware colors.'
+            description: `Set the 'pass', 'fail', or 'warning' CSS class on the element to switch between the theme-aware color options.  The '${scssPropertyFromTokenName(iconColor)}' SCSS property can be used to override the theme-aware colors.`
         }
     },
     render: createRenderer(html`

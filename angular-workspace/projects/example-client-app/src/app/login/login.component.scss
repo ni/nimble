@@ -1,5 +1,7 @@
+@import '~@ni/nimble-components/dist/tokens.scss';
+
 :host {
-    background-color: var(--application-background-color);
+    background-color: $ni-nimble-application-background-color;
     display: flex;
     flex: auto;
     justify-content: center;

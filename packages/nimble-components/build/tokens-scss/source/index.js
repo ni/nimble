@@ -1,5 +1,5 @@
 import * as tokenNames from '../../../dist/esm/theme-provider/design-token-names';
-import { prefix } from '../../../dist/esm/theme-provider/design-token-prefix';
+import { cssPropertyFromTokenName, scssInternalPropertyFromTokenName, scssPropertyFromTokenName } from '../../../dist/esm/theme-provider/design-token-helpers';
 
 const fs = require('fs');
 const path = require('path');
@@ -16,12 +16,12 @@ const fileHeader = `
 `;
 const fileContents = Object.values(tokenNames)
     .map(tokenName => `
-$${prefix}-${tokenName}-internal: --${prefix}-${tokenName};
-$${prefix}-${tokenName}: var($${prefix}-${tokenName}-internal);
+${scssInternalPropertyFromTokenName(tokenName)}: ${cssPropertyFromTokenName(tokenName)};
+${scssPropertyFromTokenName(tokenName)}: var(${scssInternalPropertyFromTokenName(tokenName)});
 `);
 
 const file = [fileHeader, ...fileContents].join('');
 console.log(`tokens.scss path to write to: ${tokensPath}`);
-console.log('Writing tokens.scss');
+console.log('Writing tokens file');
 fs.writeFileSync(tokensPath, file, { encoding: 'utf-8' });
-console.log('Done tokens.scss');
+console.log('Done writing tokens file');
