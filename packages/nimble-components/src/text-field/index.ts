@@ -1,3 +1,5 @@
+import type { TextFieldAppearance } from '@microsoft/fast-components';
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextField as FoundationTextField,
@@ -18,7 +20,17 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
-class TextField extends FoundationTextField {}
+class TextField extends FoundationTextField {
+    /**
+     * The appearance the text field should have.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: appearance
+     */
+    @attr
+    public appearance!: TextFieldAppearance;
+}
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
     baseName: 'text-field',
