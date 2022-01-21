@@ -23,7 +23,7 @@ ${scssPropertyFromTokenName(tokenName)}: var(${scssInternalPropertyFromTokenName
 const fileInternalTokenContents = Object.entries(tokenNames)
     .map(([_, tokenName]) => `
 /// Internal property for ${scssPropertyFromTokenName(tokenName)}.
-/// Not intended for general use. Used to override a token value (making in no longer theme-aware).
+/// Not intended for general use. Used to override a token value (potentially making in no longer theme-aware).
 /// Requires SCSS interpolation to set, ie \`#{${scssInternalPropertyFromTokenName(tokenName)}}: <new value>;\`.
 ${scssInternalPropertyFromTokenName(tokenName)}: ${cssPropertyFromTokenName(tokenName)};
 `);
