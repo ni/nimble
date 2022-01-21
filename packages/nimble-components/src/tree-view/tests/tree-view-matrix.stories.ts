@@ -43,21 +43,21 @@ const component = (
             ?expanded="${() => expanded}"
             ?disabled="${() => disabled}"
         >
-            ${when(() => iconVisible, html`<nimble-measurement-data-analysis-icon></nimble-measurement-data-analysis-icon>`)}
+            ${when(() => iconVisible, html`<nimble-measurement-data-analysis-icon slot="start"></nimble-measurement-data-analysis-icon>`)}
             ${() => expandedName} ${() => disabledName} ${() => selectedName}
             <nimble-tree-item
                 ?disabled="${() => disabled}"
                 ?selected="${() => selected}"
             >
-            ${when(() => iconVisible, html`<nimble-settings-icon></nimble-settings-icon>`)}
+            ${when(() => iconVisible, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
                 Nested Item 1
             </nimble-tree-item>
             <nimble-tree-item ?disabled="${() => disabled}">
-            ${when(() => iconVisible, html`<nimble-settings-icon></nimble-settings-icon>`)}
+            ${when(() => iconVisible, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
                 Nested Item 2
             </nimble-tree-item>
             <nimble-tree-item ?disabled="${() => disabled}">
-            ${when(() => iconVisible, html`<nimble-settings-icon></nimble-settings-icon>`)}
+            ${when(() => iconVisible, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
                 Nested Item 3
             </nimble-tree-item>
             <nimble-tree-item hidden>

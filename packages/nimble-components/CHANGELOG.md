@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 20 Jan 2022 04:13:54 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Jan 2022 21:30:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.125
+
+Thu, 20 Jan 2022 21:30:14 GMT
+
+### Changes
+
+- Remove default slot from Nimble icons. This is a breaking change. Clients using Nimble icons inside Nimble buttons, menu items, or tree items must now explicitly set the 'slot' attribute on those icons to 'start' in order for them to be styled properly. (7282195+m-akinc@users.noreply.github.com)
 
 ## 1.0.0-beta.124
 
