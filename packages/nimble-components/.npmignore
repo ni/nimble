@@ -1,3 +1,4 @@
 *
+!/dist/tokens.scss
 !/dist/esm/**
 /dist/esm/**/tests

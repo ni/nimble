@@ -33,6 +33,7 @@ import {
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './types';
 import * as tokenNames from './design-token-names';
+import { prefix } from './design-token-prefix';
 
 // Theme token definition that other tokens are based on.
 // Not represented as a CSS custom property, instead available
@@ -235,7 +236,7 @@ export const direction = createTokenWithPrefix<Direction>(
 // Private helpers functions
 
 function createTokenWithPrefix<T>(name: string): CSSDesignToken<T> {
-    return DesignToken.create<T>(`ni-nimble-${name}`);
+    return DesignToken.create<T>(`${prefix}-${name}`);
 }
 
 function hexToRgbPartial(hexValue: string): string {
