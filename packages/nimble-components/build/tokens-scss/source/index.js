@@ -16,7 +16,7 @@ const fileHeader = `
 
 const fileTokenContents = Object.entries(tokenNames)
     .map(([exportName, tokenName]) => `
-${comments[exportName] ? `/// ${comments[exportName]}` : ''}
+${comments[exportName] === '' ? '' : `/// ${comments[exportName]}`}
 ${scssPropertyFromTokenName(tokenName)}: var(${scssInternalPropertyFromTokenName(tokenName)});
 `);
 
