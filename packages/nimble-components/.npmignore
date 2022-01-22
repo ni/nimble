@@ -1,4 +1,4 @@
 *
-!/dist/tokens.scss
+!/dist/*.scss
 !/dist/esm/**
 /dist/esm/**/tests
