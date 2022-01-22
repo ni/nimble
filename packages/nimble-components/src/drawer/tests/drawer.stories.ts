@@ -1,11 +1,16 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    createRenderer,
+    overrideWarning
+} from '../../utilities/tests/storybook';
 import '../../button';
 import '..';
+import { drawerWidth as drawerWidthTokenName } from '../../theme-provider/design-token-names';
 import { drawerWidth } from '../../theme-provider/design-tokens';
 import { DrawerLocation, DrawerState } from '../types';
+import { scssInternalPropertySetterMarkdown } from '../../theme-provider/design-token-helpers';
 
 enum ExampleContentType {
     SimpleTextContent = 'SimpleTextContent',
@@ -65,6 +70,18 @@ const widths: { [key in DrawerWidthOptions]: string } = {
     [DrawerWidthOptions.Medium500]: '500px',
     [DrawerWidthOptions.FitContent]: 'fit-content'
 };
+
+const widthDescriptionOverride = `
+With SCSS properties, the drawer width can be overriden. For example:
+${scssInternalPropertySetterMarkdown(drawerWidthTokenName, '100px')}
+
+Drawer widths can be any [CSS width](https://developer.mozilla.org/en-US/docs/Web/CSS/width) value, including \`fit-content\`, etc.
+`;
+
+const widthDescription = `
+Width of a nimble drawer.
+${overrideWarning('Drawer Width', widthDescriptionOverride)}
+`;
 
 const metadata: Meta<DrawerArgs> = {
     title: 'Drawer',
@@ -135,7 +152,7 @@ const metadata: Meta<DrawerArgs> = {
             }
         },
         width: {
-            description: `Set via CSS Variable: ${drawerWidth.cssCustomProperty}. Can be any CSS width value, including min/max/fit-content.`,
+            description: widthDescription,
             options: [
                 DrawerWidthOptions.Default,
                 DrawerWidthOptions.Small300,

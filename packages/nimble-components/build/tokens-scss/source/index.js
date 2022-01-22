@@ -1,5 +1,10 @@
 import * as tokenNames from '../../../dist/esm/theme-provider/design-token-names';
-import { cssPropertyFromTokenName, scssInternalPropertyFromTokenName, scssPropertyFromTokenName } from '../../../dist/esm/theme-provider/design-token-helpers';
+import {
+    cssPropertyFromTokenName,
+    scssInternalPropertyFromTokenName,
+    scssPropertyFromTokenName,
+    scssInternalPropertySetterMarkdown
+} from '../../../dist/esm/theme-provider/design-token-helpers';
 import { comments } from '../../../dist/esm/theme-provider/design-token-comments';
 
 const fs = require('fs');
@@ -35,8 +40,8 @@ const tokensInternalFileHeader = `
 const tokensInternalFileContents = Object.entries(tokenNames)
     .map(([_, tokenName]) => `
 /// Internal property for ${scssPropertyFromTokenName(tokenName)}.
-/// Not intended for general use. Used to override a token value (potentially making in no longer theme-aware).
-/// Requires SCSS interpolation to set, ie \`#{${scssInternalPropertyFromTokenName(tokenName)}}: <new value>;\`.
+/// Not intended for general use. Used to override a token value (generally making it no longer theme-aware).
+/// Requires SCSS interpolation to set, ie ${scssInternalPropertySetterMarkdown(tokenName, '<new value>')}.
 ${scssInternalPropertyFromTokenName(tokenName)}: ${cssPropertyFromTokenName(tokenName)};
 `);
 

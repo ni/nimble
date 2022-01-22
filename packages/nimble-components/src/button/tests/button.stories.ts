@@ -74,11 +74,11 @@ export const ghostButton: StoryObj<ButtonArgs> = {
 export const blockButton: StoryObj<ButtonArgs> = {
     args: { label: 'Block Button', appearance: ButtonAppearance.Block }
 };
-export const iconGhostButton: StoryObj<ButtonArgs> = {
+export const iconButton: StoryObj<ButtonArgs> = {
     args: {
         label: 'Icon Button',
         icon: true,
         contentHidden: true,
-        appearance: ButtonAppearance.Ghost
+        appearance: ButtonAppearance.Outline
     }
 };
