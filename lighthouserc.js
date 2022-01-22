@@ -1,9 +1,5 @@
 module.exports = {
   ci: {
-    url: [
-      'http://localhost/index.html/#/login',
-      'http://localhost/index.html/#/customapp'
-    ],
     collect: {
       staticDistDir: './angular-workspace/dist/example-client-app',
       numberOfRuns: 3,
