@@ -33,7 +33,7 @@ export const styles: (
             color: ${contentFontColor};
             cursor: pointer;
             font-family: ${fontFamily};
-            --private-tree-item-nested-width: 0;
+            --ni-private-tree-item-nested-width: 0;
         }
 
         ${/* this controls the side border */ ''}
@@ -76,7 +76,7 @@ export const styles: (
         .positioning-region::before {
             content: '';
             display: block;
-            width: var(--private-tree-item-nested-width);
+            width: var(--ni-private-tree-item-nested-width);
             flex-shrink: 0;
         }
 
@@ -152,8 +152,8 @@ export const styles: (
         }
 
         ::slotted(${context.tagFor(TreeItem)}) {
-            --private-tree-item-nested-width: 1em;
-            --private-expand-collapse-button-nested-width: calc(
+            --ni-private-tree-item-nested-width: 1em;
+            --ni-private-expand-collapse-button-nested-width: calc(
                 ${iconSize} * -1
             );
         }
@@ -190,7 +190,7 @@ export const styles: (
                     ${/* ltr styles */ ''}
                     :host(.nested) .expand-collapse-button {
                         left: var(
-                            --private-expand-collapse-button-nested-width,
+                            --ni-private-expand-collapse-button-nested-width,
                             calc(${iconSize} * -1)
                         );
                     }
@@ -207,7 +207,7 @@ export const styles: (
                     ${/* rtl styles */ ''}
                     :host(.nested) .expand-collapse-button {
                         right: var(
-                            --private-expand-collapse-button-nested-width,
+                            --ni-private-expand-collapse-button-nested-width,
                             calc(${iconSize} * -1)
                         );
                     }
