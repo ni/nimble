@@ -3,13 +3,13 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
 import { createRenderer } from '../../utilities/tests/storybook';
-import '../../theme-provider';
+import '..';
 import {
     labelFontColor,
     labelFontFamily,
     labelFontSize,
     labelFontWeight
-} from '../../theme-provider/design-tokens';
+} from '../design-tokens';
 
 interface NimbleColor {
     name: string;
