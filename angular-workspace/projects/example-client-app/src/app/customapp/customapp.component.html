@@ -10,10 +10,48 @@
                 <nimble-button (click)="navDrawer.open()">Open drawer</nimble-button>
             </nimble-tabs-toolbar>
             <nimble-tab-panel>
-                Explore the tabs above to see a selection of other Nimble components in action. See the <a href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page" target="_blank">Nimble component docs</a> for additional details.
+                Explore the tabs above to see other Nimble components in action. See the <a
+                    href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page"
+                    target="_blank">Nimble component docs</a> for additional usage details.
+                <div class="container">
+                    <nimble-button appearance="block" (click)="navDrawer.open()">
+                        Open drawer
+                    </nimble-button>
+                    <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
+                        <nimble-listbox-option [value]="drawerLocations.Left">Drawer: Left-side</nimble-listbox-option>
+                        <nimble-listbox-option [value]="drawerLocations.Right">Drawer: Right-side</nimble-listbox-option>
+                    </nimble-select>
+                    <nimble-number-field placeholder="Number Field" value="42">
+                        Number Field
+                    </nimble-number-field>
+                    <nimble-text-field placeholder="Text Field" value="Here is text!">
+                        Text Field
+                    </nimble-text-field>
+                    <nimble-checkbox>
+                        Checkbox label
+                    </nimble-checkbox>
+                    <nimble-menu>
+                        <header>
+                            Header 1
+                        </header>
+                        <nimble-menu-item>
+                            Item 1
+                        </nimble-menu-item>
+                        <nimble-menu-item>
+                            Item 2
+                        </nimble-menu-item>
+                        <hr>
+                        <header>
+                            Header 2
+                        </header>
+                        <nimble-menu-item>
+                            Item 4
+                        </nimble-menu-item>
+                    </nimble-menu>
+                </div>
             </nimble-tab-panel>
             <nimble-tab-panel>
-                <div class="options-container">
+                <div class="container">
                     Drawer/Sidenav:
                     <nimble-button appearance="outline" (click)="navDrawer.open()">
                         Open
@@ -23,7 +61,8 @@
                     </nimble-button>
                     <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
                         <nimble-listbox-option [value]="drawerLocations.Left">Drawer: Left-side</nimble-listbox-option>
-                        <nimble-listbox-option [value]="drawerLocations.Right">Drawer: Right-side</nimble-listbox-option>
+                        <nimble-listbox-option [value]="drawerLocations.Right">Drawer: Right-side
+                        </nimble-listbox-option>
                     </nimble-select>
                 </div>
             </nimble-tab-panel>
