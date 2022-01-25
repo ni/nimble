@@ -5,8 +5,20 @@ import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
 import * as tokenNamesNamespace from '../design-token-names';
 import { comments } from '../design-token-comments';
-import { cssPropertyFromTokenName, scssPropertyFromTokenName } from '../design-token-helpers';
-import { groupLabelFontColor, groupLabelFontSize, groupLabelFontFamily, fontFamily, contentFontSize, contentFontColor, groupLabelFontWeight, groupLabelTextTransform } from '../design-tokens';
+import {
+    cssPropertyFromTokenName,
+    scssPropertyFromTokenName
+} from '../design-token-helpers';
+import {
+    groupLabelFontColor,
+    groupLabelFontSize,
+    groupLabelFontFamily,
+    fontFamily,
+    contentFontSize,
+    contentFontColor,
+    groupLabelFontWeight,
+    groupLabelTextTransform
+} from '../design-tokens';
 
 type TokenName = keyof typeof tokenNamesNamespace;
 const tokenNames: TokenName[] = Object.keys(tokenNamesNamespace) as TokenName[];
