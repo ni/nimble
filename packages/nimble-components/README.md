@@ -28,30 +28,42 @@ If you have an existing application that incorporates a module bundler like [Web
 
 ## Theming
 
-This package contains a theming system which enables changing the appearance of controls based on user preferences or application designs. All built in components are styled in several themes. An application can also read the tokens underlying the themes to style other parts of the application or modify the tokens underlying the themes to customize the appearance beyond what Nimble offers.
+This package contains a theming system which enables changing the appearance of controls based on user preferences or application designs.
+
+The theming system is built on a set of design tokens that define different properties such as fonts, colors, etc. The nimble components are configured to use these theme-aware design tokens. An application should use the same theme-aware design tokens for parts outside of the components.
 
 The theming system is composed of:
 
-1. theme-aware [design tokens](/packages/nimble-components/src/theme-provider/design-tokens.ts) which map base tokens from `nimble-tokens` to CSS variables and TypeScript constants that style parts of controls.
-2. a [theme provider component](/packages/nimble-components/src/theme-provider/index.ts) which organizes the higher level tokens into themes.
+1. Theme-aware design tokens that are used in your stylesheets.
+2. A `<nimble-theme-provider>` component that is added around your page contents and is configured for a theme.
 
 ### Using the Theming System
 
 1. Include the `<nimble-theme-provider>` element on your page and set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components. It will typically be at the root of the application:
 
-```html
-<body>
-    <nimble-theme-provider theme="light">
-        <!-- everything else -->
-    </nimble-theme-provider>
-</body>
-```
+    ```html
+    <body>
+        <nimble-theme-provider theme="light">
+            <!-- everything else -->
+        </nimble-theme-provider>
+    </body>
+    ```
 
-2. _Optional_ Add other Nimble components as descendants of the theme provider and they will inherit the theme.
-3. _Optional_ Style non-Nimble components using the values which the theme provider defines for tokens.
-    - Tokens are exposed as CSS custom properties and as TypeScript constants using the [FAST Design Token](https://www.fast.design/docs/design-systems/design-tokens) implementation.
-    - These tokens are not yet documented but you can see their names in [`design-tokens.ts`](/packages/nimble-components/src/theme-provider/design-tokens.ts).
-4. _Optional_ Customize the theme for all or part of your application. Approaches for doing this are an area of active research; please reach out to the Nimble team to discuss your use case.
+2. _Optional_: Add Nimble components as descendants of the theme provider and they will inherit the theme.
+3. _Optional_: Style non-Nimble components using the values which the theme provider defines for tokens.
+
+    - Tokens are defined in an SCSS file at `@ni/nimble-components/dist/tokens.scss`.
+    - It is strongly recommended that you consume tokens by using SCSS in your application. Depending on your build tool configuration, you likely will include the tokens at the start of any SCSS file that leverages the tokens with:
+
+        ```scss
+        @import '~@ni/nimble-components/dist/tokens.scss';
+        ```
+
+    - Leveraging `tokens.scss` is preferred as your application build process will be aware of changes to token names, etc. If you cannot leverage SCSS, it is possible to use the CSS properties directly although you lose the benefit of build tooling being aware of property definitions.
+
+4. _Not recommended_: Override the value of design tokens to use configurations the design system does not include. For example, if you need to define custom colors for icons that are not available on the current icons. This can be difficult for you to maintain as overriding the value of a design token will typically cause the token to no longer be theme-aware.
+
+    If you are in a situation where you need to override a design token value, please reach out to the Nimble team to discuss your use case.
 
 ## Contributing
 

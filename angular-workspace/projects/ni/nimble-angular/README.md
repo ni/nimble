@@ -15,6 +15,7 @@ NI-styled UI components for Angular applications
 1. Install Nimble Angular from the [public NPM registry](https://www.npmjs.com/package/@ni/nimble-angular) by running `npm install @ni/nimble-angular`.
 2. The steps to use components from Nimble Angular are similar to using components from any other Angular library. You can see the [Example Client App](/angular-workspace/projects/example-client-app) project for an example.
    1. Update your `app.module.ts` to import the module for `NimbleThemeProviderModule` and each component you want to use:
+
         ```ts
         import { NimbleDrawerModule } from '@ni/nimble-angular';
         import { NimbleThemeProviderModule } from '@ni/nimble-angular';
@@ -27,17 +28,34 @@ NI-styled UI components for Angular applications
         })
         class AppModule {}
         ```
-   2. Add the `<nimble-theme-provider>` element to your `app.component.html` and set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components. See [the theming documentation in `nimble-components`](/packages/nimble-components/README.md#theming) for more information. 
+
+   2. Add the `<nimble-theme-provider>` element to your `app.component.html` and set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components.
+
         ```html
         <nimble-theme-provider [theme]="theme">
             <router-outlet></router-outlet>
         </nimble-theme-provider>
         ```
+
+        If needed, import the theme-aware design tokens in each SCSS file that will leverage the tokens for other parts of your application (for colors, fonts, etc).
+
+        ```scss
+        @import '~@ni/nimble-components/dist/tokens.scss';
+
+        .my-element {
+            font-family: $ni-nimble-font-family
+        }
+        ```
+
+        See [the theming documentation in `nimble-components`](/packages/nimble-components/README.md#theming) for more information. 
    3. Add the component to your `app.component.html` (or to the template for another component in your application):
+
         ```html
         <nimble-drawer #drawerReference location="right">This is a drawer</nimble-drawer>
         ```
-   4. If needed, import the Nimble component's directive and types in `app.component.ts` (or the TypeScript file backing another component) to use its programmatic API: 
+
+   4. If needed, import the Nimble component's directive and types in `app.component.ts` (or the TypeScript file backing another component) to use its programmatic API:
+
         ```ts
         import { NimbleDrawerDirective } from '@ni/nimble-angular';
         import { NimbleTheme } from '@ni/nimble-angular';
