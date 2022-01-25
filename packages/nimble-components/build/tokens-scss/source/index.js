@@ -10,15 +10,20 @@ import { comments } from '../../../dist/esm/theme-provider/design-token-comments
 const fs = require('fs');
 const path = require('path');
 
+const fontsFilePath = path.resolve(__dirname, '../../../dist/fonts.scss');
+const fontsFile = `// Nimble Components Fonts SCSS
+
+@import '~@ni/nimble-tokens/source/fonts';
+`;
+
 const tokensFilePath = path.resolve(__dirname, '../../../dist/tokens.scss');
 
-const tokensFileHeader = `
-// Nimble Tokens SCSS
+const tokensFileHeader = `// Nimble Components Tokens SCSS
 // Used to integrate theme aware design tokens in an application.
 // Requires using a <nimble-theme-provider> in the page.
 // For more information see https://github.com/ni/nimble/tree/main/packages/nimble-components#theming
 
-@import './tokens-internal.scss';
+@import './tokens-internal';
 `;
 
 const tokensFileContents = Object.entries(tokenNames)
@@ -31,9 +36,8 @@ const tokensFile = [tokensFileHeader, ...tokensFileContents].join('');
 
 const tokensInternalFilePath = path.resolve(__dirname, '../../../dist/tokens-internal.scss');
 
-const tokensInternalFileHeader = `
-// Nimble Internal Tokens SCSS
-// Used by Nimble Tokens SCSS
+const tokensInternalFileHeader = `// Nimble Components Internal Tokens SCSS
+// Used by Nimble Components Tokens SCSS
 // For more information see https://github.com/ni/nimble/tree/main/packages/nimble-components#theming
 `;
 
@@ -47,8 +51,13 @@ ${scssInternalPropertyFromTokenName(tokenName)}: ${cssPropertyFromTokenName(toke
 
 const tokensInternalFile = [tokensInternalFileHeader, ...tokensInternalFileContents].join('');
 
+console.log(`fonts path to write to: ${fontsFilePath}`);
 console.log(`tokens path to write to: ${tokensFilePath}`);
 console.log(`tokens internal path to write to: ${tokensInternalFilePath}`);
+
+console.log('Writing fonts file');
+fs.writeFileSync(fontsFilePath, fontsFile, { encoding: 'utf-8' });
+console.log('Done writing tokens file');
 
 console.log('Writing tokens file');
 fs.writeFileSync(tokensFilePath, tokensFile, { encoding: 'utf-8' });
