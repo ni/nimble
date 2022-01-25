@@ -31,3 +31,4 @@ Include automated/manual test additions or modifications, testing done on a loca
 <!--- Review the list and put an x in the boxes that apply or ~~strike through~~ around items that don't (along with an explanation). -->
 
 - [ ] I have updated the project documentation to reflect my changes or determined no changes are needed.
+- [ ] I have added any new Angular components to the [example](/angular-workspace/projects/example-client-app) project and have reviewed the Lighthouse CI check (lhci) to confirm there are no regressions.
