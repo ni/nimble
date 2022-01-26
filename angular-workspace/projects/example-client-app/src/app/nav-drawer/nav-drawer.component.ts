@@ -2,7 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { DrawerLocation, DrawerState, NimbleDrawerDirective } from '@ni/nimble-angular';
 
 @Component({
-    selector: 'nimble-example-nav-drawer',
+    selector: 'example-nav-drawer',
     templateUrl: './nav-drawer.component.html',
     styleUrls: ['./nav-drawer.component.scss']
 })

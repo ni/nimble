@@ -1,9 +1,8 @@
-import type * as TokenNamesNamespace from './design-token-names';
+import type * as TokensNamespace from './design-tokens';
 
-type TokenNames = typeof TokenNamesNamespace;
-type TokenNameKeys = keyof TokenNames;
+type TokenName = keyof typeof TokensNamespace;
 
-export const comments: { [key in TokenNameKeys]: string } = {
+export const comments: { [key in TokenName]: string } = {
     actionColorRgbPartial: '',
     applicationBackgroundColor: 'Background color for the application.',
     fillColorSelected: '',
@@ -46,6 +45,5 @@ export const comments: { [key in TokenNameKeys]: string } = {
     smallDelay: '',
     mediumDelay: '',
     drawerAnimationDurationMs: '',
-    passwordRevealFilter: '',
-    direction: ''
+    passwordRevealFilter: ''
 };

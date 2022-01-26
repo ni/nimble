@@ -1,9 +1,8 @@
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { DesignSystem, DesignToken, FoundationElement } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
-import { direction, theme } from './design-tokens';
 import { NimbleTheme } from './types';
 
 export type { NimbleThemeProvider };
@@ -13,6 +12,18 @@ declare global {
         'nimble-theme-provider': NimbleThemeProvider;
     }
 }
+
+// Not represented as a CSS Custom Property, instead available
+// as an attribute of theme provider.
+export const direction = DesignToken.create<Direction>({
+    name: 'direction',
+    cssCustomPropertyName: null
+}).withDefault(Direction.ltr);
+
+export const theme = DesignToken.create<NimbleTheme>({
+    name: 'theme',
+    cssCustomPropertyName: null
+}).withDefault(NimbleTheme.Light);
 
 /**
  * The NimbleThemeProvider implementation. Add this component to the page and set its `theme` attribute to control

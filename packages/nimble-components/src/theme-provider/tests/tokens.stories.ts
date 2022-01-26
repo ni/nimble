@@ -3,12 +3,9 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import * as tokenNamesNamespace from '../design-token-names';
+import { tokenNames, cssPropertyFromTokenName, scssPropertyFromTokenName } from '../design-token-names';
 import { comments } from '../design-token-comments';
-import {
-    cssPropertyFromTokenName,
-    scssPropertyFromTokenName
-} from '../design-token-helpers';
+
 import {
     groupLabelFontColor,
     groupLabelFontSize,
@@ -20,9 +17,9 @@ import {
     groupLabelTextTransform
 } from '../design-tokens';
 
-type TokenName = keyof typeof tokenNamesNamespace;
-const tokenNames: TokenName[] = Object.keys(tokenNamesNamespace) as TokenName[];
-tokenNames.sort((a, b) => a.localeCompare(b));
+type TokenName = keyof typeof tokenNames;
+const tokenNameKeys = Object.keys(tokenNames) as TokenName[];
+tokenNameKeys.sort((a, b) => a.localeCompare(b));
 
 const overviewText = 'Design Tokens to use in applications. See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-components">nimble-components</a> readme for more information.';
 
@@ -73,11 +70,11 @@ export const propertyNames: StoryObj = {
                 </tr>
             </thead>
             <tbody>
-            ${repeat(() => tokenNames, html<TokenName>`
+            ${repeat(() => tokenNameKeys, html<TokenName>`
                 <tr>
-                    <td>${x => scssPropertyFromTokenName(tokenNamesNamespace[x])}</td>
+                    <td>${x => scssPropertyFromTokenName(tokenNames[x])}</td>
                     <td>${x => comments[x]}</td>
-                    <td>${x => cssPropertyFromTokenName(tokenNamesNamespace[x])}</td>
+                    <td>${x => cssPropertyFromTokenName(tokenNames[x])}</td>
                 </tr>
             `)}
             </tbody>

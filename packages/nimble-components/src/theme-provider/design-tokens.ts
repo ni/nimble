@@ -1,5 +1,4 @@
 import { DesignToken } from '@microsoft/fast-foundation';
-import { Direction } from '@microsoft/fast-web-utilities';
 import hexRgb from 'hex-rgb';
 import {
     Black91,
@@ -32,16 +31,8 @@ import {
     LegacyContentFamily
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { NimbleTheme } from './types';
-import * as tokenNames from './design-token-names';
-import { styleNameFromTokenName } from './design-token-helpers';
-
-// Theme token definition that other tokens are based on.
-// Not represented as a CSS custom property, instead available
-// as an attribute of theme provider.
-export const theme = DesignToken.create<NimbleTheme>({
-    name: 'theme',
-    cssCustomPropertyName: null
-}).withDefault(NimbleTheme.Light);
+import { tokenNames, styleNameFromTokenName } from './design-token-names';
+import { theme } from '.';
 
 // Color Tokens
 export const actionColorRgbPartial = DesignToken.create<string>(
@@ -227,11 +218,6 @@ export const drawerAnimationDurationMs = DesignToken.create<number>(
 export const passwordRevealFilter = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.passwordRevealFilter)
 ).withDefault((element: HTMLElement) => getPasswordRevealFilterForTheme(element));
-
-// Localization Tokens
-export const direction = DesignToken.create<Direction>(
-    styleNameFromTokenName(tokenNames.direction)
-).withDefault(Direction.ltr);
 
 // Private helpers functions
 function hexToRgbPartial(hexValue: string): string {

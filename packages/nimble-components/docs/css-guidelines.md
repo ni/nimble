@@ -17,9 +17,17 @@ For maintainability, the associated CSS Property name should not be hard coded a
 
 For components, the `css` helper is able to [use design token values in the css template string](https://www.fast.design/docs/design-systems/design-tokens#using-design-tokens-in-css) directly.
 
+```js
+import {labelFontFamily} from './design-tokens';
+const style = css`
+    .my-label {
+        font-family: ${labelFontFamily};
+    }
+`;
+```
+
 When using the design tokens outside of a components, for example in the `html` helper for a storybook page, the token name can be accessed with [`cssCustomProperty`](https://www.fast.design/docs/api/fast-foundation.cssdesigntoken.csscustomproperty).
 
-For example:
 ```js
 import {labelFontFamily} from './design-tokens';
 const template = html`
@@ -31,11 +39,11 @@ const template = html`
 `;
 ```
 
-Note: When the token is accessed as a CSS Custom Property it needs to use the `var()` syntax unlike when used in a component with the `css helper`.
+Note: When the token is accessed as a CSS Custom Property it needs to use the `var()` syntax unlike when used in a component with the `css` helper.
 
 ### CSS Custom Properties
 
-CSS Custom Properties should generally not be used directly within nimble components. Any css custom property that a control uses that can be manipulated outside of the control is part of the control's public API and should be defined as a design token.
+CSS Custom Properties should generally not be used directly within nimble components. Any CSS Custom Property that a control uses that can be manipulated outside of the control is part of the control's public API and should be defined as a design token.
 
 If a CSS Custom Property is used completely internally to a control, for example it calculates a style inside its shadow root that it uses in multiple places inside its shadow root, then it should not be defined in the design system and should have the `--ni-private-` prefix.
 

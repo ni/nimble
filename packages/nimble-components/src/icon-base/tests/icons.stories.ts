@@ -12,8 +12,7 @@ import {
 } from '../../utilities/tests/storybook';
 import type { Icon } from '..';
 import { contentFontColor } from '../../theme-provider/design-tokens';
-import { iconColor } from '../../theme-provider/design-token-names';
-import { scssInternalPropertySetterMarkdown } from '../../theme-provider/design-token-helpers';
+import { tokenNames, scssInternalPropertySetterMarkdown } from '../../theme-provider/design-token-names';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
@@ -93,7 +92,7 @@ const iconTemplate = html<IconClass, IconArgs>`
 
 const statusDescriptionOvverride = `
 With SCSS properties, the icon color can be overriden. For example:
-${scssInternalPropertySetterMarkdown(iconColor, 'purple')}
+${scssInternalPropertySetterMarkdown(tokenNames.iconColor, 'purple')}
 `;
 
 const statusDescription = `

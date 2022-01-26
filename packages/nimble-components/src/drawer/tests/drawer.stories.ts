@@ -7,10 +7,9 @@ import {
 } from '../../utilities/tests/storybook';
 import '../../button';
 import '..';
-import { drawerWidth as drawerWidthTokenName } from '../../theme-provider/design-token-names';
+import { tokenNames, scssInternalPropertySetterMarkdown } from '../../theme-provider/design-token-names';
 import { drawerWidth } from '../../theme-provider/design-tokens';
 import { DrawerLocation, DrawerState } from '../types';
-import { scssInternalPropertySetterMarkdown } from '../../theme-provider/design-token-helpers';
 
 enum ExampleContentType {
     SimpleTextContent = 'SimpleTextContent',
@@ -73,7 +72,7 @@ const widths: { [key in DrawerWidthOptions]: string } = {
 
 const widthDescriptionOverride = `
 With SCSS properties, the drawer width can be overriden. For example:
-${scssInternalPropertySetterMarkdown(drawerWidthTokenName, '100px')}
+${scssInternalPropertySetterMarkdown(tokenNames.drawerWidth, '100px')}
 
 Drawer widths can be any [CSS width](https://developer.mozilla.org/en-US/docs/Web/CSS/width) value, including \`fit-content\`, etc.
 `;

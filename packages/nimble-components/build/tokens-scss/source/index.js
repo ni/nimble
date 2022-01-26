@@ -1,10 +1,10 @@
-import * as tokenNames from '../../../dist/esm/theme-provider/design-token-names';
 import {
+    tokenNames,
     cssPropertyFromTokenName,
     scssInternalPropertyFromTokenName,
     scssPropertyFromTokenName,
     scssInternalPropertySetterMarkdown
-} from '../../../dist/esm/theme-provider/design-token-helpers';
+} from '../../../dist/esm/theme-provider/design-token-names';
 import { comments } from '../../../dist/esm/theme-provider/design-token-comments';
 
 const fs = require('fs');
