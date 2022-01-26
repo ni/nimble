@@ -1,5 +1,4 @@
 import '@ni/nimble-tokens/source/fonts.css';
-import '../dist/esm/theme-provider';
 import { backgroundStates } from '../dist/esm/utilities/tests/matrix';
 
 const [defaultBackground] = backgroundStates;
