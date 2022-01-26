@@ -57,7 +57,7 @@ console.log(`tokens internal path to write to: ${tokensInternalFilePath}`);
 
 console.log('Writing fonts file');
 fs.writeFileSync(fontsFilePath, fontsFile, { encoding: 'utf-8' });
-console.log('Done writing tokens file');
+console.log('Done writing fonts file');
 
 console.log('Writing tokens file');
 fs.writeFileSync(tokensFilePath, tokensFile, { encoding: 'utf-8' });
