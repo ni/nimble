@@ -1,18 +1,25 @@
 ---
-name: Feature request
+name: 🙋 Feature request
 about: Suggest an idea for this project
 title: ''
 labels: 'enhancement;triage'
-assignees: ''
-
 ---
 
-## Problem to Solve
-_TODO: A clear and concise description of why this feature is wanted or what problem it solves._
+<!---
+Thanks for filing an issue 😄! Before you submit, please read the following:
 
-## Proposed Solution
-_TODO: A clear and concise description of what you want to happen._
+Search open/closed issues before submitting. Someone may have requested the same feature before.
+-->
 
-## Tasks
-_TODO: The implementing team may build a list of tasks/sub-issues here:_
+## 😯 Problem to Solve
+
+<!--- Provide a clear and concise description of why this feature is wanted or what problem it solves. -->
+
+## 💁 Proposed Solution
+
+<!--- Provide a clear and concise description of the feature you're proposing. -->
+
+<!--- The implementing team may build a list of tasks/sub-issues here:
+## 📋 Tasks
 - [ ] This is a subtask of the feature. (It can be converted to an issue.)
+-->
