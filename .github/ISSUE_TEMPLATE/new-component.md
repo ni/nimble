@@ -1,6 +1,6 @@
 ---
 name: New component
-about: Propose a new component to add to Nimble
+about: [DEV TEAM ONLY] New Nimble component
 title: ''
 labels: 'enhancement'
 assignees: ''
