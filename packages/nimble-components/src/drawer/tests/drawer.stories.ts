@@ -7,7 +7,10 @@ import {
 } from '../../utilities/tests/storybook';
 import '../../button';
 import '..';
-import { tokenNames, scssInternalPropertySetterMarkdown } from '../../theme-provider/design-token-names';
+import {
+    tokenNames,
+    scssInternalPropertySetterMarkdown
+} from '../../theme-provider/design-token-names';
 import { drawerWidth } from '../../theme-provider/design-tokens';
 import { DrawerLocation, DrawerState } from '../types';
 

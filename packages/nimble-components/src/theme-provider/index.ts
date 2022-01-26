@@ -1,4 +1,8 @@
-import { DesignSystem, DesignToken, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    DesignSystem,
+    DesignToken,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';

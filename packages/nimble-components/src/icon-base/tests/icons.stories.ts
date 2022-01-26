@@ -12,7 +12,10 @@ import {
 } from '../../utilities/tests/storybook';
 import type { Icon } from '..';
 import { contentFontColor } from '../../theme-provider/design-tokens';
-import { tokenNames, scssInternalPropertySetterMarkdown } from '../../theme-provider/design-token-names';
+import {
+    tokenNames,
+    scssInternalPropertySetterMarkdown
+} from '../../theme-provider/design-token-names';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);

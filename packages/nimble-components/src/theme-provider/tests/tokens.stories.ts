@@ -3,7 +3,11 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import { tokenNames, cssPropertyFromTokenName, scssPropertyFromTokenName } from '../design-token-names';
+import {
+    tokenNames,
+    cssPropertyFromTokenName,
+    scssPropertyFromTokenName
+} from '../design-token-names';
 import { comments } from '../design-token-comments';
 
 import {
