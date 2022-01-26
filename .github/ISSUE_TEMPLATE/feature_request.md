@@ -2,19 +2,17 @@
 name: Feature request
 about: Suggest an idea for this project
 title: ''
-labels: ''
+labels: 'enhancement'
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## Problem to Solve
+_TODO: A clear and concise description of why this feature is wanted or what problem it solves._
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## Proposed Solution
+_TODO: A clear and concise description of what you want to happen._
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
-
-**Additional context**
-Add any other context or screenshots about the feature request here.
+## Tasks
+_TODO: The implementing team may build a list of tasks/sub-issues here:_
+- [ ] This is a subtask of the feature. (It can be converted to an issue.)
