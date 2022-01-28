@@ -11,8 +11,8 @@ export class LoginComponent {
     public loginForm: FormGroup;
     public constructor(private readonly formBuilder: FormBuilder, @Inject(Router) private readonly router: Router) {
         this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required]
+            username: ['someuser', Validators.required],
+            password: ['password', Validators.required]
         });
     }
 

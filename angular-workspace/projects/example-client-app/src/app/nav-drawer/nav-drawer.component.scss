@@ -2,6 +2,7 @@
     font-family: var(--font-family);
     height: 100%;
     --drawer-width: 300px;
+    background-color: var(--application-background-color);
 }
 
 .drawer-container.pinned {

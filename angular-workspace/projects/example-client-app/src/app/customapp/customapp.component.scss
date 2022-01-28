@@ -1,13 +1,28 @@
+.container-label {
+    font-family: var(--group-label-font-family);
+    font-weight: var(--group-label-font-weight);
+    font-size: 14px;
+    color: var(--group-label-font-color);
+    padding-bottom: 10px;
+}
+
+p {
+    color: var(--group-label-font-color);
+}
+
 .container {
-    background-color: var(--application-background-color);
     display: inline-flex;
     justify-content: left;
     flex-direction: column;
     padding: 0px 2px 0px 10px;
 }
 
-.container > * {
+.sub-container {
     margin: 20px;
+}
+
+.sub-container > * {
+    padding-right: 5px;
 }
 
 .theme-select {
