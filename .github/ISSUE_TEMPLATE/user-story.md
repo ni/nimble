@@ -1,6 +1,6 @@
 ---
 name: 📌 User story
-about: [DEV TEAM ONLY] A small chunk of work to be done
+about: (DEV TEAM ONLY) A small chunk of work to be done
 title: '(Fully descriptive title)'
 ---
 
