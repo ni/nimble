@@ -93,7 +93,7 @@ const iconTemplate = html<IconClass, IconArgs>`
     `}
 `;
 
-const statusDescriptionOvverride = `
+const statusDescriptionOverride = `
 With SCSS properties, the icon color can be overriden. For example:
 ${scssInternalPropertySetterMarkdown(tokenNames.iconColor, 'purple')}
 `;
@@ -101,7 +101,7 @@ ${scssInternalPropertySetterMarkdown(tokenNames.iconColor, 'purple')}
 const statusDescription = `
 Set the \`pass\`, \`fail\`, or \`warning\` CSS class on the element to switch between the theme-aware color options.
 
-${overrideWarning('Color', statusDescriptionOvverride)}
+${overrideWarning('Color', statusDescriptionOverride)}
 `;
 
 // prettier-ignore

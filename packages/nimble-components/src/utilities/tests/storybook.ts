@@ -62,11 +62,11 @@ export const createRenderer = <TSource>(
 
 export const overrideWarning = (
     propertySummaryName: string,
-    howtoOverride: string
+    howToOverride: string
 ): string => `
 <details>
 <summary>Overriding ${propertySummaryName} Values</summary>
-Overrides of properties are not recommended and are not theme-aware by default. If a needed value is not available, you should create an issue to discuss with the nimble team.
+Overrides of properties are not recommended and are not theme-aware by default. If a needed value is not available, you should create an issue to discuss with the Nimble squad.
 
-${howtoOverride}
+${howToOverride}
 </details>`;
