@@ -15,7 +15,7 @@ When a Design Token is defined it will have the following associated with it:
 
 For maintainability, the associated CSS Property name should not be hard coded anywhere in nimble-components, ie in components, storybook, tests, etc.
 
-For components, the `css` helper is able to [use design token values in the css template string](https://www.fast.design/docs/design-systems/design-tokens#using-design-tokens-in-css) directly.
+For components, the `css` helper is able to [use design token values in the `css` template string](https://www.fast.design/docs/design-systems/design-tokens#using-design-tokens-in-css) directly.
 
 ```js
 import {labelFontFamily} from './design-tokens';
@@ -26,7 +26,7 @@ const style = css`
 `;
 ```
 
-When using the design tokens outside of a components, for example in the `html` helper for a storybook page, the token name can be accessed with [`cssCustomProperty`](https://www.fast.design/docs/api/fast-foundation.cssdesigntoken.csscustomproperty).
+When using the design tokens outside of a component, for example in the `html` helper for a storybook page, the token name can be accessed with [`cssCustomProperty`](https://www.fast.design/docs/api/fast-foundation.cssdesigntoken.csscustomproperty).
 
 ```js
 import {labelFontFamily} from './design-tokens';
