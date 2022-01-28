@@ -47,6 +47,25 @@ jobs:
             angular-workspace/**/*.tgz
           if-no-files-found: error
 
+      # Publish to Chromatic (from any push)
+      - name: Publish to Chromatic
+        if: github.event_name == 'push'
+        uses: chromaui/action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: ./packages/nimble-components
+          storybookBuildDir: ../../packages/site/dist/storybook
+          exitOnceUploaded: true # Do not wait for test results
+          exitZeroOnChanges: true # Option to prevent the workflow from failing
+
+      # Run Lighthouse audit (from any push)
+      - name: Performance Audit with Lighthouse CI
+        if: github.event_name == 'push'
+        run: npm run performance
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
       # Lint
       - run: npm run lint
 
@@ -63,30 +82,12 @@ jobs:
           echo exit with error if there are changes.
           git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
-      # Publish
+      # Release
       - name: Set Git User
         if: startsWith(github.ref, 'refs/heads/main')
         run: |
           git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
           git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
-
-      # Publish to Chromatic (from any push)
-      - name: Publish to Chromatic
-        if: github.event_name == 'push'
-        uses: chromaui/action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: ./packages/nimble-components
-          storybookBuildDir: ../../packages/site/dist/storybook
-          exitOnceUploaded: true # Do not wait for test results
-          exitZeroOnChanges: true # Option to prevent the workflow from failing
-
-      # Run Lighthouse audit
-      - name: Performance Audit with Lighthouse CI
-        run: npm run performance
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       # Publish site to GitHub Pages (only from main)
       - name: Install ruby
