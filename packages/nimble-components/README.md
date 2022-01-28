@@ -63,8 +63,9 @@ The theming system is composed of:
     @import '~@ni/nimble-components/dist/tokens';
 
     .my-element {
-        font-family: $ni-nimble-font-family
+        font-family: $ni-nimble-font-family;
     }
+    ```
 
 ## Customizing
 
