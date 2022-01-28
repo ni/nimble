@@ -1,8 +1,18 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 20 Jan 2022 21:30:14 GMT and should not be manually modified.
+This log was last generated on Fri, 28 Jan 2022 21:45:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.126
+
+Fri, 28 Jan 2022 21:45:26 GMT
+
+### Changes
+
+- Theme-aware token scss file generation.
+ - Users should switch from CSS properties to SCSS properties so any token changes during upgrades can be detected at build time.
+ - **Breaking change**: Theme-aware CSS custom properties now have prefix --ni-nimble-*. (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.125
 
