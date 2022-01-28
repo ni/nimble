@@ -18,7 +18,7 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Drawer/Sidenav:</div>
-                <nimble-button appearance="outline" (click)="navDrawer.open()">Open</nimble-button>
+                <nimble-button appearance="outline" (click)="navDrawer.open()">Open Drawer</nimble-button>
                 <nimble-button appearance="outline" (click)="navDrawer.togglePinned()">Pin/Unpin</nimble-button>
                 <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
                     <nimble-listbox-option [value]="drawerLocations.Left">Drawer: Left-side</nimble-listbox-option>
@@ -38,7 +38,7 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Number Field</div>
-                <nimble-number-field placeholder="Number Field" value="42">Number Field</nimble-number-field>
+                <nimble-number-field placeholder="Number Field" value="42">Number Field Label</nimble-number-field>
             </div>
             <div class="sub-container">
                 <div class="container-label">Select</div>
@@ -55,7 +55,7 @@
                     <nimble-tab>Tab 2</nimble-tab>
                     <nimble-tab disabled>Tab 3 (Disabled)</nimble-tab>
                     <nimble-tabs-toolbar>
-                        <nimble-button (click)="navDrawer.open()">Open drawer</nimble-button>
+                        <nimble-button (click)="navDrawer.open()">Open Drawer</nimble-button>
                     </nimble-tabs-toolbar>
                     <nimble-tab-panel>
                         <div class="container-label">Tab 1 content</div>
@@ -70,7 +70,7 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Text Field</div>
-                <nimble-text-field placeholder="Text Field" value="Here is text!">Text Field</nimble-text-field>
+                <nimble-text-field placeholder="Text Field" value="Here is text!">Text Field Label</nimble-text-field>
             </div>
             <div class="sub-container">
                 <div class="container-label">Tree View</div>

@@ -45,7 +45,7 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
             { path: 'login', component: LoginComponent },
             { path: 'customapp', component: CustomAppComponent }
         ],
-        { useHash: true })
+        { useHash: false })
     ],
     providers: [FormBuilder],
     bootstrap: [AppComponent]
