@@ -3,7 +3,6 @@ module.exports = {
     collect: {
       staticDistDir: './angular-workspace/dist/example-client-app',
       url: [
-        'http://localhost:58452/index.html#/login',
         'http://localhost:58452/index.html#/customapp'
       ],
       numberOfRuns: 3,
