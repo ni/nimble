@@ -49,21 +49,26 @@ The theming system is composed of:
     </body>
     ```
 
-2. _Optional_: Add Nimble components as descendants of the theme provider and they will inherit the theme.
-3. _Optional_: Style non-Nimble components using the values which the theme provider defines for tokens.
+2. Include one import in your styles for the Nimble fonts. Nimble recommends using SCSS for capabilities such as build time property checking.
 
-    - Tokens are defined in an SCSS file at `@ni/nimble-components/dist/tokens.scss`.
-    - It is strongly recommended that you consume tokens by using SCSS in your application. Depending on your build tool configuration, you likely will include the tokens at the start of any SCSS file that leverages the tokens with:
+    ```scss
+    @import '~@ni/nimble-components/dist/fonts';
+    ```
 
-        ```scss
-        @import '~@ni/nimble-components/dist/tokens.scss';
-        ```
+3. As needed, add Nimble components as descendants of the theme provider and they will inherit the theme.
 
-    - Leveraging `tokens.scss` is preferred as your application build process will be aware of changes to token names, etc. If you cannot leverage SCSS, it is possible to use the CSS properties directly although you lose the benefit of build tooling being aware of property definitions.
+4. As needed, import the theme-aware design tokens in each SCSS file that will leverage the tokens for other parts of your application (for colors, fonts, etc).
 
-4. _Not recommended_: Override the value of design tokens to use configurations the design system does not include. For example, if you need to define custom colors for icons that are not available on the current icons. This can be difficult for you to maintain as overriding the value of a design token will typically cause the token to no longer be theme-aware.
+    ```scss
+    @import '~@ni/nimble-components/dist/tokens';
 
-    If you are in a situation where you need to override a design token value, please reach out to the Nimble team to discuss your use case.
+    .my-element {
+        font-family: $ni-nimble-font-family
+    }
+
+## Customizing
+
+The goal of the Nimble design system is to provide a consistent style for applications. If you find that Nimble does not expose colors, fonts, sizes, etc. that you need in an application get in touch with the Nimble squad.
 
 ## Contributing
 

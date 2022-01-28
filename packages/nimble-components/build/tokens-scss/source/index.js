@@ -44,7 +44,8 @@ const tokensInternalFileHeader = `// Nimble Components Internal Tokens SCSS
 const tokensInternalFileContents = Object.entries(tokenNames)
     .map(([_, tokenName]) => `
 /// Internal property for ${scssPropertyFromTokenName(tokenName)}.
-/// Not intended for general use. Used to override a token value (generally making it no longer theme-aware).
+/// Not intended for general use. If used, inform Nimble squad of use-case.
+/// Used to override a token value (generally making it no longer theme-aware).
 /// Requires SCSS interpolation to set, ie ${scssInternalPropertySetterMarkdown(tokenName, '<new value>')}.
 ${scssInternalPropertyFromTokenName(tokenName)}: ${cssPropertyFromTokenName(tokenName)};
 `);
