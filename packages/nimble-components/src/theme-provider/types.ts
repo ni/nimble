@@ -1,5 +1,5 @@
-export type NimbleThemeAttribute = 'light' | 'dark' | 'color' | 'legacy-blue';
-export enum NimbleTheme {
+export type ThemeAttribute = 'light' | 'dark' | 'color' | 'legacy-blue';
+export enum Theme {
     Light = 'light',
     Dark = 'dark',
     Color = 'color',

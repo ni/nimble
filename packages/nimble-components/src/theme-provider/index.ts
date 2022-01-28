@@ -7,13 +7,13 @@ import { attr } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
-import { NimbleTheme } from './types';
+import { Theme } from './types';
 
-export type { NimbleThemeProvider };
+export type { ThemeProvider };
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-theme-provider': NimbleThemeProvider;
+        'nimble-theme-provider': ThemeProvider;
     }
 }
 
@@ -24,17 +24,17 @@ export const direction = DesignToken.create<Direction>({
     cssCustomPropertyName: null
 }).withDefault(Direction.ltr);
 
-export const theme = DesignToken.create<NimbleTheme>({
+export const theme = DesignToken.create<Theme>({
     name: 'theme',
     cssCustomPropertyName: null
-}).withDefault(NimbleTheme.Light);
+}).withDefault(Theme.Light);
 
 /**
- * The NimbleThemeProvider implementation. Add this component to the page and set its `theme` attribute to control
+ * The ThemeProvider implementation. Add this component to the page and set its `theme` attribute to control
  * the values of design tokens that provide colors and fonts as CSS custom properties to any descendant components.
  * @internal
  */
-class NimbleThemeProvider extends FoundationElement {
+class ThemeProvider extends FoundationElement {
     @attr({
         attribute: 'direction'
     })
@@ -43,7 +43,7 @@ class NimbleThemeProvider extends FoundationElement {
     @attr({
         attribute: 'theme'
     })
-    public theme!: NimbleTheme;
+    public theme!: Theme;
 
     public directionChanged(
         _prev: Direction | undefined,
@@ -57,8 +57,8 @@ class NimbleThemeProvider extends FoundationElement {
     }
 
     public themeChanged(
-        _prev: NimbleTheme | undefined,
-        next: NimbleTheme | undefined
+        _prev: Theme | undefined,
+        next: Theme | undefined
     ): void {
         if (next !== undefined && next !== null) {
             theme.setValueFor(this, next);
@@ -75,12 +75,12 @@ class NimbleThemeProvider extends FoundationElement {
         }
 
         if (!this.theme) {
-            this.theme = NimbleTheme.Light;
+            this.theme = Theme.Light;
         }
     }
 }
 
-const nimbleDesignSystemProvider = NimbleThemeProvider.compose({
+const nimbleDesignSystemProvider = ThemeProvider.compose({
     baseName: 'theme-provider',
     styles,
     template
