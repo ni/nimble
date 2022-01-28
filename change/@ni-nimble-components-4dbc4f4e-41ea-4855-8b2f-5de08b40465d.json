@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Theme-aware token scss file generation.\n - Users should switch from CSS properties to SCSS properties so any token changes during upgrades can be detected at build time.\n - **Breaking change**: Theme-aware CSS custom properties now have prefix --ni-nimble-*.",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
+}

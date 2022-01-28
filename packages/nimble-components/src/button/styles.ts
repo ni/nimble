@@ -2,9 +2,9 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 import {
-    actionColorRgb,
+    actionColorRgbPartial,
     borderColorHover,
-    borderColorRgb,
+    borderColorRgbPartial,
     borderWidth,
     buttonContentFontColor,
     contentFontColorDisabled,
@@ -12,6 +12,7 @@ import {
     controlHeight,
     fillColorSelected,
     fontFamily,
+    iconColor,
     smallDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -35,6 +36,7 @@ export const styles = css`
             /*
                 Not sure why but this is needed to get buttons with icons and buttons
                 without icons to align on the same line when the button is inline-flex
+                See: https://github.com/microsoft/fast/issues/5414
             */ ''
         }
         vertical-align: middle;
@@ -112,7 +114,7 @@ export const styles = css`
     }
 
     slot[name='start']::slotted(*) {
-        --icon-color: ${buttonContentFontColor};
+        ${iconColor.cssCustomProperty}: ${buttonContentFontColor};
     }
 
     :host([disabled]) slot[name='start']::slotted(*) {
@@ -130,7 +132,7 @@ export const styles = css`
             css`
                 .control {
                     background-color: transparent;
-                    border-color: rgba(${actionColorRgb}, 0.5);
+                    border-color: rgba(${actionColorRgbPartial}, 0.5);
                 }
 
                 .control:hover {
@@ -150,7 +152,7 @@ export const styles = css`
 
                 .control[disabled] {
                     background-color: transparent;
-                    border-color: rgba(${borderColorRgb}, 0.2);
+                    border-color: rgba(${borderColorRgbPartial}, 0.2);
                 }
             `
         ),
@@ -187,17 +189,17 @@ export const styles = css`
             ButtonAppearance.Block,
             css`
                 .control {
-                    background-color: rgba(${borderColorRgb}, 0.1);
+                    background-color: rgba(${borderColorRgbPartial}, 0.1);
                     border-color: transparent;
                 }
 
                 .control:hover {
-                    background-color: rgba(${borderColorRgb}, 0.1);
+                    background-color: rgba(${borderColorRgbPartial}, 0.1);
                     border-color: ${borderColorHover};
                 }
 
                 .control${focusVisible} {
-                    background-color: rgba(${borderColorRgb}, 0.1);
+                    background-color: rgba(${borderColorRgbPartial}, 0.1);
                     border-color: ${borderColorHover};
                 }
 
@@ -207,8 +209,8 @@ export const styles = css`
                 }
 
                 .control[disabled] {
-                    background-color: rgba(${borderColorRgb}, 0.1);
-                    border-color: rgba(${borderColorRgb}, 0.1);
+                    background-color: rgba(${borderColorRgbPartial}, 0.1);
+                    border-color: rgba(${borderColorRgbPartial}, 0.1);
                 }
             `
         )

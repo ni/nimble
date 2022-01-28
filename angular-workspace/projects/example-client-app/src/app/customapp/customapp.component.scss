@@ -1,5 +1,7 @@
+@import '~@ni/nimble-angular/styles/tokens';
+
 .container {
-    background-color: var(--application-background-color);
+    background-color: $ni-nimble-application-background-color;
     display: flex;
     justify-content: left;
     flex-direction: column;
@@ -16,6 +18,6 @@
     width: 200px;
 }
 
-nimble-example-header {
+example-header {
     display: block;
 }

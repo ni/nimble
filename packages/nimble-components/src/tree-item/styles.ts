@@ -1,4 +1,3 @@
-import { DirectionalStyleSheetBehavior } from '@microsoft/fast-components';
 import { css, ElementStyles } from '@microsoft/fast-element';
 import {
     display,
@@ -19,6 +18,7 @@ import {
     iconSize
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
+import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
 
 export const styles: (
     context: ElementDefinitionContext,
@@ -33,7 +33,7 @@ export const styles: (
             color: ${contentFontColor};
             cursor: pointer;
             font-family: ${fontFamily};
-            --tree-item-nested-width: 0;
+            --ni-private-tree-item-nested-width: 0;
         }
 
         ${/* this controls the side border */ ''}
@@ -76,7 +76,7 @@ export const styles: (
         .positioning-region::before {
             content: '';
             display: block;
-            width: var(--tree-item-nested-width);
+            width: var(--ni-private-tree-item-nested-width);
             flex-shrink: 0;
         }
 
@@ -152,8 +152,10 @@ export const styles: (
         }
 
         ::slotted(${context.tagFor(TreeItem)}) {
-            --tree-item-nested-width: 1em;
-            --expand-collapse-button-nested-width: calc(${iconSize} * -1);
+            --ni-private-tree-item-nested-width: 1em;
+            --ni-private-expand-collapse-button-nested-width: calc(
+                ${iconSize} * -1
+            );
         }
 
         ${
@@ -188,7 +190,7 @@ export const styles: (
                     ${/* ltr styles */ ''}
                     :host(.nested) .expand-collapse-button {
                         left: var(
-                            --expand-collapse-button-nested-width,
+                            --ni-private-expand-collapse-button-nested-width,
                             calc(${iconSize} * -1)
                         );
                     }
@@ -205,7 +207,7 @@ export const styles: (
                     ${/* rtl styles */ ''}
                     :host(.nested) .expand-collapse-button {
                         right: var(
-                            --expand-collapse-button-nested-width,
+                            --ni-private-expand-collapse-button-nested-width,
                             calc(${iconSize} * -1)
                         );
                     }

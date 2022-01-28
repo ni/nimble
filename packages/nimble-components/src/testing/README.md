@@ -1,3 +1,3 @@
 # Testing
 
-Utilities for both nimble-component integrators and nimble-component library authors to use for testing components.
+Utilities for both Nimble Component integrators and Nimble Component library authors to use for testing components.
