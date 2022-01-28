@@ -1,8 +1,10 @@
+@import '~@ni/nimble-angular/styles/tokens';
+
 .container-label {
-    font-family: var(--group-label-font-family);
-    font-weight: var(--group-label-font-weight);
+    font-family: $ni-nimble-group-label-font-family;
+    font-weight: $ni-nimble-group-label-font-weight;
     font-size: 14px;
-    color: var(--group-label-font-color);
+    color: $ni-nimble-group-label-font-color;
     padding-bottom: 10px;
 }
 
@@ -11,6 +13,7 @@ p {
 }
 
 .container {
+    background-color: $ni-nimble-application-background-color;
     display: inline-flex;
     justify-content: left;
     flex-direction: column;
@@ -35,6 +38,6 @@ p {
     width: 200px;
 }
 
-nimble-example-header {
+example-header {
     display: block;
 }

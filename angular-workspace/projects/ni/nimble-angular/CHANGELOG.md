@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 20 Jan 2022 21:30:14 GMT and should not be manually modified.
+This log was last generated on Fri, 28 Jan 2022 21:45:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.146
+
+Fri, 28 Jan 2022 21:45:26 GMT
+
+### Changes
+
+- Adds documentation and CSS/SCSS files for using theme-aware design tokens in Angular applications (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.126
 
 ## 1.0.0-beta.145
 

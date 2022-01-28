@@ -1,19 +1,21 @@
+@import '~@ni/nimble-angular/styles/tokens';
+
 .drawer-container {
-    font-family: var(--font-family);
+    font-family: $ni-nimble-font-family;
     height: 100%;
-    --drawer-width: 300px;
-    background-color: var(--application-background-color);
+    #{$ni-nimble-internal-drawer-width}: 300px;
+    background-color: $ni-nimble-application-background-color;
 }
 
 .drawer-container.pinned {
     display: grid;
     grid-template-areas: "drawer content";
-    grid-template-columns: var(--drawer-width) 1fr;
+    grid-template-columns: $ni-nimble-drawer-width 1fr;
 }
 
 .drawer-container.pinned.location-right {
     grid-template-areas: "content drawer";
-    grid-template-columns: 1fr var(--drawer-width);
+    grid-template-columns: 1fr $ni-nimble-drawer-width;
 }
 
 .drawer-container .content {

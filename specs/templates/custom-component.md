@@ -44,7 +44,7 @@
 - *Props/Attrs*
 - *Methods*
 - *Events*
-- *CSS classes and custom properties that affect the component*
+- *CSS Classes and CSS Custom Properties that affect the component*
 
 *Consider high and low-level APIs. Attempt to design a powerful and extensible low-level API with a high-level API for developer/designer ergonomics and simplicity.*
 

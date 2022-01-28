@@ -1,60 +1,58 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
-import * as nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
+import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
 import { createRenderer } from '../../utilities/tests/storybook';
-import '../../theme-provider';
+import '..';
+import {
+    labelFontColor,
+    labelFontFamily,
+    labelFontSize,
+    labelFontWeight
+} from '../design-tokens';
 
 interface NimbleColor {
     name: string;
     data: string;
 }
 
-const nimbleBaseColors: NimbleColor[] = [];
-const colorObj = nimbleColorsMapJson.color;
+const nimbleBaseColors: NimbleColor[] = Object.entries(
+    nimbleColorsMapJson.color
+).map(([key, valueObj]) => ({
+    name: key,
+    data: valueObj.value
+}));
 
-let key: keyof typeof colorObj;
-
-for (key in colorObj) {
-    if (Object.prototype.hasOwnProperty.call(colorObj, key)) {
-        nimbleBaseColors.push({
-            name: key,
-            data: colorObj[key].value
-        });
-    }
-}
-
-const styleMarkup = `
+const styleMarkup = html`
     <style>
         .container {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: left;
-            align-items: center;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-column-gap: 10px;
+            grid-row-gap: 10px;
         }
 
-        .color {
+        .color-option {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .color-box {
             box-sizing: border-box;
-            width: 60px;
-            height: 60px;
-            padding: 40px;
-            margin: 40px;
-            margin-bottom: 10px;
+            width: 80px;
+            height: 80px;
             border-radius: 5px;
             border: 1px solid lightgray;
         }
 
         .color-label {
-            font-family: var(--label-font-family);
-            font-size: var(--label-font-size);
-            font-weight: var(--label-font-weight);
-            color: var(--label-font-color);
+            font-family: var(${labelFontFamily.cssCustomProperty});
+            font-size: var(${labelFontSize.cssCustomProperty});
+            font-weight: var(${labelFontWeight.cssCustomProperty});
+            color: var(${labelFontColor.cssCustomProperty});
             text-align: center;
-            margin: 10px;
         }
-
     </style>
 `;
 
@@ -88,9 +86,9 @@ export const baseColors: StoryObj = {
         ${styleMarkup}
         <div class="container">
             ${repeat(() => nimbleBaseColors, html<NimbleColor>`
-                <div>
+                <div class="color-option">
                     <div
-                        class="color"
+                        class="color-box"
                         title="${x => x.name}"
                         style='background: ${x => x.data}'
                     ></div>

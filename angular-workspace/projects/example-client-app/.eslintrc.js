@@ -27,6 +27,10 @@ module.exports = {
               message: 'Client Angular applications should not have to directly depend on nimble-components.'
           }]
       }],
+      '@angular-eslint/component-selector': [
+        "error",
+        { "type": "element", "prefix": "example", "style": "kebab-case" }
+      ]
       }
     },
     {
