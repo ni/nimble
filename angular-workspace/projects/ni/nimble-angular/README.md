@@ -80,7 +80,7 @@ The steps to use components from Nimble Angular are similar to using components 
     }
     ```
 
-   Note: Nimble components are expose in Angular as Angular Directives and have the suffix `Directive`.
+   Note: Nimble components are exposed in Angular as Angular Directives and have the suffix `Directive`.
 
 ### Learn more
 
