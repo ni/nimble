@@ -30,7 +30,7 @@ If you have an existing application that incorporates a module bundler like [Web
 
 This package contains a theming system which enables changing the appearance of controls based on user preferences or application designs.
 
-The theming system is built on a set of design tokens that define different properties such as fonts, colors, etc. The nimble components are configured to use these theme-aware design tokens. An application should use the same theme-aware design tokens for parts outside of the components.
+The theming system is built on a set of design tokens that define different properties such as fonts, colors, etc. The Nimble components are configured to use these theme-aware design tokens. An application should use the same theme-aware design tokens for parts outside of the components.
 
 The theming system is composed of:
 
