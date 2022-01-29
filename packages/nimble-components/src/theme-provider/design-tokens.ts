@@ -214,11 +214,6 @@ export const drawerAnimationDurationMs = DesignToken.create<number>(
     styleNameFromTokenName(tokenNames.drawerAnimationDurationMs)
 ).withDefault(250);
 
-// Filter Tokens
-export const passwordRevealFilter = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.passwordRevealFilter)
-).withDefault((element: HTMLElement) => getPasswordRevealFilterForTheme(element));
-
 // Private helpers functions
 function hexToRgbPartial(hexValue: string): string {
     const { red, green, blue } = hexRgb(hexValue);
@@ -354,15 +349,5 @@ function getLabelTextSizeForTheme(element: HTMLElement): string {
             return '13px';
         default:
             return ControlLabel1Size;
-    }
-}
-
-function getPasswordRevealFilterForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.Color:
-        case Theme.Dark:
-            return 'invert(100%)';
-        default:
-            return 'invert(0%)';
     }
 }

@@ -19,9 +19,10 @@ import {
     labelFontWeight,
     labelHeight,
     labelTextTransform,
-    passwordRevealFilter,
     smallDelay
 } from '../theme-provider/design-tokens';
+import { Theme } from '../theme-provider/types';
+import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
     ${display('inline-block')}
@@ -95,10 +96,6 @@ export const styles = css`
         border: none;
     }
 
-    .control::-ms-reveal {
-        filter: ${passwordRevealFilter};
-    }
-
     .control:hover,
     .control:focus,
     .control:disabled,
@@ -160,4 +157,23 @@ export const styles = css`
     :host([disabled]) [part='end'] path {
         fill: ${contentFontColorDisabled};
     }
-`;
+`.withBehaviors(
+        themeBehavior(
+            css`
+            ${'' /* Light theme */}
+            .control::-ms-reveal {
+                filter: invert(0%);
+            }
+        `,
+            css`
+            ${'' /* Dark theme */}
+            .control::-ms-reveal {
+                filter: invert(100%);
+            }
+        `,
+            // Color theme
+            Theme.Dark,
+            // LegacyBlue theme
+            Theme.Light
+        )
+    );

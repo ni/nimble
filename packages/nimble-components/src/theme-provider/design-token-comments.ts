@@ -44,6 +44,5 @@ export const comments: { [key in TokenName]: string } = {
     contentFontColorDisabled: '',
     smallDelay: '',
     mediumDelay: '',
-    drawerAnimationDurationMs: '',
-    passwordRevealFilter: ''
+    drawerAnimationDurationMs: ''
 };

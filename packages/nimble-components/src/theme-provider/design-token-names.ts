@@ -44,8 +44,7 @@ export const tokenNames: { [key in TokenName]: string } = {
     contentFontColorDisabled: 'content-font-color-disabled',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
-    drawerAnimationDurationMs: 'drawer-animation-duration-ms',
-    passwordRevealFilter: 'password-reveal-filter'
+    drawerAnimationDurationMs: 'drawer-animation-duration-ms'
 };
 
 const prefix = 'ni-nimble';
