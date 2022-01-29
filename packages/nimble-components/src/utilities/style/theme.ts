@@ -46,7 +46,12 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
 type LightStyle = ElementStyles | null;
 type DarkStyleOrAlias = ElementStyles | null | Theme.Light;
 type ColorStyleOrAlias = ElementStyles | null | Theme.Light | Theme.Dark;
-type LegacyBlueStyleOrAlias = ElementStyles | null | Theme.Light | Theme.Dark | Theme.Color;
+type LegacyBlueStyleOrAlias =
+    | ElementStyles
+    | null
+    | Theme.Light
+    | Theme.Dark
+    | Theme.Color;
 type StyleOrPossibleAliases = LegacyBlueStyleOrAlias;
 /**
  * Behavior to conditionally apply theme-based stylesheets.
