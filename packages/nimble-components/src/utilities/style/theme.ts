@@ -9,13 +9,6 @@ import type { DesignTokenChangeRecord } from '@microsoft/fast-foundation';
 import { Theme } from '../../theme-provider/types';
 import { theme as themeToken } from '../../theme-provider';
 
-type StyleOrPossibleAliases =
-    | ElementStyles
-    | null
-    | Theme.Light
-    | Theme.Dark
-    | Theme.Color;
-
 /**
  * Subscription for {@link ThemeStyleSheetBehavior}
  */
@@ -50,24 +43,13 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
     }
 }
 
+type LightStyle = ElementStyles | null;
+type DarkStyleOrAlias = ElementStyles | null | Theme.Light;
+type ColorStyleOrAlias = ElementStyles | null | Theme.Light | Theme.Dark;
+type LegacyBlueStyleOrAlias = ElementStyles | null | Theme.Light | Theme.Dark | Theme.Color;
+type StyleOrPossibleAliases = LegacyBlueStyleOrAlias;
 /**
- * Behavior to conditionally apply theme-based stylesheets. To determine which to apply,
- * the behavior will use the nearest ThemeProvider's 'theme' design system value.
- * To re-use the same style for multiple themes you can specify the name of an already
- * defined theme to alias them together.
- *
- * @public
- * @example
- * ```ts
- * css`
- *  // ...
- * `.withBehaviors(new ThemeStyleSheetBehavior(
- *   css`:host { ... Theme.Light style... }`),
- *   css`:host { ... Theme.Dark style... }`),
- *   null, // No style needed for color theme
- *   Theme.Light, // Re-use the previously set Theme.Light for Theme.LegacyBlue
- * )
- * ```
+ * Behavior to conditionally apply theme-based stylesheets.
  */
 class ThemeStyleSheetBehavior implements Behavior {
     private readonly light: ElementStyles | null = null;
@@ -80,19 +62,15 @@ class ThemeStyleSheetBehavior implements Behavior {
     > = new WeakMap();
 
     public constructor(
-        lightStyle: ElementStyles | null,
-        darkStyleOrLightAlias: ElementStyles | null | Theme.Light,
-        colorStyleOrPreviousAlias:
-        | ElementStyles
-        | null
-        | Theme.Light
-        | Theme.Dark,
-        legacyBlueStyleOrPreviousAlias: StyleOrPossibleAliases
+        lightStyle: LightStyle,
+        darkStyleOrAlias: DarkStyleOrAlias,
+        colorStyleOrAlias: ColorStyleOrAlias,
+        legacyBlueStyleOrAlias: LegacyBlueStyleOrAlias
     ) {
         this.light = lightStyle;
-        this.dark = this.resolveTheme(darkStyleOrLightAlias);
-        this.color = this.resolveTheme(colorStyleOrPreviousAlias);
-        this.legacyBlue = this.resolveTheme(legacyBlueStyleOrPreviousAlias);
+        this.dark = this.resolveTheme(darkStyleOrAlias);
+        this.color = this.resolveTheme(colorStyleOrAlias);
+        this.legacyBlue = this.resolveTheme(legacyBlueStyleOrAlias);
     }
 
     /**
@@ -159,14 +137,33 @@ class ThemeStyleSheetBehavior implements Behavior {
     }
 }
 
+/**
+ * Behavior to conditionally apply theme-based stylesheets. To determine which to apply,
+ * the behavior will use the nearest ThemeProvider's 'theme' design system value.
+ * To re-use the same style for multiple themes you can specify the name of an already
+ * defined theme to alias them together.
+ *
+ * @public
+ * @example
+ * ```ts
+ * css`
+ *  // ...
+ * `.withBehaviors(new ThemeStyleSheetBehavior(
+ *   css`:host { ... Theme.Light style... }`),
+ *   css`:host { ... Theme.Dark style... }`),
+ *   null, // No style needed for Theme.Color style
+ *   Theme.Light, // For the Theme.LegacyBlue style, re-use the previously set Theme.Light style
+ * )
+ * ```
+ */
 export const themeBehavior = (
-    lightStyle: ElementStyles | null,
-    darkStyleOrLightAlias: ElementStyles | null | Theme.Light,
-    colorStyleOrPreviousAlias: ElementStyles | null | Theme.Light | Theme.Dark,
-    legacyBlueStyleOrPreviousAlias: StyleOrPossibleAliases
+    lightStyle: LightStyle,
+    darkStyleOrAlias: DarkStyleOrAlias,
+    colorStyleOrAlias: ColorStyleOrAlias,
+    legacyBlueStyleOrAlias: LegacyBlueStyleOrAlias
 ): ThemeStyleSheetBehavior => new ThemeStyleSheetBehavior(
     lightStyle,
-    darkStyleOrLightAlias,
-    colorStyleOrPreviousAlias,
-    legacyBlueStyleOrPreviousAlias
+    darkStyleOrAlias,
+    colorStyleOrAlias,
+    legacyBlueStyleOrAlias
 );
