@@ -9,7 +9,12 @@ import type { DesignTokenChangeRecord } from '@microsoft/fast-foundation';
 import { Theme } from '../../theme-provider/types';
 import { theme as themeToken } from '../../theme-provider';
 
-type StyleOrPossibleAliases = ElementStyles | null | Theme.Light | Theme.Dark | Theme.Color;
+type StyleOrPossibleAliases =
+    | ElementStyles
+    | null
+    | Theme.Light
+    | Theme.Dark
+    | Theme.Color;
 
 /**
  * Subscription for {@link ThemeStyleSheetBehavior}
@@ -77,7 +82,11 @@ class ThemeStyleSheetBehavior implements Behavior {
     public constructor(
         lightStyle: ElementStyles | null,
         darkStyleOrLightAlias: ElementStyles | null | Theme.Light,
-        colorStyleOrPreviousAlias: ElementStyles | null | Theme.Light | Theme.Dark,
+        colorStyleOrPreviousAlias:
+        | ElementStyles
+        | null
+        | Theme.Light
+        | Theme.Dark,
         legacyBlueStyleOrPreviousAlias: StyleOrPossibleAliases
     ) {
         this.light = lightStyle;
@@ -104,9 +113,14 @@ class ThemeStyleSheetBehavior implements Behavior {
         }
     }
 
-    private validateTheme(currentStyle: ElementStyles | null, themeAlias: Theme): ElementStyles {
+    private validateTheme(
+        currentStyle: ElementStyles | null,
+        themeAlias: Theme
+    ): ElementStyles {
         if (currentStyle === null) {
-            throw new Error(`Tried to alias to theme '${themeAlias}' but the theme value is not set to a style.`);
+            throw new Error(
+                `Tried to alias to theme '${themeAlias}' but the theme value is not set to a style.`
+            );
         }
         return currentStyle;
     }
@@ -150,4 +164,9 @@ export const themeBehavior = (
     darkStyleOrLightAlias: ElementStyles | null | Theme.Light,
     colorStyleOrPreviousAlias: ElementStyles | null | Theme.Light | Theme.Dark,
     legacyBlueStyleOrPreviousAlias: StyleOrPossibleAliases
-): ThemeStyleSheetBehavior => new ThemeStyleSheetBehavior(lightStyle, darkStyleOrLightAlias, colorStyleOrPreviousAlias, legacyBlueStyleOrPreviousAlias);
+): ThemeStyleSheetBehavior => new ThemeStyleSheetBehavior(
+    lightStyle,
+    darkStyleOrLightAlias,
+    colorStyleOrPreviousAlias,
+    legacyBlueStyleOrPreviousAlias
+);
