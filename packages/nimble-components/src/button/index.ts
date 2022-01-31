@@ -30,26 +30,29 @@ class Button extends FoundationButton {
     @attr
     public appearance!: ButtonAppearance;
 
+    /**
+     * Specify as 'true' to hide the text content of the button. The button will
+     * become square, and the text content will be used as the label of the button
+     * for accessibility purposes.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: content-hidden
+     */
+    @attr({ attribute: 'content-hidden', mode: 'boolean' })
+    public contentHidden = false;
+
+    private readonly contentId = 'nimble-button-content';
+
     public connectedCallback(): void {
         super.connectedCallback();
         if (!this.appearance) {
             this.appearance = ButtonAppearance.Outline;
         }
-    }
 
-    public defaultSlottedContentChanged(): void {
-        this.checkForEmptyText();
-    }
-
-    private checkForEmptyText(): void {
-        const hasTextContent = this.defaultSlottedContent.some(
-            x => (x.textContent ?? '').trim().length !== 0
-        );
-        if (hasTextContent) {
-            this.control.classList.remove('empty-text');
-        } else {
-            this.control.classList.add('empty-text');
-        }
+        const content = this.control.querySelector('.content')!;
+        content.id = this.contentId;
+        this.control.setAttribute('aria-labelledby', this.contentId);
     }
 }
 

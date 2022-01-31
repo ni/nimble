@@ -11,11 +11,12 @@ interface ButtonArgs {
     appearance: string;
     disabled: boolean;
     icon: boolean;
+    contentHidden: boolean;
 }
 
-const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that 
-enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an 
-action, or performing a delete operation. A common convention for informing users that a button launches 
+const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that
+enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an
+action, or performing a delete operation. A common convention for informing users that a button launches
 a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".`;
 
 const metadata: Meta<ButtonArgs> = {
@@ -39,12 +40,16 @@ const metadata: Meta<ButtonArgs> = {
         appearance: {
             options: Object.values(ButtonAppearance),
             control: { type: 'radio' }
+        },
+        icon: {
+            description:
+                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
         }
     },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}">
-            ${when(x => x.icon, html`<nimble-access-control-icon></nimble-access-control-icon>`)}
+        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" ?content-hidden="${x => x.contentHidden}">
+            ${when(x => x.icon, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
             ${x => x.label}
         </nimble-button>
 `),
@@ -52,6 +57,7 @@ const metadata: Meta<ButtonArgs> = {
         label: 'Ghost Button',
         appearance: 'ghost',
         icon: false,
+        contentHidden: false,
         disabled: false
     }
 };
@@ -68,6 +74,11 @@ export const ghostButton: StoryObj<ButtonArgs> = {
 export const blockButton: StoryObj<ButtonArgs> = {
     args: { label: 'Block Button', appearance: ButtonAppearance.Block }
 };
-export const iconGhostButton: StoryObj<ButtonArgs> = {
-    args: { label: '', icon: true, appearance: ButtonAppearance.Ghost }
+export const iconButton: StoryObj<ButtonArgs> = {
+    args: {
+        label: 'Icon Button',
+        icon: true,
+        contentHidden: true,
+        appearance: ButtonAppearance.Outline
+    }
 };

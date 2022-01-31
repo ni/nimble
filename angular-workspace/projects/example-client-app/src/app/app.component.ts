@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NimbleTheme } from '@ni/nimble-angular';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']

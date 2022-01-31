@@ -5,7 +5,8 @@ import {
     iconSize,
     warningColor,
     failColor,
-    passColor
+    passColor,
+    iconColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -16,7 +17,7 @@ export const styles = css`
         user-select: none;
         width: ${iconSize};
         height: ${iconSize};
-        --icon-color: ${contentFontColor};
+        ${iconColor.cssCustomProperty}: ${contentFontColor};
     }
 
     .icon {
@@ -25,19 +26,19 @@ export const styles = css`
     }
 
     :host(.fail) {
-        --icon-color: ${failColor};
+        ${iconColor.cssCustomProperty}: ${failColor};
     }
 
     :host(.warning) {
-        --icon-color: ${warningColor};
+        ${iconColor.cssCustomProperty}: ${warningColor};
     }
 
     :host(.pass) {
-        --icon-color: ${passColor};
+        ${iconColor.cssCustomProperty}: ${passColor};
     }
 
     .icon svg {
-        fill: var(--icon-color);
+        fill: ${iconColor};
         width: 100%;
         height: 100%;
     }

@@ -1,5 +1,52 @@
 # CSS Guidelines
 
+## Design Tokens and CSS Custom Properties
+
+Nimble controls have shared style properties such as colors, typography, sizing, and animation properties. These properties are shared in two different ways: Design Tokens and CSS Custom Properties.
+
+### Design Tokens
+
+Any style property that can be user configurable or is a property used to communicate between components should be defined as a Design Token. To find existing tokens or add new ones see [`design-tokens.ts`](/packages/nimble-components/src/theme-provider/design-tokens.ts).
+
+When a Design Token is defined it will have the following associated with it:
+- a SCSS property in the generated `tokens.scss` with the prefix `$ni-nimble-` which is the preferred way for applications to use tokens.
+- a SCSS property in the generated `tokens-internal.scss` with the prefix `$ni-nimble-internal-`.
+- a CSS Custom Property with the prefix `--ni-nimble-` defined programmatically in the page by the Nimble framework.
+
+For maintainability, the associated CSS Property name should not be hard coded anywhere in nimble-components, ie in components, storybook, tests, etc.
+
+For components, the `css` helper is able to [use design token values in the `css` template string](https://www.fast.design/docs/design-systems/design-tokens#using-design-tokens-in-css) directly.
+
+```js
+import {labelFontFamily} from './design-tokens';
+const style = css`
+    .my-label {
+        font-family: ${labelFontFamily};
+    }
+`;
+```
+
+When using the design tokens outside of a component, for example in the `html` helper for a storybook page, the token name can be accessed with [`cssCustomProperty`](https://www.fast.design/docs/api/fast-foundation.cssdesigntoken.csscustomproperty).
+
+```js
+import {labelFontFamily} from './design-tokens';
+const template = html`
+    <style>
+        .my-label {
+            font-family: var(${labelFontFamily.cssCustomProperty});
+        }
+    </style>
+`;
+```
+
+Note: When the token is accessed as a CSS Custom Property it needs to use the `var()` syntax unlike when used in a component with the `css` helper.
+
+### CSS Custom Properties
+
+CSS Custom Properties should generally not be used directly within nimble components. Any CSS Custom Property that a control uses that can be manipulated outside of the control is part of the control's public API and should be defined as a design token.
+
+If a CSS Custom Property is used completely internally to a control, for example it calculates a style inside its shadow root that it uses in multiple places inside its shadow root, then it should not be defined in the design system and should have the `--ni-private-` prefix.
+
 ## Group selectors by target and document order
 
 In a CSS file the rules should be organized by the element they are selecting for. Keeping those selectors grouped together makes it easier to scan a file and see the rules impacting a particular element in one location.
@@ -72,14 +119,6 @@ For example:
 ```
 
 Useful reference: [When do the :hover, :focus, and :active pseudo-classes apply?](https://bitsofco.de/when-do-the-hover-focus-and-active-pseudo-classes-apply/)
-
-## Use design tokens for values that might be configurable
-
-Some attribute values might need to be configurable in context-specific situations like UIs requring different themes, large touch-friendly UIs, or small information-dense UIs.
-
-Examples include colors, typography, sizing, and animation parameters. These attribute values should be specified as shared design tokens rather than literals within an individual component's CSS. This makes it easier to change the values dynamically if required in the future and also improves readability and reduces duplication.
-
-To find existing tokens or add new ones see [`design-tokens.ts`](/packages/nimble-components/src/theme-provider/design-tokens.ts).
 
 ## Prefer modern layouts
 
