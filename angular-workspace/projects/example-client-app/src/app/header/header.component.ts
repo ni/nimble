@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NimbleDrawerDirective, NimbleTheme } from '@ni/nimble-angular';
 
 @Component({
-    selector: 'nimble-example-header',
+    selector: 'example-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })

@@ -44,6 +44,11 @@ module.exports = {
                         importNames: ['focusVisible'],
                         message:
                             'Please use focusVisible from src/utilities/style/focus instead.'
+                    },
+                    {
+                        name: '@microsoft/fast-components',
+                        message:
+                            'It is not expected to leverage @microsoft/fast-components directly as they are coupled to FAST design tokens.'
                     }
                 ]
             }

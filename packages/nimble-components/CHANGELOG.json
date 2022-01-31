@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 28 Jan 2022 21:45:26 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.126",
+      "version": "1.0.0-beta.126",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "494f1e68dfa32945485b915fcf9b2f9124cc2742",
+            "comment": "Theme-aware token scss file generation.\n - Users should switch from CSS properties to SCSS properties so any token changes during upgrades can be detected at build time.\n - **Breaking change**: Theme-aware CSS custom properties now have prefix --ni-nimble-*."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Jan 2022 21:30:14 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.125",
       "version": "1.0.0-beta.125",

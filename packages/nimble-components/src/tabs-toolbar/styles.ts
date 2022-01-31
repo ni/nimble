@@ -1,7 +1,7 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    borderColorRgb,
+    borderColorRgbPartial,
     borderWidth,
     contentFontColor,
     contentFontSize,
@@ -25,7 +25,8 @@ export const styles = css`
     .separator {
         display: inline-block;
         height: 24px;
-        border-left: calc(${borderWidth} * 2) solid rgba(${borderColorRgb}, 0.3);
+        border-left: calc(${borderWidth} * 2) solid
+            rgba(${borderColorRgbPartial}, 0.3);
         margin: calc(${standardPadding} / 4) calc(${standardPadding} / 2);
     }
 `;
