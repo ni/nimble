@@ -2,6 +2,72 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 28 Jan 2022 21:45:26 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.126",
+      "version": "1.0.0-beta.126",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "494f1e68dfa32945485b915fcf9b2f9124cc2742",
+            "comment": "Theme-aware token scss file generation.\n - Users should switch from CSS properties to SCSS properties so any token changes during upgrades can be detected at build time.\n - **Breaking change**: Theme-aware CSS custom properties now have prefix --ni-nimble-*."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jan 2022 21:30:14 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.125",
+      "version": "1.0.0-beta.125",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c40abaaeb5fdac4816b409e2497eadb2e8a3c0cd",
+            "comment": "Remove default slot from Nimble icons. This is a breaking change. Clients using Nimble icons inside Nimble buttons, menu items, or tree items must now explicitly set the 'slot' attribute on those icons to 'start' in order for them to be styled properly."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jan 2022 04:13:54 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.124",
+      "version": "1.0.0-beta.124",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ca752a52520a40b5a7103eaf91d9b8d222a6e0ef",
+            "comment": "Add contentHidden attribute to button rather than implicitly determine a button has no text content"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 19 Jan 2022 23:57:51 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.123",
+      "version": "1.0.0-beta.123",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ea95cabc05e601aff06d41e3cedc002da0a9a0b0",
+            "comment": "Documentation of theming system"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0-beta.38",
+            "commit": "ea95cabc05e601aff06d41e3cedc002da0a9a0b0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 18 Jan 2022 16:10:22 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.122",
       "version": "1.0.0-beta.122",

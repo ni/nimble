@@ -74,8 +74,7 @@
               "projects/example-client-app/src/assets"
             ],
             "styles": [
-              "projects/example-client-app/src/styles.scss",
-              "../node_modules/@ni/nimble-tokens/source/fonts.css"
+              "projects/example-client-app/src/styles.scss"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
