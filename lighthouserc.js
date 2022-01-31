@@ -2,7 +2,6 @@ module.exports = {
   ci: {
     collect: {
       staticDistDir: './angular-workspace/dist/example-client-app',
-      isSinglePageApplication: true,
       url: [
         'http://localhost:58452/#/customapp'
       ],
