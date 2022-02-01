@@ -4,6 +4,7 @@
     font-family: $ni-nimble-font-family;
     height: 100%;
     #{$ni-nimble-internal-drawer-width}: 300px;
+    background-color: $ni-nimble-application-background-color;
 }
 
 .drawer-container.pinned {

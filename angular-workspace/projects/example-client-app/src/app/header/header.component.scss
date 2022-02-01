@@ -2,7 +2,7 @@
 
 .header {
     --example-client-header-height: 48px;
-    background-color: $ni-nimble-border-color-hover;
+    background-color: #d3d5d6; //Black30
     display: flex;
     justify-content: flex-end;
     height: var(--example-client-header-height);
@@ -10,7 +10,7 @@
 }
 
 .user-settings-drawer {
-    padding: 16px;
+    padding: $ni-nimble-standard-padding;
     display: flex;
     flex-direction: column;
 }

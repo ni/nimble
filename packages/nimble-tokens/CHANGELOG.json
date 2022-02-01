@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 01 Feb 2022 17:09:06 GMT",
+      "tag": "@ni/nimble-tokens_v1.0.0-beta.39",
+      "version": "1.0.0-beta.39",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ab1d1fd7d37ae3a8c3b258597263b895fcf10fca",
+            "comment": "Update to latest icons"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 19 Jan 2022 23:57:51 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0-beta.38",
       "version": "1.0.0-beta.38",
