@@ -60,7 +60,11 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
    4. Choose to replace any existing files in the `assets-icons` folder.
 
-      <img src="docs/ai-export-4.png" alt="Adobe Illustrator screen export step 4" width="600">
+      <img src="docs/ai-export-4.png" alt="Adobe Illustrator screen export step 4" width="600"> 
 
-2. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
-3. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** stories to confirm that your changes appear correctly.
+2. Search for all `fill` attributes in the exported `.svg` files, and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
+
+      <img src="docs/find-replace-5.png" alt="Adobe Illustrator screen export step 4" width="1000">
+
+3. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
+4. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** stories to confirm that your changes appear correctly.
