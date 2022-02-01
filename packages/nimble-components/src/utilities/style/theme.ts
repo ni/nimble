@@ -6,8 +6,10 @@ import {
     Subscriber
 } from '@microsoft/fast-element';
 import type { DesignTokenChangeRecord } from '@microsoft/fast-foundation';
-import { Theme } from '../../theme-provider/types';
+import { Theme, ThemeAttribute } from '../../theme-provider/types';
 import { theme as themeToken } from '../../theme-provider';
+
+type ThemeStyles = { readonly [key in Theme]: ElementStyles | null };
 
 /**
  * Subscription for {@link ThemeStyleSheetBehavior}
@@ -16,10 +18,7 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
     private attached: ElementStyles | null = null;
 
     public constructor(
-        private readonly light: ElementStyles | null,
-        private readonly dark: ElementStyles | null,
-        private readonly color: ElementStyles | null,
-        private readonly legacyblue: ElementStyles | null,
+        private readonly themeStyles: ThemeStyles,
         private readonly source: HTMLElement & FASTElement
     ) {}
 
@@ -30,12 +29,12 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
         this.attach(token.getValueFor(target));
     }
 
-    public attach(theme: Theme): void {
-        if (this.attached !== this[theme]) {
+    public attach(theme: ThemeAttribute): void {
+        if (this.attached !== this.themeStyles[theme]) {
             if (this.attached !== null) {
                 this.source.$fastController.removeStyles(this.attached);
             }
-            this.attached = this[theme];
+            this.attached = this.themeStyles[theme];
             if (this.attached !== null) {
                 this.source.$fastController.addStyles(this.attached);
             }
@@ -53,14 +52,12 @@ type LegacyBlueStyleOrAlias =
     | Theme.Dark
     | Theme.Color;
 type StyleOrPossibleAliases = LegacyBlueStyleOrAlias;
+
 /**
  * Behavior to conditionally apply theme-based stylesheets.
  */
 class ThemeStyleSheetBehavior implements Behavior {
-    private readonly light: ElementStyles | null = null;
-    private readonly dark: ElementStyles | null = null;
-    private readonly color: ElementStyles | null = null;
-    private readonly legacyBlue: ElementStyles | null = null;
+    private readonly themeStyles: ThemeStyles;
     private readonly cache: WeakMap<
     HTMLElement,
     ThemeStyleSheetBehaviorSubscription
@@ -72,10 +69,12 @@ class ThemeStyleSheetBehavior implements Behavior {
         colorStyleOrAlias: ColorStyleOrAlias,
         legacyBlueStyleOrAlias: LegacyBlueStyleOrAlias
     ) {
-        this.light = lightStyle;
-        this.dark = this.resolveTheme(darkStyleOrAlias);
-        this.color = this.resolveTheme(colorStyleOrAlias);
-        this.legacyBlue = this.resolveTheme(legacyBlueStyleOrAlias);
+        this.themeStyles = {
+            light: lightStyle,
+            dark: this.resolveTheme(darkStyleOrAlias),
+            color: this.resolveTheme(colorStyleOrAlias),
+            'legacy-blue': this.resolveTheme(legacyBlueStyleOrAlias)
+        };
     }
 
     /**
@@ -114,11 +113,11 @@ class ThemeStyleSheetBehavior implements Behavior {
         }
         switch (value) {
             case Theme.Light:
-                return this.validateTheme(this.light, Theme.Light);
+                return this.validateTheme(this.themeStyles.light, Theme.Light);
             case Theme.Dark:
-                return this.validateTheme(this.dark, Theme.Dark);
+                return this.validateTheme(this.themeStyles.dark, Theme.Dark);
             case Theme.Color:
-                return this.validateTheme(this.color, Theme.Color);
+                return this.validateTheme(this.themeStyles.color, Theme.Color);
             default:
                 throw new Error('Unimplemented Theme alias type');
         }
@@ -127,10 +126,7 @@ class ThemeStyleSheetBehavior implements Behavior {
     private attach(source: FASTElement & HTMLElement): void {
         const subscriber = this.cache.get(source)
             || new ThemeStyleSheetBehaviorSubscription(
-                this.light,
-                this.dark,
-                this.color,
-                this.legacyBlue,
+                this.themeStyles,
                 source
             );
 

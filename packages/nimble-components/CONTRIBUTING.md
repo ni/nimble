@@ -229,6 +229,6 @@ The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/ut
 
 ## Theming
 
-Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`), and one theme that is largely aligned with the current SystemLink theme (i.e. `legacyblue`). `legacyblue` simply takes the NI-brand theme and applies SystemLink font styling and colors, so shouldn't require component specific modifications.
+Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`), and one theme that is largely aligned with the current SystemLink theme (i.e. `legacy-blue`). `legacy-blue` simply takes the NI-brand theme and applies SystemLink font styling and colors, so shouldn't require component specific modifications.
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.

@@ -61,12 +61,12 @@ const headerFooterContent = html`
         <nimble-button appearance="outline">OK</nimble-button>
     </footer>`;
 
-const content: { [key in ExampleContentType]: ViewTemplate } = {
+const content: { readonly [key in ExampleContentType]: ViewTemplate } = {
     [ExampleContentType.SimpleTextContent]: simpleContent,
     [ExampleContentType.HeaderContentFooter]: headerFooterContent
 };
 
-const widths: { [key in DrawerWidthOptions]: string } = {
+const widths: { readonly [key in DrawerWidthOptions]: string } = {
     [DrawerWidthOptions.Default]: drawerWidth.getValueFor(document.body),
     [DrawerWidthOptions.Small300]: '300px',
     [DrawerWidthOptions.Medium500]: '500px',
