@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'nimble-example-login',
+    selector: 'example-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
@@ -11,8 +11,8 @@ export class LoginComponent {
     public loginForm: FormGroup;
     public constructor(private readonly formBuilder: FormBuilder, @Inject(Router) private readonly router: Router) {
         this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required]
+            username: ['someuser', Validators.required],
+            password: ['password', Validators.required]
         });
     }
 

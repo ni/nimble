@@ -26,7 +26,7 @@
 - *Properties/Attributes*
 - *Methods*
 - *Events*
-- *CSS classes and custom properties that affect the component*
+- *CSS Classes and Custom Properties that affect the component*
 - *Slots*
 
 ### Angular integration 
@@ -42,8 +42,8 @@
 - *Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?*
 - *Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?*
 - *Tooling: Any new tools, updates to tools, code generation, etc?*
-- *Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc*
-- *Globalization: special RTL handling, swapping of icons/visuals, localization, etc*
+- *Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc.*
+- *Globalization: special RTL handling, swapping of icons/visuals, localization, etc.*
 - *Performance: does the FAST component meet Nimble's performance requirements?*
 - *Security: Any requirements for security?*
 

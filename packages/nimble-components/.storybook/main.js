@@ -34,6 +34,9 @@ module.exports = {
                 failOnError: process.env.NODE_ENV === 'production'
             })
         );
+        config.performance = {
+            hints: false
+        };
 
         return config;
     }

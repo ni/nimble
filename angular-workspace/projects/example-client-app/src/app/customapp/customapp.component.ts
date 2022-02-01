@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DrawerLocation } from '@ni/nimble-angular';
 
 @Component({
-    selector: 'nimble-example-customapp',
+    selector: 'example-customapp',
     templateUrl: './customapp.component.html',
     styleUrls: ['./customapp.component.scss']
 })

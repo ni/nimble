@@ -6,8 +6,16 @@ import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
 import { IconStatus } from '../types';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    createRenderer,
+    overrideWarning
+} from '../../utilities/tests/storybook';
 import type { Icon } from '..';
+import { contentFontColor } from '../../theme-provider/design-tokens';
+import {
+    tokenNames,
+    scssInternalPropertySetterMarkdown
+} from '../../theme-provider/design-token-names';
 
 const nimbleIcons = Object.values(nimbleIconsMap);
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
@@ -16,7 +24,7 @@ interface IconArgs {
     status: IconStatus;
 }
 
-const styleMarkup = `
+const styleMarkup = html`
     <style>
         .container {
             margin: 0;
@@ -37,7 +45,7 @@ const styleMarkup = `
         .icon svg {
             height: 32px;
             width: 32px;
-            fill: var(--content-font-color);
+            fill: var(${contentFontColor.cssCustomProperty});
         }
     </style>
 `;
@@ -85,13 +93,25 @@ const iconTemplate = html<IconClass, IconArgs>`
     `}
 `;
 
+const statusDescriptionOverride = `
+With SCSS properties, the icon color can be overriden. For example:
+${scssInternalPropertySetterMarkdown(tokenNames.iconColor, 'purple')}
+`;
+
+const statusDescription = `
+Set the \`pass\`, \`fail\`, or \`warning\` CSS class on the element to switch between the theme-aware color options.
+
+${overrideWarning('Color', statusDescriptionOverride)}
+`;
+
 // prettier-ignore
 export const componentIcons: StoryObj<IconArgs> = {
     args: { status: IconStatus.Regular },
     argTypes: {
         status: {
             options: Object.values(IconStatus),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: statusDescription
         }
     },
     render: createRenderer(html`

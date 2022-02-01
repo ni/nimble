@@ -1,8 +1,51 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 13 Jan 2022 19:48:52 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Feb 2022 17:09:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.147
+
+Tue, 01 Feb 2022 17:09:06 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.127
+
+## 1.0.0-beta.146
+
+Fri, 28 Jan 2022 21:45:26 GMT
+
+### Changes
+
+- Adds documentation and CSS/SCSS files for using theme-aware design tokens in Angular applications (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.126
+
+## 1.0.0-beta.145
+
+Thu, 20 Jan 2022 21:30:14 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.125
+
+## 1.0.0-beta.144
+
+Thu, 20 Jan 2022 04:13:54 GMT
+
+### Changes
+
+- Add contentHidden to Angular button directive (20542556+mollykreis@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.124
+
+## 1.0.0-beta.143
+
+Wed, 19 Jan 2022 23:57:51 GMT
+
+### Changes
+
+- Add documentation of nimble-theme-provider (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.123
 
 ## 1.0.0-beta.142
 

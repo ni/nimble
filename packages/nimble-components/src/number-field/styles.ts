@@ -2,14 +2,14 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     borderColor,
-    borderColorRgb,
+    borderColorRgbPartial,
     borderColorHover,
     borderWidth,
     contentFontColor,
     contentFontColorDisabled,
     contentFontSize,
     controlHeight,
-    fillColorSelectedRgb,
+    fillColorSelectedRgbPartial,
     fontFamily,
     iconSize,
     labelFontColor,
@@ -45,7 +45,7 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        border-bottom: ${borderWidth} solid rgba(${borderColorRgb}, 0.3);
+        border-bottom: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
         padding-bottom: 1px;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
@@ -88,7 +88,7 @@ export const styles = css`
 
     .control::selection {
         color: ${labelFontColor};
-        background: rgba(${fillColorSelectedRgb}, 0.3);
+        background: rgba(${fillColorSelectedRgbPartial}, 0.3);
     }
 
     .control::placeholder {

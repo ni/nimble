@@ -1,9 +1,9 @@
 {
   "name": "@ni/nimble-components",
-  "version": "1.0.0-beta.122",
+  "version": "1.0.0-beta.127",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
-    "build": "npm run build-components && npm run build-storybook",
+    "build": "npm run build-components && npm run generate-scss && npm run build-storybook",
     "lint": "npm run eslint && npm run prettier",
     "format": "npm run eslint-fix && npm run prettier-fix",
     "eslint": "eslint .",
@@ -16,6 +16,9 @@
     "build-storybook": "build-storybook -o dist/storybook",
     "build-components": "tsc -p ./tsconfig.json",
     "build-components:watch": "tsc -p ./tsconfig.json -w",
+    "generate-scss": "npm run generate-scss:bundle && npm run generate-scss:run",
+    "generate-scss:bundle": "rollup build/generate-scss/source/index.js --format cjs --file build/generate-scss/dist/index.js",
+    "generate-scss:run": "node build/generate-scss/dist/index.js",
     "chromatic": "chromatic",
     "tdd": "npm run build-components && npm run test-chrome",
     "tdd:watch": "npm run build-components:watch & npm run test-chrome:watch",
@@ -40,17 +43,17 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
     "@microsoft/fast-animation": "^4.1.5",
-    "@microsoft/fast-components": "^2.0.0",
     "@microsoft/fast-element": "^1.6.1",
     "@microsoft/fast-foundation": "^2.22.0",
-    "@ni/nimble-tokens": "^1.0.0-beta.37",
-    "hex-rgb": "^5.0.0",
-    "lodash-es": "^4.17.21"
+    "@microsoft/fast-web-utilities": "^5.0.2",
+    "@ni/nimble-tokens": "^1.0.0-beta.39",
+    "hex-rgb": "^5.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.13.15",
+    "@ni/eslint-config-javascript": "^3.1.0",
     "@ni/eslint-config-typescript": "^3.0.5",
     "@storybook/addon-a11y": "^6.4.0",
     "@storybook/addon-actions": "^6.4.0",
@@ -89,6 +92,7 @@
     "prettier-eslint": "^13.0.0",
     "prettier-eslint-cli": "^5.0.1",
     "puppeteer": "^10.1.0",
+    "rollup": "^2.61.1",
     "storybook-addon-xd-designs": "file:storybook-addon-xd-designs-6.0.0.tgz",
     "ts-loader": "^9.2.5",
     "typescript": "^4.3.2",

@@ -1,9 +1,31 @@
+@import '~@ni/nimble-angular/styles/tokens';
+
+.container-label {
+    font-family: $ni-nimble-group-label-font-family;
+    font-weight: $ni-nimble-group-label-font-weight;
+    font-size: $ni-nimble-group-label-font-size;
+    color: $ni-nimble-group-label-font-color;
+    padding-bottom: $ni-nimble-standard-padding;
+}
+
+p, a {
+    color: $ni-nimble-label-font-color;
+}
+
 .container {
-    background-color: var(--application-background-color);
-    display: flex;
+    background-color: $ni-nimble-application-background-color;
+    display: inline-flex;
     justify-content: left;
     flex-direction: column;
     padding: 0px 2px 0px 10px;
+}
+
+.sub-container {
+    margin: $ni-nimble-standard-padding;
+}
+
+.sub-container > * {
+    padding-right: $ni-nimble-standard-padding;
 }
 
 .theme-select {
@@ -16,6 +38,6 @@
     width: 200px;
 }
 
-nimble-example-header {
+example-header {
     display: block;
 }
