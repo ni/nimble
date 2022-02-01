@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 01 Feb 2022 19:28:24 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.127",
+      "version": "1.0.0-beta.127",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9d654bffeaedc8c9fc94421556af55e30eeb4981",
+            "comment": "Add accessibility documentation"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Feb 2022 17:09:06 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.127",
       "version": "1.0.0-beta.127",
