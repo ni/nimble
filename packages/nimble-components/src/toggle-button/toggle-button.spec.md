@@ -40,6 +40,11 @@ _Slots_
 -   start - the expected slot for the icon
 -   _default_ - the expected slot for text content
 
+Unlike the FAST switch, the `nimble-toggle-button` will not support the following slots because [toggle buttons should not change their message based on whether or not they are checked](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed):
+
+-   unchecked-message
+-   checked-message
+
 _Template_
 
 In order to have the toggle button visually appear like a button, a custom HTML template will be provided for it. The HTML of the template will be very similar to the FAST switch with the contents similar to the FAST button so that the toggle button and button can share CSS.
@@ -77,6 +82,10 @@ _Accessibility_
 -   As with the `nimble-button`, the `nimble-toggle-button` will manage the internal ARIA labels to ensure that an icon-only button is accessible
 -   The `nimble-toggle-button` can be pressed (and therefore toggled) in the same manners as a button: clicking, 'Enter' key, or 'Space' key
 -   In the HTML template, the `role` will be specified as `button` and `aria-pressed` will be set to match the value of the `checked` attribute
+
+_Testing_
+
+Because the FAST switch's template will not be used directly, tests related to logic in the template will be added within `nimble-components` for the toggle button. For example, tests that assert that the button has the correct role, aria-pressed value, and tab index will be added within nimble. These tests can be based largely on the [FAST switch's tests](https://github.com/microsoft/fast/blob/2cbba7d9ed4900ef2c69d0a9721cc98d742a583d/packages/web-components/fast-foundation/src/switch/switch.spec.ts).
 
 ## Example usage
 
