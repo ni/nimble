@@ -1,43 +1,94 @@
 <example-nav-drawer #navDrawer [location]="drawerLocation">
     <div class="content container">
-        <nimble-tabs>
-            <nimble-tab>Intro</nimble-tab>
-            <nimble-tab>Drawer</nimble-tab>
-            <nimble-tab>Numeric</nimble-tab>
-            <nimble-tab>Checkbox</nimble-tab>
-            <nimble-tab disabled>Disabled tab</nimble-tab>
-            <nimble-tabs-toolbar>
-                <nimble-button (click)="navDrawer.open()">Open drawer</nimble-button>
-            </nimble-tabs-toolbar>
-            <nimble-tab-panel>
-                Explore the tabs above to see a selection of other Nimble components in action. See the <a href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page" target="_blank">Nimble component docs</a> for additional details.
-            </nimble-tab-panel>
-            <nimble-tab-panel>
-                <div class="options-container">
-                    Drawer/Sidenav:
-                    <nimble-button appearance="outline" (click)="navDrawer.open()">
-                        Open
-                    </nimble-button>
-                    <nimble-button appearance="outline" (click)="navDrawer.togglePinned()">
-                        Pin/Unpin
-                    </nimble-button>
-                    <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
-                        <nimble-listbox-option [value]="drawerLocations.Left">Drawer: Left-side</nimble-listbox-option>
-                        <nimble-listbox-option [value]="drawerLocations.Right">Drawer: Right-side</nimble-listbox-option>
-                    </nimble-select>
-                </div>
-            </nimble-tab-panel>
-            <nimble-tab-panel>
-                <nimble-number-field placeholder="Number Field" value="42">
-                    Number Field
-                </nimble-number-field>
-            </nimble-tab-panel>
-            <nimble-tab-panel>
-                <nimble-checkbox>
-                    Checkbox label
-                </nimble-checkbox>
-            </nimble-tab-panel>
-            <nimble-tab-panel>Tab Content Three</nimble-tab-panel>
-        </nimble-tabs>
+        <p>Explore the components below to see the Nimble components in action. See the <a
+                href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page">Nimble
+                component docs</a> for additional usage details.</p>
+        <div class="container">
+            <div class="sub-container">
+                <div class="container-label">Buttons</div>
+                <nimble-button appearance="outline">Outline Button</nimble-button>
+                <nimble-button appearance="block">Block Button</nimble-button>
+                <nimble-button appearance="ghost">Ghost Button</nimble-button>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Checkbox</div>
+                <nimble-checkbox>Checkbox label</nimble-checkbox>
+                <nimble-checkbox>Checkbox label</nimble-checkbox>
+                <nimble-checkbox>Checkbox label</nimble-checkbox>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Drawer/Sidenav:</div>
+                <nimble-button appearance="outline" (click)="navDrawer.open()">Open Drawer</nimble-button>
+                <nimble-button appearance="outline" (click)="navDrawer.togglePinned()">Pin/Unpin</nimble-button>
+                <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
+                    <nimble-listbox-option [value]="drawerLocations.Left">Drawer: Left-side</nimble-listbox-option>
+                    <nimble-listbox-option [value]="drawerLocations.Right">Drawer: Right-side</nimble-listbox-option>
+                </nimble-select>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Menu</div>
+                <nimble-menu>
+                    <header>Header 1</header>
+                    <nimble-menu-item>Item 1</nimble-menu-item>
+                    <nimble-menu-item>Item 2</nimble-menu-item>
+                    <hr>
+                    <header>Header 2</header>
+                    <nimble-menu-item>Item 4</nimble-menu-item>
+                </nimble-menu>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Number Field</div>
+                <nimble-number-field placeholder="Number Field" value="42">Number Field Label</nimble-number-field>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Select</div>
+                <nimble-select>
+                    <nimble-listbox-option>Option 1</nimble-listbox-option>
+                    <nimble-listbox-option>Option 2</nimble-listbox-option>
+                    <nimble-listbox-option>Option 3</nimble-listbox-option>
+                </nimble-select>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Tabs</div>
+                <nimble-tabs>
+                    <nimble-tab>Tab 1</nimble-tab>
+                    <nimble-tab>Tab 2</nimble-tab>
+                    <nimble-tab disabled>Tab 3 (Disabled)</nimble-tab>
+                    <nimble-tabs-toolbar>
+                        <nimble-button (click)="navDrawer.open()">Open Drawer</nimble-button>
+                    </nimble-tabs-toolbar>
+                    <nimble-tab-panel>
+                        <div class="container-label">Tab 1 content</div>
+                    </nimble-tab-panel>
+                    <nimble-tab-panel>
+                        <div class="container-label">Tab 2 content</div>
+                    </nimble-tab-panel>
+                    <nimble-tab-panel>
+                        <div class="container-label">Tab 3 content</div>
+                    </nimble-tab-panel>
+                </nimble-tabs>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Text Field</div>
+                <nimble-text-field placeholder="Text Field" value="Here is text!">Text Field Label</nimble-text-field>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Tree View</div>
+                <nimble-tree-view>
+                    <nimble-tree-item>
+                        Parent 1
+                        <nimble-tree-item>Child 1</nimble-tree-item>
+                        <nimble-tree-item>Child 2</nimble-tree-item>
+                        <nimble-tree-item disabled>Child 3</nimble-tree-item>
+                    </nimble-tree-item>
+                    <nimble-tree-item expanded>
+                        Parent 2
+                        <nimble-tree-item>Child 2-1</nimble-tree-item>
+                        <nimble-tree-item>Child 2-2</nimble-tree-item>
+                        <nimble-tree-item>Child 2-3</nimble-tree-item>
+                    </nimble-tree-item>
+                </nimble-tree-view>
+            </div>
+        </div>
     </div>
 </example-nav-drawer>
