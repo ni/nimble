@@ -6,7 +6,7 @@ import {
     Subscriber
 } from '@microsoft/fast-element';
 import type { DesignTokenChangeRecord } from '@microsoft/fast-foundation';
-import { Theme, ThemeAttribute } from '../../theme-provider/types';
+import type { Theme, ThemeAttribute } from '../../theme-provider/types';
 import { theme as themeToken } from '../../theme-provider';
 
 type ThemeStyles = { readonly [key in Theme]: ElementStyles | null };
@@ -69,12 +69,50 @@ class ThemeStyleSheetBehavior implements Behavior {
         colorStyleOrAlias: ColorStyleOrAlias,
         legacyBlueStyleOrAlias: LegacyBlueStyleOrAlias
     ) {
+        const light = lightStyle;
+        const dark = ThemeStyleSheetBehavior.resolveTheme(darkStyleOrAlias, {
+            light,
+            dark: null,
+            color: null,
+            'legacy-blue': null
+        });
+        const color = ThemeStyleSheetBehavior.resolveTheme(colorStyleOrAlias, {
+            light,
+            dark,
+            color: null,
+            'legacy-blue': null
+        });
+        const legacyBlue = ThemeStyleSheetBehavior.resolveTheme(
+            legacyBlueStyleOrAlias,
+            {
+                light,
+                dark,
+                color,
+                'legacy-blue': null
+            }
+        );
         this.themeStyles = {
-            light: lightStyle,
-            dark: this.resolveTheme(darkStyleOrAlias),
-            color: this.resolveTheme(colorStyleOrAlias),
-            'legacy-blue': this.resolveTheme(legacyBlueStyleOrAlias)
+            light,
+            dark,
+            color,
+            'legacy-blue': legacyBlue
         };
+    }
+
+    private static resolveTheme(
+        value: StyleOrPossibleAliases,
+        currentThemeStyles: ThemeStyles
+    ): ElementStyles | null {
+        if (value instanceof ElementStyles || value === null) {
+            return value;
+        }
+        const currentStyle = currentThemeStyles[value];
+        if (currentStyle === null) {
+            throw new Error(
+                `Tried to alias to theme '${value}' but the theme value is not set to a style.`
+            );
+        }
+        return currentStyle;
     }
 
     /**
@@ -92,34 +130,6 @@ class ThemeStyleSheetBehavior implements Behavior {
 
         if (cache) {
             themeToken.unsubscribe(cache);
-        }
-    }
-
-    private validateTheme(
-        currentStyle: ElementStyles | null,
-        themeAlias: Theme
-    ): ElementStyles {
-        if (currentStyle === null) {
-            throw new Error(
-                `Tried to alias to theme '${themeAlias}' but the theme value is not set to a style.`
-            );
-        }
-        return currentStyle;
-    }
-
-    private resolveTheme(value: StyleOrPossibleAliases): ElementStyles | null {
-        if (value instanceof ElementStyles || value === null) {
-            return value;
-        }
-        switch (value) {
-            case Theme.Light:
-                return this.validateTheme(this.themeStyles.light, Theme.Light);
-            case Theme.Dark:
-                return this.validateTheme(this.themeStyles.dark, Theme.Dark);
-            case Theme.Color:
-                return this.validateTheme(this.themeStyles.color, Theme.Color);
-            default:
-                throw new Error('Unimplemented Theme alias type');
         }
     }
 
