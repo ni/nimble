@@ -125,10 +125,7 @@ class ThemeStyleSheetBehavior implements Behavior {
 
     private attach(source: FASTElement & HTMLElement): void {
         const subscriber = this.cache.get(source)
-            || new ThemeStyleSheetBehaviorSubscription(
-                this.themeStyles,
-                source
-            );
+            || new ThemeStyleSheetBehaviorSubscription(this.themeStyles, source);
 
         const value = themeToken.getValueFor(source);
         themeToken.subscribe(subscriber);
