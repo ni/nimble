@@ -72,6 +72,7 @@ The theming system is composed of:
 The goal of the Nimble design system is to provide a consistent style for applications. If you find that Nimble does not expose colors, fonts, sizes, etc. that you need in an application get in touch with the Nimble squad.
 
 ## Accessibility
+
 For accessibility information related to nimble components, see [ACCESSIBILITY.md](docs/ACCESSIBILITY.md).
 
 ## Contributing
