@@ -30,8 +30,6 @@ And some additional utility packages:
 
 Consult the `README.md` for each package to learn more, including how to use it in an application.
 
-For accessibility information, see [ACCESSIBILITY.md](ACCESSIBILITY.md).
-
 ## Community
 
 We welcome feedback and contributions!
