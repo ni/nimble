@@ -22,6 +22,8 @@ import {
     passwordRevealFilter,
     smallDelay
 } from '../theme-provider/design-tokens';
+import { appearanceBehavior } from './behaviors';
+import { TextFieldAppearance } from './types';
 
 export const styles = css`
     ${display('inline-block')}
@@ -46,9 +48,7 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        border-bottom: ${borderWidth} solid rgba(${borderColorRgb}, 0.3);
-        padding-bottom: 1px;
-        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
+        transition: border ${smallDelay}, padding ${smallDelay};
         align-items: flex-end;
     }
 
@@ -56,31 +56,6 @@ export const styles = css`
         .root {
             transition-duration: 0s;
         }
-    }
-
-    .root:hover {
-        border-bottom: 2px solid ${borderColorHover};
-        padding-bottom: 0px;
-    }
-
-    :host(.invalid) .root {
-        border-bottom: ${borderWidth} solid ${failColor};
-    }
-
-    :host(.invalid) .root:hover {
-        border-bottom: 2px solid ${failColor};
-        padding-bottom: 0px;
-    }
-
-    :host([disabled]) .root,
-    :host([disabled]) .root:hover {
-        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
-        padding-bottom: 1px;
-    }
-
-    :host([readonly]) .root,
-    :host([readonly]) .root:hover {
-        border: none;
     }
 
     .control {
@@ -160,4 +135,113 @@ export const styles = css`
     :host([disabled]) [part='end'] path {
         fill: ${contentFontColorDisabled};
     }
-`;
+`
+    // prettier-ignore
+    .withBehaviors(
+        appearanceBehavior(
+            TextFieldAppearance.Underline,
+            css`
+                .root {
+                    border-bottom: ${borderWidth} solid
+                        rgba(${borderColorRgb}, 0.3);
+                    padding-bottom: 1px;
+                }
+
+                .root:hover {
+                    border-bottom: 2px solid ${borderColorHover};
+                    padding-bottom: 0px;
+                }
+
+                :host(.invalid) .root {
+                    border-bottom: ${borderWidth} solid ${failColor};
+                }
+
+                :host(.invalid) .root:hover {
+                    border-bottom: 2px solid ${failColor};
+                    padding-bottom: 0px;
+                }
+
+                :host([disabled]) .root,
+                :host([disabled]) .root:hover {
+                    border-bottom: ${borderWidth} solid
+                        ${contentFontColorDisabled};
+                    padding-bottom: 1px;
+                }
+
+                :host([readonly]) .root,
+                :host([readonly]) .root:hover {
+                    border: none;
+                }
+            `
+        ),
+        appearanceBehavior(
+            TextFieldAppearance.Block,
+            css`
+                .root {
+                    border-bottom: ${borderWidth} solid
+                        rgba(${borderColorRgb}, 0.3);
+                    padding-bottom: 1px;
+                }
+
+                .root:hover {
+                    border-bottom: 2px solid ${borderColorHover};
+                    padding-bottom: 0px;
+                }
+
+                :host(.invalid) .root {
+                    border-bottom: ${borderWidth} solid ${failColor};
+                }
+
+                :host(.invalid) .root:hover {
+                    border-bottom: 2px solid ${failColor};
+                    padding-bottom: 0px;
+                }
+
+                :host([disabled]) .root,
+                :host([disabled]) .root:hover {
+                    border-bottom: ${borderWidth} solid
+                        ${contentFontColorDisabled};
+                    padding-bottom: 1px;
+                }
+
+                :host([readonly]) .root,
+                :host([readonly]) .root:hover {
+                    border: none;
+                }
+            `
+        ),
+        appearanceBehavior(
+            TextFieldAppearance.Outline,
+            css`
+                .root {
+                    border: ${borderWidth} solid rgba(${borderColorRgb}, 0.3);
+                    padding: 1px;
+                }
+
+                .root:hover {
+                    border: 2px solid ${borderColorHover};
+                    padding: 0px;
+                }
+
+                :host(.invalid) .root {
+                    border: ${borderWidth} solid ${failColor};
+                }
+
+                :host(.invalid) .root:hover {
+                    border: 2px solid ${failColor};
+                    padding: 0px;
+                }
+
+                :host([disabled]) .root,
+                :host([disabled]) .root:hover {
+                    border: ${borderWidth} solid ${contentFontColorDisabled};
+                    padding: 1px;
+                }
+
+                :host([readonly]) .root,
+                :host([readonly]) .root:hover {
+                    border: none;
+                }
+            `
+        )
+    );
