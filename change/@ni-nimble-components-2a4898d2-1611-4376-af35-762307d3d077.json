@@ -2,6 +2,6 @@
   "type": "prerelease",
   "comment": "Add status icon components",
   "packageName": "@ni/nimble-components",
-  "email": "christine.spangler@ni.com",
-  "dependentChangeType": "patch"
+  "email": "32167177+haworthia@users.noreply.github.com",
+  "dependentChangeType": "prerelease"
 }
