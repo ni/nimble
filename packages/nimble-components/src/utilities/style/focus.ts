@@ -2,7 +2,7 @@
  * This file is a workaround for: https://github.com/prettier/prettier/issues/11400
  */
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-restricted-imports
 import { focusVisible as focusVisibleOriginal } from '@microsoft/fast-foundation';
 
 /**

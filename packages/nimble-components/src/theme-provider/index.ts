@@ -9,8 +9,6 @@ import { template } from './template';
 import { styles } from './styles';
 import { Theme } from './types';
 
-export type { ThemeProvider };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-theme-provider': ThemeProvider;
@@ -34,7 +32,7 @@ export const theme = DesignToken.create<Theme>({
  * the values of design tokens that provide colors and fonts as CSS custom properties to any descendant components.
  * @internal
  */
-class ThemeProvider extends FoundationElement {
+export class ThemeProvider extends FoundationElement {
     @attr({
         attribute: 'direction'
     })
