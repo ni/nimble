@@ -42,10 +42,10 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
     }
 }
 
-type LightStyle = ElementStyles | null;
-type DarkStyleOrAlias = ElementStyles | null | Theme.Light;
-type ColorStyleOrAlias = ElementStyles | null | Theme.Light | Theme.Dark;
-type LegacyBlueStyleOrAlias =
+export type LightStyle = ElementStyles | null;
+export type DarkStyleOrAlias = ElementStyles | null | Theme.Light;
+export type ColorStyleOrAlias = ElementStyles | null | Theme.Light | Theme.Dark;
+export type LegacyBlueStyleOrAlias =
     | ElementStyles
     | null
     | Theme.Light
