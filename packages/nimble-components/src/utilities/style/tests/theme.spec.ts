@@ -16,7 +16,10 @@ import { themeBehavior } from '../theme';
 
 describe('The fixture helper', () => {
     const name = uniqueElementName();
-    const template = html<ThemedElement>`<div class="theme-target" ${ref('themeTarget')}></div>`;
+    const template = html<ThemedElement>`<div
+        class="theme-target"
+        ${ref('themeTarget')}
+    ></div>`;
     const styles = css`
         .theme-target {
             --private-prop: 'style-unset';
@@ -57,7 +60,11 @@ describe('The fixture helper', () => {
     class ThemedElement extends FASTElement {
         public themeTarget: HTMLDivElement | null = null;
         public getThemedStyle(): string {
-            return JSON.parse(window.getComputedStyle(this.themeTarget!).getPropertyValue('--private-prop')) as string;
+            return JSON.parse(
+                window
+                    .getComputedStyle(this.themeTarget!)
+                    .getPropertyValue('--private-prop')
+            ) as string;
         }
     }
 
@@ -74,11 +81,14 @@ describe('The fixture helper', () => {
          */
 
         const themeSetter = new ThemeSetter();
-        const { element, connect } = await fixture<ThemeProvider>(html<ThemeSetter>`
+        const { element, connect } = await fixture<ThemeProvider>(
+            html<ThemeSetter>`
             <nimble-theme-provider theme=${x => x.theme}>
                 <${name} ${ref('themedElement')}></${name}>
             </nimble-theme-provider>
-        `, { source: themeSetter });
+        `,
+            { source: themeSetter }
+        );
 
         expect(element).toBeInstanceOf(ThemeProvider);
         expect(themeSetter.themedElement).toBeInstanceOf(ThemedElement);
@@ -86,6 +96,6 @@ describe('The fixture helper', () => {
         expect(themeSetter.themedElement?.getThemedStyle()).toBe('style-light');
         themeSetter.theme = Theme.Dark;
         await DOM.nextUpdate();
-        expect(themeSetter.themedElement?.getThemedStyle()).toBe('style-light');
+        expect(themeSetter.themedElement?.getThemedStyle()).toBe('style-dark');
     });
 });
