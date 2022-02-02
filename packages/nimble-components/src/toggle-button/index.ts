@@ -61,7 +61,6 @@ class ToggleButton extends FoundationSwitch {
 
 const nimbleToggleButton = ToggleButton.compose<SwitchOptions>({
     baseName: 'toggle-button',
-    baseClass: FoundationSwitch,
     template: html`
     <div
         role="button"
