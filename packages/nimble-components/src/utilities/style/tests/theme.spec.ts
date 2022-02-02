@@ -12,17 +12,15 @@ import {
 } from '@microsoft/fast-element';
 import { ThemeProvider } from '../../../theme-provider';
 import { Theme } from '../../../theme-provider/types';
-import type { LightStyle, DarkStyleOrAlias, ColorStyleOrAlias, LegacyBlueStyleOrAlias } from '../theme';
+import type {
+    LightStyle,
+    DarkStyleOrAlias,
+    ColorStyleOrAlias,
+    LegacyBlueStyleOrAlias
+} from '../theme';
 import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
 import { themeBehavior } from '../theme';
-
-interface ThemeStyles {
-    readonly [Theme.Light]: LightStyle;
-    readonly [Theme.Dark]: DarkStyleOrAlias;
-    readonly [Theme.Color]: ColorStyleOrAlias;
-    readonly [Theme.LegacyBlue]: LegacyBlueStyleOrAlias;
-}
 
 /**
  * Test element with theme-aware styles
@@ -38,16 +36,20 @@ class ThemedElement extends FASTElement {
         `;
     }
 
-    public static createStyle(themeStyles: ThemeStyles): ElementStyles {
-        return ThemedElement.createThemeStyle('style-unset')
-            .withBehaviors(
-                themeBehavior(
-                    themeStyles[Theme.Light],
-                    themeStyles[Theme.Dark],
-                    themeStyles[Theme.Color],
-                    themeStyles[Theme.LegacyBlue]
-                )
-            );
+    public static createStyle(
+        lightStyle: LightStyle,
+        darkStyleOrAlias: DarkStyleOrAlias,
+        colorStyleOrAlias: ColorStyleOrAlias,
+        legacyBlueStyleOrAlias: LegacyBlueStyleOrAlias
+    ): ElementStyles {
+        return ThemedElement.createThemeStyle('style-unset').withBehaviors(
+            themeBehavior(
+                lightStyle,
+                darkStyleOrAlias,
+                colorStyleOrAlias,
+                legacyBlueStyleOrAlias
+            )
+        );
     }
 
     public static createTemplate(): ViewTemplate {
@@ -77,10 +79,12 @@ class ThemeController {
     public themedElement!: ThemedElement;
 }
 
-const setup = async (themeController: ThemeController, themeStyles: ThemeStyles): Promise<Fixture<ThemeProvider>> => {
+const setup = async (
+    themeController: ThemeController,
+    styles: ElementStyles
+): Promise<Fixture<ThemeProvider>> => {
     const name = uniqueElementName();
     const template = ThemedElement.createTemplate();
-    const styles = ThemedElement.createStyle(themeStyles);
 
     /** @inheritdoc */
     class ThemedElementVariation extends ThemedElement {
@@ -98,27 +102,29 @@ const setup = async (themeController: ThemeController, themeStyles: ThemeStyles)
         </nimble-theme-provider>
     `;
 
-    return fixture<ThemeProvider>(
-        fixtureTemplate,
-        { source: themeController }
-    );
+    return fixture<ThemeProvider>(fixtureTemplate, { source: themeController });
 };
 
 describe('The fixture helper', () => {
     it('can create a fixture for an element by template', async () => {
         const themeController = new ThemeController();
-        const { element, connect } = await setup(themeController, {
-            [Theme.Light]: ThemedElement.createThemeStyle('style-light'),
-            [Theme.Dark]: ThemedElement.createThemeStyle('style-dark'),
-            [Theme.Color]: ThemedElement.createThemeStyle('style-color'),
-            [Theme.LegacyBlue]: ThemedElement.createThemeStyle('style-legacy-blue'),
-        });
+        const styles = ThemedElement.createStyle(
+            ThemedElement.createThemeStyle('style-light'),
+            ThemedElement.createThemeStyle('style-dark'),
+            ThemedElement.createThemeStyle('style-color'),
+            ThemedElement.createThemeStyle('style-legacy-blue')
+        );
+        const { element, connect } = await setup(themeController, styles);
         expect(element).toBeInstanceOf(ThemeProvider);
         expect(themeController.themedElement).toBeInstanceOf(ThemedElement);
         await connect();
-        expect(themeController.themedElement.getThemedStyle()).toBe('style-light');
+        expect(themeController.themedElement.getThemedStyle()).toBe(
+            'style-light'
+        );
         themeController.theme = Theme.Dark;
         await DOM.nextUpdate();
-        expect(themeController.themedElement.getThemedStyle()).toBe('style-dark');
+        expect(themeController.themedElement.getThemedStyle()).toBe(
+            'style-dark'
+        );
     });
 });
