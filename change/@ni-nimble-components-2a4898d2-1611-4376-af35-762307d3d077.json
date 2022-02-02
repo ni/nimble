@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Add status icon components",
-  "packageName": "@ni/nimble-components",
-  "email": "32167177+haworthia@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}
