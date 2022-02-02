@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 02 Feb 2022 19:27:46 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.128",
+      "version": "1.0.0-beta.128",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b94345b372f18e080de88d6356d396c9fcbf6368",
+            "comment": "Create toggle-button spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 02 Feb 2022 16:29:26 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.128",
       "version": "1.0.0-beta.128",
