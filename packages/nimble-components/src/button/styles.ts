@@ -132,7 +132,7 @@ export const styles = css`
             css`
                 .control {
                     background-color: transparent;
-                    border-color: rgba(${actionColorRgbPartial}, 0.5);
+                    border-color: rgba(${actionColorRgbPartial}, 0.3);
                 }
 
                 .control:hover {
@@ -147,7 +147,7 @@ export const styles = css`
 
                 .control:active {
                     background-color: ${fillColorSelected};
-                    border-color: transparent;
+                    border-color: ${fillColorSelected};
                 }
 
                 .control[disabled] {
@@ -176,7 +176,7 @@ export const styles = css`
 
                 .control:active {
                     background-color: ${fillColorSelected};
-                    border-color: transparent;
+                    border-color: ${fillColorSelected};
                 }
 
                 .control[disabled] {
@@ -205,12 +205,12 @@ export const styles = css`
 
                 .control:active {
                     background-color: ${fillColorSelected};
-                    border-color: transparent;
+                    border-color: ${fillColorSelected};
                 }
 
                 .control[disabled] {
                     background-color: rgba(${borderColorRgbPartial}, 0.1);
-                    border-color: rgba(${borderColorRgbPartial}, 0.1);
+                    border-color: transparent;
                 }
             `
         )
