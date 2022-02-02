@@ -16,33 +16,30 @@ import { themeBehavior } from '../theme';
 
 describe('The fixture helper', () => {
     const name = uniqueElementName();
-    const template = html<ThemedElement>`<div
-        class="theme-target"
-        ${ref('themeTarget')}
-    ></div>`;
+    const template = html<ThemedElement>`<div ${ref('themeTarget')}></div>`;
     const styles = css`
-        .theme-target {
+        div {
             --private-prop: 'style-unset';
         }
     `.withBehaviors(
             themeBehavior(
                 css`
-                .theme-target {
+                div {
                     --private-prop: 'style-light';
                 }
             `,
                 css`
-                .theme-target {
+                div {
                     --private-prop: 'style-dark';
                 }
             `,
                 css`
-                .theme-target {
+                div {
                     --private-prop: 'style-color';
                 }
             `,
                 css`
-                .theme-target {
+                div {
                     --private-prop: 'style-legacy-blue';
                 }
             `
@@ -50,7 +47,7 @@ describe('The fixture helper', () => {
         );
 
     /**
-     * Temporary class for testing
+     * Test element with theme-aware styles
      */
     @customElement({
         name,
@@ -60,6 +57,9 @@ describe('The fixture helper', () => {
     class ThemedElement extends FASTElement {
         public themeTarget: HTMLDivElement | null = null;
         public getThemedStyle(): string {
+            // Computed custom property values are double quoted strings very similar to JSON strings
+            // Think it's safe, but if the pattern is used elsewhere validate the
+            // CSS serialize a string alogorithm is compatible: https://drafts.csswg.org/cssom/#serialize-a-string
             return JSON.parse(
                 window
                     .getComputedStyle(this.themeTarget!)
@@ -68,6 +68,9 @@ describe('The fixture helper', () => {
         }
     }
 
+    /**
+     * Test helper to configure theme
+     */
     class ThemeSetter {
         @observable
         public theme = Theme.Light;
@@ -76,10 +79,6 @@ describe('The fixture helper', () => {
     }
 
     it('can create a fixture for an element by template', async () => {
-        /**
-         * Test helper to configure theme
-         */
-
         const themeSetter = new ThemeSetter();
         const { element, connect } = await fixture<ThemeProvider>(
             html<ThemeSetter>`
