@@ -3,14 +3,14 @@
 import {
     FASTElement,
     html,
-    DOM,
     observable,
     css,
     ref,
     ElementStyles,
-    ViewTemplate
+    ViewTemplate,
+    DOM
 } from '@microsoft/fast-element';
-import { ThemeProvider } from '../../../theme-provider';
+import type { ThemeProvider } from '../../../theme-provider';
 import { Theme } from '../../../theme-provider/types';
 import type {
     LightStyle,
@@ -21,6 +21,7 @@ import type {
 import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
 import { themeBehavior } from '../theme';
+import { getSpecTypeByNamedList } from '../../tests/parameterized';
 
 /**
  * Test element with theme-aware styles
@@ -105,26 +106,45 @@ const setup = async (
     return fixture<ThemeProvider>(fixtureTemplate, { source: themeController });
 };
 
-describe('The fixture helper', () => {
-    it('can create a fixture for an element by template', async () => {
-        const themeController = new ThemeController();
-        const styles = ThemedElement.createStyle(
-            ThemedElement.createThemeStyle('style-light'),
-            ThemedElement.createThemeStyle('style-dark'),
-            ThemedElement.createThemeStyle('style-color'),
-            ThemedElement.createThemeStyle('style-legacy-blue')
-        );
-        const { element, connect } = await setup(themeController, styles);
-        expect(element).toBeInstanceOf(ThemeProvider);
-        expect(themeController.themedElement).toBeInstanceOf(ThemedElement);
-        await connect();
-        expect(themeController.themedElement.getThemedStyle()).toBe(
-            'style-light'
-        );
-        themeController.theme = Theme.Dark;
-        await DOM.nextUpdate();
-        expect(themeController.themedElement.getThemedStyle()).toBe(
-            'style-dark'
-        );
-    });
+describe('The ThemeStylesheetBehavior', () => {
+    const configs = [
+        {
+            name: Theme.Light,
+            resolvedProperty: 'style-light'
+        },
+        {
+            name: Theme.Dark,
+            resolvedProperty: 'style-dark'
+        },
+        {
+            name: Theme.Color,
+            resolvedProperty: 'style-color'
+        },
+        {
+            name: Theme.LegacyBlue,
+            resolvedProperty: 'style-legacy-blue'
+        }
+    ];
+    const styles = ThemedElement.createStyle(
+        ThemedElement.createThemeStyle('style-light'),
+        ThemedElement.createThemeStyle('style-dark'),
+        ThemedElement.createThemeStyle('style-color'),
+        ThemedElement.createThemeStyle('style-legacy-blue')
+    );
+    const focused: Theme[] = [];
+    const disabled: Theme[] = [];
+    for (const config of configs) {
+        const specType = getSpecTypeByNamedList(config, focused, disabled);
+        specType(`Can respond to theme ${config.name}`, async () => {
+            const themeController = new ThemeController();
+            const { connect } = await setup(themeController, styles);
+
+            await connect();
+            themeController.theme = config.name;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement.getThemedStyle()).toBe(
+                config.resolvedProperty
+            );
+        });
+    }
 });

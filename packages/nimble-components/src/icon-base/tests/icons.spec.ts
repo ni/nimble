@@ -1,6 +1,6 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { NimbleIconName } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { getSpecTypeByList } from '../../utilities/tests/parameterized';
+import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 describe('Icons', () => {
     describe('should have a viewBox', () => {
@@ -16,7 +16,7 @@ describe('Icons', () => {
         const focused: NimbleIconName[] = [];
         const disabled: NimbleIconName[] = [];
         for (const icon of nimbleIcons) {
-            const specType = getSpecTypeByList(icon.name, focused, disabled);
+            const specType = getSpecTypeByNamedList(icon, focused, disabled);
             specType(`for icon ${icon.name}`, () => {
                 const svg = getSVGElement(icon.data);
                 const paths = getPaths(svg);
