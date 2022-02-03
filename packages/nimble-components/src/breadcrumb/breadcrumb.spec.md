@@ -6,11 +6,13 @@ A breadcrumb component is used as a navigational aid, allowing users to maintain
 
 ### Background
 
+[FAST Component Demo - Breadcrumb](https://explore.fast.design/components/fast-breadcrumb)
+
 Current SystemLink breadcrumb:  
 ![SystemLink Current Breadcrumb](./spec-images/SLBreadcrumbCurrent.PNG)  
 Future planned SystemLink breadcrumb ([see discussion here](https://teams.microsoft.com/l/message/19:8e5f3e80de8146d5aaecdc2112e89191@thread.skype/1642192016552?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1642192016552&teamName=ASW%20SystemLink&channelName=UX&createdTime=1642192016552)):  
-![SystemLink Future Breadcrumb](./spec-images/SLBreadcrumbFuture.PNG)  
-[FAST Component Demo - Breadcrumb](https://explore.fast.design/components/fast-breadcrumb)
+The future/planned behavior of the SystemLink breadcrumb (moved into the header, won't include tab names) doesn't add any new requirements to this control.  
+![SystemLink Future Breadcrumb](./spec-images/SLBreadcrumbFuture.PNG)
 
 
 ## Design
@@ -25,6 +27,7 @@ Example Usage:
     <nimble-breadcrumb-item>Breadcrumb item 3</nimble-breadcrumb-item>
 </nimble-breadcrumb>
 ```
+Note: href is optional, and the breadcrumb can be used without links entirely.
 
 FAST API Documentation/ Specs
 - [breadcrumb and breadcrumb-item](https://github.com/microsoft/fast/blob/2cbba7d9ed4900ef2c69d0a9721cc98d742a583d/packages/web-components/fast-foundation/src/breadcrumb/breadcrumb.spec.md)
@@ -63,7 +66,8 @@ When used in an Angular app, frequently the `[routerLink]` directive will be use
 <nimble-breadcrumb-item routerLink="/customapp" [queryParams]="{debug: true}" [state]="{tracingId: 123}">Custom App Page</nimble-breadcrumb-item>
 ```  
 As shown above, clients using [routerLink] can also set queryParams dynamically, pass state when the router navigates, etc.  
-`[routerLinkActive]` can also be used to add CSS classes on a link that points to the current page/ route.
+`[routerLinkActive]` can also be used to add CSS classes on a link that points to the current page/ route.  
+One use case for the Nimble breadcrumb is the [SystemLink sl-breadcrumb-bar, which already uses [routerLink]](https://ni.visualstudio.com/DevCentral/_git/Skyline?path=/Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/src/sl-breadcrumb-bar/sl-breadcrumb-bar.component.html&version=GBmaster&line=4&lineEnd=5&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents).
 
 Angular has 2 directives handling [routerLink]:
  - RouterLink: Selector `:not(a):not(area)[routerLink]`. Does a router navigation on left-click; handles Ctrl-Click the same way; does not compute an href (as it doesn't target `<a>` elements)
