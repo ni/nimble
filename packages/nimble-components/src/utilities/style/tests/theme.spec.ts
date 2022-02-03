@@ -179,12 +179,7 @@ describe('The ThemeStylesheetBehavior', () => {
         ];
         const focused: Theme[] = [];
         const disabled: Theme[] = [];
-        const styles = ThemedElement.createStyle(
-            null,
-            null,
-            null,
-            null
-        );
+        const styles = ThemedElement.createStyle(null, null, null, null);
         themedElementTest(configs, focused, disabled, styles);
     });
 
