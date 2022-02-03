@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 28 Jan 2022 21:45:26 GMT and should not be manually modified.
+This log was last generated on Wed, 02 Feb 2022 16:29:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.148
+
+Wed, 02 Feb 2022 16:29:26 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.128
+
+## 1.0.0-beta.147
+
+Tue, 01 Feb 2022 17:09:06 GMT
+
+### Changes
+
+- Bump @ni/nimble-components to v1.0.0-beta.127
 
 ## 1.0.0-beta.146
 
