@@ -67,12 +67,12 @@ When used in an Angular app, frequently the `[routerLink]` directive will be use
 <nimble-breadcrumb-item routerLink="/customapp" [queryParams]="{debug: true}" [state]="{tracingId: 123}">Custom App Page</nimble-breadcrumb-item>
 ```  
 As shown above, clients using [routerLink] can also set queryParams dynamically, pass state when the router navigates, etc.  
-`[routerLinkActive]` can also be used to add CSS classes on a link that points to the current page/ route.  
+[[routerLinkActive]](https://github.com/angular/angular/blob/0a2191f8e7e232087aab0a7a9eb9ee6871580267/packages/router/src/directives/router_link_active.ts) can also be used to add CSS classes on a link that points to the current page/ route.  
 One use case for the Nimble breadcrumb is the [SystemLink sl-breadcrumb-bar, which already uses [routerLink]](https://ni.visualstudio.com/DevCentral/_git/Skyline?path=/Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/src/sl-breadcrumb-bar/sl-breadcrumb-bar.component.html&version=GBmaster&line=4&lineEnd=5&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents).
 
 Angular has 2 directives handling [routerLink]:
- - RouterLink: Selector `:not(a):not(area)[routerLink]`. Does a router navigation on left-click; handles Ctrl-Click the same way; does not compute an href (as it doesn't target `<a>` elements)
- - RouterLinkWithHref: Selector `a[routerLink],area[routerLink]`: Computes an href for the anchor element it targets; left-click does a router navigation; Ctrl-click and middle-mouse-button click defer to the browser (to open a new tab/window)
+ - [RouterLink](https://github.com/angular/angular/blob/0a2191f8e7e232087aab0a7a9eb9ee6871580267/packages/router/src/directives/router_link.ts#L119): Selector `:not(a):not(area)[routerLink]`. Does a router navigation on left-click; handles Ctrl-Click the same way; does not compute an href (as it doesn't target `<a>` elements)
+ - [RouterLinkWithHref](https://github.com/angular/angular/blob/0a2191f8e7e232087aab0a7a9eb9ee6871580267/packages/router/src/directives/router_link.ts#L257): Selector `a[routerLink],area[routerLink]`: Computes an href for the anchor element it targets; left-click does a router navigation; Ctrl-click and middle-mouse-button click defer to the browser (to open a new tab/window)
 
 We want the behavior of RouterLinkWithHref, so we can subclass it and update the selector (to `nimble-breadcrumb-item[routerLink]`). However there'll still be a RouterLink directive active doing the wrong action too. In current Angular versions there's not a good way to disable RouterLink navigation ([see the comment on this Angular commit](https://github.com/angular/angular/commit/ccb09b4558a3864fb5b2fe2214d08f1c1fe2758f)), however we can prevent the RouterLink onClick from being called (with a click listener on a child element, or with a listener with useCapture=true).
 
