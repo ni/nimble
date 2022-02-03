@@ -22,3 +22,4 @@ export { TestInsightsIcon } from './test-insights';
 export { TimedOutIcon } from './timed-out';
 export { UtilitiesIcon } from './utilities';
 export { WaitingIcon } from './waiting';
+export { ArrowExpanderRightIcon } from './arrow-expander';

@@ -5,6 +5,13 @@
                 component docs</a> for additional usage details.</p>
         <div class="container">
             <div class="sub-container">
+                <div class="container-label">Breadcrumb</div>
+                <nimble-breadcrumb>
+                    <nimble-breadcrumb-item routerLink="/customapp" [queryParams]="{debug: true}" [state]="{tracingId: 123}">Custom App Page</nimble-breadcrumb-item>
+                    <nimble-breadcrumb-item>Last Breadcrumb</nimble-breadcrumb-item>
+                </nimble-breadcrumb>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Buttons</div>
                 <nimble-button appearance="outline">Outline Button</nimble-button>
                 <nimble-button appearance="block">Block Button</nimble-button>
