@@ -106,39 +106,17 @@ const setup = async (
     return fixture<ThemeProvider>(fixtureTemplate, { source: themeController });
 };
 
-describe('The ThemeStylesheetBehavior', () => {
-    const configs = [
-        {
-            name: Theme.Light,
-            resolvedProperty: 'style-light'
-        },
-        {
-            name: Theme.Dark,
-            resolvedProperty: 'style-dark'
-        },
-        {
-            name: Theme.Color,
-            resolvedProperty: 'style-color'
-        },
-        {
-            name: Theme.LegacyBlue,
-            resolvedProperty: 'style-legacy-blue'
-        }
-    ];
-    const styles = ThemedElement.createStyle(
-        ThemedElement.createThemeStyle('style-light'),
-        ThemedElement.createThemeStyle('style-dark'),
-        ThemedElement.createThemeStyle('style-color'),
-        ThemedElement.createThemeStyle('style-legacy-blue')
-    );
-    const focused: Theme[] = [];
-    const disabled: Theme[] = [];
+const themedElementTest = (
+    configs: { name: Theme, resolvedProperty: string }[],
+    focused: Theme[],
+    disabled: Theme[],
+    styles: ElementStyles
+): void => {
     for (const config of configs) {
         const specType = getSpecTypeByNamedList(config, focused, disabled);
         specType(`Can respond to theme ${config.name}`, async () => {
             const themeController = new ThemeController();
             const { connect } = await setup(themeController, styles);
-
             await connect();
             themeController.theme = config.name;
             await DOM.nextUpdate();
@@ -147,4 +125,156 @@ describe('The ThemeStylesheetBehavior', () => {
             );
         });
     }
+};
+
+describe('The ThemeStylesheetBehavior', () => {
+    describe('for unaliased options', () => {
+        const configs = [
+            {
+                name: Theme.Light,
+                resolvedProperty: 'style-light'
+            },
+            {
+                name: Theme.Dark,
+                resolvedProperty: 'style-dark'
+            },
+            {
+                name: Theme.Color,
+                resolvedProperty: 'style-color'
+            },
+            {
+                name: Theme.LegacyBlue,
+                resolvedProperty: 'style-legacy-blue'
+            }
+        ];
+        const focused: Theme[] = [];
+        const disabled: Theme[] = [];
+        const styles = ThemedElement.createStyle(
+            ThemedElement.createThemeStyle('style-light'),
+            ThemedElement.createThemeStyle('style-dark'),
+            ThemedElement.createThemeStyle('style-color'),
+            ThemedElement.createThemeStyle('style-legacy-blue')
+        );
+        themedElementTest(configs, focused, disabled, styles);
+    });
+
+    describe('for null options', () => {
+        const configs = [
+            {
+                name: Theme.Light,
+                resolvedProperty: 'style-unset'
+            },
+            {
+                name: Theme.Dark,
+                resolvedProperty: 'style-unset'
+            },
+            {
+                name: Theme.Color,
+                resolvedProperty: 'style-unset'
+            },
+            {
+                name: Theme.LegacyBlue,
+                resolvedProperty: 'style-unset'
+            }
+        ];
+        const focused: Theme[] = [];
+        const disabled: Theme[] = [];
+        const styles = ThemedElement.createStyle(
+            null,
+            null,
+            null,
+            null
+        );
+        themedElementTest(configs, focused, disabled, styles);
+    });
+
+    describe('for an aliased dark option', () => {
+        const configs = [
+            {
+                name: Theme.Light,
+                resolvedProperty: 'style-light'
+            },
+            {
+                name: Theme.Dark,
+                resolvedProperty: 'style-light'
+            },
+            {
+                name: Theme.Color,
+                resolvedProperty: 'style-color'
+            },
+            {
+                name: Theme.LegacyBlue,
+                resolvedProperty: 'style-legacy-blue'
+            }
+        ];
+        const focused: Theme[] = [];
+        const disabled: Theme[] = [];
+        const styles = ThemedElement.createStyle(
+            ThemedElement.createThemeStyle('style-light'),
+            Theme.Light,
+            ThemedElement.createThemeStyle('style-color'),
+            ThemedElement.createThemeStyle('style-legacy-blue')
+        );
+        themedElementTest(configs, focused, disabled, styles);
+    });
+
+    describe('for an aliased color option', () => {
+        const configs = [
+            {
+                name: Theme.Light,
+                resolvedProperty: 'style-light'
+            },
+            {
+                name: Theme.Dark,
+                resolvedProperty: 'style-dark'
+            },
+            {
+                name: Theme.Color,
+                resolvedProperty: 'style-light'
+            },
+            {
+                name: Theme.LegacyBlue,
+                resolvedProperty: 'style-legacy-blue'
+            }
+        ];
+        const focused: Theme[] = [];
+        const disabled: Theme[] = [];
+        const styles = ThemedElement.createStyle(
+            ThemedElement.createThemeStyle('style-light'),
+            ThemedElement.createThemeStyle('style-dark'),
+            Theme.Light,
+            ThemedElement.createThemeStyle('style-legacy-blue')
+        );
+        themedElementTest(configs, focused, disabled, styles);
+    });
+
+    describe('for an aliased legacy-blue option', () => {
+        const configs = [
+            {
+                name: Theme.Light,
+                resolvedProperty: 'style-light'
+            },
+            {
+                name: Theme.Dark,
+                resolvedProperty: 'style-dark'
+            },
+            {
+                name: Theme.Color,
+                resolvedProperty: 'style-color'
+            },
+            {
+                name: Theme.LegacyBlue,
+                resolvedProperty: 'style-light'
+            }
+        ];
+        const focused: Theme[] = [];
+        const disabled: Theme[] = [];
+        const styles = ThemedElement.createStyle(
+            ThemedElement.createThemeStyle('style-light'),
+            ThemedElement.createThemeStyle('style-dark'),
+            ThemedElement.createThemeStyle('style-color'),
+            Theme.Light
+        );
+        themedElementTest(configs, focused, disabled, styles);
+    });
 });
