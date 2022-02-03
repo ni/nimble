@@ -10,10 +10,10 @@ A breadcrumb component is used as a navigational aid, allowing users to maintain
 
 [F1792531: [Design System] Components for sl-breadcrumb-bar](https://dev.azure.com/ni/DevCentral/_workitems/edit/1792531)  
 Current SystemLink breadcrumb:  
-![SystemLink Current Breadcrumb](./spec-images/SLBreadcrumbCurrent.PNG)  
+![SystemLink Current Breadcrumb](https://user-images.githubusercontent.com/20709258/152267289-a419b7c1-fd21-401e-a1e8-3ce4433fe189.PNG) <!--(./spec-images/SLBreadcrumbCurrent.PNG)-->  
 Future planned SystemLink breadcrumb ([see discussion here](https://teams.microsoft.com/l/message/19:8e5f3e80de8146d5aaecdc2112e89191@thread.skype/1642192016552?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1642192016552&teamName=ASW%20SystemLink&channelName=UX&createdTime=1642192016552)):  
 The future/planned behavior of the SystemLink breadcrumb (where it's moved into the header, and won't include tab names) doesn't add any new requirements to this control.  
-![SystemLink Future Breadcrumb](./spec-images/SLBreadcrumbFuture.PNG)
+![SystemLink Future Breadcrumb](https://user-images.githubusercontent.com/20709258/152267292-830a884d-8777-4850-a4e9-f6d27dbb8758.png) <!--(./spec-images/SLBreadcrumbFuture.PNG)-->
 
 
 ## Design
@@ -103,7 +103,7 @@ For an example/ prototype implementation [see the directives here](https://githu
 
 - Need to finalize styling and colors for Nimble anchors/hyperlinks, which this control will also use. See [nimble issue 324](https://github.com/ni/nimble/issues/324) 
 - Current breadcrumb in SystemLink includes the breadcrumb separator `>` as part of the hyperlink (so it's clickable as part of the link). Do we need to support that?  
-     ![SystemLink Current Breadcrumb](./spec-images/SLBreadcrumbCurrentHover.PNG)  
-    - Current assumption: don't need to support it (but we should check with Leslie + Brandon)
+     ![SystemLink Current Breadcrumb](https://user-images.githubusercontent.com/20709258/152267291-2ca8c247-b236-4d61-8312-489cf0aaf6d2.PNG) <!--(./spec-images/SLBreadcrumbCurrentHover.PNG)-->  
+    - TODO: check with Leslie + Brandon
     - If we need to, we'll have to customize the FAST Breadcrumb Item's template
 - Does NimbleBreadcrumbItemDirective need the attribute bindings besides `href`, `hreflang`, `rel`, and `target`?
