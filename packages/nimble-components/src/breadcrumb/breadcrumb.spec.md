@@ -8,10 +8,11 @@ A breadcrumb component is used as a navigational aid, allowing users to maintain
 
 [FAST Component Demo - Breadcrumb](https://explore.fast.design/components/fast-breadcrumb)
 
+[F1792531: [Design System] Components for sl-breadcrumb-bar](https://dev.azure.com/ni/DevCentral/_workitems/edit/1792531)  
 Current SystemLink breadcrumb:  
 ![SystemLink Current Breadcrumb](./spec-images/SLBreadcrumbCurrent.PNG)  
 Future planned SystemLink breadcrumb ([see discussion here](https://teams.microsoft.com/l/message/19:8e5f3e80de8146d5aaecdc2112e89191@thread.skype/1642192016552?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1642192016552&teamName=ASW%20SystemLink&channelName=UX&createdTime=1642192016552)):  
-The future/planned behavior of the SystemLink breadcrumb (moved into the header, won't include tab names) doesn't add any new requirements to this control.  
+The future/planned behavior of the SystemLink breadcrumb (where it's moved into the header, and won't include tab names) doesn't add any new requirements to this control.  
 ![SystemLink Future Breadcrumb](./spec-images/SLBreadcrumbFuture.PNG)
 
 
