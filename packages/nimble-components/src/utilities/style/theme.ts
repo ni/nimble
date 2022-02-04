@@ -123,6 +123,9 @@ class ThemeStyleSheetBehavior implements Behavior {
             || new ThemeStyleSheetBehaviorSubscription(this.themeStyles, source);
 
         const value = themeToken.getValueFor(source);
+        // Currently subscriber from cache may have gone through unbind
+        // but still be in cache so always resubscribe
+        // See: https://github.com/microsoft/fast/issues/3246#issuecomment-1030424876
         themeToken.subscribe(subscriber);
         subscriber.attach(value);
 
@@ -138,6 +141,9 @@ class ThemeStyleSheetBehavior implements Behavior {
         if (subscriber) {
             themeToken.unsubscribe(subscriber);
         }
+
+        // Currently does not evict subscriber from cache
+        // See: https://github.com/microsoft/fast/issues/3246#issuecomment-1030424876
     }
 }
 
