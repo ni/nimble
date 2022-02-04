@@ -11,7 +11,7 @@ import {
     dialogTemplate as template
 } from '@microsoft/fast-foundation';
 import { drawerAnimationDurationMs } from '../theme-provider/design-tokens';
-import { PrefersReducedMotionWatcher } from '../utilities/style/prefers-reduced-motion';
+import { prefersReducedMotionMediaQuery } from '../utilities/style/prefers-reduced-motion';
 import { animationConfig } from './animations';
 import { styles } from './styles';
 import { DrawerLocation, DrawerState } from './types';
@@ -63,7 +63,7 @@ class Drawer extends FoundationDialog {
         super.connectedCallback();
         this.updateAnimationDuration();
         this.animationsEnabledChangedHandler = () => this.updateAnimationDuration();
-        PrefersReducedMotionWatcher.instance.mediaQuery.addEventListener(
+        prefersReducedMotionMediaQuery.addEventListener(
             'change',
             this.animationsEnabledChangedHandler
         );
@@ -89,7 +89,7 @@ class Drawer extends FoundationDialog {
             this.propertyChangeSubscriber = undefined;
         }
         if (this.animationsEnabledChangedHandler) {
-            PrefersReducedMotionWatcher.instance.mediaQuery.removeEventListener(
+            prefersReducedMotionMediaQuery.removeEventListener(
                 'change',
                 this.animationsEnabledChangedHandler
             );
@@ -170,7 +170,7 @@ class Drawer extends FoundationDialog {
     }
 
     private updateAnimationDuration(): void {
-        const disableAnimations: boolean = PrefersReducedMotionWatcher.instance.mediaQuery.matches;
+        const disableAnimations: boolean = prefersReducedMotionMediaQuery.matches;
         this.animationDurationMilliseconds = disableAnimations
             ? animationDurationWhenDisabledMilliseconds
             : drawerAnimationDurationMs.getValueFor(this);
