@@ -2,7 +2,7 @@
 
 ## Design Tokens and CSS Custom Properties
 
-Nimble controls have shared style properties such as colors, typography, sizing, and animation properties. These properties are shared in two different ways: Design Tokens and CSS Custom Properties.
+Nimble controls have shared style properties such as colors, typography, sizing, and animation properties as defined by the [Nimble Design System](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/). These properties are shared in two different ways: Design Tokens and CSS Custom Properties.
 
 ### Design Tokens
 
@@ -46,6 +46,12 @@ Note: When the token is accessed as a CSS Custom Property it needs to use the `v
 CSS Custom Properties should generally not be used directly within nimble components. Any CSS Custom Property that a control uses that can be manipulated outside of the control is part of the control's public API and should be defined as a design token.
 
 If a CSS Custom Property is used completely internally to a control, for example it calculates a style inside its shadow root that it uses in multiple places inside its shadow root, then it should not be defined in the design system and should have the `--ni-private-` prefix.
+
+### Theme-specific styles
+
+Design tokens are theme-aware and should be created for the purpose of creating re-usable design tokens by Nimble Components and by end applications to leverage the Design System.
+
+Design tokens that are not significantly valuable to share externally should not be made just to have theme-aware style behavior. Components can use the [themeBehavior](/packages/nimble-components/src/utilities/style/theme.ts) to create styles that are theme-aware without needing to define a new token.
 
 ## Group selectors by target and document order
 

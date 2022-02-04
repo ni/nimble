@@ -2,7 +2,7 @@ import type * as TokensNamespace from './design-tokens';
 
 type TokenName = keyof typeof TokensNamespace;
 
-export const tokenNames: { [key in TokenName]: string } = {
+export const tokenNames: { readonly [key in TokenName]: string } = {
     actionColorRgbPartial: 'action-color-rgb-partial',
     applicationBackgroundColor: 'application-background-color',
     fillColorSelected: 'fill-color-selected',
@@ -44,8 +44,7 @@ export const tokenNames: { [key in TokenName]: string } = {
     contentFontColorDisabled: 'content-font-color-disabled',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
-    drawerAnimationDurationMs: 'drawer-animation-duration-ms',
-    passwordRevealFilter: 'password-reveal-filter'
+    drawerAnimationDurationMs: 'drawer-animation-duration-ms'
 };
 
 const prefix = 'ni-nimble';

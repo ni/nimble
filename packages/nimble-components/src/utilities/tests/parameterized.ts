@@ -33,29 +33,32 @@ export const getSpecType = <T>(
 };
 
 /**
- * Similar to @see {@link getSpecType} but allows passing a list of focused or disabled tests
- * under the assumption that values can be compared based on `Array.prototype.includes()`.
- * In the following example the test for the `cats` case is focused for debugging
+ * Similar to @see {@link getSpecType} but allows passing a list of named objects.
+ * In the following example the test for the `cats-and-dogs` case is focused for debugging
  * and no tests are disabled:
  * @example
- * const rainTypes = ['cats', 'dogs', 'frogs', 'men'];
+ * const rainTypes = [
+ *   { name: 'cats-and-dogs', type: 'idiom' },
+ *   { name: 'frogs' type: 'idiom'},
+ *   { name: 'men', type: 'lyrics'}
+ * ];
  * describe('Different rains', () => {
- *     const focused = ['cats'];
+ *     const focused = ['cats-and-dogs'];
  *     const disabled = [];
  *     for (const rainType of rainTypes) {
- *         const specType = getSpecTypeByList(rainType, focused, disabled);
- *         specType(`of type ${rainType} exist`, () => {
- *             expect(rainType).toBeTruthy();
+ *         const specType = getSpecTypeByNamedList(rainType, focused, disabled);
+ *         specType(`of type ${rainType.name} exist`, () => {
+ *             expect(rainType.type).toBeDefined();
  *         });
  *     }
  * });
  */
-export const getSpecTypeByList = <T>(
+export const getSpecTypeByNamedList = <T extends { name: string }>(
     value: T,
-    focusList: T[],
-    disabledList: T[]
+    focusList: string[],
+    disabledList: string[]
 ): SpecTypes => getSpecType(
     value,
-    (x: T) => focusList.includes(x),
-    (x: T) => disabledList.includes(x)
+    (x: T) => focusList.includes(x.name),
+    (x: T) => disabledList.includes(x.name)
 );
