@@ -5,7 +5,9 @@ import '..';
 import type { ToggleButton } from '..';
 
 async function setup(): Promise<Fixture<ToggleButton>> {
-    return fixture<ToggleButton>(html` <nimble-toggle-button> </nimble-toggle-button>`);
+    return fixture<ToggleButton>(
+        html` <nimble-toggle-button> </nimble-toggle-button>`
+    );
 }
 
 describe('ToggleButton', () => {
@@ -156,7 +158,7 @@ describe('ToggleButton', () => {
         it('should fire an event when spacebar is invoked', async () => {
             const { element, connect, disconnect } = await setup();
             const event = new KeyboardEvent('keypress', {
-                key: keySpace,
+                key: keySpace
             } as KeyboardEventInit);
 
             await connect();
@@ -173,7 +175,7 @@ describe('ToggleButton', () => {
         xit('should fire an event when enter is invoked', async () => {
             const { element, connect, disconnect } = await setup();
             const event = new KeyboardEvent('keypress', {
-                key: keyEnter,
+                key: keyEnter
             } as KeyboardEventInit);
 
             await connect();

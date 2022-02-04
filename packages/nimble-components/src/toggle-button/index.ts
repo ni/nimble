@@ -60,8 +60,7 @@ class ToggleButton extends FoundationSwitch {
 
 const nimbleToggleButton = ToggleButton.compose<SwitchOptions>({
     baseName: 'toggle-button',
-    template: html`
-    <div
+    template: html` <div
         role="button"
         part="control"
         aria-pressed="${(x: ToggleButton) => x.checked}"

@@ -54,7 +54,12 @@ const metadata: Meta<ToggleButtonArgs> = {
             ?content-hidden="${x => x.contentHidden}"
             appearance="${x => x.appearance}"
         >
-            ${when(x => x.icon, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
+            ${when(
+        x => x.icon,
+        html`<nimble-access-control-icon
+                    slot="start"
+                ></nimble-access-control-icon>`
+    )}
             ${x => x.label}
         </nimble-toggle-button>
     `),
@@ -71,7 +76,10 @@ const metadata: Meta<ToggleButtonArgs> = {
 export default metadata;
 
 export const outlineButton: StoryObj<ToggleButtonArgs> = {
-    args: { label: 'Outline Toggle Button', appearance: ButtonAppearance.Outline }
+    args: {
+        label: 'Outline Toggle Button',
+        appearance: ButtonAppearance.Outline
+    }
 };
 
 export const ghostButton: StoryObj<ToggleButtonArgs> = {

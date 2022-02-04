@@ -14,7 +14,8 @@ export const styles = css`
         user-select: none;
     }
 
-    .control[aria-pressed='true'], .control[disabled][aria-pressed='true'] {
+    .control[aria-pressed='true'],
+    .control[disabled][aria-pressed='true'] {
         background-color: ${fillColorSelected};
         border-color: ${fillColorSelected};
     }
