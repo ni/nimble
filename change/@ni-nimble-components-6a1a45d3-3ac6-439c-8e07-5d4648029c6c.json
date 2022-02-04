@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "ThemeStyleSheetBehavior implmentation\n- **Breaking change**: NimbleThemeProvider renamed to ThemeProvider. NimbleTheme renamed to Theme. Removed passwordRevealFilter design token.",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "prerelease"
-}

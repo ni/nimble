@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 04 Feb 2022 23:44:50 GMT",
+      "tag": "@ni/nimble-components_v1.0.0-beta.129",
+      "version": "1.0.0-beta.129",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0d242b4837d2f6d76c47712e73505b95bba6f1a3",
+            "comment": "ThemeStyleSheetBehavior implmentation\n- **Breaking change**: NimbleThemeProvider renamed to ThemeProvider. NimbleTheme renamed to Theme. Removed passwordRevealFilter design token."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 02 Feb 2022 19:27:46 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.128",
       "version": "1.0.0-beta.128",

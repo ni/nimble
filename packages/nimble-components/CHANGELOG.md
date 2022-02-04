@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 02 Feb 2022 16:29:26 GMT and should not be manually modified.
+This log was last generated on Fri, 04 Feb 2022 23:44:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.129
+
+Fri, 04 Feb 2022 23:44:50 GMT
+
+### Changes
+
+- ThemeStyleSheetBehavior implmentation
+- **Breaking change**: NimbleThemeProvider renamed to ThemeProvider. NimbleTheme renamed to Theme. Removed passwordRevealFilter design token. (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.128
 
