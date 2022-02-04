@@ -18,7 +18,7 @@ import {
     iconSize
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
-import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
+import { DirectionalStyleSheetBehavior } from '../utilities/behavior/direction';
 
 export const styles: (
     context: ElementDefinitionContext,

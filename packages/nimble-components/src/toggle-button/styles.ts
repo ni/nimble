@@ -5,8 +5,11 @@ import {
     borderColorHover,
     fillColorSelected
 } from '../theme-provider/design-tokens';
+import { buttonStyles } from '../styles/patterns/button';
 
 export const styles = css`
+    ${buttonStyles}
+
     :host {
         user-select: none;
     }
@@ -23,7 +26,6 @@ export const styles = css`
 
     .control${focusVisible}[aria-pressed='true'] {
         background-color: ${fillColorSelected};
-        border-color: ${fillColorSelected};
     }
 
     .control:active[aria-pressed='true'] {

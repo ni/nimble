@@ -1,7 +1,7 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { ButtonAppearance } from '../../button/types';
+import { ButtonAppearance } from '../../utilities/types/button-appearance';
 import {
     disabledStates,
     DisabledState,

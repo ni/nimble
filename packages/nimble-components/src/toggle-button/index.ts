@@ -5,8 +5,7 @@ import {
     SwitchOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { styles as baseButtonStyles } from '../button/styles';
-import { ButtonAppearance } from '../button/types';
+import { ButtonAppearance } from '../utilities/types/button-appearance';
 
 export type { ToggleButton };
 
@@ -82,7 +81,7 @@ const nimbleToggleButton = ToggleButton.compose<SwitchOptions>({
             <slot></slot>
         </span>
     </div>`,
-    styles: [baseButtonStyles, styles]
+    styles: [styles]
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToggleButton());

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import { ButtonAppearance } from '../../button/types';
+import { ButtonAppearance } from '../../utilities/types/button-appearance';
 
 interface ToggleButtonArgs {
     label: string;

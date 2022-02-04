@@ -6,7 +6,7 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { ButtonAppearance } from './types';
+import { ButtonAppearance } from '../utilities/types/button-appearance';
 
 export type { Button };
 
