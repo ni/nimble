@@ -119,29 +119,25 @@ class ThemeStyleSheetBehavior implements Behavior {
      * @internal
      */
     public bind(source: FASTElement & HTMLElement): void {
-        this.attach(source);
-    }
-
-    /**
-     * @internal
-     */
-    public unbind(source: FASTElement & HTMLElement): void {
-        const cache = this.cache.get(source);
-
-        if (cache) {
-            themeToken.unsubscribe(cache);
-        }
-    }
-
-    private attach(source: FASTElement & HTMLElement): void {
         const subscriber = this.cache.get(source)
-            || new ThemeStyleSheetBehaviorSubscription(this.themeStyles, source);
+        || new ThemeStyleSheetBehaviorSubscription(this.themeStyles, source);
 
         const value = themeToken.getValueFor(source);
         themeToken.subscribe(subscriber);
         subscriber.attach(value);
 
         this.cache.set(source, subscriber);
+    }
+
+    /**
+     * @internal
+     */
+    public unbind(source: FASTElement & HTMLElement): void {
+        const subscriber = this.cache.get(source);
+
+        if (subscriber) {
+            themeToken.unsubscribe(subscriber);
+        }
     }
 }
 
