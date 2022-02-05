@@ -8,13 +8,16 @@ A breadcrumb component is used as a navigational aid, allowing users to maintain
 
 [FAST Component Demo - Breadcrumb](https://explore.fast.design/components/fast-breadcrumb)
 
+### Use in SystemLink
 [F1792531: [Design System] Components for sl-breadcrumb-bar](https://dev.azure.com/ni/DevCentral/_workitems/edit/1792531)  
 Current SystemLink breadcrumb:  
 ![SystemLink Current Breadcrumb](https://user-images.githubusercontent.com/20709258/152267289-a419b7c1-fd21-401e-a1e8-3ce4433fe189.PNG) <!--(./spec-images/SLBreadcrumbCurrent.PNG)-->  
 Future planned SystemLink breadcrumb ([see discussion here](https://teams.microsoft.com/l/message/19:8e5f3e80de8146d5aaecdc2112e89191@thread.skype/1642192016552?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1642192016552&teamName=ASW%20SystemLink&channelName=UX&createdTime=1642192016552)):  
 The future/planned behavior of the SystemLink breadcrumb (where it's moved into the header, and won't include tab names) doesn't add any new requirements to this control.  
-![SystemLink Future Breadcrumb](https://user-images.githubusercontent.com/20709258/152267292-830a884d-8777-4850-a4e9-f6d27dbb8758.png) <!--(./spec-images/SLBreadcrumbFuture.PNG)-->
+![SystemLink Future Breadcrumb](https://user-images.githubusercontent.com/20709258/152267292-830a884d-8777-4850-a4e9-f6d27dbb8758.png)   <!--(./spec-images/SLBreadcrumbFuture.PNG)-->
 
+After uptaking the Nimble breadcrumb, SystemLink's breadcrumb will no longer include the `>` separator as part of the clickable link, which is a change from the current breadcrumb's behavior:
+![SystemLink Current Breadcrumb](https://user-images.githubusercontent.com/20709258/152267291-2ca8c247-b236-4d61-8312-489cf0aaf6d2.PNG) <!--(./spec-images/SLBreadcrumbCurrentHover.PNG)-->  
 
 ## Design
 
@@ -34,23 +37,34 @@ FAST API Documentation/ Specs
 - [breadcrumb and breadcrumb-item](https://github.com/microsoft/fast/blob/2cbba7d9ed4900ef2c69d0a9721cc98d742a583d/packages/web-components/fast-foundation/src/breadcrumb/breadcrumb.spec.md)
 - [anchor](https://github.com/microsoft/fast/blob/2cbba7d9ed4900ef2c69d0a9721cc98d742a583d/packages/web-components/fast-foundation/src/anchor/README.md) (FAST breadcrumb-item extends this) - API based on built-in [&lt;a&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) element
 
-Component Name: `nimble-breadcrumb`
+Component Name: `nimble-breadcrumb` (extends fast-foundation Breadcrumb)
+- Template: Unchanged (FAST's)
 - Properties/Attributes: Unchanged
 - Methods: Unchanged
 - Events: Unchanged
-- CSS Classes and Custom Properties that affect the component: Unchanged
+- CSS Classes and Custom Properties that affect the component: Unchanged/None
 - Slots: Unchanged
 
-Component Name: `nimble-breadcrumb-item`
+Component Name: `nimble-breadcrumb-item` (extends fast-foundation BreadcrumbItem)
 - FAST's default separator (between breadcrumb items) is `/`, however for Nimble, the default separator will be `>` (specifically the Nimble `controlsArrowExpanderRight16X16` icon)
+- Template: Unchanged (FAST's)
+    - Specifically this means nimble-breadcrumb-item will **not** directly use `nimble-anchor` in its template - rather, both nimble-breadcrumb-item and nimble-anchor, when href is set, will use the FAST Anchor template which contains an `<a>` element.
 - Properties/Attributes: Unchanged
+    - (TBD - if we want Nimble anchors/breadcrumbs to support button styles) New property **appearance** with possible values "hypertext","outline","ghost","block". Default is "hypertext".
+    - All FAST Anchor properties/attributes are unchanged and available
     - Note: Most expected usages will only use `href`
 - Methods: Unchanged
 - Events: Unchanged
-- CSS Classes and Custom Properties that affect the component: TBD
-    - Properties/tokens for hyperlink font color + active/hover colors
-    - Any properties/tokens needed to support the "button-style" link rendering
+- CSS Classes and Custom Properties that affect the component: Unchanged/None
 - Slots: Default for the "separator" slot is `>` as noted above; otherwise unchanged
+- Design Tokens and Styling
+    - With default/"hypertext" styling:
+        - contentFontColor (if no href set)
+        - hyperlinkFontColor (with href), hyperlinkFontColorHover (:hover), hyperlinkFontColorActive (:active), hyperlinkFontColorVisited (:visited)
+        - Link underlining: Pending visual design; if used, will just be styles (not design tokens, as it won't vary by theme)
+    - With button appearance styling, will use similar [appearanceBehaviors + styles as nimble-button](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/button/styles.ts)
+
+(These components do not require/use a `nimble-anchor` component, but they'll share some styling/templates/design tokens as noted.)
 
 ### Angular integration 
 
@@ -59,6 +73,7 @@ No attribute/property bindings.
 
 **NimbleBreadcrumbItemDirective**: Directive for selector `nimble-breadcrumb-item`.  
 Attribute bindings for all `<a>` properties inherited from fast-breadcrumb-item: `download`, `href`, `hreflang`, `ping`, `referrerpolicy`, `rel`, `target`, `type`.
+- Nimble Anchor can share this directive once created - we'd probably name it `NimbleAnchorDirective` with selector `nimble-anchor,nimble-breadcrumb-item`.
 
 **[routerLink] and [routerLinkActive] Support**
 
@@ -78,32 +93,33 @@ We want the behavior of RouterLinkWithHref, so we can subclass it and update the
 
 For an example/ prototype implementation [see the directives here](https://github.com/ni/nimble/tree/nimble-breadcrumb-prototype/angular-workspace/projects/ni/nimble-angular/src/directives/breadcrumb-item). (This prototype has the correct behavior for left-click, Ctrl-click, and middle-mouse click of breadcrumb item links, and href gets set correctly.)
 
+(Nimble Anchor can share those directives once created.)
+
 ### Additional requirements
 
-- User interaction: *Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?*
-    - FAST breadcrumb separator is not part of the hyperlink/anchor - see open issues
-- Styling: *Does FAST provide APIs to achieve the styling in the visual design spec?*
+- User interaction: FAST Breadcrumb Item supports button style, plus a 'hypertext' style - we'll probably end up with something similar, in which case FAST's behaviors/interactions should be the same things we want.
+- Styling:
     - FAST provides sufficient hooks (CSS Shadow Parts) for us to style all parts of a breadcrumb
     - `breadcrumb-item` uses `anchor`'s template when the 'href' property is set, we should be able to do the same thing. We'll use similar (or shared) styles for the breadcrumb-item and the anchor. See [nimble issue 324](https://github.com/ni/nimble/issues/324) which captures the nimble-anchor work.
     - The separator is a Shadow Part, which allow us (or Nimble clients) to offset the separator's position vertically, which may be needed to align icon-based separators with the breadcrumb item text.
 - Testing
     - FAST's breadcrumb/breadcrumb-item component tests look reasonable + sufficient
     - Angular directive tests need to cover our support for the [routerLink] / [routerLinkActive] directives
-- Documentation: Mostly standard Storybook / demo in example client app; should probably showcase a non-default font, font size, and separator 
+- Documentation
+    - Mostly standard Storybook examples
+    - In example client app, include router example (multiple pages, with breadcrumbs using `[routerLink]` to navigate between them
+    - (Maybe) Showcase a non-default font, font size, and separator 
 - Globalization:
     - FAST breadcrumb handles reversing items in RTL mode
     - Since we plan to use an icon for the separator, we can add styles to mirror/rotate it in RTL mode (using FAST's `DirectionalStyleSheetBehavior`)
 - Tooling: N/A
 - Security: No additional concerns/ requirements. Clients can use all the normal anchor properties if desired (i.e. `rel`).
+- Accessibility: Template uses `<a>` when href is set, giving us standard link behavior (can be tabbed to, link navigation if Enter/Space pressed)
 - Performance: No concerns
 
-- *Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc*
 
 ## Open Issues
 
-- Need to finalize styling and colors for Nimble anchors/hyperlinks, which this control will also use. See [nimble issue 324](https://github.com/ni/nimble/issues/324) 
-- Current breadcrumb in SystemLink includes the breadcrumb separator `>` as part of the hyperlink (so it's clickable as part of the link). Do we need to support that?  
-     ![SystemLink Current Breadcrumb](https://user-images.githubusercontent.com/20709258/152267291-2ca8c247-b236-4d61-8312-489cf0aaf6d2.PNG) <!--(./spec-images/SLBreadcrumbCurrentHover.PNG)-->  
-    - TODO: check with Leslie + Brandon
-    - If we need to, we'll have to customize the FAST Breadcrumb Item's template
+- Need to finalize styling and colors for Nimble anchors/hyperlinks, which this control will also use. See [nimble issue 324](https://github.com/ni/nimble/issues/324)
+- In addition to the regular 'hypertext' style for links, what button styles do we want to support? (None, or a combo of outline/ghost/block from nimble-button).
 - Does NimbleBreadcrumbItemDirective need the attribute bindings besides `href`, `hreflang`, `rel`, and `target`?
