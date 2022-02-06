@@ -51,12 +51,11 @@ const component = html`
 
 const [
     lightThemeWhiteBackground,
-    colorThemeGreenBackground,
     colorThemeDarkGreenBackground,
     darkThemeBlackBackground,
     legacyBlueThemeWhiteBackground,
     ...remaining
-] = backgroundStates;
+] = backgroundStates.filter(state => state.showInMatrixTests);
 
 if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
@@ -64,10 +63,6 @@ if (remaining.length > 0) {
 
 export const drawerLightThemeWhiteBackground: Story = createRenderer(
     singleThemeWrapper(component, lightThemeWhiteBackground)
-);
-
-export const drawerColorThemeGreenBackground: Story = createRenderer(
-    singleThemeWrapper(component, colorThemeGreenBackground)
 );
 
 export const drawerColorThemeDarkGreenBackground: Story = createRenderer(
