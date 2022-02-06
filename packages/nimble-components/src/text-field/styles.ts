@@ -147,6 +147,10 @@ export const styles = css`
                 padding-bottom: 1px;
             }
 
+            .root:focus-within {
+                border-bottom: 1px solid ${borderColorHover};
+            }
+
             .root:hover {
                 border-bottom: 2px solid ${borderColorHover};
                 padding-bottom: 0px;
@@ -182,6 +186,10 @@ export const styles = css`
                 padding-bottom: 1px;
             }
 
+            .root:focus-within {
+                border: 1px solid ${borderColorHover};
+            }
+
             .root:hover {
                 border-bottom: 2px solid ${borderColorHover};
                 padding-bottom: 0px;
@@ -214,6 +222,10 @@ export const styles = css`
             .root {
                 border: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
                 padding: 1px;
+            }
+
+            .root:focus-within {
+                border: 1px solid ${borderColorHover};
             }
 
             .root:hover {
