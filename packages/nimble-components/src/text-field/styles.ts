@@ -135,6 +135,110 @@ export const styles = css`
         fill: ${contentFontColorDisabled};
     }
 `.withBehaviors(
+        appearanceBehavior(
+            TextFieldAppearance.Underline,
+            css`
+            .root {
+                border-bottom: ${borderWidth} solid
+                    rgba(${borderColorRgbPartial}, 0.3);
+                padding-bottom: 1px;
+            }
+
+            .root:hover {
+                border-bottom: 2px solid ${borderColorHover};
+                padding-bottom: 0px;
+            }
+
+            :host(.invalid) .root {
+                border-bottom: ${borderWidth} solid ${failColor};
+            }
+
+            :host(.invalid) .root:hover {
+                border-bottom: 2px solid ${failColor};
+                padding-bottom: 0px;
+            }
+
+            :host([disabled]) .root,
+            :host([disabled]) .root:hover {
+                border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+                padding-bottom: 1px;
+            }
+
+            :host([readonly]) .root,
+            :host([readonly]) .root:hover {
+                border: none;
+            }
+        `
+        ),
+        appearanceBehavior(
+            TextFieldAppearance.Block,
+            css`
+            .root {
+                border-bottom: ${borderWidth} solid
+                    rgba(${borderColorRgbPartial}, 0.3);
+                padding-bottom: 1px;
+            }
+
+            .root:hover {
+                border-bottom: 2px solid ${borderColorHover};
+                padding-bottom: 0px;
+            }
+
+            :host(.invalid) .root {
+                border-bottom: ${borderWidth} solid ${failColor};
+            }
+
+            :host(.invalid) .root:hover {
+                border-bottom: 2px solid ${failColor};
+                padding-bottom: 0px;
+            }
+
+            :host([disabled]) .root,
+            :host([disabled]) .root:hover {
+                border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+                padding-bottom: 1px;
+            }
+
+            :host([readonly]) .root,
+            :host([readonly]) .root:hover {
+                border: none;
+            }
+        `
+        ),
+        appearanceBehavior(
+            TextFieldAppearance.Outline,
+            css`
+            .root {
+                border: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
+                padding: 1px;
+            }
+
+            .root:hover {
+                border: 2px solid ${borderColorHover};
+                padding: 0px;
+            }
+
+            :host(.invalid) .root {
+                border: ${borderWidth} solid ${failColor};
+            }
+
+            :host(.invalid) .root:hover {
+                border: 2px solid ${failColor};
+                padding: 0px;
+            }
+
+            :host([disabled]) .root,
+            :host([disabled]) .root:hover {
+                border: ${borderWidth} solid ${contentFontColorDisabled};
+                padding: 1px;
+            }
+
+            :host([readonly]) .root,
+            :host([readonly]) .root:hover {
+                border: none;
+            }
+        `
+        ),
         themeBehavior(
             css`
             ${'' /* Light theme */}
