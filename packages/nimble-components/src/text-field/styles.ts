@@ -50,8 +50,6 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        border-bottom: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
-        padding-bottom: 1px;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: flex-end;
     }
@@ -145,6 +143,7 @@ export const styles = css`
                 border-bottom: ${borderWidth} solid
                     rgba(${borderColorRgbPartial}, 0.3);
                 padding-bottom: 1px;
+                padding-bottom: 1px;
             }
 
             .root:focus-within {
@@ -181,13 +180,14 @@ export const styles = css`
             TextFieldAppearance.Block,
             css`
             .root {
-                border-bottom: ${borderWidth} solid
-                    rgba(${borderColorRgbPartial}, 0.3);
-                padding-bottom: 1px;
+                background-color: rgba(${borderColorRgbPartial}, 0.05);
+                border-bottom: 0px;
+                padding: 1px;
             }
 
             .root:focus-within {
                 border: 1px solid ${borderColorHover};
+                padding: 0px;
             }
 
             .root:hover {
