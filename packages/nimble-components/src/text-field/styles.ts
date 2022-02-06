@@ -19,7 +19,8 @@ import {
     labelFontWeight,
     labelHeight,
     labelTextTransform,
-    smallDelay
+    smallDelay,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from './behaviors';
 import { TextFieldAppearance } from './types';
@@ -70,6 +71,8 @@ export const styles = css`
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
+        padding-left: calc(standardPadding / 2);
+        padding-right: calc(standardPadding / 2);
         border: none;
     }
 
