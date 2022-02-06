@@ -71,8 +71,8 @@ export const styles = css`
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
-        padding-left: calc(standardPadding / 2);
-        padding-right: calc(standardPadding / 2);
+        padding-left: calc(${standardPadding} / 2);
+        padding-right: calc(${standardPadding} / 2);
         border: none;
     }
 
@@ -217,8 +217,8 @@ export const styles = css`
             }
 
             .root:hover {
-                border: 2px solid ${borderColorHover};
-                padding: 0px;
+                border-bottom: 2px solid ${borderColorHover};
+                padding-bottom: 0px;
             }
 
             :host(.invalid) .root {
