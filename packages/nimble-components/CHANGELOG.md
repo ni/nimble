@@ -1,8 +1,43 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 20 Jan 2022 21:30:14 GMT and should not be manually modified.
+This log was last generated on Fri, 04 Feb 2022 23:44:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0-beta.129
+
+Fri, 04 Feb 2022 23:44:50 GMT
+
+### Changes
+
+- ThemeStyleSheetBehavior implmentation
+- **Breaking change**: NimbleThemeProvider renamed to ThemeProvider. NimbleTheme renamed to Theme. Removed passwordRevealFilter design token. (rajsite@users.noreply.github.com)
+
+## 1.0.0-beta.128
+
+Wed, 02 Feb 2022 16:29:26 GMT
+
+### Changes
+
+- Add status icon components (32167177+haworthia@users.noreply.github.com)
+
+## 1.0.0-beta.127
+
+Tue, 01 Feb 2022 17:09:06 GMT
+
+### Changes
+
+- Bump @ni/nimble-tokens to v1.0.0-beta.39
+
+## 1.0.0-beta.126
+
+Fri, 28 Jan 2022 21:45:26 GMT
+
+### Changes
+
+- Theme-aware token scss file generation.
+ - Users should switch from CSS properties to SCSS properties so any token changes during upgrades can be detected at build time.
+ - **Breaking change**: Theme-aware CSS custom properties now have prefix --ni-nimble-*. (rajsite@users.noreply.github.com)
 
 ## 1.0.0-beta.125
 

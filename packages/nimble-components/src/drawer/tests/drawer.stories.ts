@@ -1,9 +1,16 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    createRenderer,
+    overrideWarning
+} from '../../utilities/tests/storybook';
 import '../../button';
 import '..';
+import {
+    tokenNames,
+    scssInternalPropertySetterMarkdown
+} from '../../theme-provider/design-token-names';
 import { drawerWidth } from '../../theme-provider/design-tokens';
 import { DrawerLocation, DrawerState } from '../types';
 
@@ -54,17 +61,29 @@ const headerFooterContent = html`
         <nimble-button appearance="outline">OK</nimble-button>
     </footer>`;
 
-const content: { [key in ExampleContentType]: ViewTemplate } = {
+const content: { readonly [key in ExampleContentType]: ViewTemplate } = {
     [ExampleContentType.SimpleTextContent]: simpleContent,
     [ExampleContentType.HeaderContentFooter]: headerFooterContent
 };
 
-const widths: { [key in DrawerWidthOptions]: string } = {
+const widths: { readonly [key in DrawerWidthOptions]: string } = {
     [DrawerWidthOptions.Default]: drawerWidth.getValueFor(document.body),
     [DrawerWidthOptions.Small300]: '300px',
     [DrawerWidthOptions.Medium500]: '500px',
     [DrawerWidthOptions.FitContent]: 'fit-content'
 };
+
+const widthDescriptionOverride = `
+With SCSS properties, the drawer width can be overriden. For example:
+${scssInternalPropertySetterMarkdown(tokenNames.drawerWidth, '100px')}
+
+Drawer widths can be any [CSS width](https://developer.mozilla.org/en-US/docs/Web/CSS/width) value, including \`fit-content\`, etc.
+`;
+
+const widthDescription = `
+Width of a nimble drawer.
+${overrideWarning('Drawer Width', widthDescriptionOverride)}
+`;
 
 const metadata: Meta<DrawerArgs> = {
     title: 'Drawer',
@@ -135,7 +154,7 @@ const metadata: Meta<DrawerArgs> = {
             }
         },
         width: {
-            description: `Set via CSS Variable: ${drawerWidth.cssCustomProperty}. Can be any CSS width value, including min/max/fit-content.`,
+            description: widthDescription,
             options: [
                 DrawerWidthOptions.Default,
                 DrawerWidthOptions.Small300,

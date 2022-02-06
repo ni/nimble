@@ -2,7 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 
 import {
-    borderColorRgb,
+    borderColorRgbPartial,
     borderColorHover,
     borderWidth,
     contentFontColor,
@@ -10,7 +10,7 @@ import {
     contentFontSize,
     controlHeight,
     failColor,
-    fillColorSelectedRgb,
+    fillColorSelectedRgbPartial,
     fontFamily,
     iconSize,
     labelFontColor,
@@ -19,11 +19,12 @@ import {
     labelFontWeight,
     labelHeight,
     labelTextTransform,
-    passwordRevealFilter,
     smallDelay
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from './behaviors';
 import { TextFieldAppearance } from './types';
+import { Theme } from '../theme-provider/types';
+import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
     ${display('inline-block')}
@@ -48,7 +49,9 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        transition: border ${smallDelay}, padding ${smallDelay};
+        border-bottom: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
+        padding-bottom: 1px;
+        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: flex-end;
     }
 
@@ -70,10 +73,6 @@ export const styles = css`
         border: none;
     }
 
-    .control::-ms-reveal {
-        filter: ${passwordRevealFilter};
-    }
-
     .control:hover,
     .control:focus,
     .control:disabled,
@@ -83,7 +82,7 @@ export const styles = css`
 
     .control::selection {
         color: ${labelFontColor};
-        background: rgba(${fillColorSelectedRgb}, 0.3);
+        background: rgba(${fillColorSelectedRgbPartial}, 0.3);
     }
 
     .control::placeholder {
@@ -135,113 +134,23 @@ export const styles = css`
     :host([disabled]) [part='end'] path {
         fill: ${contentFontColorDisabled};
     }
-`
-    // prettier-ignore
-    .withBehaviors(
-        appearanceBehavior(
-            TextFieldAppearance.Underline,
+`.withBehaviors(
+        themeBehavior(
             css`
-                .root {
-                    border-bottom: ${borderWidth} solid
-                        rgba(${borderColorRgb}, 0.3);
-                    padding-bottom: 1px;
-                }
-
-                .root:hover {
-                    border-bottom: 2px solid ${borderColorHover};
-                    padding-bottom: 0px;
-                }
-
-                :host(.invalid) .root {
-                    border-bottom: ${borderWidth} solid ${failColor};
-                }
-
-                :host(.invalid) .root:hover {
-                    border-bottom: 2px solid ${failColor};
-                    padding-bottom: 0px;
-                }
-
-                :host([disabled]) .root,
-                :host([disabled]) .root:hover {
-                    border-bottom: ${borderWidth} solid
-                        ${contentFontColorDisabled};
-                    padding-bottom: 1px;
-                }
-
-                :host([readonly]) .root,
-                :host([readonly]) .root:hover {
-                    border: none;
-                }
-            `
-        ),
-        appearanceBehavior(
-            TextFieldAppearance.Block,
+            ${'' /* Light theme */}
+            .control::-ms-reveal {
+                filter: invert(0%);
+            }
+        `,
             css`
-                .root {
-                    border-bottom: ${borderWidth} solid
-                        rgba(${borderColorRgb}, 0.3);
-                    padding-bottom: 1px;
-                }
-
-                .root:hover {
-                    border-bottom: 2px solid ${borderColorHover};
-                    padding-bottom: 0px;
-                }
-
-                :host(.invalid) .root {
-                    border-bottom: ${borderWidth} solid ${failColor};
-                }
-
-                :host(.invalid) .root:hover {
-                    border-bottom: 2px solid ${failColor};
-                    padding-bottom: 0px;
-                }
-
-                :host([disabled]) .root,
-                :host([disabled]) .root:hover {
-                    border-bottom: ${borderWidth} solid
-                        ${contentFontColorDisabled};
-                    padding-bottom: 1px;
-                }
-
-                :host([readonly]) .root,
-                :host([readonly]) .root:hover {
-                    border: none;
-                }
-            `
-        ),
-        appearanceBehavior(
-            TextFieldAppearance.Outline,
-            css`
-                .root {
-                    border: ${borderWidth} solid rgba(${borderColorRgb}, 0.3);
-                    padding: 1px;
-                }
-
-                .root:hover {
-                    border: 2px solid ${borderColorHover};
-                    padding: 0px;
-                }
-
-                :host(.invalid) .root {
-                    border: ${borderWidth} solid ${failColor};
-                }
-
-                :host(.invalid) .root:hover {
-                    border: 2px solid ${failColor};
-                    padding: 0px;
-                }
-
-                :host([disabled]) .root,
-                :host([disabled]) .root:hover {
-                    border: ${borderWidth} solid ${contentFontColorDisabled};
-                    padding: 1px;
-                }
-
-                :host([readonly]) .root,
-                :host([readonly]) .root:hover {
-                    border: none;
-                }
-            `
+            ${'' /* Dark theme */}
+            .control::-ms-reveal {
+                filter: invert(100%);
+            }
+        `,
+            // Color theme
+            Theme.Dark,
+            // LegacyBlue theme
+            Theme.Light
         )
     );

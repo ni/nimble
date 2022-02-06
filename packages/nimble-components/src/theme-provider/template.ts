@@ -1,4 +1,4 @@
 import { html } from '@microsoft/fast-element';
-import type { NimbleThemeProvider } from '.';
+import type { ThemeProvider } from '.';
 
-export const template = html<NimbleThemeProvider>`<slot></slot>`;
+export const template = html<ThemeProvider>`<slot></slot>`;

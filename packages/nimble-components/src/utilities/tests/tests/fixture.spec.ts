@@ -12,7 +12,7 @@ import {
     DOM,
     observable,
 } from "@microsoft/fast-element";
-import { uniqueElementName, fixture } from "./fixture";
+import { uniqueElementName, fixture } from "../fixture";
 
 describe("The fixture helper", () => {
     const name = uniqueElementName();

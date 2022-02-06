@@ -3,12 +3,7 @@ import { TextFieldType } from '@microsoft/fast-foundation';
 /**
  * Values for the 'type' attribute of the text field.
  */
-export type TextFieldTypeAttribute =
-    | 'email'
-    | 'password'
-    | 'tel'
-    | 'text'
-    | 'url';
+export type TextFieldTypeAttribute = `${TextFieldType}`;
 
 /**
  * Values for the 'type' property of the text field.

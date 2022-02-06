@@ -1,14 +1,16 @@
+@import '~@ni/nimble-angular/styles/tokens';
+
 .header {
-    --header-height: 48px;
-    background-color: var(--border-color-hover);
+    --example-client-header-height: 48px;
+    background-color: #d3d5d6; //Black30
     display: flex;
     justify-content: flex-end;
-    height: var(--header-height);
-    --drawer-width: 500px;
+    height: var(--example-client-header-height);
+    #{$ni-nimble-internal-drawer-width}: 500px;
 }
 
 .user-settings-drawer {
-    padding: 16px;
+    padding: $ni-nimble-standard-padding;
     display: flex;
     flex-direction: column;
 }
@@ -31,5 +33,5 @@
     position: absolute;
     z-index: 1;
     right: 1px;
-    top: var(--header-height);
+    top: var(--example-client-header-height);
 }
