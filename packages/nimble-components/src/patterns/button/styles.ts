@@ -33,12 +33,12 @@ export const buttonStyles = css`
         border: none;
         box-sizing: border-box;
         ${
-    /*
+            /*
                 Not sure why but this is needed to get buttons with icons and buttons
                 without icons to align on the same line when the button is inline-flex
                 See: https://github.com/microsoft/fast/issues/5414
             */ ''
-}
+        }
         vertical-align: middle;
     }
 

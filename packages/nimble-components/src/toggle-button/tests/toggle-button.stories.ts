@@ -47,6 +47,7 @@ const metadata: Meta<ToggleButtonArgs> = {
                 'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
         }
     },
+    // prettier-ignore
     render: createRenderer(html`
         <nimble-toggle-button
             ?checked="${x => x.checked}"
