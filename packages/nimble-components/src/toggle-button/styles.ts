@@ -5,7 +5,7 @@ import {
     borderColorHover,
     fillColorSelected
 } from '../theme-provider/design-tokens';
-import { buttonStyles } from '../styles/patterns/button';
+import { buttonStyles } from '../patterns/button/styles';
 
 export const styles = css`
     ${buttonStyles}

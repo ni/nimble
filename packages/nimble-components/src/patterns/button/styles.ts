@@ -16,8 +16,8 @@ import {
     smallDelay,
     standardPadding
 } from '../../theme-provider/design-tokens';
-import { appearanceBehavior } from '../../utilities/behavior/appearance';
-import { ButtonAppearance } from '../../utilities/types/button-appearance';
+import { appearanceBehavior } from '../../utilities/style/appearance';
+import { ButtonAppearance } from './appearance';
 
 export const buttonStyles = css`
     ${display('inline-flex')}

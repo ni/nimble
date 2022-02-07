@@ -5,7 +5,7 @@ import {
     SwitchOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { ButtonAppearance } from '../utilities/types/button-appearance';
+import { ButtonAppearance } from '../patterns/button/appearance';
 
 export type { ToggleButton };
 
