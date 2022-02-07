@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Remove 'beta' tag from package to start using semantic versioning",
-  "packageName": "@ni/nimble-tokens",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
