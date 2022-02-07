@@ -30,6 +30,8 @@ And some additional utility packages:
 
 Consult the `README.md` for each package to learn more, including how to use it in an application.
 
+The above packages follow [Semantic Versioning](https://semver.org). Consult the `CHANGELOG.md` for each package to see the changes in each version, including instructions for adapting your application in response to breaking changes.
+
 ## Community
 
 We welcome feedback and contributions!
