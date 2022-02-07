@@ -6,7 +6,7 @@ import type { ToggleButton } from '..';
 
 async function setup(): Promise<Fixture<ToggleButton>> {
     return fixture<ToggleButton>(
-        html` <nimble-toggle-button> </nimble-toggle-button>`
+        html`<nimble-toggle-button></nimble-toggle-button>`
     );
 }
 

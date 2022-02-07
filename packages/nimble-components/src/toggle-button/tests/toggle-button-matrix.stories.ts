@@ -73,8 +73,6 @@ export const toggleButtonThemeMatrix: Story = createRenderer(
 
 export const hiddenButton: Story = createRenderer(
     hiddenWrapper(
-        html`<nimble-toggle-button hidden
-            >Hidden Toggle Button</nimble-toggle-button
-        >`
+        html`<nimble-toggle-button hidden>Hidden Toggle Button</nimble-toggle-button>`
     )
 );

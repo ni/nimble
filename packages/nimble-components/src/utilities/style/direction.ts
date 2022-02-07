@@ -63,11 +63,7 @@ export class DirectionalStyleSheetBehavior implements Behavior {
     private attach(source: FASTElement & HTMLElement) {
         const subscriber =
             this.cache.get(source) ||
-            new DirectionalStyleSheetBehaviorSubscription(
-                this.ltr,
-                this.rtl,
-                source
-            );
+            new DirectionalStyleSheetBehaviorSubscription(this.ltr, this.rtl, source);
 
         const value = directionDesignToken.getValueFor(source);
         directionDesignToken.subscribe(subscriber);
@@ -91,7 +87,7 @@ class DirectionalStyleSheetBehaviorSubscription implements Subscriber {
 
     public handleChange({
         target,
-        token
+        token,
     }: DesignTokenChangeRecord<typeof directionDesignToken>) {
         this.attach(token.getValueFor(target));
     }
