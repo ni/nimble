@@ -2,7 +2,7 @@ import type * as TokensNamespace from './design-tokens';
 
 type TokenName = keyof typeof TokensNamespace;
 
-export const comments: { [key in TokenName]: string } = {
+export const comments: { readonly [key in TokenName]: string } = {
     actionColorRgbPartial: '',
     applicationBackgroundColor: 'Background color for the application.',
     fillColorSelected: '',
@@ -44,6 +44,5 @@ export const comments: { [key in TokenName]: string } = {
     contentFontColorDisabled: '',
     smallDelay: '',
     mediumDelay: '',
-    drawerAnimationDurationMs: '',
-    passwordRevealFilter: ''
+    drawerAnimationDurationMs: ''
 };

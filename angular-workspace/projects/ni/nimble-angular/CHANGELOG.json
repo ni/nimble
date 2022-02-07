@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 04 Feb 2022 23:44:50 GMT",
+      "tag": "@ni/nimble-angular_v1.0.0-beta.149",
+      "version": "1.0.0-beta.149",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "0d242b4837d2f6d76c47712e73505b95bba6f1a3",
+            "comment": "Name consistency\n- **Breaking change**: NimbleThemeProvider renamed to ThemeProvider. NimbleTheme renamed to Theme. Removed passwordRevealFilter design token."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v1.0.0-beta.129",
+            "commit": "0d242b4837d2f6d76c47712e73505b95bba6f1a3"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 02 Feb 2022 16:29:26 GMT",
       "tag": "@ni/nimble-angular_v1.0.0-beta.148",
       "version": "1.0.0-beta.148",
