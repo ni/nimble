@@ -54,8 +54,6 @@ class ToggleButton extends FoundationSwitch {
         content.id = this.contentId;
         this.control.setAttribute('aria-labelledby', this.contentId);
     }
-
-    // TODO: add Enter key handler to toggle button
 }
 
 const nimbleToggleButton = ToggleButton.compose<SwitchOptions>({

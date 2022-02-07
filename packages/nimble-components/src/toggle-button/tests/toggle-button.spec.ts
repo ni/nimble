@@ -172,6 +172,8 @@ describe('ToggleButton', () => {
             await disconnect();
         });
 
+        // The 'Enter' key interaction is added to the FAST switch in
+        // https://github.com/microsoft/fast/pull/5325
         xit('should fire an event when enter is invoked', async () => {
             const { element, connect, disconnect } = await setup();
             const event = new KeyboardEvent('keypress', {
