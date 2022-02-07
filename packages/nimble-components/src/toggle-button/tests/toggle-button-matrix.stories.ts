@@ -49,24 +49,29 @@ const checkedStates: CheckedState[] = [
 
 // prettier-ignore
 const component = (
-    [disabledName, disabled]: DisabledState,
-    [appearanceName, appearance]: AppearanceState,
     [labelVisible, iconVisible]: PartVisibilityState,
-    [checkedName, checked]: CheckedState
+    [checkedName, checked]: CheckedState,
+    [disabledName, disabled]: DisabledState,
+    [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <nimble-toggle-button appearance="${() => appearance}" ?disabled=${() => disabled} ?content-hidden=${() => !labelVisible} ?checked=${() => checked}>
-        ${when(() => iconVisible, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
-        ${() => `${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
+    <nimble-toggle-button
+        appearance="${() => appearance}"
+        ?disabled=${() => disabled}
+        ?content-hidden=${() => !labelVisible}
+        ?checked=${() => checked}
+        style="margin-right: 8px; margin-bottom: 8px;">
+            ${when(() => iconVisible, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
+            ${() => `${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
     </nimble-toggle-button>
 `;
 
 export const toggleButtonThemeMatrix: Story = createRenderer(
     themeWrapper(
         createMatrix(component, [
-            disabledStates,
-            appearanceStates,
             partVisibilityStates,
-            checkedStates
+            checkedStates,
+            disabledStates,
+            appearanceStates
         ])
     )
 );
