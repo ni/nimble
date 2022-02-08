@@ -31,7 +31,7 @@ Example Usage:
     <nimble-breadcrumb-item>Breadcrumb item 3</nimble-breadcrumb-item>
 </nimble-breadcrumb>
 ```
-Note: href is optional, and the breadcrumb can be used without links entirely.
+Note: href is optional, and the breadcrumb will render as regular text if href is not specified (which is common for the last breadcrumb item).
 
 FAST API Documentation/ Specs
 - [breadcrumb and breadcrumb-item](https://github.com/microsoft/fast/blob/2cbba7d9ed4900ef2c69d0a9721cc98d742a583d/packages/web-components/fast-foundation/src/breadcrumb/breadcrumb.spec.md)
@@ -50,13 +50,17 @@ Component Name: `nimble-breadcrumb-item` (extends fast-foundation BreadcrumbItem
 - Template: Unchanged (FAST's)
     - Specifically this means nimble-breadcrumb-item will **not** directly use `nimble-anchor` in its template - rather, both nimble-breadcrumb-item and nimble-anchor, when href is set, will use the FAST Anchor template which contains an `<a>` element.
 - Properties/Attributes: Unchanged
-    - (TBD - if we want Nimble anchors/breadcrumbs to support button styles) New property **appearance** with possible values "hypertext","outline","ghost","block". Default is "hypertext".
+    - (If we want Nimble anchors/breadcrumbs to support button styles) New property **appearance** with possible values "hypertext","outline","ghost","block". Default is "hypertext".
     - All FAST Anchor properties/attributes are unchanged and available
     - Note: Most expected usages will only use `href`
 - Methods: Unchanged
 - Events: Unchanged
 - CSS Classes and Custom Properties that affect the component: Unchanged/None
 - Slots: Default for the "separator" slot is `>` as noted above; otherwise unchanged
+    - Clients can still change the separator if they wish, using the 'separator' slot provided by FAST. Example:
+      ```html
+      <nimble-breadcrumb-item>Breadcrumb text<span slot="separator">//</span></nimble-breadcrumb-item>
+      ```
 - Design Tokens and Styling
     - With default/"hypertext" styling:
         - contentFontColor (if no href set)
@@ -64,7 +68,7 @@ Component Name: `nimble-breadcrumb-item` (extends fast-foundation BreadcrumbItem
         - Link underlining: Pending visual design; if used, will just be styles (not design tokens, as it won't vary by theme)
     - With button appearance styling, will use similar [appearanceBehaviors + styles as nimble-button](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/button/styles.ts)
 
-(These components do not require/use a `nimble-anchor` component, but they'll share some styling/templates/design tokens as noted.)
+(These components do not require/use a `nimble-anchor` component, but once we have both, they'll share some styling/templates/design tokens.)
 
 ### Angular integration 
 
@@ -111,7 +115,8 @@ For an example/ prototype implementation [see the directives here](https://githu
     - (Maybe) Showcase a non-default font, font size, and separator 
 - Globalization:
     - FAST breadcrumb handles reversing items in RTL mode
-    - Since we plan to use an icon for the separator, we can add styles to mirror/rotate it in RTL mode (using FAST's `DirectionalStyleSheetBehavior`)
+    - Since we plan to use an icon for the separator, we can add styles to mirror/rotate it in RTL mode (using FAST's `DirectionalStyleSheetBehavior`). We can also swap the icon out entirely in RTL mode by specifying 2 icons in the template, and hide/show them based on the directionality.
+    - If needed, clients with custom separators can also hide/show them in RTL mode with styles using the `:dir()` pseudoclass.
 - Tooling: N/A
 - Security: No additional concerns/ requirements. Clients can use all the normal anchor properties if desired (i.e. `rel`).
 - Accessibility: Template uses `<a>` when href is set, giving us standard link behavior (can be tabbed to, link navigation if Enter/Space pressed)
@@ -121,5 +126,4 @@ For an example/ prototype implementation [see the directives here](https://githu
 ## Open Issues
 
 - Need to finalize styling and colors for Nimble anchors/hyperlinks, which this control will also use. See [nimble issue 324](https://github.com/ni/nimble/issues/324)
-- In addition to the regular 'hypertext' style for links, what button styles do we want to support? (None, or a combo of outline/ghost/block from nimble-button).
 - Does NimbleBreadcrumbItemDirective need the attribute bindings besides `href`, `hreflang`, `rel`, and `target`?
