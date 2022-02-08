@@ -17,7 +17,7 @@ import {
     standardPadding
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior } from '../../utilities/style/appearance';
-import { ButtonAppearance } from './appearance';
+import { ButtonAppearance } from './types';
 
 export const buttonStyles = css`
     ${display('inline-flex')}

@@ -2,7 +2,6 @@ import { css } from '@microsoft/fast-element';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
-    borderColorHover,
     fillColorSelected
 } from '../theme-provider/design-tokens';
 import { buttonStyles } from '../patterns/button/styles';
@@ -10,26 +9,25 @@ import { buttonStyles } from '../patterns/button/styles';
 export const styles = css`
     ${buttonStyles}
 
-    :host {
-        user-select: none;
-    }
-
-    .control[aria-pressed='true'],
-    .control[disabled][aria-pressed='true'] {
+    .control[aria-pressed='true'] {
         background-color: ${fillColorSelected};
         border-color: ${fillColorSelected};
     }
 
-    .control[aria-pressed='true']:hover:not([disabled]) {
-        background-color: ${fillColorSelected};
-        border-color: ${borderColorHover};
-    }
-
-    .control${focusVisible}[aria-pressed='true'] {
+    .control[aria-pressed='true']:hover {
         background-color: ${fillColorSelected};
     }
 
-    .control:active[aria-pressed='true'] {
+    .control[aria-pressed='true']${focusVisible} {
+        background-color: ${fillColorSelected};
+    }
+
+    .control[aria-pressed='true'][disabled] {
+        background-color: ${fillColorSelected};
+        border-color: ${fillColorSelected};
+    }
+
+    .control[aria-pressed='true'][disabled]:hover {
         background-color: ${fillColorSelected};
         border-color: ${fillColorSelected};
     }

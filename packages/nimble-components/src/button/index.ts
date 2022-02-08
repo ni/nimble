@@ -5,8 +5,8 @@ import {
     buttonTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import { styles } from './styles';
-import { ButtonAppearance } from '../patterns/button/appearance';
+import { buttonStyles } from '../patterns/button/styles';
+import { ButtonAppearance } from '../patterns/button/types';
 
 export type { Button };
 
@@ -70,7 +70,7 @@ const nimbleButton = Button.compose<ButtonOptions>({
     baseClass: FoundationButton,
     // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
-    styles,
+    styles: buttonStyles,
     shadowOptions: {
         delegatesFocus: true
     }

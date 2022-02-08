@@ -5,7 +5,8 @@ import {
     SwitchOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { ButtonAppearance } from '../patterns/button/appearance';
+import { template } from './template';
+import { ButtonAppearance } from '../patterns/button/types';
 
 export type { ToggleButton };
 
@@ -42,43 +43,19 @@ class ToggleButton extends FoundationSwitch {
     public contentHidden = false;
 
     public readonly control!: HTMLElement;
-    private readonly contentId = 'nimble-toggle-button-content';
 
     public connectedCallback(): void {
         super.connectedCallback();
         if (!this.appearance) {
             this.appearance = ButtonAppearance.Outline;
         }
-
-        const content = this.control.querySelector('.content')!;
-        content.id = this.contentId;
-        this.control.setAttribute('aria-labelledby', this.contentId);
     }
 }
 
 const nimbleToggleButton = ToggleButton.compose<SwitchOptions>({
     baseName: 'toggle-button',
-    template: html` <div
-        role="button"
-        part="control"
-        aria-pressed="${(x: ToggleButton) => x.checked}"
-        aria-disabled="${(x: ToggleButton) => x.disabled}"
-        aria-readonly="${(x: ToggleButton) => x.readOnly}"
-        tabindex="${(x: ToggleButton) => (x.disabled ? null : 0)}"
-        @keypress="${(x, c) => x.keypressHandler(c.event as KeyboardEvent)}"
-        @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
-        class="control ${(x: ToggleButton) => (x.checked ? 'checked' : '')}"
-        ?disabled="${x => x.disabled}"
-        ${ref('control')}
-    >
-        <span part="start" class="start">
-            <slot name="start"></slot>
-        </span>
-        <span class="content" part="content">
-            <slot></slot>
-        </span>
-    </div>`,
-    styles: [styles]
+    template,
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToggleButton());

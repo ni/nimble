@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import { ButtonAppearance } from '../../patterns/button/appearance';
+import { ButtonAppearance } from '../types';
 
 interface ToggleButtonArgs {
     label: string;
@@ -77,7 +77,6 @@ export const outlineButton: StoryObj<ToggleButtonArgs> = {
         appearance: ButtonAppearance.Outline
     }
 };
-
 export const ghostButton: StoryObj<ToggleButtonArgs> = {
     args: { label: 'Ghost Toggle Button', appearance: ButtonAppearance.Ghost }
 };
