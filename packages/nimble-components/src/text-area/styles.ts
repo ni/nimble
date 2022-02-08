@@ -1,7 +1,8 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-
+import { focusVisible } from '../utilities/style/focus';
 import {
+    actionColorRgbPartial,
     borderColorRgbPartial,
     borderColorHover,
     borderWidth,
@@ -9,10 +10,9 @@ import {
     contentFontColorDisabled,
     contentFontSize,
     controlHeight,
-    failColor,
+    fillColorSelected,
     fillColorSelectedRgbPartial,
     fontFamily,
-    iconSize,
     labelFontColor,
     labelFontFamily,
     labelFontSize,
@@ -21,64 +21,36 @@ import {
     labelTextTransform,
     smallDelay
 } from '../theme-provider/design-tokens';
+import { appearanceBehavior } from './behaviors';
+import { TextAreaAppearance } from './types';
 
 export const styles = css`
-    ${display('inline-block')}/*
+    ${display('inline-block')}
+
     :host {
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
         outline: none;
         user-select: none;
         color: ${contentFontColor};
-        height: calc(${labelHeight} + ${controlHeight});
+        /*height: calc(${labelHeight} + ${controlHeight});*/
     }
 
     :host([disabled]) {
         color: ${contentFontColorDisabled};
     }
 
-    .root {
+    .control {
         box-sizing: border-box;
         position: relative;
         display: flex;
         flex-direction: row;
         border-radius: 0px;
         font-family: ${fontFamily};
-        border-bottom: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
+        /*border-bottom: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);*/
         padding-bottom: 1px;
-        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
+        transition: border ${smallDelay}, padding-bottom ${smallDelay};
         align-items: flex-end;
-    }
-
-    @media (prefers-reduced-motion) {
-        .root {
-            transition-duration: 0s;
-        }
-    }
-
-    .root:hover {
-        border-bottom: 2px solid ${borderColorHover};
-        padding-bottom: 0px;
-    }
-
-    :host(.invalid) .root {
-        border-bottom: ${borderWidth} solid ${failColor};
-    }
-
-    :host(.invalid) .root:hover {
-        border-bottom: 2px solid ${failColor};
-        padding-bottom: 0px;
-    }
-
-    :host([disabled]) .root,
-    :host([disabled]) .root:hover {
-        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
-        padding-bottom: 1px;
-    }
-
-    :host([readonly]) .root,
-    :host([readonly]) .root:hover {
-        border: none;
     }
 
     .control {
@@ -86,20 +58,45 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
-        height: 28px;
-        width: 100%;
+        /*height: 28px;*/
+        /*width: 100%;*/
+        border: ${borderWidth} solid transparent;
         margin-top: auto;
         margin-bottom: auto;
-        border: none;
+        outline: none;
+        /*border: none;*/
     }
 
+    @media (prefers-reduced-motion) {
+        .control {
+            transition-duration: 0s;
+        }
+    }
+
+    .control:hover,
+    .control${focusVisible} {
+        border: 2px solid ${borderColorHover};
+        /*box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;*/
+    }
+
+    :host([disabled]) .control,
+    :host([disabled]) .control:hover {
+        border: ${borderWidth} solid ${contentFontColorDisabled};
+        /*padding-bottom: 1px;*/
+    }
+
+    :host([readonly]) .control,
+    :host([readonly]) .control:hover {
+        border: ${borderWidth} solid ${contentFontColorDisabled};
+    }
+    /*
     .control:hover,
     .control:focus,
     .control:disabled,
     .control:active {
         outline: none;
     }
-
+*/
     .control::selection {
         color: ${labelFontColor};
         background: rgba(${fillColorSelectedRgbPartial}, 0.3);
@@ -130,29 +127,34 @@ export const styles = css`
         line-height: ${labelHeight};
         text-transform: ${labelTextTransform};
     }
+`
+    // prettier-ignore
+    .withBehaviors(
+        appearanceBehavior(
+            TextAreaAppearance.Outline,
+            css`
+                .control {
+                    background-color: transparent;
+                    border-color: rgba(${borderColorRgbPartial}, 0.5);
+                    /*border-color: rgba(${actionColorRgbPartial}, 0.5);*/
+                }
 
-    :host [part='end'] {
-        display: none;
-    }
+                .control[disabled] {
+                    border-color: rgba(${borderColorRgbPartial}, 0.2);
+                }
+            `
+        ),
+        appearanceBehavior(
+            TextAreaAppearance.Block,
+            css`
+                .control {
+                    background-color: rgba(${borderColorRgbPartial}, 0.1);
+                    border-color: transparent;
+                }
 
-    :host(.invalid) [part='end'] {
-        align-self: center;
-        display: inline-flex;
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-
-    :host(.invalid) [part='end'] svg {
-        height: ${iconSize};
-        width: ${iconSize};
-    }
-
-    :host(.invalid) [part='end'] path {
-        fill: ${failColor};
-    }
-
-    :host([disabled]) [part='end'] path {
-        fill: ${contentFontColorDisabled};
-    }
-*/
-`;
+                .control[disabled] {
+                    border-color: rgba(${borderColorRgbPartial}, 0.1);
+                }
+            `
+        )
+    );
