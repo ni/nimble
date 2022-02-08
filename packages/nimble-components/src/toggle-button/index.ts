@@ -1,4 +1,4 @@
-import { attr, html, ref } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Switch as FoundationSwitch,
