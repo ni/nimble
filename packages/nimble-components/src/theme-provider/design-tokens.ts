@@ -30,7 +30,7 @@ import {
     GroupLabel1Weight,
     LegacyContentFamily
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import { NimbleTheme } from './types';
+import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
 
@@ -214,11 +214,6 @@ export const drawerAnimationDurationMs = DesignToken.create<number>(
     styleNameFromTokenName(tokenNames.drawerAnimationDurationMs)
 ).withDefault(250);
 
-// Filter Tokens
-export const passwordRevealFilter = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.passwordRevealFilter)
-).withDefault((element: HTMLElement) => getPasswordRevealFilterForTheme(element));
-
 // Private helpers functions
 function hexToRgbPartial(hexValue: string): string {
     const { red, green, blue } = hexRgb(hexValue);
@@ -238,13 +233,13 @@ function getColorForTheme(
     legacyBlueThemeColor: string
 ): string {
     switch (theme.getValueFor(element)) {
-        case NimbleTheme.Light:
+        case Theme.Light:
             return lightThemeColor;
-        case NimbleTheme.Dark:
+        case Theme.Dark:
             return darkThemeColor;
-        case NimbleTheme.Color:
+        case Theme.Color:
             return colorThemeColor;
-        case NimbleTheme.LegacyBlue:
+        case Theme.LegacyBlue:
             return legacyBlueThemeColor;
         default:
             return lightThemeColor;
@@ -305,7 +300,7 @@ function getFillColorHoverForTheme(element: HTMLElement): string {
 
 function getFontForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
-        case NimbleTheme.LegacyBlue:
+        case Theme.LegacyBlue:
             return `${LegacyContentFamily}`;
         default:
             return `${BodyFamily}`;
@@ -314,7 +309,7 @@ function getFontForTheme(element: HTMLElement): string {
 
 function getLabelFontForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
-        case NimbleTheme.LegacyBlue:
+        case Theme.LegacyBlue:
             return `${LegacyContentFamily}`;
         default:
             return `${ControlLabel1Family}, ${BodyFamily}`;
@@ -323,7 +318,7 @@ function getLabelFontForTheme(element: HTMLElement): string {
 
 function getGroupLabelFontForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
-        case NimbleTheme.LegacyBlue:
+        case Theme.LegacyBlue:
             return `${LegacyContentFamily}`;
         default:
             return `${GroupLabel1Family}, ${BodyFamily}`;
@@ -332,7 +327,7 @@ function getGroupLabelFontForTheme(element: HTMLElement): string {
 
 function getGroupLabelTextTransformForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
-        case NimbleTheme.LegacyBlue:
+        case Theme.LegacyBlue:
             return 'none';
         default:
             return 'uppercase';
@@ -341,7 +336,7 @@ function getGroupLabelTextTransformForTheme(element: HTMLElement): string {
 
 function getLabelTextTransformForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
-        case NimbleTheme.LegacyBlue:
+        case Theme.LegacyBlue:
             return 'none';
         default:
             return 'none';
@@ -350,19 +345,9 @@ function getLabelTextTransformForTheme(element: HTMLElement): string {
 
 function getLabelTextSizeForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
-        case NimbleTheme.LegacyBlue:
+        case Theme.LegacyBlue:
             return '13px';
         default:
             return ControlLabel1Size;
-    }
-}
-
-function getPasswordRevealFilterForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case NimbleTheme.Color:
-        case NimbleTheme.Dark:
-            return 'invert(100%)';
-        default:
-            return 'invert(0%)';
     }
 }

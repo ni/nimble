@@ -49,7 +49,7 @@ The theming system is composed of:
     </body>
     ```
 
-2. Include one import in your styles for the Nimble fonts. Nimble recommends using SCSS for capabilities such as build time property checking.
+2. Include one import in your styles for the Nimble fonts. Nimble recommends using SCSS for capabilities such as build-time property checking.
 
     ```scss
     @import '~@ni/nimble-components/dist/fonts';
