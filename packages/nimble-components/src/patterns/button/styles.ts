@@ -19,7 +19,7 @@ import {
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance } from './types';
 
-export const buttonStyles = css`
+export const styles = css`
     ${display('inline-flex')}
 
     :host {

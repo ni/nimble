@@ -2,7 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { focusVisible } from '../utilities/style/focus';
 
 import { fillColorSelected } from '../theme-provider/design-tokens';
-import { buttonStyles } from '../patterns/button/styles';
+import { styles as buttonStyles } from '../patterns/button/styles';
 
 export const styles = css`
     ${buttonStyles}
