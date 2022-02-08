@@ -1,5 +1,5 @@
 /**
- * Types of toggle button.
+ * Types of toggle button appearance.
  * @public
  */
 import type { ButtonAppearanceAttribute } from '../patterns/button/types';

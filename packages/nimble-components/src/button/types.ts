@@ -1,5 +1,5 @@
 /**
- * Types of button.
+ * Types of button appearance.
  * @public
  */
 import type { Button } from '@microsoft/fast-foundation';
