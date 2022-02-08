@@ -55,7 +55,7 @@ const [
     darkThemeBlackBackground,
     legacyBlueThemeWhiteBackground,
     ...remaining
-] = backgroundStates.filter(state => state.showInMatrixTests);
+] = backgroundStates;
 
 if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');

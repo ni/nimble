@@ -5,39 +5,28 @@ export interface BackgroundState {
     name: string;
     value: string;
     theme: Theme;
-    showInMatrixTests: boolean;
 }
 
 export const backgroundStates: BackgroundState[] = [
     {
         name: `"${Theme.Light}" theme on white`,
         value: '#F4F4F4',
-        theme: Theme.Light,
-        showInMatrixTests: true
-    },
-    {
-        name: `"${Theme.Color}" theme on green`,
-        value: '#03B585',
-        theme: Theme.Color,
-        showInMatrixTests: false
+        theme: Theme.Light
     },
     {
         name: `"${Theme.Color}" theme on dark green`,
         value: '#044123',
-        theme: Theme.Color,
-        showInMatrixTests: true
+        theme: Theme.Color
     },
     {
         name: `"${Theme.Dark}" theme on black`,
         value: '#252526',
-        theme: Theme.Dark,
-        showInMatrixTests: true
+        theme: Theme.Dark
     },
     {
         name: `"${Theme.LegacyBlue}" theme on white`,
         value: '#FFFFFF',
-        theme: Theme.LegacyBlue,
-        showInMatrixTests: true
+        theme: Theme.LegacyBlue
     }
 ];
 
@@ -153,5 +142,5 @@ export const themeWrapper = (template: ViewTemplate): ViewTemplate => createMatr
                 </div>
             </nimble-theme-provider>
         `,
-    [backgroundStates.filter(state => state.showInMatrixTests)]
+    [backgroundStates]
 );
