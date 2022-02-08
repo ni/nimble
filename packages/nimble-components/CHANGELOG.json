@@ -2,6 +2,42 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 08 Feb 2022 22:38:10 GMT",
+      "tag": "@ni/nimble-components_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fbaa7998a230d2dfc4a41740f60afa67563cd18f",
+            "comment": "Create nimble-toggle-button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 07 Feb 2022 18:48:57 GMT",
+      "tag": "@ni/nimble-components_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1d493b0799d6e520e589fdb816272a307053a8b8",
+            "comment": "Remove 'beta' tag from package to start using semantic versioning"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v1.0.0",
+            "commit": "1d493b0799d6e520e589fdb816272a307053a8b8"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 04 Feb 2022 23:44:50 GMT",
       "tag": "@ni/nimble-components_v1.0.0-beta.129",
       "version": "1.0.0-beta.129",

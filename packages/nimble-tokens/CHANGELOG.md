@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 01 Feb 2022 17:09:06 GMT and should not be manually modified.
+This log was last generated on Mon, 07 Feb 2022 18:48:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0
+
+Mon, 07 Feb 2022 18:48:57 GMT
+
+### Patches
+
+- Remove 'beta' tag from package to start using semantic versioning (jattasNI@users.noreply.github.com)
 
 ## 1.0.0-beta.39
 
