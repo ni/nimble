@@ -1,8 +1,27 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 02 Feb 2022 16:29:26 GMT and should not be manually modified.
+This log was last generated on Mon, 07 Feb 2022 18:48:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0
+
+Mon, 07 Feb 2022 18:48:57 GMT
+
+### Patches
+
+- Remove 'beta' tag from package to start using semantic versioning (jattasNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0
+
+## 1.0.0-beta.149
+
+Fri, 04 Feb 2022 23:44:50 GMT
+
+### Changes
+
+- Name consistency
+- **Breaking change**: NimbleThemeProvider renamed to ThemeProvider. NimbleTheme renamed to Theme. Removed passwordRevealFilter design token. (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-components to v1.0.0-beta.129
 
 ## 1.0.0-beta.148
 

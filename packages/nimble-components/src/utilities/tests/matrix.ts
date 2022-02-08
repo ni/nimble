@@ -1,37 +1,37 @@
 import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
-import { NimbleTheme } from '../../theme-provider/types';
+import { Theme } from '../../theme-provider/types';
 
 export interface BackgroundState {
     name: string;
     value: string;
-    theme: NimbleTheme;
+    theme: Theme;
 }
 
 export const backgroundStates: BackgroundState[] = [
     {
-        name: `"${NimbleTheme.Light}" theme on white`,
+        name: `"${Theme.Light}" theme on white`,
         value: '#F4F4F4',
-        theme: NimbleTheme.Light
+        theme: Theme.Light
     },
     {
-        name: `"${NimbleTheme.Color}" theme on green`,
+        name: `"${Theme.Color}" theme on green`,
         value: '#03B585',
-        theme: NimbleTheme.Color
+        theme: Theme.Color
     },
     {
-        name: `"${NimbleTheme.Color}" theme on dark green`,
+        name: `"${Theme.Color}" theme on dark green`,
         value: '#044123',
-        theme: NimbleTheme.Color
+        theme: Theme.Color
     },
     {
-        name: `"${NimbleTheme.Dark}" theme on black`,
+        name: `"${Theme.Dark}" theme on black`,
         value: '#252526',
-        theme: NimbleTheme.Dark
+        theme: Theme.Dark
     },
     {
-        name: `"${NimbleTheme.LegacyBlue}" theme on white`,
+        name: `"${Theme.LegacyBlue}" theme on white`,
         value: '#FFFFFF',
-        theme: NimbleTheme.LegacyBlue
+        theme: Theme.LegacyBlue
     }
 ];
 
