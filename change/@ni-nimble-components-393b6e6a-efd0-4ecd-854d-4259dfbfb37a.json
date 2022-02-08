@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Remove \"Color theme on green\" from Storybook as it is not a supported configuration",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
