@@ -15,7 +15,7 @@ Current SystemLink breadcrumb:
 <img src="spec-images/SLBreadcrumbCurrent.PNG" width="400px"/>  
 Future planned SystemLink breadcrumb ([see discussion here](https://teams.microsoft.com/l/message/19:8e5f3e80de8146d5aaecdc2112e89191@thread.skype/1642192016552?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1642192016552&teamName=ASW%20SystemLink&channelName=UX&createdTime=1642192016552)):  
 The future/planned behavior of the SystemLink breadcrumb (where it's moved into the header, and won't include tab names) doesn't add any new requirements to this control.  
-<img src="spec-images/SLBreadcrumbFuture.png" width="400px"/>  
+<img src="spec-images/SLBreadcrumbFuture.png" width="400px"/>
 
 After uptaking the Nimble breadcrumb, SystemLink's breadcrumb will no longer include the `>` separator as part of the clickable link, which is a change from the current breadcrumb's behavior:  
 <img src="spec-images/SLBreadcrumbCurrentHover.PNG" width="400px"/>
