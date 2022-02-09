@@ -14,11 +14,6 @@ export const backgroundStates: BackgroundState[] = [
         theme: Theme.Light
     },
     {
-        name: `"${Theme.Color}" theme on green`,
-        value: '#03B585',
-        theme: Theme.Color
-    },
-    {
         name: `"${Theme.Color}" theme on dark green`,
         value: '#044123',
         theme: Theme.Color
