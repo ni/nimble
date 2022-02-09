@@ -143,6 +143,7 @@ We have a few options:
 -   Documentation
     -   Mostly standard Storybook examples
     -   In example client app, include router example (multiple pages, with breadcrumbs using `[routerLink]` to navigate between them
+    -   Update nimble-angular readme to document/ link to example for nimble-breadcrumb with RouterLink (due to us using a different attribute name)
     -   (Maybe) Showcase a non-default font, font size, and separator
 -   Globalization:
     -   FAST breadcrumb handles reversing items in RTL mode
