@@ -94,13 +94,13 @@ Attribute bindings for all `<a>` properties inherited from fast-breadcrumb-item:
 When used in an Angular app, frequently the `[routerLink]` directive will be used on the `nimble-breadcrumb-item`, instead of directly setting `href`. An example:
 
 ```html
-<nimble-breadcrumb-item
+<a
     routerLink="/customapp"
     [queryParams]="{debug: true}"
     [state]="{tracingId: 123}"
 >
     Custom App Page
-</nimble-breadcrumb-item>
+</a>
 ```
 
 As shown above, clients using [routerLink] can also set queryParams dynamically, pass state when the router navigates, etc.  
@@ -112,9 +112,21 @@ Angular has 2 directives handling [routerLink]:
 -   [RouterLink](https://github.com/angular/angular/blob/0a2191f8e7e232087aab0a7a9eb9ee6871580267/packages/router/src/directives/router_link.ts#L119): Selector `:not(a):not(area)[routerLink]`. Does a router navigation on left-click; handles Ctrl-Click the same way; does not compute an href (as it doesn't target `<a>` elements)
 -   [RouterLinkWithHref](https://github.com/angular/angular/blob/0a2191f8e7e232087aab0a7a9eb9ee6871580267/packages/router/src/directives/router_link.ts#L257): Selector `a[routerLink],area[routerLink]`: Computes an href for the anchor element it targets; left-click does a router navigation; Ctrl-click and middle-mouse-button click defer to the browser (to open a new tab/window)
 
-We want the behavior of RouterLinkWithHref, so we can subclass it and update the selector (to `nimble-breadcrumb-item[routerLink]`). However there'll still be a RouterLink directive active doing the wrong action too. In current Angular versions there's not a good way to disable RouterLink navigation ([see the comment on this Angular commit](https://github.com/angular/angular/commit/ccb09b4558a3864fb5b2fe2214d08f1c1fe2758f)), however we can prevent the RouterLink onClick from being called (with a click listener on a child element, or with a listener with useCapture=true).
+We want the behavior of RouterLinkWithHref, so we can subclass it and update the selector to target `nimble-breadcrumb-item`.
+However, if we have clients use the existing `routerLink` attribute to opt into our directive, there'll still be a RouterLink directive active doing the wrong action too. In current Angular versions there's not a good way to disable RouterLink navigation ([see the comment on this Angular commit](https://github.com/angular/angular/commit/ccb09b4558a3864fb5b2fe2214d08f1c1fe2758f)).  
+We have a few options:
 
-For an example/ prototype implementation [see the directives here](https://github.com/ni/nimble/tree/nimble-breadcrumb-prototype/angular-workspace/projects/ni/nimble-angular/src/directives/breadcrumb-item). (This prototype has the correct behavior for left-click, Ctrl-click, and middle-mouse click of breadcrumb item links, and href gets set correctly.)
+-   **Current Plan**: Make our directive selector something like `nimble-breadcrumb-item[nimbleRouterLink]`, and add an `@Input nimbleRouterLink` to our subclass (which sets `routerLink`). This is a small change for clients which we can document, and other routerLink attributes can still be used as-is:
+    ```html
+    <nimble-breadcrumb-item
+        nimbleRouterLink="/customapp"
+        [queryParams]="{debug: true}"
+        [state]="{tracingId: 123}"
+    >
+        Custom App Page
+    </nimble-breadcrumb-item>
+    ```
+-   (Alternate/Fallback option) We can prevent the RouterLink onClick from being called (with a click listener on a child element, or with a listener with useCapture=true). For an example/ prototype implementation [see the directives here](https://github.com/ni/nimble/tree/nimble-breadcrumb-prototype/angular-workspace/projects/ni/nimble-angular/src/directives/breadcrumb-item). (This prototype has the correct behavior for left-click, Ctrl-click, and middle-mouse click of breadcrumb item links, and href gets set correctly.)
 
 (Nimble Anchor can share those directives once created.)
 
@@ -143,5 +155,4 @@ For an example/ prototype implementation [see the directives here](https://githu
 
 ## Open Issues
 
--   Need to finalize styling and colors for Nimble anchors/hyperlinks, which this control will also use. See [nimble issue 324](https://github.com/ni/nimble/issues/324)
--   Does NimbleBreadcrumbItemDirective need the attribute bindings besides `href`, `hreflang`, `rel`, and `target`?
+None. (We plan to work with UI/UX for [link styling](https://github.com/ni/nimble/issues/324) as we develop this feature.)
