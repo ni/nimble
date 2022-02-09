@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 08 Feb 2022 23:06:14 GMT",
+      "tag": "@ni/nimble-components_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2495abf0c11ba2dac76dd24b195824dd6f74604a",
+            "comment": "Remove \"Color theme on green\" from Storybook as it is not a supported configuration"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 08 Feb 2022 22:38:10 GMT",
+      "tag": "@ni/nimble-components_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fbaa7998a230d2dfc4a41740f60afa67563cd18f",
+            "comment": "Create nimble-toggle-button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 07 Feb 2022 18:48:57 GMT",
       "tag": "@ni/nimble-components_v1.0.0",
       "version": "1.0.0",

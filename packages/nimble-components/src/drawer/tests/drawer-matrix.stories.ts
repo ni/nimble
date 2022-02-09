@@ -51,7 +51,6 @@ const component = html`
 
 const [
     lightThemeWhiteBackground,
-    colorThemeGreenBackground,
     colorThemeDarkGreenBackground,
     darkThemeBlackBackground,
     legacyBlueThemeWhiteBackground,
@@ -64,10 +63,6 @@ if (remaining.length > 0) {
 
 export const drawerLightThemeWhiteBackground: Story = createRenderer(
     singleThemeWrapper(component, lightThemeWhiteBackground)
-);
-
-export const drawerColorThemeGreenBackground: Story = createRenderer(
-    singleThemeWrapper(component, colorThemeGreenBackground)
 );
 
 export const drawerColorThemeDarkGreenBackground: Story = createRenderer(
