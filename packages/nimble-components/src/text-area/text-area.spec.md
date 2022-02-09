@@ -12,6 +12,10 @@ A text area is a multi-line text input control.
 
 ## Design
 
+### Scroll Bar
+
+The design document includes a custom scroll bar design (looks similar to Mac scroll bars). Brandon wanted us to execute that design, or as close to it as we could. However, this is not as simple as styling other parts of the FAST controls, and FAST already provides reasonable, OS-like scroll bar styling. Therefore we will stick with that for the time being.
+
 ### API
 
 [FAST's API](https://github.com/microsoft/fast/blob/ec5ceaefe295bf410b7e3db34867ac600f4a0d0e/packages/web-components/fast-foundation/src/text-area/text-area.spec.md)
