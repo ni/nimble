@@ -4,16 +4,19 @@ import { display } from '@microsoft/fast-foundation';
 import {
     borderColorRgbPartial,
     borderColorHover,
+    borderColorHoverRgbPartial,
     borderWidth,
     contentFontColor,
     contentFontColorDisabled,
     contentFontSize,
     controlHeight,
     failColor,
+    failColorRgbPartial,
     fillColorSelectedRgbPartial,
     fontFamily,
     iconSize,
     labelFontColor,
+    labelFontColorDisabled,
     labelFontFamily,
     labelFontSize,
     labelFontWeight,
@@ -112,6 +115,10 @@ export const styles = css`
         text-transform: ${labelTextTransform};
     }
 
+    :host([disabled]) .label {
+        color: ${labelFontColorDisabled};
+    }
+
     :host [part='end'] {
         display: none;
     }
@@ -140,9 +147,8 @@ export const styles = css`
             TextFieldAppearance.Underline,
             css`
             .root {
-                border-bottom: ${borderWidth} solid
-                    rgba(${borderColorRgbPartial}, 0.3);
-                padding-bottom: 1px;
+                border-bottom: 1px solid rgba(${borderColorRgbPartial}, 0.3);
+                padding: ${borderWidth};
                 padding-bottom: 1px;
             }
 
@@ -156,7 +162,8 @@ export const styles = css`
             }
 
             :host(.invalid) .root {
-                border-bottom: ${borderWidth} solid ${failColor};
+                border-bottom: 1px solid ${failColor};
+                padding-bottom: 1px;
             }
 
             :host(.invalid) .root:hover {
@@ -166,13 +173,14 @@ export const styles = css`
 
             :host([disabled]) .root,
             :host([disabled]) .root:hover {
-                border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+                border-bottom: 1px solid rgba(${borderColorRgbPartial}, 0.1);
                 padding-bottom: 1px;
             }
 
             :host([readonly]) .root,
             :host([readonly]) .root:hover {
                 border: none;
+                padding-bottom: 2px;
             }
         `
         ),
@@ -181,13 +189,12 @@ export const styles = css`
             css`
             .root {
                 background-color: rgba(${borderColorRgbPartial}, 0.05);
-                border-bottom: 0px;
-                padding: 1px;
+                padding: ${borderWidth};
+                padding-bottom: 2px;
             }
 
             .root:focus-within {
-                border: 1px solid ${borderColorHover};
-                padding: 0px;
+                border-bottom: 1px solid ${borderColorHover};
             }
 
             .root:hover {
@@ -196,7 +203,8 @@ export const styles = css`
             }
 
             :host(.invalid) .root {
-                border-bottom: ${borderWidth} solid ${failColor};
+                border-bottom: 1px solid ${failColor};
+                padding-bottom: 1px;
             }
 
             :host(.invalid) .root:hover {
@@ -206,13 +214,16 @@ export const styles = css`
 
             :host([disabled]) .root,
             :host([disabled]) .root:hover {
-                border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+                background: transparent;
+                border-bottom: 1px solid rgba(${borderColorRgbPartial}, 0.1);
                 padding-bottom: 1px;
             }
 
             :host([readonly]) .root,
             :host([readonly]) .root:hover {
+                background: transparent;
                 border: none;
+                padding-bottom: 2px;
             }
         `
         ),
@@ -221,11 +232,11 @@ export const styles = css`
             css`
             .root {
                 border: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
-                padding: 1px;
+                padding-bottom: 1px;
             }
 
             .root:focus-within {
-                border: 1px solid ${borderColorHover};
+                border: ${borderWidth} solid ${borderColorHover};
             }
 
             .root:hover {
@@ -233,24 +244,45 @@ export const styles = css`
                 padding-bottom: 0px;
             }
 
+            .root:focus-within:hover {
+                border: ${borderWidth} solid
+                    rgba(${borderColorHoverRgbPartial}, 0.3);
+                border-bottom: 2px solid ${borderColorHover};
+                padding-bottom: 0px;
+            }
+
             :host(.invalid) .root {
-                border: ${borderWidth} solid ${failColor};
+                border-bottom: 1px solid ${failColor};
             }
 
             :host(.invalid) .root:hover {
-                border: 2px solid ${failColor};
-                padding: 0px;
+                border-bottom: 2px solid ${failColor};
+                padding-bottom: 0px;
+            }
+
+            :host(.invalid) .root:focus-within {
+                border: ${borderWidth} solid ${failColor};
+            }
+
+            :host(.invalid) .root:focus-within:hover {
+                border: ${borderWidth} solid rgba(${failColorRgbPartial}, 0.3);
+                border-bottom: 2px solid ${failColor};
+                padding-bottom: 0px;
             }
 
             :host([disabled]) .root,
-            :host([disabled]) .root:hover {
-                border: ${borderWidth} solid ${contentFontColorDisabled};
-                padding: 1px;
+            :host([disabled]) .root:hover,
+            :host([disabled]) .root:focus-within:hover {
+                border: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.1);
+                padding-bottom: 1px;
             }
 
             :host([readonly]) .root,
-            :host([readonly]) .root:hover {
+            :host([readonly]) .root:hover,
+            :host([readonly]) .root:focus-within,
+            :host([readonly]) .root:focus-within:hover {
                 border: none;
+                padding: ${borderWidth};
             }
         `
         ),
