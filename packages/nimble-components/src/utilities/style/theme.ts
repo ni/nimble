@@ -141,8 +141,7 @@ class ThemeStyleSheetBehavior implements Behavior {
  * `.withBehaviors(new ThemeStyleSheetBehavior(
  *   css`:host { ... Theme.Light style... }`),
  *   css`:host { ... Theme.Dark style... }`),
- *   null, // No style needed for Theme.Color style
- *   Theme.Light
+ *   null // No style needed for Theme.Color style
  * )
  * ```
  */
