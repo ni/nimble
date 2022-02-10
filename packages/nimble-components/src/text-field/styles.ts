@@ -25,7 +25,7 @@ import {
     smallDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
-import { appearanceBehavior } from './behaviors';
+import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';

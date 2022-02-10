@@ -13,7 +13,7 @@ export { TextFieldType };
 /**
  * Values for the 'appearance' attribute of the text field.
  */
-export type TextFieldAppearanceAttribute = 'underline' | 'outline' | 'block';
+export type TextFieldAppearanceAttribute = `${TextFieldAppearance}`;
 
 /**
  * Values for the 'appearance' property of the text field
