@@ -193,6 +193,7 @@ export const styles = css`
 
             .root:focus-within {
                 border-bottom: 1px solid ${borderColorHover};
+                padding-bottom: 1px;
             }
 
             .root:hover {
