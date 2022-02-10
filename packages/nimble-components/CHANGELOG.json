@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 09 Feb 2022 23:03:00 GMT",
+      "tag": "@ni/nimble-components_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5e5cf520b9da585e48b93348fa3ca1362db7e6e4",
+            "comment": "Creation of nimble-text-area spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 09 Feb 2022 04:16:40 GMT",
       "tag": "@ni/nimble-components_v1.1.0",
       "version": "1.1.0",
