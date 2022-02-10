@@ -22,11 +22,6 @@ export const backgroundStates: BackgroundState[] = [
         name: `"${Theme.Dark}" theme on black`,
         value: '#252526',
         theme: Theme.Dark
-    },
-    {
-        name: `"${Theme.LegacyBlue}" theme on white`,
-        value: '#FFFFFF',
-        theme: Theme.LegacyBlue
     }
 ];
 
