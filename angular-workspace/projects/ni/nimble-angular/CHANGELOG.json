@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 10 Feb 2022 17:45:07 GMT",
+      "tag": "@ni/nimble-angular_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "11fa441f3e5289e3101d93c0f123a43abe4e6a5c",
+            "comment": "Add Angular support for nimble-toggle-button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 08 Feb 2022 22:38:10 GMT",
       "tag": "@ni/nimble-angular_v1.0.1",
       "version": "1.0.1",
