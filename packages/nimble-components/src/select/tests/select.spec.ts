@@ -38,7 +38,7 @@ describe('Select', () => {
         await disconnect();
     });
 
-    // fast-foundationversions >= 2.29.0 will error
+    // fast-foundation versions >= 2.29.0 will error
     // See https://github.com/microsoft/fast/issues/5586
     it('should respect "open" and "position" attributes when both set', async () => {
         const position = 'above';
