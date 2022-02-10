@@ -73,10 +73,6 @@ export const failColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.failColor)
 ).withDefault((element: HTMLElement) => getFailColorForTheme(element));
 
-export const failColorRgbPartial = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.failColorRgbPartial)
-).withDefault((element: HTMLElement) => hexToRgbPartial(getFailColorForTheme(element)));
-
 export const warningColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.warningColor)
 ).withDefault((element: HTMLElement) => getWarningColorForTheme(element));
@@ -93,18 +89,6 @@ export const borderColorHover = DesignToken.create<string>(
     Selection100,
     White,
     hexToRgbaCssColor(SlLegacyBlue, 0.9)
-));
-
-export const borderColorHoverRgbPartial = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.borderColorHoverRgbPartial)
-).withDefault((element: HTMLElement) => hexToRgbPartial(
-    getColorForTheme(
-        element,
-        Selection100,
-        Selection100,
-        White,
-        SlLegacyBlue
-    )
 ));
 
 // Component Color Tokens

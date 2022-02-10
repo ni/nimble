@@ -4,14 +4,12 @@ import { display } from '@microsoft/fast-foundation';
 import {
     borderColorRgbPartial,
     borderColorHover,
-    borderColorHoverRgbPartial,
     borderWidth,
     contentFontColor,
     contentFontColorDisabled,
     contentFontSize,
     controlHeight,
     failColor,
-    failColorRgbPartial,
     fillColorSelectedRgbPartial,
     fontFamily,
     iconSize,
@@ -236,17 +234,10 @@ export const styles = css`
             }
 
             .root:focus-within {
-                border: ${borderWidth} solid ${borderColorHover};
+                border-bottom: 1px solid ${borderColorHover};
             }
 
             .root:hover {
-                border-bottom: 2px solid ${borderColorHover};
-                padding-bottom: 0px;
-            }
-
-            .root:focus-within:hover {
-                border: ${borderWidth} solid
-                    rgba(${borderColorHoverRgbPartial}, 0.3);
                 border-bottom: 2px solid ${borderColorHover};
                 padding-bottom: 0px;
             }
@@ -256,16 +247,6 @@ export const styles = css`
             }
 
             :host(.invalid) .root:hover {
-                border-bottom: 2px solid ${failColor};
-                padding-bottom: 0px;
-            }
-
-            :host(.invalid) .root:focus-within {
-                border: ${borderWidth} solid ${failColor};
-            }
-
-            :host(.invalid) .root:focus-within:hover {
-                border: ${borderWidth} solid rgba(${failColorRgbPartial}, 0.3);
                 border-bottom: 2px solid ${failColor};
                 padding-bottom: 0px;
             }
