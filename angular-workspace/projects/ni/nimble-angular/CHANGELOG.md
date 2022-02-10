@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 08 Feb 2022 22:38:10 GMT and should not be manually modified.
+This log was last generated on Thu, 10 Feb 2022 17:45:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.0
+
+Thu, 10 Feb 2022 17:45:07 GMT
+
+### Minor changes
+
+- Add Angular support for nimble-toggle-button (20542556+mollykreis@users.noreply.github.com)
 
 ## 1.0.1
 
