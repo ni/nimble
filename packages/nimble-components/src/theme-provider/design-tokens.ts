@@ -28,7 +28,29 @@ import {
     GroupLabel1Family,
     GroupLabel1Size,
     GroupLabel1Weight,
-    LegacyContentFamily
+    LegacyContentFamily,
+    Headline2Size,
+    Headline2Family,
+    Headline1Size,
+    Headline1Family,
+    Title3Size,
+    Title3Family,
+    Title1Size,
+    Title1Family,
+    Subtitle2Size,
+    Subtitle2Family,
+    Subtitle1Size,
+    Subtitle1Family,
+    LinkLightUiSize,
+    LinkLightUiFamily,
+    PlaceholderSize,
+    PlaceholderFamily,
+    BodyEmphasizedSize,
+    BodyEmphasizedFamily,
+    ButtonLabel1Size,
+    ButtonLabel1Family,
+    TooltipCaptionSize,
+    TooltipCaptionFamily
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -129,6 +151,76 @@ export const iconSize = DesignToken.create<string>(
 export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
+
+// Font Tokens
+// $ni-nimble-headline2-font
+export const headline2Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.headline2Font)
+).withDefault(`400 ${Headline2Size}/40px ${Headline2Family}, serif`);
+// $ni-nimble-headline1-font
+export const headline1Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.headline1Font)
+).withDefault(`400 ${Headline1Size}/32px ${Headline1Family}, serif`);
+// $ni-nimble-title3-font
+export const title3Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.title3Font)
+).withDefault(`400 ${Title3Size}/32px ${Title3Family}, sans-serif`);
+// $ni-nimble-title2-font
+export const title2Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.title3Font)
+).withDefault(`400 ${Title2Size}/28px ${Title2Family}, sans-serif`);
+// $ni-nimble-title1-font
+export const title1Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.title1Font)
+).withDefault(`400 ${Title1Size}/24px ${Title1Family}, sans-serif`);
+// $ni-nimble-subtitle2-font
+export const subtitle2Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.subtitle2Font)
+).withDefault(`300 ${Subtitle2Size}/20px ${Subtitle2Family}, sans-serif`);
+// $ni-nimble-subtitle1-font
+export const subtitle1Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.subtitle1Font)
+).withDefault(`300 ${Subtitle1Size}/16px ${Subtitle1Family}, sans-serif`);
+// $ni-nimble-link-standard1-font
+export const linkStandard1Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.linkStandard1Font)
+).withDefault(`400 ${LinkLightUiSize}/18px ${LinkLightUiFamily}, sans-serif`);
+// $ni-nimble-placeholder-font
+export const placeholderFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.placeholderFont)
+).withDefault(`400 ${PlaceholderSize}/18px ${PlaceholderFamily}, sans-serif`);
+// $ni-nimble-body-emphasized-large-font
+// $ni-nimble-body-large-font
+// $ni-nimble-body-emphasized-font
+export const bodyEmphasizedFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bodyEmphasizedFont)
+).withDefault(
+    `600 ${BodyEmphasizedSize}/18px ${BodyEmphasizedFamily}, sans-serif`
+);
+// $ni-nimble-body-font
+export const bodyFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bodyFont)
+).withDefault(`400 ${BodySize}/18px ${BodyFamily}, sans-serif`);
+// $ni-nimble-group-header1-font
+export const groupHeader1Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.groupHeader1Font)
+).withDefault(`400 ${GroupLabel1Size}/16px ${GroupLabel1Family}, sans-serif`);
+// $ni-nimble-control-label1-font
+export const controlLabel1Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.controlLabel1Font)
+).withDefault(
+    `600 ${ControlLabel1Size}/16px ${ControlLabel1Family}, sans-serif`
+);
+// $ni-nimble-button-label1-font
+export const buttonLabel1Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonLabel1Font)
+).withDefault(`400 ${ButtonLabel1Size}/16px ${ButtonLabel1Family}, sans-serif`);
+// $ni-nimble-tooltip-caption-font
+export const tooltipCaptionFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tooltipCaptionFont)
+).withDefault(
+    `400 ${TooltipCaptionSize}/14px ${TooltipCaptionFamily}, sans-serif`
+);
 
 // Font Family Tokens
 export const fontFamily = DesignToken.create<string>(

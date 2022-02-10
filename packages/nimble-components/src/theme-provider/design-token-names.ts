@@ -44,7 +44,22 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     contentFontColorDisabled: 'content-font-color-disabled',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
-    drawerAnimationDurationMs: 'drawer-animation-duration-ms'
+    drawerAnimationDurationMs: 'drawer-animation-duration-ms',
+    headline2Font: 'headline2-font',
+    headline1Font: 'headline1-font',
+    title3Font: 'title3-font',
+    title2Font: 'title2-font',
+    title1Font: 'title1-font',
+    subtitle2Font: 'subtitle2-font',
+    subtitle1Font: 'subtitle1-font',
+    linkStandard1Font: 'link-standard1-font',
+    placeholderFont: 'placeholder-font',
+    bodyEmphasizedFont: 'body-emphasized-font',
+    bodyFont: 'body-font',
+    groupHeader1Font: 'group-header1-font',
+    controlLabel1Font: 'control-label1-font',
+    buttonLabel1Font: 'button-label1-font',
+    tooltipCaptionFont: 'tooltip-caption-font'
 };
 
 const prefix = 'ni-nimble';

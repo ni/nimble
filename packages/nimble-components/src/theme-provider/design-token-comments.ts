@@ -44,5 +44,20 @@ export const comments: { readonly [key in TokenName]: string } = {
     contentFontColorDisabled: '',
     smallDelay: '',
     mediumDelay: '',
-    drawerAnimationDurationMs: ''
+    drawerAnimationDurationMs: '',
+    headline2Font: '',
+    headline1Font: '',
+    title3Font: '',
+    title2Font: '',
+    title1Font: '',
+    subtitle2Font: '',
+    subtitle1Font: '',
+    linkStandard1Font: '',
+    placeholderFont: '',
+    bodyEmphasizedFont: '',
+    bodyFont: '',
+    groupHeader1Font: '',
+    controlLabel1Font: '',
+    buttonLabel1Font: '',
+    tooltipCaptionFont: ''
 };
