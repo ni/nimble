@@ -265,7 +265,7 @@ export const controlLabel1FontColor = DesignToken.create<string>(
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6));
 export const buttonLabel1FontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonLabel1FontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6));
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
 export const tooltipCaptionFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipCaptionFontColor)
 ).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
