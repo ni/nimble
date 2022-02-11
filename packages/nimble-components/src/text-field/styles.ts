@@ -66,7 +66,7 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
-        height: 28px;
+        height: 27px;
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
