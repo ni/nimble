@@ -97,7 +97,6 @@ export const propertyNames: StoryObj<TokenArgs> = {
                         `)}
                     </td>
                     <td>${x => comments[x]}</td>
-                    <td>${x => comments[x]}</td>
                 </tr>
             `)}
             </tbody>
