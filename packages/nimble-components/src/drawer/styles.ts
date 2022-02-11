@@ -1,11 +1,10 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    applicationBackgroundColor,
+    backgroundLevel1Color,
     bodyFont,
+    bodyFontColor,
     borderWidth,
-    contentFontColor,
-    drawerWidth,
     popupBorderColor,
     popupBoxShadowColor,
     standardPadding,
@@ -15,6 +14,10 @@ import {
 export const styles = css`
     ${display('block')}
 
+    .root {
+        --drawer-width: 784px;
+    }
+
     :host {
         position: relative;
         top: 0;
@@ -23,7 +26,7 @@ export const styles = css`
         height: 100%;
         outline: none;
         font: ${bodyFont};
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
     }
 
     :host([modal]) {
@@ -73,9 +76,9 @@ export const styles = css`
         box-sizing: border-box;
         border-radius: 0px;
         border-width: 0px;
-        width: ${drawerWidth};
+        width: var(--drawer-width);
         height: 100%;
-        background-color: ${applicationBackgroundColor};
+        background-color: ${backgroundLevel1Color};
     }
 
     :host([modal]) .control {

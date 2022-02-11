@@ -1,7 +1,7 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    contentFontColor,
+    bodyFontColor,
     iconSize,
     warningColor,
     failColor,
@@ -17,7 +17,7 @@ export const styles = css`
         user-select: none;
         width: ${iconSize};
         height: ${iconSize};
-        ${iconColor.cssCustomProperty}: ${contentFontColor};
+        ${iconColor.cssCustomProperty}: ${bodyFontColor};
     }
 
     .icon {

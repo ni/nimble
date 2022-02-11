@@ -5,12 +5,12 @@ import {
     borderColorRgbPartial,
     borderColorHover,
     borderWidth,
-    contentFontColor,
-    contentFontColorDisabled,
+    bodyFontColor,
+    bodyFontColorDisabled,
     controlHeight,
     fillColorSelectedRgbPartial,
     iconSize,
-    labelFontColor,
+    controlLabel1FontColor,
     labelHeight,
     smallDelay,
     controlLabel1Font,
@@ -24,12 +24,12 @@ export const styles = css`
         font: ${bodyFont};
         outline: none;
         user-select: none;
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
     }
 
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${bodyFontColorDisabled};
         cursor: default;
     }
 
@@ -57,7 +57,7 @@ export const styles = css`
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
-        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${bodyFontColorDisabled};
         padding-bottom: 1px;
     }
 
@@ -81,12 +81,12 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${labelFontColor};
+        color: ${controlLabel1FontColor};
         background: rgba(${fillColorSelectedRgbPartial}, 0.3);
     }
 
     .control::placeholder {
-        color: ${labelFontColor};
+        color: ${controlLabel1FontColor};
     }
 
     .control:focus-within::placeholder {
@@ -94,12 +94,12 @@ export const styles = css`
     }
 
     .control[disabled]::placeholder {
-        color: ${contentFontColorDisabled};
+        color: ${bodyFontColorDisabled};
     }
 
     .label {
         display: flex;
-        color: ${labelFontColor};
+        color: ${controlLabel1FontColor};
         font: ${controlLabel1Font};
     }
 

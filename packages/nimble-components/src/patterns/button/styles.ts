@@ -3,12 +3,12 @@ import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../../utilities/style/focus';
 import {
     actionColorRgbPartial,
-    bodyFont,
     borderColorHover,
     borderColorRgbPartial,
     borderWidth,
-    buttonContentFontColor,
-    contentFontColorDisabled,
+    buttonLabel1Font,
+    buttonLabel1FontColor,
+    buttonLabel1FontColorDisabled,
     controlHeight,
     fillColorSelected,
     iconColor,
@@ -24,8 +24,8 @@ export const styles = css`
     :host {
         background-color: transparent;
         height: ${controlHeight};
-        color: ${buttonContentFontColor};
-        font: ${bodyFont};
+        color: ${buttonLabel1FontColor};
+        font: ${buttonLabel1Font};
         cursor: pointer;
         outline: none;
         border: none;
@@ -41,7 +41,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${buttonLabel1FontColorDisabled};
         cursor: default;
     }
 
@@ -112,7 +112,7 @@ export const styles = css`
     }
 
     slot[name='start']::slotted(*) {
-        ${iconColor.cssCustomProperty}: ${buttonContentFontColor};
+        ${iconColor.cssCustomProperty}: ${buttonLabel1FontColor};
     }
 
     :host([disabled]) slot[name='start']::slotted(*) {

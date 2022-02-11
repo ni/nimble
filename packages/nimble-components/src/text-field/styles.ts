@@ -5,17 +5,17 @@ import {
     borderColorRgbPartial,
     borderColorHover,
     borderWidth,
-    contentFontColor,
-    contentFontColorDisabled,
+    bodyFontColor,
+    bodyFontColorDisabled,
     controlHeight,
     failColor,
     fillColorSelectedRgbPartial,
     iconSize,
-    labelFontColor,
     labelHeight,
     smallDelay,
     controlLabel1Font,
-    bodyFont
+    bodyFont,
+    controlLabel1FontColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
@@ -27,12 +27,12 @@ export const styles = css`
         font: ${bodyFont};
         outline: none;
         user-select: none;
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
     }
 
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${bodyFontColorDisabled};
     }
 
     .root {
@@ -70,7 +70,7 @@ export const styles = css`
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
-        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${bodyFontColorDisabled};
         padding-bottom: 1px;
     }
 
@@ -99,12 +99,12 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${labelFontColor};
+        color: ${controlLabel1FontColor};
         background: rgba(${fillColorSelectedRgbPartial}, 0.3);
     }
 
     .control::placeholder {
-        color: ${labelFontColor};
+        color: ${controlLabel1FontColor};
     }
 
     .control:not([readonly]):focus-within::placeholder {
@@ -116,12 +116,12 @@ export const styles = css`
     }
 
     .control[disabled]::placeholder {
-        color: ${contentFontColorDisabled};
+        color: ${bodyFontColorDisabled};
     }
 
     .label {
         display: flex;
-        color: ${labelFontColor};
+        color: ${controlLabel1FontColor};
         font: ${controlLabel1Font};
     }
 
@@ -146,7 +146,7 @@ export const styles = css`
     }
 
     :host([disabled]) [part='end'] path {
-        fill: ${contentFontColorDisabled};
+        fill: ${bodyFontColorDisabled};
     }
 `.withBehaviors(
         themeBehavior(

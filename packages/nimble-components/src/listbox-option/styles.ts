@@ -4,11 +4,11 @@ import { focusVisible } from '../utilities/style/focus';
 
 import {
     borderColorHover,
-    contentFontColorDisabled,
     fillColorSelected,
     fillColorSelectedHover,
     fillColorHover,
-    bodyFont
+    bodyFont,
+    bodyFontColorDisabled
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -56,7 +56,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${bodyFontColorDisabled};
         cursor: default;
     }
 

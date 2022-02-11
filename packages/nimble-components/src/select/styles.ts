@@ -1,12 +1,12 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    applicationBackgroundColor,
+    backgroundLevel1Color,
     bodyFont,
+    bodyFontColor,
+    bodyFontColorDisabled,
     borderColorHover,
     borderWidth,
-    contentFontColor,
-    contentFontColorDisabled,
     controlHeight,
     iconSize,
     popupBorderColor,
@@ -19,7 +19,7 @@ export const styles = css`
 
     :host {
         box-sizing: border-box;
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
         font: ${bodyFont};
         height: ${controlHeight};
         position: relative;
@@ -41,7 +41,7 @@ export const styles = css`
         padding: 4px;
         box-shadow: 0px 3px 3px ${popupBoxShadowColor};
         border: 1px solid ${popupBorderColor};
-        background-color: ${applicationBackgroundColor};
+        background-color: ${backgroundLevel1Color};
         background-clip: padding-box;
     }
 
@@ -56,7 +56,7 @@ export const styles = css`
         display: flex;
         min-height: 100%;
         width: 100%;
-        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${bodyFontColorDisabled};
         background-color: transparent;
         padding-left: 8px;
         padding-bottom: 1px;
@@ -79,9 +79,9 @@ export const styles = css`
 
     :host([disabled]) .control,
     :host([disabled]) .control:hover {
-        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${bodyFontColorDisabled};
         padding-bottom: 1px;
-        color: ${contentFontColorDisabled};
+        color: ${bodyFontColorDisabled};
     }
 
     :host([open][position='above']) .listbox {
@@ -123,11 +123,11 @@ export const styles = css`
     .indicator slot[name='indicator'] svg {
         width: ${iconSize};
         height: ${iconSize};
-        fill: ${contentFontColor};
+        fill: ${bodyFontColor};
     }
 
     :host([disabled]) .indicator slot[name='indicator'] svg {
-        fill: ${contentFontColorDisabled};
+        fill: ${bodyFontColorDisabled};
     }
 
     slot[name='listbox'] {

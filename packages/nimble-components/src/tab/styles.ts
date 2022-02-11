@@ -4,8 +4,8 @@ import {
     bodyFont,
     borderColorHover,
     borderWidth,
-    contentFontColor,
-    contentFontColorDisabled,
+    bodyFontColor,
+    bodyFontColorDisabled,
     controlHeight,
     fillColorHover,
     mediumDelay,
@@ -22,7 +22,7 @@ export const styles = css`
         height: ${controlHeight};
         padding: calc(${standardPadding} / 2) ${standardPadding}
             calc(${standardPadding} / 2 - ${borderWidth});
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
         align-items: center;
         justify-content: center;
         cursor: pointer;
@@ -56,7 +56,7 @@ export const styles = css`
 
     :host([disabled]) {
         cursor: default;
-        color: ${contentFontColorDisabled};
+        color: ${bodyFontColorDisabled};
         background: none;
     }
 `;

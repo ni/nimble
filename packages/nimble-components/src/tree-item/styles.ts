@@ -7,7 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 import {
-    contentFontColor,
+    bodyFontColor,
     borderColorHover,
     fillColorSelected,
     fillColorHover,
@@ -29,7 +29,7 @@ export const styles: (
             contain: content;
             position: relative;
             outline: none;
-            color: ${contentFontColor};
+            color: ${bodyFontColor};
             cursor: pointer;
             font: ${bodyFont};
             --ni-private-tree-item-nested-width: 0;

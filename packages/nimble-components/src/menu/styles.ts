@@ -2,20 +2,21 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 
 import {
-    applicationBackgroundColor,
+    backgroundLevel1Color,
     borderWidth,
     borderColor,
-    groupLabelFontColor,
     popupBorderColor,
     popupBoxShadowColor,
-    groupHeader1Font
+    groupHeader1Font,
+    groupHeader1TextTransform,
+    groupHeader1FontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('grid')}
 
     :host {
-        background: ${applicationBackgroundColor};
+        background: ${backgroundLevel1Color};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
         padding: 4px;
@@ -38,7 +39,8 @@ export const styles = css`
     ::slotted(header) {
         display: flex;
         font: ${groupHeader1Font};
-        color: ${groupLabelFontColor};
+        color: ${groupHeader1FontColor};
+        text-transform: ${groupHeader1TextTransform};
         padding-top: 4px;
         padding-bottom: 4px;
     }

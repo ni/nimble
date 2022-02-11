@@ -6,11 +6,11 @@ import {
     controlHeight,
     fillColorSelected,
     fillColorHover,
-    contentFontColor,
+    bodyFontColor,
     borderColorHover,
-    contentFontColorDisabled,
     iconSize,
-    bodyFont
+    bodyFont,
+    bodyFontColorDisabled
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -29,7 +29,7 @@ export const styles = css`
         padding-right: 8px;
         margin: 0 0;
         white-space: nowrap;
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
         fill: currentcolor;
         cursor: pointer;
         font: ${bodyFont};
@@ -45,7 +45,7 @@ export const styles = css`
         background: ${fillColorSelected};
     }
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${bodyFontColorDisabled};
         fill: currentcolor;
         cursor: default;
     }

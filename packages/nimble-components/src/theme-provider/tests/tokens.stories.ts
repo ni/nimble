@@ -11,14 +11,11 @@ import {
 import { comments } from '../design-token-comments';
 
 import {
-    groupLabelFontColor,
-    groupLabelFontSize,
-    groupLabelFontFamily,
-    fontFamily,
-    contentFontSize,
-    contentFontColor,
-    groupLabelFontWeight,
-    groupLabelTextTransform
+    bodyFont,
+    bodyFontColor,
+    groupHeader1Font,
+    groupHeader1FontColor,
+    groupHeader1TextTransform
 } from '../design-tokens';
 
 type TokenName = keyof typeof tokenNames;
@@ -71,16 +68,13 @@ export const propertyNames: StoryObj<TokenArgs> = {
     render: createRenderer(html<TokenArgs>`
         <style>
             table {
-                font-family: var(${fontFamily.cssCustomProperty});
-                font-size: var(${contentFontSize.cssCustomProperty});
-                color: var(${contentFontColor.cssCustomProperty});
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
             }
             thead {
-                font-family: var(${groupLabelFontFamily.cssCustomProperty});
-                font-size: var(${groupLabelFontSize.cssCustomProperty});
-                font-weight: var(${groupLabelFontWeight.cssCustomProperty});
-                color: var(${groupLabelFontColor.cssCustomProperty});
-                text-transform: var(${groupLabelTextTransform.cssCustomProperty});
+                font: var(${groupHeader1Font.cssCustomProperty});
+                color: var(${groupHeader1FontColor.cssCustomProperty});
+                text-transform: var(${groupHeader1TextTransform.cssCustomProperty});
             }
             td { padding: 10px;}
         </style>
