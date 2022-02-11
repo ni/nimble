@@ -114,9 +114,7 @@ describe('ToggleButton', () => {
             expect(element.checked).toBe(true);
         });
 
-        // The 'Enter' key interaction is added to the FAST switch in
-        // https://github.com/microsoft/fast/pull/5325
-        xit('should fire an event when enter is invoked', async () => {
+        it('should fire an event when enter is invoked', async () => {
             await connect();
             expect(element.checked).toBe(false);
 
