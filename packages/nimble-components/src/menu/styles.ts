@@ -5,14 +5,10 @@ import {
     applicationBackgroundColor,
     borderWidth,
     borderColor,
-    groupLabelTextTransform,
     groupLabelFontColor,
-    groupLabelFontFamily,
-    groupLabelFontSize,
-    groupLabelFontWeight,
     popupBorderColor,
     popupBoxShadowColor,
-    labelHeight
+    groupHeader1Font
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -41,12 +37,8 @@ export const styles = css`
     }
     ::slotted(header) {
         display: flex;
-        font-family: ${groupLabelFontFamily};
-        font-size: ${groupLabelFontSize};
-        font-weight: ${groupLabelFontWeight};
-        line-height: ${labelHeight};
+        font: ${groupHeader1Font};
         color: ${groupLabelFontColor};
-        text-transform: ${groupLabelTextTransform};
         padding-top: 4px;
         padding-bottom: 4px;
     }

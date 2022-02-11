@@ -4,14 +4,13 @@ import { focusVisible } from '../utilities/style/focus';
 
 import {
     controlHeight,
-    fontFamily,
-    contentFontSize,
     fillColorSelected,
     fillColorHover,
     contentFontColor,
     borderColorHover,
     contentFontColorDisabled,
-    iconSize
+    iconSize,
+    bodyFont
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -33,8 +32,7 @@ export const styles = css`
         color: ${contentFontColor};
         fill: currentcolor;
         cursor: pointer;
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
     }
     :host(${focusVisible}) {
         outline: 2px solid ${borderColorHover};

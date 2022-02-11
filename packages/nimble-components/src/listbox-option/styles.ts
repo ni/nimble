@@ -4,20 +4,18 @@ import { focusVisible } from '../utilities/style/focus';
 
 import {
     borderColorHover,
-    contentFontSize,
-    fontFamily,
     contentFontColorDisabled,
     fillColorSelected,
     fillColorSelectedHover,
-    fillColorHover
+    fillColorHover,
+    bodyFont
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
 
     :host {
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         cursor: pointer;
         justify-content: left;
     }

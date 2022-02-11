@@ -3,15 +3,14 @@ import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../../utilities/style/focus';
 import {
     actionColorRgbPartial,
+    bodyFont,
     borderColorHover,
     borderColorRgbPartial,
     borderWidth,
     buttonContentFontColor,
     contentFontColorDisabled,
-    contentFontSize,
     controlHeight,
     fillColorSelected,
-    fontFamily,
     iconColor,
     smallDelay,
     standardPadding
@@ -26,8 +25,7 @@ export const styles = css`
         background-color: transparent;
         height: ${controlHeight};
         color: ${buttonContentFontColor};
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         cursor: pointer;
         outline: none;
         border: none;

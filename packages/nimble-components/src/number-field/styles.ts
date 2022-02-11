@@ -7,26 +7,21 @@ import {
     borderWidth,
     contentFontColor,
     contentFontColorDisabled,
-    contentFontSize,
     controlHeight,
     fillColorSelectedRgbPartial,
-    fontFamily,
     iconSize,
     labelFontColor,
-    labelFontFamily,
-    labelFontSize,
-    labelFontWeight,
     labelHeight,
-    labelTextTransform,
-    smallDelay
+    smallDelay,
+    controlLabel1Font,
+    bodyFont
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('inline-block')}
 
     :host {
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         outline: none;
         user-select: none;
         color: ${contentFontColor};
@@ -44,7 +39,6 @@ export const styles = css`
         display: flex;
         flex-direction: row;
         border-radius: 0px;
-        font-family: ${fontFamily};
         border-bottom: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
         padding-bottom: 1px;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
@@ -106,11 +100,7 @@ export const styles = css`
     .label {
         display: flex;
         color: ${labelFontColor};
-        font-family: ${labelFontFamily};
-        font-size: ${labelFontSize};
-        font-weight: ${labelFontWeight};
-        line-height: ${labelHeight};
-        text-transform: ${labelTextTransform};
+        font: ${controlLabel1Font};
     }
 
     .controls {

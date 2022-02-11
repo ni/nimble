@@ -2,13 +2,12 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
+    bodyFont,
     borderColorHover,
     borderWidth,
     contentFontColor,
     contentFontColorDisabled,
-    contentFontSize,
     controlHeight,
-    fontFamily,
     iconSize,
     popupBorderColor,
     popupBoxShadowColor,
@@ -21,7 +20,7 @@ export const styles = css`
     :host {
         box-sizing: border-box;
         color: ${contentFontColor};
-        font-family: ${fontFamily};
+        font: ${bodyFont};
         height: ${controlHeight};
         position: relative;
         user-select: none;
@@ -55,8 +54,6 @@ export const styles = css`
         box-sizing: border-box;
         cursor: pointer;
         display: flex;
-        font-size: ${contentFontSize};
-        font-family: inherit;
         min-height: 100%;
         width: 100%;
         border-bottom: ${borderWidth} solid ${contentFontColorDisabled};

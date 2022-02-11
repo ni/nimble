@@ -1,14 +1,13 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    bodyFont,
     borderColorHover,
     borderWidth,
     contentFontColor,
     contentFontColorDisabled,
-    contentFontSize,
     controlHeight,
     fillColorHover,
-    fontFamily,
     mediumDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -19,8 +18,7 @@ export const styles = css`
 
     :host {
         box-sizing: border-box;
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         height: ${controlHeight};
         padding: calc(${standardPadding} / 2) ${standardPadding}
             calc(${standardPadding} / 2 - ${borderWidth});

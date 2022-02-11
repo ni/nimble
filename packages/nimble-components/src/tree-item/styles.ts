@@ -8,14 +8,13 @@ import {
 import { focusVisible } from '../utilities/style/focus';
 import {
     contentFontColor,
-    fontFamily,
     borderColorHover,
     fillColorSelected,
-    contentFontSize,
     fillColorHover,
     fillColorSelectedHover,
     borderWidth,
-    iconSize
+    iconSize,
+    bodyFont
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
@@ -32,7 +31,7 @@ export const styles: (
             outline: none;
             color: ${contentFontColor};
             cursor: pointer;
-            font-family: ${fontFamily};
+            font: ${bodyFont};
             --ni-private-tree-item-nested-width: 0;
         }
 
@@ -86,7 +85,6 @@ export const styles: (
             white-space: nowrap;
             width: 100%;
             padding-left: 10px;
-            font-size: ${contentFontSize};
             user-select: none;
         }
 

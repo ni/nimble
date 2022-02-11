@@ -8,13 +8,11 @@ import {
     borderColorRgbPartial,
     contentFontColor,
     contentFontColorDisabled,
-    contentFontSize,
     controlHeight,
-    labelHeight,
     iconSize,
-    fontFamily,
     borderWidth,
-    smallDelay
+    smallDelay,
+    buttonLabel1Font
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -74,10 +72,8 @@ export const styles = css`
     }
 
     .label {
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${buttonLabel1Font};
         color: ${contentFontColor};
-        line-height: ${labelHeight};
         padding-left: 1ch;
         cursor: inherit;
     }

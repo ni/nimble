@@ -1,12 +1,11 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    bodyFont,
     borderColorRgbPartial,
     borderWidth,
     contentFontColor,
-    contentFontSize,
     controlHeight,
-    fontFamily,
     standardPadding
 } from '../theme-provider/design-tokens';
 
@@ -17,8 +16,7 @@ export const styles = css`
         align-items: center;
         height: ${controlHeight};
         box-sizing: border-box;
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         color: ${contentFontColor};
     }
 
