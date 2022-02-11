@@ -29,7 +29,6 @@ import {
     Title2Family,
     GroupLabel1Family,
     GroupLabel1Size,
-    LegacyContentFamily,
     Headline2Size,
     Headline2Family,
     Headline1Size,
@@ -416,56 +415,11 @@ function getFillColorHoverForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White, SlLegacyBlue);
 }
 
-function getFontForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return `${LegacyContentFamily}`;
-        default:
-            return `${BodyFamily}`;
-    }
-}
-
-function getLabelFontForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return `${LegacyContentFamily}`;
-        default:
-            return `${ControlLabel1Family}, ${BodyFamily}`;
-    }
-}
-
-function getGroupLabelFontForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return `${LegacyContentFamily}`;
-        default:
-            return `${GroupLabel1Family}, ${BodyFamily}`;
-    }
-}
-
 function getGroupLabelTextTransformForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
         case Theme.LegacyBlue:
             return 'none';
         default:
             return 'uppercase';
-    }
-}
-
-function getLabelTextTransformForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return 'none';
-        default:
-            return 'none';
-    }
-}
-
-function getLabelTextSizeForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return '13px';
-        default:
-            return ControlLabel1Size;
     }
 }
