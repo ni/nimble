@@ -42,7 +42,7 @@ const styleMarkup = html`
         }
 
         .color-label {
-            font: ar(${controlLabel1Font.cssCustomProperty});
+            font: var(${controlLabel1Font.cssCustomProperty});
             color: var(${controlLabel1FontColor.cssCustomProperty});
             text-align: center;
         }
