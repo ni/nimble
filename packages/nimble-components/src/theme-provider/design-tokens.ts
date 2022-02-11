@@ -221,6 +221,9 @@ export const tooltipCaptionFont = DesignToken.create<string>(
 ).withDefault(
     `400 ${TooltipCaptionSize}/14px ${TooltipCaptionFamily}, sans-serif`
 );
+export const bodyFontFamily = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bodyFontFamily)
+).withDefault(`${BodyFamily}, , sans-serif`);
 
 // Font Color Tokens
 
