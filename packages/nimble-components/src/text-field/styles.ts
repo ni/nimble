@@ -53,6 +53,37 @@ export const styles = css`
         font-family: ${fontFamily};
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: flex-end;
+        --ni-private-hover-bottom-border-width: 2px;
+        border: 0px solid rgba(${borderColorRgbPartial}, 0.3);
+        border-bottom-width: var(--ni-private-bottom-border-width);
+        padding-bottom: calc(
+            var(--ni-private-hover-bottom-border-width) -
+                var(--ni-private-bottom-border-width)
+        );
+    }
+
+    :host(:not([disabled])) .root:hover {
+        --ni-private-bottom-border-width: var(
+            --ni-private-hover-bottom-border-width
+        );
+    }
+
+    .root:focus-within,
+    .root:hover {
+        border-bottom-color: ${borderColorHover};
+    }
+
+    :host(.invalid) .root {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([disabled]) .root {
+        border-color: rgba(${borderColorRgbPartial}, 0.1);
+    }
+
+    :host([readonly]) .root {
+        border: none;
+        padding: ${borderWidth};
     }
 
     @media (prefers-reduced-motion) {
@@ -145,40 +176,10 @@ export const styles = css`
             TextFieldAppearance.Underline,
             css`
             .root {
-                border-bottom: 1px solid rgba(${borderColorRgbPartial}, 0.3);
-                padding: ${borderWidth};
-                padding-bottom: 1px;
-            }
-
-            .root:focus-within {
-                border-bottom: 1px solid ${borderColorHover};
-            }
-
-            .root:hover {
-                border-bottom: 2px solid ${borderColorHover};
-                padding-bottom: 0px;
-            }
-
-            :host(.invalid) .root {
-                border-bottom: 1px solid ${failColor};
-                padding-bottom: 1px;
-            }
-
-            :host(.invalid) .root:hover {
-                border-bottom: 2px solid ${failColor};
-                padding-bottom: 0px;
-            }
-
-            :host([disabled]) .root,
-            :host([disabled]) .root:hover {
-                border-bottom: 1px solid rgba(${borderColorRgbPartial}, 0.1);
-                padding-bottom: 1px;
-            }
-
-            :host([readonly]) .root,
-            :host([readonly]) .root:hover {
-                border: none;
-                padding-bottom: 2px;
+                --ni-private-bottom-border-width: 1px;
+                padding-top: ${borderWidth};
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
             }
         `
         ),
@@ -187,42 +188,21 @@ export const styles = css`
             css`
             .root {
                 background-color: rgba(${borderColorRgbPartial}, 0.05);
-                padding: ${borderWidth};
-                padding-bottom: 2px;
+                --ni-private-bottom-border-width: 0px;
+                padding-top: ${borderWidth};
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
             }
 
-            .root:focus-within {
-                border-bottom: 1px solid ${borderColorHover};
-                padding-bottom: 1px;
-            }
-
-            .root:hover {
-                border-bottom: 2px solid ${borderColorHover};
-                padding-bottom: 0px;
-            }
-
-            :host(.invalid) .root {
-                border-bottom: 1px solid ${failColor};
-                padding-bottom: 1px;
-            }
-
-            :host(.invalid) .root:hover {
-                border-bottom: 2px solid ${failColor};
-                padding-bottom: 0px;
+            .root:focus-within,
+            :host(.invalid) .root,
+            :host([disabled]) .root {
+                --ni-private-bottom-border-width: 1px;
             }
 
             :host([disabled]) .root,
-            :host([disabled]) .root:hover {
-                background: transparent;
-                border-bottom: 1px solid rgba(${borderColorRgbPartial}, 0.1);
-                padding-bottom: 1px;
-            }
-
-            :host([readonly]) .root,
-            :host([readonly]) .root:hover {
-                background: transparent;
-                border: none;
-                padding-bottom: 2px;
+            :host([readonly]) .root {
+                background-color: transparent;
             }
         `
         ),
@@ -230,41 +210,9 @@ export const styles = css`
             TextFieldAppearance.Outline,
             css`
             .root {
-                border: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
-                padding-bottom: 1px;
-            }
-
-            .root:focus-within {
-                border-bottom: 1px solid ${borderColorHover};
-            }
-
-            .root:hover {
-                border-bottom: 2px solid ${borderColorHover};
-                padding-bottom: 0px;
-            }
-
-            :host(.invalid) .root {
-                border-bottom: 1px solid ${failColor};
-            }
-
-            :host(.invalid) .root:hover {
-                border-bottom: 2px solid ${failColor};
-                padding-bottom: 0px;
-            }
-
-            :host([disabled]) .root,
-            :host([disabled]) .root:hover,
-            :host([disabled]) .root:focus-within:hover {
-                border: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.1);
-                padding-bottom: 1px;
-            }
-
-            :host([readonly]) .root,
-            :host([readonly]) .root:hover,
-            :host([readonly]) .root:focus-within,
-            :host([readonly]) .root:focus-within:hover {
-                border: none;
-                padding: ${borderWidth};
+                --ni-private-bottom-border-width: 1px;
+                border-width: ${borderWidth};
+                border-bottom-width: var(--ni-private-bottom-border-width);
             }
         `
         ),
