@@ -8,15 +8,12 @@ import {
     popupBorderColor,
     popupBoxShadowColor,
     standardPadding,
-    title2Font
+    title2Font,
+    drawerWidth
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('block')}
-
-    .root {
-        --drawer-width: 784px;
-    }
 
     :host {
         position: relative;
@@ -76,7 +73,7 @@ export const styles = css`
         box-sizing: border-box;
         border-radius: 0px;
         border-width: 0px;
-        width: var(--drawer-width);
+        width: ${drawerWidth};
         height: 100%;
         background-color: ${backgroundLevel1Color};
     }

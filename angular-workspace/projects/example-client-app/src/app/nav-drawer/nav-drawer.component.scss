@@ -1,10 +1,10 @@
 @import '~@ni/nimble-angular/styles/tokens';
 
 .drawer-container {
-    font-family: $ni-nimble-font-family;
+    font: $ni-nimble-body-font;
     height: 100%;
     #{$ni-nimble-internal-drawer-width}: 300px;
-    background-color: $ni-nimble-application-background-color;
+    background-color: $ni-nimble-background-level1-color;
 }
 
 .drawer-container.pinned {

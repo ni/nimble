@@ -1,19 +1,17 @@
 @import '~@ni/nimble-angular/styles/tokens';
 
 .container-label {
-    font-family: $ni-nimble-group-label-font-family;
-    font-weight: $ni-nimble-group-label-font-weight;
-    font-size: $ni-nimble-group-label-font-size;
-    color: $ni-nimble-group-label-font-color;
+    font: $ni-nimble-group-header1-font;
+    color: $ni-nimble-group-header1-font-color;
     padding-bottom: $ni-nimble-standard-padding;
 }
 
 p, a {
-    color: $ni-nimble-label-font-color;
+    color: $ni-nimble-control-label1-font-color;
 }
 
 .container {
-    background-color: $ni-nimble-application-background-color;
+    background-color: $ni-nimble-background-level1-color;
     display: inline-flex;
     justify-content: left;
     flex-direction: column;
