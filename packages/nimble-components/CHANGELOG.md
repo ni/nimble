@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 14 Feb 2022 18:58:21 GMT and should not be manually modified.
+This log was last generated on Mon, 14 Feb 2022 21:34:16 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.2.0
+
+Mon, 14 Feb 2022 21:34:16 GMT
+
+### Minor changes
+
+- Add additional Outline and Block text field appearances (7282195+m-akinc@users.noreply.github.com)
 
 ## 1.1.2
 
