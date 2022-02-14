@@ -2,6 +2,7 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
+import { TextFieldAppearance } from '../types';
 import {
     createMatrix,
     themeWrapper,
@@ -41,11 +42,15 @@ const typeStates = [
 ];
 type TypeState = typeof typeStates[number];
 
+const appearanceStates = Object.entries(TextFieldAppearance);
+type AppearanceState = typeof appearanceStates[number];
+
 const component = (
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
     [invalidName, invalid]: InvalidState,
     [typeName, type]: TypeState,
+    [appearanceName, appearance]: AppearanceState,
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-text-field
@@ -53,12 +58,13 @@ const component = (
         class="${() => invalid}"
         ?disabled="${() => disabled}"
         type="${() => type}"
+        appearance="${() => appearance}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         ?readonly="${() => readonly}"
     >
         ${() => disabledName} ${() => invalidName} ${() => typeName}
-        ${() => valueName} ${() => readOnlyName}
+        ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
     </nimble-text-field>
 `;
 
@@ -69,6 +75,7 @@ export const textFieldThemeMatrix: Story = createRenderer(
             disabledStates,
             invalidStates,
             typeStates,
+            appearanceStates,
             valueStates
         ])
     )

@@ -1,6 +1,5 @@
 import { PropertyStyleSheetBehavior } from '@microsoft/fast-foundation';
 import type { Behavior, ElementStyles } from '@microsoft/fast-element';
-import type { ButtonAppearance } from '../../patterns/button/types';
 
 /**
  * Behavior that will conditionally apply a stylesheet based on the element's
@@ -11,8 +10,8 @@ import type { ButtonAppearance } from '../../patterns/button/types';
  *
  * @public
  */
-export function appearanceBehavior(
-    value: ButtonAppearance,
+export function appearanceBehavior<AppearanceType>(
+    value: AppearanceType,
     styles: ElementStyles
 ): Behavior {
     return new PropertyStyleSheetBehavior('appearance', value, styles);
