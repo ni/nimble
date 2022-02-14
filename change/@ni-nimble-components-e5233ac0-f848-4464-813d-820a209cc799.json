@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "add max-height for select menu",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
