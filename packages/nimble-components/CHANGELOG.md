@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 08 Feb 2022 22:38:10 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Feb 2022 16:48:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.1
+
+Fri, 11 Feb 2022 16:48:53 GMT
+
+### Patches
+
+- FAST version update (rajsite@users.noreply.github.com)
 
 ## 1.1.0
 
