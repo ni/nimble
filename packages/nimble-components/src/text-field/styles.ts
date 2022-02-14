@@ -62,10 +62,14 @@ export const styles = css`
         );
     }
 
-    :host(:not([disabled])) .root:hover {
+    :host .root:hover {
         --ni-private-bottom-border-width: var(
             --ni-private-hover-bottom-border-width
         );
+    }
+
+    :host([disabled]) .root:hover {
+        --ni-private-bottom-border-width: 1px;
     }
 
     .root:focus-within,
@@ -97,7 +101,12 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
-        height: 27px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        height: calc(
+            ${controlHeight} - ${borderWidth} -
+                var(--ni-private-hover-bottom-border-width)
+        );
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
