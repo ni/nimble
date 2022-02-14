@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 11 Feb 2022 16:48:53 GMT and should not be manually modified.
+This log was last generated on Mon, 14 Feb 2022 18:58:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.2
+
+Mon, 14 Feb 2022 18:58:21 GMT
+
+### Patches
+
+- add max-height for select menu (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.1.1
 
