@@ -45,14 +45,7 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
 export type LightStyle = ElementStyles | null;
 export type DarkStyleOrAlias = ElementStyles | null | Theme.Light;
 export type ColorStyleOrAlias = ElementStyles | null | Theme.Light | Theme.Dark;
-export type LegacyBlueStyleOrAlias =
-    | ElementStyles
-    | null
-    | Theme.Light
-    | Theme.Dark
-    | Theme.Color;
-type StyleOrPossibleAliases = LegacyBlueStyleOrAlias;
-
+type StyleOrPossibleAliases = ColorStyleOrAlias;
 /**
  * Behavior to conditionally apply theme-based stylesheets.
  */
@@ -66,36 +59,23 @@ class ThemeStyleSheetBehavior implements Behavior {
     public constructor(
         lightStyle: LightStyle,
         darkStyleOrAlias: DarkStyleOrAlias,
-        colorStyleOrAlias: ColorStyleOrAlias,
-        legacyBlueStyleOrAlias: LegacyBlueStyleOrAlias
+        colorStyleOrAlias: ColorStyleOrAlias
     ) {
         const light = lightStyle;
         const dark = ThemeStyleSheetBehavior.resolveTheme(darkStyleOrAlias, {
             light,
             dark: null,
-            color: null,
-            'legacy-blue': null
+            color: null
         });
         const color = ThemeStyleSheetBehavior.resolveTheme(colorStyleOrAlias, {
             light,
             dark,
-            color: null,
-            'legacy-blue': null
+            color: null
         });
-        const legacyBlue = ThemeStyleSheetBehavior.resolveTheme(
-            legacyBlueStyleOrAlias,
-            {
-                light,
-                dark,
-                color,
-                'legacy-blue': null
-            }
-        );
         this.themeStyles = {
             light,
             dark,
-            color,
-            'legacy-blue': legacyBlue
+            color
         };
     }
 
@@ -160,20 +140,17 @@ class ThemeStyleSheetBehavior implements Behavior {
  *  // ...
  * `.withBehaviors(new ThemeStyleSheetBehavior(
  *   css`:host { ... Theme.Light style... }`),
- *   css`:host { ... Theme.Dark style... }`),
- *   null, // No style needed for Theme.Color style
- *   Theme.Light, // For the Theme.LegacyBlue style, re-use the previously set Theme.Light style
+ *   null, // No style needed for Theme.Dark style
+ *   Theme.Light // For the Theme.Color style, re-use the previously set Theme.Light style
  * )
  * ```
  */
 export const themeBehavior = (
     lightStyle: LightStyle,
     darkStyleOrAlias: DarkStyleOrAlias,
-    colorStyleOrAlias: ColorStyleOrAlias,
-    legacyBlueStyleOrAlias: LegacyBlueStyleOrAlias
+    colorStyleOrAlias: ColorStyleOrAlias
 ): ThemeStyleSheetBehavior => new ThemeStyleSheetBehavior(
     lightStyle,
     darkStyleOrAlias,
-    colorStyleOrAlias,
-    legacyBlueStyleOrAlias
+    colorStyleOrAlias
 );

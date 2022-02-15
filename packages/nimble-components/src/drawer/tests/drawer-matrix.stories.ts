@@ -53,7 +53,6 @@ const [
     lightThemeWhiteBackground,
     colorThemeDarkGreenBackground,
     darkThemeBlackBackground,
-    legacyBlueThemeWhiteBackground,
     ...remaining
 ] = backgroundStates;
 
@@ -71,8 +70,4 @@ export const drawerColorThemeDarkGreenBackground: Story = createRenderer(
 
 export const drawerDarkThemeBlackBackground: Story = createRenderer(
     singleThemeWrapper(component, darkThemeBlackBackground)
-);
-
-export const drawerLegacyBlueThemeWhiteBackground: Story = createRenderer(
-    singleThemeWrapper(component, legacyBlueThemeWhiteBackground)
 );
