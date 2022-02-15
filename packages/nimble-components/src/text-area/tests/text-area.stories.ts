@@ -56,11 +56,32 @@ const metadata: Meta<TextAreaArgs> = {
     argTypes: {
         appearance: {
             options: Object.values(TextAreaAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            table: {
+                defaultValue: { summary: 'outline' }
+            }
         },
         resize: {
+            description: 'Direction(s) the text area is sizeable by the user',
             options: Object.values(TextAreaResize),
-            control: { type: 'select' }
+            control: { type: 'select' },
+            table: {
+                defaultValue: { summary: 'none' }
+            }
+        },
+        rows: {
+            description: 'Number of visible rows of text.'
+        },
+        cols: {
+            description:
+                'Visible width of the text, in average character widths',
+            table: {
+                defaultValue: { summary: '20' }
+            }
+        },
+        maxlength: {
+            description:
+                'Maximum number of characters that may be entered by the user'
         }
     },
     args: {
