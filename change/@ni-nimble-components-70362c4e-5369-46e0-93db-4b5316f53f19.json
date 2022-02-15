@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "remove legacy blue",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
