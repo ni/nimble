@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 14 Feb 2022 21:34:16 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Feb 2022 17:32:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.0
+
+Tue, 15 Feb 2022 17:32:39 GMT
+
+### Major changes
+
+- remove legacy blue (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.2.0
 
