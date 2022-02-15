@@ -42,6 +42,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     labelTextTransform: '',
     groupLabelTextTransform: '',
     contentFontColorDisabled: '',
+    hyperlinkColor: '',
     smallDelay: '',
     mediumDelay: '',
     drawerAnimationDurationMs: ''

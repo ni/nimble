@@ -1,6 +1,10 @@
 export { AccessControlIcon } from './access-control';
 export { AdminIcon } from './admin';
 export { AdministrationIcon } from './administration';
+export { ArrowExpanderUpIcon } from './arrow-expander-up';
+export { ArrowExpanderDownIcon } from './arrow-expander-down';
+export { ArrowExpanderLeftIcon } from './arrow-expander-left';
+export { ArrowExpanderRightIcon } from './arrow-expander-right';
 export { CheckIcon } from './check';
 export { CustomApplicationsIcon } from './custom-applications';
 export { CustomStatusIcon } from './custom-status';
@@ -22,4 +26,3 @@ export { TestInsightsIcon } from './test-insights';
 export { TimedOutIcon } from './timed-out';
 export { UtilitiesIcon } from './utilities';
 export { WaitingIcon } from './waiting';
-export { ArrowExpanderRightIcon } from './arrow-expander';

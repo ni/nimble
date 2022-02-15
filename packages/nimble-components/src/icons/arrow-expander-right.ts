@@ -8,7 +8,7 @@ declare global {
 }
 
 /**
- * The icon component for the 'expand' icon
+ * The icon component for the 'arrow-expander-right' icon
  */
 export class ArrowExpanderRightIcon extends Icon {
     public constructor() {

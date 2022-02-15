@@ -2,22 +2,18 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../../utilities/style/focus';
 import {
-    actionColorRgbPartial,
     borderColorHover,
-    borderColorRgbPartial,
     borderWidth,
     buttonContentFontColor,
     contentFontColorDisabled,
     contentFontSize,
     controlHeight,
-    fillColorSelected,
     fontFamily,
     iconColor,
     smallDelay,
     standardPadding
 } from '../../theme-provider/design-tokens';
-import { appearanceBehavior } from '../../utilities/style/appearance';
-import { ButtonAppearance } from './types';
+import { buttonAppearanceBehaviors } from './appearance-behaviors';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -124,94 +120,4 @@ export const styles = css`
     [part='end'] {
         display: none;
     }
-`
-    // prettier-ignore
-    .withBehaviors(
-        appearanceBehavior(
-            ButtonAppearance.Outline,
-            css`
-                .control {
-                    background-color: transparent;
-                    border-color: rgba(${actionColorRgbPartial}, 0.3);
-                }
-
-                .control:hover {
-                    background-color: transparent;
-                    border-color: ${borderColorHover};
-                }
-
-                .control${focusVisible} {
-                    background-color: transparent;
-                    border-color: ${borderColorHover};
-                }
-
-                .control:active {
-                    background-color: ${fillColorSelected};
-                    border-color: ${fillColorSelected};
-                }
-
-                .control[disabled] {
-                    background-color: transparent;
-                    border-color: rgba(${borderColorRgbPartial}, 0.2);
-                }
-            `
-        ),
-        appearanceBehavior(
-            ButtonAppearance.Ghost,
-            css`
-                .control {
-                    background-color: transparent;
-                    border-color: transparent;
-                }
-
-                .control:hover {
-                    background-color: transparent;
-                    border-color: ${borderColorHover};
-                }
-
-                .control${focusVisible} {
-                    background-color: transparent;
-                    border-color: ${borderColorHover};
-                }
-
-                .control:active {
-                    background-color: ${fillColorSelected};
-                    border-color: ${fillColorSelected};
-                }
-
-                .control[disabled] {
-                    background-color: transparent;
-                    border-color: transparent;
-                }
-            `
-        ),
-        appearanceBehavior(
-            ButtonAppearance.Block,
-            css`
-                .control {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
-                    border-color: transparent;
-                }
-
-                .control:hover {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
-                    border-color: ${borderColorHover};
-                }
-
-                .control${focusVisible} {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
-                    border-color: ${borderColorHover};
-                }
-
-                .control:active {
-                    background-color: ${fillColorSelected};
-                    border-color: ${fillColorSelected};
-                }
-
-                .control[disabled] {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
-                    border-color: transparent;
-                }
-            `
-        )
-    );
+`.withBehaviors(...buttonAppearanceBehaviors);

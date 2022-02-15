@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     BreadcrumbItem as FoundationBreadcrumbItem,
@@ -6,7 +6,8 @@ import {
     BreadcrumbItemOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { ArrowExpanderRightIcon } from '../icons/arrow-expander';
+import { ArrowExpanderRightIcon } from '../icons/arrow-expander-right';
+import { BreadcrumbItemAppearance } from './types';
 
 export type { BreadcrumbItem };
 
@@ -17,9 +18,28 @@ declare global {
 }
 
 /**
- * A nimble-styled breadcrumb
+ * A nimble-styled breadcrumb item
  */
-class BreadcrumbItem extends FoundationBreadcrumbItem {}
+class BreadcrumbItem extends FoundationBreadcrumbItem {
+    /**
+     * The appearance the button should have.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: appearance
+     */
+    @attr
+    public appearance!: BreadcrumbItemAppearance;
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        if (!this.appearance) {
+            this.appearance = BreadcrumbItemAppearance.Hypertext;
+        }
+    }
+}
+
+const arrowExpanderRightIconTag = DesignSystem.tagFor(ArrowExpanderRightIcon);
 
 const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
     baseName: 'breadcrumb-item',
@@ -27,7 +47,9 @@ const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
     // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
-    separator: html`<nimble-arrow-expander-right-icon></nimble-arrow-expander-right-icon>`
+    separator: html`<${arrowExpanderRightIconTag}></${arrowExpanderRightIconTag}>`
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBreadcrumbItem());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleBreadcrumbItem());

@@ -28,7 +28,8 @@ import {
     GroupLabel1Family,
     GroupLabel1Size,
     GroupLabel1Weight,
-    LegacyContentFamily
+    LegacyContentFamily,
+    PassTypographyLightUi
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -80,6 +81,10 @@ export const warningColor = DesignToken.create<string>(
 export const passColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.passColor)
 ).withDefault((element: HTMLElement) => getPassColorForTheme(element));
+
+export const hyperlinkColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.hyperlinkColor)
+).withDefault((element: HTMLElement) => getHyperlinkColorForTheme(element));
 
 export const borderColorHover = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderColorHover)
@@ -296,6 +301,16 @@ function getFillColorSelectedForTheme(element: HTMLElement): string {
 
 function getFillColorHoverForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White, SlLegacyBlue);
+}
+
+function getHyperlinkColorForTheme(element: HTMLElement): string {
+    return getColorForTheme(
+        element,
+        PassTypographyLightUi,
+        Black15,
+        Black15,
+        SlLegacyBlue
+    );
 }
 
 function getFontForTheme(element: HTMLElement): string {
