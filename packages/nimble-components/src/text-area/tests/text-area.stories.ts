@@ -9,12 +9,15 @@ import { TextAreaAppearance } from '../types';
 interface TextAreaArgs {
     appearance: TextAreaAppearance;
     label: string;
+    placeholder: string;
     value: string;
     readonly: boolean;
     disabled: boolean;
     spellcheck: boolean;
     resize: TextAreaResize;
     rows: number;
+    cols: number;
+    maxlength: number;
 }
 
 const metadata: Meta<TextAreaArgs> = {
@@ -37,13 +40,15 @@ const metadata: Meta<TextAreaArgs> = {
     render: createRenderer(html`
         <nimble-text-area
             appearance="${x => x.appearance}"
-            placeholder="${x => x.label}"
+            placeholder="${x => x.placeholder}"
             value="${x => x.value}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
-            ?spellcheck="${x => x.spellcheck}"
+            spellcheck="${x => x.spellcheck}"
             resize="${x => x.resize}"
             rows="${x => x.rows}"
+            cols="${x => x.cols}"
+            maxlength="${x => x.maxlength}"
         >
             ${x => x.label}
         </nimble-text-area>
@@ -61,17 +66,24 @@ const metadata: Meta<TextAreaArgs> = {
     args: {
         appearance: TextAreaAppearance.Outline,
         label: 'default label',
+        placeholder: 'Placeholder',
         value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         readonly: false,
         disabled: false,
         spellcheck: false,
         resize: TextAreaResize.both,
-        rows: 0
+        rows: 3,
+        cols: 20,
+        maxlength: 100
     }
 };
 
 export default metadata;
 
-export const textArea: StoryObj<TextAreaArgs> = {
-    args: { label: 'Text Area' }
+export const outlineTextArea: StoryObj<TextAreaArgs> = {
+    args: { label: 'Outline Text Area', appearance: TextAreaAppearance.Outline }
+};
+
+export const blockTextArea: StoryObj<TextAreaArgs> = {
+    args: { label: 'Block Text Area', appearance: TextAreaAppearance.Block }
 };

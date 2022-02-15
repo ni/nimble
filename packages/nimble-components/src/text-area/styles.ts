@@ -1,19 +1,16 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { focusVisible } from '../utilities/style/focus';
 import {
-    actionColorRgbPartial,
     borderColorRgbPartial,
     borderColorHover,
     borderWidth,
     contentFontColor,
     contentFontColorDisabled,
     contentFontSize,
-    controlHeight,
-    fillColorSelected,
     fillColorSelectedRgbPartial,
     fontFamily,
     labelFontColor,
+    labelFontColorDisabled,
     labelFontFamily,
     labelFontSize,
     labelFontWeight,
@@ -21,7 +18,7 @@ import {
     labelTextTransform,
     smallDelay
 } from '../theme-provider/design-tokens';
-import { appearanceBehavior } from './behaviors';
+import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
 
 export const styles = css`
@@ -33,7 +30,6 @@ export const styles = css`
         outline: none;
         user-select: none;
         color: ${contentFontColor};
-        /*height: calc(${labelHeight} + ${controlHeight});*/
     }
 
     :host([disabled]) {
@@ -41,30 +37,20 @@ export const styles = css`
     }
 
     .control {
-        box-sizing: border-box;
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        border-radius: 0px;
-        font-family: ${fontFamily};
-        /*border-bottom: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);*/
-        padding-bottom: 1px;
-        transition: border ${smallDelay}, padding-bottom ${smallDelay};
-        align-items: flex-end;
-    }
-
-    .control {
         -webkit-appearance: none;
         font: inherit;
-        background: transparent;
-        color: inherit;
-        /*height: 28px;*/
-        /*width: 100%;*/
-        border: ${borderWidth} solid transparent;
-        margin-top: auto;
-        margin-bottom: auto;
         outline: none;
-        /*border: none;*/
+        box-sizing: border-box;
+        position: relative;
+        color: inherit;
+        border-radius: 0px;
+        align-items: flex-end;
+        --ni-private-hover-border-width: calc(${borderWidth} + 1px);
+        --ni-private-current-border-width: ${borderWidth};
+        border: var(--ni-private-current-border-width) solid transparent;
+        padding: calc(9px - var(--ni-private-current-border-width));
+        transition: border ${smallDelay}, padding ${smallDelay};
+        resize: none;
     }
 
     @media (prefers-reduced-motion) {
@@ -73,30 +59,33 @@ export const styles = css`
         }
     }
 
-    .control:hover,
-    .control${focusVisible} {
-        border: 2px solid ${borderColorHover};
-        /*box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;*/
+    .control:focus-within {
+        --ni-private-current-border-width: ${borderWidth};
     }
 
-    :host([disabled]) .control,
-    :host([disabled]) .control:hover {
-        border: ${borderWidth} solid ${contentFontColorDisabled};
-        /*padding-bottom: 1px;*/
+    .control:hover {
+        --ni-private-current-border-width: var(--ni-private-hover-border-width);
     }
 
-    :host([readonly]) .control,
-    :host([readonly]) .control:hover {
-        border: ${borderWidth} solid ${contentFontColorDisabled};
+    .control:focus-within,
+    .control:hover {
+        border-color: ${borderColorHover};
     }
-    /*
-    .control:hover,
-    .control:focus,
-    .control:disabled,
-    .control:active {
-        outline: none;
+
+    .control[disabled],
+    .control[readonly] {
+        border-color: rgba(${borderColorRgbPartial}, 0.1);
     }
-*/
+
+    .control[disabled]:hover,
+    .control[readonly]:hover {
+        --ni-private-current-border-width: ${borderWidth};
+    }
+
+    .control[readonly] {
+        cursor: default;
+    }
+
     .control::selection {
         color: ${labelFontColor};
         background: rgba(${fillColorSelectedRgbPartial}, 0.3);
@@ -104,14 +93,6 @@ export const styles = css`
 
     .control::placeholder {
         color: ${labelFontColor};
-    }
-
-    .control:not([readonly]):focus-within::placeholder {
-        opacity: 1;
-    }
-
-    .control[readonly] {
-        cursor: default;
     }
 
     .control[disabled]::placeholder {
@@ -127,6 +108,20 @@ export const styles = css`
         line-height: ${labelHeight};
         text-transform: ${labelTextTransform};
     }
+
+    :host([disabled]) .label {
+        color: ${labelFontColorDisabled};
+    }
+
+    :host([resize='both']) .control {
+        resize: both;
+    }
+    :host([resize='horizontal']) .control {
+        resize: horizontal;
+    }
+    :host([resize='vertical']) .control {
+        resize: vertical;
+    }
 `
     // prettier-ignore
     .withBehaviors(
@@ -135,12 +130,7 @@ export const styles = css`
             css`
                 .control {
                     background-color: transparent;
-                    border-color: rgba(${borderColorRgbPartial}, 0.5);
-                    /*border-color: rgba(${actionColorRgbPartial}, 0.5);*/
-                }
-
-                .control[disabled] {
-                    border-color: rgba(${borderColorRgbPartial}, 0.2);
+                    border-color: rgba(${borderColorRgbPartial}, 0.3);
                 }
             `
         ),
@@ -149,11 +139,16 @@ export const styles = css`
             css`
                 .control {
                     background-color: rgba(${borderColorRgbPartial}, 0.1);
-                    border-color: transparent;
+                    --ni-private-current-border-width: 0px;
+                    ${/* solves jiggle when leaving hover */ ''}
+                    transition-duration: 0s;
                 }
 
-                .control[disabled] {
-                    border-color: rgba(${borderColorRgbPartial}, 0.1);
+                :host([disabled]) .control,
+                :host([disabled]) .control:hover,
+                :host([readonly]) .control,
+                :host([readonly]) .control:hover {
+                    --ni-private-current-border-width: 0px;
                 }
             `
         )
