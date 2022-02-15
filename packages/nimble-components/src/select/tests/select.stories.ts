@@ -57,7 +57,24 @@ const metadata: Meta<SelectArgs> = {
         options: [
             { label: 'Option 1', value: '1', disabled: false },
             { label: 'Option 2', value: '2', disabled: true },
-            { label: 'Option 3', value: '3', disabled: false }
+            { label: 'Option 3', value: '3', disabled: false },
+            { label: 'Option 4', value: '4', disabled: false },
+            { label: 'Option 5', value: '5', disabled: false },
+            { label: 'Option 6', value: '6', disabled: false },
+            { label: 'Option 7', value: '7', disabled: false },
+            { label: 'Option 8', value: '8', disabled: false },
+            { label: 'Option 9', value: '9', disabled: false },
+            { label: 'Option 10', value: '10', disabled: false },
+            { label: 'Option 11', value: '11', disabled: false },
+            { label: 'Option 12', value: '12', disabled: false },
+            { label: 'Option 13', value: '13', disabled: false },
+            { label: 'Option 14', value: '14', disabled: false },
+            { label: 'Option 15', value: '15', disabled: false },
+            { label: 'Option 16', value: '16', disabled: false },
+            { label: 'Option 17', value: '17', disabled: false },
+            { label: 'Option 18', value: '18', disabled: false },
+            { label: 'Option 19', value: '19', disabled: false },
+            { label: 'Option 20', value: '20', disabled: false }
         ]
     }
 };

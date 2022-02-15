@@ -22,11 +22,6 @@ export const backgroundStates: BackgroundState[] = [
         name: `"${Theme.Dark}" theme on black`,
         value: '#252526',
         theme: Theme.Dark
-    },
-    {
-        name: `"${Theme.LegacyBlue}" theme on white`,
-        value: '#FFFFFF',
-        theme: Theme.LegacyBlue
     }
 ];
 
@@ -102,6 +97,18 @@ export function createMatrix<State1, State2, State3, State4, State5>(
         state5: State5
     ) => ViewTemplate,
     dimensions: [State1[], State2[], State3[], State4[], State5[]]
+): ViewTemplate;
+
+export function createMatrix<State1, State2, State3, State4, State5, State6>(
+    component: (
+        state1: State1,
+        state2: State2,
+        state3: State3,
+        state4: State4,
+        state5: State5,
+        state6: State6
+    ) => ViewTemplate,
+    dimensions: [State1[], State2[], State3[], State4[], State5[], State6[]]
 ): ViewTemplate;
 
 export function createMatrix(

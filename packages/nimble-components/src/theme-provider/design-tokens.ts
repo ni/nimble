@@ -2,17 +2,15 @@ import { DesignToken } from '@microsoft/fast-foundation';
 import hexRgb from 'hex-rgb';
 import {
     Black7,
+    Black91,
+    Black85,
     Black15,
     Black30,
     Black75,
     Black80,
-    Black85,
-    Black88,
-    Black91,
     White,
     Enterprise,
     Selection100,
-    SlLegacyBlue,
     Fail100LightUi,
     SmallDelay,
     MediumDelay,
@@ -59,20 +57,18 @@ import { theme } from '.';
 // Color Tokens
 export const actionColorRgbPartial = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.actionColorRgbPartial)
-).withDefault((element: HTMLElement) => hexToRgbPartial(
-    getColorForTheme(element, Black91, Black15, White, SlLegacyBlue)
-));
+).withDefault((element: HTMLElement) => hexToRgbPartial(getColorForTheme(element, Black91, Black15, White)));
 export const backgroundLevel3Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.backgroundLevel3Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, Enterprise, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, Enterprise));
 
 export const backgroundLevel2Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.backgroundLevel2Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black80, Enterprise, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black80, Enterprise));
 
 export const backgroundLevel1Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.backgroundLevel1Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise));
 
 export const fillColorSelected = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillColorSelected)
@@ -112,42 +108,24 @@ export const passColor = DesignToken.create<string>(
 
 export const borderColorHover = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderColorHover)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    Selection100,
-    Selection100,
-    White,
-    hexToRgbaCssColor(SlLegacyBlue, 0.9)
-));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White));
 
 export const highlightEnterpriseColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.highlightEnterpriseColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    Selection100,
-    Selection100,
-    White,
-    hexToRgbaCssColor(SlLegacyBlue, 0.9)
-));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White));
 
 // Component Color Tokens
 export const iconColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.iconColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White, Black88));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White));
 
 export const popupBoxShadowColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBoxShadowColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(
-    getColorForTheme(element, Black75, Black85, Black85, Black75),
-    0.3
-));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black75, Black85, Black85), 0.3));
 
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(
-    getColorForTheme(element, Black91, Black15, White, Black91),
-    0.3
-));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
@@ -321,7 +299,7 @@ export const tooltipCaptionFontColorDisabled = DesignToken.create<string>(
 // Font Transform Tokens
 export const groupHeader1TextTransform = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.groupHeader1TextTransform)
-).withDefault((element: HTMLElement) => getGroupLabelTextTransformForTheme(element));
+).withDefault('uppercase');
 
 // Animation Tokens
 export const smallDelay = DesignToken.create<string>(
@@ -349,8 +327,7 @@ function getColorForTheme(
     element: HTMLElement,
     lightThemeColor: string,
     darkThemeColor: string,
-    colorThemeColor: string,
-    legacyBlueThemeColor: string
+    colorThemeColor: string
 ): string {
     switch (theme.getValueFor(element)) {
         case Theme.Light:
@@ -359,8 +336,6 @@ function getColorForTheme(
             return darkThemeColor;
         case Theme.Color:
             return colorThemeColor;
-        case Theme.LegacyBlue:
-            return legacyBlueThemeColor;
         default:
             return lightThemeColor;
     }
@@ -371,8 +346,7 @@ function getWarningColorForTheme(element: HTMLElement): string {
         element,
         Warning100LightUi,
         Warning100DarkUi,
-        Warning100DarkUi,
-        Warning100LightUi
+        Warning100DarkUi
     );
 }
 
@@ -381,8 +355,7 @@ function getFailColorForTheme(element: HTMLElement): string {
         element,
         Fail100LightUi,
         Fail100DarkUi,
-        Fail100DarkUi,
-        Fail100LightUi
+        Fail100DarkUi
     );
 }
 
@@ -391,38 +364,22 @@ function getPassColorForTheme(element: HTMLElement): string {
         element,
         Pass100LightUi,
         Pass100DarkUi,
-        Pass100DarkUi,
-        Pass100LightUi
+        Pass100DarkUi
     );
 }
 
 function getDefaultLineColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White, Black91);
+    return getColorForTheme(element, Black91, Black15, White);
 }
 
 function getDefaultFontColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White, Black75);
+    return getColorForTheme(element, Black91, Black15, White);
 }
 
 function getFillColorSelectedForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        Selection100,
-        Selection100,
-        White,
-        SlLegacyBlue
-    );
+    return getColorForTheme(element, Selection100, Selection100, White);
 }
 
 function getFillColorHoverForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White, SlLegacyBlue);
-}
-
-function getGroupLabelTextTransformForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return 'none';
-        default:
-            return 'uppercase';
-    }
+    return getColorForTheme(element, Black91, Black15, White);
 }

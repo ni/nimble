@@ -15,8 +15,12 @@ import {
     smallDelay,
     controlLabel1Font,
     bodyFont,
-    controlLabel1FontColor
+    controlLabel1FontColor,
+    standardPadding,
+    controlLabel1FontColorDisabled
 } from '../theme-provider/design-tokens';
+import { appearanceBehavior } from '../utilities/style/appearance';
+import { TextFieldAppearance } from './types';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
 
@@ -42,10 +46,43 @@ export const styles = css`
         flex-direction: row;
         border-radius: 0px;
         font: ${bodyFont};
-        border-bottom: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
-        padding-bottom: 1px;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: flex-end;
+        --ni-private-hover-bottom-border-width: 2px;
+        border: 0px solid rgba(${borderColorRgbPartial}, 0.3);
+        border-bottom-width: var(--ni-private-bottom-border-width);
+        padding-bottom: calc(
+            var(--ni-private-hover-bottom-border-width) -
+                var(--ni-private-bottom-border-width)
+        );
+    }
+
+    :host .root:hover {
+        --ni-private-bottom-border-width: var(
+            --ni-private-hover-bottom-border-width
+        );
+    }
+
+    :host([disabled]) .root:hover {
+        --ni-private-bottom-border-width: 1px;
+    }
+
+    .root:focus-within,
+    .root:hover {
+        border-bottom-color: ${borderColorHover};
+    }
+
+    :host(.invalid) .root {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([disabled]) .root {
+        border-color: rgba(${borderColorRgbPartial}, 0.1);
+    }
+
+    :host([readonly]) .root {
+        border: none;
+        padding: ${borderWidth};
     }
 
     @media (prefers-reduced-motion) {
@@ -54,40 +91,22 @@ export const styles = css`
         }
     }
 
-    .root:hover {
-        border-bottom: 2px solid ${borderColorHover};
-        padding-bottom: 0px;
-    }
-
-    :host(.invalid) .root {
-        border-bottom: ${borderWidth} solid ${failColor};
-    }
-
-    :host(.invalid) .root:hover {
-        border-bottom: 2px solid ${failColor};
-        padding-bottom: 0px;
-    }
-
-    :host([disabled]) .root,
-    :host([disabled]) .root:hover {
-        border-bottom: ${borderWidth} solid ${bodyFontColorDisabled};
-        padding-bottom: 1px;
-    }
-
-    :host([readonly]) .root,
-    :host([readonly]) .root:hover {
-        border: none;
-    }
-
     .control {
         -webkit-appearance: none;
         font: inherit;
         background: transparent;
         color: inherit;
-        height: 28px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        height: calc(
+            ${controlHeight} - ${borderWidth} -
+                var(--ni-private-hover-bottom-border-width)
+        );
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
+        padding-left: calc(${standardPadding} / 2);
+        padding-right: calc(${standardPadding} / 2);
         border: none;
     }
 
@@ -125,6 +144,10 @@ export const styles = css`
         font: ${controlLabel1Font};
     }
 
+    :host([disabled]) .label {
+        color: ${controlLabel1FontColorDisabled};
+    }
+
     :host [part='end'] {
         display: none;
     }
@@ -149,6 +172,50 @@ export const styles = css`
         fill: ${bodyFontColorDisabled};
     }
 `.withBehaviors(
+        appearanceBehavior(
+            TextFieldAppearance.Underline,
+            css`
+            .root {
+                --ni-private-bottom-border-width: 1px;
+                padding-top: ${borderWidth};
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
+        `
+        ),
+        appearanceBehavior(
+            TextFieldAppearance.Block,
+            css`
+            .root {
+                background-color: rgba(${borderColorRgbPartial}, 0.05);
+                --ni-private-bottom-border-width: 0px;
+                padding-top: ${borderWidth};
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
+
+            .root:focus-within,
+            :host(.invalid) .root,
+            :host([disabled]) .root {
+                --ni-private-bottom-border-width: 1px;
+            }
+
+            :host([disabled]) .root,
+            :host([readonly]) .root {
+                background-color: transparent;
+            }
+        `
+        ),
+        appearanceBehavior(
+            TextFieldAppearance.Outline,
+            css`
+            .root {
+                --ni-private-bottom-border-width: 1px;
+                border-width: ${borderWidth};
+                border-bottom-width: var(--ni-private-bottom-border-width);
+            }
+        `
+        ),
         themeBehavior(
             css`
             ${'' /* Light theme */}
@@ -163,8 +230,6 @@ export const styles = css`
             }
         `,
             // Color theme
-            Theme.Dark,
-            // LegacyBlue theme
-            Theme.Light
+            Theme.Dark
         )
     );
