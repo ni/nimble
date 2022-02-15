@@ -7,4 +7,4 @@ export enum TextAreaAppearance {
     Outline = 'outline',
     Block = 'block'
 }
-export type ButtonAppearanceAttribute = `${TextAreaAppearance}`;
+export type TextAreaAppearanceAttribute = `${TextAreaAppearance}`;
