@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 11 Feb 2022 16:48:53 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Feb 2022 17:32:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.0
+
+Tue, 15 Feb 2022 17:32:39 GMT
+
+### Major changes
+
+- remove legacy blue (1458528+fredvisser@users.noreply.github.com)
+
+## 1.2.0
+
+Mon, 14 Feb 2022 21:34:16 GMT
+
+### Minor changes
+
+- Add additional Outline and Block text field appearances (7282195+m-akinc@users.noreply.github.com)
+
+## 1.1.2
+
+Mon, 14 Feb 2022 18:58:21 GMT
+
+### Patches
+
+- add max-height for select menu (1458528+fredvisser@users.noreply.github.com)
 
 ## 1.1.1
 

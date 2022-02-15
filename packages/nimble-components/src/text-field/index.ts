@@ -1,3 +1,4 @@
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextField as FoundationTextField,
@@ -6,6 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { statusAlarmActive16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
+import { TextFieldAppearance } from './types';
 
 export type { TextField };
 
@@ -18,7 +20,24 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
-class TextField extends FoundationTextField {}
+class TextField extends FoundationTextField {
+    /**
+     * The appearance the text field should have.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: appearance
+     */
+    @attr
+    public appearance!: TextFieldAppearance;
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        if (!this.appearance) {
+            this.appearance = TextFieldAppearance.Underline;
+        }
+    }
+}
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
     baseName: 'text-field',

@@ -2,14 +2,12 @@ import { DesignToken } from '@microsoft/fast-foundation';
 import hexRgb from 'hex-rgb';
 import {
     Black91,
-    Black88,
     Black85,
     Black15,
     Black75,
     White,
     Enterprise,
     Selection100,
-    SlLegacyBlue,
     Fail100LightUi,
     SmallDelay,
     MediumDelay,
@@ -28,7 +26,6 @@ import {
     GroupLabel1Family,
     GroupLabel1Size,
     GroupLabel1Weight,
-    LegacyContentFamily,
     PassTypographyLightUi
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
@@ -38,13 +35,11 @@ import { theme } from '.';
 // Color Tokens
 export const actionColorRgbPartial = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.actionColorRgbPartial)
-).withDefault((element: HTMLElement) => hexToRgbPartial(
-    getColorForTheme(element, Black91, Black15, White, SlLegacyBlue)
-));
+).withDefault((element: HTMLElement) => hexToRgbPartial(getColorForTheme(element, Black91, Black15, White)));
 
 export const applicationBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.applicationBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise));
 
 export const fillColorSelected = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillColorSelected)
@@ -88,32 +83,20 @@ export const hyperlinkColor = DesignToken.create<string>(
 
 export const borderColorHover = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderColorHover)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    Selection100,
-    Selection100,
-    White,
-    hexToRgbaCssColor(SlLegacyBlue, 0.9)
-));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White));
 
 // Component Color Tokens
 export const iconColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.iconColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White, Black88));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White));
 
 export const popupBoxShadowColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBoxShadowColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(
-    getColorForTheme(element, Black75, Black85, Black85, Black75),
-    0.3
-));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black75, Black85, Black85), 0.3));
 
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(
-    getColorForTheme(element, Black91, Black15, White, Black91),
-    0.3
-));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
@@ -138,13 +121,13 @@ export const drawerWidth = DesignToken.create<string>(
 // Font Family Tokens
 export const fontFamily = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fontFamily)
-).withDefault((element: HTMLElement) => getFontForTheme(element));
+).withDefault(BodyFamily);
 export const labelFontFamily = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.labelFontFamily)
-).withDefault((element: HTMLElement) => getLabelFontForTheme(element));
+).withDefault(`${ControlLabel1Family}, ${BodyFamily}`);
 export const groupLabelFontFamily = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.groupLabelFontFamily)
-).withDefault((element: HTMLElement) => getGroupLabelFontForTheme(element));
+).withDefault(`${GroupLabel1Family}, ${BodyFamily}`);
 export const drawerHeaderFontFamily = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerHeaderFontFamily)
 ).withDefault(Title2Family);
@@ -152,7 +135,7 @@ export const drawerHeaderFontFamily = DesignToken.create<string>(
 // Font Sizing Tokens
 export const labelFontSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.labelFontSize)
-).withDefault((element: HTMLElement) => getLabelTextSizeForTheme(element));
+).withDefault(ControlLabel1Size);
 export const contentFontSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.contentFontSize)
 ).withDefault(BodySize);
@@ -183,11 +166,11 @@ export const groupLabelFontColor = DesignToken.create<string>(
 
 export const contentFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.contentFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White, Black88));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White));
 
 export const buttonContentFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonContentFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White, SlLegacyBlue));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White));
 
 export const labelFontColorDisabled = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.labelFontColorDisabled)
@@ -195,18 +178,15 @@ export const labelFontColorDisabled = DesignToken.create<string>(
 
 export const labelTextTransform = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.labelTextTransform)
-).withDefault((element: HTMLElement) => getLabelTextTransformForTheme(element));
+).withDefault('none');
 
 export const groupLabelTextTransform = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.groupLabelTextTransform)
-).withDefault((element: HTMLElement) => getGroupLabelTextTransformForTheme(element));
+).withDefault('uppercase');
 
 export const contentFontColorDisabled = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.contentFontColorDisabled)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(
-    getColorForTheme(element, Black91, Black15, White, Black88),
-    0.3
-));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
 
 // Animation Tokens
 export const smallDelay = DesignToken.create<string>(
@@ -234,8 +214,7 @@ function getColorForTheme(
     element: HTMLElement,
     lightThemeColor: string,
     darkThemeColor: string,
-    colorThemeColor: string,
-    legacyBlueThemeColor: string
+    colorThemeColor: string
 ): string {
     switch (theme.getValueFor(element)) {
         case Theme.Light:
@@ -244,8 +223,6 @@ function getColorForTheme(
             return darkThemeColor;
         case Theme.Color:
             return colorThemeColor;
-        case Theme.LegacyBlue:
-            return legacyBlueThemeColor;
         default:
             return lightThemeColor;
     }
@@ -256,8 +233,7 @@ function getWarningColorForTheme(element: HTMLElement): string {
         element,
         Warning100LightUi,
         Warning100DarkUi,
-        Warning100DarkUi,
-        Warning100LightUi
+        Warning100DarkUi
     );
 }
 
@@ -266,8 +242,7 @@ function getFailColorForTheme(element: HTMLElement): string {
         element,
         Fail100LightUi,
         Fail100DarkUi,
-        Fail100DarkUi,
-        Fail100LightUi
+        Fail100DarkUi
     );
 }
 
@@ -276,31 +251,16 @@ function getPassColorForTheme(element: HTMLElement): string {
         element,
         Pass100LightUi,
         Pass100DarkUi,
-        Pass100DarkUi,
-        Pass100LightUi
+        Pass100DarkUi
     );
 }
 
 function getDefaultLineColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White, Black91);
+    return getColorForTheme(element, Black91, Black15, White);
 }
 
 function getDefaultFontColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White, Black75);
-}
-
-function getFillColorSelectedForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        Selection100,
-        Selection100,
-        White,
-        SlLegacyBlue
-    );
-}
-
-function getFillColorHoverForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White, SlLegacyBlue);
+    return getColorForTheme(element, Black91, Black15, White);
 }
 
 function getHyperlinkColorForTheme(element: HTMLElement): string {
@@ -308,61 +268,14 @@ function getHyperlinkColorForTheme(element: HTMLElement): string {
         element,
         PassTypographyLightUi,
         Black15,
-        Black15,
-        SlLegacyBlue
+        Black15
     );
 }
 
-function getFontForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return `${LegacyContentFamily}`;
-        default:
-            return `${BodyFamily}`;
-    }
+function getFillColorSelectedForTheme(element: HTMLElement): string {
+    return getColorForTheme(element, Selection100, Selection100, White);
 }
 
-function getLabelFontForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return `${LegacyContentFamily}`;
-        default:
-            return `${ControlLabel1Family}, ${BodyFamily}`;
-    }
-}
-
-function getGroupLabelFontForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return `${LegacyContentFamily}`;
-        default:
-            return `${GroupLabel1Family}, ${BodyFamily}`;
-    }
-}
-
-function getGroupLabelTextTransformForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return 'none';
-        default:
-            return 'uppercase';
-    }
-}
-
-function getLabelTextTransformForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return 'none';
-        default:
-            return 'none';
-    }
-}
-
-function getLabelTextSizeForTheme(element: HTMLElement): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.LegacyBlue:
-            return '13px';
-        default:
-            return ControlLabel1Size;
-    }
+function getFillColorHoverForTheme(element: HTMLElement): string {
+    return getColorForTheme(element, Black91, Black15, White);
 }
