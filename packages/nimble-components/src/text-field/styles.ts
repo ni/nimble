@@ -239,8 +239,6 @@ export const styles = css`
             }
         `,
             // Color theme
-            Theme.Dark,
-            // LegacyBlue theme
-            Theme.Light
+            Theme.Dark
         )
     );
