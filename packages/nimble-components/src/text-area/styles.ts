@@ -36,6 +36,20 @@ export const styles = css`
         color: ${contentFontColorDisabled};
     }
 
+    .label {
+        display: flex;
+        color: ${labelFontColor};
+        font-family: ${labelFontFamily};
+        font-size: ${labelFontSize};
+        font-weight: ${labelFontWeight};
+        line-height: ${labelHeight};
+        text-transform: ${labelTextTransform};
+    }
+
+    :host([disabled]) .label {
+        color: ${labelFontColorDisabled};
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
@@ -59,31 +73,28 @@ export const styles = css`
         }
     }
 
-    .control:focus-within {
-        --ni-private-current-border-width: ${borderWidth};
-    }
-
-    .control:hover {
+    .control:hover,
+    .control:hover:focus-within {
         --ni-private-current-border-width: var(--ni-private-hover-border-width);
-    }
-
-    .control:focus-within,
-    .control:hover {
         border-color: ${borderColorHover};
     }
 
-    .control[disabled],
-    .control[readonly] {
+    .control:focus-within {
+        --ni-private-current-border-width: ${borderWidth};
+        border-color: ${borderColorHover};
+    }
+
+    .control[readonly],
+    .control[readonly]:hover,
+    .control[readonly]:hover:focus-within {
+        --ni-private-current-border-width: ${borderWidth};
         border-color: rgba(${borderColorRgbPartial}, 0.1);
     }
 
-    .control[disabled]:hover,
-    .control[readonly]:hover {
+    .control[disabled],
+    .control[disabled]:hover {
         --ni-private-current-border-width: ${borderWidth};
-    }
-
-    .control[readonly] {
-        cursor: default;
+        border-color: rgba(${borderColorRgbPartial}, 0.1);
     }
 
     .control::selection {
@@ -97,20 +108,6 @@ export const styles = css`
 
     .control[disabled]::placeholder {
         color: ${contentFontColorDisabled};
-    }
-
-    .label {
-        display: flex;
-        color: ${labelFontColor};
-        font-family: ${labelFontFamily};
-        font-size: ${labelFontSize};
-        font-weight: ${labelFontWeight};
-        line-height: ${labelHeight};
-        text-transform: ${labelTextTransform};
-    }
-
-    :host([disabled]) .label {
-        color: ${labelFontColorDisabled};
     }
 
     :host([resize='both']) .control {
@@ -144,10 +141,10 @@ export const styles = css`
                     transition-duration: 0s;
                 }
 
-                :host([disabled]) .control,
-                :host([disabled]) .control:hover,
                 :host([readonly]) .control,
-                :host([readonly]) .control:hover {
+                :host([readonly]) .control:hover,
+                :host([disabled]) .control,
+                :host([disabled]) .control:hover {
                     --ni-private-current-border-width: 0px;
                 }
             `
