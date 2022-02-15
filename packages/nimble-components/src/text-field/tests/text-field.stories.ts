@@ -2,11 +2,13 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
+import { TextFieldAppearance } from '../types';
 import '..';
 
 interface TextFieldArgs {
     label: string;
     type: string;
+    appearance: string;
     value: string;
     readonly: boolean;
     disabled: boolean;
@@ -34,6 +36,7 @@ const metadata: Meta<TextFieldArgs> = {
         <nimble-text-field
             placeholder="${x => x.label}"
             type="${x => x.type}"
+            appearance="${x => x.appearance}"
             value="${x => x.value}"
             class="${x => (x.invalid ? 'invalid' : '')}"
             ?readonly="${x => x.readonly}"
@@ -46,11 +49,16 @@ const metadata: Meta<TextFieldArgs> = {
         type: {
             options: ['text', 'password'],
             control: { type: 'select' }
+        },
+        appearance: {
+            options: Object.values(TextFieldAppearance),
+            control: { type: 'radio' }
         }
     },
     args: {
         label: 'default label',
         type: 'text',
+        appearance: 'underline',
         value: '',
         readonly: false,
         disabled: false,
@@ -60,8 +68,16 @@ const metadata: Meta<TextFieldArgs> = {
 
 export default metadata;
 
-export const textField: StoryObj<TextFieldArgs> = {
-    args: { label: 'Text Field' }
+export const underlineTextField: StoryObj<TextFieldArgs> = {
+    args: { label: 'Underline Text Field', appearance: 'underline' }
+};
+
+export const blockTextField: StoryObj<TextFieldArgs> = {
+    args: { label: 'Block Text Field', appearance: 'block' }
+};
+
+export const outlineTextField: StoryObj<TextFieldArgs> = {
+    args: { label: 'Outline Text Field', appearance: 'outline' }
 };
 
 export const passwordField: StoryObj<TextFieldArgs> = {
