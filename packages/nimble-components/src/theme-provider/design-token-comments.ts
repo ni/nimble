@@ -85,6 +85,5 @@ export const comments: { readonly [key in TokenName]: string } = {
     groupHeader1FontColorDisabled: 'Group_Header_1 disabled font color',
     controlLabel1FontColorDisabled: 'Control_Label_1 disabled font color',
     buttonLabel1FontColorDisabled: 'Button_Label_1 disabled font color',
-    tooltipCaptionFontColorDisabled: 'Tooltip_Caption disabled font color',
-    bodyFontFamily: 'Body font family'
+    tooltipCaptionFontColorDisabled: 'Tooltip_Caption disabled font color'
 };

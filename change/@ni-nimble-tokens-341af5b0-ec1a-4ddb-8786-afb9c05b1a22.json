@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "pulled latest XD doc",
+  "comment": "Pulled latest Nimble Component XD doc. Value for Selection100 color changed. Several new components added to XD, but we don't consume or leverage these DSP assets at this time.",
   "packageName": "@ni/nimble-tokens",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"

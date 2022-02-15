@@ -14,8 +14,7 @@ import {
     fillColorSelectedHover,
     borderWidth,
     iconSize,
-    bodyFont,
-    bodyFontFamily
+    bodyFont
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
@@ -32,7 +31,6 @@ export const styles: (
             outline: none;
             color: ${bodyFontColor};
             cursor: pointer;
-            font-family: ${bodyFontFamily};
             --ni-private-tree-item-nested-width: 0;
         }
 
