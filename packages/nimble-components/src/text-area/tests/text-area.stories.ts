@@ -26,7 +26,7 @@ const metadata: Meta<TextAreaArgs> = {
     parameters: {
         docs: {
             description: {
-                component: 'A basic multi-line text area.'
+                component: 'A multi-line text input control. The text area is often used in a form to collect user inputs like comments or reviews.'
             }
         },
         design: {
