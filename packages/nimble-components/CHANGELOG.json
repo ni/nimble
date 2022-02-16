@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 15 Feb 2022 17:32:39 GMT",
+      "tag": "@ni/nimble-components_v2.0.0",
+      "version": "2.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7fb538dac8b1086c569c8e61afd3e9b1d270e2d9",
+            "comment": "remove legacy blue"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 14 Feb 2022 21:34:16 GMT",
+      "tag": "@ni/nimble-components_v1.2.0",
+      "version": "1.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "474dba44639064dc2bd46e45dfbf25f5f0e1b658",
+            "comment": "Add additional Outline and Block text field appearances"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Feb 2022 18:58:21 GMT",
       "tag": "@ni/nimble-components_v1.1.2",
       "version": "1.1.2",
