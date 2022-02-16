@@ -15,40 +15,70 @@ import {
     SmallDelay,
     MediumDelay,
     Fail100DarkUi,
-    BodyFamily,
-    BodySize,
-    ControlLabel1Family,
-    ControlLabel1Size,
     Warning100LightUi,
     Warning100DarkUi,
     Pass100LightUi,
     Pass100DarkUi,
-    Title2Size,
-    Title2Family,
+    BodyFamily,
+    BodySize,
+    BodyWeight,
+    ControlLabel1Family,
+    ControlLabel1Size,
+    ControlLabel1Weight,
     GroupLabel1Family,
     GroupLabel1Size,
+    GroupLabel1Weight,
     Headline2Size,
     Headline2Family,
+    Headline2Weight,
     Headline1Size,
     Headline1Family,
+    Headline1Weight,
     Title3Size,
     Title3Family,
+    Title3Weight,
+    Title2Size,
+    Title2Family,
+    Title2Weight,
     Title1Size,
     Title1Family,
+    Title1Weight,
     Subtitle2Size,
     Subtitle2Family,
+    Subtitle2Weight,
     Subtitle1Size,
     Subtitle1Family,
+    Subtitle1Weight,
     LinkLightUiSize,
     LinkLightUiFamily,
+    LinkLightUiWeight,
     PlaceholderSize,
     PlaceholderFamily,
+    PlaceholderWeight,
     BodyEmphasizedSize,
     BodyEmphasizedFamily,
+    BodyEmphasizedWeight,
     ButtonLabel1Size,
     ButtonLabel1Family,
+    ButtonLabel1Weight,
     TooltipCaptionSize,
-    TooltipCaptionFamily
+    TooltipCaptionFamily,
+    TooltipCaptionWeight,
+    Headline2LineHeight,
+    Headline1LineHeight,
+    Title3LineHeight,
+    Title2LineHeight,
+    Title1LineHeight,
+    Subtitle2LineHeight,
+    Subtitle1LineHeight,
+    LinkLineHeight,
+    PlaceholderLineHeight,
+    BodyEmphasizedLineHeight,
+    BodyLineHeight,
+    GroupLabel1LineHeight,
+    ControlLabel1LineHeight,
+    ButtonLabel1LineHeight,
+    TooltipCaptionLineHeight
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -150,54 +180,78 @@ export const drawerWidth = DesignToken.create<string>(
 // Font Tokens
 export const headline2Font = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.headline2Font)
-).withDefault(`400 ${Headline2Size}/40px ${Headline2Family}, serif`);
+).withDefault(
+    `${Headline2Weight} ${Headline2Size}/${Headline2LineHeight} ${Headline2Family}, serif`
+);
 export const headline1Font = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.headline1Font)
-).withDefault(`400 ${Headline1Size}/32px ${Headline1Family}, serif`);
+).withDefault(
+    `${Headline1Weight} ${Headline1Size}/${Headline1LineHeight} ${Headline1Family}, serif`
+);
 export const title3Font = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.title3Font)
-).withDefault(`400 ${Title3Size}/32px ${Title3Family}, sans-serif`);
+).withDefault(
+    `${Title3Weight} ${Title3Size}/${Title3LineHeight} ${Title3Family}, sans-serif`
+);
 export const title2Font = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.title3Font)
-).withDefault(`400 ${Title2Size}/28px ${Title2Family}, sans-serif`);
+    styleNameFromTokenName(tokenNames.title2Font)
+).withDefault(
+    `${Title2Weight} ${Title2Size}/${Title2LineHeight} ${Title2Family}, sans-serif`
+);
 export const title1Font = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.title1Font)
-).withDefault(`400 ${Title1Size}/24px ${Title1Family}, sans-serif`);
+).withDefault(
+    `${Title1Weight} ${Title1Size}/${Title1LineHeight} ${Title1Family}, sans-serif`
+);
 export const subtitle2Font = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.subtitle2Font)
-).withDefault(`300 ${Subtitle2Size}/20px ${Subtitle2Family}, sans-serif`);
+).withDefault(
+    `${Subtitle2Weight} ${Subtitle2Size}/${Subtitle2LineHeight} ${Subtitle2Family}, sans-serif`
+);
 export const subtitle1Font = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.subtitle1Font)
-).withDefault(`300 ${Subtitle1Size}/16px ${Subtitle1Family}, sans-serif`);
+).withDefault(
+    `${Subtitle1Weight} ${Subtitle1Size}/${Subtitle1LineHeight} ${Subtitle1Family}, sans-serif`
+);
 export const linkStandard1Font = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.linkStandard1Font)
-).withDefault(`400 ${LinkLightUiSize}/18px ${LinkLightUiFamily}, sans-serif`);
+).withDefault(
+    `${LinkLightUiWeight} ${LinkLightUiSize}/${LinkLineHeight} ${LinkLightUiFamily}, sans-serif`
+);
 export const placeholderFont = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.placeholderFont)
-).withDefault(`400 ${PlaceholderSize}/18px ${PlaceholderFamily}, sans-serif`);
+).withDefault(
+    `${PlaceholderWeight} ${PlaceholderSize}/${PlaceholderLineHeight} ${PlaceholderFamily}, sans-serif`
+);
 export const bodyEmphasizedFont = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bodyEmphasizedFont)
 ).withDefault(
-    `600 ${BodyEmphasizedSize}/18px ${BodyEmphasizedFamily}, sans-serif`
+    `${BodyEmphasizedWeight} ${BodyEmphasizedSize}/${BodyEmphasizedLineHeight} ${BodyEmphasizedFamily}, sans-serif`
 );
 export const bodyFont = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bodyFont)
-).withDefault(`400 ${BodySize}/18px ${BodyFamily}, sans-serif`);
+).withDefault(
+    `${BodyWeight} ${BodySize}/${BodyLineHeight} ${BodyFamily}, sans-serif`
+);
 export const groupHeader1Font = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.groupHeader1Font)
-).withDefault(`400 ${GroupLabel1Size}/16px ${GroupLabel1Family}, sans-serif`);
+).withDefault(
+    `${GroupLabel1Weight} ${GroupLabel1Size}/${GroupLabel1LineHeight} ${GroupLabel1Family}, sans-serif`
+);
 export const controlLabel1Font = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlLabel1Font)
 ).withDefault(
-    `600 ${ControlLabel1Size}/16px ${ControlLabel1Family}, sans-serif`
+    `${ControlLabel1Weight} ${ControlLabel1Size}/${ControlLabel1LineHeight} ${ControlLabel1Family}, sans-serif`
 );
 export const buttonLabel1Font = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonLabel1Font)
-).withDefault(`400 ${ButtonLabel1Size}/16px ${ButtonLabel1Family}, sans-serif`);
+).withDefault(
+    `${ButtonLabel1Weight} ${ButtonLabel1Size}/${ButtonLabel1LineHeight} ${ButtonLabel1Family}, sans-serif`
+);
 export const tooltipCaptionFont = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipCaptionFont)
 ).withDefault(
-    `400 ${TooltipCaptionSize}/14px ${TooltipCaptionFamily}, sans-serif`
+    `${TooltipCaptionWeight} ${TooltipCaptionSize}/${TooltipCaptionLineHeight} ${TooltipCaptionFamily}, sans-serif`
 );
 
 // Font Color Tokens

@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 10 Feb 2022 05:20:37 GMT
+ * Generated on Wed, 16 Feb 2022 05:30:44 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -103,5 +103,20 @@ export const Headline1Size : string;
 export const ControlLabel1ChineseMacSize : string;
 export const ButtonLabel1ChineseMacSize : string;
 export const BodyChineseMacSize : string;
+export const BodyLineHeight : string;
+export const ControlLabel1LineHeight : string;
+export const GroupLabel1LineHeight : string;
+export const Headline2LineHeight : string;
+export const Headline1LineHeight : string;
+export const Title3LineHeight : string;
+export const Title2LineHeight : string;
+export const Title1LineHeight : string;
+export const Subtitle2LineHeight : string;
+export const Subtitle1LineHeight : string;
+export const LinkLineHeight : string;
+export const PlaceholderLineHeight : string;
+export const BodyEmphasizedLineHeight : string;
+export const ButtonLabel1LineHeight : string;
+export const TooltipCaptionLineHeight : string;
 export const SmallDelay : string; // Short animation delay used for control state change animation
 export const MediumDelay : string; // Medium animation delay for control state change animation
