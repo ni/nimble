@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 16 Feb 2022 05:30:44 GMT
+ * Generated on Wed, 16 Feb 2022 15:15:12 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -103,7 +103,7 @@ export const Headline1Size = "25px";
 export const ControlLabel1ChineseMacSize = "11px";
 export const ButtonLabel1ChineseMacSize = "11px";
 export const BodyChineseMacSize = "13px";
-export const BodyLineHeight = "40px";
+export const BodyLineHeight = "18px";
 export const ControlLabel1LineHeight = "16px";
 export const GroupLabel1LineHeight = "16px";
 export const Headline2LineHeight = "40px";
