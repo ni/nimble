@@ -59,11 +59,10 @@ export const styles = css`
         color: inherit;
         border-radius: 0px;
         align-items: flex-end;
-        --ni-private-hover-border-width: calc(${borderWidth} + 1px);
-        --ni-private-current-border-width: ${borderWidth};
-        border: var(--ni-private-current-border-width) solid transparent;
-        padding: calc(9px - var(--ni-private-current-border-width));
-        transition: border ${smallDelay}, padding ${smallDelay};
+        border: ${borderWidth} solid transparent;
+        padding: 9px;
+        padding-top: 8px;
+        transition: outline ${smallDelay};
         resize: none;
     }
 
@@ -73,28 +72,22 @@ export const styles = css`
         }
     }
 
-    .control:hover,
-    .control:hover:focus-within {
-        --ni-private-current-border-width: var(--ni-private-hover-border-width);
+    .control:hover {
         border-color: ${borderColorHover};
+        outline: 1px solid ${borderColorHover};
     }
 
     .control:focus-within {
-        --ni-private-current-border-width: ${borderWidth};
         border-color: ${borderColorHover};
     }
 
     .control[readonly],
     .control[readonly]:hover,
-    .control[readonly]:hover:focus-within {
-        --ni-private-current-border-width: ${borderWidth};
-        border-color: rgba(${borderColorRgbPartial}, 0.1);
-    }
-
+    .control[readonly]:hover:focus-within,
     .control[disabled],
     .control[disabled]:hover {
-        --ni-private-current-border-width: ${borderWidth};
         border-color: rgba(${borderColorRgbPartial}, 0.1);
+        outline: none;
     }
 
     .control::selection {
@@ -126,8 +119,8 @@ export const styles = css`
             TextAreaAppearance.Outline,
             css`
                 .control {
-                    background-color: transparent;
                     border-color: rgba(${borderColorRgbPartial}, 0.3);
+                    background-color: transparent;
                 }
             `
         ),
@@ -136,16 +129,15 @@ export const styles = css`
             css`
                 .control {
                     background-color: rgba(${borderColorRgbPartial}, 0.1);
-                    --ni-private-current-border-width: 0px;
-                    ${/* solves jiggle when leaving hover */ ''}
-                    transition-duration: 0s;
                 }
 
-                :host([readonly]) .control,
-                :host([readonly]) .control:hover,
-                :host([disabled]) .control,
-                :host([disabled]) .control:hover {
-                    --ni-private-current-border-width: 0px;
+                :host([readonly]) .control {
+                    background-color: transparent;
+                }
+
+                :host([disabled]) .control {
+                    border-color: transparent;
+                    background-color: rgba(${borderColorRgbPartial}, 0.1);
                 }
             `
         )
