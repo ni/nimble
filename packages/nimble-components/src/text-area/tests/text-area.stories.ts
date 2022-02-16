@@ -1,10 +1,9 @@
 import { html } from '@microsoft/fast-element';
-import { TextAreaResize } from '@microsoft/fast-foundation';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import { TextAreaAppearance } from '../types';
+import { TextAreaAppearance, TextAreaResize } from '../types';
 
 interface TextAreaArgs {
     appearance: TextAreaAppearance;
@@ -26,7 +25,8 @@ const metadata: Meta<TextAreaArgs> = {
     parameters: {
         docs: {
             description: {
-                component: 'A multi-line text input control. The text area is often used in a form to collect user inputs like comments or reviews.'
+                component:
+                    'A multi-line text input control. The text area is often used in a form to collect user inputs like comments or reviews.'
             }
         },
         design: {
