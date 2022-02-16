@@ -211,6 +211,16 @@ export const styles = css`
                 );
             }
 
+            :host(.invalid) .root {
+                --ni-private-bottom-border-width: 1px;
+            }
+
+            :host(.invalid) .root:hover {
+                --ni-private-bottom-border-width: var(
+                    --ni-private-hover-bottom-border-width
+                );
+            }
+
             :host([disabled]) .root {
                 background-color: rgba(${borderColorRgbPartial}, 0.07);
             }
