@@ -90,6 +90,17 @@ See the [README.md for the ni/nimble repository](/README.md) for documentation o
 
 For best results, always use `ngModel`, `formControl`, or `formControlName` bindings when integrating Nimble form controls in Angular. Binding to the control's native value property or event (e.g. `[value]` or `(change)`) is not supported, and can cause build failures and other issues. If a value change event is necessary, use `ngModel (ngModelChange)="onChange()"`.
 
+### Using Nimble breadcrumb with Angular's RouterLink
+
+`nimble-breadcrumb-item` supports the [Angular RouterLink directive](https://angular.io/api/router/RouterLink) for breadcrumb navigation in an Angular app using routing.  
+However, the attribute name `nimbleRouterLink` should be used instead of `routerLink` - for example:
+```html
+<nimble-breadcrumb-item [nimbleRouterLink]="breadcrumb.url">
+    {{ breadcrumb.label }}
+</nimble-breadcrumb-item>
+```
+The properties names RouterLink supports (`queryParams`, `state`, etc.) can be used on `nimble-breadcrumb-item` as-is.
+
 ### Testing with Nimble elements and `fakeAsync`
 
 Angular's `fakeAsync` utility is useful for writing quickly-executing tests, but it can cause issues when testing components containing Nimble elements. Nimble uses an internal process queue to schedule work. If a `fakeAsync` test schedules work on the queue (by creating or interacting with Nimble elements) and the queue isn't processed by the end of the test, the queue will never be processed and subsequent tests may fail.

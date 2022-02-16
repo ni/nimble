@@ -264,12 +264,7 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
 }
 
 function getHyperlinkColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        PassTypographyLightUi,
-        Black15,
-        Black15
-    );
+    return getColorForTheme(element, PassTypographyLightUi, Black15, Black15);
 }
 
 function getFillColorSelectedForTheme(element: HTMLElement): string {
