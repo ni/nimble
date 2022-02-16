@@ -60,8 +60,7 @@ export const styles = css`
         border-radius: 0px;
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
-        padding: 9px;
-        padding-top: 8px;
+        padding: 8px;
         transition: outline ${smallDelay};
         resize: none;
     }
