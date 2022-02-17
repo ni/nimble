@@ -61,7 +61,7 @@ export const styles = css`
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
         padding: 8px;
-        transition: outline ${smallDelay};
+        transition: outline ${smallDelay}, border ${smallDelay};
         resize: none;
     }
 
