@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 15 Feb 2022 17:32:39 GMT and should not be manually modified.
+This log was last generated on Thu, 17 Feb 2022 03:15:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.1
+
+Thu, 17 Feb 2022 03:15:59 GMT
+
+### Patches
+
+- Fix focus bug with nimble-toggle-button (20542556+mollykreis@users.noreply.github.com)
 
 ## 2.0.0
 
