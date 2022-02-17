@@ -31,7 +31,7 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     standardPadding: 'Standard layout padding for components',
     labelHeight: 'Standard label height for components',
-    borderWidth: 'e.g. Checkbox border width',
+    borderWidth: 'Standard border width for most components',
     iconSize: 'Standard layout height for all icons',
     groupHeader1TextTransform: 'CSS text-transform string to use for headers',
     drawerWidth: 'TODO: delete when able',
