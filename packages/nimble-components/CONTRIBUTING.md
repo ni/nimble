@@ -206,7 +206,7 @@ Some guidelines to follow when deciding whether or not to set `delegatesFocus`:
 -   Interactive controls that contain focusable components in the shadow root should set `delegatesFocus` to `true`
 -   Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#parameters) or [this table](https://github.com/TakayoshiKochi/tabindex-focus-navigation-explainer/blob/master/TabindexFocusNavigationExplainer.md#proposed-solution) for more information
 
-If it is determined that the component should delegate focus, it can be configured as shown below.
+If it is determined that the component should delegate focus, it can be configured as shown below:
 
 ```js
 const nimbleButton = Button.compose({
