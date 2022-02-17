@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 17 Feb 2022 20:45:28 GMT",
+      "tag": "@ni/nimble-components_v2.1.0",
+      "version": "2.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8578645976dc13600c72a11bdd894a11095d89ea",
+            "comment": "Add guidance for setting delegatesFocus"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 17 Feb 2022 19:43:53 GMT",
       "tag": "@ni/nimble-components_v2.1.0",
       "version": "2.1.0",
