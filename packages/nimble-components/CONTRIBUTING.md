@@ -200,11 +200,11 @@ Consider whether or not the `delegatesFocus` shadow DOM option should be set to 
 
 Some guidelines to follow when deciding whether or not to set `delegatesFocus`:
 
--   For a component built on top of a fast-foundation component, check the fast-foundation component's README.md to see if the component was built with the expectation that focus will be delegated
--   Non-interactive elements should keep `delegatesFocus` with the default `false` value
--   Interactive controls that contain no focusable components in the shadow root should keep `delegatesFocus` with the default `false` value
--   Interactive controls that contain focusable components in the shadow root should set `delegatesFocus` to `true`
--   Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#parameters) or [this table](https://github.com/TakayoshiKochi/tabindex-focus-navigation-explainer/blob/master/TabindexFocusNavigationExplainer.md#proposed-solution) for more information
+-   For a component built on top of a fast-foundation component, check the fast-foundation component's README.md to see if the component was built with the expectation that focus will be delegated.
+-   Non-interactive elements should keep `delegatesFocus` with the default `false` value.
+-   Interactive controls that contain no focusable components in the shadow root should keep `delegatesFocus` with the default `false` value.
+-   Interactive controls that contain focusable components in the shadow root should set `delegatesFocus` to `true`.
+-   Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#parameters) or [this table](https://github.com/TakayoshiKochi/tabindex-focus-navigation-explainer/blob/master/TabindexFocusNavigationExplainer.md#proposed-solution) for more information.
 
 If it is determined that the component should delegate focus, it can be configured as shown below:
 
