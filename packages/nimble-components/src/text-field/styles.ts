@@ -181,11 +181,20 @@ export const styles = css`
 
     .errortext {
         visibility: hidden;
-        font-size: ${contentFontSize};
+        font-size: 9px; /* TODO: REPLACE */
+        color: ${failColor};
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     :host(.invalid) .errortext {
         visibility: visible;
+    }
+
+    :host([disabled]) .errortext {
+        color: ${contentFontColorDisabled};
     }
 `.withBehaviors(
         appearanceBehavior(
