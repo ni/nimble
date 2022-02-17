@@ -28,7 +28,7 @@ const metadata: Meta<ButtonArgs> = {
         },
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e/'
+                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e/specs/'
         },
         actions: {
             handles: ['click']
@@ -36,10 +36,7 @@ const metadata: Meta<ButtonArgs> = {
     },
     argTypes: {
         appearance: {
-            options: [
-                ...Object.values(BreadcrumbItemAppearance),
-                ...Object.values(ButtonAppearance)
-            ],
+            options: Object.values(BreadcrumbItemAppearance),
             control: { type: 'radio' }
         }
     },
