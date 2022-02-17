@@ -178,6 +178,15 @@ export const styles = css`
     :host([disabled]) [part='end'] path {
         fill: ${contentFontColorDisabled};
     }
+
+    .errortext {
+        visibility: hidden;
+        font-size: ${contentFontSize};
+    }
+
+    :host(.invalid) .errortext {
+        visibility: visible;
+    }
 `.withBehaviors(
         appearanceBehavior(
             TextFieldAppearance.Underline,

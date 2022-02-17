@@ -1,9 +1,10 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, html, ViewTemplate } from '@microsoft/fast-element';
 import {
     DesignSystem,
+    ElementDefinitionContext,
     TextField as FoundationTextField,
     TextFieldOptions,
-    textFieldTemplate as template
+    textFieldTemplate as foundationTemplate
 } from '@microsoft/fast-foundation';
 import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
@@ -31,6 +32,16 @@ class TextField extends FoundationTextField {
     @attr
     public appearance!: TextFieldAppearance;
 
+    /**
+     * A message explaining why the value is invalid.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: errortext
+     */
+    @attr({ attribute: 'error-text' })
+    public errorText!: string;
+
     public connectedCallback(): void {
         super.connectedCallback();
         if (!this.appearance) {
@@ -38,6 +49,17 @@ class TextField extends FoundationTextField {
         }
     }
 }
+
+const template: (
+    context: ElementDefinitionContext,
+    definition: TextFieldOptions
+) => ViewTemplate<TextField> = (
+    context: ElementDefinitionContext,
+    definition: TextFieldOptions
+) => {
+    return html`${foundationTemplate(context, definition)}
+        <div class="errortext">${x => x.errorText}</div>`;
+};
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
     baseName: 'text-field',
