@@ -28,7 +28,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     popupBoxShadowColor: 'Shadow color for menus and dialog boxes',
     popupBorderColor: 'Border color for menus and dialog boxes',
     controlHeight:
-        'Standard layout height for all controls. Add 16px for labels on top.',
+        'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     standardPadding: 'Standard layout padding for components',
     labelHeight: 'Standard label height for components',
     borderWidth: 'e.g. Checkbox border width',
