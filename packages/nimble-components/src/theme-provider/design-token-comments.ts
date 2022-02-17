@@ -33,7 +33,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     labelHeight: 'Standard label height for components',
     borderWidth: 'e.g. Checkbox border width',
     iconSize: 'Standard layout height for all icons',
-    groupHeader1TextTransform: 'e.g. uppercase',
+    groupHeader1TextTransform: 'CSS text-transform string to use for headers',
     drawerWidth: 'TODO: delete when able',
     smallDelay:
         'Elements with small transition areas, such as icons and selection controls, have short durations.',
