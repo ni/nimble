@@ -85,8 +85,8 @@ NOTE: To update the component status:
 | Radio | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) | :o: | :o: | :o: |
 | Toggle Switch | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) | :o: | :o: | :o: |
 | Number Field | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf) | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/number-field--number-field) | :white_check_mark: | :o: |
-| Text Field - Single | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/842889a5-67ba-4350-91c1-55eee48f4fa2) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/text-field--text-field) | :white_check_mark: | :o: |
-| Text Field - Multiline | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/) | :o: | :o: | :o: |
+| Text Field | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/842889a5-67ba-4350-91c1-55eee48f4fa2) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/text-field--underline-text-field) | :white_check_mark: | :o: |
+| Text Area (Multiline) | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/text-area--outline-text-area) | :o: | :o: |
 | Search Field | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/842889a5-67ba-4350-91c1-55eee48f4fa2) | :o: | :o: | :o: |
 | Dropdown (Select) | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/select--select) | :white_check_mark: | :o: |
 | Combo box | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae) | :o: | :o: | :o: |
