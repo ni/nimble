@@ -4,7 +4,7 @@
       <rect y="1" width="176" height="14" fill="none"/>
     </clipPath>
     <clipPath id="clip-path-2">
-      <rect y="1" width="105" height="17" fill="none"/>
+      <rect y="1" width="105" height="16" fill="none"/>
     </clipPath>
   </defs>
   <rect id="Stroke" width="176" height="1" transform="translate(0 47)" fill="#161617" opacity="0.3"/>
@@ -23,8 +23,8 @@
   </g>
   <rect id="Divider" width="2" height="20" transform="translate(142 22)" fill="#161617" opacity="0.15"/>
   <rect id="Highlight" height="19" transform="translate(5 22)" fill="#161617" opacity="0"/>
-  <g id="Scroll_Group_No_icon" data-name="Scroll Group No icon" transform="translate(5 22)" clip-path="url(#clip-path-2)" style="isolation: isolate">
-    <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Placeholder</tspan></text>
+  <g id="Scroll_Group_No_icon" data-name="Scroll Group No icon" transform="translate(4 23)" clip-path="url(#clip-path-2)" style="isolation: isolate">
+    <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="12.8" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Placeholder</tspan></text>
   </g>
   <g id="ButtonToggle_Icon_Ghost_24" transform="translate(148 20)">
     <g id="Background" transform="translate(-323.853 -324)">

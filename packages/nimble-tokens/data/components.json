@@ -745,6 +745,24 @@
       "class": "component",
       "type": "page",
       "tags": [],
+      "id": "b5617569-f012-4be6-98a8-aace87e13276",
+      "related_entity_ids": [],
+      "snippets": {
+        "trigger": "",
+        "languages": {}
+      },
+      "name": "Component 82",
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "99a06c1b-a8eb-4ad8-b8bd-7a1f2a4610d2",
+        "last_sync": "2022-02-17T18:28:26.325Z",
+        "sync": true
+      }
+    },
+    {
+      "class": "component",
+      "type": "page",
+      "tags": [],
       "id": "bca5e81b-d6b4-409f-9409-2eae17f640f4",
       "related_entity_ids": [],
       "snippets": {

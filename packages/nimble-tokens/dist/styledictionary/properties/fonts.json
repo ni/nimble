@@ -188,6 +188,38 @@
       "weight": {
         "value": "Regular"
       }
+    },
+    "Error_ColorUI": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Link_Visited_LightUI": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Error_LightUI": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Error_DarkUI": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
     }
   },
   "size": {
@@ -260,6 +292,18 @@
       },
       "Body_Chinese_Mac": {
         "value": "13"
+      },
+      "Error_ColorUI": {
+        "value": "9"
+      },
+      "Link_Visited_LightUI": {
+        "value": "14"
+      },
+      "Error_LightUI": {
+        "value": "9"
+      },
+      "Error_DarkUI": {
+        "value": "9"
       }
     }
   }
