@@ -5,7 +5,6 @@ import '..';
 import '../../breadcrumb-item';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { BreadcrumbItemAppearance } from '../../breadcrumb-item/types';
-import { ButtonAppearance } from '../../button/types';
 
 interface ButtonArgs {
     label: string;
