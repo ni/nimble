@@ -4,10 +4,7 @@
  */
 export enum BreadcrumbItemAppearance {
     Hypertext = 'hypertext',
-    HoverFill = 'hover-fill',
-    Outline = 'outline',
-    Ghost = 'ghost',
-    Block = 'block'
+    HoverFill = 'hover-fill'
 }
 
 export type BreadcrumbIteAppearanceAttribute = `${BreadcrumbItemAppearance}`;

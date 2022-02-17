@@ -71,15 +71,3 @@ export const hoverFillBreadcrumb: StoryObj<ButtonArgs> = {
         appearance: BreadcrumbItemAppearance.HoverFill
     }
 };
-
-export const outlineBreadcrumb: StoryObj<ButtonArgs> = {
-    args: { label: 'Outline Breadcrumb', appearance: ButtonAppearance.Outline }
-};
-
-export const ghostBreadcrumb: StoryObj<ButtonArgs> = {
-    args: { label: 'Ghost Breadcrumb', appearance: ButtonAppearance.Ghost }
-};
-
-export const blockBreadcrumb: StoryObj<ButtonArgs> = {
-    args: { label: 'Block Breadcrumb', appearance: ButtonAppearance.Block }
-};

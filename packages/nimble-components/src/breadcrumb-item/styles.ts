@@ -1,11 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    blockAppearanceCss,
-    ghostAppearanceCss,
-    outlineAppearanceCss
-} from '../patterns/button/appearance-behaviors';
-import {
     borderColorRgbPartial,
     borderWidth,
     contentFontColor,
@@ -138,11 +133,5 @@ export const styles = css`
                     background-color: rgba(${borderColorRgbPartial}, 0.2);
                 }
             `
-        ),
-        appearanceBehavior(
-            BreadcrumbItemAppearance.Outline,
-            outlineAppearanceCss
-        ),
-        appearanceBehavior(BreadcrumbItemAppearance.Ghost, ghostAppearanceCss),
-        appearanceBehavior(BreadcrumbItemAppearance.Block, blockAppearanceCss)
+        )
     );
