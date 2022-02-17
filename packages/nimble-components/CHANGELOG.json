@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 17 Feb 2022 03:15:59 GMT",
+      "tag": "@ni/nimble-components_v2.0.1",
+      "version": "2.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ceb37943ba12628359f8645df566339a6a89ebc",
+            "comment": "Fix focus bug with nimble-toggle-button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 15 Feb 2022 17:32:39 GMT",
       "tag": "@ni/nimble-components_v2.0.0",
       "version": "2.0.0",
