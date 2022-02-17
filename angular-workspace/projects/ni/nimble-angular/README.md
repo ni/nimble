@@ -99,7 +99,7 @@ However, the attribute name `nimbleRouterLink` should be used instead of `router
     {{ breadcrumb.label }}
 </nimble-breadcrumb-item>
 ```
-The properties names RouterLink supports (`queryParams`, `state`, etc.) can be used on `nimble-breadcrumb-item` as-is.
+The properties RouterLink supports (`queryParams`, `state`, etc.) can be used on `nimble-breadcrumb-item` as-is.
 
 ### Testing with Nimble elements and `fakeAsync`
 
