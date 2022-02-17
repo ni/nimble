@@ -1,0 +1,45 @@
+<svg id="Combobox_Input_UnderLine_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="48" viewBox="0 0 176 48">
+  <defs>
+    <clipPath id="clip-path">
+      <rect y="1" width="176" height="14" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect y="1" width="105" height="17" fill="none"/>
+    </clipPath>
+  </defs>
+  <rect id="Stroke" width="176" height="1" transform="translate(0 47)" fill="#161617" opacity="0.3"/>
+  <rect id="Rollover" width="2" height="1" transform="translate(87 47)" fill="#009b65" opacity="0"/>
+  <rect id="Fill_2" data-name="Fill 2" width="176" height="32" transform="translate(0 16)" fill="#161617" opacity="0"/>
+  <rect id="Stroke-2" data-name="Stroke" width="176" height="32" transform="translate(0 16)" fill="none" opacity="0"/>
+  <g id="ErrorLocation" transform="translate(118 24)">
+    <g id="ErrorLocation-2" data-name="ErrorLocation" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="16" height="16" stroke="none"/>
+      <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
+    </g>
+    <path id="Controls_Error_16x16" d="M6.643,11.227H9.355V13H6.643ZM6.6,3l.309,7.119H9.1L9.4,3Z" transform="translate(0.511)" fill="#c4000c" opacity="0"/>
+  </g>
+  <g id="Control_Label" data-name="Control Label" transform="translate(0 -1)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <text id="Show_label" data-name="Show label" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6"><tspan x="0" y="0">Show label</tspan></text>
+  </g>
+  <rect id="Divider" width="2" height="20" transform="translate(142 22)" fill="#161617" opacity="0.15"/>
+  <rect id="Highlight" height="19" transform="translate(5 22)" fill="#161617" opacity="0"/>
+  <g id="Scroll_Group_No_icon" data-name="Scroll Group No icon" transform="translate(5 22)" clip-path="url(#clip-path-2)" style="isolation: isolate">
+    <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Placeholder</tspan></text>
+  </g>
+  <g id="ButtonToggle_Icon_Ghost_24" transform="translate(148 20)">
+    <g id="Background" transform="translate(-323.853 -324)">
+      <rect id="Fill_1" data-name="Fill 1" width="24" height="24" transform="translate(323.853 324)" fill="#161617" opacity="0"/>
+      <rect id="Fill_2-2" data-name="Fill 2" width="24" height="24" transform="translate(323.853 324)" fill="#009b65" opacity="0"/>
+      <g id="Rollover-2" data-name="Rollover" transform="translate(323.853 324)" fill="none" stroke="#009b65" stroke-width="2" opacity="0">
+        <rect width="24" height="24" stroke="none"/>
+        <rect x="1" y="1" width="22" height="22" fill="none"/>
+      </g>
+    </g>
+    <g id="Stack_Group" data-name="Stack Group" transform="translate(-44 4)">
+      <g id="Icon" transform="translate(40)">
+        <rect id="IconAlignment" width="16" height="16" transform="translate(8)" fill="#649fff" opacity="0"/>
+        <path id="Controls_Arrow_Expander_Down_16x16" d="M0,.737,1.11.005,4.467,5.477,7.9,0,9,.743,4.455,8Z" transform="translate(11.5 4)" fill="#161617"/>
+      </g>
+    </g>
+  </g>
+</svg>

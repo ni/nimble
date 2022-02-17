@@ -7,5 +7,6 @@
     }
   ],
   "xd.globalEditor": true,
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "xd.lastPackage": "/C:/dev/nimble/packages/nimble-tokens"
 }
