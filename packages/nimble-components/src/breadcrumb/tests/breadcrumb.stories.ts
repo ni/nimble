@@ -43,9 +43,9 @@ const metadata: Meta<ButtonArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-breadcrumb>
-            <nimble-breadcrumb-item appearance="${x => x.appearance}"  href="#">Page 1</nimble-breadcrumb-item>
-            <nimble-breadcrumb-item appearance="${x => x.appearance}"  href="${() => parent.location.href}">Current Page</nimble-breadcrumb-item>
-            <nimble-breadcrumb-item appearance="${x => x.appearance}"  href="#">Page 3</nimble-breadcrumb-item>
+            <nimble-breadcrumb-item appearance="${x => x.appearance}" href="#">Page 1</nimble-breadcrumb-item>
+            <nimble-breadcrumb-item appearance="${x => x.appearance}" href="${() => parent.location.href}">Current Page</nimble-breadcrumb-item>
+            <nimble-breadcrumb-item appearance="${x => x.appearance}" href="#">Page 3</nimble-breadcrumb-item>
             <nimble-breadcrumb-item appearance="${x => x.appearance}">Page 4 (No Link)</nimble-breadcrumb-item>
         </nimble-breadcrumb>
 `),
