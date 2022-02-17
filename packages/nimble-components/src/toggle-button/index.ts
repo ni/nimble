@@ -55,7 +55,10 @@ class ToggleButton extends FoundationSwitch {
 const nimbleToggleButton = ToggleButton.compose<SwitchOptions>({
     baseName: 'toggle-button',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToggleButton());
