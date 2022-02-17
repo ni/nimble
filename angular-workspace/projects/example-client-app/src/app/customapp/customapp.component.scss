@@ -28,6 +28,10 @@ p, a {
     padding-right: $ni-nimble-standard-padding;
 }
 
+.sub-container > span {
+    font-size: 75%;
+}
+
 .theme-select {
     display: block;
     width: 150px;

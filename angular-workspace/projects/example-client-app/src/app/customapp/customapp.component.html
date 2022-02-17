@@ -6,11 +6,19 @@
         <div class="container">
             <div class="sub-container">
                 <div class="container-label">Breadcrumb</div>
+                <span>Hypertext Appearance: </span>
                 <nimble-breadcrumb>
-                    <nimble-breadcrumb-item href="#">First</nimble-breadcrumb-item>
-                    <nimble-breadcrumb-item nimbleRouterLink="/customapp">Current</nimble-breadcrumb-item>
-                    <nimble-breadcrumb-item>Last</nimble-breadcrumb-item>
+                    <nimble-breadcrumb-item appearance="hypertext" href="#">First</nimble-breadcrumb-item>
+                    <nimble-breadcrumb-item appearance="hypertext" nimbleRouterLink="/customapp">Current</nimble-breadcrumb-item>
+                    <nimble-breadcrumb-item appearance="hypertext">Last</nimble-breadcrumb-item>
                 </nimble-breadcrumb>
+                <br/>
+                <span>HoverFill Appearance: </span>
+                <nimble-breadcrumb>
+                    <nimble-breadcrumb-item appearance="hover-fill" href="#">First</nimble-breadcrumb-item>
+                    <nimble-breadcrumb-item appearance="hover-fill" nimbleRouterLink="/customapp">Current</nimble-breadcrumb-item>
+                    <nimble-breadcrumb-item appearance="hover-fill">Last</nimble-breadcrumb-item>
+                </nimble-breadcrumb>                
             </div>
             <div class="sub-container">
                 <div class="container-label">Buttons</div>

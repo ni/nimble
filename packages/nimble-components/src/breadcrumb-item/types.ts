@@ -7,4 +7,4 @@ export enum BreadcrumbItemAppearance {
     HoverFill = 'hover-fill'
 }
 
-export type BreadcrumbIteAppearanceAttribute = `${BreadcrumbItemAppearance}`;
+export type BreadcrumbItemAppearanceAttribute = `${BreadcrumbItemAppearance}`;
