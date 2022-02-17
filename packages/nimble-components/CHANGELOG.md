@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 15 Feb 2022 17:32:39 GMT and should not be manually modified.
+This log was last generated on Thu, 17 Feb 2022 19:43:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.1.0
+
+Thu, 17 Feb 2022 19:43:53 GMT
+
+### Minor changes
+
+- Implement nimble-text-area component (7282195+m-akinc@users.noreply.github.com)
+
+## 2.0.2
+
+Thu, 17 Feb 2022 17:30:49 GMT
+
+### Patches
+
+- Update readonly text field style (7282195+m-akinc@users.noreply.github.com)
+
+## 2.0.1
+
+Thu, 17 Feb 2022 03:15:59 GMT
+
+### Patches
+
+- Fix focus bug with nimble-toggle-button (20542556+mollykreis@users.noreply.github.com)
 
 ## 2.0.0
 
