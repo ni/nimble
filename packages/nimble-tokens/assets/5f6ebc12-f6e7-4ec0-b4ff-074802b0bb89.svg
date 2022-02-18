@@ -13,7 +13,7 @@
       <rect width="176" height="32" stroke="none"/>
       <rect x="0.5" y="0.5" width="175" height="31" fill="none"/>
     </g>
-    <rect id="Rollover" width="2" height="2" transform="translate(86 23.499)" fill="#00b888" opacity="0"/>
+    <rect id="Rollover" width="2" height="2" transform="translate(86 23.499)" fill="#009b65" opacity="0"/>
   </g>
   <g id="Stacks_Group" data-name="Stacks Group" transform="translate(0 17)">
     <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(8 6.001)" clip-path="url(#clip-path)" style="isolation: isolate">

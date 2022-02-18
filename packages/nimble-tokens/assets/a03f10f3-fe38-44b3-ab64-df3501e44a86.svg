@@ -1,7 +1,7 @@
-<svg id="Nav_Tree_Group_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="248" height="32" viewBox="0 0 248 32">
+<svg id="Nav_Tree_Icon_Group_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="248" height="32" viewBox="0 0 248 32">
   <defs>
     <clipPath id="clip-path">
-      <rect y="2" width="160" height="16" fill="none"/>
+      <rect x="-6" y="2" width="150" height="16" fill="none"/>
     </clipPath>
   </defs>
   <g id="Background">
@@ -17,7 +17,11 @@
     <rect id="IconLocation-2" data-name="IconLocation" width="16" height="16" fill="#c1e0ff" opacity="0"/>
     <path id="Controls_Arrow_Expander_Down_16x16" d="M3.5,4.918l1.421-.913L7.972,8.853,11.088,4l1.412.926L7.956,12Z" transform="translate(0 16) rotate(-90)" fill="#161617"/>
   </g>
-  <g id="Scroll_Group_39" data-name="Scroll Group 39" transform="translate(40 6)" clip-path="url(#clip-path)" style="isolation: isolate">
+  <g id="Scroll_Group_39" data-name="Scroll Group 39" transform="translate(64 6)" clip-path="url(#clip-path)" style="isolation: isolate">
     <text id="Group_label" data-name="Group label" transform="translate(0 14)" fill="#161617" font-size="11" font-family="SpaceMono-Regular, Space Mono"><tspan x="0" y="0">GROUP LABEL</tspan></text>
+  </g>
+  <g id="Icon" transform="translate(40 8)">
+    <rect id="IconLocation-3" data-name="IconLocation" width="16" height="16" fill="#c1e0ff" opacity="0"/>
+    <rect id="Icon-2" data-name="Icon" width="12" height="12" transform="translate(2 2)" fill="#161617"/>
   </g>
 </svg>
