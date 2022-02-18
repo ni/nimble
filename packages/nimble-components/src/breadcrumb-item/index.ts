@@ -1,12 +1,12 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     BreadcrumbItem as FoundationBreadcrumbItem,
     breadcrumbItemTemplate as template,
     BreadcrumbItemOptions
 } from '@microsoft/fast-foundation';
+import { controlsArrowExpanderRight16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
-import { ArrowExpanderRightIcon } from '../icons/arrow-expander-right';
 import { BreadcrumbItemAppearance } from './types';
 
 export type { BreadcrumbItem };
@@ -39,15 +39,13 @@ class BreadcrumbItem extends FoundationBreadcrumbItem {
     }
 }
 
-const arrowExpanderRightIconTag = DesignSystem.tagFor(ArrowExpanderRightIcon);
-
 const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
     baseName: 'breadcrumb-item',
     baseClass: FoundationBreadcrumbItem,
     // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
-    separator: html`<${arrowExpanderRightIconTag}></${arrowExpanderRightIconTag}>`
+    separator: controlsArrowExpanderRight16X16.data
 });
 
 DesignSystem.getOrCreate()

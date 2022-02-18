@@ -8,6 +8,7 @@ import {
     controlHeight,
     fontFamily,
     hyperlinkColor,
+    iconSize,
     standardPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
@@ -37,9 +38,11 @@ export const styles = css`
         padding-right: 0px;
     }
 
-    .separator nimble-arrow-expander-right-icon {
+    slot[name='separator'] svg {
         position: relative;
         top: 4px;
+        width: ${iconSize};
+        height: ${iconSize};
     }
 
     .control {
