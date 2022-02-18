@@ -1,4 +1,4 @@
-import { statusDone16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { checkDot16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class DoneIcon extends Icon {
     public constructor() {
-        super(statusDone16X16);
+        super(checkDot16X16);
     }
 }
 
