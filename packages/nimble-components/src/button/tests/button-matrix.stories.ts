@@ -41,15 +41,27 @@ const partVisibilityStates: PartVisibilityState[] = [
 const appearanceStates = Object.entries(ButtonAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
+type PrimaryState = [string, string];
+const primaryStates: PrimaryState[] = [
+    ['Primary', 'primary'],
+    ['', '']
+];
+
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
+    [primaryName, primaryClass]: PrimaryState,
     [appearanceName, appearance]: AppearanceState,
     [labelVisible, iconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
-    <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled} ?content-hidden=${() => !labelVisible}>
-        ${when(() => iconVisible, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
-        ${() => `${appearanceName} Button ${disabledName}`}
+    <nimble-button
+        appearance="${() => appearance}"
+        class="${() => primaryClass}"
+        ?disabled=${() => disabled}
+        ?content-hidden=${() => !labelVisible}
+        style="margin-right: 8px; margin-bottom: 8px;">
+            ${when(() => iconVisible, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
+            ${() => `${primaryName} ${appearanceName} Button ${disabledName}`}
     </nimble-button>
 `;
 
@@ -57,6 +69,7 @@ export const buttonThemeMatrix: Story = createRenderer(
     themeWrapper(
         createMatrix(component, [
             disabledStates,
+            primaryStates,
             appearanceStates,
             partVisibilityStates
         ])

@@ -9,6 +9,7 @@ import { createRenderer } from '../../utilities/tests/storybook';
 interface ButtonArgs {
     label: string;
     appearance: string;
+    primary: boolean;
     disabled: boolean;
     icon: boolean;
     contentHidden: boolean;
@@ -41,6 +42,10 @@ const metadata: Meta<ButtonArgs> = {
             options: Object.values(ButtonAppearance),
             control: { type: 'radio' }
         },
+        primary: {
+            description:
+                'Set the `primary` CSS class on the element to make a button primary. This class has no effect on buttons with a `ghost` appearance.'
+        },
         icon: {
             description:
                 'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
@@ -48,7 +53,7 @@ const metadata: Meta<ButtonArgs> = {
     },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" ?content-hidden="${x => x.contentHidden}">
+        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" class="${x => (x.primary ? 'primary' : '')}" ?content-hidden="${x => x.contentHidden}">
             ${when(x => x.icon, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
             ${x => x.label}
         </nimble-button>
@@ -56,6 +61,7 @@ const metadata: Meta<ButtonArgs> = {
     args: {
         label: 'Ghost Button',
         appearance: 'ghost',
+        primary: false,
         icon: false,
         contentHidden: false,
         disabled: false
