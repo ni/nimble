@@ -2,10 +2,9 @@
     "name": "example-vanilla-app",
     "version": "1.0.0",
     "private": true,
-    "source": "src/index.html",
     "scripts": {
-        "start": "parcel",
-        "build": "parcel build --public-url ./",
+        "start": "parcel src/index.html",
+        "build": "parcel build --public-url ./ src/index.html",
         "lint": "eslint .",
         "pack": "npm pack"
     },
