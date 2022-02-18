@@ -38,6 +38,7 @@
     "angular-workspace/projects/ni/nimble-angular",
     "packages/nimble-angular-schematics",
     "packages/nimble-blazor",
+    "examples/example-vanilla-app",
     "packages/site"
   ],
   "devDependencies": {

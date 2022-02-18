@@ -1,0 +1,18 @@
+{
+    "name": "example-vanilla-app",
+    "version": "1.0.0",
+    "private": true,
+    "source": "src/index.html",
+    "scripts": {
+        "start": "parcel",
+        "build": "parcel build",
+        "lint": "eslint .",
+        "pack": "npm pack"
+    },
+    "dependencies": {
+        "@ni/eslint-config-typescript": "^3.0.5",
+        "@ni/nimble-components": "^2.1.0",
+        "@parcel/transformer-sass": "^2.3.1",
+        "parcel": "^2.3.1"
+    }
+}

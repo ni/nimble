@@ -45,6 +45,7 @@ jobs:
             packages/**/*.tgz
             packages/**/*.nupkg
             angular-workspace/**/*.tgz
+            examples/**/*.tgz
           if-no-files-found: error
 
       # Publish to Chromatic (from any push)
