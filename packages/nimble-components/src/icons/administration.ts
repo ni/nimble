@@ -1,4 +1,4 @@
-import { cogDatabase16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { cogDatabaseInset16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class AdministrationIcon extends Icon {
     public constructor() {
-        super(cogDatabase16X16);
+        super(cogDatabaseInset16X16);
     }
 }
 
