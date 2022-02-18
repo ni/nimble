@@ -3,27 +3,26 @@ import type * as TokensNamespace from './design-tokens';
 type TokenName = keyof typeof TokensNamespace;
 
 export const comments: { readonly [key in TokenName]: string } = {
-    actionColorRgbPartial: 'e.g. Outline button border color',
-    backgroundLevel3Color: 'Background color for dialogs and menus',
-    backgroundLevel2Color: 'Background color for application headers',
-    backgroundLevel1Color: 'Primary background color for the application',
+    actionColorRgbPartial:
+        '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
+    applicationBackgroundColor: 'Primary background color for the application',
+    headerBackgroundColor: 'Background color for application headers',
+    sectionBackgroundColor: 'Background color for dialogs and menus',
     fillColorSelected: 'Control fill color when a control is selected',
     fillColorSelectedRgbPartial:
-        '*-partial tokens are used with rgba() to set color transparency in component or application stylesheets',
+        '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillColorSelectedHover:
         'Control fill color when hovering a selected control',
     fillColorHover: 'Control fill color when hoving component',
     borderColor: 'e.g. Checkbox border color',
     borderColorRgbPartial:
-        '*-partial tokens are used with rgba() to set color transparency in component or application stylesheets',
+        '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
     failColor: 'Used to highlight errors or invalid input',
     warningColor:
         'Used to highlight invalid input or for icons to indicate that a process errored or failed',
     passColor:
         'Used to highlight a correct state or the successful completion of a process',
     borderColorHover: 'Border color when hovering component',
-    highlightEnterpriseColor:
-        'Used to sparingly bring Enterprise color to application stylesheets',
     iconColor: 'Equivalent to the font color for icons',
     popupBoxShadowColor: 'Shadow color for menus and dialog boxes',
     popupBorderColor: 'Border color for menus and dialog boxes',
@@ -41,8 +40,8 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Elements with larger transition areas, such as bottom sheets and expanding chips, have slightly longer durations.',
     largeDelay:
         'Animated elements that traverse a large portion of the screen have the longest durations.',
-    headline2Font: 'Headline_2 font shorthand',
     headline1Font: 'Headline_1 font shorthand',
+    headline2Font: 'Headline_2 font shorthand',
     title3Font: 'Title_3 font shorthand',
     title2Font: 'Title_2 font shorthand',
     title1Font: 'Title_1 font shorthand',

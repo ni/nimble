@@ -88,17 +88,18 @@ import { theme } from '.';
 export const actionColorRgbPartial = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.actionColorRgbPartial)
 ).withDefault((element: HTMLElement) => hexToRgbPartial(getColorForTheme(element, Black91, Black15, White)));
-export const backgroundLevel3Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.backgroundLevel3Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, Enterprise));
 
-export const backgroundLevel2Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.backgroundLevel2Color)
+export const applicationBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.applicationBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise));
+
+export const headerBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.headerBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black80, Enterprise));
 
-export const backgroundLevel1Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.backgroundLevel1Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise));
+export const sectionBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.sectionBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, Enterprise));
 
 export const fillColorSelected = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillColorSelected)
@@ -138,10 +139,6 @@ export const passColor = DesignToken.create<string>(
 
 export const borderColorHover = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderColorHover)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White));
-
-export const highlightEnterpriseColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.highlightEnterpriseColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White));
 
 // Component Color Tokens

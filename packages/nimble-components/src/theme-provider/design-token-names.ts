@@ -4,9 +4,9 @@ type TokenName = keyof typeof TokensNamespace;
 
 export const tokenNames: { readonly [key in TokenName]: string } = {
     actionColorRgbPartial: 'action-color-rgb-partial',
-    backgroundLevel3Color: 'background-level3-color',
-    backgroundLevel2Color: 'background-level2-color',
-    backgroundLevel1Color: 'background-level1-color',
+    applicationBackgroundColor: 'application-background-color',
+    headerBackgroundColor: 'header-background-color',
+    sectionBackgroundColor: 'section-background-color',
     fillColorSelected: 'fill-color-selected',
     fillColorSelectedRgbPartial: 'fill-color-selected-rgb-partial',
     fillColorSelectedHover: 'fill-color-selected-hover',
@@ -17,7 +17,6 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     warningColor: 'warning-color',
     passColor: 'pass-color',
     borderColorHover: 'border-color-hover',
-    highlightEnterpriseColor: 'highlight-enterprise-color',
     iconColor: 'icon-color',
     popupBoxShadowColor: 'popup-box-shadow-color',
     popupBorderColor: 'popup-border-color',
