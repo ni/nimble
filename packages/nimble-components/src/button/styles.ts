@@ -15,6 +15,7 @@ import { ButtonAppearance } from './types';
 export const styles = css`
     ${buttonStyles}
 `
+    // prettier-ignore
     .withBehaviors(
         appearanceBehavior(
             ButtonAppearance.Outline,
