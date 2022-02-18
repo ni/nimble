@@ -1,7 +1,7 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    backgroundLevel1Color,
+    applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
     borderWidth,
@@ -75,7 +75,7 @@ export const styles = css`
         border-width: 0px;
         width: ${drawerWidth};
         height: 100%;
-        background-color: ${backgroundLevel1Color};
+        background-color: ${applicationBackgroundColor};
     }
 
     :host([modal]) .control {

@@ -2,7 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 
 import {
-    backgroundLevel1Color,
+    applicationBackgroundColor,
     borderWidth,
     borderColor,
     popupBorderColor,
@@ -16,7 +16,7 @@ export const styles = css`
     ${display('grid')}
 
     :host {
-        background: ${backgroundLevel1Color};
+        background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
         padding: 4px;

@@ -4,19 +4,14 @@ import {
     borderColorRgbPartial,
     borderColorHover,
     borderWidth,
-    contentFontColor,
-    contentFontColorDisabled,
-    contentFontSize,
     fillColorSelectedRgbPartial,
-    fontFamily,
-    labelFontColor,
-    labelFontColorDisabled,
-    labelFontFamily,
-    labelFontSize,
-    labelFontWeight,
-    labelHeight,
-    labelTextTransform,
-    smallDelay
+    smallDelay,
+    bodyFontColor,
+    bodyFontColorDisabled,
+    controlLabel1Font,
+    controlLabel1FontColor,
+    bodyFont,
+    controlLabel1FontColorDisabled
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
@@ -25,29 +20,24 @@ export const styles = css`
     ${display('inline-block')}
 
     :host {
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         outline: none;
         user-select: none;
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
     }
 
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${bodyFontColorDisabled};
     }
 
     .label {
         display: flex;
-        color: ${labelFontColor};
-        font-family: ${labelFontFamily};
-        font-size: ${labelFontSize};
-        font-weight: ${labelFontWeight};
-        line-height: ${labelHeight};
-        text-transform: ${labelTextTransform};
+        color: ${controlLabel1FontColor};
+        font: ${controlLabel1Font};
     }
 
     :host([disabled]) .label {
-        color: ${labelFontColorDisabled};
+        color: ${controlLabel1FontColorDisabled};
     }
 
     .control {
@@ -90,16 +80,16 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${labelFontColor};
+        color: ${controlLabel1FontColor};
         background: rgba(${fillColorSelectedRgbPartial}, 0.3);
     }
 
     .control::placeholder {
-        color: ${labelFontColor};
+        color: ${controlLabel1FontColor};
     }
 
     .control[disabled]::placeholder {
-        color: ${contentFontColorDisabled};
+        color: ${controlLabel1FontColorDisabled};
     }
 
     :host([resize='both']) .control {

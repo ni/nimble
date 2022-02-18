@@ -1,7 +1,7 @@
 @import '~@ni/nimble-angular/styles/tokens';
 
 :host {
-    background-color: $ni-nimble-background-level1-color;
+    background-color: $ni-nimble-application-background-color;
     display: flex;
     flex: auto;
     justify-content: center;

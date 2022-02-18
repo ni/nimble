@@ -1,7 +1,7 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    backgroundLevel1Color,
+    applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
     bodyFontColorDisabled,
@@ -48,7 +48,7 @@ export const styles = css`
         padding: 4px;
         box-shadow: 0px 3px 3px ${popupBoxShadowColor};
         border: 1px solid ${popupBorderColor};
-        background-color: ${backgroundLevel1Color};
+        background-color: ${applicationBackgroundColor};
         background-clip: padding-box;
     }
 
