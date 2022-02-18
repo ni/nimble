@@ -10,7 +10,7 @@
         "copy-root": "cd root && copyfiles -E -a \"*\" ../dist",
         "copy-storybook": "cd ../../packages/nimble-components/dist && copyfiles -E \"storybook/**\" ../../../packages/site/dist",
         "copy-angular-example-to-storybook": "cd ../../angular-workspace/dist && copyfiles -E \"example-client-app/**\" ../../packages/site/dist/storybook",
-        "copy-vanilla-example-to-storybook": "cd ../../examples/example-vanilla-app && copyfiles -E \"dist/**\" ../../packages/site/dist/storybook/example-vanilla-app"
+        "copy-vanilla-example-to-storybook": "cd ../../examples/example-vanilla-app/dist && copyfiles -E \"./**\" ../../../packages/site/dist/storybook/example-vanilla-app"
     },
     "devDependencies": {
         "copyfiles": "^2.4.1",
