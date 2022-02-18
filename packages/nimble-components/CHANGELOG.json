@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 17 Feb 2022 20:45:28 GMT",
+      "tag": "@ni/nimble-components_v2.1.0",
+      "version": "2.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8578645976dc13600c72a11bdd894a11095d89ea",
+            "comment": "Add guidance for setting delegatesFocus"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 17 Feb 2022 19:43:53 GMT",
+      "tag": "@ni/nimble-components_v2.1.0",
+      "version": "2.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e4730a0788558ebdbf4563af2a86b1d9e280c8b5",
+            "comment": "Implement nimble-text-area component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 17 Feb 2022 17:30:49 GMT",
+      "tag": "@ni/nimble-components_v2.0.2",
+      "version": "2.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0663feb6f8c97dad338c57aa711309cae11e07b5",
+            "comment": "Update readonly text field style"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 17 Feb 2022 03:15:59 GMT",
       "tag": "@ni/nimble-components_v2.0.1",
       "version": "2.0.1",
