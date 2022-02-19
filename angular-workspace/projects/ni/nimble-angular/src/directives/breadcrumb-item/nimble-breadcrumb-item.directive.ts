@@ -1,9 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { BreadcrumbItem } from '@ni/nimble-components/dist/esm/breadcrumb-item';
-import { BreadcrumbItemAppearance } from '@ni/nimble-components/dist/esm/breadcrumb-item/types';
 
 export type { BreadcrumbItem };
-export { BreadcrumbItemAppearance };
 
 /**
  * Directive to provide Angular integration for the breadcrumb item.
