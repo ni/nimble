@@ -1,22 +1,25 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html } from '@microsoft/fast-element';
+import { html, repeat } from '@microsoft/fast-element';
 import '..';
 import '../../breadcrumb-item';
 import { createRenderer } from '../../utilities/tests/storybook';
-import { BreadcrumbItemAppearance } from '../../breadcrumb-item/types';
 
-interface ButtonArgs {
-    label: string;
-    appearance: string;
-    disabled: boolean;
-    icon: boolean;
-    contentHidden: boolean;
+interface BreadcrumbArgs {
+    options: ItemArgs[];
 }
 
-const overviewText = 'A breadcrumb component is used as a navigational aid, allowing users to maintain awareness of their locations within a program, app, or a website.';
+interface ItemArgs {
+    href?: string;
+    target?: string;
+    label: string;
+}
 
-const metadata: Meta<ButtonArgs> = {
+const overviewText = `A breadcrumb component is used as a navigational aid, allowing users
+to maintain awareness of their locations within a program, app, or a website.
+Breadcrumb items, in addition to href and target, support all other [HTMLAnchorElement](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) attributes/properties.`;
+
+const metadata: Meta<BreadcrumbArgs> = {
     title: 'Breadcrumb',
     decorators: [withXD],
     parameters: {
@@ -32,41 +35,71 @@ const metadata: Meta<ButtonArgs> = {
         actions: {
             handles: ['click']
         }
-    },
-    argTypes: {
-        appearance: {
-            options: Object.values(BreadcrumbItemAppearance),
-            control: { type: 'radio' }
-        }
-    },
-    // prettier-ignore
-    render: createRenderer(html`
-        <nimble-breadcrumb>
-            <nimble-breadcrumb-item appearance="${x => x.appearance}" href="#">Page 1</nimble-breadcrumb-item>
-            <nimble-breadcrumb-item appearance="${x => x.appearance}" href="${() => parent.location.href}">Current Page</nimble-breadcrumb-item>
-            <nimble-breadcrumb-item appearance="${x => x.appearance}" href="#">Page 3</nimble-breadcrumb-item>
-            <nimble-breadcrumb-item appearance="${x => x.appearance}">Page 4 (No Link)</nimble-breadcrumb-item>
-        </nimble-breadcrumb>
-`),
-    args: {
-        label: 'Hypertext Breadcrumb',
-        appearance: 'hypertext',
-        disabled: false
     }
 };
 
 export default metadata;
 
-export const hypertextBreadcrumb: StoryObj<ButtonArgs> = {
+// Using '#', window.location.href, or parent.location.href for the default hyperlink for the breadcrumb items in these stories all seem to trigger a navigation
+// which isn't desirable, so using 'javascript:' which is also a no-op (but a non-empty href, so the items have the link styling we want)
+// eslint-disable-next-line no-script-url
+const noOpUrl = 'javascript:';
+
+export const standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
+    // prettier-ignore
+    render: createRenderer(html`
+        <nimble-breadcrumb>
+            ${repeat(x => x.options, html<ItemArgs>`
+                <nimble-breadcrumb-item href="${x => x.href}" target="${x => x.target}">${x => x.label}</nimble-breadcrumb-item>
+            `)}
+        </nimble-breadcrumb>
+`),
+    argTypes: {
+        options: {
+            description:
+                'Nest one or more `<nimble-breadcrumb-item />`s inside `<nimble-breadcrumb />`. Each can optionally set `href`, `target`, etc. '
+                + 'With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page (with no `href` specified, '
+                + 'rendering with a bold font).'
+        }
+    },
     args: {
-        label: 'Hypertext Breadcrumb',
-        appearance: BreadcrumbItemAppearance.Hypertext
+        options: [
+            {
+                href: noOpUrl,
+                label: 'Page 1'
+            },
+            {
+                href: noOpUrl,
+                label: 'Page 2'
+            },
+            {
+                label: 'Current (No Link)'
+            }
+        ]
     }
 };
 
-export const hoverFillBreadcrumb: StoryObj<ButtonArgs> = {
+export const breadcrumbItem: StoryObj<ItemArgs> = {
+    // prettier-ignore
+    render: createRenderer(html`
+        <nimble-breadcrumb>
+            <nimble-breadcrumb-item href="${x => x.href}" target="${x => x.target}">Breadcrumb Item</nimble-breadcrumb-item>
+        </nimble-breadcrumb>
+`),
+    argTypes: {
+        href: {
+            description:
+                '(Optional) The URL that this breadcrumb item/ link points to. Generally, the last breadcrumb item '
+                + 'representing the current page has no `href` set.'
+        },
+        target: {
+            description:
+                '(Optional) Where to display the linked URL (destination browsing context): `_self`, `_blank`, etc.',
+            type: 'string'
+        }
+    },
     args: {
-        label: 'HoverFill Breadcrumb',
-        appearance: BreadcrumbItemAppearance.HoverFill
+        href: 'http://www.ni.com',
+        label: 'Breadcrumb Item'
     }
 };

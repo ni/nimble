@@ -9,10 +9,14 @@ export const styles = css`
         box-sizing: border-box;
         font-family: ${fontFamily};
         font-size: ${contentFontSize};
-        line-height: 24px;
     }
+
     .list {
         display: flex;
         flex-wrap: wrap;
+    }
+
+    ::slotted(*:not([href]):last-child) {
+        font-weight: bold;
     }
 `;

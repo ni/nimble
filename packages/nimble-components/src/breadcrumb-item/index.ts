@@ -1,4 +1,3 @@
-import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     BreadcrumbItem as FoundationBreadcrumbItem,
@@ -7,7 +6,6 @@ import {
 } from '@microsoft/fast-foundation';
 import { controlsArrowExpanderRight16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
-import { BreadcrumbItemAppearance } from './types';
 
 export type { BreadcrumbItem };
 
@@ -20,24 +18,7 @@ declare global {
 /**
  * A nimble-styled breadcrumb item
  */
-class BreadcrumbItem extends FoundationBreadcrumbItem {
-    /**
-     * The appearance the button should have.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: appearance
-     */
-    @attr
-    public appearance!: BreadcrumbItemAppearance;
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-        if (!this.appearance) {
-            this.appearance = BreadcrumbItemAppearance.Hypertext;
-        }
-    }
-}
+class BreadcrumbItem extends FoundationBreadcrumbItem {}
 
 const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
     baseName: 'breadcrumb-item',

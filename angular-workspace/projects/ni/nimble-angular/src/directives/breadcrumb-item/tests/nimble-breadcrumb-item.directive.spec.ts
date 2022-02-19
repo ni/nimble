@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BreadcrumbItem, BreadcrumbItemAppearance, NimbleBreadcrumbItemDirective } from '../nimble-breadcrumb-item.directive';
+import { BreadcrumbItem, NimbleBreadcrumbItemDirective } from '../nimble-breadcrumb-item.directive';
 import { NimbleBreadcrumbItemModule } from '../nimble-breadcrumb-item.module';
 
 describe('Nimble breadcrumb item', () => {
@@ -40,9 +40,9 @@ describe('Nimble breadcrumb item', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('has expected defaults for appearance', () => {
-            expect(directive.appearance).toBe(BreadcrumbItemAppearance.Hypertext);
-            expect(nativeElement.appearance).toBe(BreadcrumbItemAppearance.Hypertext);
+        it('has expected defaults for href', () => {
+            expect(directive.href).toBeUndefined();
+            expect(nativeElement.href).toBeUndefined();
         });
     });
 
@@ -50,7 +50,7 @@ describe('Nimble breadcrumb item', () => {
         @Component({
             template: `
                 <nimble-breadcrumb-item #breadcrumbItem
-                    appearance="${BreadcrumbItemAppearance.HoverFill}">
+                    href="#">
                 </nimble-breadcrumb-item>`
         })
         class TestHostComponent {
@@ -73,9 +73,9 @@ describe('Nimble breadcrumb item', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('will use template string values for appearance', () => {
-            expect(directive.appearance).toBe(BreadcrumbItemAppearance.HoverFill);
-            expect(nativeElement.appearance).toBe(BreadcrumbItemAppearance.HoverFill);
+        it('will use template string values for href', () => {
+            expect(directive.href).toBe('#');
+            expect(nativeElement.href).toBe('#');
         });
     });
 
@@ -83,14 +83,14 @@ describe('Nimble breadcrumb item', () => {
         @Component({
             template: `
                 <nimble-breadcrumb-item #breadcrumbItem
-                    [appearance]="appearance">
+                    [href]="href">
                 </nimble-breadcrumb-item>
             `
         })
         class TestHostComponent {
             @ViewChild('breadcrumbItem', { read: NimbleBreadcrumbItemDirective }) public directive: NimbleBreadcrumbItemDirective;
             @ViewChild('breadcrumbItem', { read: ElementRef }) public elementRef: ElementRef<BreadcrumbItem>;
-            public appearance = BreadcrumbItemAppearance.HoverFill;
+            public href = 'http://www.ni.com/';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -108,15 +108,15 @@ describe('Nimble breadcrumb item', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding for appearance', () => {
-            expect(directive.appearance).toBe(BreadcrumbItemAppearance.HoverFill);
-            expect(nativeElement.appearance).toBe(BreadcrumbItemAppearance.HoverFill);
+        it('can be configured with property binding for href', () => {
+            expect(directive.href).toBe('http://www.ni.com/');
+            expect(nativeElement.href).toBe('http://www.ni.com/');
 
-            fixture.componentInstance.appearance = BreadcrumbItemAppearance.Hypertext;
+            fixture.componentInstance.href = '#';
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(BreadcrumbItemAppearance.Hypertext);
-            expect(nativeElement.appearance).toBe(BreadcrumbItemAppearance.Hypertext);
+            expect(directive.href).toBe('#');
+            expect(nativeElement.href).toBe('#');
         });
     });
 
@@ -124,14 +124,14 @@ describe('Nimble breadcrumb item', () => {
         @Component({
             template: `
                 <nimble-breadcrumb-item #breadcrumbItem
-                    [attr.appearance]="appearance">
+                    [attr.href]="href">
                 </nimble-breadcrumb-item>
             `
         })
         class TestHostComponent {
             @ViewChild('breadcrumbItem', { read: NimbleBreadcrumbItemDirective }) public directive: NimbleBreadcrumbItemDirective;
             @ViewChild('breadcrumbItem', { read: ElementRef }) public elementRef: ElementRef<BreadcrumbItem>;
-            public appearance = BreadcrumbItemAppearance.HoverFill;
+            public href = '#';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -149,15 +149,15 @@ describe('Nimble breadcrumb item', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with attribute binding for appearance', () => {
-            expect(directive.appearance).toBe(BreadcrumbItemAppearance.HoverFill);
-            expect(nativeElement.appearance).toBe(BreadcrumbItemAppearance.HoverFill);
+        it('can be configured with attribute binding for href', () => {
+            expect(directive.href).toBe('#');
+            expect(nativeElement.href).toBe('#');
 
-            fixture.componentInstance.appearance = BreadcrumbItemAppearance.Hypertext;
+            fixture.componentInstance.href = 'relative/url';
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(BreadcrumbItemAppearance.Hypertext);
-            expect(nativeElement.appearance).toBe(BreadcrumbItemAppearance.Hypertext);
+            expect(directive.href).toBe('relative/url');
+            expect(nativeElement.href).toBe('relative/url');
         });
     });
 });

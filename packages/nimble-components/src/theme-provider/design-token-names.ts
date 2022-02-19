@@ -43,6 +43,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     groupLabelTextTransform: 'group-label-text-transform',
     contentFontColorDisabled: 'content-font-color-disabled',
     hyperlinkColor: 'hyperlink-color',
+    hyperlinkColorActive: 'hyperlink-color-active',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
     drawerAnimationDurationMs: 'drawer-animation-duration-ms'

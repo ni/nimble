@@ -4,7 +4,7 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
 import '..';
-import { BreadcrumbItemAppearance } from '../../breadcrumb-item/types';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Breadcrumb',
@@ -22,28 +22,27 @@ export default metadata;
 
 type LinkHrefState = [string, string | null];
 const linkHrefStates: LinkHrefState[] = [
-    ['Link', '#'],
-    ['Visited/Current', parent.location.href],
-    ['No Link', null]
+    ['Link', parent.location.href],
+    ['Current (No Link)', null]
 ];
 
-const appearanceStates = Object.entries(BreadcrumbItemAppearance);
-type AppearanceState = typeof appearanceStates[number];
-
-const component = (
-    [appearanceName, appearance]: AppearanceState,
-    [linkHrefName, href]: LinkHrefState
-): ViewTemplate => html`
+const component = ([linkHrefName, href]: LinkHrefState): ViewTemplate => html`
     <nimble-breadcrumb>
-        <nimble-breadcrumb-item
-            appearance="${() => appearance}"
-            href="${() => href}"
-        >
-            ${() => `${appearanceName} Breadcrumb - ${linkHrefName}`}
+        <nimble-breadcrumb-item href="${() => href}">
+            ${() => `Breadcrumb - ${linkHrefName}`}
         </nimble-breadcrumb-item>
     </nimble-breadcrumb>
 `;
 
 export const breadcrumbThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [appearanceStates, linkHrefStates]))
+    themeWrapper(createMatrix(component, [linkHrefStates]))
+);
+
+export const hiddenBreadcrumb: Story = createRenderer(
+    hiddenWrapper(
+        html`<nimble-breadcrumb hidden>
+            <nimble-breadcrumb-item href="#">Item 1</nimble-breadcrumb-item>
+            <nimble-breadcrumb-item>Current (No Link)</nimble-breadcrumb-item>
+        </nimble-breadcrumb>`
+    )
 );

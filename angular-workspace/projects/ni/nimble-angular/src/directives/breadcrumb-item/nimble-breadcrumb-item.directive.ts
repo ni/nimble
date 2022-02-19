@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { BreadcrumbItem } from '@ni/nimble-components/dist/esm/breadcrumb-item';
-import type { BreadcrumbItemAppearanceAttribute } from '@ni/nimble-components/dist/esm/breadcrumb-item/types';
 import { BreadcrumbItemAppearance } from '@ni/nimble-components/dist/esm/breadcrumb-item/types';
 
 export type { BreadcrumbItem };
@@ -13,14 +12,6 @@ export { BreadcrumbItemAppearance };
     selector: 'nimble-breadcrumb-item'
 })
 export class NimbleBreadcrumbItemDirective {
-    public get appearance(): BreadcrumbItemAppearance {
-        return this.elementRef.nativeElement.appearance;
-    }
-
-    @Input() public set appearance(value: BreadcrumbItemAppearance | BreadcrumbItemAppearanceAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
-    }
-
     public get href(): string {
         return this.elementRef.nativeElement.href;
     }

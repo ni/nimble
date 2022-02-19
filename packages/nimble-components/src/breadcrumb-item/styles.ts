@@ -1,18 +1,15 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    borderColorRgbPartial,
     borderWidth,
     contentFontColor,
     contentFontSize,
     controlHeight,
     fontFamily,
     hyperlinkColor,
-    iconSize,
-    standardPadding
+    hyperlinkColorActive,
+    iconSize
 } from '../theme-provider/design-tokens';
-import { appearanceBehavior } from '../utilities/style/appearance';
-import { BreadcrumbItemAppearance } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -45,12 +42,15 @@ export const styles = css`
         height: ${iconSize};
     }
 
+    slot[name='separator'] path {
+        fill: ${contentFontColor};
+    }
+
     .control {
         color: ${contentFontColor};
         cursor: default;
         border: ${borderWidth} solid transparent;
-        border-color: transparent;
-        padding: 4px ${standardPadding} 6px ${standardPadding};
+        padding: 4px 6px 6px 6px;
     }
 
     .control:link {
@@ -58,83 +58,39 @@ export const styles = css`
         text-decoration: none;
     }
 
-    .start,
-    .end {
-        display: flex;
+    .control:hover {
+        color: ${hyperlinkColor};
     }
 
-    .start {
-        margin-inline-end: 6px;
+    .control:active {
+        color: ${hyperlinkColorActive};
     }
-    .end {
-        margin-inline-start: 6px;
+
+    .control .content {
+        position: relative;
     }
-`
-    // prettier-ignore
-    .withBehaviors(
-        appearanceBehavior(
-            BreadcrumbItemAppearance.Hypertext,
-            css`
-                .control {
-                    padding-left: 6px;
-                    padding-right: 6px;
-                }
 
-                .control:link,
-                .control:visited {
-                    color: ${hyperlinkColor};
-                }
+    .control .content::before {
+        background: none;
+    }
 
-                .control .content {
-                    position: relative;
-                }
+    .control:link .content::before {
+        content: '';
+        background: transparent;
+        display: block;
+        height: 1px;
+        left: 0px;
+        position: absolute;
+        right: 0px;
+        top: calc(1em + 4px);
+        width: calc(100% - 2px);
+    }
 
-                .control .content::before {
-                    background: none;
-                }
+    .control[href]:hover .content::before {
+        background: ${hyperlinkColor};
+    }
 
-                .control:link .content::before {
-                    content: '';
-                    background: ${hyperlinkColor};
-                    display: block;
-                    height: 1px;
-                    left: 0px;
-                    position: absolute;
-                    right: 0px;
-                    top: calc(1em + 4px);
-                    width: calc(100% - 2px);
-                }
-
-                .control[href]:hover .content::before {
-                    margin-top: -1px;
-                    height: 2px;
-                }
-
-                .control:visited .content::before {
-                    background: ${hyperlinkColor};
-                }
-            `
-        ),
-        appearanceBehavior(
-            BreadcrumbItemAppearance.HoverFill,
-            css`
-                .control {
-                    padding-left: 6px;
-                    padding-right: 6px;
-                }
-
-                .control:link,
-                .control:visited {
-                    color: ${contentFontColor};
-                }
-
-                .control:hover {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
-                }
-
-                .control:active {
-                    background-color: rgba(${borderColorRgbPartial}, 0.2);
-                }
-            `
-        )
-    );
+    .control[href]:active .content::before {
+        background: ${hyperlinkColorActive};
+    }
+`;
