@@ -1,6 +1,7 @@
 {
   "name": "angular-workspace",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -16,7 +17,6 @@
     "lint": "ng lint",
     "format": "ng lint --fix"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^12.1.0",
     "@angular/common": "^12.1.0",
