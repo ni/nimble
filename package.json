@@ -9,11 +9,11 @@
     "format": "npm run format --workspaces --if-present",
     "test": "npm test --workspaces --if-present",
     "pack": "npm run pack --workspaces --if-present",
-    "change": "beachball change",
-    "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
-    "bump-versions": "beachball publish --no-publish --yes --access public --message \"applying package updates [bump-versions]\"",
+    "change": "beachball --config ./build/beachball.config.js change",
+    "check": "beachball --config ./build/beachball.config.js check --changehint \"Run 'npm run change' to generate a change file\"",
+    "bump-versions": "beachball --config ./build/beachball.config.js publish --no-publish --yes --access public --message \"applying package updates [bump-versions]\"",
     "validate": "npm run build && npm run lint && npm run test",
-    "performance": "lhci autorun"
+    "performance": "lhci --config=./build/lighthouserc.js autorun"
   },
   "repository": {
     "type": "git",
@@ -39,7 +39,7 @@
     "packages/nimble-angular-schematics",
     "packages/nimble-blazor",
     "examples/example-vanilla-app",
-    "packages/site"
+    "build/build-site"
   ],
   "devDependencies": {
     "@lhci/cli": "^0.8.1",
