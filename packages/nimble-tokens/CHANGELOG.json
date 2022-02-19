@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Sat, 19 Feb 2022 00:06:17 GMT",
+      "tag": "@ni/nimble-tokens_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "44cdee77bab162269a5dfc9ee040c1da7f5b8364",
+            "comment": "Update nimble-tokens from XD doc"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 07 Feb 2022 18:48:57 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0",
       "version": "1.0.0",

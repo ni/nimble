@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Update nimble-tokens from XD doc",
-  "packageName": "@ni/nimble-tokens",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
