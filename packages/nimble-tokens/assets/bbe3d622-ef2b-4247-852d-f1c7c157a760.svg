@@ -7,11 +7,11 @@
   <rect id="Background" width="248" height="32" fill="#00b888" opacity="0"/>
   <rect id="Rollover" width="248" height="32" fill="#161617" opacity="0"/>
   <rect id="SelectionRectangle" width="2" height="2" transform="translate(0 15)" fill="#00b888" opacity="0"/>
-  <rect id="Selected" width="248" height="2" transform="translate(0 15)" fill="#00b888" opacity="0"/>
-  <g id="Error_Group" data-name="Error Group" transform="translate(-8 7)">
+  <rect id="Selected" width="248" height="2" transform="translate(0 15)" fill="#009b65" opacity="0"/>
+  <g id="Error_Group" data-name="Error Group" transform="translate(-8 8)">
     <rect id="IconLocation" width="16" height="16" transform="translate(224)" fill="#3cb4e7" opacity="0"/>
   </g>
-  <g id="Icon" transform="translate(16 7)">
+  <g id="Icon" transform="translate(16 8)">
     <rect id="IconLocation-2" data-name="IconLocation" width="16" height="16" fill="#c1e0ff" opacity="0"/>
   </g>
   <g id="Scroll_Group_40" data-name="Scroll Group 40" transform="translate(40 6)" clip-path="url(#clip-path)" style="isolation: isolate">

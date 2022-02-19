@@ -1,17 +1,17 @@
-<svg id="Inputs_TextContainer_Readonly" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="175" viewBox="0 0 176 175">
+<svg id="Inputs_TextContainer_Readonly" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="173" viewBox="0 0 176 173">
   <defs>
     <clipPath id="clip-path">
       <rect y="1" width="176" height="14" fill="none"/>
     </clipPath>
   </defs>
-  <g id="Background_Group" data-name="Background Group" transform="translate(0 18)">
+  <g id="Background_Group" data-name="Background Group" transform="translate(0 16)">
     <g id="Line" fill="none" stroke="#161617" stroke-width="1" opacity="0.1">
       <rect width="176" height="157" stroke="none"/>
       <rect x="0.5" y="0.5" width="175" height="156" fill="none"/>
     </g>
   </g>
-  <text id="Lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore_et_dolore_magna_aliqua._Ut_enim_ad_minim_veniam_quis_nostrud_exercitation_ullamco_laboris_nisi_ut_aliquip_ex_ea_commodo_consequat._Duis_aute_irure_dolor_in" data-name="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in" transform="translate(9 26)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="14">Lorem ipsum dolor sit </tspan><tspan x="0" y="34">amet, consectetur </tspan><tspan x="0" y="54">adipiscing elit, sed do </tspan><tspan x="0" y="74">eiusmod tempor </tspan><tspan x="0" y="94">incididunt ut labore et </tspan><tspan x="0" y="114">dolore magna aliqua. Ut </tspan><tspan x="0" y="134">enim ad minim veniam, </tspan></text>
-  <g id="Navigation_Scrollbar_16" transform="translate(159 19)">
+  <text id="Lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore_et_dolore_magna_aliqua._Ut_enim_ad_minim_veniam_quis_nostrud_exercitation_ullamco_laboris_nisi_ut_aliquip_ex_ea_commodo_consequat._Duis_aute_irure_dolor_in" data-name="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in" transform="translate(8 24)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="14">Lorem ipsum dolor sit </tspan><tspan x="0" y="34">amet, consectetur </tspan><tspan x="0" y="54">adipiscing elit, sed do </tspan><tspan x="0" y="74">eiusmod tempor </tspan><tspan x="0" y="94">incididunt ut labore et </tspan><tspan x="0" y="114">dolore magna aliqua. Ut </tspan><tspan x="0" y="134">enim ad minim veniam, </tspan></text>
+  <g id="Navigation_Scrollbar_16" transform="translate(159 17)">
     <rect id="White_Background" data-name="White Background" width="16" height="155" fill="#161617" opacity="0.07"/>
     <rect id="Drag_Handle" data-name="Drag Handle" width="4" height="36.954" rx="2" transform="translate(6 17)" fill="#161617" opacity="0.3"/>
   </g>
