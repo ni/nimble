@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build-components && npm run generate-scss && npm run build-storybook",
@@ -46,7 +46,7 @@
     "@microsoft/fast-element": "^1.7.0",
     "@microsoft/fast-foundation": "^2.28.0 <2.29.0",
     "@microsoft/fast-web-utilities": "^5.1.0",
-    "@ni/nimble-tokens": "^1.0.0",
+    "@ni/nimble-tokens": "^2.0.0",
     "hex-rgb": "^5.0.0"
   },
   "devDependencies": {

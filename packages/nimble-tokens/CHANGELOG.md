@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 07 Feb 2022 18:48:57 GMT and should not be manually modified.
+This log was last generated on Mon, 21 Feb 2022 15:34:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.0
+
+Mon, 21 Feb 2022 15:34:13 GMT
+
+### Major changes
+
+- Renamed and deduplicated icons. See [here](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) for the changes. (1458528+fredvisser@users.noreply.github.com)
+
+## 1.1.0
+
+Sat, 19 Feb 2022 00:06:17 GMT
+
+### Minor changes
+
+- Update nimble-tokens from XD doc (7282195+m-akinc@users.noreply.github.com)
 
 ## 1.0.0
 

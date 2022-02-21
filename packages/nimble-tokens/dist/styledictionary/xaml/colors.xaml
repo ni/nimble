@@ -5,7 +5,7 @@
 
 <!--
   Do not edit directly
-  Generated on Thu, 13 Jan 2022 15:57:37 GMT
+  Generated on Thu, 17 Feb 2022 18:31:09 GMT
 -->
     <Color x:Key="SL_LegacyBlue">#ff009ff5</Color>
     <Color x:Key="Information100_DarkUI">#ffa46eff</Color>
@@ -28,7 +28,7 @@
     <Color x:Key="Black95">#ff0e0f0f</Color>
     <Color x:Key="Black91">#ff161617</Color>
     <Color x:Key="Enterprise">#ff074023</Color>
-    <Color x:Key="Selection100">#ff00b888</Color>
+    <Color x:Key="Selection100">#ff009b65</Color>
     <Color x:Key="Brand85">#ff26a97c</Color>
     <Color x:Key="Brand100">#ff009b65</Color>
     <Color x:Key="Fail85">#ffcf1a37</Color>

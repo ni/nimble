@@ -1,4 +1,4 @@
-import { statusLooping16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { arrowsRepeat16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class LoopingIcon extends Icon {
     public constructor() {
-        super(statusLooping16X16);
+        super(arrowsRepeat16X16);
     }
 }
 

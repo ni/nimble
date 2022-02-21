@@ -45,7 +45,9 @@
             <rect width="16" height="16" stroke="none"/>
             <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
           </g>
-          <text id="_" data-name="!" transform="translate(198 20)" fill="#c4000c" font-size="14" font-family="Verdana-Bold, Verdana" font-weight="700" opacity="0"><tspan x="0" y="0">!</tspan></text>
+          <g id="Controls_Error_16x16" transform="translate(201 16)" opacity="0">
+            <path id="Path_9276" data-name="Path 9276" d="M.046,8.227H2.759V10H.046ZM0,0,.309,7.119H2.5L2.807,0Z" fill="#c42126"/>
+          </g>
         </g>
       </g>
       <g id="MenuLineItem_Component-2" data-name="MenuLineItem_Component" transform="translate(0 32)">
@@ -62,14 +64,16 @@
             <rect width="16" height="16" stroke="none"/>
             <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
           </g>
-          <text id="_2" data-name="!" transform="translate(198 20)" fill="#c4000c" font-size="14" font-family="Verdana-Bold, Verdana" font-weight="700" opacity="0"><tspan x="0" y="0">!</tspan></text>
+          <g id="Controls_Error_16x16-2" data-name="Controls_Error_16x16" transform="translate(201 16)" opacity="0">
+            <path id="Path_9276-2" data-name="Path 9276" d="M.046,8.227H2.759V10H.046ZM0,0,.309,7.119H2.5L2.807,0Z" fill="#c42126"/>
+          </g>
         </g>
       </g>
       <g id="MenuLineItem_Component-3" data-name="MenuLineItem_Component">
         <g id="Background_Group-3" data-name="Background Group">
           <rect id="Background_Fill_1-3" data-name="Background Fill 1" width="168" height="32" fill="#161617" opacity="0"/>
           <rect id="Rollover-3" data-name="Rollover" width="168" height="1" transform="translate(0 31)" fill="#161617" opacity="0"/>
-          <rect id="Selected-3" data-name="Selected" width="168" height="32" fill="#00b888" opacity="0.2"/>
+          <rect id="Selected-3" data-name="Selected" width="168" height="32" fill="#009b65" opacity="0.2"/>
         </g>
         <g id="Scroll_Group_13-3" data-name="Scroll Group 13" transform="translate(4 6)" clip-path="url(#clip-path)" style="isolation: isolate">
           <text id="Line_item-3" data-name="Line item" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Line item</tspan></text>
@@ -79,7 +83,9 @@
             <rect width="16" height="16" stroke="none"/>
             <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
           </g>
-          <text id="_3" data-name="!" transform="translate(198 20)" fill="#c4000c" font-size="14" font-family="Verdana-Bold, Verdana" font-weight="700" opacity="0"><tspan x="0" y="0">!</tspan></text>
+          <g id="Controls_Error_16x16-3" data-name="Controls_Error_16x16" transform="translate(201 16)" opacity="0">
+            <path id="Path_9276-3" data-name="Path 9276" d="M.046,8.227H2.759V10H.046ZM0,0,.309,7.119H2.5L2.807,0Z" fill="#c42126"/>
+          </g>
         </g>
       </g>
     </g>

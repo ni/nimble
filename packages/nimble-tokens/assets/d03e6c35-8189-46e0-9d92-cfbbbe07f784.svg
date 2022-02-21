@@ -1,7 +1,6 @@
 <svg id="Button_Text_Ghost_32" xmlns="http://www.w3.org/2000/svg" width="93" height="32" viewBox="0 0 93 32">
   <g id="Background" transform="translate(-323.853 -324)">
     <rect id="Fill_1" data-name="Fill 1" width="93" height="32" transform="translate(323.853 324)" fill="none" opacity="0"/>
-    <rect id="Fill_2" data-name="Fill 2" width="93" height="2" transform="translate(323.853 353.5)" fill="none" opacity="0"/>
     <rect id="Stroke" width="93" height="32" transform="translate(323.853 324)" fill="none" opacity="0"/>
     <rect id="Rollover" width="93" height="32" transform="translate(323.853 324)" fill="none" opacity="0"/>
   </g>

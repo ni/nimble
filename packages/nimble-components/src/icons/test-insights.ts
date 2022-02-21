@@ -1,4 +1,4 @@
-import { testInsights16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { squareCheck16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class TestInsightsIcon extends Icon {
     public constructor() {
-        super(testInsights16X16);
+        super(squareCheck16X16);
     }
 }
 
