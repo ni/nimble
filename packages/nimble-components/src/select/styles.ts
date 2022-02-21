@@ -4,8 +4,8 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
-    bodyFontColorDisabled,
-    borderColorHover,
+    bodyFontDisabledColor,
+    borderHoverColor,
     borderWidth,
     controlHeight,
     iconSize,
@@ -63,7 +63,7 @@ export const styles = css`
         display: flex;
         min-height: 100%;
         width: 100%;
-        border-bottom: ${borderWidth} solid ${bodyFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${bodyFontDisabledColor};
         background-color: transparent;
         padding-left: 8px;
         padding-bottom: 1px;
@@ -74,21 +74,21 @@ export const styles = css`
     }
 
     :host(.open:not(:hover)) .control {
-        border-bottom: ${borderWidth} solid ${borderColorHover};
+        border-bottom: ${borderWidth} solid ${borderHoverColor};
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
 
     :host(:hover) .control {
-        border-bottom: 2px solid ${borderColorHover};
+        border-bottom: 2px solid ${borderHoverColor};
         padding-bottom: 0px;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
 
     :host([disabled]) .control,
     :host([disabled]) .control:hover {
-        border-bottom: ${borderWidth} solid ${bodyFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${bodyFontDisabledColor};
         padding-bottom: 1px;
-        color: ${bodyFontColorDisabled};
+        color: ${bodyFontDisabledColor};
     }
 
     :host([open][position='above']) .listbox {
@@ -134,7 +134,7 @@ export const styles = css`
     }
 
     :host([disabled]) .indicator slot[name='indicator'] svg {
-        fill: ${bodyFontColorDisabled};
+        fill: ${bodyFontDisabledColor};
     }
 
     slot[name='listbox'] {

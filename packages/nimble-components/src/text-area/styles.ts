@@ -1,17 +1,17 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    borderColorRgbPartial,
-    borderColorHover,
+    borderRgbPartialColor,
+    borderHoverColor,
     borderWidth,
-    fillColorSelectedRgbPartial,
+    fillSelectedRgbPartialColor,
     smallDelay,
     bodyFontColor,
-    bodyFontColorDisabled,
+    bodyFontDisabledColor,
     controlLabelFont,
     controlLabelFontColor,
     bodyFont,
-    controlLabelFontColorDisabled
+    controlLabelFontDisabledColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
@@ -27,7 +27,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${bodyFontColorDisabled};
+        color: ${bodyFontDisabledColor};
     }
 
     .label {
@@ -37,7 +37,7 @@ export const styles = css`
     }
 
     :host([disabled]) .label {
-        color: ${controlLabelFontColorDisabled};
+        color: ${controlLabelFontDisabledColor};
     }
 
     .control {
@@ -62,12 +62,12 @@ export const styles = css`
     }
 
     .control:hover {
-        border-color: ${borderColorHover};
-        outline: 1px solid ${borderColorHover};
+        border-color: ${borderHoverColor};
+        outline: 1px solid ${borderHoverColor};
     }
 
     .control:focus-within {
-        border-color: ${borderColorHover};
+        border-color: ${borderHoverColor};
     }
 
     .control[readonly],
@@ -75,13 +75,13 @@ export const styles = css`
     .control[readonly]:hover:focus-within,
     .control[disabled],
     .control[disabled]:hover {
-        border-color: rgba(${borderColorRgbPartial}, 0.1);
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
         outline: none;
     }
 
     .control::selection {
         color: ${controlLabelFontColor};
-        background: rgba(${fillColorSelectedRgbPartial}, 0.3);
+        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
     }
 
     .control::placeholder {
@@ -89,7 +89,7 @@ export const styles = css`
     }
 
     .control[disabled]::placeholder {
-        color: ${controlLabelFontColorDisabled};
+        color: ${controlLabelFontDisabledColor};
     }
 
     :host([resize='both']) .control {
@@ -108,7 +108,7 @@ export const styles = css`
             TextAreaAppearance.Outline,
             css`
                 .control {
-                    border-color: rgba(${borderColorRgbPartial}, 0.3);
+                    border-color: rgba(${borderRgbPartialColor}, 0.3);
                     background-color: transparent;
                 }
             `
@@ -117,7 +117,7 @@ export const styles = css`
             TextAreaAppearance.Block,
             css`
                 .control {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
+                    background-color: rgba(${borderRgbPartialColor}, 0.1);
                 }
 
                 :host([readonly]) .control {
@@ -126,7 +126,7 @@ export const styles = css`
 
                 :host([disabled]) .control {
                     border-color: transparent;
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
+                    background-color: rgba(${borderRgbPartialColor}, 0.1);
                 }
             `
         )

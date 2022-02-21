@@ -2,13 +2,13 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     borderColor,
-    borderColorRgbPartial,
-    borderColorHover,
+    borderRgbPartialColor,
+    borderHoverColor,
     borderWidth,
     bodyFontColor,
-    bodyFontColorDisabled,
+    bodyFontDisabledColor,
     controlHeight,
-    fillColorSelectedRgbPartial,
+    fillSelectedRgbPartialColor,
     iconSize,
     controlLabelFont,
     controlLabelFontColor,
@@ -29,7 +29,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${bodyFontColorDisabled};
+        color: ${bodyFontDisabledColor};
         cursor: default;
     }
 
@@ -39,7 +39,7 @@ export const styles = css`
         display: flex;
         flex-direction: row;
         border-radius: 0px;
-        border-bottom: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
+        border-bottom: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
         padding-bottom: 1px;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
@@ -51,13 +51,13 @@ export const styles = css`
     }
 
     .root:hover {
-        border-bottom: 2px solid ${borderColorHover};
+        border-bottom: 2px solid ${borderHoverColor};
         padding-bottom: 0px;
     }
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
-        border-bottom: ${borderWidth} solid ${bodyFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${bodyFontDisabledColor};
         padding-bottom: 1px;
     }
 
@@ -82,7 +82,7 @@ export const styles = css`
 
     .control::selection {
         color: ${controlLabelFontColor};
-        background: rgba(${fillColorSelectedRgbPartial}, 0.3);
+        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
     }
 
     .control::placeholder {
@@ -94,7 +94,7 @@ export const styles = css`
     }
 
     .control[disabled]::placeholder {
-        color: ${bodyFontColorDisabled};
+        color: ${bodyFontDisabledColor};
     }
 
     .label {

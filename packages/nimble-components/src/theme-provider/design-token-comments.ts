@@ -3,26 +3,26 @@ import type * as TokensNamespace from './design-tokens';
 type TokenName = keyof typeof TokensNamespace;
 
 export const comments: { readonly [key in TokenName]: string } = {
-    actionColorRgbPartial:
+    actionRgbPartialColor:
         '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
     applicationBackgroundColor: 'Primary background color for the application',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for dialogs and menus',
     fillColorSelected: 'Control fill color when a control is selected',
-    fillColorSelectedRgbPartial:
+    fillSelectedRgbPartialColor:
         '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
-    fillColorSelectedHover:
+    fillSelectedHoverColor:
         'Control fill color when hovering a selected control',
-    fillColorHover: 'Control fill color when hoving component',
+    fillHoverColor: 'Control fill color when hoving component',
     borderColor: 'Standard control outline or border color',
-    borderColorRgbPartial:
+    borderRgbPartialColor:
         '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
     failColor: 'Used to highlight errors or invalid input',
     warningColor:
         'Used to highlight invalid input or for icons to indicate that a process errored or failed',
     passColor:
         'Used to highlight a correct state or the successful completion of a process',
-    borderColorHover: 'Border color when hovering component',
+    borderHoverColor: 'Border color when hovering component',
     iconColor: 'Equivalent to the font color for icons',
     popupBoxShadowColor: 'Shadow color for menus and dialog boxes',
     popupBorderColor: 'Border color for menus and dialog boxes',
@@ -71,32 +71,32 @@ export const comments: { readonly [key in TokenName]: string } = {
     controlLabelFontColor: 'Font color for "Control_Label_1" base token',
     buttonLabelFontColor: 'Font color for "Button_Label_1" base token',
     tooltipCaptionFontColor: 'Font color for "Tooltip_Caption" base token',
-    headlineLargeFontColorDisabled:
+    headlineLargeFontDisabledColor:
         'Disabled font color for "Headline_2" base token',
-    headlineRegularFontColorDisabled:
+    headlineRegularFontDisabledColor:
         'Disabled font color for "Headline_1" base token',
-    titleXLargeFontColorDisabled:
+    titleXLargeFontDisabledColor:
         'Disabled font color for "Title_3" base token',
-    titleLargeFontColorDisabled: 'Disabled font color for "Title_2" base token',
-    titleRegularFontColorDisabled:
+    titleLargeFontDisabledColor: 'Disabled font color for "Title_2" base token',
+    titleRegularFontDisabledColor:
         'Disabled font color for "Title_1" base token',
-    subtitleLargeFontColorDisabled:
+    subtitleLargeFontDisabledColor:
         'Disabled font color for "Subtitle_2" base token',
-    subtitleRegularFontColorDisabled:
+    subtitleRegularFontDisabledColor:
         'Disabled font color for "Subtitle_1" base token',
-    linkStandardFontColorDisabled:
+    linkStandardFontDisabledColor:
         'Disabled font color for "Link_Standard_1" base token',
-    placeholderFontColorDisabled:
+    placeholderFontDisabledColor:
         'Disabled font color for "Placeholder" base token',
-    bodyEmphasizedFontColorDisabled:
+    bodyEmphasizedFontDisabledColor:
         'Disabled font color for "Body_Emphasized" base token',
-    bodyFontColorDisabled: 'Disabled font color for "Body" base token',
-    groupHeaderFontColorDisabled:
+    bodyFontDisabledColor: 'Disabled font color for "Body" base token',
+    groupHeaderFontDisabledColor:
         'Disabled font color for "Group_Header_1" base token',
-    controlLabelFontColorDisabled:
+    controlLabelFontDisabledColor:
         'Disabled font color for "Control_Label_1" base token',
-    buttonLabelFontColorDisabled:
+    buttonLabelFontDisabledColor:
         'Disabled font color for "Button_Label_1" base token',
-    tooltipCaptionFontColorDisabled:
+    tooltipCaptionFontDisabledColor:
         'Disabled font color for "Tooltip_Caption" base token'
 };

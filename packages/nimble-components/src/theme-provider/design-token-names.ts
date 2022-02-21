@@ -1,22 +1,33 @@
+/**
+ * This file specifies the public names for theme-aware tokens. Use the following structure when creating new tokens.
+ *
+ * [element]-[part]-[state]-[token_type]
+ *
+ * 1. Where [element] is the type to which the token applies (e.g. 'application' or 'body' or 'title').
+ * 2. Where [part] is the specific part of the element to which the token applies (e.g. 'border' or 'background' or shadow).
+ * 3. Where [state] is the more specific state descriptor (e.g. 'selected' or 'disabled').
+ * 4. Where [token_type] is the token category (e.g. 'color' or 'font' or 'size').
+ */
+
 import type * as TokensNamespace from './design-tokens';
 
 type TokenName = keyof typeof TokensNamespace;
 
 export const tokenNames: { readonly [key in TokenName]: string } = {
-    actionColorRgbPartial: 'action-color-rgb-partial',
+    actionRgbPartialColor: 'action-rgb-partial-color',
     applicationBackgroundColor: 'application-background-color',
     headerBackgroundColor: 'header-background-color',
     sectionBackgroundColor: 'section-background-color',
     fillColorSelected: 'fill-color-selected',
-    fillColorSelectedRgbPartial: 'fill-color-selected-rgb-partial',
-    fillColorSelectedHover: 'fill-color-selected-hover',
-    fillColorHover: 'fill-color-hover',
+    fillSelectedRgbPartialColor: 'fill-selected-rgb-partial-color',
+    fillSelectedHoverColor: 'fill-selected-hover-color',
+    fillHoverColor: 'fill-hover-color',
     borderColor: 'border-color',
-    borderColorRgbPartial: 'border-color-rgb-partial',
+    borderRgbPartialColor: 'border-rgb-partial-color',
     failColor: 'fail-color',
     warningColor: 'warning-color',
     passColor: 'pass-color',
-    borderColorHover: 'border-color-hover',
+    borderHoverColor: 'border-hover-color',
     iconColor: 'icon-color',
     popupBoxShadowColor: 'popup-box-shadow-color',
     popupBorderColor: 'popup-border-color',
@@ -61,21 +72,21 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     controlLabelFontColor: 'control-label-font-color',
     buttonLabelFontColor: 'button-label-font-color',
     tooltipCaptionFontColor: 'tooltip-caption-font-color',
-    headlineLargeFontColorDisabled: 'headline-large-font-color-disabled',
-    headlineRegularFontColorDisabled: 'headline-regular-color-disabled',
-    titleXLargeFontColorDisabled: 'title-xlarge-color-disabled',
-    titleLargeFontColorDisabled: 'title-large-color-disabled',
-    titleRegularFontColorDisabled: 'title-regular-color-disabled',
-    subtitleLargeFontColorDisabled: 'subtitle-large-color-disabled',
-    subtitleRegularFontColorDisabled: 'subtitle-regular-color-disabled',
-    linkStandardFontColorDisabled: 'link-standard-font-color-disabled',
-    placeholderFontColorDisabled: 'placeholder-font-color-disabled',
-    bodyEmphasizedFontColorDisabled: 'body-emphasized-font-color-disabled',
-    bodyFontColorDisabled: 'body-font-color-disabled',
-    groupHeaderFontColorDisabled: 'group-header-font-color-disabled',
-    controlLabelFontColorDisabled: 'control-label-font-color-disabled',
-    buttonLabelFontColorDisabled: 'button-label-font-color-disabled',
-    tooltipCaptionFontColorDisabled: 'tooltip-caption-font-color-disabled'
+    headlineLargeFontDisabledColor: 'headline-large-font-disabled-color',
+    headlineRegularFontDisabledColor: 'headline-regular-disabled-color',
+    titleXLargeFontDisabledColor: 'title-xlarge-disabled-color',
+    titleLargeFontDisabledColor: 'title-large-disabled-color',
+    titleRegularFontDisabledColor: 'title-regular-disabled-color',
+    subtitleLargeFontDisabledColor: 'subtitle-large-disabled-color',
+    subtitleRegularFontDisabledColor: 'subtitle-regular-disabled-color',
+    linkStandardFontDisabledColor: 'link-standard-font-disabled-color',
+    placeholderFontDisabledColor: 'placeholder-font-disabled-color',
+    bodyEmphasizedFontDisabledColor: 'body-emphasized-font-disabled-color',
+    bodyFontDisabledColor: 'body-font-disabled-color',
+    groupHeaderFontDisabledColor: 'group-header-font-disabled-color',
+    controlLabelFontDisabledColor: 'control-label-font-disabled-color',
+    buttonLabelFontDisabledColor: 'button-label-font-disabled-color',
+    tooltipCaptionFontDisabledColor: 'tooltip-caption-font-disabled-color'
 };
 
 const prefix = 'ni-nimble';

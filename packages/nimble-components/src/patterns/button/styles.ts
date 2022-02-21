@@ -2,13 +2,13 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../../utilities/style/focus';
 import {
-    actionColorRgbPartial,
-    borderColorHover,
-    borderColorRgbPartial,
+    actionRgbPartialColor,
+    borderHoverColor,
+    borderRgbPartialColor,
     borderWidth,
     buttonLabelFont,
     buttonLabelFontColor,
-    buttonLabelFontColorDisabled,
+    buttonLabelFontDisabledColor,
     controlHeight,
     fillColorSelected,
     iconColor,
@@ -41,7 +41,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${buttonLabelFontColorDisabled};
+        color: ${buttonLabelFontDisabledColor};
         cursor: default;
     }
 
@@ -79,13 +79,13 @@ export const styles = css`
     }
 
     .control:hover {
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
         outline: none;
     }
 
     .control${focusVisible} {
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
-        outline: ${borderWidth} solid ${borderColorHover};
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -4px;
     }
 
@@ -130,17 +130,17 @@ export const styles = css`
             css`
                 .control {
                     background-color: transparent;
-                    border-color: rgba(${actionColorRgbPartial}, 0.3);
+                    border-color: rgba(${actionRgbPartialColor}, 0.3);
                 }
 
                 .control:hover {
                     background-color: transparent;
-                    border-color: ${borderColorHover};
+                    border-color: ${borderHoverColor};
                 }
 
                 .control${focusVisible} {
                     background-color: transparent;
-                    border-color: ${borderColorHover};
+                    border-color: ${borderHoverColor};
                 }
 
                 .control:active {
@@ -150,7 +150,7 @@ export const styles = css`
 
                 .control[disabled] {
                     background-color: transparent;
-                    border-color: rgba(${borderColorRgbPartial}, 0.2);
+                    border-color: rgba(${borderRgbPartialColor}, 0.2);
                 }
             `
         ),
@@ -164,12 +164,12 @@ export const styles = css`
 
                 .control:hover {
                     background-color: transparent;
-                    border-color: ${borderColorHover};
+                    border-color: ${borderHoverColor};
                 }
 
                 .control${focusVisible} {
                     background-color: transparent;
-                    border-color: ${borderColorHover};
+                    border-color: ${borderHoverColor};
                 }
 
                 .control:active {
@@ -187,18 +187,18 @@ export const styles = css`
             ButtonAppearance.Block,
             css`
                 .control {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
+                    background-color: rgba(${borderRgbPartialColor}, 0.1);
                     border-color: transparent;
                 }
 
                 .control:hover {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
-                    border-color: ${borderColorHover};
+                    background-color: rgba(${borderRgbPartialColor}, 0.1);
+                    border-color: ${borderHoverColor};
                 }
 
                 .control${focusVisible} {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
-                    border-color: ${borderColorHover};
+                    background-color: rgba(${borderRgbPartialColor}, 0.1);
+                    border-color: ${borderHoverColor};
                 }
 
                 .control:active {
@@ -207,7 +207,7 @@ export const styles = css`
                 }
 
                 .control[disabled] {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
+                    background-color: rgba(${borderRgbPartialColor}, 0.1);
                     border-color: transparent;
                 }
             `

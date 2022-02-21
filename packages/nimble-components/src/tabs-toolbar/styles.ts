@@ -3,7 +3,7 @@ import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
     bodyFontColor,
-    borderColorRgbPartial,
+    borderRgbPartialColor,
     borderWidth,
     controlHeight,
     standardPadding
@@ -24,7 +24,7 @@ export const styles = css`
         display: inline-block;
         height: 24px;
         border-left: calc(${borderWidth} * 2) solid
-            rgba(${borderColorRgbPartial}, 0.3);
+            rgba(${borderRgbPartialColor}, 0.3);
         margin: calc(${standardPadding} / 4) calc(${standardPadding} / 2);
     }
 `;

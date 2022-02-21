@@ -5,12 +5,12 @@ import { focusVisible } from '../utilities/style/focus';
 import {
     controlHeight,
     fillColorSelected,
-    fillColorHover,
+    fillHoverColor,
     bodyFontColor,
-    borderColorHover,
+    borderHoverColor,
     iconSize,
     bodyFont,
-    bodyFontColorDisabled
+    bodyFontDisabledColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -35,17 +35,17 @@ export const styles = css`
         font: ${bodyFont};
     }
     :host(${focusVisible}) {
-        outline: 2px solid ${borderColorHover};
+        outline: 2px solid ${borderHoverColor};
         outline-offset: -2px;
     }
     :host(:hover) {
-        background: ${fillColorHover};
+        background: ${fillHoverColor};
     }
     :host(:active) {
         background: ${fillColorSelected};
     }
     :host([disabled]) {
-        color: ${bodyFontColorDisabled};
+        color: ${bodyFontDisabledColor};
         fill: currentcolor;
         cursor: default;
     }

@@ -2,14 +2,14 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 
 import {
-    borderColorRgbPartial,
-    borderColorHover,
+    borderRgbPartialColor,
+    borderHoverColor,
     borderWidth,
     bodyFontColor,
-    bodyFontColorDisabled,
+    bodyFontDisabledColor,
     controlHeight,
     failColor,
-    fillColorSelectedRgbPartial,
+    fillSelectedRgbPartialColor,
     iconSize,
     labelHeight,
     smallDelay,
@@ -17,7 +17,7 @@ import {
     bodyFont,
     controlLabelFontColor,
     standardPadding,
-    controlLabelFontColorDisabled
+    controlLabelFontDisabledColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -36,7 +36,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${bodyFontColorDisabled};
+        color: ${bodyFontDisabledColor};
     }
 
     .root {
@@ -49,7 +49,7 @@ export const styles = css`
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: flex-end;
         --ni-private-hover-bottom-border-width: 2px;
-        border: 0px solid rgba(${borderColorRgbPartial}, 0.3);
+        border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         border-bottom-width: var(--ni-private-bottom-border-width);
         padding-bottom: calc(
             var(--ni-private-hover-bottom-border-width) -
@@ -68,21 +68,21 @@ export const styles = css`
     }
 
     :host([readonly]:not([disabled])) .root {
-        border: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.1);
+        border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
         padding: 0px;
         padding-bottom: 1px;
         background-color: transparent;
     }
 
     :host([disabled]) .root {
-        border-color: rgba(${borderColorRgbPartial}, 0.1);
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
     .root:hover {
         --ni-private-bottom-border-width: var(
             --ni-private-hover-bottom-border-width
         );
-        border-bottom-color: ${borderColorHover};
+        border-bottom-color: ${borderHoverColor};
     }
 
     :host([disabled]) .root:hover {
@@ -90,7 +90,7 @@ export const styles = css`
     }
 
     .root:focus-within {
-        border-bottom-color: ${borderColorHover};
+        border-bottom-color: ${borderHoverColor};
     }
 
     .control {
@@ -121,7 +121,7 @@ export const styles = css`
 
     .control::selection {
         color: ${controlLabelFontColor};
-        background: rgba(${fillColorSelectedRgbPartial}, 0.3);
+        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
     }
 
     .control::placeholder {
@@ -133,7 +133,7 @@ export const styles = css`
     }
 
     .control[disabled]::placeholder {
-        color: ${bodyFontColorDisabled};
+        color: ${bodyFontDisabledColor};
     }
 
     .label {
@@ -143,7 +143,7 @@ export const styles = css`
     }
 
     :host([disabled]) .label {
-        color: ${controlLabelFontColorDisabled};
+        color: ${controlLabelFontDisabledColor};
     }
 
     :host [part='end'] {
@@ -167,7 +167,7 @@ export const styles = css`
     }
 
     :host([disabled]) [part='end'] path {
-        fill: ${bodyFontColorDisabled};
+        fill: ${bodyFontDisabledColor};
     }
 `.withBehaviors(
         appearanceBehavior(
@@ -185,7 +185,7 @@ export const styles = css`
             TextFieldAppearance.Block,
             css`
             .root {
-                background-color: rgba(${borderColorRgbPartial}, 0.1);
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
                 --ni-private-bottom-border-width: 0px;
                 padding-top: ${borderWidth};
                 padding-left: ${borderWidth};
@@ -213,7 +213,7 @@ export const styles = css`
             }
 
             :host([disabled]) .root {
-                background-color: rgba(${borderColorRgbPartial}, 0.07);
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
 
             :host([disabled]) .root:hover {

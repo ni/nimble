@@ -3,12 +3,12 @@ import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
-    borderColorHover,
+    borderHoverColor,
     fillColorSelected,
-    fillColorSelectedHover,
-    fillColorHover,
+    fillSelectedHoverColor,
+    fillHoverColor,
     bodyFont,
-    bodyFontColorDisabled
+    bodyFontDisabledColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -31,11 +31,11 @@ export const styles = css`
     }
 
     :host(:hover.selected) {
-        background-color: ${fillColorSelectedHover};
+        background-color: ${fillSelectedHoverColor};
     }
 
     :host(:hover) {
-        background-color: ${fillColorHover};
+        background-color: ${fillHoverColor};
     }
 
     :host(:hover):host([disabled]) {
@@ -44,8 +44,8 @@ export const styles = css`
     }
 
     :host(:${focusVisible}) {
-        box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
-        outline: 1px solid ${borderColorHover};
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
+        outline: 1px solid ${borderHoverColor};
         outline-offset: -4px;
     }
 
@@ -56,7 +56,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${bodyFontColorDisabled};
+        color: ${bodyFontDisabledColor};
         cursor: default;
     }
 

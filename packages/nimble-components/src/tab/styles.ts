@@ -2,12 +2,12 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
-    borderColorHover,
+    borderHoverColor,
     borderWidth,
     bodyFontColor,
-    bodyFontColorDisabled,
+    bodyFontDisabledColor,
     controlHeight,
-    fillColorHover,
+    fillHoverColor,
     mediumDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -31,7 +31,7 @@ export const styles = css`
     }
 
     :host(:hover) {
-        background-color: ${fillColorHover};
+        background-color: ${fillHoverColor};
     }
 
     :host(:focus) {
@@ -40,7 +40,7 @@ export const styles = css`
 
     :host(${focusVisible}) {
         outline: none;
-        box-shadow: 0 calc(${borderWidth} * -1) ${borderColorHover} inset;
+        box-shadow: 0 calc(${borderWidth} * -1) ${borderHoverColor} inset;
         transition: box-shadow ${mediumDelay} ease-in-out;
     }
 
@@ -56,7 +56,7 @@ export const styles = css`
 
     :host([disabled]) {
         cursor: default;
-        color: ${bodyFontColorDisabled};
+        color: ${bodyFontDisabledColor};
         background: none;
     }
 `;

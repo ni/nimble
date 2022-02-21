@@ -8,10 +8,10 @@ import {
 import { focusVisible } from '../utilities/style/focus';
 import {
     bodyFontColor,
-    borderColorHover,
+    borderHoverColor,
     fillColorSelected,
-    fillColorHover,
-    fillColorSelectedHover,
+    fillHoverColor,
+    fillSelectedHoverColor,
     borderWidth,
     iconSize,
     bodyFont
@@ -36,7 +36,7 @@ export const styles: (
 
         ${/* this controls the side border */ ''}
         :host([${groupSelectedAttribute}])::after {
-            background: ${borderColorHover};
+            background: ${borderHoverColor};
             border-radius: 0px;
             content: '';
             display: block;
@@ -54,12 +54,12 @@ export const styles: (
         }
 
         .positioning-region:hover {
-            background: ${fillColorHover};
+            background: ${fillHoverColor};
         }
 
         :host(${focusVisible}) .positioning-region {
-            box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
-            outline: ${borderWidth} solid ${borderColorHover};
+            box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+            outline: ${borderWidth} solid ${borderHoverColor};
             outline-offset: -2px;
         }
 
@@ -68,7 +68,7 @@ export const styles: (
         }
 
         :host([selected]) .positioning-region:hover {
-            background: ${fillColorSelectedHover};
+            background: ${fillSelectedHoverColor};
         }
 
         .positioning-region::before {
