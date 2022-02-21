@@ -1,4 +1,4 @@
-import { statusSkipped16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { skipArrow16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class SkippedIcon extends Icon {
     public constructor() {
-        super(statusSkipped16X16);
+        super(skipArrow16X16);
     }
 }
 

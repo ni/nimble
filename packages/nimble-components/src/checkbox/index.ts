@@ -4,7 +4,7 @@ import {
     CheckboxOptions,
     checkboxTemplate as template
 } from '@microsoft/fast-foundation';
-import { controlsCheckboxCheck16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { check16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
 export type { Checkbox };
@@ -26,7 +26,7 @@ const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
     // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
-    checkedIndicator: controlsCheckboxCheck16X16.data
+    checkedIndicator: check16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCheckbox());

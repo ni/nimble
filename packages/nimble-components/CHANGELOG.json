@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 21 Feb 2022 15:34:13 GMT",
+      "tag": "@ni/nimble-components_v2.1.2",
+      "version": "2.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "16eb83f6b382a7fb49c46f5768bb58c8db1d1682",
+            "comment": "Updating with [renamed](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) icons from nimble-tokens"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v2.0.0",
+            "commit": "16eb83f6b382a7fb49c46f5768bb58c8db1d1682"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 19 Feb 2022 00:06:17 GMT",
       "tag": "@ni/nimble-components_v2.1.1",
       "version": "2.1.1",
