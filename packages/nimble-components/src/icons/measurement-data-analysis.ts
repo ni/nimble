@@ -1,4 +1,4 @@
-import { measurementDataAnalysis16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { database16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class MeasurementDataAnalysisIcon extends Icon {
     public constructor() {
-        super(measurementDataAnalysis16X16);
+        super(database16X16);
     }
 }
 

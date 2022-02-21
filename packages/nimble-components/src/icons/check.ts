@@ -1,4 +1,4 @@
-import { controlsCheckboxCheck16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { check16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class CheckIcon extends Icon {
     public constructor() {
-        super(controlsCheckboxCheck16X16);
+        super(check16X16);
     }
 }
 

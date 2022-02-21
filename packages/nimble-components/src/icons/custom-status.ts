@@ -1,4 +1,4 @@
-import { statusCustom16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { wrenchHammer16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class CustomStatusIcon extends Icon {
     public constructor() {
-        super(statusCustom16X16);
+        super(wrenchHammer16X16);
     }
 }
 
