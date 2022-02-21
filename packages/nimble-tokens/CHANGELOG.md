@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 07 Feb 2022 18:48:57 GMT and should not be manually modified.
+This log was last generated on Sat, 19 Feb 2022 00:06:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.0
+
+Sat, 19 Feb 2022 00:06:17 GMT
+
+### Minor changes
+
+- Update nimble-tokens from XD doc (7282195+m-akinc@users.noreply.github.com)
 
 ## 1.0.0
 

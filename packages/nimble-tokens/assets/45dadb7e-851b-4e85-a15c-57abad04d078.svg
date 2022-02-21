@@ -20,7 +20,7 @@
         <circle cx="8" cy="8" r="7.5" fill="none"/>
       </g>
       <circle id="Selected" cx="4" cy="4" r="4" transform="translate(4 19)" fill="#161617" opacity="0"/>
-      <g id="Rollover" transform="translate(0 15)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
+      <g id="Rollover" transform="translate(0 15)" fill="none" stroke="#009b65" stroke-width="1" opacity="0">
         <circle cx="8" cy="8" r="8" stroke="none"/>
         <circle cx="8" cy="8" r="7.5" fill="none"/>
       </g>

@@ -1,8 +1,7 @@
 <svg id="Button_Text_PrimaryOutline_32" xmlns="http://www.w3.org/2000/svg" width="93" height="32" viewBox="0 0 93 32">
   <g id="Background" transform="translate(-323.853 -323.5)">
     <rect id="Fill_1" data-name="Fill 1" width="93" height="32" transform="translate(323.853 323.5)" fill="#161617" opacity="0.003"/>
-    <rect id="Fill_2" data-name="Fill 2" width="93" height="2" transform="translate(323.853 352.5)" fill="#161617" opacity="0"/>
-    <g id="Stroke" transform="translate(323.853 323.5)" fill="none" stroke="#161617" stroke-width="2" opacity="0.5">
+    <g id="Stroke" transform="translate(323.853 323.5)" fill="none" stroke="#161617" stroke-width="2" opacity="0.3">
       <rect width="93" height="32" stroke="none"/>
       <rect x="1" y="1" width="91" height="30" fill="none"/>
     </g>

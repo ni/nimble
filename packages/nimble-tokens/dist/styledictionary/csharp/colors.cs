@@ -2,7 +2,7 @@
 
 /**
     Do not edit directly
-    Generated on Thu, 13 Jan 2022 15:57:37 GMT
+    Generated on Thu, 17 Feb 2022 18:31:09 GMT
 **/
 
 using System.Windows.Media;
@@ -30,7 +30,7 @@ public static class NimbleColorTokens {
     public static readonly Color black95Color = Color.FromRgb(14, 15, 15);
     public static readonly Color black91Color = Color.FromRgb(22, 22, 23);
     public static readonly Color enterpriseColor = Color.FromRgb(7, 64, 35);
-    public static readonly Color selection100Color = Color.FromRgb(0, 184, 136);
+    public static readonly Color selection100Color = Color.FromRgb(0, 155, 101);
     public static readonly Color brand85Color = Color.FromRgb(38, 169, 124);
     public static readonly Color brand100Color = Color.FromRgb(0, 155, 101);
     public static readonly Color fail85Color = Color.FromRgb(207, 26, 55);

@@ -18,19 +18,19 @@
       },
       "tokens": [
         {
-          "id": "1c93fbcb-d77a-4faa-b1a9-7cc72372859a",
+          "id": "1d2101d0-ba81-4d05-bce6-e308733f2667",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "1c93fbcb-d77a-4faa-b1a9-7cc72372859a",
+          "id": "1d2101d0-ba81-4d05-bce6-e308733f2667",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "1c93fbcb-d77a-4faa-b1a9-7cc72372859a",
+          "id": "1d2101d0-ba81-4d05-bce6-e308733f2667",
           "type": "size",
           "value": "22",
           "key": "size"
@@ -52,19 +52,19 @@
       },
       "tokens": [
         {
-          "id": "858fdb01-0227-498b-ac14-c46ea8d55aed",
+          "id": "111437c2-b3b8-48d8-9f1d-fb962586e16f",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "858fdb01-0227-498b-ac14-c46ea8d55aed",
+          "id": "111437c2-b3b8-48d8-9f1d-fb962586e16f",
           "type": "custom",
           "value": "Semibold",
           "key": "weight"
         },
         {
-          "id": "858fdb01-0227-498b-ac14-c46ea8d55aed",
+          "id": "111437c2-b3b8-48d8-9f1d-fb962586e16f",
           "type": "size",
           "value": "11",
           "key": "size"
@@ -86,19 +86,19 @@
       },
       "tokens": [
         {
-          "id": "f0cafe01-bfe6-444f-86ea-48eaa724448e",
+          "id": "678ebf27-1cb0-415b-b2ae-8e3221f959c7",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "f0cafe01-bfe6-444f-86ea-48eaa724448e",
+          "id": "678ebf27-1cb0-415b-b2ae-8e3221f959c7",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "f0cafe01-bfe6-444f-86ea-48eaa724448e",
+          "id": "678ebf27-1cb0-415b-b2ae-8e3221f959c7",
           "type": "size",
           "value": "14",
           "key": "size"
@@ -222,19 +222,19 @@
       },
       "tokens": [
         {
-          "id": "a185f15d-3597-45f3-b7e5-2a946ac326cb",
+          "id": "cf618c83-07b1-4ef1-8636-914309c73a54",
           "type": "custom",
           "value": "Space Mono",
           "key": "family"
         },
         {
-          "id": "a185f15d-3597-45f3-b7e5-2a946ac326cb",
+          "id": "cf618c83-07b1-4ef1-8636-914309c73a54",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "a185f15d-3597-45f3-b7e5-2a946ac326cb",
+          "id": "cf618c83-07b1-4ef1-8636-914309c73a54",
           "type": "size",
           "value": "11",
           "key": "size"
@@ -256,19 +256,19 @@
       },
       "tokens": [
         {
-          "id": "b47438d1-337a-48a1-98fe-a0980cad3c6b",
+          "id": "2b42e719-8584-4fae-91ec-6cd50a231fbb",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "b47438d1-337a-48a1-98fe-a0980cad3c6b",
+          "id": "2b42e719-8584-4fae-91ec-6cd50a231fbb",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "b47438d1-337a-48a1-98fe-a0980cad3c6b",
+          "id": "2b42e719-8584-4fae-91ec-6cd50a231fbb",
           "type": "size",
           "value": "12.800000190734863",
           "key": "size"
@@ -290,19 +290,19 @@
       },
       "tokens": [
         {
-          "id": "73f50e28-3efa-4277-af0c-c420c91f7458",
+          "id": "bdc0696d-907d-40d6-905c-9c16bd6a12a1",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "73f50e28-3efa-4277-af0c-c420c91f7458",
+          "id": "bdc0696d-907d-40d6-905c-9c16bd6a12a1",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "73f50e28-3efa-4277-af0c-c420c91f7458",
+          "id": "bdc0696d-907d-40d6-905c-9c16bd6a12a1",
           "type": "size",
           "value": "19",
           "key": "size"
@@ -324,19 +324,19 @@
       },
       "tokens": [
         {
-          "id": "4e2d34b5-f6d2-4f8f-ad60-351683a9772e",
+          "id": "34cddb3c-5b2f-4303-bfed-aff682b21601",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "4e2d34b5-f6d2-4f8f-ad60-351683a9772e",
+          "id": "34cddb3c-5b2f-4303-bfed-aff682b21601",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "4e2d34b5-f6d2-4f8f-ad60-351683a9772e",
+          "id": "34cddb3c-5b2f-4303-bfed-aff682b21601",
           "type": "size",
           "value": "14",
           "key": "size"
@@ -358,19 +358,19 @@
       },
       "tokens": [
         {
-          "id": "35af0393-0ee9-4627-9229-7ea231f4e1a6",
+          "id": "bc489cb0-2713-4c0e-baf1-1926424461e8",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "35af0393-0ee9-4627-9229-7ea231f4e1a6",
+          "id": "bc489cb0-2713-4c0e-baf1-1926424461e8",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "35af0393-0ee9-4627-9229-7ea231f4e1a6",
+          "id": "bc489cb0-2713-4c0e-baf1-1926424461e8",
           "type": "size",
           "value": "14",
           "key": "size"
@@ -392,19 +392,19 @@
       },
       "tokens": [
         {
-          "id": "971b3706-866d-43e8-af26-91bd5e4cb30e",
+          "id": "562d6ce9-0fa1-4970-b698-d3e07bbda0c7",
           "type": "custom",
           "value": "Noto Serif",
           "key": "family"
         },
         {
-          "id": "971b3706-866d-43e8-af26-91bd5e4cb30e",
+          "id": "562d6ce9-0fa1-4970-b698-d3e07bbda0c7",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "971b3706-866d-43e8-af26-91bd5e4cb30e",
+          "id": "562d6ce9-0fa1-4970-b698-d3e07bbda0c7",
           "type": "size",
           "value": "29.100000381469727",
           "key": "size"
@@ -426,19 +426,19 @@
       },
       "tokens": [
         {
-          "id": "22d3c9f9-3a5f-46bf-adff-595575ce19c9",
+          "id": "db48353a-6b7f-400e-ba64-eac706505368",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "22d3c9f9-3a5f-46bf-adff-595575ce19c9",
+          "id": "db48353a-6b7f-400e-ba64-eac706505368",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "22d3c9f9-3a5f-46bf-adff-595575ce19c9",
+          "id": "db48353a-6b7f-400e-ba64-eac706505368",
           "type": "size",
           "value": "14",
           "key": "size"
@@ -460,19 +460,19 @@
       },
       "tokens": [
         {
-          "id": "84361d8b-c87f-49e2-9539-1cfcc9d02541",
+          "id": "47654608-b476-4741-8ad6-25ba92a8258a",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "84361d8b-c87f-49e2-9539-1cfcc9d02541",
+          "id": "47654608-b476-4741-8ad6-25ba92a8258a",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "84361d8b-c87f-49e2-9539-1cfcc9d02541",
+          "id": "47654608-b476-4741-8ad6-25ba92a8258a",
           "type": "size",
           "value": "11",
           "key": "size"
@@ -494,19 +494,19 @@
       },
       "tokens": [
         {
-          "id": "b4603cda-5cec-4d51-becf-65a7de2ee360",
+          "id": "de2d88cc-94cb-4513-b08a-1b5f99a952ec",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "b4603cda-5cec-4d51-becf-65a7de2ee360",
+          "id": "de2d88cc-94cb-4513-b08a-1b5f99a952ec",
           "type": "custom",
           "value": "Semibold",
           "key": "weight"
         },
         {
-          "id": "b4603cda-5cec-4d51-becf-65a7de2ee360",
+          "id": "de2d88cc-94cb-4513-b08a-1b5f99a952ec",
           "type": "size",
           "value": "14",
           "key": "size"
@@ -528,19 +528,19 @@
       },
       "tokens": [
         {
-          "id": "078b8bc1-37e1-4a93-aaa1-983be71c609e",
+          "id": "09516274-3d07-4068-8490-f85f8af558d3",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "078b8bc1-37e1-4a93-aaa1-983be71c609e",
+          "id": "09516274-3d07-4068-8490-f85f8af558d3",
           "type": "custom",
           "value": "Light",
           "key": "weight"
         },
         {
-          "id": "078b8bc1-37e1-4a93-aaa1-983be71c609e",
+          "id": "09516274-3d07-4068-8490-f85f8af558d3",
           "type": "size",
           "value": "12.800000190734863",
           "key": "size"
@@ -562,19 +562,19 @@
       },
       "tokens": [
         {
-          "id": "cba007fb-ee73-4e1b-9fad-53966e313af9",
+          "id": "8ebdf428-da7c-4f94-b87d-aafa1671f6ff",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "cba007fb-ee73-4e1b-9fad-53966e313af9",
+          "id": "8ebdf428-da7c-4f94-b87d-aafa1671f6ff",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "cba007fb-ee73-4e1b-9fad-53966e313af9",
+          "id": "8ebdf428-da7c-4f94-b87d-aafa1671f6ff",
           "type": "size",
           "value": "25",
           "key": "size"
@@ -596,19 +596,19 @@
       },
       "tokens": [
         {
-          "id": "a3495f16-0183-467b-8a10-5f4c668126a4",
+          "id": "6f2c48a4-53f2-40f5-9352-8f518a03868b",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "a3495f16-0183-467b-8a10-5f4c668126a4",
+          "id": "6f2c48a4-53f2-40f5-9352-8f518a03868b",
           "type": "custom",
           "value": "Light",
           "key": "weight"
         },
         {
-          "id": "a3495f16-0183-467b-8a10-5f4c668126a4",
+          "id": "6f2c48a4-53f2-40f5-9352-8f518a03868b",
           "type": "size",
           "value": "16",
           "key": "size"
@@ -630,19 +630,19 @@
       },
       "tokens": [
         {
-          "id": "96322034-8255-42ea-98cc-e9736bc1f7e5",
+          "id": "3fa49aa6-ff70-4400-b24a-80d1b9f4c458",
           "type": "custom",
           "value": "Source Sans Pro",
           "key": "family"
         },
         {
-          "id": "96322034-8255-42ea-98cc-e9736bc1f7e5",
+          "id": "3fa49aa6-ff70-4400-b24a-80d1b9f4c458",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "96322034-8255-42ea-98cc-e9736bc1f7e5",
+          "id": "3fa49aa6-ff70-4400-b24a-80d1b9f4c458",
           "type": "size",
           "value": "14",
           "key": "size"
@@ -664,19 +664,19 @@
       },
       "tokens": [
         {
-          "id": "86a4b4b2-b89b-493c-be41-e4755f767e4e",
+          "id": "f021ce60-b118-40e1-978c-0cea9a59c86e",
           "type": "custom",
           "value": "Noto Serif",
           "key": "family"
         },
         {
-          "id": "86a4b4b2-b89b-493c-be41-e4755f767e4e",
+          "id": "f021ce60-b118-40e1-978c-0cea9a59c86e",
           "type": "custom",
           "value": "Regular",
           "key": "weight"
         },
         {
-          "id": "86a4b4b2-b89b-493c-be41-e4755f767e4e",
+          "id": "f021ce60-b118-40e1-978c-0cea9a59c86e",
           "type": "size",
           "value": "25",
           "key": "size"
@@ -711,6 +711,244 @@
           "type": "custom",
           "value": "'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif",
           "key": "family"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "8e01de43-9d42-4e7b-9e8b-c84746ce474f",
+      "name": "ControlLabel_1_Chinese_Mac",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "a94e8aba-f311-4f24-bca8-dd80eecaccd3",
+        "last_sync": "2022-02-17T17:31:46.981Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "f76fc590-48e9-4c87-9b62-5c9f455a30f7",
+          "type": "custom",
+          "value": "Noto Sans",
+          "key": "family"
+        },
+        {
+          "id": "f76fc590-48e9-4c87-9b62-5c9f455a30f7",
+          "type": "custom",
+          "value": "Bold",
+          "key": "weight"
+        },
+        {
+          "id": "f76fc590-48e9-4c87-9b62-5c9f455a30f7",
+          "type": "size",
+          "value": "11",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "7e75343d-617c-49ec-8012-edfed88a290b",
+      "name": "ButtonLabel_1_Chinese_Mac",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "2e61e6d7-a7f0-4e2d-9624-68b1259c3a8e",
+        "last_sync": "2022-02-17T17:31:46.981Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "f5d28a17-69f6-4daa-9326-c8794bf76f46",
+          "type": "custom",
+          "value": "Noto Sans",
+          "key": "family"
+        },
+        {
+          "id": "f5d28a17-69f6-4daa-9326-c8794bf76f46",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "f5d28a17-69f6-4daa-9326-c8794bf76f46",
+          "type": "size",
+          "value": "11",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "2f10bb29-e4ca-4b9d-b5f0-e8852c532f83",
+      "name": "Body_Chinese_Mac",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "7d6be8b5-99bc-46d6-9acb-878ebef0d807",
+        "last_sync": "2022-02-17T17:31:46.981Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "0eaf5197-a2d5-43d5-b694-e19f2c3849fd",
+          "type": "custom",
+          "value": "Noto Sans",
+          "key": "family"
+        },
+        {
+          "id": "0eaf5197-a2d5-43d5-b694-e19f2c3849fd",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "0eaf5197-a2d5-43d5-b694-e19f2c3849fd",
+          "type": "size",
+          "value": "13",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "3850253f-2169-4b7a-a7b2-3d7dc78c2997",
+      "name": "Error_ColorUI",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "69109ce0-4e8b-476d-8e49-f14a7641bf9c",
+        "last_sync": "2022-02-17T18:28:26.325Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "3850253f-2169-4b7a-a7b2-3d7dc78c2997",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "3850253f-2169-4b7a-a7b2-3d7dc78c2997",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "3850253f-2169-4b7a-a7b2-3d7dc78c2997",
+          "type": "size",
+          "value": "9",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "cc3ab84d-2308-45b6-8de4-6fa86f0f52e3",
+      "name": "Link_Visited_LightUI",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "9f15b13d-cb4b-46ae-aca0-f7a5bcbb8ad5",
+        "last_sync": "2022-02-17T18:28:26.325Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "cc3ab84d-2308-45b6-8de4-6fa86f0f52e3",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "cc3ab84d-2308-45b6-8de4-6fa86f0f52e3",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "cc3ab84d-2308-45b6-8de4-6fa86f0f52e3",
+          "type": "size",
+          "value": "14",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "a0e02347-1124-4c8f-b5df-6111de871bac",
+      "name": "Error_LightUI",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "93758104-6111-4266-a6d2-a1716890b723",
+        "last_sync": "2022-02-17T18:28:26.325Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "a0e02347-1124-4c8f-b5df-6111de871bac",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "a0e02347-1124-4c8f-b5df-6111de871bac",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "a0e02347-1124-4c8f-b5df-6111de871bac",
+          "type": "size",
+          "value": "9",
+          "key": "size"
+        }
+      ]
+    },
+    {
+      "class": "collection",
+      "type": "font",
+      "id": "a749c62c-03ca-4b07-80cd-8418de8f7fac",
+      "name": "Error_DarkUI",
+      "tags": [],
+      "related_entity_ids": [],
+      "ext-com_adobe-cclib": {
+        "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
+        "id": "55a52aa5-7652-4917-b24c-24ebb93699a0",
+        "last_sync": "2022-02-17T18:28:26.325Z",
+        "sync": true
+      },
+      "tokens": [
+        {
+          "id": "a749c62c-03ca-4b07-80cd-8418de8f7fac",
+          "type": "custom",
+          "value": "Source Sans Pro",
+          "key": "family"
+        },
+        {
+          "id": "a749c62c-03ca-4b07-80cd-8418de8f7fac",
+          "type": "custom",
+          "value": "Regular",
+          "key": "weight"
+        },
+        {
+          "id": "a749c62c-03ca-4b07-80cd-8418de8f7fac",
+          "type": "size",
+          "value": "9",
+          "key": "size"
         }
       ]
     }
