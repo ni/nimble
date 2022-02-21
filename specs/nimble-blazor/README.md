@@ -65,5 +65,4 @@ Regarding the publishing of the nuget, there are a few other approaches that I t
 
 ## Open Issues
 
-*Describe any open issues with the design that you need feedback on before proceeding.*
-*It is expected that these issues will be resolved during the review process and this section will be removed when this documented in pulled into source.*
+See questions raised above.
