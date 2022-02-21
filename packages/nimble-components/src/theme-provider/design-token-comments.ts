@@ -42,12 +42,12 @@ export const comments: { readonly [key in TokenName]: string } = {
     largeDelay:
         'Animated elements that traverse a large portion of the screen have the longest durations.',
     headlineLargeFont: 'Font shorthand for the "Headline_2" base token',
-    headlineRegularFont: 'Font shorthand for the "Headline_1" base token',
-    titleXLargeFont: 'Font shorthand for the "Title_3" base token',
+    headlineFont: 'Font shorthand for the "Headline_1" base token',
+    titleExtraLargeFont: 'Font shorthand for the "Title_3" base token',
     titleLargeFont: 'Font shorthand for the "Title_2" base token',
-    titleRegularFont: 'Font shorthand for the "Title_1" base token',
+    titleFont: 'Font shorthand for the "Title_1" base token',
     subtitleLargeFont: 'Font shorthand for the "Subtitle_2" base token',
-    subtitleRegularFont: 'Font shorthand for the "Subtitle_1" base token',
+    subtitleFont: 'Font shorthand for the "Subtitle_1" base token',
     linkStandardFont: 'Font shorthand for the "Link_standard_1" base token',
     placeholderFont: 'Font shorthand for the "Placeholder" base token',
     bodyEmphasizedFont: 'Font shorthand for the "Body_Emphasized" base token',
@@ -57,12 +57,12 @@ export const comments: { readonly [key in TokenName]: string } = {
     buttonLabelFont: 'Font shorthand for the "Button_Label_1" base token',
     tooltipCaptionFont: 'Font shorthand for the "Tooltip_Caption" base token',
     headlineLargeFontColor: 'Font color for "Headline_2" base token',
-    headlineRegularFontColor: 'Font color for "Headline_1" base token',
-    titleXLargeFontColor: 'Font color for "Title_3" base token',
+    headlineFontColor: 'Font color for "Headline_1" base token',
+    titleExtraLargeFontColor: 'Font color for "Title_3" base token',
     titleLargeFontColor: 'Font color for "Title_2" base token',
-    titleRegularFontColor: 'Font color for "Title_1" base token',
+    titleFontColor: 'Font color for "Title_1" base token',
     subtitleLargeFontColor: 'Font color for "Subtitle_2" base token',
-    subtitleRegularFontColor: 'Font color for "Subtitle_1" base token',
+    subtitleFontColor: 'Font color for "Subtitle_1" base token',
     linkStandardFontColor: 'Font color for "Link_Standard_1" base token',
     placeholderFontColor: 'Font color for "Placeholder" base token',
     bodyEmphasizedFontColor: 'Font color for "Body_Emphasized" base token',
@@ -73,16 +73,15 @@ export const comments: { readonly [key in TokenName]: string } = {
     tooltipCaptionFontColor: 'Font color for "Tooltip_Caption" base token',
     headlineLargeFontDisabledColor:
         'Disabled font color for "Headline_2" base token',
-    headlineRegularFontDisabledColor:
+    headlineFontDisabledColor:
         'Disabled font color for "Headline_1" base token',
-    titleXLargeFontDisabledColor:
+    titleExtraLargeFontDisabledColor:
         'Disabled font color for "Title_3" base token',
     titleLargeFontDisabledColor: 'Disabled font color for "Title_2" base token',
-    titleRegularFontDisabledColor:
-        'Disabled font color for "Title_1" base token',
+    titleFontDisabledColor: 'Disabled font color for "Title_1" base token',
     subtitleLargeFontDisabledColor:
         'Disabled font color for "Subtitle_2" base token',
-    subtitleRegularFontDisabledColor:
+    subtitleFontDisabledColor:
         'Disabled font color for "Subtitle_1" base token',
     linkStandardFontDisabledColor:
         'Disabled font color for "Link_Standard_1" base token',
