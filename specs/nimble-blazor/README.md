@@ -55,6 +55,10 @@ The Micosoft/fast-blazor repo is notably devoid of testing, however our previous
 
 For more info see [Github docs](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net).
 
+### Documentation
+
+We should provide documentation on the various ways clients can provide access to the nimble web components in their Blazor application.
+
 ## Alternative Implementations / Designs
 
 Regarding the publishing of the nuget, there are a few other approaches that I think can be easily dismissed:
