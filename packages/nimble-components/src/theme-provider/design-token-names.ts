@@ -4,7 +4,7 @@
  * [element]-[part]-[state]-[token_type]
  *
  * 1. Where [element] is the type to which the token applies (e.g. 'application' or 'body' or 'title').
- * 2. Where [part] is the specific part of the element to which the token applies (e.g. 'border' or 'background' or shadow).
+ * 2. Where [part] is the specific part of the element to which the token applies (e.g. 'border' or 'background' or 'shadow').
  * 3. Where [state] is the more specific state descriptor (e.g. 'selected' or 'disabled').
  * 4. Where [token_type] is the token category (e.g. 'color' or 'font' or 'size').
  */

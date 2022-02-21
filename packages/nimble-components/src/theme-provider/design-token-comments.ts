@@ -13,7 +13,7 @@ export const comments: { readonly [key in TokenName]: string } = {
         '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillSelectedHoverColor:
         'Control fill color when hovering a selected control',
-    fillHoverColor: 'Control fill color when hoving component',
+    fillHoverColor: 'Control fill color when hovering component',
     borderColor: 'Standard control outline or border color',
     borderRgbPartialColor:
         '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
