@@ -4,7 +4,7 @@ import {
     breadcrumbItemTemplate as template,
     BreadcrumbItemOptions
 } from '@microsoft/fast-foundation';
-import { controlsArrowExpanderRight16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { forwardSlash16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
 export type { BreadcrumbItem };
@@ -26,7 +26,7 @@ const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
     // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
-    separator: controlsArrowExpanderRight16X16.data
+    separator: forwardSlash16X16.data
 });
 
 DesignSystem.getOrCreate()
