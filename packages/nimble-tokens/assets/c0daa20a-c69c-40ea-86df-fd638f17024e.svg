@@ -1,4 +1,6 @@
-<svg id="Inputs_Numeric_Block_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="48" viewBox="0 0 176 48">
+<svg id="Inputs_Numeric_Block_32"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="48" viewBox="0 0 176 48">
   <defs>
     <clipPath id="clip-path">
       <rect y="1" width="90.631" height="17" fill="none"/>
@@ -8,7 +10,7 @@
     </clipPath>
   </defs>
   <g id="Background_Group" data-name="Background Group" transform="translate(0 16)">
-    <rect id="Fill" width="176" height="32" fill="#161617" opacity="0.07"/>
+    <rect id="Fill" width="176" height="32" fill="#161617" opacity="0.1"/>
     <rect id="Stroke" width="176" height="32" fill="none" opacity="0.3"/>
     <g id="Rollover" transform="translate(87 31)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
       <rect width="2" height="1" stroke="none"/>
@@ -17,7 +19,9 @@
   </g>
   <g id="Stacks_Group" data-name="Stacks Group" transform="translate(8 24.001)">
     <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(0 -1.001)" clip-path="url(#clip-path)" style="isolation: isolate">
-      <text id="_0" data-name="0" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">0</tspan></text>
+      <text id="_0" data-name="0" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro">
+        <tspan x="0" y="0">0</tspan>
+      </text>
     </g>
     <g id="Error" transform="translate(92 0.999)" opacity="0">
       <rect id="IconLocation" width="16" height="16" fill="#f1f1f2" opacity="0"/>
@@ -26,7 +30,9 @@
   </g>
   <rect id="Text_Focus" data-name="Text Focus" width="1" height="18" transform="translate(16 24)" opacity="0"/>
   <g id="Label_L" data-name="Label L" transform="translate(0 -1)" clip-path="url(#clip-path-2)" style="isolation: isolate">
-    <text id="Show_label" data-name="Show label" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6"><tspan x="0" y="0">Show label</tspan></text>
+    <text id="Show_label" data-name="Show label" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6">
+      <tspan x="0" y="0">Show label</tspan>
+    </text>
   </g>
   <g id="IconButton_Ghost_24" transform="translate(148 20)">
     <g id="Background" transform="translate(-323.853 -324)">

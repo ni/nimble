@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 16 Feb 2022 15:15:12 GMT
+ * Generated on Mon, 21 Feb 2022 14:33:38 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -80,6 +80,14 @@ export const ButtonLabel1ChineseMacFamily : string;
 export const ButtonLabel1ChineseMacWeight : string;
 export const BodyChineseMacFamily : string;
 export const BodyChineseMacWeight : string;
+export const ErrorColorUiFamily : string;
+export const ErrorColorUiWeight : string;
+export const LinkVisitedLightUiFamily : string;
+export const LinkVisitedLightUiWeight : string;
+export const ErrorLightUiFamily : string;
+export const ErrorLightUiWeight : string;
+export const ErrorDarkUiFamily : string;
+export const ErrorDarkUiWeight : string;
 export const Title2Size : string;
 export const ControlLabel1Size : string;
 export const BodySize : string;
@@ -103,6 +111,10 @@ export const Headline1Size : string;
 export const ControlLabel1ChineseMacSize : string;
 export const ButtonLabel1ChineseMacSize : string;
 export const BodyChineseMacSize : string;
+export const ErrorColorUiSize : string;
+export const LinkVisitedLightUiSize : string;
+export const ErrorLightUiSize : string;
+export const ErrorDarkUiSize : string;
 export const BodyLineHeight : string;
 export const ControlLabel1LineHeight : string;
 export const GroupLabel1LineHeight : string;

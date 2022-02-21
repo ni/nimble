@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 16 Feb 2022 15:15:12 GMT
+ * Generated on Mon, 21 Feb 2022 14:33:38 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -80,6 +80,14 @@ export const ButtonLabel1ChineseMacFamily = "Noto Sans";
 export const ButtonLabel1ChineseMacWeight = "400";
 export const BodyChineseMacFamily = "Noto Sans";
 export const BodyChineseMacWeight = "400";
+export const ErrorColorUiFamily = "Source Sans Pro";
+export const ErrorColorUiWeight = "400";
+export const LinkVisitedLightUiFamily = "Source Sans Pro";
+export const LinkVisitedLightUiWeight = "400";
+export const ErrorLightUiFamily = "Source Sans Pro";
+export const ErrorLightUiWeight = "400";
+export const ErrorDarkUiFamily = "Source Sans Pro";
+export const ErrorDarkUiWeight = "400";
 export const Title2Size = "22px";
 export const ControlLabel1Size = "11px";
 export const BodySize = "14px";
@@ -103,6 +111,10 @@ export const Headline1Size = "25px";
 export const ControlLabel1ChineseMacSize = "11px";
 export const ButtonLabel1ChineseMacSize = "11px";
 export const BodyChineseMacSize = "13px";
+export const ErrorColorUiSize = "9px";
+export const LinkVisitedLightUiSize = "14px";
+export const ErrorLightUiSize = "9px";
+export const ErrorDarkUiSize = "9px";
 export const BodyLineHeight = "18px";
 export const ControlLabel1LineHeight = "16px";
 export const GroupLabel1LineHeight = "16px";

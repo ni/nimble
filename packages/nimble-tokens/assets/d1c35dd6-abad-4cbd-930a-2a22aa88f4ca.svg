@@ -5,7 +5,7 @@
     </clipPath>
   </defs>
   <g id="Background_Group" data-name="Background Group" transform="translate(0 6.501)">
-    <rect id="Block" width="176" height="32" transform="translate(0 -6.501)" fill="#161617" opacity="0.07"/>
+    <rect id="Block" width="176" height="32" transform="translate(0 -6.501)" fill="#161617" opacity="0.1"/>
     <g id="Line" transform="translate(0 24.499)" fill="none" stroke="#161617" stroke-width="1" opacity="0">
       <rect width="176" height="1" stroke="none"/>
       <rect x="0.5" y="0.5" width="175" fill="none"/>

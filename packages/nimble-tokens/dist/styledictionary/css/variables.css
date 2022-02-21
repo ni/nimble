@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 16 Feb 2022 15:15:12 GMT
+ * Generated on Mon, 21 Feb 2022 14:33:38 GMT
  */
 
 :root {
@@ -81,6 +81,14 @@
   --ni-nimble-base-button-label-1-chinese-mac-weight: 400;
   --ni-nimble-base-body-chinese-mac-family: Noto Sans;
   --ni-nimble-base-body-chinese-mac-weight: 400;
+  --ni-nimble-base-error-color-ui-family: Source Sans Pro;
+  --ni-nimble-base-error-color-ui-weight: 400;
+  --ni-nimble-base-link-visited-light-ui-family: Source Sans Pro;
+  --ni-nimble-base-link-visited-light-ui-weight: 400;
+  --ni-nimble-base-error-light-ui-family: Source Sans Pro;
+  --ni-nimble-base-error-light-ui-weight: 400;
+  --ni-nimble-base-error-dark-ui-family: Source Sans Pro;
+  --ni-nimble-base-error-dark-ui-weight: 400;
   --ni-nimble-base-title-2-size: 22px;
   --ni-nimble-base-control-label-1-size: 11px;
   --ni-nimble-base-body-size: 14px;
@@ -104,6 +112,10 @@
   --ni-nimble-base-control-label-1-chinese-mac-size: 11px;
   --ni-nimble-base-button-label-1-chinese-mac-size: 11px;
   --ni-nimble-base-body-chinese-mac-size: 13px;
+  --ni-nimble-base-error-color-ui-size: 9px;
+  --ni-nimble-base-link-visited-light-ui-size: 14px;
+  --ni-nimble-base-error-light-ui-size: 9px;
+  --ni-nimble-base-error-dark-ui-size: 9px;
   --ni-nimble-base-body-line-height: 18px;
   --ni-nimble-base-control-label-1-line-height: 16px;
   --ni-nimble-base-group-label-1-line-height: 16px;

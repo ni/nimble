@@ -1,18 +1,19 @@
-<svg id="Component_78" data-name="Component 78" xmlns="http://www.w3.org/2000/svg" width="108" height="32" viewBox="0 0 108 32">
+<svg id="Component_78" data-name="Component 78"
+  xmlns="http://www.w3.org/2000/svg" width="115" height="33" viewBox="0 0 115 33">
   <g id="Stack_Group" data-name="Stack Group">
     <g id="Breadcrumb_Arrow_32">
-      <g id="Breadcrumb_Arrow" transform="translate(-288 -309)">
-        <rect id="Background" width="16" height="32" transform="translate(380 309)" fill="#fff" opacity="0"/>
-        <rect id="Icon_Location" width="16" height="16" transform="translate(380 317)" fill="#fff" opacity="0"/>
-        <path id="Controls_Arrow_Expander_Right_16x16" d="M.737,9,.005,7.89,5.477,4.533,0,1.1.743,0,8,4.545Z" transform="translate(384 321)" fill="#161617"/>
+      <g id="Breadcrumb_Arrow" transform="translate(-281)">
+        <rect id="Background" width="16" height="33" transform="translate(380)" fill="#fff" opacity="0"/>
+        <rect id="Icon_Location" width="16" height="16" transform="translate(380 7.969)" fill="#fff" opacity="0"/>
+        <path id="Breadcrumb_Divider_Revised" d="M5.75,14.266l2.5-12h1.5l-2.5,12Z" transform="translate(380.25 7.709)" fill="#161617" opacity="0.6"/>
       </g>
-      <g id="Stack_Group-2" data-name="Stack Group" transform="translate(-40)">
-        <g id="Background-2" data-name="Background" transform="translate(-283.853 -324)">
-          <rect id="Fill_1" data-name="Fill 1" width="92" height="32" transform="translate(323.853 324)" fill="none" opacity="0"/>
-          <rect id="Stroke" width="92" height="32" transform="translate(323.853 324)" fill="none" opacity="0"/>
-          <rect id="Rollover" width="92" height="32" transform="translate(323.853 324)" fill="none" opacity="0"/>
+      <g id="Stack_Group-2" data-name="Stack Group" transform="translate(-40 1)">
+        <g id="Background-2" data-name="Background" transform="translate(-283.853 -323.5)">
+          <rect id="Fill_1" data-name="Fill 1" width="99" height="32" transform="translate(323.853 323.5)" fill="none" opacity="0"/>
         </g>
-        <text id="Breadcrumb_1" data-name="Breadcrumb 1" transform="translate(48 20)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="12.8" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Breadcrumb 1</tspan></text>
+        <text id="Breadcrumb_1" data-name="Breadcrumb 1" transform="translate(48 20)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro">
+          <tspan x="0" y="0">Breadcrumb 1</tspan>
+        </text>
       </g>
     </g>
   </g>
