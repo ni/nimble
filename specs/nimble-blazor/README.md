@@ -14,7 +14,7 @@ We would like to offer access to the nimble components as first-class Blazor com
 
 The primary aspect of having a Blazor version of the nimble components is having a C# .NET Core project as a host for the source, which can then be built and published as a nuget package.
 
-The Microsoft [fast-blazor repo](https://github.com/microsoft/fast-blazor) can serve as a decent guide to what we will need to have in place in order to do this.
+The Microsoft [fast-blazor repo](https://github.com/microsoft/fast-blazor) as well as our initial [Nimble Blazor repo](https://github.com/ni/nimble-blazor) can serve as decent guides to what we will need to have in place in order to do this.
 
 ### Initital Component Set
 
