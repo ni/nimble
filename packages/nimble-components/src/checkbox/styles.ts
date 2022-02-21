@@ -12,7 +12,7 @@ import {
     iconSize,
     borderWidth,
     smallDelay,
-    buttonLabel1Font
+    buttonLabelFont
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -72,7 +72,7 @@ export const styles = css`
     }
 
     .label {
-        font: ${buttonLabel1Font};
+        font: ${buttonLabelFont};
         color: ${bodyFontColor};
         padding-left: 1ch;
         cursor: inherit;

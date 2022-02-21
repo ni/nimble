@@ -8,10 +8,10 @@ import {
     smallDelay,
     bodyFontColor,
     bodyFontColorDisabled,
-    controlLabel1Font,
-    controlLabel1FontColor,
+    controlLabelFont,
+    controlLabelFontColor,
     bodyFont,
-    controlLabel1FontColorDisabled
+    controlLabelFontColorDisabled
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
@@ -32,12 +32,12 @@ export const styles = css`
 
     .label {
         display: flex;
-        color: ${controlLabel1FontColor};
-        font: ${controlLabel1Font};
+        color: ${controlLabelFontColor};
+        font: ${controlLabelFont};
     }
 
     :host([disabled]) .label {
-        color: ${controlLabel1FontColorDisabled};
+        color: ${controlLabelFontColorDisabled};
     }
 
     .control {
@@ -80,16 +80,16 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${controlLabel1FontColor};
+        color: ${controlLabelFontColor};
         background: rgba(${fillColorSelectedRgbPartial}, 0.3);
     }
 
     .control::placeholder {
-        color: ${controlLabel1FontColor};
+        color: ${controlLabelFontColor};
     }
 
     .control[disabled]::placeholder {
-        color: ${controlLabel1FontColorDisabled};
+        color: ${controlLabelFontColorDisabled};
     }
 
     :host([resize='both']) .control {

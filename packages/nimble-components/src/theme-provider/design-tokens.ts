@@ -348,8 +348,8 @@ export const tooltipCaptionFontColorDisabled = DesignToken.create<string>(
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
 
 // Font Transform Tokens
-export const groupHeader1TextTransform = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.groupHeader1TextTransform)
+export const groupHeaderTextTransform = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.groupHeaderTextTransform)
 ).withDefault('uppercase');
 
 // Animation Tokens

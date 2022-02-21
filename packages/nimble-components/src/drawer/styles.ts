@@ -8,7 +8,7 @@ import {
     popupBorderColor,
     popupBoxShadowColor,
     standardPadding,
-    title2Font,
+    titleLargeFont,
     drawerWidth
 } from '../theme-provider/design-tokens';
 
@@ -106,7 +106,7 @@ export const styles = css`
 
     ::slotted(header) {
         padding: ${standardPadding};
-        font: ${title2Font};
+        font: ${titleLargeFont};
     }
 
     ::slotted(section) {

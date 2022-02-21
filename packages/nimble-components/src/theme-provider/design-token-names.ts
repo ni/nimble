@@ -26,7 +26,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     labelHeight: 'label-height',
     borderWidth: 'border-width',
     iconSize: 'icon-size',
-    groupHeader1TextTransform: 'group-header1-text-transform',
+    groupHeaderTextTransform: 'group-header-text-transform',
     drawerWidth: 'drawer-width',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',

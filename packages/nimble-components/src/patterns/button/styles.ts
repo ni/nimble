@@ -6,9 +6,9 @@ import {
     borderColorHover,
     borderColorRgbPartial,
     borderWidth,
-    buttonLabel1Font,
-    buttonLabel1FontColor,
-    buttonLabel1FontColorDisabled,
+    buttonLabelFont,
+    buttonLabelFontColor,
+    buttonLabelFontColorDisabled,
     controlHeight,
     fillColorSelected,
     iconColor,
@@ -24,8 +24,8 @@ export const styles = css`
     :host {
         background-color: transparent;
         height: ${controlHeight};
-        color: ${buttonLabel1FontColor};
-        font: ${buttonLabel1Font};
+        color: ${buttonLabelFontColor};
+        font: ${buttonLabelFont};
         cursor: pointer;
         outline: none;
         border: none;
@@ -41,7 +41,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${buttonLabel1FontColorDisabled};
+        color: ${buttonLabelFontColorDisabled};
         cursor: default;
     }
 
@@ -112,7 +112,7 @@ export const styles = css`
     }
 
     slot[name='start']::slotted(*) {
-        ${iconColor.cssCustomProperty}: ${buttonLabel1FontColor};
+        ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
     }
 
     :host([disabled]) slot[name='start']::slotted(*) {

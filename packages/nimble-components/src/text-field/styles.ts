@@ -13,11 +13,11 @@ import {
     iconSize,
     labelHeight,
     smallDelay,
-    controlLabel1Font,
+    controlLabelFont,
     bodyFont,
-    controlLabel1FontColor,
+    controlLabelFontColor,
     standardPadding,
-    controlLabel1FontColorDisabled
+    controlLabelFontColorDisabled
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -120,12 +120,12 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${controlLabel1FontColor};
+        color: ${controlLabelFontColor};
         background: rgba(${fillColorSelectedRgbPartial}, 0.3);
     }
 
     .control::placeholder {
-        color: ${controlLabel1FontColor};
+        color: ${controlLabelFontColor};
     }
 
     .control:not([readonly]):focus-within::placeholder {
@@ -138,12 +138,12 @@ export const styles = css`
 
     .label {
         display: flex;
-        color: ${controlLabel1FontColor};
-        font: ${controlLabel1Font};
+        color: ${controlLabelFontColor};
+        font: ${controlLabelFont};
     }
 
     :host([disabled]) .label {
-        color: ${controlLabel1FontColorDisabled};
+        color: ${controlLabelFontColorDisabled};
     }
 
     :host [part='end'] {

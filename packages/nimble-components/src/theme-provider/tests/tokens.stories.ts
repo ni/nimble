@@ -13,9 +13,9 @@ import { comments } from '../design-token-comments';
 import {
     bodyFont,
     bodyFontColor,
-    groupHeader1Font,
-    groupHeader1FontColor,
-    groupHeader1TextTransform
+    groupHeaderFont,
+    groupHeaderFontColor,
+    groupHeaderTextTransform
 } from '../design-tokens';
 
 type TokenName = keyof typeof tokenNames;
@@ -72,9 +72,9 @@ export const propertyNames: StoryObj<TokenArgs> = {
                 color: var(${bodyFontColor.cssCustomProperty});
             }
             thead {
-                font: var(${groupHeader1Font.cssCustomProperty});
-                color: var(${groupHeader1FontColor.cssCustomProperty});
-                text-transform: var(${groupHeader1TextTransform.cssCustomProperty});
+                font: var(${groupHeaderFont.cssCustomProperty});
+                color: var(${groupHeaderFontColor.cssCustomProperty});
+                text-transform: var(${groupHeaderTextTransform.cssCustomProperty});
             }
             td { padding: 10px;}
         </style>

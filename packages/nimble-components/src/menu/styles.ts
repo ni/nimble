@@ -7,9 +7,9 @@ import {
     borderColor,
     popupBorderColor,
     popupBoxShadowColor,
-    groupHeader1Font,
-    groupHeader1TextTransform,
-    groupHeader1FontColor
+    groupHeaderFont,
+    groupHeaderTextTransform,
+    groupHeaderFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -38,9 +38,9 @@ export const styles = css`
     }
     ::slotted(header) {
         display: flex;
-        font: ${groupHeader1Font};
-        color: ${groupHeader1FontColor};
-        text-transform: ${groupHeader1TextTransform};
+        font: ${groupHeaderFont};
+        color: ${groupHeaderFontColor};
+        text-transform: ${groupHeaderTextTransform};
         padding-top: 4px;
         padding-bottom: 4px;
     }

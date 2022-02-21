@@ -10,10 +10,10 @@ import {
     controlHeight,
     fillColorSelectedRgbPartial,
     iconSize,
-    controlLabel1FontColor,
+    controlLabelFont,
+    controlLabelFontColor,
     labelHeight,
     smallDelay,
-    controlLabel1Font,
     bodyFont
 } from '../theme-provider/design-tokens';
 
@@ -81,12 +81,12 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${controlLabel1FontColor};
+        color: ${controlLabelFontColor};
         background: rgba(${fillColorSelectedRgbPartial}, 0.3);
     }
 
     .control::placeholder {
-        color: ${controlLabel1FontColor};
+        color: ${controlLabelFontColor};
     }
 
     .control:focus-within::placeholder {
@@ -99,8 +99,8 @@ export const styles = css`
 
     .label {
         display: flex;
-        color: ${controlLabel1FontColor};
-        font: ${controlLabel1Font};
+        color: ${controlLabelFontColor};
+        font: ${controlLabelFont};
     }
 
     .controls {

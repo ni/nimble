@@ -1,13 +1,13 @@
 @import '~@ni/nimble-angular/styles/tokens';
 
 .container-label {
-    font: $ni-nimble-group-header1-font;
-    color: $ni-nimble-group-header1-font-color;
+    font: $ni-nimble-group-header-font;
+    color: $ni-nimble-group-header-font-color;
     padding-bottom: $ni-nimble-standard-padding;
 }
 
 p, a {
-    color: $ni-nimble-control-label1-font-color;
+    color: $ni-nimble-control-label-font-color;
 }
 
 .container {
