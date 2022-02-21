@@ -1,4 +1,4 @@
-import { logout16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { arrowLeftFromLine16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class LogoutIcon extends Icon {
     public constructor() {
-        super(logout16X16);
+        super(arrowLeftFromLine16X16);
     }
 }
 

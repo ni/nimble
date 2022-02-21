@@ -6,7 +6,7 @@
       <rect width="93" height="32" stroke="none"/>
       <rect x="0.5" y="0.5" width="92" height="31" fill="none"/>
     </g>
-    <g id="Rollover" transform="translate(323.853 323.5)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
+    <g id="Rollover" transform="translate(323.853 323.5)" fill="none" stroke="#009b65" stroke-width="2" opacity="0">
       <rect width="93" height="32" stroke="none"/>
       <rect x="1" y="1" width="91" height="30" fill="none"/>
     </g>

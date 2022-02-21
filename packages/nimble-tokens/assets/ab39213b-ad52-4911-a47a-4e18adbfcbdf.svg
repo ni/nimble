@@ -17,6 +17,8 @@
       <rect width="16" height="16" stroke="none"/>
       <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
     </g>
-    <text id="_" data-name="!" transform="translate(198 20)" fill="#c4000c" font-size="14" font-family="Verdana-Bold, Verdana" font-weight="700" opacity="0"><tspan x="0" y="0">!</tspan></text>
+    <g id="Controls_Error_16x16" transform="translate(201 16)" opacity="0">
+      <path id="Path_9276" data-name="Path 9276" d="M.046,8.227H2.759V10H.046ZM0,0,.309,7.119H2.5L2.807,0Z" fill="#c42126"/>
+    </g>
   </g>
 </svg>

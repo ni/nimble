@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 21 Feb 2022 15:34:13 GMT",
+      "tag": "@ni/nimble-tokens_v2.0.0",
+      "version": "2.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "16eb83f6b382a7fb49c46f5768bb58c8db1d1682",
+            "comment": "Renamed and deduplicated icons. See [here](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) for the changes."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 19 Feb 2022 00:06:17 GMT",
+      "tag": "@ni/nimble-tokens_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "44cdee77bab162269a5dfc9ee040c1da7f5b8364",
+            "comment": "Update nimble-tokens from XD doc"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 07 Feb 2022 18:48:57 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0",
       "version": "1.0.0",
