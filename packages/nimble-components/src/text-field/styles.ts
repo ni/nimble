@@ -9,6 +9,9 @@ import {
     contentFontColorDisabled,
     contentFontSize,
     controlHeight,
+    errorTextFontFamily,
+    errorTextFontWeight,
+    errorTextFontSize,
     failColor,
     fillColorSelectedRgbPartial,
     fontFamily,
@@ -181,7 +184,9 @@ export const styles = css`
 
     .errortext {
         visibility: hidden;
-        font-size: 9px; /* TODO: REPLACE */
+        font-family: ${errorTextFontFamily};
+        font-weight: ${errorTextFontWeight};
+        font-size: ${errorTextFontSize};
         color: ${failColor};
         width: 100%;
         overflow: hidden;

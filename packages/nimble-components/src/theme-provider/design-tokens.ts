@@ -17,6 +17,9 @@ import {
     ControlLabel1Family,
     ControlLabel1Size,
     ControlLabel1Weight,
+    ErrorLightUiSize,
+    ErrorLightUiFamily,
+    ErrorLightUiWeight,
     Warning100LightUi,
     Warning100DarkUi,
     Pass100LightUi,
@@ -126,6 +129,9 @@ export const groupLabelFontFamily = DesignToken.create<string>(
 export const drawerHeaderFontFamily = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerHeaderFontFamily)
 ).withDefault(Title2Family);
+export const errorTextFontFamily = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.errorTextFontFamily)
+).withDefault(ErrorLightUiFamily);
 
 // Font Sizing Tokens
 export const labelFontSize = DesignToken.create<string>(
@@ -140,6 +146,9 @@ export const groupLabelFontSize = DesignToken.create<string>(
 export const drawerHeaderFontSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerHeaderFontSize)
 ).withDefault(Title2Size);
+export const errorTextFontSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.errorTextFontSize)
+).withDefault(ErrorLightUiSize);
 
 // Font Weight Tokens
 export const groupLabelFontWeight = DesignToken.create<string>(
@@ -149,6 +158,10 @@ export const groupLabelFontWeight = DesignToken.create<string>(
 export const labelFontWeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.labelFontWeight)
 ).withDefault(ControlLabel1Weight);
+
+export const errorTextFontWeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.errorTextFontWeight)
+).withDefault(ErrorLightUiWeight);
 
 // Font Color Tokens
 export const labelFontColor = DesignToken.create<string>(
