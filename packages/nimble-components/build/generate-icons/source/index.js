@@ -1,9 +1,17 @@
+/**
+ * Build script for generating Nimble components for icons.
+ *
+ * Iterates through icons provided by nimble-tokens, and generates a Nimble component for each in
+ * src/icons. Also generates an all-icons barrel file.
+ */
+
 import * as icons from '../../../../nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 const fs = require('fs');
 const path = require('path');
 
 const trimSizeFromName = text => {
+    // Remove dimensions from icon name, e.g. "add16X16" -> "add"
     return text.replace(/\d+X\d+$/, '');
 };
 
@@ -32,10 +40,10 @@ let allIconsFileContents = '';
 let fileCount = 0;
 for (const key in icons) {
     if (Object.prototype.hasOwnProperty.call(icons, key)) {
-        const svgName = key;
-        const iconName = trimSizeFromName(key);
-        const elementName = `${camelToKebabCase(iconName)}-icon`;
-        const className = `${camelToPascalCase(iconName)}Icon`;
+        const svgName = key; // e.g. "arrowExpanderLeft16X16"
+        const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
+        const elementName = `${camelToKebabCase(iconName)}-icon`; // e.g. "arrow-expander-left-icon"
+        const className = `${camelToPascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
 
         const componentFileContents = `import { ${svgName} } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
