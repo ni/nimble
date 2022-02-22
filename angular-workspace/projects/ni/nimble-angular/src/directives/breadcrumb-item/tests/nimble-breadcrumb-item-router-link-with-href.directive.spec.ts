@@ -8,7 +8,7 @@ import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleBreadcrumbModule } from '../../breadcrumb/nimble-breadcrumb.module';
 import { NimbleBreadcrumbItemModule } from '../nimble-breadcrumb-item.module';
 
-describe('Nimble breadcrumb item router link directive', () => {
+describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     @Component({
         template: `
             <nimble-breadcrumb>

@@ -16,6 +16,10 @@ export const styles = css`
         flex-wrap: wrap;
     }
 
+    ::slotted(*:first-child) {
+        padding-left: 0px;
+    }
+
     ::slotted(*:not([href]):last-child) {
         font-weight: bold;
     }

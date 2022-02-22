@@ -16,8 +16,10 @@ interface ItemArgs {
 }
 
 const overviewText = `A breadcrumb component is used as a navigational aid, allowing users
-to maintain awareness of their locations within a program, app, or a website.
-Breadcrumb items, in addition to href and target, support all other [HTMLAnchorElement](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) attributes/properties.`;
+to maintain awareness of their locations within a program, app, or a website.  
+Breadcrumb items, in addition to href and target, support all other [HTMLAnchorElement](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) attributes/properties.  
+See the [nimble-angular Readme](https://github.com/ni/nimble/blob/main/angular-workspace/projects/ni/nimble-angular/README.md#using-nimble-breadcrumb-with-angulars-routerlink) 
+for information on using this component in Angular with RouterLink directives.`;
 
 const metadata: Meta<BreadcrumbArgs> = {
     title: 'Breadcrumb',
@@ -32,9 +34,7 @@ const metadata: Meta<BreadcrumbArgs> = {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e/specs/'
         },
-        actions: {
-            handles: ['click']
-        }
+        actions: {}
     }
 };
 
