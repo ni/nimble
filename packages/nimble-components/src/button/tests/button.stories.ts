@@ -3,7 +3,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import '..';
-import '../../icons/access-control';
+import '../../icons/key';
 import { createRenderer } from '../../utilities/tests/storybook';
 
 interface ButtonArgs {
@@ -49,7 +49,7 @@ const metadata: Meta<ButtonArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" ?content-hidden="${x => x.contentHidden}">
-            ${when(x => x.icon, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
+            ${when(x => x.icon, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${x => x.label}
         </nimble-button>
 `),
