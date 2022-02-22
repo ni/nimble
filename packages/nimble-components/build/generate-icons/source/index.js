@@ -5,7 +5,7 @@
  * src/icons. Also generates an all-icons barrel file.
  */
 
-import * as icons from '../../../../nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 const fs = require('fs');
 const path = require('path');
