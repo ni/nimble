@@ -16,6 +16,12 @@ const camelToKebabCase = text => {
     return text.replace(/[A-Z]+(?![a-z])|[A-Z]/g, (substring, offset) => (offset !== 0 ? '-' : '') + substring.toLowerCase());
 };
 
+const getRelativeFilePath = (from, to) => {
+    return path.relative(from, to)
+        .replaceAll('\\', '/') // replace backslashes with forward slashes
+        .replace(/^\w/, firstChar => `./${firstChar}`); // Add "./" to relative paths that don't navigate up
+};
+
 const iconsDirectory = path.resolve(__dirname, '../../../src/directives/icons');
 console.log(iconsDirectory);
 
@@ -29,7 +35,8 @@ fs.mkdirSync(iconsDirectory);
 console.log('Finished creating icons directory');
 
 console.log('Writing icon directive and module files');
-let moduleInfo = [];
+let moduleNamesAndPaths = [];
+let directivePaths = [];
 for (const key in icons) {
     if (Object.prototype.hasOwnProperty.call(icons, key)) {
         const iconName = trimSizeFromName(key);
@@ -56,7 +63,7 @@ export class ${directiveName} {
         const directiveFileName = `${elementName}.directive`;
         const directiveFilePath = path.resolve(iconDirectory, directiveFileName);
         fs.writeFileSync(`${directiveFilePath}.ts`, directiveFileContents, { encoding: 'utf-8' });
-        // console.log(directiveFilePath);
+        directivePaths.push(directiveFilePath);
 
         const moduleName = `Nimble${className}Module`;
         const moduleFileContents = `import { NgModule } from '@angular/core';
@@ -76,10 +83,10 @@ export class ${moduleName} { }
         const moduleFilePath = path.resolve(iconDirectory, `${elementName}.module`);
         fs.writeFileSync(`${moduleFilePath}.ts`, moduleFileContents, { encoding: 'utf-8' });
 
-        moduleInfo.push({name: moduleName, path: moduleFilePath});
+        moduleNamesAndPaths.push({name: moduleName, path: moduleFilePath});
     }
 }
-console.log(`Finshed writing ${moduleInfo.length} icon directive and module files`);
+console.log(`Finshed writing ${moduleNamesAndPaths.length} icon directive and module files`);
 const allIconsDirectory = path.resolve(iconsDirectory, 'all-icons');
 fs.mkdirSync(allIconsDirectory);
 
@@ -87,12 +94,12 @@ const allIconsModuleFilePath = path.resolve(allIconsDirectory, 'all-icons.module
 let allIconsModuleFileContents = `import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';`
 
-for (let module of moduleInfo) {
-    const relativeModulePath = path.relative(allIconsDirectory, module.path).replaceAll('\\', '/');
+for (let module of moduleNamesAndPaths) {
+    const relativeModulePath = getRelativeFilePath(allIconsDirectory, module.path);
     allIconsModuleFileContents += `\nimport { ${module.name} } from '${relativeModulePath}';`
 }
 
-const moduleNames = moduleInfo.map(module => module.name).join(',\n        ');
+const moduleNames = moduleNamesAndPaths.map(module => module.name).join(',\n        ');
 
 allIconsModuleFileContents += `\n\n@NgModule({
     imports: [
@@ -108,3 +115,17 @@ export class NimbleAllIconsModule { }`;
 console.log('Writing all-icons module file');
 fs.writeFileSync(`${allIconsModuleFilePath}`, allIconsModuleFileContents, { encoding: 'utf-8' });
 console.log('Finished writing all-icons module file');
+
+let barrelFileContents = '';
+for (let directivePath of directivePaths) {
+    barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, directivePath)}';\n`;
+}
+for (let module of moduleNamesAndPaths) {
+    barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, module.path)}';\n`;
+}
+
+const barrelFilePath = path.resolve(iconsDirectory, 'index');
+
+console.log('Writing barrel file');
+fs.writeFileSync(barrelFilePath + '.ts', barrelFileContents, { encoding: 'utf-8' });
+console.log('Finished writing barrel file');
