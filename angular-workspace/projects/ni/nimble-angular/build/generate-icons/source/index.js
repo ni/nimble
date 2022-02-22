@@ -57,7 +57,7 @@ for (const key in icons) {
         fs.mkdirSync(iconDirectory);
 
         const directiveFileContents = `import { Directive } from '@angular/core';
-import type { ${className} } from '@ni/nimble-components/dist/esm/icons2/all-icons';
+import type { ${className} } from '@ni/nimble-components/dist/esm/icons/all-icons';
 
 export type { ${className} };
 
@@ -80,7 +80,7 @@ export class ${directiveName} {
 import { CommonModule } from '@angular/common';
 import { ${directiveName} } from './${directiveFileName}';
 
-import '@ni/nimble-components/dist/esm/icons2/${iconName}';
+import '@ni/nimble-components/dist/esm/icons/${iconName}';
 
 @NgModule({
     declarations: [${directiveName}],

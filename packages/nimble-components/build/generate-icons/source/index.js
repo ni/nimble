@@ -24,7 +24,7 @@ const camelToKebabCase = text => {
     return text.replace(/[A-Z]+(?![a-z])|[A-Z]/g, (substring, offset) => (offset !== 0 ? '-' : '') + substring.toLowerCase());
 };
 
-const iconsDirectory = path.resolve(__dirname, '../../../src/icons2');
+const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
 if (fs.existsSync(iconsDirectory)) {
     console.log('Deleting existing icons directory');
