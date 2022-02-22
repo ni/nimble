@@ -8,7 +8,6 @@
     "declarationMap": true,
     "inlineSources": true,
     "types": [],
-    "preserveSymlinks": true,
     "lib": [
       "dom",
       "es2018"

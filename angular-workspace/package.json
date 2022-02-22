@@ -5,11 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "npm run build:library && npm run build:application",
-    "build:library": "npm run generate-icons && ng build @ni/nimble-angular",
+    "build:library": "ng build @ni/nimble-angular",
     "build:application": "ng build example-client-app",
-    "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
-    "generate-icons:bundle": "rollup --config projects/ni/nimble-angular/build/generate-icons/rollup.config.js",
-    "generate-icons:run": "node projects/ni/nimble-angular/build/generate-icons/dist/index.js",
     "pack": "npm run pack:library && npm run pack:application",
     "pack:library": "npm run build:library && cd dist/ni/nimble-angular && npm pack",
     "pack:application": "cd dist/example-client-app && npm pack",
@@ -39,8 +36,6 @@
     "@angular/cli": "^12.1.0",
     "@angular/compiler-cli": "^12.1.0",
     "@ni/eslint-config-angular": "^3.3.1",
-    "@ni/nimble-tokens": "*",
-    "@rollup/plugin-node-resolve": "^13.1.3",
     "@types/jasmine": "^3.6.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "^3.7.0",
@@ -51,7 +46,6 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "ng-packagr": "^12.1.0",
     "puppeteer": "^10.1.0",
-    "rollup": "^2.61.1",
     "typescript": "^4.3.2"
   }
 }
