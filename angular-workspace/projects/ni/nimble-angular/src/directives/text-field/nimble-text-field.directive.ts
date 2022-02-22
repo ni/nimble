@@ -33,5 +33,14 @@ export class NimbleTextFieldDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'type', value);
     }
 
+    public get errorText(): string {
+        return this.elementRef.nativeElement.errorText;
+    }
+
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('error-text') public set errorText(value: string) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TextField>) {}
 }
