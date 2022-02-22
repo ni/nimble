@@ -1,4 +1,4 @@
-import { statusTimedOut16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { clockTriangle16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class TimedOutIcon extends Icon {
     public constructor() {
-        super(statusTimedOut16X16);
+        super(clockTriangle16X16);
     }
 }
 

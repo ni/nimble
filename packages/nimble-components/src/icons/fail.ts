@@ -1,4 +1,4 @@
-import { statusFail16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { xmark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class FailIcon extends Icon {
     public constructor() {
-        super(statusFail16X16);
+        super(xmark16X16);
     }
 }
 

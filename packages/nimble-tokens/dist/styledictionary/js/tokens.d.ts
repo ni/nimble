@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 13 Jan 2022 15:57:37 GMT
+ * Generated on Thu, 17 Feb 2022 18:31:09 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -74,6 +74,20 @@ export const LinkLightUiWeight : string;
 export const Headline1Family : string;
 export const Headline1Weight : string;
 export const LegacyContentFamily : string;
+export const ControlLabel1ChineseMacFamily : string;
+export const ControlLabel1ChineseMacWeight : string;
+export const ButtonLabel1ChineseMacFamily : string;
+export const ButtonLabel1ChineseMacWeight : string;
+export const BodyChineseMacFamily : string;
+export const BodyChineseMacWeight : string;
+export const ErrorColorUiFamily : string;
+export const ErrorColorUiWeight : string;
+export const LinkVisitedLightUiFamily : string;
+export const LinkVisitedLightUiWeight : string;
+export const ErrorLightUiFamily : string;
+export const ErrorLightUiWeight : string;
+export const ErrorDarkUiFamily : string;
+export const ErrorDarkUiWeight : string;
 export const Title2Size : string;
 export const ControlLabel1Size : string;
 export const BodySize : string;
@@ -94,5 +108,12 @@ export const Title3Size : string;
 export const Subtitle2Size : string;
 export const LinkLightUiSize : string;
 export const Headline1Size : string;
+export const ControlLabel1ChineseMacSize : string;
+export const ButtonLabel1ChineseMacSize : string;
+export const BodyChineseMacSize : string;
+export const ErrorColorUiSize : string;
+export const LinkVisitedLightUiSize : string;
+export const ErrorLightUiSize : string;
+export const ErrorDarkUiSize : string;
 export const SmallDelay : string; // Short animation delay used for control state change animation
 export const MediumDelay : string; // Medium animation delay for control state change animation

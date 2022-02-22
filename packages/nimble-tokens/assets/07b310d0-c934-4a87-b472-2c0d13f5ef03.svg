@@ -1,6 +1,6 @@
 <svg id="Button_Text_AlertGreen_Block_32" xmlns="http://www.w3.org/2000/svg" width="93" height="32" viewBox="0 0 93 32">
   <g id="Background" transform="translate(-323.853 -323.5)">
-    <rect id="Fill_1" data-name="Fill 1" width="93" height="32" transform="translate(323.853 323.5)" fill="#009921" opacity="0.004"/>
+    <rect id="Fill_1" data-name="Fill 1" width="89" height="28" transform="translate(325.853 325.5)" fill="#009921" opacity="0.004"/>
     <rect id="Rollover" width="93" height="32" transform="translate(323.853 323.5)" fill="#009921" opacity="0"/>
     <g id="Stroke" transform="translate(323.853 323.5)" fill="none" stroke="#009921" stroke-width="2">
       <rect width="93" height="32" stroke="none"/>

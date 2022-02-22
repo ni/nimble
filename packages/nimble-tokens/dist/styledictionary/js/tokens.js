@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 13 Jan 2022 15:57:37 GMT
+ * Generated on Thu, 17 Feb 2022 18:31:09 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -24,7 +24,7 @@ export const Black = "#000000";
 export const Black95 = "#0e0f0f";
 export const Black91 = "#161617";
 export const Enterprise = "#074023";
-export const Selection100 = "#00b888";
+export const Selection100 = "#009b65";
 export const Brand85 = "#26a97c";
 export const Brand100 = "#009b65";
 export const Fail85 = "#cf1a37";
@@ -74,6 +74,20 @@ export const LinkLightUiWeight = "400";
 export const Headline1Family = "Noto Serif";
 export const Headline1Weight = "400";
 export const LegacyContentFamily = "'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif";
+export const ControlLabel1ChineseMacFamily = "Noto Sans";
+export const ControlLabel1ChineseMacWeight = "700";
+export const ButtonLabel1ChineseMacFamily = "Noto Sans";
+export const ButtonLabel1ChineseMacWeight = "400";
+export const BodyChineseMacFamily = "Noto Sans";
+export const BodyChineseMacWeight = "400";
+export const ErrorColorUiFamily = "Source Sans Pro";
+export const ErrorColorUiWeight = "400";
+export const LinkVisitedLightUiFamily = "Source Sans Pro";
+export const LinkVisitedLightUiWeight = "400";
+export const ErrorLightUiFamily = "Source Sans Pro";
+export const ErrorLightUiWeight = "400";
+export const ErrorDarkUiFamily = "Source Sans Pro";
+export const ErrorDarkUiWeight = "400";
 export const Title2Size = "22px";
 export const ControlLabel1Size = "11px";
 export const BodySize = "14px";
@@ -94,5 +108,12 @@ export const Title3Size = "25px";
 export const Subtitle2Size = "16px";
 export const LinkLightUiSize = "14px";
 export const Headline1Size = "25px";
+export const ControlLabel1ChineseMacSize = "11px";
+export const ButtonLabel1ChineseMacSize = "11px";
+export const BodyChineseMacSize = "13px";
+export const ErrorColorUiSize = "9px";
+export const LinkVisitedLightUiSize = "14px";
+export const ErrorLightUiSize = "9px";
+export const ErrorDarkUiSize = "9px";
 export const SmallDelay = "0.1s"; // Short animation delay used for control state change animation
 export const MediumDelay = "0.15s"; // Medium animation delay for control state change animation

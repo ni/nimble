@@ -7,11 +7,11 @@
     <g id="Button_2" data-name="Button 2" transform="translate(0)">
       <g id="Background" transform="translate(-291.852 -324)">
         <rect id="Fill_1" data-name="Fill 1" width="32" height="32" transform="translate(323.853 324)" fill="#161617" opacity="0"/>
-        <g id="Fill_2" data-name="Fill 2" transform="translate(323.853 353.98)" fill="#00b888" stroke="#00b888" stroke-width="1" opacity="0">
+        <g id="Fill_2" data-name="Fill 2" transform="translate(323.853 353.98)" fill="#009b65" stroke="#009b65" stroke-width="1" opacity="0">
           <rect width="32" height="1.996" stroke="none"/>
           <rect x="0.5" y="0.5" width="31" height="0.996" fill="none"/>
         </g>
-        <g id="Rollover" transform="translate(323.853 324)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
+        <g id="Rollover" transform="translate(323.853 324)" fill="none" stroke="#009b65" stroke-width="2" opacity="0">
           <rect width="32" height="32" stroke="none"/>
           <rect x="1" y="1" width="30" height="30" fill="none"/>
         </g>
@@ -26,10 +26,10 @@
     <g id="Button_1" data-name="Button 1">
       <g id="Background-2" data-name="Background" transform="translate(-323.852 -324)">
         <rect id="Fill_1-2" data-name="Fill 1" width="32" height="32" transform="translate(323.853 324)" fill="#161617" opacity="0"/>
-        <rect id="Fill_2-2" data-name="Fill 2" width="32" height="32" transform="translate(323.852 324)" fill="#00b888" opacity="0.2"/>
-        <g id="Rollover-2" data-name="Rollover" transform="translate(323.853 324)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
+        <rect id="Fill_2-2" data-name="Fill 2" width="32" height="32" transform="translate(323.852 324)" fill="#009b65" opacity="0.2"/>
+        <g id="Rollover-2" data-name="Rollover" transform="translate(323.853 324)" fill="none" stroke="#00b888" stroke-width="1" opacity="0.3">
           <rect width="32" height="32" stroke="none"/>
-          <rect x="1" y="1" width="30" height="30" fill="none"/>
+          <rect x="0.5" y="0.5" width="31" height="31" fill="none"/>
         </g>
       </g>
       <g id="Stack_Group-2" data-name="Stack Group" transform="translate(-40 1)">

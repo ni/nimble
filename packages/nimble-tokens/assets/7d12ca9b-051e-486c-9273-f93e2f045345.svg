@@ -1,8 +1,8 @@
 <svg id="ButtonToggle_Icon_Block_32" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
   <g id="Background" transform="translate(-323.853 -324)">
     <rect id="Fill_1" data-name="Fill 1" width="32" height="32" transform="translate(323.853 324)" fill="#161617" opacity="0.1"/>
-    <rect id="Fill_2" data-name="Fill 2" width="32" height="1.996" transform="translate(323.853 353.98)" fill="#00b888" opacity="0"/>
-    <g id="Rollover" transform="translate(323.853 324)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
+    <rect id="Fill_2" data-name="Fill 2" width="32" height="1.996" transform="translate(323.853 353.98)" fill="#009b65" opacity="0"/>
+    <g id="Rollover" transform="translate(323.853 324)" fill="none" stroke="#009b65" stroke-width="2" opacity="0">
       <rect width="32" height="32" stroke="none"/>
       <rect x="1" y="1" width="30" height="30" fill="none"/>
     </g>
