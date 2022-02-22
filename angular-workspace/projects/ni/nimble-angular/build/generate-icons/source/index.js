@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 const fs = require('fs');
@@ -35,8 +36,8 @@ fs.mkdirSync(iconsDirectory);
 console.log('Finished creating icons directory');
 
 console.log('Writing icon directive and module files');
-let moduleNamesAndPaths = [];
-let directivePaths = [];
+const moduleNamesAndPaths = [];
+const directivePaths = [];
 for (const key in icons) {
     if (Object.prototype.hasOwnProperty.call(icons, key)) {
         const iconName = trimSizeFromName(key);
@@ -79,11 +80,11 @@ import '@ni/nimble-components/dist/esm/icons2/${iconName}';
 })
 export class ${moduleName} { }
 `;
-        
+
         const moduleFilePath = path.resolve(iconDirectory, `${elementName}.module`);
         fs.writeFileSync(`${moduleFilePath}.ts`, moduleFileContents, { encoding: 'utf-8' });
 
-        moduleNamesAndPaths.push({name: moduleName, path: moduleFilePath});
+        moduleNamesAndPaths.push({ name: moduleName, path: moduleFilePath });
     }
 }
 console.log(`Finshed writing ${moduleNamesAndPaths.length} icon directive and module files`);
@@ -92,11 +93,11 @@ fs.mkdirSync(allIconsDirectory);
 
 const allIconsModuleFilePath = path.resolve(allIconsDirectory, 'all-icons.module.ts');
 let allIconsModuleFileContents = `import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';`
+import { CommonModule } from '@angular/common';`;
 
-for (let module of moduleNamesAndPaths) {
+for (const module of moduleNamesAndPaths) {
     const relativeModulePath = getRelativeFilePath(allIconsDirectory, module.path);
-    allIconsModuleFileContents += `\nimport { ${module.name} } from '${relativeModulePath}';`
+    allIconsModuleFileContents += `\nimport { ${module.name} } from '${relativeModulePath}';`;
 }
 
 const moduleNames = moduleNamesAndPaths.map(module => module.name).join(',\n        ');
@@ -110,22 +111,23 @@ allIconsModuleFileContents += `\n\n@NgModule({
         ${moduleNames}
     ]
 })
-export class NimbleAllIconsModule { }`;
+export class NimbleAllIconsModule { }
+`;
 
 console.log('Writing all-icons module file');
 fs.writeFileSync(`${allIconsModuleFilePath}`, allIconsModuleFileContents, { encoding: 'utf-8' });
 console.log('Finished writing all-icons module file');
 
 let barrelFileContents = '';
-for (let directivePath of directivePaths) {
+for (const directivePath of directivePaths) {
     barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, directivePath)}';\n`;
 }
-for (let module of moduleNamesAndPaths) {
+for (const module of moduleNamesAndPaths) {
     barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, module.path)}';\n`;
 }
 
 const barrelFilePath = path.resolve(iconsDirectory, 'index');
 
 console.log('Writing barrel file');
-fs.writeFileSync(barrelFilePath + '.ts', barrelFileContents, { encoding: 'utf-8' });
+fs.writeFileSync(`${barrelFilePath}.ts`, barrelFileContents, { encoding: 'utf-8' });
 console.log('Finished writing barrel file');

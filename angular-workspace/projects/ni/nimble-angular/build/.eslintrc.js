@@ -3,6 +3,9 @@ module.exports = {
     extends: [
         '@ni/eslint-config-javascript'
     ],
+    ignorePatterns: [
+        'dist'
+    ],
     rules: {
         // Build scripts should give verbose logging
         'no-console': 'off',

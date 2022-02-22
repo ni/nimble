@@ -55,7 +55,8 @@ export class ${className} extends Icon {
     }
 }
 
-registerIcon('${elementName}', ${className});`;
+registerIcon('${elementName}', ${className});
+`;
 
         const fileName = `${iconName}.ts`;
         const filePath = path.resolve(iconsDirectory, fileName);

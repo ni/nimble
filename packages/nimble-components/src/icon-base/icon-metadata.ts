@@ -6,7 +6,9 @@ interface IconMetadata {
     tags: string[];
 }
 
-export const iconMetadata: { readonly [key in IconName]: IconMetadata | undefined } = {
+export const iconMetadata: {
+    readonly [key in IconName]: IconMetadata | undefined;
+} = {
     add16X16: undefined,
     arrowDownRightAndArrowUpLeft16X16: undefined,
     arrowExpanderDown16X16: undefined,
