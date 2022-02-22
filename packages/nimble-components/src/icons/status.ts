@@ -1,4 +1,4 @@
-import { statusHeader16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { dotSolidDotStroke16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class StatusIcon extends Icon {
     public constructor() {
-        super(statusHeader16X16);
+        super(dotSolidDotStroke16X16);
     }
 }
 

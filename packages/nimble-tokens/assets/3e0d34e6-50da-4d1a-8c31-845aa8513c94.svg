@@ -6,7 +6,7 @@
   </defs>
   <g id="Inputs_Search_Block_32" transform="translate(0 142)">
     <g id="Background_Group" data-name="Background Group">
-      <rect id="Block" width="784" height="32" fill="#161617" opacity="0.07"/>
+      <rect id="Block" width="784" height="32" fill="#161617" opacity="0.1"/>
       <g id="Line" transform="translate(0 31)" fill="none" stroke="#161617" stroke-width="1" opacity="0">
         <rect width="784" height="1" stroke="none"/>
         <rect x="0.5" y="0.5" width="783" fill="none"/>
@@ -32,7 +32,7 @@
         <g id="Background">
           <rect id="Background-2" data-name="Background" width="28" height="24" fill="#161617" opacity="0"/>
           <rect id="Mousedown" width="24" height="24" fill="none" opacity="0"/>
-          <g id="Rollover-2" data-name="Rollover" transform="translate(4 4)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
+          <g id="Rollover-2" data-name="Rollover" transform="translate(4 4)" fill="none" stroke="#009b65" stroke-width="1" opacity="0">
             <rect width="24" height="16" stroke="none"/>
             <rect x="0.5" y="0.5" width="23" height="15" fill="none"/>
           </g>
@@ -57,7 +57,7 @@
       <g id="Background-3" data-name="Background">
         <rect id="Background-4" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
         <rect id="Rollover-3" data-name="Rollover" width="76" height="2" transform="translate(0 30)" fill="#161617" opacity="0"/>
-        <rect id="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#00b888" opacity="0"/>
+        <rect id="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#009b65" opacity="0"/>
       </g>
       <g id="Stacks_Group" data-name="Stacks Group">
         <text id="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>
@@ -67,7 +67,7 @@
       <g id="Background-5" data-name="Background">
         <rect id="Background-6" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
         <rect id="Rollover-4" data-name="Rollover" width="76" height="2" transform="translate(0 30)" fill="#161617" opacity="0"/>
-        <rect id="SelectionRectangle-2" data-name="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#00b888" opacity="0"/>
+        <rect id="SelectionRectangle-2" data-name="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#009b65" opacity="0"/>
       </g>
       <g id="Stacks_Group-2" data-name="Stacks Group">
         <text id="Section-2" data-name="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>
@@ -77,7 +77,7 @@
       <g id="Background-7" data-name="Background">
         <rect id="Background-8" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
         <rect id="Rollover-5" data-name="Rollover" width="76" height="1.984" transform="translate(0 30)" fill="#161617" opacity="0"/>
-        <rect id="SelectionRectangle-3" data-name="SelectionRectangle" width="76" height="2" transform="translate(0 30)" fill="#00b888"/>
+        <rect id="SelectionRectangle-3" data-name="SelectionRectangle" width="76" height="2" transform="translate(0 30)" fill="#009b65"/>
       </g>
       <g id="Stacks_Group-3" data-name="Stacks Group">
         <text id="Section-3" data-name="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>

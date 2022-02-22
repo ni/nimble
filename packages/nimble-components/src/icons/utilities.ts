@@ -1,4 +1,4 @@
-import { boxUtilities16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { potWithLid16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
  */
 export class UtilitiesIcon extends Icon {
     public constructor() {
-        super(boxUtilities16X16);
+        super(potWithLid16X16);
     }
 }
 

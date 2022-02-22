@@ -4,7 +4,7 @@ import {
     SelectOptions,
     selectTemplate as template
 } from '@microsoft/fast-foundation';
-import { controlsArrowExpanderDown16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
 export type { Select };
@@ -63,7 +63,7 @@ const nimbleSelect = Select.compose<SelectOptions>({
     // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
-    indicator: controlsArrowExpanderDown16X16.data
+    indicator: arrowExpanderDown16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSelect());
