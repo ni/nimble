@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 21 Feb 2022 15:34:13 GMT and should not be manually modified.
+This log was last generated on Mon, 21 Feb 2022 23:14:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.1.3
+
+Mon, 21 Feb 2022 23:14:18 GMT
+
+### Patches
+
+- Fix minor hover issue for text area on Safari (7282195+m-akinc@users.noreply.github.com)
 
 ## 2.1.2
 
