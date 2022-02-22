@@ -17,7 +17,7 @@
     "build-components": "tsc -p ./tsconfig.json",
     "build-components:watch": "tsc -p ./tsconfig.json -w",
     "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
-    "generate-icons:bundle": "rollup build/generate-icons/source/index.js --format cjs --file build/generate-icons/dist/index.js",
+    "generate-icons:bundle": "rollup --config build/generate-icons/rollup.config.js",
     "generate-icons:run": "node build/generate-icons/dist/index.js",
     "generate-scss": "npm run generate-scss:bundle && npm run generate-scss:run",
     "generate-scss:bundle": "rollup build/generate-scss/source/index.js --format cjs --file build/generate-scss/dist/index.js",

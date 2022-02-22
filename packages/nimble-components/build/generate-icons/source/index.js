@@ -29,6 +29,7 @@ console.log('Finished creating icons directory');
 
 console.log('Writing icon component files');
 let allIconsFileContents = '';
+let fileCount = 0;
 for (const key in icons) {
     if (Object.prototype.hasOwnProperty.call(icons, key)) {
         const svgName = key;
@@ -58,13 +59,13 @@ registerIcon('${elementName}', ${className});`;
 
         const fileName = `${iconName}.ts`;
         const filePath = path.resolve(iconsDirectory, fileName);
-        // console.log(`Writing ${iconName} icon component file`);
         fs.writeFileSync(filePath, componentFileContents, { encoding: 'utf-8' });
+        fileCount += 1;
 
         allIconsFileContents = allIconsFileContents.concat(`export { ${className} } from './${iconName}';\n`);
     }
 }
-console.log(`Finshed writing ${icons.length} icon component files`);
+console.log(`Finshed writing ${fileCount} icon component files`);
 
 const allIconsFilePath = path.resolve(iconsDirectory, 'all-icons.ts');
 console.log('Writing all-icons file');
