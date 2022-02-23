@@ -2,8 +2,8 @@ import { css } from '@microsoft/fast-element';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
-    actionColorRgbPartial,
-    borderColorHover,
+    actionRgbPartialColor,
+    borderHoverColor,
     borderWidth,
     fillColorSelected,
     standardPadding
@@ -19,15 +19,15 @@ export const styles = buttonStyles
             ButtonAppearance.Outline,
             css`
                 :host(.primary) .control {
-                    box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionColorRgbPartial}, 0.3) inset;
+                    box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
                 }
 
                 :host(.primary) .control:hover {
-                    box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
+                    box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
                 }
 
                 :host(.primary) .control${focusVisible} {
-                    box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
+                    box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
                 }
 
                 :host(.primary) .control:active {
@@ -44,7 +44,7 @@ export const styles = buttonStyles
             css`
                 :host(.primary) .control {
                     background-clip: padding-box;
-                    border-color: rgba(${actionColorRgbPartial}, 0.3);
+                    border-color: rgba(${actionRgbPartialColor}, 0.3);
                     border-width: calc(2 * ${borderWidth});
                     padding: 0 calc(${standardPadding} - ${borderWidth});
                 }
@@ -54,15 +54,15 @@ export const styles = buttonStyles
                 }
 
                 :host(.primary) .control:hover {
-                    border-color: ${borderColorHover};
+                    border-color: ${borderHoverColor};
                     box-shadow: none;
                 }
 
                 :host(.primary) .control${focusVisible} {
                     background-clip: border-box;
-                    border-color: ${borderColorHover};
+                    border-color: ${borderHoverColor};
                     border-width: ${borderWidth};
-                    box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
+                    box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
                     padding: 0 ${standardPadding};
                 }
 
