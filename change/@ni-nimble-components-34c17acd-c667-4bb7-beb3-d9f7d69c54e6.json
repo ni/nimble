@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Added icons, updated names of existing icons, implemented code generation for icons",
+  "packageName": "@ni/nimble-components",
+  "email": "5454342+brianehenry@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
