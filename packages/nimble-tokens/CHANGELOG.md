@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 21 Feb 2022 15:34:13 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Feb 2022 20:10:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.1.0
+
+Wed, 23 Feb 2022 20:10:44 GMT
+
+### Minor changes
+
+- Updated from XD source. Added LineHeight tokens for each font type. (1458528+fredvisser@users.noreply.github.com)
 
 ## 2.0.0
 

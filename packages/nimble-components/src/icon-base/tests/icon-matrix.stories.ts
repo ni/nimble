@@ -6,7 +6,7 @@ import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
 import '../../icons/check';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { IconStatus } from '../types';
-import { contentFontColor } from '../../theme-provider/design-tokens';
+import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -28,7 +28,7 @@ const iconStatusStates = [
 type IconStatusState = typeof iconStatusStates[number];
 
 const component = ([stateName, state]: IconStatusState): ViewTemplate => html`
-    <span style="color: ${contentFontColor.createCSS()};">${stateName}</span>
+    <span style="color: ${bodyFontColor.createCSS()};">${stateName}</span>
     <nimble-check-icon class="${state}"></nimble-check-icon>
 `;
 
