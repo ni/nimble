@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 23 Feb 2022 22:01:52 GMT",
+      "tag": "@ni/nimble-components_v3.1.0",
+      "version": "3.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ebdc787afeaf9143270906d792ec799ed1d3c77",
+            "comment": "Implement primary buttons"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 23 Feb 2022 20:10:44 GMT",
       "tag": "@ni/nimble-components_v3.0.0",
       "version": "3.0.0",

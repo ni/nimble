@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 23 Feb 2022 20:10:44 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Feb 2022 22:01:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.1.0
+
+Wed, 23 Feb 2022 22:01:52 GMT
+
+### Minor changes
+
+- Implement primary buttons (20542556+mollykreis@users.noreply.github.com)
 
 ## 3.0.0
 
