@@ -1,22 +1,17 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    borderColorRgbPartial,
-    borderColorHover,
+    borderRgbPartialColor,
+    borderHoverColor,
     borderWidth,
-    contentFontColor,
-    contentFontColorDisabled,
-    contentFontSize,
-    fillColorSelectedRgbPartial,
-    fontFamily,
-    labelFontColor,
-    labelFontColorDisabled,
-    labelFontFamily,
-    labelFontSize,
-    labelFontWeight,
-    labelHeight,
-    labelTextTransform,
-    smallDelay
+    fillSelectedRgbPartialColor,
+    smallDelay,
+    bodyFontColor,
+    bodyDisabledFontColor,
+    controlLabelFont,
+    controlLabelFontColor,
+    bodyFont,
+    controlLabelDisabledFontColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
@@ -25,29 +20,24 @@ export const styles = css`
     ${display('inline-block')}
 
     :host {
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         outline: none;
         user-select: none;
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
     }
 
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${bodyDisabledFontColor};
     }
 
     .label {
         display: flex;
-        color: ${labelFontColor};
-        font-family: ${labelFontFamily};
-        font-size: ${labelFontSize};
-        font-weight: ${labelFontWeight};
-        line-height: ${labelHeight};
-        text-transform: ${labelTextTransform};
+        color: ${controlLabelFontColor};
+        font: ${controlLabelFont};
     }
 
     :host([disabled]) .label {
-        color: ${labelFontColorDisabled};
+        color: ${controlLabelDisabledFontColor};
     }
 
     .control {
@@ -61,7 +51,7 @@ export const styles = css`
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
         padding: 8px;
-        transition: outline ${smallDelay}, border ${smallDelay};
+        transition: box-shadow ${smallDelay}, border ${smallDelay};
         resize: none;
     }
 
@@ -72,12 +62,12 @@ export const styles = css`
     }
 
     .control:hover {
-        border-color: ${borderColorHover};
-        outline: 1px solid ${borderColorHover};
+        border-color: ${borderHoverColor};
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor};
     }
 
     .control:focus-within {
-        border-color: ${borderColorHover};
+        border-color: ${borderHoverColor};
     }
 
     .control[readonly],
@@ -85,21 +75,21 @@ export const styles = css`
     .control[readonly]:hover:focus-within,
     .control[disabled],
     .control[disabled]:hover {
-        border-color: rgba(${borderColorRgbPartial}, 0.1);
-        outline: none;
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
+        box-shadow: none;
     }
 
     .control::selection {
-        color: ${labelFontColor};
-        background: rgba(${fillColorSelectedRgbPartial}, 0.3);
+        color: ${controlLabelFontColor};
+        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
     }
 
     .control::placeholder {
-        color: ${labelFontColor};
+        color: ${controlLabelFontColor};
     }
 
     .control[disabled]::placeholder {
-        color: ${contentFontColorDisabled};
+        color: ${controlLabelDisabledFontColor};
     }
 
     :host([resize='both']) .control {
@@ -118,7 +108,7 @@ export const styles = css`
             TextAreaAppearance.Outline,
             css`
                 .control {
-                    border-color: rgba(${borderColorRgbPartial}, 0.3);
+                    border-color: rgba(${borderRgbPartialColor}, 0.3);
                     background-color: transparent;
                 }
             `
@@ -127,7 +117,7 @@ export const styles = css`
             TextAreaAppearance.Block,
             css`
                 .control {
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
+                    background-color: rgba(${borderRgbPartialColor}, 0.1);
                 }
 
                 :host([readonly]) .control {
@@ -136,7 +126,7 @@ export const styles = css`
 
                 :host([disabled]) .control {
                     border-color: transparent;
-                    background-color: rgba(${borderColorRgbPartial}, 0.1);
+                    background-color: rgba(${borderRgbPartialColor}, 0.1);
                 }
             `
         )

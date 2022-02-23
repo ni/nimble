@@ -4,12 +4,7 @@ import { html, repeat } from '@microsoft/fast-element';
 import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import {
-    labelFontColor,
-    labelFontFamily,
-    labelFontSize,
-    labelFontWeight
-} from '../design-tokens';
+import { controlLabelFont, controlLabelFontColor } from '../design-tokens';
 
 interface NimbleColor {
     name: string;
@@ -47,10 +42,8 @@ const styleMarkup = html`
         }
 
         .color-label {
-            font-family: var(${labelFontFamily.cssCustomProperty});
-            font-size: var(${labelFontSize.cssCustomProperty});
-            font-weight: var(${labelFontWeight.cssCustomProperty});
-            color: var(${labelFontColor.cssCustomProperty});
+            font: var(${controlLabelFont.cssCustomProperty});
+            color: var(${controlLabelFontColor.cssCustomProperty});
             text-align: center;
         }
     </style>

@@ -2,39 +2,34 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     borderColor,
-    borderColorRgbPartial,
-    borderColorHover,
+    borderRgbPartialColor,
+    borderHoverColor,
     borderWidth,
-    contentFontColor,
-    contentFontColorDisabled,
-    contentFontSize,
+    bodyFontColor,
+    bodyDisabledFontColor,
     controlHeight,
-    fillColorSelectedRgbPartial,
-    fontFamily,
+    fillSelectedRgbPartialColor,
     iconSize,
-    labelFontColor,
-    labelFontFamily,
-    labelFontSize,
-    labelFontWeight,
+    controlLabelFont,
+    controlLabelFontColor,
     labelHeight,
-    labelTextTransform,
-    smallDelay
+    smallDelay,
+    bodyFont
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('inline-block')}
 
     :host {
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         outline: none;
         user-select: none;
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
     }
 
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${bodyDisabledFontColor};
         cursor: default;
     }
 
@@ -44,8 +39,7 @@ export const styles = css`
         display: flex;
         flex-direction: row;
         border-radius: 0px;
-        font-family: ${fontFamily};
-        border-bottom: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.3);
+        border-bottom: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
         padding-bottom: 1px;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
@@ -57,13 +51,13 @@ export const styles = css`
     }
 
     .root:hover {
-        border-bottom: 2px solid ${borderColorHover};
+        border-bottom: 2px solid ${borderHoverColor};
         padding-bottom: 0px;
     }
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
-        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
         padding-bottom: 1px;
     }
 
@@ -87,12 +81,12 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${labelFontColor};
-        background: rgba(${fillColorSelectedRgbPartial}, 0.3);
+        color: ${controlLabelFontColor};
+        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
     }
 
     .control::placeholder {
-        color: ${labelFontColor};
+        color: ${controlLabelFontColor};
     }
 
     .control:focus-within::placeholder {
@@ -100,17 +94,13 @@ export const styles = css`
     }
 
     .control[disabled]::placeholder {
-        color: ${contentFontColorDisabled};
+        color: ${bodyDisabledFontColor};
     }
 
     .label {
         display: flex;
-        color: ${labelFontColor};
-        font-family: ${labelFontFamily};
-        font-size: ${labelFontSize};
-        font-weight: ${labelFontWeight};
-        line-height: ${labelHeight};
-        text-transform: ${labelTextTransform};
+        color: ${controlLabelFontColor};
+        font: ${controlLabelFont};
     }
 
     .controls {

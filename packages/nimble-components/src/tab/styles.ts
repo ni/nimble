@@ -1,14 +1,13 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    borderColorHover,
+    bodyFont,
+    borderHoverColor,
     borderWidth,
-    contentFontColor,
-    contentFontColorDisabled,
-    contentFontSize,
+    bodyFontColor,
+    bodyDisabledFontColor,
     controlHeight,
-    fillColorHover,
-    fontFamily,
+    fillHoverColor,
     mediumDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -19,12 +18,11 @@ export const styles = css`
 
     :host {
         box-sizing: border-box;
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         height: ${controlHeight};
         padding: calc(${standardPadding} / 2) ${standardPadding}
             calc(${standardPadding} / 2 - ${borderWidth});
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
         align-items: center;
         justify-content: center;
         cursor: pointer;
@@ -33,7 +31,7 @@ export const styles = css`
     }
 
     :host(:hover) {
-        background-color: ${fillColorHover};
+        background-color: ${fillHoverColor};
     }
 
     :host(:focus) {
@@ -42,7 +40,7 @@ export const styles = css`
 
     :host(${focusVisible}) {
         outline: none;
-        box-shadow: 0 calc(${borderWidth} * -1) ${borderColorHover} inset;
+        box-shadow: 0 calc(${borderWidth} * -1) ${borderHoverColor} inset;
         transition: box-shadow ${mediumDelay} ease-in-out;
     }
 
@@ -58,7 +56,7 @@ export const styles = css`
 
     :host([disabled]) {
         cursor: default;
-        color: ${contentFontColorDisabled};
+        color: ${bodyDisabledFontColor};
         background: none;
     }
 `;

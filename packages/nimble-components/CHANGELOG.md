@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 21 Feb 2022 15:34:13 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Feb 2022 20:10:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.0.0
+
+Wed, 23 Feb 2022 20:10:44 GMT
+
+### Major changes
+
+- Refactored nearly all theme-aware tokens. See this [spreadsheet](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) for a mapping of old and new tokens. (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v2.1.0
+
+## 2.1.3
+
+Mon, 21 Feb 2022 23:14:18 GMT
+
+### Patches
+
+- Fix minor hover issue for text area on Safari (7282195+m-akinc@users.noreply.github.com)
 
 ## 2.1.2
 
