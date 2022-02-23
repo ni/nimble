@@ -137,10 +137,6 @@ export const passColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.passColor)
 ).withDefault((element: HTMLElement) => getPassColorForTheme(element));
 
-export const hyperlinkActiveFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.hyperlinkActiveFontColor)
-).withDefault((element: HTMLElement) => getHyperlinkActiveFontColorForTheme(element));
-
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White));
@@ -429,15 +425,6 @@ function getDefaultLineColorForTheme(element: HTMLElement): string {
 
 function getDefaultFontColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
-}
-
-function getHyperlinkActiveFontColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        '#007A50', // Selection100TypePass
-        Selection100,
-        Selection100
-    );
 }
 
 function getFillColorSelectedForTheme(element: HTMLElement): string {

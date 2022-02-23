@@ -6,8 +6,8 @@ import {
     borderHoverColor,
     borderWidth,
     controlHeight,
-    hyperlinkActiveFontColor,
-    iconSize
+    iconSize,
+    passColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -42,7 +42,7 @@ export const styles = css`
     }
 
     .control:active {
-        color: ${hyperlinkActiveFontColor};
+        color: ${passColor};
         text-decoration: underline;
     }
 
