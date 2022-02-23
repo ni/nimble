@@ -19,8 +19,7 @@ export const styles = buttonStyles
             ButtonAppearance.Outline,
             css`
                 :host(.primary) .control {
-                    box-shadow: 0px 0px 0px ${borderWidth}
-                        rgba(${actionColorRgbPartial}, 0.3) inset;
+                    box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionColorRgbPartial}, 0.3) inset;
                 }
 
                 :host(.primary) .control:hover {
