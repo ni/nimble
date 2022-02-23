@@ -50,8 +50,8 @@ const primaryStates: PrimaryState[] = [
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
-    [primaryName, primaryClass]: PrimaryState,
     [appearanceName, appearance]: AppearanceState,
+    [primaryName, primaryClass]: PrimaryState,
     [labelVisible, iconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
     <nimble-button
@@ -69,8 +69,8 @@ export const buttonThemeMatrix: Story = createRenderer(
     themeWrapper(
         createMatrix(component, [
             disabledStates,
-            primaryStates,
             appearanceStates,
+            primaryStates,
             partVisibilityStates
         ])
     )

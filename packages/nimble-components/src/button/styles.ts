@@ -12,10 +12,8 @@ import { styles as buttonStyles } from '../patterns/button/styles';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { ButtonAppearance } from './types';
 
-export const styles = css`
-    ${buttonStyles}
-`
-    // prettier-ignore
+// prettier-ignore
+export const styles = buttonStyles
     .withBehaviors(
         appearanceBehavior(
             ButtonAppearance.Outline,
@@ -26,13 +24,11 @@ export const styles = css`
                 }
 
                 :host(.primary) .control:hover {
-                    box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover}
-                        inset;
+                    box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
                 }
 
                 :host(.primary) .control${focusVisible} {
-                    box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover}
-                        inset;
+                    box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
                 }
 
                 :host(.primary) .control:active {
@@ -67,8 +63,7 @@ export const styles = css`
                     background-clip: border-box;
                     border-color: ${borderColorHover};
                     border-width: ${borderWidth};
-                    box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover}
-                        inset;
+                    box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
                     padding: 0 ${standardPadding};
                 }
 
