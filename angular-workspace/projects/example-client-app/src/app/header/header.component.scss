@@ -2,7 +2,7 @@
 
 .header {
     --example-client-header-height: 48px;
-    background-color: #d3d5d6; //Black30
+    background-color: $ni-nimble-header-background-color;
     display: flex;
     justify-content: flex-end;
     height: var(--example-client-header-height);

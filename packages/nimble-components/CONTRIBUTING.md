@@ -259,3 +259,14 @@ The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/ut
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
+
+## Token naming
+
+Public names for theme-aware tokens are specified in `src/theme-provider/design-token-names.ts`. Use the following structure when creating new tokens.
+
+`[element]-[part]-[state]-[token_type]`
+
+1. Where **element** is the type to which the token applies (e.g. 'application', 'body', or 'title-plus-1').
+2. Where **part** is the specific part of the element to which the token applies (e.g. 'border', 'background', or shadow).
+3. Where **state** is the more specific state descriptor (e.g. 'selected' or 'disabled'). Multiple states should be sorted alphabetically.
+4. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').
