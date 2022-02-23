@@ -70,3 +70,4 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 4. Add metadata for the new icons to `nimble-components\src\icon-base\icon-metadata.ts`.
 5. Generate and build icon components by running `npm run build -w @ni/nimble-components`.
 6. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly.
+7. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.
