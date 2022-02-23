@@ -22,9 +22,16 @@ Our Nimble Blazor APIs have the possibility of being functionally different from
 
 We need to be deliberate about our API design, but I would suggest not at the cost of holding off on a release of the package until all of the APIs are fleshed out. I proposed we come up with an initial set of components to release that offer a straightforward API that we have a high confidence will not change over time (e.g. the NimbleButton).
 
-#### Questions
-
-1. What is the set of components we should commit to the initial release?
+Proposed Initial Component Set:
+- Button
+- Checkbox
+- Select
+- TreeView/TreeItem
+- TextField
+- Breadcrumb
+- ThemeProvider
+- Menu
+- Toolbar
 
 ### Building
 
@@ -40,6 +47,17 @@ Currently the nimble-components repo does not bundle any minified source in its 
 
 We will expect clients to retrieve the Blazor nuget from typical sources like nuget.org. There already exists a deprecated NimbleBlazor nuget hosted on nuget.org [here](https://www.nuget.org/packages/NimbleBlazor/).
 
+For more info see the following blog posts:
+- [Publishing .NET NuGet packages using GitHub Actions](https://blog.christiansibo.com/publishing-net-nuget-packages-to-github-using-github-actions/)
+- [Set up your NuGet package CI workflow with GitHub Actions](https://www.jamescroft.co.uk/how-to-build-publish-nuget-packages-with-github-actions/)
+
+#### Versioning
+
+While there may be tooling that exists to enable things like automatic versioning for nugets in a github cicd workflow, there doesn't seem to be a well known standard. It would appear that the predominant process for setting major/minor versions of a nuget is still a manual process that is a part of the change that the version bump is associated with. The above blog post "[Publishing .NET NuGet packages using GitHub Actions](https://blog.christiansibo.com/publishing-net-nuget-packages-to-github-using-github-actions/)" goes into some detail with how to manage the versions of your nuget.
+
+Possible tooling to investigate:
+- [GitTools](https://github.com/marketplace/actions/gittools), which sets up [GitVersion](https://github.com/GitTools/GitVersion) and [GitReleaseManager](https://gittools.github.io/GitReleaseManager/docs/) to be used in a GitHub workflow.
+
 #### Questions
 
 1. Can we basically copy the workflow from the above NimbleBlazor repo, and just update as needed?
@@ -47,11 +65,17 @@ We will expect clients to retrieve the Blazor nuget from typical sources like nu
     a. Can we use the same package (and thus artifact location)?
 2. Should we bump .NET version to v6 (this is what the Microsoft/fast-blazor uses)?
 3. Microsoft/fast-blazor has other workflows in addition to cicd. Namely a "validate" workflow that appears to publish an example app and a codeql analysis workflow which is used to discover potential vulnerabilities.
-4. Microsoft/fast-blazor has an .azure-devops workflow. Is this something we should look into?
 
 ### Testing
 
 The Micosoft/fast-blazor repo is notably devoid of testing, however our previous ni/nimble-blazor repo had an example bUnit test. We should be able to adopt the same strategy with the new Blazor repo.
+
+In addition to running unit tests, we want the Blazor repo to have a similar developer validation experience that the nimble-angular repo offers. Namely we should:
+
+- Provide an example app that tests out each widget
+- Produce a Storybook allowing users to update public state of each component
+- Link to example app (WebAssembly version) from Storybook landing page
+- Run Lighthouse against the example app
 
 For more info see [Github docs](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net).
 
