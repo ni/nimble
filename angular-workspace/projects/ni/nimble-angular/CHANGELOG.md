@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 23 Feb 2022 20:10:44 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Feb 2022 22:30:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.1.0
+
+Wed, 23 Feb 2022 22:30:22 GMT
+
+### Minor changes
+
+- nimble-breadcrumb/nimble-breadcrumb-item Angular integration/directives, including RouterLink support (see Readme) (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v3.2.0
+
+## 2.0.1
+
+Wed, 23 Feb 2022 22:01:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v3.1.0
 
 ## 2.0.0
 
