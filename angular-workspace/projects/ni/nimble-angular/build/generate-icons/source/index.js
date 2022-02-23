@@ -28,7 +28,7 @@ const camelToKebabCase = text => {
 
 const getRelativeFilePath = (from, to) => {
     return path.relative(from, to)
-        .replaceAll('\\', '/') // Replace backslashes with forward slashes
+        .replace(/\\/g, '/') // Replace backslashes with forward slashes
         .replace(/^\w/, firstChar => `./${firstChar}`); // Prefix "./" to relative paths that don't navigate up
 };
 
