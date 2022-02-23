@@ -20,6 +20,18 @@ enables users to trigger an action or event, such as submitting a form, opening 
 action, or performing a delete operation. A common convention for informing users that a button launches
 a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".`;
 
+const primaryDescription = `Set the \`primary\` CSS class on the element to make a button primary. This class has no effect on buttons with a \`ghost\` appearance.
+
+<details>
+    <summary>Primary Button Usage</summary>
+    Make a button primary to distinguish it visibly for one of the following reasons: 
+    <ul>
+        <li>to indicate the action that allows the user to accomplish their most common or important goal</li>
+        <li>to indicate the action that allows the user to complete their task</li>
+    </ul>
+</details>
+`;
+
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',
     decorators: [withXD],
@@ -43,8 +55,7 @@ const metadata: Meta<ButtonArgs> = {
             control: { type: 'radio' }
         },
         primary: {
-            description:
-                'Set the `primary` CSS class on the element to make a button primary. This class has no effect on buttons with a `ghost` appearance.'
+            description: primaryDescription
         },
         icon: {
             description:
