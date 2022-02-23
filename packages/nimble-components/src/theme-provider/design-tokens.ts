@@ -25,10 +25,7 @@ import {
     Title2Family,
     GroupLabel1Family,
     GroupLabel1Size,
-    GroupLabel1Weight,
-    RgbNiSky,
-    Information100LightUi,
-    Information100DarkUi
+    GroupLabel1Weight
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -270,15 +267,15 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
 }
 
 function getHyperlinkColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, RgbNiSky, RgbNiSky, RgbNiSky);
+    return getColorForTheme(element, Black91, Black15, White);
 }
 
 function getHyperlinkColorActiveForTheme(element: HTMLElement): string {
     return getColorForTheme(
         element,
-        Information100LightUi,
-        Information100DarkUi,
-        Information100DarkUi
+        '#007A50', // Selection100TypePass
+        Selection100,
+        Selection100
     );
 }
 

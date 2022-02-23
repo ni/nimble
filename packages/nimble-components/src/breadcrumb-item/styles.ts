@@ -37,14 +37,17 @@ export const styles = css`
 
     .control:link {
         cursor: pointer;
+        text-decoration: none;
     }
 
     .control:hover {
         color: ${hyperlinkColor};
+        text-decoration: underline;
     }
 
     .control:active {
         color: ${hyperlinkColorActive};
+        text-decoration: underline;
     }
 
     .control:link:focus-within {
