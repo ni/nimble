@@ -94,7 +94,12 @@ export const iconMetadata: {
     indeterminantCheckbox16X16: undefined,
     info16X16: undefined,
     infoCircle16X16: undefined,
-    key16X16: undefined,
+    key16X16: {
+        tags: [
+            'access-control',
+            'active-directory'
+        ]
+    },
     laptop16X16: undefined,
     layerGroup16X16: undefined,
     lightningBolt16X16: undefined,

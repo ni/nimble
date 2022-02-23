@@ -24,19 +24,22 @@ const camelToKebabCase = text => {
     return text.replace(/[A-Z]+(?![a-z])|[A-Z]/g, (substring, offset) => (offset !== 0 ? '-' : '') + substring.toLowerCase());
 };
 
+const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
+// See generation source in nimble-components/build/generate-icons\n`;
+
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
 if (fs.existsSync(iconsDirectory)) {
-    console.log('Deleting existing icons directory');
+    console.log(`Deleting existing icons directory "${iconsDirectory}"`);
     fs.rmSync(iconsDirectory, { recursive: true });
     console.log('Finished deleting existing icons directory');
 }
-console.log('Creating icons directory');
+console.log(`Creating icons directory "${iconsDirectory}"`);
 fs.mkdirSync(iconsDirectory);
 console.log('Finished creating icons directory');
 
 console.log('Writing icon component files');
-let allIconsFileContents = '';
+let allIconsFileContents = `${generatedFilePrefix}\n`;
 let fileCount = 0;
 for (const key in icons) {
     if (Object.prototype.hasOwnProperty.call(icons, key)) {
@@ -46,7 +49,8 @@ for (const key in icons) {
         const elementName = `${camelToKebabCase(iconName)}-icon`; // e.g. "arrow-expander-left-icon"
         const className = `${camelToPascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
 
-        const componentFileContents = `import { ${svgName} } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+        const componentFileContents = `${generatedFilePrefix}
+import { ${svgName} } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
