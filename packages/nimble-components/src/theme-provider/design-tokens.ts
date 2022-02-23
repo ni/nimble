@@ -137,10 +137,6 @@ export const passColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.passColor)
 ).withDefault((element: HTMLElement) => getPassColorForTheme(element));
 
-export const hyperlinkFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.hyperlinkFontColor)
-).withDefault((element: HTMLElement) => getHyperlinkFontColorForTheme(element));
-
 export const hyperlinkActiveFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.hyperlinkActiveFontColor)
 ).withDefault((element: HTMLElement) => getHyperlinkActiveFontColorForTheme(element));
@@ -432,10 +428,6 @@ function getDefaultLineColorForTheme(element: HTMLElement): string {
 }
 
 function getDefaultFontColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White);
-}
-
-function getHyperlinkFontColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
 }
 

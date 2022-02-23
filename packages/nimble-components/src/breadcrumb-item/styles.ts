@@ -7,7 +7,6 @@ import {
     borderWidth,
     controlHeight,
     hyperlinkActiveFontColor,
-    hyperlinkFontColor,
     iconSize
 } from '../theme-provider/design-tokens';
 
@@ -39,7 +38,6 @@ export const styles = css`
     }
 
     .control:hover {
-        color: ${hyperlinkFontColor};
         text-decoration: underline;
     }
 
