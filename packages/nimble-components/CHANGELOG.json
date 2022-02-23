@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 23 Feb 2022 22:30:22 GMT",
+      "tag": "@ni/nimble-components_v3.2.0",
+      "version": "3.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cd072c1851d3136e108f0562b8913dc351909f72",
+            "comment": "Add new nimble-breadcrumb and nimble-breadcrumb-item components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 23 Feb 2022 22:01:52 GMT",
       "tag": "@ni/nimble-components_v3.1.0",
       "version": "3.1.0",

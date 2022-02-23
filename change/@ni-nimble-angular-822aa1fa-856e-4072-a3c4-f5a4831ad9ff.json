@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "nimble-breadcrumb/nimble-breadcrumb-item Angular integration/directives, including RouterLink support (see Readme)",
-  "packageName": "@ni/nimble-angular",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

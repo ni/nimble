@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 23 Feb 2022 22:30:22 GMT",
+      "tag": "@ni/nimble-angular_v2.1.0",
+      "version": "2.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "cd072c1851d3136e108f0562b8913dc351909f72",
+            "comment": "nimble-breadcrumb/nimble-breadcrumb-item Angular integration/directives, including RouterLink support (see Readme)"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v3.2.0",
+            "commit": "cd072c1851d3136e108f0562b8913dc351909f72"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 23 Feb 2022 22:01:52 GMT",
       "tag": "@ni/nimble-angular_v2.0.1",
       "version": "2.0.1",
