@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 17 Feb 2022 18:31:09 GMT
+ * Generated on Mon, 21 Feb 2022 14:33:38 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -115,5 +115,20 @@ export const ErrorColorUiSize : string;
 export const LinkVisitedLightUiSize : string;
 export const ErrorLightUiSize : string;
 export const ErrorDarkUiSize : string;
+export const BodyLineHeight : string;
+export const ControlLabel1LineHeight : string;
+export const GroupLabel1LineHeight : string;
+export const Headline2LineHeight : string;
+export const Headline1LineHeight : string;
+export const Title3LineHeight : string;
+export const Title2LineHeight : string;
+export const Title1LineHeight : string;
+export const Subtitle2LineHeight : string;
+export const Subtitle1LineHeight : string;
+export const LinkLineHeight : string;
+export const PlaceholderLineHeight : string;
+export const BodyEmphasizedLineHeight : string;
+export const ButtonLabel1LineHeight : string;
+export const TooltipCaptionLineHeight : string;
 export const SmallDelay : string; // Short animation delay used for control state change animation
 export const MediumDelay : string; // Medium animation delay for control state change animation

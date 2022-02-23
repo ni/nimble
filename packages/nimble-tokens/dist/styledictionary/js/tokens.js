@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 17 Feb 2022 18:31:09 GMT
+ * Generated on Mon, 21 Feb 2022 14:33:38 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -115,5 +115,20 @@ export const ErrorColorUiSize = "9px";
 export const LinkVisitedLightUiSize = "14px";
 export const ErrorLightUiSize = "9px";
 export const ErrorDarkUiSize = "9px";
+export const BodyLineHeight = "18px";
+export const ControlLabel1LineHeight = "16px";
+export const GroupLabel1LineHeight = "16px";
+export const Headline2LineHeight = "40px";
+export const Headline1LineHeight = "32px";
+export const Title3LineHeight = "32px";
+export const Title2LineHeight = "28px";
+export const Title1LineHeight = "24px";
+export const Subtitle2LineHeight = "20px";
+export const Subtitle1LineHeight = "16px";
+export const LinkLineHeight = "18px";
+export const PlaceholderLineHeight = "18px";
+export const BodyEmphasizedLineHeight = "18px";
+export const ButtonLabel1LineHeight = "16px";
+export const TooltipCaptionLineHeight = "14px";
 export const SmallDelay = "0.1s"; // Short animation delay used for control state change animation
 export const MediumDelay = "0.15s"; // Medium animation delay for control state change animation
