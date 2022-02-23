@@ -81,8 +81,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     controlLabelDisabledFontColor: 'control-label-disabled-font-color',
     buttonLabelDisabledFontColor: 'button-label-disabled-font-color',
     tooltipCaptionDisabledFontColor: 'tooltip-caption-disabled-font-color',
-	hyperlinkFontColor: 'hyperlink-font-color',
-    hyperlinkActiveFontColor: 'hyperlink-active-font-color',
+    hyperlinkFontColor: 'hyperlink-font-color',
+    hyperlinkActiveFontColor: 'hyperlink-active-font-color'
 };
 
 const prefix = 'ni-nimble';

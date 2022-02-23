@@ -1,14 +1,13 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    borderColorHover,
+    bodyFont,
+    bodyFontColor,
+    borderHoverColor,
     borderWidth,
-    contentFontColor,
-    contentFontSize,
     controlHeight,
-    fontFamily,
-    hyperlinkColor,
-    hyperlinkColorActive,
+    hyperlinkActiveFontColor,
+    hyperlinkFontColor,
     iconSize
 } from '../theme-provider/design-tokens';
 
@@ -18,9 +17,8 @@ export const styles = css`
     :host {
         height: ${controlHeight};
         box-sizing: border-box;
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
-        color: ${contentFontColor};
+        font: ${bodyFont};
+        color: ${bodyFontColor};
         padding-left: 4px;
     }
 
@@ -29,7 +27,7 @@ export const styles = css`
     }
 
     .control {
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
         cursor: default;
         border: ${borderWidth} solid transparent;
         padding: 4px 4px 0px 4px;
@@ -41,17 +39,17 @@ export const styles = css`
     }
 
     .control:hover {
-        color: ${hyperlinkColor};
+        color: ${hyperlinkFontColor};
         text-decoration: underline;
     }
 
     .control:active {
-        color: ${hyperlinkColorActive};
+        color: ${hyperlinkActiveFontColor};
         text-decoration: underline;
     }
 
     .control:link:focus-within {
-        outline-color: ${borderColorHover};
+        outline-color: ${borderHoverColor};
     }
 
     .start,
@@ -72,6 +70,6 @@ export const styles = css`
     }
 
     slot[name='separator'] path {
-        fill: ${contentFontColor};
+        fill: ${bodyFontColor};
     }
 `;

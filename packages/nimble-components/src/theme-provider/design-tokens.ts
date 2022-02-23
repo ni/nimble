@@ -139,11 +139,11 @@ export const passColor = DesignToken.create<string>(
 
 export const hyperlinkFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.hyperlinkFontColor)
-).withDefault((element: HTMLElement) => getHyperlinkColorForTheme(element));
+).withDefault((element: HTMLElement) => getHyperlinkFontColorForTheme(element));
 
 export const hyperlinkActiveFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.hyperlinkActiveFontColor)
-).withDefault((element: HTMLElement) => getHyperlinkColorActiveForTheme(element));
+).withDefault((element: HTMLElement) => getHyperlinkActiveFontColorForTheme(element));
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
@@ -435,11 +435,11 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
 }
 
-function getHyperlinkColorForTheme(element: HTMLElement): string {
+function getHyperlinkFontColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
 }
 
-function getHyperlinkColorActiveForTheme(element: HTMLElement): string {
+function getHyperlinkActiveFontColorForTheme(element: HTMLElement): string {
     return getColorForTheme(
         element,
         '#007A50', // Selection100TypePass
