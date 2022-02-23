@@ -42,6 +42,7 @@ for (const key in icons) {
     if (Object.prototype.hasOwnProperty.call(icons, key)) {
         const svgName = key; // e.g. "arrowExpanderLeft16X16"
         const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
+        const fileName = camelToKebabCase(iconName); // e.g. "arrow-expander-left";
         const elementName = `${camelToKebabCase(iconName)}-icon`; // e.g. "arrow-expander-left-icon"
         const className = `${camelToPascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
 
@@ -63,15 +64,15 @@ export class ${className} extends Icon {
     }
 }
 
+// prettier-ignore${/* Sometimes this line is too long, ignore it */ ''}
 registerIcon('${elementName}', ${className});
 `;
 
-        const fileName = `${iconName}.ts`;
-        const filePath = path.resolve(iconsDirectory, fileName);
+        const filePath = path.resolve(iconsDirectory, `${fileName}.ts`);
         fs.writeFileSync(filePath, componentFileContents, { encoding: 'utf-8' });
         fileCount += 1;
 
-        allIconsFileContents = allIconsFileContents.concat(`export { ${className} } from './${iconName}';\n`);
+        allIconsFileContents = allIconsFileContents.concat(`export { ${className} } from './${fileName}';\n`);
     }
 }
 console.log(`Finshed writing ${fileCount} icon component files`);

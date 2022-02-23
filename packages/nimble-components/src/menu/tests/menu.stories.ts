@@ -5,7 +5,7 @@ import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
 import '../../menu-item';
 import '../../icons/user';
-import '../../icons/arrowLeftFromLine';
+import '../../icons/arrow-left-from-line';
 
 interface MenuArgs {
     itemOptions: ItemArgs[];
