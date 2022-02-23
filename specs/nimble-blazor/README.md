@@ -53,10 +53,12 @@ For more info see the following blog posts:
 
 #### Versioning
 
-While there may be tooling that exists to enable things like automatic versioning for nugets in a github cicd workflow, there doesn't seem to be a well known standard. It would appear that the predominant process for setting major/minor versions of a nuget is still a manual process that is a part of the change that the version bump is associated with. The above blog post "[Publishing .NET NuGet packages using GitHub Actions](https://blog.christiansibo.com/publishing-net-nuget-packages-to-github-using-github-actions/)" goes into some detail with how to manage the versions of your nuget.
+To properly version both the nuget package and the contained assembly, we should be able to leverage the beachball tooling, which will interface with a package.json file we will provide (despite the fact that we don't intend to publish to npm) to produce the version number we need, and then utilize it for both the build and pack steps of the pipeline, like so:
 
-Possible tooling to investigate:
-- [GitTools](https://github.com/marketplace/actions/gittools), which sets up [GitVersion](https://github.com/GitTools/GitVersion) and [GitReleaseManager](https://gittools.github.io/GitReleaseManager/docs/) to be used in a GitHub workflow.
+```
+dotnet build -property:AssemblyVersion=$packageVersion
+dotnet pack -p:PackageVersion:$packageVersion
+```
 
 #### Questions
 
