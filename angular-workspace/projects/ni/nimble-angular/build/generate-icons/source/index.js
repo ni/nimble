@@ -32,15 +32,18 @@ const getRelativeFilePath = (from, to) => {
         .replace(/^\w/, firstChar => `./${firstChar}`); // Prefix "./" to relative paths that don't navigate up
 };
 
+const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
+// See generation source in nimble-angular/build/generate-icons\n`;
+
 const iconsDirectory = path.resolve(__dirname, '../../../src/directives/icons');
 console.log(iconsDirectory);
 
 if (fs.existsSync(iconsDirectory)) {
-    console.log('Deleting existing icons directory');
+    console.log(`Deleting existing icons directory "${iconsDirectory}"`);
     fs.rmSync(iconsDirectory, { recursive: true });
     console.log('Finished deleting existing icons directory');
 }
-console.log('Creating icons directory');
+console.log(`Creating icons directory "${iconsDirectory}"`);
 fs.mkdirSync(iconsDirectory);
 console.log('Finished creating icons directory');
 
@@ -57,7 +60,8 @@ for (const key in icons) {
         const iconDirectory = path.resolve(iconsDirectory, directoryName);
         fs.mkdirSync(iconDirectory);
 
-        const directiveFileContents = `import { Directive } from '@angular/core';
+        const directiveFileContents = `${generatedFilePrefix}
+import { Directive } from '@angular/core';
 import type { ${className} } from '@ni/nimble-components/dist/esm/icons/all-icons';
 
 export type { ${className} };
@@ -77,7 +81,8 @@ export class ${directiveName} {
         directivePaths.push(directiveFilePath);
 
         const moduleName = `Nimble${className}Module`; // e.g. "NimbleArrowExpanderLeftIconModule"
-        const moduleFileContents = `import { NgModule } from '@angular/core';
+        const moduleFileContents = `${generatedFilePrefix}
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ${directiveName} } from './${directiveFileName}';
 
@@ -102,7 +107,8 @@ const allIconsDirectory = path.resolve(iconsDirectory, 'all-icons');
 fs.mkdirSync(allIconsDirectory);
 
 const allIconsModuleFilePath = path.resolve(allIconsDirectory, 'all-icons.module.ts');
-let allIconsModuleFileContents = `import { NgModule } from '@angular/core';
+let allIconsModuleFileContents = `${generatedFilePrefix}
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';`;
 
 for (const module of moduleNamesAndPaths) {
@@ -128,7 +134,7 @@ console.log('Writing all-icons module file');
 fs.writeFileSync(`${allIconsModuleFilePath}`, allIconsModuleFileContents, { encoding: 'utf-8' });
 console.log('Finished writing all-icons module file');
 
-let barrelFileContents = '';
+let barrelFileContents = `${generatedFilePrefix}\n`;
 for (const directivePath of directivePaths) {
     barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, directivePath)}';\n`;
 }
