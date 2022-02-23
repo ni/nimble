@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Refactored nearly all theme-aware tokens. See this [spreadsheet](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) for a mapping of old and new tokens.",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "major"
-}
