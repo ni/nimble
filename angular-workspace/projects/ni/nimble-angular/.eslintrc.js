@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     extends: '../../../.eslintrc.js',
     ignorePatterns: [
@@ -69,13 +71,15 @@ module.exports = {
         },
         {
             files: [
-                'build/*.js'
+                'build/**/*.js'
             ],
             rules: {
                 // Logging in build scripts is useful
                 'no-console': 'off',
                 // Okay to use dev dependencies in build scripts
-                'import/no-extraneous-dependencies': 'off'
+                'import/no-extraneous-dependencies': ['error', { devDependencies: true, packageDir: path.resolve(__dirname, '../../../') }],
+                // Rollup config files use default exports
+                'import/no-default-export': 'off'
             }
         }
     ]

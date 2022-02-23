@@ -6,7 +6,6 @@
  * and a barrel file.
  */
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 const fs = require('fs');
