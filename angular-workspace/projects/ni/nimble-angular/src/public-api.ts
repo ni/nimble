@@ -40,4 +40,5 @@ export * from './directives/tree-item/nimble-tree-item.directive';
 export * from './directives/tree-item/nimble-tree-item.module';
 export * from './directives/tree-view/nimble-tree-view.directive';
 export * from './directives/tree-view/nimble-tree-view.module';
+export * from './directives/icons';
 export * from './testing/async-helpers';
