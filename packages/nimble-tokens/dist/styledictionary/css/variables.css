@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 17 Feb 2022 18:31:09 GMT
+ * Generated on Mon, 21 Feb 2022 14:33:38 GMT
  */
 
 :root {
@@ -116,6 +116,21 @@
   --ni-nimble-base-link-visited-light-ui-size: 14px;
   --ni-nimble-base-error-light-ui-size: 9px;
   --ni-nimble-base-error-dark-ui-size: 9px;
+  --ni-nimble-base-body-line-height: 18px;
+  --ni-nimble-base-control-label-1-line-height: 16px;
+  --ni-nimble-base-group-label-1-line-height: 16px;
+  --ni-nimble-base-headline-2-line-height: 40px;
+  --ni-nimble-base-headline-1-line-height: 32px;
+  --ni-nimble-base-title-3-line-height: 32px;
+  --ni-nimble-base-title-2-line-height: 28px;
+  --ni-nimble-base-title-1-line-height: 24px;
+  --ni-nimble-base-subtitle-2-line-height: 20px;
+  --ni-nimble-base-subtitle-1-line-height: 16px;
+  --ni-nimble-base-link-line-height: 18px;
+  --ni-nimble-base-placeholder-line-height: 18px;
+  --ni-nimble-base-body-emphasized-line-height: 18px;
+  --ni-nimble-base-button-label-1-line-height: 16px;
+  --ni-nimble-base-tooltip-caption-line-height: 14px;
   --ni-nimble-base-small-delay: 0.1s; /* Short animation delay used for control state change animation */
   --ni-nimble-base-medium-delay: 0.15s; /* Medium animation delay for control state change animation */
 }

@@ -2,13 +2,12 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
-    borderColorHover,
+    bodyFont,
+    bodyFontColor,
+    bodyDisabledFontColor,
+    borderHoverColor,
     borderWidth,
-    contentFontColor,
-    contentFontColorDisabled,
-    contentFontSize,
     controlHeight,
-    fontFamily,
     iconSize,
     popupBorderColor,
     popupBoxShadowColor,
@@ -20,8 +19,8 @@ export const styles = css`
 
     :host {
         box-sizing: border-box;
-        color: ${contentFontColor};
-        font-family: ${fontFamily};
+        color: ${bodyFontColor};
+        font: ${bodyFont};
         height: ${controlHeight};
         position: relative;
         user-select: none;
@@ -62,11 +61,9 @@ export const styles = css`
         box-sizing: border-box;
         cursor: pointer;
         display: flex;
-        font-size: ${contentFontSize};
-        font-family: inherit;
         min-height: 100%;
         width: 100%;
-        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
         background-color: transparent;
         padding-left: 8px;
         padding-bottom: 1px;
@@ -77,21 +74,21 @@ export const styles = css`
     }
 
     :host(.open:not(:hover)) .control {
-        border-bottom: ${borderWidth} solid ${borderColorHover};
+        border-bottom: ${borderWidth} solid ${borderHoverColor};
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
 
     :host(:hover) .control {
-        border-bottom: 2px solid ${borderColorHover};
+        border-bottom: 2px solid ${borderHoverColor};
         padding-bottom: 0px;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
     }
 
     :host([disabled]) .control,
     :host([disabled]) .control:hover {
-        border-bottom: ${borderWidth} solid ${contentFontColorDisabled};
+        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
         padding-bottom: 1px;
-        color: ${contentFontColorDisabled};
+        color: ${bodyDisabledFontColor};
     }
 
     :host([open][position='above']) .listbox {
@@ -133,11 +130,11 @@ export const styles = css`
     .indicator slot[name='indicator'] svg {
         width: ${iconSize};
         height: ${iconSize};
-        fill: ${contentFontColor};
+        fill: ${bodyFontColor};
     }
 
     :host([disabled]) .indicator slot[name='indicator'] svg {
-        fill: ${contentFontColorDisabled};
+        fill: ${bodyDisabledFontColor};
     }
 
     slot[name='listbox'] {
