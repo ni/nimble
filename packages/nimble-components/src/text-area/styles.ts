@@ -51,7 +51,7 @@ export const styles = css`
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
         padding: 8px;
-        transition: outline ${smallDelay}, border ${smallDelay};
+        transition: box-shadow ${smallDelay}, border ${smallDelay};
         resize: none;
     }
 
@@ -63,7 +63,7 @@ export const styles = css`
 
     .control:hover {
         border-color: ${borderHoverColor};
-        outline: 1px solid ${borderHoverColor};
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor};
     }
 
     .control:focus-within {
@@ -76,7 +76,7 @@ export const styles = css`
     .control[disabled],
     .control[disabled]:hover {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
-        outline: none;
+        box-shadow: none;
     }
 
     .control::selection {
