@@ -5,10 +5,10 @@ import { focusVisible } from '../utilities/style/focus';
 import {
     borderHoverColor,
     fillColorSelected,
-    fillSelectedHoverColor,
+    fillHoverSelectedColor,
     fillHoverColor,
     bodyFont,
-    bodyFontDisabledColor
+    bodyDisabledFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -31,7 +31,7 @@ export const styles = css`
     }
 
     :host(:hover.selected) {
-        background-color: ${fillSelectedHoverColor};
+        background-color: ${fillHoverSelectedColor};
     }
 
     :host(:hover) {
@@ -56,7 +56,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${bodyFontDisabledColor};
+        color: ${bodyDisabledFontColor};
         cursor: default;
     }
 

@@ -4,7 +4,7 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
-    bodyFontDisabledColor,
+    bodyDisabledFontColor,
     borderHoverColor,
     borderWidth,
     controlHeight,
@@ -63,7 +63,7 @@ export const styles = css`
         display: flex;
         min-height: 100%;
         width: 100%;
-        border-bottom: ${borderWidth} solid ${bodyFontDisabledColor};
+        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
         background-color: transparent;
         padding-left: 8px;
         padding-bottom: 1px;
@@ -86,9 +86,9 @@ export const styles = css`
 
     :host([disabled]) .control,
     :host([disabled]) .control:hover {
-        border-bottom: ${borderWidth} solid ${bodyFontDisabledColor};
+        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
         padding-bottom: 1px;
-        color: ${bodyFontDisabledColor};
+        color: ${bodyDisabledFontColor};
     }
 
     :host([open][position='above']) .listbox {
@@ -134,7 +134,7 @@ export const styles = css`
     }
 
     :host([disabled]) .indicator slot[name='indicator'] svg {
-        fill: ${bodyFontDisabledColor};
+        fill: ${bodyDisabledFontColor};
     }
 
     slot[name='listbox'] {

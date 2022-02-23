@@ -5,7 +5,7 @@ import {
     borderHoverColor,
     borderWidth,
     bodyFontColor,
-    bodyFontDisabledColor,
+    bodyDisabledFontColor,
     controlHeight,
     fillHoverColor,
     mediumDelay,
@@ -56,7 +56,7 @@ export const styles = css`
 
     :host([disabled]) {
         cursor: default;
-        color: ${bodyFontDisabledColor};
+        color: ${bodyDisabledFontColor};
         background: none;
     }
 `;

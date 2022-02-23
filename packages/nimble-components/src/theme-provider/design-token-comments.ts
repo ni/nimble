@@ -4,19 +4,19 @@ type TokenName = keyof typeof TokensNamespace;
 
 export const comments: { readonly [key in TokenName]: string } = {
     actionRgbPartialColor:
-        '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
+        'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     applicationBackgroundColor: 'Primary background color for the application',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for dialogs and menus',
     fillColorSelected: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
-        '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
-    fillSelectedHoverColor:
+        'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
+    fillHoverSelectedColor:
         'Control fill color when hovering a selected control',
     fillHoverColor: 'Control fill color when hovering component',
     borderColor: 'Standard control outline or border color',
     borderRgbPartialColor:
-        '*-partial tokens are used with rgba() to set color transparency in component stylesheets',
+        'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     failColor: 'Used to highlight errors or invalid input',
     warningColor:
         'Used to highlight invalid input or for icons to indicate that a process errored or failed',
@@ -41,12 +41,12 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Elements with larger transition areas, such as bottom sheets and expanding chips, have slightly longer durations.',
     largeDelay:
         'Animated elements that traverse a large portion of the screen have the longest durations.',
-    headlineLargeFont: 'Font shorthand for the "Headline_2" base token',
+    headlinePlus1Font: 'Font shorthand for the "Headline_2" base token',
     headlineFont: 'Font shorthand for the "Headline_1" base token',
-    titleExtraLargeFont: 'Font shorthand for the "Title_3" base token',
-    titleLargeFont: 'Font shorthand for the "Title_2" base token',
+    titlePlus2Font: 'Font shorthand for the "Title_3" base token',
+    titlePlus1Font: 'Font shorthand for the "Title_2" base token',
     titleFont: 'Font shorthand for the "Title_1" base token',
-    subtitleLargeFont: 'Font shorthand for the "Subtitle_2" base token',
+    subtitlePlus1Font: 'Font shorthand for the "Subtitle_2" base token',
     subtitleFont: 'Font shorthand for the "Subtitle_1" base token',
     linkStandardFont: 'Font shorthand for the "Link_standard_1" base token',
     placeholderFont: 'Font shorthand for the "Placeholder" base token',
@@ -56,12 +56,12 @@ export const comments: { readonly [key in TokenName]: string } = {
     controlLabelFont: 'Font shorthand for the "Control_Label_1" base token',
     buttonLabelFont: 'Font shorthand for the "Button_Label_1" base token',
     tooltipCaptionFont: 'Font shorthand for the "Tooltip_Caption" base token',
-    headlineLargeFontColor: 'Font color for "Headline_2" base token',
+    headlinePlus1FontColor: 'Font color for "Headline_2" base token',
     headlineFontColor: 'Font color for "Headline_1" base token',
-    titleExtraLargeFontColor: 'Font color for "Title_3" base token',
-    titleLargeFontColor: 'Font color for "Title_2" base token',
+    titlePlus2FontColor: 'Font color for "Title_3" base token',
+    titlePlus1FontColor: 'Font color for "Title_2" base token',
     titleFontColor: 'Font color for "Title_1" base token',
-    subtitleLargeFontColor: 'Font color for "Subtitle_2" base token',
+    subtitlePlus1FontColor: 'Font color for "Subtitle_2" base token',
     subtitleFontColor: 'Font color for "Subtitle_1" base token',
     linkStandardFontColor: 'Font color for "Link_Standard_1" base token',
     placeholderFontColor: 'Font color for "Placeholder" base token',
@@ -71,31 +71,30 @@ export const comments: { readonly [key in TokenName]: string } = {
     controlLabelFontColor: 'Font color for "Control_Label_1" base token',
     buttonLabelFontColor: 'Font color for "Button_Label_1" base token',
     tooltipCaptionFontColor: 'Font color for "Tooltip_Caption" base token',
-    headlineLargeFontDisabledColor:
+    headlinePlus1DisabledFontColor:
         'Disabled font color for "Headline_2" base token',
-    headlineFontDisabledColor:
+    headlineDisabledFontColor:
         'Disabled font color for "Headline_1" base token',
-    titleExtraLargeFontDisabledColor:
-        'Disabled font color for "Title_3" base token',
-    titleLargeFontDisabledColor: 'Disabled font color for "Title_2" base token',
-    titleFontDisabledColor: 'Disabled font color for "Title_1" base token',
-    subtitleLargeFontDisabledColor:
+    titlePlus2DisabledFontColor: 'Disabled font color for "Title_3" base token',
+    titlePlus1DisabledFontColor: 'Disabled font color for "Title_2" base token',
+    titleDisabledFontColor: 'Disabled font color for "Title_1" base token',
+    subtitlePlus1DisabledFontColor:
         'Disabled font color for "Subtitle_2" base token',
-    subtitleFontDisabledColor:
+    subtitleDisabledFontColor:
         'Disabled font color for "Subtitle_1" base token',
-    linkStandardFontDisabledColor:
+    linkStandardDisabledFontColor:
         'Disabled font color for "Link_Standard_1" base token',
-    placeholderFontDisabledColor:
+    placeholderDisabledFontColor:
         'Disabled font color for "Placeholder" base token',
-    bodyEmphasizedFontDisabledColor:
+    bodyEmphasizedDisabledFontColor:
         'Disabled font color for "Body_Emphasized" base token',
-    bodyFontDisabledColor: 'Disabled font color for "Body" base token',
-    groupHeaderFontDisabledColor:
+    bodyDisabledFontColor: 'Disabled font color for "Body" base token',
+    groupHeaderDisabledFontColor:
         'Disabled font color for "Group_Header_1" base token',
-    controlLabelFontDisabledColor:
+    controlLabelDisabledFontColor:
         'Disabled font color for "Control_Label_1" base token',
-    buttonLabelFontDisabledColor:
+    buttonLabelDisabledFontColor:
         'Disabled font color for "Button_Label_1" base token',
-    tooltipCaptionFontDisabledColor:
+    tooltipCaptionDisabledFontColor:
         'Disabled font color for "Tooltip_Caption" base token'
 };

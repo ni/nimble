@@ -6,7 +6,7 @@ import {
     borderHoverColor,
     borderWidth,
     bodyFontColor,
-    bodyFontDisabledColor,
+    bodyDisabledFontColor,
     controlHeight,
     fillSelectedRgbPartialColor,
     iconSize,
@@ -29,7 +29,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${bodyFontDisabledColor};
+        color: ${bodyDisabledFontColor};
         cursor: default;
     }
 
@@ -57,7 +57,7 @@ export const styles = css`
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
-        border-bottom: ${borderWidth} solid ${bodyFontDisabledColor};
+        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
         padding-bottom: 1px;
     }
 
@@ -94,7 +94,7 @@ export const styles = css`
     }
 
     .control[disabled]::placeholder {
-        color: ${bodyFontDisabledColor};
+        color: ${bodyDisabledFontColor};
     }
 
     .label {

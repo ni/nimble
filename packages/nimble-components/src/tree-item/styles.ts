@@ -11,7 +11,7 @@ import {
     borderHoverColor,
     fillColorSelected,
     fillHoverColor,
-    fillSelectedHoverColor,
+    fillHoverSelectedColor,
     borderWidth,
     iconSize,
     bodyFont
@@ -68,7 +68,7 @@ export const styles: (
         }
 
         :host([selected]) .positioning-region:hover {
-            background: ${fillSelectedHoverColor};
+            background: ${fillHoverSelectedColor};
         }
 
         .positioning-region::before {

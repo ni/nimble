@@ -6,7 +6,7 @@ import {
     borderHoverColor,
     borderWidth,
     bodyFontColor,
-    bodyFontDisabledColor,
+    bodyDisabledFontColor,
     controlHeight,
     failColor,
     fillSelectedRgbPartialColor,
@@ -17,7 +17,7 @@ import {
     bodyFont,
     controlLabelFontColor,
     standardPadding,
-    controlLabelFontDisabledColor
+    controlLabelDisabledFontColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -36,7 +36,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${bodyFontDisabledColor};
+        color: ${bodyDisabledFontColor};
     }
 
     .root {
@@ -133,7 +133,7 @@ export const styles = css`
     }
 
     .control[disabled]::placeholder {
-        color: ${bodyFontDisabledColor};
+        color: ${bodyDisabledFontColor};
     }
 
     .label {
@@ -143,7 +143,7 @@ export const styles = css`
     }
 
     :host([disabled]) .label {
-        color: ${controlLabelFontDisabledColor};
+        color: ${controlLabelDisabledFontColor};
     }
 
     :host [part='end'] {
@@ -167,7 +167,7 @@ export const styles = css`
     }
 
     :host([disabled]) [part='end'] path {
-        fill: ${bodyFontDisabledColor};
+        fill: ${bodyDisabledFontColor};
     }
 `.withBehaviors(
         appearanceBehavior(

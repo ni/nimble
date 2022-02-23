@@ -8,7 +8,7 @@ import {
     borderWidth,
     buttonLabelFont,
     buttonLabelFontColor,
-    buttonLabelFontDisabledColor,
+    buttonLabelDisabledFontColor,
     controlHeight,
     fillColorSelected,
     iconColor,
@@ -41,7 +41,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${buttonLabelFontDisabledColor};
+        color: ${buttonLabelDisabledFontColor};
         cursor: default;
     }
 

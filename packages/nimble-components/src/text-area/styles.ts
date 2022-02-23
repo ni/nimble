@@ -7,11 +7,11 @@ import {
     fillSelectedRgbPartialColor,
     smallDelay,
     bodyFontColor,
-    bodyFontDisabledColor,
+    bodyDisabledFontColor,
     controlLabelFont,
     controlLabelFontColor,
     bodyFont,
-    controlLabelFontDisabledColor
+    controlLabelDisabledFontColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
@@ -27,7 +27,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${bodyFontDisabledColor};
+        color: ${bodyDisabledFontColor};
     }
 
     .label {
@@ -37,7 +37,7 @@ export const styles = css`
     }
 
     :host([disabled]) .label {
-        color: ${controlLabelFontDisabledColor};
+        color: ${controlLabelDisabledFontColor};
     }
 
     .control {
@@ -89,7 +89,7 @@ export const styles = css`
     }
 
     .control[disabled]::placeholder {
-        color: ${controlLabelFontDisabledColor};
+        color: ${controlLabelDisabledFontColor};
     }
 
     :host([resize='both']) .control {

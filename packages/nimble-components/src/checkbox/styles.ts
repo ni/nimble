@@ -7,7 +7,7 @@ import {
     borderHoverColor,
     borderRgbPartialColor,
     bodyFontColor,
-    bodyFontDisabledColor,
+    bodyDisabledFontColor,
     controlHeight,
     iconSize,
     borderWidth,
@@ -79,7 +79,7 @@ export const styles = css`
     }
 
     :host([disabled]) .label {
-        color: ${bodyFontDisabledColor};
+        color: ${bodyDisabledFontColor};
     }
 
     slot[name='checked-indicator'] svg {

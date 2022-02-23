@@ -10,7 +10,7 @@ import {
     borderHoverColor,
     iconSize,
     bodyFont,
-    bodyFontDisabledColor
+    bodyDisabledFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -45,7 +45,7 @@ export const styles = css`
         background: ${fillColorSelected};
     }
     :host([disabled]) {
-        color: ${bodyFontDisabledColor};
+        color: ${bodyDisabledFontColor};
         fill: currentcolor;
         cursor: default;
     }
