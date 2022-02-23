@@ -3,21 +3,19 @@ import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
-    borderColorHover,
-    contentFontSize,
-    fontFamily,
-    contentFontColorDisabled,
+    borderHoverColor,
     fillColorSelected,
-    fillColorSelectedHover,
-    fillColorHover
+    fillHoverSelectedColor,
+    fillHoverColor,
+    bodyFont,
+    bodyDisabledFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
 
     :host {
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         cursor: pointer;
         justify-content: left;
     }
@@ -33,11 +31,11 @@ export const styles = css`
     }
 
     :host(:hover.selected) {
-        background-color: ${fillColorSelectedHover};
+        background-color: ${fillHoverSelectedColor};
     }
 
     :host(:hover) {
-        background-color: ${fillColorHover};
+        background-color: ${fillHoverColor};
     }
 
     :host(:hover):host([disabled]) {
@@ -46,8 +44,8 @@ export const styles = css`
     }
 
     :host(:${focusVisible}) {
-        box-shadow: 0px 0px 0px 1px ${borderColorHover} inset;
-        outline: 1px solid ${borderColorHover};
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
+        outline: 1px solid ${borderHoverColor};
         outline-offset: -4px;
     }
 
@@ -58,7 +56,7 @@ export const styles = css`
     }
 
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${bodyDisabledFontColor};
         cursor: default;
     }
 

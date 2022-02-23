@@ -11,7 +11,7 @@ import {
     overrideWarning
 } from '../../utilities/tests/storybook';
 import type { Icon } from '..';
-import { contentFontColor } from '../../theme-provider/design-tokens';
+import { bodyFontColor } from '../../theme-provider/design-tokens';
 import {
     tokenNames,
     scssInternalPropertySetterMarkdown
@@ -45,7 +45,7 @@ const styleMarkup = html`
         .icon svg {
             height: 32px;
             width: 32px;
-            fill: var(${contentFontColor.cssCustomProperty});
+            fill: var(${bodyFontColor.cssCustomProperty});
         }
     </style>
 `;

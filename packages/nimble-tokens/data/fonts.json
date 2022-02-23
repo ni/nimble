@@ -8,8 +8,12 @@
       "type": "font",
       "id": "965abaf9-c87a-4110-ae98-89ac49ee22b0",
       "name": "Title_2",
+      "last_updated": "2022-02-16T05:30:17.239Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "29f2c7c2-abf4-483c-bc56-65c3d0797a9b"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "85dbcae8-ae6f-46f6-bb4c-dc63ef40e2e2",
@@ -42,8 +46,12 @@
       "type": "font",
       "id": "3f62c63f-c73c-44b4-ae20-f5c40dc2296a",
       "name": "ControlLabel_1",
+      "last_updated": "2022-02-16T05:25:17.680Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "be1dbc84-8583-4471-b429-4b7eeb944d0f"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "4cf74686-9a7a-4b31-bc0f-cf69ff13cda7",
@@ -76,8 +84,12 @@
       "type": "font",
       "id": "8608e62f-ebb0-4f2e-b443-a01fe530bf87",
       "name": "Body",
+      "last_updated": "2022-02-16T05:24:08.566Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "e5696e92-cec5-4d2b-a494-8eea4bcd1765"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "e125232c-0021-4b69-8ffb-53c26acff71e",
@@ -212,8 +224,12 @@
       "type": "font",
       "id": "c47fe7b0-75aa-42c9-8bf4-07fb273bccce",
       "name": "GroupLabel_1",
+      "last_updated": "2022-02-16T05:25:31.311Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "2cad0913-5ea5-4b3a-9c96-b38068e2eb92"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "9138c11a-5e69-4393-bbc4-2c9430381f1f",
@@ -246,8 +262,12 @@
       "type": "font",
       "id": "e584d3db-58d3-47c2-8e51-04b7ab8352fa",
       "name": "ButtonLabel_1",
+      "last_updated": "2022-02-16T05:25:00.408Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "dae8bfd3-9f79-435d-becc-193aee34c06c"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "9b64b4c9-b5e3-40cb-b674-ad39b72b1c29",
@@ -280,8 +300,12 @@
       "type": "font",
       "id": "73f50e28-3efa-4277-af0c-c420c91f7458",
       "name": "Title_1",
+      "last_updated": "2022-02-16T05:30:08.279Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "7c493ea0-5afc-4fe1-93c4-f93f8075b08f"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "ab12d43d-b015-4a0c-b752-226aeba3e793",
@@ -314,8 +338,12 @@
       "type": "font",
       "id": "4e2d34b5-f6d2-4f8f-ad60-351683a9772e",
       "name": "Link_ColorUI",
+      "last_updated": "2022-02-16T05:28:22.683Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "1eb1f07b-4597-4f55-b591-3251e501dce3"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "ba956a42-e28b-4bde-99a9-8c10e8f7fb3a",
@@ -348,8 +376,12 @@
       "type": "font",
       "id": "35af0393-0ee9-4627-9229-7ea231f4e1a6",
       "name": "Link_DarkUI",
+      "last_updated": "2022-02-16T05:29:09.910Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "1eb1f07b-4597-4f55-b591-3251e501dce3"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "6da4143f-44ba-41d5-b616-74915dfdeeea",
@@ -382,8 +414,12 @@
       "type": "font",
       "id": "971b3706-866d-43e8-af26-91bd5e4cb30e",
       "name": "Headline_2",
+      "last_updated": "2022-02-16T05:27:14.102Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "a8762f19-3f80-4465-b596-9a8c3c3f6825"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "e1d166e1-14b5-4f68-ab81-035cb97a2368",
@@ -416,8 +452,12 @@
       "type": "font",
       "id": "22d3c9f9-3a5f-46bf-adff-595575ce19c9",
       "name": "Placeholder",
+      "last_updated": "2022-02-16T05:29:30.764Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "709b95fa-5be8-4f03-9fc8-772e5c2d7e34"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "0057ee52-f5c0-4ba2-ae6b-8427dfcc00ea",
@@ -450,8 +490,12 @@
       "type": "font",
       "id": "84361d8b-c87f-49e2-9539-1cfcc9d02541",
       "name": "Tooltip_Caption",
+      "last_updated": "2022-02-16T05:30:33.174Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "5e5f8494-b8bc-496c-b621-710253a79061"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "0bc68a5b-b758-4ded-b9cc-deea86d723c4",
@@ -484,8 +528,12 @@
       "type": "font",
       "id": "b4603cda-5cec-4d51-becf-65a7de2ee360",
       "name": "BodyEmphasized",
+      "last_updated": "2022-02-16T05:24:43.510Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "fad75e1b-d4b8-4e6b-bb05-57fb3a1fa422"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "7ba7d774-fd4e-4b84-9561-7b7a5a7d4153",
@@ -518,8 +566,12 @@
       "type": "font",
       "id": "078b8bc1-37e1-4a93-aaa1-983be71c609e",
       "name": "Subtitle_1",
+      "last_updated": "2022-02-16T05:29:47.294Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "f8b7d97c-bf34-4b3d-a8a9-6bd9a5847e54"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "f5a03770-57d4-47cd-9d68-17b3619d57ce",
@@ -552,8 +604,12 @@
       "type": "font",
       "id": "cba007fb-ee73-4e1b-9fad-53966e313af9",
       "name": "Title_3",
+      "last_updated": "2022-02-16T05:30:24.577Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "9bd4e180-f7c2-450c-aab8-450d6ff3ed1d"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "4dd7f656-5f09-4534-a4a4-3070c2129f25",
@@ -586,8 +642,12 @@
       "type": "font",
       "id": "a3495f16-0183-467b-8a10-5f4c668126a4",
       "name": "Subtitle_2",
+      "last_updated": "2022-02-16T05:29:55.533Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "7f4c7860-117e-4793-8d72-3020a89ff345"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "7dad6612-c5d9-4ffe-9449-510623d0e6e9",
@@ -620,8 +680,12 @@
       "type": "font",
       "id": "96322034-8255-42ea-98cc-e9736bc1f7e5",
       "name": "Link_LightUI",
+      "last_updated": "2022-02-16T05:29:18.727Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "1eb1f07b-4597-4f55-b591-3251e501dce3"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "db182503-6c25-42c1-be63-fd1d78451260",
@@ -654,8 +718,12 @@
       "type": "font",
       "id": "86a4b4b2-b89b-493c-be41-e4755f767e4e",
       "name": "Headline_1",
+      "last_updated": "2022-02-16T05:26:58.917Z",
+      "last_updated_by": "",
       "tags": [],
-      "related_entity_ids": [],
+      "related_entity_ids": [
+        "76576f76-911f-4cc6-ae7e-7743bcc2f35d"
+      ],
       "ext-com_adobe-cclib": {
         "source": "https://shared-assets.adobe.com/link/4982c934-fae5-4f77-61cf-b0f5daa37c2a",
         "id": "7b859be3-634e-424b-ba6e-5ff51d1d1a30",
