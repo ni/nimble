@@ -38,7 +38,7 @@ describe('Nimble select control value accessor', () => {
             public selectDisabled = false;
 
             public compareWith(option1: { name: string, value: number }, option2: { name: string, value: number }): boolean {
-                return option1 && option2 && option1.value === option2.value;
+                return option1.value === option2.value;
             }
         }
 
