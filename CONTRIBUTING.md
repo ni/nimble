@@ -21,7 +21,7 @@ This repository uses the following tooling. See below for more info.
 
 From the `nimble` directory:
 
-1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
+1. Make sure you have Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`). Download newer versions from https://nodejs.org/en/download/
 2. Run `npm install`
 3. Run `npm run build` (or **Terminal»Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
 4. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
