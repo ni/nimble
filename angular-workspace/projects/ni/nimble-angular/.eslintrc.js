@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     extends: '../../../.eslintrc.js',
     ignorePatterns: [
@@ -77,9 +79,7 @@ module.exports = {
             ],
             rules: {
                 // Logging in build scripts is useful
-                'no-console': 'off',
-                // Rollup config files use default exports
-                'import/no-default-export': 'off'
+                'no-console': 'off'
             }
         }
     ]
