@@ -2,8 +2,7 @@
  * Build script for generating nimble-angular integration for Nimble icons.
  *
  * Iterates through icons provided by nimble-tokens, and generates an Angular directive and module
- * files for each in src/directives/icons. Also generates a module which includes all icon modules,
- * and a barrel file.
+ * files for each in src/directives/icons. Also generates a barrel file.
  */
 
 import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
@@ -47,21 +46,20 @@ fs.mkdirSync(iconsDirectory);
 console.log('Finished creating icons directory');
 
 console.log('Writing icon directive and module files');
-const moduleNamesAndPaths = [];
+const modulePaths = [];
 const directivePaths = [];
-for (const key in icons) {
-    if (Object.prototype.hasOwnProperty.call(icons, key)) {
-        const iconName = trimSizeFromName(key); // "arrowExpanderLeft"
-        const directoryName = camelToKebabCase(iconName); // e.g. "arrow-expander-left"
-        const elementName = `nimble-${camelToKebabCase(iconName)}-icon`; // e.g. "nimble-arrow-expander-left-icon"
-        const className = `${camelToPascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
-        const directiveName = `Nimble${className}Directive`; // e.g. "NimbleArrowExpanderLeftIconDirective"
-        const iconDirectory = path.resolve(iconsDirectory, directoryName);
-        fs.mkdirSync(iconDirectory);
+for (const key of Object.keys(icons)) {
+    const iconName = trimSizeFromName(key); // "arrowExpanderLeft"
+    const directoryName = camelToKebabCase(iconName); // e.g. "arrow-expander-left"
+    const elementName = `nimble-${camelToKebabCase(iconName)}-icon`; // e.g. "nimble-arrow-expander-left-icon"
+    const className = `${camelToPascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
+    const directiveName = `Nimble${className}Directive`; // e.g. "NimbleArrowExpanderLeftIconDirective"
+    const iconDirectory = path.resolve(iconsDirectory, directoryName);
+    fs.mkdirSync(iconDirectory);
 
-        const directiveFileContents = `${generatedFilePrefix}
+    const directiveFileContents = `${generatedFilePrefix}
 import { Directive } from '@angular/core';
-import type { ${className} } from '@ni/nimble-components/dist/esm/icons/all-icons';
+import type { ${className} } from '@ni/nimble-components/dist/esm/icons/${directoryName}';
 
 export type { ${className} };
 
@@ -74,13 +72,13 @@ export type { ${className} };
 export class ${directiveName} {
 }
 `;
-        const directiveFileName = `${elementName}.directive`;
-        const directiveFilePath = path.resolve(iconDirectory, directiveFileName);
-        fs.writeFileSync(`${directiveFilePath}.ts`, directiveFileContents, { encoding: 'utf-8' });
-        directivePaths.push(directiveFilePath);
+    const directiveFileName = `${elementName}.directive`;
+    const directiveFilePath = path.resolve(iconDirectory, directiveFileName);
+    fs.writeFileSync(`${directiveFilePath}.ts`, directiveFileContents, { encoding: 'utf-8' });
+    directivePaths.push(directiveFilePath);
 
-        const moduleName = `Nimble${className}Module`; // e.g. "NimbleArrowExpanderLeftIconModule"
-        const moduleFileContents = `${generatedFilePrefix}
+    const moduleName = `Nimble${className}Module`; // e.g. "NimbleArrowExpanderLeftIconModule"
+    const moduleFileContents = `${generatedFilePrefix}
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ${directiveName} } from './${directiveFileName}';
@@ -95,50 +93,19 @@ import '@ni/nimble-components/dist/esm/icons/${directoryName}';
 export class ${moduleName} { }
 `;
 
-        const moduleFilePath = path.resolve(iconDirectory, `${elementName}.module`);
-        fs.writeFileSync(`${moduleFilePath}.ts`, moduleFileContents, { encoding: 'utf-8' });
+    const moduleFilePath = path.resolve(iconDirectory, `${elementName}.module`);
+    fs.writeFileSync(`${moduleFilePath}.ts`, moduleFileContents, { encoding: 'utf-8' });
 
-        moduleNamesAndPaths.push({ name: moduleName, path: moduleFilePath });
-    }
+    modulePaths.push(moduleFilePath);
 }
-console.log(`Finshed writing ${moduleNamesAndPaths.length} icon directive and module files`);
-const allIconsDirectory = path.resolve(iconsDirectory, 'all-icons');
-fs.mkdirSync(allIconsDirectory);
-
-const allIconsModuleFilePath = path.resolve(allIconsDirectory, 'all-icons.module.ts');
-let allIconsModuleFileContents = `${generatedFilePrefix}
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';`;
-
-for (const module of moduleNamesAndPaths) {
-    const relativeModulePath = getRelativeFilePath(allIconsDirectory, module.path);
-    allIconsModuleFileContents += `\nimport { ${module.name} } from '${relativeModulePath}';`;
-}
-
-const moduleNames = moduleNamesAndPaths.map(module => module.name).join(',\n        ');
-
-allIconsModuleFileContents += `\n\n@NgModule({
-    imports: [
-        CommonModule,
-        ${moduleNames}
-    ],
-    exports: [
-        ${moduleNames}
-    ]
-})
-export class NimbleAllIconsModule { }
-`;
-
-console.log('Writing all-icons module file');
-fs.writeFileSync(`${allIconsModuleFilePath}`, allIconsModuleFileContents, { encoding: 'utf-8' });
-console.log('Finished writing all-icons module file');
+console.log(`Finshed writing ${modulePaths.length} icon directive and module files`);
 
 let barrelFileContents = `${generatedFilePrefix}\n`;
 for (const directivePath of directivePaths) {
     barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, directivePath)}';\n`;
 }
-for (const module of moduleNamesAndPaths) {
-    barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, module.path)}';\n`;
+for (const modulePath of modulePaths) {
+    barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, modulePath)}';\n`;
 }
 
 const barrelFilePath = path.resolve(iconsDirectory, 'index');

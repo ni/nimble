@@ -1,9 +1,11 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
+const path = require('path');
+
 export default {
-    input: 'projects/ni/nimble-angular/build/generate-icons/source/index.js',
+    input: path.resolve(__dirname, 'source/index.js'),
     output: {
-        file: 'projects/ni/nimble-angular/build/generate-icons/dist/index.js',
+        file: path.resolve(__dirname, 'dist/index.js'),
         format: 'cjs'
     },
     plugins: [nodeResolve()]
