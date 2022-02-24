@@ -20,7 +20,7 @@
     "generate-icons:bundle": "rollup --config build/generate-icons/rollup.config.js",
     "generate-icons:run": "node build/generate-icons/dist/index.js",
     "generate-scss": "npm run generate-scss:bundle && npm run generate-scss:run",
-    "generate-scss:bundle": "rollup build/generate-scss/source/index.js --format cjs --file build/generate-scss/dist/index.js",
+    "generate-scss:bundle": "rollup --config build/generate-scss/rollup.config.js",
     "generate-scss:run": "node build/generate-scss/dist/index.js",
     "chromatic": "chromatic",
     "tdd": "npm run build-components && npm run test-chrome",

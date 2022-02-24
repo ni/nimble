@@ -1,5 +1,3 @@
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-
 const path = require('path');
 
 export default {
@@ -7,6 +5,5 @@ export default {
     output: {
         file: path.resolve(__dirname, 'dist/index.js'),
         format: 'cjs'
-    },
-    plugins: [nodeResolve()]
+    }
 };
