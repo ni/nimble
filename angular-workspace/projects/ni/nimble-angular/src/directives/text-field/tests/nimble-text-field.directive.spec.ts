@@ -46,6 +46,11 @@ describe('Nimble text field', () => {
             expect(directive.errorText).toBeUndefined();
             expect(nativeElement.errorText).toBeUndefined();
         });
+
+        it('can use the directive to set errorText', () => {
+            directive.errorText = 'new value';
+            expect(nativeElement.errorText).toBe('new value');
+        });
     });
 
     describe('with template string values', () => {
