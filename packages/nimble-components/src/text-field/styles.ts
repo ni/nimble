@@ -55,6 +55,7 @@ export const styles = css`
         font-weight: ${labelFontWeight};
         line-height: ${labelHeight};
         text-transform: ${labelTextTransform};
+        white-space: nowrap;
     }
 
     :host([disabled]) .label {
@@ -69,7 +70,7 @@ export const styles = css`
         border-radius: 0px;
         font-family: ${fontFamily};
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
-        align-items: flex-end;
+        align-items: center;
         --ni-private-hover-bottom-border-width: 2px;
         border: 0px solid rgba(${borderColorRgbPartial}, 0.3);
         border-bottom-width: var(--ni-private-bottom-border-width);
@@ -115,6 +116,10 @@ export const styles = css`
         border-bottom-color: ${borderColorHover};
     }
 
+    [part='start'] {
+        display: none;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
@@ -158,20 +163,19 @@ export const styles = css`
         color: ${contentFontColorDisabled};
     }
 
-    :host [part='end'] {
+    [part='end'] {
         display: none;
     }
 
     :host(.invalid) [part='end'] {
-        align-self: center;
-        display: inline-flex;
-        padding-left: 8px;
-        padding-right: 8px;
+        display: contents;
     }
 
     :host(.invalid) [part='end'] svg {
         height: ${iconSize};
         width: ${iconSize};
+        padding-right: 8px;
+        flex: none;
     }
 
     :host(.invalid) [part='end'] path {
@@ -183,19 +187,29 @@ export const styles = css`
     }
 
     .errortext {
-        visibility: hidden;
+        display: none;
+    }
+
+    :host(.invalid) .errortext {
+        display: block;
         font-family: ${errorTextFontFamily};
         font-weight: ${errorTextFontWeight};
         font-size: ${errorTextFontSize};
         color: ${failColor};
         width: 100%;
+        position: absolute;
+        top: ${controlHeight};
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
-    :host(.invalid) .errortext {
-        visibility: visible;
+    :host(.invalid[readonly]:not([disabled])) .errortext {
+        top: calc(${controlHeight} - ${borderWidth});
+    }
+
+    :host(.invalid) .error-text:empty {
+        display: none;
     }
 
     :host([disabled]) .errortext {
@@ -264,6 +278,10 @@ export const styles = css`
                 --ni-private-bottom-border-width: 1px;
                 border-width: ${borderWidth};
                 border-bottom-width: var(--ni-private-bottom-border-width);
+            }
+
+            :host(.invalid) .errortext {
+                top: calc(${controlHeight} - ${borderWidth});
             }
         `
         ),

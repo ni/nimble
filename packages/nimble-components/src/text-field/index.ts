@@ -1,10 +1,9 @@
-import { attr, html, ViewTemplate } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
-    ElementDefinitionContext,
     TextField as FoundationTextField,
     TextFieldOptions,
-    textFieldTemplate as foundationTemplate
+    textFieldTemplate as template
 } from '@microsoft/fast-foundation';
 import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
@@ -50,17 +49,6 @@ class TextField extends FoundationTextField {
     }
 }
 
-const template: (
-    context: ElementDefinitionContext,
-    definition: TextFieldOptions
-) => ViewTemplate<TextField> = (
-    context: ElementDefinitionContext,
-    definition: TextFieldOptions
-) => {
-    return html`${foundationTemplate(context, definition)}
-        <div class="errortext">${x => x.errorText}</div>`;
-};
-
 const nimbleTextField = TextField.compose<TextFieldOptions>({
     baseName: 'text-field',
     baseClass: FoundationTextField,
@@ -70,7 +58,12 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    end: exclamationMark16X16.data
+    end: html<TextField>`
+        ${exclamationMark16X16.data}
+        <div class="errortext" title="${x => x.errorText}">
+            ${x => x.errorText}
+        </div>
+    `
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextField());
