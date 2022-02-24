@@ -3,12 +3,13 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import '..';
-import '../../icons/access-control';
+import '../../icons/key';
 import { createRenderer } from '../../utilities/tests/storybook';
 
 interface ButtonArgs {
     label: string;
     appearance: string;
+    primary: boolean;
     disabled: boolean;
     icon: boolean;
     contentHidden: boolean;
@@ -18,6 +19,18 @@ const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - 
 enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an
 action, or performing a delete operation. A common convention for informing users that a button launches
 a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".`;
+
+const primaryDescription = `Set the \`primary\` CSS class on the element to make a button primary. This class has no effect on buttons with a \`ghost\` appearance.
+
+<details>
+    <summary>Primary Button Usage</summary>
+    Make a button primary to distinguish it visibly for one of the following reasons: 
+    <ul>
+        <li>to indicate the action that allows the user to accomplish their most common or important goal</li>
+        <li>to indicate the action that allows the user to complete their task</li>
+    </ul>
+</details>
+`;
 
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',
@@ -41,6 +54,9 @@ const metadata: Meta<ButtonArgs> = {
             options: Object.values(ButtonAppearance),
             control: { type: 'radio' }
         },
+        primary: {
+            description: primaryDescription
+        },
         icon: {
             description:
                 'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
@@ -48,14 +64,15 @@ const metadata: Meta<ButtonArgs> = {
     },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" ?content-hidden="${x => x.contentHidden}">
-            ${when(x => x.icon, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
+        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" class="${x => (x.primary ? 'primary' : '')}" ?content-hidden="${x => x.contentHidden}">
+            ${when(x => x.icon, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${x => x.label}
         </nimble-button>
 `),
     args: {
         label: 'Ghost Button',
         appearance: 'ghost',
+        primary: false,
         icon: false,
         contentHidden: false,
         disabled: false

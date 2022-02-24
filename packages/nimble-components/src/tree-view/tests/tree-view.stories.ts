@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '..';
 import '../../tree-item';
-import '../../icons/measurement-data-analysis';
-import '../../icons/settings';
+import '../../icons/database';
+import '../../icons/cog';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { TreeViewSelectionMode } from '../types';
@@ -58,7 +58,7 @@ export const treeItem: StoryObj<ItemArgs> = {
     render: createRenderer(html`
         <nimble-tree-view>
             <nimble-tree-item ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}" value="${x => x.value}">
-                ${when(x => x.icon, html`<nimble-measurement-data-analysis-icon slot="start"></nimble-measurement-data-analysis-icon>`)}
+                ${when(x => x.icon, html`<nimble-database-icon slot="start"></nimble-database-icon>`)}
                 ${x => x.label}
                 <nimble-tree-item>
                    Sub Item
@@ -87,22 +87,22 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         <nimble-tree-view selection-mode="${x => x.selectionMode}">
             ${repeat(x => x.options, html<ItemArgs>`
                 <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}">
-                    ${when(x => x.icon, html`<nimble-measurement-data-analysis-icon slot="start"></nimble-measurement-data-analysis-icon>`)}
+                    ${when(x => x.icon, html`<nimble-database-icon slot="start"></nimble-database-icon>`)}
                     ${x => x.label}
                     <nimble-tree-item ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}">
-                         ${when(x => x.icon, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
+                         ${when(x => x.icon, html`<nimble-cog-icon slot="start"></nimble-cog-icon>`)}
                          Sub Group
                         <nimble-tree-item ?disabled="${x => x.disabled}">
-                            ${when(x => x.icon, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
+                            ${when(x => x.icon, html`<nimble-cog-icon slot="start"></nimble-cog-icon>`)}
                             <a href="http://www.ni.com">Nested Item 1</a>
                         </nimble-tree-item>
                     </nimble-tree-item>
                     <nimble-tree-item ?selected="${x => x.expanded}">
-                        ${when(x => x.icon, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
+                        ${when(x => x.icon, html`<nimble-cog-icon slot="start"></nimble-cog-icon>`)}
                         Nested Item 2
                     </nimble-tree-item>
                     <nimble-tree-item>
-                        ${when(x => x.icon, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
+                        ${when(x => x.icon, html`<nimble-cog-icon slot="start"></nimble-cog-icon>`)}
                         Nested Item 3
                      </nimble-tree-item>
                 </nimble-tree-item>

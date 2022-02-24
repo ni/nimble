@@ -4,8 +4,8 @@ import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
 import '../../menu-item';
-import '../../icons/admin';
-import '../../icons/logout';
+import '../../icons/user';
+import '../../icons/arrow-left-from-line';
 
 interface MenuArgs {
     itemOptions: ItemArgs[];
@@ -60,7 +60,7 @@ export const menuItem: StoryObj<MenuItemArgs> = {
     render: createRenderer<MenuItemArgs>(html`
         <nimble-menu>
             <nimble-menu-item ?disabled="${x => x.disabled}">
-                ${when(x => x.icon, html`<nimble-admin-icon slot="start"></nimble-admin-icon>`)}
+                ${when(x => x.icon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}
                 ${x => x.text}
             </nimble-menu-item>
         </nimble-menu>
@@ -92,7 +92,7 @@ export const menu: StoryObj<MenuArgs> = {
             ${repeat(x => x.itemOptions, html<ItemArgs>`
                 ${when(x => x.type === 'nimble-menu-item', html<ItemArgs>`
                     <nimble-menu-item ?disabled="${x => x.disabled}">
-                        ${when(x => x.icon, html`<nimble-admin-icon slot="start"></nimble-admin-icon>`)}
+                        ${when(x => x.icon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}
                         ${x => x.text}
                     </nimble-menu-item>
                 `)}
@@ -183,8 +183,8 @@ export const customMenu: StoryObj<MenuArgs> = {
                 <div style="font-weight: bold; color: black;">lvadmin User</div>
                 <div style="color: gray;">lvadmin</div>
             </div>
-            <nimble-menu-item><nimble-admin-icon slot="start"></nimble-admin-icon>Account</nimble-menu-item>
-            <nimble-menu-item><nimble-logout-icon slot="start"></nimble-logout-icon>Log out</nimble-menu-item>
+            <nimble-menu-item><nimble-user-icon slot="start"></nimble-user-icon>Account</nimble-menu-item>
+            <nimble-menu-item><nimble-arrow-left-from-line-icon slot="start"></nimble-arrow-left-from-line-icon>Log out</nimble-menu-item>
         </nimble-menu>
     `)
 };

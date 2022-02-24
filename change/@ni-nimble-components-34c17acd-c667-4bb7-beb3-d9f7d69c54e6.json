@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Added icons, [updated names](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) of existing icons, implemented code generation for icons",
+  "packageName": "@ni/nimble-components",
+  "email": "5454342+brianehenry@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
