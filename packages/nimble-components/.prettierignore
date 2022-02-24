@@ -25,3 +25,4 @@ CHANGELOG.*
 src/utilities/tests/tests/fixture.spec.ts
 src/utilities/tests/fixture.ts
 src/utilities/style/direction.ts
+src/icons/**/*.ts

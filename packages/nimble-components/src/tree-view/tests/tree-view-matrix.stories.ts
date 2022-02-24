@@ -3,8 +3,8 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import '..';
 import '../../tree-item';
-import '../../icons/measurement-data-analysis';
-import '../../icons/settings';
+import '../../icons/database';
+import '../../icons/cog';
 import { createRenderer } from '../../utilities/tests/storybook';
 import {
     createMatrix,
@@ -43,21 +43,21 @@ const component = (
             ?expanded="${() => expanded}"
             ?disabled="${() => disabled}"
         >
-            ${when(() => iconVisible, html`<nimble-measurement-data-analysis-icon slot="start"></nimble-measurement-data-analysis-icon>`)}
+            ${when(() => iconVisible, html`<nimble-database-icon slot="start"></nimble-database-icon>`)}
             ${() => expandedName} ${() => disabledName} ${() => selectedName}
             <nimble-tree-item
                 ?disabled="${() => disabled}"
                 ?selected="${() => selected}"
             >
-            ${when(() => iconVisible, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
+            ${when(() => iconVisible, html`<nimble-cog-icon slot="start"></nimble-cog-icon>`)}
                 Nested Item 1
             </nimble-tree-item>
             <nimble-tree-item ?disabled="${() => disabled}">
-            ${when(() => iconVisible, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
+            ${when(() => iconVisible, html`<nimble-cog-icon slot="start"></nimble-cog-icon>`)}
                 Nested Item 2
             </nimble-tree-item>
             <nimble-tree-item ?disabled="${() => disabled}">
-            ${when(() => iconVisible, html`<nimble-settings-icon slot="start"></nimble-settings-icon>`)}
+            ${when(() => iconVisible, html`<nimble-cog-icon slot="start"></nimble-cog-icon>`)}
                 Nested Item 3
             </nimble-tree-item>
             <nimble-tree-item hidden>

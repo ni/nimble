@@ -10,7 +10,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import '../../icons/access-control';
+import '../../icons/key';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -60,7 +60,7 @@ const component = (
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
+            ${when(() => iconVisible, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${() => `${primaryName} ${appearanceName} Button ${disabledName}`}
     </nimble-button>
 `;
