@@ -1,4 +1,4 @@
-import { DesignToken } from '@microsoft/fast-foundation';
+import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
 import hexRgb from 'hex-rgb';
 import {
     Black7,
@@ -178,174 +178,170 @@ export const drawerWidth = DesignToken.create<string>(
 ).withDefault('784px');
 
 // Font Tokens
-export const headlinePlus1Font = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.headlinePlus1Font)
-).withDefault(
-    `${Headline2Weight} ${Headline2Size}/${Headline2LineHeight} ${Headline2Family}, serif`
-);
-export const headlineFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.headlineFont)
-).withDefault(
-    `${Headline1Weight} ${Headline1Size}/${Headline1LineHeight} ${Headline1Family}, serif`
-);
-export const titlePlus2Font = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.titlePlus2Font)
-).withDefault(
-    `${Title3Weight} ${Title3Size}/${Title3LineHeight} ${Title3Family}, sans-serif`
-);
-export const titlePlus1Font = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.titlePlus1Font)
-).withDefault(
-    `${Title2Weight} ${Title2Size}/${Title2LineHeight} ${Title2Family}, sans-serif`
-);
-export const titleFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.titleFont)
-).withDefault(
-    `${Title1Weight} ${Title1Size}/${Title1LineHeight} ${Title1Family}, sans-serif`
-);
-export const subtitlePlus1Font = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.subtitlePlus1Font)
-).withDefault(
-    `${Subtitle2Weight} ${Subtitle2Size}/${Subtitle2LineHeight} ${Subtitle2Family}, sans-serif`
-);
-export const subtitleFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.subtitleFont)
-).withDefault(
-    `${Subtitle1Weight} ${Subtitle1Size}/${Subtitle1LineHeight} ${Subtitle1Family}, sans-serif`
-);
-export const linkStandardFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.linkStandardFont)
-).withDefault(
-    `${LinkLightUiWeight} ${LinkLightUiSize}/${LinkLineHeight} ${LinkLightUiFamily}, sans-serif`
-);
-export const placeholderFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.placeholderFont)
-).withDefault(
-    `${PlaceholderWeight} ${PlaceholderSize}/${PlaceholderLineHeight} ${PlaceholderFamily}, sans-serif`
-);
-export const bodyEmphasizedFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bodyEmphasizedFont)
-).withDefault(
-    `${BodyEmphasizedWeight} ${BodyEmphasizedSize}/${BodyEmphasizedLineHeight} ${BodyEmphasizedFamily}, sans-serif`
-);
-export const bodyFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bodyFont)
-).withDefault(
-    `${BodyWeight} ${BodySize}/${BodyLineHeight} ${BodyFamily}, sans-serif`
-);
-export const groupHeaderFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.groupHeaderFont)
-).withDefault(
-    `${GroupLabel1Weight} ${GroupLabel1Size}/${GroupLabel1LineHeight} ${GroupLabel1Family}, sans-serif`
-);
-export const controlLabelFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.controlLabelFont)
-).withDefault(
-    `${ControlLabel1Weight} ${ControlLabel1Size}/${ControlLabel1LineHeight} ${ControlLabel1Family}, sans-serif`
-);
-export const buttonLabelFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonLabelFont)
-).withDefault(
-    `${ButtonLabel1Weight} ${ButtonLabel1Size}/${ButtonLabel1LineHeight} ${ButtonLabel1Family}, sans-serif`
-);
-export const tooltipCaptionFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tooltipCaptionFont)
-).withDefault(
-    `${TooltipCaptionWeight} ${TooltipCaptionSize}/${TooltipCaptionLineHeight} ${TooltipCaptionFamily}, sans-serif`
+export const [headlineFont, headlineFontColor, headlineDisabledFontColor, headlineFontFamily, headlineFontWeight, headlineFontSize, headlineLineHeight, headlineFallbackFontFamily] = createFontTokens(
+    tokenNames.headlineFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    Headline1Family,
+    Headline1Weight,
+    Headline1Size,
+    Headline1LineHeight,
+    'serif'
 );
 
-// Font Color Tokens
+export const [headlinePlus1Font, headlinePlus1FontColor, headlinePlus1DisabledFontColor, headlinePlus1FontFamily, headlinePlus1FontWeight, headlinePlus1FontSize, headlinePlus1LineHeight, headlinePlus1FallbackFontFamily] = createFontTokens(
+    tokenNames.headlinePlus1Font,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    Headline2Family,
+    Headline2Weight,
+    Headline2Size,
+    Headline2LineHeight,
+    'serif'
+);
 
-export const headlinePlus1FontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.headlinePlus1FontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const headlineFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.headlineFontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const titlePlus2FontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.titlePlus2FontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const titlePlus1FontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.titlePlus1FontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const titleFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.titleFontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const subtitlePlus1FontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.subtitlePlus1FontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const subtitleFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.subtitleFontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const linkStandardFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.linkStandardFontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const placeholderFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.placeholderFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6));
-export const bodyEmphasizedFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bodyEmphasizedFontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const bodyFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bodyFontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const groupHeaderFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.groupHeaderFontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const controlLabelFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.controlLabelFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6));
-export const buttonLabelFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonLabelFontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const tooltipCaptionFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tooltipCaptionFontColor)
-).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
-export const headlinePlus1DisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.headlinePlus1DisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const headlineDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.headlineDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const titlePlus2DisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.titlePlus2DisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const titlePlus1DisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.titlePlus1DisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const titleDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.titleDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const subtitlePlus1DisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.subtitlePlus1DisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const subtitleDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.subtitleDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const linkStandardDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.linkStandardDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const placeholderDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.placeholderDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const bodyEmphasizedDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bodyEmphasizedDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const bodyDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bodyDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const groupHeaderDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.groupHeaderDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const controlLabelDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.controlLabelDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const buttonLabelDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonLabelDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
-export const tooltipCaptionDisabledFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tooltipCaptionDisabledFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const [titlePlus2Font, titlePlus2FontColor, titlePlus2DisabledFontColor, titlePlus2FontFamily, titlePlus2FontWeight, titlePlus2FontSize, titlePlus2LineHeight, titlePlus2FallbackFontFamily] = createFontTokens(
+    tokenNames.titlePlus2Font,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    Title3Family,
+    Title3Weight,
+    Title3Size,
+    Title3LineHeight,
+    'sans-serif'
+);
+
+export const [titlePlus1Font, titlePlus1FontColor, titlePlus1DisabledFontColor, titlePlus1FontFamily, titlePlus1FontWeight, titlePlus1FontSize, titlePlus1LineHeight, titlePlus1FallbackFontFamily] = createFontTokens(
+    tokenNames.titlePlus1Font,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    Title2Family,
+    Title2Weight,
+    Title2Size,
+    Title2LineHeight,
+    'sans-serif'
+);
+
+export const [titleFont, titleFontColor, titleDisabledFontColor, titleFontFamily, titleFontWeight, titleFontSize, titleLineHeight, titleFallbackFontFamily] = createFontTokens(
+    tokenNames.titleFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    Title1Family,
+    Title1Weight,
+    Title1Size,
+    Title1LineHeight,
+    'sans-serif'
+);
+
+export const [subtitlePlus1Font, subtitlePlus1FontColor, subtitlePlus1DisabledFontColor, subtitlePlus1FontFamily, subtitlePlus1FontWeight, subtitlePlus1FontSize, subtitlePlus1LineHeight, subtitlePlus1FallbackFontFamily] = createFontTokens(
+    tokenNames.subtitlePlus1Font,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    Subtitle2Family,
+    Subtitle2Weight,
+    Subtitle2Size,
+    Subtitle2LineHeight,
+    'sans-serif'
+);
+
+export const [subtitleFont, subtitleFontColor, subtitleDisabledFontColor, subtitleFontFamily, subtitleFontWeight, subtitleFontSize, subtitleLineHeight, subtitleFallbackFontFamily] = createFontTokens(
+    tokenNames.subtitleFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    Subtitle1Family,
+    Subtitle1Weight,
+    Subtitle1Size,
+    Subtitle1LineHeight,
+    'sans-serif'
+);
+
+export const [linkStandardFont, linkStandardFontColor, linkStandardDisabledFontColor, linkStandardFontFamily, linkStandardFontWeight, linkStandardFontSize, linkStandardLineHeight, linkStandardFallbackFontFamily] = createFontTokens(
+    tokenNames.linkStandardFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    LinkLightUiFamily,
+    LinkLightUiWeight,
+    LinkLightUiSize,
+    LinkLineHeight,
+    'sans-serif'
+);
+
+export const [placeholderFont, placeholderFontColor, placeholderDisabledFontColor, placeholderFontFamily, placeholderFontWeight, placeholderFontSize, placeholderLineHeight, placeholderFallbackFontFamily] = createFontTokens(
+    tokenNames.placeholderFont,
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    PlaceholderFamily,
+    PlaceholderWeight,
+    PlaceholderSize,
+    PlaceholderLineHeight,
+    'sans-serif'
+);
+
+export const [bodyEmphasizedFont, bodyEmphasizedFontColor, bodyEmphasizedDisabledFontColor, bodyEmphasizedFontFamily, bodyEmphasizedFontWeight, bodyEmphasizedFontSize, bodyEmphasizedLineHeight, bodyEmphasizedFallbackFontFamily] = createFontTokens(
+    tokenNames.bodyEmphasizedFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyEmphasizedFamily,
+    BodyEmphasizedWeight,
+    BodyEmphasizedSize,
+    BodyEmphasizedLineHeight,
+    'sans-serif'
+);
+
+export const [bodyFont, bodyFontColor, bodyDisabledFontColor, bodyFontFamily, bodyFontWeight, bodyFontSize, bodyLineHeight, bodyFallbackFontFamily] = createFontTokens(
+    tokenNames.bodyFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyFamily,
+    BodyWeight,
+    BodySize,
+    BodyLineHeight,
+    'sans-serif'
+);
+
+export const [groupHeaderFont, groupHeaderFontColor, groupHeaderDisabledFontColor, groupHeaderFontFamily, groupHeaderFontWeight, groupHeaderFontSize, groupHeaderLineHeight, groupHeaderFallbackFontFamily] = createFontTokens(
+    tokenNames.groupHeaderFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    GroupLabel1Family,
+    GroupLabel1Weight,
+    GroupLabel1Size,
+    GroupLabel1LineHeight,
+    'sans-serif'
+);
+
+export const [controlLabelFont, controlLabelFontColor, controlLabelDisabledFontColor, controlLabelFontFamily, controlLabelFontWeight, controlLabelFontSize, controlLabelLineHeight, controlLabelFallbackFontFamily] = createFontTokens(
+    tokenNames.controlLabelFont,
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    ControlLabel1Family,
+    ControlLabel1Weight,
+    ControlLabel1Size,
+    ControlLabel1LineHeight,
+    'sans-serif'
+);
+
+export const [buttonLabelFont, buttonLabelFontColor, buttonLabelDisabledFontColor, buttonLabelFontFamily, buttonLabelFontWeight, buttonLabelFontSize, buttonLabelLineHeight, buttonLabelFallbackFontFamily] = createFontTokens(
+    tokenNames.buttonLabelFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    ButtonLabel1Family,
+    ButtonLabel1Weight,
+    ButtonLabel1Size,
+    ButtonLabel1LineHeight,
+    'sans-serif'
+);
+
+export const [tooltipCaptionFont, tooltipCaptionFontColor, tooltipCaptionDisabledFontColor, tooltipCaptionFontFamily, tooltipCaptionFontWeight, tooltipCaptionFontSize, tooltipCaptionLineHeight, tooltipCaptionFallbackFontFamily] = createFontTokens(
+    tokenNames.tooltipCaptionFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    TooltipCaptionFamily,
+    TooltipCaptionWeight,
+    TooltipCaptionSize,
+    TooltipCaptionLineHeight,
+    'sans-serif'
+);
 
 // Font Transform Tokens
 export const groupHeaderTextTransform = DesignToken.create<string>(
@@ -372,6 +368,53 @@ function hexToRgbPartial(hexValue: string): string {
 function hexToRgbaCssColor(hexValue: string, alpha: number): string {
     const { red, green, blue } = hexRgb(hexValue);
     return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+}
+
+function createFontTokens(
+    fontTokenName: string,
+    colorFunction: (element: HTMLElement) => string,
+    disabledColorFunction: (element: HTMLElement) => string,
+    family: string,
+    weight: string,
+    size: string,
+    lineHeight: string,
+    fallbackFamily: string
+): CSSDesignToken<string>[] {
+    const fontToken = DesignToken.create<string>(
+        styleNameFromTokenName(fontTokenName)
+    ).withDefault(
+        `${weight} ${size}/${lineHeight} ${family}, serif`
+    );
+
+    const fontColorToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${fontTokenName}-color`)
+    ).withDefault((element: HTMLElement) => colorFunction(element));
+
+    const fontDisabledColorToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${fontTokenName}-disabled-color`)
+    ).withDefault((element: HTMLElement) => disabledColorFunction(element));
+
+    const fontFamilyToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${fontTokenName}-family`)
+    ).withDefault(`${family}`);
+
+    const fontWeightToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${fontTokenName}-weight`)
+    ).withDefault(`${weight}`);
+
+    const fontSizeToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${fontTokenName}-size`)
+    ).withDefault(`${size}`);
+
+    const fontLineHeightToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${fontTokenName}-line-height`)
+    ).withDefault(`${lineHeight}`);
+
+    const fontFallbackFamilyToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${fontTokenName}-fallback-family`)
+    ).withDefault(`${fallbackFamily}`);
+
+    return [fontToken, fontColorToken, fontDisabledColorToken, fontFamilyToken, fontWeightToken, fontSizeToken, fontLineHeightToken, fontFallbackFamilyToken];
 }
 
 function getColorForTheme(
