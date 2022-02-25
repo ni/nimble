@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add support for error text to text field",
+  "packageName": "@ni/nimble-angular",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
