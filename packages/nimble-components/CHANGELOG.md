@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 24 Feb 2022 16:20:16 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Feb 2022 19:17:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.0.1
+
+Thu, 24 Feb 2022 19:17:00 GMT
+
+### Patches
+
+- Use correct padding in select component (20542556+mollykreis@users.noreply.github.com)
 
 ## 4.0.0
 
