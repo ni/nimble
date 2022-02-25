@@ -56,6 +56,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     controlLabelFont: 'Font shorthand for the "Control_Label_1" base token',
     buttonLabelFont: 'Font shorthand for the "Button_Label_1" base token',
     tooltipCaptionFont: 'Font shorthand for the "Tooltip_Caption" base token',
+    errorTextFont: 'Font shorthand for the "Error_LightUi" base token',
     headlinePlus1FontColor: 'Font color for "Headline_2" base token',
     headlineFontColor: 'Font color for "Headline_1" base token',
     titlePlus2FontColor: 'Font color for "Title_3" base token',
