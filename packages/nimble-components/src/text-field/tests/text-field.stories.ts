@@ -40,6 +40,7 @@ const metadata: Meta<TextFieldArgs> = {
             appearance="${x => x.appearance}"
             value="${x => x.value}"
             class="${x => (x.invalid ? 'invalid' : '')}"
+            aria-invalid="${x => x.invalid}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
             errortext="${x => x.errortext}"

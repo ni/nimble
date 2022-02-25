@@ -46,6 +46,8 @@ class TextField extends FoundationTextField {
         if (!this.appearance) {
             this.appearance = TextFieldAppearance.Underline;
         }
+
+        this.control.setAttribute('aria-errormessage', 'errortext');
     }
 }
 
@@ -60,7 +62,12 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
     },
     end: html<TextField>`
         ${exclamationMark16X16.data}
-        <div class="errortext" title="${x => x.errorText}">
+        <div
+            id="errortext"
+            class="errortext"
+            title="${x => x.errorText}"
+            aria-live="polite"
+        >
             ${x => x.errorText}
         </div>
     `
