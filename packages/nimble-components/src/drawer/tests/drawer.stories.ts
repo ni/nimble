@@ -57,7 +57,7 @@ const headerFooterContent = html`
         </p>
     </section>
     <footer>
-        <nimble-button appearance="ghost">Cancel</nimble-button>
+        <nimble-button appearance="ghost" style="margin-right: 16px">Cancel</nimble-button>
         <nimble-button appearance="outline">OK</nimble-button>
     </footer>`;
 
