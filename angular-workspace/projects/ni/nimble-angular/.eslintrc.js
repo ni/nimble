@@ -1,14 +1,10 @@
+const path = require('path');
+
 module.exports = {
     extends: '../../../.eslintrc.js',
     ignorePatterns: [
         '!**/*',
-        // Files temporarily copied to project directory during pack
-        'bundles/**',
-        'directives/**',
-        'esm2015/**',
-        'fesm2015/**',
-        'ni-nimble-angular.d.ts',
-        'public-api.d.ts'
+        '**/dist'
     ],
     plugins: ['jsdoc'],
     overrides: [
@@ -43,6 +39,16 @@ module.exports = {
             }
         },
         {
+            files: [
+                '*.js',
+                '*.ts'
+            ],
+            rules: {
+                // Use package.json from angular-workspace root
+                'import/no-extraneous-dependencies': ['error', { packageDir: path.resolve(__dirname, '../../../') }]
+            }
+        },
+        {
             // Don't require class docs on modules (they're trivial) or tests (not public API)
             files: [
                 '*.module.ts', '*.spec.ts'
@@ -73,9 +79,7 @@ module.exports = {
             ],
             rules: {
                 // Logging in build scripts is useful
-                'no-console': 'off',
-                // Okay to use dev dependencies in build scripts
-                'import/no-extraneous-dependencies': 'off'
+                'no-console': 'off'
             }
         }
     ]
