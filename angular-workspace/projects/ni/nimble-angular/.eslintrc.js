@@ -70,7 +70,9 @@ module.exports = {
             ],
             rules: {
                 // Logging in build scripts is useful
-                'no-console': 'off'
+                'no-console': 'off',
+                // Rollup config files use default exports
+                'import/no-default-export': 'off'
             }
         }
     ]
