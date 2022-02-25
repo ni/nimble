@@ -40,6 +40,7 @@
           "options": {
             "lintFilePatterns": [
               "projects/ni/nimble-angular/**/*.ts",
+              "projects/ni/nimble-angular/**/*.js",
               "projects/ni/nimble-angular/**/*.html"
             ]
           }
