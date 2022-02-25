@@ -1,6 +1,4 @@
-<svg id="Combobox_Input_UnderLine_32"
-  xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="48" viewBox="0 0 176 48">
+<svg id="Combobox_Input_UnderLine_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="48" viewBox="0 0 176 48">
   <defs>
     <clipPath id="clip-path">
       <rect y="1" width="176" height="14" fill="none"/>
@@ -21,16 +19,12 @@
     <path id="Controls_Error_16x16" d="M6.643,11.227H9.355V13H6.643ZM6.6,3l.309,7.119H9.1L9.4,3Z" transform="translate(0.511)" fill="#c4000c" opacity="0"/>
   </g>
   <g id="Control_Label" data-name="Control Label" transform="translate(0 -1)" clip-path="url(#clip-path)" style="isolation: isolate">
-    <text id="Show_label" data-name="Show label" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6">
-      <tspan x="0" y="0">Show label</tspan>
-    </text>
+    <text id="Show_label" data-name="Show label" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6"><tspan x="0" y="0">Show label</tspan></text>
   </g>
   <rect id="Divider" width="2" height="20" transform="translate(142 22)" fill="#161617" opacity="0.15"/>
   <rect id="Highlight" height="19" transform="translate(5 22)" fill="#161617" opacity="0"/>
   <g id="Scroll_Group_No_icon" data-name="Scroll Group No icon" transform="translate(4 23)" clip-path="url(#clip-path-2)" style="isolation: isolate">
-    <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="12.8" font-family="SourceSansPro-Regular, Source Sans Pro">
-      <tspan x="0" y="0">Placeholder</tspan>
-    </text>
+    <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="12.8" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Placeholder</tspan></text>
   </g>
   <g id="ButtonToggle_Icon_Ghost_24" transform="translate(148 20)">
     <g id="Background" transform="translate(-323.853 -324)">
