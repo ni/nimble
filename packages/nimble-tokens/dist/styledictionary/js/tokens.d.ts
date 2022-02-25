@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Mon, 21 Feb 2022 14:33:38 GMT
+ * Generated on Fri, 25 Feb 2022 23:42:34 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -23,8 +23,8 @@ export const Black80 : string;
 export const Black : string;
 export const Black95 : string;
 export const Black91 : string;
-export const Enterprise : string;
-export const Selection100 : string;
+export const ForestGreen : string;
+export const DigitalGreenLight : string;
 export const Brand85 : string;
 export const Brand100 : string;
 export const Fail85 : string;
@@ -33,6 +33,9 @@ export const BannerFail100DarkUi : string;
 export const Warning100LightUi : string;
 export const Black30 : string;
 export const Black50 : string;
+export const DigitalGreenDark : string;
+export const PowerGreen : string;
+export const Black22 : string;
 export const Title2Family : string;
 export const Title2Weight : string;
 export const ControlLabel1Family : string;
@@ -88,6 +91,8 @@ export const ErrorLightUiFamily : string;
 export const ErrorLightUiWeight : string;
 export const ErrorDarkUiFamily : string;
 export const ErrorDarkUiWeight : string;
+export const LinkSelection100LightUiFamily : string;
+export const LinkSelection100LightUiWeight : string;
 export const Title2Size : string;
 export const ControlLabel1Size : string;
 export const BodySize : string;
@@ -115,6 +120,7 @@ export const ErrorColorUiSize : string;
 export const LinkVisitedLightUiSize : string;
 export const ErrorLightUiSize : string;
 export const ErrorDarkUiSize : string;
+export const LinkSelection100LightUiSize : string;
 export const BodyLineHeight : string;
 export const ControlLabel1LineHeight : string;
 export const GroupLabel1LineHeight : string;

@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Mon, 21 Feb 2022 14:33:38 GMT
+ * Generated on Fri, 25 Feb 2022 23:42:34 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -23,8 +23,8 @@ export const Black80 = "#505153";
 export const Black = "#000000";
 export const Black95 = "#0e0f0f";
 export const Black91 = "#161617";
-export const Enterprise = "#074023";
-export const Selection100 = "#009b65";
+export const ForestGreen = "#074023";
+export const DigitalGreenLight = "#009b65";
 export const Brand85 = "#26a97c";
 export const Brand100 = "#009b65";
 export const Fail85 = "#cf1a37";
@@ -33,6 +33,9 @@ export const BannerFail100DarkUi = "#d63434";
 export const Warning100LightUi = "#ff4b00";
 export const Black30 = "#d3d5d6";
 export const Black50 = "#aeb0b3";
+export const DigitalGreenDark = "#006b46";
+export const PowerGreen = "#32eb96";
+export const Black22 = "#e6e6e6";
 export const Title2Family = "Source Sans Pro";
 export const Title2Weight = "400";
 export const ControlLabel1Family = "Source Sans Pro";
@@ -88,6 +91,8 @@ export const ErrorLightUiFamily = "Source Sans Pro";
 export const ErrorLightUiWeight = "400";
 export const ErrorDarkUiFamily = "Source Sans Pro";
 export const ErrorDarkUiWeight = "400";
+export const LinkSelection100LightUiFamily = "Source Sans Pro";
+export const LinkSelection100LightUiWeight = "400";
 export const Title2Size = "22px";
 export const ControlLabel1Size = "11px";
 export const BodySize = "14px";
@@ -115,6 +120,7 @@ export const ErrorColorUiSize = "9px";
 export const LinkVisitedLightUiSize = "14px";
 export const ErrorLightUiSize = "9px";
 export const ErrorDarkUiSize = "9px";
+export const LinkSelection100LightUiSize = "14px";
 export const BodyLineHeight = "18px";
 export const ControlLabel1LineHeight = "16px";
 export const GroupLabel1LineHeight = "16px";
