@@ -33,7 +33,8 @@ const getRelativeFilePath = (from, to) => {
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-angular/build/generate-icons\n`;
 
-const iconsDirectory = path.resolve(__dirname, '../../../src/directives/icons');
+const packageDirectory = path.resolve(__dirname, '../../../');
+const iconsDirectory = path.resolve(packageDirectory, 'src/directives/icons');
 console.log(iconsDirectory);
 
 if (fs.existsSync(iconsDirectory)) {
@@ -46,8 +47,7 @@ fs.mkdirSync(iconsDirectory);
 console.log('Finished creating icons directory');
 
 console.log('Writing icon directive and module files');
-const modulePaths = [];
-const directivePaths = [];
+const directiveAndModulePaths = [];
 for (const key of Object.keys(icons)) {
     const iconName = trimSizeFromName(key); // "arrowExpanderLeft"
     const directoryName = camelToKebabCase(iconName); // e.g. "arrow-expander-left"
@@ -75,7 +75,6 @@ export class ${directiveName} {
     const directiveFileName = `${elementName}.directive`;
     const directiveFilePath = path.resolve(iconDirectory, directiveFileName);
     fs.writeFileSync(`${directiveFilePath}.ts`, directiveFileContents, { encoding: 'utf-8' });
-    directivePaths.push(directiveFilePath);
 
     const moduleName = `Nimble${className}Module`; // e.g. "NimbleArrowExpanderLeftIconModule"
     const moduleFileContents = `${generatedFilePrefix}
@@ -96,20 +95,26 @@ export class ${moduleName} { }
     const moduleFilePath = path.resolve(iconDirectory, `${elementName}.module`);
     fs.writeFileSync(`${moduleFilePath}.ts`, moduleFileContents, { encoding: 'utf-8' });
 
-    modulePaths.push(moduleFilePath);
+    directiveAndModulePaths.push({
+        directivePath: directiveFilePath,
+        modulePath: moduleFilePath
+    });
 }
-console.log(`Finshed writing ${modulePaths.length} icon directive and module files`);
+console.log(`Finshed writing ${directiveAndModulePaths.length} icon directive and module files`);
 
-let barrelFileContents = `${generatedFilePrefix}\n`;
-for (const directivePath of directivePaths) {
-    barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, directivePath)}';\n`;
+const sourceDirectory = path.resolve(packageDirectory, 'src');
+let publicApiIconContent = '\n// Icons\n';
+for (const paths of directiveAndModulePaths) {
+    publicApiIconContent += `export * from '${getRelativeFilePath(sourceDirectory, paths.directivePath)}';
+export * from '${getRelativeFilePath(sourceDirectory, paths.modulePath)}';\n`;
 }
-for (const modulePath of modulePaths) {
-    barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, modulePath)}';\n`;
-}
 
-const barrelFilePath = path.resolve(iconsDirectory, 'index');
+const publicApiTemplateFilePath = path.resolve(sourceDirectory, 'public-api.template.ts');
+const publicApiTemplateFileContents = fs.readFileSync(publicApiTemplateFilePath, { encoding: 'utf-8' });
+let publicApiFileContents = `${generatedFilePrefix}\n`;
+publicApiFileContents += publicApiTemplateFileContents.replace('// Insert icon imports here', publicApiIconContent);
+const publicApiFilePath = path.resolve(sourceDirectory, 'public-api');
 
-console.log('Writing barrel file');
-fs.writeFileSync(`${barrelFilePath}.ts`, barrelFileContents, { encoding: 'utf-8' });
-console.log('Finished writing barrel file');
+console.log('Writing public API file');
+fs.writeFileSync(`${publicApiFilePath}.ts`, publicApiFileContents, { encoding: 'utf-8' });
+console.log('Finished writing public API file');
