@@ -38,7 +38,7 @@ class TextField extends FoundationTextField {
      * @remarks
      * HTML Attribute: errortext
      */
-    @attr({ attribute: 'error-text' })
+    @attr({ attribute: 'errortext' })
     public errorText!: string;
 
     public connectedCallback(): void {

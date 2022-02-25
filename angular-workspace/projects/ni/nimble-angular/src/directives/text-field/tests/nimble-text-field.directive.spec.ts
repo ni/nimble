@@ -57,7 +57,7 @@ describe('Nimble text field', () => {
         @Component({
             template: `
                 <nimble-text-field #textField
-                    error-text="error text">
+                    errortext="error text">
                 </nimble-text-field>`
         })
         class TestHostComponent {
@@ -90,7 +90,7 @@ describe('Nimble text field', () => {
         @Component({
             template: `
                 <nimble-text-field #textField
-                    [error-text]="errorText">
+                    [errortext]="errorText">
                 </nimble-text-field>`
         })
         class TestHostComponent {
@@ -130,7 +130,7 @@ describe('Nimble text field', () => {
         @Component({
             template: `
                 <nimble-text-field #textField
-                    [attr.error-text]="errorText">
+                    [attr.errortext]="errorText">
                 </nimble-text-field>`
         })
         class TestHostComponent {
