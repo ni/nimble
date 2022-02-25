@@ -2,16 +2,14 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
+    bodyFont,
+    bodyFontColor,
     borderWidth,
-    contentFontColor,
-    contentFontSize,
-    drawerHeaderFontFamily,
-    drawerHeaderFontSize,
-    drawerWidth,
-    fontFamily,
     popupBorderColor,
     popupBoxShadowColor,
-    standardPadding
+    standardPadding,
+    titlePlus1Font,
+    drawerWidth
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -24,9 +22,8 @@ export const styles = css`
         width: fit-content;
         height: 100%;
         outline: none;
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
-        color: ${contentFontColor};
+        font: ${bodyFont};
+        color: ${bodyFontColor};
     }
 
     :host([modal]) {
@@ -109,8 +106,7 @@ export const styles = css`
 
     ::slotted(header) {
         padding: ${standardPadding};
-        font-family: ${drawerHeaderFontFamily};
-        font-size: ${drawerHeaderFontSize};
+        font: ${titlePlus1Font};
     }
 
     ::slotted(section) {

@@ -27,9 +27,8 @@ jobs:
           dotnet-version: 5.0.x
       - uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: '16'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm install --global npm@7
       - run: npm ci
 
       # Build

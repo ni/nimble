@@ -2,6 +2,87 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 24 Feb 2022 19:17:00 GMT",
+      "tag": "@ni/nimble-components_v4.0.1",
+      "version": "4.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bcd293b32d6b3c01cbdbd93bf778ee8c65aa69fb",
+            "comment": "Use correct padding in select component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Feb 2022 16:20:16 GMT",
+      "tag": "@ni/nimble-components_v4.0.0",
+      "version": "4.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6872d1878c110d0f0a0669c09cfcec3200204661",
+            "comment": "Added icons, [updated names](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) of existing icons, implemented code generation for icons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Feb 2022 22:30:22 GMT",
+      "tag": "@ni/nimble-components_v3.2.0",
+      "version": "3.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cd072c1851d3136e108f0562b8913dc351909f72",
+            "comment": "Add new nimble-breadcrumb and nimble-breadcrumb-item components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Feb 2022 22:01:52 GMT",
+      "tag": "@ni/nimble-components_v3.1.0",
+      "version": "3.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ebdc787afeaf9143270906d792ec799ed1d3c77",
+            "comment": "Implement primary buttons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Feb 2022 20:10:44 GMT",
+      "tag": "@ni/nimble-components_v3.0.0",
+      "version": "3.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f1096d98165a52d95f4a27da04cfcbf628b582bc",
+            "comment": "Refactored nearly all theme-aware tokens. See this [spreadsheet](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) for a mapping of old and new tokens."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v2.1.0",
+            "commit": "f1096d98165a52d95f4a27da04cfcbf628b582bc"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 21 Feb 2022 23:14:18 GMT",
       "tag": "@ni/nimble-components_v2.1.3",
       "version": "2.1.3",

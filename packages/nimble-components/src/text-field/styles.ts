@@ -2,28 +2,22 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 
 import {
-    borderColorRgbPartial,
-    borderColorHover,
+    borderRgbPartialColor,
+    borderHoverColor,
     borderWidth,
-    contentFontColor,
-    contentFontColorDisabled,
-    contentFontSize,
+    bodyFontColor,
+    bodyDisabledFontColor,
     controlHeight,
-    errorTextFontFamily,
-    errorTextFontWeight,
-    errorTextFontSize,
+    errorTextFont,
     failColor,
-    fillColorSelectedRgbPartial,
-    fontFamily,
+    fillSelectedRgbPartialColor,
     iconSize,
-    labelFontColor,
-    labelFontColorDisabled,
-    labelFontFamily,
-    labelFontSize,
-    labelFontWeight,
     labelHeight,
-    labelTextTransform,
     smallDelay,
+    controlLabelFont,
+    bodyFont,
+    controlLabelFontColor,
+    controlLabelDisabledFontColor,
     standardPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
@@ -35,31 +29,26 @@ export const styles = css`
     ${display('inline-block')}
 
     :host {
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
         outline: none;
         user-select: none;
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
     }
 
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${bodyDisabledFontColor};
     }
 
     .label {
         display: flex;
-        color: ${labelFontColor};
-        font-family: ${labelFontFamily};
-        font-size: ${labelFontSize};
-        font-weight: ${labelFontWeight};
-        line-height: ${labelHeight};
-        text-transform: ${labelTextTransform};
+        color: ${controlLabelFontColor};
+        font: ${controlLabelFont};
         white-space: nowrap;
     }
 
     :host([disabled]) .label {
-        color: ${labelFontColorDisabled};
+        color: ${controlLabelDisabledFontColor};
     }
 
     .root {
@@ -68,11 +57,11 @@ export const styles = css`
         display: flex;
         flex-direction: row;
         border-radius: 0px;
-        font-family: ${fontFamily};
+        font: ${bodyFont};
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: center;
         --ni-private-hover-bottom-border-width: 2px;
-        border: 0px solid rgba(${borderColorRgbPartial}, 0.3);
+        border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         border-bottom-width: var(--ni-private-bottom-border-width);
         padding-bottom: calc(
             var(--ni-private-hover-bottom-border-width) -
@@ -91,21 +80,21 @@ export const styles = css`
     }
 
     :host([readonly]:not([disabled])) .root {
-        border: ${borderWidth} solid rgba(${borderColorRgbPartial}, 0.1);
+        border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
         padding: 0px;
         padding-bottom: 1px;
         background-color: transparent;
     }
 
     :host([disabled]) .root {
-        border-color: rgba(${borderColorRgbPartial}, 0.1);
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
     .root:hover {
         --ni-private-bottom-border-width: var(
             --ni-private-hover-bottom-border-width
         );
-        border-bottom-color: ${borderColorHover};
+        border-bottom-color: ${borderHoverColor};
     }
 
     :host([disabled]) .root:hover {
@@ -113,7 +102,7 @@ export const styles = css`
     }
 
     .root:focus-within {
-        border-bottom-color: ${borderColorHover};
+        border-bottom-color: ${borderHoverColor};
     }
 
     [part='start'] {
@@ -147,12 +136,12 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${labelFontColor};
-        background: rgba(${fillColorSelectedRgbPartial}, 0.3);
+        color: ${controlLabelFontColor};
+        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
     }
 
     .control::placeholder {
-        color: ${labelFontColor};
+        color: ${controlLabelFontColor};
     }
 
     .control:not([readonly]):focus-within::placeholder {
@@ -160,7 +149,7 @@ export const styles = css`
     }
 
     .control[disabled]::placeholder {
-        color: ${contentFontColorDisabled};
+        color: ${bodyDisabledFontColor};
     }
 
     [part='end'] {
@@ -183,7 +172,7 @@ export const styles = css`
     }
 
     :host([disabled]) [part='end'] path {
-        fill: ${contentFontColorDisabled};
+        fill: ${bodyDisabledFontColor};
     }
 
     .errortext {
@@ -192,9 +181,7 @@ export const styles = css`
 
     :host(.invalid) .errortext {
         display: block;
-        font-family: ${errorTextFontFamily};
-        font-weight: ${errorTextFontWeight};
-        font-size: ${errorTextFontSize};
+        font: ${errorTextFont};
         color: ${failColor};
         width: 100%;
         position: absolute;
@@ -213,7 +200,7 @@ export const styles = css`
     }
 
     :host([disabled]) .errortext {
-        color: ${contentFontColorDisabled};
+        color: ${bodyDisabledFontColor};
     }
 `.withBehaviors(
         appearanceBehavior(
@@ -231,7 +218,7 @@ export const styles = css`
             TextFieldAppearance.Block,
             css`
             .root {
-                background-color: rgba(${borderColorRgbPartial}, 0.1);
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
                 --ni-private-bottom-border-width: 0px;
                 padding-top: ${borderWidth};
                 padding-left: ${borderWidth};
@@ -259,7 +246,7 @@ export const styles = css`
             }
 
             :host([disabled]) .root {
-                background-color: rgba(${borderColorRgbPartial}, 0.07);
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
 
             :host([disabled]) .root:hover {

@@ -1,10 +1,13 @@
 import { DesignToken } from '@microsoft/fast-foundation';
 import hexRgb from 'hex-rgb';
 import {
+    Black7,
     Black91,
     Black85,
     Black15,
+    Black30,
     Black75,
+    Black80,
     White,
     Enterprise,
     Selection100,
@@ -12,59 +15,117 @@ import {
     SmallDelay,
     MediumDelay,
     Fail100DarkUi,
-    BodyFamily,
-    BodySize,
-    ControlLabel1Family,
-    ControlLabel1Size,
-    ControlLabel1Weight,
-    ErrorLightUiSize,
-    ErrorLightUiFamily,
-    ErrorLightUiWeight,
     Warning100LightUi,
     Warning100DarkUi,
     Pass100LightUi,
     Pass100DarkUi,
-    Title2Size,
-    Title2Family,
+    BodyFamily,
+    BodySize,
+    BodyWeight,
+    ControlLabel1Family,
+    ControlLabel1Size,
+    ControlLabel1Weight,
     GroupLabel1Family,
     GroupLabel1Size,
-    GroupLabel1Weight
+    GroupLabel1Weight,
+    Headline2Size,
+    Headline2Family,
+    Headline2Weight,
+    Headline1Size,
+    Headline1Family,
+    Headline1Weight,
+    Title3Size,
+    Title3Family,
+    Title3Weight,
+    Title2Size,
+    Title2Family,
+    Title2Weight,
+    Title1Size,
+    Title1Family,
+    Title1Weight,
+    Subtitle2Size,
+    Subtitle2Family,
+    Subtitle2Weight,
+    Subtitle1Size,
+    Subtitle1Family,
+    Subtitle1Weight,
+    LinkLightUiSize,
+    LinkLightUiFamily,
+    LinkLightUiWeight,
+    PlaceholderSize,
+    PlaceholderFamily,
+    PlaceholderWeight,
+    BodyEmphasizedSize,
+    BodyEmphasizedFamily,
+    BodyEmphasizedWeight,
+    ButtonLabel1Size,
+    ButtonLabel1Family,
+    ButtonLabel1Weight,
+    TooltipCaptionSize,
+    TooltipCaptionFamily,
+    TooltipCaptionWeight,
+    ErrorLightUiSize,
+    ErrorLightUiFamily,
+    ErrorLightUiWeight,
+    Headline2LineHeight,
+    Headline1LineHeight,
+    Title3LineHeight,
+    Title2LineHeight,
+    Title1LineHeight,
+    Subtitle2LineHeight,
+    Subtitle1LineHeight,
+    LinkLineHeight,
+    PlaceholderLineHeight,
+    BodyEmphasizedLineHeight,
+    BodyLineHeight,
+    GroupLabel1LineHeight,
+    ControlLabel1LineHeight,
+    ButtonLabel1LineHeight,
+    TooltipCaptionLineHeight
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
 
 // Color Tokens
-export const actionColorRgbPartial = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.actionColorRgbPartial)
+export const actionRgbPartialColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.actionRgbPartialColor)
 ).withDefault((element: HTMLElement) => hexToRgbPartial(getColorForTheme(element, Black91, Black15, White)));
 
 export const applicationBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.applicationBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise));
 
+export const headerBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.headerBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black80, Enterprise));
+
+export const sectionBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.sectionBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, Enterprise));
+
 export const fillColorSelected = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillColorSelected)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillColorSelectedForTheme(element), 0.3));
 
-export const fillColorSelectedRgbPartial = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillColorSelectedRgbPartial)
+export const fillSelectedRgbPartialColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.fillSelectedRgbPartialColor)
 ).withDefault((element: HTMLElement) => hexToRgbPartial(getFillColorSelectedForTheme(element)));
 
-export const fillColorSelectedHover = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillColorSelectedHover)
+export const fillHoverSelectedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.fillHoverSelectedColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillColorSelectedForTheme(element), 0.15));
 
-export const fillColorHover = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillColorHover)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillColorHoverForTheme(element), 0.1));
+export const fillHoverColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.fillHoverColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getfillHoverColorForTheme(element), 0.1));
 
 export const borderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderColor)
 ).withDefault((element: HTMLElement) => getDefaultLineColorForTheme(element));
 
-export const borderColorRgbPartial = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.borderColorRgbPartial)
+export const borderRgbPartialColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.borderRgbPartialColor)
 ).withDefault((element: HTMLElement) => hexToRgbPartial(getDefaultLineColorForTheme(element)));
 
 export const failColor = DesignToken.create<string>(
@@ -79,8 +140,8 @@ export const passColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.passColor)
 ).withDefault((element: HTMLElement) => getPassColorForTheme(element));
 
-export const borderColorHover = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.borderColorHover)
+export const borderHoverColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.borderHoverColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White));
 
 // Component Color Tokens
@@ -100,6 +161,9 @@ export const popupBorderColor = DesignToken.create<string>(
 export const controlHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlHeight)
 ).withDefault('32px');
+export const smallPadding = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.smallPadding)
+).withDefault('4px');
 export const standardPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.standardPadding)
 ).withDefault('16px');
@@ -116,85 +180,185 @@ export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
 
-// Font Family Tokens
-export const fontFamily = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fontFamily)
-).withDefault(BodyFamily);
-export const labelFontFamily = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.labelFontFamily)
-).withDefault(`${ControlLabel1Family}, ${BodyFamily}`);
-export const groupLabelFontFamily = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.groupLabelFontFamily)
-).withDefault(`${GroupLabel1Family}, ${BodyFamily}`);
-export const drawerHeaderFontFamily = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.drawerHeaderFontFamily)
-).withDefault(Title2Family);
-export const errorTextFontFamily = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.errorTextFontFamily)
-).withDefault(ErrorLightUiFamily);
-
-// Font Sizing Tokens
-export const labelFontSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.labelFontSize)
-).withDefault(ControlLabel1Size);
-export const contentFontSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.contentFontSize)
-).withDefault(BodySize);
-export const groupLabelFontSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.groupLabelFontSize)
-).withDefault(GroupLabel1Size);
-export const drawerHeaderFontSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.drawerHeaderFontSize)
-).withDefault(Title2Size);
-export const errorTextFontSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.errorTextFontSize)
-).withDefault(ErrorLightUiSize);
-
-// Font Weight Tokens
-export const groupLabelFontWeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.groupLabelFontWeight)
-).withDefault(GroupLabel1Weight);
-
-export const labelFontWeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.labelFontWeight)
-).withDefault(ControlLabel1Weight);
-
-export const errorTextFontWeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.errorTextFontWeight)
-).withDefault(ErrorLightUiWeight);
+// Font Tokens
+export const headlinePlus1Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.headlinePlus1Font)
+).withDefault(
+    `${Headline2Weight} ${Headline2Size}/${Headline2LineHeight} ${Headline2Family}, serif`
+);
+export const headlineFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.headlineFont)
+).withDefault(
+    `${Headline1Weight} ${Headline1Size}/${Headline1LineHeight} ${Headline1Family}, serif`
+);
+export const titlePlus2Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.titlePlus2Font)
+).withDefault(
+    `${Title3Weight} ${Title3Size}/${Title3LineHeight} ${Title3Family}, sans-serif`
+);
+export const titlePlus1Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.titlePlus1Font)
+).withDefault(
+    `${Title2Weight} ${Title2Size}/${Title2LineHeight} ${Title2Family}, sans-serif`
+);
+export const titleFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.titleFont)
+).withDefault(
+    `${Title1Weight} ${Title1Size}/${Title1LineHeight} ${Title1Family}, sans-serif`
+);
+export const subtitlePlus1Font = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.subtitlePlus1Font)
+).withDefault(
+    `${Subtitle2Weight} ${Subtitle2Size}/${Subtitle2LineHeight} ${Subtitle2Family}, sans-serif`
+);
+export const subtitleFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.subtitleFont)
+).withDefault(
+    `${Subtitle1Weight} ${Subtitle1Size}/${Subtitle1LineHeight} ${Subtitle1Family}, sans-serif`
+);
+export const linkStandardFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.linkStandardFont)
+).withDefault(
+    `${LinkLightUiWeight} ${LinkLightUiSize}/${LinkLineHeight} ${LinkLightUiFamily}, sans-serif`
+);
+export const placeholderFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.placeholderFont)
+).withDefault(
+    `${PlaceholderWeight} ${PlaceholderSize}/${PlaceholderLineHeight} ${PlaceholderFamily}, sans-serif`
+);
+export const bodyEmphasizedFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bodyEmphasizedFont)
+).withDefault(
+    `${BodyEmphasizedWeight} ${BodyEmphasizedSize}/${BodyEmphasizedLineHeight} ${BodyEmphasizedFamily}, sans-serif`
+);
+export const bodyFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bodyFont)
+).withDefault(
+    `${BodyWeight} ${BodySize}/${BodyLineHeight} ${BodyFamily}, sans-serif`
+);
+export const groupHeaderFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.groupHeaderFont)
+).withDefault(
+    `${GroupLabel1Weight} ${GroupLabel1Size}/${GroupLabel1LineHeight} ${GroupLabel1Family}, sans-serif`
+);
+export const controlLabelFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.controlLabelFont)
+).withDefault(
+    `${ControlLabel1Weight} ${ControlLabel1Size}/${ControlLabel1LineHeight} ${ControlLabel1Family}, sans-serif`
+);
+export const buttonLabelFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonLabelFont)
+).withDefault(
+    `${ButtonLabel1Weight} ${ButtonLabel1Size}/${ButtonLabel1LineHeight} ${ButtonLabel1Family}, sans-serif`
+);
+export const tooltipCaptionFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tooltipCaptionFont)
+).withDefault(
+    `${TooltipCaptionWeight} ${TooltipCaptionSize}/${TooltipCaptionLineHeight} ${TooltipCaptionFamily}, sans-serif`
+);
+export const errorTextFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.errorTextFont)
+).withDefault(
+    `${ErrorLightUiWeight} ${ErrorLightUiSize}/${TooltipCaptionLineHeight} ${ErrorLightUiFamily}, sans-serif`
+);
 
 // Font Color Tokens
-export const labelFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.labelFontColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6));
 
-export const groupLabelFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.groupLabelFontColor)
+export const headlinePlus1FontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.headlinePlus1FontColor)
 ).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const headlineFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.headlineFontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const titlePlus2FontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.titlePlus2FontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const titlePlus1FontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.titlePlus1FontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const titleFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.titleFontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const subtitlePlus1FontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.subtitlePlus1FontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const subtitleFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.subtitleFontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const linkStandardFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.linkStandardFontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const placeholderFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.placeholderFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6));
+export const bodyEmphasizedFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bodyEmphasizedFontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const bodyFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bodyFontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const groupHeaderFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.groupHeaderFontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const controlLabelFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.controlLabelFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6));
+export const buttonLabelFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonLabelFontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const tooltipCaptionFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tooltipCaptionFontColor)
+).withDefault((element: HTMLElement) => getDefaultFontColorForTheme(element));
+export const headlinePlus1DisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.headlinePlus1DisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const headlineDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.headlineDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const titlePlus2DisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.titlePlus2DisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const titlePlus1DisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.titlePlus1DisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const titleDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.titleDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const subtitlePlus1DisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.subtitlePlus1DisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const subtitleDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.subtitleDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const linkStandardDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.linkStandardDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const placeholderDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.placeholderDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const bodyEmphasizedDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bodyEmphasizedDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const bodyDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bodyDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const groupHeaderDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.groupHeaderDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const controlLabelDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.controlLabelDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const buttonLabelDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonLabelDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const tooltipCaptionDisabledFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tooltipCaptionDisabledFontColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
 
-export const contentFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.contentFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White));
-
-export const buttonContentFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonContentFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White));
-
-export const labelFontColorDisabled = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.labelFontColorDisabled)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultLineColorForTheme(element), 0.3));
-
-export const labelTextTransform = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.labelTextTransform)
-).withDefault('none');
-
-export const groupLabelTextTransform = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.groupLabelTextTransform)
+// Font Transform Tokens
+export const groupHeaderTextTransform = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.groupHeaderTextTransform)
 ).withDefault('uppercase');
-
-export const contentFontColorDisabled = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.contentFontColorDisabled)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
 
 // Animation Tokens
 export const smallDelay = DesignToken.create<string>(
@@ -203,8 +367,8 @@ export const smallDelay = DesignToken.create<string>(
 export const mediumDelay = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.mediumDelay)
 ).withDefault(MediumDelay);
-export const drawerAnimationDurationMs = DesignToken.create<number>(
-    styleNameFromTokenName(tokenNames.drawerAnimationDurationMs)
+export const largeDelay = DesignToken.create<number>(
+    styleNameFromTokenName(tokenNames.largeDelay)
 ).withDefault(250);
 
 // Private helpers functions
@@ -275,6 +439,6 @@ function getFillColorSelectedForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Selection100, Selection100, White);
 }
 
-function getFillColorHoverForTheme(element: HTMLElement): string {
+function getfillHoverColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
 }
