@@ -17,9 +17,8 @@ jobs:
       # Install dependencies
       - uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: '16'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm install --global npm@7
       # Use npm install instead of npm ci
       # Mostly safe as the tags should be a result of recent successful npm ci in main
       # Avoids a race condition with the updated lock file publishing

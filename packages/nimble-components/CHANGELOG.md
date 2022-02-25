@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 23 Feb 2022 22:30:22 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Feb 2022 19:17:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.0.1
+
+Thu, 24 Feb 2022 19:17:00 GMT
+
+### Patches
+
+- Use correct padding in select component (20542556+mollykreis@users.noreply.github.com)
+
+## 4.0.0
+
+Thu, 24 Feb 2022 16:20:16 GMT
+
+### Major changes
+
+- Added icons, [updated names](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) of existing icons, implemented code generation for icons (5454342+brianehenry@users.noreply.github.com)
 
 ## 3.2.0
 

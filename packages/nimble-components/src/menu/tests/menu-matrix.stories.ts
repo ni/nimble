@@ -9,7 +9,7 @@ import {
     themeWrapper
 } from '../../utilities/tests/matrix';
 import '..';
-import '../../icons/admin';
+import '../../icons/user';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -36,7 +36,7 @@ const component = (
             <nimble-menu-item>Item 1</nimble-menu-item>
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
-            <nimble-menu-item>${when(() => icon, html`<nimble-admin-icon slot="start"></nimble-admin-icon>`)}Item 3</nimble-menu-item>
+            <nimble-menu-item>${when(() => icon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}Item 3</nimble-menu-item>
             <nimble-menu-item hidden>Item 4</nimble-menu-item>
         </nimble-menu>
     </span>
