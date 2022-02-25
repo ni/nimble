@@ -191,7 +191,6 @@ export const styles = css`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        user-select: text;
     }
 
     :host(.invalid[readonly]:not([disabled])) .errortext {
