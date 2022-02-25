@@ -32,6 +32,7 @@ export const styles = css`
         font: ${bodyFont};
         outline: none;
         user-select: none;
+        --webkit-user-select: none;
         color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
     }
@@ -126,6 +127,7 @@ export const styles = css`
         padding-left: calc(${standardPadding} / 2);
         padding-right: calc(${standardPadding} / 2);
         border: none;
+        text-overflow: ellipsis;
     }
 
     .control:hover,
@@ -189,6 +191,7 @@ export const styles = css`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        user-select: text;
     }
 
     :host(.invalid[readonly]:not([disabled])) .errortext {
