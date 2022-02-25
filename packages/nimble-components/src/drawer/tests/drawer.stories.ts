@@ -11,7 +11,10 @@ import {
     tokenNames,
     scssInternalPropertySetterMarkdown
 } from '../../theme-provider/design-token-names';
-import { drawerWidth, standardPadding } from '../../theme-provider/design-tokens';
+import {
+    drawerWidth,
+    standardPadding
+} from '../../theme-provider/design-tokens';
 import { DrawerLocation, DrawerState } from '../types';
 
 enum ExampleContentType {
