@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 25 Feb 2022 17:01:26 GMT",
+      "tag": "@ni/nimble-angular_v2.1.2",
+      "version": "2.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "3db55d7a1e15ad1ca548316a2fe9788720664449",
+            "comment": "Fixed angular library linting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 24 Feb 2022 19:17:00 GMT",
       "tag": "@ni/nimble-angular_v2.1.2",
       "version": "2.1.2",
