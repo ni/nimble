@@ -4,14 +4,13 @@ import { focusVisible } from '../utilities/style/focus';
 
 import {
     controlHeight,
-    fontFamily,
-    contentFontSize,
     fillColorSelected,
-    fillColorHover,
-    contentFontColor,
-    borderColorHover,
-    contentFontColorDisabled,
-    iconSize
+    fillHoverColor,
+    bodyFontColor,
+    borderHoverColor,
+    iconSize,
+    bodyFont,
+    bodyDisabledFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -30,24 +29,23 @@ export const styles = css`
         padding-right: 8px;
         margin: 0 0;
         white-space: nowrap;
-        color: ${contentFontColor};
+        color: ${bodyFontColor};
         fill: currentcolor;
         cursor: pointer;
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
+        font: ${bodyFont};
     }
     :host(${focusVisible}) {
-        outline: 2px solid ${borderColorHover};
+        outline: 2px solid ${borderHoverColor};
         outline-offset: -2px;
     }
     :host(:hover) {
-        background: ${fillColorHover};
+        background: ${fillHoverColor};
     }
     :host(:active) {
         background: ${fillColorSelected};
     }
     :host([disabled]) {
-        color: ${contentFontColorDisabled};
+        color: ${bodyDisabledFontColor};
         fill: currentcolor;
         cursor: default;
     }

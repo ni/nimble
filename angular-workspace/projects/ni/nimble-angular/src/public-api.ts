@@ -2,6 +2,11 @@
  * Public API Surface of nimble-angular
  */
 
+export * from './directives/breadcrumb/nimble-breadcrumb.directive';
+export * from './directives/breadcrumb/nimble-breadcrumb.module';
+export * from './directives/breadcrumb-item/nimble-breadcrumb-item-router-link-with-href.directive';
+export * from './directives/breadcrumb-item/nimble-breadcrumb-item.directive';
+export * from './directives/breadcrumb-item/nimble-breadcrumb-item.module';
 export * from './directives/button/nimble-button.directive';
 export * from './directives/button/nimble-button.module';
 export * from './directives/checkbox/nimble-checkbox-control-value-accessor.directive';

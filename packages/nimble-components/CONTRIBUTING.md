@@ -179,6 +179,10 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
 });
 ```
 
+### Icon components
+
+The project uses a code generation build script to create a Nimble component for each icon provided by nimble tokens. The script is run as part of the `npm run build` command, and can be run individually by invoking `npm run generate-icons`. The generated icon components are not checked into source control, so the icons must be generated before running the TypeScript compilation. The code generation source can be found at `nimble-components/build/generate-icons`.
+
 ### TypeScript integration
 
 For any custom element definition, extend TypeScript's `HTMLElementTagNameMap` to register the new element. For example:
@@ -255,3 +259,14 @@ The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/ut
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
+
+## Token naming
+
+Public names for theme-aware tokens are specified in `src/theme-provider/design-token-names.ts`. Use the following structure when creating new tokens.
+
+`[element]-[part]-[state]-[token_type]`
+
+1. Where **element** is the type to which the token applies (e.g. 'application', 'body', or 'title-plus-1').
+2. Where **part** is the specific part of the element to which the token applies (e.g. 'border', 'background', or shadow).
+3. Where **state** is the more specific state descriptor (e.g. 'selected' or 'disabled'). Multiple states should be sorted alphabetically.
+4. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').

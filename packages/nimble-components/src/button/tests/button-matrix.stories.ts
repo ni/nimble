@@ -10,7 +10,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import '../../icons/access-control';
+import '../../icons/key';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -41,15 +41,27 @@ const partVisibilityStates: PartVisibilityState[] = [
 const appearanceStates = Object.entries(ButtonAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
+type PrimaryState = [string, string];
+const primaryStates: PrimaryState[] = [
+    ['Primary', 'primary'],
+    ['', '']
+];
+
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
+    [primaryName, primaryClass]: PrimaryState,
     [labelVisible, iconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
-    <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled} ?content-hidden=${() => !labelVisible}>
-        ${when(() => iconVisible, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
-        ${() => `${appearanceName} Button ${disabledName}`}
+    <nimble-button
+        appearance="${() => appearance}"
+        class="${() => primaryClass}"
+        ?disabled=${() => disabled}
+        ?content-hidden=${() => !labelVisible}
+        style="margin-right: 8px; margin-bottom: 8px;">
+            ${when(() => iconVisible, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
+            ${() => `${primaryName} ${appearanceName} Button ${disabledName}`}
     </nimble-button>
 `;
 
@@ -58,6 +70,7 @@ export const buttonThemeMatrix: Story = createRenderer(
         createMatrix(component, [
             disabledStates,
             appearanceStates,
+            primaryStates,
             partVisibilityStates
         ])
     )

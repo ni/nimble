@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 21 Feb 2022 23:14:18 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Feb 2022 19:17:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.0.1
+
+Thu, 24 Feb 2022 19:17:00 GMT
+
+### Patches
+
+- Use correct padding in select component (20542556+mollykreis@users.noreply.github.com)
+
+## 4.0.0
+
+Thu, 24 Feb 2022 16:20:16 GMT
+
+### Major changes
+
+- Added icons, [updated names](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) of existing icons, implemented code generation for icons (5454342+brianehenry@users.noreply.github.com)
+
+## 3.2.0
+
+Wed, 23 Feb 2022 22:30:22 GMT
+
+### Minor changes
+
+- Add new nimble-breadcrumb and nimble-breadcrumb-item components (20709258+msmithNI@users.noreply.github.com)
+
+## 3.1.0
+
+Wed, 23 Feb 2022 22:01:52 GMT
+
+### Minor changes
+
+- Implement primary buttons (20542556+mollykreis@users.noreply.github.com)
+
+## 3.0.0
+
+Wed, 23 Feb 2022 20:10:44 GMT
+
+### Major changes
+
+- Refactored nearly all theme-aware tokens. See this [spreadsheet](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) for a mapping of old and new tokens. (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v2.1.0
 
 ## 2.1.3
 

@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
+import '../../icons/key';
 import { ButtonAppearance } from '../types';
 
 interface ToggleButtonArgs {
@@ -55,7 +56,7 @@ const metadata: Meta<ToggleButtonArgs> = {
             ?content-hidden="${x => x.contentHidden}"
             appearance="${x => x.appearance}"
         >
-            ${when(x => x.icon, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
+            ${when(x => x.icon, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${x => x.label}
         </nimble-toggle-button>
     `),

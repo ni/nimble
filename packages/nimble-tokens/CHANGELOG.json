@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 24 Feb 2022 16:20:16 GMT",
+      "tag": "@ni/nimble-tokens_v2.1.0",
+      "version": "2.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "6872d1878c110d0f0a0669c09cfcec3200204661",
+            "comment": "Updated contributing docs for new icons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Feb 2022 20:10:44 GMT",
+      "tag": "@ni/nimble-tokens_v2.1.0",
+      "version": "2.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f1096d98165a52d95f4a27da04cfcbf628b582bc",
+            "comment": "Updated from XD source. Added LineHeight tokens for each font type."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 21 Feb 2022 15:34:13 GMT",
       "tag": "@ni/nimble-tokens_v2.0.0",
       "version": "2.0.0",

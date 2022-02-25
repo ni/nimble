@@ -10,7 +10,7 @@ import {
     Dialog as FoundationDialog,
     dialogTemplate as template
 } from '@microsoft/fast-foundation';
-import { drawerAnimationDurationMs } from '../theme-provider/design-tokens';
+import { largeDelay } from '../theme-provider/design-tokens';
 import { prefersReducedMotionMediaQuery } from '../utilities/style/prefers-reduced-motion';
 import { animationConfig } from './animations';
 import { styles } from './styles';
@@ -173,7 +173,7 @@ class Drawer extends FoundationDialog {
         const disableAnimations: boolean = prefersReducedMotionMediaQuery.matches;
         this.animationDurationMilliseconds = disableAnimations
             ? animationDurationWhenDisabledMilliseconds
-            : drawerAnimationDurationMs.getValueFor(this);
+            : largeDelay.getValueFor(this);
     }
 
     private animateOpening(): void {
