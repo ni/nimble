@@ -11,7 +11,8 @@ import {
     iconSize,
     popupBorderColor,
     popupBoxShadowColor,
-    smallDelay
+    smallDelay,
+    smallPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -106,7 +107,7 @@ export const styles = css`
     }
 
     :host([open][position='below']) .listbox {
-        top: calc(${controlHeight} + 3px);
+        top: calc(${controlHeight} + ${smallPadding});
     }
 
     .selected-value {
