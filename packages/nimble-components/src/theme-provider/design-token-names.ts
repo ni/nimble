@@ -155,7 +155,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     tooltipCaptionFontWeight: 'tooltip-caption-font-weight',
     tooltipCaptionLineHeight: 'tooltip-caption-font-line-height',
     tooltipCaptionFallbackFontFamily: 'tooltip-caption-fallback-font-family',
-    tooltipCaptionDisabledFontColor: 'tooltip-caption-caption-disabled-font-color'
+    tooltipCaptionDisabledFontColor:
+        'tooltip-caption-caption-disabled-font-color'
 };
 
 const prefix = 'ni-nimble';
