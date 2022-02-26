@@ -27,14 +27,7 @@ declare global {
  */
 class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
-    public selectionMode!: TreeViewSelectionMode;
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-        if (!this.selectionMode) {
-            this.selectionMode = TreeViewSelectionMode.All;
-        }
-    }
+    public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.All;
 }
 
 const nimbleTreeView = TreeView.compose({

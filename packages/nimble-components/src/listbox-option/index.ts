@@ -18,11 +18,11 @@ declare global {
  */
 class ListboxOption extends FoundationListboxOption {
     // Workaround for https://github.com/microsoft/fast/issues/5219
-    public get value(): string {
+    public override get value(): string {
         return super.value;
     }
 
-    public set value(value: string) {
+    public override set value(value: string) {
         // Coerce value to string
         super.value = `${value}`;
 

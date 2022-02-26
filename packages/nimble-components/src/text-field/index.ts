@@ -29,14 +29,7 @@ class TextField extends FoundationTextField {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance!: TextFieldAppearance;
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-        if (!this.appearance) {
-            this.appearance = TextFieldAppearance.Underline;
-        }
-    }
+    public appearance: TextFieldAppearance = TextFieldAppearance.Underline;
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
