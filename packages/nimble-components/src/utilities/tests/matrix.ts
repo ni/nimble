@@ -71,7 +71,11 @@ export function createMatrix<State1, State2>(
 
 export function createMatrix<State1, State2, State3>(
     component: (state1: State1, state2: State2, state3: State3) => ViewTemplate,
-    dimensions: readonly [readonly State1[], readonly State2[], readonly State3[]]
+    dimensions: readonly [
+        readonly State1[],
+        readonly State2[],
+        readonly State3[]
+    ]
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3, State4>(
@@ -81,7 +85,12 @@ export function createMatrix<State1, State2, State3, State4>(
         state3: State3,
         state4: State4
     ) => ViewTemplate,
-    dimensions: readonly [readonly State1[], readonly State2[], readonly State3[], readonly State4[]]
+    dimensions: readonly [
+        readonly State1[],
+        readonly State2[],
+        readonly State3[],
+        readonly State4[]
+    ]
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3, State4, State5>(
@@ -92,7 +101,13 @@ export function createMatrix<State1, State2, State3, State4, State5>(
         state4: State4,
         state5: State5
     ) => ViewTemplate,
-    dimensions: readonly [readonly State1[], readonly State2[], readonly State3[], readonly State4[], readonly State5[]]
+    dimensions: readonly [
+        readonly State1[],
+        readonly State2[],
+        readonly State3[],
+        readonly State4[],
+        readonly State5[]
+    ]
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3, State4, State5, State6>(
@@ -104,7 +119,14 @@ export function createMatrix<State1, State2, State3, State4, State5, State6>(
         state5: State5,
         state6: State6
     ) => ViewTemplate,
-    dimensions: readonly [readonly State1[], readonly State2[], readonly State3[], readonly State4[], readonly State5[], readonly State6[]]
+    dimensions: readonly [
+        readonly State1[],
+        readonly State2[],
+        readonly State3[],
+        readonly State4[],
+        readonly State5[],
+        readonly State6[]
+    ]
 ): ViewTemplate;
 
 export function createMatrix(
