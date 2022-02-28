@@ -45,7 +45,6 @@ export const styles = css`
         display: flex;
         color: ${controlLabelFontColor};
         font: ${controlLabelFont};
-        white-space: nowrap;
     }
 
     :host([disabled]) .label {
