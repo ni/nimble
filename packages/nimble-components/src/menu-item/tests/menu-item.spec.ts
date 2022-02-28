@@ -2,12 +2,11 @@ import {
     DesignSystem,
     MenuItem as FoundationMenuItem
 } from '@microsoft/fast-foundation';
-import { html } from '@microsoft/fast-element';
 import '..';
 
 describe('MenuItem', () => {
     it('should have its tag returned by tagFor(FoundationMenuItem)', () => {
-        expect(html`${DesignSystem.tagFor(FoundationMenuItem)}`.html).toBe(
+        expect(DesignSystem.tagFor(FoundationMenuItem)).toBe(
             'nimble-menu-item'
         );
     });

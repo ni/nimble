@@ -172,7 +172,7 @@ describe('TreeView', () => {
     });
 
     it('should have its tag returned by tagFor(FoundationTreeView)', () => {
-        expect(html`${DesignSystem.tagFor(FoundationTreeView)}`.html).toBe(
+        expect(DesignSystem.tagFor(FoundationTreeView)).toBe(
             'nimble-tree-view'
         );
     });
