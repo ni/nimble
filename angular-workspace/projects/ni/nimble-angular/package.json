@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Angular components for the NI Nimble Design System",
   "repository": {
     "type": "git",
