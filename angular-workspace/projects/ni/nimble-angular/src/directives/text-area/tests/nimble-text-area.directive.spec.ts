@@ -5,7 +5,7 @@ import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '../../util
 import { NimbleTextAreaDirective, TextArea } from '../nimble-text-area.directive';
 import { NimbleTextAreaModule } from '../nimble-text-area.module';
 
-fdescribe('Nimble text area', () => {
+describe('Nimble text area', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
