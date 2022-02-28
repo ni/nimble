@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 28 Feb 2022 19:14:35 GMT",
+      "tag": "@ni/nimble-angular_v2.2.0",
+      "version": "2.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "88daabf20c3cd47e761d5929a757941c840f96ce",
+            "comment": "Angular support for nimble-text-area"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 25 Feb 2022 17:01:26 GMT",
       "tag": "@ni/nimble-angular_v2.1.2",
       "version": "2.1.2",
