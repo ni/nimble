@@ -6,8 +6,6 @@ import '..';
 
 describe('Checkbox', () => {
     it('should have its tag returned by tagFor(FoundationCheckbox)', () => {
-        expect(DesignSystem.tagFor(FoundationCheckbox)).toBe(
-            'nimble-checkbox'
-        );
+        expect(DesignSystem.tagFor(FoundationCheckbox)).toBe('nimble-checkbox');
     });
 });

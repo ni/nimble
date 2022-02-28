@@ -54,8 +54,6 @@ describe('Select', () => {
     });
 
     it('should have its tag returned by tagFor(FoundationSelect)', () => {
-        expect(DesignSystem.tagFor(FoundationSelect)).toBe(
-            'nimble-select'
-        );
+        expect(DesignSystem.tagFor(FoundationSelect)).toBe('nimble-select');
     });
 });

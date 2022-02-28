@@ -6,8 +6,6 @@ import '..';
 
 describe('Text Area', () => {
     it('should have its tag returned by tagFor(FoundationTextArea)', () => {
-        expect(DesignSystem.tagFor(FoundationTextArea)).toBe(
-            'nimble-tabs'
-        );
+        expect(DesignSystem.tagFor(FoundationTextArea)).toBe('nimble-tabs');
     });
 });

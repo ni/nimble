@@ -6,8 +6,6 @@ import '..';
 
 describe('Menu', () => {
     it('should have its tag returned by tagFor(FoundationMenu)', () => {
-        expect(DesignSystem.tagFor(FoundationMenu)).toBe(
-            'nimble-menu'
-        );
+        expect(DesignSystem.tagFor(FoundationMenu)).toBe('nimble-menu');
     });
 });
