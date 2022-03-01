@@ -113,6 +113,15 @@ Use the `html` tagged template helper to define your custom template. See [decla
 
 ### Adhere to architectural philosophies
 
+#### API naming
+
+Use lower-kebab-case for attributes and enum values that are part of a component's public API.
+
+```ts
+    @attr({ attribute: 'error-text' })
+    public errorText!: string;
+```
+
 #### CSS
 
 Component CSS should follow the patterns described in [CSS Guidelines](/packages/nimble-components/docs/css-guidelines.md).
