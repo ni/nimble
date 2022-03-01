@@ -19,6 +19,7 @@ jobs:
         with:
           node-version: '16'
           registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
       # Use npm install instead of npm ci
       # Mostly safe as the tags should be a result of recent successful npm ci in main
       # Avoids a race condition with the updated lock file publishing
