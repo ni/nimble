@@ -46,7 +46,7 @@ export default metadata;
 // eslint-disable-next-line no-script-url
 const noOpUrl = 'javascript:';
 
-export const standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
+export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-breadcrumb class="${x => (x.useStyle2 ? 'style-2' : '')}">
@@ -55,7 +55,7 @@ export const standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
             `)}
         </nimble-breadcrumb>
 `),
-    storyName: 'Breadcrumb (Standard)',
+    storyName: 'Standard Breadcrumb',
     argTypes: {
         options: {
             description:
