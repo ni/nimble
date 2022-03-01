@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 01 Mar 2022 15:14:49 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Mar 2022 16:07:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.0.0
+
+Tue, 01 Mar 2022 16:07:33 GMT
+
+### Major changes
+
+- Renamed fillHoverSelectedColor & fillSelectedColor tokens. (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v3.0.0
 
 ## 4.1.0
 

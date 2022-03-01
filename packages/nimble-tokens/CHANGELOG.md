@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 23 Feb 2022 20:10:44 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Mar 2022 16:07:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.0.0
+
+Tue, 01 Mar 2022 16:07:33 GMT
+
+### Major changes
+
+- New `forward-slash` icon. Updated color tokens - `Enterprise` is now `ForestGreen`, `Selection100` is now `DigitalGreenLight`, `Banner_Fail_100_DarkUI_` is now `Banner_Fail_100_DarkUI`. Also adds `DigitalGreenDark`, `PowerGreen`, and `Black22`. (1458528+fredvisser@users.noreply.github.com)
 
 ## 2.1.0
 
