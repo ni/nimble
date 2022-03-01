@@ -59,7 +59,10 @@
     <g id="Tabs_Horizontal_Text_Single_32-3" data-name="Tabs_Horizontal_Text_Single_32" transform="translate(48 92)">
       <g id="Background-9" data-name="Background">
         <rect id="Background-10" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
-        <rect id="Rollover-5" data-name="Rollover" width="76" height="1.984" transform="translate(0 30)" fill="#161617" opacity="0"/>
+        <g id="Rollover-5" data-name="Rollover" transform="translate(0 30)" fill="#009b65" stroke="#009b65" stroke-width="1" opacity="0">
+          <rect width="76" height="1.984" stroke="none"/>
+          <rect x="0.5" y="0.5" width="75" height="0.984" fill="none"/>
+        </g>
         <rect id="SelectionRectangle-4" data-name="SelectionRectangle" width="76" height="2" transform="translate(0 30)" fill="#009b65"/>
       </g>
       <g id="Stacks_Group-4" data-name="Stacks Group">
