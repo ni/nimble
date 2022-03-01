@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 01 Mar 2022 21:31:24 GMT",
+      "tag": "@ni/nimble-angular_v3.1.0",
+      "version": "3.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "063853b9d97b9e834d5e952e5b222338b58ecb30",
+            "comment": "Added Nimble icon Angular integration"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Mar 2022 19:24:47 GMT",
       "tag": "@ni/nimble-angular_v3.0.0",
       "version": "3.0.0",
