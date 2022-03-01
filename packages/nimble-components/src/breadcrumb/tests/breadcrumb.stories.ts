@@ -55,6 +55,7 @@ export const standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
             `)}
         </nimble-breadcrumb>
 `),
+    storyName: 'Breadcrumb (Standard)',
     argTypes: {
         options: {
             description:
