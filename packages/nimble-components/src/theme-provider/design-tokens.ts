@@ -537,7 +537,16 @@ function createFontTokens(
     size: string,
     lineHeight: string,
     fallbackFamily: string
-): readonly [CSSDesignToken<string>, CSSDesignToken<string>, CSSDesignToken<string>, CSSDesignToken<string>, CSSDesignToken<string>, CSSDesignToken<string>, CSSDesignToken<string>, CSSDesignToken<string>] {
+): readonly [
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>
+    ] {
     const fontToken = DesignToken.create<string>(
         styleNameFromTokenName(fontTokenName)
     ).withDefault(`${weight} ${size}/${lineHeight} ${family}, serif`);

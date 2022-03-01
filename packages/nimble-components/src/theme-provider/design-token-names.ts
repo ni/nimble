@@ -150,8 +150,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     buttonLabelFallbackFontFamily: 'button-label-fallback-font-family',
     tooltipCaptionFont: 'tooltip-caption-font',
     tooltipCaptionFontColor: 'tooltip-caption-font-color',
-    tooltipCaptionDisabledFontColor:
-        'tooltip-caption-disabled-font-color',
+    tooltipCaptionDisabledFontColor: 'tooltip-caption-disabled-font-color',
     tooltipCaptionFontFamily: 'tooltip-caption-font-family',
     tooltipCaptionFontSize: 'tooltip-caption-font-size',
     tooltipCaptionFontWeight: 'tooltip-caption-font-weight',
@@ -159,8 +158,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     tooltipCaptionFallbackFontFamily: 'tooltip-caption-fallback-font-family',
     errorTextFont: 'error-text-font',
     errorTextFontColor: 'error-text-font-color',
-    errorTextDisabledFontColor:
-        'error-text-disabled-font-color',
+    errorTextDisabledFontColor: 'error-text-disabled-font-color',
     errorTextFontFamily: 'error-text-font-family',
     errorTextFontSize: 'error-text-font-size',
     errorTextFontWeight: 'error-text-font-weight',
