@@ -9,7 +9,7 @@ import { focusVisible } from '../utilities/style/focus';
 import {
     bodyFontColor,
     borderHoverColor,
-    fillColorSelected,
+    fillSelectedColor,
     fillHoverColor,
     fillHoverSelectedColor,
     borderWidth,
@@ -64,7 +64,7 @@ export const styles: (
         }
 
         :host([selected]) .positioning-region {
-            background: ${fillColorSelected};
+            background: ${fillSelectedColor};
         }
 
         :host([selected]) .positioning-region:hover {

@@ -101,17 +101,17 @@ export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, Enterprise));
 
-export const fillColorSelected = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillColorSelected)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillColorSelectedForTheme(element), 0.3));
+export const fillSelectedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.fillSelectedColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getfillSelectedColorForTheme(element), 0.3));
 
 export const fillSelectedRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedRgbPartialColor)
-).withDefault((element: HTMLElement) => hexToRgbPartial(getFillColorSelectedForTheme(element)));
+).withDefault((element: HTMLElement) => hexToRgbPartial(getfillSelectedColorForTheme(element)));
 
 export const fillHoverSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverSelectedColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillColorSelectedForTheme(element), 0.15));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getfillSelectedColorForTheme(element), 0.15));
 
 export const fillHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverColor)
@@ -427,7 +427,7 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
 }
 
-function getFillColorSelectedForTheme(element: HTMLElement): string {
+function getfillSelectedColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Selection100, Selection100, White);
 }
 
