@@ -42,6 +42,7 @@ class TextField extends FoundationTextField {
     public errorText!: string;
 
     public override connectedCallback(): void {
+        super.connectedCallback();
         this.control.setAttribute('aria-errormessage', 'errortext');
     }
 }
