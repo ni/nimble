@@ -7,8 +7,9 @@ import {
     borderWidth,
     controlHeight,
     iconSize,
-    passColor
+    placeholderFontColor
 } from '../theme-provider/design-tokens';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -26,10 +27,10 @@ export const styles = css`
     }
 
     .control {
-        color: ${bodyFontColor};
+        color: var(--ni-private-breadcrumb-link-font-color);
         cursor: default;
         border: ${borderWidth} solid transparent;
-        padding: 4px 4px 0px 4px;
+        padding: calc(4px - ${borderWidth});
     }
 
     .control:link {
@@ -42,22 +43,19 @@ export const styles = css`
     }
 
     .control:active {
-        color: ${passColor};
+        color: var(--ni-private-breadcrumb-link-active-font-color);
         text-decoration: underline;
     }
 
-    .control:link:focus-within {
-        outline-color: ${borderHoverColor};
+    .control:link${focusVisible} {
+        border: ${borderWidth} solid ${borderHoverColor};
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: 1px;
     }
 
     .start,
     .end {
         display: none;
-    }
-
-    .separator {
-        padding-left: 2px;
-        padding-right: 2px;
     }
 
     slot[name='separator'] svg {
@@ -68,6 +66,6 @@ export const styles = css`
     }
 
     slot[name='separator'] path {
-        fill: ${bodyFontColor};
+        fill: ${placeholderFontColor};
     }
 `;

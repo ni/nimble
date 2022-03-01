@@ -7,6 +7,7 @@ import { createRenderer } from '../../utilities/tests/storybook';
 
 interface BreadcrumbArgs {
     options: ItemArgs[];
+    useStyle2: boolean;
 }
 
 interface ItemArgs {
@@ -48,7 +49,7 @@ const noOpUrl = 'javascript:';
 export const standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-breadcrumb>
+        <nimble-breadcrumb class="${x => (x.useStyle2 ? 'style-2' : '')}">
             ${repeat(x => x.options, html<ItemArgs>`
                 <nimble-breadcrumb-item href="${x => x.href}" target="${x => x.target}">${x => x.label}</nimble-breadcrumb-item>
             `)}
@@ -60,6 +61,11 @@ export const standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 'Nest one or more `<nimble-breadcrumb-item />`s inside `<nimble-breadcrumb />`. Each can optionally set `href`, `target`, etc. '
                 + 'With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page (with no `href` specified, '
                 + 'rendering with a bold font).'
+        },
+        useStyle2: {
+            description:
+                'To use the Breadcrumb_2 theme (which swaps the default and active/mouseover link colors), add the CSS class `style-2` to the '
+                + '`<nimble-breadcrumb>` element.'
         }
     },
     args: {
@@ -75,7 +81,8 @@ export const standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
             {
                 label: 'Current (No Link)'
             }
-        ]
+        ],
+        useStyle2: false
     }
 };
 

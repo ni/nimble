@@ -97,5 +97,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     buttonLabelDisabledFontColor:
         'Disabled font color for "Button_Label_1" base token',
     tooltipCaptionDisabledFontColor:
-        'Disabled font color for "Tooltip_Caption" base token'
+        'Disabled font color for "Tooltip_Caption" base token',
+    breadcrumbActiveFontColor: 'Active font color for breadcrumb items',
+    breadcrumb2FontColor: 'Font color for breadcrumb (style 2) items'
 };
