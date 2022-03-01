@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Mon, 21 Feb 2022 14:33:38 GMT
+ * Generated on Tue, 01 Mar 2022 15:26:47 GMT
  */
 
 :root {
@@ -24,8 +24,8 @@
   --ni-nimble-base-black: #000000;
   --ni-nimble-base-black-95: #0e0f0f;
   --ni-nimble-base-black-91: #161617;
-  --ni-nimble-base-enterprise: #074023;
-  --ni-nimble-base-selection-100: #009b65;
+  --ni-nimble-base-forest-green: #074023;
+  --ni-nimble-base-digital-green-light: #009b65;
   --ni-nimble-base-brand-85: #26a97c;
   --ni-nimble-base-brand-100: #009b65;
   --ni-nimble-base-fail-85: #cf1a37;
@@ -34,6 +34,9 @@
   --ni-nimble-base-warning-100-light-ui: #ff4b00;
   --ni-nimble-base-black-30: #d3d5d6;
   --ni-nimble-base-black-50: #aeb0b3;
+  --ni-nimble-base-digital-green-dark: #006b46;
+  --ni-nimble-base-power-green: #32eb96;
+  --ni-nimble-base-black-22: #e6e6e6;
   --ni-nimble-base-title-2-family: Source Sans Pro;
   --ni-nimble-base-title-2-weight: 400;
   --ni-nimble-base-control-label-1-family: Source Sans Pro;
@@ -89,6 +92,8 @@
   --ni-nimble-base-error-light-ui-weight: 400;
   --ni-nimble-base-error-dark-ui-family: Source Sans Pro;
   --ni-nimble-base-error-dark-ui-weight: 400;
+  --ni-nimble-base-link-selection-100-light-ui-family: Source Sans Pro;
+  --ni-nimble-base-link-selection-100-light-ui-weight: 400;
   --ni-nimble-base-title-2-size: 22px;
   --ni-nimble-base-control-label-1-size: 11px;
   --ni-nimble-base-body-size: 14px;
@@ -116,6 +121,7 @@
   --ni-nimble-base-link-visited-light-ui-size: 14px;
   --ni-nimble-base-error-light-ui-size: 9px;
   --ni-nimble-base-error-dark-ui-size: 9px;
+  --ni-nimble-base-link-selection-100-light-ui-size: 14px;
   --ni-nimble-base-body-line-height: 18px;
   --ni-nimble-base-control-label-1-line-height: 16px;
   --ni-nimble-base-group-label-1-line-height: 16px;

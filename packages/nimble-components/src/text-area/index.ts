@@ -27,14 +27,7 @@ class TextArea extends FoundationTextArea {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance!: TextAreaAppearance;
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-        if (!this.appearance) {
-            this.appearance = TextAreaAppearance.Outline;
-        }
-    }
+    public appearance: TextAreaAppearance = TextAreaAppearance.Outline;
 }
 
 const nimbleTextArea = TextArea.compose({

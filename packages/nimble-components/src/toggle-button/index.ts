@@ -28,7 +28,7 @@ class ToggleButton extends FoundationSwitch {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance!: ButtonAppearance;
+    public appearance: ButtonAppearance = ButtonAppearance.Outline;
 
     /**
      * Specify as 'true' to hide the text content of the button. The button will
@@ -42,14 +42,8 @@ class ToggleButton extends FoundationSwitch {
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
 
+    /** @internal */
     public readonly control!: HTMLElement;
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-        if (!this.appearance) {
-            this.appearance = ButtonAppearance.Outline;
-        }
-    }
 }
 
 const nimbleToggleButton = ToggleButton.compose<SwitchOptions>({

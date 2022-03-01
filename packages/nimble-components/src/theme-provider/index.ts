@@ -36,12 +36,12 @@ export class ThemeProvider extends FoundationElement {
     @attr({
         attribute: 'direction'
     })
-    public direction!: Direction;
+    public direction: Direction = Direction.ltr;
 
     @attr({
         attribute: 'theme'
     })
-    public theme!: Theme;
+    public theme: Theme = Theme.Light;
 
     public directionChanged(
         _prev: Direction | undefined,
@@ -62,18 +62,6 @@ export class ThemeProvider extends FoundationElement {
             theme.setValueFor(this, next);
         } else {
             theme.deleteValueFor(this);
-        }
-    }
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-
-        if (!this.direction) {
-            this.direction = Direction.ltr;
-        }
-
-        if (!this.theme) {
-            this.theme = Theme.Light;
         }
     }
 }

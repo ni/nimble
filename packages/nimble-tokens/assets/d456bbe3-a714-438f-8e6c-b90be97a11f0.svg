@@ -4,7 +4,7 @@
       <rect y="1" width="136" height="17" fill="none"/>
     </clipPath>
     <clipPath id="clip-path-2">
-      <rect y="1" width="85" height="14" fill="none"/>
+      <rect id="Clipping_Mask" data-name="Clipping Mask" width="176" height="14" fill="none"/>
     </clipPath>
   </defs>
   <g id="Background_Group" data-name="Background Group" transform="translate(0 22.501)">
@@ -24,8 +24,8 @@
       <path id="Error-2" data-name="Error" d="M6.127,12.518h3.8V15h-3.8ZM6.062,1l.433,9.966H9.56L9.993,1Z" transform="translate(151.973 8)" fill="#c4000c"/>
     </g>
   </g>
-  <g id="Label_L" data-name="Label L" transform="translate(0 -1)" clip-path="url(#clip-path-2)" style="isolation: isolate">
-    <text id="Show_label" data-name="Show label" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6"><tspan x="0" y="0">Show label</tspan></text>
-  </g>
   <rect id="Text_Focus" data-name="Text Focus" width="1" height="18" transform="translate(7 24)" opacity="0"/>
+  <g id="Mask_Group_3" data-name="Mask Group 3" clip-path="url(#clip-path-2)">
+    <text id="Show_label" data-name="Show label" transform="translate(0 11)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6"><tspan x="0" y="0">Show label</tspan></text>
+  </g>
 </svg>
