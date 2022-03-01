@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 24 Feb 2022 19:17:00 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Mar 2022 15:14:49 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.1.0
+
+Tue, 01 Mar 2022 15:14:49 GMT
+
+### Minor changes
+
+- Support error text on nimble-text-field (7282195+m-akinc@users.noreply.github.com)
 
 ## 4.0.1
 
