@@ -60,10 +60,10 @@
     "Black91": {
       "value": "#161617ff"
     },
-    "Enterprise": {
+    "ForestGreen": {
       "value": "#074023ff"
     },
-    "Selection100": {
+    "DigitalGreenLight": {
       "value": "#009B65ff"
     },
     "Brand85": {
@@ -78,7 +78,7 @@
     "RGB NI Sky": {
       "value": "#3CB4E7ff"
     },
-    "Banner_Fail_100_DarkUI_": {
+    "Banner_Fail_100_DarkUI": {
       "value": "#D63434ff"
     },
     "Warning100LightUI": {
@@ -89,6 +89,15 @@
     },
     "Black50": {
       "value": "#AEB0B3ff"
+    },
+    "DigitalGreenDark": {
+      "value": "#006B46ff"
+    },
+    "PowerGreen": {
+      "value": "#32EB96ff"
+    },
+    "Black22": {
+      "value": "#E6E6E6ff"
     }
   }
 }

@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "New `forward-slash` icon. Updated color tokens - `Enterprise` is now `ForestGreen`, `Selection100` is now `DigitalGreenLight`, `Banner_Fail_100_DarkUI_` is now `Banner_Fail_100_DarkUI`. Also adds `DigitalGreenDark`, `PowerGreen`, and `Black22`.",
+  "packageName": "@ni/nimble-tokens",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
