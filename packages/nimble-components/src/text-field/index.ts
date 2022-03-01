@@ -29,7 +29,7 @@ class TextField extends FoundationTextField {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance!: TextFieldAppearance;
+    public appearance: TextFieldAppearance = TextFieldAppearance.Underline;
 
     /**
      * A message explaining why the value is invalid.
@@ -41,12 +41,8 @@ class TextField extends FoundationTextField {
     @attr({ attribute: 'error-text' })
     public errorText!: string;
 
-    public connectedCallback(): void {
+    public override connectedCallback(): void {
         super.connectedCallback();
-        if (!this.appearance) {
-            this.appearance = TextFieldAppearance.Underline;
-        }
-
         this.control.setAttribute('aria-errormessage', 'errortext');
     }
 }
