@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 01 Mar 2022 18:23:44 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Mar 2022 19:24:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.0.0
+
+Tue, 01 Mar 2022 19:24:47 GMT
+
+### Major changes
+
+- Rename text field attribute from errortext to error-text (7282195+m-akinc@users.noreply.github.com)
+- Bump @ni/nimble-components to v6.0.0
 
 ## 2.3.2
 
