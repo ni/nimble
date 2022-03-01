@@ -51,6 +51,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     controlLabelFont: 'control-label-font',
     buttonLabelFont: 'button-label-font',
     tooltipCaptionFont: 'tooltip-caption-font',
+    errorTextFont: 'error-text-font',
     headlinePlus1FontColor: 'headline-plus-1-font-color',
     headlineFontColor: 'headline-font-color',
     titlePlus2FontColor: 'title-plus-2-font-color',

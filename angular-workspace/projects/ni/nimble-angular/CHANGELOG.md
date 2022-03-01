@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 24 Feb 2022 19:17:00 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Mar 2022 15:14:49 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.3.0
+
+Tue, 01 Mar 2022 15:14:49 GMT
+
+### Minor changes
+
+- Add support for error text to text field (7282195+m-akinc@users.noreply.github.com)
+- Bump @ni/nimble-components to v4.1.0
+
+## 2.2.0
+
+Mon, 28 Feb 2022 19:14:35 GMT
+
+### Minor changes
+
+- Angular support for nimble-text-area (7282195+m-akinc@users.noreply.github.com)
 
 ## 2.1.2
 

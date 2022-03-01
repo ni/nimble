@@ -64,6 +64,9 @@ import {
     TooltipCaptionSize,
     TooltipCaptionFamily,
     TooltipCaptionWeight,
+    ErrorLightUiSize,
+    ErrorLightUiFamily,
+    ErrorLightUiWeight,
     Headline2LineHeight,
     Headline1LineHeight,
     Title3LineHeight,
@@ -252,6 +255,11 @@ export const tooltipCaptionFont = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipCaptionFont)
 ).withDefault(
     `${TooltipCaptionWeight} ${TooltipCaptionSize}/${TooltipCaptionLineHeight} ${TooltipCaptionFamily}, sans-serif`
+);
+export const errorTextFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.errorTextFont)
+).withDefault(
+    `${ErrorLightUiWeight} ${ErrorLightUiSize}/${TooltipCaptionLineHeight} ${ErrorLightUiFamily}, sans-serif`
 );
 
 // Font Color Tokens
