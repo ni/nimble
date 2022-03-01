@@ -2,7 +2,7 @@
  * Build script for generating nimble-angular integration for Nimble icons.
  *
  * Iterates through icons provided by nimble-tokens, and generates an Angular directive and module
- * files for each in src/directives/icons. Also generates a barrel file.
+ * files for each in src/directives/icons.
  */
 
 import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
@@ -102,17 +102,22 @@ export class ${moduleName} { }
 }
 console.log(`Finshed writing ${directiveAndModulePaths.length} icon directive and module files`);
 
+// Write a new public-api.ts file including the icon exports.
+// This can be removed once barrel files can be used in this project (after enabling Ivy).
 const sourceDirectory = path.resolve(packageDirectory, 'src');
 let publicApiIconContent = '\n// Icons\n';
 for (const paths of directiveAndModulePaths) {
     publicApiIconContent += `export * from '${getRelativeFilePath(sourceDirectory, paths.directivePath)}';
 export * from '${getRelativeFilePath(sourceDirectory, paths.modulePath)}';\n`;
 }
-
 const publicApiTemplateFilePath = path.resolve(sourceDirectory, 'public-api.template.ts');
 const publicApiTemplateFileContents = fs.readFileSync(publicApiTemplateFilePath, { encoding: 'utf-8' });
+const iconExportTemplateSearchRegex = /^.*{{INSERT_ICONS_EXPORTS_HERE}}$/m;
 let publicApiFileContents = `${generatedFilePrefix}\n`;
-publicApiFileContents += publicApiTemplateFileContents.replace('// Insert icon imports here', publicApiIconContent);
+if (!iconExportTemplateSearchRegex.test(publicApiTemplateFileContents)) {
+    throw new Error('public-api template file does not included expected insertion point for icon exports');
+}
+publicApiFileContents += publicApiTemplateFileContents.replace(iconExportTemplateSearchRegex, publicApiIconContent);
 const publicApiFilePath = path.resolve(sourceDirectory, 'public-api');
 
 console.log('Writing public API file');
