@@ -562,7 +562,9 @@ function createFontTokens(
 
     const fontToken = DesignToken.create<string>(
         styleNameFromTokenName(fontTokenName)
-    ).withDefault(`${weight} ${size}/${lineHeight} ${family}, ${fallbackFamily}`);
+    ).withDefault(
+        `${weight} ${size}/${lineHeight} ${family}, ${fallbackFamily}`
+    );
 
     const fontNameParts = fontTokenName.split('-font');
     const tokenPrefixWithoutFont = fontNameParts[0];
