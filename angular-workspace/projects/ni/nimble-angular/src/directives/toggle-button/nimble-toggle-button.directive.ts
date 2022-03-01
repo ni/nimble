@@ -1,7 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { ToggleButton } from '@ni/nimble-components/dist/esm/toggle-button';
-import type { ButtonAppearanceAttribute } from '@ni/nimble-components/dist/esm/toggle-button/types';
-import type { ButtonAppearance } from '@ni/nimble-components/dist/esm/toggle-button/types';
+import type { ButtonAppearance, ButtonAppearanceAttribute } from '@ni/nimble-components/dist/esm/toggle-button/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { ToggleButton };

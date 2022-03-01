@@ -4,7 +4,7 @@ import { focusVisible } from '../utilities/style/focus';
 
 import {
     controlHeight,
-    fillColorSelected,
+    fillSelectedColor,
     fillHoverColor,
     bodyFontColor,
     borderHoverColor,
@@ -42,7 +42,7 @@ export const styles = css`
         background: ${fillHoverColor};
     }
     :host(:active) {
-        background: ${fillColorSelected};
+        background: ${fillSelectedColor};
     }
     :host([disabled]) {
         color: ${bodyDisabledFontColor};

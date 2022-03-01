@@ -9,8 +9,8 @@ import {
     Black75,
     Black80,
     White,
-    Enterprise,
-    Selection100,
+    ForestGreen,
+    DigitalGreenLight,
     Fail100LightUi,
     SmallDelay,
     MediumDelay,
@@ -64,6 +64,9 @@ import {
     TooltipCaptionSize,
     TooltipCaptionFamily,
     TooltipCaptionWeight,
+    ErrorLightUiSize,
+    ErrorLightUiFamily,
+    ErrorLightUiWeight,
     Headline2LineHeight,
     Headline1LineHeight,
     Title3LineHeight,
@@ -91,27 +94,27 @@ export const actionRgbPartialColor = DesignToken.create<string>(
 
 export const applicationBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.applicationBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise));
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, ForestGreen));
 
 export const headerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.headerBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black80, Enterprise));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black80, ForestGreen));
 
 export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, Enterprise));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, ForestGreen));
 
-export const fillColorSelected = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillColorSelected)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillColorSelectedForTheme(element), 0.3));
+export const fillSelectedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.fillSelectedColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getfillSelectedColorForTheme(element), 0.3));
 
 export const fillSelectedRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedRgbPartialColor)
-).withDefault((element: HTMLElement) => hexToRgbPartial(getFillColorSelectedForTheme(element)));
+).withDefault((element: HTMLElement) => hexToRgbPartial(getfillSelectedColorForTheme(element)));
 
 export const fillHoverSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverSelectedColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillColorSelectedForTheme(element), 0.15));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getfillSelectedColorForTheme(element), 0.15));
 
 export const fillHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverColor)
@@ -139,7 +142,7 @@ export const passColor = DesignToken.create<string>(
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, DigitalGreenLight, White));
 
 // Component Color Tokens
 export const iconColor = DesignToken.create<string>(
@@ -457,6 +460,11 @@ export const [
     ButtonLabel1LineHeight,
     'sans-serif'
 );
+export const errorTextFont = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.errorTextFont)
+).withDefault(
+    `${ErrorLightUiWeight} ${ErrorLightUiSize}/${TooltipCaptionLineHeight} ${ErrorLightUiFamily}, sans-serif`
+);
 
 export const [
     tooltipCaptionFont,
@@ -612,8 +620,13 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
 }
 
-function getFillColorSelectedForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Selection100, Selection100, White);
+function getfillSelectedColorForTheme(element: HTMLElement): string {
+    return getColorForTheme(
+        element,
+        DigitalGreenLight,
+        DigitalGreenLight,
+        White
+    );
 }
 
 function getfillHoverColorForTheme(element: HTMLElement): string {

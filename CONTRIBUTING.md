@@ -21,7 +21,7 @@ This repository uses the following tooling. See below for more info.
 
 From the `nimble` directory:
 
-1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
+1. Make sure you have Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`). Download newer versions from https://nodejs.org/en/download/
 2. Run `npm install`
 3. Run `npm run build` (or **Terminal»Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
 4. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
@@ -60,7 +60,7 @@ This repository uses [beachball](https://microsoft.github.io/beachball/) to auto
 
 When generating a change file, follow these guidelines:
 1. Follow [semantic versioning](https://semver.org) when choosing the change type.
-2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it.
+2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it. The description can be plain text or [markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), with newlines specified via `\n` if needed.
 3. If you prefer not to expose your email address to the world, [configure GitHub to "Keep my email address private"](https://github.com/settings/emails) before generating the change file.
 
 ### Chromatic visual component tests

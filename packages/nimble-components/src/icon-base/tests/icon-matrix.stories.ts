@@ -24,7 +24,7 @@ const iconStatusStates = [
     ['Fail', IconStatus.Fail],
     ['Warning', IconStatus.Warning],
     ['Regular', IconStatus.Regular]
-];
+] as const;
 type IconStatusState = typeof iconStatusStates[number];
 
 const component = ([stateName, state]: IconStatusState): ViewTemplate => html`

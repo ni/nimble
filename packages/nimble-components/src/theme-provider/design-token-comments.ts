@@ -8,7 +8,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     applicationBackgroundColor: 'Primary background color for the application',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for dialogs and menus',
-    fillColorSelected: 'Control fill color when a control is selected',
+    fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillHoverSelectedColor:
@@ -171,5 +171,14 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     tooltipCaptionFontSize: null,
     tooltipCaptionFontWeight: null,
     tooltipCaptionLineHeight: null,
-    tooltipCaptionFallbackFontFamily: null
+    tooltipCaptionFallbackFontFamily: null,
+    errorTextFont: 'Font shorthand for the "Error_LightUi" base token',
+    errorTextFontColor: 'Font color for "Error_LightUi" base token',
+    errorTextDisabledFontColor:
+        'Disabled font color for "Error_LightUi" base token',
+    errorTextFontFamily: null,
+    errorTextFontSize: null,
+    errorTextFontWeight: null,
+    errorTextLineHeight: null,
+    errorTextFallbackFontFamily: null
 };

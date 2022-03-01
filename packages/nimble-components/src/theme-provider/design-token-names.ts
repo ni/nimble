@@ -12,9 +12,9 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     applicationBackgroundColor: 'application-background-color',
     headerBackgroundColor: 'header-background-color',
     sectionBackgroundColor: 'section-background-color',
-    fillColorSelected: 'fill-color-selected',
+    fillSelectedColor: 'fill-selected-color',
     fillSelectedRgbPartialColor: 'fill-selected-rgb-partial-color',
-    fillHoverSelectedColor: 'fill-selected-hover-color',
+    fillHoverSelectedColor: 'fill-hover-selected-color',
     fillHoverColor: 'fill-hover-color',
     borderColor: 'border-color',
     borderRgbPartialColor: 'border-rgb-partial-color',
@@ -150,13 +150,22 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     buttonLabelFallbackFontFamily: 'button-label-fallback-font-family',
     tooltipCaptionFont: 'tooltip-caption-font',
     tooltipCaptionFontColor: 'tooltip-caption-font-color',
+    tooltipCaptionDisabledFontColor:
+        'tooltip-caption-caption-disabled-font-color',
     tooltipCaptionFontFamily: 'headline-font-family',
     tooltipCaptionFontSize: 'tooltip-caption-font-size',
     tooltipCaptionFontWeight: 'tooltip-caption-font-weight',
     tooltipCaptionLineHeight: 'tooltip-caption-font-line-height',
     tooltipCaptionFallbackFontFamily: 'tooltip-caption-fallback-font-family',
-    tooltipCaptionDisabledFontColor:
-        'tooltip-caption-caption-disabled-font-color'
+    errorTextFont: 'tooltip-caption-font',
+    errorTextFontColor: 'tooltip-caption-font-color',
+    errorTextDisabledFontColor:
+        'tooltip-caption-caption-disabled-font-color',
+    errorTextFontFamily: 'headline-font-family',
+    errorTextFontSize: 'tooltip-caption-font-size',
+    errorTextFontWeight: 'tooltip-caption-font-weight',
+    errorTextLineHeight: 'tooltip-caption-font-line-height',
+    errorTextFallbackFontFamily: 'tooltip-caption-fallback-font-family'
 };
 
 const prefix = 'ni-nimble';
