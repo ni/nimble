@@ -564,7 +564,7 @@ function createFontTokens(
         styleNameFromTokenName(fontTokenName)
     ).withDefault(`${weight} ${size}/${lineHeight} ${family}, serif`);
 
-    const fontNameParts = fontTokenName.split('-font')
+    const fontNameParts = fontTokenName.split('-font');
     const tokenPrefixWithoutFont = fontNameParts[0];
     if (tokenPrefixWithoutFont === undefined || fontNameParts[1] !== '') {
         throw new Error(
