@@ -78,7 +78,9 @@ import {
     GroupLabel1LineHeight,
     ControlLabel1LineHeight,
     ButtonLabel1LineHeight,
-    TooltipCaptionLineHeight
+    TooltipCaptionLineHeight,
+    DigitalGreenDark,
+    PowerGreen
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -346,6 +348,12 @@ export const buttonLabelDisabledFontColor = DesignToken.create<string>(
 export const tooltipCaptionDisabledFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipCaptionDisabledFontColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3));
+export const breadcrumbActiveFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.breadcrumbActiveFontColor)
+).withDefault((element: HTMLElement) => getBreadcrumbActiveFontColorForTheme(element));
+export const breadcrumb2FontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.breadcrumb2FontColor)
+).withDefault((element: HTMLElement) => getBreadcrumb2FontColorForTheme(element));
 
 // Font Transform Tokens
 export const groupHeaderTextTransform = DesignToken.create<string>(
@@ -438,4 +446,17 @@ function getFillColorSelectedForTheme(element: HTMLElement): string {
 
 function getfillHoverColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
+}
+
+function getBreadcrumbActiveFontColorForTheme(element: HTMLElement): string {
+    return getColorForTheme(
+        element,
+        DigitalGreenDark,
+        PowerGreen,
+        hexToRgbaCssColor(White, 0.6)
+    );
+}
+
+function getBreadcrumb2FontColorForTheme(element: HTMLElement): string {
+    return getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen);
 }
