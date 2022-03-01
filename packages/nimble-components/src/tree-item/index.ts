@@ -38,7 +38,7 @@ class TreeItem extends FoundationTreeItem {
         this.addEventListener('click', this.handleClickOverride);
     }
 
-    public connectedCallback(): void {
+    public override connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('selected-change', this.handleSelectedChange);
         this.treeView = this.getParentTreeView();
@@ -47,7 +47,7 @@ class TreeItem extends FoundationTreeItem {
         }
     }
 
-    public disconnectedCallback(): void {
+    public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.removeEventListener('click', this.handleClickOverride);
         this.removeEventListener('selected-change', this.handleSelectedChange);

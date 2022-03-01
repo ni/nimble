@@ -28,7 +28,7 @@ class Button extends FoundationButton {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance!: ButtonAppearance;
+    public appearance: ButtonAppearance = ButtonAppearance.Outline;
 
     /**
      * Specify as 'true' to hide the text content of the button. The button will
@@ -44,12 +44,8 @@ class Button extends FoundationButton {
 
     private readonly contentId = 'nimble-button-content';
 
-    public connectedCallback(): void {
+    public override connectedCallback(): void {
         super.connectedCallback();
-        if (!this.appearance) {
-            this.appearance = ButtonAppearance.Outline;
-        }
-
         const content = this.control.querySelector('.content')!;
         content.id = this.contentId;
         this.control.setAttribute('aria-labelledby', this.contentId);

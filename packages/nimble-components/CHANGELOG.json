@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 01 Mar 2022 18:23:44 GMT",
+      "tag": "@ni/nimble-components_v5.0.1",
+      "version": "5.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a4ee8bf7526f086c85ef9278a26b959f0144b8f0",
+            "comment": "Initialize properties for nimble owned properties like appearance modes and theme provider."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Mar 2022 16:07:33 GMT",
       "tag": "@ni/nimble-components_v5.0.0",
       "version": "5.0.0",

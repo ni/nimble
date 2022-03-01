@@ -19,7 +19,10 @@
         "types": ["jasmine", "webpack-env"],
         // Require type only imports where possible
         // so imports with side-effects are explicit
-        "importsNotUsedAsValues": "error"
+        "importsNotUsedAsValues": "error",
+        "noImplicitOverride": true,
+        "noUncheckedIndexedAccess": true,
+        "noPropertyAccessFromIndexSignature": true
     },
     "include": ["src"]
 }
