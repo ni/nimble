@@ -36,8 +36,7 @@ describe('Design Tokens', () => {
             `value of exported token name ${tokenEntry.name} should match name of CSSDesignToken`,
             () => {
                 const tokenValue = tokenEntry.value.split('ni-nimble-')[1]!;
-                const namesMatch = tokenNameValues.includes(tokenValue);
-                expect(namesMatch).toBeTrue();
+                expect(tokenNameValues).toContain(tokenValue);
             }
         );
     }
@@ -49,8 +48,7 @@ describe('Design Tokens', () => {
         const specType = getSpecType(tokenNameKey, isFocused, isDisabled);
         specType(`Design token name ${tokenNameKey} matches the JS key`, () => {
             const convertedTokenValue = camelToKebabCase(tokenNameKey);
-            const namesMatch = tokenNameValues.includes(convertedTokenValue);
-            expect(namesMatch).toBeTrue();
+            expect(tokenNameValues).toContain(convertedTokenValue);
         });
     }
 

@@ -547,13 +547,33 @@ function createFontTokens(
         CSSDesignToken<string>,
         CSSDesignToken<string>
     ] {
+    if (
+        fontTokenName === ''
+        || family === ''
+        || weight === ''
+        || size === ''
+        || lineHeight === ''
+        || fallbackFamily === ''
+    ) {
+        throw new Error(
+            'createFontTokens parameter unexpectedly set to empty string'
+        );
+    }
+
     const fontToken = DesignToken.create<string>(
         styleNameFromTokenName(fontTokenName)
     ).withDefault(`${weight} ${size}/${lineHeight} ${family}, serif`);
 
-    const tokenPrefixWithoutFont = fontTokenName.split('-font')[0]!;
+    const fontNameParts = fontTokenName.split('-font')
+    const tokenPrefixWithoutFont = fontNameParts[0];
+    if (tokenPrefixWithoutFont === undefined || fontNameParts[1] !== '') {
+        throw new Error(
+            `fontTokenName value of ${fontTokenName} did not have the expected '-font' suffix`
+        );
+    }
+
     const fontColorToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${fontTokenName}-color`)
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-color`)
     ).withDefault((element: HTMLElement) => colorFunction(element));
 
     const fontDisabledColorToken = DesignToken.create<string>(
@@ -561,19 +581,19 @@ function createFontTokens(
     ).withDefault((element: HTMLElement) => disabledColorFunction(element));
 
     const fontFamilyToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${fontTokenName}-family`)
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-family`)
     ).withDefault(`${family}`);
 
     const fontWeightToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${fontTokenName}-weight`)
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-weight`)
     ).withDefault(`${weight}`);
 
     const fontSizeToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${fontTokenName}-size`)
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-size`)
     ).withDefault(`${size}`);
 
     const fontLineHeightToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${fontTokenName}-line-height`)
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-line-height`)
     ).withDefault(`${lineHeight}`);
 
     const fontFallbackFamilyToken = DesignToken.create<string>(
