@@ -220,6 +220,14 @@
       "weight": {
         "value": "Regular"
       }
+    },
+    "Link_Selection100_LightUI": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
     }
   },
   "size": {
@@ -304,6 +312,9 @@
       },
       "Error_DarkUI": {
         "value": "9"
+      },
+      "Link_Selection100_LightUI": {
+        "value": "14"
       }
     }
   }

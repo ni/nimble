@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 01 Mar 2022 16:07:33 GMT",
+      "tag": "@ni/nimble-tokens_v3.0.0",
+      "version": "3.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "cf0ebf7f1c460afc2f942748623e225dd0c3f27a",
+            "comment": "New `forward-slash` icon. Updated color tokens - `Enterprise` is now `ForestGreen`, `Selection100` is now `DigitalGreenLight`, `Banner_Fail_100_DarkUI_` is now `Banner_Fail_100_DarkUI`. Also adds `DigitalGreenDark`, `PowerGreen`, and `Black22`."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 24 Feb 2022 16:20:16 GMT",
       "tag": "@ni/nimble-tokens_v2.1.0",
       "version": "2.1.0",

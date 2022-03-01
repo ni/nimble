@@ -4,7 +4,7 @@ import { focusVisible } from '../utilities/style/focus';
 
 import {
     borderHoverColor,
-    fillColorSelected,
+    fillSelectedColor,
     fillHoverSelectedColor,
     fillHoverColor,
     bodyFont,
@@ -27,7 +27,7 @@ export const styles = css`
     :host(.selected) {
         box-shadow: none;
         outline: none;
-        background-color: ${fillColorSelected};
+        background-color: ${fillSelectedColor};
     }
 
     :host(:hover.selected) {
@@ -52,7 +52,7 @@ export const styles = css`
     :host(:active) {
         box-shadow: none;
         outline: none;
-        background-color: ${fillColorSelected};
+        background-color: ${fillSelectedColor};
     }
 
     :host([disabled]) {

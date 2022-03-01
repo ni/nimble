@@ -5,7 +5,7 @@ import {
     actionRgbPartialColor,
     borderHoverColor,
     borderWidth,
-    fillColorSelected,
+    fillSelectedColor,
     standardPadding
 } from '../theme-provider/design-tokens';
 import { styles as buttonStyles } from '../patterns/button/styles';
@@ -72,7 +72,7 @@ export const styles = buttonStyles
 
                 :host(.primary) .control:active {
                     background-clip: border-box;
-                    border-color: ${fillColorSelected};
+                    border-color: ${fillSelectedColor};
                     border-width: ${borderWidth};
                     box-shadow: none;
                     padding: 0 ${standardPadding};
