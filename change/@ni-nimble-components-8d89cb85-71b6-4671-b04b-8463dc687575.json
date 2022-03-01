@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Initialize properties for nimble owned properties like appearance modes and theme provider.",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
