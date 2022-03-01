@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 01 Mar 2022 19:24:47 GMT",
+      "tag": "@ni/nimble-angular_v3.0.0",
+      "version": "3.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "06a79cdefa821097dcee53843fa6396b84ae28fc",
+            "comment": "Rename text field attribute from errortext to error-text"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v6.0.0",
+            "commit": "06a79cdefa821097dcee53843fa6396b84ae28fc"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Mar 2022 18:23:44 GMT",
       "tag": "@ni/nimble-angular_v2.3.2",
       "version": "2.3.2",
