@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "rename fillHoverSelectedColor & fillSelectedColor",
+  "comment": "Renamed fillHoverSelectedColor & fillSelectedColor tokens.",
   "packageName": "@ni/nimble-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"
