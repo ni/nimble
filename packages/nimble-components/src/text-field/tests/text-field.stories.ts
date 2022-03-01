@@ -13,6 +13,7 @@ interface TextFieldArgs {
     readonly: boolean;
     disabled: boolean;
     invalid: boolean;
+    errortext: string;
 }
 
 const metadata: Meta<TextFieldArgs> = {
@@ -39,8 +40,10 @@ const metadata: Meta<TextFieldArgs> = {
             appearance="${x => x.appearance}"
             value="${x => x.value}"
             class="${x => (x.invalid ? 'invalid' : '')}"
+            aria-invalid="${x => x.invalid}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
+            errortext="${x => x.errortext}"
         >
             ${x => x.label}
         </nimble-text-field>
@@ -53,6 +56,10 @@ const metadata: Meta<TextFieldArgs> = {
         appearance: {
             options: Object.values(TextFieldAppearance),
             control: { type: 'radio' }
+        },
+        errortext: {
+            description:
+                'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
         }
     },
     args: {
@@ -62,7 +69,8 @@ const metadata: Meta<TextFieldArgs> = {
         value: '',
         readonly: false,
         disabled: false,
-        invalid: false
+        invalid: false,
+        errortext: 'Value is invalid'
     }
 };
 
