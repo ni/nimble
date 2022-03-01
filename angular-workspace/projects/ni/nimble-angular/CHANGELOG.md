@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 01 Mar 2022 19:24:47 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Mar 2022 21:31:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.1.0
+
+Tue, 01 Mar 2022 21:31:24 GMT
+
+### Minor changes
+
+- Added Nimble icon Angular integration (5454342+brianehenry@users.noreply.github.com)
 
 ## 3.0.0
 
