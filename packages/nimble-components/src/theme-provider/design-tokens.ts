@@ -9,8 +9,8 @@ import {
     Black75,
     Black80,
     White,
-    Enterprise,
-    Selection100,
+    ForestGreen,
+    DigitalGreenLight,
     Fail100LightUi,
     SmallDelay,
     MediumDelay,
@@ -94,15 +94,15 @@ export const actionRgbPartialColor = DesignToken.create<string>(
 
 export const applicationBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.applicationBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, Enterprise));
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, ForestGreen));
 
 export const headerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.headerBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black80, Enterprise));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black80, ForestGreen));
 
 export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, Enterprise));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, ForestGreen));
 
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
@@ -142,7 +142,7 @@ export const passColor = DesignToken.create<string>(
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Selection100, Selection100, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, DigitalGreenLight, White));
 
 // Component Color Tokens
 export const iconColor = DesignToken.create<string>(
@@ -436,7 +436,12 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
 }
 
 function getfillSelectedColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Selection100, Selection100, White);
+    return getColorForTheme(
+        element,
+        DigitalGreenLight,
+        DigitalGreenLight,
+        White
+    );
 }
 
 function getfillHoverColorForTheme(element: HTMLElement): string {
