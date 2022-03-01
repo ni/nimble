@@ -460,10 +460,25 @@ export const [
     ButtonLabel1LineHeight,
     'sans-serif'
 );
-export const errorTextFont = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.errorTextFont)
-).withDefault(
-    `${ErrorLightUiWeight} ${ErrorLightUiSize}/${TooltipCaptionLineHeight} ${ErrorLightUiFamily}, sans-serif`
+
+export const [
+    errorTextFont,
+    errorTextFontColor,
+    errorTextDisabledFontColor,
+    errorTextFontFamily,
+    errorTextFontWeight,
+    errorTextFontSize,
+    errorTextLineHeight,
+    errorTextFallbackFontFamily
+] = createFontTokens(
+    tokenNames.errorTextFont,
+    (element: HTMLElement) => getFailColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getFailColorForTheme(element), 0.3),
+    ErrorLightUiFamily,
+    ErrorLightUiWeight,
+    ErrorLightUiSize,
+    TooltipCaptionLineHeight,
+    'sans-serif'
 );
 
 export const [
