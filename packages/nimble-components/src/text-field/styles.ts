@@ -8,6 +8,7 @@ import {
     bodyFontColor,
     bodyDisabledFontColor,
     controlHeight,
+    errorTextFont,
     failColor,
     fillSelectedRgbPartialColor,
     iconSize,
@@ -16,8 +17,8 @@ import {
     controlLabelFont,
     bodyFont,
     controlLabelFontColor,
-    standardPadding,
-    controlLabelDisabledFontColor
+    controlLabelDisabledFontColor,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -31,12 +32,23 @@ export const styles = css`
         font: ${bodyFont};
         outline: none;
         user-select: none;
+        --webkit-user-select: none;
         color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
     }
 
     :host([disabled]) {
         color: ${bodyDisabledFontColor};
+    }
+
+    .label {
+        display: flex;
+        color: ${controlLabelFontColor};
+        font: ${controlLabelFont};
+    }
+
+    :host([disabled]) .label {
+        color: ${controlLabelDisabledFontColor};
     }
 
     .root {
@@ -47,7 +59,7 @@ export const styles = css`
         border-radius: 0px;
         font: ${bodyFont};
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
-        align-items: flex-end;
+        align-items: center;
         --ni-private-hover-bottom-border-width: 2px;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         border-bottom-width: var(--ni-private-bottom-border-width);
@@ -63,7 +75,8 @@ export const styles = css`
         }
     }
 
-    :host(.invalid) .root {
+    :host(.invalid) .root,
+    :host(:invalid) .root {
         border-bottom-color: ${failColor};
     }
 
@@ -93,6 +106,10 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
+    [part='start'] {
+        display: none;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
@@ -110,6 +127,7 @@ export const styles = css`
         padding-left: calc(${standardPadding} / 2);
         padding-right: calc(${standardPadding} / 2);
         border: none;
+        text-overflow: ellipsis;
     }
 
     .control:hover,
@@ -136,38 +154,61 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
-    .label {
-        display: flex;
-        color: ${controlLabelFontColor};
-        font: ${controlLabelFont};
-    }
-
-    :host([disabled]) .label {
-        color: ${controlLabelDisabledFontColor};
-    }
-
-    :host [part='end'] {
+    [part='end'] {
         display: none;
     }
 
-    :host(.invalid) [part='end'] {
-        align-self: center;
-        display: inline-flex;
-        padding-left: 8px;
-        padding-right: 8px;
+    :host(.invalid) [part='end'],
+    :host(:invalid) [part='end'] {
+        display: contents;
     }
 
-    :host(.invalid) [part='end'] svg {
+    :host(.invalid) [part='end'] svg,
+    :host(:invalid) [part='end'] svg {
         height: ${iconSize};
         width: ${iconSize};
+        padding-right: 8px;
+        flex: none;
     }
 
-    :host(.invalid) [part='end'] path {
+    :host(.invalid) [part='end'] path,
+    :host(:invalid) [part='end'] path {
         fill: ${failColor};
     }
 
     :host([disabled]) [part='end'] path {
         fill: ${bodyDisabledFontColor};
+    }
+
+    .errortext {
+        display: none;
+    }
+
+    :host(.invalid) .errortext,
+    :host(:invalid) .errortext {
+        display: block;
+        font: ${errorTextFont};
+        color: ${failColor};
+        width: 100%;
+        position: absolute;
+        top: ${controlHeight};
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    :host(.invalid[readonly]:not([disabled])) .errortext,
+    :host(:invalid[readonly]:not([disabled])) .errortext {
+        top: calc(${controlHeight} - ${borderWidth});
+    }
+
+    :host(.invalid) .error-text:empty,
+    :host(:invalid) .error-text:empty {
+        display: none;
+    }
+
+    :host([disabled]) .errortext {
+        color: ${bodyDisabledFontColor};
     }
 `.withBehaviors(
         appearanceBehavior(
@@ -202,11 +243,13 @@ export const styles = css`
                 );
             }
 
-            :host(.invalid) .root {
+            :host(.invalid) .root,
+            :host(:invalid) .root {
                 --ni-private-bottom-border-width: 1px;
             }
 
-            :host(.invalid) .root:hover {
+            :host(.invalid) .root:hover,
+            :host(:invalid) .root:hover {
                 --ni-private-bottom-border-width: var(
                     --ni-private-hover-bottom-border-width
                 );
@@ -220,7 +263,8 @@ export const styles = css`
                 --ni-private-bottom-border-width: 0px;
             }
 
-            :host(.invalid[disabled]) .root {
+            :host(.invalid[disabled]) .root,
+            :host(:invalid[disabled]) .root {
                 --ni-private-bottom-border-width: 1px;
             }
         `
@@ -232,6 +276,11 @@ export const styles = css`
                 --ni-private-bottom-border-width: 1px;
                 border-width: ${borderWidth};
                 border-bottom-width: var(--ni-private-bottom-border-width);
+            }
+
+            :host(.invalid) .errortext,
+            :host(:invalid) .errortext {
+                top: calc(${controlHeight} - ${borderWidth});
             }
         `
         ),

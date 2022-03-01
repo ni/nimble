@@ -10,7 +10,7 @@ import {
     buttonLabelFontColor,
     buttonLabelDisabledFontColor,
     controlHeight,
-    fillColorSelected,
+    fillSelectedColor,
     iconColor,
     smallDelay,
     standardPadding
@@ -144,8 +144,8 @@ export const styles = css`
                 }
 
                 .control:active {
-                    background-color: ${fillColorSelected};
-                    border-color: ${fillColorSelected};
+                    background-color: ${fillSelectedColor};
+                    border-color: ${fillSelectedColor};
                 }
 
                 .control[disabled] {
@@ -173,8 +173,8 @@ export const styles = css`
                 }
 
                 .control:active {
-                    background-color: ${fillColorSelected};
-                    border-color: ${fillColorSelected};
+                    background-color: ${fillSelectedColor};
+                    border-color: ${fillSelectedColor};
                 }
 
                 .control[disabled] {
@@ -202,8 +202,8 @@ export const styles = css`
                 }
 
                 .control:active {
-                    background-color: ${fillColorSelected};
-                    border-color: ${fillColorSelected};
+                    background-color: ${fillSelectedColor};
+                    border-color: ${fillSelectedColor};
                 }
 
                 .control[disabled] {

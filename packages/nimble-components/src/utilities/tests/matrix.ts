@@ -1,13 +1,7 @@
 import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
 import { Theme } from '../../theme-provider/types';
 
-export interface BackgroundState {
-    name: string;
-    value: string;
-    theme: Theme;
-}
-
-export const backgroundStates: BackgroundState[] = [
+export const backgroundStates = [
     {
         name: `"${Theme.Light}" theme on white`,
         value: '#F4F4F4',
@@ -23,7 +17,9 @@ export const backgroundStates: BackgroundState[] = [
         value: '#252526',
         theme: Theme.Dark
     }
-];
+] as const;
+
+export type BackgroundState = typeof backgroundStates[number];
 
 export type DisabledState = [string, boolean];
 export const disabledStates: DisabledState[] = [
@@ -65,17 +61,21 @@ export function createMatrix(component: () => ViewTemplate): ViewTemplate;
 
 export function createMatrix<State1>(
     component: (state1: State1) => ViewTemplate,
-    dimensions: [State1[]]
+    dimensions: readonly [readonly State1[]]
 ): ViewTemplate;
 
 export function createMatrix<State1, State2>(
     component: (state1: State1, state2: State2) => ViewTemplate,
-    dimensions: [State1[], State2[]]
+    dimensions: readonly [readonly State1[], readonly State2[]]
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3>(
     component: (state1: State1, state2: State2, state3: State3) => ViewTemplate,
-    dimensions: [State1[], State2[], State3[]]
+    dimensions: readonly [
+        readonly State1[],
+        readonly State2[],
+        readonly State3[]
+    ]
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3, State4>(
@@ -85,7 +85,12 @@ export function createMatrix<State1, State2, State3, State4>(
         state3: State3,
         state4: State4
     ) => ViewTemplate,
-    dimensions: [State1[], State2[], State3[], State4[]]
+    dimensions: readonly [
+        readonly State1[],
+        readonly State2[],
+        readonly State3[],
+        readonly State4[]
+    ]
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3, State4, State5>(
@@ -96,7 +101,13 @@ export function createMatrix<State1, State2, State3, State4, State5>(
         state4: State4,
         state5: State5
     ) => ViewTemplate,
-    dimensions: [State1[], State2[], State3[], State4[], State5[]]
+    dimensions: readonly [
+        readonly State1[],
+        readonly State2[],
+        readonly State3[],
+        readonly State4[],
+        readonly State5[]
+    ]
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3, State4, State5, State6>(
@@ -108,21 +119,28 @@ export function createMatrix<State1, State2, State3, State4, State5, State6>(
         state5: State5,
         state6: State6
     ) => ViewTemplate,
-    dimensions: [State1[], State2[], State3[], State4[], State5[], State6[]]
+    dimensions: readonly [
+        readonly State1[],
+        readonly State2[],
+        readonly State3[],
+        readonly State4[],
+        readonly State5[],
+        readonly State6[]
+    ]
 ): ViewTemplate;
 
 export function createMatrix(
-    component: (...states: unknown[]) => ViewTemplate,
-    dimensions?: unknown[][]
+    component: (...states: readonly unknown[]) => ViewTemplate,
+    dimensions?: readonly (readonly unknown[])[]
 ): ViewTemplate {
     const matrix: ViewTemplate[] = [];
     const recurseDimensions = (
-        currentDimensions?: unknown[][],
-        ...states: unknown[]
+        currentDimensions?: readonly (readonly unknown[])[],
+        ...states: readonly unknown[]
     ): void => {
         if (currentDimensions && currentDimensions.length >= 1) {
             const [currentDimension, ...remainingDimensions] = currentDimensions;
-            for (const currentState of currentDimension) {
+            for (const currentState of currentDimension!) {
                 recurseDimensions(remainingDimensions, ...states, currentState);
             }
         } else {

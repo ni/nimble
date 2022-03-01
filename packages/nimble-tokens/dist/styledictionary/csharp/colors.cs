@@ -2,7 +2,7 @@
 
 /**
     Do not edit directly
-    Generated on Mon, 21 Feb 2022 14:33:38 GMT
+    Generated on Tue, 01 Mar 2022 15:26:47 GMT
 **/
 
 using System.Windows.Media;
@@ -29,8 +29,8 @@ public static class NimbleColorTokens {
     public static readonly Color blackColor = Color.FromRgb(0, 0, 0);
     public static readonly Color black95Color = Color.FromRgb(14, 15, 15);
     public static readonly Color black91Color = Color.FromRgb(22, 22, 23);
-    public static readonly Color enterpriseColor = Color.FromRgb(7, 64, 35);
-    public static readonly Color selection100Color = Color.FromRgb(0, 155, 101);
+    public static readonly Color forestGreenColor = Color.FromRgb(7, 64, 35);
+    public static readonly Color digitalGreenLightColor = Color.FromRgb(0, 155, 101);
     public static readonly Color brand85Color = Color.FromRgb(38, 169, 124);
     public static readonly Color brand100Color = Color.FromRgb(0, 155, 101);
     public static readonly Color fail85Color = Color.FromRgb(207, 26, 55);
@@ -39,6 +39,9 @@ public static class NimbleColorTokens {
     public static readonly Color warning100LightUiColor = Color.FromRgb(255, 75, 0);
     public static readonly Color black30Color = Color.FromRgb(211, 213, 214);
     public static readonly Color black50Color = Color.FromRgb(174, 176, 179);
+    public static readonly Color digitalGreenDarkColor = Color.FromRgb(0, 107, 70);
+    public static readonly Color powerGreenColor = Color.FromRgb(50, 235, 150);
+    public static readonly Color black22Color = Color.FromRgb(230, 230, 230);
 
 
     public static readonly SolidColorBrush slLegacyBlueBrush = new SolidColorBrush(slLegacyBlueColor);
@@ -61,8 +64,8 @@ public static class NimbleColorTokens {
     public static readonly SolidColorBrush blackBrush = new SolidColorBrush(blackColor);
     public static readonly SolidColorBrush black95Brush = new SolidColorBrush(black95Color);
     public static readonly SolidColorBrush black91Brush = new SolidColorBrush(black91Color);
-    public static readonly SolidColorBrush enterpriseBrush = new SolidColorBrush(enterpriseColor);
-    public static readonly SolidColorBrush selection100Brush = new SolidColorBrush(selection100Color);
+    public static readonly SolidColorBrush forestGreenBrush = new SolidColorBrush(forestGreenColor);
+    public static readonly SolidColorBrush digitalGreenLightBrush = new SolidColorBrush(digitalGreenLightColor);
     public static readonly SolidColorBrush brand85Brush = new SolidColorBrush(brand85Color);
     public static readonly SolidColorBrush brand100Brush = new SolidColorBrush(brand100Color);
     public static readonly SolidColorBrush fail85Brush = new SolidColorBrush(fail85Color);
@@ -71,5 +74,8 @@ public static class NimbleColorTokens {
     public static readonly SolidColorBrush warning100LightUiBrush = new SolidColorBrush(warning100LightUiColor);
     public static readonly SolidColorBrush black30Brush = new SolidColorBrush(black30Color);
     public static readonly SolidColorBrush black50Brush = new SolidColorBrush(black50Color);
+    public static readonly SolidColorBrush digitalGreenDarkBrush = new SolidColorBrush(digitalGreenDarkColor);
+    public static readonly SolidColorBrush powerGreenBrush = new SolidColorBrush(powerGreenColor);
+    public static readonly SolidColorBrush black22Brush = new SolidColorBrush(black22Color);
 
 }
