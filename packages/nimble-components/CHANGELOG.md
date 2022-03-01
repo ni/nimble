@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 01 Mar 2022 16:07:33 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Mar 2022 18:23:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.0.1
+
+Tue, 01 Mar 2022 18:23:44 GMT
+
+### Patches
+
+- Initialize properties for nimble owned properties like appearance modes and theme provider. (rajsite@users.noreply.github.com)
 
 ## 5.0.0
 
