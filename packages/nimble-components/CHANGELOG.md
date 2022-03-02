@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 01 Mar 2022 19:24:47 GMT and should not be manually modified.
+This log was last generated on Wed, 02 Mar 2022 17:00:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.1.0
+
+Wed, 02 Mar 2022 17:00:45 GMT
+
+### Minor changes
+
+- Adding new font tokens (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 6.0.0
 
