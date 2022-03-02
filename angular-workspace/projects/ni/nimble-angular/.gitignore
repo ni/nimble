@@ -1,7 +1,3 @@
-# Files temporarily copied to project directory during pack
-/bundles
-/directives
-/esm2015
-/fesm2015
-/ni-nimble-angular.d.ts
-/public-api.d.ts
+/src/directives/icons
+/src/public-api.ts
+

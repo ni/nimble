@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 01 Mar 2022 18:23:44 GMT and should not be manually modified.
+This log was last generated on Wed, 02 Mar 2022 17:00:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.1.0
+
+Wed, 02 Mar 2022 17:00:45 GMT
+
+### Minor changes
+
+- Adding new font tokens (26874831+atmgrifter00@users.noreply.github.com)
+
+## 6.0.0
+
+Tue, 01 Mar 2022 19:24:47 GMT
+
+### Major changes
+
+- Rename text field attribute from errortext to error-text (7282195+m-akinc@users.noreply.github.com)
 
 ## 5.0.1
 

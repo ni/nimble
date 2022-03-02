@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 01 Mar 2022 18:23:44 GMT and should not be manually modified.
+This log was last generated on Wed, 02 Mar 2022 17:00:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.1.1
+
+Wed, 02 Mar 2022 17:00:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.0
+
+## 3.1.0
+
+Tue, 01 Mar 2022 21:31:24 GMT
+
+### Minor changes
+
+- Added Nimble icon Angular integration (5454342+brianehenry@users.noreply.github.com)
+
+## 3.0.0
+
+Tue, 01 Mar 2022 19:24:47 GMT
+
+### Major changes
+
+- Rename text field attribute from errortext to error-text (7282195+m-akinc@users.noreply.github.com)
+- Bump @ni/nimble-components to v6.0.0
 
 ## 2.3.2
 
