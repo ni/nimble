@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 02 Mar 2022 17:00:45 GMT",
+      "tag": "@ni/nimble-components_v6.1.0",
+      "version": "6.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7dc6d9c3dc81aacc2878c69b7ab69183cdec0d3e",
+            "comment": "Adding new font tokens"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Mar 2022 19:24:47 GMT",
       "tag": "@ni/nimble-components_v6.0.0",
       "version": "6.0.0",
