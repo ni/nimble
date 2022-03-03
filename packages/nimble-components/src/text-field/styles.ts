@@ -57,7 +57,7 @@ export const styles = css`
         display: flex;
         flex-direction: row;
         border-radius: 0px;
-        font: ${bodyFont};
+        font: inherit;
         transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
         align-items: center;
         --ni-private-hover-bottom-border-width: 2px;
