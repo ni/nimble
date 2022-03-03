@@ -5,6 +5,7 @@
 export * from './directives/breadcrumb/nimble-breadcrumb.directive';
 export * from './directives/breadcrumb/nimble-breadcrumb.module';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item-router-link-with-href.directive';
+export * from './directives/breadcrumb-item/nimble-breadcrumb-item-router-link.directive';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item.directive';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item.module';
 export * from './directives/button/nimble-button.directive';
@@ -39,6 +40,7 @@ export * from './directives/text-field/nimble-text-field.directive';
 export * from './directives/text-field/nimble-text-field.module';
 export * from './directives/theme-provider/nimble-theme-provider.directive';
 export * from './directives/theme-provider/nimble-theme-provider.module';
+export * from './directives/toggle-button/nimble-toggle-button-control-value-accessor.directive';
 export * from './directives/toggle-button/nimble-toggle-button.directive';
 export * from './directives/toggle-button/nimble-toggle-button.module';
 export * from './directives/tree-item/nimble-tree-item.directive';
