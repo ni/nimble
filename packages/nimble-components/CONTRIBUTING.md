@@ -14,7 +14,7 @@ The library is built on the open source [FAST Design System library](https://fas
     - while not meeting all of NI's use cases, give us a good starting point and extension capabilities
     - offer a promising future [roadmap](https://github.com/microsoft/fast/tree/master/specs#web-component-specifications)
 
-[This video](https://www.youtube.com/watch?v=OHOKYItVQvc) (1 hour but watchable in less time at 2x) is a great way to get up to speed with the architecture of FAST in no time. 💨
+[This video](https://www.youtube.com/watch?v=OHOKYItVQvc) (1 hour but watchable in less time at 2x) and [this cheat sheet](https://www.fast.design/docs/resources/cheat-sheet/) are great ways to get up to speed with the architecture of FAST in no time. 💨
 
 ## Getting started
 
