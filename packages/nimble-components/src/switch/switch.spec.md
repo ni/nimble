@@ -63,6 +63,25 @@ The switch will have an Angular directive in `nimble-angular` which allows bindi
 
 None
 
+- *User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?*
+  - The FAST component differs in how it uses labels, as described above. I believe that the label behavior in the visual design is preferable. If a consumer of the switch prefers the FAST label approach, they should be able to achieve it with custom styling.
+- *Styling: Does FAST provide APIs to achieve the styling in the visual design spec?*
+  - I don't foresee any issues styling the FAST switch to match our visual design
+- *Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?*
+  - FAST's test coverage should be sufficient
+- *Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?*
+  - No additional requirements
+- *Tooling: Any new tools, updates to tools, code generation, etc?*
+  - No additional requirements
+- *Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc.*
+  - All accessibility needs should be covered by FAST's implementation. We should do some manual testing to verify that the custom template doesn't break any accessibility behavior.
+- *Globalization: special RTL handling, swapping of icons/visuals, localization, etc.*
+  - No additional requirements
+- *Performance: does the FAST component meet Nimble's performance requirements?*
+  - No additional requirements
+- *Security: Any requirements for security?*
+  - No additional requirements
+
 ---
 
 ## Open Issues
