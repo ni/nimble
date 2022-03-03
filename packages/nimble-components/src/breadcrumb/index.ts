@@ -3,7 +3,13 @@ import {
     Breadcrumb as FoundationBreadcrumb,
     breadcrumbTemplate as template
 } from '@microsoft/fast-foundation';
-import { styles } from './styles';
+import {
+    breadcrumb2FontColor,
+    breadcrumbActiveFontColor,
+    getBreadcrumb2FontColorForTheme,
+    getBreadcrumbActiveFontColorForTheme,
+    styles
+} from './styles';
 
 export type { Breadcrumb };
 
@@ -16,7 +22,16 @@ declare global {
 /**
  * A nimble-styled breadcrumb
  */
-class Breadcrumb extends FoundationBreadcrumb {}
+class Breadcrumb extends FoundationBreadcrumb {
+    public constructor() {
+        super();
+        breadcrumbActiveFontColor.setValueFor(
+            this,
+            getBreadcrumbActiveFontColorForTheme
+        );
+        breadcrumb2FontColor.setValueFor(this, getBreadcrumb2FontColorForTheme);
+    }
+}
 
 const nimbleBreadcrumb = Breadcrumb.compose({
     baseName: 'breadcrumb',
