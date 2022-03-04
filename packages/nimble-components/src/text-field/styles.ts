@@ -75,8 +75,7 @@ export const styles = css`
         }
     }
 
-    :host(.invalid) .root,
-    :host(:invalid) .root {
+    :host(.invalid) .root {
         border-bottom-color: ${failColor};
     }
 
@@ -158,21 +157,18 @@ export const styles = css`
         display: none;
     }
 
-    :host(.invalid) [part='end'],
-    :host(:invalid) [part='end'] {
+    :host(.invalid) [part='end'] {
         display: contents;
     }
 
-    :host(.invalid) [part='end'] svg,
-    :host(:invalid) [part='end'] svg {
+    :host(.invalid) [part='end'] svg {
         height: ${iconSize};
         width: ${iconSize};
         padding-right: 8px;
         flex: none;
     }
 
-    :host(.invalid) [part='end'] path,
-    :host(:invalid) [part='end'] path {
+    :host(.invalid) [part='end'] path {
         fill: ${failColor};
     }
 
@@ -184,8 +180,7 @@ export const styles = css`
         display: none;
     }
 
-    :host(.invalid) .errortext,
-    :host(:invalid) .errortext {
+    :host(.invalid) .errortext {
         display: block;
         font: ${errorTextFont};
         color: ${failColor};
@@ -197,13 +192,11 @@ export const styles = css`
         white-space: nowrap;
     }
 
-    :host(.invalid[readonly]:not([disabled])) .errortext,
-    :host(:invalid[readonly]:not([disabled])) .errortext {
+    :host(.invalid[readonly]:not([disabled])) .errortext {
         top: calc(${controlHeight} - ${borderWidth});
     }
 
-    :host(.invalid) .error-text:empty,
-    :host(:invalid) .error-text:empty {
+    :host(.invalid) .error-text:empty {
         display: none;
     }
 
@@ -243,13 +236,11 @@ export const styles = css`
                 );
             }
 
-            :host(.invalid) .root,
-            :host(:invalid) .root {
+            :host(.invalid) .root {
                 --ni-private-bottom-border-width: 1px;
             }
 
-            :host(.invalid) .root:hover,
-            :host(:invalid) .root:hover {
+            :host(.invalid) .root:hover {
                 --ni-private-bottom-border-width: var(
                     --ni-private-hover-bottom-border-width
                 );
@@ -263,8 +254,7 @@ export const styles = css`
                 --ni-private-bottom-border-width: 0px;
             }
 
-            :host(.invalid[disabled]) .root,
-            :host(:invalid[disabled]) .root {
+            :host(.invalid[disabled]) .root {
                 --ni-private-bottom-border-width: 1px;
             }
         `
@@ -278,8 +268,7 @@ export const styles = css`
                 border-bottom-width: var(--ni-private-bottom-border-width);
             }
 
-            :host(.invalid) .errortext,
-            :host(:invalid) .errortext {
+            :host(.invalid) .errortext {
                 top: calc(${controlHeight} - ${borderWidth});
             }
         `
