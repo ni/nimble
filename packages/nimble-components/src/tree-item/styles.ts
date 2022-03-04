@@ -73,6 +73,7 @@ export const styles: (
         }
 
         .positioning-region::before {
+            font-size: 0;
             content: '';
             display: block;
             width: var(--ni-private-tree-item-nested-width);
