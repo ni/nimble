@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 04 Mar 2022 21:15:36 GMT",
+      "tag": "@ni/nimble-components_v6.1.2",
+      "version": "6.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "08887b6a3b71bf1e1d73fba6940d112df668e74d",
+            "comment": "Add final styling for breadcrumb. nimble-breadcrumb allows swapping to 2nd style (swaps link regular/mousedown colors) via style-2 CSS class."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 04 Mar 2022 20:46:39 GMT",
       "tag": "@ni/nimble-components_v6.1.1",
       "version": "6.1.1",
