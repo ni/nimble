@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Add final styling for breadcrumb (using new breadcrumbActiveFontColor and breadcrumb2FontColor tokens). nimble-breadcrumb allows swapping to 2nd style (swaps link colors) via style-2 CSS class.",
+  "comment": "Add final styling for breadcrumb. nimble-breadcrumb allows swapping to 2nd style (swaps link regular/mousedown colors) via style-2 CSS class.",
   "packageName": "@ni/nimble-components",
   "email": "20709258+msmithNI@users.noreply.github.com",
   "dependentChangeType": "patch"
