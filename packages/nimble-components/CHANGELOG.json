@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 04 Mar 2022 20:46:39 GMT",
+      "tag": "@ni/nimble-components_v6.1.1",
+      "version": "6.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "23468a16a05224c4a9d0031ed9cfa6fac98a2636",
+            "comment": "Don't tie error display to invalid state"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 04 Mar 2022 18:26:39 GMT",
       "tag": "@ni/nimble-components_v6.1.0",
       "version": "6.1.0",
