@@ -101,14 +101,14 @@ Some takeaways from the example:
 
 - Note that selectors within groups are organized with the selectors that always apply first. For example the `:host {}` selector always applies, regardless of the state of the element, so it is first in the group. The rest are ordered based on the other recommendations in this document.
 
-- Note that the pseudo-elements are always grouped directly after their target element. For example with the above DOM structure we might expect the `::after` pseudo-element selector to be positioned right before `.end` based on the DOM order. 
+- Note that the pseudo-elements are always grouped directly after their target element. For example with the above DOM structure we might expect the `::after` pseudo-element selector to be positioned right before `.end` based on the DOM order.
 
    Instead psedo-elements are grouped with the target element so `.content::before {}` is immediately followed by `.content::after {}`.
 
 
 ## Prefer cascade for state changes
 
-If you find yourself in complex logic with lots of `:not()` selectors it's possible the code should be reorganized to leverage the CSS cascade for overriding states. 
+If you find yourself in complex logic with lots of `:not()` selectors it's possible the code should be reorganized to leverage the CSS cascade for overriding states.
 
 States should flow from plain control -> hover -> focus -> active -> error -> disabled (which overrides all the others).
 
@@ -135,6 +135,9 @@ When stepping back try to start at the top-level of the control which is likely 
 ## Avoid styling functional elements
 
 Some elements are used just for their function such as the `<nimble-theme-provider>` and `<slot>` elements. Those elements should not generally be part of layout and given sizing, etc that is important. Instead they should stay `display: contents` and let their children participate in layout and styling.
+
+## Consider whether text content should be stylable by clients
+For controls that display text content, consider whether the client should be allowed to apply custom font properties to that text. For example, a client can set `font-style: italic` on the `nimble-text-field` or `nimble-number-field` to italicize the value. To support this, set the default font properties on the host element, and use `font: inherit` on the element actually displaying the text.
 
 ## Comments
 
@@ -164,7 +167,7 @@ import { display } from '@microsoft/fast-foundation';
 
 export const styles = css`
     ${display('flex')}
-    
+
     :host { /* ... */ }
 `;
 ```
