@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 04 Mar 2022 18:26:39 GMT",
+      "tag": "@ni/nimble-components_v6.1.0",
+      "version": "6.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1b2c299e91e79c80bd1500c2849d61e0e4657337",
+            "comment": "Add link to FAST cheat sheet from nimble-components CONTRIBUTING"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Mar 2022 15:46:29 GMT",
       "tag": "@ni/nimble-components_v6.1.0",
       "version": "6.1.0",
