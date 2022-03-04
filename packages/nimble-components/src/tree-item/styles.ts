@@ -26,6 +26,7 @@ export const styles: (
         ${display('block')}
 
         :host {
+            font: ${bodyFont};
             contain: content;
             position: relative;
             outline: none;
@@ -84,7 +85,7 @@ export const styles: (
             white-space: nowrap;
             width: 100%;
             padding-left: 10px;
-            font: ${bodyFont};
+            font: inherit;
             user-select: none;
         }
 
