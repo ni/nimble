@@ -163,9 +163,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     errorTextFontSize: 'error-text-font-size',
     errorTextFontWeight: 'error-text-font-weight',
     errorTextFontLineHeight: 'error-text-font-line-height',
-    errorTextFallbackFontFamily: 'error-text-fallback-font-family',
-    breadcrumbActiveFontColor: 'breadcrumb-active-font-color',
-    breadcrumb2FontColor: 'breadcrumb-2-font-color'
+    errorTextFallbackFontFamily: 'error-text-fallback-font-family'
 };
 
 const prefix = 'ni-nimble';

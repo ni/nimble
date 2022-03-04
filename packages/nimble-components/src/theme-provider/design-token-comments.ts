@@ -180,7 +180,5 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     errorTextFontSize: null,
     errorTextFontWeight: null,
     errorTextFontLineHeight: null,
-    errorTextFallbackFontFamily: null,
-    breadcrumbActiveFontColor: 'Active font color for breadcrumb items',
-    breadcrumb2FontColor: 'Font color for breadcrumb (style 2) items'
+    errorTextFallbackFontFamily: null
 };

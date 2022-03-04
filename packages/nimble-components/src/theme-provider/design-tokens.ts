@@ -81,13 +81,12 @@ import {
     GroupLabel1LineHeight,
     ControlLabel1LineHeight,
     ButtonLabel1LineHeight,
-    TooltipCaptionLineHeight,
-    DigitalGreenDark,
-    PowerGreen
+    TooltipCaptionLineHeight
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
+import { hexToRgbaCssColor } from '../utilities/style/colors';
 
 // Color Tokens
 export const actionRgbPartialColor = DesignToken.create<string>(
@@ -145,14 +144,6 @@ export const passColor = DesignToken.create<string>(
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, DigitalGreenLight, White));
-
-export const breadcrumbActiveFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.breadcrumbActiveFontColor)
-).withDefault((element: HTMLElement) => getBreadcrumbActiveFontColorForTheme(element));
-
-export const breadcrumb2FontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.breadcrumb2FontColor)
-).withDefault((element: HTMLElement) => getBreadcrumb2FontColorForTheme(element));
 
 // Component Color Tokens
 export const iconColor = DesignToken.create<string>(
@@ -533,11 +524,6 @@ function hexToRgbPartial(hexValue: string): string {
     return `${red}, ${green}, ${blue}`;
 }
 
-function hexToRgbaCssColor(hexValue: string, alpha: number): string {
-    const { red, green, blue } = hexRgb(hexValue);
-    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-}
-
 function createFontTokens(
     fontTokenName: string,
     colorFunction: (element: HTMLElement) => string,
@@ -688,17 +674,4 @@ function getFillSelectedColorForTheme(element: HTMLElement): string {
 
 function getFillHoverColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
-}
-
-function getBreadcrumbActiveFontColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        DigitalGreenDark,
-        PowerGreen,
-        hexToRgbaCssColor(White, 0.6)
-    );
-}
-
-function getBreadcrumb2FontColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen);
 }

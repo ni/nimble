@@ -1,12 +1,17 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    DigitalGreenDark,
+    PowerGreen,
+    White
+} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import {
     bodyEmphasizedFont,
     bodyFont,
-    bodyFontColor,
-    breadcrumb2FontColor,
-    breadcrumbActiveFontColor
+    bodyFontColor
 } from '../theme-provider/design-tokens';
+import { hexToRgbaCssColor } from '../utilities/style/colors';
+import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
     ${display('inline-block')}
@@ -15,7 +20,6 @@ export const styles = css`
         box-sizing: border-box;
         font: ${bodyFont};
         --ni-private-breadcrumb-link-font-color: ${bodyFontColor};
-        --ni-private-breadcrumb-link-active-font-color: ${breadcrumbActiveFontColor};
     }
 
     .list {
@@ -24,7 +28,6 @@ export const styles = css`
     }
 
     :host(.style-2) {
-        --ni-private-breadcrumb-link-font-color: ${breadcrumb2FontColor};
         --ni-private-breadcrumb-link-active-font-color: ${bodyFontColor};
     }
 
@@ -35,4 +38,40 @@ export const styles = css`
     ::slotted(*:not([href]):last-child) {
         font: ${bodyEmphasizedFont};
     }
-`;
+`.withBehaviors(
+        themeBehavior(
+            css`
+            ${'' /* Light theme */}
+            :host {
+                --ni-private-breadcrumb-link-active-font-color: ${DigitalGreenDark};
+            }
+
+            :host(.style-2) {
+                --ni-private-breadcrumb-link-font-color: ${DigitalGreenDark};
+            }
+        `,
+            css`
+            ${'' /* Dark theme */}
+            :host {
+                --ni-private-breadcrumb-link-active-font-color: ${PowerGreen};
+            }
+
+            :host(.style-2) {
+                --ni-private-breadcrumb-link-font-color: ${PowerGreen};
+            }
+        `,
+            css`
+            ${'' /* Color theme */}
+            :host {
+                --ni-private-breadcrumb-link-active-font-color: ${hexToRgbaCssColor(
+                White,
+                0.6
+            )};
+            }
+
+            :host(.style-2) {
+                --ni-private-breadcrumb-link-font-color: ${PowerGreen};
+            }
+        `
+        )
+    );

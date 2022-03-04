@@ -19,18 +19,22 @@ export const styles = css`
         box-sizing: border-box;
         font: ${bodyFont};
         color: ${bodyFontColor};
-        padding-left: 4px;
+        padding-left: calc(4px - ${borderWidth});
     }
 
     .listitem {
-        line-height: ${controlHeight};
+        display: flex;
+        align-items: center;
     }
 
     .control {
         color: var(--ni-private-breadcrumb-link-font-color);
         cursor: default;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border: ${borderWidth} solid transparent;
-        padding: calc(4px - ${borderWidth});
+        padding-right: calc(4px - ${borderWidth});
     }
 
     .control:link {
@@ -55,12 +59,20 @@ export const styles = css`
 
     .start,
     .end {
-        display: none;
+        display: flex;
+        align-items: center;
+    }
+
+    .start {
+        margin-inline-end: 4px;
+    }
+
+    slot[name='separator'] {
+        display: flex;
+        align-items: center;
     }
 
     slot[name='separator'] svg {
-        position: relative;
-        top: 4px;
         width: ${iconSize};
         height: ${iconSize};
     }
