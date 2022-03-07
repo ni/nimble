@@ -148,7 +148,8 @@ The projects under the root nimble workspace should ideally handle each of the r
 
 ### Documentation
 
-We should provide documentation on the various ways clients can provide access to the nimble web components in their Blazor application.
+- We should provide documentation on the various ways clients can provide access to the nimble web components in their Blazor application.
+- Explain the way clients will have to provide CSS for their Blazor components when in a parent component (i.e. must provide the `::deep` pseudo-selector).
 
 ## Alternative Implementations / Designs
 
