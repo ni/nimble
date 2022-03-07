@@ -15,6 +15,7 @@ export * from './directives/checkbox/nimble-checkbox.directive';
 export * from './directives/checkbox/nimble-checkbox.module';
 export * from './directives/drawer/nimble-drawer.directive';
 export * from './directives/drawer/nimble-drawer.module';
+// {{INSERT_ICONS_EXPORTS_HERE}}
 export * from './directives/listbox-option/nimble-listbox-option.directive';
 export * from './directives/listbox-option/nimble-listbox-option.module';
 export * from './directives/menu/nimble-menu.directive';
@@ -35,6 +36,9 @@ export * from './directives/tabs/nimble-tabs.directive';
 export * from './directives/tabs/nimble-tabs.module';
 export * from './directives/tabs-toolbar/nimble-tabs-toolbar.directive';
 export * from './directives/tabs-toolbar/nimble-tabs-toolbar.module';
+export * from './directives/text-area/nimble-text-area-control-value-accessor.directive';
+export * from './directives/text-area/nimble-text-area.directive';
+export * from './directives/text-area/nimble-text-area.module';
 export * from './directives/text-field/nimble-text-field-control-value-accessor.directive';
 export * from './directives/text-field/nimble-text-field.directive';
 export * from './directives/text-field/nimble-text-field.module';

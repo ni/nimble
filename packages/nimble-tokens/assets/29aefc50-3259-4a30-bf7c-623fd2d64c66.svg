@@ -30,7 +30,7 @@
   <g id="Tabs_Horizontal_IconText_Single_32-3" data-name="Tabs_Horizontal_IconText_Single_32">
     <g id="Background-5" data-name="Background" transform="translate(0 1)">
       <rect id="Background-6" data-name="Background" width="100" height="32" transform="translate(0 -1)" fill="none" opacity="0"/>
-      <rect id="Rollover-3" data-name="Rollover" width="100" height="2" transform="translate(0 29)" fill="#161617" opacity="0"/>
+      <rect id="Rollover-3" data-name="Rollover" width="100" height="2" transform="translate(0 29)" fill="#009b65" opacity="0"/>
       <rect id="SelectionRectangle-3" data-name="SelectionRectangle" width="100" height="2" transform="translate(0 29)" fill="#009b65"/>
     </g>
     <g id="Stacks_Group-3" data-name="Stacks Group">

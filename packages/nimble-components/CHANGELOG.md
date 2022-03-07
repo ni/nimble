@@ -1,8 +1,73 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 24 Feb 2022 16:20:16 GMT and should not be manually modified.
+This log was last generated on Fri, 04 Mar 2022 21:15:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.1.2
+
+Fri, 04 Mar 2022 21:15:36 GMT
+
+### Patches
+
+- Add final styling for breadcrumb. nimble-breadcrumb allows swapping to 2nd style (swaps link regular/mousedown colors) via style-2 CSS class. (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.1
+
+Fri, 04 Mar 2022 20:46:39 GMT
+
+### Patches
+
+- Don't tie error display to invalid state (7282195+m-akinc@users.noreply.github.com)
+
+## 6.1.0
+
+Wed, 02 Mar 2022 17:00:45 GMT
+
+### Minor changes
+
+- Adding new font tokens (26874831+atmgrifter00@users.noreply.github.com)
+
+## 6.0.0
+
+Tue, 01 Mar 2022 19:24:47 GMT
+
+### Major changes
+
+- Rename text field attribute from errortext to error-text (7282195+m-akinc@users.noreply.github.com)
+
+## 5.0.1
+
+Tue, 01 Mar 2022 18:23:44 GMT
+
+### Patches
+
+- Initialize properties for nimble owned properties like appearance modes and theme provider. (rajsite@users.noreply.github.com)
+
+## 5.0.0
+
+Tue, 01 Mar 2022 16:07:33 GMT
+
+### Major changes
+
+- Renamed fillHoverSelectedColor & fillSelectedColor tokens. (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v3.0.0
+
+## 4.1.0
+
+Tue, 01 Mar 2022 15:14:49 GMT
+
+### Minor changes
+
+- Support error text on nimble-text-field (7282195+m-akinc@users.noreply.github.com)
+
+## 4.0.1
+
+Thu, 24 Feb 2022 19:17:00 GMT
+
+### Patches
+
+- Use correct padding in select component (20542556+mollykreis@users.noreply.github.com)
 
 ## 4.0.0
 

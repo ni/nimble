@@ -6,7 +6,6 @@
 # Nimble
 
 [![Nimble Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-angular.svg?label=@ni/nimble-angular)](https://www.npmjs.com/package/@ni/nimble-angular)
-[![Nimble Angular Schematics NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-angular-schematics.svg?label=@ni/nimble-angular-schematics)](https://www.npmjs.com/package/@ni/nimble-angular-schematics)
 [![Nimble Blazor Nuget version and repo link](https://img.shields.io/nuget/v/NimbleBlazor.svg?label=NimbleBlazor)](https://www.nuget.org/packages/NimbleBlazor)
 [![Nimble Components NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-components.svg?label=@ni/nimble-components)](https://www.npmjs.com/package/@ni/nimble-components)
 [![Nimble Tokens NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-tokens.svg?label=@ni/nimble-tokens)](https://www.npmjs.com/package/@ni/nimble-tokens)
@@ -15,6 +14,8 @@ The NI Nimble Design System: styled UI components for NI applications.
 
 [![storybook page](https://img.shields.io/badge/storybook-white.svg?logo=storybook)](https://ni.github.io/nimble/storybook)
 [![example angular app](https://img.shields.io/badge/example%20angular%20app-dd0031.svg?logo=angular)](https://ni.github.io/nimble/storybook/example-client-app)
+
+If you are at NI, lucky you! **Reach out to ask questions directly in the [Design System Teams channel](https://teams.microsoft.com/l/team/19%3awo8vmMKMsHfltKXxc0bczZo-X4JlQSV5VxpaRJdh13k1%40thread.tacv2/conversations?groupId=9ee065d7-3898-4245-82f6-76e86084b8b1&tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e).**
 
 ## Getting Started
 
@@ -86,7 +87,7 @@ NOTE: To update the component status:
 | Toggle Switch | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) | :o: | :o: | :o: |
 | Number Field | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf) | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/number-field--number-field) | :white_check_mark: | :o: |
 | Text Field | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/842889a5-67ba-4350-91c1-55eee48f4fa2) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/text-field--underline-text-field) | :white_check_mark: | :o: |
-| Text Area (Multiline) | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/text-area--outline-text-area) | :o: | :o: |
+| Text Area (Multiline) | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/text-area--outline-text-area) | :white_check_mark: | :o: |
 | Search Field | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/842889a5-67ba-4350-91c1-55eee48f4fa2) | :o: | :o: | :o: |
 | Dropdown (Select) | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/select--select) | :white_check_mark: | :o: |
 | Combo box | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae) | :o: | :o: | :o: |
@@ -96,3 +97,4 @@ NOTE: To update the component status:
 | Banners | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/29c405f7-08ea-48b6-973f-546970b9dbab) | :o: | :o: | :o: |
 | Icons | | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/icons--component-icons) | :o: | :o: |
 | Tree View | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tree-view--tree-view) | :white_check_mark: | :o: |
+| Breadcrumb | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e/specs/) | 	[:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/breadcrumb--standard-breadcrumb) | :white_check_mark: | :o: |
