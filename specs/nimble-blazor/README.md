@@ -58,7 +58,7 @@ It's possible that Microsoft could spearhead an initiative to create a separate 
 
 Our Nimble Blazor APIs have the possibility of being functionally different from their wrapped nimble-component counter-parts. This is the case, for instance, with the Microsoft/fast-blazor `FluentNumberField`, which is strictly typed, and does specific types of error reporting if a number is incorrectly formatted.
 
-We need to be deliberate about our API design, but I would suggest not at the cost of holding off on a release of the package until all of the APIs are fleshed out. I proposed we come up with an initial set of components to release that offer a straightforward API that we have a high confidence will not change over time (e.g. the NimbleButton).
+We need to be deliberate about our API design, but I would suggest not at the cost of holding off on a release of the package until all of the APIs are fleshed out. I propose we come up with an initial set of components to release that offer a straightforward API that we have a high confidence will not change over time (e.g. the NimbleButton).
 
 Proposed Initial Component Set:
 - Button
@@ -129,11 +129,10 @@ The Micosoft/fast-blazor repo is notably devoid of testing, however our previous
 In addition to running unit tests, we want the Blazor repo to have a similar developer validation experience that the nimble-angular repo offers. Namely we should:
 
 - Provide an example app that tests out each widget
-- Produce a Storybook allowing users to update public state of each component
 - Link to example app (WebAssembly version) from Storybook landing page
 - Run Lighthouse against the example app
 
-We will be able to execute the automated tests as part of the CI with the 'dotnet test' command. We should be able to use this command for the workspace 'test' command (as specified in the package.json file).
+We will be able to execute the automated tests as part of the CI with the "`dotnet test`" command. We should be able to use this command for the workspace "`test`" command (as specified in the package.json file).
 
 For more info see [Github docs](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net).
 
@@ -150,6 +149,7 @@ The projects under the root nimble workspace should ideally handle each of the r
 
 - We should provide documentation on the various ways clients can provide access to the nimble web components in their Blazor application.
 - Explain the way clients will have to provide CSS for their Blazor components when in a parent component (i.e. must provide the `::deep` pseudo-selector).
+- Update existing docs that refer to the Angular integration to mention Blazor where appropriate.
 
 ## Alternative Implementations / Designs
 
@@ -157,7 +157,7 @@ The projects under the root nimble workspace should ideally handle each of the r
     - Require consumers to manually do their own `npm install` of @ni/nimble-components and import all of the necessary JS into their Blazor application as needed.
         - While ultimately we want to support the workflow of allowing clients to only import the files they need, even to the point of documenting this workflow, _requiring_ this of the client seems unnecessary with other options available.
     - Require consumers to import our web components via a CDN (e.g. unpkg.com)
-        - Giving clients access to our components via a CDN is extremely valuable, the value of which extends beyond just clients of Nimble Blazor, but, again, requiring it of our clients when other options are available seems unnecessary. The only step we're advocating for beyond the minimum necessary for the above is to package the minified file we would be producing for the CDN into the nuget itself, and documenting how to leverage that file in a consumer application.
+        - Giving clients access to our components via a CDN is extremely valuable, the value of which extends beyond just clients of Nimble Blazor, but, again, requiring it of our clients when other options are available violates our requirement for being able to serve an app when there is no internet access. The only step we're advocating for beyond the minimum necessary for the above is to package the minified file we would be producing for the CDN into the nuget itself, and documenting how to leverage that file in a consumer application.
 
 2. Don't offer Blazor components at all
     - Clients always have the options of using the Nimble components directly in their application. However, this is undesirable for a few, notable reasons:
