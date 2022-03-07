@@ -89,7 +89,7 @@ While Blazor doesn't natively handle SASS, there are 3rd party tools available t
 
 Since the Blazor solution is C#-based, we will be able to leverage the [NI.CSharp.Analyzers nuget](https://www.nuget.org/packages/NI.CSharp.Analyzers/) to enforce C# style rules. As these rules will cause a Release build to fail, this should be sufficient for the CI to prevent improperly styled code from being submitted.
 
-Code formatting will be enfoced through the presence of an [EditorConfig](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/configuration-files#editorconfig) file which can be executed programmatically via the `dotnet format` command. We should be able to use this command for the `format` command specified in the package.json file.
+Code formatting will be enfoced through the presence of an [EditorConfig](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/configuration-files#editorconfig) file which can be executed programmatically via the "`dotnet format`" command. We should be able to use this command for the "`format`" command specified in the package.json file.
 
 #### _Prerequisite_
 
@@ -119,7 +119,7 @@ dotnet pack -p:PackageVersion:$packageVersion
 1. Can we basically copy the workflow from the above NimbleBlazor repo, and just update as needed?
 
     a. Can we use the same package (and thus artifact location)?
-2. Should we bump .NET version to v6 (this is what the Microsoft/fast-blazor uses)?
+2. Should we bump .NET version to v6 (this is what Microsoft/fast-blazor uses)?
 3. Microsoft/fast-blazor has other workflows in addition to cicd. Namely a "validate" workflow that appears to publish an example app and a codeql analysis workflow which is used to discover potential vulnerabilities.
 
 ### Testing
@@ -154,7 +154,7 @@ The projects under the root nimble workspace should ideally handle each of the r
 ## Alternative Implementations / Designs
 
 1. Regarding the publishing of the nuget, there are a few other approaches that I think can be easily dismissed:
-    - Require consumers to manually do their own `npm install` of @ni/nimble-components and import all of the necessary JS into their Blazor application as needed.
+    - Require consumers to manually do their own "`npm install`" of @ni/nimble-components and import all of the necessary JS into their Blazor application as needed.
         - While ultimately we want to support the workflow of allowing clients to only import the files they need, even to the point of documenting this workflow, _requiring_ this of the client seems unnecessary with other options available.
     - Require consumers to import our web components via a CDN (e.g. unpkg.com)
         - Giving clients access to our components via a CDN is extremely valuable, the value of which extends beyond just clients of Nimble Blazor, but, again, requiring it of our clients when other options are available violates our requirement for being able to serve an app when there is no internet access. The only step we're advocating for beyond the minimum necessary for the above is to package the minified file we would be producing for the CDN into the nuget itself, and documenting how to leverage that file in a consumer application.
