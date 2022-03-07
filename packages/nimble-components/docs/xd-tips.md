@@ -34,7 +34,7 @@ The visual design specs are stored in the [Nimble_Components Adobe XD Document](
 
 ![Zoom](/packages/nimble-components/docs/images/xd-zoom.png)
 
-3. Select a specific part by right clicking the part and choosing the layer of interest.
+3. Select a specific part by right-clicking the part and choosing the layer of interest.
 
 ![Parts](/packages/nimble-components/docs/images/xd-parts-menu.png)
 
