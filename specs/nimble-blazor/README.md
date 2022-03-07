@@ -42,7 +42,7 @@ Essentially fork Microsoft/fast-blazor, stripping it of all the unlreated APIs/i
 
 _Pros_:
 
-- We get to curate our APIs/implmentation to suit our needs
+- We get to curate our APIs/implementation to suit our needs
 
 _Cons_:
 
