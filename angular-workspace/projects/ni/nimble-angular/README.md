@@ -107,6 +107,12 @@ Angular's `fakeAsync` utility is useful for writing quickly-executing tests, but
 
 To avoid this, call `processUpdates()` after each `fakeAsync` test. This will synchronously process the internal queue and put it in a good state for subsequent tests. The `processUpdates()` method can also be called mid-test to synchronously complete operations which would otherwise require waiting for an animation frame.
 
+## Client Requirements
+
+The @ni/nimble-angular package is now compiled with Ivy. The consequence of this is that a client that wishes to use @ni/nimble-angular must also be compiled with Ivy. See [Angular docs](https://angular.io/guide/update-to-latest-version) for more information (see 'Removal of View Engine' section).
+
+While @ni/nimble-angular will strive to stay current on the most recent version of Angular, there will be some grace period to allow client applications time to make the migration before-hand (which is [required](https://angular.io/guide/creating-libraries#ensuring-library-version-compatibility) in order to use @ni/nimble-angular).
+
 ## Known Issues
 
 Currently the fast-animation library we depend on only exports CommonJS modules, which triggers an Angular project build warning (and potentially suboptimal bundle optimizations).
