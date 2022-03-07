@@ -7,8 +7,9 @@ import {
     borderWidth,
     controlHeight,
     iconSize,
-    passColor
+    placeholderFontColor
 } from '../theme-provider/design-tokens';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -18,18 +19,22 @@ export const styles = css`
         box-sizing: border-box;
         font: ${bodyFont};
         color: ${bodyFontColor};
-        padding-left: 4px;
+        padding-left: calc(4px - ${borderWidth});
     }
 
     .listitem {
-        line-height: ${controlHeight};
+        display: flex;
+        align-items: center;
     }
 
     .control {
-        color: ${bodyFontColor};
+        color: var(--ni-private-breadcrumb-link-font-color);
         cursor: default;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border: ${borderWidth} solid transparent;
-        padding: 4px 4px 0px 4px;
+        padding-right: calc(4px - ${borderWidth});
     }
 
     .control:link {
@@ -42,32 +47,37 @@ export const styles = css`
     }
 
     .control:active {
-        color: ${passColor};
+        color: var(--ni-private-breadcrumb-link-active-font-color);
         text-decoration: underline;
     }
 
-    .control:link:focus-within {
-        outline-color: ${borderHoverColor};
+    .control:link${focusVisible} {
+        border: ${borderWidth} solid ${borderHoverColor};
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: 1px;
     }
 
     .start,
     .end {
-        display: none;
+        display: flex;
+        align-items: center;
     }
 
-    .separator {
-        padding-left: 2px;
-        padding-right: 2px;
+    .start {
+        margin-inline-end: 4px;
+    }
+
+    slot[name='separator'] {
+        display: flex;
+        align-items: center;
     }
 
     slot[name='separator'] svg {
-        position: relative;
-        top: 4px;
         width: ${iconSize};
         height: ${iconSize};
     }
 
     slot[name='separator'] path {
-        fill: ${bodyFontColor};
+        fill: ${placeholderFontColor};
     }
 `;

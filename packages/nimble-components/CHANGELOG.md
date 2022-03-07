@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 02 Mar 2022 17:00:45 GMT and should not be manually modified.
+This log was last generated on Fri, 04 Mar 2022 21:15:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.1.2
+
+Fri, 04 Mar 2022 21:15:36 GMT
+
+### Patches
+
+- Add final styling for breadcrumb. nimble-breadcrumb allows swapping to 2nd style (swaps link regular/mousedown colors) via style-2 CSS class. (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.1
+
+Fri, 04 Mar 2022 20:46:39 GMT
+
+### Patches
+
+- Don't tie error display to invalid state (7282195+m-akinc@users.noreply.github.com)
 
 ## 6.1.0
 

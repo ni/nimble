@@ -101,14 +101,14 @@ Some takeaways from the example:
 
 - Note that selectors within groups are organized with the selectors that always apply first. For example the `:host {}` selector always applies, regardless of the state of the element, so it is first in the group. The rest are ordered based on the other recommendations in this document.
 
-- Note that the pseudo-elements are always grouped directly after their target element. For example with the above DOM structure we might expect the `::after` pseudo-element selector to be positioned right before `.end` based on the DOM order. 
+- Note that the pseudo-elements are always grouped directly after their target element. For example with the above DOM structure we might expect the `::after` pseudo-element selector to be positioned right before `.end` based on the DOM order.
 
    Instead psedo-elements are grouped with the target element so `.content::before {}` is immediately followed by `.content::after {}`.
 
 
 ## Prefer cascade for state changes
 
-If you find yourself in complex logic with lots of `:not()` selectors it's possible the code should be reorganized to leverage the CSS cascade for overriding states. 
+If you find yourself in complex logic with lots of `:not()` selectors it's possible the code should be reorganized to leverage the CSS cascade for overriding states.
 
 States should flow from plain control -> hover -> focus -> active -> error -> disabled (which overrides all the others).
 
@@ -154,6 +154,12 @@ const styles = css`
 `;
 ```
 
+## Avoid styling the `:invalid` pseudo-class
+
+When styling the invalid state of a form component, it may seem natural to use `:host(:invalid)` in the CSS selector. `:invalid` applies when the form validation has run (generally happens immediately) and failed on that component. The problem with styling based on this pseudo-class is that it prevents a client from having control over when the invalid styling is displayed. For example, if a required input is initially empty, it is common not to show the error styling until the user has changed the value (and subsequently left it empty).
+
+Instead of styling based on `:invalid`, use the class `invalid`. Then the client can create a binding to apply the `invalid` class based on the associated `FormControl`'s status properties, like `invalid`, `dirty`, and `touched`.
+
 ## Use FAST's `display` utility for styling host element
 
 For consistent styling, use FAST's `display` utility when setting a `display` style on the host element.
@@ -164,7 +170,7 @@ import { display } from '@microsoft/fast-foundation';
 
 export const styles = css`
     ${display('flex')}
-    
+
     :host { /* ... */ }
 `;
 ```

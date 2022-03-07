@@ -86,6 +86,7 @@ import {
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
+import { hexToRgbaCssColor } from '../utilities/style/colors';
 
 // Color Tokens
 export const actionRgbPartialColor = DesignToken.create<string>(
@@ -521,11 +522,6 @@ export const largeDelay = DesignToken.create<number>(
 function hexToRgbPartial(hexValue: string): string {
     const { red, green, blue } = hexRgb(hexValue);
     return `${red}, ${green}, ${blue}`;
-}
-
-function hexToRgbaCssColor(hexValue: string, alpha: number): string {
-    const { red, green, blue } = hexRgb(hexValue);
-    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
 function createFontTokens(
