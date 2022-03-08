@@ -116,11 +116,11 @@ dotnet pack -p:PackageVersion:$packageVersion
 
 #### Questions
 
-1. Can we basically copy the workflow from the above NimbleBlazor repo, and just update as needed?
+1. Can we basically copy the workflow from the above NimbleBlazor repo, and just update as needed? **Answer: Working theory is "yes".**
 
-    a. Can we use the same package (and thus artifact location)?
-2. Should we bump .NET version to v6 (this is what Microsoft/fast-blazor uses)?
-3. Microsoft/fast-blazor has other workflows in addition to cicd. Namely a "validate" workflow that appears to publish an example app and a codeql analysis workflow which is used to discover potential vulnerabilities.
+    a. Can we use the same package (and thus artifact location)? **Answer: Working theory is "yes".**
+2. Should we bump .NET version to v6 (this is what Microsoft/fast-blazor uses)? **Answer: yes.**
+3. Microsoft/fast-blazor has other workflows in addition to cicd. Namely a "validate" workflow that appears to publish an example app and a codeql analysis workflow which is used to discover potential vulnerabilities. **Answer: We can tinker with this as needed.**
 
 ### Testing
 
@@ -131,6 +131,7 @@ In addition to running unit tests, we want the Blazor repo to have a similar dev
 - Provide an example app that tests out each widget
 - Link to example app (WebAssembly version) from Storybook landing page
 - Run Lighthouse against the example app
+- Provide testing support to clients (e.g. test harnesses, mixins) where appropriate
 
 We will be able to execute the automated tests as part of the CI with the "`dotnet test`" command. We should be able to use this command for the workspace "`test`" command (as specified in the package.json file).
 
@@ -140,7 +141,7 @@ For more info see [Github docs](https://docs.github.com/en/actions/automating-bu
 
 The projects under the root nimble workspace should ideally handle each of the root commands. The following outlines the expected way we will support each command:
 - `build` : Run the ["`dotnet build`"](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build) command, or possibly the ["`dotnet msbuild`"](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-msbuild) command in order to set particular project settings (like the Version number to use).
-- `lint` : No CLI support. Linting enforced through building project in Release mode locally. Possibly issue command line warning to this effect.
+- `lint` : Possibly no CLI support. Linting enforced through building project in Release mode locally. Possibly issue command line warning to this effect. Investigate cited Github action that performs code analysis to see if we can leverage the method it uses.
 - `format` : Run the ["`dotnet format`"](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-format) command.
 - `test` : Run the ["`dotnet test`"](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test) command
 - `pack` : Run the ["`dotnet pack`"](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-pack) command
