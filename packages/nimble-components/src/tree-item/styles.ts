@@ -8,13 +8,15 @@ import {
 import { focusVisible } from '../utilities/style/focus';
 import {
     bodyFontColor,
+    bodyFontFamily,
+    bodyFontSize,
+    bodyFontWeight,
     borderHoverColor,
     fillSelectedColor,
     fillHoverColor,
     fillHoverSelectedColor,
     borderWidth,
-    iconSize,
-    bodyFont
+    iconSize
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
@@ -26,7 +28,8 @@ export const styles: (
         ${display('block')}
 
         :host {
-            font: ${bodyFont};
+            font-family: ${bodyFontFamily};
+            font-weight: ${bodyFontWeight};
             contain: content;
             position: relative;
             outline: none;
@@ -73,7 +76,6 @@ export const styles: (
         }
 
         .positioning-region::before {
-            font-size: 32px;
             content: '';
             display: block;
             width: var(--ni-private-tree-item-nested-width);
@@ -87,6 +89,7 @@ export const styles: (
             width: 100%;
             padding-left: 10px;
             font: inherit;
+            font-size: ${bodyFontSize};
             user-select: none;
         }
 
