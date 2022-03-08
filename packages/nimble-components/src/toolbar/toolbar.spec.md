@@ -25,7 +25,7 @@ There is no official visual spec for a nimble toolbar yet, but the design can be
     -   Styling of slots:
         -   'start' - left aligned with standard padding between components
         -   _default_ - centered between 'start' and 'end' with standard padding between components; it is unlikely this will be used in any/many designs
-        -   'end' - right aligned with standar padding between components
+        -   'end' - right aligned with standard padding between components
 
 ### Angular integration
 
