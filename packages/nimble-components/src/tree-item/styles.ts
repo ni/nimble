@@ -28,6 +28,9 @@ export const styles: (
         ${display('block')}
 
         :host {
+            ${
+                /* don't set font-size here or else it overrides what we set on .items */ ''
+            }
             font-family: ${bodyFontFamily};
             font-weight: ${bodyFontWeight};
             contain: content;
