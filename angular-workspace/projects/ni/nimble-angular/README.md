@@ -109,9 +109,9 @@ To avoid this, call `processUpdates()` after each `fakeAsync` test. This will sy
 
 ## Client Requirements
 
-The @ni/nimble-angular package is now compiled with Ivy. The consequence of this is that a client that wishes to use @ni/nimble-angular must also be compiled with Ivy. See [Angular docs](https://angular.io/guide/update-to-latest-version) for more information (see 'Removal of View Engine' section).
+The @ni/nimble-angular package is now compiled with Ivy. The consequence of this is that a client that wishes to use Nimble Angular must also be compiled with Ivy. See [Angular docs](https://angular.io/guide/update-to-latest-version) for more information (see 'Removal of View Engine' section).
 
-While @ni/nimble-angular will strive to stay current on the most recent version of Angular, there will be some grace period to allow client applications time to make the migration before-hand (which is [required](https://angular.io/guide/creating-libraries#ensuring-library-version-compatibility) in order to use @ni/nimble-angular).
+While Nimble Angular will strive to stay current on the most recent version of Angular, there will be some grace period to allow client applications time to make the migration before-hand (which is [required](https://angular.io/guide/creating-libraries#ensuring-library-version-compatibility) in order to use Nimble Angular).
 
 ## Known Issues
 
