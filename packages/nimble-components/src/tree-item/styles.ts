@@ -8,13 +8,15 @@ import {
 import { focusVisible } from '../utilities/style/focus';
 import {
     bodyFontColor,
+    bodyFontFamily,
+    bodyFontSize,
+    bodyFontWeight,
     borderHoverColor,
     fillSelectedColor,
     fillHoverColor,
     fillHoverSelectedColor,
     borderWidth,
-    iconSize,
-    bodyFont
+    iconSize
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
@@ -26,6 +28,11 @@ export const styles: (
         ${display('block')}
 
         :host {
+            ${
+                /* don't set font-size here or else it overrides what we set on .items */ ''
+            }
+            font-family: ${bodyFontFamily};
+            font-weight: ${bodyFontWeight};
             contain: content;
             position: relative;
             outline: none;
@@ -84,7 +91,8 @@ export const styles: (
             white-space: nowrap;
             width: 100%;
             padding-left: 10px;
-            font: ${bodyFont};
+            font: inherit;
+            font-size: ${bodyFontSize};
             user-select: none;
         }
 

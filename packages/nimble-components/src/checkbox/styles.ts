@@ -19,6 +19,7 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
+        font: ${buttonLabelFont};
         align-items: center;
         cursor: pointer;
         outline: none;
@@ -72,7 +73,7 @@ export const styles = css`
     }
 
     .label {
-        font: ${buttonLabelFont};
+        font: inherit;
         color: ${bodyFontColor};
         padding-left: 1ch;
         cursor: inherit;
