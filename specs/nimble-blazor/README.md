@@ -155,7 +155,7 @@ The projects under the root nimble workspace should ideally handle each of the r
 ## Alternative Implementations / Designs
 
 1. Regarding the publishing of the nuget, there are a few other approaches that I think can be easily dismissed:
-    - Require consumers to manually do their own "`npm install`" of @ni/nimble-components and import all of the necessary JS into their Blazor application as needed.
+    - Require consumers to manually do their own "`npm install`" of @ni/nimble-components and import all of the necessary JS into their Blazor application as needed. This is fairly atypical for a Blazor project, requiring it to have dependencies on npm and a packaging tool like webpack.
         - While ultimately we want to support the workflow of allowing clients to only import the files they need, even to the point of documenting this workflow, _requiring_ this of the client seems unnecessary with other options available.
     - Require consumers to import our web components via a CDN (e.g. unpkg.com)
         - Giving clients access to our components via a CDN is extremely valuable, the value of which extends beyond just clients of Nimble Blazor, but, again, requiring it of our clients when other options are available violates our requirement for being able to serve an app when there is no internet access. The only step we're advocating for beyond the minimum necessary for the above is to package the minified file we would be producing for the CDN into the nuget itself, and documenting how to leverage that file in a consumer application.
