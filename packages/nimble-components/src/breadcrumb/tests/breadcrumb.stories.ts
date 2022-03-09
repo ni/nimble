@@ -7,7 +7,7 @@ import { createRenderer } from '../../utilities/tests/storybook';
 
 interface BreadcrumbArgs {
     options: ItemArgs[];
-    useStyle2: boolean;
+    useProminentLinksStyle: boolean;
 }
 
 interface ItemArgs {
@@ -49,7 +49,7 @@ const noOpUrl = 'javascript:';
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-breadcrumb class="${x => (x.useStyle2 ? 'style-2' : '')}">
+        <nimble-breadcrumb class="${x => (x.useProminentLinksStyle ? 'prominent-links' : '')}">
             ${repeat(x => x.options, html<ItemArgs>`
                 <nimble-breadcrumb-item href="${x => x.href}" target="${x => x.target}">${x => x.label}</nimble-breadcrumb-item>
             `)}
@@ -63,9 +63,9 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 + 'With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page (with no `href` specified, '
                 + 'rendering with a bold font).'
         },
-        useStyle2: {
+        useProminentLinksStyle: {
             description:
-                'To use the Breadcrumb_2 theme (which swaps the default and active/mouseover link colors), add the CSS class `style-2` to the '
+                'To use the Breadcrumb_2 theme (which swaps the default and active/mouseover link colors), add the CSS class `prominent-links` to the '
                 + '`<nimble-breadcrumb>` element.'
         }
     },
@@ -83,7 +83,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 label: 'Current (No Link)'
             }
         ],
-        useStyle2: false
+        useProminentLinksStyle: false
     }
 };
 
