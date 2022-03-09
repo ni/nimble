@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 01 Mar 2022 16:07:33 GMT and should not be manually modified.
+This log was last generated on Wed, 09 Mar 2022 22:20:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.0.1
+
+Wed, 09 Mar 2022 22:20:03 GMT
+
+### Patches
+
+- Remove Roboto font from Nimble (7282195+m-akinc@users.noreply.github.com)
 
 ## 3.0.0
 
