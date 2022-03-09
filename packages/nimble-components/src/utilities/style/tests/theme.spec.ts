@@ -64,9 +64,13 @@ class ThemedElement extends FASTElement {
  */
 class ThemeController {
     @observable
-    public theme = Theme.Light;
+    public theme1 = Theme.Light;
 
-    public themedElement!: ThemedElement;
+    @observable
+    public theme2 = Theme.Light;
+
+    public themedElement1!: ThemedElement;
+    public themedElement2!: ThemedElement;
 }
 
 const setup = async (
@@ -87,8 +91,11 @@ const setup = async (
     FASTElement.define(ThemedElementVariation);
 
     const fixtureTemplate = html<ThemeController>`
-        <nimble-theme-provider theme=${x => x.theme}>
-            <${name} ${ref('themedElement')}></${name}>
+        <nimble-theme-provider theme=${x => x.theme1}>
+            <${name} ${ref('themedElement1')}></${name}>
+        </nimble-theme-provider>
+        <nimble-theme-provider theme=${x => x.theme2}>
+            <${name} ${ref('themedElement2')}></${name}>
         </nimble-theme-provider>
     `;
 
@@ -107,12 +114,40 @@ const themedElementTest = (
             const themeController = new ThemeController();
             const { connect } = await setup(themeController, styles);
             await connect();
-            themeController.theme = config.name;
+            themeController.theme1 = config.name;
             await DOM.nextUpdate();
-            expect(themeController.themedElement.getThemedStyle()).toBe(
+            expect(themeController.themedElement1.getThemedStyle()).toBe(
                 config.resolvedProperty
             );
         });
+    }
+
+    if (configs.length > 2) {
+        const config1 = configs[0]!;
+        const config2 = configs[1]!;
+        const themeNames = `${config1.name}/${config2.name}`;
+        const specType = getSpecTypeByNamedList(
+            { name: themeNames },
+            focused,
+            disabled
+        );
+        specType(
+            `Can respond to 2 different themes (${themeNames}) set on 2 elements`,
+            async () => {
+                const themeController = new ThemeController();
+                const { connect } = await setup(themeController, styles);
+                await connect();
+                themeController.theme1 = config1.name;
+                themeController.theme2 = config2.name;
+                await DOM.nextUpdate();
+                expect(themeController.themedElement1.getThemedStyle()).toBe(
+                    config1.resolvedProperty
+                );
+                expect(themeController.themedElement2.getThemedStyle()).toBe(
+                    config2.resolvedProperty
+                );
+            }
+        );
     }
 };
 
