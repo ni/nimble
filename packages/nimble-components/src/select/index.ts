@@ -54,6 +54,9 @@ class Select extends FoundationSelect {
         super.connectedCallback();
         // Call setPositioning() after this.forcedPosition is initialized.
         this.setPositioning();
+        // FAST sets the role to 'combobox' which is wrong and results in accessibility violations
+        // see https://github.com/microsoft/fast/issues/5725
+        this.removeAttribute('role');
     }
 }
 
