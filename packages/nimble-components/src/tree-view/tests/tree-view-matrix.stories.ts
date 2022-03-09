@@ -27,7 +27,8 @@ const metadata: Meta = {
         design: {
             artboardUrl: ''
         },
-        controls: { hideNoControlsWarning: true }
+        controls: { hideNoControlsWarning: true },
+        a11y: { disabled: true }
     }
 };
 
