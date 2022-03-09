@@ -754,37 +754,6 @@
     {
       "class": "collection",
       "type": "font",
-      "id": "e551d4a0-8120-4b7a-a66b-9ef5d2af7f19",
-      "name": "LegacyContent",
-      "last_updated": "2021-11-24T20:33:11.563Z",
-      "last_updated_by": "",
-      "description": "",
-      "tags": [],
-      "related_entity_ids": [],
-      "tokens": [
-        {
-          "id": "-weight",
-          "type": "custom",
-          "value": "",
-          "key": "weight"
-        },
-        {
-          "id": "-size",
-          "type": "custom",
-          "value": "",
-          "key": "size"
-        },
-        {
-          "id": "LegacyContent-family",
-          "type": "custom",
-          "value": "'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif",
-          "key": "family"
-        }
-      ]
-    },
-    {
-      "class": "collection",
-      "type": "font",
       "id": "8e01de43-9d42-4e7b-9e8b-c84746ce474f",
       "name": "ControlLabel_1_Chinese_Mac",
       "tags": [],
