@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Remove Roboto font from Nimble",
+  "packageName": "@ni/nimble-tokens",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
