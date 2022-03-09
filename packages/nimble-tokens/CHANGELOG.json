@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 09 Mar 2022 22:20:03 GMT",
+      "tag": "@ni/nimble-tokens_v3.0.1",
+      "version": "3.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "c8d1aa2f20eb073ba048fe485d781acb985cd0b9",
+            "comment": "Remove Roboto font from Nimble"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Mar 2022 16:07:33 GMT",
       "tag": "@ni/nimble-tokens_v3.0.0",
       "version": "3.0.0",
