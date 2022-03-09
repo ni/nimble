@@ -37,4 +37,4 @@ An angular directive will be created for the toolbar. It will be very lightweigh
 
 ## Open Issues
 
--   There is currently a bug with the FAST toolbar related to keyboard navigation and disabled buttons. An issue will be created to FAST for this, and we can possibly upstream a fix ourselves.
+-   There is currently a bug with the FAST toolbar related to keyboard navigation and disabled buttons. An [issue](https://github.com/microsoft/fast/issues/5723) has been created to FAST, and we can attempt to upstream a fix for this if necessary.
