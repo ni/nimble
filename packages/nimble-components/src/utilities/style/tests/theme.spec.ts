@@ -102,8 +102,13 @@ const setup = async (
     return fixture<ThemeProvider>(fixtureTemplate, { source: themeController });
 };
 
+interface ThemeConfig {
+    name: Theme;
+    resolvedProperty: string;
+}
+
 const themedElementTest = (
-    configs: { name: Theme, resolvedProperty: string }[],
+    configs: ThemeConfig[],
     focused: Theme[],
     disabled: Theme[],
     styles: ElementStyles
@@ -121,30 +126,34 @@ const themedElementTest = (
             );
         });
     }
+};
 
-    if (configs.length > 2) {
-        const config1 = configs[0]!;
-        const config2 = configs[1]!;
-        const themeNames = `${config1.name}/${config2.name}`;
-        const specType = getSpecTypeByNamedList(
-            { name: themeNames },
-            focused,
-            disabled
-        );
+const independentThemedElementTest = (
+    configs: {
+        name: string,
+        theme1: ThemeConfig,
+        theme2: ThemeConfig
+    }[],
+    focused: string[],
+    disabled: string[],
+    styles: ElementStyles
+): void => {
+    for (const config of configs) {
+        const specType = getSpecTypeByNamedList(config, focused, disabled);
         specType(
-            `Can respond to 2 different themes (${themeNames}) set on 2 elements`,
+            `Can respond to multiple/different themes (${config.name}) set on multiple elements`,
             async () => {
                 const themeController = new ThemeController();
                 const { connect } = await setup(themeController, styles);
                 await connect();
-                themeController.theme1 = config1.name;
-                themeController.theme2 = config2.name;
+                themeController.theme1 = config.theme1.name;
+                themeController.theme2 = config.theme2.name;
                 await DOM.nextUpdate();
                 expect(themeController.themedElement1.getThemedStyle()).toBe(
-                    config1.resolvedProperty
+                    config.theme1.resolvedProperty
                 );
                 expect(themeController.themedElement2.getThemedStyle()).toBe(
-                    config2.resolvedProperty
+                    config.theme2.resolvedProperty
                 );
             }
         );
@@ -246,5 +255,28 @@ describe('The ThemeStylesheetBehavior', () => {
             Theme.Light
         );
         themedElementTest(configs, focused, disabled, styles);
+    });
+
+    describe('for unaliased options and multiple active themes', () => {
+        const configs = [
+            {
+                name: 'light-dark',
+                theme1: { name: Theme.Light, resolvedProperty: 'style-light' },
+                theme2: { name: Theme.Dark, resolvedProperty: 'style-dark' }
+            },
+            {
+                name: 'dark-color',
+                theme1: { name: Theme.Dark, resolvedProperty: 'style-dark' },
+                theme2: { name: Theme.Color, resolvedProperty: 'style-color' }
+            }
+        ];
+        const focused: Theme[] = [];
+        const disabled: Theme[] = [];
+        const styles = ThemedElement.createStyle(
+            ThemedElement.createThemeStyle('style-light'),
+            ThemedElement.createThemeStyle('style-dark'),
+            ThemedElement.createThemeStyle('style-color')
+        );
+        independentThemedElementTest(configs, focused, disabled, styles);
     });
 });
