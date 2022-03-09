@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Change nimble-breadcrumb CSS class from \"style-2\" to \"prominent-links\" (to get alt link color style); add that style to breadcrumb theme matrix",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
