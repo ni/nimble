@@ -23,7 +23,8 @@ const metadata: Meta = {
             artboardUrl:
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b/specs'
         },
-        controls: { hideNoControlsWarning: true }
+        controls: { hideNoControlsWarning: true },
+        a11y: { disabled: true }
     }
 };
 

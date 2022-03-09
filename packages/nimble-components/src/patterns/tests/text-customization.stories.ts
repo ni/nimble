@@ -5,7 +5,8 @@ import { createRenderer } from '../../utilities/tests/storybook';
 const metadata: Meta = {
     title: 'Tests/Text Customization',
     parameters: {
-        controls: { hideNoControlsWarning: true }
+        controls: { hideNoControlsWarning: true },
+        a11y: { disabled: true }
     }
 };
 
