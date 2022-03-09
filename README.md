@@ -97,3 +97,4 @@ NOTE: To update the component status:
 | Banners | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/29c405f7-08ea-48b6-973f-546970b9dbab) | :o: | :o: | :o: |
 | Icons | | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/icons--component-icons) | :o: | :o: |
 | Tree View | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tree-view--tree-view) | :white_check_mark: | :o: |
+| Breadcrumb | [XD](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e/specs/) | 	[:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/breadcrumb--standard-breadcrumb) | :white_check_mark: | :o: |
