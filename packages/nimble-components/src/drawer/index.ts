@@ -229,7 +229,6 @@ class Drawer extends FoundationDialog {
 
 const nimbleDrawer = Drawer.compose({
     baseName: 'drawer',
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

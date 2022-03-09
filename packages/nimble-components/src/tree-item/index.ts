@@ -77,14 +77,17 @@ class TreeItem extends FoundationTreeItem {
         if ((leavesOnly && !hasChildren) || !leavesOnly) {
             // if either a leaf tree item, or in a mode that supports select on groups,
             // process click as a select
-            if (!this.selected) {
-                this.selected = true;
-                this.$emit('selected-change', this);
+            if (
+                this.treeView?.currentSelected instanceof FoundationTreeItem
+                && this !== this.treeView?.currentSelected
+            ) {
+                this.treeView.currentSelected.selected = false;
             }
+
+            this.selected = true;
         } else {
             // implicit hasChildren && leavesOnly, so only allow expand/collapse, not select
             this.expanded = !this.expanded;
-            this.$emit('expanded-change', this);
         }
 
         // don't allow base class to process click event
@@ -145,7 +148,6 @@ class TreeItem extends FoundationTreeItem {
 const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseName: 'tree-item',
     baseClass: FoundationTreeItem,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     // @ts-expect-error FAST styles have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     styles,
