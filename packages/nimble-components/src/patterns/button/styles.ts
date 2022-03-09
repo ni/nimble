@@ -59,8 +59,7 @@ export const styles = css`
         justify-content: center;
         gap: 4px;
         cursor: inherit;
-        font-family: inherit;
-        font-size: inherit;
+        font: inherit;
         outline: none;
         margin: 0;
         padding: 0 ${standardPadding};

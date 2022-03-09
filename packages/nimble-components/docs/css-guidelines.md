@@ -136,6 +136,9 @@ When stepping back try to start at the top-level of the control which is likely 
 
 Some elements are used just for their function such as the `<nimble-theme-provider>` and `<slot>` elements. Those elements should not generally be part of layout and given sizing, etc that is important. Instead they should stay `display: contents` and let their children participate in layout and styling.
 
+## Consider whether text content should be stylable by clients
+For controls that display text content, consider whether the client should be allowed to apply custom font properties to that text. For example, a client can set `font-style: italic` on the `nimble-text-field` or `nimble-number-field` to italicize the value. To support this, set the default font properties on the host element, and use `font: inherit` on the element actually displaying the text.
+
 ## Comments
 
 To comment on CSS inside the `css` tagged template helper, use template literal strings with an empty string. This helps minified code output.

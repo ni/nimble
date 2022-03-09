@@ -13,7 +13,8 @@ const metadata: Meta = {
     title: 'Tests/Icon',
     decorators: [withXD],
     parameters: {
-        controls: { hideNoControlsWarning: true }
+        controls: { hideNoControlsWarning: true },
+        a11y: { disabled: true }
     }
 };
 
