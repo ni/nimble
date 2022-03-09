@@ -32,7 +32,10 @@ const breadcrumbStyleStates: BreadcrumbStyleState[] = [
     ['', ''],
     [' (Prominent Links style)', 'prominent-links']
 ];
-const component = ([linkHrefName, href]: LinkHrefState, [styleStateName, style]: BreadcrumbStyleState): ViewTemplate => html`
+const component = (
+    [linkHrefName, href]: LinkHrefState,
+    [styleStateName, style]: BreadcrumbStyleState
+): ViewTemplate => html`
     <nimble-breadcrumb class="${() => style}">
         <nimble-breadcrumb-item href="${() => href}">
             ${() => `Breadcrumb${styleStateName} - ${linkHrefName}`}
@@ -40,7 +43,9 @@ const component = ([linkHrefName, href]: LinkHrefState, [styleStateName, style]:
     </nimble-breadcrumb>
 `;
 export const breadcrumbThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [linkHrefStates, breadcrumbStyleStates]))
+    themeWrapper(
+        createMatrix(component, [linkHrefStates, breadcrumbStyleStates])
+    )
 );
 
 export const hiddenBreadcrumb: Story = createRenderer(
