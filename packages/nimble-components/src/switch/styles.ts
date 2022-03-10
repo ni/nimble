@@ -60,6 +60,7 @@ export const styles = css`
         background-color: ${fillHoverColor};
         border-radius: 12px;
         align-items: center;
+        border: calc(${borderWidth} * 2) solid transparent;
     }
 
     :host([disabled]) .switch {
@@ -67,7 +68,7 @@ export const styles = css`
     }
 
     :host(${focusVisible}) .switch {
-        border: 2px solid ${borderHoverColor};
+        border-color: ${borderHoverColor};
     }
 
     .checked-indicator-spacer {
