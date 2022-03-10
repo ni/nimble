@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 08 Mar 2022 16:17:42 GMT and should not be manually modified.
+This log was last generated on Thu, 10 Mar 2022 19:42:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.1.5
+
+Thu, 10 Mar 2022 19:42:54 GMT
+
+### Patches
+
+- Fix bug where incorrect theme can be applied to breadcrumb/textfield if 2 theme providers/ themes are active on a page (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.4
+
+Wed, 09 Mar 2022 22:20:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.1
 
 ## 6.1.3
 

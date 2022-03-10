@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import '..';
 import '../../tree-item';
 import '../../icons/database';
@@ -29,15 +28,11 @@ expanded to reveal the contents of the folder, which may be files, folders, or b
 
 const metadata: Meta<TreeArgs> = {
     title: 'Tree View',
-    decorators: [withXD],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl: ''
         },
         actions: {
             handles: ['expanded-change', 'selected-change']
