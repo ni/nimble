@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix bug where incorrect theme can be applied to breadcrumb/textfield if 2 theme providers/ themes are active on a page",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
