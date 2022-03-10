@@ -1,7 +1,7 @@
 <svg id="Inputs_Text_Outline_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="48" viewBox="0 0 176 48">
   <defs>
     <clipPath id="clip-path">
-      <rect y="1" width="136" height="17" fill="none"/>
+      <rect id="Rectangle_10778" data-name="Rectangle 10778" width="136" height="18" transform="translate(0 -0.001)" fill="#fff" stroke="#707070" stroke-width="1"/>
     </clipPath>
     <clipPath id="clip-path-2">
       <rect id="Clipping_Mask" data-name="Clipping Mask" width="176" height="14" fill="none"/>
@@ -16,7 +16,7 @@
     <rect id="Rollover" width="2" height="2" transform="translate(86 23.499)" fill="#009b65" opacity="0"/>
   </g>
   <g id="Stacks_Group" data-name="Stacks Group" transform="translate(0 17)">
-    <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(8 6.001)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <g id="Mask_Group_5" data-name="Mask Group 5" transform="translate(8 6.001)" clip-path="url(#clip-path)">
       <text id="Placeholder" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro" opacity="0.6"><tspan x="0" y="0">Placeholder</tspan></text>
     </g>
     <g id="Error" opacity="0">

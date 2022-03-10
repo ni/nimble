@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
@@ -21,8 +20,7 @@ interface IconArgs {
 }
 
 const metadata: Meta<IconArgs> = {
-    title: 'Icons',
-    decorators: [withXD]
+    title: 'Icons'
 };
 
 export default metadata;
