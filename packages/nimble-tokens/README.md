@@ -28,7 +28,7 @@ To add the Nimble tokens package to your application, install it from [the publi
 
 ### Understanding Base Color Tokens
 
-You can [view the available color tokens here](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/fed406fd-7568-40a9-8b1a-359f54c23186/). To understand their meaning, explore other pages of the document in Specs Mode (click the `</>` icon on the right side) and view how color tokens are applied to Nimble components.
+You can [view the available color tokens here](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/fed406fd-7568-40a9-8b1a-359f54c23186/). To understand their meaning, explore other pages of the document in Specs Mode (click the `</>` icon on the right side) and view how color tokens are applied to Nimble components.
 
 ### Using Base Tokens
 

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
@@ -35,15 +34,11 @@ interface TokenArgs {
 
 const metadata: Meta = {
     title: 'Tokens/Property Names',
-    decorators: [withXD],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl: ''
         }
     }
 };

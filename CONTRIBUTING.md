@@ -15,7 +15,7 @@ This repository uses the following tooling. See below for more info.
 - [Design System HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Design%20System%20for%20Angular%20and%20Blazor%20UI%20Components.md&version=GBmaster&_a=preview)
 - [Nimble Angular HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Nimble%20Angular.md&version=GBmaster&_a=preview)
 - [Nimble architecture](/docs/Architecture.md)
-- [Nimble Components XD Library](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/)
+- [Nimble Components XD Library](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/)
 
 ## Getting started
 
