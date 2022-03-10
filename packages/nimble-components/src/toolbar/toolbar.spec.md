@@ -8,7 +8,7 @@ The `nimble-toolbar` will provide a layout mechanism for combining other compone
 
 [FAST toolbar example](https://explore.fast.design/components/fast-toolbar)
 
-There is no official visual spec for a nimble toolbar yet, but the design can be adapted from the [Systems Management grid visual spec](https://xd.adobe.com/view/63af23a9-b25f-484c-9fb6-ba387ddf3b54-36fc).
+There is no official visual spec for a nimble toolbar yet, but the design can be adapted from the [Systems Management grid visual spec](https://xd.adobe.com/view/63af23a9-b25f-484c-9fb6-ba387ddf3b54-36fc/screen/d526239a-35fd-4ec2-82c2-2fe13474bca0/).
 
 ## Design
 
