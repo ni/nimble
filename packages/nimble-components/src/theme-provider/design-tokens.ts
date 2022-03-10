@@ -172,7 +172,9 @@ export const switchIndicatorBackgroundColor = DesignToken.create<string>(
 ));
 
 export const switchIndicatorBackgroundDisabledColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.switchIndicatorBackgroundDisabledColor)
+    styleNameFromTokenName(
+        tokenNames.switchIndicatorBackgroundDisabledColor
+    )
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, White, Black91, White), 0.1));
 
 export const switchIndicatorBorderColor = DesignToken.create<string>(

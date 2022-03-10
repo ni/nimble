@@ -15,7 +15,7 @@ declare global {
 }
 
 /**
- * A nimble-styled toggle button control.
+ * A nimble-styled switch control.
  */
 class Switch extends FoundationSwitch {}
 
