@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 09 Mar 2022 22:20:03 GMT and should not be manually modified.
+This log was last generated on Thu, 10 Mar 2022 19:42:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.0.2
+
+Thu, 10 Mar 2022 19:42:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.5
 
 ## 4.0.1
 

@@ -64,9 +64,13 @@ class ThemedElement extends FASTElement {
  */
 class ThemeController {
     @observable
-    public theme = Theme.Light;
+    public theme1 = Theme.Light;
 
-    public themedElement!: ThemedElement;
+    @observable
+    public theme2 = Theme.Light;
+
+    public themedElement1!: ThemedElement;
+    public themedElement2!: ThemedElement;
 }
 
 const setup = async (
@@ -87,16 +91,24 @@ const setup = async (
     FASTElement.define(ThemedElementVariation);
 
     const fixtureTemplate = html<ThemeController>`
-        <nimble-theme-provider theme=${x => x.theme}>
-            <${name} ${ref('themedElement')}></${name}>
+        <nimble-theme-provider theme=${x => x.theme1}>
+            <${name} ${ref('themedElement1')}></${name}>
+        </nimble-theme-provider>
+        <nimble-theme-provider theme=${x => x.theme2}>
+            <${name} ${ref('themedElement2')}></${name}>
         </nimble-theme-provider>
     `;
 
     return fixture<ThemeProvider>(fixtureTemplate, { source: themeController });
 };
 
+interface ThemeConfig {
+    name: Theme;
+    resolvedProperty: string;
+}
+
 const themedElementTest = (
-    configs: { name: Theme, resolvedProperty: string }[],
+    configs: ThemeConfig[],
     focused: Theme[],
     disabled: Theme[],
     styles: ElementStyles
@@ -107,12 +119,44 @@ const themedElementTest = (
             const themeController = new ThemeController();
             const { connect } = await setup(themeController, styles);
             await connect();
-            themeController.theme = config.name;
+            themeController.theme1 = config.name;
             await DOM.nextUpdate();
-            expect(themeController.themedElement.getThemedStyle()).toBe(
+            expect(themeController.themedElement1.getThemedStyle()).toBe(
                 config.resolvedProperty
             );
         });
+    }
+};
+
+const independentThemedElementTest = (
+    configs: {
+        name: string,
+        theme1: ThemeConfig,
+        theme2: ThemeConfig
+    }[],
+    focused: string[],
+    disabled: string[],
+    styles: ElementStyles
+): void => {
+    for (const config of configs) {
+        const specType = getSpecTypeByNamedList(config, focused, disabled);
+        specType(
+            `Can respond to multiple/different themes (${config.name}) set on multiple elements`,
+            async () => {
+                const themeController = new ThemeController();
+                const { connect } = await setup(themeController, styles);
+                await connect();
+                themeController.theme1 = config.theme1.name;
+                themeController.theme2 = config.theme2.name;
+                await DOM.nextUpdate();
+                expect(themeController.themedElement1.getThemedStyle()).toBe(
+                    config.theme1.resolvedProperty
+                );
+                expect(themeController.themedElement2.getThemedStyle()).toBe(
+                    config.theme2.resolvedProperty
+                );
+            }
+        );
     }
 };
 
@@ -211,5 +255,28 @@ describe('The ThemeStylesheetBehavior', () => {
             Theme.Light
         );
         themedElementTest(configs, focused, disabled, styles);
+    });
+
+    describe('for unaliased options and multiple active themes', () => {
+        const configs = [
+            {
+                name: 'light-dark',
+                theme1: { name: Theme.Light, resolvedProperty: 'style-light' },
+                theme2: { name: Theme.Dark, resolvedProperty: 'style-dark' }
+            },
+            {
+                name: 'dark-color',
+                theme1: { name: Theme.Dark, resolvedProperty: 'style-dark' },
+                theme2: { name: Theme.Color, resolvedProperty: 'style-color' }
+            }
+        ];
+        const focused: Theme[] = [];
+        const disabled: Theme[] = [];
+        const styles = ThemedElement.createStyle(
+            ThemedElement.createThemeStyle('style-light'),
+            ThemedElement.createThemeStyle('style-dark'),
+            ThemedElement.createThemeStyle('style-color')
+        );
+        independentThemedElementTest(configs, focused, disabled, styles);
     });
 });
