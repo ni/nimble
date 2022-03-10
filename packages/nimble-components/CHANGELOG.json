@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 10 Mar 2022 19:42:54 GMT",
+      "tag": "@ni/nimble-components_v6.1.5",
+      "version": "6.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6c3e02d8c6a58f778ea81499bcb00e7f511887af",
+            "comment": "Fix bug where incorrect theme can be applied to breadcrumb/textfield if 2 theme providers/ themes are active on a page"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 10 Mar 2022 19:18:43 GMT",
       "tag": "@ni/nimble-components_v6.1.4",
       "version": "6.1.4",
