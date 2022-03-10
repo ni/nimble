@@ -95,7 +95,7 @@ const metadata: Meta<TextAreaArgs> = {
         resize: TextAreaResize.both,
         rows: 3,
         cols: 20,
-        maxlength: 100
+        maxlength: 500
     }
 };
 
