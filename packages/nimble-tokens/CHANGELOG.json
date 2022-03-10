@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 10 Mar 2022 20:42:23 GMT",
+      "tag": "@ni/nimble-tokens_v3.0.1",
+      "version": "3.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ffc8c9b1750c7dba7b02a2adb4ed160d427b6edc",
+            "comment": "Update XD library URL and component table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 09 Mar 2022 22:20:03 GMT",
       "tag": "@ni/nimble-tokens_v3.0.1",
       "version": "3.0.1",
