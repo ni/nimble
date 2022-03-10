@@ -1,6 +1,22 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyDisabledFontColor, bodyFont, bodyFontColor, borderHoverColor, borderWidth, controlLabelDisabledFontColor, controlLabelFont, controlLabelFontColor, fillHoverColor, smallDelay, switchBackgroundDisabledColor, switchIndicatorBackgroundColor, switchIndicatorBackgroundDisabledColor, switchIndicatorBorderColor, switchIndicatorBorderDisabledColor } from '../theme-provider/design-tokens';
+import {
+    bodyDisabledFontColor,
+    bodyFont,
+    bodyFontColor,
+    borderHoverColor,
+    borderWidth,
+    controlLabelDisabledFontColor,
+    controlLabelFont,
+    controlLabelFontColor,
+    fillHoverColor,
+    smallDelay,
+    switchBackgroundDisabledColor,
+    switchIndicatorBackgroundColor,
+    switchIndicatorBackgroundDisabledColor,
+    switchIndicatorBorderColor,
+    switchIndicatorBorderDisabledColor
+} from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
@@ -15,7 +31,7 @@ export const styles = css`
 
     :host([disabled]) {
         cursor: default;
-        color: ${bodyDisabledFontColor}
+        color: ${bodyDisabledFontColor};
     }
 
     .label {
@@ -32,7 +48,7 @@ export const styles = css`
         align-items: center;
     }
 
-    ::slotted([slot=unchecked-message]) {
+    ::slotted([slot='unchecked-message']) {
         margin-inline-end: 8px;
     }
 
@@ -56,12 +72,12 @@ export const styles = css`
 
     .checked-indicator-spacer {
         flex-grow: 0;
-        transition: flex-grow ${smallDelay} ease-in-out
+        transition: flex-grow ${smallDelay} ease-in-out;
     }
 
-    :host([aria-checked="true"]) .checked-indicator-spacer {
+    :host([aria-checked='true']) .checked-indicator-spacer {
         flex-grow: 1;
-        transition: flex-grow ${smallDelay} ease-in-out
+        transition: flex-grow ${smallDelay} ease-in-out;
     }
 
     .checked-indicator {
@@ -85,7 +101,7 @@ export const styles = css`
         background-color: ${switchIndicatorBackgroundDisabledColor};
         border: ${borderWidth} solid ${switchIndicatorBorderDisabledColor};
     }
-    
+
     :host(${focusVisible}) .checked-indicator {
         border: ${borderWidth} solid ${borderHoverColor};
     }
@@ -103,17 +119,17 @@ export const styles = css`
         background-color: ${switchIndicatorBorderDisabledColor};
     }
 
-    :host([aria-checked="true"]) .checked-indicator-inner {
+    :host([aria-checked='true']) .checked-indicator-inner {
         opacity: 1;
         transition: opacity ${smallDelay} ease-in-out;
     }
 
-    ::slotted([slot=checked-message]) {
+    ::slotted([slot='checked-message']) {
         margin-inline-start: 8px;
     }
 
     @media (prefers-reduced-motion) {
-        .checked-indicator-inner, 
+        .checked-indicator-inner,
         .checked-indicator-spacer {
             transition-duration: 0s;
         }

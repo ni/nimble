@@ -63,11 +63,7 @@ const component = (
 
 export const switchThemeMatrix: Story = createRenderer(
     themeWrapper(
-        createMatrix(component, [
-            checkedStates,
-            disabledStates,
-            messagesStates
-        ])
+        createMatrix(component, [checkedStates, disabledStates, messagesStates])
     )
 );
 

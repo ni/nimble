@@ -5,9 +5,7 @@ import '..';
 import type { Switch } from '..';
 
 async function setup(): Promise<Fixture<Switch>> {
-    return fixture<Switch>(
-        html`<nimble-switch></nimble-switch>`
-    );
+    return fixture<Switch>(html`<nimble-switch></nimble-switch>`);
 }
 
 describe('Switch', () => {
@@ -161,7 +159,9 @@ describe('Switch', () => {
             await connect();
 
             expect(
-                element.shadowRoot?.querySelector('label')?.classList.contains('label')
+                element.shadowRoot
+                    ?.querySelector('label')
+                    ?.classList.contains('label')
             ).toBe(true);
 
             await disconnect();
@@ -171,7 +171,9 @@ describe('Switch', () => {
             await connect();
 
             expect(
-                element.shadowRoot?.querySelector('label')?.classList.contains('label')
+                element.shadowRoot
+                    ?.querySelector('label')
+                    ?.classList.contains('label')
             ).toBe(true);
             expect(
                 element.shadowRoot
@@ -203,7 +205,7 @@ describe('Switch', () => {
         it('should fire an event when spacebar is invoked', async () => {
             let wasInvoked = false;
             const event = new KeyboardEvent('keydown', {
-                key: keySpace,
+                key: keySpace
             } as KeyboardEventInit);
             await connect();
 
@@ -222,7 +224,7 @@ describe('Switch', () => {
         it('should fire an event when enter is invoked', async () => {
             let wasInvoked = false;
             const event = new KeyboardEvent('keydown', {
-                key: keyEnter,
+                key: keyEnter
             } as KeyboardEventInit);
             await connect();
 
