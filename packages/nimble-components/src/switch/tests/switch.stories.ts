@@ -31,7 +31,7 @@ const metadata: Meta<SwitchArgs> = {
         },
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
+                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs'
         },
         actions: {
             handles: ['change']
