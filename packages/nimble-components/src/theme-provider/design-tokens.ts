@@ -158,6 +158,26 @@ export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
 
+export const switchBackgroundDisabledColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.switchBackgroundDisabledColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.07));
+
+export const switchIndicatorBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.switchIndicatorBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, hexToRgbaCssColor(Black91, 0.3), hexToRgbaCssColor(White, 0.1)));
+
+export const switchIndicatorBackgroundDisabledColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.switchIndicatorBackgroundColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, White, Black91, White), 0.1));
+
+export const switchIndicatorBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.switchIndicatorBorderColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black7, White));
+
+export const switchIndicatorBorderDisabledColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.switchIndicatorBorderDisabledColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black7, White), 0.3));
+
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlHeight)
