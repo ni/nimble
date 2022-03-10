@@ -1,10 +1,10 @@
-<svg id="Inputs_Radio_16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="136" height="16" viewBox="0 0 136 16">
+<svg id="Inputs_Radio_16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="16" viewBox="0 0 176 16">
   <defs>
     <clipPath id="clip-path">
-      <rect y="1" width="112" height="16" fill="none"/>
+      <rect id="Rectangle_10833" data-name="Rectangle 10833" width="152" height="16" transform="translate(0 1)" fill="#fff" stroke="#707070" stroke-width="1"/>
     </clipPath>
   </defs>
-  <g id="Scroll_Group_22" data-name="Scroll Group 22" transform="translate(24 -1)" clip-path="url(#clip-path)" style="isolation: isolate">
+  <g id="Mask_Group_63" data-name="Mask Group 63" transform="translate(24 -1)" clip-path="url(#clip-path)">
     <text id="Option_label" data-name="Option label" transform="translate(0 14)" fill="#161617" font-size="12.8" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Option label</tspan></text>
   </g>
   <g id="Control_Group" data-name="Control Group" transform="translate(0 -1)">

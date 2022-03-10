@@ -1,16 +1,16 @@
 <svg id="LineItemStack_Text_Ghost_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="168" height="96" viewBox="0 0 168 96">
   <defs>
     <clipPath id="clip-path">
-      <rect y="1" width="136" height="16" fill="none"/>
+      <rect id="Rectangle_10834" data-name="Rectangle 10834" width="136" height="18" fill="#fff" stroke="#707070" stroke-width="1" opacity="0"/>
     </clipPath>
   </defs>
   <g id="MenuLineItem_Component" transform="translate(0 64)">
     <g id="Background_Group" data-name="Background Group">
       <rect id="Background_Fill_1" data-name="Background Fill 1" width="168" height="32" fill="#161617" opacity="0"/>
-      <rect id="Rollover" width="168" height="1" transform="translate(0 31)" fill="#161617" opacity="0"/>
-      <rect id="Selected" width="168" height="1" transform="translate(0 31)" fill="#00b888" opacity="0"/>
+      <rect id="Rollover" width="168" height="32" fill="#161617" opacity="0"/>
+      <rect id="Selected" width="168" height="32" fill="#00b888" opacity="0"/>
     </g>
-    <g id="Scroll_Group_13" data-name="Scroll Group 13" transform="translate(4 6)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <g id="Mask_Group_65" data-name="Mask Group 65" transform="translate(4 6)" clip-path="url(#clip-path)">
       <text id="Line_item" data-name="Line item" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Line item</tspan></text>
     </g>
     <g id="ErrorLocation" transform="translate(-45)">
@@ -18,7 +18,7 @@
         <rect width="16" height="16" stroke="none"/>
         <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
       </g>
-      <g id="Controls_Error_16x16" transform="translate(201 16)" opacity="0">
+      <g id="Controls_Error_16x16" transform="translate(200 11)" opacity="0">
         <path id="Path_9276" data-name="Path 9276" d="M.046,8.227H2.759V10H.046ZM0,0,.309,7.119H2.5L2.807,0Z" fill="#c42126"/>
       </g>
     </g>
@@ -26,10 +26,10 @@
   <g id="MenuLineItem_Component-2" data-name="MenuLineItem_Component" transform="translate(0 32)">
     <g id="Background_Group-2" data-name="Background Group">
       <rect id="Background_Fill_1-2" data-name="Background Fill 1" width="168" height="32" fill="#161617" opacity="0"/>
-      <rect id="Rollover-2" data-name="Rollover" width="168" height="1" transform="translate(0 31)" fill="#161617" opacity="0"/>
-      <rect id="Selected-2" data-name="Selected" width="168" height="1" transform="translate(0 31)" fill="#00b888" opacity="0"/>
+      <rect id="Rollover-2" data-name="Rollover" width="168" height="32" fill="#161617" opacity="0"/>
+      <rect id="Selected-2" data-name="Selected" width="168" height="32" fill="#00b888" opacity="0"/>
     </g>
-    <g id="Scroll_Group_13-2" data-name="Scroll Group 13" transform="translate(4 6)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <g id="Mask_Group_65-2" data-name="Mask Group 65" transform="translate(4 6)" clip-path="url(#clip-path)">
       <text id="Line_item-2" data-name="Line item" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Line item</tspan></text>
     </g>
     <g id="ErrorLocation-3" data-name="ErrorLocation" transform="translate(-45)">
@@ -37,7 +37,7 @@
         <rect width="16" height="16" stroke="none"/>
         <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
       </g>
-      <g id="Controls_Error_16x16-2" data-name="Controls_Error_16x16" transform="translate(201 16)" opacity="0">
+      <g id="Controls_Error_16x16-2" data-name="Controls_Error_16x16" transform="translate(200 11)" opacity="0">
         <path id="Path_9276-2" data-name="Path 9276" d="M.046,8.227H2.759V10H.046ZM0,0,.309,7.119H2.5L2.807,0Z" fill="#c42126"/>
       </g>
     </g>
@@ -46,9 +46,9 @@
     <g id="Background_Group-3" data-name="Background Group">
       <rect id="Background_Fill_1-3" data-name="Background Fill 1" width="168" height="32" fill="#161617" opacity="0"/>
       <rect id="Rollover-3" data-name="Rollover" width="168" height="1" transform="translate(0 31)" fill="#161617" opacity="0"/>
-      <rect id="Selected-3" data-name="Selected" width="168" height="1" transform="translate(0 31)" fill="#00b888" opacity="0"/>
+      <rect id="Selected-3" data-name="Selected" width="168" height="32" fill="#009b65" opacity="0.2"/>
     </g>
-    <g id="Scroll_Group_13-3" data-name="Scroll Group 13" transform="translate(4 6)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <g id="Mask_Group_65-3" data-name="Mask Group 65" transform="translate(4 6)" clip-path="url(#clip-path)">
       <text id="Line_item-3" data-name="Line item" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Line item</tspan></text>
     </g>
     <g id="ErrorLocation-5" data-name="ErrorLocation" transform="translate(-45)">
@@ -56,7 +56,7 @@
         <rect width="16" height="16" stroke="none"/>
         <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
       </g>
-      <g id="Controls_Error_16x16-3" data-name="Controls_Error_16x16" transform="translate(201 16)" opacity="0">
+      <g id="Controls_Error_16x16-3" data-name="Controls_Error_16x16" transform="translate(200 11)" opacity="0">
         <path id="Path_9276-3" data-name="Path 9276" d="M.046,8.227H2.759V10H.046ZM0,0,.309,7.119H2.5L2.807,0Z" fill="#c42126"/>
       </g>
     </g>
