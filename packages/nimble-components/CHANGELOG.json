@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 10 Mar 2022 20:42:23 GMT",
+      "tag": "@ni/nimble-components_v6.1.5",
+      "version": "6.1.5",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ffc8c9b1750c7dba7b02a2adb4ed160d427b6edc",
+            "comment": "Update XD library URL and component table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 10 Mar 2022 19:42:54 GMT",
       "tag": "@ni/nimble-components_v6.1.5",
       "version": "6.1.5",
