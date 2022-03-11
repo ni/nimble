@@ -54,6 +54,8 @@ The fact that Microsoft/fast-blazor is a fairly opinionated implementation for a
 
 It's possible that Microsoft could spearhead an initiative to create a separate foundational Blazor library, if there was enough community interest (as indicated by [this comment](https://discord.com/channels/449251231706251264/744625301040005121/946799095660556348)), and if that happens we should be willing to adjust as needed.
 
+Despite having a hard fork, it would still be worthwhile to track issues in the Microsoft/fast-blazor repo to determine if they apply to our own implementation. If so, we should be willing to submit fixes to both repos to not only be in good standing with Microsoft, but also keep our implementations as aligned as possible.
+
 ### Initital Component Set
 
 Our Nimble Blazor APIs have the possibility of being functionally different from their wrapped nimble-component counter-parts. This is the case, for instance, with the Microsoft/fast-blazor `FluentNumberField`, which is strictly typed, and does specific types of error reporting if a number is incorrectly formatted.
@@ -74,6 +76,10 @@ Proposed Initial Component Set:
 #### _Working with EditForms_
 
 For situations where we need to provide custom validation behaviors for our components, such as reporting numerical formatting issues (if we wanted to do that), we can simply provide access to the [`EditContext`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext?view=aspnetcore-6.0) through a `CascadingParameter` and set any desired validation messages through it (see Microsoft/fast-blazor [`InputBase`](https://github.com/microsoft/fast-blazor/blob/main/src/Microsoft.Fast.Components.FluentUI/FluentInputBase.cs#L16) as an example).
+
+#### _Navigation Components_
+
+ASPNet.Core also provides various navigation components such as `<Navigating>`, `<NavLink>`, and `<NavMenu>`. For the `<NavLink>` and `<NavMenu>` components, it seems their main function is to apply an `active` CSS class to the component whose `href` matches the current URL. I suspect that we can largely ignore these components as the Nimble Anchor will provide all of the styling functionality we require. The `<Navigating>` component is to indicate to the user that a page transition is occurring. Again, this is likely something we can ignore, but it's good to be aware of the capability.
 
 ### Building
 
@@ -99,7 +105,11 @@ Currently the nimble-components repo does not bundle any minified source in its 
 
 The artifact we will produce for publishing purposes will be a nuget. We can likely modify [the workflow](https://github.com/ni/nimble-blazor/blob/main/.github/workflows/main.yml) from the @ni/nimble-blazor repo for the process for building, producing, and publishing the nuget.
 
-We will expect clients to retrieve the Blazor nuget from nuget.org. There already exists a deprecated NimbleBlazor nuget hosted [here](https://www.nuget.org/packages/NimbleBlazor/).
+We will expect clients to retrieve the Blazor nuget from nuget.org. There already exists a deprecated NimbleBlazor nuget hosted [here](https://www.nuget.org/packages/NimbleBlazor/). Current recommendations, however, indicate we should use the 'NationalInstruments' prefix for nugets, as that is a reserved prefix for NI, and will thus disallow unauthorized individuals from publishing a malicious package of the same name.
+
+__**Note on Nuget hosting location:**__
+
+The recommendation is that the nuget we produce be signed and placed within the [NationalInstruments organization](https://www.nuget.org/profiles/nationalinstruments) on nuget.org. However, there is no available means of signing a nuget that is produced in a GitHub workflow, as the NI signing mechanism must be run on an internal server. So, for the time being, the Nimble Blazor nuget will be hosted as mentioned above, directly on nuget.org, but should have the `NationalInstruments` prefix.
 
 For more info see the following:
 - [Publishing .NET NuGet packages using GitHub Actions](https://blog.christiansibo.com/publishing-net-nuget-packages-to-github-using-github-actions/)
