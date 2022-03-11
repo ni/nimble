@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 11 Mar 2022 16:23:10 GMT",
+      "tag": "@ni/nimble-components_v7.0.1",
+      "version": "7.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3d9b243bd14c7ffa1578bab00ee7d2d6c530a3e1",
+            "comment": "Switch to released 6.0.0 of storybook-addon-xd-designs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Mar 2022 00:51:41 GMT",
+      "tag": "@ni/nimble-components_v7.0.0",
+      "version": "7.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0a22c0380b537f013c2fb9766bcbf9cd9e4f5927",
+            "comment": "Change nimble-breadcrumb CSS class from \"style-2\" to \"prominent-links\" (to get alt link color style); add that style to breadcrumb theme matrix"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 10 Mar 2022 21:26:41 GMT",
       "tag": "@ni/nimble-components_v6.1.5",
       "version": "6.1.5",
