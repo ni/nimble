@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Switch to released 6.0.0 of storybook-addon-xd-designs",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
