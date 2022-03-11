@@ -4,12 +4,7 @@ import { html, repeat } from '@microsoft/fast-element';
 import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import {
-    labelFontColor,
-    labelFontFamily,
-    labelFontSize,
-    labelFontWeight
-} from '../design-tokens';
+import { controlLabelFont, controlLabelFontColor } from '../design-tokens';
 
 interface NimbleColor {
     name: string;
@@ -47,16 +42,14 @@ const styleMarkup = html`
         }
 
         .color-label {
-            font-family: var(${labelFontFamily.cssCustomProperty});
-            font-size: var(${labelFontSize.cssCustomProperty});
-            font-weight: var(${labelFontWeight.cssCustomProperty});
-            color: var(${labelFontColor.cssCustomProperty});
+            font: var(${controlLabelFont.cssCustomProperty});
+            color: var(${controlLabelFontColor.cssCustomProperty});
             text-align: center;
         }
     </style>
 `;
 
-const overviewText = `Base colors are defined by the visual design team, managed in the <a href='https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/89e665af-d24c-4f5e-b547-294caeccd29a'>Nimble_Component</a> Adobe XD spec, and exported in <code>nimble-tokens</code>.
+const overviewText = `Base colors are defined by the visual design team, managed in the <a href='https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/89e665af-d24c-4f5e-b547-294caeccd29a'>Nimble_Component</a> Adobe XD spec, and exported in <code>nimble-tokens</code>.
 Most client applications shouldn't use these tokens directly. See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-tokens">nimble-token</a> readme for more information.`;
 
 const metadata: Meta = {
@@ -70,7 +63,7 @@ const metadata: Meta = {
         },
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/89e665af-d24c-4f5e-b547-294caeccd29a/specs/'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/89e665af-d24c-4f5e-b547-294caeccd29a/specs/'
         }
     }
 };

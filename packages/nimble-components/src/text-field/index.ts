@@ -1,11 +1,11 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextField as FoundationTextField,
     TextFieldOptions,
     textFieldTemplate as template
 } from '@microsoft/fast-foundation';
-import { statusAlarmActive16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 
@@ -29,13 +29,21 @@ class TextField extends FoundationTextField {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance!: TextFieldAppearance;
+    public appearance: TextFieldAppearance = TextFieldAppearance.Underline;
 
-    public connectedCallback(): void {
+    /**
+     * A message explaining why the value is invalid.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: error-text
+     */
+    @attr({ attribute: 'error-text' })
+    public errorText!: string;
+
+    public override connectedCallback(): void {
         super.connectedCallback();
-        if (!this.appearance) {
-            this.appearance = TextFieldAppearance.Underline;
-        }
+        this.control.setAttribute('aria-errormessage', 'errortext');
     }
 }
 
@@ -48,7 +56,17 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    end: statusAlarmActive16X16.data
+    end: html<TextField>`
+        ${exclamationMark16X16.data}
+        <div
+            id="errortext"
+            class="errortext"
+            title="${x => x.errorText}"
+            aria-live="polite"
+        >
+            ${x => x.errorText}
+        </div>
+    `
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextField());

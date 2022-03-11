@@ -4,7 +4,7 @@ import {
     TreeItemOptions,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import { controlsArrowExpanderUp16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { TreeView } from '../tree-view';
 import {
     groupSelectedAttribute,
@@ -38,7 +38,7 @@ class TreeItem extends FoundationTreeItem {
         this.addEventListener('click', this.handleClickOverride);
     }
 
-    public connectedCallback(): void {
+    public override connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('selected-change', this.handleSelectedChange);
         this.treeView = this.getParentTreeView();
@@ -47,7 +47,7 @@ class TreeItem extends FoundationTreeItem {
         }
     }
 
-    public disconnectedCallback(): void {
+    public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.removeEventListener('click', this.handleClickOverride);
         this.removeEventListener('selected-change', this.handleSelectedChange);
@@ -149,7 +149,7 @@ const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     template,
     // @ts-expect-error FAST styles have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     styles,
-    expandCollapseGlyph: controlsArrowExpanderUp16X16.data
+    expandCollapseGlyph: arrowExpanderUp16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeItem());

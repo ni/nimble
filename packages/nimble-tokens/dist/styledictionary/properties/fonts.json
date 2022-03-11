@@ -160,9 +160,68 @@
         "value": "Regular"
       }
     },
-    "LegacyContent": {
+    "ControlLabel_1_Chinese_Mac": {
       "family": {
-        "value": "'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif"
+        "value": "Noto Sans"
+      },
+      "weight": {
+        "value": "Bold"
+      }
+    },
+    "ButtonLabel_1_Chinese_Mac": {
+      "family": {
+        "value": "Noto Sans"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Body_Chinese_Mac": {
+      "family": {
+        "value": "Noto Sans"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Error_ColorUI": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Link_Visited_LightUI": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Error_LightUI": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Error_DarkUI": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
+    "Link_Selection100_LightUI": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
       }
     }
   },
@@ -227,6 +286,30 @@
       },
       "Headline_1": {
         "value": "25"
+      },
+      "ControlLabel_1_Chinese_Mac": {
+        "value": "11"
+      },
+      "ButtonLabel_1_Chinese_Mac": {
+        "value": "11"
+      },
+      "Body_Chinese_Mac": {
+        "value": "13"
+      },
+      "Error_ColorUI": {
+        "value": "9"
+      },
+      "Link_Visited_LightUI": {
+        "value": "14"
+      },
+      "Error_LightUI": {
+        "value": "9"
+      },
+      "Error_DarkUI": {
+        "value": "9"
+      },
+      "Link_Selection100_LightUI": {
+        "value": "14"
       }
     }
   }

@@ -1,7 +1,7 @@
-<svg id="RSlide_HeaderSub_Tab_Button_Search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="784" height="206" viewBox="0 0 784 206">
+<svg id="RSlide_HeaderSub_Tab_Button_Search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="808" height="206" viewBox="0 0 808 206">
   <defs>
     <clipPath id="clip-path">
-      <rect x="16" y="1" width="447.949" height="18" fill="none"/>
+      <rect id="Rectangle_10809" data-name="Rectangle 10809" width="720" height="18" transform="translate(0)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0"/>
     </clipPath>
   </defs>
   <rect id="Top_Cover" data-name="Top Cover" width="784" height="174" fill="#fff"/>
@@ -12,7 +12,7 @@
   </g>
   <g id="Inputs_Search_Block_32" transform="translate(0 174)">
     <g id="Background_Group" data-name="Background Group">
-      <rect id="Block" width="784" height="32" fill="#161617" opacity="0.07"/>
+      <rect id="Block" width="784" height="32" fill="#161617" opacity="0.1"/>
       <g id="Line" transform="translate(0 31)" fill="none" stroke="#161617" stroke-width="1" opacity="0">
         <rect width="784" height="1" stroke="none"/>
         <rect x="0.5" y="0.5" width="783" fill="none"/>
@@ -23,8 +23,8 @@
       </g>
     </g>
     <g id="Stack_Group" data-name="Stack Group" transform="translate(64 3)">
-      <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(8 2)" clip-path="url(#clip-path)" style="isolation: isolate">
-        <text id="Search" transform="translate(16 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro" opacity="0.6"><tspan x="0" y="0">Search</tspan></text>
+      <g id="Mask_Group_36" data-name="Mask Group 36" transform="translate(24 2)" clip-path="url(#clip-path)">
+        <text id="Search" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro" opacity="0.6"><tspan x="0" y="0">Search</tspan></text>
       </g>
       <g id="Error_Group" data-name="Error Group" transform="translate(636 5)">
         <rect id="IconLocation" width="16" height="16" fill="#3cb4e7" opacity="0"/>
@@ -34,19 +34,19 @@
         <rect id="IconLocation-2" data-name="IconLocation" width="16" height="16" fill="#3cb4e7" opacity="0"/>
         <path id="Magnify_Glass" data-name="Magnify Glass" d="M1201.563,778.525a5.461,5.461,0,0,0-5.014,7.614l-5.529,3.225.733,1.257,5.546-3.234a5.457,5.457,0,1,0,4.264-8.862m0,9.458a4,4,0,1,1,4-4,4,4,0,0,1-4,4" transform="translate(-1191.02 -777.525)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1"/>
       </g>
-      <g id="Button_Icon_Ghost_24" transform="translate(632 0)" opacity="0">
-        <g id="Background">
-          <rect id="Background-2" data-name="Background" width="28" height="24" fill="#161617" opacity="0"/>
-          <rect id="Mousedown" width="24" height="24" fill="none" opacity="0"/>
-          <g id="Rollover-2" data-name="Rollover" transform="translate(4 4)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
-            <rect width="24" height="16" stroke="none"/>
-            <rect x="0.5" y="0.5" width="23" height="15" fill="none"/>
+      <g id="Button_Icon_Ghost_24" transform="translate(140 -3)" opacity="0">
+        <g id="Background" transform="translate(-323.853 -324)">
+          <rect id="Background-2" data-name="Background" width="24" height="24" transform="translate(323.853 324)" fill="#161617" opacity="0"/>
+          <rect id="Mousedown" width="24" height="24" transform="translate(323.853 324)" fill="none" opacity="0"/>
+          <g id="Rollover-2" data-name="Rollover" transform="translate(323.853 324)" fill="none" stroke="#009b65" stroke-width="1" opacity="0">
+            <rect width="24" height="24" stroke="none"/>
+            <rect x="0.5" y="0.5" width="23" height="23" fill="none"/>
           </g>
         </g>
-        <g id="Icon" transform="translate(4 4)">
-          <rect id="IconAlignment" width="16" height="16" transform="translate(0 0)" fill="#649fff" opacity="0"/>
-          <rect id="Icon-2" data-name="Icon" width="12" height="12" transform="translate(2 2)" fill="#161617" opacity="0"/>
-          <path id="Close_Icon" data-name="Close Icon" d="M4.5,11V6.5H0v-2H4.5V0h2V4.5H11v2H6.5V11Z" transform="translate(7.778 0) rotate(45)" fill="#161617"/>
+        <g id="Icon" transform="translate(-4 -3)">
+          <rect id="IconAlignment" width="16" height="16" transform="translate(8 7)" fill="#649fff" opacity="0"/>
+          <rect id="Icon-2" data-name="Icon" width="12" height="12" transform="translate(10 9)" fill="#161617" opacity="0"/>
+          <path id="Close_Icon" data-name="Close Icon" d="M-1926.5-1873v-4.5h-4.5v-2h4.5v-4.5h2v4.5h4.5v2h-4.5v4.5Z" transform="translate(49.012 2704.612) rotate(45)" fill="#161617"/>
         </g>
       </g>
     </g>
@@ -57,7 +57,7 @@
       <g id="Background-3" data-name="Background">
         <rect id="Background-4" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
         <rect id="Rollover-3" data-name="Rollover" width="76" height="2" transform="translate(0 30)" fill="#161617" opacity="0"/>
-        <rect id="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#00b888" opacity="0"/>
+        <rect id="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#009b65" opacity="0"/>
       </g>
       <g id="Stacks_Group" data-name="Stacks Group">
         <text id="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>
@@ -67,7 +67,7 @@
       <g id="Background-5" data-name="Background">
         <rect id="Background-6" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
         <rect id="Rollover-4" data-name="Rollover" width="76" height="2" transform="translate(0 30)" fill="#161617" opacity="0"/>
-        <rect id="SelectionRectangle-2" data-name="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#00b888" opacity="0"/>
+        <rect id="SelectionRectangle-2" data-name="SelectionRectangle" width="2" height="2" transform="translate(37 30)" fill="#009b65" opacity="0"/>
       </g>
       <g id="Stacks_Group-2" data-name="Stacks Group">
         <text id="Section-2" data-name="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>
@@ -76,8 +76,11 @@
     <g id="Tabs_Horizontal_Text_Single_32-3" data-name="Tabs_Horizontal_Text_Single_32" transform="translate(48 92)">
       <g id="Background-7" data-name="Background">
         <rect id="Background-8" data-name="Background" width="76" height="32" fill="none" opacity="0"/>
-        <rect id="Rollover-5" data-name="Rollover" width="76" height="1.984" transform="translate(0 30)" fill="#161617" opacity="0"/>
-        <rect id="SelectionRectangle-3" data-name="SelectionRectangle" width="76" height="2" transform="translate(0 30)" fill="#00b888"/>
+        <g id="Rollover-5" data-name="Rollover" transform="translate(0 30)" fill="#009b65" stroke="#009b65" stroke-width="1" opacity="0">
+          <rect width="76" height="1.984" stroke="none"/>
+          <rect x="0.5" y="0.5" width="75" height="0.984" fill="none"/>
+        </g>
+        <rect id="SelectionRectangle-3" data-name="SelectionRectangle" width="76" height="2" transform="translate(0 30)" fill="#009b65"/>
       </g>
       <g id="Stacks_Group-3" data-name="Stacks Group">
         <text id="Section-3" data-name="Section" transform="translate(16 20)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Section</tspan></text>
@@ -86,11 +89,11 @@
   </g>
   <g id="Background-9" data-name="Background" transform="translate(368.147 -288)">
     <rect id="Background-10" data-name="Background" width="32" height="32" transform="translate(319.853 320)" fill="#161617" opacity="0"/>
-    <g id="Rollover-6" data-name="Rollover" transform="translate(319.853 320)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
+    <g id="Rollover-6" data-name="Rollover" transform="translate(319.853 320)" fill="none" stroke="#009b65" stroke-width="2" opacity="0">
       <rect width="32" height="32" stroke="none"/>
       <rect x="1" y="1" width="30" height="30" fill="none"/>
     </g>
-    <rect id="Mousedown-2" data-name="Mousedown" width="32" height="32" transform="translate(319.853 320)" fill="#00b888" opacity="0"/>
+    <rect id="Mousedown-2" data-name="Mousedown" width="32" height="32" transform="translate(319.853 320)" fill="#009b65" opacity="0"/>
   </g>
   <g id="Icon-3" data-name="Icon" transform="translate(688 33)">
     <rect id="IconAlignment-2" data-name="IconAlignment" width="16" height="16" transform="translate(8 7)" fill="#649fff" opacity="0"/>
@@ -99,12 +102,12 @@
   </g>
   <g id="Button_IconText_Ghost_32" transform="translate(48 133)">
     <g id="Background-11" data-name="Background" transform="translate(0 0)">
-      <rect id="Background-12" data-name="Background" width="117" height="32" transform="translate(0 0)" fill="#00b888" opacity="0"/>
-      <g id="Rollover-7" data-name="Rollover" transform="translate(0 0)" fill="none" stroke="#00b888" stroke-width="2" opacity="0">
+      <rect id="Background-12" data-name="Background" width="117" height="32" transform="translate(0 0)" fill="#009b65" opacity="0"/>
+      <g id="Rollover-7" data-name="Rollover" transform="translate(0 0)" fill="none" stroke="#009b65" stroke-width="2" opacity="0">
         <rect width="117" height="32" stroke="none"/>
         <rect x="1" y="1" width="115" height="30" fill="none"/>
       </g>
-      <rect id="SelectionRectangle-4" data-name="SelectionRectangle" height="2" transform="translate(61 30)" fill="#00b888" opacity="0"/>
+      <rect id="SelectionRectangle-4" data-name="SelectionRectangle" height="2" transform="translate(61 30)" fill="#009b65" opacity="0"/>
     </g>
     <g id="Stacks_Group-4" data-name="Stacks Group" transform="translate(0 -1)">
       <text id="Text_button" data-name="Text button" transform="translate(40 21)" fill="#161617" font-size="12.8" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">Text button</tspan></text>

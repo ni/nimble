@@ -4,7 +4,7 @@ import {
     SelectOptions,
     selectTemplate as template
 } from '@microsoft/fast-foundation';
-import { controlsArrowExpanderDown16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
 export type { Select };
@@ -19,11 +19,11 @@ declare global {
  * A nimble-styed HTML select
  */
 class Select extends FoundationSelect {
-    public get value(): string {
+    public override get value(): string {
         return super.value;
     }
 
-    public set value(value: string) {
+    public override set value(value: string) {
         super.value = value;
 
         // Workaround for https://github.com/microsoft/fast/issues/5139
@@ -41,7 +41,7 @@ class Select extends FoundationSelect {
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
-    public setPositioning(): void {
+    public override setPositioning(): void {
         if (!this.$fastController.isConnected) {
             // Don't call setPositioning() until we're connected,
             // since this.forcedPosition isn't initialized yet.
@@ -50,7 +50,7 @@ class Select extends FoundationSelect {
         super.setPositioning();
     }
 
-    public connectedCallback(): void {
+    public override connectedCallback(): void {
         super.connectedCallback();
         // Call setPositioning() after this.forcedPosition is initialized.
         this.setPositioning();
@@ -63,7 +63,7 @@ const nimbleSelect = Select.compose<SelectOptions>({
     // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
-    indicator: controlsArrowExpanderDown16X16.data
+    indicator: arrowExpanderDown16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSelect());

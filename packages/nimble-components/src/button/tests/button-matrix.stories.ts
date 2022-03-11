@@ -10,7 +10,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import '../../icons/access-control';
+import '../../icons/key';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -19,9 +19,10 @@ const metadata: Meta = {
     parameters: {
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
         },
-        controls: { hideNoControlsWarning: true }
+        controls: { hideNoControlsWarning: true },
+        a11y: { disabled: true }
     }
 };
 
@@ -41,15 +42,27 @@ const partVisibilityStates: PartVisibilityState[] = [
 const appearanceStates = Object.entries(ButtonAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
+type PrimaryState = [string, string];
+const primaryStates: PrimaryState[] = [
+    ['Primary', 'primary'],
+    ['', '']
+];
+
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
+    [primaryName, primaryClass]: PrimaryState,
     [labelVisible, iconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
-    <nimble-button appearance="${() => appearance}" ?disabled=${() => disabled} ?content-hidden=${() => !labelVisible}>
-        ${when(() => iconVisible, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
-        ${() => `${appearanceName} Button ${disabledName}`}
+    <nimble-button
+        appearance="${() => appearance}"
+        class="${() => primaryClass}"
+        ?disabled=${() => disabled}
+        ?content-hidden=${() => !labelVisible}
+        style="margin-right: 8px; margin-bottom: 8px;">
+            ${when(() => iconVisible, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
+            ${() => `${primaryName} ${appearanceName} Button ${disabledName}`}
     </nimble-button>
 `;
 
@@ -58,6 +71,7 @@ export const buttonThemeMatrix: Story = createRenderer(
         createMatrix(component, [
             disabledStates,
             appearanceStates,
+            primaryStates,
             partVisibilityStates
         ])
     )

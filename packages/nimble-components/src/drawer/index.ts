@@ -10,7 +10,7 @@ import {
     Dialog as FoundationDialog,
     dialogTemplate as template
 } from '@microsoft/fast-foundation';
-import { drawerAnimationDurationMs } from '../theme-provider/design-tokens';
+import { largeDelay } from '../theme-provider/design-tokens';
 import { prefersReducedMotionMediaQuery } from '../utilities/style/prefers-reduced-motion';
 import { animationConfig } from './animations';
 import { styles } from './styles';
@@ -56,7 +56,7 @@ class Drawer extends FoundationDialog {
     private animationsEnabledChangedHandler?: () => void;
     private propertyChangeSubscriber?: Subscriber;
 
-    public connectedCallback(): void {
+    public override connectedCallback(): void {
         // disable trapFocus before super.connectedCallback as FAST Dialog will immediately queue work to
         // change focus if it's true before connectedCallback
         this.trapFocus = false;
@@ -77,7 +77,7 @@ class Drawer extends FoundationDialog {
         this.propertyChangeNotifier = notifier;
     }
 
-    public disconnectedCallback(): void {
+    public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.cancelCurrentAnimation();
         if (this.propertyChangeNotifier && this.propertyChangeSubscriber) {
@@ -173,7 +173,7 @@ class Drawer extends FoundationDialog {
         const disableAnimations: boolean = prefersReducedMotionMediaQuery.matches;
         this.animationDurationMilliseconds = disableAnimations
             ? animationDurationWhenDisabledMilliseconds
-            : drawerAnimationDurationMs.getValueFor(this);
+            : largeDelay.getValueFor(this);
     }
 
     private animateOpening(): void {

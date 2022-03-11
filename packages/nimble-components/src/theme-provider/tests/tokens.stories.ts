@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
@@ -11,14 +10,11 @@ import {
 import { comments } from '../design-token-comments';
 
 import {
-    groupLabelFontColor,
-    groupLabelFontSize,
-    groupLabelFontFamily,
-    fontFamily,
-    contentFontSize,
-    contentFontColor,
-    groupLabelFontWeight,
-    groupLabelTextTransform
+    bodyFont,
+    bodyFontColor,
+    groupHeaderFont,
+    groupHeaderFontColor,
+    groupHeaderTextTransform
 } from '../design-tokens';
 
 type TokenName = keyof typeof tokenNames;
@@ -38,15 +34,11 @@ interface TokenArgs {
 
 const metadata: Meta = {
     title: 'Tokens/Property Names',
-    decorators: [withXD],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl: ''
         }
     }
 };
@@ -71,16 +63,13 @@ export const propertyNames: StoryObj<TokenArgs> = {
     render: createRenderer(html<TokenArgs>`
         <style>
             table {
-                font-family: var(${fontFamily.cssCustomProperty});
-                font-size: var(${contentFontSize.cssCustomProperty});
-                color: var(${contentFontColor.cssCustomProperty});
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
             }
             thead {
-                font-family: var(${groupLabelFontFamily.cssCustomProperty});
-                font-size: var(${groupLabelFontSize.cssCustomProperty});
-                font-weight: var(${groupLabelFontWeight.cssCustomProperty});
-                color: var(${groupLabelFontColor.cssCustomProperty});
-                text-transform: var(${groupLabelTextTransform.cssCustomProperty});
+                font: var(${groupHeaderFont.cssCustomProperty});
+                color: var(${groupHeaderFontColor.cssCustomProperty});
+                text-transform: var(${groupHeaderTextTransform.cssCustomProperty});
             }
             td { padding: 10px;}
         </style>

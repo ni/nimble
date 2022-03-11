@@ -1,8 +1,163 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 17 Feb 2022 19:43:53 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Mar 2022 00:51:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.0.0
+
+Fri, 11 Mar 2022 00:51:41 GMT
+
+### Major changes
+
+- Change nimble-breadcrumb CSS class from "style-2" to "prominent-links" (to get alt link color style); add that style to breadcrumb theme matrix (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.5
+
+Thu, 10 Mar 2022 19:42:54 GMT
+
+### Patches
+
+- Fix bug where incorrect theme can be applied to breadcrumb/textfield if 2 theme providers/ themes are active on a page (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.4
+
+Wed, 09 Mar 2022 22:20:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.1
+
+## 6.1.3
+
+Tue, 08 Mar 2022 16:17:42 GMT
+
+### Patches
+
+- Inherit font properties from nimble-text-field element (7282195+m-akinc@users.noreply.github.com)
+
+## 6.1.2
+
+Fri, 04 Mar 2022 21:15:36 GMT
+
+### Patches
+
+- Add final styling for breadcrumb. nimble-breadcrumb allows swapping to 2nd style (swaps link regular/mousedown colors) via style-2 CSS class. (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.1
+
+Fri, 04 Mar 2022 20:46:39 GMT
+
+### Patches
+
+- Don't tie error display to invalid state (7282195+m-akinc@users.noreply.github.com)
+
+## 6.1.0
+
+Wed, 02 Mar 2022 17:00:45 GMT
+
+### Minor changes
+
+- Adding new font tokens (26874831+atmgrifter00@users.noreply.github.com)
+
+## 6.0.0
+
+Tue, 01 Mar 2022 19:24:47 GMT
+
+### Major changes
+
+- Rename text field attribute from errortext to error-text (7282195+m-akinc@users.noreply.github.com)
+
+## 5.0.1
+
+Tue, 01 Mar 2022 18:23:44 GMT
+
+### Patches
+
+- Initialize properties for nimble owned properties like appearance modes and theme provider. (rajsite@users.noreply.github.com)
+
+## 5.0.0
+
+Tue, 01 Mar 2022 16:07:33 GMT
+
+### Major changes
+
+- Renamed fillHoverSelectedColor & fillSelectedColor tokens. (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v3.0.0
+
+## 4.1.0
+
+Tue, 01 Mar 2022 15:14:49 GMT
+
+### Minor changes
+
+- Support error text on nimble-text-field (7282195+m-akinc@users.noreply.github.com)
+
+## 4.0.1
+
+Thu, 24 Feb 2022 19:17:00 GMT
+
+### Patches
+
+- Use correct padding in select component (20542556+mollykreis@users.noreply.github.com)
+
+## 4.0.0
+
+Thu, 24 Feb 2022 16:20:16 GMT
+
+### Major changes
+
+- Added icons, [updated names](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) of existing icons, implemented code generation for icons (5454342+brianehenry@users.noreply.github.com)
+
+## 3.2.0
+
+Wed, 23 Feb 2022 22:30:22 GMT
+
+### Minor changes
+
+- Add new nimble-breadcrumb and nimble-breadcrumb-item components (20709258+msmithNI@users.noreply.github.com)
+
+## 3.1.0
+
+Wed, 23 Feb 2022 22:01:52 GMT
+
+### Minor changes
+
+- Implement primary buttons (20542556+mollykreis@users.noreply.github.com)
+
+## 3.0.0
+
+Wed, 23 Feb 2022 20:10:44 GMT
+
+### Major changes
+
+- Refactored nearly all theme-aware tokens. See this [spreadsheet](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) for a mapping of old and new tokens. (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v2.1.0
+
+## 2.1.3
+
+Mon, 21 Feb 2022 23:14:18 GMT
+
+### Patches
+
+- Fix minor hover issue for text area on Safari (7282195+m-akinc@users.noreply.github.com)
+
+## 2.1.2
+
+Mon, 21 Feb 2022 15:34:13 GMT
+
+### Patches
+
+- Updating with [renamed](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) icons from nimble-tokens (1458528+fredvisser@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v2.0.0
+
+## 2.1.1
+
+Sat, 19 Feb 2022 00:06:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v1.1.0
 
 ## 2.1.0
 

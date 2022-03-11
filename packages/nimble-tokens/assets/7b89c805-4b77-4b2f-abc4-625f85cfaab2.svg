@@ -1,0 +1,16 @@
+<svg id="Component_76" data-name="Component 76" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Background" transform="translate(-323.853 -324)">
+    <rect id="Fill_1" data-name="Fill 1" width="24" height="24" transform="translate(323.853 324)" fill="#161617" opacity="0"/>
+    <rect id="Fill_2" data-name="Fill 2" width="24" height="24" transform="translate(323.853 324)" fill="#009b65" opacity="0"/>
+    <g id="Rollover" transform="translate(323.853 324)" fill="none" stroke="#009b65" stroke-width="2" opacity="0">
+      <rect width="24" height="24" stroke="none"/>
+      <rect x="1" y="1" width="22" height="22" fill="none"/>
+    </g>
+  </g>
+  <g id="Stack_Group" data-name="Stack Group" transform="translate(-44 -3)">
+    <g id="Icon" transform="translate(40)">
+      <rect id="IconAlignment" width="16" height="16" transform="translate(8 7)" fill="#649fff" opacity="0"/>
+      <rect id="Icon-2" data-name="Icon" width="12" height="12" transform="translate(10 9)" fill="#161617"/>
+    </g>
+  </g>
+</svg>

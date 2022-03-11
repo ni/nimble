@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { NimbleTextFieldModule, NimbleNumberFieldModule, NimbleSelectModule, NimbleListboxOptionModule,
+import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, NimbleSelectModule, NimbleListboxOptionModule,
     NimbleButtonModule, NimbleTreeViewModule, NimbleTreeItemModule, NimbleDrawerModule, NimbleThemeProviderModule,
     NimbleTabModule, NimbleTabPanelModule, NimbleTabsModule, NimbleTabsToolbarModule, NimbleMenuModule,
-    NimbleMenuItemModule, NimbleCheckboxModule, NimbleToggleButtonModule } from '@ni/nimble-angular';
+    NimbleMenuItemModule, NimbleCheckboxModule, NimbleToggleButtonModule, NimbleBreadcrumbModule, NimbleBreadcrumbItemModule, NimbleAddIconModule } from '@ni/nimble-angular';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { LoginComponent } from './login/login.component';
@@ -25,6 +25,7 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
         FormsModule,
         ReactiveFormsModule,
         NimbleThemeProviderModule,
+        NimbleTextAreaModule,
         NimbleTextFieldModule,
         NimbleNumberFieldModule,
         NimbleSelectModule,
@@ -41,6 +42,9 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
         NimbleDrawerModule,
         NimbleCheckboxModule,
         NimbleToggleButtonModule,
+        NimbleBreadcrumbModule,
+        NimbleBreadcrumbItemModule,
+        NimbleAddIconModule,
         RouterModule.forRoot([
             { path: '', redirectTo: '/login', pathMatch: 'full' },
             { path: 'login', component: LoginComponent },

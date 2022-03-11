@@ -60,11 +60,11 @@
     "Black91": {
       "value": "#161617ff"
     },
-    "Enterprise": {
+    "ForestGreen": {
       "value": "#074023ff"
     },
-    "Selection100": {
-      "value": "#00B888ff"
+    "DigitalGreenLight": {
+      "value": "#009B65ff"
     },
     "Brand85": {
       "value": "#26A97Cff"
@@ -78,7 +78,7 @@
     "RGB NI Sky": {
       "value": "#3CB4E7ff"
     },
-    "Banner_Fail_100_DarkUI_": {
+    "Banner_Fail_100_DarkUI": {
       "value": "#D63434ff"
     },
     "Warning100LightUI": {
@@ -89,6 +89,39 @@
     },
     "Black50": {
       "value": "#AEB0B3ff"
+    },
+    "DigitalGreenDark": {
+      "value": "#006B46ff"
+    },
+    "PowerGreen": {
+      "value": "#32EB96ff"
+    },
+    "Black22": {
+      "value": "#E6E6E6ff"
+    },
+    "CMYK NI Pale Green": {
+      "value": "#CCDCC8ff"
+    },
+    "RGB NI Pale Green": {
+      "value": "#CDDCC8ff"
+    },
+    "RGB NI Forest Green": {
+      "value": "#044123ff"
+    },
+    "CMYK NI Nickel": {
+      "value": "#AEA19Aff"
+    },
+    "CMYK NI Forest Green": {
+      "value": "#044123ff"
+    },
+    "RGB NI Green": {
+      "value": "#03B585ff"
+    },
+    "CMYK NI Green": {
+      "value": "#03B585ff"
+    },
+    "CMYK NI Honey Dark 3": {
+      "value": "#292011ff"
     }
   }
 }

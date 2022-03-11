@@ -1,8 +1,187 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 17 Feb 2022 19:43:53 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Mar 2022 00:51:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.0.3
+
+Fri, 11 Mar 2022 00:51:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.0.0
+
+## 4.0.2
+
+Thu, 10 Mar 2022 19:42:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.5
+
+## 4.0.1
+
+Wed, 09 Mar 2022 22:20:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.4
+
+## 4.0.0
+
+Wed, 09 Mar 2022 15:25:53 GMT
+
+### Major changes
+
+- Enable Ivy. (26874831+atmgrifter00@users.noreply.github.com)
+
+## 3.1.4
+
+Tue, 08 Mar 2022 16:17:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.3
+
+## 3.1.3
+
+Fri, 04 Mar 2022 21:15:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.2
+
+## 3.1.2
+
+Fri, 04 Mar 2022 20:46:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.1
+
+## 3.1.1
+
+Wed, 02 Mar 2022 17:00:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.0
+
+## 3.1.0
+
+Tue, 01 Mar 2022 21:31:24 GMT
+
+### Minor changes
+
+- Added Nimble icon Angular integration (5454342+brianehenry@users.noreply.github.com)
+
+## 3.0.0
+
+Tue, 01 Mar 2022 19:24:47 GMT
+
+### Major changes
+
+- Rename text field attribute from errortext to error-text (7282195+m-akinc@users.noreply.github.com)
+- Bump @ni/nimble-components to v6.0.0
+
+## 2.3.2
+
+Tue, 01 Mar 2022 18:23:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v5.0.1
+
+## 2.3.1
+
+Tue, 01 Mar 2022 16:07:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v5.0.0
+
+## 2.3.0
+
+Tue, 01 Mar 2022 15:14:49 GMT
+
+### Minor changes
+
+- Add support for error text to text field (7282195+m-akinc@users.noreply.github.com)
+- Bump @ni/nimble-components to v4.1.0
+
+## 2.2.0
+
+Mon, 28 Feb 2022 19:14:35 GMT
+
+### Minor changes
+
+- Angular support for nimble-text-area (7282195+m-akinc@users.noreply.github.com)
+
+## 2.1.2
+
+Thu, 24 Feb 2022 19:17:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v4.0.1
+
+## 2.1.1
+
+Thu, 24 Feb 2022 16:20:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v4.0.0
+
+## 2.1.0
+
+Wed, 23 Feb 2022 22:30:22 GMT
+
+### Minor changes
+
+- nimble-breadcrumb/nimble-breadcrumb-item Angular integration/directives, including RouterLink support (see Readme) (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v3.2.0
+
+## 2.0.1
+
+Wed, 23 Feb 2022 22:01:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v3.1.0
+
+## 2.0.0
+
+Wed, 23 Feb 2022 20:10:44 GMT
+
+### Major changes
+
+- Bump @ni/nimble-components to v3.0.0
+
+## 1.1.10
+
+Mon, 21 Feb 2022 23:14:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v2.1.3
+
+## 1.1.9
+
+Mon, 21 Feb 2022 15:34:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v2.1.2
+
+## 1.1.8
+
+Sat, 19 Feb 2022 00:06:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v2.1.1
 
 ## 1.1.7
 

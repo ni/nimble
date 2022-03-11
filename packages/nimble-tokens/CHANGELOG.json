@@ -2,6 +2,111 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 10 Mar 2022 20:42:23 GMT",
+      "tag": "@ni/nimble-tokens_v3.0.1",
+      "version": "3.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ffc8c9b1750c7dba7b02a2adb4ed160d427b6edc",
+            "comment": "Update XD library URL and component table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 09 Mar 2022 22:20:03 GMT",
+      "tag": "@ni/nimble-tokens_v3.0.1",
+      "version": "3.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "c8d1aa2f20eb073ba048fe485d781acb985cd0b9",
+            "comment": "Remove Roboto font from Nimble"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 01 Mar 2022 16:07:33 GMT",
+      "tag": "@ni/nimble-tokens_v3.0.0",
+      "version": "3.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "cf0ebf7f1c460afc2f942748623e225dd0c3f27a",
+            "comment": "New `forward-slash` icon. Updated color tokens - `Enterprise` is now `ForestGreen`, `Selection100` is now `DigitalGreenLight`, `Banner_Fail_100_DarkUI_` is now `Banner_Fail_100_DarkUI`. Also adds `DigitalGreenDark`, `PowerGreen`, and `Black22`."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Feb 2022 16:20:16 GMT",
+      "tag": "@ni/nimble-tokens_v2.1.0",
+      "version": "2.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "6872d1878c110d0f0a0669c09cfcec3200204661",
+            "comment": "Updated contributing docs for new icons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Feb 2022 20:10:44 GMT",
+      "tag": "@ni/nimble-tokens_v2.1.0",
+      "version": "2.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f1096d98165a52d95f4a27da04cfcbf628b582bc",
+            "comment": "Updated from XD source. Added LineHeight tokens for each font type."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 21 Feb 2022 15:34:13 GMT",
+      "tag": "@ni/nimble-tokens_v2.0.0",
+      "version": "2.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "16eb83f6b382a7fb49c46f5768bb58c8db1d1682",
+            "comment": "Renamed and deduplicated icons. See [here](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) for the changes."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 19 Feb 2022 00:06:17 GMT",
+      "tag": "@ni/nimble-tokens_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "44cdee77bab162269a5dfc9ee040c1da7f5b8364",
+            "comment": "Update nimble-tokens from XD doc"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 07 Feb 2022 18:48:57 GMT",
       "tag": "@ni/nimble-tokens_v1.0.0",
       "version": "1.0.0",

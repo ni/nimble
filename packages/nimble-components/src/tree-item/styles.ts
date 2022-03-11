@@ -7,13 +7,14 @@ import {
 } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 import {
-    contentFontColor,
-    fontFamily,
-    borderColorHover,
-    fillColorSelected,
-    contentFontSize,
-    fillColorHover,
-    fillColorSelectedHover,
+    bodyFontColor,
+    bodyFontFamily,
+    bodyFontSize,
+    bodyFontWeight,
+    borderHoverColor,
+    fillSelectedColor,
+    fillHoverColor,
+    fillHoverSelectedColor,
     borderWidth,
     iconSize
 } from '../theme-provider/design-tokens';
@@ -27,18 +28,22 @@ export const styles: (
         ${display('block')}
 
         :host {
+            ${
+                /* don't set font-size here or else it overrides what we set on .items */ ''
+            }
+            font-family: ${bodyFontFamily};
+            font-weight: ${bodyFontWeight};
             contain: content;
             position: relative;
             outline: none;
-            color: ${contentFontColor};
+            color: ${bodyFontColor};
             cursor: pointer;
-            font-family: ${fontFamily};
             --ni-private-tree-item-nested-width: 0;
         }
 
         ${/* this controls the side border */ ''}
         :host([${groupSelectedAttribute}])::after {
-            background: ${borderColorHover};
+            background: ${borderHoverColor};
             border-radius: 0px;
             content: '';
             display: block;
@@ -56,21 +61,21 @@ export const styles: (
         }
 
         .positioning-region:hover {
-            background: ${fillColorHover};
+            background: ${fillHoverColor};
         }
 
         :host(${focusVisible}) .positioning-region {
-            box-shadow: 0px 0px 0px ${borderWidth} ${borderColorHover} inset;
-            outline: ${borderWidth} solid ${borderColorHover};
+            box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+            outline: ${borderWidth} solid ${borderHoverColor};
             outline-offset: -2px;
         }
 
         :host([selected]) .positioning-region {
-            background: ${fillColorSelected};
+            background: ${fillSelectedColor};
         }
 
         :host([selected]) .positioning-region:hover {
-            background: ${fillColorSelectedHover};
+            background: ${fillHoverSelectedColor};
         }
 
         .positioning-region::before {
@@ -86,7 +91,8 @@ export const styles: (
             white-space: nowrap;
             width: 100%;
             padding-left: 10px;
-            font-size: ${contentFontSize};
+            font: inherit;
+            font-size: ${bodyFontSize};
             user-select: none;
         }
 

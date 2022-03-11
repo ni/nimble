@@ -22,7 +22,7 @@
 
 New tokens are added to this package with the [Adobe XD Visual Studio extension](https://marketplace.visualstudio.com/items?itemName=Adobe.xd&ssr=false#overview).
 
-The source of truth for the colors, fonts, and component design tokens in this repository is an Adobe XD [Design Library file](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/) maintained by the Visual Design team.
+The source of truth for the colors, fonts, and component design tokens in this repository is an Adobe XD [Design Library file](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/) maintained by the Visual Design team.
 
 For changes to any token values, work with the Visual Design team to update the library, and then perform the following steps:
 
@@ -67,4 +67,7 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
       <img src="docs/find-replace-5.png" alt="Adobe Illustrator screen export step 4" width="1000">
 
 3. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
-4. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** stories to confirm that your changes appear correctly.
+4. Add metadata for the new icons to `nimble-components\src\icon-base\icon-metadata.ts`.
+5. Generate and build icon components by running `npm run build -w @ni/nimble-components`.
+6. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly.
+7. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.

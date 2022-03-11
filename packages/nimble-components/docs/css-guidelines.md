@@ -2,7 +2,7 @@
 
 ## Design Tokens and CSS Custom Properties
 
-Nimble controls have shared style properties such as colors, typography, sizing, and animation properties as defined by the [Nimble Design System](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/). These properties are shared in two different ways: Design Tokens and CSS Custom Properties.
+Nimble controls have shared style properties such as colors, typography, sizing, and animation properties as defined by the [Nimble Design System](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/). These properties are shared in two different ways: Design Tokens and CSS Custom Properties.
 
 ### Design Tokens
 
@@ -101,14 +101,14 @@ Some takeaways from the example:
 
 - Note that selectors within groups are organized with the selectors that always apply first. For example the `:host {}` selector always applies, regardless of the state of the element, so it is first in the group. The rest are ordered based on the other recommendations in this document.
 
-- Note that the pseudo-elements are always grouped directly after their target element. For example with the above DOM structure we might expect the `::after` pseudo-element selector to be positioned right before `.end` based on the DOM order. 
+- Note that the pseudo-elements are always grouped directly after their target element. For example with the above DOM structure we might expect the `::after` pseudo-element selector to be positioned right before `.end` based on the DOM order.
 
    Instead psedo-elements are grouped with the target element so `.content::before {}` is immediately followed by `.content::after {}`.
 
 
 ## Prefer cascade for state changes
 
-If you find yourself in complex logic with lots of `:not()` selectors it's possible the code should be reorganized to leverage the CSS cascade for overriding states. 
+If you find yourself in complex logic with lots of `:not()` selectors it's possible the code should be reorganized to leverage the CSS cascade for overriding states.
 
 States should flow from plain control -> hover -> focus -> active -> error -> disabled (which overrides all the others).
 
@@ -136,6 +136,9 @@ When stepping back try to start at the top-level of the control which is likely 
 
 Some elements are used just for their function such as the `<nimble-theme-provider>` and `<slot>` elements. Those elements should not generally be part of layout and given sizing, etc that is important. Instead they should stay `display: contents` and let their children participate in layout and styling.
 
+## Consider whether text content should be stylable by clients
+For controls that display text content, consider whether the client should be allowed to apply custom font properties to that text. For example, a client can set `font-style: italic` on the `nimble-text-field` or `nimble-number-field` to italicize the value. To support this, set the default font properties on the host element, and use `font: inherit` on the element actually displaying the text.
+
 ## Comments
 
 To comment on CSS inside the `css` tagged template helper, use template literal strings with an empty string. This helps minified code output.
@@ -154,6 +157,12 @@ const styles = css`
 `;
 ```
 
+## Avoid styling the `:invalid` pseudo-class
+
+When styling the invalid state of a form component, it may seem natural to use `:host(:invalid)` in the CSS selector. `:invalid` applies when the form validation has run (generally happens immediately) and failed on that component. The problem with styling based on this pseudo-class is that it prevents a client from having control over when the invalid styling is displayed. For example, if a required input is initially empty, it is common not to show the error styling until the user has changed the value (and subsequently left it empty).
+
+Instead of styling based on `:invalid`, use the class `invalid`. Then the client can create a binding to apply the `invalid` class based on the associated `FormControl`'s status properties, like `invalid`, `dirty`, and `touched`.
+
 ## Use FAST's `display` utility for styling host element
 
 For consistent styling, use FAST's `display` utility when setting a `display` style on the host element.
@@ -164,7 +173,7 @@ import { display } from '@microsoft/fast-foundation';
 
 export const styles = css`
     ${display('flex')}
-    
+
     :host { /* ... */ }
 `;
 ```

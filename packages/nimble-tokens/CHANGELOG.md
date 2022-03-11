@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 07 Feb 2022 18:48:57 GMT and should not be manually modified.
+This log was last generated on Wed, 09 Mar 2022 22:20:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.0.1
+
+Wed, 09 Mar 2022 22:20:03 GMT
+
+### Patches
+
+- Remove Roboto font from Nimble (7282195+m-akinc@users.noreply.github.com)
+
+## 3.0.0
+
+Tue, 01 Mar 2022 16:07:33 GMT
+
+### Major changes
+
+- New `forward-slash` icon. Updated color tokens - `Enterprise` is now `ForestGreen`, `Selection100` is now `DigitalGreenLight`, `Banner_Fail_100_DarkUI_` is now `Banner_Fail_100_DarkUI`. Also adds `DigitalGreenDark`, `PowerGreen`, and `Black22`. (1458528+fredvisser@users.noreply.github.com)
+
+## 2.1.0
+
+Wed, 23 Feb 2022 20:10:44 GMT
+
+### Minor changes
+
+- Updated from XD source. Added LineHeight tokens for each font type. (1458528+fredvisser@users.noreply.github.com)
+
+## 2.0.0
+
+Mon, 21 Feb 2022 15:34:13 GMT
+
+### Major changes
+
+- Renamed and deduplicated icons. See [here](https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/EXICQZuUaOBHiJEj7G55E0EBsLshTmfYM6TIfAKD5Jo7bA?e=fucw97) for the changes. (1458528+fredvisser@users.noreply.github.com)
+
+## 1.1.0
+
+Sat, 19 Feb 2022 00:06:17 GMT
+
+### Minor changes
+
+- Update nimble-tokens from XD doc (7282195+m-akinc@users.noreply.github.com)
 
 ## 1.0.0
 

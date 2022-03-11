@@ -5,6 +5,14 @@
                 component docs</a> for additional usage details.</p>
         <div class="container">
             <div class="sub-container">
+                <div class="container-label">Breadcrumb</div>
+                <nimble-breadcrumb>
+                    <nimble-breadcrumb-item href="#">Page 1</nimble-breadcrumb-item>
+                    <nimble-breadcrumb-item nimbleRouterLink="/customapp">Page 2</nimble-breadcrumb-item>
+                    <nimble-breadcrumb-item>Current Page (No Link)</nimble-breadcrumb-item>
+                </nimble-breadcrumb>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Buttons</div>
                 <nimble-button appearance="outline">Outline Button</nimble-button>
                 <nimble-button appearance="block">Block Button</nimble-button>
@@ -35,7 +43,10 @@
                 <div class="container-label">Menu</div>
                 <nimble-menu>
                     <header>Header 1</header>
-                    <nimble-menu-item>Item 1</nimble-menu-item>
+                    <nimble-menu-item>
+                        Item 1
+                        <nimble-add-icon slot="start"></nimble-add-icon>
+                    </nimble-menu-item>
                     <nimble-menu-item>Item 2</nimble-menu-item>
                     <hr>
                     <header>Header 2</header>
@@ -73,6 +84,10 @@
                         <div class="container-label">Tab 3 content</div>
                     </nimble-tab-panel>
                 </nimble-tabs>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Text Area</div>
+                <nimble-text-area placeholder="Text Area" cols="50" rows="5" resize="horizontal" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</nimble-text-area>
             </div>
             <div class="sub-container">
                 <div class="container-label">Text Field</div>

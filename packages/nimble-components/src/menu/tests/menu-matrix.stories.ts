@@ -9,7 +9,7 @@ import {
     themeWrapper
 } from '../../utilities/tests/matrix';
 import '..';
-import '../../icons/admin';
+import '../../icons/user';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -18,9 +18,10 @@ const metadata: Meta = {
     parameters: {
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/c098395e-30f8-4bd4-b8c5-394326b59919/specs'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/c098395e-30f8-4bd4-b8c5-394326b59919/specs'
         },
-        controls: { hideNoControlsWarning: true }
+        controls: { hideNoControlsWarning: true },
+        a11y: { disabled: true }
     }
 };
 
@@ -36,7 +37,7 @@ const component = (
             <nimble-menu-item>Item 1</nimble-menu-item>
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
-            <nimble-menu-item>${when(() => icon, html`<nimble-admin-icon slot="start"></nimble-admin-icon>`)}Item 3</nimble-menu-item>
+            <nimble-menu-item>${when(() => icon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}Item 3</nimble-menu-item>
             <nimble-menu-item hidden>Item 4</nimble-menu-item>
         </nimble-menu>
     </span>

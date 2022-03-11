@@ -14,7 +14,7 @@ The library is built on the open source [FAST Design System library](https://fas
     - while not meeting all of NI's use cases, give us a good starting point and extension capabilities
     - offer a promising future [roadmap](https://github.com/microsoft/fast/tree/master/specs#web-component-specifications)
 
-[This video](https://www.youtube.com/watch?v=OHOKYItVQvc) (1 hour but watchable in less time at 2x) is a great way to get up to speed with the architecture of FAST in no time. 💨
+[This video](https://www.youtube.com/watch?v=OHOKYItVQvc) (1 hour but watchable in less time at 2x) and [this cheat sheet](https://www.fast.design/docs/resources/cheat-sheet/) are great ways to get up to speed with the architecture of FAST in no time. 💨
 
 ## Getting started
 
@@ -29,6 +29,10 @@ From the `nimble` directory:
         **Note**: You will need to refresh your browser window to see style changes made in source.
 
     - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
+
+## Visual design spec process
+
+Components added to Nimble are based on specs created by NI visual designers. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
 
 ## Component spec process
 
@@ -113,6 +117,15 @@ Use the `html` tagged template helper to define your custom template. See [decla
 
 ### Adhere to architectural philosophies
 
+#### API naming
+
+Use lower-kebab-case for attributes and enum values that are part of a component's public API.
+
+```ts
+    @attr({ attribute: 'error-text' })
+    public errorText!: string;
+```
+
 #### CSS
 
 Component CSS should follow the patterns described in [CSS Guidelines](/packages/nimble-components/docs/css-guidelines.md).
@@ -178,6 +191,10 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
     // ...
 });
 ```
+
+### Icon components
+
+The project uses a code generation build script to create a Nimble component for each icon provided by nimble tokens. The script is run as part of the `npm run build` command, and can be run individually by invoking `npm run generate-icons`. The generated icon components are not checked into source control, so the icons must be generated before running the TypeScript compilation. The code generation source can be found at `nimble-components/build/generate-icons`.
 
 ### TypeScript integration
 
@@ -255,3 +272,14 @@ The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/ut
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
+
+## Token naming
+
+Public names for theme-aware tokens are specified in `src/theme-provider/design-token-names.ts`. Use the following structure when creating new tokens.
+
+`[element]-[part]-[state]-[token_type]`
+
+1. Where **element** is the type to which the token applies (e.g. 'application', 'body', or 'title-plus-1').
+2. Where **part** is the specific part of the element to which the token applies (e.g. 'border', 'background', or shadow).
+3. Where **state** is the more specific state descriptor (e.g. 'selected' or 'disabled'). Multiple states should be sorted alphabetically.
+4. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').

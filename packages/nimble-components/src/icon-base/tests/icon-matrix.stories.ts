@@ -1,19 +1,18 @@
 import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
 
 import '../../icons/check';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { IconStatus } from '../types';
-import { contentFontColor } from '../../theme-provider/design-tokens';
+import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Icon',
-    decorators: [withXD],
     parameters: {
-        controls: { hideNoControlsWarning: true }
+        controls: { hideNoControlsWarning: true },
+        a11y: { disabled: true }
     }
 };
 
@@ -24,11 +23,11 @@ const iconStatusStates = [
     ['Fail', IconStatus.Fail],
     ['Warning', IconStatus.Warning],
     ['Regular', IconStatus.Regular]
-];
+] as const;
 type IconStatusState = typeof iconStatusStates[number];
 
 const component = ([stateName, state]: IconStatusState): ViewTemplate => html`
-    <span style="color: ${contentFontColor.createCSS()};">${stateName}</span>
+    <span style="color: ${bodyFontColor.createCSS()};">${stateName}</span>
     <nimble-check-icon class="${state}"></nimble-check-icon>
 `;
 

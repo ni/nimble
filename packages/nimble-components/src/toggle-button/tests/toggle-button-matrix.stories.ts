@@ -10,7 +10,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import '../../icons/access-control';
+import '../../icons/key';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -19,9 +19,10 @@ const metadata: Meta = {
     parameters: {
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
         },
-        controls: { hideNoControlsWarning: true }
+        controls: { hideNoControlsWarning: true },
+        a11y: { disabled: true }
     }
 };
 
@@ -60,7 +61,7 @@ const component = (
         ?content-hidden=${() => !labelVisible}
         ?checked=${() => checked}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-access-control-icon slot="start"></nimble-access-control-icon>`)}
+            ${when(() => iconVisible, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${() => `${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
     </nimble-toggle-button>
 `;

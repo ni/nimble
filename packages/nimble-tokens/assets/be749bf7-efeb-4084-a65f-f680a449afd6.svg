@@ -1,59 +1,60 @@
-<svg id="Inputs_Numeric_Underline_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="46" viewBox="0 0 176 46">
+<svg id="Inputs_Numeric_Underline_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="48" viewBox="0 0 176 48">
   <defs>
     <clipPath id="clip-path">
-      <rect y="1" width="90.631" height="17" fill="none"/>
+      <rect id="Rectangle_10820" data-name="Rectangle 10820" width="88" height="18" fill="#fff" stroke="#707070" stroke-width="1"/>
     </clipPath>
     <clipPath id="clip-path-2">
-      <rect y="1" width="81" height="14" fill="none"/>
+      <rect id="Clipping_Mask" data-name="Clipping Mask" width="176" height="14" transform="translate(0 1)" fill="none"/>
     </clipPath>
   </defs>
-  <g id="Background_Group" data-name="Background Group" transform="translate(0 14)">
+  <g id="Background_Group" data-name="Background Group" transform="translate(0 16)">
     <rect id="Block" width="176" height="32" fill="none" opacity="0"/>
     <rect id="Line" width="176" height="1" transform="translate(0 31)" fill="#161617" opacity="0.3"/>
-    <g id="Rollover" transform="translate(106 31)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
-      <rect width="2" height="1" stroke="none"/>
-      <rect x="0.5" y="0.5" width="1" fill="none"/>
-    </g>
+    <rect id="Rollover" width="2" height="1" transform="translate(87 31)" fill="#009b65" opacity="0"/>
   </g>
-  <g id="Stacks_Group" data-name="Stacks Group" transform="translate(8 22.001)">
-    <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(0 -1.001)" clip-path="url(#clip-path)" style="isolation: isolate">
+  <g id="Stacks_Group" data-name="Stacks Group" transform="translate(8 24.001)">
+    <g id="Mask_Group_48" data-name="Mask Group 48" transform="translate(0 -1.001)" clip-path="url(#clip-path)">
       <text id="_0" data-name="0" transform="translate(0 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="0" y="0">0</tspan></text>
     </g>
-    <g id="Error" transform="translate(92 0.999)" opacity="0">
+    <g id="Error" transform="translate(92 -0.001)" opacity="0">
       <rect id="IconLocation" width="16" height="16" fill="#f1f1f2" opacity="0"/>
-      <path id="Error-2" data-name="Error" d="M6.127,12.518h3.8V15h-3.8ZM6.062,1l.433,9.966H9.56L9.993,1Z" transform="translate(-0.484)" fill="#c4000c"/>
+      <path id="Error-2" data-name="Error" d="M6.127,12.518h3.8V15h-3.8ZM6.062,1l.433,9.966H9.56L9.993,1Z" transform="translate(-0.062)" fill="#c4000c"/>
     </g>
   </g>
-  <rect id="Text_Focus" data-name="Text Focus" width="1" height="18" transform="translate(16 22)" opacity="0"/>
-  <g id="Label_L" data-name="Label L" transform="translate(0 -1)" clip-path="url(#clip-path-2)" style="isolation: isolate">
+  <rect id="Text_Focus" data-name="Text Focus" width="1" height="18" transform="translate(16 24)" opacity="0"/>
+  <g id="Mask_Group_47" data-name="Mask Group 47" transform="translate(0 -1)" clip-path="url(#clip-path-2)">
     <text id="Show_label" data-name="Show label" transform="translate(0 12)" fill="#161617" font-size="11" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600" opacity="0.6"><tspan x="0" y="0">Show label</tspan></text>
   </g>
-  <g id="IconButton_Ghost_24" transform="translate(148 18)">
+  <g id="ButtonToggle_Icon_Ghost_24" transform="translate(124 20)">
     <g id="Background" transform="translate(-323.853 -324)">
-      <rect id="Background-2" data-name="Background" width="24" height="24" transform="translate(323.853 324)" fill="#161617" opacity="0"/>
-      <rect id="Mousedown" width="24" height="24" transform="translate(323.853 324)" fill="none" opacity="0"/>
-      <g id="Rollover-2" data-name="Rollover" transform="translate(323.853 324)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
+      <rect id="Fill_1" data-name="Fill 1" width="24" height="24" transform="translate(323.853 324)" fill="#161617" opacity="0"/>
+      <rect id="Fill_2" data-name="Fill 2" width="24" height="24" transform="translate(323.853 324)" fill="#009b65" opacity="0"/>
+      <g id="Rollover-2" data-name="Rollover" transform="translate(323.853 324)" fill="none" stroke="#009b65" stroke-width="2" opacity="0">
         <rect width="24" height="24" stroke="none"/>
-        <rect x="0.5" y="0.5" width="23" height="23" fill="none"/>
+        <rect x="1" y="1" width="22" height="22" fill="none"/>
       </g>
     </g>
-    <g id="Icon" transform="translate(-4 -3)">
-      <rect id="IconAlignment" width="16" height="16" transform="translate(8 7)" fill="#649fff" opacity="0"/>
-      <path id="Increase_Icon" data-name="Increase Icon" d="M1160,617v-4h-4v-2h4v-4h2v4h4v2h-4v4Z" transform="translate(-1145 -597)" fill="#161617"/>
+    <g id="Stack_Group" data-name="Stack Group" transform="translate(-44 -3)">
+      <g id="Icon" transform="translate(40)">
+        <rect id="IconAlignment" width="16" height="16" transform="translate(8 7)" fill="#649fff" opacity="0"/>
+        <rect id="Decreaase_icon" data-name="Decreaase icon" width="10" height="2" transform="translate(11 14)" fill="#161617"/>
+      </g>
     </g>
   </g>
-  <g id="IconButton_Ghost_24-2" data-name="IconButton_Ghost_24" transform="translate(124 18)">
-    <g id="Background-3" data-name="Background" transform="translate(-323.853 -324)">
-      <rect id="Background-4" data-name="Background" width="24" height="24" transform="translate(323.853 324)" fill="#161617" opacity="0"/>
-      <rect id="Mousedown-2" data-name="Mousedown" width="24" height="24" transform="translate(323.853 324)" fill="none" opacity="0"/>
-      <g id="Rollover-3" data-name="Rollover" transform="translate(323.853 324)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
+  <g id="ButtonToggle_Icon_Ghost_24-2" data-name="ButtonToggle_Icon_Ghost_24" transform="translate(148 20)">
+    <g id="Background-2" data-name="Background" transform="translate(-323.853 -324)">
+      <rect id="Fill_1-2" data-name="Fill 1" width="24" height="24" transform="translate(323.853 324)" fill="#161617" opacity="0"/>
+      <rect id="Fill_2-2" data-name="Fill 2" width="24" height="24" transform="translate(323.853 324)" fill="#009b65" opacity="0"/>
+      <g id="Rollover-3" data-name="Rollover" transform="translate(323.853 324)" fill="none" stroke="#009b65" stroke-width="2" opacity="0">
         <rect width="24" height="24" stroke="none"/>
-        <rect x="0.5" y="0.5" width="23" height="23" fill="none"/>
+        <rect x="1" y="1" width="22" height="22" fill="none"/>
       </g>
     </g>
-    <g id="Icon-2" data-name="Icon" transform="translate(-4 -3)">
-      <rect id="IconAlignment-2" data-name="IconAlignment" width="16" height="16" transform="translate(8 7)" fill="#649fff" opacity="0"/>
-      <rect id="Decreaase_icon" data-name="Decreaase icon" width="10" height="2" transform="translate(11 14)" fill="#161617"/>
+    <g id="Stack_Group-2" data-name="Stack Group" transform="translate(-44 -3)">
+      <g id="Icon-2" data-name="Icon" transform="translate(40)">
+        <rect id="IconAlignment-2" data-name="IconAlignment" width="16" height="16" transform="translate(8 7)" fill="#649fff" opacity="0"/>
+        <path id="Increase_Icon" data-name="Increase Icon" d="M1160,617v-4h-4v-2h4v-4h2v4h4v2h-4v4Z" transform="translate(-1145 -597)" fill="#161617"/>
+      </g>
     </g>
   </g>
 </svg>

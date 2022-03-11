@@ -1,9 +1,8 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    contentFontColor,
-    contentFontSize,
-    fontFamily,
+    bodyFont,
+    bodyFontColor,
     standardPadding
 } from '../theme-provider/design-tokens';
 
@@ -12,9 +11,8 @@ export const styles = css`
 
     :host {
         box-sizing: border-box;
-        font-family: ${fontFamily};
-        font-size: ${contentFontSize};
-        color: ${contentFontColor};
+        font: ${bodyFont};
+        color: ${bodyFontColor};
         padding-top: ${standardPadding};
     }
 `;
