@@ -65,7 +65,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
         },
         useProminentLinksStyle: {
             description:
-                'To use the Breadcrumb_2 theme (which swaps the default and active/mouseover link colors), add the CSS class `prominent-links` to the '
+                'To use the alternate (Prominent Links) style (which swaps the default and active/mouseover link colors), add the CSS class `prominent-links` to the '
                 + '`<nimble-breadcrumb>` element.'
         }
     },
