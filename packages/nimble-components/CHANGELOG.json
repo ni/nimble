@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 11 Mar 2022 00:51:41 GMT",
+      "tag": "@ni/nimble-components_v7.0.0",
+      "version": "7.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0a22c0380b537f013c2fb9766bcbf9cd9e4f5927",
+            "comment": "Change nimble-breadcrumb CSS class from \"style-2\" to \"prominent-links\" (to get alt link color style); add that style to breadcrumb theme matrix"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 10 Mar 2022 21:26:41 GMT",
       "tag": "@ni/nimble-components_v6.1.5",
       "version": "6.1.5",
