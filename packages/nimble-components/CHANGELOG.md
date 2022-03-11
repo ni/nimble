@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 10 Mar 2022 19:42:54 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Mar 2022 00:51:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.0.0
+
+Fri, 11 Mar 2022 00:51:41 GMT
+
+### Major changes
+
+- Change nimble-breadcrumb CSS class from "style-2" to "prominent-links" (to get alt link color style); add that style to breadcrumb theme matrix (20709258+msmithNI@users.noreply.github.com)
 
 ## 6.1.5
 
