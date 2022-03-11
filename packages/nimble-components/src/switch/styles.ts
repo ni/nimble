@@ -63,7 +63,7 @@ export const styles = css`
         align-items: center;
     }
 
-    ::slotted([slot='unchecked-message']) {
+    slot[name='unchecked-message']::slotted(*) {
         margin-inline-end: 8px;
     }
 
@@ -151,7 +151,7 @@ export const styles = css`
         transition: opacity ${smallDelay} ease-in-out;
     }
 
-    ::slotted([slot='checked-message']) {
+    slot[name='checked-message']::slotted(*) {
         margin-inline-start: 8px;
     }
 
