@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 11 Mar 2022 00:51:41 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Mar 2022 16:23:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.0.1
+
+Fri, 11 Mar 2022 16:23:10 GMT
+
+### Patches
+
+- Switch to released 6.0.0 of storybook-addon-xd-designs (7282195+m-akinc@users.noreply.github.com)
 
 ## 7.0.0
 
