@@ -26,14 +26,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const defaultSwitch: Story = createRenderer(
-    html`<nimble-switch>
-        Default Switch
-        <span slot="checked-message">On</span>
-        <span slot="unchecked-message">Off</span>
-    </nimble-switch>`
-);
-
 type CheckedState = [string, boolean];
 const checkedStates: CheckedState[] = [
     ['Checked', true],

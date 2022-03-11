@@ -1,6 +1,7 @@
 import { html, slotted } from '@microsoft/fast-element';
 import type { Switch } from '.';
 
+// prettier-ignore
 export const template = html<Switch>`
     <template
         role="switch"
@@ -14,9 +15,7 @@ export const template = html<Switch>`
     >
         <label
             part="label"
-            class="${x => (x.defaultSlottedNodes?.length
-        ? 'label'
-        : 'label label__hidden')}"
+            class="${x => (x.defaultSlottedNodes?.length ? 'label' : 'label label__hidden')}"
         >
             <slot ${slotted('defaultSlottedNodes')}></slot>
         </label>

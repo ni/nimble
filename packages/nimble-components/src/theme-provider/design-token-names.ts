@@ -25,13 +25,6 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     iconColor: 'icon-color',
     popupBoxShadowColor: 'popup-box-shadow-color',
     popupBorderColor: 'popup-border-color',
-    switchBackgroundDisabledColor: 'switch-background-disabled-color',
-    switchIndicatorBackgroundColor: 'switch-indicator-background-color',
-    switchIndicatorBackgroundDisabledColor:
-        'switch-indicator-background-disabled-color',
-    switchIndicatorBorderColor: 'switch-indicator-border-color',
-    switchIndicatorBorderDisabledColor:
-        'switch-indicator-border-disabled-color',
     controlHeight: 'control-height',
     smallPadding: 'small-padding',
     standardPadding: 'standard-padding',

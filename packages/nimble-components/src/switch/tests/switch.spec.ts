@@ -1,4 +1,8 @@
 import { DOM, html } from '@microsoft/fast-element';
+import {
+    DesignSystem,
+    Switch as FoundationSwitch
+} from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import '..';
@@ -20,6 +24,12 @@ describe('Switch', () => {
 
     afterEach(async () => {
         await disconnect();
+    });
+
+    it('should have its tag returned by tagFor(FoundationSwitch)', () => {
+        expect(html`${DesignSystem.tagFor(FoundationSwitch)}`.html).toBe(
+            'nimble-switch'
+        );
     });
 
     it('should have a role of `switch`', async () => {

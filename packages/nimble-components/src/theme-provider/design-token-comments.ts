@@ -26,13 +26,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     iconColor: 'Equivalent to the font color for icons',
     popupBoxShadowColor: 'Shadow color for menus and dialog boxes',
     popupBorderColor: 'Border color for menus and dialog boxes',
-    switchBackgroundDisabledColor: 'Background color for disabled switch',
-    switchIndicatorBackgroundColor: 'Background color for switch indicator',
-    switchIndicatorBackgroundDisabledColor:
-        'Background color for disabled switch indicator',
-    switchIndicatorBorderColor: 'Border color for switch indicator',
-    switchIndicatorBorderDisabledColor:
-        'Border color for disabled switch indicator',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     smallPadding: 'Small layout padding for components',
