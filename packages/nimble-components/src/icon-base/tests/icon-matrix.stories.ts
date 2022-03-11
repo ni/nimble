@@ -1,5 +1,4 @@
 import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
 
@@ -11,7 +10,6 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Icon',
-    decorators: [withXD],
     parameters: {
         controls: { hideNoControlsWarning: true },
         a11y: { disabled: true }

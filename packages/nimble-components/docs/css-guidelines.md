@@ -2,7 +2,7 @@
 
 ## Design Tokens and CSS Custom Properties
 
-Nimble controls have shared style properties such as colors, typography, sizing, and animation properties as defined by the [Nimble Design System](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/). These properties are shared in two different ways: Design Tokens and CSS Custom Properties.
+Nimble controls have shared style properties such as colors, typography, sizing, and animation properties as defined by the [Nimble Design System](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/). These properties are shared in two different ways: Design Tokens and CSS Custom Properties.
 
 ### Design Tokens
 
