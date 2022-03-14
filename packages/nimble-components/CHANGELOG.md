@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 01 Mar 2022 19:24:47 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Mar 2022 16:23:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.0.1
+
+Fri, 11 Mar 2022 16:23:10 GMT
+
+### Patches
+
+- Switch to released 6.0.0 of storybook-addon-xd-designs (7282195+m-akinc@users.noreply.github.com)
+
+## 7.0.0
+
+Fri, 11 Mar 2022 00:51:41 GMT
+
+### Major changes
+
+- Change nimble-breadcrumb CSS class from "style-2" to "prominent-links" (to get alt link color style); add that style to breadcrumb theme matrix (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.5
+
+Thu, 10 Mar 2022 19:42:54 GMT
+
+### Patches
+
+- Fix bug where incorrect theme can be applied to breadcrumb/textfield if 2 theme providers/ themes are active on a page (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.4
+
+Wed, 09 Mar 2022 22:20:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.1
+
+## 6.1.3
+
+Tue, 08 Mar 2022 16:17:42 GMT
+
+### Patches
+
+- Inherit font properties from nimble-text-field element (7282195+m-akinc@users.noreply.github.com)
+
+## 6.1.2
+
+Fri, 04 Mar 2022 21:15:36 GMT
+
+### Patches
+
+- Add final styling for breadcrumb. nimble-breadcrumb allows swapping to 2nd style (swaps link regular/mousedown colors) via style-2 CSS class. (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.1
+
+Fri, 04 Mar 2022 20:46:39 GMT
+
+### Patches
+
+- Don't tie error display to invalid state (7282195+m-akinc@users.noreply.github.com)
+
+## 6.1.0
+
+Wed, 02 Mar 2022 17:00:45 GMT
+
+### Minor changes
+
+- Adding new font tokens (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 6.0.0
 

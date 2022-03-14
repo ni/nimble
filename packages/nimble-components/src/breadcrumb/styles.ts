@@ -1,6 +1,17 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyFont } from '../theme-provider/design-tokens';
+import {
+    DigitalGreenDark,
+    PowerGreen,
+    White
+} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import {
+    bodyEmphasizedFont,
+    bodyFont,
+    bodyFontColor
+} from '../theme-provider/design-tokens';
+import { hexToRgbaCssColor } from '../utilities/style/colors';
+import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
     ${display('inline-block')}
@@ -8,6 +19,7 @@ export const styles = css`
     :host {
         box-sizing: border-box;
         font: ${bodyFont};
+        --ni-private-breadcrumb-link-font-color: ${bodyFontColor};
     }
 
     .list {
@@ -15,11 +27,51 @@ export const styles = css`
         flex-wrap: wrap;
     }
 
+    :host(.prominent-links) {
+        --ni-private-breadcrumb-link-active-font-color: ${bodyFontColor};
+    }
+
     ::slotted(*:first-child) {
         padding-left: 0px;
     }
 
     ::slotted(*:not([href]):last-child) {
-        font-weight: bold;
+        font: ${bodyEmphasizedFont};
     }
-`;
+`.withBehaviors(
+        themeBehavior(
+            css`
+            ${'' /* Light theme */}
+            :host {
+                --ni-private-breadcrumb-link-active-font-color: ${DigitalGreenDark};
+            }
+
+            :host(.prominent-links) {
+                --ni-private-breadcrumb-link-font-color: ${DigitalGreenDark};
+            }
+        `,
+            css`
+            ${'' /* Dark theme */}
+            :host {
+                --ni-private-breadcrumb-link-active-font-color: ${PowerGreen};
+            }
+
+            :host(.prominent-links) {
+                --ni-private-breadcrumb-link-font-color: ${PowerGreen};
+            }
+        `,
+            css`
+            ${'' /* Color theme */}
+            :host {
+                --ni-private-breadcrumb-link-active-font-color: ${hexToRgbaCssColor(
+                White,
+                0.6
+            )};
+            }
+
+            :host(.prominent-links) {
+                --ni-private-breadcrumb-link-font-color: ${PowerGreen};
+            }
+        `
+        )
+    );

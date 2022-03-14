@@ -32,11 +32,12 @@
   <g id="Tabs_Vertical_Icon_Single_32-3" data-name="Tabs_Vertical_Icon_Single_32">
     <g id="Background-5" data-name="Background" transform="translate(-319.853 -320)">
       <rect id="Background-6" data-name="Background" width="32" height="32" transform="translate(319.853 320)" fill="#161617" opacity="0"/>
-      <rect id="Rollover-3" data-name="Rollover" width="32" height="32" transform="translate(319.853 320)" fill="#009b65" opacity="0"/>
+      <rect id="Rollover-3" data-name="Rollover" width="32" height="32" transform="translate(319.853 320)" fill="#161617" opacity="0"/>
       <g id="Mousedown-3" data-name="Mousedown" transform="translate(319.853 320)" fill="none" stroke="#009b65" stroke-width="1" opacity="0">
         <rect width="32" height="32" stroke="none"/>
         <rect x="0.5" y="0.5" width="31" height="31" fill="none"/>
       </g>
+      <rect id="Selected_Rollover" data-name="Selected Rollover" width="32" height="32" transform="translate(319.853 320)" fill="#009b65" opacity="0"/>
       <rect id="Selected-3" data-name="Selected" width="2" height="32" transform="translate(319.853 320)" fill="#009b65"/>
     </g>
     <g id="Icon-5" data-name="Icon" transform="translate(0 1)">

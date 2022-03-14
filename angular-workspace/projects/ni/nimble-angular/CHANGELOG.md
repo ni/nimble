@@ -1,8 +1,88 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 01 Mar 2022 19:24:47 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Mar 2022 16:23:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.0.4
+
+Fri, 11 Mar 2022 16:23:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.0.1
+
+## 4.0.3
+
+Fri, 11 Mar 2022 00:51:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.0.0
+
+## 4.0.2
+
+Thu, 10 Mar 2022 19:42:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.5
+
+## 4.0.1
+
+Wed, 09 Mar 2022 22:20:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.4
+
+## 4.0.0
+
+Wed, 09 Mar 2022 15:25:53 GMT
+
+### Major changes
+
+- Enable Ivy. (26874831+atmgrifter00@users.noreply.github.com)
+
+## 3.1.4
+
+Tue, 08 Mar 2022 16:17:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.3
+
+## 3.1.3
+
+Fri, 04 Mar 2022 21:15:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.2
+
+## 3.1.2
+
+Fri, 04 Mar 2022 20:46:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.1
+
+## 3.1.1
+
+Wed, 02 Mar 2022 17:00:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.0
+
+## 3.1.0
+
+Tue, 01 Mar 2022 21:31:24 GMT
+
+### Minor changes
+
+- Added Nimble icon Angular integration (5454342+brianehenry@users.noreply.github.com)
 
 ## 3.0.0
 

@@ -31,7 +31,7 @@ const metadata: Meta<TextAreaArgs> = {
         },
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/specs/'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/specs/'
         },
         actions: {
             handles: ['change']
@@ -95,7 +95,7 @@ const metadata: Meta<TextAreaArgs> = {
         resize: TextAreaResize.both,
         rows: 3,
         cols: 20,
-        maxlength: 100
+        maxlength: 500
     }
 };
 

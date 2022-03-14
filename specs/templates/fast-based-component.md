@@ -35,7 +35,7 @@
 
 ### Additional requirements
 
-*Review each of the following areas. Highlight any gaps which might require additional work or bugs to be filed to FAST.*
+*Review the following areas and add brief commentary on each. Highlight any gaps which might require additional work, bugs to be filed to FAST, or write "None" if there are no special requirements.*
 
 - *User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?*
 - *Styling: Does FAST provide APIs to achieve the styling in the visual design spec?*

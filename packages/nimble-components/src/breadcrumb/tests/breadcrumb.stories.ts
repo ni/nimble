@@ -7,6 +7,7 @@ import { createRenderer } from '../../utilities/tests/storybook';
 
 interface BreadcrumbArgs {
     options: ItemArgs[];
+    useProminentLinksStyle: boolean;
 }
 
 interface ItemArgs {
@@ -32,7 +33,7 @@ const metadata: Meta<BreadcrumbArgs> = {
         },
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e/specs/'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e/specs/'
         },
         actions: {}
     }
@@ -45,21 +46,27 @@ export default metadata;
 // eslint-disable-next-line no-script-url
 const noOpUrl = 'javascript:';
 
-export const standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
+export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-breadcrumb>
+        <nimble-breadcrumb class="${x => (x.useProminentLinksStyle ? 'prominent-links' : '')}">
             ${repeat(x => x.options, html<ItemArgs>`
                 <nimble-breadcrumb-item href="${x => x.href}" target="${x => x.target}">${x => x.label}</nimble-breadcrumb-item>
             `)}
         </nimble-breadcrumb>
 `),
+    storyName: 'Standard Breadcrumb',
     argTypes: {
         options: {
             description:
                 'Nest one or more `<nimble-breadcrumb-item />`s inside `<nimble-breadcrumb />`. Each can optionally set `href`, `target`, etc. '
                 + 'With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page (with no `href` specified, '
                 + 'rendering with a bold font).'
+        },
+        useProminentLinksStyle: {
+            description:
+                'To use the alternate (Prominent Links) style (which swaps the default and active/mouseover link colors), add the CSS class `prominent-links` to the '
+                + '`<nimble-breadcrumb>` element.'
         }
     },
     args: {
@@ -75,7 +82,8 @@ export const standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
             {
                 label: 'Current (No Link)'
             }
-        ]
+        ],
+        useProminentLinksStyle: false
     }
 };
 
