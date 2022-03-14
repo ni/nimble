@@ -26,6 +26,25 @@ If you have an existing application that incorporates a module bundler like [Web
 3. Add the HTML for the component to your page. You can see sample code for each component in the [Nimble Storybook](https://ni.github.io/nimble/storybook/) by going to the **Docs** tab for the component and clicking **Show code**. For example: `<nimble-succeeded-icon></nimble-succeeded-icon>`.
 4. Nimble components are [standard web components (custom elements)](https://developer.mozilla.org/en-US/docs/Web/Web_Components) so you can configure them via normal DOM APIs like attributes, properties, events, and methods. The [Storybook documentation](https://ni.github.io/nimble/storybook/) for each component describes its custom API.
 
+### Using `nimble-components` in a static webpage
+
+If you have a static webpage without a bundler, you can use `@ni/nimble-components` by including one of the combined distribution files from the package contents as a script in your page. For example:
+
+```html
+<html>
+  <head>
+    <script src="node_modules/dist/nimble-components.js" type="module"></script>
+  </head>
+  <body>
+    <nimble-button>Hello</nimble-button>
+  </body>
+</html>
+```
+
+Alternatively, a minified combined distribution file is also available at `dist/nimble-components.min.js`.
+
+These combined distribution files are also useful for static page demos on sites like StackBlitz.
+
 ## Theming
 
 This package contains a theming system which enables changing the appearance of controls based on user preferences or application designs.

@@ -234,6 +234,10 @@ const nimbleButton = Button.compose({
 });
 ```
 
+### Include new component in Rollup build
+
+All components (and all other public API) should be exported from `src/index-rollup.ts`. Otherwise they will not be available in the combined distribution files.
+
 ## Unit tests
 
 Unit tests are written using karma and jasmine in files named `<component-name>.spec.ts`.
