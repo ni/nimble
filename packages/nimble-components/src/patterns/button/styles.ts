@@ -105,7 +105,7 @@ export const styles = css`
     :host([content-hidden]) .content {
         ${
             /**
-             * Utility class to hide content visually while keeping it screen reader-accessible.
+             * Hide content visually while keeping it screen reader-accessible.
              * Source: https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
              */
             ''
