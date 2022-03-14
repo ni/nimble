@@ -103,7 +103,21 @@ export const styles = css`
     }
 
     :host([content-hidden]) .content {
-        display: none;
+        ${
+            /**
+             * Utility class to hide content visually while keeping it screen reader-accessible.
+             * Source: https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
+             */
+            ''
+        }
+        display: inline-block;
+        height: 1px;
+        width: 1px;
+        position: absolute;
+        clip: rect(0 0 0 0);
+        clip-path: inset(100%);
+        overflow: hidden;
+        white-space: nowrap;
     }
 
     [part='start'] {
