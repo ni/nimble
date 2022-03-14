@@ -22,5 +22,8 @@ export const template = html<ToggleButton>`
         <span class="content" part="content" id="nimble-toggle-button-content">
             <slot></slot>
         </span>
+        <span part="end" class="end">
+            <slot name="end"></slot>
+        </span>
     </div>
 `;
