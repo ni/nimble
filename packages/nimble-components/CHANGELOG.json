@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 14 Mar 2022 16:43:20 GMT",
+      "tag": "@ni/nimble-components_v7.1.0",
+      "version": "7.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9f367f69590374c042bfdcb07105b4d104db3975",
+            "comment": "Create switch component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 11 Mar 2022 16:23:10 GMT",
       "tag": "@ni/nimble-components_v7.0.1",
       "version": "7.0.1",
