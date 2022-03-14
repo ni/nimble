@@ -119,7 +119,15 @@ export const styles = css`
     }
 
     [part='end'] {
+        display: contents;
+    }
+
+    :host([content-hidden]) [part='end'] {
         display: none;
+    }
+
+    slot[name='end']::slotted(*) {
+        ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
     }
 `
     // prettier-ignore
