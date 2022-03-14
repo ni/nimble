@@ -32,12 +32,15 @@ If you have a static webpage without a bundler, you can use `@ni/nimble-componen
 
 ```html
 <html>
-  <head>
-    <script src="node_modules/dist/nimble-components.js" type="module"></script>
-  </head>
-  <body>
-    <nimble-button>Hello</nimble-button>
-  </body>
+    <head>
+        <script
+            src="node_modules/dist/nimble-components.js"
+            type="module"
+        ></script>
+    </head>
+    <body>
+        <nimble-button>Hello</nimble-button>
+    </body>
 </html>
 ```
 

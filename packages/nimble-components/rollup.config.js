@@ -6,11 +6,11 @@ import transformTaggedTemplate from 'rollup-plugin-transform-tagged-template';
 import typescript from 'rollup-plugin-typescript2';
 import {
     transformCSSFragment,
-    transformHTMLFragment,
+    transformHTMLFragment
 } from './build/transform-fragments';
 
 const parserOptions = {
-    sourceType: 'module',
+    sourceType: 'module'
 };
 
 // eslint-disable-next-line import/no-default-export
@@ -21,13 +21,13 @@ export default [
         output: [
             {
                 file: 'dist/nimble-components.js',
-                format: 'esm',
+                format: 'esm'
             },
             {
                 file: 'dist/nimble-components.min.js',
                 format: 'esm',
-                plugins: [terser()],
-            },
+                plugins: [terser()]
+            }
         ],
         plugins: [
             resolve(),
@@ -35,24 +35,24 @@ export default [
             typescript({
                 tsconfigOverride: {
                     compilerOptions: {
-                        declaration: false,
-                    },
-                },
+                        declaration: false
+                    }
+                }
             }),
             transformTaggedTemplate({
                 tagsToProcess: ['css'],
                 transformer: transformCSSFragment,
-                parserOptions,
+                parserOptions
             }),
             transformTaggedTemplate({
                 tagsToProcess: ['html'],
                 transformer: transformHTMLFragment,
-                parserOptions,
+                parserOptions
             }),
             filesize({
                 showMinifiedSize: false,
-                showBrotliSize: true,
-            }),
-        ],
-    },
+                showBrotliSize: true
+            })
+        ]
+    }
 ];
