@@ -22,5 +22,6 @@
         "noUncheckedIndexedAccess": true,
         "noPropertyAccessFromIndexSignature": true
     },
-    "include": ["src"]
+    "include": ["src"],
+    "exclude": ["**/index-rollup.ts"]
 }
