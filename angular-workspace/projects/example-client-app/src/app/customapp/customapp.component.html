@@ -31,6 +31,15 @@
                 <nimble-checkbox>Checkbox label</nimble-checkbox>
             </div>
             <div class="sub-container">
+                <div class="container-label">Switch</div>
+                <nimble-switch>Switch</nimble-switch>
+                <nimble-switch checked>
+                    Switch with checked/unchecked messages
+                    <span slot="unchecked-message">Off</span>
+                    <span slot="checked-message">On</span>
+                </nimble-switch>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Drawer/Sidenav:</div>
                 <nimble-button appearance="outline" (click)="navDrawer.open()">Open Drawer</nimble-button>
                 <nimble-button appearance="outline" (click)="navDrawer.togglePinned()">Pin/Unpin</nimble-button>
