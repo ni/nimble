@@ -15,7 +15,7 @@ declare global {
 }
 
 /**
- * A nimble-styed Toolbar
+ * A nimble-styled Toolbar
  */
 class Toolbar extends FoundationToolbar {}
 
