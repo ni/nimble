@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 11 Mar 2022 16:23:10 GMT and should not be manually modified.
+This log was last generated on Mon, 14 Mar 2022 16:43:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.1.0
+
+Mon, 14 Mar 2022 16:43:20 GMT
+
+### Minor changes
+
+- Create switch component (5454342+brianehenry@users.noreply.github.com)
 
 ## 7.0.1
 
