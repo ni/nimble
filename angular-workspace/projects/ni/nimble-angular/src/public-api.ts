@@ -15,7 +15,7 @@ export * from './directives/checkbox/nimble-checkbox.directive';
 export * from './directives/checkbox/nimble-checkbox.module';
 export * from './directives/drawer/nimble-drawer.directive';
 export * from './directives/drawer/nimble-drawer.module';
-// {{INSERT_ICONS_EXPORTS_HERE}}
+export * from './directives/icons';
 export * from './directives/listbox-option/nimble-listbox-option.directive';
 export * from './directives/listbox-option/nimble-listbox-option.module';
 export * from './directives/menu/nimble-menu.directive';
