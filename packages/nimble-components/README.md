@@ -39,7 +39,9 @@ If you have a static webpage without a bundler, you can use `@ni/nimble-componen
         ></script>
     </head>
     <body>
-        <nimble-button>Hello</nimble-button>
+        <nimble-theme-provider theme="light">
+            <nimble-button>Hello</nimble-button>
+        </nimble-theme-provider>
     </body>
 </html>
 ```

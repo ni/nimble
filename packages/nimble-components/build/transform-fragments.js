@@ -1,3 +1,6 @@
+// Copied from FAST
+// https://github.com/microsoft/fast/blob/a8aada16c7b089728a13a6bb7d98b8b928bb2b4f/build/transform-fragments.js
+
 /**
  * Reduces extra spaces in HTML tagged templates.
  *
