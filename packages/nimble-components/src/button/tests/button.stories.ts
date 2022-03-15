@@ -34,7 +34,7 @@ const primaryDescription = `Set the \`primary\` CSS class on the element to make
 </details>
 `;
 
-const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure property styling.
+const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
 
 This icon will be hidden when \`contentHidden\` is set to \`true\`
 .`;
