@@ -107,6 +107,7 @@ export const styles = css`
             /**
              * Hide content visually while keeping it screen reader-accessible.
              * Source: https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
+             * See discussion here: https://github.com/microsoft/fast/issues/5740#issuecomment-1068195035
              */
             ''
         }
@@ -114,10 +115,11 @@ export const styles = css`
         height: 1px;
         width: 1px;
         position: absolute;
-        clip: rect(0 0 0 0);
-        clip-path: inset(100%);
+        margin: -1px;
+        clip: rect(1px, 1px, 1px, 1px);
+        clip-path: inset(50%);
         overflow: hidden;
-        white-space: nowrap;
+        padding: 0;
     }
 
     [part='start'] {
