@@ -236,7 +236,7 @@ const nimbleButton = Button.compose({
 
 ### Include new component in Rollup build
 
-All components (and all other public API) should be exported from `src/index-rollup.ts`. Otherwise they will not be available in the combined distribution files.
+All components (and all other public API) should be exported from `src/index-rollup.ts`. Otherwise they will not be available in the bundled distribution files.
 
 ## Unit tests
 

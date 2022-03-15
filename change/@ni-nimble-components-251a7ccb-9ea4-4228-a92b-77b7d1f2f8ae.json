@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add combined distribution file to package",
+  "comment": "Add bundled distribution file to package",
   "packageName": "@ni/nimble-components",
   "email": "5454342+brianehenry@users.noreply.github.com",
   "dependentChangeType": "patch"

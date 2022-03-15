@@ -28,7 +28,7 @@ If you have an existing application that incorporates a module bundler like [Web
 
 ### Using `nimble-components` in a static webpage
 
-If you have a static webpage without a bundler, you can use `@ni/nimble-components` by including one of the combined distribution files from the package contents as a script in your page. For example:
+If you have a static webpage without a bundler, you can use `@ni/nimble-components` by including one of the bundled distribution files from the package contents as a script in your page. For example:
 
 ```html
 <html>
@@ -44,9 +44,9 @@ If you have a static webpage without a bundler, you can use `@ni/nimble-componen
 </html>
 ```
 
-Alternatively, a minified combined distribution file is also available at `dist/nimble-components.min.js`.
+Alternatively, a minified bundled distribution file is also available at `dist/nimble-components.min.js`.
 
-These combined distribution files are also useful for static page demos on sites like StackBlitz.
+These bundled distribution files are also useful for static page demos on sites like StackBlitz.
 
 ## Theming
 
