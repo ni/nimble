@@ -23,7 +23,7 @@ indicate that sound is muted by setting the pressed state true. Important: it is
 not change when its state changes. In this example, when the pressed state is true, the label remains "Mute" so a
 screen reader would say something like "Mute toggle button pressed".`;
 
-const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure property styling.
+const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
 
 This icon will be hidden when \`contentHidden\` is set to \`true\`
 .`;
