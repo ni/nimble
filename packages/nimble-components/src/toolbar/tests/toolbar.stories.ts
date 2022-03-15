@@ -9,7 +9,10 @@ for grouping a set of controls, such as buttons, menubuttons, or checkboxes.
 
 When a set of controls is visually presented as a group, the toolbar role can be used to communicate the
 presence and purpose of the grouping to screen reader users. Grouping controls into toolbars can also be
-an effective way of reducing the number of tab stops in the keyboard interface.`;
+an effective way of reducing the number of tab stops in the keyboard interface.
+
+The \`nimble-toolbar\` is transparent by default. Its background should be set to an appropriate theme color
+based on the toolbar's usage in an application.`;
 
 const metadata: Meta = {
     title: 'Toolbar',
