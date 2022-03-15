@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 15 Mar 2022 16:21:24 GMT",
+      "tag": "@ni/nimble-angular_v4.1.0",
+      "version": "4.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "dcfe593fcea5b097b08b927928d9ed9d00dd3446",
+            "comment": "Add nimble-switch Angular integration"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Mar 2022 16:43:20 GMT",
       "tag": "@ni/nimble-angular_v4.0.5",
       "version": "4.0.5",

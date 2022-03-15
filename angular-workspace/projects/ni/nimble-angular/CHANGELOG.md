@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 14 Mar 2022 16:43:20 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Mar 2022 16:21:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.1.0
+
+Tue, 15 Mar 2022 16:21:24 GMT
+
+### Minor changes
+
+- Add nimble-switch Angular integration (5454342+brianehenry@users.noreply.github.com)
 
 ## 4.0.5
 
