@@ -42,7 +42,7 @@
 
         if (Context == null)
         {
-            throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(NimbleSelect)}, {typeof(NimbleListbox)} " +
+            throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(NimbleSelect)} " +
                 $"with a matching 'Name' property, if specified.");
         }
     }
