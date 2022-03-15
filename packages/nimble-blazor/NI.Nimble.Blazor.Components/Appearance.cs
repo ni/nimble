@@ -2,13 +2,10 @@
 
 public enum Appearance
 {
-    Neutral,
-    Accent,
-    Hypertext,
-    Lightweight,
+    Block,
+    Ghost,
     Outline,
-    Stealth,
-    Filled
+    Underline
 }
 
 internal static class AppearanceExtensions
