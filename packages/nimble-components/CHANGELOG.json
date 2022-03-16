@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 16 Mar 2022 21:51:34 GMT",
+      "tag": "@ni/nimble-components_v7.2.0",
+      "version": "7.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3d1a63a6c352b9087dfe07c36f434f70c5a2851c",
+            "comment": "Add support for icons in 'end' slot of nimble-button and nimble-toggle-button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Mar 2022 18:56:43 GMT",
       "tag": "@ni/nimble-components_v7.1.1",
       "version": "7.1.1",

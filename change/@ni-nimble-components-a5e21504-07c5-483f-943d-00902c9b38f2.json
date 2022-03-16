@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add support for icons in 'end' slot of nimble-button and nimble-toggle-button",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
