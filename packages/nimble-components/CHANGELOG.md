@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 16 Mar 2022 21:51:34 GMT and should not be manually modified.
+This log was last generated on Wed, 16 Mar 2022 22:20:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.2.1
+
+Wed, 16 Mar 2022 22:20:10 GMT
+
+### Patches
+
+- Fix hover style of block button (20542556+mollykreis@users.noreply.github.com)
 
 ## 7.2.0
 

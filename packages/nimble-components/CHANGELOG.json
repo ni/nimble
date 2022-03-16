@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 16 Mar 2022 22:20:10 GMT",
+      "tag": "@ni/nimble-components_v7.2.1",
+      "version": "7.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9d9b3e602dcd10381783b78f1ab84a79d378a68d",
+            "comment": "Fix hover style of block button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Mar 2022 21:51:34 GMT",
       "tag": "@ni/nimble-components_v7.2.0",
       "version": "7.2.0",
