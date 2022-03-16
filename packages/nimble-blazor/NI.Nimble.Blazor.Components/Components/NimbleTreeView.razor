@@ -1,4 +1,4 @@
-<nimble-tree-view render-collapsed-nodes="@RenderCollapsedNodes" @attributes="AdditionalAttributes">@ChildContent</nimble-tree-view>
+<nimble-tree-view render-collapsed-nodes="@RenderCollapsedNodes" selection-mode="@SelectionMode" @attributes="AdditionalAttributes">@ChildContent</nimble-tree-view>
 
 @code
 {
@@ -7,6 +7,9 @@
 
     [Parameter]
     public bool? RenderCollapsedNodes { get; set; }
+
+    [Parameter]
+    public SelectionMode? SelectionMode { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
