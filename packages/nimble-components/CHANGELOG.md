@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 14 Mar 2022 16:43:20 GMT and should not be manually modified.
+This log was last generated on Wed, 16 Mar 2022 18:56:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.1.1
+
+Wed, 16 Mar 2022 18:56:43 GMT
+
+### Patches
+
+- Icon button use hidden content as a11y name (7282195+m-akinc@users.noreply.github.com)
 
 ## 7.1.0
 

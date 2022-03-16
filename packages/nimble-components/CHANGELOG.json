@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 16 Mar 2022 18:56:43 GMT",
+      "tag": "@ni/nimble-components_v7.1.1",
+      "version": "7.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "60a48fd03c405d6726733003895afdbe30a33241",
+            "comment": "Icon button use hidden content as a11y name"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Mar 2022 16:43:20 GMT",
       "tag": "@ni/nimble-components_v7.1.0",
       "version": "7.1.0",
