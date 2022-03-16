@@ -1,9 +1,2 @@
+@namespace NI.Nimble.Blazor.Components
 <nimble-menu @attributes="AdditionalAttributes">@ChildContent</nimble-menu>
-
-@code {
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
-}

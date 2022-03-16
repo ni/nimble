@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace NI.Nimble.Components;
+namespace NI.Nimble.Blazor.Components;
 
 public class CheckboxChangeEventArgs : EventArgs
 {
