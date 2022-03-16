@@ -1,7 +1,11 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, ViewTemplate } from '@microsoft/fast-element';
+import { endSlotTemplate, startSlotTemplate, FoundationElementTemplate, ButtonOptions } from '@microsoft/fast-foundation';
 import type { ToggleButton } from '.';
 
-export const template = html<ToggleButton>`
+export const template: FoundationElementTemplate<
+ViewTemplate<ToggleButton>,
+ButtonOptions
+> = (context, definition) => html<ToggleButton>`
     <div
         role="button"
         part="control"
@@ -16,14 +20,10 @@ export const template = html<ToggleButton>`
         ?disabled="${x => x.disabled}"
         ${ref('control')}
     >
-        <span part="start" class="start">
-            <slot name="start"></slot>
-        </span>
+        ${startSlotTemplate(context, definition)}
         <span class="content" part="content" id="nimble-toggle-button-content">
             <slot></slot>
         </span>
-        <span part="end" class="end">
-            <slot name="end"></slot>
-        </span>
+        ${endSlotTemplate(context, definition)}
     </div>
 `;
