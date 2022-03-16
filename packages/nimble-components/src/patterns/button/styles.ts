@@ -106,7 +106,7 @@ export const styles = css`
         ${
             /**
              * Hide content visually while keeping it screen reader-accessible.
-             * Source: https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
+             * Source: https://webaim.org/techniques/css/invisiblecontent/#techniques
              * See discussion here: https://github.com/microsoft/fast/issues/5740#issuecomment-1068195035
              */
             ''
