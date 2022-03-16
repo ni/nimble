@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DebugType>embedded</DebugType>
+    <Authors>NI</Authors>
+    <PackageProjectUrl>https://github.com/ni/nimble/tree/main/packages/nimble-blazor</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ni/nimble/tree/main/packages/nimble-blazor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Web Components, .NET, Nimble, FAST, Blazor, .NET 6.0</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702,8669,1591</NoWarn>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+</Project>
