@@ -209,13 +209,17 @@ export const styles = css`
                 }
 
                 .control:hover {
-                    background-color: rgba(${borderRgbPartialColor}, 0.1);
+                    background-color: transparent;
                     border-color: ${borderHoverColor};
                 }
 
                 .control${focusVisible} {
                     background-color: rgba(${borderRgbPartialColor}, 0.1);
                     border-color: ${borderHoverColor};
+                }
+
+                .control${focusVisible}:hover {
+                    background-color: transparent;
                 }
 
                 .control:active {
