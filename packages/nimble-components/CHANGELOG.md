@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 16 Mar 2022 18:56:43 GMT and should not be manually modified.
+This log was last generated on Wed, 16 Mar 2022 21:51:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.2.0
+
+Wed, 16 Mar 2022 21:51:34 GMT
+
+### Minor changes
+
+- Add support for icons in 'end' slot of nimble-button and nimble-toggle-button (20542556+mollykreis@users.noreply.github.com)
 
 ## 7.1.1
 

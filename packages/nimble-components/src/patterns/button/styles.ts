@@ -124,9 +124,6 @@ export const styles = css`
 
     [part='start'] {
         display: contents;
-    }
-
-    slot[name='start']::slotted(*) {
         ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
     }
 
@@ -135,6 +132,11 @@ export const styles = css`
     }
 
     [part='end'] {
+        display: contents;
+        ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+    }
+
+    :host([content-hidden]) [part='end'] {
         display: none;
     }
 `
