@@ -216,7 +216,7 @@ export const styles = css`
                     border-color: ${borderHoverColor};
                 }
 
-                .control:hover${focusVisible} {
+                .control${focusVisible}:hover {
                     background-color: transparent;
                 }
 
