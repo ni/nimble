@@ -1,5 +1,10 @@
 import { html, ref, ViewTemplate } from '@microsoft/fast-element';
-import { endSlotTemplate, startSlotTemplate, FoundationElementTemplate, ButtonOptions } from '@microsoft/fast-foundation';
+import {
+    endSlotTemplate,
+    startSlotTemplate,
+    FoundationElementTemplate,
+    ButtonOptions
+} from '@microsoft/fast-foundation';
 import type { ToggleButton } from '.';
 
 export const template: FoundationElementTemplate<
