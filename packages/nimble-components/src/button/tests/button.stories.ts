@@ -3,6 +3,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import '..';
+import '../../icons/arrow-expander-down';
 import '../../icons/key';
 import { createRenderer } from '../../utilities/tests/storybook';
 
@@ -13,6 +14,7 @@ interface ButtonArgs {
     disabled: boolean;
     icon: boolean;
     contentHidden: boolean;
+    endIcon: boolean;
 }
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that
@@ -31,6 +33,11 @@ const primaryDescription = `Set the \`primary\` CSS class on the element to make
     </ul>
 </details>
 `;
+
+const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
+
+This icon will be hidden when \`contentHidden\` is set to \`true\`
+.`;
 
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',
@@ -60,6 +67,9 @@ const metadata: Meta<ButtonArgs> = {
         icon: {
             description:
                 'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+        },
+        endIcon: {
+            description: endIconDescription
         }
     },
     // prettier-ignore
@@ -67,6 +77,7 @@ const metadata: Meta<ButtonArgs> = {
         <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" class="${x => (x.primary ? 'primary' : '')}" ?content-hidden="${x => x.contentHidden}">
             ${when(x => x.icon, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${x => x.label}
+            ${when(x => x.endIcon, html`<nimble-arrow-expander-down-icon slot="end"></nimble-arrow-expander-down-icon>`)}
         </nimble-button>
 `),
     args: {
@@ -74,6 +85,7 @@ const metadata: Meta<ButtonArgs> = {
         appearance: 'ghost',
         primary: false,
         icon: false,
+        endIcon: false,
         contentHidden: false,
         disabled: false
     }
