@@ -2,7 +2,6 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
-import { sectionBackgroundColor } from '../../theme-provider/design-tokens';
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#toolbar) - A toolbar is a container
 for grouping a set of controls, such as buttons, menubuttons, or checkboxes.
@@ -11,8 +10,12 @@ When a set of controls is visually presented as a group, the toolbar role can be
 presence and purpose of the grouping to screen reader users. Grouping controls into toolbars can also be
 an effective way of reducing the number of tab stops in the keyboard interface.
 
-The \`nimble-toolbar\` is transparent by default. Its background should be set to an appropriate theme color
-based on the toolbar's usage in an application.`;
+To override the toolbar's background color, style the \`positioning-region\` part:
+\`
+nimble-toolbar::part(positioning-region) {
+    background: red;
+}
+\``;
 
 const metadata: Meta = {
     title: 'Toolbar',
@@ -25,11 +28,6 @@ const metadata: Meta = {
     },
     // prettier-ignore
     render: createRenderer(html`
-        <style>
-            nimble-toolbar {
-                background: var(${sectionBackgroundColor.cssCustomProperty});
-            }
-        </style>
         <nimble-toolbar>
             <nimble-button appearance="ghost" slot="start">
                 <nimble-eye-icon slot="start"></nimble-eye-icon>

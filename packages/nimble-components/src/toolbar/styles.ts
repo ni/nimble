@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { smallPadding, standardPadding } from '../theme-provider/design-tokens';
+import { sectionBackgroundColor, smallPadding, standardPadding } from '../theme-provider/design-tokens';
 
 export const styles = css`
     .positioning-region {
@@ -7,7 +7,7 @@ export const styles = css`
         padding: ${smallPadding} ${standardPadding};
         align-items: center;
         gap: ${standardPadding};
-        background: inherit;
+        background: ${sectionBackgroundColor};
     }
 
     slot[name='label'] {
