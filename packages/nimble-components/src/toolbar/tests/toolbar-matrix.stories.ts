@@ -3,7 +3,6 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import { sectionBackgroundColor } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Toolbar',
@@ -18,11 +17,6 @@ export default metadata;
 // prettier-ignore
 const component = (
 ): ViewTemplate => html`
-    <style>
-        nimble-toolbar {
-            background: var(${sectionBackgroundColor.cssCustomProperty});
-        }
-    </style>
     <nimble-toolbar>
         <nimble-button appearance="ghost" slot="start">
             <nimble-eye-icon slot="start"></nimble-eye-icon>
