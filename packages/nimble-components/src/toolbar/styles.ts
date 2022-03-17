@@ -1,5 +1,9 @@
 import { css } from '@microsoft/fast-element';
-import { sectionBackgroundColor, smallPadding, standardPadding } from '../theme-provider/design-tokens';
+import {
+    sectionBackgroundColor,
+    smallPadding,
+    standardPadding
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
     .positioning-region {
