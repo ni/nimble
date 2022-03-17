@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import {
-    sectionBackgroundColor,
+    applicationBackgroundColor,
     smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -11,7 +11,7 @@ export const styles = css`
         padding: ${smallPadding} ${standardPadding};
         align-items: center;
         gap: ${standardPadding};
-        background: ${sectionBackgroundColor};
+        background: ${applicationBackgroundColor};
     }
 
     slot[name='label'] {
