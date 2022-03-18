@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix button width and height styles",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
