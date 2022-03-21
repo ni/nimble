@@ -1,5 +1,4 @@
 import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import '..';
 import '../../tree-item';
@@ -22,12 +21,9 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',
-    decorators: [withXD],
     parameters: {
-        design: {
-            artboardUrl: ''
-        },
-        controls: { hideNoControlsWarning: true }
+        controls: { hideNoControlsWarning: true },
+        a11y: { disabled: true }
     }
 };
 

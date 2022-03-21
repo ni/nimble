@@ -10,6 +10,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
+import '../../icons/arrow-expander-down';
 import '../../icons/key';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -19,9 +20,10 @@ const metadata: Meta = {
     parameters: {
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
         },
-        controls: { hideNoControlsWarning: true }
+        controls: { hideNoControlsWarning: true },
+        a11y: { disabled: true }
     }
 };
 
@@ -31,11 +33,14 @@ export const defaultToggleButton: Story = createRenderer(
     html`<nimble-toggle-button>Default Toggle Button</nimble-toggle-button>`
 );
 
-type PartVisibilityState = [boolean, boolean];
+/* array of iconVisible, labelVisible, endIconVisible */
+type PartVisibilityState = [boolean, boolean, boolean];
 const partVisibilityStates: PartVisibilityState[] = [
-    [true, true],
-    [true, false],
-    [false, true]
+    [true, true, false],
+    [true, false, false],
+    [false, true, false],
+    [true, true, true],
+    [false, true, true]
 ];
 
 const appearanceStates = Object.entries(ButtonAppearance);
@@ -49,7 +54,7 @@ const checkedStates: CheckedState[] = [
 
 // prettier-ignore
 const component = (
-    [labelVisible, iconVisible]: PartVisibilityState,
+    [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [checkedName, checked]: CheckedState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
@@ -62,6 +67,7 @@ const component = (
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${() => `${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
+            ${when(() => endIconVisible, html`<nimble-arrow-expander-down-icon slot="end"></nimble-arrow-expander-down-icon>`)}
     </nimble-toggle-button>
 `;
 

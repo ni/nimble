@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router';
 import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, NimbleSelectModule, NimbleListboxOptionModule,
     NimbleButtonModule, NimbleTreeViewModule, NimbleTreeItemModule, NimbleDrawerModule, NimbleThemeProviderModule,
     NimbleTabModule, NimbleTabPanelModule, NimbleTabsModule, NimbleTabsToolbarModule, NimbleMenuModule,
-    NimbleMenuItemModule, NimbleCheckboxModule, NimbleToggleButtonModule, NimbleBreadcrumbModule, NimbleBreadcrumbItemModule } from '@ni/nimble-angular';
+    NimbleMenuItemModule, NimbleCheckboxModule, NimbleToggleButtonModule, NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
+    NimbleAddIconModule, NimbleSwitchModule } from '@ni/nimble-angular';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { LoginComponent } from './login/login.component';
@@ -44,6 +45,8 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
         NimbleToggleButtonModule,
         NimbleBreadcrumbModule,
         NimbleBreadcrumbItemModule,
+        NimbleAddIconModule,
+        NimbleSwitchModule,
         RouterModule.forRoot([
             { path: '', redirectTo: '/login', pathMatch: 'full' },
             { path: 'login', component: LoginComponent },

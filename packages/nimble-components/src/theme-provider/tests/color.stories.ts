@@ -49,7 +49,7 @@ const styleMarkup = html`
     </style>
 `;
 
-const overviewText = `Base colors are defined by the visual design team, managed in the <a href='https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/89e665af-d24c-4f5e-b547-294caeccd29a'>Nimble_Component</a> Adobe XD spec, and exported in <code>nimble-tokens</code>.
+const overviewText = `Base colors are defined by the visual design team, managed in the <a href='https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/89e665af-d24c-4f5e-b547-294caeccd29a'>Nimble_Component</a> Adobe XD spec, and exported in <code>nimble-tokens</code>.
 Most client applications shouldn't use these tokens directly. See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-tokens">nimble-token</a> readme for more information.`;
 
 const metadata: Meta = {
@@ -63,7 +63,7 @@ const metadata: Meta = {
         },
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/89e665af-d24c-4f5e-b547-294caeccd29a/specs/'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/89e665af-d24c-4f5e-b547-294caeccd29a/specs/'
         }
     }
 };
