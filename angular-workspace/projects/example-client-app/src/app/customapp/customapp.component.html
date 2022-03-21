@@ -26,9 +26,8 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Checkbox</div>
-                <nimble-checkbox>Checkbox label</nimble-checkbox>
-                <nimble-checkbox>Checkbox label</nimble-checkbox>
-                <nimble-checkbox>Checkbox label</nimble-checkbox>
+                <nimble-checkbox (change)="onCheckBoxValueChange($event)">Checkbox label</nimble-checkbox>
+                <span>{{checkboxState}}</span>
             </div>
             <div class="sub-container">
                 <div class="container-label">Drawer/Sidenav:</div>
