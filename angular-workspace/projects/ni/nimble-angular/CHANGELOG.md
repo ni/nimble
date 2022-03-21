@@ -1,8 +1,88 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 09 Mar 2022 15:25:53 GMT and should not be manually modified.
+This log was last generated on Fri, 18 Mar 2022 19:18:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.1.4
+
+Fri, 18 Mar 2022 19:18:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.2.2
+
+## 4.1.3
+
+Wed, 16 Mar 2022 22:20:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.2.1
+
+## 4.1.2
+
+Wed, 16 Mar 2022 21:51:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.2.0
+
+## 4.1.1
+
+Wed, 16 Mar 2022 18:56:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.1.1
+
+## 4.1.0
+
+Tue, 15 Mar 2022 16:21:24 GMT
+
+### Minor changes
+
+- Add nimble-switch Angular integration (5454342+brianehenry@users.noreply.github.com)
+
+## 4.0.5
+
+Mon, 14 Mar 2022 16:43:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.1.0
+
+## 4.0.4
+
+Fri, 11 Mar 2022 16:23:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.0.1
+
+## 4.0.3
+
+Fri, 11 Mar 2022 00:51:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.0.0
+
+## 4.0.2
+
+Thu, 10 Mar 2022 19:42:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.5
+
+## 4.0.1
+
+Wed, 09 Mar 2022 22:20:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v6.1.4
 
 ## 4.0.0
 
