@@ -4,7 +4,7 @@ import type { BooleanValueOrAttribute } from '../../utilities/template-value-hel
 import { Checkbox, NimbleCheckboxDirective } from '../nimble-checkbox.directive';
 import { NimbleCheckboxModule } from '../nimble-checkbox.module';
 
-xdescribe('Nimble checkbox', () => {
+describe('Nimble checkbox', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
