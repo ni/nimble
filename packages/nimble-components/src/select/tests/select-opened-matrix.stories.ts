@@ -55,13 +55,22 @@ if (remaining.length > 0) {
 }
 
 export const selectLightThemeWhiteBackground: Story = createRenderer(
-    singleThemeWrapper(createMatrix(component, [positionStates]), lightThemeWhiteBackground)
+    singleThemeWrapper(
+        createMatrix(component, [positionStates]),
+        lightThemeWhiteBackground
+    )
 );
 
 export const selectColorThemeDarkGreenBackground: Story = createRenderer(
-    singleThemeWrapper(createMatrix(component, [positionStates]), colorThemeDarkGreenBackground)
+    singleThemeWrapper(
+        createMatrix(component, [positionStates]),
+        colorThemeDarkGreenBackground
+    )
 );
 
 export const selectDarkThemeBlackBackground: Story = createRenderer(
-    singleThemeWrapper(createMatrix(component, [positionStates]), darkThemeBlackBackground)
+    singleThemeWrapper(
+        createMatrix(component, [positionStates]),
+        darkThemeBlackBackground
+    )
 );
