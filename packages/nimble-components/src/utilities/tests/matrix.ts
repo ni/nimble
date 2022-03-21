@@ -169,3 +169,25 @@ export const themeWrapper = (template: ViewTemplate): ViewTemplate => createMatr
         `,
     [backgroundStates]
 );
+
+// The drawer uses a customized theme wrapper (not themeWrapper like the other controls) because only
+// a single drawer can be visible at a time. So, we create different stories for each theme, rather
+// than having a single Theme Matrix story (as multiple drawers wouldn't render correctly in that mode).
+export const singleThemeWrapper = (
+    template: ViewTemplate,
+    backgroundState: BackgroundState
+): ViewTemplate => html`
+    <nimble-theme-provider theme="${backgroundState.theme}">
+        <div
+            style="
+                background-color: ${backgroundState.value};
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0px;
+                top: 0px;
+            "
+        ></div>
+        ${template}
+    </nimble-theme-provider>
+`;

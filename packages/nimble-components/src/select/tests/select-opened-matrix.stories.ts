@@ -2,7 +2,11 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
-import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
+import {
+    backgroundStates,
+    createMatrix,
+    singleThemeWrapper
+} from '../../utilities/tests/matrix';
 import '..';
 
 const metadata: Meta = {
@@ -39,6 +43,25 @@ const component = ([
     </nimble-select>
 `;
 
-export const selectOpenedThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [positionStates]))
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    ...remaining
+] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
+
+export const selectLightThemeWhiteBackground: Story = createRenderer(
+    singleThemeWrapper(createMatrix(component, [positionStates]), lightThemeWhiteBackground)
+);
+
+export const selectColorThemeDarkGreenBackground: Story = createRenderer(
+    singleThemeWrapper(createMatrix(component, [positionStates]), colorThemeDarkGreenBackground)
+);
+
+export const selectDarkThemeBlackBackground: Story = createRenderer(
+    singleThemeWrapper(createMatrix(component, [positionStates]), darkThemeBlackBackground)
 );
