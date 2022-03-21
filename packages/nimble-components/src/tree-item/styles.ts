@@ -1,7 +1,7 @@
 import { css, ElementStyles } from '@microsoft/fast-element';
 import {
     display,
-    ElementDefinitionContext,
+    FoundationElementTemplate,
     TreeItem,
     TreeItemOptions
 } from '@microsoft/fast-foundation';
@@ -21,10 +21,10 @@ import {
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
 
-export const styles: (
-    context: ElementDefinitionContext,
-    definition: TreeItemOptions
-) => ElementStyles = (context: ElementDefinitionContext) => css`
+export const styles: FoundationElementTemplate<ElementStyles, TreeItemOptions> = (
+    context,
+    _definition
+) => css`
         ${display('block')}
 
         :host {

@@ -149,7 +149,6 @@ const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseName: 'tree-item',
     baseClass: FoundationTreeItem,
     template,
-    // @ts-expect-error FAST styles have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     styles,
     expandCollapseGlyph: arrowExpanderUp16X16.data
 });
