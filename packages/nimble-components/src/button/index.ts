@@ -41,15 +41,6 @@ class Button extends FoundationButton {
      */
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
-
-    private readonly contentId = 'nimble-button-content';
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        const content = this.control.querySelector('.content')!;
-        content.id = this.contentId;
-        this.control.setAttribute('aria-labelledby', this.contentId);
-    }
 }
 
 /**

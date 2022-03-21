@@ -160,11 +160,6 @@
         "value": "Regular"
       }
     },
-    "LegacyContent": {
-      "family": {
-        "value": "'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif"
-      }
-    },
     "ControlLabel_1_Chinese_Mac": {
       "family": {
         "value": "Noto Sans"

@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
+import '../../icons/arrow-expander-down';
 import '../../icons/key';
 import { ButtonAppearance } from '../types';
 
@@ -13,6 +14,7 @@ interface ToggleButtonArgs {
     disabled: boolean;
     icon: boolean;
     contentHidden: boolean;
+    endIcon: boolean;
 }
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A toggle button is a two-state button
@@ -20,6 +22,11 @@ that can be either off (not pressed) or on (pressed). For example, a button labe
 indicate that sound is muted by setting the pressed state true. Important: it is critical the label on a toggle does
 not change when its state changes. In this example, when the pressed state is true, the label remains "Mute" so a
 screen reader would say something like "Mute toggle button pressed".`;
+
+const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
+
+This icon will be hidden when \`contentHidden\` is set to \`true\`
+.`;
 
 const metadata: Meta<ToggleButtonArgs> = {
     title: 'Toggle Button',
@@ -32,7 +39,7 @@ const metadata: Meta<ToggleButtonArgs> = {
         },
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
         },
         actions: {
             handles: ['change']
@@ -46,6 +53,9 @@ const metadata: Meta<ToggleButtonArgs> = {
         icon: {
             description:
                 'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+        },
+        endIcon: {
+            description: endIconDescription
         }
     },
     // prettier-ignore
@@ -58,6 +68,7 @@ const metadata: Meta<ToggleButtonArgs> = {
         >
             ${when(x => x.icon, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${x => x.label}
+            ${when(x => x.endIcon, html`<nimble-arrow-expander-down-icon slot="end"></nimble-arrow-expander-down-icon>`)}
         </nimble-toggle-button>
     `),
     args: {
@@ -65,6 +76,7 @@ const metadata: Meta<ToggleButtonArgs> = {
         appearance: 'ghost',
         checked: true,
         icon: false,
+        endIcon: false,
         contentHidden: false,
         disabled: false
     }

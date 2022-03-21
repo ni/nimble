@@ -1,7 +1,7 @@
 <svg id="Inputs_Search_Outline_32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176" height="32" viewBox="0 0 176 32">
   <defs>
     <clipPath id="clip-path">
-      <rect x="16" y="1" width="112" height="18" fill="none"/>
+      <rect id="Rectangle_10793" data-name="Rectangle 10793" width="112" height="18" transform="translate(16)" fill="#fff" stroke="#707070" stroke-width="1"/>
     </clipPath>
   </defs>
   <g id="Background_Group" data-name="Background Group" transform="translate(0 6.501)">
@@ -10,13 +10,10 @@
       <rect width="176" height="32" stroke="none"/>
       <rect x="0.5" y="0.5" width="175" height="31" fill="none"/>
     </g>
-    <g id="Rollover" transform="translate(87 23.499)" fill="none" stroke="#00b888" stroke-width="1" opacity="0">
-      <rect width="2" height="2" stroke="none"/>
-      <rect x="0.5" y="0.5" width="1" height="1" fill="none"/>
-    </g>
+    <rect id="Rollover" width="2" height="2" transform="translate(87 23.499)" fill="#009b65" opacity="0"/>
   </g>
   <g id="Stack_Group" data-name="Stack Group" transform="translate(8 6)">
-    <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(8 -1)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <g id="Mask_Group_20" data-name="Mask Group 20" transform="translate(8 -1)" clip-path="url(#clip-path)">
       <text id="Search" transform="translate(16 14)" fill="#161617" font-size="14" font-family="SourceSansPro-Regular, Source Sans Pro" opacity="0.6"><tspan x="0" y="0">Search</tspan></text>
     </g>
     <g id="Error_Group" data-name="Error Group" transform="translate(-8 1)">

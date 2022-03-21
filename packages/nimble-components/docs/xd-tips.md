@@ -4,7 +4,7 @@ This describes tips to inspect the visual design for a component in Adobe XD and
 
 ## Finding the design spec
 
-The visual design specs are stored in the [Nimble_Components Adobe XD Document](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/) (viewable in a web browser or desktop application; these instructions cover the web browser). This is maintained by the NI Visual Design team.
+The visual design specs are stored in the [Nimble_Components Adobe XD Document](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/) (viewable in a web browser or desktop application; these instructions cover the web browser). This is maintained by the NI Visual Design team.
 
 1. To navigate the document, ensure you're in "Comments" mode by clicking the "speech bubble" icon in the right bar.
 

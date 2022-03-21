@@ -27,7 +27,7 @@ export const styles = css`
         flex-wrap: wrap;
     }
 
-    :host(.style-2) {
+    :host(.prominent-links) {
         --ni-private-breadcrumb-link-active-font-color: ${bodyFontColor};
     }
 
@@ -46,7 +46,7 @@ export const styles = css`
                 --ni-private-breadcrumb-link-active-font-color: ${DigitalGreenDark};
             }
 
-            :host(.style-2) {
+            :host(.prominent-links) {
                 --ni-private-breadcrumb-link-font-color: ${DigitalGreenDark};
             }
         `,
@@ -56,7 +56,7 @@ export const styles = css`
                 --ni-private-breadcrumb-link-active-font-color: ${PowerGreen};
             }
 
-            :host(.style-2) {
+            :host(.prominent-links) {
                 --ni-private-breadcrumb-link-font-color: ${PowerGreen};
             }
         `,
@@ -69,7 +69,7 @@ export const styles = css`
             )};
             }
 
-            :host(.style-2) {
+            :host(.prominent-links) {
                 --ni-private-breadcrumb-link-font-color: ${PowerGreen};
             }
         `

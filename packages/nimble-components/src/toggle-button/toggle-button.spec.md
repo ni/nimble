@@ -10,7 +10,7 @@ The `nimble-toggle-button` component allows a user to create a button that has t
 
 While the toggle button will be based functionally on the switch, a custom template will be provided so that it will visually appear like a button. As with `nimble-button`, `nimble-toggle-button` will support being an icon-only button, a text-only button, or a text & icon button. It will also have the same appearance modes as `nimble-button`.
 
-The visual design spec can be found [here](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/).
+The visual design spec can be found [here](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/).
 
 ---
 

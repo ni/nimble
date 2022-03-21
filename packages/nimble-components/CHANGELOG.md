@@ -1,8 +1,80 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 08 Mar 2022 16:17:42 GMT and should not be manually modified.
+This log was last generated on Fri, 18 Mar 2022 19:18:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.2.2
+
+Fri, 18 Mar 2022 19:18:02 GMT
+
+### Patches
+
+- Fix button width and height styles (20542556+mollykreis@users.noreply.github.com)
+
+## 7.2.1
+
+Wed, 16 Mar 2022 22:20:10 GMT
+
+### Patches
+
+- Fix hover style of block button (20542556+mollykreis@users.noreply.github.com)
+
+## 7.2.0
+
+Wed, 16 Mar 2022 21:51:34 GMT
+
+### Minor changes
+
+- Add support for icons in 'end' slot of nimble-button and nimble-toggle-button (20542556+mollykreis@users.noreply.github.com)
+
+## 7.1.1
+
+Wed, 16 Mar 2022 18:56:43 GMT
+
+### Patches
+
+- Icon button use hidden content as a11y name (7282195+m-akinc@users.noreply.github.com)
+
+## 7.1.0
+
+Mon, 14 Mar 2022 16:43:20 GMT
+
+### Minor changes
+
+- Create switch component (5454342+brianehenry@users.noreply.github.com)
+
+## 7.0.1
+
+Fri, 11 Mar 2022 16:23:10 GMT
+
+### Patches
+
+- Switch to released 6.0.0 of storybook-addon-xd-designs (7282195+m-akinc@users.noreply.github.com)
+
+## 7.0.0
+
+Fri, 11 Mar 2022 00:51:41 GMT
+
+### Major changes
+
+- Change nimble-breadcrumb CSS class from "style-2" to "prominent-links" (to get alt link color style); add that style to breadcrumb theme matrix (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.5
+
+Thu, 10 Mar 2022 19:42:54 GMT
+
+### Patches
+
+- Fix bug where incorrect theme can be applied to breadcrumb/textfield if 2 theme providers/ themes are active on a page (20709258+msmithNI@users.noreply.github.com)
+
+## 6.1.4
+
+Wed, 09 Mar 2022 22:20:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.1
 
 ## 6.1.3
 
