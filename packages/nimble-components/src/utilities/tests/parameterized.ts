@@ -1,6 +1,8 @@
 // eslint-disable-next-line no-restricted-globals
 type SpecTypes = typeof fit | typeof xit | typeof it;
 /**
+ * Note: you should probably use one of the specialized versions of this function instead
+ *
  * Used to focus or disable specific tests in a parameterized test run.
  * In the following example the test for the `cats` case is focused for debugging
  * and no tests are disabled:
@@ -17,7 +19,7 @@ type SpecTypes = typeof fit | typeof xit | typeof it;
  *     }
  * });
  */
-export const getSpecType = <T>(
+const getSpecType = <T>(
     value: T,
     isFocused: (value: T) => boolean,
     isDisabled: (value: T) => boolean
@@ -33,7 +35,7 @@ export const getSpecType = <T>(
 };
 
 /**
- * Similar to @see {@link getSpecType} but allows passing a list of named objects.
+ * Used to focus or disable specific tests in a parameterized test run using a list of named objects.
  * In the following example the test for the `cats-and-dogs` case is focused for debugging
  * and no tests are disabled:
  * @example
@@ -41,7 +43,7 @@ export const getSpecType = <T>(
  *   { name: 'cats-and-dogs', type: 'idiom' },
  *   { name: 'frogs' type: 'idiom'},
  *   { name: 'men', type: 'lyrics'}
- * ];
+ * ] as const;
  * describe('Different rains', () => {
  *     const focused = ['cats-and-dogs'];
  *     const disabled = [];

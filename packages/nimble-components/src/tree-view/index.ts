@@ -7,8 +7,6 @@ import {
 import { styles } from './styles';
 import { TreeViewSelectionMode } from './types';
 
-export type { TreeView };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-tree-view': TreeView;
@@ -25,7 +23,7 @@ declare global {
  * Generates HTML Element: \<nimble-tree-view\>
  *
  */
-class TreeView extends FoundationTreeView {
+export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.All;
 }

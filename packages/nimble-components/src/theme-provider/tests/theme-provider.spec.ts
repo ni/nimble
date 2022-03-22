@@ -1,80 +1,86 @@
-import '..';
-import * as tokens from '../design-tokens';
+import * as designTokensNamespace from '../design-tokens';
 import { tokenNames } from '../design-token-names';
-import { getSpecType } from '../../utilities/tests/parameterized';
+import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { ThemeProvider } from '..';
 
-// Order of suffixes in the array matter, as we want single word suffixes after the multi-word ones
-const tokenSuffixes = [
-    'RgbPartialColor',
-    'FontColor',
-    'FontLineHeight',
-    'FontWeight',
-    'FontSize',
-    'TextTransform',
-    'FontFamily',
-    'Font',
-    'Size',
-    'Width',
-    'Height',
-    'Delay',
-    'Padding',
-    'Color'
-];
+type DesignTokenPropertyName = keyof typeof designTokensNamespace;
+const designTokenPropertyNames = Object.keys(designTokensNamespace) as DesignTokenPropertyName[];
 
-describe('Design Tokens', () => {
-    const tokenEntries = Object.entries(tokens).map(([key, valueObj]) => ({
-        name: key,
-        value: valueObj.name
-    }));
-    const tokenNameValues = Object.values(tokenNames);
+describe('Theme Provider', () => {
+    it('can construct an element instance', () => {
+        expect(document.createElement('nimble-theme-provider')).toBeInstanceOf(ThemeProvider);
+    });
 
-    for (const tokenEntry of tokenEntries) {
-        const isFocused = (): boolean => false;
-        const isDisabled = (): boolean => false;
-        const specType = getSpecType(tokenEntry, isFocused, isDisabled);
-        specType(
-            `value of exported token name ${tokenEntry.name} should match name of CSSDesignToken`,
-            () => {
-                const tokenValue = tokenEntry.value.split('ni-nimble-')[1]!;
-                expect(tokenNameValues).toContain(tokenValue);
-            }
-        );
-    }
+    describe('design token should match CSSDesignToken', () => {
+        const tokenEntries = designTokenPropertyNames.map((name: DesignTokenPropertyName) => ({
+            name,
+            cssDesignToken: designTokensNamespace[name]
+        }));
+        const tokenNameValues = Object.values(tokenNames);
 
-    const tokenNameKeys = Object.keys(tokenNames);
-    for (const tokenNameKey of tokenNameKeys) {
-        const isFocused = (): boolean => false;
-        const isDisabled = (): boolean => false;
-        const specType = getSpecType(tokenNameKey, isFocused, isDisabled);
-        specType(`Design token name ${tokenNameKey} matches the JS key`, () => {
-            const convertedTokenValue = camelToKebabCase(tokenNameKey);
-            expect(tokenNameValues).toContain(convertedTokenValue);
-        });
-    }
-
-    const tokenKeys = Object.keys(tokens);
-    for (const tokenKey of tokenKeys) {
-        const isFocused = (): boolean => false;
-        const isDisabled = (): boolean => false;
-        const specType = getSpecType(tokenKey, isFocused, isDisabled);
-        specType(`Token ${tokenKey} has approved suffix`, () => {
-            let tokenKeyPassed = false;
-            for (const tokenSuffx of tokenSuffixes) {
-                tokenKeyPassed = tokenKey.endsWith(tokenSuffx);
-                if (tokenKeyPassed) {
-                    break;
+        for (const tokenEntry of tokenEntries) {
+            const focused: DesignTokenPropertyName[] = [];
+            const disabled: DesignTokenPropertyName[] = [];
+            const specType = getSpecTypeByNamedList(tokenEntry, focused, disabled);
+            specType(
+                `for token name ${tokenEntry.name}`,
+                () => {
+                    const tokenValue = tokenEntry.cssDesignToken.name.split('ni-nimble-')[1]!;
+                    expect(tokenNameValues).toContain(tokenValue);
                 }
-            }
+            );
+        }
+    });
 
-            expect(tokenKeyPassed).toBeTrue();
-        });
-    }
+    describe('design token should match JS key', () => {
+        const propertyNames = designTokenPropertyNames.map((name: DesignTokenPropertyName) => ({ name }));
+        const tokenNameValues = Object.values(tokenNames);
+
+        for (const propertyName of propertyNames) {
+            const focused: DesignTokenPropertyName[] = [];
+            const disabled: DesignTokenPropertyName[] = [];
+            const specType = getSpecTypeByNamedList(propertyName, focused, disabled);
+            specType(`for token name ${propertyName.name}`, () => {
+                const convertedTokenValue = camelToKebabCase(propertyName.name);
+                expect(tokenNameValues).toContain(convertedTokenValue);
+            });
+        }
+
+        function camelToKebabCase(text: string): string {
+            // Adapted from https://stackoverflow.com/a/67243723
+            return text.replace(
+                /[A-Z]+(?![a-z])|[A-Z]|[0-9]/g,
+                (substring, offset) => (offset !== 0 ? '-' : '') + substring.toLowerCase()
+            );
+        }
+    });
+
+    describe('design token has approved suffix', () => {
+        // Order of suffixes in the array matter, as we want single word suffixes after the multi-word ones
+        const tokenSuffixes = [
+            'RgbPartialColor',
+            'FontColor',
+            'FontLineHeight',
+            'FontWeight',
+            'FontSize',
+            'TextTransform',
+            'FontFamily',
+            'Font',
+            'Size',
+            'Width',
+            'Height',
+            'Delay',
+            'Padding',
+            'Color'
+        ];
+        const propertyNames = designTokenPropertyNames.map((name: DesignTokenPropertyName) => ({ name }));
+        for (const propertyName of propertyNames) {
+            const focused: DesignTokenPropertyName[] = [];
+            const disabled: DesignTokenPropertyName[] = [];
+            const specType = getSpecTypeByNamedList(propertyName, focused, disabled);
+            specType(`for token name ${propertyName.name}`, () => {
+                expect(tokenSuffixes.some(tokenSuffix => propertyName.name.endsWith(tokenSuffix))).toBeTrue();
+            });
+        }
+    });
 });
-
-function camelToKebabCase(text: string): string {
-    // Adapted from https://stackoverflow.com/a/67243723
-    return text.replace(
-        /[A-Z]+(?![a-z])|[A-Z]|[0-9]/g,
-        (substring, offset) => (offset !== 0 ? '-' : '') + substring.toLowerCase()
-    );
-}

@@ -8,8 +8,6 @@ import {
 import { styles } from './styles';
 import { ButtonAppearance } from './types';
 
-export type { Button };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-button': Button;
@@ -19,7 +17,7 @@ declare global {
 /**
  * A nimble-styled HTML button
  */
-class Button extends FoundationButton {
+export class Button extends FoundationButton {
     /**
      * The appearance the button should have.
      *

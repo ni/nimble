@@ -12,8 +12,6 @@ import {
 } from '../tree-view/types';
 import { styles } from './styles';
 
-export type { TreeItem };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-tree-item': TreeItem;
@@ -30,7 +28,7 @@ declare global {
  * Generates HTML Element: \<nimble-tree-item\>
  *
  */
-class TreeItem extends FoundationTreeItem {
+export class TreeItem extends FoundationTreeItem {
     private treeView: TreeView | null = null;
 
     public constructor() {

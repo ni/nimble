@@ -5,8 +5,6 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
-export type { TabPanel };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-tab-panel': TabPanel;
@@ -16,7 +14,7 @@ declare global {
 /**
  * A nimble-styled tab panel
  */
-class TabPanel extends FoundationTabPanel {}
+export class TabPanel extends FoundationTabPanel {}
 
 const nimbleTabPanel = TabPanel.compose({
     baseName: 'tab-panel',

@@ -1,8 +1,7 @@
 import { DOM, html } from '@microsoft/fast-element';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import '..';
-import type { ToggleButton } from '..';
+import { ToggleButton } from '..';
 
 async function setup(): Promise<Fixture<ToggleButton>> {
     return fixture<ToggleButton>(
@@ -21,6 +20,10 @@ describe('ToggleButton', () => {
 
     afterEach(async () => {
         await disconnect();
+    });
+
+    it('can construct an element instance', () => {
+        expect(document.createElement('nimble-toggle-button')).toBeInstanceOf(ToggleButton);
     });
 
     it('should set a role of `button` on the internal control', async () => {

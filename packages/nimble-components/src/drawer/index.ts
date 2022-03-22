@@ -16,8 +16,6 @@ import { animationConfig } from './animations';
 import { styles } from './styles';
 import { DrawerLocation, DrawerState } from './types';
 
-export type { Drawer };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-drawer': Drawer;
@@ -31,7 +29,7 @@ const animationDurationWhenDisabledMilliseconds = 0.001;
  * which animates to be visible with a slide-in / slide-out animation.
  * Configured via 'location', 'state', 'modal', 'preventDismiss' properties.
  */
-class Drawer extends FoundationDialog {
+export class Drawer extends FoundationDialog {
     @attr
     public location: DrawerLocation = DrawerLocation.Left;
 

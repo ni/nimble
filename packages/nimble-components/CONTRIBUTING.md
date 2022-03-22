@@ -104,7 +104,7 @@ const styles = css`
         color: gold;
     }
 `;
-class Button extends FoundationButton {
+export class Button extends FoundationButton {
     // Add new functionality (or leave empty if just restyling the FAST component)
 }
 const nimbleButton = Button.compose({

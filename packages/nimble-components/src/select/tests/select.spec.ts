@@ -4,8 +4,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import type { Select } from '..';
-import '..';
+import { Select } from '..';
 import '../../listbox-option';
 
 async function setup(
@@ -55,5 +54,9 @@ describe('Select', () => {
 
     it('should have its tag returned by tagFor(FoundationSelect)', () => {
         expect(DesignSystem.tagFor(FoundationSelect)).toBe('nimble-select');
+    });
+
+    it('can construct an element instance', () => {
+        expect(document.createElement('nimble-select')).toBeInstanceOf(Select);
     });
 });

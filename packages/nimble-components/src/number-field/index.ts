@@ -10,8 +10,6 @@ import {
 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
-export type { NumberField };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-number-field': NumberField;
@@ -21,7 +19,7 @@ declare global {
 /**
  * A nimble-styled HTML number input
  */
-class NumberField extends FoundationNumberField {}
+export class NumberField extends FoundationNumberField {}
 
 /**
  * A function that returns a number-field registration for configuring the component with a DesignSystem.
