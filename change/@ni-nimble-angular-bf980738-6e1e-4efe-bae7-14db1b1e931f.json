@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "nimble-drawer directive has overlayClick output (triggered when dimming overlay is clicked, when modal = true)",
+  "packageName": "@ni/nimble-angular",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
