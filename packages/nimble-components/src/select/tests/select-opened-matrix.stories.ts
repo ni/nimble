@@ -61,10 +61,12 @@ export const selectAboveOpenLightThemeWhiteBackground: Story = createRenderer(
     singleThemeWrapper(component(positionStates[1]), lightThemeWhiteBackground)
 );
 
+// prettier-ignore
 export const selectBelowOpenColorThemeDarkGreenBackground: Story = createRenderer(
     singleThemeWrapper(component(positionStates[0]), colorThemeDarkGreenBackground)
 );
 
+// prettier-ignore
 export const selectAboveOpenColorThemeDarkGreenBackground: Story = createRenderer(
     singleThemeWrapper(component(positionStates[1]), colorThemeDarkGreenBackground)
 );
