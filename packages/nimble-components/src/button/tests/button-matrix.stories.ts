@@ -10,6 +10,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
+import '../../icons/arrow-expander-down';
 import '../../icons/key';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -32,11 +33,14 @@ export const defaultButton: Story = createRenderer(
     html`<nimble-button>Default Button</nimble-button>`
 );
 
-type PartVisibilityState = [boolean, boolean];
+/* array of iconVisible, labelVisible, endIconVisible */
+type PartVisibilityState = [boolean, boolean, boolean];
 const partVisibilityStates: PartVisibilityState[] = [
-    [true, true],
-    [true, false],
-    [false, true]
+    [true, true, false],
+    [true, false, false],
+    [false, true, false],
+    [true, true, true],
+    [false, true, true]
 ];
 
 const appearanceStates = Object.entries(ButtonAppearance);
@@ -53,7 +57,7 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [primaryName, primaryClass]: PrimaryState,
-    [labelVisible, iconVisible]: PartVisibilityState,
+    [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
     <nimble-button
         appearance="${() => appearance}"
@@ -63,6 +67,7 @@ const component = (
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${() => `${primaryName} ${appearanceName} Button ${disabledName}`}
+            ${when(() => endIconVisible, html`<nimble-arrow-expander-down-icon slot="end"></nimble-arrow-expander-down-icon>`)}
     </nimble-button>
 `;
 

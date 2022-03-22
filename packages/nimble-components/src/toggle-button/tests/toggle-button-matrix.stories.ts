@@ -10,6 +10,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
+import '../../icons/arrow-expander-down';
 import '../../icons/key';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -32,11 +33,14 @@ export const defaultToggleButton: Story = createRenderer(
     html`<nimble-toggle-button>Default Toggle Button</nimble-toggle-button>`
 );
 
-type PartVisibilityState = [boolean, boolean];
+/* array of iconVisible, labelVisible, endIconVisible */
+type PartVisibilityState = [boolean, boolean, boolean];
 const partVisibilityStates: PartVisibilityState[] = [
-    [true, true],
-    [true, false],
-    [false, true]
+    [true, true, false],
+    [true, false, false],
+    [false, true, false],
+    [true, true, true],
+    [false, true, true]
 ];
 
 const appearanceStates = Object.entries(ButtonAppearance);
@@ -50,7 +54,7 @@ const checkedStates: CheckedState[] = [
 
 // prettier-ignore
 const component = (
-    [labelVisible, iconVisible]: PartVisibilityState,
+    [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [checkedName, checked]: CheckedState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
@@ -63,6 +67,7 @@ const component = (
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${() => `${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
+            ${when(() => endIconVisible, html`<nimble-arrow-expander-down-icon slot="end"></nimble-arrow-expander-down-icon>`)}
     </nimble-toggle-button>
 `;
 

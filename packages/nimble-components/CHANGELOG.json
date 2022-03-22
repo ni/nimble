@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 22 Mar 2022 20:59:12 GMT",
+      "tag": "@ni/nimble-components_v7.2.3",
+      "version": "7.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "294a686f9ab471c94bc93df36919ce9f1b970e21",
+            "comment": "Update FAST dependencies. Fix issues."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 18 Mar 2022 19:18:02 GMT",
+      "tag": "@ni/nimble-components_v7.2.2",
+      "version": "7.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ad71d7b477c62990d07bec4a3d0460c334cb07ad",
+            "comment": "Fix button width and height styles"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Mar 2022 22:20:10 GMT",
+      "tag": "@ni/nimble-components_v7.2.1",
+      "version": "7.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9d9b3e602dcd10381783b78f1ab84a79d378a68d",
+            "comment": "Fix hover style of block button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Mar 2022 21:51:34 GMT",
+      "tag": "@ni/nimble-components_v7.2.0",
+      "version": "7.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3d1a63a6c352b9087dfe07c36f434f70c5a2851c",
+            "comment": "Add support for icons in 'end' slot of nimble-button and nimble-toggle-button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Mar 2022 18:56:43 GMT",
+      "tag": "@ni/nimble-components_v7.1.1",
+      "version": "7.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "60a48fd03c405d6726733003895afdbe30a33241",
+            "comment": "Icon button use hidden content as a11y name"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Mar 2022 16:43:20 GMT",
       "tag": "@ni/nimble-components_v7.1.0",
       "version": "7.1.0",

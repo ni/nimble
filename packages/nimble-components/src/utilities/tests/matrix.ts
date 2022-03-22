@@ -169,3 +169,25 @@ export const themeWrapper = (template: ViewTemplate): ViewTemplate => createMatr
         `,
     [backgroundStates]
 );
+
+// A customized theme wrapper (not themeWrapper like the other controls) so we can create different stories for each theme, rather
+// than having a single Theme Matrix story. This is useful for when the UI under test can't be tested multiple times on a
+// single page, but you still want to test the UI for each theme.
+export const singleThemeWrapper = (
+    template: ViewTemplate,
+    backgroundState: BackgroundState
+): ViewTemplate => html`
+    <nimble-theme-provider theme="${backgroundState.theme}">
+        <div
+            style="
+                background-color: ${backgroundState.value};
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0px;
+                top: 0px;
+            "
+        ></div>
+        ${template}
+    </nimble-theme-provider>
+`;

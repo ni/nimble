@@ -1,10 +1,10 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import {
-    BackgroundState,
-    backgroundStates
+    backgroundStates,
+    singleThemeWrapper
 } from '../../utilities/tests/matrix';
 import '..';
 
@@ -21,28 +21,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-// The drawer uses a customized theme wrapper (not themeWrapper like the other controls) because only
-// a single drawer can be visible at a time. So, we create different stories for each theme, rather
-// than having a single Theme Matrix story (as multiple drawers wouldn't render correctly in that mode).
-const singleThemeWrapper = (
-    template: ViewTemplate,
-    backgroundState: BackgroundState
-): ViewTemplate => html`
-    <nimble-theme-provider theme="${backgroundState.theme}">
-        <div
-            style="
-                background-color: ${backgroundState.value};
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                left: 0px;
-                top: 0px;
-            "
-        ></div>
-        ${template}
-    </nimble-theme-provider>
-`;
 
 const component = html`
     <nimble-drawer state="opened" location="right" modal>
