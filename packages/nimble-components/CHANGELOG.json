@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 22 Mar 2022 20:59:12 GMT",
+      "tag": "@ni/nimble-components_v7.2.3",
+      "version": "7.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "294a686f9ab471c94bc93df36919ce9f1b970e21",
+            "comment": "Update FAST dependencies. Fix issues."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 18 Mar 2022 19:18:02 GMT",
       "tag": "@ni/nimble-components_v7.2.2",
       "version": "7.2.2",
