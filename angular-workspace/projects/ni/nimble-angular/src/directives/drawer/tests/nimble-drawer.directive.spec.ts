@@ -6,7 +6,7 @@ import { NimbleDrawerModule } from '../nimble-drawer.module';
 describe('Nimble drawer directive', () => {
     @Component({
         template: `
-            <nimble-drawer #drawerConfigured [location]="drawerLocation" [(state)]="drawerState" [modal]="isDrawerModal">
+            <nimble-drawer #drawerConfigured [location]="drawerLocation" [(state)]="drawerState" [modal]="isDrawerModal" (overlayClick)="overlayClicked()">
                 Drawer Content
             </nimble-drawer>
             <nimble-drawer #drawerUnconfigured>
@@ -20,6 +20,7 @@ describe('Nimble drawer directive', () => {
         public drawerLocation = DrawerLocation.Right;
         public drawerState = DrawerState.Opened;
         public isDrawerModal = false;
+        public overlayClicked(): void {}
     }
 
     let fixture: ComponentFixture<TestHostComponent>;
@@ -98,5 +99,13 @@ describe('Nimble drawer directive', () => {
         fixture.detectChanges();
 
         expect(testHostComponent.drawerState).toEqual(DrawerState.Closed);
+    });
+
+    it('when drawer overlay is clicked, directive overlayClick output is triggered', async () => {
+        const overlayClickedSpy = spyOn(testHostComponent, 'overlayClicked');
+        const drawerOverlay = drawerConfigured.shadowRoot!.querySelector('.overlay')!;
+        (drawerOverlay as HTMLElement).click();
+
+        expect(overlayClickedSpy).toHaveBeenCalledTimes(1);
     });
 });

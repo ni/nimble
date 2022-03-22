@@ -108,6 +108,7 @@ class Drawer extends FoundationDialog {
     }
 
     public override dismiss(): void {
+        this.$emit('overlay-click');
         if (!this.preventDismiss) {
             super.dismiss();
             this.hide();

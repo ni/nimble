@@ -39,6 +39,7 @@ export class NimbleDrawerDirective {
     }
 
     @Output() public stateChange = new EventEmitter<DrawerState>();
+    @Output() public overlayClick = new EventEmitter();
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Drawer>) {}
 
     public show(): void {
@@ -53,6 +54,13 @@ export class NimbleDrawerDirective {
     public onStateChanged($event: Event): void {
         if ($event.target === this.elementRef.nativeElement) {
             this.stateChange.emit(this.state);
+        }
+    }
+
+    @HostListener('overlay-click', ['$event'])
+    public onOverlayClicked($event: Event): void {
+        if ($event.target === this.elementRef.nativeElement) {
+            this.overlayClick.emit();
         }
     }
 }

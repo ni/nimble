@@ -3,6 +3,7 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import '..';
 import type { Drawer } from '..';
 import { DrawerState } from '../types';
+import { clickElement } from '../../utilities/tests/component';
 
 async function setup(): Promise<Fixture<Drawer>> {
     return fixture<Drawer>(html` <nimble-drawer> </nimble-drawer>`);
@@ -74,5 +75,14 @@ describe('Drawer', () => {
         element.state = DrawerState.Opened;
 
         expect(stateChange.calls.count()).toEqual(1);
+    });
+
+    it('clicking the overlay fires the "overlay-click" event', async () => {
+        const overlayClick = jasmine.createSpy();
+        element.addEventListener('overlay-click', overlayClick);
+        const drawerOverlay = element.shadowRoot!.querySelector('.overlay');
+        await clickElement(drawerOverlay as HTMLElement);
+
+        expect(overlayClick.calls.count()).toEqual(1);
     });
 });
