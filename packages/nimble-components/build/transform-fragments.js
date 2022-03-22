@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Copied from FAST
 // https://github.com/microsoft/fast/blob/a8aada16c7b089728a13a6bb7d98b8b928bb2b4f/build/transform-fragments.js
 
@@ -7,9 +8,9 @@
  * @param {string} data - the fragment value
  * @returns string
  */
-export function transformHTMLFragment(data) {
-    const transformedData = data.replace(/\s*([<>])\s*/g, '$1'); // remove spaces before and after angle brackets
-    return transformedData.replace(/\s{2,}/g, ' '); // Collapse all sequences to 1 space
+ export function transformHTMLFragment(data) {
+    data = data.replace(/\s*([<>])\s*/g, "$1"); // remove spaces before and after angle brackets
+    return data.replace(/\s{2,}/g, " "); // Collapse all sequences to 1 space
 }
 
 /**
@@ -27,11 +28,11 @@ export function transformHTMLFragment(data) {
  */
 export function transformCSSFragment(data) {
     if (/\/\*(?![\s\S]*\*\/)[\s\S]*/g.test(data)) {
-        throw new Error('Unterminated comment found in CSS tagged template literal');
+        throw new Error("Unterminated comment found in CSS tagged template literal");
     }
 
     return data.replace(
         /(?:\s*\/\*(?:[\s\S])+?\*\/\s*)|(?:;)\s+(?=\})|\s+(?=\{)|(?<=:)\s+|\s*([{};,])\s*/g,
-        '$1'
+        "$1"
     );
 }
