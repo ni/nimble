@@ -77,11 +77,11 @@ class TreeItem extends FoundationTreeItem {
         if ((leavesOnly && !hasChildren) || !leavesOnly) {
             // if either a leaf tree item, or in a mode that supports select on groups,
             // process click as a select
-            if (
-                this.treeView?.currentSelected instanceof FoundationTreeItem
-                && this !== this.treeView?.currentSelected
-            ) {
-                this.treeView.currentSelected.selected = false;
+            const selectedTreeItem = this.getImmediateTreeItem(
+                this.treeView?.currentSelected
+            );
+            if (selectedTreeItem && this !== this.treeView?.currentSelected) {
+                selectedTreeItem.selected = false;
             }
 
             this.selected = true;
@@ -123,8 +123,10 @@ class TreeItem extends FoundationTreeItem {
         }
     }
 
-    private getImmediateTreeItem(element: HTMLElement): TreeItem {
-        let foundElement: HTMLElement | null | undefined = element;
+    private getImmediateTreeItem(
+        element: HTMLElement | FoundationTreeItem | null | undefined
+    ): FoundationTreeItem | null | undefined {
+        let foundElement: HTMLElement | FoundationTreeItem | null | undefined = element;
         while (
             foundElement
             && !(foundElement?.getAttribute('role') === 'treeitem')
@@ -132,7 +134,7 @@ class TreeItem extends FoundationTreeItem {
             foundElement = foundElement?.parentElement;
         }
 
-        return foundElement as TreeItem;
+        return foundElement as FoundationTreeItem;
     }
 
     /**

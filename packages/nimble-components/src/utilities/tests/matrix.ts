@@ -170,9 +170,9 @@ export const themeWrapper = (template: ViewTemplate): ViewTemplate => createMatr
     [backgroundStates]
 );
 
-// The drawer uses a customized theme wrapper (not themeWrapper like the other controls) because only
-// a single drawer can be visible at a time. So, we create different stories for each theme, rather
-// than having a single Theme Matrix story (as multiple drawers wouldn't render correctly in that mode).
+// A customized theme wrapper (not themeWrapper like the other controls) so we can create different stories for each theme, rather
+// than having a single Theme Matrix story. This is useful for when the UI under test can't be tested multiple times on a
+// single page, but you still want to test the UI for each theme.
 export const singleThemeWrapper = (
     template: ViewTemplate,
     backgroundState: BackgroundState
