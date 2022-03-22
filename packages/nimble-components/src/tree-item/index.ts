@@ -75,16 +75,18 @@ class TreeItem extends FoundationTreeItem {
         const leavesOnly = this.treeView?.selectionMode === TreeViewSelectionMode.LeavesOnly;
         const hasChildren = this.hasChildTreeItems();
         if ((leavesOnly && !hasChildren) || !leavesOnly) {
-            // if either a leaf tree item, or in a mode that supports select on groups,
-            // process click as a select
-            if (!this.selected) {
-                this.selected = true;
-                this.$emit('selected-change', this);
+            const selectedTreeItem = this.getImmediateTreeItem(
+                this.treeView?.currentSelected
+            );
+            // deselect currently selected item if different than this instance
+            if (selectedTreeItem && this !== this.treeView?.currentSelected) {
+                selectedTreeItem.selected = false;
             }
+
+            this.selected = true;
         } else {
             // implicit hasChildren && leavesOnly, so only allow expand/collapse, not select
             this.expanded = !this.expanded;
-            this.$emit('expanded-change', this);
         }
 
         // don't allow base class to process click event
@@ -120,8 +122,10 @@ class TreeItem extends FoundationTreeItem {
         }
     }
 
-    private getImmediateTreeItem(element: HTMLElement): TreeItem {
-        let foundElement: HTMLElement | null | undefined = element;
+    private getImmediateTreeItem(
+        element: HTMLElement | FoundationTreeItem | null | undefined
+    ): FoundationTreeItem | null | undefined {
+        let foundElement: HTMLElement | FoundationTreeItem | null | undefined = element;
         while (
             foundElement
             && !(foundElement?.getAttribute('role') === 'treeitem')
@@ -129,7 +133,7 @@ class TreeItem extends FoundationTreeItem {
             foundElement = foundElement?.parentElement;
         }
 
-        return foundElement as TreeItem;
+        return foundElement as FoundationTreeItem;
     }
 
     /**
@@ -145,9 +149,7 @@ class TreeItem extends FoundationTreeItem {
 const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseName: 'tree-item',
     baseClass: FoundationTreeItem,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
-    // @ts-expect-error FAST styles have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     styles,
     expandCollapseGlyph: arrowExpanderUp16X16.data
 });
