@@ -90,7 +90,7 @@ Create a new folder named after your component with some core files:
 
 #### Extend Fast Foundation
 
-If Fast Foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble." Namespacing is accomplished through imports. Use `MyComponent.compose()` to add the component to Nimble.
+If Fast Foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble"; namespacing is accomplished through imports. Use `MyComponent.compose()` to add the component to Nimble.
 
 If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value. Make sure to include a test that shows the tag name for the element is found when using `DesignSystem.tagFor(FastFoundationBaseClass)`.
 
