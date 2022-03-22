@@ -4,7 +4,6 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import {
     backgroundStates,
-    createMatrix,
     singleThemeWrapper
 } from '../../utilities/tests/matrix';
 import '..';
@@ -63,17 +62,11 @@ export const selectAboveOpenLightThemeWhiteBackground: Story = createRenderer(
 );
 
 export const selectBelowOpenColorThemeDarkGreenBackground: Story = createRenderer(
-    singleThemeWrapper(
-        component(positionStates[0]!),
-        colorThemeDarkGreenBackground
-    )
+    singleThemeWrapper(component(positionStates[0]!), colorThemeDarkGreenBackground)
 );
 
 export const selectAboveOpenColorThemeDarkGreenBackground: Story = createRenderer(
-    singleThemeWrapper(
-        component(positionStates[1]!),
-        colorThemeDarkGreenBackground
-    )
+    singleThemeWrapper(component(positionStates[1]!), colorThemeDarkGreenBackground)
 );
 
 export const selectBelowOpenDarkThemeBlackBackground: Story = createRenderer(
