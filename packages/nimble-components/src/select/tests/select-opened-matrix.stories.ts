@@ -26,7 +26,7 @@ export default metadata;
 const positionStates = [
     ['below', 'margin-bottom: 120px;'],
     ['above', 'margin-top: 120px;']
-];
+] as const;
 type PositionState = typeof positionStates[number];
 
 // prettier-ignore
@@ -54,25 +54,25 @@ if (remaining.length > 0) {
 }
 
 export const selectBelowOpenLightThemeWhiteBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[0]!), lightThemeWhiteBackground)
+    singleThemeWrapper(component(positionStates[0]), lightThemeWhiteBackground)
 );
 
 export const selectAboveOpenLightThemeWhiteBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[1]!), lightThemeWhiteBackground)
+    singleThemeWrapper(component(positionStates[1]), lightThemeWhiteBackground)
 );
 
 export const selectBelowOpenColorThemeDarkGreenBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[0]!), colorThemeDarkGreenBackground)
+    singleThemeWrapper(component(positionStates[0]), colorThemeDarkGreenBackground)
 );
 
 export const selectAboveOpenColorThemeDarkGreenBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[1]!), colorThemeDarkGreenBackground)
+    singleThemeWrapper(component(positionStates[1]), colorThemeDarkGreenBackground)
 );
 
 export const selectBelowOpenDarkThemeBlackBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[0]!), darkThemeBlackBackground)
+    singleThemeWrapper(component(positionStates[0]), darkThemeBlackBackground)
 );
 
 export const selectAboveOpenDarkThemeBlackBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[1]!), darkThemeBlackBackground)
+    singleThemeWrapper(component(positionStates[1]), darkThemeBlackBackground)
 );
