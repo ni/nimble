@@ -47,8 +47,8 @@ export const styles = css`
 
     .control {
         background-color: transparent;
-        height: inherit;
-        width: inherit;
+        height: 100%;
+        width: 100%;
         border: ${borderWidth} solid transparent;
         box-sizing: border-box;
         color: inherit;
@@ -124,9 +124,6 @@ export const styles = css`
 
     [part='start'] {
         display: contents;
-    }
-
-    slot[name='start']::slotted(*) {
         ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
     }
 
@@ -135,6 +132,11 @@ export const styles = css`
     }
 
     [part='end'] {
+        display: contents;
+        ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+    }
+
+    :host([content-hidden]) [part='end'] {
         display: none;
     }
 `
@@ -207,13 +209,17 @@ export const styles = css`
                 }
 
                 .control:hover {
-                    background-color: rgba(${borderRgbPartialColor}, 0.1);
+                    background-color: transparent;
                     border-color: ${borderHoverColor};
                 }
 
                 .control${focusVisible} {
                     background-color: rgba(${borderRgbPartialColor}, 0.1);
                     border-color: ${borderHoverColor};
+                }
+
+                .control${focusVisible}:hover {
+                    background-color: transparent;
                 }
 
                 .control:active {

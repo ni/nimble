@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 16 Mar 2022 18:56:43 GMT and should not be manually modified.
+This log was last generated on Fri, 18 Mar 2022 19:18:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.2.2
+
+Fri, 18 Mar 2022 19:18:02 GMT
+
+### Patches
+
+- Fix button width and height styles (20542556+mollykreis@users.noreply.github.com)
+
+## 7.2.1
+
+Wed, 16 Mar 2022 22:20:10 GMT
+
+### Patches
+
+- Fix hover style of block button (20542556+mollykreis@users.noreply.github.com)
+
+## 7.2.0
+
+Wed, 16 Mar 2022 21:51:34 GMT
+
+### Minor changes
+
+- Add support for icons in 'end' slot of nimble-button and nimble-toggle-button (20542556+mollykreis@users.noreply.github.com)
 
 ## 7.1.1
 
