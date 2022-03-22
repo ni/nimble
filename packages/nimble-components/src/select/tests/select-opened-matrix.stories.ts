@@ -54,23 +54,32 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const selectLightThemeWhiteBackground: Story = createRenderer(
-    singleThemeWrapper(
-        createMatrix(component, [positionStates]),
-        lightThemeWhiteBackground
-    )
+export const selectBelowOpenLightThemeWhiteBackground: Story = createRenderer(
+    singleThemeWrapper(component(positionStates[0]!), lightThemeWhiteBackground)
 );
 
-export const selectColorThemeDarkGreenBackground: Story = createRenderer(
+export const selectAboveOpenLightThemeWhiteBackground: Story = createRenderer(
+    singleThemeWrapper(component(positionStates[1]!), lightThemeWhiteBackground)
+);
+
+export const selectBelowOpenColorThemeDarkGreenBackground: Story = createRenderer(
     singleThemeWrapper(
-        createMatrix(component, [positionStates]),
+        component(positionStates[0]!),
         colorThemeDarkGreenBackground
     )
 );
 
-export const selectDarkThemeBlackBackground: Story = createRenderer(
+export const selectAboveOpenColorThemeDarkGreenBackground: Story = createRenderer(
     singleThemeWrapper(
-        createMatrix(component, [positionStates]),
-        darkThemeBlackBackground
+        component(positionStates[1]!),
+        colorThemeDarkGreenBackground
     )
+);
+
+export const selectBelowOpenDarkThemeBlackBackground: Story = createRenderer(
+    singleThemeWrapper(component(positionStates[0]!), darkThemeBlackBackground)
+);
+
+export const selectAboveOpenDarkThemeBlackBackground: Story = createRenderer(
+    singleThemeWrapper(component(positionStates[1]!), darkThemeBlackBackground)
 );
