@@ -75,11 +75,11 @@ class TreeItem extends FoundationTreeItem {
         const leavesOnly = this.treeView?.selectionMode === TreeViewSelectionMode.LeavesOnly;
         const hasChildren = this.hasChildTreeItems();
         if ((leavesOnly && !hasChildren) || !leavesOnly) {
-            // if either a leaf tree item, or in a mode that supports select on groups,
-            // process click as a select
             const selectedTreeItem = this.getImmediateTreeItem(
                 this.treeView?.currentSelected
             );
+            // if either a leaf tree item, or in a mode that supports select on groups,
+            // process click as a select
             if (selectedTreeItem && this !== this.treeView?.currentSelected) {
                 selectedTreeItem.selected = false;
             }
