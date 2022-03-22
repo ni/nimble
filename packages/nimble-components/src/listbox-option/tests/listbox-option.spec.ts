@@ -12,6 +12,8 @@ describe('ListboxOption', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-listbox-option')).toBeInstanceOf(ListboxOption);
+        expect(document.createElement('nimble-listbox-option')).toBeInstanceOf(
+            ListboxOption
+        );
     });
 });

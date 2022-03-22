@@ -71,7 +71,9 @@ describe('TreeView', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-tree-view')).toBeInstanceOf(TreeView);
+        expect(document.createElement('nimble-tree-view')).toBeInstanceOf(
+            TreeView
+        );
     });
 
     it('root1 should have "group-selected" attribute set after initialization', async () => {

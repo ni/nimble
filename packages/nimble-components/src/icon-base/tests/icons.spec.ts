@@ -35,7 +35,9 @@ describe('Icons', () => {
 
     describe('can be constructed', () => {
         type IconName = keyof typeof allIconsNamespace;
-        const allIconNames = (Object.keys(allIconsNamespace) as IconName[]).map((x: IconName) => ({ name: x, klass: allIconsNamespace[x] }));
+        const allIconNames = (Object.keys(allIconsNamespace) as IconName[]).map(
+            (x: IconName) => ({ name: x, klass: allIconsNamespace[x] })
+        );
 
         const focused: IconName[] = [];
         const disabled: IconName[] = [];
@@ -46,7 +48,9 @@ describe('Icons', () => {
                 const tagName = DesignSystem.tagFor(icon.klass);
                 expect(typeof tagName).toBe('string');
                 expect(tagName.length).toBeGreaterThan(0);
-                expect(document.createElement(tagName)).toBeInstanceOf(icon.klass);
+                expect(document.createElement(tagName)).toBeInstanceOf(
+                    icon.klass
+                );
             });
         }
     });

@@ -26,9 +26,7 @@ describe('Switch', () => {
     });
 
     it('should have its tag returned by tagFor(FoundationSwitch)', () => {
-        expect(DesignSystem.tagFor(FoundationSwitch)).toBe(
-            'nimble-switch'
-        );
+        expect(DesignSystem.tagFor(FoundationSwitch)).toBe('nimble-switch');
     });
 
     it('can construct an element instance', () => {

@@ -12,6 +12,8 @@ describe('MenuItem', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-menu-item')).toBeInstanceOf(MenuItem);
+        expect(document.createElement('nimble-menu-item')).toBeInstanceOf(
+            MenuItem
+        );
     });
 });

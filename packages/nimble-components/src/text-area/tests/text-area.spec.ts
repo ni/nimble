@@ -12,6 +12,8 @@ describe('Text Area', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-text-area')).toBeInstanceOf(TextArea);
+        expect(document.createElement('nimble-text-area')).toBeInstanceOf(
+            TextArea
+        );
     });
 });

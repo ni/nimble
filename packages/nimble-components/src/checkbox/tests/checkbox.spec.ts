@@ -10,6 +10,8 @@ describe('Checkbox', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-checkbox')).toBeInstanceOf(Checkbox);
+        expect(document.createElement('nimble-checkbox')).toBeInstanceOf(
+            Checkbox
+        );
     });
 });

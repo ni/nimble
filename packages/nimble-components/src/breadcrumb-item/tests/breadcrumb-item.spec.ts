@@ -12,6 +12,8 @@ describe('Breadcrumb Item', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-breadcrumb-item')).toBeInstanceOf(BreadcrumbItem);
+        expect(document.createElement('nimble-breadcrumb-item')).toBeInstanceOf(
+            BreadcrumbItem
+        );
     });
 });

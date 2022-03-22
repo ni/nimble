@@ -23,7 +23,9 @@ describe('ToggleButton', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-toggle-button')).toBeInstanceOf(ToggleButton);
+        expect(document.createElement('nimble-toggle-button')).toBeInstanceOf(
+            ToggleButton
+        );
     });
 
     it('should set a role of `button` on the internal control', async () => {

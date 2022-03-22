@@ -12,6 +12,8 @@ describe('TreeItem', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-tree-item')).toBeInstanceOf(TreeItem);
+        expect(document.createElement('nimble-tree-item')).toBeInstanceOf(
+            TreeItem
+        );
     });
 });
