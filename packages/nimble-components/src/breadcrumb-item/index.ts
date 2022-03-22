@@ -23,7 +23,6 @@ class BreadcrumbItem extends FoundationBreadcrumbItem {}
 const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
     baseName: 'breadcrumb-item',
     baseClass: FoundationBreadcrumbItem,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     separator: forwardSlash16X16.data
