@@ -31,7 +31,6 @@ export class TreeView extends FoundationTreeView {
 const nimbleTreeView = TreeView.compose({
     baseName: 'tree-view',
     baseClass: FoundationTreeView,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

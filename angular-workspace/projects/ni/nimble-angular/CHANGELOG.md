@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 18 Mar 2022 19:18:02 GMT and should not be manually modified.
+This log was last generated on Tue, 22 Mar 2022 20:59:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.2.1
+
+Tue, 22 Mar 2022 20:59:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.2.3
+
+## 4.2.0
+
+Tue, 22 Mar 2022 14:07:45 GMT
+
+### Minor changes
+
+- Add missing properties to checkbox Angular directive (jattasNI@users.noreply.github.com)
 
 ## 4.1.4
 

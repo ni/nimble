@@ -53,7 +53,6 @@ export class Button extends FoundationButton {
 const nimbleButton = Button.compose<ButtonOptions>({
     baseName: 'button',
     baseClass: FoundationButton,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     shadowOptions: {

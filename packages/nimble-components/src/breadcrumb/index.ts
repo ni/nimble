@@ -19,7 +19,6 @@ export class Breadcrumb extends FoundationBreadcrumb {}
 const nimbleBreadcrumb = Breadcrumb.compose({
     baseName: 'breadcrumb',
     baseClass: FoundationBreadcrumb,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

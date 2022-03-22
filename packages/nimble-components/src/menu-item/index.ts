@@ -29,7 +29,6 @@ export class MenuItem extends FoundationMenuItem {}
 const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
     baseClass: FoundationMenuItem,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

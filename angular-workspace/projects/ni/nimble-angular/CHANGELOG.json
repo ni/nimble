@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 22 Mar 2022 20:59:12 GMT",
+      "tag": "@ni/nimble-angular_v4.2.1",
+      "version": "4.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v7.2.3",
+            "commit": "294a686f9ab471c94bc93df36919ce9f1b970e21"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 22 Mar 2022 14:07:45 GMT",
+      "tag": "@ni/nimble-angular_v4.2.0",
+      "version": "4.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "0f75bcb095770ee477148a3a391651d7c24b6bf3",
+            "comment": "Add missing properties to checkbox Angular directive"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 18 Mar 2022 19:18:02 GMT",
       "tag": "@ni/nimble-angular_v4.1.4",
       "version": "4.1.4",

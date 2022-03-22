@@ -48,7 +48,6 @@ export class TextField extends FoundationTextField {
 const nimbleTextField = TextField.compose<TextFieldOptions>({
     baseName: 'text-field',
     baseClass: FoundationTextField,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     shadowOptions: {

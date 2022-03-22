@@ -31,7 +31,6 @@ export class TextArea extends FoundationTextArea {
 const nimbleTextArea = TextArea.compose({
     baseName: 'text-area',
     baseClass: FoundationTextArea,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     shadowOptions: {
