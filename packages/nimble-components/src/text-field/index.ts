@@ -9,8 +9,6 @@ import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-ic
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 
-export type { TextField };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-text-field': TextField;
@@ -20,7 +18,7 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
-class TextField extends FoundationTextField {
+export class TextField extends FoundationTextField {
     /**
      * The appearance the text field should have.
      *
