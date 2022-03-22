@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace NI.Nimble.Blazor.Components;
+namespace NimbleBlazor.Components;
 
 public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
 {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace NI.Nimble.Blazor.Components;
+namespace NimbleBlazor.Components;
 
-public partial class NimbleOption
+public partial class NimbleOption : ComponentBase
 {
     internal NimbleOptionContext? Context { get; private set; }
 

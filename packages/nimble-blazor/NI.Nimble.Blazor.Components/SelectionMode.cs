@@ -1,4 +1,4 @@
-﻿namespace NI.Nimble.Blazor.Components;
+﻿namespace NimbleBlazor.Components;
 
 public enum SelectionMode
 {

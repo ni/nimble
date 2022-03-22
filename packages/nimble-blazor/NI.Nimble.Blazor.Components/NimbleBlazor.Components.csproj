@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <DebugType>embedded</DebugType>
     <Authors>NI</Authors>
-    <PackageProjectUrl>https://github.com/ni/nimble/tree/main/packages/nimble-blazor</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ni/nimble/tree/main/packages/nimble-blazor</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ni/nimble</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ni/nimble</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Web Components, .NET, Nimble, FAST, Blazor, .NET 6.0</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>

@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
-namespace NI.Nimble.Blazor.Components;
+namespace NimbleBlazor.Components;
 
-public partial class NimbleTextField
+public partial class NimbleTextField : NimbleInputBase<string?>
 {
     [Parameter]
     public bool? Disabled { get; set; }

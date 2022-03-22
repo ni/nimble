@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace NI.Nimble.Blazor.Components;
+namespace NimbleBlazor.Components;
 
 internal class NimbleOptionContext
 {

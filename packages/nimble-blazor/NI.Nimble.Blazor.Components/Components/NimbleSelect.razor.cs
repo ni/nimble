@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
-namespace NI.Nimble.Blazor.Components;
+namespace NimbleBlazor.Components;
 
-public partial class NimbleSelect
+public partial class NimbleSelect : NimbleInputBase<string?>
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N");
     private NimbleOptionContext? _context;

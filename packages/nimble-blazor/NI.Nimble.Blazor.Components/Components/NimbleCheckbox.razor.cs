@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 
-namespace NI.Nimble.Blazor.Components;
+namespace NimbleBlazor.Components;
 
-public partial class NimbleCheckbox
+public partial class NimbleCheckbox : NimbleInputBase<bool>
 {
     [Parameter]
     public bool? Disabled { get; set; }
