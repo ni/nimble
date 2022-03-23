@@ -47,7 +47,7 @@ Alternatively, to use the minified bundle: `https://unpkg.com/@ni/nimble-compone
 
 Note: Production applications **must not** rely on the `unpkg.com` service. The service is a useful tool for prototyping or reporting issues.
 
-Note: It is recommend that production applications use build tooling to create optimized builds using only required components instead of importing all components via the `all-components-bundle` files.
+Note: It is recommended that production applications use build tooling to create optimized builds using only required components instead of importing all components via the `all-components-bundle` files.
 
 ## Theming
 
