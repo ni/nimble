@@ -33,9 +33,7 @@ If you have a static webpage without a bundler, you can use `@ni/nimble-componen
 ```html
 <html>
     <head>
-        <script
-            src="https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.js"
-        ></script>
+        <script src="https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.js"></script>
     </head>
     <body>
         <nimble-theme-provider theme="light">
