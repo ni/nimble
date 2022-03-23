@@ -1,7 +1,7 @@
 /**
- * Defines all the web components available in Nimble.
- * Applications are encouraged to only import components that are needed
- * to reduce application size.
+ * Import of all the web components available in Nimble.
+ * Production applications are encouraged to import only components
+ * that are required instead of leveraging this file.
  */
 
 import './breadcrumb';

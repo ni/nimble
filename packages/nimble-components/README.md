@@ -17,7 +17,7 @@ If you are using one of the following frameworks see associated wrapper document
 1. Angular: See the [nimble-angular](/angular-workspace/projects/ni/nimble-angular) documentation.
 2. Blazor WebAssembly or Blazor Server: See the [nimble-blazor](/packages/nimble-blazor) documentation.
 
-### Using `nimble-components` in a Webpack Application
+### Using in a Webpack Application
 
 If you have an existing application that incorporates a module bundler like [Webpack](https://webpack.js.org/) but doesn't include one of the above frameworks, you can use `@ni/nimble-components` directly. Exact instructions will depend on your application, but here are some common steps:
 
@@ -26,15 +26,15 @@ If you have an existing application that incorporates a module bundler like [Web
 3. Add the HTML for the component to your page. You can see sample code for each component in the [Nimble Storybook](https://ni.github.io/nimble/storybook/) by going to the **Docs** tab for the component and clicking **Show code**. For example: `<nimble-succeeded-icon></nimble-succeeded-icon>`.
 4. Nimble components are [standard web components (custom elements)](https://developer.mozilla.org/en-US/docs/Web/Web_Components) so you can configure them via normal DOM APIs like attributes, properties, events, and methods. The [Storybook documentation](https://ni.github.io/nimble/storybook/) for each component describes its custom API.
 
-### Using `nimble-components` in a static webpage
+### Prototyping in a static webpage
 
-If you have a static webpage without a bundler, you can use `@ni/nimble-components` by including one of the bundled distribution files from the package contents as a script in your page. For example:
+If you have a static webpage without a bundler, you can use `@ni/nimble-components` by including one of the bundled distribution files. For example:
 
 ```html
 <html>
     <head>
         <script
-            src="node_modules/dist/nimble-components.js"
+            src="https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.js"
             type="module"
         ></script>
     </head>
@@ -46,9 +46,11 @@ If you have a static webpage without a bundler, you can use `@ni/nimble-componen
 </html>
 ```
 
-Alternatively, a minified bundled distribution file is also available at `dist/nimble-components.min.js`.
+Alternatively, to use the latest minified bundle: `https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.min.js`. To specify a specific version see the instructions on [unpkg.com](https://unpkg.com/).
 
-These bundled distribution files are also useful for static page demos on sites like StackBlitz.
+Note: Production applications **must not** rely on the `unpkg.com` service. The service is a useful tool for prototyping or reporting issues.
+
+Note: It is recommend that production applications use build tooling to create optimized builds using only required components instead of importing all components via the `all-components-bundle` files.
 
 ## Theming
 

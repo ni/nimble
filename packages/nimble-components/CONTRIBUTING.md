@@ -86,6 +86,10 @@ Create a new folder named after your component with some core files:
 | tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
 | tests/component-name-docs.stories.ts   | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See [Creating Storybook Component Documentation](/packages/nimble-components/docs/creating-storybook-component-documentation.md) for more information. |
 
+### Add to component bundle
+
+All components should have an import added to `src/all-components.ts` so they are available in bundled distribution files.
+
 ### Decide how to build on top of FAST
 
 If fast-foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble." Namespacing is accomplished through imports. Use `FoundationElement.compose()` to add the component to Nimble. In the argument to `compose`, provide a `baseClass` value if your component is the Nimble equivalent of the FAST component that it extends. (No two Nimble components should specify the same `baseClass` value.)
@@ -233,10 +237,6 @@ const nimbleButton = Button.compose({
     }
 });
 ```
-
-### Include new component in Rollup build
-
-All components (and all other public API) should be exported from `src/index-rollup.ts`. Otherwise they will not be available in the bundled distribution files.
 
 ## Unit tests
 
