@@ -10,7 +10,7 @@ internal static class SelectionModeExtensions
 {
     private static readonly Dictionary<SelectionMode, string> _selectionModeValues =
 #pragma warning disable CA1308 // Normalize strings to uppercase
-        Enum.GetValues<SelectionMode>().ToDictionary(id => id, id => id.SafeGetName().ToLowerInvariant());
+        Enum.GetValues<SelectionMode>().ToDictionary(id => id, id => id.UnsafeGetName().ToLowerInvariant());
 #pragma warning restore CA1308 // Normalize strings to uppercase
 
     public static string? ToAttributeValue(this SelectionMode? value) => value == null ? null : _selectionModeValues[value.Value];

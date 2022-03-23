@@ -1,8 +1,11 @@
 ﻿namespace NimbleBlazor.Components;
 
-internal static class SafeEnumExtensions
+/// <summary>
+/// This class provides a
+/// </summary>
+internal static class UnsafeEnumExtensions
 {
-    public static string SafeGetName<TEnum>(this TEnum value)
+    public static string UnsafeGetName<TEnum>(this TEnum value)
             where TEnum : struct, Enum
     {
         var safeValue = Enum.GetName(value);
