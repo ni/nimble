@@ -35,7 +35,6 @@ If you have a static webpage without a bundler, you can use `@ni/nimble-componen
     <head>
         <script
             src="https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.js"
-            type="module"
         ></script>
     </head>
     <body>

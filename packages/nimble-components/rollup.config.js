@@ -17,7 +17,7 @@ export default [
         input: 'dist/esm/all-components.js',
         output: {
             file: 'dist/all-components-bundle.js',
-            format: 'esm',
+            format: 'iife',
             sourcemap: true
         },
         plugins: [resolve(), commonJS()]
@@ -26,7 +26,7 @@ export default [
         input: 'dist/esm/all-components.js',
         output: {
             file: 'dist/all-components-bundle.min.js',
-            format: 'esm',
+            format: 'iife',
             sourcemap: true,
             plugins: [
                 terser({
