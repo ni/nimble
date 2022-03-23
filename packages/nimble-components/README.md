@@ -43,7 +43,7 @@ If you have a static webpage without a bundler, you can use `@ni/nimble-componen
 </html>
 ```
 
-Alternatively, to use the latest minified bundle: `https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.min.js`. To specify a specific version see the instructions on [unpkg.com](https://unpkg.com/).
+Alternatively, to use the minified bundle: `https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.min.js`. To specify a specific version see the instructions on [unpkg.com](https://unpkg.com/).
 
 Note: Production applications **must not** rely on the `unpkg.com` service. The service is a useful tool for prototyping or reporting issues.
 
