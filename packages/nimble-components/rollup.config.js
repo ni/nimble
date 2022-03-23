@@ -20,10 +20,7 @@ export default [
             format: 'esm',
             sourcemap: true
         },
-        plugins: [
-            resolve(),
-            commonJS()
-        ]
+        plugins: [resolve(), commonJS()]
     },
     {
         input: 'dist/esm/all-components.js',
