@@ -92,7 +92,11 @@ All components should have an import added to `src/all-components.ts` so they ar
 
 ### Decide how to build on top of FAST
 
-If fast-foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble." Namespacing is accomplished through imports. Use `FoundationElement.compose()` to add the component to Nimble. In the argument to `compose`, provide a `baseClass` value if your component is the Nimble equivalent of the FAST component that it extends. (No two Nimble components should specify the same `baseClass` value.)
+#### Extend Fast Foundation
+
+If Fast Foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble"; namespacing is accomplished through imports. Use `MyComponent.compose()` to add the component to Nimble.
+
+If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value. Make sure to include a test that shows the tag name for the element is found when using `DesignSystem.tagFor(FastFoundationBaseClass)`.
 
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
@@ -104,7 +108,7 @@ const styles = css`
         color: gold;
     }
 `;
-class Button extends FoundationButton {
+export class Button extends FoundationButton {
     // Add new functionality (or leave empty if just restyling the FAST component)
 }
 const nimbleButton = Button.compose({
@@ -114,10 +118,12 @@ const nimbleButton = Button.compose({
 });
 ```
 
+#### Compose Elements into a new Component
+
 If you need to compose multiple elements into a new component, use previously built Nimble elements or basic HTML elements as your template building blocks.
 Extend `FoundationElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
-Use the `html` tagged template helper to define your custom template. See [declaring-templates.md](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-element/docs/guide/declaring-templates.md) for (hopefully up-to-date) tips from FAST.
-**TODO: if you're reading this section because you're adding a brand new thing, congratulations! You have won the honor of filling out this section.**
+
+Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `DesignSystem.tagFor(FastFoundationBaseClass)` instead of hard coding the nimble tag name in the template.
 
 ### Adhere to architectural philosophies
 

@@ -5,8 +5,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import '..';
-import type { Switch } from '..';
+import { Switch } from '..';
 
 async function setup(): Promise<Fixture<Switch>> {
     return fixture<Switch>(html`<nimble-switch></nimble-switch>`);
@@ -27,9 +26,11 @@ describe('Switch', () => {
     });
 
     it('should have its tag returned by tagFor(FoundationSwitch)', () => {
-        expect(html`${DesignSystem.tagFor(FoundationSwitch)}`.html).toBe(
-            'nimble-switch'
-        );
+        expect(DesignSystem.tagFor(FoundationSwitch)).toBe('nimble-switch');
+    });
+
+    it('can construct an element instance', () => {
+        expect(document.createElement('nimble-switch')).toBeInstanceOf(Switch);
     });
 
     it('should have a role of `switch`', async () => {

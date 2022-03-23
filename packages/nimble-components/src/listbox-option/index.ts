@@ -5,8 +5,6 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
-export type { ListboxOption };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-listbox-option': ListboxOption;
@@ -16,7 +14,7 @@ declare global {
 /**
  * A nimble-styled HTML listbox option
  */
-class ListboxOption extends FoundationListboxOption {
+export class ListboxOption extends FoundationListboxOption {
     // Workaround for https://github.com/microsoft/fast/issues/5219
     public override get value(): string {
         return super.value;

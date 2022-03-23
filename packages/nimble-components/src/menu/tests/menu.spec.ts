@@ -2,13 +2,14 @@ import {
     DesignSystem,
     Menu as FoundationMenu
 } from '@microsoft/fast-foundation';
-import { html } from '@microsoft/fast-element';
-import '..';
+import { Menu } from '..';
 
 describe('Menu', () => {
     it('should have its tag returned by tagFor(FoundationMenu)', () => {
-        expect(html`${DesignSystem.tagFor(FoundationMenu)}`.html).toBe(
-            'nimble-menu'
-        );
+        expect(DesignSystem.tagFor(FoundationMenu)).toBe('nimble-menu');
+    });
+
+    it('can construct an element instance', () => {
+        expect(document.createElement('nimble-menu')).toBeInstanceOf(Menu);
     });
 });
