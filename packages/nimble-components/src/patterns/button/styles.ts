@@ -47,8 +47,8 @@ export const styles = css`
 
     .control {
         background-color: transparent;
-        height: inherit;
-        width: inherit;
+        height: 100%;
+        width: 100%;
         border: ${borderWidth} solid transparent;
         box-sizing: border-box;
         color: inherit;

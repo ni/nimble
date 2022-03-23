@@ -10,8 +10,6 @@ import { styles } from './styles';
 import { template } from './template';
 import { ButtonAppearance } from '../patterns/button/types';
 
-export type { ToggleButton };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-toggle-button': ToggleButton;
@@ -21,7 +19,7 @@ declare global {
 /**
  * A nimble-styled toggle button control.
  */
-class ToggleButton extends FoundationSwitch {
+export class ToggleButton extends FoundationSwitch {
     /**
      * The appearance the button should have.
      *

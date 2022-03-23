@@ -16,8 +16,6 @@ import { animationConfig } from './animations';
 import { styles } from './styles';
 import { DrawerLocation, DrawerState } from './types';
 
-export type { Drawer };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-drawer': Drawer;
@@ -31,7 +29,7 @@ const animationDurationWhenDisabledMilliseconds = 0.001;
  * which animates to be visible with a slide-in / slide-out animation.
  * Configured via 'location', 'state', 'modal', 'preventDismiss' properties.
  */
-class Drawer extends FoundationDialog {
+export class Drawer extends FoundationDialog {
     @attr
     public location: DrawerLocation = DrawerLocation.Left;
 
@@ -229,7 +227,6 @@ class Drawer extends FoundationDialog {
 
 const nimbleDrawer = Drawer.compose({
     baseName: 'drawer',
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

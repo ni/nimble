@@ -7,10 +7,9 @@ import { notebook16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inl
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { clickElement } from '../../utilities/tests/component';
 import { TreeViewSelectionMode } from '../types';
-import type { TreeView } from '..';
+import { TreeView } from '..';
 import type { TreeItem } from '../../tree-item';
 import type { Button } from '../../button';
-import '..';
 import '../../tree-item';
 import '../../button';
 
@@ -63,6 +62,18 @@ describe('TreeView', () => {
 
     afterEach(async () => {
         await disconnect();
+    });
+
+    it('should have its tag returned by tagFor(FoundationTreeView)', () => {
+        expect(DesignSystem.tagFor(FoundationTreeView)).toBe(
+            'nimble-tree-view'
+        );
+    });
+
+    it('can construct an element instance', () => {
+        expect(document.createElement('nimble-tree-view')).toBeInstanceOf(
+            TreeView
+        );
     });
 
     it('root1 should have "group-selected" attribute set after initialization', async () => {
@@ -169,11 +180,5 @@ describe('TreeView', () => {
             expect(model.root1.hasAttribute('selected')).toBe(true);
             expect(model.root1.hasAttribute('expanded')).toBe(false);
         });
-    });
-
-    it('should have its tag returned by tagFor(FoundationTreeView)', () => {
-        expect(html`${DesignSystem.tagFor(FoundationTreeView)}`.html).toBe(
-            'nimble-tree-view'
-        );
     });
 });

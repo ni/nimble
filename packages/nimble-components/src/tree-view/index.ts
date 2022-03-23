@@ -7,8 +7,6 @@ import {
 import { styles } from './styles';
 import { TreeViewSelectionMode } from './types';
 
-export type { TreeView };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-tree-view': TreeView;
@@ -25,7 +23,7 @@ declare global {
  * Generates HTML Element: \<nimble-tree-view\>
  *
  */
-class TreeView extends FoundationTreeView {
+export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.All;
 }
@@ -33,7 +31,6 @@ class TreeView extends FoundationTreeView {
 const nimbleTreeView = TreeView.compose({
     baseName: 'tree-view',
     baseClass: FoundationTreeView,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

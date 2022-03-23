@@ -7,8 +7,6 @@ import {
 import { forwardSlash16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
-export type { BreadcrumbItem };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-breadcrumb-item': BreadcrumbItem;
@@ -18,12 +16,11 @@ declare global {
 /**
  * A nimble-styled breadcrumb item
  */
-class BreadcrumbItem extends FoundationBreadcrumbItem {}
+export class BreadcrumbItem extends FoundationBreadcrumbItem {}
 
 const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
     baseName: 'breadcrumb-item',
     baseClass: FoundationBreadcrumbItem,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     separator: forwardSlash16X16.data

@@ -7,8 +7,6 @@ import {
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
-export type { Select };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-select': Select;
@@ -18,7 +16,7 @@ declare global {
 /**
  * A nimble-styed HTML select
  */
-class Select extends FoundationSelect {
+export class Select extends FoundationSelect {
     public override get value(): string {
         return super.value;
     }
@@ -60,7 +58,6 @@ class Select extends FoundationSelect {
 const nimbleSelect = Select.compose<SelectOptions>({
     baseName: 'select',
     baseClass: FoundationSelect,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     indicator: arrowExpanderDown16X16.data

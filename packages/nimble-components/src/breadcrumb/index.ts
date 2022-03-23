@@ -5,8 +5,6 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
-export type { Breadcrumb };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-breadcrumb': Breadcrumb;
@@ -16,12 +14,11 @@ declare global {
 /**
  * A nimble-styled breadcrumb
  */
-class Breadcrumb extends FoundationBreadcrumb {}
+export class Breadcrumb extends FoundationBreadcrumb {}
 
 const nimbleBreadcrumb = Breadcrumb.compose({
     baseName: 'breadcrumb',
     baseClass: FoundationBreadcrumb,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });
