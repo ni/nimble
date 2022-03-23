@@ -2,7 +2,7 @@
 
 namespace NimbleBlazor.Components;
 
-public partial class NimbleTreeItem
+public partial class NimbleTreeItem : ComponentBase
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

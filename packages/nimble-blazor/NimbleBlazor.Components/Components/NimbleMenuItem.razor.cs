@@ -2,7 +2,7 @@
 
 namespace NimbleBlazor.Components;
 
-public partial class NimbleMenuItem
+public partial class NimbleMenuItem : ComponentBase
 {
     [Parameter]
     public bool? Disabled { get; set; }
