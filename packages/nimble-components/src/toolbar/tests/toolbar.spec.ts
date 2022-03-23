@@ -6,9 +6,7 @@ import { Toolbar } from '..';
 
 describe('Toolbar', () => {
     it('should have its tag returned by tagFor(FoundationToolbar)', () => {
-        expect(DesignSystem.tagFor(FoundationToolbar)).toBe(
-            'nimble-toolbar'
-        );
+        expect(DesignSystem.tagFor(FoundationToolbar)).toBe('nimble-toolbar');
     });
 
     it('can construct an element instance', () => {
