@@ -2,16 +2,16 @@
 
 ## Creating a Blazor wrapper for a Nimble element
 
-The process for creating a Blazor wrapper for a Nimble component is fairly straight forward. Developers are expected to create their Blazor component with the C# implementation broken out into a separate files. As an example, the `NimbleButton` Blazor component is comprised of two files: `NimbleButton.razor` (the template), and `NimbleButton.razor.cs` (the C# implementation). The contents of the `.razor` file shouldn't simply be the Nimble element with each of its properties/attributes bound to the respective C# property defined in the `.razor.cs` file.
+In Nimble Blazor, the Nimble web components are wrapped as [Razor Components](https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-6.0#components) that consist of a `.razor` template file and a corresponding `.razor.cs` C# implementation file.
 
-### Example (complete implementation not shown)
+### Example Component
 
-NimbleButton.razor:
+`NimbleButton.razor`:
 ```
 <nimble-button appearance="@Appearance.ToAttributeValue()"></nimbleButton>
 ```
 
-NimbleButton.razor.cs:
+`NimbleButton.razor.cs`:
 ```
 public partial class NimbleButton : ComponentBase
 {
