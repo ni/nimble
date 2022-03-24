@@ -43,6 +43,7 @@ export const styles = css`
     .control {
         -webkit-appearance: none;
         font: inherit;
+        width: inherit;
         outline: none;
         box-sizing: border-box;
         position: relative;
