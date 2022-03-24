@@ -2,7 +2,7 @@
 
 namespace NimbleBlazor.Components;
 
-public partial class NimbleButton
+public partial class NimbleButton : ComponentBase
 {
     [Parameter]
     public Appearance? Appearance { get; set; }
