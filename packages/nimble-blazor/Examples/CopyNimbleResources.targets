@@ -2,36 +2,5 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="CopyNimbleResources" BeforeTargets="BeforeBuild">
   	<Exec Command="npm run copy-resources $(Configuration) $(ProjectDir)/wwwroot/" />
-	<!-- nimble-components JS bundle -->
-	<!--
-    <Copy
-      SourceFiles="$(SolutionDir)../nimble-components/dist/all-components-bundle.js"
-      DestinationFolder="$(ProjectDir)/wwwroot/nimble-components/"
-	  Condition="'$(Configuration)'=='Debug'" />
-    <Copy
-      SourceFiles="$(SolutionDir)../nimble-components/dist/all-components-bundle.js.map"
-      DestinationFolder="$(ProjectDir)/wwwroot/nimble-components/"
-	  Condition="'$(Configuration)'=='Debug'" />
-    <Copy
-      SourceFiles="$(SolutionDir)../nimble-components/dist/all-components-bundle.min.js"
-      DestinationFiles="$(ProjectDir)/wwwroot/nimble-components/all-components-bundle.js"
-	  Condition="'$(Configuration)'=='Release'" />
-    <Copy
-      SourceFiles="$(SolutionDir)../nimble-components/dist/all-components-bundle.min.js.map"
-      DestinationFiles="$(ProjectDir)/wwwroot/nimble-components/all-components-bundle.js.map"
-	  Condition="'$(Configuration)'=='Release'" />
-	-->
-	<!-- Fonts -->
-	<!--
-    <Copy
-      SourceFiles="$(SolutionDir)../nimble-tokens/source/fonts.css"
-      DestinationFolder="$(ProjectDir)/wwwroot/nimble-tokens/source/" />	  
-	<ItemGroup>
-		<NimbleFontAssets Include="$(SolutionDir)../nimble-tokens/assets-fonts/*.*" />
-	</ItemGroup>
-	<Copy
-		SourceFiles="@(NimbleFontAssets)"
-		DestinationFiles="$(ProjectDir)/wwwroot/nimble-tokens/assets-fonts/%(Filename)%(Extension)" />
-	-->
   </Target>
 </Project>
