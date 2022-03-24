@@ -1,9 +1,10 @@
 {
   "name": "@ni/nimble-blazor",
   "version": "1.0.0-beta.0",
-  "private":true,
+  "private": true,
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
+    "copy-resources": "node copyNimbleResources.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/ni/nimble/issues"
   },
-  "homepage": "https://github.com/ni/nimble#readme"
+  "homepage": "https://github.com/ni/nimble#readme",
+  "devDependencies": {
+    "@ni/nimble-components": "*",
+    "@ni/nimble-tokens": "*",
+    "glob": "^7.2.0"
+  }
 }

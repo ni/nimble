@@ -1,0 +1,69 @@
+@page "/"
+@namespace NimbleBlazor.Demo.Shared.Pages
+@inherits LayoutComponentBase
+
+<div class="root">
+    <div class="content container">
+        <p>
+            Explore the components below to see the Nimble components in action.
+            <ul>
+                <li>
+                    <a href="/Login">Click here</a> to see an example login page.
+                </li>
+                <li>See the <a
+                    href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page">Nimble
+                    component docs</a> for additional usage details.
+                </li>
+            </ul>
+        </p>
+        <div class="container">
+            <div class="sub-container">
+                <div class="container-label">Buttons</div>
+                <NimbleButton Appearance="Appearance.Outline">Outline Button</NimbleButton>
+                <NimbleButton Appearance="Appearance.Block">Block Button</NimbleButton>
+                <NimbleButton Appearance="Appearance.Ghost">Ghost Button</NimbleButton>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Checkbox</div>
+                <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+                <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+                <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Menu</div>
+                <NimbleMenu>
+                    <header>Header 1</header>
+                    <NimbleMenuItem>
+                        Item 1
+                        <span slot="start">[+]</span>
+                    </NimbleMenuItem>
+                    <NimbleMenuItem>Item 2</NimbleMenuItem>
+                    <hr>
+                    <header>Header 2</header>
+                    <NimbleMenuItem>Item 4</NimbleMenuItem>
+                </NimbleMenu>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Text Field</div>
+                <NimbleTextField Placeholder="Text Field" Value="Here is text!">Text Field Label</NimbleTextField>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Tree View</div>
+                <NimbleTreeView>
+                    <NimbleTreeItem>
+                        Parent 1
+                        <NimbleTreeItem>Child 1</NimbleTreeItem>
+                        <NimbleTreeItem>Child 2</NimbleTreeItem>
+                        <NimbleTreeItem Disabled="true">Child 3</NimbleTreeItem>
+                    </NimbleTreeItem>
+                    <NimbleTreeItem expanded>
+                        Parent 2
+                        <NimbleTreeItem Selected="true">Child 2-1</NimbleTreeItem>
+                        <NimbleTreeItem>Child 2-2</NimbleTreeItem>
+                        <NimbleTreeItem>Child 2-3</NimbleTreeItem>
+                    </NimbleTreeItem>
+                </NimbleTreeView>
+            </div>
+        </div>
+    </div>
+</div>

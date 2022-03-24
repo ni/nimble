@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Components
+@namespace NimbleBlazor.Demo.Shared
+@inherits LayoutComponentBase
+
+<PageTitle>ExampleClientApp-Blazor</PageTitle>
+
+<div class="root">
+    <div class="header"></div>
+    <ErrorBoundary @ref="errorBoundary">
+        <ChildContent>
+            @Body
+        </ChildContent>
+        <ErrorContent Context="ex">
+                <p class="error">@ex.Message</p>
+        </ErrorContent>
+    </ErrorBoundary>
+</div>

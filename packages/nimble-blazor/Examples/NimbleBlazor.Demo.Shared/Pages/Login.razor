@@ -1,0 +1,27 @@
+@page "/Login"
+@namespace NimbleBlazor.Demo.Shared.Pages
+@inherits LayoutComponentBase
+
+<div class="root">
+    <EditForm Model="@_loginModel" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="login-container">
+            <NimbleTextField
+                @bind-Value="_loginModel.Username"
+                class="@(IsModelFieldInvalid(context, "Username") ? "invalid" : "")"
+                id="username"
+            >
+                Username
+            </NimbleTextField>
+            <NimbleTextField
+                TextFieldType="TextFieldType.Password"
+                @bind-Value="_loginModel.Password"
+                class="@(IsModelFieldInvalid(context, "Password") ? "invalid" : "")"
+                id="password"
+            >
+                Password
+            </NimbleTextField>
+            <NimbleButton type="submit" Disabled="@(!context.Validate())">Login</NimbleButton>
+        </div>
+    </EditForm>
+</div>
