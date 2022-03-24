@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NimbleBlazor.Components", "NimbleBlazor.Components\NimbleBlazor.Components.csproj", "{FD4F8A39-17CC-4118-A192-3E392FA728CA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.NimbleBlazor", "Tests.NimbleBlazor\Tests.NimbleBlazor.csproj", "{1E11DA86-D43D-4CF7-94F5-B4565450BF4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FD4F8A39-17CC-4118-A192-3E392FA728CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD4F8A39-17CC-4118-A192-3E392FA728CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD4F8A39-17CC-4118-A192-3E392FA728CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E11DA86-D43D-4CF7-94F5-B4565450BF4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E11DA86-D43D-4CF7-94F5-B4565450BF4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E11DA86-D43D-4CF7-94F5-B4565450BF4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E11DA86-D43D-4CF7-94F5-B4565450BF4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

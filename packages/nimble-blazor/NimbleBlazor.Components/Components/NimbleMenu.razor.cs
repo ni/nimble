@@ -2,7 +2,7 @@
 
 namespace NimbleBlazor.Components;
 
-public partial class NimbleMenu
+public partial class NimbleMenu : ComponentBase
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
