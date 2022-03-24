@@ -43,7 +43,8 @@ export const styles = css`
     .control {
         -webkit-appearance: none;
         font: inherit;
-        width: inherit;
+        width: 100%;
+        height: 100%;
         outline: none;
         box-sizing: border-box;
         position: relative;
@@ -91,6 +92,14 @@ export const styles = css`
 
     .control[disabled]::placeholder {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    :host([cols]) .control {
+        width: inherit;
+    }
+
+    :host([rows]) .control {
+        height: inherit;
     }
 
     :host([resize='both']) .control {
