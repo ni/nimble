@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 22 Mar 2022 20:59:12 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Mar 2022 01:16:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.4.0
+
+Thu, 24 Mar 2022 01:16:17 GMT
+
+### Minor changes
+
+- Add bundled distribution file to package (5454342+brianehenry@users.noreply.github.com)
+
+## 7.3.0
+
+Wed, 23 Mar 2022 18:49:06 GMT
+
+### Minor changes
+
+- Create nimble-toolbar component (20542556+mollykreis@users.noreply.github.com)
 
 ## 7.2.3
 
