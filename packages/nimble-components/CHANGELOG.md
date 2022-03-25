@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 23 Mar 2022 18:49:06 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Mar 2022 01:16:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.4.0
+
+Thu, 24 Mar 2022 01:16:17 GMT
+
+### Minor changes
+
+- Add bundled distribution file to package (5454342+brianehenry@users.noreply.github.com)
 
 ## 7.3.0
 

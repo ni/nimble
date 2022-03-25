@@ -86,6 +86,10 @@ Create a new folder named after your component with some core files:
 | tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
 | tests/component-name-docs.stories.ts   | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See [Creating Storybook Component Documentation](/packages/nimble-components/docs/creating-storybook-component-documentation.md) for more information. |
 
+### Add to component bundle
+
+All components should have an import added to `src/all-components.ts` so they are available in bundled distribution files.
+
 ### Decide how to build on top of FAST
 
 #### Extend Fast Foundation
