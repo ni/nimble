@@ -1,25 +1,23 @@
-﻿
-using Bunit;
+﻿using Bunit;
 using NimbleBlazor.Components;
 using Xunit;
 
-namespace NimbleBlazor.Tests.Unit.Components
+namespace NimbleBlazor.Tests.Unit.Components;
+
+/// <summary>
+/// Tests for <see cref="NimbleCheckbox"/>
+/// </summary>
+public class NimbleCheckboxTests
 {
-    /// <summary>
-    /// Tests for <see cref="NimbleCheckbox"/>
-    /// </summary>
-    public class NimbleCheckboxTests
+    [Fact]
+    public void NimbleCheckbox_Rendered_HasCheckboxMarkup()
     {
-        [Fact]
-        public void NimbleCheckbox_Rendered_HasCheckboxMarkup()
-        {
-            var context = new TestContext();
-            context.JSInterop.Mode = JSRuntimeMode.Loose;
-            var expectedMarkup = "nimble-checkbox";
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var expectedMarkup = "nimble-checkbox";
 
-            var checkbox = context.RenderComponent<NimbleCheckbox>();
+        var checkbox = context.RenderComponent<NimbleCheckbox>();
 
-            Assert.Contains(expectedMarkup, checkbox.Markup);
-        }
+        Assert.Contains(expectedMarkup, checkbox.Markup);
     }
 }
