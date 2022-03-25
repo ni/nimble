@@ -301,17 +301,15 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-    }
-
-#pragma warning disable CA1063 // Implement IDisposable Correctly
-    public void Dispose()
-#pragma warning restore CA1063 // Implement IDisposable Correctly
-    {
         // When initialization in the SetParametersAsync method fails, the EditContext property can remain equal to null
         if (EditContext is not null)
         {
             EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
         }
+    }
+
+    public void Dispose()
+    {
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
