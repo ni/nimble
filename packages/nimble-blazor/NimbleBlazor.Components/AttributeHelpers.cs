@@ -5,7 +5,7 @@ namespace NimbleBlazor.Components;
 
 internal static class AttributeHelpers
 {
-    public static Dictionary<TEnum, string> GetEnumNamesAsAttributeValues<TEnum>()
+    public static Dictionary<TEnum, string> GetEnumNamesAsKebabCaseValues<TEnum>()
         where TEnum : struct, Enum
     {
         return Enum.GetValues<TEnum>().ToDictionary(id => id, id => ConvertToAttributeString(id.UnsafeGetName()));
@@ -18,10 +18,10 @@ internal static class AttributeHelpers
     /// <returns>The attribute string form of the property name</returns>
     internal static string ConvertToAttributeString(string name)
     {
-        var expression = new Regex(@"[A-Z]{1}[a-z]*[0-9]*");
+        var expression = new Regex(@"[A-Z]{1}[a-z]*|[0-9]*");
         MatchCollection matches = expression.Matches(name);
         var attributeValue = new StringBuilder();
-        for (int i = 0; i < matches.Count; i++)
+        for (int i = 0; i < matches.Count && matches[i].Value.Length > 0; i++)
         {
             if (i > 0)
             {
