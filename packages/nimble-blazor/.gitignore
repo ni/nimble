@@ -1,5 +1,5 @@
 # Folders
-Examples/NimbleBlazor.Demo.*/wwwroot/nimble-*/
+NimbleBlazor.Components/wwwroot/nimble-*/
 artifacts/
 bin/
 obj/

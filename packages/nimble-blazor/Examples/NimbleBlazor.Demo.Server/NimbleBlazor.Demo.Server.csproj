@@ -9,7 +9,5 @@
   <ItemGroup>
     <ProjectReference Include="..\NimbleBlazor.Demo.Shared\NimbleBlazor.Demo.Shared.csproj" />
   </ItemGroup>
-  
-  <Import Project="../CopyNimbleResources.targets" />
 
 </Project>

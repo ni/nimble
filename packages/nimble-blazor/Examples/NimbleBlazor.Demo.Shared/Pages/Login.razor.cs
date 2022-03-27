@@ -18,7 +18,7 @@ namespace NimbleBlazor.Demo.Shared.Pages
 
         private void HandleValidSubmit()
         {
-            NavManager.NavigateTo("/");
+            NavManager.NavigateTo(NavManager.BaseUri);
         }
     }
 

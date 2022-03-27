@@ -4,7 +4,8 @@
   "private": true,
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
-    "copy-resources": "node copyNimbleResources.js"
+    "copy-resources": "node build/copyNimbleResources.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "devDependencies": {
+    "@ni/eslint-config-javascript": "^3.1.0",
     "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "*",
     "glob": "^7.2.0"
