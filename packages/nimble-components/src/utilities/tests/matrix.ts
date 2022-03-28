@@ -1,20 +1,18 @@
 import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
+import { applicationBackgroundColor } from '../../theme-provider/design-tokens';
 import { Theme } from '../../theme-provider/types';
 
 export const backgroundStates = [
     {
         name: `"${Theme.Light}" theme on white`,
-        value: '#F4F4F4',
         theme: Theme.Light
     },
     {
         name: `"${Theme.Color}" theme on dark green`,
-        value: '#044123',
         theme: Theme.Color
     },
     {
         name: `"${Theme.Dark}" theme on black`,
-        value: '#252526',
         theme: Theme.Dark
     }
 ] as const;
@@ -160,9 +158,9 @@ export function createMatrix(
  * Wraps a given component template with a region for each of the available themes.
  */
 export const themeWrapper = (template: ViewTemplate): ViewTemplate => createMatrix(
-    ({ theme, value }: BackgroundState) => html`
+    ({ theme }: BackgroundState) => html`
             <nimble-theme-provider theme="${theme}">
-                <div style="background-color: ${value}; padding:20px;">
+                <div style="background-color: var(${applicationBackgroundColor.cssCustomProperty}); padding:20px;">
                     ${template}
                 </div>
             </nimble-theme-provider>
@@ -180,7 +178,7 @@ export const singleThemeWrapper = (
     <nimble-theme-provider theme="${backgroundState.theme}">
         <div
             style="
-                background-color: ${backgroundState.value};
+                background-color: var(${applicationBackgroundColor.cssCustomProperty});
                 position: absolute;
                 width: 100%;
                 height: 100%;

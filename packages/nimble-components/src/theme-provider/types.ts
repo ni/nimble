@@ -3,4 +3,4 @@ export enum Theme {
     Dark = 'dark',
     Color = 'color'
 }
-export type ThemeAttribute = `${Theme}`;
+export type ThemeAttribute = `${Theme}` | 'prefers-color-scheme';

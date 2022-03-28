@@ -1,12 +1,9 @@
 import '@ni/nimble-tokens/source/fonts.css';
-import { backgroundStates } from '../dist/esm/utilities/tests/matrix';
-
-const [defaultBackground] = backgroundStates;
+import './background.css';
 
 export const parameters = {
     backgrounds: {
-        default: defaultBackground.name,
-        values: backgroundStates.map(({ name, value }) => ({ name, value }))
+        disable: true
     },
     options: {
         storySort: {
@@ -18,15 +15,29 @@ export const parameters = {
     }
 };
 
+export const globalTypes = {
+    nimbleTheme: {
+        name: 'Nimble Theme',
+        description: 'Nimble Theme selector',
+        defaultValue: 'light',
+        toolbar: {
+            icon: 'photo',
+            items: [
+                { value: 'light', title: 'Light Theme' },
+                { value: 'dark', title: 'Dark Theme' },
+                { value: 'color', title: 'Color Theme' },
+                { value: 'prefers-color-scheme', title: 'User-preferred Theme' }
+            ]
+        }
+    }
+};
 export const decorators = [
     (story, context) => {
-        const background = backgroundStates.find(
-            ({ value }) => value === context.globals?.backgrounds?.value
-        ) ?? defaultBackground;
+        const theme = context.globals.nimbleTheme;
         const tale = story();
         if (typeof tale !== 'string') {
             throw new Error('Expected story to render as string');
         }
-        return `<nimble-theme-provider theme="${background.theme}">${tale}</nimble-theme-provider>`;
+        return `<nimble-theme-provider apply-to-body theme="${theme}"></nimble-theme-provider>${tale}`;
     }
 ];

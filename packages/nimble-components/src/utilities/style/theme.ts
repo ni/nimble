@@ -6,7 +6,7 @@ import {
     Subscriber
 } from '@microsoft/fast-element';
 import type { DesignTokenChangeRecord } from '@microsoft/fast-foundation';
-import type { Theme, ThemeAttribute } from '../../theme-provider/types';
+import type { Theme } from '../../theme-provider/types';
 import { theme as themeToken } from '../../theme-provider';
 
 type ThemeStyles = { readonly [key in Theme]: ElementStyles | null };
@@ -29,7 +29,7 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
         this.attach(token.getValueFor(target));
     }
 
-    public attach(theme: ThemeAttribute): void {
+    public attach(theme: Theme): void {
         if (this.attached !== this.themeStyles[theme]) {
             if (this.attached !== null) {
                 this.source.$fastController.removeStyles(this.attached);
