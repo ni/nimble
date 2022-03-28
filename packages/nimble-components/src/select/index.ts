@@ -34,7 +34,10 @@ export class Select extends FoundationSelect {
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/5773
-    public override slottedOptionsChanged(prev: Element[], next: Element[]): void {
+    public override slottedOptionsChanged(
+        prev: Element[],
+        next: Element[]
+    ): void {
         const value = this.value;
         super.slottedOptionsChanged(prev, next);
         this.value = value;
