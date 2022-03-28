@@ -175,7 +175,6 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
         }
     }
 
-
     /// <inheritdoc />
     public override Task SetParametersAsync(ParameterView parameters)
     {
@@ -302,19 +301,20 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-    }
-
-    void IDisposable.Dispose()
-    {
         // When initialization in the SetParametersAsync method fails, the EditContext property can remain equal to null
         if (EditContext is not null)
         {
             EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
         }
-        Dispose(disposing: true);
     }
 
-    public static string CombineClassNames(IReadOnlyDictionary<string, object>? additionalAttributes, string classNames)
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+    public string CombineClassNames(IReadOnlyDictionary<string, object>? additionalAttributes, string classNames)
     {
         if (additionalAttributes is null || !additionalAttributes.TryGetValue("class", out var @class))
         {
