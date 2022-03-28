@@ -97,7 +97,7 @@ export class ThemeProvider extends FoundationElement {
             }
         } else {
             theme.deleteValueFor(this);
-            if (this.applyToBody) {
+            if (!this.applyToBody) {
                 theme.deleteValueFor(document.body);
             }
         }
