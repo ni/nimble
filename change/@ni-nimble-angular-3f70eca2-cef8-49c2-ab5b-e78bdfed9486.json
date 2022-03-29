@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Theme provider prefers-color-scheme and apply-to-body added",
+  "packageName": "@ni/nimble-angular",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
