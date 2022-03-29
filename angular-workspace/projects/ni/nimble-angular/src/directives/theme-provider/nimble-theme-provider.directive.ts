@@ -3,7 +3,7 @@ import type { ThemeProvider } from '@ni/nimble-components/dist/esm/theme-provide
 import type { ThemeAttribute } from '@ni/nimble-components/dist/esm/theme-provider/types';
 import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
 
-export type { ThemeProvider };
+export type { ThemeProvider, ThemeAttribute };
 export { Theme };
 
 /**
