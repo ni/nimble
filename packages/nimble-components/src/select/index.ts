@@ -40,7 +40,9 @@ export class Select extends FoundationSelect {
     ): void {
         const value = this.value;
         super.slottedOptionsChanged(prev, next);
-        this.value = value;
+        if (value) {
+            this.value = value;
+        }
     }
 }
 
