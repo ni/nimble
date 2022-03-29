@@ -160,7 +160,9 @@ export function createMatrix(
 export const themeWrapper = (template: ViewTemplate): ViewTemplate => createMatrix(
     ({ theme }: BackgroundState) => html`
             <nimble-theme-provider theme="${theme}">
-                <div style="background-color: var(${applicationBackgroundColor.cssCustomProperty}); padding:20px;">
+                <div
+                    style="background-color: var(${applicationBackgroundColor.cssCustomProperty}); padding:20px;"
+                >
                     ${template}
                 </div>
             </nimble-theme-provider>

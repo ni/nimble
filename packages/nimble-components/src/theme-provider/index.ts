@@ -54,7 +54,9 @@ export class ThemeProvider extends FoundationElement {
     private static resolveThemeAttribute(attribute: ThemeAttribute): Theme {
         switch (attribute) {
             case 'prefers-color-scheme':
-                return prefersDarkSchemeMediaQuery.matches ? Theme.Dark : Theme.Light;
+                return prefersDarkSchemeMediaQuery.matches
+                    ? Theme.Dark
+                    : Theme.Light;
             case 'light':
                 return Theme.Light;
             case 'dark':

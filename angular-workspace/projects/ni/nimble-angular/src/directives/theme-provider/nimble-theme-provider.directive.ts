@@ -13,7 +13,7 @@ export { Theme };
     selector: 'nimble-theme-provider'
 })
 export class NimbleThemeProviderDirective {
-    public get theme(): Theme {
+    public get theme(): ThemeAttribute {
         return this.elementRef.nativeElement.theme;
     }
 
