@@ -8,7 +8,7 @@ import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
 import { Theme, ThemeAttribute } from './types';
-import { prefersDarkSchemeMediaQuery } from '../utilities/style/prefers-dark-theme';
+import { prefersColorScheme, prefersColorSchemeDarkMediaQuery } from '../utilities/style/prefers-color-scheme';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,7 +26,11 @@ export const direction = DesignToken.create<Direction>({
 export const theme = DesignToken.create<Theme>({
     name: 'theme',
     cssCustomPropertyName: null
-}).withDefault(Theme.Light);
+}).withDefault(
+    // @ts-expect-error TODO create FAST issue related to DerivedDesignTokenValue and distributive conditionals
+    // https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
+    (() => (prefersColorScheme.prefersDark ? Theme.Dark : Theme.Light))
+);
 
 /**
  * The ThemeProvider implementation. Add this component to the page and set its `theme` attribute to control
@@ -48,13 +52,13 @@ export class ThemeProvider extends FoundationElement {
 
     public constructor() {
         super();
-        prefersDarkSchemeMediaQuery.addEventListener('change', () => this.applyThemeAttribute(this.theme));
+        prefersColorSchemeDarkMediaQuery.addEventListener('change', () => this.applyThemeAttribute(this.theme));
     }
 
     private static resolveThemeAttribute(attribute: ThemeAttribute): Theme {
         switch (attribute) {
             case 'prefers-color-scheme':
-                return prefersDarkSchemeMediaQuery.matches
+                return prefersColorSchemeDarkMediaQuery.matches
                     ? Theme.Dark
                     : Theme.Light;
             case 'light':
