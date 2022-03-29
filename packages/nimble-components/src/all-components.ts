@@ -14,6 +14,7 @@ import './listbox-option';
 import './menu';
 import './menu-item';
 import './number-field';
+import './picker';
 import './select';
 import './switch';
 import './tab';
