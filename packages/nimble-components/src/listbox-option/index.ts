@@ -29,6 +29,7 @@ export class ListboxOption extends FoundationListboxOption {
         }
     }
 
+    /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
         this.setAttribute('value', this.value);

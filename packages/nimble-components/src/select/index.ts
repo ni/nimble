@@ -48,6 +48,7 @@ export class Select extends FoundationSelect {
         super.setPositioning();
     }
 
+    /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
         // Call setPositioning() after this.forcedPosition is initialized.

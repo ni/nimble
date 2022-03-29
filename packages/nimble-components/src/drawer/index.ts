@@ -54,6 +54,7 @@ export class Drawer extends FoundationDialog {
     private animationsEnabledChangedHandler?: () => void;
     private propertyChangeSubscriber?: Subscriber;
 
+    /** @internal */
     public override connectedCallback(): void {
         // disable trapFocus before super.connectedCallback as FAST Dialog will immediately queue work to
         // change focus if it's true before connectedCallback
@@ -75,6 +76,7 @@ export class Drawer extends FoundationDialog {
         this.propertyChangeNotifier = notifier;
     }
 
+    /** @internal */
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.cancelCurrentAnimation();
