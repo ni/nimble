@@ -1,6 +1,8 @@
 import { observable } from '@microsoft/fast-element';
 
-const prefersColorSchemeDarkMediaQuery: MediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+const prefersColorSchemeDarkMediaQuery: MediaQueryList = window.matchMedia(
+    '(prefers-color-scheme: dark)'
+);
 
 /**
  * Observable class to subscribe to the prefers-color-schema media query

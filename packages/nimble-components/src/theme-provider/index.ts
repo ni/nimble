@@ -12,9 +12,7 @@ import {
     ThemeProviderAdaptiveTheme,
     ThemeProviderThemeProperty
 } from './types';
-import {
-    prefersColorScheme
-} from '../utilities/style/prefers-color-scheme';
+import { prefersColorScheme } from '../utilities/style/prefers-color-scheme';
 
 declare global {
     interface HTMLElementTagNameMap {
