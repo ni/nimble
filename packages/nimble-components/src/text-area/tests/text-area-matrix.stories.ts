@@ -73,6 +73,39 @@ export const textAreaThemeMatrix: Story = createRenderer(
     )
 );
 
+const sizingTestCase = (
+    label: string,
+    attrString: string
+): ViewTemplate => html`
+    <div style="width: 500px; height: 100px; outline: 1px dotted black">
+        <nimble-text-area
+            ${attrString}
+            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            >${label}</nimble-text-area
+        >
+    </div>
+`;
+export const textAreaSizing: Story = createRenderer(
+    html`
+        ${sizingTestCase('No width, no cols (default 20)', '')}
+        ${sizingTestCase('No width, cols=10', 'cols="10"')}
+        ${sizingTestCase('Width=300px, no cols', 'style="width: 300px"')}
+        ${sizingTestCase('Width=100%, no cols', 'style="width: 100%"')}
+        ${sizingTestCase(
+        'Width=300px, cols=10',
+        'style="width: 300px" cols="10"'
+    )}
+        ${sizingTestCase('No height, no rows', '')}
+        ${sizingTestCase('No height, rows=3', 'rows="3"')}
+        ${sizingTestCase('Height=50px, no rows', 'style="height: 50px"')}
+        ${sizingTestCase('Height=100%, no rows', 'style="height: 100%"')}
+        ${sizingTestCase(
+        'Height=50px, rows=3',
+        'style="height: 50px" rows="3"'
+    )}
+    `
+);
+
 export const hiddenTextArea: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-text-area hidden>Hidden text area</nimble-text-area>`

@@ -17,13 +17,15 @@ import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
 
 export const styles = css`
-    ${display('inline-block')}
+    ${display('inline-flex')}
 
     :host {
         font: ${bodyFont};
         outline: none;
         user-select: none;
         color: ${bodyFontColor};
+        flex-direction: column;
+        vertical-align: top;
     }
 
     :host([disabled]) {
@@ -31,7 +33,7 @@ export const styles = css`
     }
 
     .label {
-        display: flex;
+        display: block;
         color: ${controlLabelFontColor};
         font: ${controlLabelFont};
     }
@@ -44,7 +46,7 @@ export const styles = css`
         -webkit-appearance: none;
         font: inherit;
         width: 100%;
-        height: 100%;
+        flex-grow: 1;
         outline: none;
         box-sizing: border-box;
         position: relative;
@@ -95,11 +97,11 @@ export const styles = css`
     }
 
     :host([cols]) .control {
-        width: inherit;
+        width: auto;
     }
 
     :host([rows]) .control {
-        height: inherit;
+        flex: none;
     }
 
     :host([resize='both']) .control {
