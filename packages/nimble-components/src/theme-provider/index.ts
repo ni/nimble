@@ -13,8 +13,7 @@ import {
     ThemeProviderThemeProperty
 } from './types';
 import {
-    prefersColorScheme,
-    prefersColorSchemeDarkMediaQuery
+    prefersColorScheme
 } from '../utilities/style/prefers-color-scheme';
 
 declare global {
@@ -58,13 +57,7 @@ export class ThemeProvider extends FoundationElement {
     @attr
     public theme: ThemeProviderThemeProperty = undefined;
 
-    public constructor() {
-        super();
-        prefersColorSchemeDarkMediaQuery.addEventListener('change', () => this.applyTheme());
-    }
-
-    /** @internal */
-    public directionChanged(
+    private directionChanged(
         _prev: Direction | undefined,
         next: Direction | undefined
     ): void {
@@ -75,13 +68,11 @@ export class ThemeProvider extends FoundationElement {
         }
     }
 
-    /** @internal */
-    public themeChanged(): void {
+    private themeChanged(): void {
         this.applyTheme();
     }
 
-    /** @internal */
-    public syncToBodyChanged(
+    private syncToBodyChanged(
         prev: boolean | undefined,
         next: boolean | undefined
     ): void {
@@ -91,14 +82,20 @@ export class ThemeProvider extends FoundationElement {
         this.applyTheme();
     }
 
+    private get platformTheme(): Theme.Light | Theme.Dark {
+        return prefersColorScheme.dark ? Theme.Dark : Theme.Light;
+    }
+
+    private platformThemeChanged(): void {
+        this.applyTheme();
+    }
+
     private applyTheme(): void {
         const currentTheme = this.theme;
         if (currentTheme !== undefined && currentTheme !== null) {
             let resolvedTheme: Theme;
             if (currentTheme === ThemeProviderAdaptiveTheme.Platform) {
-                resolvedTheme = prefersColorSchemeDarkMediaQuery.matches
-                    ? Theme.Dark
-                    : Theme.Light;
+                resolvedTheme = this.platformTheme;
             } else {
                 resolvedTheme = currentTheme;
             }
