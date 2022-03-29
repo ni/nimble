@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Theme, ThemeProviderThemeAttribute } from '@ni/nimble-angular';
+import { Theme, ThemeProviderTheme } from '@ni/nimble-angular';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -8,5 +8,5 @@ import { Theme, ThemeProviderThemeAttribute } from '@ni/nimble-angular';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    public theme: ThemeProviderThemeAttribute = Theme.Light;
+    public theme: ThemeProviderTheme = Theme.Light;
 }

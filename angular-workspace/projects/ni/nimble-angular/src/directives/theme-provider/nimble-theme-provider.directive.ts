@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { ThemeProvider } from '@ni/nimble-components/dist/esm/theme-provider';
-import type { ThemeProviderTheme, ThemeProviderThemeAttribute } from '@ni/nimble-components/dist/esm/theme-provider/types';
-import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import type { ThemeProviderTheme, ThemeProviderThemeProperty, ThemeProviderThemeAttribute } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { Theme, ThemeProviderDerivedTheme } from '@ni/nimble-components/dist/esm/theme-provider/types';
 
-export type { ThemeProvider, ThemeProviderTheme, ThemeProviderThemeAttribute };
-export { Theme };
+export type { ThemeProvider, ThemeProviderTheme };
+export { Theme, ThemeProviderDerivedTheme };
 
 /**
  * Directive for Angular integration for the theme provider
@@ -13,11 +13,11 @@ export { Theme };
     selector: 'nimble-theme-provider'
 })
 export class NimbleThemeProviderDirective {
-    public get theme(): ThemeProviderTheme {
+    public get theme(): ThemeProviderThemeProperty {
         return this.elementRef.nativeElement.theme;
     }
 
-    @Input() public set theme(value: ThemeProviderTheme | ThemeProviderThemeAttribute) {
+    @Input() public set theme(value: ThemeProviderThemeProperty | ThemeProviderThemeAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'theme', value);
     }
 

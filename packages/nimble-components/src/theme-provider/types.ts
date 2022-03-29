@@ -10,10 +10,7 @@ export enum ThemeProviderDerivedTheme {
 
 export type ThemeProviderTheme =
     | Theme
-    | ThemeProviderDerivedTheme
-    | undefined
-    | null;
+    | ThemeProviderDerivedTheme;
 
-export type ThemeProviderThemeAttribute = `${
-    | Theme
-    | ThemeProviderDerivedTheme}`;
+export type ThemeProviderThemeProperty = ThemeProviderTheme | null | undefined;
+export type ThemeProviderThemeAttribute = `${ThemeProviderTheme}`;

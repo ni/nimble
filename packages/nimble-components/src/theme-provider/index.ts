@@ -7,7 +7,7 @@ import { attr } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
-import { Theme, ThemeProviderDerivedTheme, ThemeProviderTheme } from './types';
+import { Theme, ThemeProviderDerivedTheme, ThemeProviderThemeProperty } from './types';
 import {
     prefersColorScheme,
     prefersColorSchemeDarkMediaQuery
@@ -52,7 +52,7 @@ export class ThemeProvider extends FoundationElement {
     public direction: Direction = Direction.ltr;
 
     @attr
-    public theme: ThemeProviderTheme = undefined;
+    public theme: ThemeProviderThemeProperty = undefined;
 
     public constructor() {
         super();
