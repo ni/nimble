@@ -5,7 +5,7 @@ namespace NimbleBlazor.Components;
 
 public partial class NimbleSelect : NimbleInputBase<string?>
 {
-    private readonly string _defaultSelectName = Guid.NewGuid().ToString("N");
+    private readonly string _defaultSelectName = Guid.NewGuid().ToString("N", null);
     private NimbleOptionContext? _context;
 
     /// <summary>
@@ -34,7 +34,7 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     {
         var selectName = !string.IsNullOrEmpty(Name) ? Name : _defaultSelectName;
         var fieldClass = string.Empty;
-        var changeEventCallback = EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString);
+        var changeEventCallback = EventCallback.Factory.CreateBinder<string?>(this, value => CurrentValueAsString = value, CurrentValueAsString);
         _context = new NimbleOptionContext(CascadedContext, selectName, CurrentValue, fieldClass, changeEventCallback);
     }
 

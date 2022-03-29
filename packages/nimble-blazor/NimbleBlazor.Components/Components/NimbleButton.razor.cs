@@ -2,7 +2,7 @@
 
 namespace NimbleBlazor.Components;
 
-public partial class NimbleButton
+public partial class NimbleButton : ComponentBase
 {
     [Parameter]
     public Appearance? Appearance { get; set; }
@@ -11,7 +11,7 @@ public partial class NimbleButton
     public bool? Disabled { get; set; }
 
     [Parameter]
-    public bool? Autofocus { get; set; }
+    public bool? AutoFocus { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

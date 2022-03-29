@@ -9,13 +9,13 @@ public partial class NimbleTextField : NimbleInputBase<string?>
     public bool? Disabled { get; set; }
 
     [Parameter]
-    public bool? Readonly { get; set; }
+    public bool? ReadOnly { get; set; }
 
     [Parameter]
     public bool? Required { get; set; }
 
     [Parameter]
-    public bool? Autofocus { get; set; }
+    public bool? AutoFocus { get; set; }
 
     [Parameter]
     public int? Size { get; set; }
@@ -38,8 +38,6 @@ public partial class NimbleTextField : NimbleInputBase<string?>
     [Parameter]
     public bool? Spellcheck { get; set; }
 
-    //Pattern
-    //List
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor.Components;
 
@@ -12,7 +12,7 @@ public partial class NimbleCheckbox : NimbleInputBase<bool>
     public bool? Required { get; set; }
 
     [Parameter]
-    public bool? Readonly { get; set; }
+    public bool? ReadOnly { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

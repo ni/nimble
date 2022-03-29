@@ -17,9 +17,6 @@ namespace NimbleBlazor.Components;
 [BindElement("nimble-text-field", null, "value", "onchange")]
 [BindElement("nimble-text-field", "value", "value", "onchange")]
 
-
-
 public static class BindAttributes
 {
 }
-
