@@ -8,7 +8,10 @@ import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
 import { Theme, ThemeAttribute } from './types';
-import { prefersColorScheme, prefersColorSchemeDarkMediaQuery } from '../utilities/style/prefers-color-scheme';
+import {
+    prefersColorScheme,
+    prefersColorSchemeDarkMediaQuery
+} from '../utilities/style/prefers-color-scheme';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -29,7 +32,7 @@ export const theme = DesignToken.create<Theme>({
 }).withDefault(
     // @ts-expect-error TODO create FAST issue related to DerivedDesignTokenValue and distributive conditionals
     // https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
-    (() => (prefersColorScheme.prefersDark ? Theme.Dark : Theme.Light))
+    () => (prefersColorScheme.prefersDark ? Theme.Dark : Theme.Light)
 );
 
 /**
