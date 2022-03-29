@@ -9,7 +9,7 @@ import { template } from './template';
 import { styles } from './styles';
 import {
     Theme,
-    ThemeProviderDerivedTheme,
+    ThemeProviderAdaptiveTheme,
     ThemeProviderThemeProperty
 } from './types';
 import {
@@ -37,7 +37,7 @@ export const theme = DesignToken.create<Theme>({
 }).withDefault(
     // @ts-expect-error TODO create FAST issue related to DerivedDesignTokenValue and distributive conditionals
     // https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
-    () => (prefersColorScheme.prefersDark ? Theme.Dark : Theme.Light)
+    () => (prefersColorScheme.dark ? Theme.Dark : Theme.Light)
 );
 
 /**
@@ -95,7 +95,7 @@ export class ThemeProvider extends FoundationElement {
         const currentTheme = this.theme;
         if (currentTheme !== undefined && currentTheme !== null) {
             let resolvedTheme: Theme;
-            if (currentTheme === ThemeProviderDerivedTheme.PrefersColorScheme) {
+            if (currentTheme === ThemeProviderAdaptiveTheme.Platform) {
                 resolvedTheme = prefersColorSchemeDarkMediaQuery.matches
                     ? Theme.Dark
                     : Theme.Light;

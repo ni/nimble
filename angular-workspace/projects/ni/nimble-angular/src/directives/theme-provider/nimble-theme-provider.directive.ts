@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { ThemeProvider } from '@ni/nimble-components/dist/esm/theme-provider';
 import type { ThemeProviderTheme, ThemeProviderThemeProperty, ThemeProviderThemeAttribute } from '@ni/nimble-components/dist/esm/theme-provider/types';
-import { Theme, ThemeProviderDerivedTheme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { Theme, ThemeProviderAdaptiveTheme } from '@ni/nimble-components/dist/esm/theme-provider/types';
 
 export type { ThemeProvider, ThemeProviderTheme };
-export { Theme, ThemeProviderDerivedTheme };
+export { Theme, ThemeProviderAdaptiveTheme };
 
 /**
  * Directive for Angular integration for the theme provider

@@ -7,11 +7,11 @@ export const prefersColorSchemeDarkMediaQuery: MediaQueryList = window.matchMedi
  */
 class PrefersColorScheme {
     @observable
-    public prefersDark: boolean = prefersColorSchemeDarkMediaQuery.matches;
+    public dark: boolean = prefersColorSchemeDarkMediaQuery.matches;
 
     public constructor() {
         prefersColorSchemeDarkMediaQuery.addEventListener('change', () => {
-            this.prefersDark = prefersColorSchemeDarkMediaQuery.matches;
+            this.dark = prefersColorSchemeDarkMediaQuery.matches;
         });
     }
 }

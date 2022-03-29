@@ -4,11 +4,11 @@ export enum Theme {
     Color = 'color'
 }
 
-export enum ThemeProviderDerivedTheme {
-    PrefersColorScheme = 'prefers-color-scheme'
+export enum ThemeProviderAdaptiveTheme {
+    Platform = 'platform'
 }
 
-export type ThemeProviderTheme = Theme | ThemeProviderDerivedTheme;
+export type ThemeProviderTheme = Theme | ThemeProviderAdaptiveTheme;
 
 export type ThemeProviderThemeProperty = ThemeProviderTheme | null | undefined;
 

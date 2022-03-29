@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NimbleDrawerDirective, Theme, ThemeProviderTheme, ThemeProviderDerivedTheme } from '@ni/nimble-angular';
+import { NimbleDrawerDirective, Theme, ThemeProviderTheme, ThemeProviderAdaptiveTheme } from '@ni/nimble-angular';
 
 @Component({
     selector: 'example-header',
@@ -17,7 +17,7 @@ export class HeaderComponent {
         { name: 'Light theme', value: Theme.Light },
         { name: 'Dark theme', value: Theme.Dark },
         { name: 'Color theme', value: Theme.Color },
-        { name: 'User preferred theme', value: ThemeProviderDerivedTheme.PrefersColorScheme }
+        { name: 'Platform theme', value: ThemeProviderAdaptiveTheme.Platform }
     ];
 
     public hideMenu = true;
