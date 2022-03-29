@@ -19,9 +19,13 @@ export const styles = css`
         outline: none;
         width: fit-content;
         height: fit-content;
+        margin-top: 2px;
         margin-right: 2px;
         margin-bottom: 2px;
-        padding: calc((${controlHeight} - ${bodyFontLineHeight}) / 2);
+        padding: calc((${controlHeight} - ${bodyFontLineHeight}) / 2 - 1px);
+        padding-bottom: calc(
+            (${controlHeight} - ${bodyFontLineHeight}) / 2 + 1px
+        );
     }
 
     :host(${focusVisible}) {

@@ -47,8 +47,6 @@ export const styles = css`
         color: inherit;
         padding-top: 0px;
         padding-bottom: 0px;
-        margin-top: auto;
-        margin-bottom: auto;
         padding-left: calc(${standardPadding} / 2);
         padding-right: calc(${standardPadding} / 2);
         text-overflow: ellipsis;
