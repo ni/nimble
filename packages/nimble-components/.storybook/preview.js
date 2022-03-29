@@ -39,6 +39,6 @@ export const decorators = [
         if (typeof tale !== 'string') {
             throw new Error('Expected story to render as string');
         }
-        return `<nimble-theme-provider apply-to-body theme="${theme}"></nimble-theme-provider>${tale}`;
+        return `<nimble-theme-provider sync-to-body theme="${theme}"></nimble-theme-provider>${tale}`;
     }
 ];

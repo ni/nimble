@@ -45,12 +45,12 @@ export const theme = DesignToken.create<Theme>({
  * the values of design tokens that provide colors and fonts as CSS custom properties to any descendant components.
  */
 export class ThemeProvider extends FoundationElement {
-    // TODO log warning if multiple theme-providers set apply-to-body
+    // TODO log warning if multiple theme-providers set sync-to-body
     @attr({
-        attribute: 'apply-to-body',
+        attribute: 'sync-to-body',
         mode: 'boolean'
     })
-    public applyToBody = false;
+    public syncToBody = false;
 
     @attr
     public direction: Direction = Direction.ltr;
@@ -81,7 +81,7 @@ export class ThemeProvider extends FoundationElement {
     }
 
     /** @internal */
-    public applyToBodyChanged(
+    public syncToBodyChanged(
         prev: boolean | undefined,
         next: boolean | undefined
     ): void {
@@ -103,12 +103,12 @@ export class ThemeProvider extends FoundationElement {
                 resolvedTheme = currentTheme;
             }
             theme.setValueFor(this, resolvedTheme);
-            if (this.applyToBody) {
+            if (this.syncToBody) {
                 theme.setValueFor(document.body, resolvedTheme);
             }
         } else {
             theme.deleteValueFor(this);
-            if (this.applyToBody) {
+            if (this.syncToBody) {
                 theme.deleteValueFor(document.body);
             }
         }
