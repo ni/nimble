@@ -3,4 +3,11 @@ export enum Theme {
     Dark = 'dark',
     Color = 'color'
 }
-export type ThemeAttribute = `${Theme}` | 'prefers-color-scheme';
+
+export enum ThemeProviderDerivedTheme {
+    PrefersColorScheme = 'prefers-color-scheme'
+}
+
+export type ThemeProviderTheme = Theme | ThemeProviderDerivedTheme | undefined | null;
+
+export type ThemeProviderThemeAttribute = `${Theme | ThemeProviderDerivedTheme}`;

@@ -7,7 +7,7 @@ import { attr } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
-import { Theme, ThemeAttribute } from './types';
+import { Theme, ThemeProviderDerivedTheme, ThemeProviderTheme } from './types';
 import {
     prefersColorScheme,
     prefersColorSchemeDarkMediaQuery
@@ -21,6 +21,7 @@ declare global {
 
 // Not represented as a CSS Custom Property, instead available
 // as an attribute of theme provider.
+// TODO make direction based on html root attribute, don't support auto, absent means ltr
 export const direction = DesignToken.create<Direction>({
     name: 'direction',
     cssCustomPropertyName: null
@@ -38,9 +39,9 @@ export const theme = DesignToken.create<Theme>({
 /**
  * The ThemeProvider implementation. Add this component to the page and set its `theme` attribute to control
  * the values of design tokens that provide colors and fonts as CSS custom properties to any descendant components.
- * @internal
  */
 export class ThemeProvider extends FoundationElement {
+    // TODO log warning if multiple theme-providers set apply-to-body
     @attr({
         attribute: 'apply-to-body',
         mode: 'boolean'
@@ -51,30 +52,14 @@ export class ThemeProvider extends FoundationElement {
     public direction: Direction = Direction.ltr;
 
     @attr
-    public theme: ThemeAttribute = Theme.Light;
+    public theme: ThemeProviderTheme = undefined;
 
     public constructor() {
         super();
-        prefersColorSchemeDarkMediaQuery.addEventListener('change', () => this.applyThemeAttribute(this.theme));
+        prefersColorSchemeDarkMediaQuery.addEventListener('change', () => this.applyTheme());
     }
 
-    private static resolveThemeAttribute(attribute: ThemeAttribute): Theme {
-        switch (attribute) {
-            case 'prefers-color-scheme':
-                return prefersColorSchemeDarkMediaQuery.matches
-                    ? Theme.Dark
-                    : Theme.Light;
-            case 'light':
-                return Theme.Light;
-            case 'dark':
-                return Theme.Dark;
-            case 'color':
-                return Theme.Color;
-            default:
-                return Theme.Light;
-        }
-    }
-
+    /** @internal */
     public directionChanged(
         _prev: Direction | undefined,
         next: Direction | undefined
@@ -86,27 +71,38 @@ export class ThemeProvider extends FoundationElement {
         }
     }
 
-    public themeChanged(
-        _prev: ThemeAttribute | undefined,
-        next: ThemeAttribute | undefined
+    /** @internal */
+    public themeChanged(): void {
+        this.applyTheme();
+    }
+
+    /** @internal */
+    public applyToBodyChanged(
+        prev: boolean | undefined,
+        next: boolean | undefined
     ): void {
-        this.applyThemeAttribute(next);
+        if (prev === true && next !== true) {
+            theme.deleteValueFor(document.body);
+        }
+        this.applyTheme();
     }
 
-    public applyToBodyChanged(): void {
-        this.applyThemeAttribute(this.theme);
-    }
-
-    private applyThemeAttribute(attribute: ThemeAttribute | undefined): void {
-        if (attribute !== undefined && attribute !== null) {
-            const resolvedTheme = ThemeProvider.resolveThemeAttribute(attribute);
+    private applyTheme(): void {
+        const currentTheme = this.theme;
+        if (currentTheme !== undefined && currentTheme !== null) {
+            let resolvedTheme: Theme;
+            if (currentTheme === ThemeProviderDerivedTheme.PrefersColorScheme) {
+                resolvedTheme = prefersColorSchemeDarkMediaQuery.matches ? Theme.Dark : Theme.Light;
+            } else {
+                resolvedTheme = currentTheme;
+            }
             theme.setValueFor(this, resolvedTheme);
             if (this.applyToBody) {
                 theme.setValueFor(document.body, resolvedTheme);
             }
         } else {
             theme.deleteValueFor(this);
-            if (!this.applyToBody) {
+            if (this.applyToBody) {
                 theme.deleteValueFor(document.body);
             }
         }

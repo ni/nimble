@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NimbleDrawerDirective, Theme, ThemeAttribute } from '@ni/nimble-angular';
+import { NimbleDrawerDirective, Theme, ThemeProviderThemeAttribute } from '@ni/nimble-angular';
 
 @Component({
     selector: 'example-header',
@@ -10,7 +10,7 @@ import { NimbleDrawerDirective, Theme, ThemeAttribute } from '@ni/nimble-angular
 export class HeaderComponent {
     @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public userSettingsDrawer: NimbleDrawerDirective;
 
-    @Input() public theme: ThemeAttribute;
+    @Input() public theme: ThemeProviderThemeAttribute;
     @Output() public themeChange = new EventEmitter();
 
     public hideMenu = true;

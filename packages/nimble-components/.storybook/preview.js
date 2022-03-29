@@ -1,5 +1,9 @@
 import '@ni/nimble-tokens/source/fonts.css';
 import './background.css';
+import { backgroundStates } from '../dist/esm/utilities/tests/matrix';
+
+const items = backgroundStates.map(({ name, theme }) => ({ value: theme, title: name }));
+const defaultValue = items[0].value;
 
 export const parameters = {
     backgrounds: {
@@ -19,18 +23,15 @@ export const globalTypes = {
     nimbleTheme: {
         name: 'Nimble Theme',
         description: 'Nimble Theme selector',
-        defaultValue: 'light',
+        defaultValue,
         toolbar: {
+            hidden: true,
             icon: 'photo',
-            items: [
-                { value: 'light', title: 'Light Theme' },
-                { value: 'dark', title: 'Dark Theme' },
-                { value: 'color', title: 'Color Theme' },
-                { value: 'prefers-color-scheme', title: 'User-preferred Theme' }
-            ]
+            items
         }
     }
 };
+
 export const decorators = [
     (story, context) => {
         const theme = context.globals.nimbleTheme;
