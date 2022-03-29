@@ -92,7 +92,9 @@ export class ThemeProvider extends FoundationElement {
         if (currentTheme !== undefined && currentTheme !== null) {
             let resolvedTheme: Theme;
             if (currentTheme === ThemeProviderDerivedTheme.PrefersColorScheme) {
-                resolvedTheme = prefersColorSchemeDarkMediaQuery.matches ? Theme.Dark : Theme.Light;
+                resolvedTheme = prefersColorSchemeDarkMediaQuery.matches
+                    ? Theme.Dark
+                    : Theme.Light;
             } else {
                 resolvedTheme = currentTheme;
             }

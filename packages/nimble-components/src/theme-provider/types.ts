@@ -8,6 +8,12 @@ export enum ThemeProviderDerivedTheme {
     PrefersColorScheme = 'prefers-color-scheme'
 }
 
-export type ThemeProviderTheme = Theme | ThemeProviderDerivedTheme | undefined | null;
+export type ThemeProviderTheme =
+    | Theme
+    | ThemeProviderDerivedTheme
+    | undefined
+    | null;
 
-export type ThemeProviderThemeAttribute = `${Theme | ThemeProviderDerivedTheme}`;
+export type ThemeProviderThemeAttribute = `${
+    | Theme
+    | ThemeProviderDerivedTheme}`;
