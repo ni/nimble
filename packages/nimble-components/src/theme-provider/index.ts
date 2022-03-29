@@ -7,7 +7,11 @@ import { attr } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
-import { Theme, ThemeProviderDerivedTheme, ThemeProviderThemeProperty } from './types';
+import {
+    Theme,
+    ThemeProviderDerivedTheme,
+    ThemeProviderThemeProperty
+} from './types';
 import {
     prefersColorScheme,
     prefersColorSchemeDarkMediaQuery
