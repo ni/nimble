@@ -55,7 +55,7 @@ type AppearanceState = typeof appearanceStates[number];
 const component = (
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
-    [showEndButtonsName, showEndButtons]: EndButtonState,
+    [_showEndButtonsName, showEndButtons]: EndButtonState,
     [invalidName, invalid]: InvalidState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
@@ -83,8 +83,7 @@ const component = (
             <nimble-button slot="last" appearance="outline" content-hidden>
                 <nimble-xmark-icon slot="start"></nimble-xmark-icon>
                 Clear
-            </nimble-button>`
-        )}
+            </nimble-button>`)}
     </nimble-text-field>
 `;
 

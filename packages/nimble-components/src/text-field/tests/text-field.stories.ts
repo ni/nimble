@@ -52,8 +52,7 @@ const metadata: Meta<TextFieldArgs> = {
                 <nimble-button slot="last" appearance="ghost" content-hidden>
                     <nimble-pencil-icon slot="start"></nimble-pencil-icon>
                     Edit
-                </nimble-button>`
-            )}
+                </nimble-button>`)}
         </nimble-text-field>
     `),
     argTypes: {
@@ -69,7 +68,7 @@ const metadata: Meta<TextFieldArgs> = {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
         },
-        'endButton': {
+        endButton: {
             description:
                 'To place content, such as a button, at the far-right of the text-field, set `slot="last"` on the content.'
         }
