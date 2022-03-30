@@ -3,7 +3,7 @@ import {
     DesignToken,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
+import { attr, Observable } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
@@ -55,6 +55,19 @@ export class ThemeProvider extends FoundationElement {
     @attr
     public theme: ThemeProviderThemeProperty = undefined;
 
+    public constructor() {
+        super();
+        const notifier = Observable.getNotifier(prefersColorScheme);
+        notifier.subscribe({
+            handleChange: () => {
+                // Run applyTheme in a microtask so that the theme-provider has last update to the theme token
+                // TODO file FAST issue, looks like updating default on token causes body to lose theme value
+                // so need to make sure theme provider sets theme token last
+                void Promise.resolve().then(() => this.applyTheme());
+            }
+        }, 'dark');
+    }
+
     private directionChanged(
         _prev: Direction | undefined,
         next: Direction | undefined
@@ -80,20 +93,12 @@ export class ThemeProvider extends FoundationElement {
         this.applyTheme();
     }
 
-    private get platformTheme(): Theme.Light | Theme.Dark {
-        return prefersColorScheme.dark ? Theme.Dark : Theme.Light;
-    }
-
-    private platformThemeChanged(): void {
-        this.applyTheme();
-    }
-
     private applyTheme(): void {
         const currentTheme = this.theme;
         if (currentTheme !== undefined && currentTheme !== null) {
             let resolvedTheme: Theme;
             if (currentTheme === ThemeProviderAdaptiveTheme.Platform) {
-                resolvedTheme = this.platformTheme;
+                resolvedTheme = prefersColorScheme.dark ? Theme.Dark : Theme.Light;
             } else {
                 resolvedTheme = currentTheme;
             }
