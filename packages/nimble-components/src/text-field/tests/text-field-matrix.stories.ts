@@ -1,6 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
 import {
@@ -43,12 +43,19 @@ const typeStates = [
 ];
 type TypeState = typeof typeStates[number];
 
+const endButtonStates = [
+    ['without buttons', false],
+    ['with buttons', true]
+];
+type EndButtonState = typeof endButtonStates[number];
+
 const appearanceStates = Object.entries(TextFieldAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
 const component = (
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
+    [showEndButtonsName, showEndButtons]: EndButtonState,
     [invalidName, invalid]: InvalidState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
@@ -66,12 +73,25 @@ const component = (
     >
         ${() => disabledName} ${() => invalidName} ${() => typeName}
         ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
+        
+
+        ${when(() => showEndButtons, html`
+            <nimble-button slot="last" appearance="outline" content-hidden>
+                <nimble-pencil-icon slot="start"></nimble-pencil-icon>
+                Edit
+            </nimble-button>
+            <nimble-button slot="last" appearance="outline" content-hidden>
+                <nimble-xmark-icon slot="start"></nimble-xmark-icon>
+                Clear
+            </nimble-button>`
+        )}
     </nimble-text-field>
 `;
 
 export const textFieldThemeMatrix: Story = createRenderer(
     themeWrapper(
         createMatrix(component, [
+            endButtonStates,
             readOnlyStates,
             disabledStates,
             invalidStates,

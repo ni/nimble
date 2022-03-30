@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
@@ -14,6 +14,7 @@ interface TextFieldArgs {
     disabled: boolean;
     invalid: boolean;
     'error-text': string;
+    endButton: boolean;
 }
 
 const metadata: Meta<TextFieldArgs> = {
@@ -46,6 +47,13 @@ const metadata: Meta<TextFieldArgs> = {
             error-text="${x => x['error-text']}"
         >
             ${x => x.label}
+
+            ${when(x => x.endButton, html`
+                <nimble-button slot="last" appearance="ghost" content-hidden>
+                    <nimble-pencil-icon slot="start"></nimble-pencil-icon>
+                    Edit
+                </nimble-button>`
+            )}
         </nimble-text-field>
     `),
     argTypes: {
@@ -60,6 +68,10 @@ const metadata: Meta<TextFieldArgs> = {
         'error-text': {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
+        },
+        'endButton': {
+            description:
+                'To place content, such as a button, at the far-right of the text-field, set `slot="last"` on the content.'
         }
     },
     args: {
@@ -70,7 +82,8 @@ const metadata: Meta<TextFieldArgs> = {
         readonly: false,
         disabled: false,
         invalid: false,
-        'error-text': 'Value is invalid'
+        'error-text': 'Value is invalid',
+        endButton: false
     }
 };
 
