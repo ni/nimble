@@ -56,5 +56,4 @@ internal class NimbleOptionContext
     /// <returns>The <see cref="NimbleOptionContext"/>, or <c>null</c> if none was found.</returns>
     public NimbleOptionContext? FindContextInAncestors(string containerName)
         => string.Equals(ContainerComponentName, containerName) ? this : _parentContext?.FindContextInAncestors(containerName);
-
 }

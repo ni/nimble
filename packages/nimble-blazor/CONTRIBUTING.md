@@ -31,6 +31,7 @@ public partial class NimbleButton : ComponentBase
 ```
     <nimble-button>@ChildContent</nimble-button>
 ```
+- Code style conventions are enforced by the [NI C# Style Guide](https://github.com/ni/csharp-styleguide) 
 
 ## Testing
 
