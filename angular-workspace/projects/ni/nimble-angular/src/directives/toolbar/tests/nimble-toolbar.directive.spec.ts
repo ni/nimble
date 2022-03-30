@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { NimbleToolbarModule } from '../nimble-toolbar.module';
 
-fdescribe('Nimble toolbar', () => {
+describe('Nimble toolbar', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NimbleToolbarModule]
