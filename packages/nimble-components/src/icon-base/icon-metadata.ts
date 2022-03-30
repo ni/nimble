@@ -7,7 +7,7 @@ interface IconMetadata {
 }
 
 export const iconMetadata: {
-    readonly [key in IconName]: IconMetadata | undefined;
+    readonly [key in IconName]: IconMetadata;
 } = {
     /* eslint-disable @typescript-eslint/naming-convention */
     AddIcon: {
@@ -16,10 +16,18 @@ export const iconMetadata: {
     ArrowDownRightAndArrowUpLeftIcon: {
         tags: ['resize', 'collapse']
     },
-    ArrowExpanderDownIcon: undefined,
-    ArrowExpanderLeftIcon: undefined,
-    ArrowExpanderRightIcon: undefined,
-    ArrowExpanderUpIcon: undefined,
+    ArrowExpanderDownIcon: {
+        tags: []
+    },
+    ArrowExpanderLeftIcon: {
+        tags: []
+    },
+    ArrowExpanderRightIcon: {
+        tags: []
+    },
+    ArrowExpanderUpIcon: {
+        tags: []
+    },
     ArrowLeftFromLineIcon: {
         tags: ['logout']
     },
@@ -62,7 +70,9 @@ export const iconMetadata: {
     BlockWithRibbonIcon: {
         tags: ['certificate']
     },
-    CalendarIcon: undefined,
+    CalendarIcon: {
+        tags: []
+    },
     ChartDiagramIcon: {
         tags: ['oidc']
     },
@@ -99,7 +109,9 @@ export const iconMetadata: {
     CircleXIcon: {
         tags: ['status', 'terminated']
     },
-    ClipboardIcon: undefined,
+    ClipboardIcon: {
+        tags: []
+    },
     ClockIcon: {
         tags: ['time']
     },
@@ -112,7 +124,9 @@ export const iconMetadata: {
     CloneIcon: {
         tags: ['duplicate']
     },
-    CloudUploadIcon: undefined,
+    CloudUploadIcon: {
+        tags: []
+    },
     CloudWithArrowIcon: {
         tags: ['cloud-connector']
     },
@@ -143,10 +157,18 @@ export const iconMetadata: {
     CopyTextIcon: {
         tags: ['clipboard']
     },
-    DashboardBuilderIcon: undefined,
-    DashboardBuilderLegendIcon: undefined,
-    DashboardBuilderTemplatesIcon: undefined,
-    DashboardBuilderTileIcon: undefined,
+    DashboardBuilderIcon: {
+        tags: []
+    },
+    DashboardBuilderLegendIcon: {
+        tags: []
+    },
+    DashboardBuilderTemplatesIcon: {
+        tags: []
+    },
+    DashboardBuilderTileIcon: {
+        tags: []
+    },
     DatabaseIcon: {
         tags: ['measurement-data-analysis']
     },
@@ -156,19 +178,23 @@ export const iconMetadata: {
     DesktopIcon: {
         tags: ['monitor']
     },
-    DonutChartIcon: undefined,
+    DonutChartIcon: {
+        tags: []
+    },
     DotSolidDotStrokeIcon: {
         tags: ['status', 'header']
     },
-    DownloadIcon: undefined,
+    DownloadIcon: {
+        tags: []
+    },
     ElectronicChipZoomedIcon: {
         tags: ['data-preparation']
     },
     ExclamationMarkIcon: {
-        tags: ['error']
+        tags: ['error', 'warning']
     },
     EyeIcon: {
-        tags: ['view']
+        tags: ['details', 'view']
     },
     FancyAIcon: {
         tags: ['tdms-string-channel']
@@ -182,7 +208,9 @@ export const iconMetadata: {
     FileSearchIcon: {
         tags: ['file-viewer']
     },
-    FilterIcon: undefined,
+    FilterIcon: {
+        tags: []
+    },
     FloppyDiskCheckmarkIcon: {
         tags: ['save', 'no-unsaved-changed']
     },
@@ -198,7 +226,9 @@ export const iconMetadata: {
     FolderOpenIcon: {
         tags: ['browse']
     },
-    ForwardSlashIcon: undefined,
+    ForwardSlashIcon: {
+        tags: []
+    },
     FourDotsSquareIcon: {
         tags: ['knurling']
     },
@@ -220,7 +250,9 @@ export const iconMetadata: {
     HashtagIcon: {
         tags: ['number']
     },
-    HomeIcon: undefined,
+    HomeIcon: {
+        tags: []
+    },
     HourglassIcon: {
         tags: ['history', 'timer']
     },
@@ -228,23 +260,31 @@ export const iconMetadata: {
         tags: ['selection']
     },
     InfoIcon: {
-        tags: ['']
+        tags: []
     },
-    InfoCircleIcon: undefined,
+    InfoCircleIcon: {
+        tags: []
+    },
     KeyIcon: {
         tags: ['access-control', 'active-directory']
     },
-    LaptopIcon: undefined,
+    LaptopIcon: {
+        tags: []
+    },
     LayerGroupIcon: {
         tags: ['jobs']
     },
     LightningBoltIcon: {
         tags: ['active-jobs']
     },
-    LinkIcon: undefined,
-    LinkCancelIcon: undefined,
+    LinkIcon: {
+        tags: []
+    },
+    LinkCancelIcon: {
+        tags: ['unlink']
+    },
     ListIcon: {
-        tags: ['merged-view']
+        tags: ['bullet', 'merged-view']
     },
     ListTreeIcon: {
         tags: ['tree-view']
@@ -252,17 +292,27 @@ export const iconMetadata: {
     ListTreeDatabaseIcon: {
         tags: ['measurement-data-analysis']
     },
-    LockIcon: undefined,
+    LockIcon: {
+        tags: ['security']
+    },
     MagnifyingGlassIcon: {
         tags: ['search']
     },
-    MarkdownIcon: undefined,
+    MarkdownIcon: {
+        tags: []
+    },
     MinusIcon: {
         tags: ['mixed-checkbox']
     },
-    MinusWideIcon: undefined,
-    MobileIcon: undefined,
-    NotebookIcon: undefined,
+    MinusWideIcon: {
+        tags: []
+    },
+    MobileIcon: {
+        tags: ['phone']
+    },
+    NotebookIcon: {
+        tags: []
+    },
     PasteIcon: {
         tags: ['clipboard']
     },
@@ -311,8 +361,12 @@ export const iconMetadata: {
     TIcon: {
         tags: ['text']
     },
-    TabletIcon: undefined,
-    TagIcon: undefined,
+    TabletIcon: {
+        tags: []
+    },
+    TagIcon: {
+        tags: []
+    },
     TagsIcon: {
         tags: ['tag-query']
     },
@@ -323,15 +377,19 @@ export const iconMetadata: {
         tags: ['calibrate', 'self-calibrate']
     },
     ThreeDotsLineIcon: {
-        tags: ['options']
+        tags: ['ellipsis', 'options']
     },
-    ThumbtackIcon: undefined,
-    TileSizeIcon: undefined,
+    ThumbtackIcon: {
+        tags: []
+    },
+    TileSizeIcon: {
+        tags: []
+    },
     TimesIcon: {
         tags: ['close']
     },
     TrashIcon: {
-        tags: ['delete']
+        tags: ['clear', 'close', 'delete', 'remove', 'x']
     },
     TriangleIcon: {
         tags: ['status', 'alarm-active']
@@ -342,8 +400,12 @@ export const iconMetadata: {
     UnlinkIcon: {
         tags: ['link-broken']
     },
-    UnlockIcon: undefined,
-    UploadIcon: undefined,
+    UnlockIcon: {
+        tags: []
+    },
+    UploadIcon: {
+        tags: []
+    },
     UserIcon: {
         tags: ['admin', 'account']
     },
@@ -353,8 +415,12 @@ export const iconMetadata: {
     WaveformIcon: {
         tags: ['tdms-waveform-channel']
     },
-    WebviCustomIcon: undefined,
-    WebviHostIcon: undefined,
+    WebviCustomIcon: {
+        tags: ['gweb']
+    },
+    WebviHostIcon: {
+        tags: ['gweb']
+    },
     WindowCodeIcon: {
         tags: ['http-api']
     },
