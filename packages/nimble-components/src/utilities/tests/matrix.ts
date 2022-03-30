@@ -129,7 +129,15 @@ export function createMatrix<State1, State2, State3, State4, State5, State6>(
     ]
 ): ViewTemplate;
 
-export function createMatrix<State1, State2, State3, State4, State5, State6, State7>(
+export function createMatrix<
+    State1,
+    State2,
+    State3,
+    State4,
+    State5,
+    State6,
+    State7
+>(
     component: (
         state1: State1,
         state2: State2,

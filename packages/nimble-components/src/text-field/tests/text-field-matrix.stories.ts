@@ -44,18 +44,19 @@ const typeStates = [
 type TypeState = typeof typeStates[number];
 
 const endButtonStates = [
-    ['without buttons', false],
-    ['with buttons', true]
+    ['', false],
+    ['With Buttons', true]
 ];
 type EndButtonState = typeof endButtonStates[number];
 
 const appearanceStates = Object.entries(TextFieldAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
+// prettier-ignore
 const component = (
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
-    [_showEndButtonsName, showEndButtons]: EndButtonState,
+    [showEndButtonsName, showEndButtons]: EndButtonState,
     [invalidName, invalid]: InvalidState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
@@ -73,6 +74,7 @@ const component = (
     >
         ${() => disabledName} ${() => invalidName} ${() => typeName}
         ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
+        ${() => showEndButtonsName}
         
 
         ${when(() => showEndButtons, html`

@@ -34,6 +34,7 @@ const metadata: Meta<TextFieldArgs> = {
             handles: ['change', 'input']
         }
     },
+    // prettier-ignore
     render: createRenderer(html`
         <nimble-text-field
             placeholder="${x => x.label}"
