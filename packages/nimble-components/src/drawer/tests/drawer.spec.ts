@@ -1,7 +1,6 @@
 import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import '..';
-import type { Drawer } from '..';
+import { Drawer } from '..';
 import { DrawerState } from '../types';
 import { clickElement } from '../../utilities/tests/component';
 
@@ -32,6 +31,10 @@ describe('Drawer', () => {
         );
         await DOM.nextUpdate();
     }
+
+    it('can construct an element instance', () => {
+        expect(document.createElement('nimble-drawer')).toBeInstanceOf(Drawer);
+    });
 
     it('element is hidden and does not trap focus by default', async () => {
         expect(element.hidden).toBe(true);

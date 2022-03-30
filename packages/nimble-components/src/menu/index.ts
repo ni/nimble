@@ -5,8 +5,6 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
-export type { Menu };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-menu': Menu;
@@ -16,7 +14,7 @@ declare global {
 /**
  * A nimble-styled menu
  */
-class Menu extends FoundationMenu {}
+export class Menu extends FoundationMenu {}
 
 /**
  * A function that returns a nimble-menu registration for configuring the component with a DesignSystem.

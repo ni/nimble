@@ -7,8 +7,6 @@ import {
 import { styles } from './styles';
 import { TextAreaAppearance } from './types';
 
-export type { TextArea };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-text-area': TextArea;
@@ -18,7 +16,7 @@ declare global {
 /**
  * A nimble-styed HTML text area
  */
-class TextArea extends FoundationTextArea {
+export class TextArea extends FoundationTextArea {
     /**
      * The appearance the text area should have.
      *

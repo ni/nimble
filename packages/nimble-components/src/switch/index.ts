@@ -6,8 +6,6 @@ import {
 import { styles } from './styles';
 import { template } from './template';
 
-export type { Switch };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-switch': Switch;
@@ -17,7 +15,7 @@ declare global {
 /**
  * A nimble-styled switch control.
  */
-class Switch extends FoundationSwitch {}
+export class Switch extends FoundationSwitch {}
 
 const nimbleSwitch = Switch.compose<SwitchOptions>({
     baseClass: FoundationSwitch,

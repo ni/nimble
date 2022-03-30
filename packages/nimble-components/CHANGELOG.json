@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 24 Mar 2022 01:16:17 GMT",
+      "tag": "@ni/nimble-components_v7.4.0",
+      "version": "7.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7e641fc43d08e501a668fb7c91208405d5ae8b02",
+            "comment": "Add bundled distribution file to package"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Mar 2022 18:49:06 GMT",
+      "tag": "@ni/nimble-components_v7.3.0",
+      "version": "7.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "283179456e93bef036f04d6d757217a7f74d6fd0",
+            "comment": "Create nimble-toolbar component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 22 Mar 2022 23:49:19 GMT",
+      "tag": "@ni/nimble-components_v7.2.3",
+      "version": "7.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9da08c4905b7d9f7edf43248d46f8440cf5f0014",
+            "comment": "Update FastFoundation tagFor tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 22 Mar 2022 20:59:12 GMT",
       "tag": "@ni/nimble-components_v7.2.3",
       "version": "7.2.3",
