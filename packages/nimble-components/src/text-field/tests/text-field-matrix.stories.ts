@@ -70,7 +70,8 @@ const component = (
         appearance="${() => appearance}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
-        ?readonly="${() => readonly}"
+        ?readonly="${() => readonly}"        
+        error-text="This field is invalid."
     >
         ${() => disabledName} ${() => invalidName} ${() => typeName}
         ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
