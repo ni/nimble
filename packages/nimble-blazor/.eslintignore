@@ -2,4 +2,4 @@ Examples/*/bin
 Examples/*/obj
 NimbleBlazor.Components/bin
 NimbleBlazor.Components/obj
-NimbleBlazor.Components/wwwroot/nimble-components/
+NimbleBlazor.Components/wwwroot/nimble-*

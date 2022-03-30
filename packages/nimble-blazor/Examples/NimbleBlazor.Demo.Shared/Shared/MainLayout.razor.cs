@@ -6,13 +6,14 @@ namespace NimbleBlazor.Demo.Shared
 {
     public partial class MainLayout
     {
-        [Inject] IJSRuntime? JSRuntime { get; set; }
+        public ErrorBoundary? ErrorBoundary { get; set; }
 
-        ErrorBoundary? errorBoundary;
+        [Inject]
+        public IJSRuntime? JSRuntime { get; set; }
 
         protected override void OnParametersSet()
         {
-            errorBoundary?.Recover();
+            ErrorBoundary?.Recover();
         }
     }
 }
