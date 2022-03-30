@@ -58,14 +58,17 @@ export class ThemeProvider extends FoundationElement {
     public constructor() {
         super();
         const notifier = Observable.getNotifier(prefersColorScheme);
-        notifier.subscribe({
-            handleChange: () => {
-                // Run applyTheme in a microtask so that the theme-provider has last update to the theme token
-                // TODO file FAST issue, looks like updating default on token causes body to lose theme value
-                // so need to make sure theme provider sets theme token last
-                void Promise.resolve().then(() => this.applyTheme());
-            }
-        }, 'dark');
+        notifier.subscribe(
+            {
+                handleChange: () => {
+                    // Run applyTheme in a microtask so that the theme-provider has last update to the theme token
+                    // TODO file FAST issue, looks like updating default on token causes body to lose theme value
+                    // so need to make sure theme provider sets theme token last
+                    void Promise.resolve().then(() => this.applyTheme());
+                }
+            },
+            'dark'
+        );
     }
 
     private directionChanged(
@@ -98,7 +101,9 @@ export class ThemeProvider extends FoundationElement {
         if (currentTheme !== undefined && currentTheme !== null) {
             let resolvedTheme: Theme;
             if (currentTheme === ThemeProviderAdaptiveTheme.Platform) {
-                resolvedTheme = prefersColorScheme.dark ? Theme.Dark : Theme.Light;
+                resolvedTheme = prefersColorScheme.dark
+                    ? Theme.Dark
+                    : Theme.Light;
             } else {
                 resolvedTheme = currentTheme;
             }
