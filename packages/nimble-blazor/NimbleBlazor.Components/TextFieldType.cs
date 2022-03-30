@@ -11,8 +11,7 @@ public enum TextFieldType
 
 internal static class TextFieldTypeExtensions
 {
-    private static readonly Dictionary<TextFieldType, string> _textFieldTypeValues =
-        Enum.GetValues<TextFieldType>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
+    private static readonly Dictionary<TextFieldType, string> _textFieldTypeValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<TextFieldType>();
 
     public static string? ToAttributeValue(this TextFieldType? value) => value == null ? null : _textFieldTypeValues[value.Value];
 }
