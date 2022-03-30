@@ -90,9 +90,9 @@ const component = (
 export const textFieldThemeMatrix: Story = createRenderer(
     themeWrapper(
         createMatrix(component, [
-            endButtonStates,
             readOnlyStates,
             disabledStates,
+            endButtonStates,
             invalidStates,
             typeStates,
             appearanceStates,
