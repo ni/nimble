@@ -26,6 +26,7 @@ export const styles = css`
         padding-bottom: calc(
             (${controlHeight} - ${bodyFontLineHeight}) / 2 + 1px
         );
+        cursor: pointer;
     }
 
     :host(${focusVisible}) {
