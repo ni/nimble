@@ -56,7 +56,7 @@ describe('Icons', () => {
         }
     });
 
-    describe('should have valid metadataasda', () => {
+    describe('should have valid metadata', () => {
         type IconName = keyof typeof iconMetadata;
         const icons = (Object.keys(iconMetadata) as IconName[]).map(name => ({
             name,
