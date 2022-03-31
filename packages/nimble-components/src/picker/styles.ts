@@ -22,6 +22,7 @@ export const styles = css`
     ${display('inline-block')}
 
     :host {
+        font: ${bodyFont};
     }
 
     :host([readonly]) ::slotted(nimble-picker-list ::slotted(input)) {
