@@ -8,7 +8,6 @@ import {
     themeWrapper,
     disabledStates,
     DisabledState,
-    InvalidState,
     invalidStates,
     ReadOnlyState,
     readOnlyStates
@@ -49,6 +48,15 @@ const endButtonStates = [
 ];
 type EndButtonState = typeof endButtonStates[number];
 
+/* array of state name, invalidClass, setErrorText */
+const textFieldInvalidStates = [
+    ['', '', 'This is not valid.'],
+    ['', '', ''],
+    ['Invalid Error String', 'invalid', 'This is not valid.'],
+    ['Invalid', 'invalid', '']
+];
+type TextFieldInvalidState = typeof textFieldInvalidStates[number];
+
 const appearanceStates = Object.entries(TextFieldAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
@@ -57,21 +65,21 @@ const component = (
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
     [showEndButtonsName, showEndButtons]: EndButtonState,
-    [invalidName, invalid]: InvalidState,
+    [invalidName, invalidClass, errorText]: TextFieldInvalidState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-text-field
         style="width: 250px; padding: 15px;"
-        class="${() => invalid}"
+        class="${() => invalidClass}"
         ?disabled="${() => disabled}"
         type="${() => type}"
         appearance="${() => appearance}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         ?readonly="${() => readonly}"        
-        error-text="This field is invalid."
+        error-text="${() => errorText }"
     >
         ${() => disabledName} ${() => invalidName} ${() => typeName}
         ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
@@ -96,7 +104,7 @@ export const textFieldThemeMatrix: Story = createRenderer(
             readOnlyStates,
             disabledStates,
             endButtonStates,
-            invalidStates,
+            textFieldInvalidStates,
             typeStates,
             appearanceStates,
             valueStates
