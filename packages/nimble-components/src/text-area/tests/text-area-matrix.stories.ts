@@ -73,25 +73,38 @@ export const textAreaThemeMatrix: Story = createRenderer(
     )
 );
 
-const sizingTestCase = (
+const widthSizingTestCase = (
     [widthLabel, widthStyle]: [string, string],
-    [colsLabel, cols]: [string, number | undefined],
+    [colsLabel, cols]: [string, number | undefined]
+): ViewTemplate => html`
+    <div style="width: 500px; height: 100px; outline: 1px dotted black">
+        <nimble-text-area
+            cols="${() => cols}"
+            style="${widthStyle}"
+            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        >
+            ${widthLabel} ${colsLabel}
+        </nimble-text-area>
+    </div>
+`;
+
+const heightSizingTestCase = (
     [heightLabel, heightStyle]: [string, string],
     [rowsLabel, rows]: [string, number | undefined]
 ): ViewTemplate => html`
     <div style="width: 500px; height: 100px; outline: 1px dotted black">
         <nimble-text-area
             rows="${() => rows}"
-            cols="${() => cols}"
-            style="${widthStyle}; ${heightStyle}"
+            style="${heightStyle}"
             value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         >
-            ${widthLabel} ${colsLabel} ${heightLabel} ${rowsLabel}
+            ${heightLabel} ${rowsLabel}
         </nimble-text-area>
     </div>
 `;
+
 export const textAreaSizing: Story = createRenderer(html`
-    ${createMatrix(sizingTestCase, [
+    ${createMatrix(widthSizingTestCase, [
         [
             ['No width', ''],
             ['Width=300px', 'width: 300px'],
@@ -100,13 +113,9 @@ export const textAreaSizing: Story = createRenderer(html`
         [
             ['no cols', undefined],
             ['cols=10', 10]
-        ],
-        [['', '']],
-        [['', undefined]]
+        ]
     ])}
-    ${createMatrix(sizingTestCase, [
-        [['', '']],
-        [['', undefined]],
+    ${createMatrix(heightSizingTestCase, [
         [
             ['No height', ''],
             ['Height=50px', 'height: 50px'],
