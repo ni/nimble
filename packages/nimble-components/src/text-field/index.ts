@@ -54,7 +54,7 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
         delegatesFocus: true
     },
     end: html<TextField>`
-        <span class="error-content"> ${exclamationMark16X16.data} </span>
+        <span class="error-content">${exclamationMark16X16.data}</span>
         <span part="last">
             <slot name="last"></slot>
         </span>
