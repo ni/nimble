@@ -42,4 +42,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <Target Name="CopyNimbleResources" BeforeTargets="BeforeBuild">
+  	<Exec Command="npm run copy-resources $(Configuration) $(ProjectDir)/wwwroot/" />
+  </Target>
+
 </Project>
