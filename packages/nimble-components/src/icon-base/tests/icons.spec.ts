@@ -68,13 +68,7 @@ describe('Icons', () => {
         for (const icon of icons) {
             const specType = getSpecTypeByNamedList(icon, focused, disabled);
             specType(`for icon ${icon.name}`, () => {
-                if (icon.metadata.tags.length === 0) {
-                    expect(icon.metadata.tags.length).toBe(0);
-                } else if (icon.metadata.tags.length > 0) {
-                    icon.metadata.tags.forEach(tag => {
-                        expect(tag).not.toBe('');
-                    });
-                }
+                expect(icon.metadata.tags).not.toContain('');
             });
         }
     });
