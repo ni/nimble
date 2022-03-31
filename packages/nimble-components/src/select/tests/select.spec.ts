@@ -52,6 +52,26 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('should keep selected value when options change', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        element.value = 'two';
+        await DOM.nextUpdate();
+        expect(element.value).toBe('two');
+
+        // Add option zero at the top of the options list
+        const optionZero = document.createElement('nimble-listbox-option');
+        optionZero.setAttribute('value', 'zero');
+        optionZero.innerHTML = 'Zero';
+        const optionOne = document.querySelector('nimble-listbox-option[value="one"]');
+        element.insertBefore(optionZero, optionOne);
+        await DOM.nextUpdate();
+
+        expect(element.value).toBe('two');
+
+        await disconnect();
+    });
+
     it('should have its tag returned by tagFor(FoundationSelect)', () => {
         expect(DesignSystem.tagFor(FoundationSelect)).toBe('nimble-select');
     });
