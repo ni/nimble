@@ -60,13 +60,9 @@ describe('Select', () => {
         expect(element.value).toBe('two');
 
         // Add option zero at the top of the options list
-        const optionZero = document.createElement('nimble-listbox-option');
-        optionZero.setAttribute('value', 'zero');
-        optionZero.innerHTML = 'Zero';
-        const optionOne = document.querySelector(
-            'nimble-listbox-option[value="one"]'
-        );
-        element.insertBefore(optionZero, optionOne);
+        element.insertAdjacentHTML('afterbegin', `
+            <nimble-listbox-option value="zero">Zero</nimble-listbox-option>
+        `);
         await DOM.nextUpdate();
 
         expect(element.value).toBe('two');
