@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 31 Mar 2022 16:36:10 GMT",
+      "tag": "@ni/nimble-components_v7.4.0",
+      "version": "7.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4906f19946f514ece3b1d38d706085cab581b4c7",
+            "comment": "Update Drawer Storybook to hook up close buttons"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 24 Mar 2022 01:16:17 GMT",
       "tag": "@ni/nimble-components_v7.4.0",
       "version": "7.4.0",
