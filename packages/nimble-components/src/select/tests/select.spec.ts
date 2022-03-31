@@ -63,7 +63,9 @@ describe('Select', () => {
         const optionZero = document.createElement('nimble-listbox-option');
         optionZero.setAttribute('value', 'zero');
         optionZero.innerHTML = 'Zero';
-        const optionOne = document.querySelector('nimble-listbox-option[value="one"]');
+        const optionOne = document.querySelector(
+            'nimble-listbox-option[value="one"]'
+        );
         element.insertBefore(optionZero, optionOne);
         await DOM.nextUpdate();
 
