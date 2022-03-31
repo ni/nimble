@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 24 Mar 2022 01:16:17 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Mar 2022 18:03:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.4.1
+
+Thu, 31 Mar 2022 18:03:04 GMT
+
+### Patches
+
+- Fix bug in nimble-select when options change (20542556+mollykreis@users.noreply.github.com)
 
 ## 7.4.0
 

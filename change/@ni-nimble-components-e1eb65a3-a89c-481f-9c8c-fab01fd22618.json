@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix bug in nimble-select when options change",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
