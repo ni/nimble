@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 31 Mar 2022 18:03:04 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Mar 2022 18:58:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.4.2
+
+Thu, 31 Mar 2022 18:58:20 GMT
+
+### Patches
+
+- Added descriptive tags to icon metadata file (1458528+fredvisser@users.noreply.github.com)
 
 ## 7.4.1
 
