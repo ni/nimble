@@ -47,7 +47,7 @@ const endButtonStates = [
 ];
 type EndButtonState = typeof endButtonStates[number];
 
-/* array of state name, invalidClass, setErrorText */
+/* array of state name, invalidClass, errorText */
 const textFieldInvalidStates = [
     ['', '', 'This is not valid.'],
     ['', '', ''],
