@@ -60,9 +60,11 @@ describe('Select', () => {
         expect(element.value).toBe('two');
 
         // Add option zero at the top of the options list
-        element.insertAdjacentHTML('afterbegin', `
-            <nimble-listbox-option value="zero">Zero</nimble-listbox-option>
-        `);
+        // prettier-ignore
+        element.insertAdjacentHTML(
+            'afterbegin',
+            '<nimble-listbox-option value="zero">Zero</nimble-listbox-option>'
+        );
         await DOM.nextUpdate();
 
         expect(element.value).toBe('two');
