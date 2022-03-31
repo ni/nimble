@@ -8,7 +8,6 @@ import {
     themeWrapper,
     disabledStates,
     DisabledState,
-    invalidStates,
     ReadOnlyState,
     readOnlyStates
 } from '../../utilities/tests/matrix';
@@ -79,7 +78,7 @@ const component = (
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         ?readonly="${() => readonly}"        
-        error-text="${() => errorText }"
+        error-text="${() => errorText}"
     >
         ${() => disabledName} ${() => invalidName} ${() => typeName}
         ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
