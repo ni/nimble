@@ -73,6 +73,61 @@ export const textAreaThemeMatrix: Story = createRenderer(
     )
 );
 
+const widthSizingTestCase = (
+    [widthLabel, widthStyle]: [string, string],
+    [colsLabel, cols]: [string, number | undefined]
+): ViewTemplate => html`
+    <div style="width: 500px; height: 100px; outline: 1px dotted black">
+        <nimble-text-area
+            cols="${() => cols}"
+            style="${widthStyle}"
+            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        >
+            ${widthLabel} ${colsLabel}
+        </nimble-text-area>
+    </div>
+`;
+
+const heightSizingTestCase = (
+    [heightLabel, heightStyle]: [string, string],
+    [rowsLabel, rows]: [string, number | undefined]
+): ViewTemplate => html`
+    <div style="width: 500px; height: 100px; outline: 1px dotted black">
+        <nimble-text-area
+            rows="${() => rows}"
+            style="${heightStyle}"
+            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        >
+            ${heightLabel} ${rowsLabel}
+        </nimble-text-area>
+    </div>
+`;
+
+export const textAreaSizing: Story = createRenderer(html`
+    ${createMatrix(widthSizingTestCase, [
+        [
+            ['No width', ''],
+            ['Width=300px', 'width: 300px'],
+            ['Width=100%', 'width: 100%']
+        ],
+        [
+            ['no cols', undefined],
+            ['cols=10', 10]
+        ]
+    ])}
+    ${createMatrix(heightSizingTestCase, [
+        [
+            ['No height', ''],
+            ['Height=50px', 'height: 50px'],
+            ['Height=100%', 'height: 100%']
+        ],
+        [
+            ['no rows', undefined],
+            ['rows=3', 3]
+        ]
+    ])}
+`);
+
 export const hiddenTextArea: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-text-area hidden>Hidden text area</nimble-text-area>`
