@@ -3,6 +3,7 @@ import type { NimbleIconName } from '@ni/nimble-tokens/dist-icons-esm/nimble-ico
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
+import { iconMetadata } from '../icon-metadata';
 
 describe('Icons', () => {
     describe('should have a viewBox', () => {
@@ -51,6 +52,23 @@ describe('Icons', () => {
                 expect(document.createElement(tagName)).toBeInstanceOf(
                     icon.klass
                 );
+            });
+        }
+    });
+
+    describe('should have valid metadata', () => {
+        type IconName = keyof typeof iconMetadata;
+        const icons = (Object.keys(iconMetadata) as IconName[]).map(name => ({
+            name,
+            metadata: iconMetadata[name]
+        }));
+
+        const focused: IconName[] = [];
+        const disabled: IconName[] = [];
+        for (const icon of icons) {
+            const specType = getSpecTypeByNamedList(icon, focused, disabled);
+            specType(`for icon ${icon.name}`, () => {
+                expect(icon.metadata.tags).not.toContain('');
             });
         }
     });
