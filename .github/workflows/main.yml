@@ -33,7 +33,7 @@ jobs:
       - run: npm ci
 
       # Audit
-      - run: npm run audit
+      - run: npm audit
 
       # Build
       - run: npm run build
