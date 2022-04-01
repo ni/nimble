@@ -62,7 +62,7 @@ type AppearanceState = typeof appearanceStates[number];
 // prettier-ignore
 const component = (
     [readOnlyName, readonly]: ReadOnlyState,
-    [disabledName, disabled]: DisabledState,
+    [_disabledName, disabled]: DisabledState,
     [showEndButtonsName, showEndButtons]: EndButtonState,
     [invalidName, invalidClass, errorText]: TextFieldInvalidState,
     [typeName, type]: TypeState,
