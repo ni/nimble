@@ -1,6 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
 import {
@@ -8,8 +8,6 @@ import {
     themeWrapper,
     disabledStates,
     DisabledState,
-    InvalidState,
-    invalidStates,
     ReadOnlyState,
     readOnlyStates
 } from '../../utilities/tests/matrix';
@@ -43,38 +41,83 @@ const typeStates = [
 ];
 type TypeState = typeof typeStates[number];
 
+const actionButtonStates = [
+    ['', false],
+    ['With Buttons', true]
+];
+type ActionButtonState = typeof actionButtonStates[number];
+
+/* array of state name, invalidClass, errorText */
+const textFieldInvalidStates = [
+    ['', '', 'This is not valid.'],
+    ['', '', ''],
+    ['Invalid Error String', 'invalid', 'This is not valid.'],
+    ['Invalid', 'invalid', '']
+];
+type TextFieldInvalidState = typeof textFieldInvalidStates[number];
+
 const appearanceStates = Object.entries(TextFieldAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
+// prettier-ignore
 const component = (
     [readOnlyName, readonly]: ReadOnlyState,
-    [disabledName, disabled]: DisabledState,
-    [invalidName, invalid]: InvalidState,
+    [_disabledName, disabled]: DisabledState,
+    [showActionButtonsName, showActionButtons]: ActionButtonState,
+    [invalidName, invalidClass, errorText]: TextFieldInvalidState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-text-field
         style="width: 250px; padding: 15px;"
-        class="${() => invalid}"
+        class="${() => invalidClass}"
         ?disabled="${() => disabled}"
         type="${() => type}"
         appearance="${() => appearance}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
-        ?readonly="${() => readonly}"
+        ?readonly="${() => readonly}"        
+        error-text="${() => errorText}"
     >
-        ${() => disabledName} ${() => invalidName} ${() => typeName}
+        ${() => invalidName} ${() => typeName}
         ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
+        ${() => showActionButtonsName}
+        
+
+        ${when(() => showActionButtons, html`
+            <nimble-button slot="actions" appearance="outline" content-hidden>
+                <nimble-pencil-icon slot="start"></nimble-pencil-icon>
+                Edit
+            </nimble-button>
+            <nimble-button slot="actions" appearance="outline" content-hidden>
+                <nimble-xmark-icon slot="start"></nimble-xmark-icon>
+                Clear
+            </nimble-button>`)}
     </nimble-text-field>
 `;
 
-export const textFieldThemeMatrix: Story = createRenderer(
+export const enabledTextFieldThemeMatrix: Story = createRenderer(
     themeWrapper(
         createMatrix(component, [
             readOnlyStates,
-            disabledStates,
-            invalidStates,
+            [disabledStates[0]!],
+            actionButtonStates,
+            textFieldInvalidStates,
+            typeStates,
+            appearanceStates,
+            valueStates
+        ])
+    )
+);
+
+export const disabledTextFieldThemeMatrix: Story = createRenderer(
+    themeWrapper(
+        createMatrix(component, [
+            readOnlyStates,
+            [disabledStates[1]!],
+            actionButtonStates,
+            textFieldInvalidStates,
             typeStates,
             appearanceStates,
             valueStates
