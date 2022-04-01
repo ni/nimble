@@ -112,7 +112,11 @@ export class Drawer extends FoundationDialog {
      * @internal
      */
     public override dismiss(): void {
-        const shouldDismiss = this.$emit('cancel', {}, { bubbles: false, cancelable: true, composed: false });
+        const shouldDismiss = this.$emit(
+            'cancel',
+            {},
+            { bubbles: false, cancelable: true, composed: false }
+        );
         if (shouldDismiss && !this.preventDismiss) {
             super.dismiss();
             this.hide();
