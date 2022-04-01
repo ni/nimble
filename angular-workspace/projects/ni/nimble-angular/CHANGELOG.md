@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 31 Mar 2022 21:02:24 GMT and should not be manually modified.
+This log was last generated on Fri, 01 Apr 2022 19:42:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.3.0
+
+Fri, 01 Apr 2022 19:42:41 GMT
+
+### Minor changes
+
+- Complete the Angular directive for Nimble text field (7282195+m-akinc@users.noreply.github.com)
+
+## 4.2.7
+
+Fri, 01 Apr 2022 18:39:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.5.0
 
 ## 4.2.6
 

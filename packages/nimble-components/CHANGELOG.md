@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 31 Mar 2022 21:02:24 GMT and should not be manually modified.
+This log was last generated on Fri, 01 Apr 2022 18:39:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.5.0
+
+Fri, 01 Apr 2022 18:39:28 GMT
+
+### Minor changes
+
+- Add ability to place buttons within a text field (20542556+mollykreis@users.noreply.github.com)
 
 ## 7.4.3
 
