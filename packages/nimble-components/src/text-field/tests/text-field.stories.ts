@@ -17,6 +17,13 @@ interface TextFieldArgs {
     endButton: boolean;
 }
 
+const endButtonDescription = `To place content, such as a button, at the far-right of the text-field, set \`slot="last"\` on the content.
+
+Note: The content in the \`last\` slot will not adjust based on the state of the text-field (e.g. disabled or readonly). It is the responsibility of the
+consuming application to make any necessary adjustments. For example, if the buttons should be disabled when the text-field is disabled, the
+consuming application must implement that functionality.
+`;
+
 const metadata: Meta<TextFieldArgs> = {
     title: 'Text Field',
     decorators: [withXD],
@@ -70,8 +77,7 @@ const metadata: Meta<TextFieldArgs> = {
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
         },
         endButton: {
-            description:
-                'To place content, such as a button, at the far-right of the text-field, set `slot="last"` on the content.'
+            description: endButtonDescription
         }
     },
     args: {
