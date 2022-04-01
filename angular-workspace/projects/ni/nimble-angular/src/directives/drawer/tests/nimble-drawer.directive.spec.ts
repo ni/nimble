@@ -6,7 +6,7 @@ import { NimbleDrawerModule } from '../nimble-drawer.module';
 describe('Nimble drawer directive', () => {
     @Component({
         template: `
-            <nimble-drawer #drawerConfigured [location]="drawerLocation" [(state)]="drawerState" [modal]="isDrawerModal" (overlayClick)="overlayClicked()">
+            <nimble-drawer #drawerConfigured [location]="drawerLocation" [(state)]="drawerState" [modal]="isDrawerModal" [preventDismiss]="drawerPreventDismiss" (cancel)="canceled()">
                 Drawer Content
             </nimble-drawer>
             <nimble-drawer #drawerUnconfigured>
@@ -20,7 +20,8 @@ describe('Nimble drawer directive', () => {
         public drawerLocation = DrawerLocation.Right;
         public drawerState = DrawerState.Opened;
         public isDrawerModal = false;
-        public overlayClicked(): void {}
+        public drawerPreventDismiss = false;
+        public canceled(): void {}
     }
 
     let fixture: ComponentFixture<TestHostComponent>;
@@ -91,6 +92,13 @@ describe('Nimble drawer directive', () => {
 
             expect(drawerConfigured.modal).toBe(true);
         });
+
+        it('for preventDismiss', () => {
+            testHostComponent.drawerPreventDismiss = true;
+            fixture.detectChanges();
+
+            expect(drawerConfigured.preventDismiss).toBe(true);
+        });
     });
 
     it('when "location" property changes on drawer DOM element, directive state updates correctly', async () => {
@@ -101,11 +109,11 @@ describe('Nimble drawer directive', () => {
         expect(testHostComponent.drawerState).toEqual(DrawerState.Closed);
     });
 
-    it('when drawer overlay is clicked, directive overlayClick output is triggered', async () => {
-        const overlayClickedSpy = spyOn(testHostComponent, 'overlayClicked');
+    it('when drawer overlay is clicked, cancel output/event is triggered', async () => {
+        const canceledSpy = spyOn(testHostComponent, 'canceled');
         const drawerOverlay = drawerConfigured.shadowRoot!.querySelector('.overlay')!;
         (drawerOverlay as HTMLElement).click();
 
-        expect(overlayClickedSpy).toHaveBeenCalledTimes(1);
+        expect(canceledSpy).toHaveBeenCalledTimes(1);
     });
 });

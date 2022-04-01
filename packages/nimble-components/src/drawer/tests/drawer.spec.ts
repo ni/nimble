@@ -80,12 +80,27 @@ describe('Drawer', () => {
         expect(stateChange.calls.count()).toEqual(1);
     });
 
-    it('clicking the overlay fires the "overlay-click" event', async () => {
-        const overlayClick = jasmine.createSpy();
-        element.addEventListener('overlay-click', overlayClick);
+    it('clicking the overlay fires the "cancel" event and closes the drawer by default', async () => {
+        element.state = DrawerState.Opened;
+        const cancelEventHandler = jasmine.createSpy();
+        element.addEventListener('cancel', cancelEventHandler);
         const drawerOverlay = element.shadowRoot!.querySelector('.overlay');
         await clickElement(drawerOverlay as HTMLElement);
+        await waitForDrawerAnimationsCompleted();
 
-        expect(overlayClick.calls.count()).toEqual(1);
+        expect(cancelEventHandler.calls.count()).toEqual(1);
+        expect(element.state).toBe(DrawerState.Closed);
+    });
+
+    it('canceling the "cancel" event after an overlay click prevents dismissing', async () => {
+        element.state = DrawerState.Opened;
+        element.addEventListener('cancel', evt => {
+            evt.preventDefault();
+        });
+        const drawerOverlay = element.shadowRoot!.querySelector('.overlay');
+        await clickElement(drawerOverlay as HTMLElement);
+        await waitForDrawerAnimationsCompleted();
+
+        expect(element.state).toBe(DrawerState.Opened);
     });
 });

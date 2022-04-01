@@ -38,8 +38,15 @@ export class NimbleDrawerDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'modal', toBooleanProperty(value));
     }
 
+    public get preventDismiss(): boolean {
+        return this.elementRef.nativeElement.preventDismiss;
+    }
+
+    @Input() public set preventDismiss(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
+    }
+
     @Output() public stateChange = new EventEmitter<DrawerState>();
-    @Output() public overlayClick = new EventEmitter();
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Drawer>) {}
 
     public show(): void {
@@ -54,13 +61,6 @@ export class NimbleDrawerDirective {
     public onStateChanged($event: Event): void {
         if ($event.target === this.elementRef.nativeElement) {
             this.stateChange.emit(this.state);
-        }
-    }
-
-    @HostListener('overlay-click', ['$event'])
-    public onOverlayClicked($event: Event): void {
-        if ($event.target === this.elementRef.nativeElement) {
-            this.overlayClick.emit();
         }
     }
 }
