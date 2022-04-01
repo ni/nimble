@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 01 Apr 2022 18:39:28 GMT",
+      "tag": "@ni/nimble-components_v7.5.0",
+      "version": "7.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e313fa8658229d3ddead2a5c4ba088e68e20d8da",
+            "comment": "Add ability to place buttons within a text field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Mar 2022 21:02:24 GMT",
       "tag": "@ni/nimble-components_v7.4.3",
       "version": "7.4.3",
