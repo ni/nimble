@@ -5,7 +5,7 @@ import { NimbleTextFieldModule } from '../nimble-text-field.module';
 import { NimbleTextFieldDirective, TextField } from '../nimble-text-field.directive';
 import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '../../utilities/template-value-helpers';
 
-fdescribe('Nimble text field', () => {
+describe('Nimble text field', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
