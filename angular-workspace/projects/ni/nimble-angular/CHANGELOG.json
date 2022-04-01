@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 01 Apr 2022 19:42:41 GMT",
+      "tag": "@ni/nimble-angular_v4.3.0",
+      "version": "4.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b1f79924bea7f34859e418b6a0c100c5695c882e",
+            "comment": "Complete the Angular directive for Nimble text field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 01 Apr 2022 18:39:28 GMT",
       "tag": "@ni/nimble-angular_v4.2.7",
       "version": "4.2.7",
