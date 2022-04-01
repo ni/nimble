@@ -154,25 +154,29 @@ export const styles = css`
     }
 
     [part='end'] {
-        display: none;
-    }
-
-    :host(.invalid) [part='end'] {
         display: contents;
     }
 
-    :host(.invalid) [part='end'] svg {
+    .error-content {
+        display: none;
+    }
+
+    :host(.invalid) .error-content {
+        display: contents;
+    }
+
+    :host(.invalid) .error-content svg {
         height: ${iconSize};
         width: ${iconSize};
         padding-right: 8px;
         flex: none;
     }
 
-    :host(.invalid) [part='end'] path {
+    :host(.invalid) .error-content path {
         fill: ${failColor};
     }
 
-    :host([disabled]) [part='end'] path {
+    :host([disabled]) .error-content path {
         fill: ${bodyDisabledFontColor};
     }
 
@@ -202,6 +206,15 @@ export const styles = css`
 
     :host([disabled]) .errortext {
         color: ${bodyDisabledFontColor};
+    }
+
+    [part='actions'] {
+        display: contents;
+    }
+
+    slot[name='actions']::slotted(*) {
+        margin-right: 8px;
+        ${controlHeight.cssCustomProperty}: 24px;
     }
 `.withBehaviors(
         appearanceBehavior(
