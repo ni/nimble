@@ -63,6 +63,13 @@ When generating a change file, follow these guidelines:
 2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it. The description can be plain text or [markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), with newlines specified via `\n` if needed.
 3. If you prefer not to expose your email address to the world, [configure GitHub to "Keep my email address private"](https://github.com/settings/emails) before generating the change file.
 
+### npm audit
+
+The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-audit) to prevent submissions if a change introduces npm dependencies with known vulnerabilities. If this check fails, your options include (in order of preference):
+1. Requesting that the dependency author publish a version that addresses the vulnerability and waiting to uptake that safer version.
+2. Running `npm audit fix` to upgrade vulnerable sub-dependencies if the direct dependency isn't responsive in upgrading their dependencies. This should be accompanied by appropriate testing of the new version.
+3. Proposing a more lenient audit level for this repository (e.g. allowing `low` or `moderate` vulnerabilities).
+
 ### Chromatic visual component tests
 
 This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual component review, and adds GitHub status checks to the build pipeline. The workflow is as follows:
