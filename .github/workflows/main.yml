@@ -32,6 +32,9 @@ jobs:
           cache: 'npm'
       - run: npm ci
 
+      # Audit
+      - run: npm run audit
+
       # Build
       - run: npm run build
 
