@@ -208,11 +208,11 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
-    [part='last'] {
+    [part='actions'] {
         display: contents;
     }
 
-    slot[name='last']::slotted(*) {
+    slot[name='actions']::slotted(*) {
         margin-right: 8px;
         ${controlHeight.cssCustomProperty}: 24px;
     }

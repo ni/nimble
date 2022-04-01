@@ -41,11 +41,11 @@ const typeStates = [
 ];
 type TypeState = typeof typeStates[number];
 
-const endButtonStates = [
+const actionButtonStates = [
     ['', false],
     ['With Buttons', true]
 ];
-type EndButtonState = typeof endButtonStates[number];
+type ActionButtonState = typeof actionButtonStates[number];
 
 /* array of state name, invalidClass, errorText */
 const textFieldInvalidStates = [
@@ -63,7 +63,7 @@ type AppearanceState = typeof appearanceStates[number];
 const component = (
     [readOnlyName, readonly]: ReadOnlyState,
     [_disabledName, disabled]: DisabledState,
-    [showEndButtonsName, showEndButtons]: EndButtonState,
+    [showActionButtonsName, showActionButtons]: ActionButtonState,
     [invalidName, invalidClass, errorText]: TextFieldInvalidState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
@@ -82,15 +82,15 @@ const component = (
     >
         ${() => invalidName} ${() => typeName}
         ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
-        ${() => showEndButtonsName}
+        ${() => showActionButtonsName}
         
 
-        ${when(() => showEndButtons, html`
-            <nimble-button slot="last" appearance="outline" content-hidden>
+        ${when(() => showActionButtons, html`
+            <nimble-button slot="actions" appearance="outline" content-hidden>
                 <nimble-pencil-icon slot="start"></nimble-pencil-icon>
                 Edit
             </nimble-button>
-            <nimble-button slot="last" appearance="outline" content-hidden>
+            <nimble-button slot="actions" appearance="outline" content-hidden>
                 <nimble-xmark-icon slot="start"></nimble-xmark-icon>
                 Clear
             </nimble-button>`)}
@@ -102,7 +102,7 @@ export const enabledTextFieldThemeMatrix: Story = createRenderer(
         createMatrix(component, [
             readOnlyStates,
             [disabledStates[0]!],
-            endButtonStates,
+            actionButtonStates,
             textFieldInvalidStates,
             typeStates,
             appearanceStates,
@@ -116,7 +116,7 @@ export const disabledTextFieldThemeMatrix: Story = createRenderer(
         createMatrix(component, [
             readOnlyStates,
             [disabledStates[1]!],
-            endButtonStates,
+            actionButtonStates,
             textFieldInvalidStates,
             typeStates,
             appearanceStates,

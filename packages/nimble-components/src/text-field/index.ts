@@ -55,8 +55,8 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
     },
     end: html<TextField>`
         <span class="error-content">${exclamationMark16X16.data}</span>
-        <span part="last">
-            <slot name="last"></slot>
+        <span part="actions">
+            <slot name="actions"></slot>
         </span>
         <div
             id="errortext"

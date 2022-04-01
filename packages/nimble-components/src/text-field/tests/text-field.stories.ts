@@ -14,12 +14,12 @@ interface TextFieldArgs {
     disabled: boolean;
     invalid: boolean;
     'error-text': string;
-    endButton: boolean;
+    actionButton: boolean;
 }
 
-const endButtonDescription = `To place content, such as a button, at the far-right of the text-field, set \`slot="last"\` on the content.
+const actionButtonDescription = `To place content, such as a button, at the far-right of the text-field, set \`slot="actions"\` on the content.
 
-Note: The content in the \`last\` slot will not adjust based on the state of the text-field (e.g. disabled or readonly). It is the responsibility of the
+Note: The content in the \`actions\` slot will not adjust based on the state of the text-field (e.g. disabled or readonly). It is the responsibility of the
 consuming application to make any necessary adjustments. For example, if the buttons should be disabled when the text-field is disabled, the
 consuming application must implement that functionality.
 `;
@@ -56,8 +56,8 @@ const metadata: Meta<TextFieldArgs> = {
         >
             ${x => x.label}
 
-            ${when(x => x.endButton, html`
-                <nimble-button slot="last" appearance="ghost" content-hidden>
+            ${when(x => x.actionButton, html`
+                <nimble-button slot="actions" appearance="ghost" content-hidden>
                     <nimble-pencil-icon slot="start"></nimble-pencil-icon>
                     Edit
                 </nimble-button>`)}
@@ -76,8 +76,8 @@ const metadata: Meta<TextFieldArgs> = {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
         },
-        endButton: {
-            description: endButtonDescription
+        actionButton: {
+            description: actionButtonDescription
         }
     },
     args: {
@@ -89,7 +89,7 @@ const metadata: Meta<TextFieldArgs> = {
         disabled: false,
         invalid: false,
         'error-text': 'Value is invalid',
-        endButton: false
+        actionButton: false
     }
 };
 
