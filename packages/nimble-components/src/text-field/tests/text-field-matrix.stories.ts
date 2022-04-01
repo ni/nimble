@@ -80,7 +80,7 @@ const component = (
         ?readonly="${() => readonly}"        
         error-text="${() => errorText}"
     >
-        ${() => disabledName} ${() => invalidName} ${() => typeName}
+        ${() => invalidName} ${() => typeName}
         ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
         ${() => showEndButtonsName}
         
@@ -97,11 +97,25 @@ const component = (
     </nimble-text-field>
 `;
 
-export const textFieldThemeMatrix: Story = createRenderer(
+export const enabledTextFieldThemeMatrix: Story = createRenderer(
     themeWrapper(
         createMatrix(component, [
             readOnlyStates,
-            disabledStates,
+            [disabledStates[0]!],
+            endButtonStates,
+            textFieldInvalidStates,
+            typeStates,
+            appearanceStates,
+            valueStates
+        ])
+    )
+);
+
+export const disabledTextFieldThemeMatrix: Story = createRenderer(
+    themeWrapper(
+        createMatrix(component, [
+            readOnlyStates,
+            [disabledStates[1]!],
             endButtonStates,
             textFieldInvalidStates,
             typeStates,
