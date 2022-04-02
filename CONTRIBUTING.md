@@ -65,10 +65,18 @@ When generating a change file, follow these guidelines:
 
 ### npm audit
 
-The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-audit) to prevent submissions if a change introduces npm dependencies with known vulnerabilities. If this check fails, your options include (in order of preference):
-1. Requesting that the dependency author publish a version that addresses the vulnerability and waiting to uptake that safer version.
-2. Running `npm audit fix` to upgrade vulnerable sub-dependencies if the direct dependency isn't responsive in upgrading their dependencies. This should be accompanied by appropriate testing of the new version.
-3. Proposing a more lenient audit level for this repository (e.g. allowing `low` or `moderate` vulnerabilities).
+The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-audit) to prevent submissions if any dependencies have known vulnerabilities. This can occur during on a PR that introduces a new dependency version or on an unrelated PR if a vulnerability was recently reported on an existing dependency. If this check fails, our options include:
+
+#### If a fix for the vulnerability is available
+
+1. Update the direct dependency which brings in the vulnerability to a version that addresses the issue. 
+2. If the actual issue is with a sub-dependency which has published a fix, we can update that sub-dependency via `npm audit fix`. This should be accompanied by appropriate testing of the new version. We should also ensure there is an issue on the direct dependency's repository asking them to uptake the fixed sub-dependency.
+
+#### If a fix for the vulnerability isn't available or if it isn't practical to uptake the fix
+
+1. Remove the vulnerable dependency and find a different way to achieve the same functionality.
+2. Temporarily use a more lenient [audit level](https://docs.npmjs.com/cli/v8/commands/npm-audit#audit-level) for this repository (e.g. allowing `low` or `moderate` vulnerabilities). We should file an issue to track fixing the vulnerability and restoring strict auditing.
+
 
 ### Chromatic visual component tests
 
