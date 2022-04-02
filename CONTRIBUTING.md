@@ -75,7 +75,7 @@ The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-aud
 #### If a fix for the vulnerability isn't available or if it isn't practical to uptake the fix
 
 1. Remove the vulnerable dependency and find a different way to achieve the same functionality.
-2. Temporarily use a more lenient [audit level](https://docs.npmjs.com/cli/v8/commands/npm-audit#audit-level) for this repository (e.g. allowing `low` or `moderate` vulnerabilities). We should file an issue to track fixing the vulnerability and restoring strict auditing.
+2. Temporarily use a more lenient [audit level](https://docs.npmjs.com/cli/v8/commands/npm-audit#audit-level) for this repository (e.g. allowing `low` or `moderate` vulnerabilities). We should ensure there is an issue on the dependency's repository asking them to fix the vulnerability and also file an issue against this repository to track fixing the vulnerability and restoring strict auditing.
 
 
 ### Chromatic visual component tests
