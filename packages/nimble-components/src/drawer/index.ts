@@ -115,6 +115,8 @@ export class Drawer extends FoundationDialog {
         const shouldDismiss = this.$emit(
             'cancel',
             {},
+            // Aligned with the configuration of HTMLDialogElement cancel event:
+            // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/cancel_event
             { bubbles: false, cancelable: true, composed: false }
         );
         if (shouldDismiss && !this.preventDismiss) {
