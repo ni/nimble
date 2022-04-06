@@ -11,11 +11,19 @@
     <Copyright>Copyright 2021</Copyright>
     <PackageTags>Nimble NI tokens</PackageTags>
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="../../dist/styledictionary/xaml/**/*.*"/>
-    <Content Include="../../dist/styledictionary/csharp/**/*.*"/>
+    <Content Include="../../dist/styledictionary/xaml/**/*.*" />
+    <Content Include="../../dist/styledictionary/csharp/**/*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

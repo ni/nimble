@@ -53,18 +53,7 @@ To report a bug with an existing component, file an issue using the **Bug report
 
 ## Contributing
 
-### Quick Start
-
-From the `nimble` directory:
-
-1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
-2. Run `npm install`
-3. Run `npm run build`
-4. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
-
-    **Note**: You will need to refresh your browser window to see style changes made in source.
-
-Follow the instructions in [CONTRIBUTING.md](/CONTRIBUTING.md) to modify the design system.
+See `Getting Started` in [`Contributing.md`](/CONTRIBUTING.md#getting-started) to get started with building the monorepo.
 
 ## Component Status
 

@@ -11,16 +11,17 @@ if ((buildConfiguration !== 'Debug' && buildConfiguration !== 'Release') || type
         + 'BuildConfiguration: Debug or Release. DestinationDirectory: Typically the full path to a Blazor app wwwroot directory.');
 }
 
-const componentsDistPath = path.dirname(require.resolve('@ni/nimble-components/dist/all-components-bundle.js'));
-const tokensPath = path.resolve(path.dirname(require.resolve('@ni/nimble-tokens/source/fonts.css')), '..');
+const resolvePackagePath = packageName => path.dirname(require.resolve(`${packageName}/package.json`));
+const nimbleComponentsPath = resolvePackagePath('@ni/nimble-components');
+const nimbleTokensPath = resolvePackagePath('@ni/nimble-tokens');
 
 const componentsSrcDebug = [
-    { src: 'all-components-bundle.js' },
-    { src: 'all-components-bundle.js.map' }
+    { src: 'dist/all-components-bundle.js' },
+    { src: 'dist/all-components-bundle.js.map' }
 ];
 const componentsSrcRelease = [
-    { src: 'all-components-bundle.min.js', dest: 'all-components-bundle.js' },
-    { src: 'all-components-bundle.min.js.map', dest: 'all-components-bundle.js.map' }
+    { src: 'dist/all-components-bundle.min.js', dest: 'all-components-bundle.js' },
+    { src: 'dist/all-components-bundle.min.js.map', dest: 'all-components-bundle.js.map' }
 ];
 const componentsSrc = buildConfiguration === 'Release' ? componentsSrcRelease : componentsSrcDebug;
 const tokensSrc = [
@@ -51,6 +52,6 @@ function prepareDestinationDirectory(destRelativeDirectory) {
 }
 
 prepareDestinationDirectory('nimble-components');
-copyFiles(componentsSrc, componentsDistPath, 'nimble-components');
+copyFiles(componentsSrc, nimbleComponentsPath, 'nimble-components');
 prepareDestinationDirectory('nimble-tokens');
-copyFiles(tokensSrc, tokensPath, 'nimble-tokens');
+copyFiles(tokensSrc, nimbleTokensPath, 'nimble-tokens');

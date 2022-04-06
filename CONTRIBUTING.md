@@ -19,14 +19,20 @@ This repository uses the following tooling. See below for more info.
 
 ## Getting started
 
+First step in development is to build the monorepo which requires the following to be installed:
+
+- Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be download from https://nodejs.org/en/download/
+- .NET version 6 (run `dotnet --version`)
+
 From the `nimble` directory:
 
-1. Make sure you have Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`). Download newer versions from https://nodejs.org/en/download/
-2. Run `npm install`
-3. Run `npm run build` (or **Terminal»Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
-4. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+1. Run `npm install`
+2. Run `npm run build` (Alernatively in Visual Studio Code **Terminal » Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
+3. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
     **Note**: You will need to refresh your browser window to see style changes made in source.
+
+Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages you would like to contribute to.
 
 ## Develop new components
 
