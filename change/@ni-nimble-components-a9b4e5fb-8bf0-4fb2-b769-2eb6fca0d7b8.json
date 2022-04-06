@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "nimble-drawer has cancelable 'cancel' event (triggered when dimming overlay is clicked, when modal = true)",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
