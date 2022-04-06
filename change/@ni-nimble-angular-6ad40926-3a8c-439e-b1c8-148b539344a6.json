@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "nimble-drawer directive -  add 'preventDismiss' property binding; inherit 'cancel' output/event (triggered when dimming overlay is clicked, when modal = true) from nimble-drawer component",
-  "packageName": "@ni/nimble-angular",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
