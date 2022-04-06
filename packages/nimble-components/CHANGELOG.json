@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 06 Apr 2022 19:38:49 GMT",
+      "tag": "@ni/nimble-components_v7.6.0",
+      "version": "7.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4463a54517442bb48ee87e92885065bc3c3a1bb3",
+            "comment": "nimble-drawer has cancelable 'cancel' event (triggered when dimming overlay is clicked, when modal = true)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 01 Apr 2022 18:39:28 GMT",
       "tag": "@ni/nimble-components_v7.5.0",
       "version": "7.5.0",

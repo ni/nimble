@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 01 Apr 2022 18:39:28 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Apr 2022 19:38:49 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.6.0
+
+Wed, 06 Apr 2022 19:38:49 GMT
+
+### Minor changes
+
+- nimble-drawer has cancelable 'cancel' event (triggered when dimming overlay is clicked, when modal = true) (20709258+msmithNI@users.noreply.github.com)
 
 ## 7.5.0
 
