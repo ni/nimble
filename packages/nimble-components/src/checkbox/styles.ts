@@ -83,15 +83,19 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
+    slot[name='checked-indicator'],
+    slot[name='indeterminate-indicator'] {
+        display: none;
+    }
+
     slot[name='checked-indicator'] svg {
-        height: 0;
-        width: 0;
+        height: ${iconSize};
+        width: ${iconSize};
         overflow: visible;
     }
 
-    :host(.checked:not(.indeterminate)) slot[name='checked-indicator'] svg {
-        height: ${iconSize};
-        width: ${iconSize};
+    :host(.checked:not(.indeterminate)) slot[name='checked-indicator'] {
+        display: contents;
     }
 
     slot[name='checked-indicator'] path {
@@ -103,14 +107,13 @@ export const styles = css`
     }
 
     slot[name='indeterminate-indicator'] svg {
-        height: 0;
-        width: 0;
+        height: ${iconSize};
+        width: ${iconSize};
         overflow: visible;
     }
 
-    :host(.indeterminate) slot[name='indeterminate-indicator'] svg {
-        height: ${iconSize};
-        width: ${iconSize};
+    :host(.indeterminate) slot[name='indeterminate-indicator'] {
+        display: contents;
     }
 
     slot[name='indeterminate-indicator'] path {
