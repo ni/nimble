@@ -42,7 +42,9 @@ export class NimbleDrawerDirective {
         return this.elementRef.nativeElement.preventDismiss;
     }
 
-    @Input() public set preventDismiss(value: BooleanValueOrAttribute) {
+    // preventDismiss property intentionally maps to the prevent-dismiss attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('prevent-dismiss') public set preventDismiss(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
     }
 
