@@ -1,7 +1,6 @@
 {
   "name": "@ni/nimble-blazor",
   "version": "1.0.0-beta.0",
-  "private": true,
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
     "copy-resources": "node build/copyNimbleResources.js",

@@ -6,7 +6,7 @@
     <IncludeContentInPack>true</IncludeContentInPack>
     <Authors>NI</Authors>
     <RepositoryUrl>https://github.com/ni/nimble</RepositoryUrl>
-    <RepositoryType>Github</RepositoryType>
+    <RepositoryType>git</RepositoryType>
     <Description>Design tokens used within the Nimble Design System.</Description>
     <Copyright>Copyright 2021</Copyright>
     <PackageTags>Nimble NI tokens</PackageTags>
