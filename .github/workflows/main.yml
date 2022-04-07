@@ -32,6 +32,10 @@ jobs:
           cache: 'npm'
       - run: npm ci
 
+      # Audit
+      - run: npm audit --only=prod
+      - run: npm audit --audit-level=critical
+
       # Build
       - run: npm run build
 

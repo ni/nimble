@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createRenderer } from '../../utilities/tests/storybook';
@@ -14,7 +14,15 @@ interface TextFieldArgs {
     disabled: boolean;
     invalid: boolean;
     'error-text': string;
+    actionButton: boolean;
 }
+
+const actionButtonDescription = `To place content, such as a button, at the far-right of the text-field, set \`slot="actions"\` on the content.
+
+Note: The content in the \`actions\` slot will not adjust based on the state of the text-field (e.g. disabled or readonly). It is the responsibility of the
+consuming application to make any necessary adjustments. For example, if the buttons should be disabled when the text-field is disabled, the
+consuming application must implement that functionality.
+`;
 
 const metadata: Meta<TextFieldArgs> = {
     title: 'Text Field',
@@ -33,6 +41,7 @@ const metadata: Meta<TextFieldArgs> = {
             handles: ['change', 'input']
         }
     },
+    // prettier-ignore
     render: createRenderer(html`
         <nimble-text-field
             placeholder="${x => x.label}"
@@ -46,6 +55,12 @@ const metadata: Meta<TextFieldArgs> = {
             error-text="${x => x['error-text']}"
         >
             ${x => x.label}
+
+            ${when(x => x.actionButton, html`
+                <nimble-button slot="actions" appearance="ghost" content-hidden>
+                    <nimble-pencil-icon slot="start"></nimble-pencil-icon>
+                    Edit
+                </nimble-button>`)}
         </nimble-text-field>
     `),
     argTypes: {
@@ -60,6 +75,9 @@ const metadata: Meta<TextFieldArgs> = {
         'error-text': {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
+        },
+        actionButton: {
+            description: actionButtonDescription
         }
     },
     args: {
@@ -70,7 +88,8 @@ const metadata: Meta<TextFieldArgs> = {
         readonly: false,
         disabled: false,
         invalid: false,
-        'error-text': 'Value is invalid'
+        'error-text': 'Value is invalid',
+        actionButton: false
     }
 };
 

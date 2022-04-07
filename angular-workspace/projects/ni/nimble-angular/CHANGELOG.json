@@ -2,6 +2,102 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 06 Apr 2022 19:38:49 GMT",
+      "tag": "@ni/nimble-angular_v4.4.0",
+      "version": "4.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "4463a54517442bb48ee87e92885065bc3c3a1bb3",
+            "comment": "nimble-drawer directive -  add 'preventDismiss' property binding; inherit 'cancel' output/event (triggered when dimming overlay is clicked, when modal = true) from nimble-drawer component"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v7.6.0",
+            "commit": "4463a54517442bb48ee87e92885065bc3c3a1bb3"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 01 Apr 2022 19:42:41 GMT",
+      "tag": "@ni/nimble-angular_v4.3.0",
+      "version": "4.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b1f79924bea7f34859e418b6a0c100c5695c882e",
+            "comment": "Complete the Angular directive for Nimble text field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 01 Apr 2022 18:39:28 GMT",
+      "tag": "@ni/nimble-angular_v4.2.7",
+      "version": "4.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v7.5.0",
+            "commit": "e313fa8658229d3ddead2a5c4ba088e68e20d8da"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Mar 2022 21:02:24 GMT",
+      "tag": "@ni/nimble-angular_v4.2.6",
+      "version": "4.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v7.4.3",
+            "commit": "93644b519b97b1ec3c054469ed96ab1efeece359"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Mar 2022 18:58:20 GMT",
+      "tag": "@ni/nimble-angular_v4.2.5",
+      "version": "4.2.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v7.4.2",
+            "commit": "4b079f30ec68b4c0c635a426f3580239df49bfab"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Mar 2022 18:03:04 GMT",
+      "tag": "@ni/nimble-angular_v4.2.4",
+      "version": "4.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v7.4.1",
+            "commit": "9fa44b9cc7d82bb696fcf27651949c676f6ab9c0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 24 Mar 2022 01:16:17 GMT",
       "tag": "@ni/nimble-angular_v4.2.3",
       "version": "4.2.3",

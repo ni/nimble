@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 24 Mar 2022 01:16:17 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Apr 2022 19:38:49 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.6.0
+
+Wed, 06 Apr 2022 19:38:49 GMT
+
+### Minor changes
+
+- nimble-drawer has cancelable 'cancel' event (triggered when dimming overlay is clicked, when modal = true) (20709258+msmithNI@users.noreply.github.com)
+
+## 7.5.0
+
+Fri, 01 Apr 2022 18:39:28 GMT
+
+### Minor changes
+
+- Add ability to place buttons within a text field (20542556+mollykreis@users.noreply.github.com)
+
+## 7.4.3
+
+Thu, 31 Mar 2022 21:02:24 GMT
+
+### Patches
+
+- nimble-text-area honor height and width (7282195+m-akinc@users.noreply.github.com)
+
+## 7.4.2
+
+Thu, 31 Mar 2022 18:58:20 GMT
+
+### Patches
+
+- Added descriptive tags to icon metadata file (1458528+fredvisser@users.noreply.github.com)
+
+## 7.4.1
+
+Thu, 31 Mar 2022 18:03:04 GMT
+
+### Patches
+
+- Fix bug in nimble-select when options change (20542556+mollykreis@users.noreply.github.com)
 
 ## 7.4.0
 

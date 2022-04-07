@@ -1,4 +1,4 @@
-using Microsoft.Extensions.FileProviders;
+#pragma warning disable CA1812
 
 var builder = WebApplication.CreateBuilder(args);
 

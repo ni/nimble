@@ -40,8 +40,11 @@ interface DrawerArgs {
 
 const simpleContent = html`
     <section>
-        This is a drawer which can slide in from either side of the screen and
-        display custom content.
+        <p>
+            This is a drawer which can slide in from either side of the screen
+            and display custom content.
+        </p>
+        <nimble-button onclick="myNimbleDrawer.hide()">Close</nimble-button>
     </section>
 `;
 
@@ -65,8 +68,8 @@ const headerFooterContent = html`
         </p>
     </section>
     <footer>
-        <nimble-button appearance="ghost" class="cancel-button">Cancel</nimble-button>
-        <nimble-button appearance="outline">OK</nimble-button>
+        <nimble-button onclick="myNimbleDrawer.hide()" appearance="ghost" class="cancel-button">Cancel</nimble-button>
+        <nimble-button onclick="myNimbleDrawer.hide()" appearance="outline">OK</nimble-button>
     </footer>`;
 
 const content: { readonly [key in ExampleContentType]: ViewTemplate } = {
@@ -106,6 +109,13 @@ const metadata: Meta<DrawerArgs> = {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff/specs/'
+        },
+        actions: {
+            handles: [
+                // Actions addon does not support non-bubbling events like cancel:
+                // https://github.com/storybookjs/storybook/issues/17881
+                // 'cancel'
+            ]
         }
     },
     // prettier-ignore
