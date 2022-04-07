@@ -109,6 +109,13 @@ const metadata: Meta<DrawerArgs> = {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff/specs/'
+        },
+        actions: {
+            handles: [
+                // Actions addon does not support non-bubbling events like cancel:
+                // https://github.com/storybookjs/storybook/issues/17881
+                // 'cancel'
+            ]
         }
     },
     // prettier-ignore
