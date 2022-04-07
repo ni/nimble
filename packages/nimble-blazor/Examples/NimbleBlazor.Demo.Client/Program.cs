@@ -1,3 +1,4 @@
+#pragma warning disable CA1812
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using NimbleBlazor.Demo.Shared;
