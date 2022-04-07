@@ -50,6 +50,8 @@ export * from './directives/theme-provider/nimble-theme-provider.module';
 export * from './directives/toggle-button/nimble-toggle-button-control-value-accessor.directive';
 export * from './directives/toggle-button/nimble-toggle-button.directive';
 export * from './directives/toggle-button/nimble-toggle-button.module';
+export * from './directives/toolbar/nimble-toolbar.directive';
+export * from './directives/toolbar/nimble-toolbar.module';
 export * from './directives/tree-item/nimble-tree-item.directive';
 export * from './directives/tree-item/nimble-tree-item.module';
 export * from './directives/tree-view/nimble-tree-view.directive';

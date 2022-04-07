@@ -8,11 +8,20 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>CS8669</NoWarn>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>;CS0122</WarningsNotAsErrors>
+    <NoWarn>CA1716;LRT001;NU1701;CA1707;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
   </PropertyGroup>
-  <PropertyGroup>
-    <NoWarn>SA1201;SA1309;SA1649;SA1600;SA1200;LRT001;NI1001;NI1004;SA1633;NI1704;CA1716;CA1812;CA2007;SA1101;NI1800;SA0001</NoWarn>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningsNotAsErrors>;CS0122</WarningsNotAsErrors>
+    <NoWarn>CA1716;LRT001;NU1701;CA1707;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
+  </ItemGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

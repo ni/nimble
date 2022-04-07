@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 01 Apr 2022 18:39:28 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Apr 2022 19:57:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.7.0
+
+Thu, 07 Apr 2022 19:57:34 GMT
+
+### Minor changes
+
+- Add styling for indeterminate checkbox state (7282195+m-akinc@users.noreply.github.com)
+
+## 7.6.0
+
+Wed, 06 Apr 2022 19:38:49 GMT
+
+### Minor changes
+
+- nimble-drawer has cancelable 'cancel' event (triggered when dimming overlay is clicked, when modal = true) (20709258+msmithNI@users.noreply.github.com)
 
 ## 7.5.0
 

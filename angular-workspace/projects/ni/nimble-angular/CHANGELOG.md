@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 01 Apr 2022 19:42:41 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Apr 2022 19:57:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.5.1
+
+Thu, 07 Apr 2022 19:57:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.7.0
+
+## 4.5.0
+
+Thu, 07 Apr 2022 15:51:04 GMT
+
+### Minor changes
+
+- Add Angular support for nimble-toolbar (20542556+mollykreis@users.noreply.github.com)
+
+## 4.4.0
+
+Wed, 06 Apr 2022 19:38:49 GMT
+
+### Minor changes
+
+- nimble-drawer directive -  add 'preventDismiss' property binding; inherit 'cancel' output/event (triggered when dimming overlay is clicked, when modal = true) from nimble-drawer component (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v7.6.0
 
 ## 4.3.0
 

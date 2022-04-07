@@ -39,3 +39,7 @@ p, a {
 example-header {
     display: block;
 }
+
+nimble-toolbar::part(positioning-region) {
+    background-color: $ni-nimble-section-background-color;
+}
