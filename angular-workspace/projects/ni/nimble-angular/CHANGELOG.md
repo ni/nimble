@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 06 Apr 2022 19:38:49 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Apr 2022 15:51:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.5.0
+
+Thu, 07 Apr 2022 15:51:04 GMT
+
+### Minor changes
+
+- Add Angular support for nimble-toolbar (20542556+mollykreis@users.noreply.github.com)
 
 ## 4.4.0
 

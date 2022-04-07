@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 07 Apr 2022 15:51:04 GMT",
+      "tag": "@ni/nimble-angular_v4.5.0",
+      "version": "4.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "260d92f3cc78f4266fb5536a3eaafb7635840a36",
+            "comment": "Add Angular support for nimble-toolbar"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Apr 2022 19:38:49 GMT",
       "tag": "@ni/nimble-angular_v4.4.0",
       "version": "4.4.0",
