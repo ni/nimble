@@ -1,9 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Components
+@using NimbleBlazor.Components
 @namespace NimbleBlazor.Demo.Shared
 @inherits LayoutComponentBase
 
 <PageTitle>ExampleClientApp-Blazor</PageTitle>
 
+<NimbleThemeProvider Theme="Theme.Dark">
 <div class="root">
     <div class="header"></div>
     <ErrorBoundary @ref="ErrorBoundary">
@@ -15,3 +17,4 @@
         </ErrorContent>
     </ErrorBoundary>
 </div>
+</NimbleThemeProvider>>

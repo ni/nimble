@@ -25,7 +25,7 @@ public class NimbleButtonTests
     [InlineData(Appearance.Block, "block")]
     [InlineData(Appearance.Underline, "underline")]
     [InlineData(Appearance.Ghost, "ghost")]
-    public void TextFieldAppearance_AttributeIsSet(Appearance value, string expectedAttribute)
+    public void ButtonAppearance_AttributeIsSet(Appearance value, string expectedAttribute)
     {
         var button = RenderNimbleButton(value);
 
