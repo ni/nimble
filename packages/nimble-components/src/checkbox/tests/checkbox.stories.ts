@@ -7,6 +7,7 @@ import '..';
 interface CheckboxArgs {
     label: string;
     checked: boolean;
+    indeterminate: boolean;
     disabled: boolean;
 }
 
@@ -32,13 +33,21 @@ const metadata: Meta<CheckboxArgs> = {
         <nimble-checkbox
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
+            class="${x => (x.indeterminate ? 'indeterminate' : '')}"
         >
             ${x => x.label}
         </nimble-checkbox>
     `),
+    argTypes: {
+        indeterminate: {
+            description:
+                'Whether the checkbox is in the indeterminate (i.e. partially checked) state.'
+        }
+    },
     args: {
         label: 'Checkbox label',
         checked: false,
+        indeterminate: false,
         disabled: false
     }
 };
