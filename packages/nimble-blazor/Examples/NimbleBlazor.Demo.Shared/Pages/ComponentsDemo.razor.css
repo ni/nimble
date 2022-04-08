@@ -37,3 +37,7 @@ p, a {
 example-header {
     display: block;
 }
+
+::deep nimble-toolbar::part(positioning-region) {
+    background-color: var(--ni-nimble-section-background-color);
+}
