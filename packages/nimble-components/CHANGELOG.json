@@ -2,21 +2,6 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
-      "date": "Thu, 07 Apr 2022 19:57:34 GMT",
-      "tag": "@ni/nimble-components_v7.7.0",
-      "version": "7.7.0",
-      "comments": {
-        "minor": [
-          {
-            "author": "7282195+m-akinc@users.noreply.github.com",
-            "package": "@ni/nimble-components",
-            "commit": "6dc0cc1c1c909b17359877d4828da0e48df4e75d",
-            "comment": "Add styling for indeterminate checkbox state"
-          }
-        ]
-      }
-    },
-    {
       "date": "Wed, 06 Apr 2022 19:38:49 GMT",
       "tag": "@ni/nimble-components_v7.6.0",
       "version": "7.6.0",

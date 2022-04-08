@@ -32,32 +32,18 @@ const checkedStates: CheckedState[] = [
     ['Unchecked', false]
 ];
 
-type IndeterminateState = [string, boolean];
-const indeterminateStates: IndeterminateState[] = [
-    ['Indeterminate', true],
-    ['', false]
-];
-
 const component = (
     [disabledName, disabled]: DisabledState,
-    [checkedName, checked]: CheckedState,
-    [indeterminateName, indeterminate]: IndeterminateState
+    [checkedName, checked]: CheckedState
 ): ViewTemplate => html`<nimble-checkbox
     ?checked="${() => checked}"
     ?disabled="${() => disabled}"
-    class="${() => (indeterminate ? 'indeterminate' : '')} ${() => (checked ? 'checked' : '')}"
 >
-    ${checkedName} ${indeterminateName} ${disabledName}
+    ${checkedName} ${disabledName}
 </nimble-checkbox>`;
 
 export const checkboxThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            disabledStates,
-            checkedStates,
-            indeterminateStates
-        ])
-    )
+    themeWrapper(createMatrix(component, [disabledStates, checkedStates]))
 );
 
 export const hiddenCheckbox: Story = createRenderer(

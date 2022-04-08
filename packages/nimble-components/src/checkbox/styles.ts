@@ -83,44 +83,22 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
-    slot[name='checked-indicator'],
-    slot[name='indeterminate-indicator'] {
-        display: none;
-    }
-
     slot[name='checked-indicator'] svg {
         height: ${iconSize};
         width: ${iconSize};
         overflow: visible;
     }
 
-    :host(.checked:not(.indeterminate)) slot[name='checked-indicator'] {
-        display: contents;
-    }
-
     slot[name='checked-indicator'] path {
         fill: ${borderColor};
+        opacity: 0;
+    }
+
+    :host([aria-checked='true']) slot[name='checked-indicator'] path {
+        opacity: 1;
     }
 
     :host([disabled]) slot[name='checked-indicator'] path {
-        fill: rgba(${borderRgbPartialColor}, 0.3);
-    }
-
-    slot[name='indeterminate-indicator'] svg {
-        height: ${iconSize};
-        width: ${iconSize};
-        overflow: visible;
-    }
-
-    :host(.indeterminate) slot[name='indeterminate-indicator'] {
-        display: contents;
-    }
-
-    slot[name='indeterminate-indicator'] path {
-        fill: ${borderColor};
-    }
-
-    :host([disabled]) slot[name='indeterminate-indicator'] path {
         fill: rgba(${borderRgbPartialColor}, 0.3);
     }
 `;
