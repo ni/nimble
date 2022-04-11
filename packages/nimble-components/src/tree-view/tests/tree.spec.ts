@@ -181,4 +181,29 @@ describe('TreeView', () => {
             expect(model.root1.hasAttribute('expanded')).toBe(false);
         });
     });
+
+    describe('with `selectionMode` set to `none`', () => {
+        beforeEach(() => {
+            model.treeView.selectionMode = TreeViewSelectionMode.None;
+        });
+
+        it('when glyph is clicked tree group is expanded', async () => {
+            const rootExpandButton = model.root1.shadowRoot?.querySelector<HTMLElement>(
+                '.expand-collapse-button'
+            );
+
+            await clickElement(rootExpandButton!);
+            expect(model.root1.hasAttribute('expanded')).toBe(true);
+        });
+
+        it('when root item is clicked, it is not selected', async () => {
+            await clickElement(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+        });
+
+        it('when leaf item is clicked, it is not selected', async () => {
+            await clickElement(model.leaf3);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+        });
+    });
 });
