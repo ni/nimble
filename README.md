@@ -70,8 +70,8 @@ Follow the instructions in [CONTRIBUTING.md](/CONTRIBUTING.md) to modify the des
 
 <!--
 NOTE: To update the component status:
-    1. Update the value in the spreadsheet: https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/Eb1_BLjOOI1IsvUWay5VdAwB_G0a20kOZeFHWzSsvIXUBw?e=aGNMTg
-    2. Create a PR to update this README with the result in the spreadsheet
+    1. Update the value in the table on Sheet1 of the spreadsheet: https://nio365-my.sharepoint.com/:x:/g/personal/fred_visser_ni_com/Eb1_BLjOOI1IsvUWay5VdAwB_G0a20kOZeFHWzSsvIXUBw?e=aGNMTg
+    2. Create a PR to update this README with the entire contents of the generated 'M' column in the spreadsheet
 -->
 
 | Components             | Design | Issue | Web Components     | Angular Integration | Blazor Integration |
