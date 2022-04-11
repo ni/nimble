@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 11 Apr 2022 18:26:30 GMT",
+      "tag": "@ni/nimble-angular_v4.6.0",
+      "version": "4.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "4ba3df75f55818d421be039f2444f61001b3c637",
+            "comment": "Add indeterminate to Angular wrapper for checkbox"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Apr 2022 19:57:34 GMT",
       "tag": "@ni/nimble-angular_v4.5.1",
       "version": "4.5.1",
