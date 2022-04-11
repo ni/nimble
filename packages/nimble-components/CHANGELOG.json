@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 11 Apr 2022 21:45:54 GMT",
+      "tag": "@ni/nimble-components_v7.8.0",
+      "version": "7.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cdc640f741dca14e99aa118d491b26fd9ca60aed",
+            "comment": "Add 'none' selection mode to tree"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 08 Apr 2022 19:29:58 GMT",
       "tag": "@ni/nimble-components_v7.7.0",
       "version": "7.7.0",
