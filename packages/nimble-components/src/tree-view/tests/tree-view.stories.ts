@@ -27,9 +27,11 @@ navigator that uses a tree view to display folders and files, an item representi
 expanded to reveal the contents of the folder, which may be files, folders, or both.`;
 
 const selectionModeDescription = `
-<li>All: all items in the tree are selectable</li>
-<li>Leaves only: only the leaf items in the tree are selectable</li>
-<li>None: no items in the tree are selectable</li>
+<li>All: all items in the tree are selectable through user interaction</li>
+<li>Leaves only: only the leaf items in the tree are selectable through user interaction</li>
+<li>None: no items in the tree are selectable through user interaction</li>
+<br>
+Note: Changing the selection mode does not affect which items can be selected programmatically.
 `;
 
 const metadata: Meta<TreeArgs> = {
