@@ -61,6 +61,10 @@ export const styles: FoundationElementTemplate<ElementStyles, TreeItemOptions> =
                 background: ${fillHoverColor};
             }
 
+            :host([${groupSelectedAttribute}]) .positioning-region:hover {
+                background: ${fillHoverSelectedColor};
+            }
+
             :host(${focusVisible}) .positioning-region {
                 box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
                 outline: ${borderWidth} solid ${borderHoverColor};
@@ -91,15 +95,12 @@ export const styles: FoundationElementTemplate<ElementStyles, TreeItemOptions> =
                 font: inherit;
                 font-size: ${bodyFontSize};
                 user-select: none;
+                position: relative;
+                margin-inline-start: ${iconSize};
             }
 
             :host(${focusVisible}) .content-region {
                 outline: none;
-            }
-
-            :host(.nested) .content-region {
-                position: relative;
-                margin-inline-start: ${iconSize};
             }
 
             :host([disabled]) .content-region {
@@ -118,9 +119,6 @@ export const styles: FoundationElementTemplate<ElementStyles, TreeItemOptions> =
                 align-items: center;
                 cursor: pointer;
                 margin-left: 10px;
-            }
-
-            :host(.nested) .expand-collapse-button {
                 position: absolute;
             }
 
@@ -191,7 +189,7 @@ export const styles: FoundationElementTemplate<ElementStyles, TreeItemOptions> =
         new DirectionalStyleSheetBehavior(
             css`
                         ${/* ltr styles */ ''}
-                        :host(.nested) .expand-collapse-button {
+                        .expand-collapse-button {
                             left: var(
                                 --ni-private-expand-collapse-button-nested-width,
                                 calc(${iconSize} * -1)
@@ -208,7 +206,7 @@ export const styles: FoundationElementTemplate<ElementStyles, TreeItemOptions> =
                     `,
             css`
                         ${/* rtl styles */ ''}
-                        :host(.nested) .expand-collapse-button {
+                        .expand-collapse-button {
                             right: var(
                                 --ni-private-expand-collapse-button-nested-width,
                                 calc(${iconSize} * -1)

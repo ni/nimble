@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 11 Apr 2022 21:45:54 GMT and should not be manually modified.
+This log was last generated on Tue, 12 Apr 2022 19:28:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.8.2
+
+Tue, 12 Apr 2022 19:28:50 GMT
+
+### Patches
+
+- Remove nested specific styling from tree items (20542556+mollykreis@users.noreply.github.com)
+
+## 7.8.1
+
+Tue, 12 Apr 2022 18:29:27 GMT
+
+### Patches
+
+- Correct hover color of active tree group (20542556+mollykreis@users.noreply.github.com)
 
 ## 7.8.0
 
