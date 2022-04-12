@@ -52,6 +52,11 @@ describe('Nimble checkbox', () => {
             expect(directive.checked).toBeFalse();
             expect(nativeElement.checked).toBeFalse();
         });
+
+        it('has expected defaults for indeterminate', () => {
+            expect(directive.indeterminate).toBeFalse();
+            expect(nativeElement.indeterminate).toBeFalse();
+        });
     });
 
     describe('with template string values', () => {
@@ -59,7 +64,8 @@ describe('Nimble checkbox', () => {
             template: `
                 <nimble-checkbox #checkbox
                     disabled
-                    checked>
+                    checked
+                    indeterminate>
                 </nimble-checkbox>`
         })
         class TestHostComponent {
@@ -91,6 +97,11 @@ describe('Nimble checkbox', () => {
             expect(directive.checked).toBeTrue();
             expect(nativeElement.checked).toBeTrue();
         });
+
+        it('will use template string values for indeterminate', () => {
+            expect(directive.indeterminate).toBeTrue();
+            expect(nativeElement.indeterminate).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -98,7 +109,8 @@ describe('Nimble checkbox', () => {
             template: `
                 <nimble-checkbox #checkbox
                     [disabled]="disabled"
-                    [checked]="checked">
+                    [checked]="checked"
+                    [indeterminate]="indeterminate">
                 </nimble-checkbox>
             `
         })
@@ -107,6 +119,7 @@ describe('Nimble checkbox', () => {
             @ViewChild('checkbox', { read: ElementRef }) public elementRef: ElementRef<Checkbox>;
             public disabled = false;
             public checked = false;
+            public indeterminate = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -144,6 +157,17 @@ describe('Nimble checkbox', () => {
 
             expect(directive.checked).toBeTrue();
             expect(nativeElement.checked).toBeTrue();
+        });
+
+        it('can be configured with property binding for indeterminate', () => {
+            expect(directive.indeterminate).toBeFalse();
+            expect(nativeElement.indeterminate).toBeFalse();
+
+            fixture.componentInstance.indeterminate = true;
+            fixture.detectChanges();
+
+            expect(directive.indeterminate).toBeTrue();
+            expect(nativeElement.indeterminate).toBeTrue();
         });
     });
 
@@ -199,5 +223,7 @@ describe('Nimble checkbox', () => {
             expect(directive.checked).toBeTrue();
             expect(nativeElement.checked).toBeTrue();
         });
+
+        // indeterminate property does not have a matching attribute
     });
 });
