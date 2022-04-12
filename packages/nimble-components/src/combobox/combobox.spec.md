@@ -66,8 +66,8 @@ As mentioned above, if we introduce user-visible text, like "`Add`" to the `list
 
 ## Open Issues
 
-1) Should we create the initial `NimbleCombobox` without the new feature UX is requesting? **Proposal: YES**
+1) Should we create the initial `NimbleCombobox` without the new feature UX is requesting? **Proposal: YES. The proposed new feature should be additive and not disruptive of any existing behavior FAST provides out-of-the-box.**
 2) If/when we add the new UX feature of dynamically updating the dropdown options, how should we handle providing a means of a language appropriate version of "`Add`"?
     - Nimble localization (preferred?)?
     - A new property for specifying that text?
-3) If/when we add said UX feature, should having it enabled prohibit the filtering of items? **Proposal: No. Users can already enter arbitrary values even with filtering/autocomplete turned on, as the FAST `Combobox` provides this. Having the arbitrary value show up in the dropdown does not seem like it should change this behavior.**
+3) If/when we add said UX feature, should having it enabled prohibit the filtering of items? **Proposal: NO. Users can already enter arbitrary values even with filtering/autocomplete turned on, as the FAST `Combobox` provides this. Having the arbitrary value show up in the dropdown does not seem like it should change this behavior.**
