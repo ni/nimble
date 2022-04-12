@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 12 Apr 2022 18:29:27 GMT",
+      "tag": "@ni/nimble-components_v7.8.1",
+      "version": "7.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3bc5e68cddea2ac7bb3005c442e8df7febe5defb",
+            "comment": "Correct hover color of active tree group"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 Apr 2022 21:45:54 GMT",
       "tag": "@ni/nimble-components_v7.8.0",
       "version": "7.8.0",
