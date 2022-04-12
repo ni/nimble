@@ -19,31 +19,55 @@ A combobox is a dropdown selector that allows a user to type in the field (with 
 
 *Component Name* - `nimble-combobox`
 
-*Properties/Attributes* - unchanged
+*Properties/Attributes* - To achieve the UX descibed in the below 'User interaction' section, we will likely need to provide a new property that allows a user to enable that behavior. This might take the form of a boolean property called something like `addInputOption` (or `dynamicOptions`?), which would default to `false`.
+
+**Currently the spec specifically states that the combobox should _not_ filter items if a user is allows to enter freeform text. It's unclear why we would need this restriction.**
+
+Additionally, the UX for this new behavior calls for the inclusion of explicit "`Add`" text that precedes the user input value in the dropdown. This suggests the need for one of two possible features: 1) Nimble-supported localization or 2) a property allowing a user to specify the text used in the "Add" location for purposes of supporting other languages (could default to "Add"). While it's conceivable that a user might want some other text there than a language appropriate version of "Add", this seems like a highly specific API for what is likely a corner use-case. Between the two, a localization enabled Nimble seems preferable. However, this seems like it has a very high cost associated with it, as we don't even have a roadmap for what that will look like.
+
+**Proposal**:
+We can move forward with a base implementation of the Combobox that essentially just exposes what is currently in FAST now. This will allow for a user to input arbitrary values, but not offer the new UX of adding an option to the dropdown. Note that consumer applications would still be able to able to update the set of options in the dropdown _after_ the user-input value was committed.
 
 *Events* - unchanged
 
+Note: For a consumer application to respond to the event that a new option was created (when/if that feature is present), users can use the ['External observation'](https://www.fast.design/docs/fast-element/observables-and-state#external-observation) pattern to detect changes to the `options` property.
 
 ### Angular integration 
 
-*Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration.*
+The combobox will have an Angular directive in nimble-angular which allows binding to the combobox's properties and events. The combobox will inherit `FormAssociatedCombobox` from its parent, providing its forms functionality.
 
 ### Additional requirements
 
-*Review the following areas and add brief commentary on each. Highlight any gaps which might require additional work, bugs to be filed to FAST, or write "None" if there are no special requirements.*
+#### User interaction: 
 
-- *User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?*
-- *Styling: Does FAST provide APIs to achieve the styling in the visual design spec?*
-- *Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?*
-- *Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?*
-- *Tooling: Any new tools, updates to tools, code generation, etc?*
-- *Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc.*
-- *Globalization: special RTL handling, swapping of icons/visuals, localization, etc.*
-- *Performance: does the FAST component meet Nimble's performance requirements?*
-- *Security: Any requirements for security?*
+As laid out in the [design spec](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae/specs/), a new behavior being requested is that the combobox support the scenario where a user can enter a value that does not exist yet in the set of options, and have that option appear in the dropdown with specific styling indicating that it is a new option yet to be added.
 
----
+Something like the following:
+
+![Combobox Behavior](./NewComboboxBehavior.gif)
+
+Note that the option being typed _must_ be committed either through pressing `<Enter>` or through clicking on the option in the dropdown. Clicking away from the `Combobox` without doing either action should result in its value reverting to what it was before the user began typing.
+
+#### Styling considerations:
+
+Should we introduce the UX-desired behavior we will need to provide appropriate styling for the `list-option` while in a "temporary" state, where it also will host an icon, to ensure that everything is properly aligned.
+
+#### Testing: 
+
+We should be able to write unit tests for the new UX behavior if/when we implement it.
+
+#### Accessibility considerations:
+
+If we dynamically introduce a `ListOption` into the set for `Combobox`, we should be sure that it has the expected ARIA attributes applied to it. Note that the ARIA attributes applied to options can have ordering information, so we may need to manage them directly.
+
+#### Localization considerations:
+
+As mentioned above, if we introduce user-visible text, like "`Add`" to the `list-option`, it should likely be localizable.
 
 ## Open Issues
 
-*Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.*
+1) Should we create the initial `NimbleCombobox` without the new feature UX is requesting? **Proposal: YES**
+2) If/when we add the new UX feature of dynamically updating the dropdown options, how should we handle providing a means of a language appropriate version of "`Add`"?
+    - Nimble localization (preferred?)?
+    - A new property for specifying that text?
+3) If/when we add said UX feature, should having it enabled prohibit the filtering of items? **Proposal: No. Users can already enter arbitrary values even with filtering/autocomplete turned on, as the FAST `Combobox` provides this. Having the arbitrary value show up in the dropdown does not seem like it should change this behavior.**
