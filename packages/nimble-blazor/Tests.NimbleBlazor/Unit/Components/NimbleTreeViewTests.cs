@@ -24,6 +24,7 @@ public class NimbleTreeViewTests
     [Theory]
     [InlineData(SelectionMode.LeavesOnly, "leaves-only")]
     [InlineData(SelectionMode.All, "all")]
+    [InlineData(SelectionMode.None, "none")]
     public void TreeViewSelectionMode_AttributeIsSet(SelectionMode value, string expectedAttribute)
     {
         var treeView = RenderNimbleTreeView(value);

@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 01 Apr 2022 18:39:28 GMT and should not be manually modified.
+This log was last generated on Tue, 12 Apr 2022 19:28:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.8.2
+
+Tue, 12 Apr 2022 19:28:50 GMT
+
+### Patches
+
+- Remove nested specific styling from tree items (20542556+mollykreis@users.noreply.github.com)
+
+## 7.8.1
+
+Tue, 12 Apr 2022 18:29:27 GMT
+
+### Patches
+
+- Correct hover color of active tree group (20542556+mollykreis@users.noreply.github.com)
+
+## 7.8.0
+
+Mon, 11 Apr 2022 21:45:54 GMT
+
+### Minor changes
+
+- Add 'none' selection mode to tree (20542556+mollykreis@users.noreply.github.com)
+
+## 7.7.0
+
+Thu, 07 Apr 2022 19:57:34 GMT
+
+### Minor changes
+
+- Add styling for indeterminate checkbox state (7282195+m-akinc@users.noreply.github.com)
+
+## 7.6.0
+
+Wed, 06 Apr 2022 19:38:49 GMT
+
+### Minor changes
+
+- nimble-drawer has cancelable 'cancel' event (triggered when dimming overlay is clicked, when modal = true) (20709258+msmithNI@users.noreply.github.com)
 
 ## 7.5.0
 
