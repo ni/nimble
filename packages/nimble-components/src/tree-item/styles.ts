@@ -61,6 +61,10 @@ export const styles: FoundationElementTemplate<ElementStyles, TreeItemOptions> =
                 background: ${fillHoverColor};
             }
 
+            :host([${groupSelectedAttribute}]) .positioning-region:hover {
+                background: ${fillHoverSelectedColor};
+            }
+
             :host(${focusVisible}) .positioning-region {
                 box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
                 outline: ${borderWidth} solid ${borderHoverColor};
