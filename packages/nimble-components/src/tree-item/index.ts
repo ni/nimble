@@ -71,8 +71,9 @@ export class TreeItem extends FoundationTreeItem {
         }
 
         const leavesOnly = this.treeView?.selectionMode === TreeViewSelectionMode.LeavesOnly;
+        const all = this.treeView?.selectionMode === TreeViewSelectionMode.All;
         const hasChildren = this.hasChildTreeItems();
-        if ((leavesOnly && !hasChildren) || !leavesOnly) {
+        if ((leavesOnly && !hasChildren) || all) {
             const selectedTreeItem = this.getImmediateTreeItem(
                 this.treeView?.currentSelected
             );
@@ -83,7 +84,7 @@ export class TreeItem extends FoundationTreeItem {
 
             this.selected = true;
         } else {
-            // implicit hasChildren && leavesOnly, so only allow expand/collapse, not select
+            // implicit (hasChildren && leavesOnly) || none, so only allow expand/collapse, not select
             this.expanded = !this.expanded;
         }
 

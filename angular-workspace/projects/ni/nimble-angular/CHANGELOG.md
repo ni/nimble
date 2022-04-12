@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 07 Apr 2022 19:57:34 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Apr 2022 21:45:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.6.1
+
+Mon, 11 Apr 2022 21:45:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.8.0
+
+## 4.6.0
+
+Mon, 11 Apr 2022 18:26:30 GMT
+
+### Minor changes
+
+- Add indeterminate to Angular wrapper for checkbox (7282195+m-akinc@users.noreply.github.com)
 
 ## 4.5.1
 

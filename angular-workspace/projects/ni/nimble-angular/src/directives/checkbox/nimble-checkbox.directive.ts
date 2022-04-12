@@ -27,5 +27,13 @@ export class NimbleCheckboxDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'checked', toBooleanProperty(value));
     }
 
+    public get indeterminate(): boolean {
+        return this.elementRef.nativeElement.indeterminate;
+    }
+
+    @Input() public set indeterminate(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'indeterminate', toBooleanProperty(value));
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Checkbox>) {}
 }
