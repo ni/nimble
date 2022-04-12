@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 07 Apr 2022 19:57:34 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Apr 2022 21:45:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.8.0
+
+Mon, 11 Apr 2022 21:45:54 GMT
+
+### Minor changes
+
+- Add 'none' selection mode to tree (20542556+mollykreis@users.noreply.github.com)
 
 ## 7.7.0
 
