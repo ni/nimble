@@ -10,7 +10,7 @@ namespace NimbleBlazor.Tests.Unit.Components;
 public class NimbleThemeProviderTests
 {
     [Fact]
-    public void NimbleThemeProvider_Render_HasButtonMarkup()
+    public void NimbleThemeProvider_Render_HasThemeProviderMarkup()
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
@@ -27,9 +27,9 @@ public class NimbleThemeProviderTests
     [InlineData(Theme.Color, "color")]
     public void NimbleThemeProvider_ThemeIsSet(Theme value, string expectedAttribute)
     {
-        var button = RenderNimbleThemeProvider(value);
+        var themeProvider = RenderNimbleThemeProvider(value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        Assert.Contains(expectedAttribute, themeProvider.Markup);
     }
 
     [Theory]

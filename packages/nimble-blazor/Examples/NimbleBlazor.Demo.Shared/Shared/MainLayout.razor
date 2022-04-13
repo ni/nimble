@@ -6,15 +6,15 @@
 <PageTitle>ExampleClientApp-Blazor</PageTitle>
 
 <NimbleThemeProvider Theme="Theme.Dark">
-<div class="root">
-    <div class="header"></div>
-    <ErrorBoundary @ref="ErrorBoundary">
-        <ChildContent>
-            @Body
-        </ChildContent>
-        <ErrorContent Context="ex">
-                <p class="error">@ex.Message</p>
-        </ErrorContent>
-    </ErrorBoundary>
-</div>
+    <div class="root">
+        <div class="header"></div>
+        <ErrorBoundary @ref="ErrorBoundary">
+            <ChildContent>
+                @Body
+            </ChildContent>
+            <ErrorContent Context="ex">
+                    <p class="error">@ex.Message</p>
+            </ErrorContent>
+        </ErrorBoundary>
+    </div>
 </NimbleThemeProvider>>
