@@ -1,8 +1,105 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 24 Mar 2022 01:16:17 GMT and should not be manually modified.
+This log was last generated on Tue, 12 Apr 2022 19:28:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.6.3
+
+Tue, 12 Apr 2022 19:28:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.8.2
+
+## 4.6.2
+
+Tue, 12 Apr 2022 18:29:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.8.1
+
+## 4.6.1
+
+Mon, 11 Apr 2022 21:45:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.8.0
+
+## 4.6.0
+
+Mon, 11 Apr 2022 18:26:30 GMT
+
+### Minor changes
+
+- Add indeterminate to Angular wrapper for checkbox (7282195+m-akinc@users.noreply.github.com)
+
+## 4.5.1
+
+Thu, 07 Apr 2022 19:57:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.7.0
+
+## 4.5.0
+
+Thu, 07 Apr 2022 15:51:04 GMT
+
+### Minor changes
+
+- Add Angular support for nimble-toolbar (20542556+mollykreis@users.noreply.github.com)
+
+## 4.4.0
+
+Wed, 06 Apr 2022 19:38:49 GMT
+
+### Minor changes
+
+- nimble-drawer directive -  add 'preventDismiss' property binding; inherit 'cancel' output/event (triggered when dimming overlay is clicked, when modal = true) from nimble-drawer component (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v7.6.0
+
+## 4.3.0
+
+Fri, 01 Apr 2022 19:42:41 GMT
+
+### Minor changes
+
+- Complete the Angular directive for Nimble text field (7282195+m-akinc@users.noreply.github.com)
+
+## 4.2.7
+
+Fri, 01 Apr 2022 18:39:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.5.0
+
+## 4.2.6
+
+Thu, 31 Mar 2022 21:02:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.4.3
+
+## 4.2.5
+
+Thu, 31 Mar 2022 18:58:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.4.2
+
+## 4.2.4
+
+Thu, 31 Mar 2022 18:03:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.4.1
 
 ## 4.2.3
 

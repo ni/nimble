@@ -17,27 +17,6 @@ declare global {
  * A nimble-styed HTML select
  */
 export class Select extends FoundationSelect {
-    public override get value(): string {
-        return super.value;
-    }
-
-    public override set value(value: string) {
-        super.value = value;
-
-        // Workaround for https://github.com/microsoft/fast/issues/5139
-        // When the value property is set very early in the element's lifecycle (e.g. Angular value binding),
-        // the options property will not be set yet. As a workaround, we mark the listbox-option element with
-        // the selected attribute, which will set the initial value correctly.
-        if (value !== null && this.options.length === 0) {
-            const options = this.querySelectorAll('option,[role="option"]');
-            options.forEach(option => {
-                if (option.getAttribute('value') === value) {
-                    option.setAttribute('selected', '');
-                }
-            });
-        }
-    }
-
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {
@@ -52,6 +31,18 @@ export class Select extends FoundationSelect {
         super.connectedCallback();
         // Call setPositioning() after this.forcedPosition is initialized.
         this.setPositioning();
+    }
+
+    // Workaround for https://github.com/microsoft/fast/issues/5773
+    public override slottedOptionsChanged(
+        prev: Element[],
+        next: Element[]
+    ): void {
+        const value = this.value;
+        super.slottedOptionsChanged(prev, next);
+        if (value) {
+            this.value = value;
+        }
     }
 }
 
