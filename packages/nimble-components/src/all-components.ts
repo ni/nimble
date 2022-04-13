@@ -10,7 +10,7 @@ import './button';
 import './checkbox';
 import './drawer';
 import './icons/all-icons';
-import './listbox-option';
+import './list-option';
 import './menu';
 import './menu-item';
 import './number-field';

@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 12 Apr 2022 19:28:50 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Apr 2022 21:55:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.0.0
+
+Wed, 13 Apr 2022 21:55:47 GMT
+
+### Major changes
+
+- Changing nimble-listbox-option to nimble-list-option (26874831+atmgrifter00@users.noreply.github.com)
+- Bump @ni/nimble-components to v8.0.0
+
+## 4.6.4
+
+Wed, 13 Apr 2022 20:50:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.8.3
 
 ## 4.6.3
 
