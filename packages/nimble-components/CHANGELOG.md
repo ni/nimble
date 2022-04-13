@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 07 Apr 2022 19:57:34 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Apr 2022 20:50:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.8.3
+
+Wed, 13 Apr 2022 20:50:06 GMT
+
+### Patches
+
+- Adding nimble toolbar to allComponents (26874831+atmgrifter00@users.noreply.github.com)
+
+## 7.8.2
+
+Tue, 12 Apr 2022 19:28:50 GMT
+
+### Patches
+
+- Remove nested specific styling from tree items (20542556+mollykreis@users.noreply.github.com)
+
+## 7.8.1
+
+Tue, 12 Apr 2022 18:29:27 GMT
+
+### Patches
+
+- Correct hover color of active tree group (20542556+mollykreis@users.noreply.github.com)
+
+## 7.8.0
+
+Mon, 11 Apr 2022 21:45:54 GMT
+
+### Minor changes
+
+- Add 'none' selection mode to tree (20542556+mollykreis@users.noreply.github.com)
 
 ## 7.7.0
 
