@@ -6,10 +6,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { TreeView } from '../tree-view';
-import {
-    groupSelectedAttribute,
-    TreeViewSelectionMode
-} from '../tree-view/types';
+import { groupSelectedAttribute } from '../tree-view/types';
 import { styles } from './styles';
 
 declare global {
