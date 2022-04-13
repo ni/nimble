@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '..';
-import '../../listbox-option';
+import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 
@@ -39,9 +39,9 @@ const metadata: Meta<SelectArgs> = {
     render: createRenderer(html`
         <nimble-select ?disabled="${x => x.disabled}" position="${x => x.dropDownPosition}">
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-listbox-option value="${x => x.value}" ?disabled="${x => x.disabled}">
+                <nimble-list-option value="${x => x.value}" ?disabled="${x => x.disabled}">
                     ${x => x.label}
-                </nimble-listbox-option>
+                </nimble-list-option>
             `)}
         </nimble-select>
     `),
