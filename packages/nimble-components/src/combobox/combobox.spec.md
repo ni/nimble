@@ -36,6 +36,10 @@ Note: For a consumer application to respond to the event that a new option was c
 
 The combobox will have an Angular directive in nimble-angular which allows binding to the combobox's properties and events. The combobox will inherit `FormAssociatedCombobox` from its parent, providing its forms functionality.
 
+### Blazor integration
+
+The Nimble Blazor Combobox component should be able to follow closely to the implementation pattern laid out by the [Nimble Blazor Select component](https://github.com/ni/nimble/blob/427a364ab4aef337247433f25d0bda0583987f6d/packages/nimble-blazor/NimbleBlazor.Components/Components/NimbleSelect.razor.cs#L60).
+
 ### Additional requirements
 
 #### User interaction:
