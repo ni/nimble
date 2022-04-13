@@ -28,10 +28,6 @@ declare global {
 export class TreeItem extends FoundationTreeItem {
     private treeView: TreeView | null = null;
 
-    public constructor() {
-        super();
-    }
-
     public override connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('selected-change', this.handleSelectedChange);
