@@ -24,5 +24,6 @@ import './text-area';
 import './text-field';
 import './theme-provider';
 import './toggle-button';
+import './toolbar';
 import './tree-item';
 import './tree-view';
