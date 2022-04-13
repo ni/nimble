@@ -26,7 +26,7 @@ export const textCustomizationStory: Story = createRenderer(
         <nimble-number-field style="${customStyle}" value="42">Number field</nimble-number-field>
         <nimble-select style="${customStyle}">
             Inner text
-            <nimble-listbox-option> Nimble select item </nimble-listbox-option>
+            <nimble-list-option> Nimble select item </nimble-list-option>
         </nimble-select>
         <nimble-tabs>
             Inner text

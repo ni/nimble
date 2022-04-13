@@ -3,8 +3,8 @@
         <div class="user-settings-drawer">
             <h1>User settings</h1>
             <nimble-select class="theme-select" [ngModel]="theme" (ngModelChange)="themeSelectionChange($event)">
-                <nimble-listbox-option [value]="themes.Light">Light theme</nimble-listbox-option>
-                <nimble-listbox-option [value]="themes.Dark">Dark theme</nimble-listbox-option>
+                <nimble-list-option [value]="themes.Light">Light theme</nimble-list-option>
+                <nimble-list-option [value]="themes.Dark">Dark theme</nimble-list-option>
             </nimble-select>
             <nimble-button class="close-button" appearance="outline" (click)="closeButtonClicked()">Close</nimble-button>
         </div>
