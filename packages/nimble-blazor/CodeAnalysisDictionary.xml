@@ -7,6 +7,8 @@
 			<Word>enum</Word>
 			<Word>nullable</Word>
 			<Word>runtime</Word>
+			<Word>ltr</Word>
+			<Word>rtl</Word>
 		</Recognized>
 		<DiscreteExceptions>
 		</DiscreteExceptions>
