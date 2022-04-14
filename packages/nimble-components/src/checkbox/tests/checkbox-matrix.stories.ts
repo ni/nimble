@@ -45,7 +45,7 @@ const component = (
 ): ViewTemplate => html`<nimble-checkbox
     ?checked="${() => checked}"
     ?disabled="${() => disabled}"
-    class="${() => (indeterminate ? 'indeterminate' : '')} ${() => (checked ? 'checked' : '')}"
+    :indeterminate="${() => indeterminate}"
 >
     ${checkedName} ${indeterminateName} ${disabledName}
 </nimble-checkbox>`;

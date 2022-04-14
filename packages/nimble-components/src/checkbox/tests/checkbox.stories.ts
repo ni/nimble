@@ -33,7 +33,7 @@ const metadata: Meta<CheckboxArgs> = {
         <nimble-checkbox
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
-            class="${x => (x.indeterminate ? 'indeterminate' : '')}"
+            :indeterminate="${x => x.indeterminate}"
         >
             ${x => x.label}
         </nimble-checkbox>
