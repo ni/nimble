@@ -2,7 +2,7 @@
 
 namespace NimbleBlazor.Components;
 
-public partial class NimbleOption : ComponentBase
+public partial class NimbleListOption : ComponentBase
 {
     internal NimbleOptionContext? Context { get; private set; }
 
