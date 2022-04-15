@@ -189,8 +189,8 @@ export function createMatrix(
  * Wraps a given component template with a region for each of the available themes.
  */
 export const themeWrapper = (template: ViewTemplate): ViewTemplate => html`
-<div style="display: contents">
-    ${createMatrix(
+    <div style="display: contents">
+        ${createMatrix(
         ({ theme, value }: BackgroundState) => html`
                 <nimble-theme-provider theme="${theme}">
                     <div style="background-color: ${value}; padding:20px;">
@@ -200,7 +200,7 @@ export const themeWrapper = (template: ViewTemplate): ViewTemplate => html`
             `,
         [backgroundStates]
     )}
-</div>
+    </div>
 `;
 
 // A customized theme wrapper (not themeWrapper like the other controls) so we can create different stories for each theme, rather

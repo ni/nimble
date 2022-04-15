@@ -22,7 +22,9 @@ export const createRenderer = <TSource>(
     return (source: TSource): Node => {
         const fragment = renderViewTemplate(viewTemplate, source);
         if (fragment.childElementCount !== 1) {
-            throw new Error('Template must have a single top-level element containing the full story');
+            throw new Error(
+                'Template must have a single top-level element containing the full story'
+            );
         }
         const content = fragment.firstElementChild!;
         return content;
