@@ -8,7 +8,8 @@ const renderViewTemplate = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
     source: TSource
 ): DocumentFragment => {
-    const fragment = document.createDocumentFragment();
+    const template = document.createElement('template');
+    const fragment = template.content;
     viewTemplate.render(source, fragment);
     return fragment;
 };

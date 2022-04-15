@@ -13,6 +13,28 @@ const removeCommentNodes = node => {
     }
 };
 
+const removeBlankLines = html => html
+    .split('\n')
+    .filter(line => line.trim() !== '')
+    .join('\n');
+
+// A custom source transformer. See:
+// https://github.com/storybookjs/storybook/blob/next/addons/docs/docs/recipes.md#customizing-source-snippets
+const transformSource = source => {
+    if (source === '') {
+        return source;
+    }
+    const template = document.createElement('template');
+    template.innerHTML = source;
+    const content = template.content.firstElementChild;
+    // FAST inserts HTML comments for binding insertion points which look
+    // like <!--fast-11q2o9:1--> that we remove
+    removeCommentNodes(content);
+    const html = content.outerHTML;
+    const trimmedHTML = removeBlankLines(html);
+    return trimmedHTML;
+};
+
 export const parameters = {
     backgrounds: {
         default: defaultBackground.name,
@@ -27,23 +49,7 @@ export const parameters = {
         expanded: true
     },
     docs: {
-        transformSource: source => {
-            if (source === '') {
-                return source;
-            }
-            const template = document.createElement('template');
-            template.innerHTML = source;
-            const content = template.content.firstElementChild;
-            // FAST inserts HTML comments for binding insertion points which look
-            // like <!--fast-11q2o9:1--> that we remove
-            removeCommentNodes(content);
-            const html = content.outerHTML;
-            const trimmedHTML = html
-                .split('\n')
-                .filter(line => line.trim() !== '')
-                .join('\n');
-            return trimmedHTML;
-        }
+        transformSource
     }
 };
 
@@ -52,13 +58,15 @@ export const decorators = [
         const background = backgroundStates.find(
             ({ value }) => value === context.globals?.backgrounds?.value
         ) ?? defaultBackground;
+
         const tale = story();
-        if (tale instanceof Node) {
-            const nimbleThemeProvider = document.createElement('nimble-theme-provider');
-            nimbleThemeProvider.setAttribute('theme', background.theme);
-            nimbleThemeProvider.append(tale);
-            return nimbleThemeProvider;
+        if (tale instanceof HTMLElement === false) {
+            throw new Error('Expected story to render an HTML Element');
         }
-        throw new Error('Expected story to render as string or as a Node');
+
+        const nimbleThemeProvider = document.createElement('nimble-theme-provider');
+        nimbleThemeProvider.setAttribute('theme', background.theme);
+        nimbleThemeProvider.append(tale);
+        return nimbleThemeProvider;
     }
 ];
