@@ -41,7 +41,7 @@ const metadata: Meta<TextAreaArgs> = {
         <nimble-text-area
             appearance="${x => x.appearance}"
             placeholder="${x => x.placeholder}"
-            value="${x => x.value}"
+            :value="${x => x.value}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
             spellcheck="${x => x.spellcheck}"

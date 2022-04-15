@@ -1,4 +1,4 @@
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import {
@@ -16,6 +16,7 @@ import {
     standardPadding
 } from '../../theme-provider/design-tokens';
 import { DrawerLocation, DrawerState } from '../types';
+import type { Drawer } from '..';
 
 enum ExampleContentType {
     SimpleTextContent = 'SimpleTextContent',
@@ -36,20 +37,22 @@ interface DrawerArgs {
     preventDismiss: boolean;
     content: ExampleContentType;
     width: DrawerWidthOptions;
+    drawerRef: Drawer;
+    toggleDrawer: (x: Drawer) => void;
 }
 
-const simpleContent = html`
+const simpleContent = html<DrawerArgs>`
     <section>
         <p>
             This is a drawer which can slide in from either side of the screen
             and display custom content.
         </p>
-        <nimble-button onclick="myNimbleDrawer.hide()">Close</nimble-button>
+        <nimble-button @click="${x => x.drawerRef.hide()}">Close</nimble-button>
     </section>
 `;
 
 // prettier-ignore
-const headerFooterContent = html`
+const headerFooterContent = html<DrawerArgs>`
     <style>
         .cancel-button {
             margin-right: var(${standardPadding.cssCustomProperty});
@@ -68,11 +71,11 @@ const headerFooterContent = html`
         </p>
     </section>
     <footer>
-        <nimble-button onclick="myNimbleDrawer.hide()" appearance="ghost" class="cancel-button">Cancel</nimble-button>
-        <nimble-button onclick="myNimbleDrawer.hide()" appearance="outline">OK</nimble-button>
+        <nimble-button @click="${x => x.drawerRef.hide()}" appearance="ghost" class="cancel-button">Cancel</nimble-button>
+        <nimble-button @click="${x => x.drawerRef.hide()}" appearance="outline">OK</nimble-button>
     </footer>`;
 
-const content: { readonly [key in ExampleContentType]: ViewTemplate } = {
+const content: { readonly [key in ExampleContentType]: ViewTemplate<DrawerArgs> } = {
     [ExampleContentType.SimpleTextContent]: simpleContent,
     [ExampleContentType.HeaderContentFooter]: headerFooterContent
 };
@@ -120,8 +123,9 @@ const metadata: Meta<DrawerArgs> = {
     },
     // prettier-ignore
     render: createRenderer(html`
-    <div style="display:contents">
-        <nimble-drawer id="myNimbleDrawer"
+    <div class="code-hide-top-container">
+        <nimble-drawer
+            ${ref('drawerRef')}
             modal="${x => x.modal}"
             ?prevent-dismiss="${x => x.preventDismiss}"
             location="${x => x.location}"
@@ -132,7 +136,8 @@ const metadata: Meta<DrawerArgs> = {
         </nimble-drawer>
         <nimble-button
             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-            onclick="myNimbleDrawer.state = myNimbleDrawer.hidden ? '${DrawerState.Opening}' : '${DrawerState.Closing}'"
+            @click="${x => x.toggleDrawer(x.drawerRef)}"
+            class="code-hide"
         >
             Show/Hide Drawer (animated)
         </nimble-button>
@@ -192,6 +197,16 @@ const metadata: Meta<DrawerArgs> = {
                     [DrawerWidthOptions.FitContent]: 'fit-content'
                 }
             }
+        },
+        drawerRef: {
+            table: {
+                disable: true
+            }
+        },
+        toggleDrawer: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
@@ -200,7 +215,11 @@ const metadata: Meta<DrawerArgs> = {
         modal: 'true',
         preventDismiss: false,
         content: ExampleContentType.SimpleTextContent,
-        width: DrawerWidthOptions.Default
+        width: DrawerWidthOptions.Default,
+        drawerRef: undefined,
+        toggleDrawer: (x: Drawer): void => {
+            x.state = x.hidden ? DrawerState.Opening : DrawerState.Closing;
+        }
     }
 };
 

@@ -61,7 +61,7 @@ export const propertyNames: StoryObj<TokenArgs> = {
         }
     },
     render: createRenderer(html<TokenArgs>`
-    <div style="display: contents">
+    <div class="code-hide-top-container">
         <style>
             table {
                 font: var(${bodyFont.cssCustomProperty});

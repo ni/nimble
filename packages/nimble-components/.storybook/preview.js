@@ -1,7 +1,18 @@
 import '@ni/nimble-tokens/source/fonts.css';
+import './preview.css';
 import { backgroundStates } from '../dist/esm/utilities/tests/matrix';
 
 const [defaultBackground] = backgroundStates;
+
+const removeCodeHideNodes = node => {
+    if (node.hasChildNodes()) {
+        const nodes = Array.from(node.childNodes);
+        nodes.forEach(child => removeCodeHideNodes(child));
+    }
+    if (node instanceof HTMLElement && node.classList.contains('code-hide')) {
+        node.parentNode?.removeChild(node);
+    }
+};
 
 const removeCommentNodes = node => {
     if (node.hasChildNodes()) {
@@ -26,11 +37,14 @@ const transformSource = source => {
     }
     const template = document.createElement('template');
     template.innerHTML = source;
-    const content = template.content.firstElementChild;
+    const content = template.content;
     // FAST inserts HTML comments for binding insertion points which look
     // like <!--fast-11q2o9:1--> that we remove
     removeCommentNodes(content);
-    const html = content.outerHTML;
+    removeCodeHideNodes(content);
+    const dummyElement = document.createElement('div');
+    dummyElement.append(content);
+    const html = dummyElement.firstElementChild.classList.contains('code-hide-top-container') ? dummyElement.firstElementChild.innerHTML : dummyElement.innerHTML;
     const trimmedHTML = removeBlankLines(html);
     return trimmedHTML;
 };

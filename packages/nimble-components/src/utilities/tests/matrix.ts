@@ -189,7 +189,7 @@ export function createMatrix(
  * Wraps a given component template with a region for each of the available themes.
  */
 export const themeWrapper = (template: ViewTemplate): ViewTemplate => html`
-    <div style="display: contents">
+    <div class="code-hide-top-container">
         ${createMatrix(
         ({ theme, value }: BackgroundState) => html`
                 <nimble-theme-provider theme="${theme}">

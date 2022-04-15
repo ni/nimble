@@ -104,7 +104,7 @@ const heightSizingTestCase = (
 `;
 
 export const textAreaSizing: Story = createRenderer(html`
-    <div style="display: contents">
+    <div class="code-hide-top-container">
         ${createMatrix(widthSizingTestCase, [
         [
             ['No width', ''],
