@@ -29,10 +29,10 @@ export default metadata;
 // prettier-ignore
 const component = ([_, disabled]: DisabledState): ViewTemplate => html`
     <nimble-select ?disabled="${() => disabled}">
-        <nimble-listbox-option value="1">Option 1</nimble-listbox-option>
-        <nimble-listbox-option value="2" disabled>Option 2</nimble-listbox-option>
-        <nimble-listbox-option value="3">Option 3</nimble-listbox-option>
-        <nimble-listbox-option value="4" hidden>Option 4</nimble-listbox-option>
+        <nimble-list-option value="1">Option 1</nimble-list-option>
+        <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
+        <nimble-list-option value="3">Option 3</nimble-list-option>
+        <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
     </nimble-select>
 `;
 
@@ -43,7 +43,7 @@ export const selectThemeMatrix: Story = createRenderer(
 export const hiddenSelect: Story = createRenderer(
     hiddenWrapper(
         html`<nimble-select hidden>
-            <nimble-listbox-option value="1">Option 1</nimble-listbox-option>
+            <nimble-list-option value="1">Option 1</nimble-list-option>
         </nimble-select>`
     )
 );

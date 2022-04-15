@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 13 Apr 2022 20:50:06 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Apr 2022 23:09:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.0.1
+
+Wed, 13 Apr 2022 23:09:34 GMT
+
+### Patches
+
+- Enforce tree selection mode when using keyboard (20542556+mollykreis@users.noreply.github.com)
+
+## 8.0.0
+
+Wed, 13 Apr 2022 21:55:47 GMT
+
+### Major changes
+
+- Changing nimble-listbox-option to nimble-list-option (26874831+atmgrifter00@users.noreply.github.com)
 
 ## 7.8.3
 
