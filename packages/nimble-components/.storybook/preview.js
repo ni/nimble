@@ -4,6 +4,29 @@ import { backgroundStates } from '../dist/esm/utilities/tests/matrix';
 
 const [defaultBackground] = backgroundStates;
 
+const createFragmentFromHTML = html => {
+    const template = document.createElement('template');
+    template.innerHTML = html;
+    const fragment = template.content;
+    return fragment;
+};
+
+const createHTMLFromFragment = fragment => {
+    const dummyElement = document.createElement('div');
+    dummyElement.append(fragment);
+    const html = dummyElement.innerHTML;
+    return html;
+};
+
+const removeCodeHideTopContainerNode = node => {
+    const topContainer = node.firstElementChild;
+    if (topContainer.classList.contains('code-hide-top-container')) {
+        node.removeChild(topContainer);
+        const children = Array.from(topContainer.children);
+        children.forEach(child => node.append(child));
+    }
+};
+
 const removeCodeHideNodes = node => {
     if (node.hasChildNodes()) {
         const nodes = Array.from(node.childNodes);
@@ -35,16 +58,14 @@ const transformSource = source => {
     if (source === '') {
         return source;
     }
-    const template = document.createElement('template');
-    template.innerHTML = source;
-    const content = template.content;
+    const fragment = createFragmentFromHTML(source);
     // FAST inserts HTML comments for binding insertion points which look
     // like <!--fast-11q2o9:1--> that we remove
-    removeCommentNodes(content);
-    removeCodeHideNodes(content);
-    const dummyElement = document.createElement('div');
-    dummyElement.append(content);
-    const html = dummyElement.firstElementChild.classList.contains('code-hide-top-container') ? dummyElement.firstElementChild.innerHTML : dummyElement.innerHTML;
+    removeCommentNodes(fragment);
+    removeCodeHideNodes(fragment);
+    removeCodeHideTopContainerNode(fragment);
+    const html = createHTMLFromFragment(fragment);
+
     const trimmedHTML = removeBlankLines(html);
     return trimmedHTML;
 };
