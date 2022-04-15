@@ -76,8 +76,8 @@ export const baseColors: StoryObj = {
         controls: { hideNoControlsWarning: true }
     },
     render: createRenderer(html`
-        ${styleMarkup}
         <div class="container">
+            ${styleMarkup}
             ${repeat(() => nimbleBaseColors, html<NimbleColor>`
                 <div class="color-option">
                     <div

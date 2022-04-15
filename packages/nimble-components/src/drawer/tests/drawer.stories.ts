@@ -120,6 +120,7 @@ const metadata: Meta<DrawerArgs> = {
     },
     // prettier-ignore
     render: createRenderer(html`
+    <div style="display:contents">
         <nimble-drawer id="myNimbleDrawer"
             modal="${x => x.modal}"
             ?prevent-dismiss="${x => x.preventDismiss}"
@@ -135,6 +136,7 @@ const metadata: Meta<DrawerArgs> = {
         >
             Show/Hide Drawer (animated)
         </nimble-button>
+    </div>
     `),
     argTypes: {
         location: {

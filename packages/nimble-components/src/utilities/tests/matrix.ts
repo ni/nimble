@@ -188,16 +188,20 @@ export function createMatrix(
 /**
  * Wraps a given component template with a region for each of the available themes.
  */
-export const themeWrapper = (template: ViewTemplate): ViewTemplate => createMatrix(
-    ({ theme, value }: BackgroundState) => html`
-            <nimble-theme-provider theme="${theme}">
-                <div style="background-color: ${value}; padding:20px;">
-                    ${template}
-                </div>
-            </nimble-theme-provider>
-        `,
-    [backgroundStates]
-);
+export const themeWrapper = (template: ViewTemplate): ViewTemplate => html`
+<div style="display: contents">
+    ${createMatrix(
+        ({ theme, value }: BackgroundState) => html`
+                <nimble-theme-provider theme="${theme}">
+                    <div style="background-color: ${value}; padding:20px;">
+                        ${template}
+                    </div>
+                </nimble-theme-provider>
+            `,
+        [backgroundStates]
+    )}
+</div>
+`;
 
 // A customized theme wrapper (not themeWrapper like the other controls) so we can create different stories for each theme, rather
 // than having a single Theme Matrix story. This is useful for when the UI under test can't be tested multiple times on a

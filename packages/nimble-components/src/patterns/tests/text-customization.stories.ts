@@ -15,8 +15,9 @@ export default metadata;
 const customStyle = 'font-style: italic';
 
 // prettier-ignore
-export const textCustomizationStory: Story = createRenderer(
-    html`<nimble-breadcrumb-item style="${customStyle}">Breadcrumb item</nimble-breadcrumb-item>
+export const textCustomizationStory: Story = createRenderer(html`
+<div style="display: contents">
+    <nimble-breadcrumb-item style="${customStyle}">Breadcrumb item</nimble-breadcrumb-item>
         <nimble-button style="${customStyle}">Button</nimble-button>
         <nimble-checkbox style="${customStyle}">Checkbox</nimble-checkbox>
         <nimble-menu style="${customStyle}">
@@ -39,5 +40,5 @@ export const textCustomizationStory: Story = createRenderer(
         <nimble-tree-view style="${customStyle}">
             Inner text
             <nimble-tree-item style="${customStyle}">Tree item</nimble-tree-item>
-        </nimble-tree-view>`
-);
+        </nimble-tree-view>
+</div>`);

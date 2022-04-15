@@ -61,6 +61,7 @@ export const propertyNames: StoryObj<TokenArgs> = {
         }
     },
     render: createRenderer(html<TokenArgs>`
+    <div style="display: contents">
         <style>
             table {
                 font: var(${bodyFont.cssCustomProperty});
@@ -96,5 +97,6 @@ export const propertyNames: StoryObj<TokenArgs> = {
             `)}
             </tbody>
         </table>
+    </div>
     `)
 };
