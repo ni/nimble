@@ -24,7 +24,7 @@ export const createRenderer = <TSource>(
         const fragment = renderViewTemplate(viewTemplate, source);
         if (fragment.childElementCount !== 1) {
             throw new Error(
-                'Template must have a single top-level element containing the full story'
+                'Template must have a single top-level element containing the full story. Consider wrapping everything with a div with class "code-hide-top-container".'
             );
         }
         const content = fragment.firstElementChild!;
