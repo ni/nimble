@@ -75,7 +75,9 @@ const headerFooterContent = html<DrawerArgs>`
         <nimble-button @click="${x => x.drawerRef.hide()}" appearance="outline">OK</nimble-button>
     </footer>`;
 
-const content: { readonly [key in ExampleContentType]: ViewTemplate<DrawerArgs> } = {
+const content: {
+    readonly [key in ExampleContentType]: ViewTemplate<DrawerArgs>;
+} = {
     [ExampleContentType.SimpleTextContent]: simpleContent,
     [ExampleContentType.HeaderContentFooter]: headerFooterContent
 };
