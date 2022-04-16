@@ -3,7 +3,9 @@
   "version": "1.0.0-beta.0",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
-    "build": "dotnet publish -c Release",
+    "build": "npm run build:all && npm run build:client",
+    "build:all": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
+    "build:client": "dotnet publish --no-build -c Release Examples/NimbleBlazor.Demo.Client --output dist/blazor-client-app",
     "lint": "npm run lint:cs && npm run lint:js",
     "lint:cs": "dotnet format --verify-no-changes",
     "lint:js": "eslint .",

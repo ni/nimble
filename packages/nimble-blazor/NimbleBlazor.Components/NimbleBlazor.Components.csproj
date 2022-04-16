@@ -43,12 +43,7 @@
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
   <Target Name="CopyNimbleResources" BeforeTargets="BeforeBuild">
-  	<Exec Command="npm run copy-resources $(Configuration) $(ProjectDir)/wwwroot/" />
+    <Exec Command="npm run copy-resources $(Configuration) $(ProjectDir)/wwwroot/" />
   </Target>
-
 </Project>

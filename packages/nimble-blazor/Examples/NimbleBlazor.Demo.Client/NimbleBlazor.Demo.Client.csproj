@@ -14,8 +14,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <NoWarn>CS8669</NoWarn>
   </PropertyGroup>
+
   <PropertyGroup>
-    <NoWarn>SA1201;SA1309;SA1649;SA1600;SA1200;LRT001;NI1001;NI1004;SA1633;NI1704;CA1716;CA1812;CA2007;SA1101;NI1800;SA0001</NoWarn>
+    <NoWarn>SA1516;SA1201;SA1309;SA1649;SA1600;SA1200;LRT001;NI1001;NI1004;SA1633;NI1704;CA1716;CA1812;CA2007;SA1101;NI1800;SA0001</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
