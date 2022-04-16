@@ -1,7 +1,7 @@
 {
-  "type": "none",
-  "comment": "Add blazor link to storybook",
+  "type": "patch",
+  "comment": "Fix minified source map generation",
   "packageName": "@ni/nimble-components",
   "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
+  "dependentChangeType": "patch"
 }
