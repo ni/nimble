@@ -3,8 +3,14 @@
   "version": "1.0.0-beta.0",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
-    "copy-resources": "node build/copyNimbleResources.js",
-    "lint": "eslint ."
+    "build": "dotnet publish -c Release",
+    "lint": "npm run lint:cs && npm run lint:js",
+    "lint:cs": "dotnet format --verify-no-changes",
+    "lint:js": "eslint .",
+    "format": "npm run format:cs && npm run format:js",
+    "format:cs": "dotnet format",
+    "format:js": "eslint . --fix",
+    "copy-resources": "node build/copyNimbleResources.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +24,9 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
+  "files": [
+    "!*"
+  ],
   "devDependencies": {
     "@ni/eslint-config-javascript": "^3.1.0",
     "@ni/nimble-components": "*",
