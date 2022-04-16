@@ -35,10 +35,10 @@ const component = ([
     positionStyle
 ]: PositionState): ViewTemplate => html`
     <nimble-select open position="${() => position}" style="${() => positionStyle}">
-        <nimble-listbox-option value="1">Option 1</nimble-listbox-option>
-        <nimble-listbox-option value="2" disabled>Option 2</nimble-listbox-option>
-        <nimble-listbox-option value="3">Option 3</nimble-listbox-option>
-        <nimble-listbox-option value="4" hidden>Option 4</nimble-listbox-option>
+        <nimble-list-option value="1">Option 1</nimble-list-option>
+        <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
+        <nimble-list-option value="3">Option 3</nimble-list-option>
+        <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
     </nimble-select>
 `;
 

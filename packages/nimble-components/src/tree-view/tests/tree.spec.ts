@@ -4,6 +4,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { DOM, html, ref } from '@microsoft/fast-element';
 import { notebook16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { clickElement } from '../../utilities/tests/component';
 import { TreeViewSelectionMode } from '../types';
@@ -12,6 +13,7 @@ import type { TreeItem } from '../../tree-item';
 import type { Button } from '../../button';
 import '../../tree-item';
 import '../../button';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 class Model {
     public treeView!: TreeView;
@@ -46,6 +48,15 @@ async function setup(source: Model): Promise<Fixture<TreeView>> {
         </nimble-tree-view>`,
         { source }
     );
+}
+
+async function pressEnterOnItem(item: TreeItem): Promise<void> {
+    const enterKeyEvent = new KeyboardEvent('keydown', {
+        key: keyEnter,
+        bubbles: true
+    } as KeyboardEventInit);
+    item.dispatchEvent(enterKeyEvent);
+    await waitForUpdatesAsync();
 }
 
 describe('TreeView', () => {
@@ -138,6 +149,15 @@ describe('TreeView', () => {
             model.treeView.selectionMode = TreeViewSelectionMode.LeavesOnly;
         });
 
+        it('when glyph is clicked tree group is expanded', async () => {
+            const rootExpandButton = model.root1.shadowRoot?.querySelector<HTMLElement>(
+                '.expand-collapse-button'
+            );
+
+            await clickElement(rootExpandButton!);
+            expect(model.root1.hasAttribute('expanded')).toBe(true);
+        });
+
         it('root1 should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
             const expandedChange = jasmine.createSpy();
             model.treeView.addEventListener('expanded-change', expandedChange);
@@ -151,6 +171,33 @@ describe('TreeView', () => {
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(false);
             expect(expandedChange.calls.count()).toEqual(2);
+        });
+
+        it('root1 should not be selected after pressing Enter, but should be expanded (and fired expanded-change)', async () => {
+            const expandedChange = jasmine.createSpy();
+            model.treeView.addEventListener('expanded-change', expandedChange);
+
+            await pressEnterOnItem(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+            expect(model.root1.hasAttribute('expanded')).toBe(true);
+            expect(expandedChange.calls.count()).toEqual(1);
+
+            await pressEnterOnItem(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+            expect(model.root1.hasAttribute('expanded')).toBe(false);
+            expect(expandedChange.calls.count()).toEqual(2);
+        });
+
+        it('leaf should be selected by click', async () => {
+            await clickElement(model.root1); // expand root1
+            await clickElement(model.leaf1);
+            expect(model.leaf1.hasAttribute('selected')).toBe(true);
+        });
+
+        it('leaf should be selected by pressing Enter', async () => {
+            await clickElement(model.root1); // expand root1
+            await pressEnterOnItem(model.leaf1);
+            expect(model.leaf1.hasAttribute('selected')).toBe(true);
         });
 
         it('leaf should stay selected after parent is expanded\\collapsed', async () => {
@@ -175,10 +222,102 @@ describe('TreeView', () => {
             model.treeView.selectionMode = TreeViewSelectionMode.All;
         });
 
+        it('when glyph is clicked tree group is expanded', async () => {
+            const rootExpandButton = model.root1.shadowRoot?.querySelector<HTMLElement>(
+                '.expand-collapse-button'
+            );
+
+            await clickElement(rootExpandButton!);
+            expect(model.root1.hasAttribute('expanded')).toBe(true);
+        });
+
         it('root1 should be selected after being clicked', async () => {
             await clickElement(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(true);
             expect(model.root1.hasAttribute('expanded')).toBe(false);
+        });
+
+        it('root1 should be selected after pressing Enter', async () => {
+            await pressEnterOnItem(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(true);
+            expect(model.root1.hasAttribute('expanded')).toBe(false);
+        });
+
+        it('leaf should be selected after being clicked', async () => {
+            model.root1.expanded = true;
+            await clickElement(model.leaf1);
+            expect(model.leaf1.hasAttribute('selected')).toBe(true);
+        });
+
+        it('leaf should be selected after pressing Enter', async () => {
+            model.root1.expanded = true;
+            await pressEnterOnItem(model.leaf1);
+            expect(model.leaf1.hasAttribute('selected')).toBe(true);
+        });
+    });
+
+    describe('with `selectionMode` set to `none`', () => {
+        beforeEach(() => {
+            model.treeView.selectionMode = TreeViewSelectionMode.None;
+        });
+
+        it('when glyph is clicked tree group is expanded', async () => {
+            const rootExpandButton = model.root1.shadowRoot?.querySelector<HTMLElement>(
+                '.expand-collapse-button'
+            );
+
+            await clickElement(rootExpandButton!);
+            expect(model.root1.hasAttribute('expanded')).toBe(true);
+        });
+
+        it('root1 should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
+            const expandedChange = jasmine.createSpy();
+            model.treeView.addEventListener('expanded-change', expandedChange);
+
+            await clickElement(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+            expect(model.root1.hasAttribute('expanded')).toBe(true);
+            expect(expandedChange.calls.count()).toEqual(1);
+
+            await clickElement(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+            expect(model.root1.hasAttribute('expanded')).toBe(false);
+            expect(expandedChange.calls.count()).toEqual(2);
+        });
+
+        it('root1 should not be selected after pressing Enter, but should be expanded (and fired expanded-change)', async () => {
+            const expandedChange = jasmine.createSpy();
+            model.treeView.addEventListener('expanded-change', expandedChange);
+
+            await pressEnterOnItem(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+            expect(model.root1.hasAttribute('expanded')).toBe(true);
+            expect(expandedChange.calls.count()).toEqual(1);
+
+            await pressEnterOnItem(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+            expect(model.root1.hasAttribute('expanded')).toBe(false);
+            expect(expandedChange.calls.count()).toEqual(2);
+        });
+
+        it('when root item is clicked, it is not selected', async () => {
+            await clickElement(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+        });
+
+        it('when root item has Enter pressed, it is not selected', async () => {
+            await pressEnterOnItem(model.root1);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+        });
+
+        it('when leaf item is clicked, it is not selected', async () => {
+            await clickElement(model.leaf3);
+            expect(model.root1.hasAttribute('selected')).toBe(false);
+        });
+
+        it('when leaf item has Enter pressed, it is not selected', async () => {
+            await pressEnterOnItem(model.leaf1);
+            expect(model.leaf1.hasAttribute('selected')).toBe(false);
         });
     });
 });

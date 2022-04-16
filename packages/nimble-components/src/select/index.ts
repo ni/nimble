@@ -27,12 +27,6 @@ export class Select extends FoundationSelect {
         super.setPositioning();
     }
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        // Call setPositioning() after this.forcedPosition is initialized.
-        this.setPositioning();
-    }
-
     // Workaround for https://github.com/microsoft/fast/issues/5773
     public override slottedOptionsChanged(
         prev: Element[],

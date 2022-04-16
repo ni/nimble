@@ -3,7 +3,8 @@
 public enum SelectionMode
 {
     All,
-    LeavesOnly
+    LeavesOnly,
+    None
 }
 
 internal static class SelectionModeExtensions

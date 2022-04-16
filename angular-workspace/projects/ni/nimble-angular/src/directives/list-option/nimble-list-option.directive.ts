@@ -1,18 +1,18 @@
 import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2 } from '@angular/core';
 import { NgSelectOption } from '@angular/forms';
-import type { ListboxOption } from '@ni/nimble-components/dist/esm/listbox-option';
+import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
 import { NimbleSelectControlValueAccessorDirective } from '../select/nimble-select-control-value-accessor.directive';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
-export type { ListboxOption };
+export type { ListOption };
 
 /**
- * Directive to provide Angular integration for the listbox option.
+ * Directive to provide Angular integration for the list option.
  */
 @Directive({
-    selector: 'nimble-listbox-option'
+    selector: 'nimble-list-option'
 })
-export class NimbleListboxOptionDirective extends NgSelectOption {
+export class NimbleListOptionDirective extends NgSelectOption {
     public get disabled(): boolean {
         return this.elementRef.nativeElement.disabled;
     }
@@ -22,7 +22,7 @@ export class NimbleListboxOptionDirective extends NgSelectOption {
     }
 
     public constructor(
-        private readonly elementRef: ElementRef<ListboxOption>,
+        private readonly elementRef: ElementRef<ListOption>,
         private readonly renderer: Renderer2,
         @Inject(NimbleSelectControlValueAccessorDirective) @Optional() @Host() select: NimbleSelectControlValueAccessorDirective
     ) {

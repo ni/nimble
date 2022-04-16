@@ -26,6 +26,14 @@ children may be expanded or collapsed to show or hide the children. For example,
 navigator that uses a tree view to display folders and files, an item representing a folder can be
 expanded to reveal the contents of the folder, which may be files, folders, or both.`;
 
+const selectionModeDescription = `
+<li>All: all items in the tree are selectable through user interaction</li>
+<li>Leaves only: only the leaf items in the tree are selectable through user interaction</li>
+<li>None: no items in the tree are selectable through user interaction</li>
+<br>
+Note: Changing the selection mode does not affect which items can be selected programmatically.
+`;
+
 const metadata: Meta<TreeArgs> = {
     title: 'Tree View',
     parameters: {
@@ -36,6 +44,11 @@ const metadata: Meta<TreeArgs> = {
         },
         actions: {
             handles: ['expanded-change', 'selected-change']
+        }
+    },
+    argTypes: {
+        selectionMode: {
+            description: selectionModeDescription
         }
     }
 };
