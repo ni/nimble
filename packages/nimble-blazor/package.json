@@ -13,6 +13,7 @@
     "format:cs": "dotnet format",
     "format:js": "eslint . --fix",
     "pack": "cross-env-shell dotnet pack NimbleBlazor.Components -c Release -p:PackageVersion=$npm_package_version --output dist",
+    "test": "dotnet test -c Release",
     "copy-resources": "node build/copyNimbleResources.js"
   },
   "repository": {
