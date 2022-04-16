@@ -28,10 +28,6 @@ export default [
                 })
             ]
         },
-        plugins: [
-            sourcemaps(),
-            resolve(),
-            commonJS(),
-        ]
+        plugins: [sourcemaps(), resolve(), commonJS()]
     }
 ];
