@@ -5,14 +5,14 @@
   "scripts": {
     "build": "npm run build:all && npm run build:client",
     "build:all": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
-    "build:client": "dotnet publish --no-build -c Release Examples/NimbleBlazor.Demo.Client --output dist/blazor-client-app",
+    "build:client": "dotnet publish -c Release Examples/NimbleBlazor.Demo.Client --output dist/blazor-client-app",
     "lint": "npm run lint:cs && npm run lint:js",
     "lint:cs": "dotnet format --verify-no-changes",
     "lint:js": "eslint .",
     "format": "npm run format:cs && npm run format:js",
     "format:cs": "dotnet format",
     "format:js": "eslint . --fix",
-    "pack": "dotnet pack --no-build NimbleBlazor.Components -c Release",
+    "pack": "dotnet pack NimbleBlazor.Components -c Release",
     "copy-resources": "node build/copyNimbleResources.js"
   },
   "repository": {
