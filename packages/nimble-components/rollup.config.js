@@ -1,15 +1,7 @@
 import commonJS from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import sourcemaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
-import transformTaggedTemplate from 'rollup-plugin-transform-tagged-template';
-import {
-    transformCSSFragment,
-    transformHTMLFragment
-} from './build/transform-fragments';
-
-const parserOptions = {
-    sourceType: 'module'
-};
 
 // eslint-disable-next-line import/no-default-export
 export default [
@@ -20,7 +12,7 @@ export default [
             format: 'iife',
             sourcemap: true
         },
-        plugins: [resolve(), commonJS()]
+        plugins: [sourcemaps(), resolve(), commonJS()]
     },
     {
         input: 'dist/esm/all-components.js',
@@ -37,18 +29,9 @@ export default [
             ]
         },
         plugins: [
+            sourcemaps(),
             resolve(),
             commonJS(),
-            transformTaggedTemplate({
-                tagsToProcess: ['css'],
-                transformer: transformCSSFragment,
-                parserOptions
-            }),
-            transformTaggedTemplate({
-                tagsToProcess: ['html'],
-                transformer: transformHTMLFragment,
-                parserOptions
-            })
         ]
     }
 ];
