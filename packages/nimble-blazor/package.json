@@ -12,6 +12,7 @@
     "format": "npm run format:cs && npm run format:js",
     "format:cs": "dotnet format",
     "format:js": "eslint . --fix",
+    "pack": "dotnet pack --no-build NimbleBlazor.Components -c Release",
     "copy-resources": "node build/copyNimbleResources.js"
   },
   "repository": {
