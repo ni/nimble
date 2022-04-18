@@ -2,7 +2,11 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
-import { createMatrix, sharedMatrixParameters, themeWrapper } from '../../utilities/tests/matrix';
+import {
+    createMatrix,
+    sharedMatrixParameters,
+    themeWrapper
+} from '../../utilities/tests/matrix';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
