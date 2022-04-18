@@ -2,12 +2,12 @@ import type { Story, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import { standardPadding } from '../../theme-provider/design-tokens';
+import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 
 const metadata: Meta = {
     title: 'Tests/Text Customization',
     parameters: {
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        ...sharedMatrixParameters()
     }
 };
 

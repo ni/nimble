@@ -5,7 +5,8 @@ import {
     disabledStates,
     DisabledState,
     createMatrix,
-    themeWrapper
+    themeWrapper,
+    sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import { createRenderer } from '../../utilities/tests/storybook';
 import '..';
@@ -19,8 +20,7 @@ const metadata: Meta = {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs/'
         },
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        ...sharedMatrixParameters()
     }
 };
 

@@ -15,15 +15,15 @@ import {
     SelectedState,
     selectedStates,
     IconVisibleState,
-    iconVisibleStates
+    iconVisibleStates,
+    sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',
     parameters: {
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        ...sharedMatrixParameters()
     }
 };
 

@@ -1,6 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
+import { createMatrix, sharedMatrixParameters, themeWrapper } from '../../utilities/tests/matrix';
 
 import '../../icons/check';
 import { createRenderer } from '../../utilities/tests/storybook';
@@ -11,8 +11,7 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 const metadata: Meta = {
     title: 'Tests/Icon',
     parameters: {
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        ...sharedMatrixParameters()
     }
 };
 

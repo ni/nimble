@@ -1,6 +1,17 @@
 import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
 import { Theme } from '../../theme-provider/types';
 
+export const sharedMatrixParameters = () => ({
+    controls: { hideNoControlsWarning: true },
+    a11y: { disabled: true },
+    docs: {
+        source: {
+            code: null
+        },
+        transformSource: (source: string): string => source
+    }
+} as const);
+
 export const backgroundStates = [
     {
         name: `"${Theme.Light}" theme on white`,

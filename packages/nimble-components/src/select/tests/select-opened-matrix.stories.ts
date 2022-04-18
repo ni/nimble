@@ -4,6 +4,7 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 import {
     backgroundStates,
+    sharedMatrixParameters,
     singleThemeWrapper
 } from '../../utilities/tests/matrix';
 import '..';
@@ -16,8 +17,7 @@ const metadata: Meta = {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/c098395e-30f8-4bd4-b8c5-394326b59919/specs'
         },
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        ...sharedMatrixParameters()
     }
 };
 
