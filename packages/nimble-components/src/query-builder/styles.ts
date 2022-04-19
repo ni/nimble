@@ -10,9 +10,15 @@ export const styles = css`
         width: 100%;
     }
 
+    .nested-rule-set {
+        padding: ${standardPadding};
+        padding-right: 0px;
+    }
+
     .rule-row {
         display: flex;
         padding: ${standardPadding};
+        padding-right: 0px;
         gap: ${smallPadding};
     }
 

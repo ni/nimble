@@ -15,7 +15,7 @@ declare global {
  * A nimble-styled HTML query builder
  */
 export class QueryBuilder extends FoundationElement {
-    private fields: Field[] = [];
+    public readonly fields: Field[] = [];
     public filterFields: Field[] = [];
     public entities: Entity[] = [];
 
@@ -122,6 +122,11 @@ export class QueryBuilder extends FoundationElement {
 
     public changeCondition(isOrCondition: boolean, ruleSet: RuleSet): void {
         ruleSet.condition = isOrCondition ? 'or' : 'and';
+    }
+
+    public isRuleSet(ruleOrRuleSet: RuleSet | Rule): boolean {
+        // eslint-disable-next-line no-prototype-builtins
+        return ruleOrRuleSet.hasOwnProperty('rules');
     }
 
     // ----------OnChanges Implementation----------
@@ -361,12 +366,11 @@ export class QueryBuilder extends FoundationElement {
         this.data = JSON.parse(JSON.stringify(this.data));
     }
 
-    public removeRule(rule: Rule, passedParent?: RuleSet): void {
+    public removeRule(rule: Rule, parent: RuleSet): void {
         if (this.disabled) {
             return;
         }
 
-        const parent = passedParent || this.data;
         parent.rules = parent.rules.filter(r => r !== rule);
         this.forceRefresh();
 
@@ -397,6 +401,8 @@ export class QueryBuilder extends FoundationElement {
         if (this.disabled) {
             return;
         }
+
+        debugger;
 
         const ruleset = passedRuleset || this.data;
         const parent = passedParent || this.parentValue;
