@@ -1,5 +1,3 @@
-import { observable } from '@microsoft/fast-element';
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export enum FieldType {
     String = 'string',
@@ -52,54 +50,8 @@ export interface LocalRuleMeta {
     invalid: boolean;
 }
 
-export interface EntityMap {
-    [key: string]: Entity;
-}
-
-export interface Entity {
-    name: string;
-    value?: string;
-    defaultField?: any;
-}
-
-// export interface QueryBuilderClassNames {
-//     arrowIconButton?: string;
-//     arrowIcon?: string;
-//     removeIcon?: string;
-//     addIcon?: string;
-//     button?: string;
-//     buttonGroup?: string;
-//     removeButton?: string;
-//     removeButtonSize?: string;
-//     switchRow?: string;
-//     switchGroup?: string;
-//     switchLabel?: string;
-//     switchRadio?: string;
-//     switchControl?: string;
-//     rightAlign?: string;
-//     transition?: string;
-//     collapsed?: string;
-//     treeContainer?: string;
-//     tree?: string;
-//     row?: string;
-//     connector?: string;
-//     rule?: string;
-//     ruleSet?: string;
-//     invalidRuleSet?: string;
-//     emptyWarning?: string;
-//     fieldControl?: string;
-//     fieldControlSize?: string;
-//     entityControl?: string;
-//     entityControlSize?: string;
-//     operatorControl?: string;
-//     operatorControlSize?: string;
-//     inputControl?: string;
-//     inputControlSize?: string;
-// }
-
 export interface QueryBuilderConfig {
     fields: FieldMap;
-    entities?: EntityMap;
     allowEmptyRulesets?: boolean;
     getOperators?: (fieldName: string, field: Field) => string[];
     getInputType?: (field: string, operator: string) => string;
@@ -108,65 +60,4 @@ export interface QueryBuilderConfig {
     calculateFieldChangeValue?: (currentField: Field,
         nextField: Field,
         currentValue: any) => any;
-}
-
-export interface SwitchGroupContext {
-    onChange: (conditionValue: string) => void;
-    getDisabledState: () => boolean;
-    $implicit: RuleSet;
-}
-
-export interface EmptyWarningContext {
-    getDisabledState: () => boolean;
-    message: string;
-    $implicit: RuleSet;
-}
-
-export interface ArrowIconContext {
-    getDisabledState: () => boolean;
-    $implicit: RuleSet;
-}
-
-export interface EntityContext {
-    onChange: (entityValue: string, rule: Rule) => void;
-    getDisabledState: () => boolean;
-    entities: Entity[];
-    $implicit: Rule;
-}
-
-export interface FieldContext {
-    onChange: (fieldValue: string, rule: Rule) => void;
-    getFields: (entityName: string) => void;
-    getDisabledState: () => boolean;
-    fields: Field[];
-    $implicit: Rule;
-}
-
-export interface OperatorContext {
-    onChange: () => void;
-    getDisabledState: () => boolean;
-    operators: string[];
-    $implicit: Rule;
-}
-
-export interface InputContext {
-    onChange: () => void;
-    getDisabledState: () => boolean;
-    options: Option[];
-    field: Field;
-    $implicit: Rule;
-}
-
-export interface ButtonGroupContext {
-    addRule: () => void;
-    addRuleSet: () => void;
-    removeRuleSet: () => void;
-    getDisabledState: () => boolean;
-    $implicit: RuleSet;
-}
-
-export interface RemoveButtonContext {
-    removeRule: (rule: Rule) => void;
-    getDisabledState: () => boolean;
-    $implicit: Rule;
 }
