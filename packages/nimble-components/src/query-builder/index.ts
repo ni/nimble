@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { ButtonOptions, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { attr, observable } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
-import { Field, Entity, RuleSet, QueryBuilderConfig, FieldType, Rule } from './interfaces';
+import { Option, Field, RuleSet, QueryBuilderConfig, FieldType, Rule } from './interfaces';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,9 +16,8 @@ declare global {
  */
 export class QueryBuilder extends FoundationElement {
     public fields: Field[] = [];
-    public entities: Entity[] = [];
 
-    public defaultOperatorMap: { [key: string]: string[] } = {
+    private readonly defaultOperatorMap: { [key: string]: string[] } = {
         string: ['=', '!=', 'contains', 'like'],
         number: ['=', '!=', '>', '>=', '<', '<='],
         time: ['=', '!=', '>', '>=', '<', '<='],
@@ -57,14 +56,14 @@ export class QueryBuilder extends FoundationElement {
                     name: 'First field name',
                     type: FieldType.Boolean,
                     value: 'myFirstBool',
-                    defaultValue: 'false',
+                    defaultValue: false,
                     operators: ['==', '!=']
                 },
                 mySecondBool: {
                     name: 'Second field name',
                     type: FieldType.Boolean,
                     value: 'mySecondBool',
-                    defaultValue: 'false',
+                    defaultValue: false,
                     operators: ['==', '!='],
                     defaultOperator: '!='
                 },
@@ -72,9 +71,33 @@ export class QueryBuilder extends FoundationElement {
                     name: 'String property',
                     type: FieldType.String,
                     value: 'stringValue',
-                    defaultValue: 'abc',
+                    defaultValue: '',
                     operators: ['==', '!=', 'contains', 'does not contain', 'is null', 'is not null'],
                     nullable: true
+                },
+                numericValue: {
+                    name: 'Number property',
+                    type: FieldType.Number,
+                    value: 'numericValue',
+                    defaultValue: 0,
+                    operators: ['==', '!=', '>', '<']
+                },
+                categoryValue: {
+                    name: 'Enum property',
+                    type: FieldType.Category,
+                    value: 'categoryValue',
+                    defaultValue: '',
+                    operators: ['==', '!='],
+                    options: [{
+                        name: 'First option',
+                        value: 'option1'
+                    }, {
+                        name: 'Second option',
+                        value: 'option2'
+                    }, {
+                        name: 'Third option',
+                        value: 'option3'
+                    }]
                 }
             }
         });
@@ -157,6 +180,89 @@ export class QueryBuilder extends FoundationElement {
         return this.data;
     }
 
+    public get linqString(): string {
+        return this.getLinqStringForRuleSet(this.data);
+    }
+
+    private getLinqStringForRuleSet(ruleSet: RuleSet): string {
+        const operator = ruleSet.condition === 'and' ? ' && ' : ' || ';
+        const childrenLinqArray = ruleSet.rules.map(child => {
+            let linqString: string;
+            if (this.isRuleSet(child)) {
+                linqString = this.getLinqStringForRuleSet(child as RuleSet);
+            } else {
+                linqString = this.getLinqStringForRule(child as Rule);
+            }
+            return `(${linqString})`;
+        });
+
+        return childrenLinqArray.join(operator);
+    }
+
+    private getLinqStringForRule(rule: Rule): string {
+        const fieldObject = this.config.fields[rule.field]!;
+
+        switch (fieldObject.type) {
+            case FieldType.String:
+                return this.getLinqStringForStringProperty(rule.field, rule.operator, rule.value);
+            case FieldType.Boolean:
+                return this.getLinqStringForBooleanProperty(rule.field, rule.operator, rule.value);
+            case FieldType.Category:
+                return this.getLinqStringForStringProperty(rule.field, rule.operator, rule.value);
+            case FieldType.Number:
+                return this.getLinqStringForNumberProperty(rule.field, rule.operator, rule.value);
+            default:
+                return 'true';
+        }
+    }
+
+    private getLinqStringForStringProperty(fieldName: string, operator: string, value: string): string {
+        switch (operator) {
+            case '==':
+                return `${fieldName} = ${value}`;
+            case '!=':
+                return `${fieldName} != ${value}`;
+            case 'contains':
+                return `${fieldName}.Contains(${value})`;
+            case 'does not contain':
+                return `!${fieldName}.Contains(${value})`;
+            case 'is null':
+                return `string.IsNullOrEmpty(${fieldName})`;
+            case 'is not null':
+                return `!string.IsNullOrEmpty(${fieldName})`;
+            default:
+                return 'true';
+        }
+    }
+
+    private getLinqStringForBooleanProperty(fieldName: string, operator: string, value: boolean): string {
+        const stringValue = value ? 'true' : 'false';
+
+        switch (operator) {
+            case '==':
+                return `${fieldName} = ${stringValue}`;
+            case '!=':
+                return `${fieldName} != ${stringValue}`;
+            default:
+                return 'true';
+        }
+    }
+
+    private getLinqStringForNumberProperty(fieldName: string, operator: string, value: number): string {
+        switch (operator) {
+            case '==':
+                return `${fieldName} = ${value}`;
+            case '!=':
+                return `${fieldName} != ${value}`;
+            case '<':
+                return `${fieldName} < ${value}`;
+            case '>':
+                return `${fieldName} > ${value}`;
+            default:
+                return 'true';
+        }
+    }
+
     // set value(value: RuleSet) {
     // // When component is initialized without a formControl, null is passed to value
     //     this.data = value || { condition: 'and', rules: [] };
@@ -204,6 +310,15 @@ export class QueryBuilder extends FoundationElement {
     //     const templates = this.parentInputTemplates || this.inputTemplates;
     //     return templates.find(item => item.queryInputType === type);
     // }
+
+    public getOptions(field: string): Option[] {
+        const fieldObject = this.config.fields[field];
+        if (fieldObject) {
+            return fieldObject.options!;
+        }
+
+        return [];
+    }
 
     public getOperators(field: string): string[] {
         if (this.operatorsCache[field]) {

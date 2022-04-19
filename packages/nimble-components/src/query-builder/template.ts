@@ -1,6 +1,43 @@
 import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
 import type { QueryBuilder } from '.';
-import { Field, FieldType, Rule, RuleSet } from './interfaces';
+import { Field, FieldType, Rule, RuleSet, Option } from './interfaces';
+
+const booleanRuleTemplate: (queryBuilder: QueryBuilder) => ViewTemplate<Rule> = (queryBuilder: QueryBuilder) => html<Rule>`
+    <nimble-checkbox
+        ?disabled="${() => queryBuilder.disabled}"
+        ?checked="${rule => rule.value}"
+        @change="${(rule: Rule, c) => queryBuilder.changeInput(c.event.target.checked, rule)}"
+    ></nimble-checkbox>
+`;
+
+const stringRuleTemplate: (queryBuilder: QueryBuilder) => ViewTemplate<Rule> = (queryBuilder: QueryBuilder) => html<Rule>`
+    <nimble-text-field
+        ?disabled="${() => queryBuilder.disabled}"
+        @change="${(rule: Rule, c) => queryBuilder.changeInput(c.event.target.value, rule)}"
+        current-value="${rule => rule.value}"
+    >
+    </nimble-text-field>
+`;
+
+const numberRuleTemplate: (queryBuilder: QueryBuilder) => ViewTemplate<Rule> = (queryBuilder: QueryBuilder) => html<Rule>`
+    <nimble-number-field
+        ?disabled="${() => queryBuilder.disabled}"
+        @change="${(rule: Rule, c) => queryBuilder.changeInput(c.event.target.value, rule)}"
+        current-value="${rule => rule.value}"
+    >
+    </nimble-number-field>
+`;
+
+const categoryRuleTemplate: (queryBuilder: QueryBuilder) => ViewTemplate<Rule> = (queryBuilder: QueryBuilder) => html<Rule>`
+    <nimble-select
+        ?disabled="${() => queryBuilder.disabled}"
+        @change="${(rule: Rule, c) => queryBuilder.changeInput(c.event.target.value, rule)}"
+        current-value="${rule => rule.value}"
+    >
+        ${repeat(rule => queryBuilder.getOptions(rule.field), html<Option>`
+            <nimble-list-option value="${o => o.value}">${o => o.name}</nimble-list-option>`)}
+    </nimble-select>
+`;
 
 const ruleTemplate: (queryBuilder: QueryBuilder, parentRuleSet: RuleSet) => ViewTemplate<Rule> = (queryBuilder: QueryBuilder, parentRuleSet: RuleSet) => html<Rule>`
     <div class="rule-row">
@@ -11,8 +48,10 @@ const ruleTemplate: (queryBuilder: QueryBuilder, parentRuleSet: RuleSet) => View
             ${repeat(rule => queryBuilder.getOperators(rule.field), html`<nimble-list-option value="${o => o}">${o => o}</nimble-list-option>`)}
         </nimble-select>
 
-        ${when(rule => (queryBuilder.getInputType(rule.field, rule.operator) === FieldType.Boolean), html`<nimble-checkbox ?disabled="${() => queryBuilder.disabled}" @change="${(rule: Rule, c) => queryBuilder.changeInput(c.event.target.checked, rule)}"></nimble-checkbox>`)}
-        ${when(rule => (queryBuilder.getInputType(rule.field, rule.operator) === FieldType.String), html`<nimble-text-field ?disabled="${() => queryBuilder.disabled}" @change="${(rule: Rule, c) => queryBuilder.changeInput(c.event.target.value, rule)}"></nimble-text-field>`)}
+        ${when(rule => (queryBuilder.getInputType(rule.field, rule.operator) === FieldType.Boolean), booleanRuleTemplate(queryBuilder))}
+        ${when(rule => (queryBuilder.getInputType(rule.field, rule.operator) === FieldType.String), stringRuleTemplate(queryBuilder))}
+        ${when(rule => (queryBuilder.getInputType(rule.field, rule.operator) === FieldType.Number), numberRuleTemplate(queryBuilder))}
+        ${when(rule => (queryBuilder.getInputType(rule.field, rule.operator) === FieldType.Category), categoryRuleTemplate(queryBuilder))}
 
         <div class="button-container">
             <nimble-button ?disabled="${() => queryBuilder.disabled}" @click="${rule => (queryBuilder.removeRule(rule, parentRuleSet))}" content-hidden>
@@ -58,7 +97,7 @@ export const template = html<QueryBuilder>`
                 <span slot="unchecked-message">And</span>
             </nimble-switch>
             <div class="button-container">
-                <nimble-button ?disabled="${qb => qb.disabled}" @click="${qb => qb.addRule()}">Add rule</nimble-button>
+                <nimble-button ?disabled="${qb => qb.disabled}" @click="${qb => qb.addRule(qb.data)}">Add rule</nimble-button>
                 ${when(qb => qb.allowRuleset, html`<nimble-button ?disabled="${qb => qb.disabled}" @click="${qb => qb.addRuleSet()}">Add ruleset</nimble-button>`)}
             </div>
         </div>
