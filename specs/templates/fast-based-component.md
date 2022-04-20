@@ -33,6 +33,10 @@
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration.*
 
+### Blazor integration 
+
+*Describe the plan for Blazor support, including any specific implementation concerns regarding [Blazor EditForm](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-6.0) integration.*
+
 ### Additional requirements
 
 *Review the following areas and add brief commentary on each. Highlight any gaps which might require additional work, bugs to be filed to FAST, or write "None" if there are no special requirements.*
