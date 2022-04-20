@@ -2,6 +2,171 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 20 Apr 2022 18:13:39 GMT",
+      "tag": "@ni/nimble-components_v8.0.1",
+      "version": "8.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ba9f084fb6df75ea9db7e0c9abf38c23c4e17892",
+            "comment": "Adding Combobox spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Apr 2022 23:09:34 GMT",
+      "tag": "@ni/nimble-components_v8.0.1",
+      "version": "8.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3e02a7634d890181ce02bbf307b70e84135c8821",
+            "comment": "Enforce tree selection mode when using keyboard"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Apr 2022 21:55:47 GMT",
+      "tag": "@ni/nimble-components_v8.0.0",
+      "version": "8.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3fde428b4f5d9b3b9f7c7703d43ac933098e11c7",
+            "comment": "Changing nimble-listbox-option to nimble-list-option"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Apr 2022 20:50:06 GMT",
+      "tag": "@ni/nimble-components_v7.8.3",
+      "version": "7.8.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "31d87b48a99501fca98a6614acbf29e2a70b7465",
+            "comment": "Adding nimble toolbar to allComponents"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Apr 2022 21:47:23 GMT",
+      "tag": "@ni/nimble-components_v7.8.2",
+      "version": "7.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dcff81e825dab971e6b8184f027ff0bd8c26b4b1",
+            "comment": "Improve documentation for tree selection mode"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Apr 2022 19:28:50 GMT",
+      "tag": "@ni/nimble-components_v7.8.2",
+      "version": "7.8.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "918fa93c937b2e56f5b24196adb5dbdcabedb0bf",
+            "comment": "Remove nested specific styling from tree items"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Apr 2022 18:29:27 GMT",
+      "tag": "@ni/nimble-components_v7.8.1",
+      "version": "7.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3bc5e68cddea2ac7bb3005c442e8df7febe5defb",
+            "comment": "Correct hover color of active tree group"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Apr 2022 21:45:54 GMT",
+      "tag": "@ni/nimble-components_v7.8.0",
+      "version": "7.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cdc640f741dca14e99aa118d491b26fd9ca60aed",
+            "comment": "Add 'none' selection mode to tree"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 08 Apr 2022 19:29:58 GMT",
+      "tag": "@ni/nimble-components_v7.7.0",
+      "version": "7.7.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9940e68a3a79f5b6f8a976c2d8b63ad107f599f1",
+            "comment": "Fix Chromatic drawer test intermittency"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Apr 2022 19:57:34 GMT",
+      "tag": "@ni/nimble-components_v7.7.0",
+      "version": "7.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6dc0cc1c1c909b17359877d4828da0e48df4e75d",
+            "comment": "Add styling for indeterminate checkbox state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Apr 2022 19:38:49 GMT",
+      "tag": "@ni/nimble-components_v7.6.0",
+      "version": "7.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4463a54517442bb48ee87e92885065bc3c3a1bb3",
+            "comment": "nimble-drawer has cancelable 'cancel' event (triggered when dimming overlay is clicked, when modal = true)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 01 Apr 2022 18:39:28 GMT",
       "tag": "@ni/nimble-components_v7.5.0",
       "version": "7.5.0",

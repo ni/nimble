@@ -38,6 +38,16 @@ export class NimbleDrawerDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'modal', toBooleanProperty(value));
     }
 
+    public get preventDismiss(): boolean {
+        return this.elementRef.nativeElement.preventDismiss;
+    }
+
+    // preventDismiss property intentionally maps to the prevent-dismiss attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('prevent-dismiss') public set preventDismiss(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
+    }
+
     @Output() public stateChange = new EventEmitter<DrawerState>();
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Drawer>) {}
 

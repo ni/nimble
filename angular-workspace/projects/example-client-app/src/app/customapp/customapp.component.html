@@ -35,8 +35,8 @@
                 <nimble-button appearance="outline" (click)="navDrawer.open()">Open Drawer</nimble-button>
                 <nimble-button appearance="outline" (click)="navDrawer.togglePinned()">Pin/Unpin</nimble-button>
                 <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
-                    <nimble-listbox-option [value]="drawerLocations.Left">Drawer: Left-side</nimble-listbox-option>
-                    <nimble-listbox-option [value]="drawerLocations.Right">Drawer: Right-side</nimble-listbox-option>
+                    <nimble-list-option [value]="drawerLocations.Left">Drawer: Left-side</nimble-list-option>
+                    <nimble-list-option [value]="drawerLocations.Right">Drawer: Right-side</nimble-list-option>
                 </nimble-select>
             </div>
             <div class="sub-container">
@@ -60,9 +60,9 @@
             <div class="sub-container">
                 <div class="container-label">Select</div>
                 <nimble-select>
-                    <nimble-listbox-option>Option 1</nimble-listbox-option>
-                    <nimble-listbox-option>Option 2</nimble-listbox-option>
-                    <nimble-listbox-option>Option 3</nimble-listbox-option>
+                    <nimble-list-option>Option 1</nimble-list-option>
+                    <nimble-list-option>Option 2</nimble-list-option>
+                    <nimble-list-option>Option 3</nimble-list-option>
                 </nimble-select>
             </div>
             <div class="sub-container">
@@ -101,6 +101,15 @@
             <div class="sub-container">
                 <div class="container-label">Text Field</div>
                 <nimble-text-field placeholder="Text Field" value="Here is text!">Text Field Label</nimble-text-field>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Toolbar</div>
+                <nimble-toolbar>
+                    <nimble-button slot="start" appearance="outline">First button</nimble-button>
+                    <nimble-button slot="start" appearance="outline">Second button</nimble-button>
+                    <nimble-button>Middle button</nimble-button>
+                    <nimble-button slot="end" appearance="outline">Last button</nimble-button>
+                </nimble-toolbar>
             </div>
             <div class="sub-container">
                 <div class="container-label">Tree View</div>

@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule } from '@angular/forms';
 import type { Select } from '@ni/nimble-components/dist/esm/select';
 import { NimbleSelectModule } from '../nimble-select.module';
-import { NimbleListboxOptionModule } from '../../listbox-option/nimble-listbox-option.module';
+import { NimbleListOptionModule } from '../../list-option/nimble-list-option.module';
 import { waitTask } from '../../../async-test-utilities';
 import { processUpdates } from '../../../testing/async-helpers';
 
@@ -17,10 +17,10 @@ describe('Nimble select control value accessor', () => {
         @Component({
             template: `
                 <nimble-select #select [(ngModel)]="selectedOption" [compareWith]="compareWith" [disabled]="selectDisabled">
-                    <nimble-listbox-option *ngFor="let option of selectOptions"
+                    <nimble-list-option *ngFor="let option of selectOptions"
                         [ngValue]="option">
                         {{ option.name }}
-                    </nimble-listbox-option>
+                    </nimble-list-option>
                 </nimble-select>
              `
         })
@@ -49,7 +49,7 @@ describe('Nimble select control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleSelectModule, NimbleListboxOptionModule, FormsModule]
+                imports: [NimbleSelectModule, NimbleListOptionModule, FormsModule]
             });
         });
 
@@ -111,10 +111,10 @@ describe('Nimble select control value accessor', () => {
         @Component({
             template: `
                 <nimble-select #select [(ngModel)]="selectedOption">
-                    <nimble-listbox-option *ngFor="let option of selectOptions"
+                    <nimble-list-option *ngFor="let option of selectOptions"
                         [value]="option.value">
                         {{ option.name }}
-                    </nimble-listbox-option>
+                    </nimble-list-option>
                 </nimble-select>
              `
         })
@@ -137,7 +137,7 @@ describe('Nimble select control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleSelectModule, NimbleListboxOptionModule, FormsModule]
+                imports: [NimbleSelectModule, NimbleListOptionModule, FormsModule]
             });
         });
 
