@@ -21,8 +21,8 @@ This repository uses the following tooling. See below for more info.
 
 First step in development is to build the monorepo which requires the following to be installed:
 
-- Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be download from https://nodejs.org/en/download/
-- .NET version 6 (run `dotnet --version`)
+- Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
+- .NET 6 SDK (run `dotnet --version`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
 
 From the `nimble` directory:
 
@@ -150,16 +150,3 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 ```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
-
-<!-- TODO this workflow doesn't seem to work
-### Angular libraries
-
-1. From a CLI navigate to your project such as `angular-workspace/projects/ni/nimble-angular`.
-2. Run `ng add <my-library>`, for example: `ng add @angular/material`.
-3. That will update the `package.json` for `nimble-angular` but unfortunately also trigger an npm install inside of the `nimble-workspace` and create a `node_modules` and `package-lock.json` which are ignored.
-4. From repo root stash your `package.json` change, ie `git stash`.
-5. From repo root clean the repository, ie `git clean -fdx`.
-6. From repo root pop the `package.json` change, ie `git stash pop`.
-7. From repo root run `npm install`. This will update the root `package-lock.json`.
-8. Submit your angular project `package.json` and root `package-lock.json` change.
--->

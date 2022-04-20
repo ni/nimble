@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Nimble tokens publish nuget package",
+  "comment": "Nimble tokens update Nuget license",
   "packageName": "@ni/nimble-tokens",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
