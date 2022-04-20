@@ -19,18 +19,16 @@ A combobox is a dropdown selector that allows a user to type in the field (with 
 
 _Component Name_ - `nimble-combobox`
 
-_Properties/Attributes_ - To achieve the UX descibed in the below 'User interaction' section, we will likely need to provide a new property that allows a user to enable that behavior. This might take the form of a boolean property called something like `addInputOption` (or `dynamicOptions`?), which would default to `false`.
+_Properties/Attributes_ - To achieve the UX descibed in the below 'User interaction' section, we will likely need to provide a new property that allows a user to enable that behavior. This might take the form of a boolean property called something like `addInputOption` (or `dynamicOptions`?), which would default to `false`. Alternatively, there might be room for this API to offer other options, so this could be presented as an `enum` instead.
 
-**Currently the spec specifically states that the combobox should _not_ filter items if a user is allows to enter freeform text. It's unclear why we would need this restriction.**
+**Currently the spec specifically states that the combobox should _not_ filter items if a user is allowed to enter freeform text. It is unclear why we would need this restriction.**
 
 Additionally, the UX for this new behavior calls for the inclusion of explicit "`Add`" text that precedes the user input value in the dropdown. This suggests the need for one of two possible features: 1) Nimble-supported localization or 2) a property allowing a user to specify the text used in the "Add" location for purposes of supporting other languages (could default to "Add"). While it's conceivable that a user might want some other text there than a language appropriate version of "Add", this seems like a highly specific API for what is likely a corner use-case. Between the two, a localization enabled Nimble seems preferable. However, this seems like it has a very high cost associated with it, as we don't even have a roadmap for what that will look like.
 
 **Proposal**:
 We can move forward with a base implementation of the Combobox that essentially just exposes what is currently in FAST now. This will allow for a user to input arbitrary values, but not offer the new UX of adding an option to the dropdown. Note that consumer applications would still be able to able to update the set of options in the dropdown _after_ the user-input value was committed.
 
-_Events_ - unchanged
-
-Note: For a consumer application to respond to the event that a new option was created (when/if that feature is present), users can use the ['External observation'](https://www.fast.design/docs/fast-element/observables-and-state#external-observation) pattern to detect changes to the `options` property.
+_Events_ - To support the new UX of adding dynamic options, instead of relying on the FAST API for property observation (requiring a consumer to explicitly observe the `options` property), we could instead expose a typical event (i.e. `options-changed`).
 
 ### Angular integration
 
@@ -74,4 +72,5 @@ As mentioned above, if we introduce user-visible text, like "`Add`" to the `list
 2. If/when we add the new UX feature of dynamically updating the dropdown options, how should we handle providing a means of a language appropriate version of "`Add`"?
     - Nimble localization (preferred?)?
     - A new property for specifying that text?
+    - Provide new slots allowing clients to add text in a specified location (and thus use whatever localization mechanisms provided by their environment/platform). **Proposal: We go with this option over the others. It avoids Nimble having to design its own localization system, and provides a more flexible configuration mechanism.**
 3. If/when we add said UX feature, should having it enabled prohibit the filtering of items? **Proposal: NO. Users can already enter arbitrary values even with filtering/autocomplete turned on, as the FAST `Combobox` provides this. Having the arbitrary value show up in the dropdown does not seem like it should change this behavior.**
