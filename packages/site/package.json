@@ -19,6 +19,7 @@
     },
     "files": [
         "dist",
-        "!*.tgz"
+        "!*.tgz",
+        "!dist/storybook/blazor-client-app"
     ]
 }
