@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 20 Apr 2022 18:13:39 GMT",
+      "tag": "@ni/nimble-components_v8.0.1",
+      "version": "8.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ba9f084fb6df75ea9db7e0c9abf38c23c4e17892",
+            "comment": "Adding Combobox spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Apr 2022 23:09:34 GMT",
       "tag": "@ni/nimble-components_v8.0.1",
       "version": "8.0.1",
