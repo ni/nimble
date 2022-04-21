@@ -152,14 +152,14 @@ _Keyboard navigation with button focused_
 
 _Keyboard navigation with menu focused_
 
-| Key          | Behavior                                                                                                              | Can be enforced by menu button? |
-| ------------ | --------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
-| Space, Enter | Activates the focused menu item                                                                                       | No                              |
-| Escape       | Closes the menu and focuses the button                                                                                | Yes                             |
-| Up Arrow     | Moves focus to the previous menu item, wrapping to the last menu item if at the top                                   | No                              |
+| Key          | Behavior                                                                                                               | Can be enforced by menu button? |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| Space, Enter | Activates the focused menu item                                                                                        | No                              |
+| Escape       | Closes the menu and focuses the button                                                                                 | Yes                             |
+| Up Arrow     | Moves focus to the previous menu item, wrapping to the last menu item if at the top                                    | No                              |
 | Down Arrow   | Moves focus to the next menu item, wrapping to the first menu item if at the bottom                                    | No                              |
-| Home         | Moves focus to the first menu item                                                                                    | No                              |
-| End          | Moves focus to the last menu item                                                                                     | No                              |
+| Home         | Moves focus to the first menu item                                                                                     | No                              |
+| End          | Moves focus to the last menu item                                                                                      | No                              |
 | A-Z, a-z     | Moves focus to the next menu item whose label starts with typed character. If no such item exists, focus does not move | No                              |
 
 _Form Input_
