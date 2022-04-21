@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 13 Apr 2022 23:09:34 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Apr 2022 20:57:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.0.2
+
+Thu, 21 Apr 2022 20:57:24 GMT
+
+### Patches
+
+- Fix minified source map generation (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v3.0.2
 
 ## 8.0.1
 

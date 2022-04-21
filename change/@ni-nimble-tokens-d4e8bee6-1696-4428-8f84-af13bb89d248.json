@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Nimble tokens update Nuget license",
-  "packageName": "@ni/nimble-tokens",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
