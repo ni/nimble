@@ -1,5 +1,6 @@
 import { attr, DOM, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { keyArrowDown, keyArrowUp, keyEscape } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance } from '../button/types';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
@@ -14,8 +15,6 @@ declare global {
 /*
 * TODOs:
 * - Why is DOM.queueUpdate not working for focusing the menu?
-* - Keyboard navigation as specified here: https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-links.html
-* - Ensure aria roles are correct as specified in here: https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-links.html
 * - Form association?
 */
 
@@ -57,12 +56,20 @@ export class MenuButton extends FoundationElement {
     @observable
     public readonly slottedMenus: HTMLElement[] | undefined;
 
-    public toggleButtonChangeHandler(): void {
-        this.open = this.toggleButton!.checked;
-    }
+    private reverseMenuFocus = false;
 
-    public menuChangeHandler(): void {
-        this.open = false;
+    public openChanged(_prev: boolean | undefined, _next: boolean): void {
+        if (this.toggleButton && !this.disabled) {
+            this.toggleButton.checked = this.open;
+        }
+
+        if (this.open) {
+            if (this.reverseMenuFocus) {
+                requestAnimationFrame(() => this.focusLastMenuItem());
+            } else {
+                requestAnimationFrame(() => this.focusMenu());
+            }
+        }
     }
 
     public focusoutHandler(e: FocusEvent): boolean {
@@ -79,15 +86,40 @@ export class MenuButton extends FoundationElement {
         return true;
     }
 
-    public openChanged(_prev: boolean | undefined, _next: boolean): void {
-        if (this.toggleButton && !this.disabled) {
-            this.toggleButton.checked = this.open;
+    public toggleButtonChangeHandler(): void {
+        this.open = this.toggleButton!.checked;
+    }
+
+    public toggleButtonKeyDownHandler(e: KeyboardEvent): boolean {
+        // eslint-disable-next-line default-case
+        switch (e.key) {
+            case keyArrowUp:
+                this.reverseMenuFocus = true;
+                this.open = true;
+                this.reverseMenuFocus = false;
+                return false;
+            case keyArrowDown:
+                this.open = true;
+                return false;
         }
 
-        if (this.open) {
-            // DOM.queueUpdate(() => this.focusMenu());
-            window.setTimeout(() => this.focusMenu(), 10);
+        return true;
+    }
+
+    public menuChangeHandler(): void {
+        this.open = false;
+    }
+
+    public menuKeyDownHandler(e: KeyboardEvent): boolean {
+        // eslint-disable-next-line default-case
+        switch (e.key) {
+            case keyEscape:
+                this.open = false;
+                this.toggleButton?.focus();
+                return false;
         }
+
+        return true;
     }
 
     private get menu(): HTMLElement | undefined {
@@ -96,6 +128,14 @@ export class MenuButton extends FoundationElement {
 
     private focusMenu(): void {
         this.menu?.focus();
+    }
+
+    private focusLastMenuItem(): void {
+        const menuItems = this.menu?.querySelectorAll('[role=menuitem]');
+        if (menuItems?.length) {
+            const lastMenuItem = menuItems[menuItems.length - 1] as HTMLElement;
+            lastMenuItem.focus();
+        }
     }
 }
 
