@@ -46,6 +46,7 @@ const metadata: Meta<BreadcrumbArgs> = {
 export default metadata;
 
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
+    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <nimble-breadcrumb
             class="${x => (x.useProminentLinksStyle ? 'prominent-links' : '')}"
@@ -105,7 +106,7 @@ export const breadcrumbItem: StoryObj<BreadcrumbItemArgs> = {
                 Breadcrumb Item
             </nimble-breadcrumb-item>
         </nimble-breadcrumb>
-`),
+    `),
     argTypes: {
         href: {
             description:
