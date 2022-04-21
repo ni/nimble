@@ -14,7 +14,7 @@ export const sharedMatrixParameters = () => ({
     backgrounds: {
         disable: true,
         grid: {
-            disable: true,
+            disable: true
         }
     },
     viewMode: 'canvas',
