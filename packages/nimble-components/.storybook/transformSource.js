@@ -49,6 +49,9 @@ const removeBlankLines = html => html
     .filter(line => line.trim() !== '')
     .join('\n');
 
+const removeEmptyAttributes = html => html
+    .replaceAll('=""', '');
+
 // A custom source transformer. See:
 // https://github.com/storybookjs/storybook/blob/next/addons/docs/docs/recipes.md#customizing-source-snippets
 export const transformSource = source => {
@@ -61,7 +64,8 @@ export const transformSource = source => {
     const html = createHTMLFromFragment(fragment);
 
     const trimmedHTML = removeBlankLines(html);
-    const formmattedHTML = prettier.format(trimmedHTML, {
+    const emptyAttributesRemovedHTML = removeEmptyAttributes(trimmedHTML);
+    const formmattedHTML = prettier.format(emptyAttributesRemovedHTML, {
         parser: 'html',
         plugins: [parserHTML],
         htmlWhitespaceSensitivity: 'ignore',

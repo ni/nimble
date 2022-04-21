@@ -36,7 +36,6 @@ const iconTemplate = html<IconClass, IconArgs>`
         <${DesignSystem.tagFor(x)}
             class="${c.parent.status}"
             title=${DesignSystem.tagFor(x)}
-            style="padding: 5px;"
         >
         </${DesignSystem.tagFor(x)}>
     `}
@@ -64,6 +63,11 @@ export const icons: StoryObj<IconArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
+        <style class="code-hide">
+            .container > * {
+                padding: 5px;
+            }
+        </style>
         <div class="container">
             ${repeat(() => nimbleIconComponents, iconTemplate)}
         </div>
