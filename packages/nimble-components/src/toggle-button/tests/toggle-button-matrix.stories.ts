@@ -6,11 +6,11 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
+import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import {
-    disabledStates,
-    DisabledState,
-} from '../../utilities/tests/states';
-import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import '..';
 import '../../icons/arrow-expander-down';
 import '../../icons/key';
@@ -79,6 +79,8 @@ export const toggleButtonThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenButton: Story = createStory(
     hiddenWrapper(
-        html`<nimble-toggle-button hidden>Hidden Toggle Button</nimble-toggle-button>`
+        html`<nimble-toggle-button hidden
+            >Hidden Toggle Button</nimble-toggle-button
+        >`
     )
 );

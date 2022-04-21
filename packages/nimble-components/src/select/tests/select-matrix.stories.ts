@@ -1,15 +1,15 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import {
-    disabledStates,
-    DisabledState,
-} from '../../utilities/tests/states';
+import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -37,7 +37,9 @@ const component = ([_, disabled]: DisabledState): ViewTemplate => html`
     </nimble-select>
 `;
 
-export const selectThemeMatrix: Story = createMatrixThemeStory(createMatrix(component, [disabledStates]));
+export const selectThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [disabledStates])
+);
 
 export const hiddenSelect: Story = createStory(
     hiddenWrapper(

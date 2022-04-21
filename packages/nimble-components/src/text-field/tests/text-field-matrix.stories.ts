@@ -1,7 +1,10 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
 import {
     createMatrix,
@@ -11,7 +14,7 @@ import {
     disabledStates,
     DisabledState,
     ReadOnlyState,
-    readOnlyStates,
+    readOnlyStates
 } from '../../utilities/tests/states';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';

@@ -2,7 +2,11 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import type { Story } from '@storybook/html';
 import type { Theme } from '../../theme-provider/types';
 import { createMatrix } from './matrix';
-import { BackgroundState, backgroundStates, defaultBackgroundState } from './states';
+import {
+    BackgroundState,
+    backgroundStates,
+    defaultBackgroundState
+} from './states';
 
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.
@@ -26,9 +30,7 @@ export const createStory = <TSource>(
 ): Story<TSource> => {
     return (source: TSource, _context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
-            <div class="code-hide-top-container">
-                ${viewTemplate}
-            </div>
+            <div class="code-hide-top-container">${viewTemplate}</div>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
@@ -37,12 +39,12 @@ export const createStory = <TSource>(
 };
 
 const getGlobalTheme = (context: unknown): Theme => {
+    type GlobalValue = string | undefined;
     // @ts-expect-error Accessing the global background defined in preview.js
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const globalValue = context?.globals?.backgrounds?.value as string | undefined;
-    const background = backgroundStates.find(
-        ({ value }) => value === globalValue
-    ) ?? defaultBackgroundState;
+    const globalValue = context?.globals?.backgrounds?.value as GlobalValue;
+    const background = backgroundStates.find(({ value }) => value === globalValue)
+        ?? defaultBackgroundState;
     return background.theme;
 };
 
@@ -93,7 +95,7 @@ export const createFixedThemeStory = <TSource>(
                     "
                     class="code-hide"
                 ></div>
-            ${viewTemplate}
+                ${viewTemplate}
             </nimble-theme-provider>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
@@ -120,9 +122,7 @@ export const createMatrixThemeStory = <TSource>(
             [backgroundStates]
         );
         const wrappedMatrixTemplate = html<TSource>`
-            <div class="code-hide-top-container">
-                ${matrixTemplate}
-            </div>
+            <div class="code-hide-top-container">${matrixTemplate}</div>
         `;
         const fragment = renderViewTemplate(wrappedMatrixTemplate, source);
         const content = fragment.firstElementChild!;

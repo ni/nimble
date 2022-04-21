@@ -5,11 +5,11 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
+import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import {
-    disabledStates,
-    DisabledState,
-} from '../../utilities/tests/states';
-import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -54,7 +54,9 @@ const component = (
     </nimble-switch>
 `;
 
-export const switchThemeMatrix: Story = createMatrixThemeStory(createMatrix(component, [checkedStates, disabledStates, messagesStates]));
+export const switchThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [checkedStates, disabledStates, messagesStates])
+);
 
 // prettier-ignore
 export const hiddenSwitch: Story = createStory(

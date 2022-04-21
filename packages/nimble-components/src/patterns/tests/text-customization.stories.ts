@@ -4,7 +4,7 @@ import { createThemeAwareStory } from '../../utilities/tests/storybook';
 import { standardPadding } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
-    title: 'Tests/Text Customization',
+    title: 'Tests/Text Customization'
 };
 
 export default metadata;

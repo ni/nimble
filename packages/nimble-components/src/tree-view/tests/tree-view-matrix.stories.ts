@@ -4,7 +4,10 @@ import '..';
 import '../../tree-item';
 import '../../icons/database';
 import '../../icons/cog';
-import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -17,7 +20,7 @@ import {
     SelectedState,
     selectedStates,
     IconVisibleState,
-    iconVisibleStates,
+    iconVisibleStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 

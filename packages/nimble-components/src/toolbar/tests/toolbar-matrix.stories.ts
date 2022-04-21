@@ -1,9 +1,10 @@
 import type { Meta, Story } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
+import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import {
-    sharedMatrixParameters,
-} from '../../utilities/tests/matrix';
-import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -54,7 +55,5 @@ const component = html`
 export const toolbarThemeMatrix: Story = createMatrixThemeStory(component);
 
 export const hiddenToolbar: Story = createStory(
-    hiddenWrapper(
-        html`<nimble-toolbar hidden>Hidden Toolbar</nimble-toolbar>`
-    )
+    hiddenWrapper(html`<nimble-toolbar hidden>Hidden Toolbar</nimble-toolbar>`)
 );

@@ -1,7 +1,10 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { TextAreaAppearance } from '../types';
 import {
     createMatrix,
@@ -11,7 +14,7 @@ import {
     disabledStates,
     DisabledState,
     ReadOnlyState,
-    readOnlyStates,
+    readOnlyStates
 } from '../../utilities/tests/states';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -103,7 +106,7 @@ const heightSizingTestCase = (
 `;
 
 export const textAreaSizing: Story = createStory(html`
-        ${createMatrix(widthSizingTestCase, [
+    ${createMatrix(widthSizingTestCase, [
         [
             ['No width', ''],
             ['Width=300px', 'width: 300px'],
@@ -114,7 +117,7 @@ export const textAreaSizing: Story = createStory(html`
             ['cols=10', 10]
         ]
     ])}
-        ${createMatrix(heightSizingTestCase, [
+    ${createMatrix(heightSizingTestCase, [
         [
             ['No height', ''],
             ['Height=50px', 'height: 50px'],
