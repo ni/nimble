@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
-import { createThemeAwareStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface ButtonArgs {
@@ -71,7 +71,7 @@ const metadata: Meta<ButtonArgs> = {
         }
     },
     // prettier-ignore
-    render: createThemeAwareStory(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" class="${x => (x.primary ? 'primary' : '')}" ?content-hidden="${x => x.contentHidden}">
             ${when(x => x.icon, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${x => x.label}

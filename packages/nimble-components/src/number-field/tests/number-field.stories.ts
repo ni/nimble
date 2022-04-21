@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createThemeAwareStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface NumberFieldArgs {
@@ -28,7 +28,7 @@ const metadata: Meta<NumberFieldArgs> = {
             handles: ['change', 'input']
         }
     },
-    render: createThemeAwareStory(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-number-field
             placeholder="${x => x.label}"
             value="${x => x.value}"

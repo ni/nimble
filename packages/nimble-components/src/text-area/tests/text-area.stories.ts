@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createThemeAwareStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextAreaAppearance, TextAreaResize } from '../types';
 import '../../all-components';
 
@@ -37,7 +37,7 @@ const metadata: Meta<TextAreaArgs> = {
             handles: ['change']
         }
     },
-    render: createThemeAwareStory(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-text-area
             appearance="${x => x.appearance}"
             placeholder="${x => x.placeholder}"

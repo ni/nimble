@@ -49,9 +49,10 @@ const getGlobalTheme = (context: unknown): Theme => {
 };
 
 /**
- *  Renders a FAST `html` template as a story that responds to the background theme selection.
+ *  Renders a FAST `html` template as a story that responds to the
+ *  background theme selection in Storybook.
  */
-export const createThemeAwareStory = <TSource>(
+export const createUserSelectedThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
 ): Story<TSource> => {
     return (source: TSource, context: unknown): Element => {

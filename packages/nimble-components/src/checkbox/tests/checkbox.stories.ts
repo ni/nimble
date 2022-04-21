@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createThemeAwareStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface CheckboxArgs {
@@ -29,7 +29,7 @@ const metadata: Meta<CheckboxArgs> = {
             handles: ['change']
         }
     },
-    render: createThemeAwareStory(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-checkbox
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"

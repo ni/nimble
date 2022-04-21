@@ -1,6 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { createThemeAwareStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { standardPadding } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
@@ -10,7 +10,7 @@ const metadata: Meta = {
 export default metadata;
 
 // prettier-ignore
-export const textCustomizationStory: Story = createThemeAwareStory(html`
+export const textCustomizationStory: Story = createUserSelectedThemeStory(html`
 <div style="
     display: inline-flex;
     flex-direction: column;

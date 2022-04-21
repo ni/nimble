@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, when } from '@microsoft/fast-element';
-import { createThemeAwareStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
     tokenNames,
     cssPropertyFromTokenName,
@@ -60,7 +60,7 @@ export const propertyNames: StoryObj<TokenArgs> = {
             name: 'Property Format'
         }
     },
-    render: createThemeAwareStory(html<TokenArgs>`
+    render: createUserSelectedThemeStory(html<TokenArgs>`
         <style>
             table {
                 font: var(${bodyFont.cssCustomProperty});

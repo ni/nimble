@@ -4,7 +4,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
 import { IconStatus } from '../types';
 import {
-    createThemeAwareStory,
+    createUserSelectedThemeStory,
     overrideWarning
 } from '../../utilities/tests/storybook';
 import type { Icon } from '..';
@@ -63,7 +63,7 @@ export const icons: StoryObj<IconArgs> = {
             description: statusDescription
         }
     },
-    render: createThemeAwareStory(html`
+    render: createUserSelectedThemeStory(html`
         <div class="container">
             ${repeat(() => nimbleIconComponents, iconTemplate)}
         </div>

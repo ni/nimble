@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
-import { createThemeAwareStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface BreadcrumbArgs {
@@ -47,7 +47,7 @@ const noOpUrl = 'javascript:';
 
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
-    render: createThemeAwareStory(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-breadcrumb class="${x => (x.useProminentLinksStyle ? 'prominent-links' : '')}">
             ${repeat(x => x.options, html<ItemArgs>`
                 <nimble-breadcrumb-item href="${x => x.href}" target="${x => x.target}">${x => x.label}</nimble-breadcrumb-item>
@@ -88,7 +88,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
 
 export const breadcrumbItem: StoryObj<ItemArgs> = {
     // prettier-ignore
-    render: createThemeAwareStory(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-breadcrumb>
             <nimble-breadcrumb-item href="${x => x.href}" target="${x => x.target}">Breadcrumb Item</nimble-breadcrumb-item>
         </nimble-breadcrumb>

@@ -1,7 +1,7 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createThemeAwareStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface SwitchArgs {
@@ -37,7 +37,7 @@ const metadata: Meta<SwitchArgs> = {
         }
     },
     // prettier-ignore
-    render: createThemeAwareStory(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-switch
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"

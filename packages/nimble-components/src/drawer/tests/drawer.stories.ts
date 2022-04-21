@@ -2,7 +2,7 @@ import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import {
-    createThemeAwareStory,
+    createUserSelectedThemeStory,
     overrideWarning
 } from '../../utilities/tests/storybook';
 import {
@@ -123,7 +123,7 @@ const metadata: Meta<DrawerArgs> = {
         }
     },
     // prettier-ignore
-    render: createThemeAwareStory(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-drawer
             ${ref('drawerRef')}
             modal="${x => x.modal}"
