@@ -1,0 +1,20 @@
+{
+  "name": "@ni/nimble-blazor",
+  "entries": [
+    {
+      "date": "Thu, 21 Apr 2022 20:57:24 GMT",
+      "tag": "@ni/nimble-blazor_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "f1fa1f0358d33e2c7b1d38dfbebd589a01afd281",
+            "comment": "Nimble blazor start semantic versioning"
+          }
+        ]
+      }
+    }
+  ]
+}

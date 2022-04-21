@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 09 Mar 2022 22:20:03 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Apr 2022 20:57:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.0.2
+
+Thu, 21 Apr 2022 20:57:24 GMT
+
+### Patches
+
+- Nimble tokens update Nuget license (rajsite@users.noreply.github.com)
 
 ## 3.0.1
 
