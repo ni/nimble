@@ -1,7 +1,9 @@
 import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
 
 export const sharedMatrixParameters = () => ({
-    controls: { hideNoControlsWarning: true },
+    controls: {
+        hideNoControlsWarning: true
+    },
     a11y: { disabled: true },
     docs: {
         source: {
@@ -10,7 +12,16 @@ export const sharedMatrixParameters = () => ({
         transformSource: (source: string): string => source
     },
     backgrounds: {
-        disable: true
+        disable: true,
+        grid: {
+            disable: true,
+        }
+    },
+    viewMode: 'canvas',
+    previewTabs: {
+        'storybook/docs/panel': {
+            hidden: true
+        }
     }
 } as const);
 
