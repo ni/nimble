@@ -10,8 +10,8 @@ import {
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import { disabledStates, DisabledState } from '../../utilities/tests/states';
-import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Number Field',

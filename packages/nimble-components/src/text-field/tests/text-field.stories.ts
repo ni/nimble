@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createThemeAwareStory } from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
-import '..';
+import '../../all-components';
 
 interface TextFieldArgs {
     label: string;

@@ -1,11 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import '..';
-import '../../tree-item';
-import '../../icons/database';
-import '../../icons/cog';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createThemeAwareStory } from '../../utilities/tests/storybook';
 import { TreeViewSelectionMode } from '../types';
+import '../../all-components';
 
 interface TreeArgs {
     selectionMode: TreeViewSelectionMode;

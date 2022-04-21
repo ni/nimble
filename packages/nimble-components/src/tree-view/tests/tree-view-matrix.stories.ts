@@ -1,9 +1,5 @@
 import type { Story, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import '..';
-import '../../tree-item';
-import '../../icons/database';
-import '../../icons/cog';
 import {
     createMatrixThemeStory,
     createStory
@@ -23,6 +19,7 @@ import {
     iconVisibleStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',

@@ -11,10 +11,8 @@ import {
     createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
-import '..';
-import '../../icons/arrow-expander-down';
-import '../../icons/key';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Button',

@@ -10,12 +10,8 @@ import {
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import { DisabledState, disabledStates } from '../../utilities/tests/states';
-import '..';
-import '../../tab';
-import '../../tab-panel';
-import '../../tabs-toolbar';
-import '../../button';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Tabs',

@@ -2,10 +2,8 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
-import '..';
-import '../../icons/arrow-expander-down';
-import '../../icons/key';
 import { createThemeAwareStory } from '../../utilities/tests/storybook';
+import '../../all-components';
 
 interface ButtonArgs {
     label: string;

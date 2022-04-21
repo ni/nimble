@@ -4,7 +4,7 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
-import '..';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Select',

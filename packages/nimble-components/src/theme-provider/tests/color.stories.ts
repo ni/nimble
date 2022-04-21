@@ -3,8 +3,8 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
 import { createThemeAwareStory } from '../../utilities/tests/storybook';
-import '..';
 import { controlLabelFont, controlLabelFontColor } from '../design-tokens';
+import '../../all-components';
 
 interface NimbleColor {
     name: string;

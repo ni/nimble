@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import '..';
-import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
 import { createThemeAwareStory } from '../../utilities/tests/storybook';
+import '../../all-components';
 
 interface SelectArgs {
     disabled: boolean;

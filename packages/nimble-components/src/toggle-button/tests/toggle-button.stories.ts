@@ -2,10 +2,8 @@ import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createThemeAwareStory } from '../../utilities/tests/storybook';
-import '..';
-import '../../icons/arrow-expander-down';
-import '../../icons/key';
 import { ButtonAppearance } from '../types';
+import '../../all-components';
 
 interface ToggleButtonArgs {
     label: string;

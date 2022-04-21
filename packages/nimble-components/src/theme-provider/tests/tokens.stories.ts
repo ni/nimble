@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createThemeAwareStory } from '../../utilities/tests/storybook';
-import '..';
 import {
     tokenNames,
     cssPropertyFromTokenName,
     scssPropertyFromTokenName
 } from '../design-token-names';
 import { comments } from '../design-token-comments';
+import '../../all-components';
 
 import {
     bodyFont,

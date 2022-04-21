@@ -5,8 +5,6 @@ import {
     createThemeAwareStory,
     overrideWarning
 } from '../../utilities/tests/storybook';
-import '../../button';
-import '..';
 import {
     tokenNames,
     scssInternalPropertySetterMarkdown
@@ -17,6 +15,7 @@ import {
 } from '../../theme-provider/design-tokens';
 import { DrawerLocation, DrawerState } from '../types';
 import type { Drawer } from '..';
+import '../../all-components';
 
 enum ExampleContentType {
     SimpleTextContent = 'SimpleTextContent',

@@ -4,8 +4,6 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-
-import '../../icons/check';
 import {
     createMatrixThemeStory,
     createStory
@@ -13,6 +11,7 @@ import {
 import { IconStatus } from '../types';
 import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Icon',

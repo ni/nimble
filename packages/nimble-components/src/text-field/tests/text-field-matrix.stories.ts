@@ -16,8 +16,8 @@ import {
     ReadOnlyState,
     readOnlyStates
 } from '../../utilities/tests/states';
-import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Text Field',

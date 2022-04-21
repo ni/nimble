@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createThemeAwareStory } from '../../utilities/tests/storybook';
-import '..';
+import '../../all-components';
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#toolbar) - A toolbar is a container
 for grouping a set of controls, such as buttons, menubuttons, or checkboxes.

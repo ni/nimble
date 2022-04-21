@@ -13,9 +13,8 @@ import {
     IconVisibleState,
     iconVisibleStates
 } from '../../utilities/tests/states';
-import '..';
-import '../../icons/user';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Menu',
