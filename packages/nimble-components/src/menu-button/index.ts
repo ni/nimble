@@ -12,12 +12,6 @@ declare global {
     }
 }
 
-/*
-* TODOs:
-* - Why is DOM.queueUpdate not working for focusing the menu?
-* - Form association?
-*/
-
 /**
  * A nimble-styled toggle button control.
  */
