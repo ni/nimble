@@ -1,0 +1,110 @@
+import { html, when } from '@microsoft/fast-element';
+import type { Meta, StoryObj } from '@storybook/html';
+import { withXD } from 'storybook-addon-xd-designs';
+import { createRenderer } from '../../utilities/tests/storybook';
+import '..';
+import { ButtonAppearance } from '../types';
+
+interface MenuButtonArgs {
+    label: string;
+    appearance: string;
+    open: boolean;
+    disabled: boolean;
+    icon: boolean;
+    contentHidden: boolean;
+    endIcon: boolean;
+}
+
+const overviewText = 'Menu button - TODO: add overview';
+
+const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
+
+This icon will be hidden when \`contentHidden\` is set to \`true\`
+.`;
+
+const metadata: Meta<MenuButtonArgs> = {
+    title: 'Menu Button',
+    decorators: [withXD],
+    parameters: {
+        docs: {
+            description: {
+                component: overviewText
+            }
+        },
+        design: {
+            artboardUrl:
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
+        },
+        actions: {
+            handles: ['change']
+        }
+    },
+    argTypes: {
+        appearance: {
+            options: Object.values(ButtonAppearance),
+            control: { type: 'radio' }
+        },
+        icon: {
+            description:
+                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+        },
+        endIcon: {
+            description: endIconDescription
+        }
+    },
+    // prettier-ignore
+    render: createRenderer(html`
+        <nimble-menu-button
+            ?open="${x => x.open}"
+            ?disabled="${x => x.disabled}"
+            ?content-hidden="${x => x.contentHidden}"
+            appearance="${x => x.appearance}"
+        >
+            ${when(x => x.icon, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
+            ${x => x.label}
+            ${when(x => x.endIcon, html`<nimble-arrow-expander-down-icon slot="end"></nimble-arrow-expander-down-icon>`)}
+
+            <nimble-menu slot="menu">
+                <div style="display: grid; font-family: Source Sans Pro; font-size: 11px;">
+                    <div style="font-weight: bold; color: black;">lvadmin User</div>
+                    <div style="color: gray;">lvadmin</div>
+                </div>
+                <nimble-menu-item><nimble-user-icon slot="start"></nimble-user-icon>Account</nimble-menu-item>
+                <nimble-menu-item><nimble-arrow-left-from-line-icon slot="start"></nimble-arrow-left-from-line-icon>Log out</nimble-menu-item>
+                <nimble-menu-item disabled>Disabled item</nimble-menu-item>
+            </nimble-menu>
+        </nimble-menu-button>
+    `),
+    args: {
+        label: 'Ghost Toggle Button',
+        appearance: 'ghost',
+        open: false,
+        icon: false,
+        endIcon: false,
+        contentHidden: false,
+        disabled: false
+    }
+};
+
+export default metadata;
+
+export const outlineButton: StoryObj<MenuButtonArgs> = {
+    args: {
+        label: 'Outline Menu Button',
+        appearance: ButtonAppearance.Outline
+    }
+};
+export const ghostButton: StoryObj<MenuButtonArgs> = {
+    args: { label: 'Ghost Menu Button', appearance: ButtonAppearance.Ghost }
+};
+export const blockButton: StoryObj<MenuButtonArgs> = {
+    args: { label: 'Block Menu Button', appearance: ButtonAppearance.Block }
+};
+export const iconButton: StoryObj<MenuButtonArgs> = {
+    args: {
+        label: 'Icon Menu Button',
+        icon: true,
+        contentHidden: true,
+        appearance: ButtonAppearance.Outline
+    }
+};
