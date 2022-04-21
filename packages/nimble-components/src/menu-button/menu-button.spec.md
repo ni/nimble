@@ -18,16 +18,16 @@ The `nimble-menu-button` is a button and a menu, where the menu is hidden until 
 
 -   The button will support the same appearance modes as the `nimble-button` and `nimble-toggle-button` -- outline, block, and ghost
 -   The button will support the same content as the `nimble-button` and `nimble-toggle-button`. For example, it can contain text-only, icon-only, text + icon, etc.
--   When the menu is open, the button will have a distinct visual state to represent this
--   The user will provide a menu to be disabled when the button is clicked. The expected common use-case is for a `nimble-menu` to be provided, but any element with `[role=menu]` will be supported.
+-   When the menu is open, that state will be reflected in the styling of the button
+-   The user will provide a menu to be displayed when the button is clicked. In most cases, it is expected that a `nimble-menu` will be provided, but any element with `[role=menu]` will be supported.
 
 ### Risks and Challenges
 
--   FAST does not currently have a menu button or a toggle button. If they add support for either of these components, we will likely want to adopt their components as a base class of ours. Depending on the differences between our API and FAST's API, adopoting their components will likely cause a breaking change within nimble.
+-   FAST does not currently have a menu button or a toggle button. If they add support for either of these components, we will likely want update our component to leverage theirs. Depending on the differences between our API and FAST's API, adopoting their components will likely cause a breaking change within nimble.
 
 ### Prior Art/Examples
 
-The user menu in SLE currently has a menu button that was implemented within the SystemLink code base using a `nimble-toggle-button` and a `nimble-menu`. The `nimble-menu-button` will be replace this and simply the code within SystemLink.
+The user menu in SLE currently has a menu button that was implemented within the SystemLink code base using a `nimble-toggle-button` and a `nimble-menu`. The `nimble-menu-button` will be replace this and simplify the code within SystemLink.
 
 ![SLE user menu](./spec-images/sleUserMenu.png)
 
@@ -101,7 +101,7 @@ _Slot Names_
 -   `start`: content that will get slotted into the `start` slot of the underlying `nimble-toggle-button`
 -   `default`: content that will get slotted into the default slot of the underlying `nimble-toggle-button`
 -   `end`: content that will get slotted into the `end` slot of the underlying `nimble-toggle-button`
--   `menu`: the menu that will show/hidden based on the `open` attribute of the component
+-   `menu`: the menu that will be shown/hidden based on the `open` attribute of the component
 
 _Host Classes_
 
@@ -127,15 +127,13 @@ Visual appearance will match that of the existing `nimble-toggle-button` and the
 
 ## Implementation
 
-The majority of the implementation will be in the `nimble-toggle-button` and the slotted menu. The `nimble-menu-button` will provide the implementation for when the menu is show/hidden and keyboard interactions.
+The majority of the implementation will be in the `nimble-toggle-button` and the slotted menu. The `nimble-menu-button` will provide the logic for when the menu is show/hidden and keyboard interactions.
 
 ### States
 
 The menu will indicate that it is open by having the underlying toggle button in the 'checked' state.
 
 ### Accessibility
-
-_Consider the accessibility of the component, including:_
 
 [W3C docs](https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-links.html)
 
@@ -159,10 +157,10 @@ _Keyboard navigation with menu focused_
 | Space, Enter | Activates the focused menu item                                                                                       | No                              |
 | Escape       | Closes the menu and focuses the button                                                                                | Yes                             |
 | Up Arrow     | Moves focus to the previous menu item, wrapping to the last menu item if at the top                                   | No                              |
-| Down Arrow   | Move focus to the next menu item, wrapping to the first menu item if at the bottom                                    | No                              |
+| Down Arrow   | Moves focus to the next menu item, wrapping to the first menu item if at the bottom                                    | No                              |
 | Home         | Moves focus to the first menu item                                                                                    | No                              |
 | End          | Moves focus to the last menu item                                                                                     | No                              |
-| A-Z, a-z     | Move focus to the next menu item whose label starts with typed character. If no such item exists, focus does not move | No                              |
+| A-Z, a-z     | Moves focus to the next menu item whose label starts with typed character. If no such item exists, focus does not move | No                              |
 
 _Form Input_
 
@@ -211,10 +209,9 @@ _Are there any special considerations for tooling? Will tooling changes need to 
 
 As with other nimble components, a story will be added in storybook for the new component. Relevant documentation will be added there.
 
-_What additions or changes are needed for user documentation and demos? Are there any architectural/engineering docs we should create as well, perhaps due to some interesting technical challenge or design decisions related to this component?_
-
 ---
 
 ## Open Issues
 
 -   What is appropriate way to set the ARIA attributes that are IDs of other attributes? Specifically, having the button point to the menu and menu point to the button's label.
+-   The `nimble-menu` is missing some of the keyboard interactions described above. Specifically, focus does not wrap, and `A-Z a-z` keys do not change focus.
