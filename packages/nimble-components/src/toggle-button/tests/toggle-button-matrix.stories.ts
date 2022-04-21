@@ -3,13 +3,14 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import {
-    disabledStates,
-    DisabledState,
     createMatrix,
-    themeWrapper,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    disabledStates,
+    DisabledState,
+} from '../../utilities/tests/states';
+import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
 import '..';
 import '../../icons/arrow-expander-down';
 import '../../icons/key';
@@ -28,10 +29,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-export const defaultToggleButton: Story = createRenderer(
-    html`<nimble-toggle-button>Default Toggle Button</nimble-toggle-button>`
-);
 
 /* array of iconVisible, labelVisible, endIconVisible */
 type PartVisibilityState = [boolean, boolean, boolean];
@@ -71,19 +68,16 @@ const component = (
     </nimble-toggle-button>
 `;
 
-export const toggleButtonThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            partVisibilityStates,
-            checkedStates,
-            disabledStates,
-            appearanceStates
-        ])
-    )
+export const toggleButtonThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        partVisibilityStates,
+        checkedStates,
+        disabledStates,
+        appearanceStates
+    ])
 );
 
-// prettier-ignore
-export const hiddenButton: Story = createRenderer(
+export const hiddenButton: Story = createStory(
     hiddenWrapper(
         html`<nimble-toggle-button hidden>Hidden Toggle Button</nimble-toggle-button>`
     )

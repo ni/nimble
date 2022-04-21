@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, when } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createThemeAwareStory } from '../../utilities/tests/storybook';
 import '..';
 import {
     tokenNames,
@@ -60,8 +60,7 @@ export const propertyNames: StoryObj<TokenArgs> = {
             name: 'Property Format'
         }
     },
-    render: createRenderer(html<TokenArgs>`
-    <div class="code-hide-top-container">
+    render: createThemeAwareStory(html<TokenArgs>`
         <style>
             table {
                 font: var(${bodyFont.cssCustomProperty});
@@ -97,6 +96,5 @@ export const propertyNames: StoryObj<TokenArgs> = {
             `)}
             </tbody>
         </table>
-    </div>
     `)
 };

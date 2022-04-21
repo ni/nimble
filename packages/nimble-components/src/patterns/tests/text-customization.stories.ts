@@ -1,21 +1,17 @@
 import type { Story, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createThemeAwareStory } from '../../utilities/tests/storybook';
 import { standardPadding } from '../../theme-provider/design-tokens';
-import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 
 const metadata: Meta = {
     title: 'Tests/Text Customization',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
 };
 
 export default metadata;
 
 // prettier-ignore
-export const textCustomizationStory: Story = createRenderer(html`
-<div class="code-hide-top-container" style="
+export const textCustomizationStory: Story = createThemeAwareStory(html`
+<div style="
     display: inline-flex;
     flex-direction: column;
     gap: var(${standardPadding.cssCustomProperty});

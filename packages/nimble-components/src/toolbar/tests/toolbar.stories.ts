@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createThemeAwareStory } from '../../utilities/tests/storybook';
 import '..';
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#toolbar) - A toolbar is a container
@@ -27,7 +27,7 @@ const metadata: Meta = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createThemeAwareStory(html`
         <nimble-toolbar>
             <nimble-button appearance="ghost" slot="start">
                 <nimble-eye-icon slot="start"></nimble-eye-icon>

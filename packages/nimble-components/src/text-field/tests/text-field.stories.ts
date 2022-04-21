@@ -1,7 +1,7 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createThemeAwareStory } from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
 import '..';
 
@@ -42,7 +42,7 @@ const metadata: Meta<TextFieldArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createThemeAwareStory(html`
         <nimble-text-field
             placeholder="${x => x.label}"
             type="${x => x.type}"

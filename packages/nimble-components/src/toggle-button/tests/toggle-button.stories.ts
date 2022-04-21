@@ -1,7 +1,7 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createThemeAwareStory } from '../../utilities/tests/storybook';
 import '..';
 import '../../icons/arrow-expander-down';
 import '../../icons/key';
@@ -59,7 +59,7 @@ const metadata: Meta<ToggleButtonArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createThemeAwareStory(html`
         <nimble-toggle-button
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"

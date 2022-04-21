@@ -1,11 +1,10 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
 import {
     createMatrix,
-    sharedMatrixParameters,
-    themeWrapper
+    sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -40,11 +39,11 @@ const component = ([
         <nimble-breadcrumb-item>Current (No Link)</nimble-breadcrumb-item>
     </nimble-breadcrumb>
 `;
-export const breadcrumbThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [breadcrumbStyleStates]))
+export const breadcrumbThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [breadcrumbStyleStates])
 );
 
-export const hiddenBreadcrumb: Story = createRenderer(
+export const hiddenBreadcrumb: Story = createStory(
     hiddenWrapper(
         html`<nimble-breadcrumb hidden>
             <nimble-breadcrumb-item href="#">Item 1</nimble-breadcrumb-item>

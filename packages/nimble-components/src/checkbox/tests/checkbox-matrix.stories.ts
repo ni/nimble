@@ -2,13 +2,14 @@ import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
-    disabledStates,
-    DisabledState,
     createMatrix,
-    themeWrapper,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    disabledStates,
+    DisabledState,
+} from '../../utilities/tests/states';
+import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -50,17 +51,15 @@ const component = (
     ${checkedName} ${indeterminateName} ${disabledName}
 </nimble-checkbox>`;
 
-export const checkboxThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            disabledStates,
-            checkedStates,
-            indeterminateStates
-        ])
-    )
+export const checkboxThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        checkedStates,
+        indeterminateStates
+    ])
 );
 
-export const hiddenCheckbox: Story = createRenderer(
+export const hiddenCheckbox: Story = createStory(
     hiddenWrapper(
         html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
     )

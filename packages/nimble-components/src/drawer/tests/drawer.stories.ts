@@ -2,7 +2,7 @@ import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import {
-    createRenderer,
+    createThemeAwareStory,
     overrideWarning
 } from '../../utilities/tests/storybook';
 import '../../button';
@@ -124,8 +124,7 @@ const metadata: Meta<DrawerArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
-    <div class="code-hide-top-container">
+    render: createThemeAwareStory(html`
         <nimble-drawer
             ${ref('drawerRef')}
             modal="${x => x.modal}"
@@ -143,7 +142,6 @@ const metadata: Meta<DrawerArgs> = {
         >
             Show/Hide Drawer (animated)
         </nimble-button>
-    </div>
     `),
     argTypes: {
         location: {

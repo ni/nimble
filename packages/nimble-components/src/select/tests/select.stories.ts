@@ -3,7 +3,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import '..';
 import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createThemeAwareStory } from '../../utilities/tests/storybook';
 
 interface SelectArgs {
     disabled: boolean;
@@ -36,7 +36,7 @@ const metadata: Meta<SelectArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createThemeAwareStory(html`
         <nimble-select ?disabled="${x => x.disabled}" position="${x => x.dropDownPosition}">
             ${repeat(x => x.options, html<OptionArgs>`
                 <nimble-list-option value="${x => x.value}" ?disabled="${x => x.disabled}">

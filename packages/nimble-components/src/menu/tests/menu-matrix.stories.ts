@@ -1,14 +1,15 @@
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
 import {
     createMatrix,
-    IconVisibleState,
-    iconVisibleStates,
     sharedMatrixParameters,
-    themeWrapper
 } from '../../utilities/tests/matrix';
+import {
+    IconVisibleState,
+    iconVisibleStates
+} from '../../utilities/tests/states';
 import '..';
 import '../../icons/user';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -43,11 +44,9 @@ const component = (
     </span>
 `;
 
-export const menuThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [iconVisibleStates]))
-);
+export const menuThemeMatrix: Story = createMatrixThemeStory(createMatrix(component, [iconVisibleStates]));
 
-export const hiddenMenu: Story = createRenderer(
+export const hiddenMenu: Story = createStory(
     hiddenWrapper(
         html`<nimble-menu hidden>
             <nimble-menu-item>Item 1</nimble-menu-item>

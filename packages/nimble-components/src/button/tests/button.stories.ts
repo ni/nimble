@@ -5,7 +5,7 @@ import { ButtonAppearance } from '../types';
 import '..';
 import '../../icons/arrow-expander-down';
 import '../../icons/key';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createThemeAwareStory } from '../../utilities/tests/storybook';
 
 interface ButtonArgs {
     label: string;
@@ -73,7 +73,7 @@ const metadata: Meta<ButtonArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createThemeAwareStory(html`
         <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" class="${x => (x.primary ? 'primary' : '')}" ?content-hidden="${x => x.contentHidden}">
             ${when(x => x.icon, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${x => x.label}

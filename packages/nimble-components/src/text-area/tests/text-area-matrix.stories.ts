@@ -1,17 +1,18 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
 import { TextAreaAppearance } from '../types';
 import {
     createMatrix,
-    themeWrapper,
+    sharedMatrixParameters
+} from '../../utilities/tests/matrix';
+import {
     disabledStates,
     DisabledState,
     ReadOnlyState,
     readOnlyStates,
-    sharedMatrixParameters
-} from '../../utilities/tests/matrix';
+} from '../../utilities/tests/states';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -62,15 +63,13 @@ const component = (
     </nimble-text-area>
 `;
 
-export const textAreaThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            readOnlyStates,
-            disabledStates,
-            appearanceStates,
-            valueStates
-        ])
-    )
+export const textAreaThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        readOnlyStates,
+        disabledStates,
+        appearanceStates,
+        valueStates
+    ])
 );
 
 const widthSizingTestCase = (
@@ -103,8 +102,7 @@ const heightSizingTestCase = (
     </div>
 `;
 
-export const textAreaSizing: Story = createRenderer(html`
-    <div class="code-hide-top-container">
+export const textAreaSizing: Story = createStory(html`
         ${createMatrix(widthSizingTestCase, [
         [
             ['No width', ''],
@@ -127,10 +125,9 @@ export const textAreaSizing: Story = createRenderer(html`
             ['rows=3', 3]
         ]
     ])}
-    </div>
 `);
 
-export const hiddenTextArea: Story = createRenderer(
+export const hiddenTextArea: Story = createStory(
     hiddenWrapper(
         html`<nimble-text-area hidden>Hidden text area</nimble-text-area>`
     )

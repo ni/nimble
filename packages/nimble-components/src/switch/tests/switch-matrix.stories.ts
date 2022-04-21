@@ -2,13 +2,14 @@ import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
-    disabledStates,
-    DisabledState,
     createMatrix,
-    themeWrapper,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    disabledStates,
+    DisabledState,
+} from '../../utilities/tests/states';
+import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -53,14 +54,10 @@ const component = (
     </nimble-switch>
 `;
 
-export const switchThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [checkedStates, disabledStates, messagesStates])
-    )
-);
+export const switchThemeMatrix: Story = createMatrixThemeStory(createMatrix(component, [checkedStates, disabledStates, messagesStates]));
 
 // prettier-ignore
-export const hiddenSwitch: Story = createRenderer(
+export const hiddenSwitch: Story = createStory(
     hiddenWrapper(
         html`<nimble-switch hidden>Hidden Switch</nimble-switch>`
     )

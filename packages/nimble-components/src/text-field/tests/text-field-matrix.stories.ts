@@ -1,17 +1,18 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
 import {
     createMatrix,
-    themeWrapper,
+    sharedMatrixParameters
+} from '../../utilities/tests/matrix';
+import {
     disabledStates,
     DisabledState,
     ReadOnlyState,
     readOnlyStates,
-    sharedMatrixParameters
-} from '../../utilities/tests/matrix';
+} from '../../utilities/tests/states';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -97,35 +98,31 @@ const component = (
     </nimble-text-field>
 `;
 
-export const enabledTextFieldThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            readOnlyStates,
-            [disabledStates[0]!],
-            actionButtonStates,
-            textFieldInvalidStates,
-            typeStates,
-            appearanceStates,
-            valueStates
-        ])
-    )
+export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        readOnlyStates,
+        [disabledStates[0]!],
+        actionButtonStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        valueStates
+    ])
 );
 
-export const disabledTextFieldThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            readOnlyStates,
-            [disabledStates[1]!],
-            actionButtonStates,
-            textFieldInvalidStates,
-            typeStates,
-            appearanceStates,
-            valueStates
-        ])
-    )
+export const disabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        readOnlyStates,
+        [disabledStates[1]!],
+        actionButtonStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        valueStates
+    ])
 );
 
-export const hiddenTextField: Story = createRenderer(
+export const hiddenTextField: Story = createStory(
     hiddenWrapper(
         html`<nimble-text-field hidden>Hidden text field</nimble-text-field>`
     )

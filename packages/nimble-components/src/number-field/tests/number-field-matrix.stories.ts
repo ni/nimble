@@ -1,14 +1,15 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
 import {
     createMatrix,
-    themeWrapper,
-    disabledStates,
-    DisabledState,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
+import {
+    disabledStates,
+    DisabledState,
+} from '../../utilities/tests/states';
 import '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
@@ -44,11 +45,9 @@ const component = (
     </nimble-number-field>
 `;
 
-export const numberFieldThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [disabledStates, valueStates]))
-);
+export const numberFieldThemeMatrix: Story = createMatrixThemeStory(createMatrix(component, [disabledStates, valueStates]));
 
-export const hiddenNumberField: Story = createRenderer(
+export const hiddenNumberField: Story = createStory(
     hiddenWrapper(
         html`<nimble-number-field hidden
             >Hidden number field</nimble-number-field

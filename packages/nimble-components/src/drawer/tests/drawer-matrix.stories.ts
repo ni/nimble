@@ -1,12 +1,13 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createFixedThemeStory } from '../../utilities/tests/storybook';
+import {
+    sharedMatrixParameters,
+} from '../../utilities/tests/matrix';
 import {
     backgroundStates,
-    sharedMatrixParameters,
-    singleThemeWrapper
-} from '../../utilities/tests/matrix';
+} from '../../utilities/tests/states';
 import '..';
 
 const metadata: Meta = {
@@ -40,14 +41,8 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const drawerLightThemeWhiteBackground: Story = createRenderer(
-    singleThemeWrapper(component, lightThemeWhiteBackground)
-);
+export const drawerLightThemeWhiteBackground: Story = createFixedThemeStory(component, lightThemeWhiteBackground);
 
-export const drawerColorThemeDarkGreenBackground: Story = createRenderer(
-    singleThemeWrapper(component, colorThemeDarkGreenBackground)
-);
+export const drawerColorThemeDarkGreenBackground: Story = createFixedThemeStory(component, colorThemeDarkGreenBackground);
 
-export const drawerDarkThemeBlackBackground: Story = createRenderer(
-    singleThemeWrapper(component, darkThemeBlackBackground)
-);
+export const drawerDarkThemeBlackBackground: Story = createFixedThemeStory(component, darkThemeBlackBackground);

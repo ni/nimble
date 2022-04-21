@@ -1,12 +1,13 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createFixedThemeStory } from '../../utilities/tests/storybook';
+import {
+    sharedMatrixParameters,
+} from '../../utilities/tests/matrix';
 import {
     backgroundStates,
-    sharedMatrixParameters,
-    singleThemeWrapper
-} from '../../utilities/tests/matrix';
+} from '../../utilities/tests/states';
 import '..';
 
 const metadata: Meta = {
@@ -53,28 +54,11 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const selectBelowOpenLightThemeWhiteBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[0]), lightThemeWhiteBackground)
-);
+export const selectBelowOpenLightThemeWhiteBackground: Story = createFixedThemeStory(component(positionStates[0]), lightThemeWhiteBackground);
+export const selectAboveOpenLightThemeWhiteBackground: Story = createFixedThemeStory(component(positionStates[1]), lightThemeWhiteBackground);
 
-export const selectAboveOpenLightThemeWhiteBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[1]), lightThemeWhiteBackground)
-);
+export const selectBelowOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(component(positionStates[0]), colorThemeDarkGreenBackground);
+export const selectAboveOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(component(positionStates[1]), colorThemeDarkGreenBackground);
 
-// prettier-ignore
-export const selectBelowOpenColorThemeDarkGreenBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[0]), colorThemeDarkGreenBackground)
-);
-
-// prettier-ignore
-export const selectAboveOpenColorThemeDarkGreenBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[1]), colorThemeDarkGreenBackground)
-);
-
-export const selectBelowOpenDarkThemeBlackBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[0]), darkThemeBlackBackground)
-);
-
-export const selectAboveOpenDarkThemeBlackBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[1]), darkThemeBlackBackground)
-);
+export const selectBelowOpenDarkThemeBlackBackground: Story = createFixedThemeStory(component(positionStates[0]), darkThemeBlackBackground);
+export const selectAboveOpenDarkThemeBlackBackground: Story = createFixedThemeStory(component(positionStates[1]), darkThemeBlackBackground);

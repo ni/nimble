@@ -1,11 +1,9 @@
 import type { Meta, Story } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import {
-    createMatrix,
     sharedMatrixParameters,
-    themeWrapper
 } from '../../utilities/tests/matrix';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
@@ -18,8 +16,7 @@ const metadata: Meta = {
 export default metadata;
 
 // prettier-ignore
-const component = (
-): ViewTemplate => html`
+const component = html`
     <nimble-toolbar>
         <nimble-button appearance="ghost" slot="start">
             <nimble-eye-icon slot="start"></nimble-eye-icon>
@@ -54,12 +51,9 @@ const component = (
     </nimble-toolbar>
 `;
 
-export const toolbarThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component))
-);
+export const toolbarThemeMatrix: Story = createMatrixThemeStory(component);
 
-// prettier-ignore
-export const hiddenToolbar: Story = createRenderer(
+export const hiddenToolbar: Story = createStory(
     hiddenWrapper(
         html`<nimble-toolbar hidden>Hidden Toolbar</nimble-toolbar>`
     )

@@ -3,13 +3,14 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import {
-    disabledStates,
-    DisabledState,
     createMatrix,
-    themeWrapper,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    disabledStates,
+    DisabledState
+} from '../../utilities/tests/states';
+import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
 import '..';
 import '../../icons/arrow-expander-down';
 import '../../icons/key';
@@ -28,10 +29,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-export const defaultButton: Story = createRenderer(
-    html`<nimble-button>Default Button</nimble-button>`
-);
 
 /* array of iconVisible, labelVisible, endIconVisible */
 type PartVisibilityState = [boolean, boolean, boolean];
@@ -71,17 +68,15 @@ const component = (
     </nimble-button>
 `;
 
-export const buttonThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            disabledStates,
-            appearanceStates,
-            primaryStates,
-            partVisibilityStates
-        ])
-    )
+export const buttonThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        primaryStates,
+        partVisibilityStates
+    ])
 );
 
-export const hiddenButton: Story = createRenderer(
+export const hiddenButton: Story = createStory(
     hiddenWrapper(html`<nimble-button hidden>Hidden Button</nimble-button>`)
 );

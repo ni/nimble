@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat, when } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createThemeAwareStory } from '../../utilities/tests/storybook';
 import '..';
 import '../../menu-item';
 import '../../icons/user';
@@ -57,7 +57,7 @@ export const menuItem: StoryObj<MenuItemArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer<MenuItemArgs>(html`
+    render: createThemeAwareStory(html`
         <nimble-menu>
             <nimble-menu-item ?disabled="${x => x.disabled}">
                 ${when(x => x.icon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}
@@ -87,7 +87,7 @@ export const menu: StoryObj<MenuArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer<MenuArgs>(html`
+    render: createThemeAwareStory(html`
         <nimble-menu>
             ${repeat(x => x.itemOptions, html<ItemArgs>`
                 ${when(x => x.type === 'nimble-menu-item', html<ItemArgs>`
@@ -177,7 +177,7 @@ export const customMenu: StoryObj<MenuArgs> = {
     },
     // pre
     // prettier-ignore
-    render: createRenderer(html`
+    render: createThemeAwareStory(html`
         <nimble-menu>
             <div style="display: grid; font-family: Source Sans Pro; font-size: 11px;">
                 <div style="font-weight: bold; color: black;">lvadmin User</div>
