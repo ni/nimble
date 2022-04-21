@@ -36,19 +36,19 @@ export default metadata;
 const valueStates = [
     ['Placeholder', null, 'placeholder'],
     ['Value', 'Hello', null]
-];
+] as const;
 type ValueState = typeof valueStates[number];
 
 const typeStates = [
     ['Text', 'text'],
     ['Password', 'password']
-];
+] as const;
 type TypeState = typeof typeStates[number];
 
 const actionButtonStates = [
     ['', false],
     ['With Buttons', true]
-];
+] as const;
 type ActionButtonState = typeof actionButtonStates[number];
 
 /* array of state name, invalidClass, errorText */
@@ -57,7 +57,7 @@ const textFieldInvalidStates = [
     ['', '', ''],
     ['Invalid Error String', 'invalid', 'This is not valid.'],
     ['Invalid', 'invalid', '']
-];
+] as const;
 type TextFieldInvalidState = typeof textFieldInvalidStates[number];
 
 const appearanceStates = Object.entries(TextFieldAppearance);
@@ -104,7 +104,7 @@ const component = (
 export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         readOnlyStates,
-        [disabledStates[0]!],
+        [disabledStates[0]],
         actionButtonStates,
         textFieldInvalidStates,
         typeStates,

@@ -27,17 +27,17 @@ const metadata: Meta = {
 
 export default metadata;
 
-type CheckedState = [string, boolean];
-const checkedStates: CheckedState[] = [
+const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
-];
+] as const;
+type CheckedState = typeof checkedStates[number];
 
-type MessagesState = [string, boolean];
-const messagesStates: MessagesState[] = [
+const messagesStates = [
     ['With Messages', true],
     ['Without Messages', false]
-];
+] as const;
+type MessagesState = typeof messagesStates[number];
 
 // prettier-ignore
 const component = (

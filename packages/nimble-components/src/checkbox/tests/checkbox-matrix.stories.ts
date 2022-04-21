@@ -27,17 +27,17 @@ const metadata: Meta = {
 
 export default metadata;
 
-type CheckedState = [string, boolean];
-const checkedStates: CheckedState[] = [
+const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
-];
+] as const;
+type CheckedState = typeof checkedStates[number];
 
-type IndeterminateState = [string, boolean];
-const indeterminateStates: IndeterminateState[] = [
+const indeterminateStates = [
     ['Indeterminate', true],
     ['', false]
-];
+] as const;
+type IndeterminateState = typeof indeterminateStates[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,

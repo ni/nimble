@@ -26,11 +26,12 @@ const metadata: Meta = {
 
 export default metadata;
 
-type BreadcrumbStyleState = [string, string];
-const breadcrumbStyleStates: BreadcrumbStyleState[] = [
+const breadcrumbStyleStates = [
     ['', ''],
     [' (Prominent Links style)', 'prominent-links']
-];
+] as const;
+type BreadcrumbStyleState = typeof breadcrumbStyleStates[number];
+
 const component = ([
     styleStateName,
     style

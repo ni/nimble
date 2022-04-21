@@ -29,23 +29,23 @@ const metadata: Meta = {
 export default metadata;
 
 /* array of iconVisible, labelVisible, endIconVisible */
-type PartVisibilityState = [boolean, boolean, boolean];
-const partVisibilityStates: PartVisibilityState[] = [
+const partVisibilityStates = [
     [true, true, false],
     [true, false, false],
     [false, true, false],
     [true, true, true],
     [false, true, true]
-];
+] as const;
+type PartVisibilityState = typeof partVisibilityStates[number];
 
 const appearanceStates = Object.entries(ButtonAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
-type CheckedState = [string, boolean];
-const checkedStates: CheckedState[] = [
+const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
-];
+] as const;
+type CheckedState = typeof checkedStates[number];
 
 // prettier-ignore
 const component = (

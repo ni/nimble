@@ -20,35 +20,35 @@ export const backgroundStates = [
 export const [defaultBackgroundState] = backgroundStates;
 export type BackgroundState = typeof backgroundStates[number];
 
-export type DisabledState = [string, boolean];
-export const disabledStates: DisabledState[] = [
+export const disabledStates = [
     ['', false],
     ['Disabled', true]
-];
+] as const;
+export type DisabledState = typeof disabledStates[number];
 
-export type InvalidState = [string, string];
-export const invalidStates: InvalidState[] = [
+export const invalidStates = [
     ['', ''],
     ['Invalid', 'invalid']
-];
+] as const;
+export type InvalidState = typeof invalidStates[number];
 
-export type ReadOnlyState = [string, boolean];
-export const readOnlyStates: ReadOnlyState[] = [
+export const readOnlyStates = [
     ['', false],
     ['Read-Only', true]
-];
+] as const;
+export type ReadOnlyState = typeof readOnlyStates[number];
 
-export type IconVisibleState = boolean;
-export const iconVisibleStates: IconVisibleState[] = [false, true];
+export const iconVisibleStates = [false, true] as const;
+export type IconVisibleState = typeof iconVisibleStates[number];
 
-export type ExpandedState = [string, boolean];
-export const expandedStates: ExpandedState[] = [
+export const expandedStates = [
     ['Collapsed', false],
     ['Expanded', true]
-];
+] as const;
+export type ExpandedState = typeof expandedStates[number];
 
-export type SelectedState = [string, boolean];
-export const selectedStates: SelectedState[] = [
+export const selectedStates = [
     ['Unselected', false],
     ['Selected', true]
-];
+] as const;
+export type SelectedState = typeof selectedStates[number];

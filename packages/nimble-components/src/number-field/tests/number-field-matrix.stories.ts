@@ -29,7 +29,7 @@ export default metadata;
 const valueStates = [
     ['Placeholder', null, 'placeholder'],
     ['Value', '1234', null]
-];
+] as const;
 type ValueState = typeof valueStates[number];
 
 const component = (
