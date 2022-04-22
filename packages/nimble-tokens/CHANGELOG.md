@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 22 Apr 2022 16:09:27 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Apr 2022 22:36:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.0.7
+
+Fri, 22 Apr 2022 22:36:24 GMT
+
+### Patches
+
+- Update Changelog entry format ([ni/nimble@4dc7e29](https://github.com/ni/nimble/commit/4dc7e295be4916b405e52d9ba83ad6d0a4059c49))
 
 ## 3.0.6
 
