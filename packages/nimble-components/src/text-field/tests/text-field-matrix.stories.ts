@@ -74,7 +74,7 @@ const component = (
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-text-field
-        style="width: 250px; padding: 15px;"
+        style="width: 350px; padding: 8px;"
         class="${() => invalidClass}"
         ?disabled="${() => disabled}"
         type="${() => type}"
