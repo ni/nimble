@@ -1,0 +1,13 @@
+diff --git a/node_modules/beachball/lib/packageManager/packagePublish.js b/node_modules/beachball/lib/packageManager/packagePublish.js
+index 6848f4d..4942da3 100644
+--- a/node_modules/beachball/lib/packageManager/packagePublish.js
++++ b/node_modules/beachball/lib/packageManager/packagePublish.js
+@@ -10,7 +10,7 @@ function packagePublish(packageInfo, registry, token, access, authType, timeout)
+     const packageOptions = packageInfo.combinedOptions;
+     const packagePath = path_1.default.dirname(packageInfo.packageJsonPath);
+     const args = [
+-        'publish',
++        'invoke-publish',
+         '--registry',
+         registry,
+         '--tag',
