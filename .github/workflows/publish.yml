@@ -3,10 +3,7 @@ name: 'publish'
 on:
   push:
     tags:
-    - "@ni/beachball-lock-update_v*"
-    - "@ni/nimble-tokens_v*"
-    - "@ni/nimble-components_v*"
-    - "@ni/nimble-angular_v*"
+      - '**'
 
 jobs:
   build:
@@ -17,7 +14,7 @@ jobs:
       # Install dependencies
       - uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: '6.0.x'
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
