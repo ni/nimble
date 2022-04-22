@@ -1,8 +1,250 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 10 Mar 2022 19:42:54 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Apr 2022 14:26:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.0.4
+
+Fri, 22 Apr 2022 14:26:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.1.1
+
+## 5.0.3
+
+Fri, 22 Apr 2022 12:45:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.1.0
+
+## 5.0.2
+
+Thu, 21 Apr 2022 20:57:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.0.2
+
+## 5.0.1
+
+Wed, 13 Apr 2022 23:09:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.0.1
+
+## 5.0.0
+
+Wed, 13 Apr 2022 21:55:47 GMT
+
+### Major changes
+
+- Changing nimble-listbox-option to nimble-list-option (26874831+atmgrifter00@users.noreply.github.com)
+- Bump @ni/nimble-components to v8.0.0
+
+## 4.6.4
+
+Wed, 13 Apr 2022 20:50:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.8.3
+
+## 4.6.3
+
+Tue, 12 Apr 2022 19:28:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.8.2
+
+## 4.6.2
+
+Tue, 12 Apr 2022 18:29:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.8.1
+
+## 4.6.1
+
+Mon, 11 Apr 2022 21:45:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.8.0
+
+## 4.6.0
+
+Mon, 11 Apr 2022 18:26:30 GMT
+
+### Minor changes
+
+- Add indeterminate to Angular wrapper for checkbox (7282195+m-akinc@users.noreply.github.com)
+
+## 4.5.1
+
+Thu, 07 Apr 2022 19:57:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.7.0
+
+## 4.5.0
+
+Thu, 07 Apr 2022 15:51:04 GMT
+
+### Minor changes
+
+- Add Angular support for nimble-toolbar (20542556+mollykreis@users.noreply.github.com)
+
+## 4.4.0
+
+Wed, 06 Apr 2022 19:38:49 GMT
+
+### Minor changes
+
+- nimble-drawer directive -  add 'preventDismiss' property binding; inherit 'cancel' output/event (triggered when dimming overlay is clicked, when modal = true) from nimble-drawer component (20709258+msmithNI@users.noreply.github.com)
+- Bump @ni/nimble-components to v7.6.0
+
+## 4.3.0
+
+Fri, 01 Apr 2022 19:42:41 GMT
+
+### Minor changes
+
+- Complete the Angular directive for Nimble text field (7282195+m-akinc@users.noreply.github.com)
+
+## 4.2.7
+
+Fri, 01 Apr 2022 18:39:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.5.0
+
+## 4.2.6
+
+Thu, 31 Mar 2022 21:02:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.4.3
+
+## 4.2.5
+
+Thu, 31 Mar 2022 18:58:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.4.2
+
+## 4.2.4
+
+Thu, 31 Mar 2022 18:03:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.4.1
+
+## 4.2.3
+
+Thu, 24 Mar 2022 01:16:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.4.0
+
+## 4.2.2
+
+Wed, 23 Mar 2022 18:49:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.3.0
+
+## 4.2.1
+
+Tue, 22 Mar 2022 20:59:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.2.3
+
+## 4.2.0
+
+Tue, 22 Mar 2022 14:07:45 GMT
+
+### Minor changes
+
+- Add missing properties to checkbox Angular directive (jattasNI@users.noreply.github.com)
+
+## 4.1.4
+
+Fri, 18 Mar 2022 19:18:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.2.2
+
+## 4.1.3
+
+Wed, 16 Mar 2022 22:20:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.2.1
+
+## 4.1.2
+
+Wed, 16 Mar 2022 21:51:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.2.0
+
+## 4.1.1
+
+Wed, 16 Mar 2022 18:56:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.1.1
+
+## 4.1.0
+
+Tue, 15 Mar 2022 16:21:24 GMT
+
+### Minor changes
+
+- Add nimble-switch Angular integration (5454342+brianehenry@users.noreply.github.com)
+
+## 4.0.5
+
+Mon, 14 Mar 2022 16:43:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.1.0
+
+## 4.0.4
+
+Fri, 11 Mar 2022 16:23:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.0.1
+
+## 4.0.3
+
+Fri, 11 Mar 2022 00:51:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v7.0.0
 
 ## 4.0.2
 

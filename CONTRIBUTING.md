@@ -19,14 +19,20 @@ This repository uses the following tooling. See below for more info.
 
 ## Getting started
 
+First step in development is to build the monorepo which requires the following to be installed:
+
+- Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
+- .NET 6 SDK (run `dotnet --version`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+
 From the `nimble` directory:
 
-1. Make sure you have Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`). Download newer versions from https://nodejs.org/en/download/
-2. Run `npm install`
-3. Run `npm run build` (or **Terminal»Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
-4. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+1. Run `npm install`
+2. Run `npm run build` (Alernatively in Visual Studio Code **Terminal » Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
+3. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
     **Note**: You will need to refresh your browser window to see style changes made in source.
+
+Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages you would like to contribute to.
 
 ## Develop new components
 
@@ -62,6 +68,23 @@ When generating a change file, follow these guidelines:
 1. Follow [semantic versioning](https://semver.org) when choosing the change type.
 2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it. The description can be plain text or [markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), with newlines specified via `\n` if needed.
 3. If you prefer not to expose your email address to the world, [configure GitHub to "Keep my email address private"](https://github.com/settings/emails) before generating the change file.
+
+### NPM audit
+
+The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-audit) to prevent submissions if any dependencies have known vulnerabilities. This can occur during on a PR that introduces a new dependency version or on an unrelated PR if a vulnerability was recently reported on an existing dependency. If this check fails, our options include:
+
+#### Vulnerabilities with fixes available
+
+1. Update the direct dependency which brings in the vulnerability to a version that addresses the issue. 
+2. If the actual issue is with a sub-dependency which has published a fix, we can update that sub-dependency via `npm audit fix`. This should be accompanied by appropriate testing of the new version. We should also ensure there is an issue on the direct dependency's repository asking them to uptake the fixed sub-dependency.
+
+#### Vulnerabilities without fixes available
+
+If a fix for the vulnerability isn't available or if it isn't practical to uptake the fix, our options include:
+
+1. Remove the vulnerable dependency and find a different way to achieve the same functionality.
+2. Temporarily use a more lenient [audit level](https://docs.npmjs.com/cli/v8/commands/npm-audit#audit-level) for this repository (e.g. allowing `low` or `moderate` vulnerabilities). We should ensure there is an issue on the dependency's repository asking them to fix the vulnerability and also file an issue against this repository to track fixing the vulnerability and restoring strict auditing.
+
 
 ### Chromatic visual component tests
 
@@ -127,16 +150,3 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 ```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
-
-<!-- TODO this workflow doesn't seem to work
-### Angular libraries
-
-1. From a CLI navigate to your project such as `angular-workspace/projects/ni/nimble-angular`.
-2. Run `ng add <my-library>`, for example: `ng add @angular/material`.
-3. That will update the `package.json` for `nimble-angular` but unfortunately also trigger an npm install inside of the `nimble-workspace` and create a `node_modules` and `package-lock.json` which are ignored.
-4. From repo root stash your `package.json` change, ie `git stash`.
-5. From repo root clean the repository, ie `git clean -fdx`.
-6. From repo root pop the `package.json` change, ie `git stash pop`.
-7. From repo root run `npm install`. This will update the root `package-lock.json`.
-8. Submit your angular project `package.json` and root `package-lock.json` change.
--->

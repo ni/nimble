@@ -8,8 +8,6 @@ import {
 import { styles } from './styles';
 import { ButtonAppearance } from './types';
 
-export type { Button };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-button': Button;
@@ -19,7 +17,7 @@ declare global {
 /**
  * A nimble-styled HTML button
  */
-class Button extends FoundationButton {
+export class Button extends FoundationButton {
     /**
      * The appearance the button should have.
      *
@@ -41,15 +39,6 @@ class Button extends FoundationButton {
      */
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
-
-    private readonly contentId = 'nimble-button-content';
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        const content = this.control.querySelector('.content')!;
-        content.id = this.contentId;
-        this.control.setAttribute('aria-labelledby', this.contentId);
-    }
 }
 
 /**
@@ -64,7 +53,6 @@ class Button extends FoundationButton {
 const nimbleButton = Button.compose<ButtonOptions>({
     baseName: 'button',
     baseClass: FoundationButton,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     shadowOptions: {

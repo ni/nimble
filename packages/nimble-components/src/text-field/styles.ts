@@ -79,11 +79,8 @@ export const styles = css`
         border-bottom-color: ${failColor};
     }
 
-    :host([readonly]:not([disabled])) .root {
-        border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
-        padding: 0px;
-        padding-bottom: 1px;
-        background-color: transparent;
+    :host([readonly]) .root {
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
     :host([disabled]) .root {
@@ -95,6 +92,10 @@ export const styles = css`
             --ni-private-hover-bottom-border-width
         );
         border-bottom-color: ${borderHoverColor};
+    }
+
+    :host([readonly]) .root:hover {
+        --ni-private-bottom-border-width: 1px;
     }
 
     :host([disabled]) .root:hover {
@@ -154,25 +155,29 @@ export const styles = css`
     }
 
     [part='end'] {
-        display: none;
-    }
-
-    :host(.invalid) [part='end'] {
         display: contents;
     }
 
-    :host(.invalid) [part='end'] svg {
+    .error-content {
+        display: none;
+    }
+
+    :host(.invalid) .error-content {
+        display: contents;
+    }
+
+    :host(.invalid) .error-content svg {
         height: ${iconSize};
         width: ${iconSize};
         padding-right: 8px;
         flex: none;
     }
 
-    :host(.invalid) [part='end'] path {
+    :host(.invalid) .error-content path {
         fill: ${failColor};
     }
 
-    :host([disabled]) [part='end'] path {
+    :host([disabled]) .error-content path {
         fill: ${bodyDisabledFontColor};
     }
 
@@ -192,16 +197,21 @@ export const styles = css`
         white-space: nowrap;
     }
 
-    :host(.invalid[readonly]:not([disabled])) .errortext {
-        top: calc(${controlHeight} - ${borderWidth});
-    }
-
     :host(.invalid) .error-text:empty {
         display: none;
     }
 
     :host([disabled]) .errortext {
         color: ${bodyDisabledFontColor};
+    }
+
+    [part='actions'] {
+        display: contents;
+    }
+
+    slot[name='actions']::slotted(*) {
+        margin-right: 8px;
+        ${controlHeight.cssCustomProperty}: 24px;
     }
 `.withBehaviors(
         appearanceBehavior(
@@ -212,6 +222,14 @@ export const styles = css`
                 padding-top: ${borderWidth};
                 padding-left: ${borderWidth};
                 padding-right: ${borderWidth};
+            }
+
+            :host([disabled]) .root {
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+
+            :host([disabled]) .root:hover {
+                --ni-private-bottom-border-width: 1px;
             }
         `
         ),
@@ -246,6 +264,11 @@ export const styles = css`
                 );
             }
 
+            :host([readonly]) .root {
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
+                border-color: transparent;
+            }
+
             :host([disabled]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
@@ -270,6 +293,25 @@ export const styles = css`
 
             :host(.invalid) .errortext {
                 top: calc(${controlHeight} - ${borderWidth});
+            }
+        `
+        ),
+        appearanceBehavior(
+            TextFieldAppearance.Frameless,
+            css`
+            .root {
+                --ni-private-bottom-border-width: 0px;
+                padding-top: ${borderWidth};
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
+
+            :host([readonly]) .root {
+                border-color: transparent;
+            }
+
+            .root:hover {
+                --ni-private-bottom-border-width: 0px;
             }
         `
         ),

@@ -5,8 +5,6 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
-export type { Tab };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-tab': Tab;
@@ -16,12 +14,11 @@ declare global {
 /**
  * A nimble-styled HTML tab
  */
-class Tab extends FoundationTab {}
+export class Tab extends FoundationTab {}
 
 const nimbleTab = Tab.compose({
     baseName: 'tab',
     baseClass: FoundationTab,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

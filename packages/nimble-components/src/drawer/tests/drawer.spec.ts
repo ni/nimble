@@ -1,8 +1,8 @@
 import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import '..';
-import type { Drawer } from '..';
+import { Drawer } from '..';
 import { DrawerState } from '../types';
+import { clickElement } from '../../utilities/tests/component';
 
 async function setup(): Promise<Fixture<Drawer>> {
     return fixture<Drawer>(html` <nimble-drawer> </nimble-drawer>`);
@@ -31,6 +31,10 @@ describe('Drawer', () => {
         );
         await DOM.nextUpdate();
     }
+
+    it('can construct an element instance', () => {
+        expect(document.createElement('nimble-drawer')).toBeInstanceOf(Drawer);
+    });
 
     it('element is hidden and does not trap focus by default', async () => {
         expect(element.hidden).toBe(true);
@@ -74,5 +78,29 @@ describe('Drawer', () => {
         element.state = DrawerState.Opened;
 
         expect(stateChange.calls.count()).toEqual(1);
+    });
+
+    it('clicking the overlay fires the "cancel" event and closes the drawer by default', async () => {
+        element.state = DrawerState.Opened;
+        const cancelEventHandler = jasmine.createSpy();
+        element.addEventListener('cancel', cancelEventHandler);
+        const drawerOverlay = element.shadowRoot!.querySelector('.overlay');
+        await clickElement(drawerOverlay as HTMLElement);
+        await waitForDrawerAnimationsCompleted();
+
+        expect(cancelEventHandler.calls.count()).toEqual(1);
+        expect(element.state).toBe(DrawerState.Closed);
+    });
+
+    it('canceling the "cancel" event after an overlay click prevents dismissing', async () => {
+        element.state = DrawerState.Opened;
+        element.addEventListener('cancel', evt => {
+            evt.preventDefault();
+        });
+        const drawerOverlay = element.shadowRoot!.querySelector('.overlay');
+        await clickElement(drawerOverlay as HTMLElement);
+        await waitForDrawerAnimationsCompleted();
+
+        expect(element.state).toBe(DrawerState.Opened);
     });
 });

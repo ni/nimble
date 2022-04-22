@@ -2,12 +2,12 @@ import { attr } from '@microsoft/fast-element';
 import {
     treeViewTemplate as template,
     TreeView as FoundationTreeView,
-    DesignSystem
+    DesignSystem,
+    isTreeItemElement,
+    TreeItem
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { TreeViewSelectionMode } from './types';
-
-export type { TreeView };
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -25,15 +25,56 @@ declare global {
  * Generates HTML Element: \<nimble-tree-view\>
  *
  */
-class TreeView extends FoundationTreeView {
+export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.All;
+
+    public override handleClick(e: Event): boolean {
+        if (e.defaultPrevented) {
+            // handled, do nothing
+            return false;
+        }
+
+        if (!(e.target instanceof Element) || !isTreeItemElement(e.target)) {
+            // not a tree item, ignore
+            return true;
+        }
+
+        const item: TreeItem = e.target as TreeItem;
+        if (item.disabled) {
+            return false;
+        }
+
+        if (this.canSelect(item)) {
+            item.selected = true;
+        } else if (this.itemHasChildren(item)) {
+            item.expanded = !item.expanded;
+        }
+        return true;
+    }
+
+    private canSelect(item: TreeItem): boolean {
+        switch (this.selectionMode) {
+            case TreeViewSelectionMode.All:
+                return true;
+            case TreeViewSelectionMode.None:
+                return false;
+            case TreeViewSelectionMode.LeavesOnly:
+                return !this.itemHasChildren(item);
+            default:
+                return true;
+        }
+    }
+
+    private itemHasChildren(item: TreeItem): boolean {
+        const treeItemChild = item.querySelector('[role="treeitem"]');
+        return treeItemChild !== null;
+    }
 }
 
 const nimbleTreeView = TreeView.compose({
     baseName: 'tree-view',
     baseClass: FoundationTreeView,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

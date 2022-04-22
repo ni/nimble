@@ -9,8 +9,6 @@ import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-ic
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 
-export type { TextField };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-text-field': TextField;
@@ -20,7 +18,7 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
-class TextField extends FoundationTextField {
+export class TextField extends FoundationTextField {
     /**
      * The appearance the text field should have.
      *
@@ -50,17 +48,19 @@ class TextField extends FoundationTextField {
 const nimbleTextField = TextField.compose<TextFieldOptions>({
     baseName: 'text-field',
     baseClass: FoundationTextField,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     shadowOptions: {
         delegatesFocus: true
     },
     end: html<TextField>`
-        ${exclamationMark16X16.data}
+        <span class="error-content">${exclamationMark16X16.data}</span>
+        <span part="actions">
+            <slot name="actions"></slot>
+        </span>
         <div
             id="errortext"
-            class="errortext"
+            class="errortext error-content"
             title="${x => x.errorText}"
             aria-live="polite"
         >

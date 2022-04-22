@@ -22,21 +22,25 @@ jobs:
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
       # Install dependencies
-      - uses: actions/setup-dotnet@v1.7.2
+      - uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 5.0.x
-      - uses: actions/setup-node@v1
+          dotnet-version: 6.0.x
+      - uses: actions/setup-node@v2
         with:
           node-version: '16'
           registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
       - run: npm ci
+
+      # Audit
+      - run: npm audit --only=prod
+      - run: npm audit --audit-level=critical
 
       # Build
       - run: npm run build
 
       # Pack
       - run: npm run pack
-      - run: npm run pack:nuget -w @ni/nimble-tokens
       - uses: actions/upload-artifact@v2
         with:
           name: packages

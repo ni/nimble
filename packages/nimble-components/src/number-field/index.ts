@@ -10,8 +10,6 @@ import {
 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
-export type { NumberField };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-number-field': NumberField;
@@ -21,7 +19,7 @@ declare global {
 /**
  * A nimble-styled HTML number input
  */
-class NumberField extends FoundationNumberField {}
+export class NumberField extends FoundationNumberField {}
 
 /**
  * A function that returns a number-field registration for configuring the component with a DesignSystem.
@@ -34,7 +32,6 @@ class NumberField extends FoundationNumberField {}
 const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     baseName: 'number-field',
     baseClass: FoundationNumberField,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     shadowOptions: {

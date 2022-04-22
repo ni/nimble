@@ -66,7 +66,7 @@ Tokens values are also available as:
 
 #### Font Faces
 
-Nimble provides font definitions for every font family used by a token. To ensure these fonts are available to your application, include `'@ni/nimble-tokens/source/fonts.css'` in your application code.
+Nimble provides font definitions for every font family used by a token. To ensure these fonts are available to your application, include `@ni/nimble-tokens/source/fonts.css` in your application code.
 
 
 ## Contributing

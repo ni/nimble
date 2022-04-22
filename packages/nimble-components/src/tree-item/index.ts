@@ -6,13 +6,8 @@ import {
 } from '@microsoft/fast-foundation';
 import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import type { TreeView } from '../tree-view';
-import {
-    groupSelectedAttribute,
-    TreeViewSelectionMode
-} from '../tree-view/types';
+import { groupSelectedAttribute } from '../tree-view/types';
 import { styles } from './styles';
-
-export type { TreeItem };
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,13 +25,8 @@ declare global {
  * Generates HTML Element: \<nimble-tree-item\>
  *
  */
-class TreeItem extends FoundationTreeItem {
+export class TreeItem extends FoundationTreeItem {
     private treeView: TreeView | null = null;
-
-    public constructor() {
-        super();
-        this.addEventListener('click', this.handleClickOverride);
-    }
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -49,47 +39,9 @@ class TreeItem extends FoundationTreeItem {
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.removeEventListener('click', this.handleClickOverride);
         this.removeEventListener('selected-change', this.handleSelectedChange);
         this.treeView = null;
     }
-
-    private hasChildTreeItems(): boolean {
-        const treeItemChild = this.querySelector('[role="treeitem"]');
-        return treeItemChild !== null;
-    }
-
-    private readonly handleClickOverride = (event: MouseEvent): void => {
-        if (event.composedPath().includes(this.expandCollapseButton)) {
-            // just have base class handle click event for glyph
-            return;
-        }
-
-        const treeItem = this.getImmediateTreeItem(event.target as HTMLElement);
-        if (treeItem?.disabled || treeItem !== this) {
-            // don't allow base TreeItem to emit a 'selected-change' event when a disabled item is clicked
-            event.stopImmediatePropagation();
-            return;
-        }
-
-        const leavesOnly = this.treeView?.selectionMode === TreeViewSelectionMode.LeavesOnly;
-        const hasChildren = this.hasChildTreeItems();
-        if ((leavesOnly && !hasChildren) || !leavesOnly) {
-            // if either a leaf tree item, or in a mode that supports select on groups,
-            // process click as a select
-            if (!this.selected) {
-                this.selected = true;
-                this.$emit('selected-change', this);
-            }
-        } else {
-            // implicit hasChildren && leavesOnly, so only allow expand/collapse, not select
-            this.expanded = !this.expanded;
-            this.$emit('expanded-change', this);
-        }
-
-        // don't allow base class to process click event
-        event.stopImmediatePropagation();
-    };
 
     // This prevents the toggling of selected state when a TreeItem is clicked multiple times,
     // which is what the FAST TreeItem allows
@@ -120,18 +72,6 @@ class TreeItem extends FoundationTreeItem {
         }
     }
 
-    private getImmediateTreeItem(element: HTMLElement): TreeItem {
-        let foundElement: HTMLElement | null | undefined = element;
-        while (
-            foundElement
-            && !(foundElement?.getAttribute('role') === 'treeitem')
-        ) {
-            foundElement = foundElement?.parentElement;
-        }
-
-        return foundElement as TreeItem;
-    }
-
     /**
      * This was copied directly from the FAST TreeItem implementation
      * @returns the root tree view
@@ -145,9 +85,7 @@ class TreeItem extends FoundationTreeItem {
 const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseName: 'tree-item',
     baseClass: FoundationTreeItem,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
-    // @ts-expect-error FAST styles have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     styles,
     expandCollapseGlyph: arrowExpanderUp16X16.data
 });

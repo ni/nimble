@@ -6,8 +6,6 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
-export type { MenuItem };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-menu-item': MenuItem;
@@ -17,7 +15,7 @@ declare global {
 /**
  * A nimble-styled menu-item
  */
-class MenuItem extends FoundationMenuItem {}
+export class MenuItem extends FoundationMenuItem {}
 
 /**
  * A function that returns a nimble-menu-item registration for configuring the component with a DesignSystem.
@@ -31,7 +29,6 @@ class MenuItem extends FoundationMenuItem {}
 const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
     baseClass: FoundationMenuItem,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles
 });

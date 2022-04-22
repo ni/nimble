@@ -129,6 +129,35 @@ export function createMatrix<State1, State2, State3, State4, State5, State6>(
     ]
 ): ViewTemplate;
 
+export function createMatrix<
+    State1,
+    State2,
+    State3,
+    State4,
+    State5,
+    State6,
+    State7
+>(
+    component: (
+        state1: State1,
+        state2: State2,
+        state3: State3,
+        state4: State4,
+        state5: State5,
+        state6: State6,
+        state7: State7
+    ) => ViewTemplate,
+    dimensions: readonly [
+        readonly State1[],
+        readonly State2[],
+        readonly State3[],
+        readonly State4[],
+        readonly State5[],
+        readonly State6[],
+        readonly State7[]
+    ]
+): ViewTemplate;
+
 export function createMatrix(
     component: (...states: readonly unknown[]) => ViewTemplate,
     dimensions?: readonly (readonly unknown[])[]
@@ -169,3 +198,25 @@ export const themeWrapper = (template: ViewTemplate): ViewTemplate => createMatr
         `,
     [backgroundStates]
 );
+
+// A customized theme wrapper (not themeWrapper like the other controls) so we can create different stories for each theme, rather
+// than having a single Theme Matrix story. This is useful for when the UI under test can't be tested multiple times on a
+// single page, but you still want to test the UI for each theme.
+export const singleThemeWrapper = (
+    template: ViewTemplate,
+    backgroundState: BackgroundState
+): ViewTemplate => html`
+    <nimble-theme-provider theme="${backgroundState.theme}">
+        <div
+            style="
+                background-color: ${backgroundState.value};
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0px;
+                top: 0px;
+            "
+        ></div>
+        ${template}
+    </nimble-theme-provider>
+`;

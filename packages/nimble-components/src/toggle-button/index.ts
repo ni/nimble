@@ -1,14 +1,14 @@
 import { attr } from '@microsoft/fast-element';
 import {
+    applyMixins,
+    ButtonOptions,
     DesignSystem,
-    Switch as FoundationSwitch,
-    SwitchOptions
+    StartEnd,
+    Switch as FoundationSwitch
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import { ButtonAppearance } from '../patterns/button/types';
-
-export type { ToggleButton };
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,7 +19,7 @@ declare global {
 /**
  * A nimble-styled toggle button control.
  */
-class ToggleButton extends FoundationSwitch {
+export class ToggleButton extends FoundationSwitch {
     /**
      * The appearance the button should have.
      *
@@ -45,8 +45,9 @@ class ToggleButton extends FoundationSwitch {
     /** @internal */
     public readonly control!: HTMLElement;
 }
+applyMixins(ToggleButton, StartEnd);
 
-const nimbleToggleButton = ToggleButton.compose<SwitchOptions>({
+const nimbleToggleButton = ToggleButton.compose<ButtonOptions>({
     baseName: 'toggle-button',
     template,
     styles,

@@ -7,8 +7,6 @@ import {
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
-export type { Select };
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-select': Select;
@@ -18,28 +16,7 @@ declare global {
 /**
  * A nimble-styed HTML select
  */
-class Select extends FoundationSelect {
-    public override get value(): string {
-        return super.value;
-    }
-
-    public override set value(value: string) {
-        super.value = value;
-
-        // Workaround for https://github.com/microsoft/fast/issues/5139
-        // When the value property is set very early in the element's lifecycle (e.g. Angular value binding),
-        // the options property will not be set yet. As a workaround, we mark the listbox-option element with
-        // the selected attribute, which will set the initial value correctly.
-        if (value !== null && this.options.length === 0) {
-            const options = this.querySelectorAll('option,[role="option"]');
-            options.forEach(option => {
-                if (option.getAttribute('value') === value) {
-                    option.setAttribute('selected', '');
-                }
-            });
-        }
-    }
-
+export class Select extends FoundationSelect {
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {
@@ -50,17 +27,22 @@ class Select extends FoundationSelect {
         super.setPositioning();
     }
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        // Call setPositioning() after this.forcedPosition is initialized.
-        this.setPositioning();
+    // Workaround for https://github.com/microsoft/fast/issues/5773
+    public override slottedOptionsChanged(
+        prev: Element[],
+        next: Element[]
+    ): void {
+        const value = this.value;
+        super.slottedOptionsChanged(prev, next);
+        if (value) {
+            this.value = value;
+        }
     }
 }
 
 const nimbleSelect = Select.compose<SelectOptions>({
     baseName: 'select',
     baseClass: FoundationSelect,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
     indicator: arrowExpanderDown16X16.data

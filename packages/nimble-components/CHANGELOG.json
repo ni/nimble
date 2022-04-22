@@ -2,6 +2,462 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 22 Apr 2022 14:26:36 GMT",
+      "tag": "@ni/nimble-components_v8.1.1",
+      "version": "8.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.3",
+            "commit": "0c619b7a6462261a9c60d2549b88df57719ab3c9"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Apr 2022 12:45:44 GMT",
+      "tag": "@ni/nimble-components_v8.1.0",
+      "version": "8.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d415c89b77d0bacf3b27380d0d3eb1f00b708c74",
+            "comment": "Add frameless appearance to nimble-text-field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 21 Apr 2022 20:57:24 GMT",
+      "tag": "@ni/nimble-components_v8.0.2",
+      "version": "8.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f1fa1f0358d33e2c7b1d38dfbebd589a01afd281",
+            "comment": "Fix minified source map generation"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.2",
+            "commit": "f1fa1f0358d33e2c7b1d38dfbebd589a01afd281"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Apr 2022 18:13:39 GMT",
+      "tag": "@ni/nimble-components_v8.0.1",
+      "version": "8.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ba9f084fb6df75ea9db7e0c9abf38c23c4e17892",
+            "comment": "Adding Combobox spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Apr 2022 23:09:34 GMT",
+      "tag": "@ni/nimble-components_v8.0.1",
+      "version": "8.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3e02a7634d890181ce02bbf307b70e84135c8821",
+            "comment": "Enforce tree selection mode when using keyboard"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Apr 2022 21:55:47 GMT",
+      "tag": "@ni/nimble-components_v8.0.0",
+      "version": "8.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3fde428b4f5d9b3b9f7c7703d43ac933098e11c7",
+            "comment": "Changing nimble-listbox-option to nimble-list-option"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Apr 2022 20:50:06 GMT",
+      "tag": "@ni/nimble-components_v7.8.3",
+      "version": "7.8.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "31d87b48a99501fca98a6614acbf29e2a70b7465",
+            "comment": "Adding nimble toolbar to allComponents"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Apr 2022 21:47:23 GMT",
+      "tag": "@ni/nimble-components_v7.8.2",
+      "version": "7.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dcff81e825dab971e6b8184f027ff0bd8c26b4b1",
+            "comment": "Improve documentation for tree selection mode"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Apr 2022 19:28:50 GMT",
+      "tag": "@ni/nimble-components_v7.8.2",
+      "version": "7.8.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "918fa93c937b2e56f5b24196adb5dbdcabedb0bf",
+            "comment": "Remove nested specific styling from tree items"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Apr 2022 18:29:27 GMT",
+      "tag": "@ni/nimble-components_v7.8.1",
+      "version": "7.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3bc5e68cddea2ac7bb3005c442e8df7febe5defb",
+            "comment": "Correct hover color of active tree group"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Apr 2022 21:45:54 GMT",
+      "tag": "@ni/nimble-components_v7.8.0",
+      "version": "7.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cdc640f741dca14e99aa118d491b26fd9ca60aed",
+            "comment": "Add 'none' selection mode to tree"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 08 Apr 2022 19:29:58 GMT",
+      "tag": "@ni/nimble-components_v7.7.0",
+      "version": "7.7.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9940e68a3a79f5b6f8a976c2d8b63ad107f599f1",
+            "comment": "Fix Chromatic drawer test intermittency"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Apr 2022 19:57:34 GMT",
+      "tag": "@ni/nimble-components_v7.7.0",
+      "version": "7.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6dc0cc1c1c909b17359877d4828da0e48df4e75d",
+            "comment": "Add styling for indeterminate checkbox state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Apr 2022 19:38:49 GMT",
+      "tag": "@ni/nimble-components_v7.6.0",
+      "version": "7.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4463a54517442bb48ee87e92885065bc3c3a1bb3",
+            "comment": "nimble-drawer has cancelable 'cancel' event (triggered when dimming overlay is clicked, when modal = true)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 01 Apr 2022 18:39:28 GMT",
+      "tag": "@ni/nimble-components_v7.5.0",
+      "version": "7.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e313fa8658229d3ddead2a5c4ba088e68e20d8da",
+            "comment": "Add ability to place buttons within a text field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Mar 2022 21:02:24 GMT",
+      "tag": "@ni/nimble-components_v7.4.3",
+      "version": "7.4.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "93644b519b97b1ec3c054469ed96ab1efeece359",
+            "comment": "nimble-text-area honor height and width"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Mar 2022 18:58:20 GMT",
+      "tag": "@ni/nimble-components_v7.4.2",
+      "version": "7.4.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4b079f30ec68b4c0c635a426f3580239df49bfab",
+            "comment": "Added descriptive tags to icon metadata file"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Mar 2022 18:03:04 GMT",
+      "tag": "@ni/nimble-components_v7.4.1",
+      "version": "7.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9fa44b9cc7d82bb696fcf27651949c676f6ab9c0",
+            "comment": "Fix bug in nimble-select when options change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Mar 2022 16:36:10 GMT",
+      "tag": "@ni/nimble-components_v7.4.0",
+      "version": "7.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4906f19946f514ece3b1d38d706085cab581b4c7",
+            "comment": "Update Drawer Storybook to hook up close buttons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Mar 2022 01:16:17 GMT",
+      "tag": "@ni/nimble-components_v7.4.0",
+      "version": "7.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7e641fc43d08e501a668fb7c91208405d5ae8b02",
+            "comment": "Add bundled distribution file to package"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Mar 2022 18:49:06 GMT",
+      "tag": "@ni/nimble-components_v7.3.0",
+      "version": "7.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "283179456e93bef036f04d6d757217a7f74d6fd0",
+            "comment": "Create nimble-toolbar component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 22 Mar 2022 23:49:19 GMT",
+      "tag": "@ni/nimble-components_v7.2.3",
+      "version": "7.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9da08c4905b7d9f7edf43248d46f8440cf5f0014",
+            "comment": "Update FastFoundation tagFor tests"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 22 Mar 2022 20:59:12 GMT",
+      "tag": "@ni/nimble-components_v7.2.3",
+      "version": "7.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "294a686f9ab471c94bc93df36919ce9f1b970e21",
+            "comment": "Update FAST dependencies. Fix issues."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 18 Mar 2022 19:18:02 GMT",
+      "tag": "@ni/nimble-components_v7.2.2",
+      "version": "7.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ad71d7b477c62990d07bec4a3d0460c334cb07ad",
+            "comment": "Fix button width and height styles"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Mar 2022 22:20:10 GMT",
+      "tag": "@ni/nimble-components_v7.2.1",
+      "version": "7.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9d9b3e602dcd10381783b78f1ab84a79d378a68d",
+            "comment": "Fix hover style of block button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Mar 2022 21:51:34 GMT",
+      "tag": "@ni/nimble-components_v7.2.0",
+      "version": "7.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3d1a63a6c352b9087dfe07c36f434f70c5a2851c",
+            "comment": "Add support for icons in 'end' slot of nimble-button and nimble-toggle-button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Mar 2022 18:56:43 GMT",
+      "tag": "@ni/nimble-components_v7.1.1",
+      "version": "7.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "60a48fd03c405d6726733003895afdbe30a33241",
+            "comment": "Icon button use hidden content as a11y name"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 14 Mar 2022 16:43:20 GMT",
+      "tag": "@ni/nimble-components_v7.1.0",
+      "version": "7.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9f367f69590374c042bfdcb07105b4d104db3975",
+            "comment": "Create switch component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Mar 2022 16:23:10 GMT",
+      "tag": "@ni/nimble-components_v7.0.1",
+      "version": "7.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3d9b243bd14c7ffa1578bab00ee7d2d6c530a3e1",
+            "comment": "Switch to released 6.0.0 of storybook-addon-xd-designs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Mar 2022 00:51:41 GMT",
+      "tag": "@ni/nimble-components_v7.0.0",
+      "version": "7.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0a22c0380b537f013c2fb9766bcbf9cd9e4f5927",
+            "comment": "Change nimble-breadcrumb CSS class from \"style-2\" to \"prominent-links\" (to get alt link color style); add that style to breadcrumb theme matrix"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 10 Mar 2022 21:26:41 GMT",
       "tag": "@ni/nimble-components_v6.1.5",
       "version": "6.1.5",

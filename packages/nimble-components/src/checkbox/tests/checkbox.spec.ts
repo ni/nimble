@@ -2,13 +2,16 @@ import {
     DesignSystem,
     Checkbox as FoundationCheckbox
 } from '@microsoft/fast-foundation';
-import { html } from '@microsoft/fast-element';
-import '..';
+import { Checkbox } from '..';
 
 describe('Checkbox', () => {
     it('should have its tag returned by tagFor(FoundationCheckbox)', () => {
-        expect(html`${DesignSystem.tagFor(FoundationCheckbox)}`.html).toBe(
-            'nimble-checkbox'
+        expect(DesignSystem.tagFor(FoundationCheckbox)).toBe('nimble-checkbox');
+    });
+
+    it('can construct an element instance', () => {
+        expect(document.createElement('nimble-checkbox')).toBeInstanceOf(
+            Checkbox
         );
     });
 });

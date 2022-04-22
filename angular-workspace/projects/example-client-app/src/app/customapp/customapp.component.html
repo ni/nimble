@@ -19,7 +19,7 @@
                 <nimble-button appearance="ghost">Ghost Button</nimble-button>
             </div>
             <div class="sub-container">
-                <div class="container-label">Toggle Buttons</div>
+                <div class="container-label">Buttons - Toggle</div>
                 <nimble-toggle-button appearance="outline">Outline Toggle Button</nimble-toggle-button>
                 <nimble-toggle-button appearance="block">Block Toggle Button</nimble-toggle-button>
                 <nimble-toggle-button appearance="ghost">Ghost Toggle Button</nimble-toggle-button>
@@ -35,8 +35,8 @@
                 <nimble-button appearance="outline" (click)="navDrawer.open()">Open Drawer</nimble-button>
                 <nimble-button appearance="outline" (click)="navDrawer.togglePinned()">Pin/Unpin</nimble-button>
                 <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
-                    <nimble-listbox-option [value]="drawerLocations.Left">Drawer: Left-side</nimble-listbox-option>
-                    <nimble-listbox-option [value]="drawerLocations.Right">Drawer: Right-side</nimble-listbox-option>
+                    <nimble-list-option [value]="drawerLocations.Left">Drawer: Left-side</nimble-list-option>
+                    <nimble-list-option [value]="drawerLocations.Right">Drawer: Right-side</nimble-list-option>
                 </nimble-select>
             </div>
             <div class="sub-container">
@@ -60,10 +60,19 @@
             <div class="sub-container">
                 <div class="container-label">Select</div>
                 <nimble-select>
-                    <nimble-listbox-option>Option 1</nimble-listbox-option>
-                    <nimble-listbox-option>Option 2</nimble-listbox-option>
-                    <nimble-listbox-option>Option 3</nimble-listbox-option>
+                    <nimble-list-option>Option 1</nimble-list-option>
+                    <nimble-list-option>Option 2</nimble-list-option>
+                    <nimble-list-option>Option 3</nimble-list-option>
                 </nimble-select>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Switch</div>
+                <nimble-switch>Switch</nimble-switch>
+                <nimble-switch checked>
+                    Switch with checked/unchecked messages
+                    <span slot="unchecked-message">Off</span>
+                    <span slot="checked-message">On</span>
+                </nimble-switch>
             </div>
             <div class="sub-container">
                 <div class="container-label">Tabs</div>
@@ -94,6 +103,15 @@
                 <nimble-text-field placeholder="Text Field" value="Here is text!">Text Field Label</nimble-text-field>
             </div>
             <div class="sub-container">
+                <div class="container-label">Toolbar</div>
+                <nimble-toolbar>
+                    <nimble-button slot="start" appearance="outline">First button</nimble-button>
+                    <nimble-button slot="start" appearance="outline">Second button</nimble-button>
+                    <nimble-button>Middle button</nimble-button>
+                    <nimble-button slot="end" appearance="outline">Last button</nimble-button>
+                </nimble-toolbar>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Tree View</div>
                 <nimble-tree-view>
                     <nimble-tree-item>
@@ -104,7 +122,7 @@
                     </nimble-tree-item>
                     <nimble-tree-item expanded>
                         Parent 2
-                        <nimble-tree-item>Child 2-1</nimble-tree-item>
+                        <nimble-tree-item selected>Child 2-1</nimble-tree-item>
                         <nimble-tree-item>Child 2-2</nimble-tree-item>
                         <nimble-tree-item>Child 2-3</nimble-tree-item>
                     </nimble-tree-item>

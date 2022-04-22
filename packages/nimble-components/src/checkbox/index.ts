@@ -4,10 +4,11 @@ import {
     CheckboxOptions,
     checkboxTemplate as template
 } from '@microsoft/fast-foundation';
-import { check16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import {
+    check16X16,
+    minus16X16
+} from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
-
-export type { Checkbox };
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,15 +19,15 @@ declare global {
 /**
  * A nimble-styled checkbox control.
  */
-class Checkbox extends FoundationCheckbox {}
+export class Checkbox extends FoundationCheckbox {}
 
 const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
     baseName: 'checkbox',
     baseClass: FoundationCheckbox,
-    // @ts-expect-error FAST templates have incorrect type, see: https://github.com/microsoft/fast/issues/5047
     template,
     styles,
-    checkedIndicator: check16X16.data
+    checkedIndicator: check16X16.data,
+    indeterminateIndicator: minus16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCheckbox());

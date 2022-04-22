@@ -1,8 +1,209 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 10 Mar 2022 19:42:54 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Apr 2022 14:26:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.1.1
+
+Fri, 22 Apr 2022 14:26:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.3
+
+## 8.1.0
+
+Fri, 22 Apr 2022 12:45:44 GMT
+
+### Minor changes
+
+- Add frameless appearance to nimble-text-field (7282195+m-akinc@users.noreply.github.com)
+
+## 8.0.2
+
+Thu, 21 Apr 2022 20:57:24 GMT
+
+### Patches
+
+- Fix minified source map generation (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v3.0.2
+
+## 8.0.1
+
+Wed, 13 Apr 2022 23:09:34 GMT
+
+### Patches
+
+- Enforce tree selection mode when using keyboard (20542556+mollykreis@users.noreply.github.com)
+
+## 8.0.0
+
+Wed, 13 Apr 2022 21:55:47 GMT
+
+### Major changes
+
+- Changing nimble-listbox-option to nimble-list-option (26874831+atmgrifter00@users.noreply.github.com)
+
+## 7.8.3
+
+Wed, 13 Apr 2022 20:50:06 GMT
+
+### Patches
+
+- Adding nimble toolbar to allComponents (26874831+atmgrifter00@users.noreply.github.com)
+
+## 7.8.2
+
+Tue, 12 Apr 2022 19:28:50 GMT
+
+### Patches
+
+- Remove nested specific styling from tree items (20542556+mollykreis@users.noreply.github.com)
+
+## 7.8.1
+
+Tue, 12 Apr 2022 18:29:27 GMT
+
+### Patches
+
+- Correct hover color of active tree group (20542556+mollykreis@users.noreply.github.com)
+
+## 7.8.0
+
+Mon, 11 Apr 2022 21:45:54 GMT
+
+### Minor changes
+
+- Add 'none' selection mode to tree (20542556+mollykreis@users.noreply.github.com)
+
+## 7.7.0
+
+Thu, 07 Apr 2022 19:57:34 GMT
+
+### Minor changes
+
+- Add styling for indeterminate checkbox state (7282195+m-akinc@users.noreply.github.com)
+
+## 7.6.0
+
+Wed, 06 Apr 2022 19:38:49 GMT
+
+### Minor changes
+
+- nimble-drawer has cancelable 'cancel' event (triggered when dimming overlay is clicked, when modal = true) (20709258+msmithNI@users.noreply.github.com)
+
+## 7.5.0
+
+Fri, 01 Apr 2022 18:39:28 GMT
+
+### Minor changes
+
+- Add ability to place buttons within a text field (20542556+mollykreis@users.noreply.github.com)
+
+## 7.4.3
+
+Thu, 31 Mar 2022 21:02:24 GMT
+
+### Patches
+
+- nimble-text-area honor height and width (7282195+m-akinc@users.noreply.github.com)
+
+## 7.4.2
+
+Thu, 31 Mar 2022 18:58:20 GMT
+
+### Patches
+
+- Added descriptive tags to icon metadata file (1458528+fredvisser@users.noreply.github.com)
+
+## 7.4.1
+
+Thu, 31 Mar 2022 18:03:04 GMT
+
+### Patches
+
+- Fix bug in nimble-select when options change (20542556+mollykreis@users.noreply.github.com)
+
+## 7.4.0
+
+Thu, 24 Mar 2022 01:16:17 GMT
+
+### Minor changes
+
+- Add bundled distribution file to package (5454342+brianehenry@users.noreply.github.com)
+
+## 7.3.0
+
+Wed, 23 Mar 2022 18:49:06 GMT
+
+### Minor changes
+
+- Create nimble-toolbar component (20542556+mollykreis@users.noreply.github.com)
+
+## 7.2.3
+
+Tue, 22 Mar 2022 20:59:12 GMT
+
+### Patches
+
+- Update FAST dependencies. Fix issues. (26874831+atmgrifter00@users.noreply.github.com)
+
+## 7.2.2
+
+Fri, 18 Mar 2022 19:18:02 GMT
+
+### Patches
+
+- Fix button width and height styles (20542556+mollykreis@users.noreply.github.com)
+
+## 7.2.1
+
+Wed, 16 Mar 2022 22:20:10 GMT
+
+### Patches
+
+- Fix hover style of block button (20542556+mollykreis@users.noreply.github.com)
+
+## 7.2.0
+
+Wed, 16 Mar 2022 21:51:34 GMT
+
+### Minor changes
+
+- Add support for icons in 'end' slot of nimble-button and nimble-toggle-button (20542556+mollykreis@users.noreply.github.com)
+
+## 7.1.1
+
+Wed, 16 Mar 2022 18:56:43 GMT
+
+### Patches
+
+- Icon button use hidden content as a11y name (7282195+m-akinc@users.noreply.github.com)
+
+## 7.1.0
+
+Mon, 14 Mar 2022 16:43:20 GMT
+
+### Minor changes
+
+- Create switch component (5454342+brianehenry@users.noreply.github.com)
+
+## 7.0.1
+
+Fri, 11 Mar 2022 16:23:10 GMT
+
+### Patches
+
+- Switch to released 6.0.0 of storybook-addon-xd-designs (7282195+m-akinc@users.noreply.github.com)
+
+## 7.0.0
+
+Fri, 11 Mar 2022 00:51:41 GMT
+
+### Major changes
+
+- Change nimble-breadcrumb CSS class from "style-2" to "prominent-links" (to get alt link color style); add that style to breadcrumb theme matrix (20709258+msmithNI@users.noreply.github.com)
 
 ## 6.1.5
 
