@@ -107,6 +107,10 @@ export const outlineTextField: StoryObj<TextFieldArgs> = {
     args: { label: 'Outline Text Field', appearance: 'outline' }
 };
 
+export const framelessTextField: StoryObj<TextFieldArgs> = {
+    args: { label: 'Frameless Text Field', appearance: 'frameless' }
+};
+
 export const passwordField: StoryObj<TextFieldArgs> = {
     args: { label: 'Password Field', type: 'password' }
 };

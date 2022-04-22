@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 13 Apr 2022 23:09:34 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Apr 2022 16:09:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.1.3
+
+Fri, 22 Apr 2022 16:09:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.6
+
+## 8.1.2
+
+Fri, 22 Apr 2022 15:09:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.4
+
+## 8.1.1
+
+Fri, 22 Apr 2022 14:26:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.3
+
+## 8.1.0
+
+Fri, 22 Apr 2022 12:45:44 GMT
+
+### Minor changes
+
+- Add frameless appearance to nimble-text-field (7282195+m-akinc@users.noreply.github.com)
+
+## 8.0.2
+
+Thu, 21 Apr 2022 20:57:24 GMT
+
+### Patches
+
+- Fix minified source map generation (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v3.0.2
 
 ## 8.0.1
 
