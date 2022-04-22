@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 22 Apr 2022 15:09:11 GMT",
+      "tag": "@ni/nimble-tokens_v3.0.4",
+      "version": "3.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "b3b90746b19fdc8a2846b70d755101896a6f8359",
+            "comment": "Tweak to trigger releases"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Apr 2022 14:26:36 GMT",
       "tag": "@ni/nimble-tokens_v3.0.3",
       "version": "3.0.3",
