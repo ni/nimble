@@ -1,22 +1,23 @@
 import type { Meta, Story } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { html } from '@microsoft/fast-element';
+import { sharedMatrixParameters } from '../../utilities/tests/matrix';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Toolbar',
     parameters: {
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        ...sharedMatrixParameters()
     }
 };
 
 export default metadata;
 
 // prettier-ignore
-const component = (
-): ViewTemplate => html`
+const component = html`
     <nimble-toolbar>
         <nimble-button appearance="ghost" slot="start">
             <nimble-eye-icon slot="start"></nimble-eye-icon>
@@ -51,13 +52,8 @@ const component = (
     </nimble-toolbar>
 `;
 
-export const toolbarThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component))
-);
+export const toolbarThemeMatrix: Story = createMatrixThemeStory(component);
 
-// prettier-ignore
-export const hiddenToolbar: Story = createRenderer(
-    hiddenWrapper(
-        html`<nimble-toolbar hidden>Hidden Toolbar</nimble-toolbar>`
-    )
+export const hiddenToolbar: Story = createStory(
+    hiddenWrapper(html`<nimble-toolbar hidden>Hidden Toolbar</nimble-toolbar>`)
 );
