@@ -50,7 +50,7 @@
     "@microsoft/fast-element": "^1.8.0",
     "@microsoft/fast-foundation": "^2.37.1",
     "@microsoft/fast-web-utilities": "^5.1.0",
-    "@ni/nimble-tokens": "^3.0.4",
+    "@ni/nimble-tokens": "^3.0.5",
     "hex-rgb": "^5.0.0"
   },
   "devDependencies": {
