@@ -116,7 +116,7 @@ export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
 export const disabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         readOnlyStates,
-        [disabledStates[1]!],
+        [disabledStates[1]],
         actionButtonStates,
         textFieldInvalidStates,
         typeStates,
