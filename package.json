@@ -12,7 +12,7 @@
     "pack": "npm run pack --workspaces --if-present",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
-    "bump-versions": "beachball publish --no-publish --yes --access public --message \"applying package updates [bump-versions]\"",
+    "invoke-publish": "beachball publish --yes --access public --message \"applying package updates [skip ci]\"",
     "validate": "npm run build && npm run lint && npm run test",
     "performance": "lhci autorun"
   },
