@@ -45,6 +45,19 @@
                 </NimbleSelect>
             </div>
             <div class="sub-container">
+                <div class="container-label">Switch</div>
+                <NimbleSwitch>Switch</NimbleSwitch>
+                <NimbleSwitch Value="true">
+                    Switch with checked/unchecked messages
+                    <span slot="unchecked-message">Off</span>
+                    <span slot="checked-message">On</span>
+                </NimbleSwitch>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Text Area</div>
+                <NimbleTextArea Placeholder="Text Area" Cols="50" Rows="5" Resize="horizontal" Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</NimbleTextArea>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Text Field</div>
                 <NimbleTextField Placeholder="Text Field" Value="Here is text!">Text Field Label</NimbleTextField>
             </div>
