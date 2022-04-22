@@ -23,12 +23,20 @@
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
             </div>
             <div class="sub-container">
+                <div class="container-label">Icons (subset - see <a href="https://ni.github.io/nimble/storybook/?path=/docs/icons--icons">
+                    Icons Storybook page</a> for complete set)</div>
+                <NimbleChartDiagramIcon></NimbleChartDiagramIcon>
+                <NimbleSquareCheckIcon class="pass"></NimbleSquareCheckIcon>
+                <NimbleXmarkCheckIcon class="warning"></NimbleXmarkCheckIcon>
+                <NimbleXmarkIcon class="fail"></NimbleXmarkIcon>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Menu</div>
                 <NimbleMenu>
                     <header>Header 1</header>
                     <NimbleMenuItem>
                         Item 1
-                        <span slot="start">[+]</span>
+                        <NimbleAddIcon slot="start"></NimbleAddIcon>
                     </NimbleMenuItem>
                     <NimbleMenuItem>Item 2</NimbleMenuItem>
                     <hr>
