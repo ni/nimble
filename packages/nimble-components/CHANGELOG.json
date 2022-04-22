@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 22 Apr 2022 12:45:44 GMT",
+      "tag": "@ni/nimble-components_v8.1.0",
+      "version": "8.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d415c89b77d0bacf3b27380d0d3eb1f00b708c74",
+            "comment": "Add frameless appearance to nimble-text-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 21 Apr 2022 20:57:24 GMT",
       "tag": "@ni/nimble-components_v8.0.2",
       "version": "8.0.2",
