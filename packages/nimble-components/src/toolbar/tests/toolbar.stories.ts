@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createRenderer } from '../../utilities/tests/storybook';
-import '..';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import '../../all-components';
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#toolbar) - A toolbar is a container
 for grouping a set of controls, such as buttons, menubuttons, or checkboxes.
@@ -27,7 +27,7 @@ const metadata: Meta = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-toolbar>
             <nimble-button appearance="ghost" slot="start">
                 <nimble-eye-icon slot="start"></nimble-eye-icon>

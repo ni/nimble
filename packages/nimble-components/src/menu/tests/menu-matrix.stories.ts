@@ -1,27 +1,30 @@
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import {
     createMatrix,
-    IconVisibleState,
-    iconVisibleStates,
-    themeWrapper
+    sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import '..';
-import '../../icons/user';
+import {
+    IconVisibleState,
+    iconVisibleStates
+} from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Menu',
     decorators: [withXD],
     parameters: {
+        ...sharedMatrixParameters(),
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/c098395e-30f8-4bd4-b8c5-394326b59919/specs'
-        },
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        }
     }
 };
 
@@ -43,11 +46,11 @@ const component = (
     </span>
 `;
 
-export const menuThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [iconVisibleStates]))
+export const menuThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [iconVisibleStates])
 );
 
-export const hiddenMenu: Story = createRenderer(
+export const hiddenMenu: Story = createStory(
     hiddenWrapper(
         html`<nimble-menu hidden>
             <nimble-menu-item>Item 1</nimble-menu-item>

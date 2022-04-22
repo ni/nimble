@@ -2,41 +2,42 @@ import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
-    disabledStates,
-    DisabledState,
     createMatrix,
-    themeWrapper
+    sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { createRenderer } from '../../utilities/tests/storybook';
-import '..';
+import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Switch',
     decorators: [withXD],
     parameters: {
+        ...sharedMatrixParameters(),
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs/'
-        },
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        }
     }
 };
 
 export default metadata;
 
-type CheckedState = [string, boolean];
-const checkedStates: CheckedState[] = [
+const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
-];
+] as const;
+type CheckedState = typeof checkedStates[number];
 
-type MessagesState = [string, boolean];
-const messagesStates: MessagesState[] = [
+const messagesStates = [
     ['With Messages', true],
     ['Without Messages', false]
-];
+] as const;
+type MessagesState = typeof messagesStates[number];
 
 // prettier-ignore
 const component = (
@@ -53,14 +54,12 @@ const component = (
     </nimble-switch>
 `;
 
-export const switchThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [checkedStates, disabledStates, messagesStates])
-    )
+export const switchThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [checkedStates, disabledStates, messagesStates])
 );
 
 // prettier-ignore
-export const hiddenSwitch: Story = createRenderer(
+export const hiddenSwitch: Story = createStory(
     hiddenWrapper(
         html`<nimble-switch hidden>Hidden Switch</nimble-switch>`
     )
