@@ -2,6 +2,29 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Sat, 23 Apr 2022 04:15:08 GMT",
+      "tag": "@ni/nimble-components_v8.1.8",
+      "version": "8.1.8",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7cbf000717df80bf46ee672c939ba942214b38df",
+            "comment": "Testing publishing"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.11",
+            "commit": "7cbf000717df80bf46ee672c939ba942214b38df"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Apr 2022 22:36:24 GMT",
       "tag": "@ni/nimble-components_v8.1.4",
       "version": "8.1.4",
