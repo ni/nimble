@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Trigger publish of all the packages",
+  "packageName": "@ni/nimble-tokens",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
