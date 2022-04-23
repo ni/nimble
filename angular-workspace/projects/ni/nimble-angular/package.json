@@ -2,6 +2,9 @@
   "name": "@ni/nimble-angular",
   "version": "5.0.7",
   "description": "Angular components for the NI Nimble Design System",
+  "scripts": {
+    "invoke-publish": "cd ../../dist/ni/nimble-angular && npm publish --"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
