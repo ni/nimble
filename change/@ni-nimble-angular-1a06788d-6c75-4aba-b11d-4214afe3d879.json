@@ -1,7 +1,7 @@
 {
   "type": "none",
-  "comment": "Modify the build behavior of the example app",
-  "packageName": "@ni/nimble-blazor",
+  "comment": "fix publish script",
+  "packageName": "@ni/nimble-angular",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "none"
 }

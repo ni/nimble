@@ -1,7 +1,7 @@
 {
   "type": "none",
-  "comment": "Update the publish script in nimble-angular",
-  "packageName": "@ni/nimble-angular",
+  "comment": "Align package version with published",
+  "packageName": "@ni/nimble-components",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "none"
 }

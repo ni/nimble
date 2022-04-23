@@ -3,7 +3,7 @@
   "version": "5.0.7",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
-    "invoke-publish": "cd ../../dist/ni/nimble-angular && npm publish --"
+    "invoke-publish": "cd ../../../dist/ni/nimble-angular && npm publish --"
   },
   "repository": {
     "type": "git",
