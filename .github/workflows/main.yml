@@ -107,4 +107,6 @@ jobs:
       # Update package versions, tag, and publish to npm (only from main)
       - name: Beachball publish
         if: startsWith(github.ref, 'refs/heads/main')
+        env:
+          NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm run invoke-publish

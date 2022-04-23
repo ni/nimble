@@ -12,7 +12,7 @@
     "pack": "npm run pack --workspaces --if-present",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
-    "invoke-publish": "beachball publish --yes --access public --message \"applying package updates [skip ci]\"",
+    "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \"applying package updates [skip ci]\" -n $NPM_SECRET_TOKEN",
     "validate": "npm run build && npm run lint && npm run test",
     "performance": "lhci autorun"
   },
@@ -43,6 +43,7 @@
   "devDependencies": {
     "@lhci/cli": "^0.8.1",
     "beachball": "^2.20.0",
-    "patch-package": "^6.4.7"
+    "patch-package": "^6.4.7",
+    "cross-env": "^7.0.3"
   }
 }
