@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "Align package version with published",
+  "comment": "Testing publishing",
   "packageName": "@ni/nimble-components",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "none"

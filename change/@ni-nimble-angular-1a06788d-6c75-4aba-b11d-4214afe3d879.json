@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "fix publish script",
+  "comment": "Testing publishing",
   "packageName": "@ni/nimble-angular",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "none"
