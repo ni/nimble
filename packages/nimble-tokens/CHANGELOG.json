@@ -2,6 +2,51 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Sat, 23 Apr 2022 05:05:02 GMT",
+      "tag": "@ni/nimble-tokens_v3.0.13",
+      "version": "3.0.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d949ce60204c9d2bfabb8a31afbc5426f744cf7c",
+            "comment": "Testing publish"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 23 Apr 2022 04:31:01 GMT",
+      "tag": "@ni/nimble-tokens_v3.0.12",
+      "version": "3.0.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "c15a7622cd434e8a7cdd19d20be8b658f0ea2f98",
+            "comment": "Testing publish"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 23 Apr 2022 04:15:09 GMT",
+      "tag": "@ni/nimble-tokens_v3.0.11",
+      "version": "3.0.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "5b1c9ab8eb3eef0edc6eaff0c2ffdb14bbcc77f8",
+            "comment": "Testing publishing"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Apr 2022 22:36:24 GMT",
       "tag": "@ni/nimble-tokens_v3.0.7",
       "version": "3.0.7",
