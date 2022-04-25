@@ -135,7 +135,7 @@ The menu will indicate that it is open by having the underlying toggle button in
 
 ### Accessibility
 
-[W3C docs](https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-links.html)
+[W3C docs](https://www.w3.org/TR/wai-aria-practices-1.2/#menubutton)
 
 _Focus_
 
@@ -152,15 +152,13 @@ _Keyboard navigation with button focused_
 
 _Keyboard navigation with menu focused_
 
-| Key          | Behavior                                                                                                               | Can be enforced by menu button? |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
-| Space, Enter | Activates the focused menu item                                                                                        | No                              |
-| Escape       | Closes the menu and focuses the button                                                                                 | Yes                             |
-| Up Arrow     | Moves focus to the previous menu item, wrapping to the last menu item if at the top                                    | No                              |
-| Down Arrow   | Moves focus to the next menu item, wrapping to the first menu item if at the bottom                                    | No                              |
-| Home         | Moves focus to the first menu item                                                                                     | No                              |
-| End          | Moves focus to the last menu item                                                                                      | No                              |
-| A-Z, a-z     | Moves focus to the next menu item whose label starts with typed character. If no such item exists, focus does not move | No                              |
+| Key          | Behavior                               |
+| ------------ | -------------------------------------- |
+| Escape       | Closes the menu and focuses the button |
+
+Note: All other keyboard interaction is determined by the slotted menu and will not be defined in this document.
+
+Note: When an item in the menu is selected, regardless of whether through keyboard or mouse interaction, the menu will be closed.
 
 _Form Input_
 
@@ -170,10 +168,10 @@ _Use with Assistive Technology_
 
 -   The inner toggle-button will have `aria-haspopup="true"`.
 -   When the menu is open, the inner toggle-button will have `aria-expanded="true"`.
--   The inner toggle-button will have `aria-controls` set to the ID of the menu.
-    -   Open issue: What is the best way to achieve this? The menu is a slotted element.
+-   [Optional] The inner toggle-button will have `aria-controls` set to the ID of the menu.
+    -   As this is optional, this will not be configured in order to reduce the amount of manipulation required on the slotted menu element.
 -   The menu will have `aria-labelledby` set to the ID of the inner toggle-button.
-    -   Open issue: Is this required? What is the best way to achieve this?
+    -   Open issue: Is it acceptable to modify the slotted menu element to add the `aria-labelledby` attribute? Alternatively, the `aria-label` could be set, but this would require first determining the content of the inner toggle-button, which is not ideal.
 
 ### Globalization
 
@@ -213,5 +211,4 @@ As with other nimble components, a story will be added in storybook for the new 
 
 ## Open Issues
 
--   What is appropriate way to set the ARIA attributes that are IDs of other attributes? Specifically, having the button point to the menu and menu point to the button's label.
--   The `nimble-menu` is missing some of the keyboard interactions described above. Specifically, focus does not wrap, and `A-Z a-z` keys do not change focus.
+-   Is it acceptable to modify the slotted menu element to set the `aria-labelledby` attribute on it?
