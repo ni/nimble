@@ -168,11 +168,11 @@ _Form Input_
 
 _Use with Assistive Technology_
 
--   menu button will set `aria-haspopup="true"`
--   when the menu is open, the menu button will set `aria-expanded="true"`
--   menu button will set `aria-controls` to the ID of the menu
+-   The inner toggle-button will have `aria-haspopup="true"`.
+-   When the menu is open, the inner toggle-button will have `aria-expanded="true"`.
+-   The inner toggle-button will have `aria-controls` set to the ID of the menu.
     -   Open issue: What is the best way to achieve this? The menu is a slotted element.
--   menu will have `aria-labelledby` that points to the label of the button
+-   The menu will have `aria-labelledby` set to the ID of the inner toggle-button.
     -   Open issue: Is this required? What is the best way to achieve this?
 
 ### Globalization
