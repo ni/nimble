@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Refactor icon code generation to create barrel file",
-  "packageName": "@ni/nimble-angular",
-  "email": "5454342+brianehenry@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
