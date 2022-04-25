@@ -152,9 +152,9 @@ _Keyboard navigation with button focused_
 
 _Keyboard navigation with menu focused_
 
-| Key          | Behavior                               |
-| ------------ | -------------------------------------- |
-| Escape       | Closes the menu and focuses the button |
+| Key    | Behavior                               |
+| ------ | -------------------------------------- |
+| Escape | Closes the menu and focuses the button |
 
 Note: All other keyboard interaction is determined by the slotted menu and will not be defined in this document.
 
