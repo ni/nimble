@@ -49,15 +49,9 @@ for (const key of Object.keys(icons)) {
 
     const directiveFileContents = `${generatedFilePrefix}
 @namespace NimbleBlazor.Components
+@inherits NimbleIconBase
 <${elementName} @attributes="AdditionalAttributes">
 </${elementName}>
-
-@code {
-    /// <summary>
-    /// Gets or sets a collection of additional attributes that will be applied to the created element.
-    /// </summary>
-    [Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
-}
  `;
     const componentFileName = `${componentName}.razor`;
     const componentFilePath = path.resolve(iconsDirectory, componentFileName);
