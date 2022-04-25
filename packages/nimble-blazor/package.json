@@ -1,11 +1,11 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "1.0.2",
+  "version": "1.0.6",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:all && npm run build:client",
     "build:all": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
-    "build:client": "dotnet publish -c Release Examples/NimbleBlazor.Demo.Client --output dist/blazor-client-app",
+    "build:client": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/NimbleBlazor.Demo.Client --output dist/blazor-client-app",
     "lint": "npm run lint:cs && npm run lint:js",
     "lint:cs": "dotnet format --verify-no-changes",
     "lint:js": "eslint .",
@@ -14,6 +14,7 @@
     "format:js": "eslint . --fix",
     "test": "dotnet test -c Release",
     "pack": "cross-env-shell dotnet pack NimbleBlazor.Components -c Release -p:PackageVersion=$npm_package_version --output dist",
+    "invoke-publish": "echo test-publish",
     "copy-resources": "node build/copyNimbleResources.js"
   },
   "repository": {

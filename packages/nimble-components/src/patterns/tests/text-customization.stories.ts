@@ -1,43 +1,48 @@
 import type { Story, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { standardPadding } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
-    title: 'Tests/Text Customization',
-    parameters: {
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
-    }
+    title: 'Tests/Text Customization'
 };
 
 export default metadata;
 
-const customStyle = 'font-style: italic';
-
 // prettier-ignore
-export const textCustomizationStory: Story = createRenderer(
-    html`<nimble-breadcrumb-item style="${customStyle}">Breadcrumb item</nimble-breadcrumb-item>
-        <nimble-button style="${customStyle}">Button</nimble-button>
-        <nimble-checkbox style="${customStyle}">Checkbox</nimble-checkbox>
-        <nimble-menu style="${customStyle}">
+export const textCustomizationStory: Story = createUserSelectedThemeStory(html`
+<div style="
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(${standardPadding.cssCustomProperty});
+">
+    <style>
+        * {
+            font-style: italic;
+        }
+    </style>
+    <nimble-breadcrumb-item>Breadcrumb item</nimble-breadcrumb-item>
+        <nimble-button>Button</nimble-button>
+        <nimble-checkbox>Checkbox</nimble-checkbox>
+        <nimble-menu>
             Inner text
-            <nimble-menu-item style="${customStyle}">Menu item</nimble-menu-item>
+            <nimble-menu-item>Menu item</nimble-menu-item>
         </nimble-menu>
-        <nimble-number-field style="${customStyle}" value="42">Number field</nimble-number-field>
-        <nimble-select style="${customStyle}">
+        <nimble-number-field value="42">Number field</nimble-number-field>
+        <nimble-select>
             Inner text
             <nimble-list-option> Nimble select item </nimble-list-option>
         </nimble-select>
         <nimble-tabs>
             Inner text
-            <nimble-tabs-toolbar style="${customStyle}">Tabs toolbar</nimble-tabs-toolbar>
-            <nimble-tab style="${customStyle}">Tab</nimble-tab>
+            <nimble-tabs-toolbar>Tabs toolbar</nimble-tabs-toolbar>
+            <nimble-tab>Tab</nimble-tab>
         </nimble-tabs>
-        <nimble-text-area style="${customStyle}" value="Lorem ipsum">Text area</nimble-text-area>
-        <nimble-text-field style="${customStyle}" value="Lorem ipsum">Text field</nimble-text-field>
-        <nimble-toggle-button style="${customStyle}">Toggle button</nimble-toggle-button>
-        <nimble-tree-view style="${customStyle}">
+        <nimble-text-area value="Lorem ipsum">Text area</nimble-text-area>
+        <nimble-text-field value="Lorem ipsum">Text field</nimble-text-field>
+        <nimble-toggle-button>Toggle button</nimble-toggle-button>
+        <nimble-tree-view>
             Inner text
-            <nimble-tree-item style="${customStyle}">Tree item</nimble-tree-item>
-        </nimble-tree-view>`
-);
+            <nimble-tree-item>Tree item</nimble-tree-item>
+        </nimble-tree-view>
+</div>`);

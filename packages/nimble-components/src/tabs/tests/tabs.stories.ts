@@ -1,12 +1,8 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
-import '..';
-import '../../tab';
-import '../../tab-panel';
-import '../../tabs-toolbar';
-import '../../button';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import '../../all-components';
 
 interface TabsArgs {
     tabs: TabArgs[];
@@ -39,7 +35,7 @@ const metadata: Meta<TabsArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-tabs>
             ${when(x => x.toolbar, html<TabsArgs>`<nimble-tabs-toolbar :innerHTML="${x => x.toolbar}"></nimble-tabs-toolbar>`)}
             ${repeat(x => x.tabs, html<TabArgs>`
