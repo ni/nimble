@@ -1,11 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import '..';
-import '../../tree-item';
-import '../../icons/database';
-import '../../icons/cog';
 import { html, repeat, when } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TreeViewSelectionMode } from '../types';
+import '../../all-components';
 
 interface TreeArgs {
     selectionMode: TreeViewSelectionMode;
@@ -63,7 +60,7 @@ export const treeItem: StoryObj<ItemArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-tree-view>
             <nimble-tree-item ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}" value="${x => x.value}">
                 ${when(x => x.icon, html`<nimble-database-icon slot="start"></nimble-database-icon>`)}
@@ -91,7 +88,7 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-tree-view selection-mode="${x => x.selectionMode}">
             ${repeat(x => x.options, html<ItemArgs>`
                 <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}">

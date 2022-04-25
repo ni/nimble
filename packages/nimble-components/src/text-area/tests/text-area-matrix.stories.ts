@@ -1,29 +1,33 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { TextAreaAppearance } from '../types';
 import {
     createMatrix,
-    themeWrapper,
+    sharedMatrixParameters
+} from '../../utilities/tests/matrix';
+import {
     disabledStates,
     DisabledState,
     ReadOnlyState,
     readOnlyStates
-} from '../../utilities/tests/matrix';
-import '..';
+} from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Text Area',
     decorators: [withXD],
     parameters: {
+        ...sharedMatrixParameters(),
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/specs/'
-        },
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        }
     }
 };
 
@@ -37,7 +41,7 @@ const valueStates = [
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         null
     ]
-];
+] as const;
 type ValueState = typeof valueStates[number];
 
 const appearanceStates = Object.entries(TextAreaAppearance);
@@ -62,15 +66,13 @@ const component = (
     </nimble-text-area>
 `;
 
-export const textAreaThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            readOnlyStates,
-            disabledStates,
-            appearanceStates,
-            valueStates
-        ])
-    )
+export const textAreaThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        readOnlyStates,
+        disabledStates,
+        appearanceStates,
+        valueStates
+    ])
 );
 
 const widthSizingTestCase = (
@@ -103,7 +105,7 @@ const heightSizingTestCase = (
     </div>
 `;
 
-export const textAreaSizing: Story = createRenderer(html`
+export const textAreaSizing: Story = createStory(html`
     ${createMatrix(widthSizingTestCase, [
         [
             ['No width', ''],
@@ -128,7 +130,7 @@ export const textAreaSizing: Story = createRenderer(html`
     ])}
 `);
 
-export const hiddenTextArea: Story = createRenderer(
+export const hiddenTextArea: Story = createStory(
     hiddenWrapper(
         html`<nimble-text-area hidden>Hidden text area</nimble-text-area>`
     )

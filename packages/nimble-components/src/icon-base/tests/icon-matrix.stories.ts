@@ -1,18 +1,22 @@
 import type { Story, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createMatrix, themeWrapper } from '../../utilities/tests/matrix';
-
-import '../../icons/check';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    createMatrix,
+    sharedMatrixParameters
+} from '../../utilities/tests/matrix';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { IconStatus } from '../types';
 import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Icon',
     parameters: {
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -31,11 +35,11 @@ const component = ([stateName, state]: IconStatusState): ViewTemplate => html`
     <nimble-check-icon class="${state}"></nimble-check-icon>
 `;
 
-export const iconThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [iconStatusStates]))
+export const iconThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [iconStatusStates])
 );
 
-export const hiddenIcon: Story = createRenderer(
+export const hiddenIcon: Story = createStory(
     hiddenWrapper(
         html`<nimble-check-icon class="pass" hidden></nimble-check-icon>`
     )

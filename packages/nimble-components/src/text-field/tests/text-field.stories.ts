@@ -1,9 +1,9 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
-import '..';
+import '../../all-components';
 
 interface TextFieldArgs {
     label: string;
@@ -42,7 +42,7 @@ const metadata: Meta<TextFieldArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-text-field
             placeholder="${x => x.label}"
             type="${x => x.type}"
@@ -105,6 +105,10 @@ export const blockTextField: StoryObj<TextFieldArgs> = {
 
 export const outlineTextField: StoryObj<TextFieldArgs> = {
     args: { label: 'Outline Text Field', appearance: 'outline' }
+};
+
+export const framelessTextField: StoryObj<TextFieldArgs> = {
+    args: { label: 'Frameless Text Field', appearance: 'frameless' }
 };
 
 export const passwordField: StoryObj<TextFieldArgs> = {

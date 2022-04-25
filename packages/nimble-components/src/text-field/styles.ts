@@ -79,11 +79,8 @@ export const styles = css`
         border-bottom-color: ${failColor};
     }
 
-    :host([readonly]:not([disabled])) .root {
-        border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
-        padding: 0px;
-        padding-bottom: 1px;
-        background-color: transparent;
+    :host([readonly]) .root {
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
     :host([disabled]) .root {
@@ -95,6 +92,10 @@ export const styles = css`
             --ni-private-hover-bottom-border-width
         );
         border-bottom-color: ${borderHoverColor};
+    }
+
+    :host([readonly]) .root:hover {
+        --ni-private-bottom-border-width: 1px;
     }
 
     :host([disabled]) .root:hover {
@@ -196,10 +197,6 @@ export const styles = css`
         white-space: nowrap;
     }
 
-    :host(.invalid[readonly]:not([disabled])) .errortext {
-        top: calc(${controlHeight} - ${borderWidth});
-    }
-
     :host(.invalid) .error-text:empty {
         display: none;
     }
@@ -225,6 +222,14 @@ export const styles = css`
                 padding-top: ${borderWidth};
                 padding-left: ${borderWidth};
                 padding-right: ${borderWidth};
+            }
+
+            :host([disabled]) .root {
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+
+            :host([disabled]) .root:hover {
+                --ni-private-bottom-border-width: 1px;
             }
         `
         ),
@@ -259,6 +264,11 @@ export const styles = css`
                 );
             }
 
+            :host([readonly]) .root {
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
+                border-color: transparent;
+            }
+
             :host([disabled]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
@@ -283,6 +293,25 @@ export const styles = css`
 
             :host(.invalid) .errortext {
                 top: calc(${controlHeight} - ${borderWidth});
+            }
+        `
+        ),
+        appearanceBehavior(
+            TextFieldAppearance.Frameless,
+            css`
+            .root {
+                --ni-private-bottom-border-width: 0px;
+                padding-top: ${borderWidth};
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
+
+            :host([readonly]) .root {
+                border-color: transparent;
+            }
+
+            .root:hover {
+                --ni-private-bottom-border-width: 0px;
             }
         `
         ),

@@ -19,14 +19,20 @@ This repository uses the following tooling. See below for more info.
 
 ## Getting started
 
+First step in development is to build the monorepo which requires the following to be installed:
+
+- Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
+- .NET 6 SDK (run `dotnet --version`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+
 From the `nimble` directory:
 
-1. Make sure you have Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`). Download newer versions from https://nodejs.org/en/download/
-2. Run `npm install`
-3. Run `npm run build` (or **Terminal»Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
-4. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
+1. Run `npm install`
+2. Run `npm run build` (Alernatively in Visual Studio Code **Terminal » Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
+3. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
     **Note**: You will need to refresh your browser window to see style changes made in source.
+
+Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages you would like to contribute to.
 
 ## Develop new components
 
@@ -144,16 +150,3 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 ```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
-
-<!-- TODO this workflow doesn't seem to work
-### Angular libraries
-
-1. From a CLI navigate to your project such as `angular-workspace/projects/ni/nimble-angular`.
-2. Run `ng add <my-library>`, for example: `ng add @angular/material`.
-3. That will update the `package.json` for `nimble-angular` but unfortunately also trigger an npm install inside of the `nimble-workspace` and create a `node_modules` and `package-lock.json` which are ignored.
-4. From repo root stash your `package.json` change, ie `git stash`.
-5. From repo root clean the repository, ie `git clean -fdx`.
-6. From repo root pop the `package.json` change, ie `git stash pop`.
-7. From repo root run `npm install`. This will update the root `package-lock.json`.
-8. Submit your angular project `package.json` and root `package-lock.json` change.
--->
