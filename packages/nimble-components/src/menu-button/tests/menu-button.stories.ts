@@ -1,7 +1,7 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '..';
 import { ButtonAppearance } from '../types';
 
@@ -53,7 +53,7 @@ const metadata: Meta<MenuButtonArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-menu-button
             ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"
