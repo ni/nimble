@@ -112,7 +112,20 @@ const component = (
 
 export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
-        readOnlyStates,
+        [readOnlyStates[0]],
+        [disabledStates[0]],
+        actionButtonStates,
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        valueStates
+    ])
+);
+
+export const enabledReadOnlyTextFieldThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
         [disabledStates[0]],
         actionButtonStates,
         leftIconStates,
@@ -125,7 +138,20 @@ export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
 
 export const disabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
-        readOnlyStates,
+        [readOnlyStates[0]],
+        [disabledStates[1]],
+        actionButtonStates,
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        valueStates
+    ])
+);
+
+export const disabledReadOnlyTextFieldThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
         [disabledStates[1]],
         actionButtonStates,
         leftIconStates,
