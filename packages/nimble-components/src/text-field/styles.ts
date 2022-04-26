@@ -110,6 +110,11 @@ export const styles = css`
         display: contents;
     }
 
+    slot[name='start']::slotted(*) {
+        margin-left: 8px;
+        ${controlHeight.cssCustomProperty}: 24px;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
