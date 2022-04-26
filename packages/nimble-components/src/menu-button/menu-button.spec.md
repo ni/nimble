@@ -66,8 +66,6 @@ An example usage of the menu button is as follows:
 
 ### API
 
-_The key elements of the component's public API surface:_
-
 _Component Name_
 
 -   `nimble-menu-button`
@@ -94,12 +92,10 @@ _CSS Classes and CSS Custom Properties that affect the component_
 
 ### Anatomy
 
-_Outline the component structure with a diagram of its visual tree (shadow dom). Enumerate key areas of visual customization, such as:_
-
 _Slot Names_
 
 -   `start`: content that will get slotted into the `start` slot of the underlying `nimble-toggle-button`
--   `default`: content that will get slotted into the default slot of the underlying `nimble-toggle-button`
+-   *default slot (unnamed)*: content that will get slotted into the default slot of the underlying `nimble-toggle-button`
 -   `end`: content that will get slotted into the `end` slot of the underlying `nimble-toggle-button`
 -   `menu`: the menu that will be shown/hidden based on the `open` attribute of the component
 
@@ -170,8 +166,8 @@ _Use with Assistive Technology_
 -   When the menu is open, the inner toggle-button will have `aria-expanded="true"`.
 -   [Optional] The inner toggle-button will have `aria-controls` set to the ID of the menu.
     -   As this is optional, this will not be configured in order to reduce the amount of manipulation required on the slotted menu element.
--   The menu will have `aria-labelledby` set to the ID of the inner toggle-button.
-    -   Open issue: Is it acceptable to modify the slotted menu element to add the `aria-labelledby` attribute? Alternatively, the `aria-label` could be set, but this would require first determining the content of the inner toggle-button, which is not ideal.
+-   The menu should have an `aria-label` configured on it.
+    -   Open question: Is this the responsibility of the client?
 
 ### Globalization
 
@@ -195,7 +191,7 @@ Dependent on the `nimble-toggle-button`.
 
 ### Test Plan
 
-Unit tests will be written to test the component. These will include things such as appropriate ARIA attributes are set on the component, keyboard interactions, mouse interactions, etc.
+Unit tests will be written to test the component. These will include things such as appropriate ARIA attributes are set on the component, keyboard interactions, mouse interactions, etc. A unit test will be written to ensure that the inner toggle-button does not interact with forms (similar but opposite to [this FAST test](https://github.com/microsoft/fast/blob/e92a16b95e8410d59b46978bce1b02d5b80fc004/packages/web-components/fast-foundation/src/form-associated/form-associated.spec.ts#L169)).
 
 Matrix tests will be added to test the various states of the component. These will include the appearance modes, disabled/enabled states, open/close state of the menu, etc.
 
@@ -210,5 +206,4 @@ As with other nimble components, a story will be added in storybook for the new 
 ---
 
 ## Open Issues
-
--   Is it acceptable to modify the slotted menu element to set the `aria-labelledby` attribute on it?
+-   Should nimble try to enforce that an aria-label is configured on the slotted menu?
