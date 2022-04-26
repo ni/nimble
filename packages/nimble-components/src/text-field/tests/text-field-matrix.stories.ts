@@ -51,6 +51,12 @@ const actionButtonStates = [
 ] as const;
 type ActionButtonState = typeof actionButtonStates[number];
 
+const leftIconStates = [
+    ['', false],
+    ['With Left Icon', true]
+] as const;
+type LeftIconState = typeof leftIconStates[number];
+
 /* array of state name, invalidClass, errorText */
 const textFieldInvalidStates = [
     ['', '', 'This is not valid.'],
@@ -68,6 +74,7 @@ const component = (
     [readOnlyName, readonly]: ReadOnlyState,
     [_disabledName, disabled]: DisabledState,
     [showActionButtonsName, showActionButtons]: ActionButtonState,
+    [showLeftIconName, showLeftIcon]: LeftIconState,
     [invalidName, invalidClass, errorText]: TextFieldInvalidState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
@@ -81,13 +88,15 @@ const component = (
         appearance="${() => appearance}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
-        ?readonly="${() => readonly}"        
+        ?readonly="${() => readonly}"
         error-text="${() => errorText}"
     >
+        ${when(() => showLeftIcon, html`<nimble-tag-icon slot="start"></nimble-pencil-icon>`)}
+
         ${() => invalidName} ${() => typeName}
         ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
-        ${() => showActionButtonsName}
-        
+        ${() => showLeftIconName} ${() => showActionButtonsName}
+
 
         ${when(() => showActionButtons, html`
             <nimble-button slot="actions" appearance="outline" content-hidden>
@@ -106,6 +115,7 @@ export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
         readOnlyStates,
         [disabledStates[0]],
         actionButtonStates,
+        leftIconStates,
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
@@ -118,6 +128,7 @@ export const disabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
         readOnlyStates,
         [disabledStates[1]],
         actionButtonStates,
+        leftIconStates,
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
