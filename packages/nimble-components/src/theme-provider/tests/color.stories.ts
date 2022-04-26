@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
-import { createRenderer } from '../../utilities/tests/storybook';
-import '..';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { controlLabelFont, controlLabelFontColor } from '../design-tokens';
+import '../../all-components';
 
 interface NimbleColor {
     name: string;
@@ -75,9 +75,9 @@ export const baseColors: StoryObj = {
     parameters: {
         controls: { hideNoControlsWarning: true }
     },
-    render: createRenderer(html`
-        ${styleMarkup}
+    render: createUserSelectedThemeStory(html`
         <div class="container">
+            ${styleMarkup}
             ${repeat(() => nimbleBaseColors, html<NimbleColor>`
                 <div class="color-option">
                     <div

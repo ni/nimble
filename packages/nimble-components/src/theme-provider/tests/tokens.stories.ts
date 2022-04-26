@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, when } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
-import '..';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
     tokenNames,
     cssPropertyFromTokenName,
     scssPropertyFromTokenName
 } from '../design-token-names';
 import { comments } from '../design-token-comments';
+import '../../all-components';
 
 import {
     bodyFont,
@@ -60,7 +60,7 @@ export const propertyNames: StoryObj<TokenArgs> = {
             name: 'Property Format'
         }
     },
-    render: createRenderer(html<TokenArgs>`
+    render: createUserSelectedThemeStory(html<TokenArgs>`
         <style>
             table {
                 font: var(${bodyFont.cssCustomProperty});

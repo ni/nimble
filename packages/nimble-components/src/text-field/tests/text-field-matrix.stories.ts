@@ -1,29 +1,33 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
 import {
     createMatrix,
-    themeWrapper,
+    sharedMatrixParameters
+} from '../../utilities/tests/matrix';
+import {
     disabledStates,
     DisabledState,
     ReadOnlyState,
     readOnlyStates
-} from '../../utilities/tests/matrix';
-import '..';
+} from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Text Field',
     decorators: [withXD],
     parameters: {
+        ...sharedMatrixParameters(),
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/842889a5-67ba-4350-91c1-55eee48f4fa2/specs/'
-        },
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        }
     }
 };
 
@@ -32,19 +36,19 @@ export default metadata;
 const valueStates = [
     ['Placeholder', null, 'placeholder'],
     ['Value', 'Hello', null]
-];
+] as const;
 type ValueState = typeof valueStates[number];
 
 const typeStates = [
     ['Text', 'text'],
     ['Password', 'password']
-];
+] as const;
 type TypeState = typeof typeStates[number];
 
 const actionButtonStates = [
     ['', false],
     ['With Buttons', true]
-];
+] as const;
 type ActionButtonState = typeof actionButtonStates[number];
 
 /* array of state name, invalidClass, errorText */
@@ -53,7 +57,7 @@ const textFieldInvalidStates = [
     ['', '', ''],
     ['Invalid Error String', 'invalid', 'This is not valid.'],
     ['Invalid', 'invalid', '']
-];
+] as const;
 type TextFieldInvalidState = typeof textFieldInvalidStates[number];
 
 const appearanceStates = Object.entries(TextFieldAppearance);
@@ -70,7 +74,7 @@ const component = (
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-text-field
-        style="width: 250px; padding: 15px;"
+        style="width: 350px; padding: 8px;"
         class="${() => invalidClass}"
         ?disabled="${() => disabled}"
         type="${() => type}"
@@ -97,35 +101,31 @@ const component = (
     </nimble-text-field>
 `;
 
-export const enabledTextFieldThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            readOnlyStates,
-            [disabledStates[0]!],
-            actionButtonStates,
-            textFieldInvalidStates,
-            typeStates,
-            appearanceStates,
-            valueStates
-        ])
-    )
+export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        readOnlyStates,
+        [disabledStates[0]],
+        actionButtonStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        valueStates
+    ])
 );
 
-export const disabledTextFieldThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            readOnlyStates,
-            [disabledStates[1]!],
-            actionButtonStates,
-            textFieldInvalidStates,
-            typeStates,
-            appearanceStates,
-            valueStates
-        ])
-    )
+export const disabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        readOnlyStates,
+        [disabledStates[1]],
+        actionButtonStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        valueStates
+    ])
 );
 
-export const hiddenTextField: Story = createRenderer(
+export const hiddenTextField: Story = createStory(
     hiddenWrapper(
         html`<nimble-text-field hidden>Hidden text field</nimble-text-field>`
     )

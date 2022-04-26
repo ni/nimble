@@ -2,6 +2,200 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Sat, 23 Apr 2022 05:05:02 GMT",
+      "tag": "@ni/nimble-components_v8.1.10",
+      "version": "8.1.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.13",
+            "commit": "d949ce60204c9d2bfabb8a31afbc5426f744cf7c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 23 Apr 2022 04:31:01 GMT",
+      "tag": "@ni/nimble-components_v8.1.9",
+      "version": "8.1.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.12",
+            "commit": "c15a7622cd434e8a7cdd19d20be8b658f0ea2f98"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 23 Apr 2022 04:15:08 GMT",
+      "tag": "@ni/nimble-components_v8.1.8",
+      "version": "8.1.8",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7cbf000717df80bf46ee672c939ba942214b38df",
+            "comment": "Testing publishing"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.11",
+            "commit": "7cbf000717df80bf46ee672c939ba942214b38df"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Apr 2022 22:36:24 GMT",
+      "tag": "@ni/nimble-components_v8.1.4",
+      "version": "8.1.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.7",
+            "commit": "4dc7e295be4916b405e52d9ba83ad6d0a4059c49"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Apr 2022 21:28:38 GMT",
+      "tag": "@ni/nimble-components_v8.1.3",
+      "version": "8.1.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "43ed496a29dedd224e33956a9b4fbf8c5489940c",
+            "comment": "Re-enable Node rendering for stories"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Apr 2022 16:09:27 GMT",
+      "tag": "@ni/nimble-components_v8.1.3",
+      "version": "8.1.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.6",
+            "commit": "98b76accd3fadea27f5fb42c6df982479a228470"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Apr 2022 15:28:51 GMT",
+      "tag": "@ni/nimble-components_v8.1.2",
+      "version": "8.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.5",
+            "commit": "cf35448b8158b8d1a51255a9ea6bc3a8f7795b49"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Apr 2022 15:09:11 GMT",
+      "tag": "@ni/nimble-components_v8.1.2",
+      "version": "8.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.4",
+            "commit": "b3b90746b19fdc8a2846b70d755101896a6f8359"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Apr 2022 14:26:36 GMT",
+      "tag": "@ni/nimble-components_v8.1.1",
+      "version": "8.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.3",
+            "commit": "0c619b7a6462261a9c60d2549b88df57719ab3c9"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Apr 2022 12:45:44 GMT",
+      "tag": "@ni/nimble-components_v8.1.0",
+      "version": "8.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d415c89b77d0bacf3b27380d0d3eb1f00b708c74",
+            "comment": "Add frameless appearance to nimble-text-field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 21 Apr 2022 20:57:24 GMT",
+      "tag": "@ni/nimble-components_v8.0.2",
+      "version": "8.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f1fa1f0358d33e2c7b1d38dfbebd589a01afd281",
+            "comment": "Fix minified source map generation"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.0.2",
+            "commit": "f1fa1f0358d33e2c7b1d38dfbebd589a01afd281"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Apr 2022 18:13:39 GMT",
+      "tag": "@ni/nimble-components_v8.0.1",
+      "version": "8.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ba9f084fb6df75ea9db7e0c9abf38c23c4e17892",
+            "comment": "Adding Combobox spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Apr 2022 23:09:34 GMT",
       "tag": "@ni/nimble-components_v8.0.1",
       "version": "8.0.1",

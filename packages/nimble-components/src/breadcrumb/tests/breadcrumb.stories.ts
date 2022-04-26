@@ -1,19 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
-import '..';
-import '../../breadcrumb-item';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import '../../all-components';
 
 interface BreadcrumbArgs {
     options: ItemArgs[];
     useProminentLinksStyle: boolean;
+    allowNavigation: boolean;
 }
 
 interface ItemArgs {
     href?: string;
     target?: string;
     label: string;
+}
+
+interface BreadcrumbItemArgs extends ItemArgs {
+    allowNavigation: boolean;
 }
 
 const overviewText = `A breadcrumb component is used as a navigational aid, allowing users
@@ -41,17 +45,20 @@ const metadata: Meta<BreadcrumbArgs> = {
 
 export default metadata;
 
-// Using '#', window.location.href, or parent.location.href for the default hyperlink for the breadcrumb items in these stories all seem to trigger a navigation
-// which isn't desirable, so using 'javascript:' which is also a no-op (but a non-empty href, so the items have the link styling we want)
-// eslint-disable-next-line no-script-url
-const noOpUrl = 'javascript:';
-
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
-    render: createRenderer(html`
-        <nimble-breadcrumb class="${x => (x.useProminentLinksStyle ? 'prominent-links' : '')}">
-            ${repeat(x => x.options, html<ItemArgs>`
-                <nimble-breadcrumb-item href="${x => x.href}" target="${x => x.target}">${x => x.label}</nimble-breadcrumb-item>
+    render: createUserSelectedThemeStory(html`
+        <nimble-breadcrumb
+            class="${x => (x.useProminentLinksStyle ? 'prominent-links' : '')}"
+        >
+            ${repeat(x => x.options, html<ItemArgs, BreadcrumbArgs>`
+                <nimble-breadcrumb-item
+                    href="${x => x.href}"
+                    target="${x => x.target}"
+                    @click="${(_x, c) => c.parent.allowNavigation}"
+                >
+                    ${x => x.label}
+                </nimble-breadcrumb-item>
             `)}
         </nimble-breadcrumb>
 `),
@@ -72,28 +79,34 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     args: {
         options: [
             {
-                href: noOpUrl,
+                href: '#',
                 label: 'Page 1'
             },
             {
-                href: noOpUrl,
+                href: '#',
                 label: 'Page 2'
             },
             {
                 label: 'Current (No Link)'
             }
         ],
-        useProminentLinksStyle: false
+        useProminentLinksStyle: false,
+        allowNavigation: false
     }
 };
 
-export const breadcrumbItem: StoryObj<ItemArgs> = {
-    // prettier-ignore
-    render: createRenderer(html`
+export const breadcrumbItem: StoryObj<BreadcrumbItemArgs> = {
+    render: createUserSelectedThemeStory(html`
         <nimble-breadcrumb>
-            <nimble-breadcrumb-item href="${x => x.href}" target="${x => x.target}">Breadcrumb Item</nimble-breadcrumb-item>
+            <nimble-breadcrumb-item
+                href="${x => x.href}"
+                target="${x => x.target}"
+                @click="${x => x.allowNavigation}"
+            >
+                Breadcrumb Item
+            </nimble-breadcrumb-item>
         </nimble-breadcrumb>
-`),
+    `),
     argTypes: {
         href: {
             description:
@@ -108,6 +121,7 @@ export const breadcrumbItem: StoryObj<ItemArgs> = {
     },
     args: {
         href: 'http://www.ni.com',
-        label: 'Breadcrumb Item'
+        label: 'Breadcrumb Item',
+        allowNavigation: false
     }
 };

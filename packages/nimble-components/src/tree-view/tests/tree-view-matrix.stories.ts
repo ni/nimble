@@ -1,13 +1,14 @@
 import type { Story, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import '..';
-import '../../tree-item';
-import '../../icons/database';
-import '../../icons/cog';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import {
     createMatrix,
-    themeWrapper,
+    sharedMatrixParameters
+} from '../../utilities/tests/matrix';
+import {
     disabledStates,
     DisabledState,
     ExpandedState,
@@ -16,14 +17,14 @@ import {
     selectedStates,
     IconVisibleState,
     iconVisibleStates
-} from '../../utilities/tests/matrix';
+} from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',
     parameters: {
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -65,18 +66,16 @@ const component = (
 
 export default metadata;
 
-export const treeViewThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            disabledStates,
-            expandedStates,
-            selectedStates,
-            iconVisibleStates
-        ])
-    )
+export const treeViewThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        expandedStates,
+        selectedStates,
+        iconVisibleStates
+    ])
 );
 
-export const hiddenTreeView: Story = createRenderer(
+export const hiddenTreeView: Story = createStory(
     hiddenWrapper(
         html`<nimble-tree-view hidden>
             <nimble-tree-item>Item 1</nimble-tree-item>

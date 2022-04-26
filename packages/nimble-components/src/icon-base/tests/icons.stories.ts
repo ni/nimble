@@ -4,7 +4,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
 import { IconStatus } from '../types';
 import {
-    createRenderer,
+    createUserSelectedThemeStory,
     overrideWarning
 } from '../../utilities/tests/storybook';
 import type { Icon } from '..';
@@ -36,7 +36,6 @@ const iconTemplate = html<IconClass, IconArgs>`
         <${DesignSystem.tagFor(x)}
             class="${c.parent.status}"
             title=${DesignSystem.tagFor(x)}
-            style="padding: 5px;"
         >
         </${DesignSystem.tagFor(x)}>
     `}
@@ -63,7 +62,12 @@ export const icons: StoryObj<IconArgs> = {
             description: statusDescription
         }
     },
-    render: createRenderer(html`
+    render: createUserSelectedThemeStory(html`
+        <style class="code-hide">
+            .container > * {
+                padding: 5px;
+            }
+        </style>
         <div class="container">
             ${repeat(() => nimbleIconComponents, iconTemplate)}
         </div>

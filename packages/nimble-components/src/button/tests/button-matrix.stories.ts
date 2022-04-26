@@ -3,54 +3,49 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { ButtonAppearance } from '../types';
 import {
-    disabledStates,
-    DisabledState,
     createMatrix,
-    themeWrapper
+    sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { createRenderer } from '../../utilities/tests/storybook';
-import '..';
-import '../../icons/arrow-expander-down';
-import '../../icons/key';
+import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Button',
     decorators: [withXD],
     parameters: {
+        ...sharedMatrixParameters(),
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
-        },
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        }
     }
 };
 
 export default metadata;
 
-export const defaultButton: Story = createRenderer(
-    html`<nimble-button>Default Button</nimble-button>`
-);
-
 /* array of iconVisible, labelVisible, endIconVisible */
-type PartVisibilityState = [boolean, boolean, boolean];
-const partVisibilityStates: PartVisibilityState[] = [
+const partVisibilityStates = [
     [true, true, false],
     [true, false, false],
     [false, true, false],
     [true, true, true],
     [false, true, true]
-];
+] as const;
+type PartVisibilityState = typeof partVisibilityStates[number];
 
 const appearanceStates = Object.entries(ButtonAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
-type PrimaryState = [string, string];
-const primaryStates: PrimaryState[] = [
+const primaryStates = [
     ['Primary', 'primary'],
     ['', '']
-];
+] as const;
+type PrimaryState = typeof primaryStates[number];
 
 // prettier-ignore
 const component = (
@@ -71,17 +66,15 @@ const component = (
     </nimble-button>
 `;
 
-export const buttonThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            disabledStates,
-            appearanceStates,
-            primaryStates,
-            partVisibilityStates
-        ])
-    )
+export const buttonThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        primaryStates,
+        partVisibilityStates
+    ])
 );
 
-export const hiddenButton: Story = createRenderer(
+export const hiddenButton: Story = createStory(
     hiddenWrapper(html`<nimble-button hidden>Hidden Button</nimble-button>`)
 );

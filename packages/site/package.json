@@ -4,12 +4,13 @@
     "description": "A meta package used for creating GitHub pages site contents",
     "private": true,
     "scripts": {
-        "build": "npm run clean && npm run copy-root && npm run copy-storybook && npm run copy-angular-example-to-storybook",
-        "pack": "npm pack",
-        "clean": "rimraf dist && mkdirp dist",
-        "copy-root": "cd root && copyfiles -E -a \"*\" ../dist",
-        "copy-storybook": "cd ../../packages/nimble-components/dist && copyfiles -E \"storybook/**\" ../../../packages/site/dist",
-        "copy-angular-example-to-storybook": "cd ../../angular-workspace/dist && copyfiles -E \"example-client-app/**\" ../../packages/site/dist/storybook"
+        "build": "npm run build:clean && npm run build:root && npm run build:storybook && npm run build:angular && npm run build:blazor",
+        "build:clean": "rimraf dist && mkdirp dist",
+        "build:root": "cd root && copyfiles -E -a \"*\" ../dist",
+        "build:storybook": "cd ../../packages/nimble-components/dist && copyfiles -E \"storybook/**\" ../../../packages/site/dist",
+        "build:angular": "cd ../../angular-workspace/dist && copyfiles -E \"example-client-app/**\" ../../packages/site/dist/storybook",
+        "build:blazor": "cd ../../packages/nimble-blazor/dist && copyfiles -E \"blazor-client-app/**\" ../../../packages/site/dist/storybook",
+        "pack": "npm pack"
     },
     "devDependencies": {
         "copyfiles": "^2.4.1",
@@ -18,6 +19,7 @@
     },
     "files": [
         "dist",
-        "!*.tgz"
+        "!*.tgz",
+        "!dist/storybook/blazor-client-app"
     ]
 }

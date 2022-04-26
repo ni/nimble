@@ -1,11 +1,11 @@
 import '@ni/nimble-tokens/source/fonts.css';
-import { backgroundStates } from '../dist/esm/utilities/tests/matrix';
-
-const [defaultBackground] = backgroundStates;
+import './preview.css';
+import { transformSource } from './transformSource';
+import { backgroundStates, defaultBackgroundState } from '../dist/esm/utilities/tests/states';
 
 export const parameters = {
     backgrounds: {
-        default: defaultBackground.name,
+        default: defaultBackgroundState.name,
         values: backgroundStates.map(({ name, value }) => ({ name, value }))
     },
     options: {
@@ -15,18 +15,8 @@ export const parameters = {
     },
     controls: {
         expanded: true
+    },
+    docs: {
+        transformSource
     }
 };
-
-export const decorators = [
-    (story, context) => {
-        const background = backgroundStates.find(
-            ({ value }) => value === context.globals?.backgrounds?.value
-        ) ?? defaultBackground;
-        const tale = story();
-        if (typeof tale !== 'string') {
-            throw new Error('Expected story to render as string');
-        }
-        return `<nimble-theme-provider theme="${background.theme}">${tale}</nimble-theme-provider>`;
-    }
-];

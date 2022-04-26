@@ -14,6 +14,7 @@ The NI Nimble Design System: styled UI components for NI applications.
 
 [![storybook page](https://img.shields.io/badge/storybook-white.svg?logo=storybook)](https://ni.github.io/nimble/storybook)
 [![example angular app](https://img.shields.io/badge/example%20angular%20app-dd0031.svg?logo=angular)](https://ni.github.io/nimble/storybook/example-client-app)
+[![example blazor app](https://img.shields.io/badge/example%20blazor%20app-572b8a.svg?logo=blazor)](https://ni.github.io/nimble/storybook/blazor-client-app/wwwroot)
 
 If you are at NI, lucky you! **Reach out to ask questions directly in the [Design System Teams channel](https://teams.microsoft.com/l/team/19%3awo8vmMKMsHfltKXxc0bczZo-X4JlQSV5VxpaRJdh13k1%40thread.tacv2/conversations?groupId=9ee065d7-3898-4245-82f6-76e86084b8b1&tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e).**
 
@@ -53,18 +54,7 @@ To report a bug with an existing component, file an issue using the **Bug report
 
 ## Contributing
 
-### Quick Start
-
-From the `nimble` directory:
-
-1. Make sure you have npm version 7+ installed by running `npm --version`. If you have npm version 6 or earlier, upgrade by running `npm install npm@latest -g`.
-2. Run `npm install`
-3. Run `npm run build`
-4. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
-
-    **Note**: You will need to refresh your browser window to see style changes made in source.
-
-Follow the instructions in [CONTRIBUTING.md](/CONTRIBUTING.md) to modify the design system.
+See `Getting Started` in [`Contributing.md`](/CONTRIBUTING.md#getting-started) to get started with building the monorepo.
 
 ## Component Status
 

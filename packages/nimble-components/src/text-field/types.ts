@@ -21,5 +21,6 @@ export type TextFieldAppearanceAttribute = `${TextFieldAppearance}`;
 export enum TextFieldAppearance {
     Underline = 'underline',
     Outline = 'outline',
-    Block = 'block'
+    Block = 'block',
+    Frameless = 'frameless'
 }

@@ -4,6 +4,9 @@ using Microsoft.JSInterop;
 
 namespace NimbleBlazor.Demo.Shared
 {
+    /// <summary>
+    /// The MainLayout Component.
+    /// </summary>
     public partial class MainLayout
     {
         public ErrorBoundary? ErrorBoundary { get; set; }

@@ -2,41 +2,42 @@ import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
-    disabledStates,
-    DisabledState,
     createMatrix,
-    themeWrapper
+    sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { createRenderer } from '../../utilities/tests/storybook';
-import '..';
+import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Checkbox',
     decorators: [withXD],
     parameters: {
+        ...sharedMatrixParameters(),
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs'
-        },
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        }
     }
 };
 
 export default metadata;
 
-type CheckedState = [string, boolean];
-const checkedStates: CheckedState[] = [
+const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
-];
+] as const;
+type CheckedState = typeof checkedStates[number];
 
-type IndeterminateState = [string, boolean];
-const indeterminateStates: IndeterminateState[] = [
+const indeterminateStates = [
     ['Indeterminate', true],
     ['', false]
-];
+] as const;
+type IndeterminateState = typeof indeterminateStates[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,
@@ -45,22 +46,20 @@ const component = (
 ): ViewTemplate => html`<nimble-checkbox
     ?checked="${() => checked}"
     ?disabled="${() => disabled}"
-    class="${() => (indeterminate ? 'indeterminate' : '')} ${() => (checked ? 'checked' : '')}"
+    :indeterminate="${() => indeterminate}"
 >
     ${checkedName} ${indeterminateName} ${disabledName}
 </nimble-checkbox>`;
 
-export const checkboxThemeMatrix: Story = createRenderer(
-    themeWrapper(
-        createMatrix(component, [
-            disabledStates,
-            checkedStates,
-            indeterminateStates
-        ])
-    )
+export const checkboxThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        checkedStates,
+        indeterminateStates
+    ])
 );
 
-export const hiddenCheckbox: Story = createRenderer(
+export const hiddenCheckbox: Story = createStory(
     hiddenWrapper(
         html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
     )
