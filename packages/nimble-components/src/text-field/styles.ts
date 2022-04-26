@@ -107,7 +107,7 @@ export const styles = css`
     }
 
     [part='start'] {
-        display: none;
+        display: contents;
     }
 
     .control {
