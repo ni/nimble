@@ -13,16 +13,18 @@ An anchored region is a container component which enables authors to create layo
 The anchored region is a dependency of other components. It is not expected to be used directly by clients, and, therefore, wrappers will not be created for it in Angular or Blazor.
 
 FAST components that rely on the anchored region:
-- Tooltip
-- Menu items that contain nested menus
-- Picker
-- Possibly the Select in the future ([see discussion on this issue](https://github.com/microsoft/fast/issues/4791))
+
+-   Tooltip
+-   Menu items that contain nested menus
+-   Picker
+-   Possibly the Select in the future ([see discussion on this issue](https://github.com/microsoft/fast/issues/4791))
 
 ## Design
 
 ### API
 
 [FAST achored region API](https://github.com/microsoft/fast/blob/5a3761ad4183d51ddb229952d3bd4daed87ff7fc/packages/web-components/fast-foundation/src/anchored-region/anchored-region.spec.md)
+
 -   _Component Name:_ `nimble-anchored-region`
 -   _Properties/Attributes:_ Unchanged
 -   _Methods:_ Unchanged (none)
@@ -30,17 +32,17 @@ FAST components that rely on the anchored region:
 -   _CSS Classes and Custom Properties that affect the component:_ None
 -   _Slots:_ Unchanged
 
-### Angular integration 
+### Angular integration
 
 As the anchored region is only needed internally by other components, no Angular support will be added for it.
 
-### Blazor integration 
+### Blazor integration
 
 As the anchored region is only needed internally by other components, no Blazor support will be added for it.
 
 ### Additional requirements
 
-*None*
+_None_
 
 ---
 
