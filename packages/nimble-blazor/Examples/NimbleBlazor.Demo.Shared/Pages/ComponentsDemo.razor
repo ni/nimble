@@ -72,6 +72,31 @@
                 </NimbleSwitch>
             </div>
             <div class="sub-container">
+                <div class="container-label">Tabs</div>
+                <NimbleTabs @bind-ActiveId="@ActiveTabId">
+                    <NimbleTab>Tab 1</NimbleTab>
+                    <NimbleTab>Tab 2</NimbleTab>
+                    <NimbleTab Disabled="true">Tab 3 (Disabled)</NimbleTab>
+                    <NimbleTabsToolbar>
+                        <NimbleButton>Toolbar Button</NimbleButton>
+                    </NimbleTabsToolbar>
+                    <NimbleTabPanel>
+                        <div class="container-label">Tab 1 content</div>
+                    </NimbleTabPanel>
+                    <NimbleTabPanel>
+                        <div class="container-label">Tab 2 content</div>
+                    </NimbleTabPanel>
+                    <NimbleTabPanel>
+                        <div class="container-label">Tab 3 content</div>
+                    </NimbleTabPanel>
+                </NimbleTabs>
+                <NimbleSelect @bind-Value="@ActiveTabId">
+                    <NimbleListOption Value="tab-1">Tab 1</NimbleListOption>
+                    <NimbleListOption Value="tab-2">Tab 2</NimbleListOption>
+                    <NimbleListOption Value="tab-3">Tab 3</NimbleListOption>
+                </NimbleSelect>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Text Area</div>
                 <NimbleTextArea Placeholder="Text Area" Cols="50" Rows="5" TextAreaResize="TextAreaResize.Horizontal" Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</NimbleTextArea>
             </div>

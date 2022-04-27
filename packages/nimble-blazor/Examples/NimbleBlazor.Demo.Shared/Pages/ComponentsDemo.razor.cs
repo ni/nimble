@@ -5,5 +5,6 @@
     /// </summary>
     public partial class ComponentsDemo
     {
+        public string? ActiveTabId { get; set; }
     }
 }
