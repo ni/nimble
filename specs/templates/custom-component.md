@@ -63,6 +63,10 @@
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration.*
 
+### Blazor integration 
+
+*Describe the plan for Blazor support, including any specific implementation concerns regarding [Blazor EditForm](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-6.0) integration.*
+
 ### Visual Appearance
 
 *Work with Visual Design to create Adobe XD files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants. Focus primarily on the officially supported design system as well as known community scenarios as appropriate. Consider other popular design systems during this process and, where possible, ensure that common design features that may not be part of the officially supported design system can be accommodated. Work closely with engineering to co-develop the visual design along side the API and anatomy.*
