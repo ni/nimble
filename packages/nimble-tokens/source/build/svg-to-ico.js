@@ -20,6 +20,6 @@ function convertSvgToIco(filename) {
     svgToIco({
         input_name: filename,
         output_name: `${path.join(outputBasePath, path.parse(filename).name)}.ico`,
-        sizes: [16, 24, 32, 64]
+        sizes: [16, 32]
     });
 }
