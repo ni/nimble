@@ -1,5 +1,8 @@
 /**
  * Register the custom event types used by Nimble components.
+ *
+ * JavaScript initializer for NimbleBlazor.Components project, see
+ * https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#javascript-initializers
  */
 export function afterStarted(Blazor) {
     // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
