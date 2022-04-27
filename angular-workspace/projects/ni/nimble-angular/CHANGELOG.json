@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 25 Apr 2022 21:58:46 GMT",
+      "tag": "@ni/nimble-angular_v5.0.11",
+      "version": "5.0.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "54d05472c058760ff4efa2fa250938618257a66f",
+            "comment": "Refactor icon code generation to create barrel file"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 23 Apr 2022 05:05:02 GMT",
       "tag": "@ni/nimble-angular_v5.0.10",
       "version": "5.0.10",
