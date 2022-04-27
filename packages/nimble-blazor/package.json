@@ -3,9 +3,12 @@
   "version": "1.0.6",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
-    "build": "npm run build:all && npm run build:client",
-    "build:all": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
+    "build": "npm run generate-icons && npm run build:release && npm run build:client",
+    "build:release": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
     "build:client": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/NimbleBlazor.Demo.Client --output dist/blazor-client-app",
+    "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
+    "generate-icons:bundle": "rollup --config build/generate-icons/rollup.config.js",
+    "generate-icons:run": "node build/generate-icons/dist/index.js",
     "lint": "npm run lint:cs && npm run lint:js",
     "lint:cs": "dotnet format --verify-no-changes",
     "lint:js": "eslint .",
@@ -36,6 +39,8 @@
     "@ni/eslint-config-javascript": "^3.1.0",
     "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "*",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "rollup": "^2.61.1",
     "cross-env": "^7.0.3",
     "glob": "^7.2.0"
   }
