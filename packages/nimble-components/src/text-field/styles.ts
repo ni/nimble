@@ -112,7 +112,7 @@ export const styles = css`
 
     slot[name='start']::slotted(*) {
         margin-left: 8px;
-        ${controlHeight.cssCustomProperty}: 24px;
+        flex: none;
     }
 
     .control {
