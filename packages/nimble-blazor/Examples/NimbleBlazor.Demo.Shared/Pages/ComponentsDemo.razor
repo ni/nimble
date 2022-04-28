@@ -2,7 +2,7 @@
 @namespace NimbleBlazor.Demo.Shared.Pages
 @inherits LayoutComponentBase
 
-<div class="root">
+<NavigationDrawer @ref="_navigationDrawer" Location="_drawerLocation">
     <div class="content container">
         <p>
             Explore the components below to see the Nimble components in action. See the <a
@@ -21,7 +21,7 @@
                 <NimbleToggleButton Appearance="Appearance.Outline">Outline Toggle Button</NimbleToggleButton>
                 <NimbleToggleButton Appearance="Appearance.Block">Block Toggle Button</NimbleToggleButton>
                 <NimbleToggleButton Appearance="Appearance.Ghost">Ghost Toggle Button</NimbleToggleButton>
-                <NimbleToggleButton ContentHidden="true"Appearance="Appearance.Outline">
+                <NimbleToggleButton ContentHidden="true" Appearance="Appearance.Outline">
                     <NimbleKeyIcon slot="start"></NimbleKeyIcon>
                     Icon Toggle Button
                 </NimbleToggleButton>
@@ -31,6 +31,15 @@
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Drawer/Sidenav:</div>
+                <NimbleButton Appearance="Appearance.Outline" @onclick="OpenDrawer">Open Drawer</NimbleButton>
+                <NimbleButton Appearance="Appearance.Outline" @onclick="DrawerTogglePinned">Pin/Unpin</NimbleButton>
+                <NimbleSelect class="drawer-location-select" @bind-Value="@DrawerLocationAsString">
+                    <NimbleListOption Value="@DrawerLocation.Left.ToString()">Drawer: Left-side</NimbleListOption>
+                    <NimbleListOption Value="@DrawerLocation.Right.ToString()">Drawer: Right-side</NimbleListOption>
+                </NimbleSelect>
             </div>
             <div class="sub-container">
                 <div class="container-label">Icons (subset - see <a href="https://ni.github.io/nimble/storybook/?path=/docs/icons--icons">
@@ -73,7 +82,7 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Tabs</div>
-                <NimbleTabs @bind-ActiveId="@ActiveTabId">
+                <NimbleTabs @bind-ActiveId="@_activeTabId">
                     <NimbleTab>Tab 1</NimbleTab>
                     <NimbleTab>Tab 2</NimbleTab>
                     <NimbleTab Disabled="true">Tab 3 (Disabled)</NimbleTab>
@@ -90,7 +99,7 @@
                         <div class="container-label">Tab 3 content</div>
                     </NimbleTabPanel>
                 </NimbleTabs>
-                <NimbleSelect @bind-Value="@ActiveTabId">
+                <NimbleSelect @bind-Value="@_activeTabId">
                     <NimbleListOption Value="tab-1">Tab 1</NimbleListOption>
                     <NimbleListOption Value="tab-2">Tab 2</NimbleListOption>
                     <NimbleListOption Value="tab-3">Tab 3</NimbleListOption>
@@ -132,4 +141,4 @@
             </div>
         </div>
     </div>
-</div>
+</NavigationDrawer>

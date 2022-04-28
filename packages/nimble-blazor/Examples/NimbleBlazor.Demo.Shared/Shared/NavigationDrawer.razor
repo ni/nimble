@@ -1,0 +1,35 @@
+﻿@namespace NimbleBlazor.Demo.Shared
+
+<div class="@DrawerContainerCssClass">
+    <NimbleDrawer @ref="_drawerReference" Location="Location" Modal="!_isDrawerPinned" @bind-State="_state">
+        <NimbleTreeView selection-mode="leaves-only">
+            <NimbleTreeItem>
+                Systems Management
+                <NimbleTreeItem>Systems</NimbleTreeItem>
+                <NimbleTreeItem>Assets</NimbleTreeItem>
+                <NimbleTreeItem disabled>Package Repository</NimbleTreeItem>
+                <NimbleTreeItem>Reports</NimbleTreeItem>
+                <NimbleTreeItem>Assets</NimbleTreeItem>
+                <NimbleTreeItem>Jobs</NimbleTreeItem>
+            </NimbleTreeItem>
+            <NimbleTreeItem>
+                Test Insights
+                <NimbleTreeItem>Dashboard</NimbleTreeItem>
+                <NimbleTreeItem>Results</NimbleTreeItem>
+                <NimbleTreeItem>Products</NimbleTreeItem>
+                <NimbleTreeItem>Reports</NimbleTreeItem>
+            </NimbleTreeItem>
+            <NimbleTreeItem>
+                Measurement Data Analysis
+                <NimbleTreeItem>Data Navigation</NimbleTreeItem>
+                <NimbleTreeItem>Data Analysis</NimbleTreeItem>
+                <NimbleTreeItem>Analysis Automation</NimbleTreeItem>
+            </NimbleTreeItem>
+            <NimbleTreeItem expanded>
+                Custom Applications
+                <NimbleTreeItem Selected="true">App 1</NimbleTreeItem>
+            </NimbleTreeItem>
+        </NimbleTreeView>
+    </NimbleDrawer>
+    @ChildContent
+</div>

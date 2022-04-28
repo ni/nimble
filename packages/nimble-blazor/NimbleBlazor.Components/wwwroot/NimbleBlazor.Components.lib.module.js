@@ -27,4 +27,13 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleDrawer.razor
+    Blazor.registerCustomEventType('nimbledrawerstatechange', {
+        browserEventName: 'state-change',
+        createEventArgs: event => {
+            return {
+                state: event.target.state
+            };
+        }
+    });
 }
