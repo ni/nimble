@@ -4,7 +4,7 @@ using NimbleBlazor.Components;
 namespace NimbleBlazor.Demo.Shared
 {
     /// <summary>
-    /// The NavDrawer Component.
+    /// The NavigationDrawer Component.
     /// </summary>
     public partial class NavigationDrawer
     {

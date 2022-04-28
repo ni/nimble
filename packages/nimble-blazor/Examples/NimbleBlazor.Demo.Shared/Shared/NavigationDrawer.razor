@@ -2,12 +2,12 @@
 
 <div class="@DrawerContainerCssClass">
     <NimbleDrawer Location="Location" Modal="!_isDrawerPinned" @bind-State="_state">
-        <NimbleTreeView selection-mode="leaves-only">
+        <NimbleTreeView SelectionMode="SelectionMode.LeavesOnly">
             <NimbleTreeItem>
                 Systems Management
                 <NimbleTreeItem>Systems</NimbleTreeItem>
                 <NimbleTreeItem>Assets</NimbleTreeItem>
-                <NimbleTreeItem disabled>Package Repository</NimbleTreeItem>
+                <NimbleTreeItem Disabled="true">Package Repository</NimbleTreeItem>
                 <NimbleTreeItem>Reports</NimbleTreeItem>
                 <NimbleTreeItem>Assets</NimbleTreeItem>
                 <NimbleTreeItem>Jobs</NimbleTreeItem>
@@ -25,7 +25,7 @@
                 <NimbleTreeItem>Data Analysis</NimbleTreeItem>
                 <NimbleTreeItem>Analysis Automation</NimbleTreeItem>
             </NimbleTreeItem>
-            <NimbleTreeItem expanded>
+            <NimbleTreeItem Expanded="true">
                 Custom Applications
                 <NimbleTreeItem Selected="true">App 1</NimbleTreeItem>
             </NimbleTreeItem>
