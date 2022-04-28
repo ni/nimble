@@ -8,7 +8,6 @@ namespace NimbleBlazor.Demo.Shared
     /// </summary>
     public partial class NavigationDrawer
     {
-        private NimbleDrawer? _drawerReference;
         private bool _isDrawerPinned = false;
         private DrawerState _state = DrawerState.Closed;
 
