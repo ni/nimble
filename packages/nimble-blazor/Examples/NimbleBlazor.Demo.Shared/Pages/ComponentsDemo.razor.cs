@@ -1,9 +1,9 @@
 ﻿namespace NimbleBlazor.Demo.Shared.Pages
 {
     /// <summary>
-    /// The CustomApp Demo.
+    /// The components demo page
     /// </summary>
-    public partial class CustomApp
+    public partial class ComponentsDemo
     {
     }
 }

@@ -3,19 +3,19 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor.Components;
 
-public partial class NimbleCheckbox : NimbleInputBase<bool>
+public partial class NimbleToggleButton : NimbleInputBase<bool>
 {
+    [Parameter]
+    public Appearance? Appearance { get; set; }
+
     [Parameter]
     public bool? Disabled { get; set; }
 
     [Parameter]
-    public bool? Required { get; set; }
+    public bool? ContentHidden { get; set; }
 
     [Parameter]
-    public bool? Indeterminate { get; set; }
-
-    [Parameter]
-    public bool? ReadOnly { get; set; }
+    public bool? AutoFocus { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

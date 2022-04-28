@@ -3,16 +3,13 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor.Components;
 
-public partial class NimbleCheckbox : NimbleInputBase<bool>
+public partial class NimbleSwitch : NimbleInputBase<bool>
 {
     [Parameter]
     public bool? Disabled { get; set; }
 
     [Parameter]
     public bool? Required { get; set; }
-
-    [Parameter]
-    public bool? Indeterminate { get; set; }
 
     [Parameter]
     public bool? ReadOnly { get; set; }
