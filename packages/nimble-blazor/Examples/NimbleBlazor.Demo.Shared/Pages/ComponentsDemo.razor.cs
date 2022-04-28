@@ -8,8 +8,10 @@ namespace NimbleBlazor.Demo.Shared.Pages
     public partial class ComponentsDemo
     {
         private NavigationDrawer? _navigationDrawer;
-        private string? _activeTabId;
         private DrawerLocation _drawerLocation = DrawerLocation.Right;
+#pragma warning disable CA1823 // Field used in Razor file
+        private string? _activeTabId;
+#pragma warning restore CA1823
 
         private string DrawerLocationAsString
         {
