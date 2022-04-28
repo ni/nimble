@@ -10,7 +10,7 @@ An anchored region is a container component which enables authors to create layo
 
 ### Background
 
-The anchored region is a dependency of other components. It is not expected to be used directly by clients, and, therefore, wrappers will not be created for it in Angular or Blazor.
+The anchored region is a dependency of some other components because the FAST templates for those components dynamically create an anchored region using `tagFor(AnchoredRegion)`. Therefore, we need a nimble component that will be returned from that function. It is not expected that the nimble-anchored-region to be used directly by clients, and, therefore, wrappers will not be created for it in Angular or Blazor.
 
 FAST components that rely on the anchored region:
 
