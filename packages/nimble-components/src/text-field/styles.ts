@@ -111,7 +111,7 @@ export const styles = css`
     }
 
     slot[name='start']::slotted(*) {
-        margin-left: 8px;
+        margin-left: calc(${standardPadding} / 2);
         flex: none;
     }
 
