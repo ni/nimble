@@ -1,7 +1,7 @@
-﻿using AngleSharp.Dom;
+﻿using System.Linq;
+using AngleSharp.Dom;
 using Bunit;
 using NimbleBlazor.Components;
-using System.Linq;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
