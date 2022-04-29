@@ -9,7 +9,7 @@ namespace NimbleBlazor.Demo.Shared
     public partial class NavigationDrawer
     {
         private bool _isDrawerPinned = false;
-        private DrawerState _state = DrawerState.Closed;
+        private DrawerState? _state = DrawerState.Closed;
 
         [Parameter]
         public DrawerLocation Location { get; set; } = DrawerLocation.Right;
