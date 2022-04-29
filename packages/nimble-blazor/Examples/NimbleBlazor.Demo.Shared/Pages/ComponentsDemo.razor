@@ -90,7 +90,7 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Tabs</div>
-                <NimbleTabs @bind-ActiveId="@_activeTabId">
+                <NimbleTabs @bind-ActiveId="@ActiveTabId">
                     <NimbleTab>Tab 1</NimbleTab>
                     <NimbleTab>Tab 2</NimbleTab>
                     <NimbleTab Disabled="true">Tab 3 (Disabled)</NimbleTab>
@@ -107,7 +107,7 @@
                         <div class="container-label">Tab 3 content</div>
                     </NimbleTabPanel>
                 </NimbleTabs>
-                <NimbleSelect @bind-Value="@_activeTabId">
+                <NimbleSelect @bind-Value="@ActiveTabId">
                     <NimbleListOption Value="tab-1">Tab 1</NimbleListOption>
                     <NimbleListOption Value="tab-2">Tab 2</NimbleListOption>
                     <NimbleListOption Value="tab-3">Tab 3</NimbleListOption>

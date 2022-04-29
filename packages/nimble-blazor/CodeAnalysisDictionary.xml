@@ -9,6 +9,8 @@
 			<Word>runtime</Word>
 			<Word>ltr</Word>
 			<Word>rtl</Word>
+      <Word>href</Word>
+      <Word>lang</Word>
 		</Recognized>
 		<DiscreteExceptions>
 		</DiscreteExceptions>

@@ -1,7 +1,6 @@
 ﻿.drawer-container {
     font: var(--ni-nimble-body-font);
     height: 100%;
-    --ni-nimble-drawer-width: 300px;
     background-color: var(--ni-nimble-application-background-color);
 }
 

@@ -17,11 +17,9 @@ namespace NimbleBlazor.Demo.Shared
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
 
-        private string DrawerContainerCssClass => string.Join(
-                    ' ',
-                    "drawer-container",
-                    _isDrawerPinned ? "pinned" : string.Empty,
-                    Location == DrawerLocation.Right ? "location-right" : string.Empty);
+        private string PinnedCssClass => _isDrawerPinned ? "pinned" : string.Empty;
+
+        private string LocationRightCssClass => Location == DrawerLocation.Right ? "location-right" : string.Empty;
 
         public void Open()
         {

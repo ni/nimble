@@ -4,7 +4,6 @@
     display: flex;
     justify-content: flex-end;
     height: var(--example-client-header-height);
-    --ni-nimble-drawer-width: 500px;
 }
 
 ::deep .user-settings-drawer {
