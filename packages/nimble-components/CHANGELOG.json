@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 29 Apr 2022 19:30:37 GMT",
+      "tag": "@ni/nimble-components_v8.2.0",
+      "version": "8.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f3f35459c1bf71a433c5b892803a01b129155f4a",
+            "comment": "Show start slot on text field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 29 Apr 2022 16:34:13 GMT",
       "tag": "@ni/nimble-components_v8.1.11",
       "version": "8.1.11",
