@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Sat, 23 Apr 2022 05:05:02 GMT and should not be manually modified.
+This log was last generated on Fri, 29 Apr 2022 19:30:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.2.0
+
+Fri, 29 Apr 2022 19:30:37 GMT
+
+### Minor changes
+
+- Show start slot on text field ([ni/nimble@f3f3545](https://github.com/ni/nimble/commit/f3f35459c1bf71a433c5b892803a01b129155f4a))
+
+## 8.1.11
+
+Fri, 29 Apr 2022 15:27:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.1.0
 
 ## 8.1.10
 

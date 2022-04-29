@@ -17,10 +17,28 @@
                 <NimbleButton Appearance="Appearance.Ghost">Ghost Button</NimbleButton>
             </div>
             <div class="sub-container">
+                <div class="container-label">Buttons - Toggle</div>
+                <NimbleToggleButton Appearance="Appearance.Outline">Outline Toggle Button</NimbleToggleButton>
+                <NimbleToggleButton Appearance="Appearance.Block">Block Toggle Button</NimbleToggleButton>
+                <NimbleToggleButton Appearance="Appearance.Ghost">Ghost Toggle Button</NimbleToggleButton>
+                <NimbleToggleButton ContentHidden="true"Appearance="Appearance.Outline">
+                    <NimbleKeyIcon slot="start"></NimbleKeyIcon>
+                    Icon Toggle Button
+                </NimbleToggleButton>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Checkbox</div>
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Icons (subset - see <a href="https://ni.github.io/nimble/storybook/?path=/docs/icons--icons">
+                    Icons Storybook page</a> for complete set)</div>
+                <NimbleChartDiagramIcon></NimbleChartDiagramIcon>
+                <NimbleSquareCheckIcon class="pass"></NimbleSquareCheckIcon>
+                <NimbleXmarkCheckIcon class="warning"></NimbleXmarkCheckIcon>
+                <NimbleXmarkIcon class="fail"></NimbleXmarkIcon>
             </div>
             <div class="sub-container">
                 <div class="container-label">Menu</div>
@@ -28,7 +46,7 @@
                     <header>Header 1</header>
                     <NimbleMenuItem>
                         Item 1
-                        <span slot="start">[+]</span>
+                        <NimbleAddIcon slot="start"></NimbleAddIcon>
                     </NimbleMenuItem>
                     <NimbleMenuItem>Item 2</NimbleMenuItem>
                     <hr>
@@ -43,6 +61,19 @@
                     <NimbleListOption>Option 2</NimbleListOption>
                     <NimbleListOption>Option 3</NimbleListOption>
                 </NimbleSelect>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Switch</div>
+                <NimbleSwitch>Switch</NimbleSwitch>
+                <NimbleSwitch Value="true">
+                    Switch with checked/unchecked messages
+                    <span slot="unchecked-message">Off</span>
+                    <span slot="checked-message">On</span>
+                </NimbleSwitch>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Text Area</div>
+                <NimbleTextArea Placeholder="Text Area" Cols="50" Rows="5" TextAreaResize="TextAreaResize.Horizontal" Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</NimbleTextArea>
             </div>
             <div class="sub-container">
                 <div class="container-label">Text Field</div>
