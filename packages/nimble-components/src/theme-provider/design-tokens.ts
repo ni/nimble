@@ -121,6 +121,10 @@ export const fillHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillHoverColorForTheme(element), 0.1));
 
+export const fillMousedownColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.fillMousedownColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillMousedownColorForTheme(element), 0.15))
+
 export const borderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderColor)
 ).withDefault((element: HTMLElement) => getDefaultLineColorForTheme(element));
@@ -673,5 +677,9 @@ function getFillSelectedColorForTheme(element: HTMLElement): string {
 }
 
 function getFillHoverColorForTheme(element: HTMLElement): string {
+    return getColorForTheme(element, Black91, Black15, White);
+}
+
+function getFillMousedownColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
 }
