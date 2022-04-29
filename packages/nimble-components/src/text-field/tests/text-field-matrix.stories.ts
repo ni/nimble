@@ -101,11 +101,11 @@ const component = (
     </nimble-text-field>
 `;
 
-export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
+export const enabledWithoutButtonsTextFieldThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         readOnlyStates,
         [disabledStates[0]],
-        actionButtonStates,
+        [actionButtonStates[0]],
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
@@ -113,11 +113,35 @@ export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const disabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
+export const enabledWithButtonsTextFieldThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        readOnlyStates,
+        [disabledStates[0]],
+        [actionButtonStates[1]],
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        valueStates
+    ])
+);
+
+export const disabledWithoutButtonsTextFieldThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         readOnlyStates,
         [disabledStates[1]],
-        actionButtonStates,
+        [actionButtonStates[0]],
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        valueStates
+    ])
+);
+
+export const disabledWithButtonsTextFieldThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        readOnlyStates,
+        [disabledStates[1]],
+        [actionButtonStates[1]],
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
