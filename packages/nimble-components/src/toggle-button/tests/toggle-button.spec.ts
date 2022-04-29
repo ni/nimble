@@ -84,7 +84,16 @@ describe('ToggleButton', () => {
 
     it('should NOT set a default `aria-readonly` value on the internal control when `readonly` is not defined', async () => {
         await connect();
-        expect(element.getAttribute('aria-readonly')).toBe(null);
+        expect(element.control.getAttribute('aria-readonly')).toBe(null);
+    });
+
+    it('should reflect `aria-haspopup` value to the internal control', async () => {
+        await connect();
+
+        element.setAttribute('aria-haspopup', 'menu');
+        await DOM.nextUpdate();
+
+        expect(element.control.getAttribute('aria-haspopup')).toBe('menu');
     });
 
     it('should set a tabindex of 0 on the internal control', async () => {
