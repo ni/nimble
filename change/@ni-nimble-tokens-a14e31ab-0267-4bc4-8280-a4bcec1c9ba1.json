@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add .ico versions of nimble icons to nuget export",
-  "packageName": "@ni/nimble-tokens",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
