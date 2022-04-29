@@ -1,7 +1,7 @@
 @namespace NimbleBlazor.Components
 <nimble-drawer
-        location="@DrawerLocationExtensions.ToAttributeValue(Location)"
-        state="@DrawerStateExtensions.ToAttributeValue(State)"
+        location="@Location.ToAttributeValue()"
+        state="@State.ToAttributeValue()"
         @onnimbledrawerstatechange="(__value) => UpdateDrawerState(__value.DrawerState)"
         modal="@Modal"
         prevent-dismiss="@PreventDismiss"

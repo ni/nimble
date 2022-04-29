@@ -8,7 +8,7 @@ public partial class NimbleDrawer : ComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public DrawerLocation Location { get; set; }
+    public DrawerLocation? Location { get; set; }
 
     /// <summary>
     /// Drawer state (Opening/Opened/Closing/Closed).
@@ -20,12 +20,12 @@ public partial class NimbleDrawer : ComponentBase
     /// closing/closed).
     /// </remarks>
     [Parameter]
-    public DrawerState State { get; set; }
+    public DrawerState? State { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that's invoked when the State changes
     /// </summary>
-    [Parameter] public EventCallback<DrawerState> StateChanged { get; set; }
+    [Parameter] public EventCallback<DrawerState?> StateChanged { get; set; }
 
     [Parameter]
     public bool? Modal { get; set; }
