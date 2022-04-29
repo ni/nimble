@@ -107,7 +107,12 @@ export const styles = css`
     }
 
     [part='start'] {
-        display: none;
+        display: contents;
+    }
+
+    slot[name='start']::slotted(*) {
+        margin-left: calc(${standardPadding} / 2);
+        flex: none;
     }
 
     .control {
