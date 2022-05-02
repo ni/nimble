@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Added mousedown fill color",
+  "packageName": "@ni/nimble-components",
+  "email": "35616474+michaeldbrandt@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
