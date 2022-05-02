@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 29 Apr 2022 15:27:01 GMT and should not be manually modified.
+This log was last generated on Fri, 29 Apr 2022 20:41:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.2.1
+
+Fri, 29 Apr 2022 20:41:59 GMT
+
+### Patches
+
+- Reflect ARIA attributes from toggle-button onto inner control ([ni/nimble@9ffe14d](https://github.com/ni/nimble/commit/9ffe14dc5c32a24e60b0a8b1e1db44a331af1350))
+
+## 8.2.0
+
+Fri, 29 Apr 2022 19:30:37 GMT
+
+### Minor changes
+
+- Show start slot on text field ([ni/nimble@f3f3545](https://github.com/ni/nimble/commit/f3f35459c1bf71a433c5b892803a01b129155f4a))
 
 ## 8.1.11
 
