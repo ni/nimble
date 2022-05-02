@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Sat, 23 Apr 2022 05:05:02 GMT and should not be manually modified.
+This log was last generated on Fri, 29 Apr 2022 20:41:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.0.14
+
+Fri, 29 Apr 2022 20:41:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.2.1
+
+## 5.0.13
+
+Fri, 29 Apr 2022 19:30:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.2.0
+
+## 5.0.12
+
+Fri, 29 Apr 2022 15:27:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.1.11
+
+## 5.0.11
+
+Mon, 25 Apr 2022 21:58:46 GMT
+
+### Patches
+
+- Refactor icon code generation to create barrel file ([ni/nimble@54d0547](https://github.com/ni/nimble/commit/54d05472c058760ff4efa2fa250938618257a66f))
 
 ## 5.0.10
 
