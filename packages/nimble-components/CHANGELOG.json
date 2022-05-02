@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 02 May 2022 21:17:05 GMT",
+      "tag": "@ni/nimble-components_v8.3.0",
+      "version": "8.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8221a0c79dde412326b2358add1a521894035e75",
+            "comment": "Added mousedown fill color"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 29 Apr 2022 20:41:59 GMT",
       "tag": "@ni/nimble-components_v8.2.1",
       "version": "8.2.1",
