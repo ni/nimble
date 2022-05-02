@@ -4,13 +4,15 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import {
-    createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
-import { bodyFont, bodyFontColor, borderHoverColor, applicationBackgroundColor } from '../../theme-provider/design-tokens';
+import {
+    bodyFont,
+    bodyFontColor,
+    borderHoverColor,
+    applicationBackgroundColor
+} from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/AnchoredRegion',
@@ -41,56 +43,59 @@ const component = (
     [horizontalPositionName, horizontalPosition]: HorizontalPositionState,
     [verticalPositionName, verticalPosition]: VerticalPositionState
 ): ViewTemplate => html`<style>
-    .container {
-        display: inline-flex;
-        margin: 100px;
-        height: 200px;
-        width: 200px;
-    }
+        .container {
+            display: inline-flex;
+            margin: 100px;
+            height: 200px;
+            width: 200px;
+        }
 
-    .anchor {
-        top: 100px;
-        left: 300px;
-        width: 150px;
-        height: 150px;
-        font: var(${bodyFont.cssCustomProperty});
-        color: var(${bodyFontColor.cssCustomProperty});
-        border: 2px solid var(${borderHoverColor.cssCustomProperty});
-        background: var(${applicationBackgroundColor.cssCustomProperty});
-    }
+        .anchor {
+            top: 100px;
+            left: 300px;
+            width: 150px;
+            height: 150px;
+            font: var(${bodyFont.cssCustomProperty});
+            color: var(${bodyFontColor.cssCustomProperty});
+            border: 2px solid var(${borderHoverColor.cssCustomProperty});
+            background: var(${applicationBackgroundColor.cssCustomProperty});
+        }
 
-    .anchoredRegion {
-        width: 75px;
-        height: 75px;
-        font: var(${bodyFont.cssCustomProperty});
-        color: var(${bodyFontColor.cssCustomProperty});
-        border: 2px solid var(${borderHoverColor.cssCustomProperty});
-        background: var(${applicationBackgroundColor.cssCustomProperty});
-    }
+        .anchoredRegion {
+            width: 75px;
+            height: 75px;
+            font: var(${bodyFont.cssCustomProperty});
+            color: var(${bodyFontColor.cssCustomProperty});
+            border: 2px solid var(${borderHoverColor.cssCustomProperty});
+            background: var(${applicationBackgroundColor.cssCustomProperty});
+        }
     </style>
     <div class="container">
-    <div id="${() => `${verticalPosition}_${horizontalPosition}`}" class="anchor">
-        Anchor element
-    </div>
-    <nimble-anchored-region
-        anchor="${() => `${verticalPosition}_${horizontalPosition}`}"
-        fixed-placement="true"
-        auto-update-mode="auto"
-        vertical-default-position="${() => verticalPosition}"
-        vertical-positioning-mode="locktodefault"
-        horizontal-default-position="${() => horizontalPosition}"
-        horizontal-positioning-mode="locktodefault"
-    >
-        <div class="anchoredRegion">
-            ${horizontalPositionName} ${verticalPositionName}
+        <div
+            id="${() => `${verticalPosition}_${horizontalPosition}`}"
+            class="anchor"
+        >
+            Anchor element
         </div>
-    </nimble-anchored-region>
-    <div>`;
+        <nimble-anchored-region
+            anchor="${() => `${verticalPosition}_${horizontalPosition}`}"
+            fixed-placement="true"
+            auto-update-mode="auto"
+            vertical-default-position="${() => verticalPosition}"
+            vertical-positioning-mode="locktodefault"
+            horizontal-default-position="${() => horizontalPosition}"
+            horizontal-positioning-mode="locktodefault"
+        >
+            <div class="anchoredRegion">
+                ${horizontalPositionName} ${verticalPositionName}
+            </div>
+        </nimble-anchored-region>
+        <div></div>
+    </div>`;
 
-export const anchoredRegionThemeMatrix: Story = createStory(createMatrix(component, [
-    horizontalPositionStates,
-    verticalPositionStates
-]));
+export const anchoredRegionThemeMatrix: Story = createStory(
+    createMatrix(component, [horizontalPositionStates, verticalPositionStates])
+);
 
 export const hiddenAnchoredRegion: Story = createStory(
     hiddenWrapper(

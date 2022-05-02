@@ -2,12 +2,16 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import { applicationBackgroundColor, bodyFont, bodyFontColor, borderHoverColor } from '../../theme-provider/design-tokens';
-import type { HorizontalPosition, VerticalPosition } from '@microsoft/fast-foundation';
+import {
+    applicationBackgroundColor,
+    bodyFont,
+    bodyFontColor,
+    borderHoverColor
+} from '../../theme-provider/design-tokens';
 
 interface AnchoredRegionArgs {
-    horizontalPosition: HorizontalPosition;
-    verticalPosition: VerticalPosition;
+    horizontalPosition: string;
+    verticalPosition: string;
 }
 
 const overviewText = `An anchored region is a container component which enables authors to create layouts where the contents of the anchored region can be
@@ -61,9 +65,9 @@ const metadata: Meta<AnchoredRegionArgs> = {
                 fixed-placement="true"
                 auto-update-mode="auto"
                 vertical-default-position="${x => x.verticalPosition}"
-                vertical-positioning-mode="${x => x.verticalPosition === 'unset' ? 'dynamic' : 'locktodefault'}"
+                vertical-positioning-mode="${x => (x.verticalPosition === 'unset' ? 'dynamic' : 'locktodefault')}"
                 horizontal-default-position="${x => x.horizontalPosition}"
-                horizontal-positioning-mode="${x => x.horizontalPosition === 'unset' ? 'dynamic' : 'locktodefault'}"
+                horizontal-positioning-mode="${x => (x.horizontalPosition === 'unset' ? 'dynamic' : 'locktodefault')}"
             >
                 <div class="anchoredRegion">
                     Anchored region
@@ -73,28 +77,15 @@ const metadata: Meta<AnchoredRegionArgs> = {
     `),
     argTypes: {
         horizontalPosition: {
-            options: [
-                'start',
-                'end',
-                'left',
-                'right',
-                'center',
-                'unset'
-            ],
+            options: ['start', 'end', 'left', 'right', 'center', 'unset'],
             control: { type: 'select' }
         },
         verticalPosition: {
-            options: [
-                'top',
-                'bottom',
-                'center',
-                'unset'
-            ],
+            options: ['top', 'bottom', 'center', 'unset'],
             control: { type: 'select' }
         }
     },
-    args: {
-    }
+    args: {}
 };
 
 export default metadata;

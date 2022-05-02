@@ -6,7 +6,9 @@ import { AnchoredRegion } from '..';
 
 describe('Anchored Region', () => {
     it('should have its tag returned by tagFor(FoundationAnchoredRegion)', () => {
-        expect(DesignSystem.tagFor(FoundationAnchoredRegion)).toBe('nimble-anchored-region');
+        expect(DesignSystem.tagFor(FoundationAnchoredRegion)).toBe(
+            'nimble-anchored-region'
+        );
     });
 
     it('can construct an element instance', () => {

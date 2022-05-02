@@ -23,4 +23,6 @@ const nimbleAnchoredRegion = AnchoredRegion.compose({
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchoredRegion());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleAnchoredRegion());
