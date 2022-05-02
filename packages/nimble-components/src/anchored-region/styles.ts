@@ -4,6 +4,6 @@ export const styles = css`
     :host {
         contain: layout;
         display: block;
-        z-index: 1;
+        z-index: 1000;
     }
 `;
