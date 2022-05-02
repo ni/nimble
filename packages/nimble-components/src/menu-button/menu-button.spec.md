@@ -95,7 +95,7 @@ _CSS Classes and CSS Custom Properties that affect the component_
 _Slot Names_
 
 -   `start`: content that will get slotted into the `start` slot of the underlying `nimble-toggle-button`
--   *default slot (unnamed)*: content that will get slotted into the default slot of the underlying `nimble-toggle-button`
+-   _default slot (unnamed)_: content that will get slotted into the default slot of the underlying `nimble-toggle-button`
 -   `end`: content that will get slotted into the `end` slot of the underlying `nimble-toggle-button`
 -   `menu`: the menu that will be shown/hidden based on the `open` attribute of the component
 
@@ -114,6 +114,10 @@ _CSS Parts_
 ### Angular integration
 
 An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created.
+
+### Blazor integration
+
+A Blazor wrapper will be created for the component.
 
 ### Visual Appearance
 
@@ -206,4 +210,5 @@ As with other nimble components, a story will be added in storybook for the new 
 ---
 
 ## Open Issues
+
 -   Should nimble try to enforce that an aria-label is configured on the slotted menu?
