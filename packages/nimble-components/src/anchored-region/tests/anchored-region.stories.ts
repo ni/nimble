@@ -53,11 +53,11 @@ const metadata: Meta<AnchoredRegionArgs> = {
             }
         </style>
         <div class="container">
-            <div id="${x => x.verticalPosition + '_' + x.horizontalPosition}" class="anchor">
+            <div id="${x => `${x.verticalPosition}_${x.horizontalPosition}`}" class="anchor">
                 Anchor element
             </div>
             <nimble-anchored-region
-                anchor="${x => x.verticalPosition + '_' + x.horizontalPosition}"
+                anchor="${x => `${x.verticalPosition}_${x.horizontalPosition}`}"
                 fixed-placement="true"
                 auto-update-mode="auto"
                 vertical-default-position="${x => x.verticalPosition}"
