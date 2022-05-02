@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 29 Apr 2022 19:30:37 GMT and should not be manually modified.
+This log was last generated on Fri, 29 Apr 2022 20:41:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.2.1
+
+Fri, 29 Apr 2022 20:41:59 GMT
+
+### Patches
+
+- Reflect ARIA attributes from toggle-button onto inner control ([ni/nimble@9ffe14d](https://github.com/ni/nimble/commit/9ffe14dc5c32a24e60b0a8b1e1db44a331af1350))
 
 ## 8.2.0
 
