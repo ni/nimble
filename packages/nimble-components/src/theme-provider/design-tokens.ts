@@ -123,7 +123,7 @@ export const fillHoverColor = DesignToken.create<string>(
 
 export const fillMousedownColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillMousedownColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillMousedownColorForTheme(element), 0.15))
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillMousedownColorForTheme(element), 0.15));
 
 export const borderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderColor)
