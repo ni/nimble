@@ -14,7 +14,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     fillHoverSelectedColor:
         'Control fill color when hovering a selected control',
     fillHoverColor: 'Control fill color when hovering component',
-    fillMousedownColor: 'Control fill color when mousedown event occurs',
+    fillDownColor: 'Control fill color when mousedown event occurs',
     borderColor: 'Standard control outline or border color',
     borderRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
