@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 29 Apr 2022 15:27:01 GMT",
+      "tag": "@ni/nimble-tokens_v3.1.0",
+      "version": "3.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8c3fe0e2c25daf35728fdf75d4a74dd86f1449c6",
+            "comment": "Add .ico versions of nimble icons to nuget export"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 23 Apr 2022 05:05:02 GMT",
       "tag": "@ni/nimble-tokens_v3.0.13",
       "version": "3.0.13",

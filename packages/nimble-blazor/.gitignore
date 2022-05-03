@@ -1,5 +1,6 @@
 # Folders
 NimbleBlazor.Components/wwwroot/nimble-*/
+NimbleBlazor.Components/Components/Icons/
 artifacts/
 bin/
 obj/

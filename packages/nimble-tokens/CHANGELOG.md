@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Sat, 23 Apr 2022 05:05:02 GMT and should not be manually modified.
+This log was last generated on Fri, 29 Apr 2022 15:27:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.1.0
+
+Fri, 29 Apr 2022 15:27:01 GMT
+
+### Minor changes
+
+- Add .ico versions of nimble icons to nuget export ([ni/nimble@8c3fe0e](https://github.com/ni/nimble/commit/8c3fe0e2c25daf35728fdf75d4a74dd86f1449c6))
 
 ## 3.0.13
 
