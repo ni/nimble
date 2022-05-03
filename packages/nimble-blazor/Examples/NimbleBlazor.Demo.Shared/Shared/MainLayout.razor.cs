@@ -10,9 +10,7 @@ namespace NimbleBlazor.Demo.Shared
     /// </summary>
     public partial class MainLayout
     {
-#pragma warning disable CA1823 // Field used in Razor file
-        private Theme _theme = Theme.Light;
-#pragma warning restore CA1823
+        private Theme Theme { get; set; } = Theme.Light;
 
         public ErrorBoundary? ErrorBoundary { get; set; }
 
