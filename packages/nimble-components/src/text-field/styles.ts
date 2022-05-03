@@ -113,6 +113,7 @@ export const styles = css`
 
     [part='start']::before {
         content: '';
+        flex: none;
         width: calc(${standardPadding} / 2);
     }
 
