@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Blazor integration for breadcrumb, drawer, tabs. Updates to example app.",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
