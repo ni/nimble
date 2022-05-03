@@ -63,6 +63,7 @@ export const styles = css`
         --ni-private-hover-bottom-border-width: 2px;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         border-bottom-width: var(--ni-private-bottom-border-width);
+        padding: 0px;
         padding-bottom: calc(
             var(--ni-private-hover-bottom-border-width) -
                 var(--ni-private-bottom-border-width)
@@ -102,8 +103,21 @@ export const styles = css`
         --ni-private-bottom-border-width: 1px;
     }
 
+    :host([flush-left]) .root {
+        padding-left: 0px;
+    }
+
     .root:focus-within {
         border-bottom-color: ${borderHoverColor};
+    }
+
+    [part='start']::before {
+        content: '';
+        width: calc(${standardPadding} / 2);
+    }
+
+    :host([flush-left]) [part='start']::before {
+        width: 0px;
     }
 
     [part='start'] {
@@ -111,7 +125,7 @@ export const styles = css`
     }
 
     slot[name='start']::slotted(*) {
-        margin-left: calc(${standardPadding} / 2);
+        padding-right: calc(${standardPadding} / 2);
         flex: none;
     }
 
@@ -129,7 +143,7 @@ export const styles = css`
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
-        padding-left: calc(${standardPadding} / 2);
+        padding-left: 0px;
         padding-right: calc(${standardPadding} / 2);
         border: none;
         text-overflow: ellipsis;

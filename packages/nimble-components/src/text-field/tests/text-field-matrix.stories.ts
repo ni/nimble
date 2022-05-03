@@ -69,6 +69,12 @@ type TextFieldInvalidState = typeof textFieldInvalidStates[number];
 const appearanceStates = Object.entries(TextFieldAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
+const flushLeftStates = [
+    ['', false],
+    ['Flush Left', true]
+] as const;
+type FlushLeftState = typeof flushLeftStates[number];
+
 // prettier-ignore
 const component = (
     [readOnlyName, readonly]: ReadOnlyState,
@@ -78,6 +84,7 @@ const component = (
     [invalidName, invalidClass, errorText]: TextFieldInvalidState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
+    [flushLeftName, flushLeft]: FlushLeftState,
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-text-field
@@ -86,6 +93,7 @@ const component = (
         ?disabled="${() => disabled}"
         type="${() => type}"
         appearance="${() => appearance}"
+        ?flush-left="${() => flushLeft}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         ?readonly="${() => readonly}"
@@ -94,8 +102,8 @@ const component = (
         ${when(() => showLeftIcon, html`<nimble-tag-icon slot="start"></nimble-pencil-icon>`)}
 
         ${() => invalidName} ${() => typeName}
-        ${() => appearanceName} ${() => valueName} ${() => readOnlyName}
-        ${() => showLeftIconName} ${() => showActionButtonsName}
+        ${() => appearanceName} ${() => flushLeftName} ${() => valueName}
+        ${() => readOnlyName} ${() => showLeftIconName} ${() => showActionButtonsName}
 
 
         ${when(() => showActionButtons, html`
@@ -119,6 +127,7 @@ export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
+        [flushLeftStates[0]],
         valueStates
     ])
 );
@@ -132,7 +141,22 @@ export const enabledReadOnlyTextFieldThemeMatrix: Story = createMatrixThemeStory
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
+        [flushLeftStates[0]],
         valueStates
+    ])
+);
+
+export const enabledReadOnlyFlushLeftTextFieldThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[0]],
+        actionButtonStates,
+        leftIconStates,
+        [textFieldInvalidStates[0]],
+        [typeStates[0]],
+        appearanceStates,
+        [flushLeftStates[1]],
+        [valueStates[1]]
     ])
 );
 
@@ -145,6 +169,7 @@ export const disabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
+        [flushLeftStates[0]],
         valueStates
     ])
 );
@@ -158,6 +183,7 @@ export const disabledReadOnlyTextFieldThemeMatrix: Story = createMatrixThemeStor
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
+        [flushLeftStates[0]],
         valueStates
     ])
 );

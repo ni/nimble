@@ -30,6 +30,16 @@ export class TextField extends FoundationTextField {
     public appearance: TextFieldAppearance = TextFieldAppearance.Underline;
 
     /**
+     * A flag indicating to left-align the value text with the label.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: flush-left
+     */
+    @attr({ attribute: 'flush-left' })
+    public flushLeft?: boolean;
+
+    /**
      * A message explaining why the value is invalid.
      *
      * @public

@@ -9,6 +9,7 @@ interface TextFieldArgs {
     label: string;
     type: string;
     appearance: string;
+    'flush-left': boolean;
     value: string;
     readonly: boolean;
     disabled: boolean;
@@ -55,6 +56,7 @@ const metadata: Meta<TextFieldArgs> = {
             aria-invalid="${x => x.invalid}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
+            ?flush-left="${x => x['flush-left']}"
             error-text="${x => x['error-text']}"
         >
             ${when(x => x.leftIcon, html`
@@ -78,6 +80,9 @@ const metadata: Meta<TextFieldArgs> = {
             options: Object.values(TextFieldAppearance),
             control: { type: 'radio' }
         },
+        'flush-left': {
+            description: 'Whether to left-align the value with the label'
+        },
         'error-text': {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
@@ -93,6 +98,7 @@ const metadata: Meta<TextFieldArgs> = {
         label: 'default label',
         type: 'text',
         appearance: 'underline',
+        'flush-left': false,
         value: '',
         readonly: false,
         disabled: false,
