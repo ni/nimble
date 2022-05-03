@@ -66,6 +66,7 @@ NOTE: To update the component status:
 
 | Components             | Design | Issue | Web Components     | Angular Integration | Blazor Integration |
 |------------------------|--------|--------|--------------------|---------------------|--------------------|
+| Accordion | |  [Issue](https://github.com/ni/nimble/issues/533) | :o: | :o: | :o: |
 | Anchor | |  [Issue](https://github.com/ni/nimble/issues/324) | :o: | :o: | :o: |
 | Banners | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/29c405f7-08ea-48b6-973f-546970b9dbab) |  [Issue](https://github.com/ni/nimble/issues/305) | :o: | :o: | :o: |
 | Breadcrumb | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/breadcrumb--standard-breadcrumb) | :white_check_mark: | :o: |
