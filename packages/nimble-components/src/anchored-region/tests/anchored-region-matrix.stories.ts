@@ -45,28 +45,28 @@ const component = (
 ): ViewTemplate => html`<style>
         .container {
             display: inline-flex;
-            margin: 100px;
-            height: 200px;
-            width: 200px;
+            margin: 55px;
+            height: 75px;
+            width: 75px;
         }
 
         .anchor {
-            top: 100px;
-            left: 300px;
-            width: 150px;
-            height: 150px;
-            font: var(${bodyFont.cssCustomProperty});
-            color: var(${bodyFontColor.cssCustomProperty});
-            border: 2px solid var(${borderHoverColor.cssCustomProperty});
-            background: var(${applicationBackgroundColor.cssCustomProperty});
-        }
-
-        .anchoredRegion {
+            top: 25px;
+            left: 25px;
             width: 75px;
             height: 75px;
             font: var(${bodyFont.cssCustomProperty});
             color: var(${bodyFontColor.cssCustomProperty});
-            border: 2px solid var(${borderHoverColor.cssCustomProperty});
+            border: 1px solid var(${borderHoverColor.cssCustomProperty});
+            background: var(${applicationBackgroundColor.cssCustomProperty});
+        }
+
+        .anchoredRegion {
+            width: 50px;
+            height: 50px;
+            font: var(${bodyFont.cssCustomProperty});
+            color: var(${bodyFontColor.cssCustomProperty});
+            border: 1px solid var(${borderHoverColor.cssCustomProperty});
             background: var(${applicationBackgroundColor.cssCustomProperty});
         }
     </style>
