@@ -63,7 +63,7 @@ export const styles = css`
         --ni-private-hover-bottom-border-width: 2px;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         border-bottom-width: var(--ni-private-bottom-border-width);
-        padding: 0px;
+        padding-left: 0px;
         padding-bottom: calc(
             var(--ni-private-hover-bottom-border-width) -
                 var(--ni-private-bottom-border-width)
