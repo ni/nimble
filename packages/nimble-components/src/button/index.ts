@@ -5,6 +5,7 @@ import {
     buttonTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
+import type { IButton } from '../patterns/button/types';
 import { styles } from './styles';
 import { ButtonAppearance } from './types';
 
@@ -17,7 +18,7 @@ declare global {
 /**
  * A nimble-styled HTML button
  */
-export class Button extends FoundationButton {
+export class Button extends FoundationButton implements IButton {
     /**
      * The appearance the button should have.
      *
