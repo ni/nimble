@@ -9,7 +9,7 @@ interface TextFieldArgs {
     label: string;
     type: string;
     appearance: string;
-    'flush-left': boolean;
+    'flush-start': boolean;
     value: string;
     readonly: boolean;
     disabled: boolean;
@@ -52,11 +52,10 @@ const metadata: Meta<TextFieldArgs> = {
             type="${x => x.type}"
             appearance="${x => x.appearance}"
             value="${x => x.value}"
-            class="${x => (x.invalid ? 'invalid' : '')}"
+            class="${x => (x.invalid ? 'invalid' : '')} ${x => (x['flush-start'] ? 'flush-start' : '')}"
             aria-invalid="${x => x.invalid}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
-            ?flush-left="${x => x['flush-left']}"
             error-text="${x => x['error-text']}"
         >
             ${when(x => x.leftIcon, html`
@@ -80,8 +79,9 @@ const metadata: Meta<TextFieldArgs> = {
             options: Object.values(TextFieldAppearance),
             control: { type: 'radio' }
         },
-        'flush-left': {
-            description: 'Whether to left-align the value with the label'
+        'flush-start': {
+            description:
+                'Whether to align the start of the value with the label'
         },
         'error-text': {
             description:
@@ -98,7 +98,7 @@ const metadata: Meta<TextFieldArgs> = {
         label: 'default label',
         type: 'text',
         appearance: 'underline',
-        'flush-left': false,
+        'flush-start': false,
         value: '',
         readonly: false,
         disabled: false,

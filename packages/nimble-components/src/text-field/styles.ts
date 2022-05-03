@@ -103,7 +103,7 @@ export const styles = css`
         --ni-private-bottom-border-width: 1px;
     }
 
-    :host([flush-left]) .root {
+    :host(.flush-start) .root {
         padding-left: 0px;
     }
 
@@ -116,7 +116,7 @@ export const styles = css`
         width: calc(${standardPadding} / 2);
     }
 
-    :host([flush-left]) [part='start']::before {
+    :host(.flush-start) [part='start']::before {
         width: 0px;
     }
 
