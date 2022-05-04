@@ -18,6 +18,8 @@ declare global {
 export class Tabs extends FoundationTabs {
     public constructor() {
         super();
+        // We disable the built-in active indicator so that we can implement our own
+        this.showActiveIndicator = false;
     }
 }
 
