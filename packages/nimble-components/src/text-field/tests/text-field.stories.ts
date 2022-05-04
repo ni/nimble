@@ -9,7 +9,7 @@ interface TextFieldArgs {
     label: string;
     type: string;
     appearance: string;
-    'flush-start': boolean;
+    'no-pad': boolean;
     value: string;
     readonly: boolean;
     disabled: boolean;
@@ -52,7 +52,7 @@ const metadata: Meta<TextFieldArgs> = {
             type="${x => x.type}"
             appearance="${x => x.appearance}"
             value="${x => x.value}"
-            class="${x => (x.invalid ? 'invalid' : '')} ${x => (x['flush-start'] ? 'flush-start' : '')}"
+            class="${x => (x.invalid ? 'invalid' : '')} ${x => (x['no-pad'] ? 'no-pad' : '')}"
             aria-invalid="${x => x.invalid}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
@@ -79,9 +79,9 @@ const metadata: Meta<TextFieldArgs> = {
             options: Object.values(TextFieldAppearance),
             control: { type: 'radio' }
         },
-        'flush-start': {
+        'no-pad': {
             description:
-                'Whether to align the start of the value with the label'
+                'Whether to remove internal padding. Only affects the frameless appearance.'
         },
         'error-text': {
             description:
@@ -98,7 +98,7 @@ const metadata: Meta<TextFieldArgs> = {
         label: 'default label',
         type: 'text',
         appearance: 'underline',
-        'flush-start': false,
+        'no-pad': false,
         value: '',
         readonly: false,
         disabled: false,

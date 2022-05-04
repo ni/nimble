@@ -103,8 +103,9 @@ export const styles = css`
         --ni-private-bottom-border-width: 1px;
     }
 
-    :host(.flush-start) .root {
+    :host(.no-pad) .root {
         padding-left: 0px;
+        padding-right: 0px;
     }
 
     .root:focus-within {
@@ -117,7 +118,7 @@ export const styles = css`
         width: calc(${standardPadding} / 2);
     }
 
-    :host(.flush-start) [part='start']::before {
+    :host(.no-pad) [part='start']::before {
         width: 0px;
     }
 
@@ -148,6 +149,10 @@ export const styles = css`
         padding-right: calc(${standardPadding} / 2);
         border: none;
         text-overflow: ellipsis;
+    }
+
+    :host(.no-pad) .control {
+        padding-right: 0px;
     }
 
     .control:hover,
