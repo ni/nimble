@@ -23,8 +23,6 @@ declare global {
  */
 export class ToggleButton extends FoundationSwitch implements IButton {
     /**
-     * The appearance the button should have.
-     *
      * @public
      * @remarks
      * HTML Attribute: appearance
@@ -33,10 +31,6 @@ export class ToggleButton extends FoundationSwitch implements IButton {
     public appearance: ButtonAppearance = ButtonAppearance.Outline;
 
     /**
-     * Specify as 'true' to hide the text content of the button. The button will
-     * become square, and the text content will be used as the label of the button
-     * for accessibility purposes.
-     *
      * @public
      * @remarks
      * HTML Attribute: content-hidden
