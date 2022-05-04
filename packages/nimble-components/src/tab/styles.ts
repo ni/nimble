@@ -8,6 +8,7 @@ import {
     bodyDisabledFontColor,
     controlHeight,
     fillHoverColor,
+    fillHoverSelectedColor,
     mediumDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -20,14 +21,12 @@ export const styles = css`
         box-sizing: border-box;
         font: ${bodyFont};
         height: ${controlHeight};
-        padding: calc(${standardPadding} / 2) ${standardPadding}
-            calc(${standardPadding} / 2 - ${borderWidth});
         color: ${bodyFontColor};
+        display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        ${/* Separate focus indicator from active indicator */ ''}
-        border-bottom: transparent ${borderWidth} solid;
     }
 
     :host(:hover) {
@@ -38,16 +37,12 @@ export const styles = css`
         outline: none;
     }
 
-    :host(${focusVisible}) {
-        outline: none;
-        box-shadow: 0 calc(${borderWidth} * -1) ${borderHoverColor} inset;
-        transition: box-shadow ${mediumDelay} ease-in-out;
+    :host(:focus:hover) {
+        background-color: ${fillHoverSelectedColor};
     }
 
-    @media (prefers-reduced-motion) {
-        :host(${focusVisible}) {
-            transition-duration: 0.01s;
-        }
+    :host(${focusVisible}) {
+        outline: none;
     }
 
     :host(:active) {
@@ -58,5 +53,50 @@ export const styles = css`
         cursor: default;
         color: ${bodyDisabledFontColor};
         background: none;
+    }
+
+    slot {
+        display: block;
+        padding: calc(${standardPadding} / 2) ${standardPadding}
+            calc(${standardPadding} / 2 - ${borderWidth});
+    }
+
+    .focus-indicator {
+        top: -2px;
+        position: relative;
+        width: 0px;
+        height: 0px;
+        border-bottom: ${borderHoverColor} 1px solid;
+        transition: width ${mediumDelay} ease-in;
+    }
+
+    :host(${focusVisible}) .focus-indicator {
+        width: 100%;
+    }
+
+    @media (prefers-reduced-motion) {
+        .focus-indicator {
+            transition-duration: 0.01s;
+        }
+    }
+
+    .active-indicator {
+        top: -3px;
+        position: relative;
+        width: 0px;
+        height: 0px;
+        margin-top: 2px;
+        border-bottom: ${borderHoverColor} 2px solid;
+        transition: width ${mediumDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        .active-indicator {
+            transition-duration: 0.01s;
+        }
+    }
+
+    :host(:focus) .active-indicator {
+        width: 100%;
     }
 `;
