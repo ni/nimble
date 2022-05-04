@@ -1,38 +1,53 @@
-import { elements, html, ref, slotted } from '@microsoft/fast-element';
+import { elements, html, ref, slotted, when } from '@microsoft/fast-element';
 import type { MenuButton } from '.';
 
 export const template = html<MenuButton>`
     <template
         ?open="${x => x.open}"
         @focusout="${(x, c) => (x.focusoutHandler(c.event as FocusEvent))}"
-        aria-haspopup="true"
-        ?aria-expanded="${x => x.open}"
     >
         <nimble-toggle-button
+            part="button"
             ?checked="${x => x.open && !x.disabled}"
             ?disabled="${x => x.disabled}"
+            aria-haspopup="true"
+            aria-expanded="${x => x.open}"
             @change="${x => x.toggleButtonChangeHandler()}"
-            tabindex="${x => (!x.disabled ? '0' : null)}"
             appearance="${x => x.appearance}"
             content-hidden="${x => x.contentHidden}"
             @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
             ${ref('toggleButton')}
         >
-            <span slot="start">
+            <span slot="start" part="start">
                 <slot name="start"></slot>
             </span>
             <slot></slot>
-            <span slot="end">
+            <span slot="end" part="end">
                 <slot name="end"></slot>
             </span>
         </nimble-toggle-button>
-        <span
-            part="menu"
-            ?hidden="${x => !x.open || x.disabled}"
-            @change="${x => x.menuChangeHandler()}"
-            @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
+        ${when(
+        x => x.open && !x.disabled,
+        html<MenuButton>`
+        <nimble-anchored-region
+            fixed-placement="true"
+            auto-update-mode="auto"
+            horizontal-inset="true"
+            horizontal-positioning-mode="dynamic"
+            vertical-positioning-mode="${x => (x.position === 'auto' ? 'dynamic' : 'locktodefault')}"
+            vertical-default-position="${x => (x.position === 'above' ? 'top' : 'bottom')}"
+            @loaded="${x => x.handleRegionLoaded()}"
+            ${ref('region')}
         >
-            <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
-        </span>
+            <span
+                part="menu"
+                @change="${x => x.menuChangeHandler()}"
+                @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
+            >
+                <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
+            </span>
+        </nimble-anchored-region>
     </template>
+    `
+    )}
 `;

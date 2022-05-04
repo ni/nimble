@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '..';
-import { ButtonAppearance } from '../types';
+import { ButtonAppearance, MenuButtonPosition } from '../types';
 
 interface MenuButtonArgs {
     label: string;
@@ -13,6 +13,7 @@ interface MenuButtonArgs {
     icon: boolean;
     contentHidden: boolean;
     endIcon: boolean;
+    menuPosition: string;
 }
 
 const overviewText = 'Menu button - TODO: add overview';
@@ -50,6 +51,10 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         endIcon: {
             description: endIconDescription
+        },
+        menuPosition: {
+            options: Object.values(MenuButtonPosition),
+            control: { type: 'radio' }
         }
     },
     // prettier-ignore
@@ -59,6 +64,7 @@ const metadata: Meta<MenuButtonArgs> = {
             ?disabled="${x => x.disabled}"
             ?content-hidden="${x => x.contentHidden}"
             appearance="${x => x.appearance}"
+            position="${x => x.menuPosition}"
         >
             ${when(x => x.icon, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
             ${x => x.label}

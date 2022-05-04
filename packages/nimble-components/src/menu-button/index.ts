@@ -1,10 +1,13 @@
 import { attr, DOM, observable } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { Anchor, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { keyArrowDown, keyArrowUp, keyEscape } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance } from '../button/types';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 import { template } from './template';
+import { MenuButtonPosition } from './types';
+import type { AnchoredRegion } from '../anchored-region';
+import '../anchored-region';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -44,26 +47,61 @@ export class MenuButton extends FoundationElement {
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
 
+    /**
+     * Reflects the placement for the listbox when the select is open.
+     *
+     * @public
+     */
+    @attr({ attribute: 'position' })
+    public position: MenuButtonPosition = MenuButtonPosition.Auto;
+
     /** @internal */
+    @observable
     public readonly toggleButton: ToggleButton | undefined;
 
+    public toggleButtonChanged(_prev: ToggleButton | undefined, _next: ToggleButton | undefined): void {
+        if (this.region && this.toggleButton) {
+            this.region.anchorElement = this.toggleButton;
+        }
+    }
+
+    /** @internal */
+    @observable
+    public readonly region: AnchoredRegion | undefined;
+
+    public regionChanged(_prev: AnchoredRegion | undefined, _next: AnchoredRegion | undefined): void {
+        if (this.region && this.toggleButton) {
+            this.region.anchorElement = this.toggleButton;
+        }
+    }
+
+    /** @internal */
     @observable
     public readonly slottedMenus: HTMLElement[] | undefined;
 
-    private reverseMenuFocus = false;
+    private focusLastItemWhenOpened = false;
 
     public openChanged(_prev: boolean | undefined, _next: boolean): void {
         if (this.toggleButton && !this.disabled) {
             this.toggleButton.checked = this.open;
         }
 
-        if (this.open) {
-            if (this.reverseMenuFocus) {
-                requestAnimationFrame(() => this.focusLastMenuItem());
-            } else {
-                requestAnimationFrame(() => this.focusMenu());
-            }
+        if (!this.open) {
+            // Only fire an event here if the menu is changing to being closed. Otherwise,
+            // wait until the menu is actually opened before firing the event.
+            this.$emit('open-change', { bubbles: false });
         }
+    }
+
+    public handleRegionLoaded(): void {
+        if (this.focusLastItemWhenOpened) {
+            this.focusLastMenuItem();
+            this.focusLastItemWhenOpened = false;
+        } else {
+            this.focusMenu();
+        }
+
+        this.$emit('open-change', { bubbles: false });
     }
 
     public focusoutHandler(e: FocusEvent): boolean {
@@ -88,9 +126,8 @@ export class MenuButton extends FoundationElement {
         // eslint-disable-next-line default-case
         switch (e.key) {
             case keyArrowUp:
-                this.reverseMenuFocus = true;
+                this.focusLastItemWhenOpened = true;
                 this.open = true;
-                this.reverseMenuFocus = false;
                 return false;
             case keyArrowDown:
                 this.open = true;

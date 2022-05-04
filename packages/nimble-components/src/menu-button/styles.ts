@@ -1,13 +1,29 @@
 import { css } from '@microsoft/fast-element';
-import { smallPadding } from '../theme-provider/design-tokens';
+import { display } from '@microsoft/fast-foundation';
+import { controlHeight, smallPadding } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    slot[name="menu"] {
+    ${display('inline-block')}
+
+    :host {
+        height: ${controlHeight};
+    }
+    
+    [part='button'] {
+        width: 100%;
+        height: 100%;
+    }
+
+    [part='start'] {
         display: contents;
     }
 
-    slot[name="menu"]::slotted(*) {
-        position: absolute;
-        margin-top: ${smallPadding}
+    [part='end'] {
+        display: contents;
+    }
+
+    slot[name='menu']::slotted(*) {
+        margin-top: ${smallPadding};
+        margin-bottom: ${smallPadding};
     }
 `;
