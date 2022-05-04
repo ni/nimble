@@ -37,12 +37,12 @@ export const template = html<MenuButton>`
             vertical-positioning-mode="${x => (x.position === 'auto' ? 'dynamic' : 'locktodefault')}"
             vertical-default-position="${x => (x.position === 'above' ? 'top' : 'bottom')}"
             @loaded="${x => x.handleRegionLoaded()}"
+            @change="${x => x.menuChangeHandler()}"
+            @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
             ${ref('region')}
         >
             <span
                 part="menu"
-                @change="${x => x.menuChangeHandler()}"
-                @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
             >
                 <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
             </span>
