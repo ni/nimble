@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 29 Apr 2022 20:41:59 GMT and should not be manually modified.
+This log was last generated on Mon, 02 May 2022 21:17:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.3.0
+
+Mon, 02 May 2022 21:17:05 GMT
+
+### Minor changes
+
+- Added mousedown fill color ([ni/nimble@8221a0c](https://github.com/ni/nimble/commit/8221a0c79dde412326b2358add1a521894035e75))
 
 ## 8.2.1
 
