@@ -1,0 +1,7 @@
+@namespace NimbleBlazor.Components
+<nimble-tabs
+        activeid="@BindConverter.FormatValue(ActiveId)"
+        @onnimbletabsactiveidchange="(__value) => UpdateActiveId(__value.ActiveId)"
+        @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-tabs>
