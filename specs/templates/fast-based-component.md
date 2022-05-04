@@ -35,7 +35,7 @@
 
 ### Blazor integration 
 
-*Describe the plan for Blazor support, including any specific implementation concerns regarding [Blazor EditForm](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-6.0) integration.*
+*Describe the plan for Blazor support. See the [nimble-blazor CONTRIBUTING.md](/packages/nimble-blazor/CONTRIBUTING.md) for details.*
 
 ### Additional requirements
 

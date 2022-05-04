@@ -65,6 +65,10 @@ Tokens values are also available as:
  - [C# strings](/packages/nimble-tokens/dist/styledictionary/csharp/colors.cs)
  - [XAML resources](/packages/nimble-tokens/dist/styledictionary/xaml/colors.xaml)
 
+#### Icons
+
+Icons are included in the `nimble-tokens` package, but (like tokens) icons should primarily consumed through framework-specific components. If your desktop application requires icons as `.ico` files, ask a Nimble team member for a copy of the `NimbleTokens.x.x.xx.nupkg` file.
+
 
 #### Font Faces
 

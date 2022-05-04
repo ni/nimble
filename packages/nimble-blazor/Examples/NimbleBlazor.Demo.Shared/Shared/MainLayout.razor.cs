@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using NimbleBlazor.Components;
 
 namespace NimbleBlazor.Demo.Shared
 {
@@ -9,6 +10,8 @@ namespace NimbleBlazor.Demo.Shared
     /// </summary>
     public partial class MainLayout
     {
+        private Theme Theme { get; set; } = Theme.Light;
+
         public ErrorBoundary? ErrorBoundary { get; set; }
 
         [Inject]
