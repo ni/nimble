@@ -1,13 +1,13 @@
-import { attr, DOM, observable } from '@microsoft/fast-element';
-import { Anchor, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { attr, observable } from '@microsoft/fast-element';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { keyArrowDown, keyArrowUp, keyEscape } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance } from '../button/types';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 import { template } from './template';
-import { MenuButtonPosition } from './types';
+import { MenuButtonMenuPosition } from './types';
+import type { IButton } from '../patterns/button/types';
 import type { AnchoredRegion } from '../anchored-region';
-import '../anchored-region';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,46 +18,45 @@ declare global {
 /**
  * A nimble-styled toggle button control.
  */
-export class MenuButton extends FoundationElement {
-    /**
-     * The appearance the button should have.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: appearance
-     */
+export class MenuButton extends FoundationElement implements IButton {
     @attr
     public appearance: ButtonAppearance = ButtonAppearance.Outline;
 
     @attr({ mode: 'boolean' })
-    public open = false;
-
-    @attr({ mode: 'boolean' })
     public disabled = false;
 
-    /**
-     * Specify as 'true' to hide the text content of the button. The button will
-     * become square, and the text content will be used as the label of the button
-     * for accessibility purposes.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: content-hidden
-     */
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
 
     /**
-     * Reflects the placement for the listbox when the select is open.
-     *
-     * @public
+     * Specifies whether or not the menu is open.
+     */
+    @attr({ mode: 'boolean' })
+    public open = false;
+
+    /**
+     * Configures where the menu should be placed relative to the button that opens the menu.
      */
     @attr({ attribute: 'position' })
-    public position: MenuButtonPosition = MenuButtonPosition.Auto;
+    public position: MenuButtonMenuPosition = MenuButtonMenuPosition.auto;
 
     /** @internal */
     @observable
     public readonly toggleButton: ToggleButton | undefined;
+
+    /** @internal */
+    @observable
+    public readonly region: AnchoredRegion | undefined;
+
+    /** @internal */
+    @observable
+    public readonly slottedMenus: HTMLElement[] | undefined;
+
+    /**
+     * Used to maintain the internal state of whether the last menu item should be focused instead
+     * of the first menu item the next time the menu is opened.
+     */
+    private focusLastItemWhenOpened = false;
 
     public toggleButtonChanged(_prev: ToggleButton | undefined, _next: ToggleButton | undefined): void {
         if (this.region && this.toggleButton) {
@@ -65,21 +64,11 @@ export class MenuButton extends FoundationElement {
         }
     }
 
-    /** @internal */
-    @observable
-    public readonly region: AnchoredRegion | undefined;
-
     public regionChanged(_prev: AnchoredRegion | undefined, _next: AnchoredRegion | undefined): void {
         if (this.region && this.toggleButton) {
             this.region.anchorElement = this.toggleButton;
         }
     }
-
-    /** @internal */
-    @observable
-    public readonly slottedMenus: HTMLElement[] | undefined;
-
-    private focusLastItemWhenOpened = false;
 
     public openChanged(_prev: boolean | undefined, _next: boolean): void {
         if (this.toggleButton && !this.disabled) {
@@ -118,8 +107,12 @@ export class MenuButton extends FoundationElement {
         return true;
     }
 
-    public toggleButtonChangeHandler(): void {
+    public toggleButtonCheckedChangeHandler(e: Event): boolean {
         this.open = this.toggleButton!.checked;
+        // Don't bubble the 'change' event from the toggle button because
+        // the menu button has its own 'open-change' event.
+        e.stopPropagation();
+        return false;
     }
 
     public toggleButtonKeyDownHandler(e: KeyboardEvent): boolean {
@@ -146,7 +139,7 @@ export class MenuButton extends FoundationElement {
         switch (e.key) {
             case keyEscape:
                 this.open = false;
-                this.toggleButton?.focus();
+                this.toggleButton!.focus();
                 return false;
         }
 

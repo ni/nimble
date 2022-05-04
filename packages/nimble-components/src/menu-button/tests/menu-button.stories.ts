@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '..';
-import { ButtonAppearance, MenuButtonPosition } from '../types';
+import { ButtonAppearance, MenuButtonMenuPosition } from '../types';
 
 interface MenuButtonArgs {
     label: string;
@@ -37,7 +37,7 @@ const metadata: Meta<MenuButtonArgs> = {
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
         },
         actions: {
-            handles: ['change']
+            handles: ['open-change', 'change']
         }
     },
     argTypes: {
@@ -53,7 +53,7 @@ const metadata: Meta<MenuButtonArgs> = {
             description: endIconDescription
         },
         menuPosition: {
-            options: Object.values(MenuButtonPosition),
+            options: Object.values(MenuButtonMenuPosition),
             control: { type: 'radio' }
         }
     },
@@ -85,10 +85,11 @@ const metadata: Meta<MenuButtonArgs> = {
         label: 'Ghost Toggle Button',
         appearance: 'ghost',
         open: false,
+        disabled: false,
         icon: false,
-        endIcon: false,
         contentHidden: false,
-        disabled: false
+        endIcon: false,
+        menuPosition: 'auto'
     }
 };
 

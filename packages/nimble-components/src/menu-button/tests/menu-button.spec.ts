@@ -3,7 +3,7 @@ import { keyArrowDown, keyArrowUp, keyEnter, keyEscape, keySpace } from '@micros
 import type { Menu, MenuItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
-import { MenuButtonPosition } from '../types';
+import { MenuButtonMenuPosition } from '../types';
 
 async function setup(): Promise<Fixture<MenuButton>> {
     return fixture<MenuButton>(
@@ -11,7 +11,7 @@ async function setup(): Promise<Fixture<MenuButton>> {
     );
 }
 
-fdescribe('MenuButton', () => {
+describe('MenuButton', () => {
     let parent: HTMLElement;
     let element: MenuButton;
     let connect: () => Promise<void>;
@@ -224,7 +224,7 @@ fdescribe('MenuButton', () => {
 
     it('anchored-region should be configured correctly when the menu button position is configured to \'above\'', async () => {
         element.open = true;
-        element.position = MenuButtonPosition.Above;
+        element.position = MenuButtonMenuPosition.above;
         await connect();
         expect(element.region!.verticalPositioningMode).toBe('locktodefault');
         expect(element.region!.verticalDefaultPosition).toBe('top');
@@ -232,7 +232,7 @@ fdescribe('MenuButton', () => {
 
     it('anchored-region should be configured correctly when the menu button position is configured to \'below\'', async () => {
         element.open = true;
-        element.position = MenuButtonPosition.Below;
+        element.position = MenuButtonMenuPosition.below;
         await connect();
         expect(element.region!.verticalPositioningMode).toBe('locktodefault');
         expect(element.region!.verticalDefaultPosition).toBe('bottom');
@@ -240,7 +240,7 @@ fdescribe('MenuButton', () => {
 
     it('anchored-region should be configured correctly when the menu button position is configured to \'auto\'', async () => {
         element.open = true;
-        element.position = MenuButtonPosition.Auto;
+        element.position = MenuButtonMenuPosition.auto;
         await connect();
         expect(element.region!.verticalPositioningMode).toBe('dynamic');
     });

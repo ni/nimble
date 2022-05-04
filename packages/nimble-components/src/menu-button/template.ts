@@ -8,13 +8,13 @@ export const template = html<MenuButton>`
     >
         <nimble-toggle-button
             part="button"
-            ?checked="${x => x.open && !x.disabled}"
+            appearance="${x => x.appearance}"
+            content-hidden="${x => x.contentHidden}"
+            ?checked="${x => x.open}"
             ?disabled="${x => x.disabled}"
             aria-haspopup="true"
             aria-expanded="${x => x.open}"
-            @change="${x => x.toggleButtonChangeHandler()}"
-            appearance="${x => x.appearance}"
-            content-hidden="${x => x.contentHidden}"
+            @change="${(x, c) => x.toggleButtonCheckedChangeHandler(c.event)}"
             @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
             ${ref('toggleButton')}
         >
@@ -27,7 +27,7 @@ export const template = html<MenuButton>`
             </span>
         </nimble-toggle-button>
         ${when(
-        x => x.open && !x.disabled,
+        x => x.open,
         html<MenuButton>`
         <nimble-anchored-region
             fixed-placement="true"
@@ -41,9 +41,7 @@ export const template = html<MenuButton>`
             @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
             ${ref('region')}
         >
-            <span
-                part="menu"
-            >
+            <span part="menu">
                 <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
             </span>
         </nimble-anchored-region>
