@@ -98,7 +98,7 @@ export const styles = css`
         }
     }
 
-    :host(:focus)::after {
+    :host([aria-selected='true'])::after {
         width: 100%;
     }
 `;
