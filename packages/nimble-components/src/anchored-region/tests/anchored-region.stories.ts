@@ -27,7 +27,7 @@ can be done by either recreating the anchor element with a new ID that is also s
 \`anchorElement\` on the anchored region to the new anchor element.`;
 
 const metadata: Meta<AnchoredRegionArgs> = {
-    title: 'Anchored Region',
+    title: 'Tests/Anchored Region',
     parameters: {
         docs: {
             description: {
