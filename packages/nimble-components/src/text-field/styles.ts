@@ -103,7 +103,7 @@ export const styles = css`
         --ni-private-bottom-border-width: 1px;
     }
 
-    :host(.no-pad) .root {
+    :host([appearance='frameless'].no-pad) .root {
         padding-left: 0px;
         padding-right: 0px;
     }
@@ -118,7 +118,7 @@ export const styles = css`
         width: calc(${standardPadding} / 2);
     }
 
-    :host(.no-pad) [part='start']::before {
+    :host([appearance='frameless'].no-pad) [part='start']::before {
         width: 0px;
     }
 
@@ -151,7 +151,7 @@ export const styles = css`
         text-overflow: ellipsis;
     }
 
-    :host(.no-pad) .control {
+    :host([appearance='frameless'].no-pad) .control {
         padding-right: 0px;
     }
 
