@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 27 Apr 2022 22:20:35 GMT and should not be manually modified.
+This log was last generated on Tue, 03 May 2022 22:31:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.2.0
+
+Tue, 03 May 2022 22:31:24 GMT
+
+### Minor changes
+
+- Blazor integration for breadcrumb, drawer, tabs. Updates to example app. ([ni/nimble@2def6be](https://github.com/ni/nimble/commit/2def6be1a5370ea9f830106cd0eacb4677b96930))
 
 ## 1.1.0
 
