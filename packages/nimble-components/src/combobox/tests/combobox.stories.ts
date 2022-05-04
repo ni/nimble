@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import '..';
 import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
@@ -8,6 +9,7 @@ import { createRenderer } from '../../utilities/tests/storybook';
 interface ComboboxArgs {
     disabled: boolean;
     dropDownPosition: string;
+    autocomplete: ComboboxAutocomplete;
     options: OptionArgs[];
     invalid: boolean;
     errorText: string;
@@ -40,6 +42,7 @@ const metadata: Meta<ComboboxArgs> = {
     // prettier-ignore
     render: createRenderer(html`
         <nimble-combobox
+            autocomplete="${x => x.autocomplete}"
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
             error-text="${x => x.errorText}"
@@ -47,11 +50,15 @@ const metadata: Meta<ComboboxArgs> = {
             aria-invalid="${x => x.invalid}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-list-option value="${x => x.value}" ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
+                <nimble-list-option ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
             `)}
         </nimble-combobox>
     `),
     argTypes: {
+        autocomplete: {
+            options: Object.values(ComboboxAutocomplete),
+            control: { type: 'radio' }
+        },
         dropDownPosition: {
             options: ['above', 'below'],
             control: { type: 'select' }
@@ -64,29 +71,16 @@ const metadata: Meta<ComboboxArgs> = {
     args: {
         disabled: false,
         dropDownPosition: 'below',
+        autocomplete: ComboboxAutocomplete.both,
         invalid: false,
         errorText: 'Value is invalid',
         options: [
-            { label: 'Option 1', value: '1', disabled: false },
-            { label: 'Option 2', value: '2', disabled: true },
-            { label: 'Option 3', value: '3', disabled: false },
-            { label: 'Option 4', value: '4', disabled: false },
-            { label: 'Option 5', value: '5', disabled: false },
-            { label: 'Option 6', value: '6', disabled: false },
-            { label: 'Option 7', value: '7', disabled: false },
-            { label: 'Option 8', value: '8', disabled: false },
-            { label: 'Option 9', value: '9', disabled: false },
-            { label: 'Option 10', value: '10', disabled: false },
-            { label: 'Option 11', value: '11', disabled: false },
-            { label: 'Option 12', value: '12', disabled: false },
-            { label: 'Option 13', value: '13', disabled: false },
-            { label: 'Option 14', value: '14', disabled: false },
-            { label: 'Option 15', value: '15', disabled: false },
-            { label: 'Option 16', value: '16', disabled: false },
-            { label: 'Option 17', value: '17', disabled: false },
-            { label: 'Option 18', value: '18', disabled: false },
-            { label: 'Option 19', value: '19', disabled: false },
-            { label: 'Option 20', value: '20', disabled: false }
+            { label: 'Mary', value: '1', disabled: false },
+            { label: 'Sue', value: '2', disabled: true },
+            { label: 'Joaquin', value: '2', disabled: true },
+            { label: 'Frank', value: '2', disabled: true },
+            { label: 'Dracula', value: '2', disabled: true },
+            { label: 'Albert', value: '3', disabled: false }
         ]
     }
 };
