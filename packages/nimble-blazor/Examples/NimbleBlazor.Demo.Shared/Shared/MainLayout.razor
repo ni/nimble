@@ -5,9 +5,9 @@
 
 <PageTitle>ExampleClientApp-Blazor</PageTitle>
 
-<NimbleThemeProvider Theme="Theme.Dark">
+<NimbleThemeProvider Theme="Theme">
     <div class="root">
-        <div class="header"></div>
+        <ExampleHeader @bind-Theme="Theme"></ExampleHeader>
         <ErrorBoundary @ref="ErrorBoundary">
             <ChildContent>
                 @Body
