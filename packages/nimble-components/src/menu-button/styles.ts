@@ -8,7 +8,7 @@ export const styles = css`
     :host {
         height: ${controlHeight};
     }
-    
+
     [part='button'] {
         width: 100%;
         height: 100%;

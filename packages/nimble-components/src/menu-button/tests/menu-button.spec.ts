@@ -1,14 +1,18 @@
 import { DOM, html } from '@microsoft/fast-element';
-import { keyArrowDown, keyArrowUp, keyEnter, keyEscape, keySpace } from '@microsoft/fast-web-utilities';
+import {
+    keyArrowDown,
+    keyArrowUp,
+    keyEnter,
+    keyEscape,
+    keySpace
+} from '@microsoft/fast-web-utilities';
 import type { Menu, MenuItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
 import { MenuButtonMenuPosition } from '../types';
 
 async function setup(): Promise<Fixture<MenuButton>> {
-    return fixture<MenuButton>(
-        html`<nimble-menu-button></nimble-menu-button>`
-    );
+    return fixture<MenuButton>(html`<nimble-menu-button></nimble-menu-button>`);
 }
 
 describe('MenuButton', () => {
@@ -66,18 +70,24 @@ describe('MenuButton', () => {
 
     it('should set aria-haspopup on toggle button', async () => {
         await connect();
-        expect(element.toggleButton!.getAttribute('aria-haspopup')).toEqual('true');
+        expect(element.toggleButton!.getAttribute('aria-haspopup')).toEqual(
+            'true'
+        );
     });
 
     it('should set aria-expanded to true on the toggle button when the menu is open', async () => {
         element.open = true;
         await connect();
-        expect(element.toggleButton!.getAttribute('aria-expanded')).toEqual('true');
+        expect(element.toggleButton!.getAttribute('aria-expanded')).toEqual(
+            'true'
+        );
     });
 
     it('should set aria-expanded to false on the toggle button when the menu is closed', async () => {
         await connect();
-        expect(element.toggleButton!.getAttribute('aria-expanded')).toEqual('false');
+        expect(element.toggleButton!.getAttribute('aria-expanded')).toEqual(
+            'false'
+        );
     });
 
     it('should mark toggle button as checked when the menu is opened before connect', async () => {
@@ -99,7 +109,7 @@ describe('MenuButton', () => {
         expect(element.toggleButton!.checked).toBeFalse();
     });
 
-    it('should default \'open\' to false', async () => {
+    it("should default 'open' to false", async () => {
         await connect();
         expect(element.open).toBeFalse();
     });
@@ -127,7 +137,7 @@ describe('MenuButton', () => {
         expect(document.activeElement).toEqual(menuItem1);
     });
 
-    it('should open the menu and focus first menu item when \'Enter\' is pressed while the toggle button is focused', async () => {
+    it("should open the menu and focus first menu item when 'Enter' is pressed while the toggle button is focused", async () => {
         await connect();
         const waitForOpenChangePromise = waitForOpenChange();
         const event = new KeyboardEvent('keypress', {
@@ -139,7 +149,7 @@ describe('MenuButton', () => {
         expect(document.activeElement).toEqual(menuItem1);
     });
 
-    it('should open the menu and focus first menu item when \'Space\' is pressed while the toggle button is focused', async () => {
+    it("should open the menu and focus first menu item when 'Space' is pressed while the toggle button is focused", async () => {
         await connect();
         const waitForOpenChangePromise = waitForOpenChange();
         const event = new KeyboardEvent('keypress', {
@@ -175,7 +185,7 @@ describe('MenuButton', () => {
         expect(document.activeElement).toEqual(menuItem3);
     });
 
-    it('should close the menu when pressing \'Escape\'', async () => {
+    it("should close the menu when pressing 'Escape'", async () => {
         element.open = true;
         await connect();
         const event = new KeyboardEvent('keydown', {
@@ -213,16 +223,20 @@ describe('MenuButton', () => {
 
     it('anchored-region should not exist in DOM when the menu is closed', async () => {
         await connect();
-        expect(element.shadowRoot?.querySelector('nimble-anchored-region')).toBeNull();
+        expect(
+            element.shadowRoot?.querySelector('nimble-anchored-region')
+        ).toBeNull();
     });
 
     it('anchored-region should exist in DOM when the menu is open', async () => {
         element.open = true;
         await connect();
-        expect(element.shadowRoot?.querySelector('nimble-anchored-region')).not.toBeNull();
+        expect(
+            element.shadowRoot?.querySelector('nimble-anchored-region')
+        ).not.toBeNull();
     });
 
-    it('anchored-region should be configured correctly when the menu button position is configured to \'above\'', async () => {
+    it("anchored-region should be configured correctly when the menu button position is configured to 'above'", async () => {
         element.open = true;
         element.position = MenuButtonMenuPosition.above;
         await connect();
@@ -230,7 +244,7 @@ describe('MenuButton', () => {
         expect(element.region!.verticalDefaultPosition).toBe('top');
     });
 
-    it('anchored-region should be configured correctly when the menu button position is configured to \'below\'', async () => {
+    it("anchored-region should be configured correctly when the menu button position is configured to 'below'", async () => {
         element.open = true;
         element.position = MenuButtonMenuPosition.below;
         await connect();
@@ -238,14 +252,14 @@ describe('MenuButton', () => {
         expect(element.region!.verticalDefaultPosition).toBe('bottom');
     });
 
-    it('anchored-region should be configured correctly when the menu button position is configured to \'auto\'', async () => {
+    it("anchored-region should be configured correctly when the menu button position is configured to 'auto'", async () => {
         element.open = true;
         element.position = MenuButtonMenuPosition.auto;
         await connect();
         expect(element.region!.verticalPositioningMode).toBe('dynamic');
     });
 
-    it('should fire \'openChanged\' event when the menu is opened', async () => {
+    it("should fire 'openChanged' event when the menu is opened", async () => {
         await connect();
         const waitForOpenChangePromise = waitForOpenChange();
         element.open = true;
@@ -253,7 +267,7 @@ describe('MenuButton', () => {
         expect(true).toBeTrue();
     });
 
-    it('should fire \'openChanged\' event when the menu is closed', async () => {
+    it("should fire 'openChanged' event when the menu is closed", async () => {
         element.open = true;
         await connect();
         const waitForOpenChangePromise = waitForOpenChange();

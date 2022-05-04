@@ -4,7 +4,7 @@ import type { MenuButton } from '.';
 export const template = html<MenuButton>`
     <template
         ?open="${x => x.open}"
-        @focusout="${(x, c) => (x.focusoutHandler(c.event as FocusEvent))}"
+        @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
     >
         <nimble-toggle-button
             part="button"
@@ -42,10 +42,14 @@ export const template = html<MenuButton>`
             ${ref('region')}
         >
             <span part="menu">
-                <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
+                <slot name="menu" ${slotted({
+        property: 'slottedMenus',
+        filter: elements('[role=menu]')
+    })}></slot>
             </span>
         </nimble-anchored-region>
     </template>
     `
     )}
+    </template>
 `;

@@ -15,4 +15,5 @@ export const MenuButtonMenuPosition = {
     auto: 'auto'
 } as const;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export type MenuButtonMenuPosition = typeof MenuButtonMenuPosition[keyof typeof MenuButtonMenuPosition];
+export type MenuButtonMenuPosition =
+    typeof MenuButtonMenuPosition[keyof typeof MenuButtonMenuPosition];

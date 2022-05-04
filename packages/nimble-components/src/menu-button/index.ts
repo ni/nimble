@@ -1,6 +1,10 @@
 import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { keyArrowDown, keyArrowUp, keyEscape } from '@microsoft/fast-web-utilities';
+import {
+    keyArrowDown,
+    keyArrowUp,
+    keyEscape
+} from '@microsoft/fast-web-utilities';
 import { ButtonAppearance } from '../button/types';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
@@ -58,13 +62,19 @@ export class MenuButton extends FoundationElement implements IButton {
      */
     private focusLastItemWhenOpened = false;
 
-    public toggleButtonChanged(_prev: ToggleButton | undefined, _next: ToggleButton | undefined): void {
+    public toggleButtonChanged(
+        _prev: ToggleButton | undefined,
+        _next: ToggleButton | undefined
+    ): void {
         if (this.region && this.toggleButton) {
             this.region.anchorElement = this.toggleButton;
         }
     }
 
-    public regionChanged(_prev: AnchoredRegion | undefined, _next: AnchoredRegion | undefined): void {
+    public regionChanged(
+        _prev: AnchoredRegion | undefined,
+        _next: AnchoredRegion | undefined
+    ): void {
         if (this.region && this.toggleButton) {
             this.region.anchorElement = this.toggleButton;
         }
