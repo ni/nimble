@@ -37,8 +37,13 @@ export default metadata;
 const [
     lightThemeWhiteBackground,
     colorThemeDarkGreenBackground,
-    darkThemeBlackBackground
+    darkThemeBlackBackground,
+    ...remaining
 ] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
 
 const valueStates = [
     ['Placeholder', null, 'placeholder'],

@@ -94,7 +94,6 @@ export const createFixedThemeStory = <TSource>(
                         left: 0px;
                         top: 0px;
                     "
-                    class="code-hide"
                 >
                     ${viewTemplate}
                 </div>
