@@ -61,8 +61,9 @@ export const styles = css`
             calc(${standardPadding} / 2 - ${borderWidth});
     }
 
-    .focus-indicator {
-        top: -2px;
+    :host::before {
+        content: '';
+        top: calc(${controlHeight} - 1px);
         position: relative;
         width: 0px;
         height: 0px;
@@ -70,17 +71,18 @@ export const styles = css`
         transition: width ${mediumDelay} ease-in;
     }
 
-    :host(${focusVisible}) .focus-indicator {
-        width: 100%;
-    }
-
     @media (prefers-reduced-motion) {
-        .focus-indicator {
+        :host::before {
             transition-duration: 0.01s;
         }
     }
 
-    .active-indicator {
+    :host(${focusVisible})::before {
+        width: 100%;
+    }
+
+    :host::after {
+        content: '';
         top: -3px;
         position: relative;
         width: 0px;
@@ -91,12 +93,12 @@ export const styles = css`
     }
 
     @media (prefers-reduced-motion) {
-        .active-indicator {
+        :host::after {
             transition-duration: 0.01s;
         }
     }
 
-    :host(:focus) .active-indicator {
+    :host(:focus)::after {
         width: 100%;
     }
 `;
