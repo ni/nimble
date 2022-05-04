@@ -15,7 +15,11 @@ declare global {
 /**
  * A nimble-styled tabs control
  */
-export class Tabs extends FoundationTabs {}
+export class Tabs extends FoundationTabs {
+    public constructor() {
+        super();
+    }
+}
 
 const nimbleTabs = Tabs.compose<TabsOptions>({
     baseName: 'tabs',
