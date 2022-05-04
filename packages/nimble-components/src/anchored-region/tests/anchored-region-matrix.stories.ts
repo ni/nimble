@@ -15,7 +15,7 @@ import {
 } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
-    title: 'Tests/AnchoredRegion',
+    title: 'Tests/Anchored Region',
     parameters: {
         ...sharedMatrixParameters()
     }
