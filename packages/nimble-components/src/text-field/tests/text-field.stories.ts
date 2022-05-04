@@ -15,9 +15,12 @@ interface TextFieldArgs {
     invalid: boolean;
     'error-text': string;
     actionButton: boolean;
+    leftIcon: boolean;
 }
 
-const actionButtonDescription = `To place content, such as a button, at the far-right of the text-field, set \`slot="actions"\` on the content.
+const leftIconDescription = 'To place an icon at the far-left of the text-field, set `slot="start"` on the icon.';
+
+const actionButtonDescription = `To place content such as a button at the far-right of the text-field, set \`slot="actions"\` on the content.
 
 Note: The content in the \`actions\` slot will not adjust based on the state of the text-field (e.g. disabled or readonly). It is the responsibility of the
 consuming application to make any necessary adjustments. For example, if the buttons should be disabled when the text-field is disabled, the
@@ -30,7 +33,7 @@ const metadata: Meta<TextFieldArgs> = {
     parameters: {
         docs: {
             description: {
-                component: 'A basic single-line text field.'
+                component: 'A single-line text field.'
             }
         },
         design: {
@@ -54,6 +57,9 @@ const metadata: Meta<TextFieldArgs> = {
             ?disabled="${x => x.disabled}"
             error-text="${x => x['error-text']}"
         >
+            ${when(x => x.leftIcon, html`
+                <nimble-tag-icon slot="start"></nimble-tag-icon>`)}
+
             ${x => x.label}
 
             ${when(x => x.actionButton, html`
@@ -78,6 +84,9 @@ const metadata: Meta<TextFieldArgs> = {
         },
         actionButton: {
             description: actionButtonDescription
+        },
+        leftIcon: {
+            description: leftIconDescription
         }
     },
     args: {
@@ -89,7 +98,8 @@ const metadata: Meta<TextFieldArgs> = {
         disabled: false,
         invalid: false,
         'error-text': 'Value is invalid',
-        actionButton: false
+        actionButton: false,
+        leftIcon: false
     }
 };
 

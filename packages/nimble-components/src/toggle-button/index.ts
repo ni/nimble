@@ -2,6 +2,7 @@ import { attr } from '@microsoft/fast-element';
 import {
     applyMixins,
     ButtonOptions,
+    DelegatesARIAButton,
     DesignSystem,
     StartEnd,
     Switch as FoundationSwitch
@@ -45,7 +46,8 @@ export class ToggleButton extends FoundationSwitch {
     /** @internal */
     public readonly control!: HTMLElement;
 }
-applyMixins(ToggleButton, StartEnd);
+applyMixins(ToggleButton, StartEnd, DelegatesARIAButton);
+export interface ToggleButton extends StartEnd, DelegatesARIAButton {}
 
 const nimbleToggleButton = ToggleButton.compose<ButtonOptions>({
     baseName: 'toggle-button',
