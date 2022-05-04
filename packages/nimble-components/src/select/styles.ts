@@ -1,5 +1,5 @@
-import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { css, ElementStyles } from '@microsoft/fast-element';
+import { display, FoundationElementTemplate, SelectOptions } from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
     bodyFont,
@@ -15,7 +15,10 @@ import {
     smallPadding
 } from '../theme-provider/design-tokens';
 
-export const styles = css`
+export const styles: FoundationElementTemplate<ElementStyles, SelectOptions> = (
+    _context,
+    _definition
+) => css`
     ${display('inline-flex')}
 
     :host {

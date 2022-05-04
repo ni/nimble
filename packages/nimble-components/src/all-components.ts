@@ -8,6 +8,7 @@ import './breadcrumb';
 import './breadcrumb-item';
 import './button';
 import './checkbox';
+import './combobox';
 import './drawer';
 import './icons/all-icons';
 import './list-option';

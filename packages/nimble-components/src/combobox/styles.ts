@@ -1,159 +1,145 @@
-import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
-import {
-    applicationBackgroundColor,
-    bodyFont,
-    bodyFontColor,
-    bodyDisabledFontColor,
-    borderHoverColor,
-    borderWidth,
-    controlHeight,
-    iconSize,
-    popupBorderColor,
-    popupBoxShadowColor,
-    smallDelay,
-    smallPadding
-} from '../theme-provider/design-tokens';
+import { css, ElementStyles } from '@microsoft/fast-element';
+import { ComboboxOptions, disabledCursor, FoundationElementTemplate } from '@microsoft/fast-foundation';
+import { fillSelectedColor, controlHeight, iconSize, failColor, bodyDisabledFontColor, errorTextFont, borderWidth, borderRgbPartialColor } from '../theme-provider/design-tokens';
 
-export const styles = css`
-    ${display('inline-flex')}
+import { styles as selectStyles } from '../select/styles';
+import { focusVisible } from '../utilities/style/focus';
+
+export const styles: FoundationElementTemplate<ElementStyles, ComboboxOptions> = (_context, _definition) => css`
+    ${selectStyles(_context, _definition)}
 
     :host {
-        box-sizing: border-box;
-        color: ${bodyFontColor};
-        font: ${bodyFont};
-        height: ${controlHeight};
-        position: relative;
-        user-select: none;
-        min-width: 250px;
-        outline: none;
-        vertical-align: top;
+        --ni-private-hover-bottom-border-width: 2px;
+        --ni-private-bottom-border-width: 1px;
     }
 
-    .listbox {
-        box-sizing: border-box;
-        display: inline-flex;
-        flex-direction: column;
-        left: 0;
-        overflow-y: auto;
-        position: absolute;
-        width: 100%;
-        ${
-            /*
-             * The --max-height custom property is defined by fast-foundation.
-             * See: https://github.com/microsoft/fast/blob/af1f8736ae9ff54a7449324bad952865981d1ece/packages/web-components/fast-foundation/src/select/select.ts#L199
-             */ ''
-        }
-        max-height: calc(var(--max-height) - ${controlHeight});
-        z-index: 1;
-        padding: 4px;
-        box-shadow: 0px 3px 3px ${popupBoxShadowColor};
-        border: 1px solid ${popupBorderColor};
-        background-color: ${applicationBackgroundColor};
-        background-clip: padding-box;
+    :host(:not([disabled]):hover) {
+        --ni-private-bottom-border-width: var(--ni-private-hover-bottom-border-width);
     }
 
-    .listbox[hidden] {
+    :host .control {
+        bottom-border-width: var(--ni-private-bottom-border-width);
+    }
+
+    :host(:empty) .listbox {
         display: none;
     }
 
-    .control {
-        align-items: center;
-        box-sizing: border-box;
-        cursor: pointer;
-        display: flex;
-        min-height: 100%;
-        width: 100%;
-        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
-        background-color: transparent;
-        padding-left: 8px;
-        padding-bottom: 1px;
-    }
-
-    :host([disabled]) .control {
-        cursor: default;
-    }
-
-    :host(.open:not(:hover)) .control {
-        border-bottom: ${borderWidth} solid ${borderHoverColor};
-        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
-    }
-
-    :host(:hover) .control {
-        border-bottom: 2px solid ${borderHoverColor};
-        padding-bottom: 0px;
-        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
-    }
-
-    :host([disabled]) .control,
-    :host([disabled]) .control:hover {
-        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
-        padding-bottom: 1px;
+    :host([disabled]) *,
+    :host([disabled]) {
+        cursor: ${disabledCursor};
+        user-select: none;
         color: ${bodyDisabledFontColor};
     }
 
-    :host([open][position='above']) .listbox {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+    :host(.invalid) .control {
+        border-bottom: var(--ni-private-bottom-border-width) solid ${failColor};
     }
 
-    :host([open][position='below']) .listbox {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+    :host([disabled]) .control {
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host([open][position='above']) .listbox {
-        bottom: ${controlHeight};
+    [part='indicator'] {
+        display: none;
     }
 
-    :host([open][position='below']) .listbox {
-        top: calc(${controlHeight} + ${smallPadding});
+    .end-slot-container {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .dropdown-button {
+        width: 24px;
+        height: 24px;
+        margin-left: 4px;
+    }
+
+    .dropdown-button::part(control) {
+        padding: 0px;
+        border-color: transparent;
     }
 
     .selected-value {
-        flex: 1 1 auto;
-        font-family: inherit;
-        text-align: start;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-
-    .indicator {
-        flex: 0 0 auto;
-        margin-inline-start: 1em;
-        padding-right: 8px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .indicator slot[name='indicator'] svg {
-        width: ${iconSize};
-        height: ${iconSize};
-        fill: ${bodyFontColor};
-    }
-
-    :host([disabled]) .indicator slot[name='indicator'] svg {
-        fill: ${bodyDisabledFontColor};
-    }
-
-    slot[name='listbox'] {
-        display: none;
+        -webkit-appearance: none;
+        background: transparent;
+        border: none;
+        color: inherit;
+        margin: auto 0;
         width: 100%;
     }
 
-    :host([open]) slot[name='listbox'] {
-        display: flex;
+    .selected-value:hover,
+    .selected-value${focusVisible},
+    .selected-value:disabled,
+    .selected-value:active {
+        outline: none;
+    }
+
+    :host([open]) slot[name="end"] .dropdown-button {
+        background: ${fillSelectedColor};
+    }
+
+    .separator {
+        display: inline;
+        width: 2px;
+        border-right: 2px solid rgba(${borderRgbPartialColor}, 0.15);
+        height: calc(${controlHeight} - 12px);
+        align-self: center;
+    }
+
+    .error-content {
+        width: ${iconSize};
+        display: none;
+    }
+
+    :host(.invalid) .error-content {
+        display: contents;
+    }
+
+    :host(.invalid) .error-content svg {
+        height: ${iconSize};
+        width: ${iconSize};
+        padding-right: 8px;
+        flex: none;
+    }
+
+    :host(.invalid) .error-content path {
+        fill: ${failColor};
+    }
+
+    :host([disabled]) .error-content path,
+    :host([disabled]) .dropdown-icon {
+        fill: ${bodyDisabledFontColor};
+    }
+
+    .errortext {
+        display: none;
+    }
+
+    :host(.invalid) .errortext {
+        display: block;
+        font: ${errorTextFont};
+        color: ${failColor};
+        width: 100%;
         position: absolute;
+        top: ${controlHeight};
+        left: 0px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
-    .end {
-        margin-inline-start: auto;
+    :host(.invalid[readonly]:not([disabled])) .errortext {
+        top: calc(${controlHeight} - ${borderWidth});
     }
 
-    ::slotted([role='option']),
-    ::slotted(option) {
-        flex: 0 0 auto;
+    :host(.invalid) .error-text:empty {
+        display: none;
     }
-`;
+
+    :host([disabled]) .errortext {
+        color: ${bodyDisabledFontColor};
+    }
+
+    `;

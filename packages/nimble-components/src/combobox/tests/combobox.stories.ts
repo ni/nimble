@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '..';
-import '../../listbox-option';
+import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
 import { createRenderer } from '../../utilities/tests/storybook';
 
@@ -9,6 +9,8 @@ interface ComboboxArgs {
     disabled: boolean;
     dropDownPosition: string;
     options: OptionArgs[];
+    invalid: boolean;
+    errorText: string;
 }
 
 interface OptionArgs {
@@ -37,21 +39,33 @@ const metadata: Meta<ComboboxArgs> = {
     },
     // prettier-ignore
     render: createRenderer(html`
-        <nimble-combobox ?disabled="${x => x.disabled}" position="${x => x.dropDownPosition}">
+        <nimble-combobox
+            ?disabled="${x => x.disabled}"
+            position="${x => x.dropDownPosition}"
+            error-text="${x => x.errorText}"
+            class="${x => (x.invalid ? 'invalid' : '')}"
+            aria-invalid="${x => x.invalid}"
+        >
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-listbox-option value="${x => x.value}" ?disabled="${x => x.disabled}">${x => x.label}</nimble-listbox-option>
+                <nimble-list-option value="${x => x.value}" ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
             `)}
         </nimble-combobox>
     `),
     argTypes: {
         dropDownPosition: {
             options: ['above', 'below'],
-            control: { type: 'combobox' }
+            control: { type: 'select' }
+        },
+        errorText: {
+            description:
+                'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
         }
     },
     args: {
         disabled: false,
         dropDownPosition: 'below',
+        invalid: false,
+        errorText: 'Value is invalid',
         options: [
             { label: 'Option 1', value: '1', disabled: false },
             { label: 'Option 2', value: '2', disabled: true },
