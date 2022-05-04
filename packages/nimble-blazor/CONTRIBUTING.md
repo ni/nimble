@@ -23,7 +23,7 @@ In Nimble Blazor, the Nimble web components are wrapped as [Razor Components](ht
 ```
 
 `NimbleButton.razor.cs`:
-```
+```cs
 public partial class NimbleButton : ComponentBase
 {
     [Parameter]
@@ -34,7 +34,7 @@ public partial class NimbleButton : ComponentBase
 ### Conventions
 - The C# class should explicitly inherit from `ComponentBase` or another class that inherits from it. While not strictly necessary it helps with unit testing tooling like bUnit.
 - To support child content for a component supply the following in your C# class:
-```
+```cs
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 ```
@@ -44,11 +44,33 @@ public partial class NimbleButton : ComponentBase
 ```
 - Code style conventions are enforced by the [NI C# Style Guide](https://github.com/ni/csharp-styleguide) 
 
+### 2-way Binding Support, Handling DOM Events
+
+In order to support [2-way binding for a property](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-6.0#binding-with-component-parameters) on a Nimble web component, the `.razor` template needs to bind an attribute on the DOM element to the given property, as well as bind to a DOM event that fires when that attribute changes (due to a user action, or another change on the web component).
+
+The C# code for a property supporting 2-way binding will look like this:
+```cs
+    [Parameter]
+    public TValue Value { get; set; }
+
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+```
+
+- For a form/ input control (textbox, etc.,), the component should derive from `NimbleInputBase<TValue>`, the `.razor` file needs to bind a DOM element attribute to `CurrentValue` or `CurrentValueAsString`, and set one of those 2 properties in the DOM event listener (generally `@onchange`). `NimbleInputBase` will then handle invoking the `EventCallback`. See `NimbleTextField` for an example.
+- The `@onchange` event callback built-in to Blazor supports DOM elements that fire a `change` event, and provides only `element.value` (which must be `string`, `string[]`, or `boolean`) in the event args. Most other cases (custom events with different names, the need to pass additional info from the DOM element to C# in the event args, etc.) will require using Blazor's [custom event arguments/ custom event type](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-6.0#custom-event-arguments) support. See `NimbleDrawer` for an example. The event and its event arg type are declared in `EventHandlers.cs`, and `NimbleBlazor.Components.lib.module.js` should be updated to register the custom event type, and create the event args in JavaScript. The event listener (C#) in this case needs to invoke the `[PropertyName]Changed` `EventCallback` itself.
+
 ## Testing
+
+### Automated
 
 Testing the Nimble Blazor components is possible through the use of xUnit and bUnit. Each Nimble Blazor component should have a corresponding test file.
 
-Each Nimble Blazor component should also be showcased in the `NimbleBlazor.Demo` example projects. Simple component examples can be added directly in the `ComponentsDemo.razor` file (in the `NimbleBlazor.Demo.Shared` project).
+### Example App / Manual Testing
+
+Each Nimble Blazor component should also be showcased in the `NimbleBlazor.Demo` example projects. Simple component examples can be added directly in the `ComponentsDemo.razor` file (in the `NimbleBlazor.Demo.Shared` project). The example project is very similar to the Nimble Angular example-client-app, and component demos can be adapted from that Angular app. Things to keep in mind that are specific to Blazor:
+- There's no out-of-the-box support for SCSS. The Nimble tokens can still be used as CSS variables (`var(--ni-nimble-...)`)
+- In order to target Nimble Blazor components via CSS, you'll need to add `::deep` on the CSS selector. See [fast-blazor #125](https://github.com/microsoft/fast-blazor/issues/125) for more info.
 
 ## Additional Tips
 
