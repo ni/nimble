@@ -141,8 +141,7 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
-        padding-top: 0px;
-        padding-bottom: 0px;
+        padding: 0px;
         height: calc(
             ${controlHeight} - ${borderWidth} -
                 var(--ni-private-hover-bottom-border-width)
@@ -176,11 +175,6 @@ export const styles = css`
 
     .control[disabled]::placeholder {
         color: ${bodyDisabledFontColor};
-    }
-
-    :host([appearance='frameless'].clear-inline-padding) .control {
-        padding-left: 0px;
-        padding-right: 0px;
     }
 
     [part='end'] {
