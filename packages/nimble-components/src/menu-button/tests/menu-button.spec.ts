@@ -278,6 +278,7 @@ describe('MenuButton', () => {
 
     it('should not interact with form', async () => {
         element.setAttribute('name', 'test');
+        element.open = true;
         const form = document.createElement('form');
         form.appendChild(element);
         parent.appendChild(form);
