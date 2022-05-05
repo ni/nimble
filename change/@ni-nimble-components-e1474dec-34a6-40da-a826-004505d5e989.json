@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Support no-pad class on frameless text field",
+  "comment": "Support clear-inline-padding class on frameless text field",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"

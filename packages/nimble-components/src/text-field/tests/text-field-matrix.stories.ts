@@ -69,11 +69,11 @@ type TextFieldInvalidState = typeof textFieldInvalidStates[number];
 const appearanceStates = Object.entries(TextFieldAppearance);
 type AppearanceState = typeof appearanceStates[number];
 
-const noPadStates = [
+const clearInlinePaddingStates = [
     ['', ''],
-    ['No Pad', 'no-pad']
+    ['No Pad', 'clear-inline-padding']
 ] as const;
-type NoPadState = typeof noPadStates[number];
+type ClearInlinePaddingState = typeof clearInlinePaddingStates[number];
 
 // prettier-ignore
 const component = (
@@ -84,12 +84,12 @@ const component = (
     [invalidName, invalidClass, errorText]: TextFieldInvalidState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
-    [noPadName, noPad]: NoPadState,
+    [noPadName, clearInlinePadding]: ClearInlinePaddingState,
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-text-field
         style="width: 350px; padding: 8px;"
-        class="${() => invalidClass} ${() => noPad}"
+        class="${() => invalidClass} ${() => clearInlinePadding}"
         ?disabled="${() => disabled}"
         type="${() => type}"
         appearance="${() => appearance}"
@@ -126,7 +126,7 @@ export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
-        [noPadStates[0]],
+        [clearInlinePaddingStates[0]],
         valueStates
     ])
 );
@@ -140,7 +140,7 @@ export const enabledReadOnlyTextFieldThemeMatrix: Story = createMatrixThemeStory
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
-        [noPadStates[0]],
+        [clearInlinePaddingStates[0]],
         valueStates
     ])
 );
@@ -154,7 +154,7 @@ export const enabledReadOnlynoPadTextFieldThemeMatrix: Story = createMatrixTheme
         [textFieldInvalidStates[0]],
         [typeStates[0]],
         appearanceStates,
-        [noPadStates[1]],
+        [clearInlinePaddingStates[1]],
         [valueStates[1]]
     ])
 );
@@ -168,7 +168,7 @@ export const disabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
-        [noPadStates[0]],
+        [clearInlinePaddingStates[0]],
         valueStates
     ])
 );
@@ -182,7 +182,7 @@ export const disabledReadOnlyTextFieldThemeMatrix: Story = createMatrixThemeStor
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
-        [noPadStates[0]],
+        [clearInlinePaddingStates[0]],
         valueStates
     ])
 );

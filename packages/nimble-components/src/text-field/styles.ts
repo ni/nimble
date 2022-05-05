@@ -63,7 +63,7 @@ export const styles = css`
         --ni-private-hover-bottom-border-width: 2px;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         border-bottom-width: var(--ni-private-bottom-border-width);
-        padding-left: 0px;
+        gap: calc(${standardPadding} / 2);
         padding-bottom: calc(
             var(--ni-private-hover-bottom-border-width) -
                 var(--ni-private-bottom-border-width)
@@ -103,23 +103,29 @@ export const styles = css`
         --ni-private-bottom-border-width: 1px;
     }
 
-    :host([appearance='frameless'].no-pad) .root {
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-
     .root:focus-within {
         border-bottom-color: ${borderHoverColor};
     }
 
-    [part='start']::before {
-        content: '';
-        flex: none;
-        width: calc(${standardPadding} / 2);
+    :host([appearance='frameless'].clear-inline-padding) .root {
+        padding-left: 0px;
+        padding-right: 0px;
     }
 
-    :host([appearance='frameless'].no-pad) [part='start']::before {
-        width: 0px;
+    .root::before {
+        content: '';
+    }
+
+    :host([appearance='frameless'].clear-inline-padding) .root::before {
+        display: none;
+    }
+
+    .root::after {
+        content: '';
+    }
+
+    :host([appearance='frameless'].clear-inline-padding) .root::after {
+        display: none;
     }
 
     [part='start'] {
@@ -127,7 +133,6 @@ export const styles = css`
     }
 
     slot[name='start']::slotted(*) {
-        padding-right: calc(${standardPadding} / 2);
         flex: none;
     }
 
@@ -145,14 +150,8 @@ export const styles = css`
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
-        padding-left: 0px;
-        padding-right: calc(${standardPadding} / 2);
         border: none;
         text-overflow: ellipsis;
-    }
-
-    :host([appearance='frameless'].no-pad) .control {
-        padding-right: 0px;
     }
 
     .control:hover,
@@ -179,6 +178,11 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
+    :host([appearance='frameless'].clear-inline-padding) .control {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
     [part='end'] {
         display: contents;
     }
@@ -194,7 +198,6 @@ export const styles = css`
     :host(.invalid) .error-content svg {
         height: ${iconSize};
         width: ${iconSize};
-        padding-right: 8px;
         flex: none;
     }
 
@@ -235,7 +238,6 @@ export const styles = css`
     }
 
     slot[name='actions']::slotted(*) {
-        margin-right: 8px;
         ${controlHeight.cssCustomProperty}: 24px;
     }
 `.withBehaviors(

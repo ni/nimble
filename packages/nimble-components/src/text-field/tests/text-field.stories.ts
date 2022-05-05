@@ -9,7 +9,7 @@ interface TextFieldArgs {
     label: string;
     type: string;
     appearance: string;
-    'no-pad': boolean;
+    'clear-inline-padding': boolean;
     value: string;
     readonly: boolean;
     disabled: boolean;
@@ -52,7 +52,7 @@ const metadata: Meta<TextFieldArgs> = {
             type="${x => x.type}"
             appearance="${x => x.appearance}"
             value="${x => x.value}"
-            class="${x => (x.invalid ? 'invalid' : '')} ${x => (x['no-pad'] ? 'no-pad' : '')}"
+            class="${x => (x.invalid ? 'invalid' : '')} ${x => (x['clear-inline-padding'] ? 'clear-inline-padding' : '')}"
             aria-invalid="${x => x.invalid}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
@@ -79,9 +79,9 @@ const metadata: Meta<TextFieldArgs> = {
             options: Object.values(TextFieldAppearance),
             control: { type: 'radio' }
         },
-        'no-pad': {
+        'clear-inline-padding': {
             description:
-                'Whether to remove internal padding. Only affects the frameless appearance.'
+                'Whether to remove the start and end padding. Only affects the frameless appearance.'
         },
         'error-text': {
             description:
@@ -98,7 +98,7 @@ const metadata: Meta<TextFieldArgs> = {
         label: 'default label',
         type: 'text',
         appearance: 'underline',
-        'no-pad': false,
+        'clear-inline-padding': false,
         value: '',
         readonly: false,
         disabled: false,
