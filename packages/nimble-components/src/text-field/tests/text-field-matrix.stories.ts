@@ -145,7 +145,7 @@ export const enabledReadOnlyTextFieldThemeMatrix: Story = createMatrixThemeStory
     ])
 );
 
-export const enabledReadOnlynoPadTextFieldThemeMatrix: Story = createMatrixThemeStory(
+export const enabledReadOnlyNoPadTextFieldThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         [readOnlyStates[1]],
         [disabledStates[0]],
