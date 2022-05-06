@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Support submenus in nimble-menu",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
