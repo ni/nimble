@@ -178,7 +178,7 @@ export const nestedMenu: StoryObj<MenuArgs> = {
             <nimble-menu>
                 <nimble-menu-item>
                     <nimble-user-icon slot="start"></nimble-user-icon>
-                    Item 1 Item 2.3 this is a long item name abc 123 foo bar zz
+                    Item 1
                 </nimble-menu-item>
                 <nimble-menu-item>
                     Item 2
@@ -201,7 +201,7 @@ export const nestedMenu: StoryObj<MenuArgs> = {
                             </nimble-menu>
                         </nimble-menu-item>
                         <nimble-menu-item>
-                            Item 2.3 this is a long item name abc 123 foo bar zz
+                            Item 2.3
                         </nimble-menu-item>
                     </nimble-menu>
                 </nimble-menu-item>
