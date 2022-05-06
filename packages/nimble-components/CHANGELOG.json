@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 04 May 2022 21:26:02 GMT",
+      "tag": "@ni/nimble-components_v8.4.0",
+      "version": "8.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "653341a69d93c7e4aaf09e601962bca50aec0967",
+            "comment": "Create nimble-anchored-region"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 May 2022 19:57:48 GMT",
       "tag": "@ni/nimble-components_v8.3.0",
       "version": "8.3.0",
