@@ -31,7 +31,7 @@ function copyFiles(srcPatterns, srcPath, destRelativeDirectory) {
     for (const pattern of srcPatterns) {
         const sourcePaths = glob.sync(pattern.src, {
             // glob paths should only have forward slashes
-            // so run glob in resolved path (which has slashes on windows)
+            // so run glob in resolved path (which has backslashes on windows)
             cwd: srcPath,
             absolute: true
         });

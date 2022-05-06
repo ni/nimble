@@ -3,8 +3,8 @@ const glob = require('glob');
 const fs = require('fs');
 const svgToIco = require('svg-to-ico');
 
-const iconAssetDir = path.join(__dirname, '../../assets-icons/');
-const outputDir = path.join(__dirname, '../../dist-ico/');
+const iconAssetDir = path.resolve(__dirname, '../../assets-icons/');
+const outputDir = path.resolve(__dirname, '../../dist-ico/');
 
 console.log(`Icon asset directory :${iconAssetDir}`);
 console.log(`Output ico directory :${outputDir}`);
@@ -15,7 +15,7 @@ if (!fs.existsSync(outputDir)) {
 
 const iconAssetPaths = glob.sync('*.svg', {
     // glob paths should only have forward slashes
-    // so run glob in resolved path (which has slashes on windows)
+    // so run glob in resolved path (which has backslashes on windows)
     cwd: iconAssetDir,
     absolute: true
 });
@@ -28,7 +28,7 @@ console.log(`Number of icons found to convert: ${iconAssetPaths.length}`);
 
 iconAssetPaths.forEach(iconAssetPath => {
     const icoFileName = `${path.parse(iconAssetPath).name}.ico`;
-    const icoPath = path.join(outputDir, icoFileName);
+    const icoPath = path.resolve(outputDir, icoFileName);
     svgToIco({
         input_name: iconAssetPath,
         output_name: icoPath,
