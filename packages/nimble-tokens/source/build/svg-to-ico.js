@@ -32,6 +32,6 @@ iconAssetPaths.forEach(iconAssetPath => {
     svgToIco({
         input_name: iconAssetPath,
         output_name: icoPath,
-        sizes: [16, 32, 64]
+        sizes: [16, 32]
     });
 });
