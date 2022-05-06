@@ -38,6 +38,9 @@ export const styles = css`
         outline: 2px solid ${borderHoverColor};
         outline-offset: -2px;
     }
+    :host([expanded]) {
+        background: ${fillHoverColor};
+    }
     :host(:hover) {
         background: ${fillHoverColor};
     }
@@ -51,6 +54,9 @@ export const styles = css`
     }
     :host([disabled]:hover) {
         background: transparent;
+    }
+    :host(.indent-0) {
+        grid-template-columns: 1fr;
     }
     :host(.indent-0[aria-haspopup=menu]) {
         grid-template-columns: 1fr ${iconSize};
@@ -72,25 +78,25 @@ export const styles = css`
         width: ${iconSize};
         height: ${iconSize};
     }
-    :host(.indent-0[aria-haspopup=menu]) .content {
+    :host(.indent-1) .start {
         grid-column: 1;
     }
-    :host(.indent-0[aria-haspopup=menu]) .expand-collapse-glyph-container {
-        grid-column: 2;
-    }
-    :host(.indent-1) .start {
+    :host(.indent-0) .content {
         grid-column: 1;
     }
     :host(.indent-1) .content {
         grid-column: 2;
-    }
-    :host(.indent-1[aria-haspopup=menu]) .expand-collapse-glyph-container {
-        grid-column: 3;
     }
     .expand-collapse-glyph-container {
         grid-row: 1;
         fill: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
+    }
+    :host(.indent-0) .expand-collapse-glyph-container {
+        grid-column: 2;
+    }
+    :host(.indent-1) .expand-collapse-glyph-container {
+        grid-column: 3;
     }
 `;

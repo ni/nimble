@@ -174,37 +174,39 @@ export const nestedMenu: StoryObj<MenuArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-menu>
-            <nimble-menu-item>
-                <nimble-user-icon slot="start"></nimble-user-icon>
-                Item 1
-                <nimble-menu>
-                    <nimble-menu-item>
-                        Item 1.1
-                    </nimble-menu-item>
-                    <nimble-menu-item>
-                        Item 1.2
-                        <nimble-menu>
-                            <nimble-menu-item>
-                                Item 1.2.1
-                            </nimble-menu-item>
-                            <nimble-menu-item>
-                                Item 1.2.2
-                            </nimble-menu-item>
-                            <nimble-menu-item>
-                                Item 1.2.3
-                            </nimble-menu-item>
-                        </nimble-menu>
-                    </nimble-menu-item>
-                    <nimble-menu-item>
-                        Item 1.3
-                    </nimble-menu-item>
-                </nimble-menu>
-            </nimble-menu-item>
-            <nimble-menu-item>
-                Item 2
-            </nimble-menu-item>
-        </nimble-menu>
+        <div style="width: 600px; height: 300px;">
+            <nimble-menu>
+                <nimble-menu-item>
+                    <nimble-user-icon slot="start"></nimble-user-icon>
+                    Item 1 Item 2.3 this is a long item name abc 123 foo bar zz
+                </nimble-menu-item>
+                <nimble-menu-item>
+                    Item 2
+                    <nimble-menu>
+                        <nimble-menu-item>
+                            Item 2.1
+                        </nimble-menu-item>
+                        <nimble-menu-item>
+                            Item 2.2
+                            <nimble-menu>
+                                <nimble-menu-item>
+                                    Item 2.2.1
+                                </nimble-menu-item>
+                                <nimble-menu-item>
+                                    Item 2.2.2
+                                </nimble-menu-item>
+                                <nimble-menu-item>
+                                    Item 2.2.3
+                                </nimble-menu-item>
+                            </nimble-menu>
+                        </nimble-menu-item>
+                        <nimble-menu-item>
+                            Item 2.3 this is a long item name abc 123 foo bar zz
+                        </nimble-menu-item>
+                    </nimble-menu>
+                </nimble-menu-item>
+            </nimble-menu>
+    </div>
     `)
 };
 
@@ -216,7 +218,6 @@ export const customMenu: StoryObj<MenuArgs> = {
             }
         }
     },
-    // pre
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <nimble-menu>
