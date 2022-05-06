@@ -2,6 +2,126 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 04 May 2022 21:26:02 GMT",
+      "tag": "@ni/nimble-components_v8.4.0",
+      "version": "8.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "653341a69d93c7e4aaf09e601962bca50aec0967",
+            "comment": "Create nimble-anchored-region"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 May 2022 19:57:48 GMT",
+      "tag": "@ni/nimble-components_v8.3.0",
+      "version": "8.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d2751018d10f031dcaf618f4b2306656d4d37377",
+            "comment": "Create IButton interface"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 May 2022 16:08:04 GMT",
+      "tag": "@ni/nimble-components_v8.3.0",
+      "version": "8.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9c2bdbc5e2295f1d4a29f6f64f78145640082400",
+            "comment": "Create spec for nimble-menu-button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 May 2022 21:17:05 GMT",
+      "tag": "@ni/nimble-components_v8.3.0",
+      "version": "8.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "35616474+michaeldbrandt@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8221a0c79dde412326b2358add1a521894035e75",
+            "comment": "Added mousedown fill color"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 29 Apr 2022 20:41:59 GMT",
+      "tag": "@ni/nimble-components_v8.2.1",
+      "version": "8.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9ffe14dc5c32a24e60b0a8b1e1db44a331af1350",
+            "comment": "Reflect ARIA attributes from toggle-button onto inner control"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 29 Apr 2022 19:30:37 GMT",
+      "tag": "@ni/nimble-components_v8.2.0",
+      "version": "8.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f3f35459c1bf71a433c5b892803a01b129155f4a",
+            "comment": "Show start slot on text field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 29 Apr 2022 16:34:13 GMT",
+      "tag": "@ni/nimble-components_v8.1.11",
+      "version": "8.1.11",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8dfa545c06ef1ffbac1435fa6836c9dbe4f1c1ab",
+            "comment": "Create spec for nimble-anchored-region"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 29 Apr 2022 15:27:01 GMT",
+      "tag": "@ni/nimble-components_v8.1.11",
+      "version": "8.1.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.1.0",
+            "commit": "8c3fe0e2c25daf35728fdf75d4a74dd86f1449c6"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 23 Apr 2022 05:05:02 GMT",
       "tag": "@ni/nimble-components_v8.1.10",
       "version": "8.1.10",

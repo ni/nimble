@@ -2,6 +2,96 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 04 May 2022 21:26:02 GMT",
+      "tag": "@ni/nimble-angular_v5.0.16",
+      "version": "5.0.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v8.4.0",
+            "commit": "653341a69d93c7e4aaf09e601962bca50aec0967"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 May 2022 21:17:05 GMT",
+      "tag": "@ni/nimble-angular_v5.0.15",
+      "version": "5.0.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v8.3.0",
+            "commit": "8221a0c79dde412326b2358add1a521894035e75"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 29 Apr 2022 20:41:59 GMT",
+      "tag": "@ni/nimble-angular_v5.0.14",
+      "version": "5.0.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v8.2.1",
+            "commit": "9ffe14dc5c32a24e60b0a8b1e1db44a331af1350"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 29 Apr 2022 19:30:37 GMT",
+      "tag": "@ni/nimble-angular_v5.0.13",
+      "version": "5.0.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v8.2.0",
+            "commit": "f3f35459c1bf71a433c5b892803a01b129155f4a"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 29 Apr 2022 15:27:01 GMT",
+      "tag": "@ni/nimble-angular_v5.0.12",
+      "version": "5.0.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v8.1.11",
+            "commit": "8c3fe0e2c25daf35728fdf75d4a74dd86f1449c6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 25 Apr 2022 21:58:46 GMT",
+      "tag": "@ni/nimble-angular_v5.0.11",
+      "version": "5.0.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "5454342+brianehenry@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "54d05472c058760ff4efa2fa250938618257a66f",
+            "comment": "Refactor icon code generation to create barrel file"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 23 Apr 2022 05:05:02 GMT",
       "tag": "@ni/nimble-angular_v5.0.10",
       "version": "5.0.10",
