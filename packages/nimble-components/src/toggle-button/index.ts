@@ -9,7 +9,8 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { ButtonAppearance } from '../patterns/button/types';
+import type { IButton } from '../patterns/button/types';
+import { ButtonAppearance } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,10 +21,8 @@ declare global {
 /**
  * A nimble-styled toggle button control.
  */
-export class ToggleButton extends FoundationSwitch {
+export class ToggleButton extends FoundationSwitch implements IButton {
     /**
-     * The appearance the button should have.
-     *
      * @public
      * @remarks
      * HTML Attribute: appearance
@@ -32,10 +31,6 @@ export class ToggleButton extends FoundationSwitch {
     public appearance: ButtonAppearance = ButtonAppearance.Outline;
 
     /**
-     * Specify as 'true' to hide the text content of the button. The button will
-     * become square, and the text content will be used as the label of the button
-     * for accessibility purposes.
-     *
      * @public
      * @remarks
      * HTML Attribute: content-hidden
