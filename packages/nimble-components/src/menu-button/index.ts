@@ -81,7 +81,7 @@ export class MenuButton extends FoundationElement implements IButton {
     }
 
     public openChanged(_prev: boolean | undefined, _next: boolean): void {
-        if (this.toggleButton && !this.disabled) {
+        if (this.toggleButton) {
             this.toggleButton.checked = this.open;
         }
 

@@ -1,6 +1,7 @@
 import { elements, html, ref, slotted, when } from '@microsoft/fast-element';
 import type { MenuButton } from '.';
 
+// prettier-ignore
 export const template = html<MenuButton>`
     <template
         ?open="${x => x.open}"
@@ -27,29 +28,25 @@ export const template = html<MenuButton>`
             </span>
         </nimble-toggle-button>
         ${when(
-        x => x.open,
-        html<MenuButton>`
-        <nimble-anchored-region
-            fixed-placement="true"
-            auto-update-mode="auto"
-            horizontal-inset="true"
-            horizontal-positioning-mode="dynamic"
-            vertical-positioning-mode="${x => (x.position === 'auto' ? 'dynamic' : 'locktodefault')}"
-            vertical-default-position="${x => (x.position === 'above' ? 'top' : 'bottom')}"
-            @loaded="${x => x.handleRegionLoaded()}"
-            @change="${x => x.menuChangeHandler()}"
-            @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
-            ${ref('region')}
-        >
-            <span part="menu">
-                <slot name="menu" ${slotted({
-        property: 'slottedMenus',
-        filter: elements('[role=menu]')
-    })}></slot>
-            </span>
-        </nimble-anchored-region>
-    </template>
-    `
-    )}
+            x => x.open,
+            html<MenuButton>`
+                <nimble-anchored-region
+                    fixed-placement="true"
+                    auto-update-mode="auto"
+                    horizontal-inset="true"
+                    horizontal-positioning-mode="dynamic"
+                    vertical-positioning-mode="${x => (x.position === 'auto' ? 'dynamic' : 'locktodefault')}"
+                    vertical-default-position="${x => (x.position === 'above' ? 'top' : 'bottom')}"
+                    @loaded="${x => x.handleRegionLoaded()}"
+                    @change="${x => x.menuChangeHandler()}"
+                    @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
+                    ${ref('region')}
+                >
+                    <span part="menu">
+                        <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
+                    </span>
+                </nimble-anchored-region>
+            `
+        )}
     </template>
 `;

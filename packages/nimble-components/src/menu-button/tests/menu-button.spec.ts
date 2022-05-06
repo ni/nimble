@@ -90,21 +90,20 @@ describe('MenuButton', () => {
         );
     });
 
-    it('should mark toggle button as checked when the menu is opened before connect', async () => {
+    it('should mark the toggle button as checked when the menu is opened before connect', async () => {
         element.open = true;
         await connect();
         expect(element.toggleButton!.checked).toBeTrue();
     });
 
-    it('should mark toggle button as checked when the menu is opened after connect', async () => {
+    it('should mark the toggle button as checked when the menu is opened after connect', async () => {
         await connect();
         element.open = true;
         DOM.processUpdates();
         expect(element.toggleButton!.checked).toBeTrue();
-        expect('true').toBe('true');
     });
 
-    it('should mark toggle button as not checked when the menu is closed after connect', async () => {
+    it('should not mark the toggle button as checked when the menu is not open', async () => {
         await connect();
         expect(element.toggleButton!.checked).toBeFalse();
     });
@@ -263,8 +262,9 @@ describe('MenuButton', () => {
         await connect();
         const waitForOpenChangePromise = waitForOpenChange();
         element.open = true;
-        await waitForOpenChangePromise;
-        expect(true).toBeTrue();
+        let eventTriggered = false;
+        await waitForOpenChangePromise.then(() => { eventTriggered = true; });
+        expect(eventTriggered).toBeTrue();
     });
 
     it("should fire 'openChanged' event when the menu is closed", async () => {
@@ -272,8 +272,9 @@ describe('MenuButton', () => {
         await connect();
         const waitForOpenChangePromise = waitForOpenChange();
         element.open = false;
-        await waitForOpenChangePromise;
-        expect(true).toBeTrue();
+        let eventTriggered = false;
+        await waitForOpenChangePromise.then(() => { eventTriggered = true; });
+        expect(eventTriggered).toBeTrue();
     });
 
     it('should not interact with form', async () => {
