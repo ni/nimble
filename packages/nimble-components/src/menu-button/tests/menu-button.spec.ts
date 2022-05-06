@@ -263,7 +263,9 @@ describe('MenuButton', () => {
         const waitForOpenChangePromise = waitForOpenChange();
         element.open = true;
         let eventTriggered = false;
-        await waitForOpenChangePromise.then(() => { eventTriggered = true; });
+        await waitForOpenChangePromise.then(() => {
+            eventTriggered = true;
+        });
         expect(eventTriggered).toBeTrue();
     });
 
@@ -273,7 +275,9 @@ describe('MenuButton', () => {
         const waitForOpenChangePromise = waitForOpenChange();
         element.open = false;
         let eventTriggered = false;
-        await waitForOpenChangePromise.then(() => { eventTriggered = true; });
+        await waitForOpenChangePromise.then(() => {
+            eventTriggered = true;
+        });
         expect(eventTriggered).toBeTrue();
     });
 

@@ -73,8 +73,6 @@ export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenMenuButton: Story = createStory(
     hiddenWrapper(
-        html`<nimble-menu-button hidden
-            >Hidden Menu Button</nimble-menu-button
-        >`
+        html`<nimble-menu-button hidden>Hidden Menu Button</nimble-menu-button>`
     )
 );
