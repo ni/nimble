@@ -164,6 +164,50 @@ export const menu: StoryObj<MenuArgs> = {
     }
 };
 
+export const nestedMenu: StoryObj<MenuArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'Items in the menu can contain sub-menus that will be displayed when the top-level menu item is selected.'
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html`
+        <nimble-menu>
+            <nimble-menu-item>
+                <nimble-user-icon slot="start"></nimble-user-icon>
+                Item 1
+                <nimble-menu>
+                    <nimble-menu-item>
+                        Item 1.1
+                    </nimble-menu-item>
+                    <nimble-menu-item>
+                        Item 1.2
+                        <nimble-menu>
+                            <nimble-menu-item>
+                                Item 1.2.1
+                            </nimble-menu-item>
+                            <nimble-menu-item>
+                                Item 1.2.2
+                            </nimble-menu-item>
+                            <nimble-menu-item>
+                                Item 1.2.3
+                            </nimble-menu-item>
+                        </nimble-menu>
+                    </nimble-menu-item>
+                    <nimble-menu-item>
+                        Item 1.3
+                    </nimble-menu-item>
+                </nimble-menu>
+            </nimble-menu-item>
+            <nimble-menu-item>
+                Item 2
+            </nimble-menu-item>
+        </nimble-menu>
+    `)
+};
+
 export const customMenu: StoryObj<MenuArgs> = {
     parameters: {
         docs: {

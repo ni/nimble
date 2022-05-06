@@ -52,8 +52,16 @@ export const styles = css`
     :host([disabled]:hover) {
         background: transparent;
     }
+    :host(.indent-0[aria-haspopup=menu]) {
+        grid-template-columns: 1fr ${iconSize};
+        column-gap: 8px;
+    }
     :host(.indent-1) {
         grid-template-columns: ${iconSize} 1fr;
+        column-gap: 8px;
+    }
+    :host(.indent-1[aria-haspopup=menu]) {
+        grid-template-columns: ${iconSize} 1fr ${iconSize};
         column-gap: 8px;
     }
     [part='start'] {
@@ -64,10 +72,25 @@ export const styles = css`
         width: ${iconSize};
         height: ${iconSize};
     }
+    :host(.indent-0[aria-haspopup=menu]) .content {
+        grid-column: 1;
+    }
+    :host(.indent-0[aria-haspopup=menu]) .expand-collapse-glyph-container {
+        grid-column: 2;
+    }
     :host(.indent-1) .start {
         grid-column: 1;
     }
     :host(.indent-1) .content {
         grid-column: 2;
+    }
+    :host(.indent-1[aria-haspopup=menu]) .expand-collapse-glyph-container {
+        grid-column: 3;
+    }
+    .expand-collapse-glyph-container {
+        grid-row: 1;
+        fill: currentcolor;
+        width: ${iconSize};
+        height: ${iconSize};
     }
 `;
