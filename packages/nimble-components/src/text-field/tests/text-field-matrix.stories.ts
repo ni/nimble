@@ -2,8 +2,8 @@ import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
-    createMatrixThemeStory,
-    createStory
+    createStory,
+    createFixedThemeStory
 } from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
 import {
@@ -14,7 +14,8 @@ import {
     disabledStates,
     DisabledState,
     ReadOnlyState,
-    readOnlyStates
+    readOnlyStates,
+    backgroundStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
@@ -33,9 +34,20 @@ const metadata: Meta = {
 
 export default metadata;
 
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    ...remaining
+] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
+
 const valueStates = [
-    ['Placeholder', null, 'placeholder'],
-    ['Value', 'Hello', null]
+    ['No Value', null, 'placeholder'],
+    ['Value', 'Hello', 'placeholder']
 ] as const;
 type ValueState = typeof valueStates[number];
 
@@ -47,13 +59,13 @@ type TypeState = typeof typeStates[number];
 
 const actionButtonStates = [
     ['', false],
-    ['With Buttons', true]
+    ['w/ Buttons', true]
 ] as const;
 type ActionButtonState = typeof actionButtonStates[number];
 
 const leftIconStates = [
     ['', false],
-    ['With Left Icon', true]
+    ['w/ Icon', true]
 ] as const;
 type LeftIconState = typeof leftIconStates[number];
 
@@ -61,7 +73,7 @@ type LeftIconState = typeof leftIconStates[number];
 const textFieldInvalidStates = [
     ['', '', 'This is not valid.'],
     ['', '', ''],
-    ['Invalid Error String', 'invalid', 'This is not valid.'],
+    ['Invalid w/ Error', 'invalid', 'This is not valid.'],
     ['Invalid', 'invalid', '']
 ] as const;
 type TextFieldInvalidState = typeof textFieldInvalidStates[number];
@@ -117,74 +129,364 @@ const component = (
     </nimble-text-field>
 `;
 
-export const enabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
+export const lightThemeEnabledEditableWithoutButtons: Story = createFixedThemeStory(
     createMatrix(component, [
         [readOnlyStates[0]],
         [disabledStates[0]],
-        actionButtonStates,
+        [actionButtonStates[0]],
         leftIconStates,
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
-        [clearInlinePaddingStates[0]],
+        clearInlinePaddingStates,
         valueStates
-    ])
+    ]),
+    lightThemeWhiteBackground
 );
 
-export const enabledReadOnlyTextFieldThemeMatrix: Story = createMatrixThemeStory(
+export const colorThemeEnabledEditableWithoutButtons: Story = createFixedThemeStory(
     createMatrix(component, [
-        [readOnlyStates[1]],
+        [readOnlyStates[0]],
         [disabledStates[0]],
-        actionButtonStates,
+        [actionButtonStates[0]],
         leftIconStates,
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
-        [clearInlinePaddingStates[0]],
+        clearInlinePaddingStates,
         valueStates
-    ])
+    ]),
+    colorThemeDarkGreenBackground
 );
 
-export const enabledReadOnlyNoPadTextFieldThemeMatrix: Story = createMatrixThemeStory(
+export const darkThemeEnabledEditableWithoutButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[0]],
+        [disabledStates[0]],
+        [actionButtonStates[0]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    darkThemeBlackBackground
+);
+
+export const lightThemeEnabledReadOnlyWithoutButtons: Story = createFixedThemeStory(
     createMatrix(component, [
         [readOnlyStates[1]],
         [disabledStates[0]],
-        actionButtonStates,
+        [actionButtonStates[0]],
         leftIconStates,
-        [textFieldInvalidStates[0]],
-        [typeStates[0]],
+        textFieldInvalidStates,
+        typeStates,
         appearanceStates,
-        [clearInlinePaddingStates[1]],
-        [valueStates[1]]
-    ])
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    lightThemeWhiteBackground
 );
 
-export const disabledTextFieldThemeMatrix: Story = createMatrixThemeStory(
+export const colorThemeEnabledReadOnlyWithoutButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[0]],
+        [actionButtonStates[0]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkThemeEnabledReadOnlyWithoutButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[0]],
+        [actionButtonStates[0]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    darkThemeBlackBackground
+);
+
+export const lightThemeDisabledEditableWithoutButtons: Story = createFixedThemeStory(
     createMatrix(component, [
         [readOnlyStates[0]],
         [disabledStates[1]],
-        actionButtonStates,
+        [actionButtonStates[0]],
         leftIconStates,
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
-        [clearInlinePaddingStates[0]],
+        clearInlinePaddingStates,
         valueStates
-    ])
+    ]),
+    lightThemeWhiteBackground
 );
 
-export const disabledReadOnlyTextFieldThemeMatrix: Story = createMatrixThemeStory(
+export const colorThemeDisabledEditableWithoutButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[0]],
+        [disabledStates[1]],
+        [actionButtonStates[0]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkThemeDisabledEditableWithoutButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[0]],
+        [disabledStates[1]],
+        [actionButtonStates[0]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    darkThemeBlackBackground
+);
+
+export const lightThemeDisabledReadOnlyWithoutButtons: Story = createFixedThemeStory(
     createMatrix(component, [
         [readOnlyStates[1]],
         [disabledStates[1]],
-        actionButtonStates,
+        [actionButtonStates[0]],
         leftIconStates,
         textFieldInvalidStates,
         typeStates,
         appearanceStates,
-        [clearInlinePaddingStates[0]],
+        clearInlinePaddingStates,
         valueStates
-    ])
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorThemeDisabledReadOnlyWithoutButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[1]],
+        [actionButtonStates[0]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkThemeDisabledReadOnlyWithoutButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[1]],
+        [actionButtonStates[0]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    darkThemeBlackBackground
+);
+
+export const lightThemeEnabledEditableWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[0]],
+        [disabledStates[0]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorThemeEnabledEditableWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[0]],
+        [disabledStates[0]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkThemeEnabledEditableWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[0]],
+        [disabledStates[0]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    darkThemeBlackBackground
+);
+
+export const lightThemeEnabledReadOnlyWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[0]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorThemeEnabledReadOnlyWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[0]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkThemeEnabledReadOnlyWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[0]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    darkThemeBlackBackground
+);
+
+export const lightThemeDisabledEditableWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[0]],
+        [disabledStates[1]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorThemeDisabledEditableWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[0]],
+        [disabledStates[1]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkThemeDisabledEditableWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[0]],
+        [disabledStates[1]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    darkThemeBlackBackground
+);
+
+export const lightThemeDisabledReadOnlyWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[1]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorThemeDisabledReadOnlyWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[1]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkThemeDisabledReadOnlyWithButtons: Story = createFixedThemeStory(
+    createMatrix(component, [
+        [readOnlyStates[1]],
+        [disabledStates[1]],
+        [actionButtonStates[1]],
+        leftIconStates,
+        textFieldInvalidStates,
+        typeStates,
+        appearanceStates,
+        clearInlinePaddingStates,
+        valueStates
+    ]),
+    darkThemeBlackBackground
 );
 
 export const hiddenTextField: Story = createStory(
