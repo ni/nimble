@@ -1,12 +1,13 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr, html, observable, ref } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Combobox as FoundationCombobox,
     ComboboxOptions,
     comboboxTemplate as template
 } from '@microsoft/fast-foundation';
-import { arrowExpanderDown16X16, exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
+import type { ToggleButton } from '../toggle-button';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,6 +19,14 @@ declare global {
  * A nimble-styed HTML select
  */
 export class Combobox extends FoundationCombobox {
+    /**
+     * The ref to the internal `.control` element.
+     *
+     * @internal
+     */
+    @observable
+    public readonly dropdownButton: ToggleButton | undefined;
+
     /**
      * A message explaining why the value is invalid.
      *
@@ -38,15 +47,39 @@ export class Combobox extends FoundationCombobox {
         super.setPositioning();
     }
 
+    // Workaround for https://github.com/microsoft/fast/issues/5773
+    public override slottedOptionsChanged(
+        prev: HTMLElement[],
+        next: HTMLElement[]
+    ): void {
+        const value = this.value;
+        super.slottedOptionsChanged(prev, next);
+        if (value) {
+            this.value = value;
+        }
+    }
+
     public override connectedCallback(): void {
         super.connectedCallback();
         // Call setPositioning() after this.forcedPosition is initialized.
         this.setPositioning();
+        this.addEventListener('focusout', this.focusOutHandler);
     }
 
-    public onDropdownClick(): void {
-        this.open = true;
+    public override disconnectedCallback(): void {
+        this.removeEventListener('focusout', this.focusOutHandler);
     }
+
+    public onDropdownClick(e: Event): void {
+        this.open = this.dropdownButton?.checked ?? false;
+        e.stopPropagation();
+    }
+
+    private readonly focusOutHandler = (): void => {
+        if (this.dropdownButton) {
+            this.dropdownButton.checked = false;
+        }
+    };
 }
 
 const nimbleCombobox = Combobox.compose<ComboboxOptions>({
@@ -61,8 +94,16 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
         <div class="end-slot-container">
             <span class="error-content">${exclamationMark16X16.data}</span>
             <div class="separator"></div>
-            <nimble-button onclick="onDropdownClick()" class="dropdown-button" ?disabled="${x => x.disabled}">
-                <nimble-arrow-expander-down-icon slot="start" class="dropdown-icon"/>
+            <nimble-toggle-button
+                ${ref('dropdownButton')}
+                @click="${(x, c) => x.onDropdownClick(c.event)}"
+                class="dropdown-button"
+                ?disabled="${x => x.disabled}"
+            >
+                <nimble-arrow-expander-down-icon
+                    slot="start"
+                    class="dropdown-icon"
+                />
             </nimble-toggle-button>
         </div>
         <span part="actions">
@@ -76,7 +117,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
         >
             ${x => x.errorText}
         </div>
-        `
+    `
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCombobox());

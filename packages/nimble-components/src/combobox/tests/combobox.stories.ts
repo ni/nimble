@@ -76,11 +76,11 @@ const metadata: Meta<ComboboxArgs> = {
         errorText: 'Value is invalid',
         options: [
             { label: 'Mary', value: '1', disabled: false },
-            { label: 'Sue', value: '2', disabled: true },
-            { label: 'Joaquin', value: '2', disabled: true },
-            { label: 'Frank', value: '2', disabled: true },
-            { label: 'Dracula', value: '2', disabled: true },
-            { label: 'Albert', value: '3', disabled: false }
+            { label: 'Sue', value: '2', disabled: false },
+            { label: 'Joaquin', value: '3', disabled: false },
+            { label: 'Frank', value: '4', disabled: false },
+            { label: 'Dracula', value: '5', disabled: true },
+            { label: 'Albert', value: '6', disabled: false }
         ]
     }
 };

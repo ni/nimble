@@ -1,5 +1,9 @@
 import { css, ElementStyles } from '@microsoft/fast-element';
-import { display, FoundationElementTemplate, SelectOptions } from '@microsoft/fast-foundation';
+import {
+    display,
+    FoundationElementTemplate,
+    SelectOptions
+} from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
     bodyFont,
