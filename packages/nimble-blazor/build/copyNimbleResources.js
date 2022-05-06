@@ -29,7 +29,13 @@ function resolvePackagePath(packageName) {
 
 function copyFiles(srcPatterns, srcPath, destRelativeDirectory) {
     for (const pattern of srcPatterns) {
-        for (const currentSrcPath of glob.sync(path.resolve(srcPath, pattern.src))) {
+        const sourcePaths = glob.sync(pattern.src, {
+            // glob paths should only have forward slashes
+            // so run glob in resolved path (which has slashes on windows)
+            cwd: srcPath,
+            absolute: true
+        });
+        for (const currentSrcPath of sourcePaths) {
             const destRelativePath = pattern.dest ? pattern.dest : path.relative(srcPath, currentSrcPath);
             const destAbsolutePath = path.resolve(destinationDirectory, destRelativeDirectory, destRelativePath);
             const destAbsoluteDir = path.dirname(destAbsolutePath);
