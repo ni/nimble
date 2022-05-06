@@ -24,7 +24,7 @@ export const styles = css`
         width: max-content;
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
     }
-    :host([slot="submenu"]) {
+    :host([slot='submenu']) {
         margin: 0 4px;
     }
     ::slotted(*) {

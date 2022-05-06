@@ -58,7 +58,7 @@ export const styles = css`
     :host(.indent-0) {
         grid-template-columns: 1fr;
     }
-    :host(.indent-0[aria-haspopup=menu]) {
+    :host(.indent-0[aria-haspopup='menu']) {
         grid-template-columns: 1fr ${iconSize};
         column-gap: 8px;
     }
@@ -66,7 +66,7 @@ export const styles = css`
         grid-template-columns: ${iconSize} 1fr;
         column-gap: 8px;
     }
-    :host(.indent-1[aria-haspopup=menu]) {
+    :host(.indent-1[aria-haspopup='menu']) {
         grid-template-columns: ${iconSize} 1fr ${iconSize};
         column-gap: 8px;
     }
