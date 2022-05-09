@@ -99,6 +99,9 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 @click="${(x, c) => x.onDropdownClick(c.event)}"
                 class="dropdown-button"
                 ?disabled="${x => x.disabled}"
+                part="button"
+                aria-haspopup="true"
+                aria-expanded="${x => x.open}"
             >
                 <nimble-arrow-expander-down-icon
                     slot="start"
