@@ -1,9 +1,10 @@
 export const pinnedSelectedAttribute = 'pinned-selected';
 export const groupSelectedAttribute = 'group-selected';
 
-export enum TreeViewSelectionMode {
-    All = 'all',
-    LeavesOnly = 'leaves-only',
-    None = 'none'
-}
-export type TreeViewSelectionModeAttribute = `${TreeViewSelectionMode}`;
+export const TreeViewSelectionMode = {
+    All: 'all',
+    LeavesOnly: 'leaves-only',
+    None: 'none'
+} as const;
+export type TreeViewSelectionModeAttribute =
+    typeof TreeViewSelectionMode[keyof typeof TreeViewSelectionMode];

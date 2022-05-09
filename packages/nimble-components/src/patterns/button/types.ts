@@ -6,7 +6,7 @@ export interface IButton {
     /**
      * The appearance the button should have.
      */
-    appearance: ButtonAppearance;
+    appearance: ButtonAppearanceAttribute;
 
     /**
      * Specify as 'true' to hide the text content of the button. The button will
@@ -25,9 +25,10 @@ export interface IButton {
  * Types of button appearance.
  * @public
  */
-export enum ButtonAppearance {
-    Outline = 'outline',
-    Ghost = 'ghost',
-    Block = 'block'
-}
-export type ButtonAppearanceAttribute = `${ButtonAppearance}`;
+export const ButtonAppearance = {
+    Outline: 'outline',
+    Ghost: 'ghost',
+    Block: 'block'
+} as const;
+export type ButtonAppearanceAttribute =
+    typeof ButtonAppearance[keyof typeof ButtonAppearance];

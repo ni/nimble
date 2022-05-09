@@ -1,13 +1,14 @@
-export enum DrawerLocation {
-    Left = 'left',
-    Right = 'right'
-}
-export type DrawerLocationAttribute = `${DrawerLocation}`;
+export const DrawerLocation = {
+    Left: 'left',
+    Right: 'right'
+} as const;
+export type DrawerLocationAttribute =
+    typeof DrawerLocation[keyof typeof DrawerLocation];
 
-export enum DrawerState {
-    Opening = 'opening',
-    Opened = 'opened',
-    Closing = 'closing',
-    Closed = 'closed'
-}
-export type DrawerStateAttribute = `${DrawerState}`;
+export const DrawerState = {
+    Opening: 'opening',
+    Opened: 'opened',
+    Closing: 'closing',
+    Closed: 'closed'
+} as const;
+export type DrawerStateAttribute = typeof DrawerState[keyof typeof DrawerState];

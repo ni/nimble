@@ -13,29 +13,38 @@ import {
     drawerWidth,
     standardPadding
 } from '../../theme-provider/design-tokens';
-import { DrawerLocation, DrawerState } from '../types';
+import {
+    DrawerLocation,
+    DrawerLocationAttribute,
+    DrawerState,
+    DrawerStateAttribute
+} from '../types';
 import type { Drawer } from '..';
 import '../../all-components';
 
-enum ExampleContentType {
-    SimpleTextContent = 'SimpleTextContent',
-    HeaderContentFooter = 'HeaderContentFooter'
-}
+const ExampleContentType = {
+    SimpleTextContent: 'SimpleTextContent',
+    HeaderContentFooter: 'HeaderContentFooter'
+} as const;
+type ExampleContentTypeKeys =
+    typeof ExampleContentType[keyof typeof ExampleContentType];
 
-enum DrawerWidthOptions {
-    Default = 'Default',
-    Small300 = 'Small300',
-    Medium500 = 'Medium500',
-    FitContent = 'FitContent'
-}
+const DrawerWidthOptions = {
+    Default: 'Default',
+    Small300: 'Small300',
+    Medium500: 'Medium500',
+    FitContent: 'FitContent'
+};
+export type DrawerWidthOptionsKeys =
+    typeof DrawerWidthOptions[keyof typeof DrawerWidthOptions];
 
 interface DrawerArgs {
-    location: DrawerLocation;
-    state: DrawerState;
+    location: DrawerLocationAttribute;
+    state: DrawerStateAttribute;
     modal: string;
     preventDismiss: boolean;
-    content: ExampleContentType;
-    width: DrawerWidthOptions;
+    content: ExampleContentTypeKeys;
+    width: DrawerWidthOptionsKeys;
     drawerRef: Drawer;
     toggleDrawer: (x: Drawer) => void;
 }
@@ -75,13 +84,13 @@ const headerFooterContent = html<DrawerArgs>`
     </footer>`;
 
 const content: {
-    readonly [key in ExampleContentType]: ViewTemplate<DrawerArgs>;
+    readonly [key in ExampleContentTypeKeys]: ViewTemplate<DrawerArgs>;
 } = {
     [ExampleContentType.SimpleTextContent]: simpleContent,
     [ExampleContentType.HeaderContentFooter]: headerFooterContent
 };
 
-const widths: { readonly [key in DrawerWidthOptions]: string } = {
+const widths: { readonly [key in DrawerWidthOptionsKeys]: string } = {
     [DrawerWidthOptions.Default]: drawerWidth.getValueFor(document.body),
     [DrawerWidthOptions.Small300]: '300px',
     [DrawerWidthOptions.Medium500]: '500px',

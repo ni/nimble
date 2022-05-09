@@ -11,7 +11,7 @@ import {
     DOM
 } from '@microsoft/fast-element';
 import type { ThemeProvider } from '../../../theme-provider';
-import { Theme } from '../../../theme-provider/types';
+import { Theme, ThemeAttribute } from '../../../theme-provider/types';
 import type { LightStyle, DarkStyleOrAlias, ColorStyleOrAlias } from '../theme';
 import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
@@ -64,10 +64,10 @@ class ThemedElement extends FASTElement {
  */
 class ThemeController {
     @observable
-    public theme1 = Theme.Light;
+    public theme1: ThemeAttribute = Theme.Light;
 
     @observable
-    public theme2 = Theme.Light;
+    public theme2: ThemeAttribute = Theme.Light;
 
     public themedElement1!: ThemedElement;
     public themedElement2!: ThemedElement;
@@ -103,14 +103,14 @@ const setup = async (
 };
 
 interface ThemeConfig {
-    name: Theme;
+    name: ThemeAttribute;
     resolvedProperty: string;
 }
 
 const themedElementTest = (
     configs: ThemeConfig[],
-    focused: Theme[],
-    disabled: Theme[],
+    focused: ThemeAttribute[],
+    disabled: ThemeAttribute[],
     styles: ElementStyles
 ): void => {
     for (const config of configs) {
@@ -176,8 +176,8 @@ describe('The ThemeStylesheetBehavior', () => {
                 resolvedProperty: 'style-color'
             }
         ];
-        const focused: Theme[] = [];
-        const disabled: Theme[] = [];
+        const focused: ThemeAttribute[] = [];
+        const disabled: ThemeAttribute[] = [];
         const styles = ThemedElement.createStyle(
             ThemedElement.createThemeStyle('style-light'),
             ThemedElement.createThemeStyle('style-dark'),
@@ -201,8 +201,8 @@ describe('The ThemeStylesheetBehavior', () => {
                 resolvedProperty: 'style-unset'
             }
         ];
-        const focused: Theme[] = [];
-        const disabled: Theme[] = [];
+        const focused: ThemeAttribute[] = [];
+        const disabled: ThemeAttribute[] = [];
         const styles = ThemedElement.createStyle(null, null, null);
         themedElementTest(configs, focused, disabled, styles);
     });
@@ -222,8 +222,8 @@ describe('The ThemeStylesheetBehavior', () => {
                 resolvedProperty: 'style-color'
             }
         ];
-        const focused: Theme[] = [];
-        const disabled: Theme[] = [];
+        const focused: ThemeAttribute[] = [];
+        const disabled: ThemeAttribute[] = [];
         const styles = ThemedElement.createStyle(
             ThemedElement.createThemeStyle('style-light'),
             Theme.Light,
@@ -247,8 +247,8 @@ describe('The ThemeStylesheetBehavior', () => {
                 resolvedProperty: 'style-light'
             }
         ];
-        const focused: Theme[] = [];
-        const disabled: Theme[] = [];
+        const focused: ThemeAttribute[] = [];
+        const disabled: ThemeAttribute[] = [];
         const styles = ThemedElement.createStyle(
             ThemedElement.createThemeStyle('style-light'),
             ThemedElement.createThemeStyle('style-dark'),
@@ -270,8 +270,8 @@ describe('The ThemeStylesheetBehavior', () => {
                 theme2: { name: Theme.Color, resolvedProperty: 'style-color' }
             }
         ];
-        const focused: Theme[] = [];
-        const disabled: Theme[] = [];
+        const focused: ThemeAttribute[] = [];
+        const disabled: ThemeAttribute[] = [];
         const styles = ThemedElement.createStyle(
             ThemedElement.createThemeStyle('style-light'),
             ThemedElement.createThemeStyle('style-dark'),

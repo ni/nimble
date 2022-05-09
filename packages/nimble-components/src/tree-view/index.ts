@@ -7,7 +7,7 @@ import {
     TreeItem
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { TreeViewSelectionMode } from './types';
+import { TreeViewSelectionMode, TreeViewSelectionModeAttribute } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,7 +27,8 @@ declare global {
  */
 export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
-    public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.All;
+    public selectionMode: TreeViewSelectionModeAttribute =
+    TreeViewSelectionMode.All;
 
     public override handleClick(e: Event): boolean {
         if (e.defaultPrevented) {

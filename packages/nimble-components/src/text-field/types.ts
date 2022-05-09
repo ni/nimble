@@ -13,14 +13,15 @@ export { TextFieldType };
 /**
  * Values for the 'appearance' attribute of the text field.
  */
-export type TextFieldAppearanceAttribute = `${TextFieldAppearance}`;
+export type TextFieldAppearanceAttribute =
+    typeof TextFieldAppearance[keyof typeof TextFieldAppearance];
 
 /**
  * Values for the 'appearance' property of the text field
  */
-export enum TextFieldAppearance {
-    Underline = 'underline',
-    Outline = 'outline',
-    Block = 'block',
-    Frameless = 'frameless'
-}
+export const TextFieldAppearance = {
+    Underline: 'underline',
+    Outline: 'outline',
+    Block: 'block',
+    Frameless: 'frameless'
+} as const;

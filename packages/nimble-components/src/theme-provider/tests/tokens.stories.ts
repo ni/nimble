@@ -23,13 +23,14 @@ tokenNameKeys.sort((a, b) => a.localeCompare(b));
 
 const overviewText = 'Design Tokens to use in applications. See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-components">nimble-components</a> readme for more information.';
 
-enum PropertyFormat {
-    SCSS = 'SCSS',
-    CSS = 'CSS'
-}
+const PropertyFormat = {
+    SCSS: 'SCSS',
+    CSS: 'CSS'
+} as const;
+type PropertyFormatKeys = typeof PropertyFormat[keyof typeof PropertyFormat];
 
 interface TokenArgs {
-    propertyFormat: PropertyFormat;
+    propertyFormat: PropertyFormatKeys;
 }
 
 const metadata: Meta = {

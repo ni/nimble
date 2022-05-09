@@ -14,7 +14,12 @@ import { largeDelay } from '../theme-provider/design-tokens';
 import { prefersReducedMotionMediaQuery } from '../utilities/style/prefers-reduced-motion';
 import { animationConfig } from './animations';
 import { styles } from './styles';
-import { DrawerLocation, DrawerState } from './types';
+import {
+    DrawerLocation,
+    DrawerLocationAttribute,
+    DrawerState,
+    DrawerStateAttribute
+} from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -31,10 +36,10 @@ const animationDurationWhenDisabledMilliseconds = 0.001;
  */
 export class Drawer extends FoundationDialog {
     @attr
-    public location: DrawerLocation = DrawerLocation.Left;
+    public location: DrawerLocationAttribute = DrawerLocation.Left;
 
     @attr
-    public state: DrawerState = DrawerState.Closed;
+    public state: DrawerStateAttribute = DrawerState.Closed;
 
     /**
      * True to prevent dismissing the drawer when the overlay outside the drawer is clicked.
