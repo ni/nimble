@@ -20,7 +20,7 @@ declare global {
 }
 
 /**
- * A nimble-styled toggle button control.
+ * A nimble-styled menu button control.
  */
 export class MenuButton extends FoundationElement implements IButton {
     @attr
