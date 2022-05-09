@@ -126,7 +126,6 @@ export class MenuButton extends FoundationElement implements IButton {
     }
 
     public toggleButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        // eslint-disable-next-line default-case
         switch (e.key) {
             case keyArrowUp:
                 this.focusLastItemWhenOpened = true;
@@ -135,9 +134,9 @@ export class MenuButton extends FoundationElement implements IButton {
             case keyArrowDown:
                 this.open = true;
                 return false;
+            default:
+                return true;
         }
-
-        return true;
     }
 
     public menuChangeHandler(): void {
@@ -145,15 +144,14 @@ export class MenuButton extends FoundationElement implements IButton {
     }
 
     public menuKeyDownHandler(e: KeyboardEvent): boolean {
-        // eslint-disable-next-line default-case
         switch (e.key) {
             case keyEscape:
                 this.open = false;
                 this.toggleButton!.focus();
                 return false;
+            default:
+                return true;
         }
-
-        return true;
     }
 
     private get menu(): HTMLElement | undefined {
