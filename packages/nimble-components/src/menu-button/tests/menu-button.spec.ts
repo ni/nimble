@@ -9,7 +9,7 @@ import {
 import type { Menu, MenuItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
-import { MenuButtonMenuPosition } from '../types';
+import { MenuButtonPosition } from '../types';
 
 async function setup(): Promise<Fixture<MenuButton>> {
     return fixture<MenuButton>(html`<nimble-menu-button></nimble-menu-button>`);
@@ -266,7 +266,7 @@ describe('MenuButton', () => {
 
     it("anchored-region should be configured correctly when the menu button position is configured to 'above'", async () => {
         element.open = true;
-        element.position = MenuButtonMenuPosition.above;
+        element.position = MenuButtonPosition.above;
         await connect();
         expect(element.region!.verticalPositioningMode).toBe('locktodefault');
         expect(element.region!.verticalDefaultPosition).toBe('top');
@@ -274,7 +274,7 @@ describe('MenuButton', () => {
 
     it("anchored-region should be configured correctly when the menu button position is configured to 'below'", async () => {
         element.open = true;
-        element.position = MenuButtonMenuPosition.below;
+        element.position = MenuButtonPosition.below;
         await connect();
         expect(element.region!.verticalPositioningMode).toBe('locktodefault');
         expect(element.region!.verticalDefaultPosition).toBe('bottom');
@@ -282,7 +282,7 @@ describe('MenuButton', () => {
 
     it("anchored-region should be configured correctly when the menu button position is configured to 'auto'", async () => {
         element.open = true;
-        element.position = MenuButtonMenuPosition.auto;
+        element.position = MenuButtonPosition.auto;
         await connect();
         expect(element.region!.verticalPositioningMode).toBe('dynamic');
     });

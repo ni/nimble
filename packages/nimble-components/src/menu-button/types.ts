@@ -9,11 +9,11 @@ export { ButtonAppearance } from '../patterns/button/types';
  * The options of where to position the menu relative to the menu button.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const MenuButtonMenuPosition = {
+export const MenuButtonPosition = {
     above: 'above',
     below: 'below',
     auto: 'auto'
 } as const;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export type MenuButtonMenuPosition =
-    typeof MenuButtonMenuPosition[keyof typeof MenuButtonMenuPosition];
+export type MenuButtonPosition =
+    typeof MenuButtonPosition[keyof typeof MenuButtonPosition];

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '..';
-import { ButtonAppearance, MenuButtonMenuPosition } from '../types';
+import { ButtonAppearance, MenuButtonPosition } from '../types';
 
 interface MenuButtonArgs {
     label: string;
@@ -54,7 +54,7 @@ const metadata: Meta<MenuButtonArgs> = {
             description: endIconDescription
         },
         menuPosition: {
-            options: Object.values(MenuButtonMenuPosition),
+            options: Object.values(MenuButtonPosition),
             control: { type: 'radio' }
         }
     },

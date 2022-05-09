@@ -9,7 +9,7 @@ import { ButtonAppearance } from '../button/types';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 import { template } from './template';
-import { MenuButtonMenuPosition } from './types';
+import { MenuButtonPosition } from './types';
 import type { IButton } from '../patterns/button/types';
 import type { AnchoredRegion } from '../anchored-region';
 
@@ -42,7 +42,7 @@ export class MenuButton extends FoundationElement implements IButton {
      * Configures where the menu should be placed relative to the button that opens the menu.
      */
     @attr({ attribute: 'position' })
-    public position: MenuButtonMenuPosition = MenuButtonMenuPosition.auto;
+    public position: MenuButtonPosition = MenuButtonPosition.auto;
 
     /** @internal */
     @observable
