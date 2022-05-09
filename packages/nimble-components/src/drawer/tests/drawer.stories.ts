@@ -21,8 +21,7 @@ const ExampleContentType = {
     SimpleTextContent: 'SimpleTextContent',
     HeaderContentFooter: 'HeaderContentFooter'
 } as const;
-type ExampleContentTypeKeys =
-    typeof ExampleContentType[keyof typeof ExampleContentType];
+type ExampleContentType = typeof ExampleContentType[keyof typeof ExampleContentType];
 
 const DrawerWidthOptions = {
     Default: 'Default',
@@ -30,16 +29,15 @@ const DrawerWidthOptions = {
     Medium500: 'Medium500',
     FitContent: 'FitContent'
 };
-export type DrawerWidthOptionsKeys =
-    typeof DrawerWidthOptions[keyof typeof DrawerWidthOptions];
+export type DrawerWidthOptions = typeof DrawerWidthOptions[keyof typeof DrawerWidthOptions];
 
 interface DrawerArgs {
     location: DrawerLocation;
     state: DrawerState;
     modal: string;
     preventDismiss: boolean;
-    content: ExampleContentTypeKeys;
-    width: DrawerWidthOptionsKeys;
+    content: ExampleContentType;
+    width: DrawerWidthOptions;
     drawerRef: Drawer;
     toggleDrawer: (x: Drawer) => void;
 }
@@ -79,13 +77,13 @@ const headerFooterContent = html<DrawerArgs>`
     </footer>`;
 
 const content: {
-    readonly [key in ExampleContentTypeKeys]: ViewTemplate<DrawerArgs>;
+    readonly [key in ExampleContentType]: ViewTemplate<DrawerArgs>;
 } = {
     [ExampleContentType.SimpleTextContent]: simpleContent,
     [ExampleContentType.HeaderContentFooter]: headerFooterContent
 };
 
-const widths: { readonly [key in DrawerWidthOptionsKeys]: string } = {
+const widths: { readonly [key in DrawerWidthOptions]: string } = {
     [DrawerWidthOptions.Default]: drawerWidth.getValueFor(document.body),
     [DrawerWidthOptions.Small300]: '300px',
     [DrawerWidthOptions.Medium500]: '500px',
