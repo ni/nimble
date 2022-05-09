@@ -16,7 +16,7 @@ declare global {
 }
 
 /**
- * A nimble-styed HTML select
+ * A nimble-styed HTML combobox
  */
 export class Combobox extends FoundationCombobox {
     /**
