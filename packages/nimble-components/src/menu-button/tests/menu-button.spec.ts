@@ -211,7 +211,7 @@ describe('MenuButton', () => {
         expect(element.open).toBeFalse();
     });
 
-    it("should focus the button when the menu is closed by selecting a menu item", async () => {
+    it('should focus the button when the menu is closed by selecting a menu item', async () => {
         element.open = true;
         await connect();
         menuItem1.click();
