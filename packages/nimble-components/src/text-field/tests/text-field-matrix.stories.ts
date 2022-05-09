@@ -473,6 +473,7 @@ export const colorThemeReadOnlyDisabledWithoutButtons: Story = createFixedThemeS
     ]),
     colorThemeDarkGreenBackground
 );
+
 export const colorThemeReadOnlyDisabledWithButtons: Story = createFixedThemeStory(
     createMatrix(component, [
         [readOnlyStates[1]],
