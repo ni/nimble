@@ -13,7 +13,8 @@ if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir);
 }
 
-const iconAssetPaths = glob.sync('*.svg', {
+const globPattern = '*.svg';
+const iconAssetPaths = glob.sync(globPattern, {
     // glob paths should only have forward slashes
     // so run glob in resolved path (which has backslashes on windows)
     cwd: iconAssetDir,
@@ -21,7 +22,7 @@ const iconAssetPaths = glob.sync('*.svg', {
 });
 
 if (iconAssetPaths.length <= 0) {
-    throw new Error('No icon svg files found to convert');
+    throw new Error(`No files found at path ${globPattern}`);
 }
 
 console.log(`Number of icons found to convert: ${iconAssetPaths.length}`);

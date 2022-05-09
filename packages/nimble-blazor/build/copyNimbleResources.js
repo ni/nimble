@@ -35,6 +35,9 @@ function copyFiles(srcPatterns, srcPath, destRelativeDirectory) {
             cwd: srcPath,
             absolute: true
         });
+        if (sourcePaths.length <= 0) {
+            throw new Error(`No files found at path ${pattern.src}`);
+        }
         for (const currentSrcPath of sourcePaths) {
             const destRelativePath = pattern.dest ? pattern.dest : path.relative(srcPath, currentSrcPath);
             const destAbsolutePath = path.resolve(destinationDirectory, destRelativeDirectory, destRelativePath);
