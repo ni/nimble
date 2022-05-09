@@ -73,7 +73,7 @@ const metadata: Meta<MenuButtonArgs> = {
 
             <nimble-menu slot="menu">
                 <div style="display: grid; font-family: Source Sans Pro; font-size: 11px;">
-                    <div style="font-weight: bold; color: black;">lvadmin User</div>
+                    <div style="font-weight: bold; color: black;">Admin User</div>
                     <div style="color: gray;">lvadmin</div>
                 </div>
                 <nimble-menu-item><nimble-user-icon slot="start"></nimble-user-icon>Account</nimble-menu-item>
