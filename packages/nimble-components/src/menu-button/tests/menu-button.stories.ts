@@ -72,13 +72,9 @@ const metadata: Meta<MenuButtonArgs> = {
             ${when(x => x.endIcon, html`<nimble-arrow-expander-down-icon slot="end"></nimble-arrow-expander-down-icon>`)}
 
             <nimble-menu slot="menu">
-                <div style="display: grid; font-family: Source Sans Pro; font-size: 11px;">
-                    <div style="font-weight: bold; color: black;">Admin User</div>
-                    <div style="color: gray;">admin@ni.com</div>
-                </div>
-                <nimble-menu-item><nimble-user-icon slot="start"></nimble-user-icon>Account</nimble-menu-item>
-                <nimble-menu-item><nimble-arrow-left-from-line-icon slot="start"></nimble-arrow-left-from-line-icon>Log out</nimble-menu-item>
-                <nimble-menu-item disabled>Disabled item</nimble-menu-item>
+                <nimble-menu-item>Item 1</nimble-menu-item>
+                <nimble-menu-item>Item 2</nimble-menu-item>
+                <nimble-menu-item disabled>Item 3 (disabled)</nimble-menu-item>
             </nimble-menu>
         </nimble-menu-button>
     `),
