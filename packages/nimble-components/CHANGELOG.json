@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 09 May 2022 16:30:15 GMT",
+      "tag": "@ni/nimble-components_v8.5.0",
+      "version": "8.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9cd7e2b65f2c110358ea840e35791f9b45483968",
+            "comment": "Support clear-inline-padding class on frameless text field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 06 May 2022 18:05:10 GMT",
       "tag": "@ni/nimble-components_v8.4.0",
       "version": "8.4.0",

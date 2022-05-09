@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 04 May 2022 21:26:02 GMT and should not be manually modified.
+This log was last generated on Mon, 09 May 2022 16:30:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.5.0
+
+Mon, 09 May 2022 16:30:15 GMT
+
+### Minor changes
+
+- Support clear-inline-padding class on frameless text field ([ni/nimble@9cd7e2b](https://github.com/ni/nimble/commit/9cd7e2b65f2c110358ea840e35791f9b45483968))
 
 ## 8.4.0
 
