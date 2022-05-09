@@ -30,14 +30,31 @@ const metadata: Meta = {
 
 export default metadata;
 
+const subMenuStates = [
+    false,
+    true
+] as const;
+type SubMenuState = typeof subMenuStates[number];
+
 // prettier-ignore
 const component = (
-    icon: IconVisibleState
+    icon: IconVisibleState,
+    subMenu: SubMenuState
 ): ViewTemplate => html`
-    <span style="padding: 15px; display:inline-flex;">
+    <span style="${() => (subMenu ? 'padding: 15px; padding-right: 200px; display:inline-flex;' : 'padding: 15px; display:inline-flex;')}">
+    <span>
         <nimble-menu>
             <header>Header</header>
-            <nimble-menu-item>Item 1</nimble-menu-item>
+            <nimble-menu-item ?expanded=${() => subMenu}>
+                Item 1
+                ${when(() => subMenu, html`
+                    <nimble-menu>
+                        <nimble-menu-item>Item 1.1</nimble-menu-item>
+                        <nimble-menu-item>Item 1.2</nimble-menu-item>
+                        <nimble-menu-item><nimble-xmark-icon slot="start"></nimble-xmark-icon>Item 1.3</nimble-menu-item>
+                    </nimble-menu>
+                `)}
+            </nimble-menu-item>
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
             <nimble-menu-item>${when(() => icon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}Item 3</nimble-menu-item>
@@ -47,7 +64,7 @@ const component = (
 `;
 
 export const menuThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [iconVisibleStates])
+    createMatrix(component, [iconVisibleStates, subMenuStates])
 );
 
 export const hiddenMenu: Story = createStory(

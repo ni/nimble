@@ -22,7 +22,8 @@ export const styles = css`
         overflow: visible;
         box-sizing: border-box;
         height: ${controlHeight};
-        grid-template-columns: 0px 1fr;
+        grid-template-columns: 1fr;
+        column-gap: 8px;
         grid-template-rows: 1fr;
         justify-items: start;
         align-items: center;
@@ -61,15 +62,12 @@ export const styles = css`
     }
     :host(.indent-0[aria-haspopup='menu']) {
         grid-template-columns: 1fr ${iconSize};
-        column-gap: 8px;
     }
     :host(.indent-1) {
         grid-template-columns: ${iconSize} 1fr;
-        column-gap: 8px;
     }
     :host(.indent-1[aria-haspopup='menu']) {
         grid-template-columns: ${iconSize} 1fr ${iconSize};
-        column-gap: 8px;
     }
     [part='start'] {
         display: contents;
