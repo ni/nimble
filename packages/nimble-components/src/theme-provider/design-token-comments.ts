@@ -14,6 +14,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     fillHoverSelectedColor:
         'Control fill color when hovering a selected control',
     fillHoverColor: 'Control fill color when hovering component',
+    fillExpansionPathColor: 'Control fill color of items that have been expanded to show children',
     fillDownColor: 'Control fill color when mousedown event occurs',
     borderColor: 'Standard control outline or border color',
     borderRgbPartialColor:

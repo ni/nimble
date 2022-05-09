@@ -10,7 +10,8 @@ import {
     borderHoverColor,
     iconSize,
     bodyFont,
-    bodyDisabledFontColor
+    bodyDisabledFontColor,
+    fillExpansionPathColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -39,12 +40,12 @@ export const styles = css`
         outline-offset: -2px;
     }
     :host([expanded]) {
+        background: ${fillExpansionPathColor};
+    }
+    :host(:hover:not([expanded])) {
         background: ${fillHoverColor};
     }
-    :host(:hover) {
-        background: ${fillHoverColor};
-    }
-    :host(:active) {
+    :host(:active:not([expanded])) {
         background: ${fillSelectedColor};
     }
     :host([disabled]) {

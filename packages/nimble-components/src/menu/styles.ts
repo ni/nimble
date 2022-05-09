@@ -9,7 +9,8 @@ import {
     popupBoxShadowColor,
     groupHeaderFont,
     groupHeaderTextTransform,
-    groupHeaderFontColor
+    groupHeaderFontColor,
+    smallPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -25,7 +26,7 @@ export const styles = css`
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
     }
     :host([slot='submenu']) {
-        margin: 0 4px;
+        margin: 0 calc(${smallPadding} * 2);
     }
     ::slotted(*) {
         padding-left: 8px;
@@ -34,7 +35,7 @@ export const styles = css`
     ::slotted(hr) {
         box-sizing: content-box;
         height: 2px;
-        margin: 4px;
+        margin: ${smallPadding};
         border: none;
         background: ${borderColor};
         opacity: 0.1;
@@ -44,7 +45,7 @@ export const styles = css`
         font: ${groupHeaderFont};
         color: ${groupHeaderFontColor};
         text-transform: ${groupHeaderTextTransform};
-        padding-top: 4px;
-        padding-bottom: 4px;
+        padding-top: ${smallPadding};
+        padding-bottom: ${smallPadding};
     }
 `;
