@@ -63,6 +63,7 @@ export const styles = css`
         --ni-private-hover-bottom-border-width: 2px;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         border-bottom-width: var(--ni-private-bottom-border-width);
+        gap: calc(${standardPadding} / 2);
         padding-bottom: calc(
             var(--ni-private-hover-bottom-border-width) -
                 var(--ni-private-bottom-border-width)
@@ -106,12 +107,40 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
+    :host([appearance='frameless'].clear-inline-padding) .root {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .root::before {
+        ${/* Empty string causes alignment issue */ ''}
+        content: ' ';
+        color: transparent;
+        width: 0px;
+        user-select: none;
+    }
+
+    :host([appearance='frameless'].clear-inline-padding) .root::before {
+        display: none;
+    }
+
+    .root::after {
+        ${/* Empty string causes alignment issue */ ''}
+        content: ' ';
+        color: transparent;
+        width: 0px;
+        user-select: none;
+    }
+
+    :host([appearance='frameless'].clear-inline-padding) .root::after {
+        display: none;
+    }
+
     [part='start'] {
         display: contents;
     }
 
     slot[name='start']::slotted(*) {
-        margin-left: calc(${standardPadding} / 2);
         flex: none;
     }
 
@@ -120,8 +149,7 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
-        padding-top: 0px;
-        padding-bottom: 0px;
+        padding: 0px;
         height: calc(
             ${controlHeight} - ${borderWidth} -
                 var(--ni-private-hover-bottom-border-width)
@@ -129,8 +157,6 @@ export const styles = css`
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
-        padding-left: calc(${standardPadding} / 2);
-        padding-right: calc(${standardPadding} / 2);
         border: none;
         text-overflow: ellipsis;
     }
@@ -174,7 +200,6 @@ export const styles = css`
     :host(.invalid) .error-content svg {
         height: ${iconSize};
         width: ${iconSize};
-        padding-right: 8px;
         flex: none;
     }
 
@@ -215,7 +240,6 @@ export const styles = css`
     }
 
     slot[name='actions']::slotted(*) {
-        margin-right: 8px;
         ${controlHeight.cssCustomProperty}: 24px;
     }
 `.withBehaviors(
