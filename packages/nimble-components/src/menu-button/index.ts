@@ -141,6 +141,7 @@ export class MenuButton extends FoundationElement implements IButton {
 
     public menuChangeHandler(): void {
         this.open = false;
+        this.toggleButton!.focus();
     }
 
     public menuKeyDownHandler(e: KeyboardEvent): boolean {

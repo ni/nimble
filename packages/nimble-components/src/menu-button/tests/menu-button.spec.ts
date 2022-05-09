@@ -194,11 +194,28 @@ describe('MenuButton', () => {
         expect(element.open).toBeFalse();
     });
 
+    it("should focus the button when the menu is closed by pressing 'Escape'", async () => {
+        element.open = true;
+        await connect();
+        const event = new KeyboardEvent('keydown', {
+            key: keyEscape
+        } as KeyboardEventInit);
+        element.region!.dispatchEvent(event);
+        expect(document.activeElement).toEqual(element);
+    });
+
     it('should close the menu when selecting a menu item', async () => {
         element.open = true;
         await connect();
         menuItem1.click();
         expect(element.open).toBeFalse();
+    });
+
+    it("should focus the button when the menu is closed by selecting a menu item", async () => {
+        element.open = true;
+        await connect();
+        menuItem1.click();
+        expect(document.activeElement).toEqual(element);
     });
 
     it('should not close the menu when clicking on a disabled menu item', async () => {
