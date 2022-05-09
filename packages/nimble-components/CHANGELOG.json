@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 06 May 2022 18:05:10 GMT",
+      "tag": "@ni/nimble-components_v8.4.0",
+      "version": "8.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6ee18fbd2265f5bf8ef4550bf40f88d788b0996c",
+            "comment": "split test-field-matrix on actionButtonStates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 May 2022 21:26:02 GMT",
       "tag": "@ni/nimble-components_v8.4.0",
       "version": "8.4.0",

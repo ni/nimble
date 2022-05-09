@@ -90,13 +90,13 @@ export const createFixedThemeStory = <TSource>(
                         background-color: ${backgroundState.value};
                         position: absolute;
                         width: 100%;
-                        height: 100%;
+                        min-height: 100%;
                         left: 0px;
                         top: 0px;
                     "
-                    class="code-hide"
-                ></div>
-                ${viewTemplate}
+                >
+                    ${viewTemplate}
+                </div>
             </nimble-theme-provider>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
