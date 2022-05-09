@@ -81,7 +81,7 @@ const metadata: Meta<TextFieldArgs> = {
         },
         'clear-inline-padding': {
             description:
-                'Whether to remove the start and end padding. Only affects the frameless appearance.'
+                'Add this class to remove the start and end padding. Only affects the frameless appearance.'
         },
         'error-text': {
             description:
