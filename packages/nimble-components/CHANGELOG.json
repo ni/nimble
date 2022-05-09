@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 09 May 2022 16:30:15 GMT",
+      "tag": "@ni/nimble-components_v8.5.0",
+      "version": "8.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9cd7e2b65f2c110358ea840e35791f9b45483968",
+            "comment": "Support clear-inline-padding class on frameless text field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 06 May 2022 18:05:10 GMT",
+      "tag": "@ni/nimble-components_v8.4.0",
+      "version": "8.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6ee18fbd2265f5bf8ef4550bf40f88d788b0996c",
+            "comment": "split test-field-matrix on actionButtonStates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 May 2022 21:26:02 GMT",
+      "tag": "@ni/nimble-components_v8.4.0",
+      "version": "8.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "653341a69d93c7e4aaf09e601962bca50aec0967",
+            "comment": "Create nimble-anchored-region"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 May 2022 19:57:48 GMT",
+      "tag": "@ni/nimble-components_v8.3.0",
+      "version": "8.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d2751018d10f031dcaf618f4b2306656d4d37377",
+            "comment": "Create IButton interface"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 May 2022 16:08:04 GMT",
       "tag": "@ni/nimble-components_v8.3.0",
       "version": "8.3.0",
