@@ -65,7 +65,7 @@ export class Combobox extends FoundationCombobox {
         this.setPositioning();
         this.addEventListener('focusout', this.focusOutHandler);
         const inputElement = this.shadowRoot?.querySelector('.selected-value');
-        inputElement?.setAttribute('aria-hidden', '');
+        inputElement?.setAttribute('aria-hidden', 'true');
     }
 
     public override disconnectedCallback(): void {
@@ -104,7 +104,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 part="button"
                 aria-haspopup="true"
                 aria-expanded="${x => x.open}"
-                aria-hidden
+                aria-hidden="true"
             >
                 <nimble-arrow-expander-down-icon
                     slot="start"
