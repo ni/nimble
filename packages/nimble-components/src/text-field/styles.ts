@@ -113,7 +113,10 @@ export const styles = css`
     }
 
     .root::before {
-        content: '';
+        ${/* Empty string causes alignment issue */ ''}
+        content: '.';
+        color: transparent;
+        width: 0px;
     }
 
     :host([appearance='frameless'].clear-inline-padding) .root::before {
@@ -121,7 +124,10 @@ export const styles = css`
     }
 
     .root::after {
-        content: '';
+        ${/* Empty string causes alignment issue */ ''}
+        content: '.';
+        color: transparent;
+        width: 0px;
     }
 
     :host([appearance='frameless'].clear-inline-padding) .root::after {
