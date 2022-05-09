@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import type { Drawer } from '@ni/nimble-components/dist/esm/drawer';
-import type { DrawerLocation } from '@ni/nimble-components/dist/esm/drawer/types';
+import { DrawerLocation } from '@ni/nimble-components/dist/esm/drawer/types';
 import { DrawerState } from '@ni/nimble-components/dist/esm/drawer/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 

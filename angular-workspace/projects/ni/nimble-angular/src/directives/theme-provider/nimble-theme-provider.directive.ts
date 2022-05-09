@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { ThemeProvider } from '@ni/nimble-components/dist/esm/theme-provider';
-import type { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
 
 export type { ThemeProvider };
 export { Theme };
