@@ -7,7 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import type { IButton } from '../patterns/button/types';
 import { styles } from './styles';
-import { ButtonAppearance, ButtonAppearanceAttribute } from './types';
+import { ButtonAppearance } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -25,7 +25,7 @@ export class Button extends FoundationButton implements IButton {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance: ButtonAppearanceAttribute = ButtonAppearance.Outline;
+    public appearance: ButtonAppearance = ButtonAppearance.Outline;
 
     /**
      * @public

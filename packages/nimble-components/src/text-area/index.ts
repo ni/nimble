@@ -5,7 +5,7 @@ import {
     textAreaTemplate as template
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { TextAreaAppearance, TextAreaAppearanceAttribute } from './types';
+import { TextAreaAppearance } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -25,7 +25,7 @@ export class TextArea extends FoundationTextArea {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance: TextAreaAppearanceAttribute = TextAreaAppearance.Outline;
+    public appearance: TextAreaAppearance = TextAreaAppearance.Outline;
 }
 
 const nimbleTextArea = TextArea.compose({

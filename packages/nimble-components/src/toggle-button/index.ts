@@ -10,7 +10,7 @@ import {
 import { styles } from './styles';
 import { template } from './template';
 import type { IButton } from '../patterns/button/types';
-import { ButtonAppearance, ButtonAppearanceAttribute } from './types';
+import { ButtonAppearance } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -28,7 +28,7 @@ export class ToggleButton extends FoundationSwitch implements IButton {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance: ButtonAppearanceAttribute = ButtonAppearance.Outline;
+    public appearance: ButtonAppearance = ButtonAppearance.Outline;
 
     /**
      * @public

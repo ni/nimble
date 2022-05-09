@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
-import { IconStatus, IconStatusAttribute } from '../types';
+import { IconStatus } from '../types';
 import {
     createUserSelectedThemeStory,
     overrideWarning
@@ -16,7 +16,7 @@ import {
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
 
 interface IconArgs {
-    status: IconStatusAttribute;
+    status: IconStatus;
 }
 
 const metadata: Meta<IconArgs> = {

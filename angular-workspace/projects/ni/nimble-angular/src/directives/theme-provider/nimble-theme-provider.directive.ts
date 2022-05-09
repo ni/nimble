@@ -1,7 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { ThemeProvider } from '@ni/nimble-components/dist/esm/theme-provider';
-import type { ThemeAttribute } from '@ni/nimble-components/dist/esm/theme-provider/types';
-import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import type { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
 
 export type { ThemeProvider };
 export { Theme };
@@ -17,7 +16,7 @@ export class NimbleThemeProviderDirective {
         return this.elementRef.nativeElement.theme;
     }
 
-    @Input() public set theme(value: Theme | ThemeAttribute) {
+    @Input() public set theme(value: Theme ) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'theme', value);
     }
 

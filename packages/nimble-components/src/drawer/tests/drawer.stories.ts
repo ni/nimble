@@ -13,12 +13,7 @@ import {
     drawerWidth,
     standardPadding
 } from '../../theme-provider/design-tokens';
-import {
-    DrawerLocation,
-    DrawerLocationAttribute,
-    DrawerState,
-    DrawerStateAttribute
-} from '../types';
+import { DrawerLocation, DrawerState } from '../types';
 import type { Drawer } from '..';
 import '../../all-components';
 
@@ -39,8 +34,8 @@ export type DrawerWidthOptionsKeys =
     typeof DrawerWidthOptions[keyof typeof DrawerWidthOptions];
 
 interface DrawerArgs {
-    location: DrawerLocationAttribute;
-    state: DrawerStateAttribute;
+    location: DrawerLocation;
+    state: DrawerState;
     modal: string;
     preventDismiss: boolean;
     content: ExampleContentTypeKeys;

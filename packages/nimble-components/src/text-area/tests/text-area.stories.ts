@@ -2,15 +2,11 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import {
-    TextAreaAppearance,
-    TextAreaAppearanceAttribute,
-    TextAreaResize
-} from '../types';
+import { TextAreaAppearance, TextAreaResize } from '../types';
 import '../../all-components';
 
 interface TextAreaArgs {
-    appearance: TextAreaAppearanceAttribute;
+    appearance: TextAreaAppearance;
     label: string;
     placeholder: string;
     value: string;

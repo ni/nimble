@@ -7,7 +7,7 @@ import { attr } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
-import { Theme, ThemeAttribute } from './types';
+import { Theme } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,7 +22,7 @@ export const direction = DesignToken.create<Direction>({
     cssCustomPropertyName: null
 }).withDefault(Direction.ltr);
 
-export const theme = DesignToken.create<ThemeAttribute>({
+export const theme = DesignToken.create<Theme>({
     name: 'theme',
     cssCustomPropertyName: null
 }).withDefault(Theme.Light);
@@ -41,7 +41,7 @@ export class ThemeProvider extends FoundationElement {
     @attr({
         attribute: 'theme'
     })
-    public theme: ThemeAttribute = Theme.Light;
+    public theme: Theme = Theme.Light;
 
     public directionChanged(
         _prev: Direction | undefined,
@@ -55,8 +55,8 @@ export class ThemeProvider extends FoundationElement {
     }
 
     public themeChanged(
-        _prev: ThemeAttribute | undefined,
-        next: ThemeAttribute | undefined
+        _prev: Theme | undefined,
+        next: Theme | undefined
     ): void {
         if (next !== undefined && next !== null) {
             theme.setValueFor(this, next);

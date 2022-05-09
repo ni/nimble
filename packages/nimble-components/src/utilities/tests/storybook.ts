@@ -1,6 +1,6 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import type { Story } from '@storybook/html';
-import type { ThemeAttribute } from '../../theme-provider/types';
+import type { Theme } from '../../theme-provider/types';
 import { createMatrix } from './matrix';
 import {
     BackgroundState,
@@ -38,7 +38,7 @@ export const createStory = <TSource>(
     };
 };
 
-const getGlobalTheme = (context: unknown): ThemeAttribute => {
+const getGlobalTheme = (context: unknown): Theme => {
     type GlobalValue = string | undefined;
     // @ts-expect-error Accessing the global background defined in preview.js
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

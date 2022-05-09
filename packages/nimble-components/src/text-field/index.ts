@@ -7,7 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
-import { TextFieldAppearance, TextFieldAppearanceAttribute } from './types';
+import { TextFieldAppearance } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,8 +27,7 @@ export class TextField extends FoundationTextField {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance: TextFieldAppearanceAttribute =
-    TextFieldAppearance.Underline;
+    public appearance: TextFieldAppearance = TextFieldAppearance.Underline;
 
     /**
      * A message explaining why the value is invalid.

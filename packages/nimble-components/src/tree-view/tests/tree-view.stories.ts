@@ -1,14 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import {
-    TreeViewSelectionMode,
-    TreeViewSelectionModeAttribute
-} from '../types';
+import { TreeViewSelectionMode } from '../types';
 import '../../all-components';
 
 interface TreeArgs {
-    selectionMode: TreeViewSelectionModeAttribute;
+    selectionMode: TreeViewSelectionMode;
     options: ItemArgs[];
 }
 

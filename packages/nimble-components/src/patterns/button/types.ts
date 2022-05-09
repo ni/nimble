@@ -6,7 +6,7 @@ export interface IButton {
     /**
      * The appearance the button should have.
      */
-    appearance: ButtonAppearanceAttribute;
+    appearance: ButtonAppearance;
 
     /**
      * Specify as 'true' to hide the text content of the button. The button will
@@ -30,5 +30,4 @@ export const ButtonAppearance = {
     Ghost: 'ghost',
     Block: 'block'
 } as const;
-export type ButtonAppearanceAttribute =
-    typeof ButtonAppearance[keyof typeof ButtonAppearance];
+export type ButtonAppearance = typeof ButtonAppearance[keyof typeof ButtonAppearance];
