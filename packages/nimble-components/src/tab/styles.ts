@@ -9,8 +9,8 @@ import {
     controlHeight,
     fillHoverColor,
     fillHoverSelectedColor,
-    mediumDelay,
-    standardPadding
+    standardPadding,
+    smallDelay
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 
@@ -68,7 +68,7 @@ export const styles = css`
         width: 0px;
         height: 0px;
         border-bottom: ${borderHoverColor} 1px solid;
-        transition: width ${mediumDelay} ease-in;
+        transition: width ${smallDelay} ease-in;
     }
 
     @media (prefers-reduced-motion) {
@@ -89,7 +89,7 @@ export const styles = css`
         height: 0px;
         margin-top: 2px;
         border-bottom: ${borderHoverColor} 2px solid;
-        transition: width ${mediumDelay} ease-in;
+        transition: width ${smallDelay} ease-in;
     }
 
     @media (prefers-reduced-motion) {
