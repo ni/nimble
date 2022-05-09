@@ -138,58 +138,58 @@ describe('MenuButton', () => {
 
     it('should open the menu and focus first menu item when the toggle button is clicked', async () => {
         await connect();
-        const waitForOpenChangePromise = createOpenChangeListeners();
+        const openChangeListeners = createOpenChangeListeners();
         element.toggleButton!.control.click();
         expect(element.open).toBeTrue();
-        await waitForOpenChangePromise.promise;
+        await openChangeListeners.promise;
         expect(document.activeElement).toEqual(menuItem1);
     });
 
     it("should open the menu and focus first menu item when 'Enter' is pressed while the toggle button is focused", async () => {
         await connect();
-        const waitForOpenChangePromise = createOpenChangeListeners();
+        const openChangeListeners = createOpenChangeListeners();
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
         } as KeyboardEventInit);
         element.toggleButton!.control.dispatchEvent(event);
         expect(element.open).toBeTrue();
-        await waitForOpenChangePromise.promise;
+        await openChangeListeners.promise;
         expect(document.activeElement).toEqual(menuItem1);
     });
 
     it("should open the menu and focus first menu item when 'Space' is pressed while the toggle button is focused", async () => {
         await connect();
-        const waitForOpenChangePromise = createOpenChangeListeners();
+        const openChangeListeners = createOpenChangeListeners();
         const event = new KeyboardEvent('keypress', {
             key: keySpace
         } as KeyboardEventInit);
         element.toggleButton!.control.dispatchEvent(event);
         expect(element.open).toBeTrue();
-        await waitForOpenChangePromise.promise;
+        await openChangeListeners.promise;
         expect(document.activeElement).toEqual(menuItem1);
     });
 
     it('should open the menu and focus first menu item when the down arrow is pressed while the toggle button is focused', async () => {
         await connect();
-        const waitForOpenChangePromise = createOpenChangeListeners();
+        const openChangeListeners = createOpenChangeListeners();
         const event = new KeyboardEvent('keydown', {
             key: keyArrowDown
         } as KeyboardEventInit);
         element.toggleButton!.dispatchEvent(event);
         expect(element.open).toBeTrue();
-        await waitForOpenChangePromise.promise;
+        await openChangeListeners.promise;
         expect(document.activeElement).toEqual(menuItem1);
     });
 
     it('should open the menu and focus last menu item when the up arrow is pressed while the toggle button is focused', async () => {
         await connect();
-        const waitForOpenChangePromise = createOpenChangeListeners();
+        const openChangeListeners = createOpenChangeListeners();
         const event = new KeyboardEvent('keydown', {
             key: keyArrowUp
         } as KeyboardEventInit);
         element.toggleButton!.dispatchEvent(event);
         expect(element.open).toBeTrue();
-        await waitForOpenChangePromise.promise;
+        await openChangeListeners.promise;
         expect(document.activeElement).toEqual(menuItem3);
     });
 
@@ -286,19 +286,19 @@ describe('MenuButton', () => {
 
     it("should fire 'openChanged' event when the menu is opened", async () => {
         await connect();
-        const waitForOpenChangePromise = createOpenChangeListeners();
+        const openChangeListeners = createOpenChangeListeners();
         element.open = true;
-        await waitForOpenChangePromise.promise;
-        expect(waitForOpenChangePromise.spy).toHaveBeenCalledTimes(1);
+        await openChangeListeners.promise;
+        expect(openChangeListeners.spy).toHaveBeenCalledTimes(1);
     });
 
     it("should fire 'openChanged' event when the menu is closed", async () => {
         element.open = true;
         await connect();
-        const waitForOpenChangePromise = createOpenChangeListeners();
+        const openChangeListeners = createOpenChangeListeners();
         element.open = false;
-        await waitForOpenChangePromise.promise;
-        expect(waitForOpenChangePromise.spy).toHaveBeenCalledTimes(1);
+        await openChangeListeners.promise;
+        expect(openChangeListeners.spy).toHaveBeenCalledTimes(1);
     });
 
     it('should not interact with form', async () => {
