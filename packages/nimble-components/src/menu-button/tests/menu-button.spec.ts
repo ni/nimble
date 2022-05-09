@@ -25,18 +25,21 @@ describe('MenuButton', () => {
     let menuItem2: MenuItem;
     let menuItem3: MenuItem;
 
-    function createOpenChangeListeners(): { promise: Promise<void>, spy: jasmine.Spy } {
+    function createOpenChangeListeners(): {
+        promise: Promise<void>,
+        spy: jasmine.Spy
+    } {
         const spy = jasmine.createSpy();
-         return {
-             promise: new Promise(resolve => {
-                 const handler = (...args: any[]) => {
-                       element.removeEventListener('open-changed', handler);
-                       spy(...args)
-                       resolve();
-                 };
-                 element.addEventListener('open-change', handler);
-             }),
-             spy
+        return {
+            promise: new Promise(resolve => {
+                const handler = (...args: unknown[]): void => {
+                    element.removeEventListener('open-changed', handler);
+                    spy(...args);
+                    resolve();
+                };
+                element.addEventListener('open-change', handler);
+            }),
+            spy
         };
     }
 
