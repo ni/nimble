@@ -161,6 +161,41 @@ export function createMatrix<
     ]
 ): ViewTemplate;
 
+export function createMatrix<
+    State1,
+    State2,
+    State3,
+    State4,
+    State5,
+    State6,
+    State7,
+    State8,
+    State9
+>(
+    component: (
+        state1: State1,
+        state2: State2,
+        state3: State3,
+        state4: State4,
+        state5: State5,
+        state6: State6,
+        state7: State7,
+        state8: State8,
+        state9: State9
+    ) => ViewTemplate,
+    dimensions: readonly [
+        readonly State1[],
+        readonly State2[],
+        readonly State3[],
+        readonly State4[],
+        readonly State5[],
+        readonly State6[],
+        readonly State7[],
+        readonly State8[],
+        readonly State9[]
+    ]
+): ViewTemplate;
+
 export function createMatrix(
     component: (...states: readonly unknown[]) => ViewTemplate,
     dimensions?: readonly (readonly unknown[])[]
