@@ -68,7 +68,7 @@ export const styles = css`
         width: 0px;
         height: 0px;
         border-bottom: ${borderHoverColor} 1px solid;
-        transition: width ${smallDelay} ease-in;
+        transition: width 0.075s ease-in;
     }
 
     @media (prefers-reduced-motion) {
@@ -89,7 +89,7 @@ export const styles = css`
         height: 0px;
         margin-top: 2px;
         border-bottom: ${borderHoverColor} 2px solid;
-        transition: width ${smallDelay} ease-in;
+        transition: width 0.075s ease-in;
     }
 
     @media (prefers-reduced-motion) {
