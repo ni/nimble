@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 10 May 2022 20:40:12 GMT and should not be manually modified.
+This log was last generated on Tue, 10 May 2022 21:09:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.6.2
+
+Tue, 10 May 2022 21:09:37 GMT
+
+### Patches
+
+- Update FAST dependency versions ([ni/nimble@765f2f5](https://github.com/ni/nimble/commit/765f2f5f4cd28592e16e163e0d4e4afa9a87b9a7))
 
 ## 8.6.1
 
