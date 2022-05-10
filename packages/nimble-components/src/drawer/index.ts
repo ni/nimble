@@ -183,9 +183,14 @@ export class Drawer extends FoundationDialog {
 
     private updateAnimationDuration(): void {
         const disableAnimations: boolean = prefersReducedMotionMediaQuery.matches;
-        this.animationDurationMilliseconds = disableAnimations
-            ? animationDurationWhenDisabledMilliseconds
-            : largeDelay.getValueFor(this);
+        if (disableAnimations) {
+            this.animationDurationMilliseconds = animationDurationWhenDisabledMilliseconds;
+        } else {
+            // string ends in 's' unit specifier
+            const secondsString: string = largeDelay.getValueFor(this);
+            const secondsNumber: number = parseFloat(secondsString);
+            this.animationDurationMilliseconds = 1000 * secondsNumber;
+        }
     }
 
     private animateOpening(): void {
