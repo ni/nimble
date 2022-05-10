@@ -28,7 +28,7 @@ describe('MenuButton', () => {
     /** A helper function to abstract adding an 'open-change' event listener, spying
      * on the event being called, and removing the event listener. The returned promise
      * should be resolved prior to completing a test.
-    */
+     */
     function createOpenChangeListener(): {
         promise: Promise<void>,
         spy: jasmine.Spy
