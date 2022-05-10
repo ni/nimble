@@ -290,7 +290,7 @@ describe('MenuButton', () => {
 
     it("anchored-region should be configured correctly when the menu button position is configured to 'above'", async () => {
         element.open = true;
-        element.position = MenuButtonPosition.above;
+        element.position = MenuButtonPosition.Above;
         await connect();
         expect(element.region!.verticalPositioningMode).toBe('locktodefault');
         expect(element.region!.verticalDefaultPosition).toBe('top');
@@ -298,7 +298,7 @@ describe('MenuButton', () => {
 
     it("anchored-region should be configured correctly when the menu button position is configured to 'below'", async () => {
         element.open = true;
-        element.position = MenuButtonPosition.below;
+        element.position = MenuButtonPosition.Below;
         await connect();
         expect(element.region!.verticalPositioningMode).toBe('locktodefault');
         expect(element.region!.verticalDefaultPosition).toBe('bottom');
@@ -306,7 +306,7 @@ describe('MenuButton', () => {
 
     it("anchored-region should be configured correctly when the menu button position is configured to 'auto'", async () => {
         element.open = true;
-        element.position = MenuButtonPosition.auto;
+        element.position = MenuButtonPosition.Auto;
         await connect();
         expect(element.region!.verticalPositioningMode).toBe('dynamic');
     });
