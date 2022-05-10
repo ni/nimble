@@ -12,7 +12,7 @@ function setComboboxValue(combobox: Combobox, index: number): void {
     combobox.options[index].dispatchEvent(new Event('click', { bubbles: true }));
 }
 
-fdescribe('Nimble combobox control value accessor', () => {
+describe('Nimble combobox control value accessor', () => {
     describe('when using option\'s [ngValue] binding', () => {
         @Component({
             template: `
