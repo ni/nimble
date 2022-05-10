@@ -4,3 +4,4 @@ dist-nuget
 
 source/NimbleTokens/bin
 source/NimbleTokens/obj
+source/NimbleTokens/.vs

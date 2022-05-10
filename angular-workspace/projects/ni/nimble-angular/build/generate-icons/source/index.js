@@ -102,24 +102,14 @@ export class ${moduleName} { }
 }
 console.log(`Finshed writing ${directiveAndModulePaths.length} icon directive and module files`);
 
-// Write a new public-api.ts file including the icon exports.
-// This can be removed once barrel files can be used in this project (after enabling Ivy).
-const sourceDirectory = path.resolve(packageDirectory, 'src');
-let publicApiIconContent = '\n// Icons\n';
+let barrelFileContents = `${generatedFilePrefix}\n`;
 for (const paths of directiveAndModulePaths) {
-    publicApiIconContent += `export * from '${getRelativeFilePath(sourceDirectory, paths.directivePath)}';
-export * from '${getRelativeFilePath(sourceDirectory, paths.modulePath)}';\n`;
+    barrelFileContents += `export * from '${getRelativeFilePath(iconsDirectory, paths.directivePath)}';
+export * from '${getRelativeFilePath(iconsDirectory, paths.modulePath)}';\n`;
 }
-const publicApiTemplateFilePath = path.resolve(sourceDirectory, 'public-api.template.ts');
-const publicApiTemplateFileContents = fs.readFileSync(publicApiTemplateFilePath, { encoding: 'utf-8' });
-const iconExportTemplateSearchRegex = /^.*{{INSERT_ICONS_EXPORTS_HERE}}$/m;
-let publicApiFileContents = `${generatedFilePrefix}\n`;
-if (!iconExportTemplateSearchRegex.test(publicApiTemplateFileContents)) {
-    throw new Error('public-api template file does not included expected insertion point for icon exports');
-}
-publicApiFileContents += publicApiTemplateFileContents.replace(iconExportTemplateSearchRegex, publicApiIconContent);
-const publicApiFilePath = path.resolve(sourceDirectory, 'public-api');
 
-console.log('Writing public API file');
-fs.writeFileSync(`${publicApiFilePath}.ts`, publicApiFileContents, { encoding: 'utf-8' });
-console.log('Finished writing public API file');
+const barrelFilePath = path.resolve(iconsDirectory, 'index');
+
+console.log('Writing barrel file');
+fs.writeFileSync(`${barrelFilePath}.ts`, barrelFileContents, { encoding: 'utf-8' });
+console.log('Finished writing barrel file');

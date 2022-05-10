@@ -1,17 +1,12 @@
-import type { ViewTemplate } from '@microsoft/fast-element';
-
-/**
- * Removes all HTML comment nodes.
- */
-const removeCommentNodes = (node: Node): void => {
-    if (node.hasChildNodes()) {
-        const nodes = Array.from(node.childNodes);
-        nodes.forEach(child => removeCommentNodes(child));
-    }
-    if (node.nodeType === Node.COMMENT_NODE) {
-        node.parentNode?.removeChild(node);
-    }
-};
+import { html, ViewTemplate } from '@microsoft/fast-element';
+import type { Story } from '@storybook/html';
+import type { Theme } from '../../theme-provider/types';
+import { createMatrix } from './matrix';
+import {
+    BackgroundState,
+    backgroundStates,
+    defaultBackgroundState
+} from './states';
 
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.
@@ -21,42 +16,118 @@ const renderViewTemplate = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
     source: TSource
 ): DocumentFragment => {
-    const fragment = document.createDocumentFragment();
+    const template = document.createElement('template');
+    const fragment = template.content;
     viewTemplate.render(source, fragment);
     return fragment;
 };
 
 /**
- * Renders a ViewTemplate as an HTML string. The template is evaluated with the `source` context
- * but the resulting elements are discarded. Bindings, such as event bindings, are not
- * serialized in the resulting HTML string.
+ *  Renders a FAST `html` template as a story.
  */
-const renderViewTemplateAsHtml = <TSource>(
-    viewTemplate: ViewTemplate<TSource>,
-    source: TSource
-): string => {
-    const fragment = renderViewTemplate(viewTemplate, source);
-    const dummyElement = document.createElement('div');
-    dummyElement.append(fragment);
-    // FAST inserts HTML comments for binding insertion points which look like <!--fast-11q2o9:1--> that we remove
-    removeCommentNodes(dummyElement);
-    const html = dummyElement.innerHTML;
-    const trimmedHTML = html
-        .split('\n')
-        .filter(line => line.trim() !== '')
-        .join('\n');
-    return trimmedHTML;
+export const createStory = <TSource>(
+    viewTemplate: ViewTemplate<TSource>
+): Story<TSource> => {
+    return (source: TSource, _context: unknown): Element => {
+        const wrappedViewTemplate = html<TSource>`
+            <div class="code-hide-top-container">${viewTemplate}</div>
+        `;
+        const fragment = renderViewTemplate(wrappedViewTemplate, source);
+        const content = fragment.firstElementChild!;
+        return content;
+    };
+};
+
+const getGlobalTheme = (context: unknown): Theme => {
+    type GlobalValue = string | undefined;
+    // @ts-expect-error Accessing the global background defined in preview.js
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const globalValue = context?.globals?.backgrounds?.value as GlobalValue;
+    const background = backgroundStates.find(({ value }) => value === globalValue)
+        ?? defaultBackgroundState;
+    return background.theme;
 };
 
 /**
- *  Returns a storybook `Story` compatible value to render a FAST `html` template.
+ *  Renders a FAST `html` template as a story that responds to the
+ *  background theme selection in Storybook.
  */
-export const createRenderer = <TSource>(
+export const createUserSelectedThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): ((source: TSource) => string) => {
-    return (source: TSource): string => {
-        const html = renderViewTemplateAsHtml(viewTemplate, source);
-        return html;
+): Story<TSource> => {
+    return (source: TSource, context: unknown): Element => {
+        const wrappedViewTemplate = html<TSource>`
+            <nimble-theme-provider
+                theme="${getGlobalTheme(context)}"
+                class="code-hide-top-container"
+            >
+                ${viewTemplate}
+            </nimble-theme-provider>
+        `;
+        const fragment = renderViewTemplate(wrappedViewTemplate, source);
+        const content = fragment.firstElementChild!;
+        return content;
+    };
+};
+
+/**
+ * Renders a FAST `html` template with a a specific theme.
+ * Useful when the template can't be tested multiple times in a single story
+ * and instead the test is broken up across multiple stories.
+ */
+export const createFixedThemeStory = <TSource>(
+    viewTemplate: ViewTemplate<TSource>,
+    backgroundState: BackgroundState
+): Story<TSource> => {
+    return (source: TSource, _context: unknown): Element => {
+        const wrappedViewTemplate = html<TSource>`
+            <nimble-theme-provider
+                theme="${backgroundState.theme}"
+                class="code-hide-top-container"
+            >
+                <div
+                    style="
+                        background-color: ${backgroundState.value};
+                        position: absolute;
+                        width: 100%;
+                        min-height: 100%;
+                        left: 0px;
+                        top: 0px;
+                    "
+                >
+                    ${viewTemplate}
+                </div>
+            </nimble-theme-provider>
+        `;
+        const fragment = renderViewTemplate(wrappedViewTemplate, source);
+        const content = fragment.firstElementChild!;
+        return content;
+    };
+};
+
+/**
+ *  Renders a FAST `html` template for each theme.
+ */
+export const createMatrixThemeStory = <TSource>(
+    viewTemplate: ViewTemplate<TSource>
+): Story<TSource> => {
+    return (source: TSource, _context: unknown): Element => {
+        const matrixTemplate = createMatrix(
+            ({ theme, value }: BackgroundState) => html`
+                <nimble-theme-provider theme="${theme}">
+                    <div style="background-color: ${value}; padding:20px;">
+                        ${viewTemplate}
+                    </div>
+                </nimble-theme-provider>
+            `,
+            [backgroundStates]
+        );
+        const wrappedMatrixTemplate = html<TSource>`
+            <div class="code-hide-top-container">${matrixTemplate}</div>
+        `;
+        const fragment = renderViewTemplate(wrappedMatrixTemplate, source);
+        const content = fragment.firstElementChild!;
+        return content;
     };
 };
 

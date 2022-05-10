@@ -2,31 +2,30 @@ const path = require('path');
 const glob = require('glob');
 const fs = require('fs');
 
-const args = process.argv.slice(2);
-const buildConfiguration = args[0]; // Debug or Release
-const destinationDirectory = args[1]; // e.g. Path/To/Examples/NimbleBlazor.Demo.Server/wwwroot
-if ((buildConfiguration !== 'Debug' && buildConfiguration !== 'Release') || typeof destinationDirectory !== 'string'
-    || fs.existsSync(destinationDirectory) === false) {
-    throw new Error('Expected Arguments: BuildConfiguration DestinationDirectory. '
-        + 'BuildConfiguration: Debug or Release. DestinationDirectory: Typically the full path to a Blazor app wwwroot directory.');
-}
+const destinationDirectory = path.resolve(__dirname, '../NimbleBlazor.Components/wwwroot');
+console.log(`Destination directory for blazor assets: "${destinationDirectory}"`);
 
-const componentsDistPath = path.dirname(require.resolve('@ni/nimble-components/dist/all-components-bundle.js'));
-const tokensPath = path.resolve(path.dirname(require.resolve('@ni/nimble-tokens/source/fonts.css')), '..');
+const nimbleComponentsPath = resolvePackagePath('@ni/nimble-components');
+const nimbleTokensPath = resolvePackagePath('@ni/nimble-tokens');
 
-const componentsSrcDebug = [
-    { src: 'all-components-bundle.js' },
-    { src: 'all-components-bundle.js.map' }
+const componentsSrc = [
+    { src: 'dist/all-components-bundle.min.js', dest: 'all-components-bundle.min.js' },
+    { src: 'dist/all-components-bundle.min.js.map', dest: 'all-components-bundle.min.js.map' }
 ];
-const componentsSrcRelease = [
-    { src: 'all-components-bundle.min.js', dest: 'all-components-bundle.js' },
-    { src: 'all-components-bundle.min.js.map', dest: 'all-components-bundle.js.map' }
-];
-const componentsSrc = buildConfiguration === 'Release' ? componentsSrcRelease : componentsSrcDebug;
+
 const tokensSrc = [
     { src: 'source/fonts.css' },
     { src: 'assets-fonts/*' }
 ];
+
+prepareDestinationDirectory('nimble-components');
+copyFiles(componentsSrc, nimbleComponentsPath, 'nimble-components');
+prepareDestinationDirectory('nimble-tokens');
+copyFiles(tokensSrc, nimbleTokensPath, 'nimble-tokens');
+
+function resolvePackagePath(packageName) {
+    return path.dirname(require.resolve(`${packageName}/package.json`));
+}
 
 function copyFiles(srcPatterns, srcPath, destRelativeDirectory) {
     for (const pattern of srcPatterns) {
@@ -49,8 +48,3 @@ function prepareDestinationDirectory(destRelativeDirectory) {
     }
     fs.mkdirSync(destDirectory, { recursive: true });
 }
-
-prepareDestinationDirectory('nimble-components');
-copyFiles(componentsSrc, componentsDistPath, 'nimble-components');
-prepareDestinationDirectory('nimble-tokens');
-copyFiles(tokensSrc, tokensPath, 'nimble-tokens');

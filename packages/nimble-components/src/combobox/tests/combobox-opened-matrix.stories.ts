@@ -1,17 +1,16 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
-import {
-    backgroundStates,
-    singleThemeWrapper
-} from '../../utilities/tests/matrix';
+import { createFixedThemeStory } from '../../utilities/tests/storybook';
+import { sharedMatrixParameters } from '../../utilities/tests/matrix';
+import { backgroundStates } from '../../utilities/tests/states';
 import '..';
 
 const metadata: Meta = {
     title: 'Tests/Combobox',
     decorators: [withXD],
     parameters: {
+        ...sharedMatrixParameters(),
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/c098395e-30f8-4bd4-b8c5-394326b59919/specs'
@@ -53,28 +52,32 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const comboboxBelowOpenLightThemeWhiteBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[0]), lightThemeWhiteBackground)
+export const comboboxBelowOpenLightThemeWhiteBackground: Story = createFixedThemeStory(
+    component(positionStates[0]),
+    lightThemeWhiteBackground
 );
 
-export const comboboxAboveOpenLightThemeWhiteBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[1]), lightThemeWhiteBackground)
-);
-
-// prettier-ignore
-export const comboboxBelowOpenColorThemeDarkGreenBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[0]), colorThemeDarkGreenBackground)
+export const comboboxAboveOpenLightThemeWhiteBackground: Story = createFixedThemeStory(
+    component(positionStates[1]),
+    lightThemeWhiteBackground
 );
 
 // prettier-ignore
-export const comboboxAboveOpenColorThemeDarkGreenBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[1]), colorThemeDarkGreenBackground)
+export const comboboxBelowOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(
+    component(positionStates[0]), colorThemeDarkGreenBackground
 );
 
-export const comboboxBelowOpenDarkThemeBlackBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[0]), darkThemeBlackBackground)
+// prettier-ignore
+export const comboboxAboveOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(
+    component(positionStates[1]), colorThemeDarkGreenBackground
 );
 
-export const comboboxAboveOpenDarkThemeBlackBackground: Story = createRenderer(
-    singleThemeWrapper(component(positionStates[1]), darkThemeBlackBackground)
+export const comboboxBelowOpenDarkThemeBlackBackground: Story = createFixedThemeStory(
+    component(positionStates[0]),
+    darkThemeBlackBackground
+);
+
+export const comboboxAboveOpenDarkThemeBlackBackground: Story = createFixedThemeStory(
+    component(positionStates[1]),
+    darkThemeBlackBackground
 );

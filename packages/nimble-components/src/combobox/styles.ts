@@ -36,19 +36,15 @@ ComboboxOptions
         );
     }
 
-    :host .control {
-        bottom-border-width: var(--ni-private-bottom-border-width);
-    }
-
-    :host(:empty) .listbox {
-        display: none;
-    }
-
     :host([disabled]) *,
     :host([disabled]) {
         cursor: ${disabledCursor};
         user-select: none;
         color: ${bodyDisabledFontColor};
+    }
+
+    :host .control {
+        bottom-border-width: var(--ni-private-bottom-border-width);
     }
 
     :host(.invalid) .control {
@@ -57,26 +53,6 @@ ComboboxOptions
 
     :host([disabled]) .control {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
-    }
-
-    [part='indicator'] {
-        display: none;
-    }
-
-    .end-slot-container {
-        display: flex;
-        align-items: baseline;
-    }
-
-    .dropdown-button {
-        width: 24px;
-        height: 24px;
-        margin-left: ${smallPadding};
-    }
-
-    .dropdown-button::part(control) {
-        padding: 0px;
-        border-color: transparent;
     }
 
     .selected-value {
@@ -94,16 +70,13 @@ ComboboxOptions
         outline: none;
     }
 
-    :host([open]) slot[name='end'] .dropdown-button:not(.checked) {
-        background: ${fillSelectedColor};
+    [part='indicator'] {
+        display: none;
     }
 
-    .separator {
-        display: inline;
-        width: 2px;
-        border-right: 2px solid rgba(${borderRgbPartialColor}, 0.15);
-        height: calc(${controlHeight} - 12px);
-        align-self: center;
+    .end-slot-container {
+        display: flex;
+        align-items: baseline;
     }
 
     .error-content {
@@ -129,6 +102,29 @@ ComboboxOptions
     :host([disabled]) .error-content path,
     :host([disabled]) .dropdown-icon {
         fill: ${bodyDisabledFontColor};
+    }
+
+    .separator {
+        display: inline;
+        width: 2px;
+        border-right: 2px solid rgba(${borderRgbPartialColor}, 0.15);
+        height: calc(${controlHeight} - 12px);
+        align-self: center;
+    }
+
+    :host([open]) slot[name='end'] .dropdown-button:not(.checked) {
+        background: ${fillSelectedColor};
+    }
+
+    .dropdown-button {
+        width: 24px;
+        height: 24px;
+        margin-left: ${smallPadding};
+    }
+
+    .dropdown-button::part(control) {
+        padding: 0px;
+        border-color: transparent;
     }
 
     .errortext {
@@ -158,5 +154,9 @@ ComboboxOptions
 
     :host([disabled]) .errortext {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host(:empty) .listbox {
+        display: none;
     }
 `;

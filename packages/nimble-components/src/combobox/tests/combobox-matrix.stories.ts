@@ -1,20 +1,23 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import {
     createMatrix,
-    themeWrapper,
-    disabledStates,
-    DisabledState
+    sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import '..';
+import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Combobox',
     decorators: [withXD],
     parameters: {
+        ...sharedMatrixParameters(),
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e/specs'
@@ -36,11 +39,11 @@ const component = ([_, disabled]: DisabledState): ViewTemplate => html`
     </nimble-combobox>
 `;
 
-export const comboboxThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [disabledStates]))
+export const comboboxThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [disabledStates])
 );
 
-export const hiddenCombobox: Story = createRenderer(
+export const hiddenCombobox: Story = createStory(
     hiddenWrapper(
         html`<nimble-combobox hidden>
             <nimble-list-option value="1">Option 1</nimble-list-option>

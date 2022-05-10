@@ -1,37 +1,34 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
 import {
-    DisabledState,
-    disabledStates,
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
+import {
     createMatrix,
-    themeWrapper
+    sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import '..';
-import '../../tab';
-import '../../tab-panel';
-import '../../tabs-toolbar';
-import '../../button';
+import { DisabledState, disabledStates } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Tabs',
     decorators: [withXD],
     parameters: {
+        ...sharedMatrixParameters(),
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b/specs'
-        },
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        }
     }
 };
 
 export default metadata;
 
-type TabsToolbarState = boolean;
-const tabsToolbarState: TabsToolbarState[] = [false, true];
+const tabsToolbarState = [false, true] as const;
+type TabsToolbarState = typeof tabsToolbarState[number];
 
 // prettier-ignore
 const component = (
@@ -55,11 +52,11 @@ const component = (
     </nimble-tabs>
 `;
 
-export const tabsThemeMatrix: Story = createRenderer(
-    themeWrapper(createMatrix(component, [tabsToolbarState, disabledStates]))
+export const tabsThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(component, [tabsToolbarState, disabledStates])
 );
 
-export const hiddenTabs: Story = createRenderer(
+export const hiddenTabs: Story = createStory(
     hiddenWrapper(
         html`<nimble-tabs hidden>
             <nimble-tab>Tab One</nimble-tab>

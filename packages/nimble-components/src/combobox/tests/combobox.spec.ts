@@ -24,7 +24,7 @@ async function setup(
     return fixture<Combobox>(viewTemplate);
 }
 
-xdescribe('Combobox', () => {
+describe('Combobox', () => {
     it('should respect value set before connect is completed', async () => {
         const { element, connect, disconnect } = await setup();
 
@@ -90,6 +90,18 @@ xdescribe('Combobox', () => {
         await disconnect();
     });
 
+    it('clicking dropdown should set button to checked', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        element.control.click();
+        await DOM.nextUpdate();
+
+        expect(element.dropdownButton?.checked).toBeTrue();
+
+        await disconnect();
+    });
+
     it('clicking dropdown button should open menu', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
@@ -109,7 +121,31 @@ xdescribe('Combobox', () => {
         element.dropdownButton?.control.click();
         await DOM.nextUpdate();
 
-        expect(element.open).toBeTrue();
+        expect(element.open).toBeFalse();
+
+        await disconnect();
+    });
+
+    it('clicking dropdown button when popup is open should cause button to be unchecked', async () => {
+        const { element, connect, disconnect } = await setup(undefined, true);
+        await connect();
+
+        element.dropdownButton?.control.click();
+        await DOM.nextUpdate();
+
+        expect(element.dropdownButton?.checked).toBeFalse();
+
+        await disconnect();
+    });
+
+    it('setting open programmatically should update checked state of button', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        element.open = !element.open;
+        await DOM.nextUpdate();
+
+        expect(element.dropdownButton?.checked).toEqual(element.open);
 
         await disconnect();
     });

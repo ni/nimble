@@ -1,13 +1,15 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
-    "build": "npm run build:svg-to-ts && npm run build:ts",
+    "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico",
     "build:svg-to-ts": "svg-to-ts --config source/build/svg-to-ts-config.js",
+    "build:svg-to-ico": "node source/build/svg-to-ico.js",
     "build:ts": "tsc -p ./tsconfig.json",
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
-    "pack": "npm pack",
+    "pack": "npm run pack:npm && npm run pack:nuget",
+    "pack:npm": "npm pack",
     "pack:nuget": "cross-env-shell dotnet pack ./source/NimbleTokens --configuration Release -p:PackageVersion=$npm_package_version",
     "invoke-publish": "npm publish",
     "lint": "eslint ."
@@ -27,8 +29,10 @@
   "devDependencies": {
     "@ni/eslint-config-javascript": "^3.1.0",
     "cross-env": "^7.0.3",
+    "glob": "^8.0.1",
     "hex-rgb": "^4.0.0",
     "style-dictionary": "^3.7.0",
+    "svg-to-ico": "1.0.8",
     "svg-to-ts": "^6.0.1",
     "typescript": "^4.3.2"
   },

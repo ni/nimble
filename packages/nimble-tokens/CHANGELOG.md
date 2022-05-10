@@ -1,8 +1,88 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 09 Mar 2022 22:20:03 GMT and should not be manually modified.
+This log was last generated on Fri, 29 Apr 2022 15:27:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.1.0
+
+Fri, 29 Apr 2022 15:27:01 GMT
+
+### Minor changes
+
+- Add .ico versions of nimble icons to nuget export ([ni/nimble@8c3fe0e](https://github.com/ni/nimble/commit/8c3fe0e2c25daf35728fdf75d4a74dd86f1449c6))
+
+## 3.0.13
+
+Sat, 23 Apr 2022 05:05:02 GMT
+
+### Patches
+
+- Testing publish ([ni/nimble@d949ce6](https://github.com/ni/nimble/commit/d949ce60204c9d2bfabb8a31afbc5426f744cf7c))
+
+## 3.0.12
+
+Sat, 23 Apr 2022 04:31:01 GMT
+
+### Patches
+
+- Testing publish ([ni/nimble@c15a762](https://github.com/ni/nimble/commit/c15a7622cd434e8a7cdd19d20be8b658f0ea2f98))
+
+## 3.0.11
+
+Sat, 23 Apr 2022 04:15:09 GMT
+
+### Patches
+
+- Testing publishing ([ni/nimble@5b1c9ab](https://github.com/ni/nimble/commit/5b1c9ab8eb3eef0edc6eaff0c2ffdb14bbcc77f8))
+
+## 3.0.7
+
+Fri, 22 Apr 2022 22:36:24 GMT
+
+### Patches
+
+- Update Changelog entry format ([ni/nimble@4dc7e29](https://github.com/ni/nimble/commit/4dc7e295be4916b405e52d9ba83ad6d0a4059c49))
+
+## 3.0.6
+
+Fri, 22 Apr 2022 16:09:27 GMT
+
+### Patches
+
+- Tweak to trigger releases (rajsite@users.noreply.github.com)
+
+## 3.0.5
+
+Fri, 22 Apr 2022 15:28:51 GMT
+
+### Patches
+
+- Tweak to trigger releases (rajsite@users.noreply.github.com)
+
+## 3.0.4
+
+Fri, 22 Apr 2022 15:09:11 GMT
+
+### Patches
+
+- Tweak to trigger releases (rajsite@users.noreply.github.com)
+
+## 3.0.3
+
+Fri, 22 Apr 2022 14:26:36 GMT
+
+### Patches
+
+- No changes. Patching to trigger release pipelines. (rajsite@users.noreply.github.com)
+
+## 3.0.2
+
+Thu, 21 Apr 2022 20:57:24 GMT
+
+### Patches
+
+- Nimble tokens update Nuget license (rajsite@users.noreply.github.com)
 
 ## 3.0.1
 

@@ -1,8 +1,129 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 13 Apr 2022 23:09:34 GMT and should not be manually modified.
+This log was last generated on Mon, 09 May 2022 16:30:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.5.0
+
+Mon, 09 May 2022 16:30:15 GMT
+
+### Minor changes
+
+- Support clear-inline-padding class on frameless text field ([ni/nimble@9cd7e2b](https://github.com/ni/nimble/commit/9cd7e2b65f2c110358ea840e35791f9b45483968))
+
+## 8.4.0
+
+Wed, 04 May 2022 21:26:02 GMT
+
+### Minor changes
+
+- Create nimble-anchored-region ([ni/nimble@653341a](https://github.com/ni/nimble/commit/653341a69d93c7e4aaf09e601962bca50aec0967))
+
+## 8.3.0
+
+Mon, 02 May 2022 21:17:05 GMT
+
+### Minor changes
+
+- Added mousedown fill color ([ni/nimble@8221a0c](https://github.com/ni/nimble/commit/8221a0c79dde412326b2358add1a521894035e75))
+
+## 8.2.1
+
+Fri, 29 Apr 2022 20:41:59 GMT
+
+### Patches
+
+- Reflect ARIA attributes from toggle-button onto inner control ([ni/nimble@9ffe14d](https://github.com/ni/nimble/commit/9ffe14dc5c32a24e60b0a8b1e1db44a331af1350))
+
+## 8.2.0
+
+Fri, 29 Apr 2022 19:30:37 GMT
+
+### Minor changes
+
+- Show start slot on text field ([ni/nimble@f3f3545](https://github.com/ni/nimble/commit/f3f35459c1bf71a433c5b892803a01b129155f4a))
+
+## 8.1.11
+
+Fri, 29 Apr 2022 15:27:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.1.0
+
+## 8.1.10
+
+Sat, 23 Apr 2022 05:05:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.13
+
+## 8.1.9
+
+Sat, 23 Apr 2022 04:31:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.12
+
+## 8.1.8
+
+Sat, 23 Apr 2022 04:15:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.11
+
+## 8.1.4
+
+Fri, 22 Apr 2022 22:36:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.7
+
+## 8.1.3
+
+Fri, 22 Apr 2022 16:09:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.6
+
+## 8.1.2
+
+Fri, 22 Apr 2022 15:09:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.4
+
+## 8.1.1
+
+Fri, 22 Apr 2022 14:26:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.0.3
+
+## 8.1.0
+
+Fri, 22 Apr 2022 12:45:44 GMT
+
+### Minor changes
+
+- Add frameless appearance to nimble-text-field (7282195+m-akinc@users.noreply.github.com)
+
+## 8.0.2
+
+Thu, 21 Apr 2022 20:57:24 GMT
+
+### Patches
+
+- Fix minified source map generation (rajsite@users.noreply.github.com)
+- Bump @ni/nimble-tokens to v3.0.2
 
 ## 8.0.1
 

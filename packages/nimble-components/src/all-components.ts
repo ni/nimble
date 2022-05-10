@@ -4,6 +4,7 @@
  * that are required instead of leveraging this file.
  */
 
+import './anchored-region';
 import './breadcrumb';
 import './breadcrumb-item';
 import './button';

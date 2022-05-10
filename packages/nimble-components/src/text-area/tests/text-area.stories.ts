@@ -1,9 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
-import '..';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextAreaAppearance, TextAreaResize } from '../types';
+import '../../all-components';
 
 interface TextAreaArgs {
     appearance: TextAreaAppearance;
@@ -37,11 +37,11 @@ const metadata: Meta<TextAreaArgs> = {
             handles: ['change']
         }
     },
-    render: createRenderer(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-text-area
             appearance="${x => x.appearance}"
             placeholder="${x => x.placeholder}"
-            value="${x => x.value}"
+            :value="${x => x.value}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
             spellcheck="${x => x.spellcheck}"

@@ -4,7 +4,7 @@ import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import '..';
 import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
-import { createRenderer } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 
 interface ComboboxArgs {
     disabled: boolean;
@@ -40,7 +40,7 @@ const metadata: Meta<ComboboxArgs> = {
         }
     },
     // prettier-ignore
-    render: createRenderer(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-combobox
             autocomplete="${x => x.autocomplete}"
             ?disabled="${x => x.disabled}"

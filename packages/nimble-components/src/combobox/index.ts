@@ -5,6 +5,7 @@ import {
     ComboboxOptions,
     comboboxTemplate as template
 } from '@microsoft/fast-foundation';
+import { keyArrowDown, keyArrowUp, keySpace } from '@microsoft/fast-web-utilities';
 import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
@@ -74,9 +75,26 @@ export class Combobox extends FoundationCombobox {
         this.removeEventListener('focusout', this.focusOutHandler);
     }
 
-    public onDropdownClick(e: Event): void {
-        this.open = this.dropdownButton?.checked ?? false;
+    public toggleButtonClickHander(e: Event): void {
+        this.open = !this.open;
+        this.dropdownButton!.checked = this.open;
         e.stopPropagation();
+    }
+
+    public toggleButtonKeyDownHandler(e: KeyboardEvent): boolean {
+        switch (e.key) {
+            case keyArrowUp:
+                this.open = true;
+                return false;
+            case keyArrowDown:
+                this.open = true;
+                return false;
+            case keySpace:
+                this.open = !this.open;
+                return false;
+            default:
+                return true;
+        }
     }
 
     private readonly focusOutHandler = (): void => {
@@ -99,10 +117,12 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
             <span class="error-content">${exclamationMark16X16.data}</span>
             <div class="separator"></div>
             <nimble-toggle-button
-                ${ref('dropdownButton')}
-                @click="${(x, c) => x.onDropdownClick(c.event)}"
-                class="dropdown-button"
+                ${ref('dropdownButton')} 
+                ?checked="${x => x.open}"
                 ?disabled="${x => x.disabled}"
+                @click="${(x, c) => x.toggleButtonClickHander(c.event)}"
+                @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
+                class="dropdown-button"
                 part="button"
                 aria-haspopup="true"
                 aria-expanded="${x => x.open}"

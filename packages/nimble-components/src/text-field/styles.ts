@@ -63,6 +63,7 @@ export const styles = css`
         --ni-private-hover-bottom-border-width: 2px;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         border-bottom-width: var(--ni-private-bottom-border-width);
+        gap: calc(${standardPadding} / 2);
         padding-bottom: calc(
             var(--ni-private-hover-bottom-border-width) -
                 var(--ni-private-bottom-border-width)
@@ -79,11 +80,8 @@ export const styles = css`
         border-bottom-color: ${failColor};
     }
 
-    :host([readonly]:not([disabled])) .root {
-        border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
-        padding: 0px;
-        padding-bottom: 1px;
-        background-color: transparent;
+    :host([readonly]) .root {
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
     :host([disabled]) .root {
@@ -97,6 +95,10 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
+    :host([readonly]) .root:hover {
+        --ni-private-bottom-border-width: 1px;
+    }
+
     :host([disabled]) .root:hover {
         --ni-private-bottom-border-width: 1px;
     }
@@ -105,8 +107,41 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
-    [part='start'] {
+    :host([appearance='frameless'].clear-inline-padding) .root {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .root::before {
+        ${/* Empty string causes alignment issue */ ''}
+        content: ' ';
+        color: transparent;
+        width: 0px;
+        user-select: none;
+    }
+
+    :host([appearance='frameless'].clear-inline-padding) .root::before {
         display: none;
+    }
+
+    .root::after {
+        ${/* Empty string causes alignment issue */ ''}
+        content: ' ';
+        color: transparent;
+        width: 0px;
+        user-select: none;
+    }
+
+    :host([appearance='frameless'].clear-inline-padding) .root::after {
+        display: none;
+    }
+
+    [part='start'] {
+        display: contents;
+    }
+
+    slot[name='start']::slotted(*) {
+        flex: none;
     }
 
     .control {
@@ -114,8 +149,7 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
-        padding-top: 0px;
-        padding-bottom: 0px;
+        padding: 0px;
         height: calc(
             ${controlHeight} - ${borderWidth} -
                 var(--ni-private-hover-bottom-border-width)
@@ -123,8 +157,6 @@ export const styles = css`
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
-        padding-left: calc(${standardPadding} / 2);
-        padding-right: calc(${standardPadding} / 2);
         border: none;
         text-overflow: ellipsis;
     }
@@ -168,7 +200,6 @@ export const styles = css`
     :host(.invalid) .error-content svg {
         height: ${iconSize};
         width: ${iconSize};
-        padding-right: 8px;
         flex: none;
     }
 
@@ -196,10 +227,6 @@ export const styles = css`
         white-space: nowrap;
     }
 
-    :host(.invalid[readonly]:not([disabled])) .errortext {
-        top: calc(${controlHeight} - ${borderWidth});
-    }
-
     :host(.invalid) .error-text:empty {
         display: none;
     }
@@ -213,7 +240,6 @@ export const styles = css`
     }
 
     slot[name='actions']::slotted(*) {
-        margin-right: 8px;
         ${controlHeight.cssCustomProperty}: 24px;
     }
 `.withBehaviors(
@@ -225,6 +251,14 @@ export const styles = css`
                 padding-top: ${borderWidth};
                 padding-left: ${borderWidth};
                 padding-right: ${borderWidth};
+            }
+
+            :host([disabled]) .root {
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+
+            :host([disabled]) .root:hover {
+                --ni-private-bottom-border-width: 1px;
             }
         `
         ),
@@ -259,6 +293,11 @@ export const styles = css`
                 );
             }
 
+            :host([readonly]) .root {
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
+                border-color: transparent;
+            }
+
             :host([disabled]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
@@ -283,6 +322,25 @@ export const styles = css`
 
             :host(.invalid) .errortext {
                 top: calc(${controlHeight} - ${borderWidth});
+            }
+        `
+        ),
+        appearanceBehavior(
+            TextFieldAppearance.Frameless,
+            css`
+            .root {
+                --ni-private-bottom-border-width: 0px;
+                padding-top: ${borderWidth};
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
+
+            :host([readonly]) .root {
+                border-color: transparent;
+            }
+
+            .root:hover {
+                --ni-private-bottom-border-width: 0px;
             }
         `
         ),

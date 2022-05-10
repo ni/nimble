@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createRenderer } from '../../utilities/tests/storybook';
-import '..';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import '../../all-components';
 
 interface CheckboxArgs {
     label: string;
@@ -29,18 +29,18 @@ const metadata: Meta<CheckboxArgs> = {
             handles: ['change']
         }
     },
-    render: createRenderer(html`
+    render: createUserSelectedThemeStory(html`
         <nimble-checkbox
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
-            class="${x => (x.indeterminate ? 'indeterminate' : '')}"
+            :indeterminate="${x => x.indeterminate}"
         >
             ${x => x.label}
         </nimble-checkbox>
     `),
     argTypes: {
         indeterminate: {
-            description: `Whether the checkbox is in the indeterminate (i.e. partially checked) state.
+            description: `Whether the checkbox is in the indeterminate (i.e. partially checked) state. Configured programmatically, not by attribute.
 <details>
 <summary>Usage details</summary>
 The \`indeterminate\` state is not automatically changed when the user changes the \`checked\` state. Client applications that use \`indeterminate\` state are responsible for subscribing to the \`change\` event to respond to this situation.
