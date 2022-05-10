@@ -111,7 +111,7 @@ describe('Nimble drawer directive', () => {
             expect(testHostComponent.drawerState).toEqual(DrawerState.Closed);
         });
 
-        xit('when drawer overlay is clicked, cancel output/event is triggered', async () => {
+        it('when drawer overlay is clicked, cancel output/event is triggered', async () => {
             const canceledSpy = spyOn(testHostComponent, 'canceled');
             const drawerOverlay = drawerConfigured.shadowRoot!.querySelector('.overlay')!;
             (drawerOverlay as HTMLElement).click();
