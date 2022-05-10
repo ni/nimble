@@ -16,7 +16,7 @@ export class NimbleTextAreaDirective {
         return this.elementRef.nativeElement.appearance;
     }
 
-    @Input() public set appearance(value: TextAreaAppearance ) {
+    @Input() public set appearance(value: TextAreaAppearance) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
     }
 
@@ -35,7 +35,7 @@ export class NimbleTextAreaDirective {
         return this.elementRef.nativeElement.resize;
     }
 
-    @Input() public set resize(value: TextAreaResize ) {
+    @Input() public set resize(value: TextAreaResize) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'resize', value);
     }
 

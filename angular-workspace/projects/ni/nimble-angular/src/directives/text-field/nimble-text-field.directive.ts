@@ -17,7 +17,7 @@ export class NimbleTextFieldDirective {
         return this.elementRef.nativeElement.appearance;
     }
 
-    @Input() public set appearance(value: TextFieldAppearance ) {
+    @Input() public set appearance(value: TextFieldAppearance) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
     }
 

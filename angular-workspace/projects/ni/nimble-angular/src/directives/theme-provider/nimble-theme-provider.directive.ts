@@ -16,7 +16,7 @@ export class NimbleThemeProviderDirective {
         return this.elementRef.nativeElement.theme;
     }
 
-    @Input() public set theme(value: Theme ) {
+    @Input() public set theme(value: Theme) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'theme', value);
     }
 
