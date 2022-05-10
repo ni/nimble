@@ -88,7 +88,7 @@ export class MenuButton extends FoundationElement implements IButton {
         if (!this.open) {
             // Only fire an event here if the menu is changing to being closed. Otherwise,
             // wait until the menu is actually opened before firing the event.
-            this.$emit('open-change', { bubbles: false });
+            this.$emit('open-change');
         }
     }
 
@@ -100,7 +100,7 @@ export class MenuButton extends FoundationElement implements IButton {
             this.focusMenu();
         }
 
-        this.$emit('open-change', { bubbles: false });
+        this.$emit('open-change');
     }
 
     public focusoutHandler(e: FocusEvent): boolean {
