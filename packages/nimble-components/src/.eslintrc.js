@@ -26,6 +26,11 @@ module.exports = {
             { contexts: ['ClassDeclaration'] }
         ],
 
+        'no-restricted-syntax': ['error', {
+            selector: 'TSEnumDeclaration',
+            message: 'Use a const object instead of an enum. See other types.ts files for examples.'
+        }],
+
         // Rules enabled due to strictNullChecks
         '@typescript-eslint/no-non-null-assertion': 'off',
 
