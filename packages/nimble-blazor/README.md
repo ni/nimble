@@ -39,7 +39,7 @@ The built-in Blazor template projects are good starting points. First, decide wh
         - Run `npm run build` from the root of the Nimble repo
         - Run `npm run pack` from the nimble-blazor package directory
         - Visual Studio: "Project" >> "Manage NuGet Packages". Click the gear/Settings button. Add a new Package Source ("NimbleBlazor") as `[NimbleRepoDirectory]\packages\nimble-blazor\dist` and commit/ close Settings. Pick "NimbleBlazor" in the "Package Source" dropdown, and ensure "Include prerelease" is checked. Search for "NimbleBlazor.Components", select it and click the "Install" button.
-        - VS Code: Run the command `dotnet add package NimbleBlazor.Components --source C:\dev\nimble\packages\nimble-blazor\dist` in the Terminal window.
+        - VS Code: Run the command `dotnet add package NimbleBlazor.Components --source [NimbleRepoDirectory]\packages\nimble-blazor\dist` in the Terminal window.
 2. Add required references to Blazor code
     - Open `_Imports.razor`, and add a new line at the bottom: `@using NimbleBlazor.Components`
     - Open `_Layout.cshtml` (BlazorServer) / `wwwroot/index.html` (Blazor WebAssembly).  
@@ -53,7 +53,7 @@ The built-in Blazor template projects are good starting points. First, decide wh
         ```  
 
 ### Use Nimble Blazor components
-As a simple example, open `Index.razor` and add the following code at the bottom, to add a Nimble text field that updates when a Nimble button is clicked:
+For a simple modification to the Blazor template project: open `Index.razor` and add the following code at the bottom, to add a Nimble text field that updates when a Nimble button is clicked:
 ```cs
 <NimbleTextField Value="@ButtonClickStatus"></NimbleTextField>
 <NimbleButton Appearance="Appearance.Outline" @onclick="OnButtonClicked">Click Me</NimbleButton>
