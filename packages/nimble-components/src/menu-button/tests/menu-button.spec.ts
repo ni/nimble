@@ -25,7 +25,11 @@ describe('MenuButton', () => {
     let menuItem2: MenuItem;
     let menuItem3: MenuItem;
 
-    function createOpenChangeListeners(): {
+    /** A helper function to abstract adding an 'open-change' event listener, spying
+     * on the event being called, and removing the event listener. The returned promise
+     * should be resolved prior to completing a test.
+    */
+    function createOpenChangeListener(): {
         promise: Promise<void>,
         spy: jasmine.Spy
     } {
@@ -141,58 +145,58 @@ describe('MenuButton', () => {
 
     it('should open the menu and focus first menu item when the toggle button is clicked', async () => {
         await connect();
-        const openChangeListeners = createOpenChangeListeners();
+        const openChangeListener = createOpenChangeListener();
         element.toggleButton!.control.click();
         expect(element.open).toBeTrue();
-        await openChangeListeners.promise;
+        await openChangeListener.promise;
         expect(document.activeElement).toEqual(menuItem1);
     });
 
     it("should open the menu and focus first menu item when 'Enter' is pressed while the toggle button is focused", async () => {
         await connect();
-        const openChangeListeners = createOpenChangeListeners();
+        const openChangeListener = createOpenChangeListener();
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
         } as KeyboardEventInit);
         element.toggleButton!.control.dispatchEvent(event);
         expect(element.open).toBeTrue();
-        await openChangeListeners.promise;
+        await openChangeListener.promise;
         expect(document.activeElement).toEqual(menuItem1);
     });
 
     it("should open the menu and focus first menu item when 'Space' is pressed while the toggle button is focused", async () => {
         await connect();
-        const openChangeListeners = createOpenChangeListeners();
+        const openChangeListener = createOpenChangeListener();
         const event = new KeyboardEvent('keypress', {
             key: keySpace
         } as KeyboardEventInit);
         element.toggleButton!.control.dispatchEvent(event);
         expect(element.open).toBeTrue();
-        await openChangeListeners.promise;
+        await openChangeListener.promise;
         expect(document.activeElement).toEqual(menuItem1);
     });
 
     it('should open the menu and focus first menu item when the down arrow is pressed while the toggle button is focused', async () => {
         await connect();
-        const openChangeListeners = createOpenChangeListeners();
+        const openChangeListener = createOpenChangeListener();
         const event = new KeyboardEvent('keydown', {
             key: keyArrowDown
         } as KeyboardEventInit);
         element.toggleButton!.dispatchEvent(event);
         expect(element.open).toBeTrue();
-        await openChangeListeners.promise;
+        await openChangeListener.promise;
         expect(document.activeElement).toEqual(menuItem1);
     });
 
     it('should open the menu and focus last menu item when the up arrow is pressed while the toggle button is focused', async () => {
         await connect();
-        const openChangeListeners = createOpenChangeListeners();
+        const openChangeListener = createOpenChangeListener();
         const event = new KeyboardEvent('keydown', {
             key: keyArrowUp
         } as KeyboardEventInit);
         element.toggleButton!.dispatchEvent(event);
         expect(element.open).toBeTrue();
-        await openChangeListeners.promise;
+        await openChangeListener.promise;
         expect(document.activeElement).toEqual(menuItem3);
     });
 
@@ -289,19 +293,19 @@ describe('MenuButton', () => {
 
     it("should fire 'openChanged' event when the menu is opened", async () => {
         await connect();
-        const openChangeListeners = createOpenChangeListeners();
+        const openChangeListener = createOpenChangeListener();
         element.open = true;
-        await openChangeListeners.promise;
-        expect(openChangeListeners.spy).toHaveBeenCalledTimes(1);
+        await openChangeListener.promise;
+        expect(openChangeListener.spy).toHaveBeenCalledTimes(1);
     });
 
     it("should fire 'openChanged' event when the menu is closed", async () => {
         element.open = true;
         await connect();
-        const openChangeListeners = createOpenChangeListeners();
+        const openChangeListener = createOpenChangeListener();
         element.open = false;
-        await openChangeListeners.promise;
-        expect(openChangeListeners.spy).toHaveBeenCalledTimes(1);
+        await openChangeListener.promise;
+        expect(openChangeListener.spy).toHaveBeenCalledTimes(1);
     });
 
     it('should not interact with form', async () => {

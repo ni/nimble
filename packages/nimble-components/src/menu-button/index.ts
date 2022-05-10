@@ -92,7 +92,7 @@ export class MenuButton extends FoundationElement implements IButton {
         }
     }
 
-    public handleRegionLoaded(): void {
+    public regionLoadedHandler(): void {
         if (this.focusLastItemWhenOpened) {
             this.focusLastMenuItem();
             this.focusLastItemWhenOpened = false;

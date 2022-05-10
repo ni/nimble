@@ -37,7 +37,7 @@ export const template = html<MenuButton>`
                 horizontal-positioning-mode="dynamic"
                 vertical-positioning-mode="${x => (x.position === 'auto' ? 'dynamic' : 'locktodefault')}"
                 vertical-default-position="${x => (x.position === 'above' ? 'top' : 'bottom')}"
-                @loaded="${x => x.handleRegionLoaded()}"
+                @loaded="${x => x.regionLoadedHandler()}"
                 @change="${x => x.menuChangeHandler()}"
                 @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
                 ${ref('region')}
