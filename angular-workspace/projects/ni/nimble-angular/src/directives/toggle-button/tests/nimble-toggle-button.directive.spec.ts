@@ -131,7 +131,7 @@ describe('Nimble toggle button', () => {
             @ViewChild('toggleButton', { read: NimbleToggleButtonDirective }) public directive: NimbleToggleButtonDirective;
             @ViewChild('toggleButton', { read: ElementRef }) public elementRef: ElementRef<ToggleButton>;
             public disabled = false;
-            public appearance = ButtonAppearance.Outline;
+            public appearance: ButtonAppearance = ButtonAppearance.Outline;
             public contentHidden = false;
             public checked = false;
         }

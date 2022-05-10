@@ -237,7 +237,7 @@ describe('Nimble text area', () => {
         class TestHostComponent {
             @ViewChild('textArea', { read: NimbleTextAreaDirective }) public directive: NimbleTextAreaDirective;
             @ViewChild('textArea', { read: ElementRef }) public elementRef: ElementRef<TextArea>;
-            public appearance = TextAreaAppearance.Block;
+            public appearance: TextAreaAppearance = TextAreaAppearance.Block;
             public readonly = false;
             public resize: TextAreaResize = TextAreaResize.horizontal;
             public autofocus = false;

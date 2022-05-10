@@ -19,8 +19,8 @@ describe('Nimble drawer directive', () => {
         class TestHostComponent {
             @ViewChild('drawerConfigured', { static: true }) public drawerConfigured: ElementRef<Drawer>;
             @ViewChild('drawerUnconfigured', { static: true }) public drawerUnconfigured: ElementRef<Drawer>;
-            public drawerLocation = DrawerLocation.Right;
-            public drawerState = DrawerState.Opened;
+            public drawerLocation: DrawerLocation = DrawerLocation.Right;
+            public drawerState: DrawerState = DrawerState.Opened;
             public isDrawerModal = false;
             public drawerPreventDismiss = false;
             public canceled(): void {}

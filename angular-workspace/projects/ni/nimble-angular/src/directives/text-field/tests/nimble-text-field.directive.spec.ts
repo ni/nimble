@@ -302,7 +302,7 @@ describe('Nimble text field', () => {
         class TestHostComponent {
             @ViewChild('textField', { read: NimbleTextFieldDirective }) public directive: NimbleTextFieldDirective;
             @ViewChild('textField', { read: ElementRef }) public elementRef: ElementRef<TextField>;
-            public appearance = TextFieldAppearance.Block;
+            public appearance: TextFieldAppearance = TextFieldAppearance.Block;
             public readonly = false;
             public type: TextFieldType = TextFieldType.password;
             public autofocus = false;
