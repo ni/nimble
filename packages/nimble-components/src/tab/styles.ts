@@ -18,15 +18,17 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
+        position: relative;
         box-sizing: border-box;
         font: ${bodyFont};
         height: ${controlHeight};
         color: ${bodyFontColor};
-        display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        --active-indicator-width: 2px;
+        --focus-indicator-width: 1px;
+        --indicator-lines-gap: 1px;
     }
 
     :host(:hover) {
@@ -63,12 +65,14 @@ export const styles = css`
 
     :host::before {
         content: '';
-        top: calc(${controlHeight} - 1px);
-        position: relative;
+        position: absolute;
+        bottom: calc(
+            var(--active-indicator-width) + var(--indicator-lines-gap)
+        );
         width: 0px;
         height: 0px;
-        border-bottom: ${borderHoverColor} 1px solid;
-        transition: width 0.075s ease-in;
+        border-bottom: ${borderHoverColor} var(--focus-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
     }
 
     @media (prefers-reduced-motion) {
@@ -83,13 +87,12 @@ export const styles = css`
 
     :host::after {
         content: '';
-        top: -3px;
-        position: relative;
+        position: absolute;
+        bottom: 0px;
         width: 0px;
         height: 0px;
-        margin-top: 2px;
-        border-bottom: ${borderHoverColor} 2px solid;
-        transition: width 0.075s ease-in;
+        border-bottom: ${borderHoverColor} var(--active-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
     }
 
     @media (prefers-reduced-motion) {
