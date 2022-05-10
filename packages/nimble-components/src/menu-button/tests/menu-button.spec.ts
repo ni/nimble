@@ -220,17 +220,37 @@ describe('MenuButton', () => {
         expect(document.activeElement).toEqual(element);
     });
 
-    it('should close the menu when selecting a menu item', async () => {
+    it('should close the menu when selecting a menu item by clicking it', async () => {
         element.open = true;
         await connect();
         menuItem1.click();
         expect(element.open).toBeFalse();
     });
 
-    it('should focus the button when the menu is closed by selecting a menu item', async () => {
+    it('should focus the button when the menu is closed by selecting a menu item by clicking it', async () => {
         element.open = true;
         await connect();
         menuItem1.click();
+        expect(document.activeElement).toEqual(element);
+    });
+
+    it("should close the menu when selecting a menu item using 'Enter'", async () => {
+        element.open = true;
+        await connect();
+        const event = new KeyboardEvent('keydown', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        menuItem1.dispatchEvent(event);
+        expect(element.open).toBeFalse();
+    });
+
+    it("should focus the button when the menu is closed by selecting a menu item using 'Enter'", async () => {
+        element.open = true;
+        await connect();
+        const event = new KeyboardEvent('keydown', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        menuItem1.dispatchEvent(event);
         expect(document.activeElement).toEqual(element);
     });
 
