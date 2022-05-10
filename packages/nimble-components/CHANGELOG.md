@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 09 May 2022 16:30:15 GMT and should not be manually modified.
+This log was last generated on Tue, 10 May 2022 20:40:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.6.1
+
+Tue, 10 May 2022 20:40:12 GMT
+
+### Patches
+
+- Use LargeDelay token ([ni/nimble@54618fa](https://github.com/ni/nimble/commit/54618faeb76695e0480cb94c558d0818fa77ded8))
+- Bump @ni/nimble-tokens to v3.2.0
+
+## 8.6.0
+
+Tue, 10 May 2022 19:19:34 GMT
+
+### Minor changes
+
+- Create nimble-menu-button component ([ni/nimble@c4bb268](https://github.com/ni/nimble/commit/c4bb26837c1b6570d2dd8d09597a90d6f8eaf34c))
 
 ## 8.5.0
 
