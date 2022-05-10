@@ -239,7 +239,7 @@ describe('Nimble text area', () => {
             @ViewChild('textArea', { read: ElementRef }) public elementRef: ElementRef<TextArea>;
             public appearance = TextAreaAppearance.Block;
             public readonly = false;
-            public resize = TextAreaResize.horizontal;
+            public resize: TextAreaResize = TextAreaResize.horizontal;
             public autofocus = false;
             public disabled = false;
             public required = false;
