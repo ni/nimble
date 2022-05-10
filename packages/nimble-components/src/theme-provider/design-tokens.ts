@@ -14,6 +14,7 @@ import {
     Fail100LightUi,
     SmallDelay,
     MediumDelay,
+    LargeDelay,
     Fail100DarkUi,
     Warning100LightUi,
     Warning100DarkUi,
@@ -518,9 +519,9 @@ export const smallDelay = DesignToken.create<string>(
 export const mediumDelay = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.mediumDelay)
 ).withDefault(MediumDelay);
-export const largeDelay = DesignToken.create<number>(
+export const largeDelay = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.largeDelay)
-).withDefault(250);
+).withDefault(LargeDelay);
 
 // Private helpers functions
 function hexToRgbPartial(hexValue: string): string {
