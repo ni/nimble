@@ -6,7 +6,7 @@ import {
     Subscriber
 } from '@microsoft/fast-element';
 import type { DesignTokenChangeRecord } from '@microsoft/fast-foundation';
-import { Theme } from '../../theme-provider/types';
+import type { Theme } from '../../theme-provider/types';
 import { theme as themeToken } from '../../theme-provider';
 
 type ThemeStyles = { readonly [key in Theme]: ElementStyles | null };
@@ -43,8 +43,8 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
 }
 
 export type LightStyle = ElementStyles | null;
-export type DarkStyleOrAlias = ElementStyles | null | Theme.Light;
-export type ColorStyleOrAlias = ElementStyles | null | Theme.Light | Theme.Dark;
+export type DarkStyleOrAlias = ElementStyles | null | 'light';
+export type ColorStyleOrAlias = ElementStyles | null | 'light' | 'dark';
 type StyleOrPossibleAliases = ColorStyleOrAlias;
 /**
  * Behavior to conditionally apply theme-based stylesheets.
