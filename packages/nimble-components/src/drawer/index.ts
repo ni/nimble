@@ -187,9 +187,7 @@ export class Drawer extends FoundationDialog {
         } else {
             // string ends in 's' unit specifier
             const secondsString: string = largeDelay.getValueFor(this);
-            const secondsNumber: number = parseFloat(
-                secondsString.substring(0, secondsString.length - 1)
-            );
+            const secondsNumber: number = parseFloat(secondsString);
             this.animationDurationMilliseconds = 1000 * secondsNumber;
         }
     }
