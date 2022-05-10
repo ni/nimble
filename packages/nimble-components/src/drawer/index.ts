@@ -112,6 +112,7 @@ export class Drawer extends FoundationDialog {
      * @internal
      */
     public override dismiss(): void {
+        // Note: intentionally not calling super() in this function in order to implement custom preventDismiss behavior
         const shouldDismiss = this.$emit(
             'cancel',
             {},
