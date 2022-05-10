@@ -30,4 +30,5 @@ export const ButtonAppearance = {
     Ghost: 'ghost',
     Block: 'block'
 } as const;
-export type ButtonAppearance = typeof ButtonAppearance[keyof typeof ButtonAppearance];
+export type ButtonAppearance =
+    typeof ButtonAppearance[keyof typeof ButtonAppearance];

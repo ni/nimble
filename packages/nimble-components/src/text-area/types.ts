@@ -6,4 +6,5 @@ export const TextAreaAppearance = {
     Outline: 'outline',
     Block: 'block'
 } as const;
-export type TextAreaAppearance = typeof TextAreaAppearance[keyof typeof TextAreaAppearance];
+export type TextAreaAppearance =
+    typeof TextAreaAppearance[keyof typeof TextAreaAppearance];
