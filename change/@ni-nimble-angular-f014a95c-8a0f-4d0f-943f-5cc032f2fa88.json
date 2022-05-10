@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Change all enums to use const object and string union pattern. ndefinedndefined",
+  "packageName": "@ni/nimble-angular",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
