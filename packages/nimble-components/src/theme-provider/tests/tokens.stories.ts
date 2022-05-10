@@ -27,10 +27,10 @@ const PropertyFormat = {
     SCSS: 'SCSS',
     CSS: 'CSS'
 } as const;
-type PropertyFormatKeys = typeof PropertyFormat[keyof typeof PropertyFormat];
+type PropertyFormat = typeof PropertyFormat[keyof typeof PropertyFormat];
 
 interface TokenArgs {
-    propertyFormat: PropertyFormatKeys;
+    propertyFormat: PropertyFormat;
 }
 
 const metadata: Meta = {
