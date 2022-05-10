@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 01 Mar 2022 15:26:47 GMT
+ * Generated on Tue, 10 May 2022 14:21:51 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -36,6 +36,17 @@ export const Black50 = "#aeb0b3";
 export const DigitalGreenDark = "#006b46";
 export const PowerGreen = "#32eb96";
 export const Black22 = "#e6e6e6";
+export const CmykNiPaleGreen = "#ccdcc8";
+export const RgbNiPaleGreen = "#cddcc8";
+export const RgbNiForestGreen = "#044123";
+export const CmykNiNickel = "#aea19a";
+export const CmykNiForestGreen = "#044123";
+export const RgbNiGreen = "#03b585";
+export const CmykNiGreen = "#03b585";
+export const CmykNiHoneyDark3 = "#292011";
+export const Black82 = "#434445";
+export const IndigoDark1 = "#57539e";
+export const IndigoDark2 = "#312e7f";
 export const Title2Family = "Source Sans Pro";
 export const Title2Weight = "400";
 export const ControlLabel1Family = "Source Sans Pro";
@@ -76,7 +87,6 @@ export const LinkLightUiFamily = "Source Sans Pro";
 export const LinkLightUiWeight = "400";
 export const Headline1Family = "Noto Serif";
 export const Headline1Weight = "400";
-export const LegacyContentFamily = "'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif";
 export const ControlLabel1ChineseMacFamily = "Noto Sans";
 export const ControlLabel1ChineseMacWeight = "700";
 export const ButtonLabel1ChineseMacFamily = "Noto Sans";
@@ -93,6 +103,8 @@ export const ErrorDarkUiFamily = "Source Sans Pro";
 export const ErrorDarkUiWeight = "400";
 export const LinkSelection100LightUiFamily = "Source Sans Pro";
 export const LinkSelection100LightUiWeight = "400";
+export const GridHeaderFamily = "Source Sans Pro";
+export const GridHeaderWeight = "600";
 export const Title2Size = "22px";
 export const ControlLabel1Size = "11px";
 export const BodySize = "14px";
@@ -121,6 +133,7 @@ export const LinkVisitedLightUiSize = "14px";
 export const ErrorLightUiSize = "9px";
 export const ErrorDarkUiSize = "9px";
 export const LinkSelection100LightUiSize = "14px";
+export const GridHeaderSize = "12.800000190734863px";
 export const BodyLineHeight = "18px";
 export const ControlLabel1LineHeight = "16px";
 export const GroupLabel1LineHeight = "16px";
@@ -136,5 +149,6 @@ export const PlaceholderLineHeight = "18px";
 export const BodyEmphasizedLineHeight = "18px";
 export const ButtonLabel1LineHeight = "16px";
 export const TooltipCaptionLineHeight = "14px";
-export const SmallDelay = "0.1s"; // Short animation delay used for control state change animation
+export const SmallDelay = "0.075s"; // Short animation delay used for control state change animation
 export const MediumDelay = "0.15s"; // Medium animation delay for control state change animation
+export const LargeDelay = "0.25s"; // Long animation delay used for control state change animation

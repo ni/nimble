@@ -2,7 +2,7 @@
 
 /**
     Do not edit directly
-    Generated on Tue, 01 Mar 2022 15:26:47 GMT
+    Generated on Tue, 10 May 2022 14:21:51 GMT
 **/
 
 using System.Windows.Media;
@@ -42,6 +42,17 @@ public static class NimbleColorTokens {
     public static readonly Color digitalGreenDarkColor = Color.FromRgb(0, 107, 70);
     public static readonly Color powerGreenColor = Color.FromRgb(50, 235, 150);
     public static readonly Color black22Color = Color.FromRgb(230, 230, 230);
+    public static readonly Color cmykNiPaleGreenColor = Color.FromRgb(204, 220, 200);
+    public static readonly Color rgbNiPaleGreenColor = Color.FromRgb(205, 220, 200);
+    public static readonly Color rgbNiForestGreenColor = Color.FromRgb(4, 65, 35);
+    public static readonly Color cmykNiNickelColor = Color.FromRgb(174, 161, 154);
+    public static readonly Color cmykNiForestGreenColor = Color.FromRgb(4, 65, 35);
+    public static readonly Color rgbNiGreenColor = Color.FromRgb(3, 181, 133);
+    public static readonly Color cmykNiGreenColor = Color.FromRgb(3, 181, 133);
+    public static readonly Color cmykNiHoneyDark3Color = Color.FromRgb(41, 32, 17);
+    public static readonly Color black82Color = Color.FromRgb(67, 68, 69);
+    public static readonly Color indigoDark1Color = Color.FromRgb(87, 83, 158);
+    public static readonly Color indigoDark2Color = Color.FromRgb(49, 46, 127);
 
 
     public static readonly SolidColorBrush slLegacyBlueBrush = new SolidColorBrush(slLegacyBlueColor);
@@ -77,5 +88,16 @@ public static class NimbleColorTokens {
     public static readonly SolidColorBrush digitalGreenDarkBrush = new SolidColorBrush(digitalGreenDarkColor);
     public static readonly SolidColorBrush powerGreenBrush = new SolidColorBrush(powerGreenColor);
     public static readonly SolidColorBrush black22Brush = new SolidColorBrush(black22Color);
+    public static readonly SolidColorBrush cmykNiPaleGreenBrush = new SolidColorBrush(cmykNiPaleGreenColor);
+    public static readonly SolidColorBrush rgbNiPaleGreenBrush = new SolidColorBrush(rgbNiPaleGreenColor);
+    public static readonly SolidColorBrush rgbNiForestGreenBrush = new SolidColorBrush(rgbNiForestGreenColor);
+    public static readonly SolidColorBrush cmykNiNickelBrush = new SolidColorBrush(cmykNiNickelColor);
+    public static readonly SolidColorBrush cmykNiForestGreenBrush = new SolidColorBrush(cmykNiForestGreenColor);
+    public static readonly SolidColorBrush rgbNiGreenBrush = new SolidColorBrush(rgbNiGreenColor);
+    public static readonly SolidColorBrush cmykNiGreenBrush = new SolidColorBrush(cmykNiGreenColor);
+    public static readonly SolidColorBrush cmykNiHoneyDark3Brush = new SolidColorBrush(cmykNiHoneyDark3Color);
+    public static readonly SolidColorBrush black82Brush = new SolidColorBrush(black82Color);
+    public static readonly SolidColorBrush indigoDark1Brush = new SolidColorBrush(indigoDark1Color);
+    public static readonly SolidColorBrush indigoDark2Brush = new SolidColorBrush(indigoDark2Color);
 
 }

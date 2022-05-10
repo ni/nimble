@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 01 Mar 2022 15:26:47 GMT
+ * Generated on Tue, 10 May 2022 14:21:51 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -36,6 +36,17 @@ export const Black50 : string;
 export const DigitalGreenDark : string;
 export const PowerGreen : string;
 export const Black22 : string;
+export const CmykNiPaleGreen : string;
+export const RgbNiPaleGreen : string;
+export const RgbNiForestGreen : string;
+export const CmykNiNickel : string;
+export const CmykNiForestGreen : string;
+export const RgbNiGreen : string;
+export const CmykNiGreen : string;
+export const CmykNiHoneyDark3 : string;
+export const Black82 : string;
+export const IndigoDark1 : string;
+export const IndigoDark2 : string;
 export const Title2Family : string;
 export const Title2Weight : string;
 export const ControlLabel1Family : string;
@@ -76,7 +87,6 @@ export const LinkLightUiFamily : string;
 export const LinkLightUiWeight : string;
 export const Headline1Family : string;
 export const Headline1Weight : string;
-export const LegacyContentFamily : string;
 export const ControlLabel1ChineseMacFamily : string;
 export const ControlLabel1ChineseMacWeight : string;
 export const ButtonLabel1ChineseMacFamily : string;
@@ -93,6 +103,8 @@ export const ErrorDarkUiFamily : string;
 export const ErrorDarkUiWeight : string;
 export const LinkSelection100LightUiFamily : string;
 export const LinkSelection100LightUiWeight : string;
+export const GridHeaderFamily : string;
+export const GridHeaderWeight : string;
 export const Title2Size : string;
 export const ControlLabel1Size : string;
 export const BodySize : string;
@@ -121,6 +133,7 @@ export const LinkVisitedLightUiSize : string;
 export const ErrorLightUiSize : string;
 export const ErrorDarkUiSize : string;
 export const LinkSelection100LightUiSize : string;
+export const GridHeaderSize : string;
 export const BodyLineHeight : string;
 export const ControlLabel1LineHeight : string;
 export const GroupLabel1LineHeight : string;
@@ -138,3 +151,4 @@ export const ButtonLabel1LineHeight : string;
 export const TooltipCaptionLineHeight : string;
 export const SmallDelay : string; // Short animation delay used for control state change animation
 export const MediumDelay : string; // Medium animation delay for control state change animation
+export const LargeDelay : string; // Long animation delay used for control state change animation
