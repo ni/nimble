@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 10 May 2022 19:19:34 GMT",
+      "tag": "@ni/nimble-components_v8.6.0",
+      "version": "8.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c4bb26837c1b6570d2dd8d09597a90d6f8eaf34c",
+            "comment": "Create nimble-menu-button component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 09 May 2022 16:30:15 GMT",
       "tag": "@ni/nimble-components_v8.5.0",
       "version": "8.5.0",
