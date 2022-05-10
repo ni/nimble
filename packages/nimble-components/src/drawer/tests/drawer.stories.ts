@@ -119,7 +119,7 @@ const metadata: Meta<DrawerArgs> = {
             ?prevent-dismiss="${x => x.preventDismiss}"
             location="${x => x.location}"
             state="${x => x.state}" 
-            style="${x => `${drawerWidth.cssCustomProperty}:${widths[x.width]};`}"
+            style="${x => `${drawerWidth.cssCustomProperty}:${widths[x.width]!};`}"
         >
             ${x => content[x.content]}
         </nimble-drawer>
