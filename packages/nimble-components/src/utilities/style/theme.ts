@@ -43,8 +43,8 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
 }
 
 export type LightStyle = ElementStyles | null;
-export type DarkStyleOrAlias = ElementStyles | null | 'light';
-export type ColorStyleOrAlias = ElementStyles | null | 'light' | 'dark';
+export type DarkStyleOrAlias = ElementStyles | null | Extract<Theme, 'light'>;
+export type ColorStyleOrAlias = ElementStyles | null | Extract<Theme, 'light' | 'dark'>;
 type StyleOrPossibleAliases = ColorStyleOrAlias;
 /**
  * Behavior to conditionally apply theme-based stylesheets.
