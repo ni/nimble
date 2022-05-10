@@ -120,7 +120,7 @@ export class Drawer extends FoundationDialog {
             { bubbles: false, cancelable: true, composed: false }
         );
         if (shouldDismiss && !this.preventDismiss) {
-            super.dismiss();
+            this.$emit('dismiss');
             this.hide();
         }
     }
