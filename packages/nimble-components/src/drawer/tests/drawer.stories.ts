@@ -1,6 +1,7 @@
 import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { DrawerWidthOptions, ExampleContentType } from './types';
 import {
     createUserSelectedThemeStory,
     overrideWarning
@@ -16,20 +17,6 @@ import {
 import { DrawerLocation, DrawerState } from '../types';
 import type { Drawer } from '..';
 import '../../all-components';
-
-const ExampleContentType = {
-    SimpleTextContent: 'SimpleTextContent',
-    HeaderContentFooter: 'HeaderContentFooter'
-} as const;
-type ExampleContentType = typeof ExampleContentType[keyof typeof ExampleContentType];
-
-const DrawerWidthOptions = {
-    Default: 'Default',
-    Small300: 'Small300',
-    Medium500: 'Medium500',
-    FitContent: 'FitContent'
-};
-export type DrawerWidthOptions = typeof DrawerWidthOptions[keyof typeof DrawerWidthOptions];
 
 interface DrawerArgs {
     location: DrawerLocation;
