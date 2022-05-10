@@ -5,7 +5,11 @@ import {
     ComboboxOptions,
     comboboxTemplate as template
 } from '@microsoft/fast-foundation';
-import { keyArrowDown, keyArrowUp, keySpace } from '@microsoft/fast-web-utilities';
+import {
+    keyArrowDown,
+    keyArrowUp,
+    keySpace
+} from '@microsoft/fast-web-utilities';
 import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
@@ -117,7 +121,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
             <span class="error-content">${exclamationMark16X16.data}</span>
             <div class="separator"></div>
             <nimble-toggle-button
-                ${ref('dropdownButton')} 
+                ${ref('dropdownButton')}
                 ?checked="${x => x.open}"
                 ?disabled="${x => x.disabled}"
                 @click="${(x, c) => x.toggleButtonClickHander(c.event)}"
