@@ -33,7 +33,7 @@ describe('MenuButton', () => {
         return {
             promise: new Promise(resolve => {
                 const handler = (...args: unknown[]): void => {
-                    element.removeEventListener('open-changed', handler);
+                    element.removeEventListener('open-change', handler);
                     spy(...args);
                     resolve();
                 };
