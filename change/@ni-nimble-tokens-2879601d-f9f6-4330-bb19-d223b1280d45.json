@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Reduce small-delay, add large-delay, and update style dictionary",
+  "packageName": "@ni/nimble-tokens",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
