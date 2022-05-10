@@ -64,6 +64,10 @@ export class Combobox extends FoundationCombobox {
         // Call setPositioning() after this.forcedPosition is initialized.
         this.setPositioning();
         this.addEventListener('focusout', this.focusOutHandler);
+        const inputElement = this.shadowRoot?.querySelector('.selected-value');
+        if (this.ariaLabel) {
+            inputElement?.setAttribute('aria-label', this.ariaLabel);
+        }
     }
 
     public override disconnectedCallback(): void {
