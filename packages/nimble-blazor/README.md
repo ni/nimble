@@ -30,6 +30,8 @@ The built-in Blazor template projects are good starting points. First, decide wh
 **Visual Studio**: Choose "New" >> "Project", and pick "Blazor Server app" or "Blazor WebAssembly app".  
 **VS Code**: Create a new folder, then open it in VS Code. Choose "View" >> "Terminal", and type `dotnet new blazorserver -f net6.0` (for Blazor Server) or `dotnet new blazorwasm -f net6.0` (for Blazor WebAssembly) and press Enter. Open the Command Palette ("View" >> "Command Palette" or Ctrl-Shift-P), enter ".NET Generate Assets for Build and Debug" and press Enter.
 
+Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://docs.microsoft.com/en-us/learn/modules/build-blazor-webassembly-visual-studio-code/); [`dotnet new` documentation](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new)
+
 ### Reference NimbleBlazor in a Blazor project
 
 1. Add a PackageReference to the NimbleBlazor NuGet package:
@@ -37,8 +39,7 @@ The built-in Blazor template projects are good starting points. First, decide wh
         - Visual Studio: "Project" >> "Manage NuGet Packages", pick "nuget.org" in the "Package Source" dropdown, and ensure "Include prerelease" is checked. Search for "NimbleBlazor", select it and click the "Install" button.
         - VS Code: Run the command `dotnet add package NimbleBlazor --source https://api.nuget.org/v3/index.json --prerelease` in the Terminal window.
     - For Nimble developers, with a locally built NimbleBlazor NuGet (built from the Nimble repo):
-        - Run `npm run build` from the root of the Nimble repo
-        - Run `npm run pack` from the nimble-blazor package directory
+        - Run `npm run build`, and then `npm run pack -w @ni/nimble-blazor` from the root of the Nimble repo
         - Visual Studio: "Project" >> "Manage NuGet Packages". Click the gear/Settings button. Add a new Package Source ("NimbleBlazor") as `[NimbleRepoDirectory]\packages\nimble-blazor\dist` and commit/ close Settings. Pick "NimbleBlazor" in the "Package Source" dropdown, and ensure "Include prerelease" is checked. Search for "NimbleBlazor.Components", select it and click the "Install" button.
         - VS Code: Run the command `dotnet add package NimbleBlazor.Components --source [NimbleRepoDirectory]\packages\nimble-blazor\dist` in the Terminal window.
 2. Add required references to Blazor code
@@ -52,6 +53,8 @@ The built-in Blazor template projects are good starting points. First, decide wh
         ```html
         <script src="_content/NimbleBlazor.Components/nimble-components/all-components-bundle.min.js"></script>
         ```  
+
+Additional Resources: [`dotnet add package` documentation](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-add-package)
 
 ### Use Nimble Blazor components
 For a simple modification to the Blazor template project: open `Index.razor` and add the following code at the bottom, to add a Nimble text field that updates when a Nimble button is clicked:
