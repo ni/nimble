@@ -10,7 +10,7 @@ NI-styled UI components for Blazor applications
 
 This repo contains:
 1. Blazor components and styles matching the NI brand. These are published as a Nuget package to be consumed by either Blazor WebAssembly or Blazor Server applications.
-2. Two Blazor demo applications that consume the components: a Blazor WebAssembly application (NimbleBlazor.Demo.Client) and a Blazor Server application (NimbleBlazor.Demo.Server).
+2. Two Blazor demo applications that consume the components: a Blazor WebAssembly application (`NimbleBlazor.Demo.Client`) and a Blazor Server application (`NimbleBlazor.Demo.Server`).
 
 ## Getting Started
 
@@ -20,7 +20,7 @@ This repo contains:
     - **Windows with Visual Studio**: For Blazor development on Windows, the suggested IDE is:
         - Visual Studio 2022 ([Enterprise, if available](https://my.visualstudio.com/Downloads?PId=8229)): Choose the "ASP.NET and Web Development" Workload in the installer
         - Ensure Visual Studio is completely up to date (v17.1.6+): In Visual Studio click "Help" then "Check for Updates"
-    - **Mac / Visual Studio Code**: Install [Visual Studio Code](https://code.visualstudio.com/) and open it. Open the Extensions pane ("Preferences" >> "Extensions"), and search for / install the `ms-dotnettools.csharp` extension.
+    - **Mac with Visual Studio Code**: Install [Visual Studio Code](https://code.visualstudio.com/) and open it. Open the Extensions pane ("Preferences" >> "Extensions"), and search for / install the `ms-dotnettools.csharp` extension.
 2. .NET 6 SDK: If not already done, download and install the .NET 6 SDK version 6.0.202+  (run `dotnet --version`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
 
 ### Creating a new Blazor project
@@ -31,6 +31,7 @@ The built-in Blazor template projects are good starting points. First, decide wh
 **VS Code**: Create a new folder, then open it in VS Code. Choose "View" >> "Terminal", and type `dotnet new blazorserver -f net6.0` (for Blazor Server) or `dotnet new blazorwasm -f net6.0` (for Blazor WebAssembly) and press Enter. Open the Command Palette ("View" >> "Command Palette" or Ctrl-Shift-P), enter ".NET Generate Assets for Build and Debug" and press Enter.
 
 ### Reference NimbleBlazor in a Blazor project
+
 1. Add a PackageReference to the NimbleBlazor NuGet package:
     - **(Not yet updated)** ~~Using the published NimbleBlazor NuGet package (recommended)~~
         - Visual Studio: "Project" >> "Manage NuGet Packages", pick "nuget.org" in the "Package Source" dropdown, and ensure "Include prerelease" is checked. Search for "NimbleBlazor", select it and click the "Install" button.
