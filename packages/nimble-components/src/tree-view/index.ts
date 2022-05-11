@@ -49,6 +49,10 @@ export class TreeView extends FoundationTreeView {
             item.selected = true;
         } else if (this.itemHasChildren(item)) {
             item.expanded = !item.expanded;
+        } else if (item.children) {
+            for (let i = 0; i < item.children.length; i++) {
+                (item.children.item(i) as HTMLElement).click();
+            }
         }
         return true;
     }
