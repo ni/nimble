@@ -57,9 +57,6 @@ export const styles = css`
     :host([disabled]:hover) {
         background: transparent;
     }
-    :host(.indent-0) {
-        grid-template-columns: 1fr;
-    }
     :host(.indent-0[aria-haspopup='menu']) {
         grid-template-columns: 1fr ${iconSize};
     }
@@ -78,9 +75,6 @@ export const styles = css`
         height: ${iconSize};
     }
     :host(.indent-1) .start {
-        grid-column: 1;
-    }
-    :host(.indent-0) .content {
         grid-column: 1;
     }
     :host(.indent-1) .content {
