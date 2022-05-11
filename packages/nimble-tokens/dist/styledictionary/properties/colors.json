@@ -122,6 +122,15 @@
     },
     "CMYK NI Honey Dark 3": {
       "value": "#292011ff"
+    },
+    "Black82": {
+      "value": "#434445ff"
+    },
+    "IndigoDark1": {
+      "value": "#57539Eff"
+    },
+    "IndigoDark2": {
+      "value": "#312E7Fff"
     }
   }
 }

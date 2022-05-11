@@ -5,7 +5,7 @@
 
 <!--
   Do not edit directly
-  Generated on Tue, 01 Mar 2022 15:26:47 GMT
+  Generated on Tue, 10 May 2022 14:21:51 GMT
 -->
     <Color x:Key="SL_LegacyBlue">#ff009ff5</Color>
     <Color x:Key="Information100_DarkUI">#ffa46eff</Color>
@@ -40,6 +40,17 @@
     <Color x:Key="DigitalGreenDark">#ff006b46</Color>
     <Color x:Key="PowerGreen">#ff32eb96</Color>
     <Color x:Key="Black22">#ffe6e6e6</Color>
+    <Color x:Key="CMYK NI Pale Green">#ffccdcc8</Color>
+    <Color x:Key="RGB NI Pale Green">#ffcddcc8</Color>
+    <Color x:Key="RGB NI Forest Green">#ff044123</Color>
+    <Color x:Key="CMYK NI Nickel">#ffaea19a</Color>
+    <Color x:Key="CMYK NI Forest Green">#ff044123</Color>
+    <Color x:Key="RGB NI Green">#ff03b585</Color>
+    <Color x:Key="CMYK NI Green">#ff03b585</Color>
+    <Color x:Key="CMYK NI Honey Dark 3">#ff292011</Color>
+    <Color x:Key="Black82">#ff434445</Color>
+    <Color x:Key="IndigoDark1">#ff57539e</Color>
+    <Color x:Key="IndigoDark2">#ff312e7f</Color>
 
 
     <SolidColorBrush x:Key="SL_LegacyBlueBrush" Color="{StaticResource SL_LegacyBlue}"/>
@@ -75,5 +86,16 @@
     <SolidColorBrush x:Key="DigitalGreenDarkBrush" Color="{StaticResource DigitalGreenDark}"/>
     <SolidColorBrush x:Key="PowerGreenBrush" Color="{StaticResource PowerGreen}"/>
     <SolidColorBrush x:Key="Black22Brush" Color="{StaticResource Black22}"/>
+    <SolidColorBrush x:Key="CMYK NI Pale GreenBrush" Color="{StaticResource CMYK NI Pale Green}"/>
+    <SolidColorBrush x:Key="RGB NI Pale GreenBrush" Color="{StaticResource RGB NI Pale Green}"/>
+    <SolidColorBrush x:Key="RGB NI Forest GreenBrush" Color="{StaticResource RGB NI Forest Green}"/>
+    <SolidColorBrush x:Key="CMYK NI NickelBrush" Color="{StaticResource CMYK NI Nickel}"/>
+    <SolidColorBrush x:Key="CMYK NI Forest GreenBrush" Color="{StaticResource CMYK NI Forest Green}"/>
+    <SolidColorBrush x:Key="RGB NI GreenBrush" Color="{StaticResource RGB NI Green}"/>
+    <SolidColorBrush x:Key="CMYK NI GreenBrush" Color="{StaticResource CMYK NI Green}"/>
+    <SolidColorBrush x:Key="CMYK NI Honey Dark 3Brush" Color="{StaticResource CMYK NI Honey Dark 3}"/>
+    <SolidColorBrush x:Key="Black82Brush" Color="{StaticResource Black82}"/>
+    <SolidColorBrush x:Key="IndigoDark1Brush" Color="{StaticResource IndigoDark1}"/>
+    <SolidColorBrush x:Key="IndigoDark2Brush" Color="{StaticResource IndigoDark2}"/>
 
 </ResourceDictionary>

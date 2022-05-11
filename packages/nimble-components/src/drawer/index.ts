@@ -112,6 +112,7 @@ export class Drawer extends FoundationDialog {
      * @internal
      */
     public override dismiss(): void {
+        // Note: intentionally not calling super() in this function in order to implement custom preventDismiss behavior
         const shouldDismiss = this.$emit(
             'cancel',
             {},
@@ -120,7 +121,7 @@ export class Drawer extends FoundationDialog {
             { bubbles: false, cancelable: true, composed: false }
         );
         if (shouldDismiss && !this.preventDismiss) {
-            super.dismiss();
+            this.$emit('dismiss');
             this.hide();
         }
     }
@@ -182,9 +183,14 @@ export class Drawer extends FoundationDialog {
 
     private updateAnimationDuration(): void {
         const disableAnimations: boolean = prefersReducedMotionMediaQuery.matches;
-        this.animationDurationMilliseconds = disableAnimations
-            ? animationDurationWhenDisabledMilliseconds
-            : largeDelay.getValueFor(this);
+        if (disableAnimations) {
+            this.animationDurationMilliseconds = animationDurationWhenDisabledMilliseconds;
+        } else {
+            // string ends in 's' unit specifier
+            const secondsString: string = largeDelay.getValueFor(this);
+            const secondsNumber: number = parseFloat(secondsString);
+            this.animationDurationMilliseconds = 1000 * secondsNumber;
+        }
     }
 
     private animateOpening(): void {
