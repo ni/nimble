@@ -5,7 +5,6 @@ import {
     FoundationElementTemplate
 } from '@microsoft/fast-foundation';
 import {
-    fillSelectedColor,
     controlHeight,
     iconSize,
     failColor,
@@ -108,10 +107,6 @@ export const styles: FoundationElementTemplate<ElementStyles, ComboboxOptions> =
             border-right: 2px solid rgba(${borderRgbPartialColor}, 0.15);
             height: calc(${controlHeight} - 12px);
             align-self: center;
-        }
-
-        :host([open]) slot[name='end'] .dropdown-button:not(.checked) {
-            background: ${fillSelectedColor};
         }
 
         .dropdown-button {

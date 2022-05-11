@@ -81,7 +81,6 @@ export class Combobox extends FoundationCombobox {
 
     public toggleButtonClickHander(e: Event): void {
         this.open = !this.open;
-        this.dropdownButton!.checked = this.open;
         e.stopPropagation();
     }
 
@@ -101,10 +100,15 @@ export class Combobox extends FoundationCombobox {
         }
     }
 
-    private readonly focusOutHandler = (): void => {
+    protected override openChanged(): void {
+        super.openChanged();
         if (this.dropdownButton) {
-            this.dropdownButton.checked = false;
+            this.dropdownButton.checked = this.open;
         }
+    }
+
+    private readonly focusOutHandler = (): void => {
+        this.open = false;
     };
 }
 

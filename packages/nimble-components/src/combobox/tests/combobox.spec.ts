@@ -139,13 +139,27 @@ describe('Combobox', () => {
     });
 
     it('setting open programmatically should update checked state of button', async () => {
-        const { element, connect, disconnect } = await setup();
+        const { element, connect, disconnect } = await setup(undefined, false);
         await connect();
 
-        element.open = !element.open;
+        element.open = true;
         await DOM.nextUpdate();
 
-        expect(element.dropdownButton?.checked).toEqual(element.open);
+        expect(element.dropdownButton?.checked).toBeTrue();
+
+        await disconnect();
+    });
+
+    it('clicking dropdown after dropdown closed with button should cause button to be checked', async () => {
+        const { element, connect, disconnect } = await setup(undefined, true);
+        await connect();
+
+        element.dropdownButton?.control.click(); // open should be false
+        await DOM.nextUpdate();
+        element.control.click(); // open should be true
+        await DOM.nextUpdate();
+
+        expect(element.dropdownButton?.checked).toBeTrue();
 
         await disconnect();
     });
