@@ -30,10 +30,7 @@ const metadata: Meta = {
 
 export default metadata;
 
-const subMenuStates = [
-    false,
-    true
-] as const;
+const subMenuStates = [false, true] as const;
 type SubMenuState = typeof subMenuStates[number];
 
 // prettier-ignore
