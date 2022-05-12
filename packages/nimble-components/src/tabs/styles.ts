@@ -1,10 +1,5 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import {
-    borderHoverColor,
-    borderWidth,
-    smallDelay
-} from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('grid')}
@@ -21,22 +16,6 @@ export const styles = css`
         grid-template-columns: auto;
         width: max-content;
         align-self: end;
-    }
-
-    .activeIndicator {
-        grid-row: 2;
-        height: calc(${borderWidth} * 2);
-        background-color: ${borderHoverColor};
-    }
-
-    .activeIndicatorTransition {
-        transition: transform ${smallDelay} ease-in-out;
-    }
-
-    @media (prefers-reduced-motion) {
-        .activeIndicatorTransition {
-            transition: transform 0.01s;
-        }
     }
 
     .tabpanel {
