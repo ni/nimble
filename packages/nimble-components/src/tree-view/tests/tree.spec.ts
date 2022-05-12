@@ -59,7 +59,7 @@ async function pressEnterOnItem(item: TreeItem): Promise<void> {
     await waitForUpdatesAsync();
 }
 
-describe('TreeView', () => {
+fdescribe('TreeView', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let model: Model;
@@ -318,6 +318,22 @@ describe('TreeView', () => {
         it('when leaf item has Enter pressed, it is not selected', async () => {
             await pressEnterOnItem(model.leaf1);
             expect(model.leaf1.hasAttribute('selected')).toBe(false);
+        });
+
+        it('when leaf with child button is clicked, button gets click event', async () => {
+            const buttonClicked = jasmine.createSpy();
+            model.button.addEventListener('click', buttonClicked);
+            await clickElement(model.leaf1);
+
+            expect(buttonClicked.calls.count()).toEqual(1);
+        });
+
+        it('when leaf with child button has Enter pressed, button gets click event', async () => {
+            const buttonClicked = jasmine.createSpy();
+            model.button.addEventListener('click', buttonClicked);
+            await pressEnterOnItem(model.leaf1);
+
+            expect(buttonClicked.calls.count()).toEqual(1);
         });
     });
 });
