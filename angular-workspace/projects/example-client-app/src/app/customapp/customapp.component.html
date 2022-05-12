@@ -57,7 +57,7 @@
                 <div class="container-label">Menu Button</div>
                 <nimble-menu-button>
                     Menu Button
-                    <nimble-menu slot="menu">
+                    <nimble-menu slot="menu" (change)="onMenuButtonMenuChange($event)">
                         <header>Header 1</header>
                         <nimble-menu-item>
                             Item 1
