@@ -26,9 +26,9 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        --active-indicator-width: 2px;
-        --focus-indicator-width: 1px;
-        --indicator-lines-gap: 1px;
+        --ni-private-active-indicator-width: 2px;
+        --ni-private-focus-indicator-width: 1px;
+        --ni-private-indicator-lines-gap: 1px;
     }
 
     :host(:hover) {
@@ -67,11 +67,13 @@ export const styles = css`
         content: '';
         position: absolute;
         bottom: calc(
-            var(--active-indicator-width) + var(--indicator-lines-gap)
+            var(--ni-private-active-indicator-width) +
+                var(--ni-private-indicator-lines-gap)
         );
         width: 0px;
         height: 0px;
-        border-bottom: ${borderHoverColor} var(--focus-indicator-width) solid;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-focus-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
     }
 
@@ -91,7 +93,8 @@ export const styles = css`
         bottom: 0px;
         width: 0px;
         height: 0px;
-        border-bottom: ${borderHoverColor} var(--active-indicator-width) solid;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-active-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
     }
 
