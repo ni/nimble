@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 12 May 2022 18:16:13 GMT and should not be manually modified.
+This log was last generated on Thu, 12 May 2022 18:39:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.0
+
+Thu, 12 May 2022 18:39:55 GMT
+
+### Major changes
+
+- Fix drawer footer layout on Safari. Clients providing the drawer a header, section, and footer must now provide them in that order. They will be displayed in the order given ([ni/nimble@0413ad2](https://github.com/ni/nimble/commit/0413ad227ca26c4798f9551a43481220f3a08852))
 
 ## 8.6.3
 
