@@ -39,7 +39,6 @@ const component = (
     subMenu: SubMenuState
 ): ViewTemplate => html`
     <span style="${() => (subMenu ? 'padding: 15px; padding-right: 200px; display:inline-flex;' : 'padding: 15px; display:inline-flex;')}">
-    <span>
         <nimble-menu>
             <header>Header</header>
             <nimble-menu-item ?expanded=${() => subMenu}>
