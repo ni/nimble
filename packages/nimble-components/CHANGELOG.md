@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 10 May 2022 21:09:37 GMT and should not be manually modified.
+This log was last generated on Thu, 12 May 2022 18:16:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.6.3
+
+Thu, 12 May 2022 18:16:13 GMT
+
+### Patches
+
+- Fix a few cosmetic issues with tabs ([ni/nimble@a85233a](https://github.com/ni/nimble/commit/a85233a89ca31819e5861044d6c7af240db33933))
 
 ## 8.6.2
 
