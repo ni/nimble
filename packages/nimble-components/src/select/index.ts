@@ -17,16 +17,6 @@ declare global {
  * A nimble-styed HTML select
  */
 export class Select extends FoundationSelect {
-    // Workaround for https://github.com/microsoft/fast/issues/5123
-    public override setPositioning(): void {
-        if (!this.$fastController.isConnected) {
-            // Don't call setPositioning() until we're connected,
-            // since this.forcedPosition isn't initialized yet.
-            return;
-        }
-        super.setPositioning();
-    }
-
     // Workaround for https://github.com/microsoft/fast/issues/5773
     public override slottedOptionsChanged(
         prev: Element[],
