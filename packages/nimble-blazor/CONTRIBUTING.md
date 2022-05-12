@@ -1,15 +1,23 @@
 # Contributing to Nimble Blazor
 
-## Getting Started (Windows)
+## Getting Started
+
+If not already done, download and install the .NET 6 SDK version 6.0.202+  (run `dotnet --version`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+
+Initialize and build the Nimble monorepo (`npm install` + `npm run build` from the root `nimble` directory) before working with the Blazor codebase.
+
+### Windows (with Visual Studio)
 
 For Nimble Blazor development on Windows, the suggested tools to install are:
-- Visual Studio 2022 (Enterprise, if available): Choose the "ASP.NET and Web Development" Workload in the installer
+- Visual Studio 2022 ([Enterprise, if available](https://my.visualstudio.com/Downloads?PId=8229)): Choose the "ASP.NET and Web Development" Workload in the installer
+- Ensure Visual Studio is completely up to date (v17.1.6+): In Visual Studio click "Help" then "Check for Updates"
 - (Optional) Enable IIS (see "Enabling IIS", below)
 - ASP.NET Core Runtime 6.0.x (6.0.3 or higher): Choose "Hosting Bundle" under ASP.NET Core Runtime, on the [.NET 6.0 Download Page](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
-Initialize and build the Nimble monorepo (`npm install` + `npm run build` from the root `nimble` directory) before working with the solution in Visual Studio.
-
 In Visual Studio, run either the `NimbleBlazor.Demo.Server` or `NimbleBlazor.Demo.Projects` to see the Blazor demo apps.
+
+### Mac / Visual Studio Code
+Install [Visual Studio Code](https://code.visualstudio.com/), and install the suggested extensions that appear once you open the NimbleBlazor project folders.
 
 ## Creating a Blazor wrapper for a Nimble element
 
