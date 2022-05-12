@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 29 Apr 2022 15:27:01 GMT and should not be manually modified.
+This log was last generated on Tue, 10 May 2022 20:40:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.2.0
+
+Tue, 10 May 2022 20:40:12 GMT
+
+### Minor changes
+
+- Reduce small-delay, add large-delay, and update style dictionary ([ni/nimble@54618fa](https://github.com/ni/nimble/commit/54618faeb76695e0480cb94c558d0818fa77ded8))
 
 ## 3.1.0
 
