@@ -2,6 +2,57 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 10 May 2022 21:09:37 GMT",
+      "tag": "@ni/nimble-angular_v5.0.20",
+      "version": "5.0.20",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "765f2f5f4cd28592e16e163e0d4e4afa9a87b9a7",
+            "comment": "Update FAST dependency versions"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v8.6.2",
+            "commit": "765f2f5f4cd28592e16e163e0d4e4afa9a87b9a7"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 10 May 2022 20:40:12 GMT",
+      "tag": "@ni/nimble-angular_v5.0.19",
+      "version": "5.0.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v8.6.1",
+            "commit": "54618faeb76695e0480cb94c558d0818fa77ded8"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 10 May 2022 19:19:34 GMT",
+      "tag": "@ni/nimble-angular_v5.0.18",
+      "version": "5.0.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v8.6.0",
+            "commit": "c4bb26837c1b6570d2dd8d09597a90d6f8eaf34c"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 09 May 2022 16:30:15 GMT",
       "tag": "@ni/nimble-angular_v5.0.17",
       "version": "5.0.17",

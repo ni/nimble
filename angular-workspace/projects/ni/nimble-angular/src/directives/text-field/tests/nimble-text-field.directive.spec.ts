@@ -304,7 +304,7 @@ describe('Nimble text field', () => {
             @ViewChild('textField', { read: ElementRef }) public elementRef: ElementRef<TextField>;
             public appearance = TextFieldAppearance.Block;
             public readonly = false;
-            public type = TextFieldType.password;
+            public type: TextFieldType = TextFieldType.password;
             public autofocus = false;
             public disabled = false;
             public required = false;
