@@ -6,12 +6,15 @@ import {
     keyEscape
 } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance } from '../button/types';
-import type { ToggleButton } from '../toggle-button';
+import { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 import { template } from './template';
 import { MenuButtonPosition } from './types';
 import type { IButton } from '../patterns/button/types';
-import type { AnchoredRegion } from '../anchored-region';
+import { AnchoredRegion } from '../anchored-region';
+
+export { ToggleButton };
+export { AnchoredRegion };
 
 declare global {
     interface HTMLElementTagNameMap {
