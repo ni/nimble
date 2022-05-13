@@ -8,8 +8,9 @@ import {
     bodyDisabledFontColor,
     controlHeight,
     fillHoverColor,
-    mediumDelay,
-    standardPadding
+    fillHoverSelectedColor,
+    standardPadding,
+    smallDelay
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 
@@ -17,17 +18,17 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
+        position: relative;
         box-sizing: border-box;
         font: ${bodyFont};
         height: ${controlHeight};
-        padding: calc(${standardPadding} / 2) ${standardPadding}
-            calc(${standardPadding} / 2 - ${borderWidth});
         color: ${bodyFontColor};
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        ${/* Separate focus indicator from active indicator */ ''}
-        border-bottom: transparent ${borderWidth} solid;
+        --ni-private-active-indicator-width: 2px;
+        --ni-private-focus-indicator-width: 1px;
+        --ni-private-indicator-lines-gap: 1px;
     }
 
     :host(:hover) {
@@ -38,16 +39,12 @@ export const styles = css`
         outline: none;
     }
 
-    :host(${focusVisible}) {
-        outline: none;
-        box-shadow: 0 calc(${borderWidth} * -1) ${borderHoverColor} inset;
-        transition: box-shadow ${mediumDelay} ease-in-out;
+    :host(:focus:hover) {
+        background-color: ${fillHoverSelectedColor};
     }
 
-    @media (prefers-reduced-motion) {
-        :host(${focusVisible}) {
-            transition-duration: 0.01s;
-        }
+    :host(${focusVisible}) {
+        outline: none;
     }
 
     :host(:active) {
@@ -58,5 +55,56 @@ export const styles = css`
         cursor: default;
         color: ${bodyDisabledFontColor};
         background: none;
+    }
+
+    slot {
+        display: block;
+        padding: calc(${standardPadding} / 2) ${standardPadding}
+            calc(${standardPadding} / 2 - ${borderWidth});
+    }
+
+    :host::before {
+        content: '';
+        position: absolute;
+        bottom: calc(
+            var(--ni-private-active-indicator-width) +
+                var(--ni-private-indicator-lines-gap)
+        );
+        width: 0px;
+        height: 0px;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-focus-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        :host::before {
+            transition-duration: 0.01s;
+        }
+    }
+
+    :host(${focusVisible})::before {
+        width: 100%;
+    }
+
+    :host::after {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        width: 0px;
+        height: 0px;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-active-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        :host::after {
+            transition-duration: 0.01s;
+        }
+    }
+
+    :host([aria-selected='true'])::after {
+        width: 100%;
     }
 `;
