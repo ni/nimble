@@ -8,6 +8,7 @@ import {
 import {
     keyArrowDown,
     keyArrowUp,
+    keyEnter,
     keySpace
 } from '@microsoft/fast-web-utilities';
 import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
@@ -87,13 +88,11 @@ export class Combobox extends FoundationCombobox {
     public toggleButtonKeyDownHandler(e: KeyboardEvent): boolean {
         switch (e.key) {
             case keyArrowUp:
-                this.open = true;
-                return false;
             case keyArrowDown:
-                this.open = true;
-                return false;
             case keySpace:
-                this.open = !this.open;
+            case keyEnter:
+                this.open = true;
+                this.stopPropagation(e);
                 return false;
             default:
                 return true;
@@ -126,8 +125,10 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
             <div class="separator"></div>
             <nimble-toggle-button
                 ${ref('dropdownButton')}
+                appearance="ghost"
                 ?checked="${x => x.open}"
                 ?disabled="${x => x.disabled}"
+                content-hidden="true"
                 @click="${(x, c) => x.toggleButtonClickHander(c.event)}"
                 @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
                 class="dropdown-button"
@@ -141,9 +142,6 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 />
             </nimble-toggle-button>
         </div>
-        <span part="actions">
-            <slot name="actions"></slot>
-        </span>
         <div
             id="errortext"
             class="errortext error-content"

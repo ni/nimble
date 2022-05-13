@@ -34,7 +34,6 @@ export const styles: FoundationElementTemplate<ElementStyles, ComboboxOptions> =
 
         :host([disabled]) *,
         :host([disabled]) {
-            cursor: ${disabledCursor};
             user-select: none;
             color: ${bodyDisabledFontColor};
         }
@@ -110,14 +109,8 @@ export const styles: FoundationElementTemplate<ElementStyles, ComboboxOptions> =
         }
 
         .dropdown-button {
-            width: 24px;
-            height: 24px;
+            --ni-nimble-control-height: 24px;
             margin-left: ${smallPadding};
-        }
-
-        .dropdown-button::part(control) {
-            padding: 0px;
-            border-color: transparent;
         }
 
         .errortext {

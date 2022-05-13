@@ -8,9 +8,6 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N", null);
     private NimbleOptionContext? _context;
 
-    /// <summary>
-    /// Gets or sets the name of the Select.
-    /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
@@ -23,9 +20,6 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     [Parameter]
     public AutoComplete? AutoComplete { get; set; }
 
-    /// <summary>
-    /// Gets or sets the child content to be rendering inside the <see cref="NimbleCombobox"/>.
-    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
