@@ -16,7 +16,6 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     fillSelectedRgbPartialColor: 'fill-selected-rgb-partial-color',
     fillHoverSelectedColor: 'fill-hover-selected-color',
     fillHoverColor: 'fill-hover-color',
-    fillExpansionPathColor: 'fill-expansion-path-color',
     fillDownColor: 'fill-down-color',
     borderColor: 'border-color',
     borderRgbPartialColor: 'border-rgb-partial-color',
