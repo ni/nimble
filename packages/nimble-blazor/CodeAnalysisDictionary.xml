@@ -11,6 +11,7 @@
 			<Word>rtl</Word>
 			<Word>href</Word>
 			<Word>lang</Word>
+      <Word>frameless</Word>
 		</Recognized>
 		<DiscreteExceptions>
 		</DiscreteExceptions>
