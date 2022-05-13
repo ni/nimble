@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 12 May 2022 18:39:55 GMT",
+      "tag": "@ni/nimble-angular_v5.0.22",
+      "version": "5.0.22",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v9.0.0",
+            "commit": "0413ad227ca26c4798f9551a43481220f3a08852"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 May 2022 18:16:13 GMT",
+      "tag": "@ni/nimble-angular_v5.0.21",
+      "version": "5.0.21",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v8.6.3",
+            "commit": "a85233a89ca31819e5861044d6c7af240db33933"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 10 May 2022 21:09:37 GMT",
       "tag": "@ni/nimble-angular_v5.0.20",
       "version": "5.0.20",
