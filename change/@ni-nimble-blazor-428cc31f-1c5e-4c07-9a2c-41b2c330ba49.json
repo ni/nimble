@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "Replace single Appearance enum with one per control (ButtonAppearance, TextAreaAppearance, TextAreaAppearance). Add TextFieldAppearance.Frameless.",
+  "comment": "Replace single Appearance enum with one per control (ButtonAppearance, TextAreaAppearance, TextFieldAppearance). Add TextFieldAppearance.Frameless.",
   "packageName": "@ni/nimble-blazor",
   "email": "20709258+msmithNI@users.noreply.github.com",
   "dependentChangeType": "patch"
