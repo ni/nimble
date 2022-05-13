@@ -42,7 +42,7 @@ export const styles = css`
     :host([expanded]) {
         background: ${fillHoverColor};
     }
-    :host(:hover:not([expanded])) {
+    :host(:hover) {
         background: ${fillHoverColor};
     }
     :host(:active:not([expanded])) {
