@@ -59,7 +59,7 @@ async function pressEnterOnItem(item: TreeItem): Promise<void> {
     await waitForUpdatesAsync();
 }
 
-fdescribe('TreeView', () => {
+describe('TreeView', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let model: Model;
