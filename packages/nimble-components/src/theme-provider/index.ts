@@ -25,7 +25,7 @@ export const direction = DesignToken.create<Direction>({
 export const theme = DesignToken.create<Theme>({
     name: 'theme',
     cssCustomPropertyName: null
-}).withDefault(Theme.Light);
+}).withDefault(Theme.light);
 
 /**
  * The ThemeProvider implementation. Add this component to the page and set its `theme` attribute to control
@@ -41,7 +41,7 @@ export class ThemeProvider extends FoundationElement {
     @attr({
         attribute: 'theme'
     })
-    public theme: Theme = Theme.Light;
+    public theme: Theme = Theme.light;
 
     public directionChanged(
         _prev: Direction | undefined,

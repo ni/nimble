@@ -358,6 +358,6 @@ export const styles = css`
             }
         `,
             // Color theme
-            Theme.Dark
+            Theme.dark
         )
     );
