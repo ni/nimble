@@ -20,9 +20,9 @@ You can use a `const` object and a union of its values:
 
 ```ts
 export const ButtonAppearance = {
-    Outline: 'outline',
-    Ghost: 'ghost',
-    Block: 'block'
+    outline: 'outline',
+    ghost: 'ghost',
+    block: 'block'
 } as const;
 export type ButtonAppearance = typeof ButtonAppearance[keyof typeof ButtonAppearance];
 ```
