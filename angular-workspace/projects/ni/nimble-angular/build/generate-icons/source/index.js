@@ -5,6 +5,7 @@
  * files for each in src/directives/icons.
  */
 
+import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
 import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 const fs = require('fs');
@@ -13,15 +14,6 @@ const path = require('path');
 const trimSizeFromName = text => {
     // Remove dimensions from icon name, e.g. "add16X16" -> "add"
     return text.replace(/\d+X\d+$/, '');
-};
-
-const camelToPascalCase = text => {
-    return text.substring(0, 1).toUpperCase() + text.substring(1);
-};
-
-const camelToKebabCase = text => {
-    // Adapted from https://stackoverflow.com/a/67243723
-    return text.replace(/[A-Z]+(?![a-z])|[A-Z]/g, (substring, offset) => (offset !== 0 ? '-' : '') + substring.toLowerCase());
 };
 
 const getRelativeFilePath = (from, to) => {
@@ -50,9 +42,9 @@ console.log('Writing icon directive and module files');
 const directiveAndModulePaths = [];
 for (const key of Object.keys(icons)) {
     const iconName = trimSizeFromName(key); // "arrowExpanderLeft"
-    const directoryName = camelToKebabCase(iconName); // e.g. "arrow-expander-left"
-    const elementName = `nimble-${camelToKebabCase(iconName)}-icon`; // e.g. "nimble-arrow-expander-left-icon"
-    const className = `${camelToPascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
+    const directoryName = spinalCase(iconName); // e.g. "arrow-expander-left"
+    const elementName = `nimble-${spinalCase(iconName)}-icon`; // e.g. "nimble-arrow-expander-left-icon"
+    const className = `${pascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
     const directiveName = `Nimble${className}Directive`; // e.g. "NimbleArrowExpanderLeftIconDirective"
     const iconDirectory = path.resolve(iconsDirectory, directoryName);
     fs.mkdirSync(iconDirectory);
