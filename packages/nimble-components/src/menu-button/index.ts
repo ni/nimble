@@ -42,7 +42,7 @@ export class MenuButton extends FoundationElement implements IButton {
      * Configures where the menu should be placed relative to the button that opens the menu.
      */
     @attr({ attribute: 'position' })
-    public position: MenuButtonPosition = MenuButtonPosition.Auto;
+    public position: MenuButtonPosition = MenuButtonPosition.auto;
 
     /** @internal */
     @observable
