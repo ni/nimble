@@ -67,8 +67,7 @@ export const styles = css`
         position: relative;
         top: 0px;
         bottom: 0px;
-        display: grid;
-        grid-template-rows: max-content auto max-content;
+        display: flex;
         flex-direction: column;
         box-sizing: border-box;
         border-radius: 0px;
@@ -106,20 +105,21 @@ export const styles = css`
 
     ::slotted(header) {
         padding: ${standardPadding};
+        flex: none;
         font: ${titlePlus1Font};
     }
 
     ::slotted(section) {
         padding: ${standardPadding};
-        grid-row: 2;
+        flex: auto;
         overflow-y: auto;
     }
 
     ::slotted(footer) {
         padding: ${standardPadding};
+        flex: none;
         display: flex;
         justify-content: flex-end;
-        grid-row: 3;
         border-top: ${borderWidth} solid ${popupBorderColor};
     }
 `;

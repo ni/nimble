@@ -1,3 +1,4 @@
+import { spinalCase } from '@microsoft/fast-web-utilities';
 import * as designTokensNamespace from '../design-tokens';
 import { tokenNames } from '../design-token-names';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
@@ -54,17 +55,9 @@ describe('Theme Provider', () => {
                 disabled
             );
             specType(`for token name ${propertyName.name}`, () => {
-                const convertedTokenValue = camelToKebabCase(propertyName.name);
+                const convertedTokenValue = spinalCase(propertyName.name);
                 expect(tokenNameValues).toContain(convertedTokenValue);
             });
-        }
-
-        function camelToKebabCase(text: string): string {
-            // Adapted from https://stackoverflow.com/a/67243723
-            return text.replace(
-                /[A-Z]+(?![a-z])|[A-Z]|[0-9]/g,
-                (substring, offset) => (offset !== 0 ? '-' : '') + substring.toLowerCase()
-            );
         }
     });
 

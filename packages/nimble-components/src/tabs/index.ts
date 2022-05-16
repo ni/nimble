@@ -15,7 +15,13 @@ declare global {
 /**
  * A nimble-styled tabs control
  */
-export class Tabs extends FoundationTabs {}
+export class Tabs extends FoundationTabs {
+    public constructor() {
+        super();
+        // We disable the built-in active indicator so that we can implement our own
+        this.activeindicator = false;
+    }
+}
 
 const nimbleTabs = Tabs.compose<TabsOptions>({
     baseName: 'tabs',

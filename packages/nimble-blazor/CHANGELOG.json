@@ -2,6 +2,36 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 16 May 2022 17:10:25 GMT",
+      "tag": "@ni/nimble-blazor_v1.2.7",
+      "version": "1.2.7",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "cdd584eb582900e581bc47b287ef9a3ffee796f4",
+            "comment": "Use FAST helpers for capitalization"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 May 2022 19:48:25 GMT",
+      "tag": "@ni/nimble-blazor_v1.2.5",
+      "version": "1.2.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "3f11697cbf02b326eda418cbb104a2fa5c5c63ac",
+            "comment": "Documentation (Getting Started) updates for Nimble Blazor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 May 2022 22:31:24 GMT",
       "tag": "@ni/nimble-blazor_v1.2.0",
       "version": "1.2.0",

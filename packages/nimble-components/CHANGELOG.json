@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 16 May 2022 17:10:25 GMT",
+      "tag": "@ni/nimble-components_v9.0.0",
+      "version": "9.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cdd584eb582900e581bc47b287ef9a3ffee796f4",
+            "comment": "Use FAST helpers for capitalization"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 May 2022 18:39:55 GMT",
+      "tag": "@ni/nimble-components_v9.0.0",
+      "version": "9.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0413ad227ca26c4798f9551a43481220f3a08852",
+            "comment": "Fix drawer footer layout on Safari. Clients providing the drawer a header, section, and footer must now provide them in that order. They will be displayed in the order given"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 May 2022 18:16:13 GMT",
+      "tag": "@ni/nimble-components_v8.6.3",
+      "version": "8.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a85233a89ca31819e5861044d6c7af240db33933",
+            "comment": "Fix a few cosmetic issues with tabs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 10 May 2022 21:09:37 GMT",
       "tag": "@ni/nimble-components_v8.6.2",
       "version": "8.6.2",
