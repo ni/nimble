@@ -103,18 +103,13 @@ module.exports = {
             rules: {
                 // The const object and type union should have the same name
                 '@typescript-eslint/no-redeclare': 'off',
-                // Enum-like objects and values should use PascalCase
+                // Enum-like variables should use PascalCase and values should use camelCase
+                // Also allow camelCase variables for things like attribute strings
                 '@typescript-eslint/naming-convention': [
                     'error',
                     {
                         selector: 'objectLiteralProperty',
-                        format: ['PascalCase'],
-                    },
-                    {
-                        selector: 'default',
                         format: ['camelCase'],
-                        leadingUnderscore: 'allow',
-                        trailingUnderscore: 'allow',
                     },
                     {
                         selector: 'variable',
@@ -123,6 +118,12 @@ module.exports = {
                     {
                         selector: 'typeLike',
                         format: ['PascalCase'],
+                    },
+                    {
+                        selector: 'default',
+                        format: ['camelCase'],
+                        leadingUnderscore: 'allow',
+                        trailingUnderscore: 'allow',
                     },
                 ],            
             }
