@@ -171,7 +171,8 @@ export const styles = css`
     .control:disabled {
         ${
             /* There's an issue with the input element where the ellipsized
-               overflowed text is blank when scrolled into view, so just clip instead. */ ''
+               overflowed text is blank when scrolled into view, so just clip instead.
+               See https://webcompat.com/issues/104481 */ ''
         }
         text-overflow: clip;
     }
