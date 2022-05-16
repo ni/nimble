@@ -64,10 +64,10 @@ class ThemedElement extends FASTElement {
  */
 class ThemeController {
     @observable
-    public theme1: Theme =lighte.Light;
+    public theme1: Theme = Theme.light;
 
     @observable
-    public theme2: Theme =lighte.Light;
+    public theme2: Theme = Theme.light;
 
     public themedElement1!: ThemedElement;
     public themedElement2!: ThemedElement;
