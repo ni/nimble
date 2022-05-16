@@ -56,7 +56,7 @@ Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages y
 
 ## Coding conventions
 
-This repo follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide) with some exceptions listed in [Coding Conventions](/docs/coding-conventions.md).
+This repo generally follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide). Some packages list additional conventions in their `CONTRIBUTING.md`.
 
 ## Pull request policies
 
