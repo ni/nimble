@@ -1,5 +1,5 @@
 export const PropertyFormat = {
-    SCSS: 'SCSS',
-    CSS: 'CSS'
+    scss: 'SCSS',
+    css: 'CSS'
 } as const;
 export type PropertyFormat = typeof PropertyFormat[keyof typeof PropertyFormat];

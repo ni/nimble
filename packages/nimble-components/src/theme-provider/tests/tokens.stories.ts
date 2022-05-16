@@ -47,7 +47,7 @@ export const propertyNames: StoryObj<TokenArgs> = {
         controls: { hideNoControlsWarning: true }
     },
     args: {
-        propertyFormat: PropertyFormat.SCSS
+        propertyFormat: PropertyFormat.scss
     },
     argTypes: {
         propertyFormat: {
@@ -80,10 +80,10 @@ export const propertyNames: StoryObj<TokenArgs> = {
             ${repeat(() => tokenNameKeys, html<TokenName, TokenArgs>`
                 <tr>
                     <td>
-                        ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.CSS, html<TokenName>`
+                        ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.css, html<TokenName>`
                             ${x => cssPropertyFromTokenName(tokenNames[x])}
                         `)}
-                        ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.SCSS, html<TokenName>`
+                        ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.scss, html<TokenName>`
                             ${x => scssPropertyFromTokenName(tokenNames[x])}
                         `)}
                     </td>
