@@ -4,7 +4,7 @@
  * Iterates through icons provided by nimble-tokens, and generates a Nimble component for each in
  * src/icons. Also generates an all-icons barrel file.
  */
-
+import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
 import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 const fs = require('fs');
@@ -13,15 +13,6 @@ const path = require('path');
 const trimSizeFromName = text => {
     // Remove dimensions from icon name, e.g. "add16X16" -> "add"
     return text.replace(/\d+X\d+$/, '');
-};
-
-const camelToPascalCase = text => {
-    return text.substring(0, 1).toUpperCase() + text.substring(1);
-};
-
-const camelToKebabCase = text => {
-    // Adapted from https://stackoverflow.com/a/67243723
-    return text.replace(/[A-Z]+(?![a-z])|[A-Z]/g, (substring, offset) => (offset !== 0 ? '-' : '') + substring.toLowerCase());
 };
 
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
@@ -44,9 +35,9 @@ let fileCount = 0;
 for (const key of Object.keys(icons)) {
     const svgName = key; // e.g. "arrowExpanderLeft16X16"
     const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
-    const fileName = camelToKebabCase(iconName); // e.g. "arrow-expander-left";
-    const elementName = `${camelToKebabCase(iconName)}-icon`; // e.g. "arrow-expander-left-icon"
-    const className = `${camelToPascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
+    const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
+    const elementName = `${spinalCase(iconName)}-icon`; // e.g. "arrow-expander-left-icon"
+    const className = `${pascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
 
     const componentFileContents = `${generatedFilePrefix}
 import { ${svgName} } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
