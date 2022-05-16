@@ -10,6 +10,6 @@ export const DrawerWidthOptions = {
     Small300: 'Small300',
     Medium500: 'Medium500',
     FitContent: 'FitContent'
-};
+} as const;
 export type DrawerWidthOptions =
     typeof DrawerWidthOptions[keyof typeof DrawerWidthOptions];
