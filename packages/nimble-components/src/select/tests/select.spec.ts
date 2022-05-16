@@ -38,7 +38,7 @@ describe('Select', () => {
     });
 
     it('should respect "open" and "position" attributes when both set', async () => {
-        const position = 'above';
+        const position = 'below';
         const { element, connect, disconnect } = await setup(position, true);
 
         await connect();
