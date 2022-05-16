@@ -3,9 +3,9 @@
  * @public
  */
 export const IconStatus = {
-    Fail: 'fail',
-    Warning: 'warning',
-    Pass: 'pass',
-    Regular: 'regular'
+    fail: 'fail',
+    warning: 'warning',
+    pass: 'pass',
+    regular: 'regular'
 } as const;
 export type IconStatus = typeof IconStatus[keyof typeof IconStatus];
