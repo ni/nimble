@@ -131,15 +131,15 @@ const metadata: Meta<DrawerArgs> = {
     `),
     argTypes: {
         location: {
-            options: [DrawerLocation.Left, DrawerLocation.Right],
+            options: [DrawerLocation.left, DrawerLocation.right],
             control: { type: 'radio' }
         },
         state: {
             options: [
-                DrawerState.Opening,
-                DrawerState.Opened,
-                DrawerState.Closing,
-                DrawerState.Closed
+                DrawerState.opening,
+                DrawerState.opened,
+                DrawerState.closing,
+                DrawerState.closed
             ],
             control: { type: 'select' }
         },
@@ -196,15 +196,15 @@ const metadata: Meta<DrawerArgs> = {
         }
     },
     args: {
-        location: DrawerLocation.Left,
-        state: DrawerState.Opened,
+        location: DrawerLocation.left,
+        state: DrawerState.opened,
         modal: 'true',
         preventDismiss: false,
         content: ExampleContentType.SimpleTextContent,
         width: DrawerWidthOptions.Default,
         drawerRef: undefined,
         toggleDrawer: (x: Drawer): void => {
-            x.state = x.hidden ? DrawerState.Opening : DrawerState.Closing;
+            x.state = x.hidden ? DrawerState.opening : DrawerState.closing;
         }
     }
 };

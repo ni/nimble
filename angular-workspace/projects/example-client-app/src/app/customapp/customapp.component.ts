@@ -7,7 +7,7 @@ import { DrawerLocation } from '@ni/nimble-angular';
     styleUrls: ['./customapp.component.scss']
 })
 export class CustomAppComponent {
-    public drawerLocation: DrawerLocation = DrawerLocation.Right;
+    public drawerLocation: DrawerLocation = DrawerLocation.right;
     public isDrawerPinned = false;
     public drawerLocations = DrawerLocation;
 }

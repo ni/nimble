@@ -1,13 +1,13 @@
 export const DrawerLocation = {
-    Left: 'left',
-    Right: 'right'
+    left: 'left',
+    right: 'right'
 } as const;
 export type DrawerLocation = typeof DrawerLocation[keyof typeof DrawerLocation];
 
 export const DrawerState = {
-    Opening: 'opening',
-    Opened: 'opened',
-    Closing: 'closing',
-    Closed: 'closed'
+    opening: 'opening',
+    opened: 'opened',
+    closing: 'closing',
+    closed: 'closed'
 } as const;
 export type DrawerState = typeof DrawerState[keyof typeof DrawerState];

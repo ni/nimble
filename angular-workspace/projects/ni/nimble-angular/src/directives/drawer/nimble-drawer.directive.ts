@@ -51,11 +51,11 @@ export class NimbleDrawerDirective {
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Drawer>) {}
 
     public show(): void {
-        this.state = DrawerState.Opening;
+        this.state = DrawerState.opening;
     }
 
     public hide(): void {
-        this.state = DrawerState.Closing;
+        this.state = DrawerState.closing;
     }
 
     @HostListener('state-change', ['$event'])
