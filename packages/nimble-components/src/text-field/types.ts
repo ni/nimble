@@ -9,10 +9,10 @@ export { TextFieldType };
  * Values for the 'appearance' property of the text field
  */
 export const TextFieldAppearance = {
-    Underline: 'underline',
-    Outline: 'outline',
-    Block: 'block',
-    Frameless: 'frameless'
+    underline: 'underline',
+    outline: 'outline',
+    block: 'block',
+    frameless: 'frameless'
 } as const;
 
 export type TextFieldAppearance =

@@ -27,7 +27,7 @@ export class TextField extends FoundationTextField {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance: TextFieldAppearance = TextFieldAppearance.Underline;
+    public appearance: TextFieldAppearance = TextFieldAppearance.underline;
 
     /**
      * A message explaining why the value is invalid.

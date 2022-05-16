@@ -244,7 +244,7 @@ export const styles = css`
     }
 `.withBehaviors(
         appearanceBehavior(
-            TextFieldAppearance.Underline,
+            TextFieldAppearance.underline,
             css`
             .root {
                 --ni-private-bottom-border-width: 1px;
@@ -263,7 +263,7 @@ export const styles = css`
         `
         ),
         appearanceBehavior(
-            TextFieldAppearance.Block,
+            TextFieldAppearance.block,
             css`
             .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
@@ -312,7 +312,7 @@ export const styles = css`
         `
         ),
         appearanceBehavior(
-            TextFieldAppearance.Outline,
+            TextFieldAppearance.outline,
             css`
             .root {
                 --ni-private-bottom-border-width: 1px;
@@ -326,7 +326,7 @@ export const styles = css`
         `
         ),
         appearanceBehavior(
-            TextFieldAppearance.Frameless,
+            TextFieldAppearance.frameless,
             css`
             .root {
                 --ni-private-bottom-border-width: 0px;
