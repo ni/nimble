@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "1. Change all enums to use const object and string union pattern. Most clients should be unaffected but could break due to:\n   - slightly different TypeScript type inference; fix by providing explicit types.\n   - string unions named `*Attribute` have been renamed to remove the word `Attribute`.\n2. `MenuButtonPosition` fields are now capitalized",
+  "comment": "Rename enum options to use camelCase instead of PascalCase to improve API consistency. Also change all enums to use const object and string union pattern. Most clients should be unaffected but could break due to:\n   - slightly different TypeScript type inference; fix by providing explicit types.\n   - string unions named `*Attribute` have been renamed to remove the word `Attribute`.",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "patch"
