@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 16 May 2022 17:10:25 GMT",
+      "tag": "@ni/nimble-angular_v5.0.22",
+      "version": "5.0.22",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "cdd584eb582900e581bc47b287ef9a3ffee796f4",
+            "comment": "Use FAST helpers for capitalization"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 12 May 2022 18:39:55 GMT",
       "tag": "@ni/nimble-angular_v5.0.22",
       "version": "5.0.22",
