@@ -85,20 +85,20 @@ export default metadata;
 export const outlineButton: StoryObj<ToggleButtonArgs> = {
     args: {
         label: 'Outline Toggle Button',
-        appearance: ButtonAppearance.Outline
+        appearance: ButtonAppearance.outline
     }
 };
 export const ghostButton: StoryObj<ToggleButtonArgs> = {
-    args: { label: 'Ghost Toggle Button', appearance: ButtonAppearance.Ghost }
+    args: { label: 'Ghost Toggle Button', appearance: ButtonAppearance.ghost }
 };
 export const blockButton: StoryObj<ToggleButtonArgs> = {
-    args: { label: 'Block Toggle Button', appearance: ButtonAppearance.Block }
+    args: { label: 'Block Toggle Button', appearance: ButtonAppearance.block }
 };
 export const iconButton: StoryObj<ToggleButtonArgs> = {
     args: {
         label: 'Icon Toggle Button',
         icon: true,
         contentHidden: true,
-        appearance: ButtonAppearance.Outline
+        appearance: ButtonAppearance.outline
     }
 };

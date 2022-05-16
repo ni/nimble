@@ -33,5 +33,5 @@ To clients, the object and values will behave like an enum:
 
 ```ts
 import { ButtonAppearance from '../types.ts' }
-let appearance: ButtonAppearance = ButtonAppearance.Outline;
+let appearance: ButtonAppearance = ButtonAppearance.outline;
 ```

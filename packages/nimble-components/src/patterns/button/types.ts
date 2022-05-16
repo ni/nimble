@@ -26,9 +26,9 @@ export interface IButton {
  * @public
  */
 export const ButtonAppearance = {
-    Outline: 'outline',
-    Ghost: 'ghost',
-    Block: 'block'
+    outline: 'outline',
+    ghost: 'ghost',
+    block: 'block'
 } as const;
 export type ButtonAppearance =
     typeof ButtonAppearance[keyof typeof ButtonAppearance];
