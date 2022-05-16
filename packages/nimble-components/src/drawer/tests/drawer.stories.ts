@@ -64,15 +64,15 @@ const headerFooterContent = html<DrawerArgs>`
     </footer>`;
 
 const content = {
-    [ExampleContentType.SimpleTextContent]: simpleContent,
-    [ExampleContentType.HeaderContentFooter]: headerFooterContent
+    [ExampleContentType.simpleTextContent]: simpleContent,
+    [ExampleContentType.headerContentFooter]: headerFooterContent
 } as const;
 
 const widths = {
-    [DrawerWidthOptions.Default]: drawerWidth.getValueFor(document.body),
-    [DrawerWidthOptions.Small300]: '300px',
-    [DrawerWidthOptions.Medium500]: '500px',
-    [DrawerWidthOptions.FitContent]: 'fit-content'
+    [DrawerWidthOptions.default]: drawerWidth.getValueFor(document.body),
+    [DrawerWidthOptions.small300]: '300px',
+    [DrawerWidthOptions.medium500]: '500px',
+    [DrawerWidthOptions.fitContent]: 'fit-content'
 } as const;
 
 const widthDescriptionOverride = `
@@ -151,15 +151,15 @@ const metadata: Meta<DrawerArgs> = {
         },
         content: {
             options: [
-                ExampleContentType.SimpleTextContent,
-                ExampleContentType.HeaderContentFooter
+                ExampleContentType.simpleTextContent,
+                ExampleContentType.headerContentFooter
             ],
             control: {
                 type: 'radio',
                 labels: {
-                    [ExampleContentType.SimpleTextContent]:
+                    [ExampleContentType.simpleTextContent]:
                         'Simple Text Content',
-                    [ExampleContentType.HeaderContentFooter]:
+                    [ExampleContentType.headerContentFooter]:
                         'Header/Content/Footer Example'
                 }
             }
@@ -167,20 +167,20 @@ const metadata: Meta<DrawerArgs> = {
         width: {
             description: widthDescription,
             options: [
-                DrawerWidthOptions.Default,
-                DrawerWidthOptions.Small300,
-                DrawerWidthOptions.Medium500,
-                DrawerWidthOptions.FitContent
+                DrawerWidthOptions.default,
+                DrawerWidthOptions.small300,
+                DrawerWidthOptions.medium500,
+                DrawerWidthOptions.fitContent
             ],
             control: {
                 type: 'select',
                 labels: {
-                    [DrawerWidthOptions.Default]: `Default (${drawerWidth.getValueFor(
+                    [DrawerWidthOptions.default]: `Default (${drawerWidth.getValueFor(
                         document.body
                     )})`,
-                    [DrawerWidthOptions.Small300]: 'Small - 300px',
-                    [DrawerWidthOptions.Medium500]: 'Medium - 500px',
-                    [DrawerWidthOptions.FitContent]: 'fit-content'
+                    [DrawerWidthOptions.small300]: 'Small - 300px',
+                    [DrawerWidthOptions.medium500]: 'Medium - 500px',
+                    [DrawerWidthOptions.fitContent]: 'fit-content'
                 }
             }
         },
@@ -200,8 +200,8 @@ const metadata: Meta<DrawerArgs> = {
         state: DrawerState.opened,
         modal: 'true',
         preventDismiss: false,
-        content: ExampleContentType.SimpleTextContent,
-        width: DrawerWidthOptions.Default,
+        content: ExampleContentType.simpleTextContent,
+        width: DrawerWidthOptions.default,
         drawerRef: undefined,
         toggleDrawer: (x: Drawer): void => {
             x.state = x.hidden ? DrawerState.opening : DrawerState.closing;
