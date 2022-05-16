@@ -1,4 +1,4 @@
-import { html, ref, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { DrawerWidthOptions, ExampleContentType } from './types';
@@ -63,19 +63,17 @@ const headerFooterContent = html<DrawerArgs>`
         <nimble-button @click="${x => x.drawerRef.hide()}" appearance="outline">OK</nimble-button>
     </footer>`;
 
-const content: {
-    readonly [key in ExampleContentType]: ViewTemplate<DrawerArgs>;
-} = {
+const content = {
     [ExampleContentType.SimpleTextContent]: simpleContent,
     [ExampleContentType.HeaderContentFooter]: headerFooterContent
-};
+} as const;
 
-const widths: { readonly [key in DrawerWidthOptions]: string } = {
+const widths = {
     [DrawerWidthOptions.Default]: drawerWidth.getValueFor(document.body),
     [DrawerWidthOptions.Small300]: '300px',
     [DrawerWidthOptions.Medium500]: '500px',
     [DrawerWidthOptions.FitContent]: 'fit-content'
-};
+} as const;
 
 const widthDescriptionOverride = `
 With SCSS properties, the drawer width can be overriden. For example:
