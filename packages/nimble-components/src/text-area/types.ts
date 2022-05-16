@@ -3,8 +3,8 @@ import { TextAreaResize } from '@microsoft/fast-foundation';
 export { TextAreaResize };
 
 export const TextAreaAppearance = {
-    Outline: 'outline',
-    Block: 'block'
+    outline: 'outline',
+    block: 'block'
 } as const;
 export type TextAreaAppearance =
     typeof TextAreaAppearance[keyof typeof TextAreaAppearance];

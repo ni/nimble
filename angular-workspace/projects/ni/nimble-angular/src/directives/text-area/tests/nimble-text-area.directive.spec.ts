@@ -45,8 +45,8 @@ describe('Nimble text area', () => {
         });
 
         it('has expected defaults for appearance', () => {
-            expect(directive.appearance).toBe(TextAreaAppearance.Outline);
-            expect(nativeElement.appearance).toBe(TextAreaAppearance.Outline);
+            expect(directive.appearance).toBe(TextAreaAppearance.outline);
+            expect(nativeElement.appearance).toBe(TextAreaAppearance.outline);
         });
 
         it('has expected defaults for readOnly', () => {
@@ -114,7 +114,7 @@ describe('Nimble text area', () => {
         @Component({
             template: `
                 <nimble-text-area #textArea
-                    appearance="${TextAreaAppearance.Block}"
+                    appearance="${TextAreaAppearance.block}"
                     readonly
                     resize="${TextAreaResize.horizontal}"
                     autofocus
@@ -150,8 +150,8 @@ describe('Nimble text area', () => {
         });
 
         it('will use template string values for appearance', () => {
-            expect(directive.appearance).toBe(TextAreaAppearance.Block);
-            expect(nativeElement.appearance).toBe(TextAreaAppearance.Block);
+            expect(directive.appearance).toBe(TextAreaAppearance.block);
+            expect(nativeElement.appearance).toBe(TextAreaAppearance.block);
         });
 
         it('will use template string values for readOnly', () => {
@@ -237,7 +237,7 @@ describe('Nimble text area', () => {
         class TestHostComponent {
             @ViewChild('textArea', { read: NimbleTextAreaDirective }) public directive: NimbleTextAreaDirective;
             @ViewChild('textArea', { read: ElementRef }) public elementRef: ElementRef<TextArea>;
-            public appearance: TextAreaAppearance = TextAreaAppearance.Block;
+            public appearance: TextAreaAppearance = TextAreaAppearance.block;
             public readonly = false;
             public resize: TextAreaResize = TextAreaResize.horizontal;
             public autofocus = false;
@@ -268,14 +268,14 @@ describe('Nimble text area', () => {
         });
 
         it('can be configured with property binding for appearance', () => {
-            expect(directive.appearance).toBe(TextAreaAppearance.Block);
-            expect(nativeElement.appearance).toBe(TextAreaAppearance.Block);
+            expect(directive.appearance).toBe(TextAreaAppearance.block);
+            expect(nativeElement.appearance).toBe(TextAreaAppearance.block);
 
-            fixture.componentInstance.appearance = TextAreaAppearance.Outline;
+            fixture.componentInstance.appearance = TextAreaAppearance.outline;
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(TextAreaAppearance.Outline);
-            expect(nativeElement.appearance).toBe(TextAreaAppearance.Outline);
+            expect(directive.appearance).toBe(TextAreaAppearance.outline);
+            expect(nativeElement.appearance).toBe(TextAreaAppearance.outline);
         });
 
         it('can be configured with property binding for readOnly', () => {
@@ -433,7 +433,7 @@ describe('Nimble text area', () => {
         class TestHostComponent {
             @ViewChild('textArea', { read: NimbleTextAreaDirective }) public directive: NimbleTextAreaDirective;
             @ViewChild('textArea', { read: ElementRef }) public elementRef: ElementRef<TextArea>;
-            public appearance: TextAreaAppearance = TextAreaAppearance.Block;
+            public appearance: TextAreaAppearance = TextAreaAppearance.block;
             public readonly: BooleanValueOrAttribute = null;
             public resize: TextAreaResize = TextAreaResize.horizontal;
             public autofocus: BooleanValueOrAttribute = null;
@@ -464,14 +464,14 @@ describe('Nimble text area', () => {
         });
 
         it('can be configured with attribute binding for appearance', () => {
-            expect(directive.appearance).toBe(TextAreaAppearance.Block);
-            expect(nativeElement.appearance).toBe(TextAreaAppearance.Block);
+            expect(directive.appearance).toBe(TextAreaAppearance.block);
+            expect(nativeElement.appearance).toBe(TextAreaAppearance.block);
 
-            fixture.componentInstance.appearance = TextAreaAppearance.Outline;
+            fixture.componentInstance.appearance = TextAreaAppearance.outline;
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(TextAreaAppearance.Outline);
-            expect(nativeElement.appearance).toBe(TextAreaAppearance.Outline);
+            expect(directive.appearance).toBe(TextAreaAppearance.outline);
+            expect(nativeElement.appearance).toBe(TextAreaAppearance.outline);
         });
 
         it('can be configured with attribute binding for readOnly', () => {

@@ -117,7 +117,7 @@ export const styles = css`
     // prettier-ignore
     .withBehaviors(
         appearanceBehavior(
-            TextAreaAppearance.Outline,
+            TextAreaAppearance.outline,
             css`
                 .control {
                     border-color: rgba(${borderRgbPartialColor}, 0.3);
@@ -126,7 +126,7 @@ export const styles = css`
             `
         ),
         appearanceBehavior(
-            TextAreaAppearance.Block,
+            TextAreaAppearance.block,
             css`
                 .control {
                     background-color: rgba(${borderRgbPartialColor}, 0.1);
