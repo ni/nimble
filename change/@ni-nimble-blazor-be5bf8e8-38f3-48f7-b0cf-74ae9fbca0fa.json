@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update Blazor docs to discuss using Nimble tokens (CSS/SCSS). Update WASM example app csproj (fixes 'dotnet watch' issue).",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

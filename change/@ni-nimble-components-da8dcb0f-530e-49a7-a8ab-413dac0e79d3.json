@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update import/formatting of tokens SCSS",
-  "packageName": "@ni/nimble-components",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
