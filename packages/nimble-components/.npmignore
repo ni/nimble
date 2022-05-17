@@ -2,3 +2,7 @@
 !/dist/*.*
 !/dist/esm/**
 /dist/esm/**/tests
+
+# The stroybook build ends up making a duplicate
+# typescript build of nimble-components inside the dist folder
+/dist/esm/nimble-components
