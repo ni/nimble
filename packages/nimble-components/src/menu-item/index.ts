@@ -4,6 +4,7 @@ import {
     menuItemTemplate as template,
     MenuItemOptions
 } from '@microsoft/fast-foundation';
+import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 import { styles } from './styles';
 
 declare global {
@@ -30,7 +31,8 @@ const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
     baseClass: FoundationMenuItem,
     template,
-    styles
+    styles,
+    expandCollapseGlyph: arrowExpanderRight16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenuItem());
