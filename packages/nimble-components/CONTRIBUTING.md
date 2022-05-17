@@ -202,6 +202,26 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
 });
 ```
 
+### Leveraging existing nimble components
+
+When referencing existing nimble components within a template, use the `tagFor` function rather than hard-coding the element's tag. When calling `tagFor`, pass the nimble class for the element being used.
+
+For example:
+
+```ts
+import { html, ViewTemplate } from '@microsoft/fast-element';
+import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
+import type { MyNewComponent } from '.';
+import { MyExistingComponent } from '../my-existing-component';
+
+export const template: FoundationElementTemplate<ViewTemplate<MyNewComponent>> = context => html<MyNewComponent>`
+    <template>
+        <${context.tagFor(MyExistingComponent)}>
+        </${context.tagFor(MyExistingComponent)}>
+    </template>
+`;
+```
+
 ### Icon components
 
 The project uses a code generation build script to create a Nimble component for each icon provided by nimble tokens. The script is run as part of the `npm run build` command, and can be run individually by invoking `npm run generate-icons`. The generated icon components are not checked into source control, so the icons must be generated before running the TypeScript compilation. The code generation source can be found at `nimble-components/build/generate-icons`.
