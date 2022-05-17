@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 16 May 2022 22:54:32 GMT and should not be manually modified.
+This log was last generated on Tue, 17 May 2022 15:15:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.2
+
+Tue, 17 May 2022 15:15:50 GMT
+
+### Patches
+
+- Support submenus in nimble-menu ([ni/nimble@6d709f5](https://github.com/ni/nimble/commit/6d709f50703d92fe285229f24e809bcbba84a8c6))
 
 ## 9.0.1
 
