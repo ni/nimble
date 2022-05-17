@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 03 May 2022 22:31:24 GMT and should not be manually modified.
+This log was last generated on Tue, 17 May 2022 20:06:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.0
+
+Tue, 17 May 2022 20:06:42 GMT
+
+### Major changes
+
+- Replace single Appearance enum with one per control (ButtonAppearance, TextAreaAppearance, TextFieldAppearance). Add TextFieldAppearance.Frameless. ([ni/nimble@ae9c35f](https://github.com/ni/nimble/commit/ae9c35fe75d93aa8b3a947759020b8558eb92490))
 
 ## 1.2.0
 

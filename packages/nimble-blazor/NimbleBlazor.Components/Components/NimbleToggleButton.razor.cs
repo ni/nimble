@@ -6,7 +6,7 @@ namespace NimbleBlazor.Components;
 public partial class NimbleToggleButton : NimbleInputBase<bool>
 {
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public ButtonAppearance? Appearance { get; set; }
 
     [Parameter]
     public bool? Disabled { get; set; }

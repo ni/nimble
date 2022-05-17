@@ -21,7 +21,7 @@ public partial class NimbleTextArea : NimbleInputBase<string?>
     public int? Size { get; set; }
 
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public TextAreaAppearance? Appearance { get; set; }
 
     [Parameter]
     public TextAreaResize? TextAreaResize { get; set; }
