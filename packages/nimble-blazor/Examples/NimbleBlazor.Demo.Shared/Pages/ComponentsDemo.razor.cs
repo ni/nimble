@@ -1,4 +1,4 @@
-﻿using NimbleBlazor.Components;
+﻿using NimbleBlazor;
 
 namespace NimbleBlazor.Demo.Shared.Pages
 {

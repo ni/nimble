@@ -40,18 +40,18 @@ Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://
         - VS Code: Run the command `dotnet add package NimbleBlazor --source https://api.nuget.org/v3/index.json --prerelease` in the Terminal window.
     - For Nimble developers, with a locally built NimbleBlazor NuGet (built from the Nimble repo):
         - Run `npm run build`, and then `npm run pack -w @ni/nimble-blazor` from the root of the Nimble repo
-        - Visual Studio: "Project" >> "Manage NuGet Packages". Click the gear/Settings button. Add a new Package Source ("NimbleBlazor") as `[NimbleRepoDirectory]\packages\nimble-blazor\dist` and commit/ close Settings. Pick "NimbleBlazor" in the "Package Source" dropdown, and ensure "Include prerelease" is checked. Search for "NimbleBlazor.Components", select it and click the "Install" button.
-        - VS Code: Run the command `dotnet add package NimbleBlazor.Components --source [NimbleRepoDirectory]\packages\nimble-blazor\dist` in the Terminal window.
+        - Visual Studio: "Project" >> "Manage NuGet Packages". Click the gear/Settings button. Add a new Package Source ("NimbleBlazor") as `[NimbleRepoDirectory]\packages\nimble-blazor\dist` and commit/ close Settings. Pick "NimbleBlazor" in the "Package Source" dropdown, and ensure "Include prerelease" is checked. Search for "NimbleBlazor", select it and click the "Install" button.
+        - VS Code: Run the command `dotnet add package NimbleBlazor --source [NimbleRepoDirectory]\packages\nimble-blazor\dist` in the Terminal window.
 2. Add required references to Blazor code
-    - Open `_Imports.razor`, and add a new line at the bottom: `@using NimbleBlazor.Components`
+    - Open `_Imports.razor`, and add a new line at the bottom: `@using NimbleBlazor`
     - Open `_Layout.cshtml` (BlazorServer) / `wwwroot/index.html` (Blazor WebAssembly).  
     At the bottom of the `<head>` section (right before `</head>`), add  
         ```html
-        <link href="_content/NimbleBlazor.Components/nimble-tokens/source/fonts.css" rel="stylesheet" />
+        <link href="_content/NimbleBlazor/nimble-tokens/source/fonts.css" rel="stylesheet" />
         ```  
         At the bottom of the `<body>` section (right before `</body>`), add  
         ```html
-        <script src="_content/NimbleBlazor.Components/nimble-components/all-components-bundle.min.js"></script>
+        <script src="_content/NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
         ```  
 
 Additional Resources: [`dotnet add package` documentation](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-add-package)

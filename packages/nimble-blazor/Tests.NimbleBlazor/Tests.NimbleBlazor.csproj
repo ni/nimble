@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NimbleBlazor.Components\NimbleBlazor.Components.csproj" />
+    <ProjectReference Include="..\NimbleBlazor\NimbleBlazor.csproj" />
   </ItemGroup>
 
 </Project>

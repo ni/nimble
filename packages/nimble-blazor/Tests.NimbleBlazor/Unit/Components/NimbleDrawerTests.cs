@@ -1,6 +1,6 @@
 ﻿using Bunit;
 using Microsoft.AspNetCore.Components;
-using NimbleBlazor.Components;
+using NimbleBlazor;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
