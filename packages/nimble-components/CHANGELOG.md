@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 10 May 2022 21:09:37 GMT and should not be manually modified.
+This log was last generated on Mon, 16 May 2022 22:54:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.1
+
+Mon, 16 May 2022 22:54:32 GMT
+
+### Patches
+
+- Avoid disabled text field ellipsized text overflow bug ([ni/nimble@ec41017](https://github.com/ni/nimble/commit/ec410175429ce61496f554dde33245c2ed5bb917))
+
+## 9.0.0
+
+Thu, 12 May 2022 18:39:55 GMT
+
+### Major changes
+
+- Fix drawer footer layout on Safari. Clients providing the drawer a header, section, and footer must now provide them in that order. They will be displayed in the order given ([ni/nimble@0413ad2](https://github.com/ni/nimble/commit/0413ad227ca26c4798f9551a43481220f3a08852))
+
+## 8.6.3
+
+Thu, 12 May 2022 18:16:13 GMT
+
+### Patches
+
+- Fix a few cosmetic issues with tabs ([ni/nimble@a85233a](https://github.com/ni/nimble/commit/a85233a89ca31819e5861044d6c7af240db33933))
 
 ## 8.6.2
 
