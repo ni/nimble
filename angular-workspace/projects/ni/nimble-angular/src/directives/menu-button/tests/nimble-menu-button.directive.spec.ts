@@ -50,8 +50,8 @@ describe('Nimble menu button', () => {
         });
 
         it('has expected defaults for appearance', () => {
-            expect(directive.appearance).toBe(ButtonAppearance.Outline);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
+            expect(directive.appearance).toBe(ButtonAppearance.outline);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.outline);
         });
 
         it('has expected defaults for contentHidden', () => {
@@ -70,7 +70,7 @@ describe('Nimble menu button', () => {
             template: `
                 <nimble-menu-button #menuButton
                     disabled
-                    appearance="${ButtonAppearance.Ghost}"
+                    appearance="${ButtonAppearance.ghost}"
                     content-hidden
                     open>
                 </nimble-menu-button>`
@@ -101,8 +101,8 @@ describe('Nimble menu button', () => {
         });
 
         it('will use template string values for appearance', () => {
-            expect(directive.appearance).toBe(ButtonAppearance.Ghost);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
+            expect(directive.appearance).toBe(ButtonAppearance.ghost);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.ghost);
         });
 
         it('will use template string values for contentHidden', () => {
@@ -131,7 +131,7 @@ describe('Nimble menu button', () => {
             @ViewChild('menuButton', { read: NimbleMenuButtonDirective }) public directive: NimbleMenuButtonDirective;
             @ViewChild('menuButton', { read: ElementRef }) public elementRef: ElementRef<MenuButton>;
             public disabled = false;
-            public appearance = ButtonAppearance.Outline;
+            public appearance = ButtonAppearance.outline;
             public contentHidden = false;
             public open = false;
         }
@@ -163,14 +163,14 @@ describe('Nimble menu button', () => {
         });
 
         it('can be configured with property binding for appearance', () => {
-            expect(directive.appearance).toBe(ButtonAppearance.Outline);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
+            expect(directive.appearance).toBe(ButtonAppearance.outline);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.outline);
 
-            fixture.componentInstance.appearance = ButtonAppearance.Ghost;
+            fixture.componentInstance.appearance = ButtonAppearance.ghost;
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(ButtonAppearance.Ghost);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
+            expect(directive.appearance).toBe(ButtonAppearance.ghost);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.ghost);
         });
 
         it('can be configured with property binding for contentHidden', () => {
@@ -211,7 +211,7 @@ describe('Nimble menu button', () => {
             @ViewChild('menuButton', { read: NimbleMenuButtonDirective }) public directive: NimbleMenuButtonDirective;
             @ViewChild('menuButton', { read: ElementRef }) public elementRef: ElementRef<MenuButton>;
             public disabled: BooleanValueOrAttribute = null;
-            public appearance: ButtonAppearance = ButtonAppearance.Outline;
+            public appearance: ButtonAppearance = ButtonAppearance.outline;
             public contentHidden: BooleanValueOrAttribute = null;
             public open: BooleanValueOrAttribute = null;
         }
@@ -243,14 +243,14 @@ describe('Nimble menu button', () => {
         });
 
         it('can be configured with attribute binding for appearance', () => {
-            expect(directive.appearance).toBe(ButtonAppearance.Outline);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
+            expect(directive.appearance).toBe(ButtonAppearance.outline);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.outline);
 
-            fixture.componentInstance.appearance = ButtonAppearance.Ghost;
+            fixture.componentInstance.appearance = ButtonAppearance.ghost;
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(ButtonAppearance.Ghost);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
+            expect(directive.appearance).toBe(ButtonAppearance.ghost);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.ghost);
         });
 
         it('can be configured with attribute binding for contentHidden', () => {
