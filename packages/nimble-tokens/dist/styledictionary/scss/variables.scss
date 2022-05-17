@@ -1,6 +1,6 @@
 
 // Do not edit directly
-// Generated on Tue, 01 Mar 2022 15:26:47 GMT
+// Generated on Tue, 10 May 2022 14:21:51 GMT
 
 $ni-nimble-base-sl-legacy-blue: #009ff5;
 $ni-nimble-base-information-100-dark-ui: #a46eff;
@@ -35,6 +35,17 @@ $ni-nimble-base-black-50: #aeb0b3;
 $ni-nimble-base-digital-green-dark: #006b46;
 $ni-nimble-base-power-green: #32eb96;
 $ni-nimble-base-black-22: #e6e6e6;
+$ni-nimble-base-cmyk-ni-pale-green: #ccdcc8;
+$ni-nimble-base-rgb-ni-pale-green: #cddcc8;
+$ni-nimble-base-rgb-ni-forest-green: #044123;
+$ni-nimble-base-cmyk-ni-nickel: #aea19a;
+$ni-nimble-base-cmyk-ni-forest-green: #044123;
+$ni-nimble-base-rgb-ni-green: #03b585;
+$ni-nimble-base-cmyk-ni-green: #03b585;
+$ni-nimble-base-cmyk-ni-honey-dark-3: #292011;
+$ni-nimble-base-black-82: #434445;
+$ni-nimble-base-indigo-dark-1: #57539e;
+$ni-nimble-base-indigo-dark-2: #312e7f;
 $ni-nimble-base-title-2-family: Source Sans Pro;
 $ni-nimble-base-title-2-weight: 400;
 $ni-nimble-base-control-label-1-family: Source Sans Pro;
@@ -75,7 +86,6 @@ $ni-nimble-base-link-light-ui-family: Source Sans Pro;
 $ni-nimble-base-link-light-ui-weight: 400;
 $ni-nimble-base-headline-1-family: Noto Serif;
 $ni-nimble-base-headline-1-weight: 400;
-$ni-nimble-base-legacy-content-family: 'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif;
 $ni-nimble-base-control-label-1-chinese-mac-family: Noto Sans;
 $ni-nimble-base-control-label-1-chinese-mac-weight: 700;
 $ni-nimble-base-button-label-1-chinese-mac-family: Noto Sans;
@@ -92,6 +102,8 @@ $ni-nimble-base-error-dark-ui-family: Source Sans Pro;
 $ni-nimble-base-error-dark-ui-weight: 400;
 $ni-nimble-base-link-selection-100-light-ui-family: Source Sans Pro;
 $ni-nimble-base-link-selection-100-light-ui-weight: 400;
+$ni-nimble-base-grid-header-family: Source Sans Pro;
+$ni-nimble-base-grid-header-weight: 600;
 $ni-nimble-base-title-2-size: 22px;
 $ni-nimble-base-control-label-1-size: 11px;
 $ni-nimble-base-body-size: 14px;
@@ -120,6 +132,7 @@ $ni-nimble-base-link-visited-light-ui-size: 14px;
 $ni-nimble-base-error-light-ui-size: 9px;
 $ni-nimble-base-error-dark-ui-size: 9px;
 $ni-nimble-base-link-selection-100-light-ui-size: 14px;
+$ni-nimble-base-grid-header-size: 12.800000190734863px;
 $ni-nimble-base-body-line-height: 18px;
 $ni-nimble-base-control-label-1-line-height: 16px;
 $ni-nimble-base-group-label-1-line-height: 16px;
@@ -135,5 +148,6 @@ $ni-nimble-base-placeholder-line-height: 18px;
 $ni-nimble-base-body-emphasized-line-height: 18px;
 $ni-nimble-base-button-label-1-line-height: 16px;
 $ni-nimble-base-tooltip-caption-line-height: 14px;
-$ni-nimble-base-small-delay: 0.1s; // Short animation delay used for control state change animation
+$ni-nimble-base-small-delay: 0.075s; // Short animation delay used for control state change animation
 $ni-nimble-base-medium-delay: 0.15s; // Medium animation delay for control state change animation
+$ni-nimble-base-large-delay: 0.25s; // Long animation delay used for control state change animation

@@ -1,8 +1,65 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 04 May 2022 21:26:02 GMT and should not be manually modified.
+This log was last generated on Mon, 16 May 2022 22:54:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.0.23
+
+Mon, 16 May 2022 22:54:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v9.0.1
+
+## 5.0.22
+
+Thu, 12 May 2022 18:39:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v9.0.0
+
+## 5.0.21
+
+Thu, 12 May 2022 18:16:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.6.3
+
+## 5.0.20
+
+Tue, 10 May 2022 21:09:37 GMT
+
+### Patches
+
+- Update FAST dependency versions ([ni/nimble@765f2f5](https://github.com/ni/nimble/commit/765f2f5f4cd28592e16e163e0d4e4afa9a87b9a7))
+- Bump @ni/nimble-components to v8.6.2
+
+## 5.0.19
+
+Tue, 10 May 2022 20:40:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.6.1
+
+## 5.0.18
+
+Tue, 10 May 2022 19:19:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.6.0
+
+## 5.0.17
+
+Mon, 09 May 2022 16:30:15 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v8.5.0
 
 ## 5.0.16
 

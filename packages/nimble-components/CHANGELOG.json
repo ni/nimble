@@ -2,6 +2,132 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 16 May 2022 22:54:32 GMT",
+      "tag": "@ni/nimble-components_v9.0.1",
+      "version": "9.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ec410175429ce61496f554dde33245c2ed5bb917",
+            "comment": "Avoid disabled text field ellipsized text overflow bug"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 16 May 2022 17:10:25 GMT",
+      "tag": "@ni/nimble-components_v9.0.0",
+      "version": "9.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cdd584eb582900e581bc47b287ef9a3ffee796f4",
+            "comment": "Use FAST helpers for capitalization"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 May 2022 18:39:55 GMT",
+      "tag": "@ni/nimble-components_v9.0.0",
+      "version": "9.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0413ad227ca26c4798f9551a43481220f3a08852",
+            "comment": "Fix drawer footer layout on Safari. Clients providing the drawer a header, section, and footer must now provide them in that order. They will be displayed in the order given"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 May 2022 18:16:13 GMT",
+      "tag": "@ni/nimble-components_v8.6.3",
+      "version": "8.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a85233a89ca31819e5861044d6c7af240db33933",
+            "comment": "Fix a few cosmetic issues with tabs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 10 May 2022 21:09:37 GMT",
+      "tag": "@ni/nimble-components_v8.6.2",
+      "version": "8.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "765f2f5f4cd28592e16e163e0d4e4afa9a87b9a7",
+            "comment": "Update FAST dependency versions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 10 May 2022 20:40:12 GMT",
+      "tag": "@ni/nimble-components_v8.6.1",
+      "version": "8.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "54618faeb76695e0480cb94c558d0818fa77ded8",
+            "comment": "Use LargeDelay token"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.2.0",
+            "commit": "54618faeb76695e0480cb94c558d0818fa77ded8"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 10 May 2022 19:19:34 GMT",
+      "tag": "@ni/nimble-components_v8.6.0",
+      "version": "8.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c4bb26837c1b6570d2dd8d09597a90d6f8eaf34c",
+            "comment": "Create nimble-menu-button component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 09 May 2022 16:30:15 GMT",
+      "tag": "@ni/nimble-components_v8.5.0",
+      "version": "8.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9cd7e2b65f2c110358ea840e35791f9b45483968",
+            "comment": "Support clear-inline-padding class on frameless text field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 06 May 2022 18:05:10 GMT",
       "tag": "@ni/nimble-components_v8.4.0",
       "version": "8.4.0",
