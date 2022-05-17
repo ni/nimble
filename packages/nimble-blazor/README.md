@@ -82,9 +82,9 @@ More complete examples can be found in the NimbleBlazor.Demo.Client/Server examp
 Blazor doesn't have built-in support for using/ building SCSS files, however Nimble's design tokens can be used as CSS variables (`var(--ni-nimble-...)`) in Blazor apps without any additional work.  
 For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Property Names"](https://ni.github.io/nimble/storybook/?path=/story/tokens-property-names--property-names&args=propertyFormat:CSS).
 
-**Advanced: Manually including Nimble Tokens SCSS files**  
-There's currently extra manual steps required to use the Nimble design tokens as SCSS in Blazor projects (which results in better IntelliSense / compile-time checking for the Nimble tokens/variables):
-1. Copy the Nimble tokens SCSS files into your Blazor project: Include `tokens.scss` and `tokens-internal.scss` from the `nimble-components` in your Blazor project directory. The simplest way to get these files is via unpkg.com (latest versions: [tokens.scss](https://unpkg.com/@ni/nimble-components/dist/tokens-internal.SCSS), [tokens-internal.scss](https://unpkg.com/@ni/nimble-components/dist/tokens-internal.scss))
+**Experimental: Manually including Nimble Tokens SCSS files**  
+There are currently extra manual steps required to use the Nimble design tokens as SCSS in Blazor projects (which results in better IntelliSense and compile-time checking for the Nimble tokens and variables):
+1. Copy the Nimble tokens SCSS files into your Blazor project: Include `tokens.scss` and `tokens-internal.scss` from the `nimble-components` in your Blazor project directory. The simplest way to get these files is via `unpkg.com` (latest versions: [tokens.scss](https://unpkg.com/@ni/nimble-components/dist/tokens-internal.scss), [tokens-internal.scss](https://unpkg.com/@ni/nimble-components/dist/tokens-internal.scss))
 2. In `tokens.scss`, add a file extension to the `@import` statement at the top (`'./tokens-internal'` => `'./tokens-internal.scss'`)
 3. Add a NuGet package reference to a SASS/SCSS compiler to your Blazor project. Both [LibSassBuilder](https://www.nuget.org/packages/LibSassBuilder) and [DartSassBuilder (latest/prerelease)](https://www.nuget.org/packages/DartSassBuilder) have been tested with Blazor projects and work with no additional configuration required.
 4. Add new SCSS files for your Razor components (e.g. `MyComponent.razor.scss`), and `@import 'tokens.scss'` in it (updating the import relative path as needed).
