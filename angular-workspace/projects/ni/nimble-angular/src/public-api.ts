@@ -20,6 +20,8 @@ export * from './directives/list-option/nimble-list-option.directive';
 export * from './directives/list-option/nimble-list-option.module';
 export * from './directives/menu/nimble-menu.directive';
 export * from './directives/menu/nimble-menu.module';
+export * from './directives/menu-button/nimble-menu-button.directive';
+export * from './directives/menu-button/nimble-menu-button.module';
 export * from './directives/menu-item/nimble-menu-item.directive';
 export * from './directives/menu-item/nimble-menu-item.module';
 export * from './directives/number-field/nimble-number-field-control-value-accessor.directive';

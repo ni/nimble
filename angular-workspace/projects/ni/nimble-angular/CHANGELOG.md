@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 16 May 2022 22:54:32 GMT and should not be manually modified.
+This log was last generated on Tue, 17 May 2022 16:02:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.1.0
+
+Tue, 17 May 2022 16:02:58 GMT
+
+### Minor changes
+
+- Angular support for menu-button ([ni/nimble@e7a22c8](https://github.com/ni/nimble/commit/e7a22c8fc760f51ebc0d7e56d564576628776456))
+- Bump @ni/nimble-components to v9.0.3
+
+## 5.0.24
+
+Tue, 17 May 2022 15:15:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v9.0.2
 
 ## 5.0.23
 
