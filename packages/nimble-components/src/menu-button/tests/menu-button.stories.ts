@@ -73,7 +73,17 @@ const metadata: Meta<MenuButtonArgs> = {
 
             <nimble-menu slot="menu">
                 <nimble-menu-item>Item 1</nimble-menu-item>
-                <nimble-menu-item>Item 2</nimble-menu-item>
+                <nimble-menu-item>
+                    Item 2
+                    <nimble-menu>
+                        <nimble-menu-item>
+                            Item 2.1
+                        </nimble-menu-item>
+                        <nimble-menu-item>
+                            Item 2.2
+                        </nimble-menu-item>
+                    </nimble-menu>
+                </nimble-menu-item>
                 <nimble-menu-item disabled>Item 3 (disabled)</nimble-menu-item>
             </nimble-menu>
         </nimble-menu-button>

@@ -164,6 +164,52 @@ export const menu: StoryObj<MenuArgs> = {
     }
 };
 
+export const nestedMenu: StoryObj<MenuArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'Items in the menu can contain sub-menus that will be displayed when the top-level menu item is selected.'
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html`
+        <div style="width: 600px; height: 300px;">
+            <nimble-menu>
+                <nimble-menu-item>
+                    <nimble-user-icon slot="start"></nimble-user-icon>
+                    Item 1
+                </nimble-menu-item>
+                <nimble-menu-item>
+                    Item 2
+                    <nimble-menu>
+                        <nimble-menu-item>
+                            Item 2.1
+                        </nimble-menu-item>
+                        <nimble-menu-item>
+                            Item 2.2
+                            <nimble-menu>
+                                <nimble-menu-item>
+                                    Item 2.2.1
+                                </nimble-menu-item>
+                                <nimble-menu-item>
+                                    Item 2.2.2
+                                </nimble-menu-item>
+                                <nimble-menu-item>
+                                    Item 2.2.3
+                                </nimble-menu-item>
+                            </nimble-menu>
+                        </nimble-menu-item>
+                        <nimble-menu-item>
+                            Item 2.3
+                        </nimble-menu-item>
+                    </nimble-menu>
+                </nimble-menu-item>
+            </nimble-menu>
+        </div>
+    `)
+};
+
 export const customMenu: StoryObj<MenuArgs> = {
     parameters: {
         docs: {
@@ -172,7 +218,6 @@ export const customMenu: StoryObj<MenuArgs> = {
             }
         }
     },
-    // pre
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <nimble-menu>
