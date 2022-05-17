@@ -27,12 +27,21 @@ if (iconAssetPaths.length <= 0) {
 
 console.log(`Number of icons found to convert: ${iconAssetPaths.length}`);
 
-iconAssetPaths.forEach(iconAssetPath => {
-    const icoFileName = `${path.parse(iconAssetPath).name}.ico`;
-    const icoPath = path.resolve(outputDir, icoFileName);
-    svgToIco({
-        input_name: iconAssetPath,
-        output_name: icoPath,
-        sizes: [16, 32]
-    });
+(async () => {
+    for (const iconAssetPath of iconAssetPaths) {
+        const icoFileName = `${path.parse(iconAssetPath).name}.ico`;
+        const icoPath = path.resolve(outputDir, icoFileName);
+
+        // Generate icons on disk one at a time
+        // eslint-disable-next-line no-await-in-loop
+        await svgToIco({
+            input_name: iconAssetPath,
+            output_name: icoPath,
+            sizes: [16, 32]
+        });
+    }
+
+    console.log('Finished generating .ico files');
+})().catch(ex => {
+    throw new Error(ex);
 });
