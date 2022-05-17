@@ -131,7 +131,7 @@ describe('Nimble menu button', () => {
             @ViewChild('menuButton', { read: NimbleMenuButtonDirective }) public directive: NimbleMenuButtonDirective;
             @ViewChild('menuButton', { read: ElementRef }) public elementRef: ElementRef<MenuButton>;
             public disabled = false;
-            public appearance = ButtonAppearance.outline;
+            public appearance: ButtonAppearance = ButtonAppearance.outline;
             public contentHidden = false;
             public open = false;
         }
