@@ -62,7 +62,7 @@ const component = (
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
-            ${() => `${primaryName} ${appearanceName} Button ${disabledName}`}
+            ${() => `${primaryName} ${appearanceName!} Button ${disabledName}`}
             ${when(() => endIconVisible, html`<nimble-arrow-expander-down-icon slot="end"></nimble-arrow-expander-down-icon>`)}
     </nimble-button>
 `;
