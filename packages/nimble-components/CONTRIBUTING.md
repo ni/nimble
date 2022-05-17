@@ -129,7 +129,7 @@ Use the `html` tagged template helper to define your custom template. See [Decla
 
 #### Coding conventions
 
-This package follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide) with some exceptions listed in [Coding Conventions](/docs/coding-conventions.md).
+This package follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide) with some exceptions listed in [Coding Conventions](/packages/nimble-components/docs/coding-conventions.md).
 
 #### API naming
 
