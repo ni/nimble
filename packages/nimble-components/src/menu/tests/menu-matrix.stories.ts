@@ -30,24 +30,46 @@ const metadata: Meta = {
 
 export default metadata;
 
+/* array of showSubMenu, childIcon, advancedSubMenu */
+const subMenuStates = [
+    [false, false, false],
+    [true, false, false],
+    [true, false, true],
+    [true, true, false],
+    [true, true, true]
+] as const;
+type SubMenuState = typeof subMenuStates[number];
+
 // prettier-ignore
 const component = (
-    icon: IconVisibleState
+    parentIcon: IconVisibleState,
+    [showSubMenu, childIcon, advancedSubMenu]: SubMenuState
 ): ViewTemplate => html`
-    <span style="padding: 15px; display:inline-flex;">
+    <span style="${() => (showSubMenu ? 'padding: 15px; padding-right: 200px; display:inline-flex;' : 'padding: 15px; display:inline-flex;')}">
         <nimble-menu>
             <header>Header</header>
-            <nimble-menu-item>Item 1</nimble-menu-item>
+            <nimble-menu-item ?expanded=${() => showSubMenu}>
+                Item 1
+                ${when(() => showSubMenu, html`
+                    <nimble-menu>
+                        ${when(() => advancedSubMenu, html`<header>Child header</header>`)}
+                        <nimble-menu-item>Item 1.1</nimble-menu-item>
+                        <nimble-menu-item>Item 1.2</nimble-menu-item>
+                        ${when(() => advancedSubMenu, html`<hr>`)}
+                        <nimble-menu-item>${when(() => childIcon, html`<nimble-xmark-icon slot="start"></nimble-xmark-icon>`)}Item 1.3</nimble-menu-item>
+                    </nimble-menu>
+                `)}
+            </nimble-menu-item>
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
-            <nimble-menu-item>${when(() => icon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}Item 3</nimble-menu-item>
+            <nimble-menu-item>${when(() => parentIcon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}Item 3</nimble-menu-item>
             <nimble-menu-item hidden>Item 4</nimble-menu-item>
         </nimble-menu>
     </span>
 `;
 
 export const menuThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [iconVisibleStates])
+    createMatrix(component, [iconVisibleStates, subMenuStates])
 );
 
 export const hiddenMenu: Story = createStory(
