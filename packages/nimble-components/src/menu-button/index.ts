@@ -13,9 +13,6 @@ import { MenuButtonPosition } from './types';
 import type { IButton } from '../patterns/button/types';
 import type { AnchoredRegion } from '../anchored-region';
 
-import '../toggle-button';
-import '../anchored-region';
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-menu-button': MenuButton;
