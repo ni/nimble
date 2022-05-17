@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 17 May 2022 15:15:50 GMT and should not be manually modified.
+This log was last generated on Tue, 17 May 2022 16:02:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.3
+
+Tue, 17 May 2022 16:02:58 GMT
+
+### Patches
+
+- No longer require clients to manually import nimble-toggle-button and nimble-anchored-region when using nimble-menu-button ([ni/nimble@e7a22c8](https://github.com/ni/nimble/commit/e7a22c8fc760f51ebc0d7e56d564576628776456))
 
 ## 9.0.2
 

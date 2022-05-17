@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "No longer require clients to manually import nimble-toggle-button and nimble-anchored-region when using nimble-menu-button",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

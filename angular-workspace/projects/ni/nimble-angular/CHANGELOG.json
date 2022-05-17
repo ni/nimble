@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 17 May 2022 16:02:58 GMT",
+      "tag": "@ni/nimble-angular_v5.1.0",
+      "version": "5.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e7a22c8fc760f51ebc0d7e56d564576628776456",
+            "comment": "Angular support for menu-button"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v9.0.3",
+            "commit": "e7a22c8fc760f51ebc0d7e56d564576628776456"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 17 May 2022 15:15:50 GMT",
       "tag": "@ni/nimble-angular_v5.0.24",
       "version": "5.0.24",
