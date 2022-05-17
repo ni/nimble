@@ -1,4 +1,11 @@
-import { elements, html, ref, slotted, ViewTemplate, when } from '@microsoft/fast-element';
+import {
+    elements,
+    html,
+    ref,
+    slotted,
+    ViewTemplate,
+    when
+} from '@microsoft/fast-element';
 import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { MenuButton } from '.';
 import { ToggleButton } from '../toggle-button';
