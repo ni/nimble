@@ -80,6 +80,66 @@
             "problemMatcher": [],
             "label": "npm: build",
             "detail": "npm run build --workspaces --if-present"
-        }
+        },
+        {
+            "label": "blazor-server-example:build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/packages/nimble-blazor/Examples/NimbleBlazor.Demo.Server/NimbleBlazor.Demo.Server.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/packages/nimble-blazor/Examples/NimbleBlazor.Demo.Server/"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "blazor-wasm-example:build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/packages/nimble-blazor/Examples/NimbleBlazor.Demo.Client/NimbleBlazor.Demo.Client.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/packages/nimble-blazor/Examples/NimbleBlazor.Demo.Client/"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "blazor-server-example:watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/packages/nimble-blazor/Examples/NimbleBlazor.Demo.Server/NimbleBlazor.Demo.Server.csproj"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/packages/nimble-blazor/Examples/NimbleBlazor.Demo.Server/"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "blazor-wasm-example:watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/packages/nimble-blazor/Examples/NimbleBlazor.Demo.Client/NimbleBlazor.Demo.Client.csproj"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/packages/nimble-blazor/Examples/NimbleBlazor.Demo.Client/"
+            },
+            "problemMatcher": "$msCompile"
+        },
     ]
   }
