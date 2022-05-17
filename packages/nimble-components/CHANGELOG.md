@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 12 May 2022 18:39:55 GMT and should not be manually modified.
+This log was last generated on Mon, 16 May 2022 22:54:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.1
+
+Mon, 16 May 2022 22:54:32 GMT
+
+### Patches
+
+- Avoid disabled text field ellipsized text overflow bug ([ni/nimble@ec41017](https://github.com/ni/nimble/commit/ec410175429ce61496f554dde33245c2ed5bb917))
 
 ## 9.0.0
 
