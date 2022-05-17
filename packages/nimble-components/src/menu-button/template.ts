@@ -1,8 +1,8 @@
 import { elements, html, ref, slotted, ViewTemplate, when } from '@microsoft/fast-element';
-import { AnchoredRegion as FoundationAnchoredRegion, FoundationElementTemplate } from '@microsoft/fast-foundation';
+import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { MenuButton } from '.';
 import { ToggleButton } from '../toggle-button';
-import '../anchored-region';
+import { AnchoredRegion } from '../anchored-region';
 
 // prettier-ignore
 export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = context => html<MenuButton>`
@@ -33,7 +33,7 @@ export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = con
         ${when(
         x => x.open,
         html<MenuButton>`
-            <${context.tagFor(FoundationAnchoredRegion)}
+            <${context.tagFor(AnchoredRegion)}
                 fixed-placement="true"
                 auto-update-mode="auto"
                 horizontal-inset="true"
@@ -48,7 +48,7 @@ export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = con
                 <span part="menu">
                     <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
                 </span>
-            </${context.tagFor(FoundationAnchoredRegion)}>
+            </${context.tagFor(AnchoredRegion)}>
         `
     )}
     </template>
