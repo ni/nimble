@@ -79,7 +79,9 @@ const textFieldInvalidStates = [
 ] as const;
 type TextFieldInvalidState = typeof textFieldInvalidStates[number];
 
-const appearanceStates = Object.entries(TextFieldAppearance).map(([key, value]) => [pascalCase(key), value]);
+const appearanceStates = Object.entries(TextFieldAppearance).map(
+    ([key, value]) => [pascalCase(key), value]
+);
 type AppearanceState = typeof appearanceStates[number];
 
 const clearInlinePaddingStates = [

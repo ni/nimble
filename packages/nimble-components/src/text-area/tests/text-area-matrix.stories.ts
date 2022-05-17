@@ -45,7 +45,9 @@ const valueStates = [
 ] as const;
 type ValueState = typeof valueStates[number];
 
-const appearanceStates = Object.entries(TextAreaAppearance).map(([key, value]) => [pascalCase(key), value]);
+const appearanceStates = Object.entries(TextAreaAppearance).map(
+    ([key, value]) => [pascalCase(key), value]
+);
 type AppearanceState = typeof appearanceStates[number];
 
 const component = (
