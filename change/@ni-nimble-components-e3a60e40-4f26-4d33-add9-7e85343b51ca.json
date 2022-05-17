@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Add contributing documentation for leveraging existing nimble components within the template of new components",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
