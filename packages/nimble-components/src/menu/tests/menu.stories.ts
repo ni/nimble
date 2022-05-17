@@ -206,7 +206,7 @@ export const nestedMenu: StoryObj<MenuArgs> = {
                     </nimble-menu>
                 </nimble-menu-item>
             </nimble-menu>
-    </div>
+        </div>
     `)
 };
 
