@@ -4,7 +4,7 @@ This repo follows the [NI JavaScript and TypeScript Styleguide](https://github.c
 
 ## Use const objects instead of TypeScript enums
 
-In order to [present consistent APIs with FAST](https://github.com/microsoft/fast/pull/5930) and follow [modern TypeScript practices](https://www.typescriptlang.org/docs/handbook/enums.html#objects-vs-enums), this repo doesn't use TypeScript enums.
+In order to [present consistent APIs with FAST](https://github.com/microsoft/fast/pull/5930) and follow [modern TypeScript practices](https://www.typescriptlang.org/docs/handbook/enums.html#objects-vs-enums), this package doesn't use TypeScript enums.
 
 Instead of this enum:
 
@@ -16,7 +16,7 @@ const enum ButtonAppearance {
 }
 ```
 
-You can use a `const` object and a union of its values:
+You can use a `const` object for the enum and a union of its values for the type:
 
 ```ts
 export const ButtonAppearance = {
