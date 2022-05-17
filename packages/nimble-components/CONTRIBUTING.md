@@ -214,7 +214,8 @@ import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { MyNewComponent } from '.';
 import { MyExistingComponent } from '../my-existing-component';
 
-export const template: FoundationElementTemplate<ViewTemplate<MyNewComponent>> = context => html<MyNewComponent>`
+export const template: FoundationElementTemplate<ViewTemplate<MyNewComponent>> =
+    context => html<MyNewComponent>`
     <template>
         <${context.tagFor(MyExistingComponent)}>
         </${context.tagFor(MyExistingComponent)}>
