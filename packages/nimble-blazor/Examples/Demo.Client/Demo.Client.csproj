@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NimbleBlazor.Demo.Shared\NimbleBlazor.Demo.Shared.csproj" />
+    <ProjectReference Include="..\Demo.Shared\Demo.Shared.csproj" />
   </ItemGroup>
 
 </Project>

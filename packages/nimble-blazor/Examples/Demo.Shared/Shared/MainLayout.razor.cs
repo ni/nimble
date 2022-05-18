@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using NimbleBlazor;
 
-namespace NimbleBlazor.Demo.Shared
+namespace Demo.Shared
 {
     /// <summary>
     /// The MainLayout Component.

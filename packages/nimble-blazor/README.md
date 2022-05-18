@@ -10,7 +10,7 @@ NI-styled UI components for Blazor applications
 
 This repo contains:
 1. Blazor components and styles matching the NI brand. These are published as a Nuget package to be consumed by either Blazor WebAssembly or Blazor Server applications.
-2. Two Blazor demo applications that consume the components: a Blazor WebAssembly application (`NimbleBlazor.Demo.Client`) and a Blazor Server application (`NimbleBlazor.Demo.Server`).
+2. Two Blazor demo applications that consume the components: a Blazor WebAssembly application (`Demo.Client`) and a Blazor Server application (`Demo.Server`).
 
 ## Getting Started
 
@@ -75,7 +75,7 @@ For a simple modification to the Blazor template project: open `Index.razor` and
 
 To test out your changes, do "Debug" >> "Start without Debugging" in Visual Studio, or `dotnet watch run` in the VS Code Terminal.
 
-More complete examples can be found in the NimbleBlazor.Demo.Client/Server example projects.
+More complete examples can be found in the Demo.Client/Server example projects.
 
 ### Using Nimble Design Tokens (CSS/SCSS)
 

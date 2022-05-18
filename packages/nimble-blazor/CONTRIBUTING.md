@@ -14,7 +14,7 @@ For Nimble Blazor development on Windows, the suggested tools to install are:
 - (Optional) Enable IIS (see "Enabling IIS", below)
 - ASP.NET Core Runtime 6.0.x (6.0.3 or higher): Choose "Hosting Bundle" under ASP.NET Core Runtime, on the [.NET 6.0 Download Page](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
-In Visual Studio, run either the `NimbleBlazor.Demo.Server` or `NimbleBlazor.Demo.Projects` to see the Blazor demo apps.
+In Visual Studio, run either the `Demo.Server` or `Demo.Projects` to see the Blazor demo apps.
 
 ### Mac / Visual Studio Code
 Install [Visual Studio Code](https://code.visualstudio.com/), and install the suggested extensions that appear once you open the NimbleBlazor project folders.
@@ -76,15 +76,15 @@ Testing the Nimble Blazor components is possible through the use of xUnit and bU
 
 ### Example App / Manual Testing
 
-Each Nimble Blazor component should also be showcased in the `NimbleBlazor.Demo` example projects. Simple component examples can be added directly in the `ComponentsDemo.razor` file (in the `NimbleBlazor.Demo.Shared` project). The example project is very similar to the Nimble Angular example-client-app, and component demos can be adapted from that Angular app. Things to keep in mind that are specific to Blazor:
+Each Nimble Blazor component should also be showcased in the `Demo` example projects. Simple component examples can be added directly in the `ComponentsDemo.razor` file (in the `Demo.Shared` project). The example project is very similar to the Nimble Angular example-client-app, and component demos can be adapted from that Angular app. Things to keep in mind that are specific to Blazor:
 - There's no out-of-the-box support for SCSS. The Nimble tokens can still be used as CSS variables (`var(--ni-nimble-...)`)
 - In order to target Nimble Blazor components via CSS, you'll need to add `::deep` on the CSS selector. See [fast-blazor #125](https://github.com/microsoft/fast-blazor/issues/125) for more info.
 
 Visual Studio Code commands are included to build and run the example projects:
-- `blazor-server-example:build`: Build the `NimbleBlazor.Demo.Server` project
-- `blazor-server-example:watch`: Run the `NimbleBlazor.Demo.Server` project in watch mode (to automatically pick up code changes)
-- `blazor-wasm-example:build`: Build the `NimbleBlazor.Demo.Client` project
-- `blazor-wasm-example:watch`: Run the `NimbleBlazor.Demo.Client` project in watch mode (to automatically pick up code changes)
+- `blazor-server-example:build`: Build the `Demo.Server` project
+- `blazor-server-example:watch`: Run the `Demo.Server` project in watch mode (to automatically pick up code changes)
+- `blazor-wasm-example:build`: Build the `Demo.Client` project
+- `blazor-wasm-example:watch`: Run the `Demo.Client` project in watch mode (to automatically pick up code changes)
 
 ## Additional Tips
 

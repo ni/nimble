@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
+using NimbleBlazor;
 
-namespace NimbleBlazor.Demo.Shared
+namespace Demo.Shared
 {
     /// <summary>
     /// The ExampleHeader Component.
