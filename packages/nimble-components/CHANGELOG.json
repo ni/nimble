@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 17:18:18 GMT",
+      "tag": "@ni/nimble-components_v9.0.4",
+      "version": "9.0.4",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1158d502fc32500f0a2610b4fbe2a7570cd0a7a3",
+            "comment": "Update contributing docs for using nimble components in new templates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 17 May 2022 22:28:41 GMT",
       "tag": "@ni/nimble-components_v9.0.4",
       "version": "9.0.4",
