@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 20:52:01 GMT",
+      "tag": "@ni/nimble-blazor_v2.0.4",
+      "version": "2.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "d6fdd7ce77c264d72f885b2a734a692dc1938e71",
+            "comment": "Update icon generation dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 17 May 2022 22:28:41 GMT",
       "tag": "@ni/nimble-blazor_v2.0.1",
       "version": "2.0.1",

@@ -19,8 +19,8 @@ describe('Nimble drawer directive', () => {
         class TestHostComponent {
             @ViewChild('drawerConfigured', { static: true }) public drawerConfigured: ElementRef<Drawer>;
             @ViewChild('drawerUnconfigured', { static: true }) public drawerUnconfigured: ElementRef<Drawer>;
-            public drawerLocation = DrawerLocation.Right;
-            public drawerState = DrawerState.Opened;
+            public drawerLocation: DrawerLocation = DrawerLocation.right;
+            public drawerState: DrawerState = DrawerState.opened;
             public isDrawerModal = false;
             public drawerPreventDismiss = false;
             public canceled(): void {}
@@ -62,30 +62,30 @@ describe('Nimble drawer directive', () => {
         });
 
         it('the Drawer DOM element has expected default property values when no directive properties are set', () => {
-            expect(drawerUnconfigured.location).toBe(DrawerLocation.Left);
-            expect(drawerUnconfigured.state).toBe(DrawerState.Closed);
+            expect(drawerUnconfigured.location).toBe(DrawerLocation.left);
+            expect(drawerUnconfigured.state).toBe(DrawerState.closed);
             expect(drawerUnconfigured.modal).toBe(true);
         });
 
         it('the Drawer DOM element reflects correct initial state set via NimbleDrawerDirective', () => {
-            expect(drawerConfigured.location).toBe(DrawerLocation.Right);
-            expect(drawerConfigured.state).toBe(DrawerState.Opened);
+            expect(drawerConfigured.location).toBe(DrawerLocation.right);
+            expect(drawerConfigured.state).toBe(DrawerState.opened);
             expect(drawerConfigured.modal).toBe(false);
         });
 
         describe('when directive properties change, the drawer DOM element is updated', () => {
             it('for location', () => {
-                testHostComponent.drawerLocation = DrawerLocation.Left;
+                testHostComponent.drawerLocation = DrawerLocation.left;
                 fixture.detectChanges();
 
-                expect(drawerConfigured.location).toBe(DrawerLocation.Left);
+                expect(drawerConfigured.location).toBe(DrawerLocation.left);
             });
 
             it('for state', () => {
-                testHostComponent.drawerState = DrawerState.Closed;
+                testHostComponent.drawerState = DrawerState.closed;
                 fixture.detectChanges();
 
-                expect(drawerConfigured.state).toBe(DrawerState.Closed);
+                expect(drawerConfigured.state).toBe(DrawerState.closed);
             });
 
             it('for modal', () => {
@@ -104,11 +104,11 @@ describe('Nimble drawer directive', () => {
         });
 
         it('when "location" property changes on drawer DOM element, directive state updates correctly', async () => {
-            drawerConfigured.state = DrawerState.Closing;
-            await waitForDrawerState(drawerConfigured, DrawerState.Closed);
+            drawerConfigured.state = DrawerState.closing;
+            await waitForDrawerState(drawerConfigured, DrawerState.closed);
             fixture.detectChanges();
 
-            expect(testHostComponent.drawerState).toEqual(DrawerState.Closed);
+            expect(testHostComponent.drawerState).toEqual(DrawerState.closed);
         });
 
         it('when drawer overlay is clicked, cancel output/event is triggered', async () => {

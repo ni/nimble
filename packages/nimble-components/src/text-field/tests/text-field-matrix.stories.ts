@@ -1,6 +1,7 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createStory,
     createFixedThemeStory
@@ -78,7 +79,9 @@ const textFieldInvalidStates = [
 ] as const;
 type TextFieldInvalidState = typeof textFieldInvalidStates[number];
 
-const appearanceStates = Object.entries(TextFieldAppearance);
+const appearanceStates = Object.entries(TextFieldAppearance).map(
+    ([key, value]) => [pascalCase(key), value]
+);
 type AppearanceState = typeof appearanceStates[number];
 
 const clearInlinePaddingStates = [

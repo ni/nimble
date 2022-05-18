@@ -1,10 +1,10 @@
 import { TextAreaResize } from '@microsoft/fast-foundation';
 
 export { TextAreaResize };
-export type TextAreaResizeAttribute = `${TextAreaResize}`;
 
-export enum TextAreaAppearance {
-    Outline = 'outline',
-    Block = 'block'
-}
-export type TextAreaAppearanceAttribute = `${TextAreaAppearance}`;
+export const TextAreaAppearance = {
+    outline: 'outline',
+    block: 'block'
+} as const;
+export type TextAreaAppearance =
+    typeof TextAreaAppearance[keyof typeof TextAreaAppearance];

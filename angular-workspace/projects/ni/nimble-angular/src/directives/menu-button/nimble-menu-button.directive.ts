@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import type { MenuButton } from '@ni/nimble-components/dist/esm/menu-button';
-import type { ButtonAppearance, ButtonAppearanceAttribute } from '@ni/nimble-components/dist/esm/menu-button/types';
+import type { ButtonAppearance } from '@ni/nimble-components/dist/esm/menu-button/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { MenuButton };
@@ -16,7 +16,7 @@ export class NimbleMenuButtonDirective {
         return this.elementRef.nativeElement.appearance;
     }
 
-    @Input() public set appearance(value: ButtonAppearance | ButtonAppearanceAttribute) {
+    @Input() public set appearance(value: ButtonAppearance) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
     }
 

@@ -54,7 +54,7 @@ ${overrideWarning('Color', statusDescriptionOverride)}
 
 // prettier-ignore
 export const icons: StoryObj<IconArgs> = {
-    args: { status: IconStatus.Regular },
+    args: { status: IconStatus.regular },
     argTypes: {
         status: {
             options: Object.values(IconStatus),

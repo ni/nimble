@@ -115,7 +115,7 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         </nimble-tree-view>
 `),
     args: {
-        selectionMode: TreeViewSelectionMode.LeavesOnly,
+        selectionMode: TreeViewSelectionMode.leavesOnly,
         options: [
             {
                 label: 'Option 1',

@@ -1,6 +1,7 @@
 dist-icons
 dist-icons-esm
 dist-nuget
+dist-ico
 
 source/NimbleTokens/bin
 source/NimbleTokens/obj
