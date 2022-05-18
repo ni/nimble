@@ -1,6 +1,7 @@
 import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
+    eventChange,
     keyArrowDown,
     keyArrowUp,
     keyEscape
@@ -62,6 +63,16 @@ export class MenuButton extends FoundationElement implements IButton {
      */
     private focusLastItemWhenOpened = false;
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        if (this.region) {
+            this.region.removeEventListener(
+                eventChange,
+                this.menuChangeHandler
+            );
+        }
+    }
+
     public toggleButtonChanged(
         _prev: ToggleButton | undefined,
         _next: ToggleButton | undefined
@@ -72,11 +83,20 @@ export class MenuButton extends FoundationElement implements IButton {
     }
 
     public regionChanged(
-        _prev: AnchoredRegion | undefined,
+        prev: AnchoredRegion | undefined,
         _next: AnchoredRegion | undefined
     ): void {
-        if (this.region && this.toggleButton) {
-            this.region.anchorElement = this.toggleButton;
+        if (prev) {
+            prev.removeEventListener(eventChange, this.menuChangeHandler);
+        }
+
+        if (this.region) {
+            if (this.toggleButton) {
+                this.region.anchorElement = this.toggleButton;
+            }
+            this.region.addEventListener(eventChange, this.menuChangeHandler, {
+                capture: true
+            });
         }
     }
 
@@ -139,11 +159,6 @@ export class MenuButton extends FoundationElement implements IButton {
         }
     }
 
-    public menuChangeHandler(): void {
-        this.open = false;
-        this.toggleButton!.focus();
-    }
-
     public menuKeyDownHandler(e: KeyboardEvent): boolean {
         switch (e.key) {
             case keyEscape:
@@ -170,6 +185,11 @@ export class MenuButton extends FoundationElement implements IButton {
             lastMenuItem.focus();
         }
     }
+
+    private readonly menuChangeHandler = (): void => {
+        this.open = false;
+        this.toggleButton!.focus();
+    };
 }
 
 const nimbleMenuButton = MenuButton.compose({
