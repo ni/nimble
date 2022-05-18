@@ -27,7 +27,7 @@ export const ButtonAppearance = {
 export type ButtonAppearance = typeof ButtonAppearance[keyof typeof ButtonAppearance];
 ```
 
-Put these objects in a file called `types.ts` to make them easier to find and to apply an ESLint configuration that is specific to this pattern.
+Put these objects in a file called `types.ts` to make them easier to find and to apply an ESLint configuration that is specific to this pattern. Add a corresponding `types.spec.ts` to ensure the pattern is applied correctly.
 
 To clients, the object and values will behave like an enum:
 
