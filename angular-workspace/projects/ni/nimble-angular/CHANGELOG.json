@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 19:45:57 GMT",
+      "tag": "@ni/nimble-angular_v6.0.0",
+      "version": "6.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "1626a16c850dd5f47a6e05d23f2829a56a634554",
+            "comment": "1. Rename enum options to use camelCase instead of PascalCase to improve API consistency.\n2. change all enums to use const object and string union pattern.\n3. Renamed string unions named `*Attribute` to remove the word `Attribute`."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v10.0.0",
+            "commit": "1626a16c850dd5f47a6e05d23f2829a56a634554"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 17 May 2022 22:28:41 GMT",
       "tag": "@ni/nimble-angular_v5.1.1",
       "version": "5.1.1",

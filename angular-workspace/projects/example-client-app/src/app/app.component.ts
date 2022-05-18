@@ -8,5 +8,5 @@ import { Theme } from '@ni/nimble-angular';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    public theme: Theme = Theme.Light;
+    public theme: Theme = Theme.light;
 }

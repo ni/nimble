@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TextArea } from '@ni/nimble-components/dist/esm/text-area';
-import type { TextAreaAppearance, TextAreaAppearanceAttribute, TextAreaResize, TextAreaResizeAttribute } from '@ni/nimble-components/dist/esm/text-area/types';
+import type { TextAreaAppearance, TextAreaResize } from '@ni/nimble-components/dist/esm/text-area/types';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '../utilities/template-value-helpers';
 
 export type { TextArea };
@@ -16,7 +16,7 @@ export class NimbleTextAreaDirective {
         return this.elementRef.nativeElement.appearance;
     }
 
-    @Input() public set appearance(value: TextAreaAppearance | TextAreaAppearanceAttribute) {
+    @Input() public set appearance(value: TextAreaAppearance) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
     }
 
@@ -35,7 +35,7 @@ export class NimbleTextAreaDirective {
         return this.elementRef.nativeElement.resize;
     }
 
-    @Input() public set resize(value: TextAreaResize | TextAreaResizeAttribute) {
+    @Input() public set resize(value: TextAreaResize) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'resize', value);
     }
 

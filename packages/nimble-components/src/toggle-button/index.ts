@@ -28,7 +28,7 @@ export class ToggleButton extends FoundationSwitch implements IButton {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance: ButtonAppearance = ButtonAppearance.Outline;
+    public appearance: ButtonAppearance = ButtonAppearance.outline;
 
     /**
      * @public

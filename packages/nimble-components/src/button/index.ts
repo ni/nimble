@@ -25,7 +25,7 @@ export class Button extends FoundationButton implements IButton {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance: ButtonAppearance = ButtonAppearance.Outline;
+    public appearance: ButtonAppearance = ButtonAppearance.outline;
 
     /**
      * @public
