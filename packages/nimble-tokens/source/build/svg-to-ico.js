@@ -29,6 +29,9 @@ console.log(`Number of icons found to convert: ${iconAssetPaths.length}`);
 
 (async () => {
     for (const iconAssetPath of iconAssetPaths) {
+        // Print a simple marker to see progress of the icon generation
+        process.stdout.write('.');
+
         const icoFileName = `${path.parse(iconAssetPath).name}.ico`;
         const icoPath = path.resolve(outputDir, icoFileName);
 
@@ -41,7 +44,7 @@ console.log(`Number of icons found to convert: ${iconAssetPaths.length}`);
         });
     }
 
-    console.log('Finished generating .ico files');
+    console.log('\nFinished generating .ico files');
 })().catch(ex => {
     throw new Error(ex);
 });
