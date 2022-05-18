@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Remove unused dist output",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

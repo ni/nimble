@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 20:52:01 GMT",
+      "tag": "@ni/nimble-components_v10.0.2",
+      "version": "10.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d6fdd7ce77c264d72f885b2a734a692dc1938e71",
+            "comment": "Remove unused dist output"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.2.1",
+            "commit": "d6fdd7ce77c264d72f885b2a734a692dc1938e71"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 May 2022 20:19:53 GMT",
       "tag": "@ni/nimble-components_v10.0.1",
       "version": "10.0.1",

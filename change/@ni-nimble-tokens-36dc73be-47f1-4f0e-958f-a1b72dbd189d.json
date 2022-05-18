@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Remove dist files not supported by respective targets: The .ico files were removed from npm and the .ts files were removed from nuget.",
-  "packageName": "@ni/nimble-tokens",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
