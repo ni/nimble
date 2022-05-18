@@ -80,6 +80,12 @@ Each Nimble Blazor component should also be showcased in the `NimbleBlazor.Demo`
 - There's no out-of-the-box support for SCSS. The Nimble tokens can still be used as CSS variables (`var(--ni-nimble-...)`)
 - In order to target Nimble Blazor components via CSS, you'll need to add `::deep` on the CSS selector. See [fast-blazor #125](https://github.com/microsoft/fast-blazor/issues/125) for more info.
 
+Visual Studio Code commands are included to build and run the example projects:
+- `blazor-server-example:build`: Build the `NimbleBlazor.Demo.Server` project
+- `blazor-server-example:watch`: Run the `NimbleBlazor.Demo.Server` project in watch mode (to automatically pick up code changes)
+- `blazor-wasm-example:build`: Build the `NimbleBlazor.Demo.Client` project
+- `blazor-wasm-example:watch`: Run the `NimbleBlazor.Demo.Client` project in watch mode (to automatically pick up code changes)
+
 ## Additional Tips
 
 ### Enabling IIS

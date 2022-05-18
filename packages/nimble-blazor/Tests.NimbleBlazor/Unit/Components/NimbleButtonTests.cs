@@ -22,17 +22,17 @@ public class NimbleButtonTests
     }
 
     [Theory]
-    [InlineData(Appearance.Block, "block")]
-    [InlineData(Appearance.Underline, "underline")]
-    [InlineData(Appearance.Ghost, "ghost")]
-    public void ButtonAppearance_AttributeIsSet(Appearance value, string expectedAttribute)
+    [InlineData(ButtonAppearance.Block, "block")]
+    [InlineData(ButtonAppearance.Outline, "outline")]
+    [InlineData(ButtonAppearance.Ghost, "ghost")]
+    public void ButtonAppearance_AttributeIsSet(ButtonAppearance value, string expectedAttribute)
     {
         var button = RenderNimbleButton(value);
 
         Assert.Contains(expectedAttribute, button.Markup);
     }
 
-    private IRenderedComponent<NimbleButton> RenderNimbleButton(Appearance appearance)
+    private IRenderedComponent<NimbleButton> RenderNimbleButton(ButtonAppearance appearance)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
