@@ -23,10 +23,10 @@ const metadata: Meta = {
 export default metadata;
 
 const iconStatusStates = [
-    ['Pass', IconStatus.Pass],
-    ['Fail', IconStatus.Fail],
-    ['Warning', IconStatus.Warning],
-    ['Regular', IconStatus.Regular]
+    ['Pass', IconStatus.pass],
+    ['Fail', IconStatus.fail],
+    ['Warning', IconStatus.warning],
+    ['Regular', IconStatus.regular]
 ] as const;
 type IconStatusState = typeof iconStatusStates[number];
 

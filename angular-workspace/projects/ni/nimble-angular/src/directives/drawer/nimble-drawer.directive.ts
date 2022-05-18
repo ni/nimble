@@ -1,6 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import type { Drawer } from '@ni/nimble-components/dist/esm/drawer';
-import type { DrawerLocationAttribute, DrawerStateAttribute } from '@ni/nimble-components/dist/esm/drawer/types';
 import { DrawerLocation, DrawerState } from '@ni/nimble-components/dist/esm/drawer/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
@@ -18,7 +17,7 @@ export class NimbleDrawerDirective {
         return this.elementRef.nativeElement.location;
     }
 
-    @Input() public set location(value: DrawerLocation | DrawerLocationAttribute) {
+    @Input() public set location(value: DrawerLocation) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'location', value);
     }
 
@@ -26,7 +25,7 @@ export class NimbleDrawerDirective {
         return this.elementRef.nativeElement.state;
     }
 
-    @Input() public set state(value: DrawerState | DrawerStateAttribute) {
+    @Input() public set state(value: DrawerState) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'state', value);
     }
 
@@ -52,11 +51,11 @@ export class NimbleDrawerDirective {
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Drawer>) {}
 
     public show(): void {
-        this.state = DrawerState.Opening;
+        this.state = DrawerState.opening;
     }
 
     public hide(): void {
-        this.state = DrawerState.Closing;
+        this.state = DrawerState.closing;
     }
 
     @HostListener('state-change', ['$event'])

@@ -27,7 +27,7 @@ declare global {
  */
 export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
-    public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.All;
+    public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.all;
 
     public override handleClick(e: Event): boolean {
         if (e.defaultPrevented) {
@@ -55,11 +55,11 @@ export class TreeView extends FoundationTreeView {
 
     private canSelect(item: TreeItem): boolean {
         switch (this.selectionMode) {
-            case TreeViewSelectionMode.All:
+            case TreeViewSelectionMode.all:
                 return true;
-            case TreeViewSelectionMode.None:
+            case TreeViewSelectionMode.none:
                 return false;
-            case TreeViewSelectionMode.LeavesOnly:
+            case TreeViewSelectionMode.leavesOnly:
                 return !this.itemHasChildren(item);
             default:
                 return true;
