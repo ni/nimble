@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using AngleSharp.Dom;
 using Bunit;
-using NimbleBlazor;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;

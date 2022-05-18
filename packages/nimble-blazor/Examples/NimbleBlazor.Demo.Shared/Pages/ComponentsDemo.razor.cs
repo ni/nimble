@@ -1,6 +1,4 @@
-﻿using NimbleBlazor;
-
-namespace NimbleBlazor.Demo.Shared.Pages
+﻿namespace NimbleBlazor.Demo.Shared.Pages
 {
     /// <summary>
     /// The components demo page

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using NimbleBlazor;
 
 namespace NimbleBlazor.Demo.Shared
 {
