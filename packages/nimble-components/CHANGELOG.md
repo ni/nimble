@@ -1,8 +1,67 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 12 May 2022 18:39:55 GMT and should not be manually modified.
+This log was last generated on Wed, 18 May 2022 20:52:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 10.0.2
+
+Wed, 18 May 2022 20:52:01 GMT
+
+### Patches
+
+- Remove unused dist output ([ni/nimble@d6fdd7c](https://github.com/ni/nimble/commit/d6fdd7ce77c264d72f885b2a734a692dc1938e71))
+- Bump @ni/nimble-tokens to v3.2.1
+
+## 10.0.1
+
+Wed, 18 May 2022 20:19:53 GMT
+
+### Patches
+
+- Update dark theme token value for header background color ([ni/nimble@93810d5](https://github.com/ni/nimble/commit/93810d5d61bdff39451918bbc4a463db57505e27))
+
+## 10.0.0
+
+Wed, 18 May 2022 19:45:57 GMT
+
+### Major changes
+
+- 1. Rename enum options to use camelCase instead of PascalCase to improve API consistency.
+2. change all enums to use const object and string union pattern.
+3. Renamed string unions named `*Attribute` to remove the word `Attribute`. ([ni/nimble@1626a16](https://github.com/ni/nimble/commit/1626a16c850dd5f47a6e05d23f2829a56a634554))
+
+## 9.0.4
+
+Tue, 17 May 2022 22:28:41 GMT
+
+### Patches
+
+- Update import/formatting of tokens SCSS ([ni/nimble@c254c00](https://github.com/ni/nimble/commit/c254c00cda2686d3f0eb872d961a8847fa571c10))
+
+## 9.0.3
+
+Tue, 17 May 2022 16:02:58 GMT
+
+### Patches
+
+- No longer require clients to manually import nimble-toggle-button and nimble-anchored-region when using nimble-menu-button ([ni/nimble@e7a22c8](https://github.com/ni/nimble/commit/e7a22c8fc760f51ebc0d7e56d564576628776456))
+
+## 9.0.2
+
+Tue, 17 May 2022 15:15:50 GMT
+
+### Patches
+
+- Support submenus in nimble-menu ([ni/nimble@6d709f5](https://github.com/ni/nimble/commit/6d709f50703d92fe285229f24e809bcbba84a8c6))
+
+## 9.0.1
+
+Mon, 16 May 2022 22:54:32 GMT
+
+### Patches
+
+- Avoid disabled text field ellipsized text overflow bug ([ni/nimble@ec41017](https://github.com/ni/nimble/commit/ec410175429ce61496f554dde33245c2ed5bb917))
 
 ## 9.0.0
 

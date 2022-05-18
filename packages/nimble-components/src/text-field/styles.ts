@@ -168,6 +168,15 @@ export const styles = css`
         outline: none;
     }
 
+    .control:disabled {
+        ${
+            /* There's an issue with the input element where the ellipsized
+               overflowed text is blank when scrolled into view, so just clip instead.
+               See https://webcompat.com/issues/104481 */ ''
+        }
+        text-overflow: clip;
+    }
+
     .control::selection {
         color: ${controlLabelFontColor};
         background: rgba(${fillSelectedRgbPartialColor}, 0.3);
@@ -243,9 +252,9 @@ export const styles = css`
         ${controlHeight.cssCustomProperty}: 24px;
     }
 `.withBehaviors(
-        appearanceBehavior(
-            TextFieldAppearance.Underline,
-            css`
+                appearanceBehavior(
+                    TextFieldAppearance.underline,
+                    css`
             .root {
                 --ni-private-bottom-border-width: 1px;
                 padding-top: ${borderWidth};
@@ -261,10 +270,10 @@ export const styles = css`
                 --ni-private-bottom-border-width: 1px;
             }
         `
-        ),
-        appearanceBehavior(
-            TextFieldAppearance.Block,
-            css`
+                ),
+                appearanceBehavior(
+                    TextFieldAppearance.block,
+                    css`
             .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
                 --ni-private-bottom-border-width: 0px;
@@ -310,10 +319,10 @@ export const styles = css`
                 --ni-private-bottom-border-width: 1px;
             }
         `
-        ),
-        appearanceBehavior(
-            TextFieldAppearance.Outline,
-            css`
+                ),
+                appearanceBehavior(
+                    TextFieldAppearance.outline,
+                    css`
             .root {
                 --ni-private-bottom-border-width: 1px;
                 border-width: ${borderWidth};
@@ -324,10 +333,10 @@ export const styles = css`
                 top: calc(${controlHeight} - ${borderWidth});
             }
         `
-        ),
-        appearanceBehavior(
-            TextFieldAppearance.Frameless,
-            css`
+                ),
+                appearanceBehavior(
+                    TextFieldAppearance.frameless,
+                    css`
             .root {
                 --ni-private-bottom-border-width: 0px;
                 padding-top: ${borderWidth};
@@ -343,21 +352,21 @@ export const styles = css`
                 --ni-private-bottom-border-width: 0px;
             }
         `
-        ),
-        themeBehavior(
-            css`
+                ),
+                themeBehavior(
+                    css`
             ${'' /* Light theme */}
             .control::-ms-reveal {
                 filter: invert(0%);
             }
         `,
-            css`
+                    css`
             ${'' /* Dark theme */}
             .control::-ms-reveal {
                 filter: invert(100%);
             }
         `,
-            // Color theme
-            Theme.Dark
-        )
-    );
+                    // Color theme
+                    Theme.dark
+                )
+            );

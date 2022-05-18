@@ -25,9 +25,10 @@ export interface IButton {
  * Types of button appearance.
  * @public
  */
-export enum ButtonAppearance {
-    Outline = 'outline',
-    Ghost = 'ghost',
-    Block = 'block'
-}
-export type ButtonAppearanceAttribute = `${ButtonAppearance}`;
+export const ButtonAppearance = {
+    outline: 'outline',
+    ghost: 'ghost',
+    block: 'block'
+} as const;
+export type ButtonAppearance =
+    typeof ButtonAppearance[keyof typeof ButtonAppearance];

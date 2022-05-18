@@ -26,6 +26,11 @@ module.exports = {
             { contexts: ['ClassDeclaration'] }
         ],
 
+        'no-restricted-syntax': ['error', {
+            selector: 'TSEnumDeclaration',
+            message: 'Use a const object instead of an enum. See other types.ts files for examples.'
+        }],
+
         // Rules enabled due to strictNullChecks
         '@typescript-eslint/no-non-null-assertion': 'off',
 
@@ -91,6 +96,37 @@ module.exports = {
                     { ignoredNodes: ['TemplateLiteral'] }
                 ]
             }
-        }
+        },
+        {
+            // Instead of enums, this repo uses const objects and type unions which should live in types.ts
+            files: ['types.ts'],
+            rules: {
+                // The const object and type union should have the same name
+                '@typescript-eslint/no-redeclare': 'off',
+                // Enum-like variables should use PascalCase and values should use camelCase
+                // Also allow camelCase variables for things like attribute strings
+                '@typescript-eslint/naming-convention': [
+                    'error',
+                    {
+                        selector: 'objectLiteralProperty',
+                        format: ['camelCase'],
+                    },
+                    {
+                        selector: 'variable',
+                        format: ['camelCase', 'PascalCase'],
+                    },
+                    {
+                        selector: 'typeLike',
+                        format: ['PascalCase'],
+                    },
+                    {
+                        selector: 'default',
+                        format: ['camelCase'],
+                        leadingUnderscore: 'allow',
+                        trailingUnderscore: 'allow',
+                    },
+                ],            
+            }
+        }        
     ]
 };

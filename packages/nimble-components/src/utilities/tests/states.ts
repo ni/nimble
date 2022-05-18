@@ -2,19 +2,19 @@ import { Theme } from '../../theme-provider/types';
 
 export const backgroundStates = [
     {
-        name: `"${Theme.Light}" theme on white`,
+        name: `"${Theme.light}" theme on white`,
         value: '#F4F4F4',
-        theme: Theme.Light
+        theme: Theme.light
     },
     {
-        name: `"${Theme.Color}" theme on dark green`,
+        name: `"${Theme.color}" theme on dark green`,
         value: '#044123',
-        theme: Theme.Color
+        theme: Theme.color
     },
     {
-        name: `"${Theme.Dark}" theme on black`,
+        name: `"${Theme.dark}" theme on black`,
         value: '#252526',
-        theme: Theme.Dark
+        theme: Theme.dark
     }
 ] as const;
 export const [defaultBackgroundState] = backgroundStates;
