@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 18 May 2022 20:52:01 GMT and should not be manually modified.
+This log was last generated on Wed, 18 May 2022 21:26:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.0.0
+
+Wed, 18 May 2022 21:26:22 GMT
+
+### Major changes
+
+- Rename NimbleBlazor.Components to NimbleBlazor ([ni/nimble@6ef01f6](https://github.com/ni/nimble/commit/6ef01f660e91240fb8381984fde864774bd6b2bb))
 
 ## 2.0.4
 

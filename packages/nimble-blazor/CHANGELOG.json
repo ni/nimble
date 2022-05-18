@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 21:26:22 GMT",
+      "tag": "@ni/nimble-blazor_v3.0.0",
+      "version": "3.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "6ef01f660e91240fb8381984fde864774bd6b2bb",
+            "comment": "Rename NimbleBlazor.Components to NimbleBlazor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 May 2022 20:52:01 GMT",
       "tag": "@ni/nimble-blazor_v2.0.4",
       "version": "2.0.4",
