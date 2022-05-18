@@ -17,7 +17,7 @@
   <ItemGroup>
     <Content Include="../../dist/styledictionary/xaml/**/*.*" />
     <Content Include="../../dist/styledictionary/csharp/**/*.*" />
-    <Content Include="../../dist-icons/**/*.*" />
+    <Content Include="../../dist-ico/**/*.*" />
   </ItemGroup>
 
   <ItemGroup>
