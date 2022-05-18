@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "Rename enum options to use camelCase instead of PascalCase to improve API consistency. Also change all enums to use const object and string union pattern. Most clients should be unaffected but could break due to:\n   - slightly different TypeScript type inference; fix by providing explicit types.\n   - string unions named `*Attribute` have been renamed to remove the word `Attribute`.",
+  "comment": "1. Rename enum options to use camelCase instead of PascalCase to improve API consistency.\n2. change all enums to use const object and string union pattern.\n3. Renamed string unions named `*Attribute` to remove the word `Attribute`.",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "patch"
