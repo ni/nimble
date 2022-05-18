@@ -35,10 +35,11 @@ public class NimbleTextFieldTests
     }
 
     [Theory]
-    [InlineData(Appearance.Block, "block")]
-    [InlineData(Appearance.Underline, "underline")]
-    [InlineData(Appearance.Ghost, "ghost")]
-    public void TextFieldAppearance_AttributeIsSet(Appearance value, string expectedAttribute)
+    [InlineData(TextFieldAppearance.Outline, "outline")]
+    [InlineData(TextFieldAppearance.Block, "block")]
+    [InlineData(TextFieldAppearance.Underline, "underline")]
+    [InlineData(TextFieldAppearance.Frameless, "frameless")]
+    public void TextFieldAppearance_AttributeIsSet(TextFieldAppearance value, string expectedAttribute)
     {
         var textField = RenderNimbleTextField(value);
 
@@ -52,7 +53,7 @@ public class NimbleTextFieldTests
         return context.RenderComponent<NimbleTextField>(p => p.Add(x => x.TextFieldType, textFieldType));
     }
 
-    private IRenderedComponent<NimbleTextField> RenderNimbleTextField(Appearance appearance)
+    private IRenderedComponent<NimbleTextField> RenderNimbleTextField(TextFieldAppearance appearance)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
