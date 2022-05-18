@@ -66,7 +66,10 @@ export class MenuButton extends FoundationElement implements IButton {
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         if (this.region) {
-            this.region.removeEventListener(eventChange, this.menuChangeHandler);
+            this.region.removeEventListener(
+                eventChange,
+                this.menuChangeHandler
+            );
         }
     }
 
@@ -91,7 +94,9 @@ export class MenuButton extends FoundationElement implements IButton {
             if (this.toggleButton) {
                 this.region.anchorElement = this.toggleButton;
             }
-            this.region.addEventListener(eventChange, this.menuChangeHandler, { capture: true });
+            this.region.addEventListener(eventChange, this.menuChangeHandler, {
+                capture: true
+            });
         }
     }
 
