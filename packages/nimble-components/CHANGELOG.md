@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 18 May 2022 20:52:01 GMT and should not be manually modified.
+This log was last generated on Wed, 18 May 2022 22:20:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 10.0.3
+
+Wed, 18 May 2022 22:20:28 GMT
+
+### Patches
+
+- Focus menu-button in capture phase of event handler ([ni/nimble@382b7be](https://github.com/ni/nimble/commit/382b7bec724966de8edc356a453783861aaa560d))
 
 ## 10.0.2
 

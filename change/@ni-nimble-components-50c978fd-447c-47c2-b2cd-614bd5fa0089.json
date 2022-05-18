@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Focus menu-button in capture phase of event handler",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 22:20:28 GMT",
+      "tag": "@ni/nimble-components_v10.0.3",
+      "version": "10.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "382b7bec724966de8edc356a453783861aaa560d",
+            "comment": "Focus menu-button in capture phase of event handler"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 May 2022 20:52:01 GMT",
       "tag": "@ni/nimble-components_v10.0.2",
       "version": "10.0.2",
