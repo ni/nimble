@@ -48,7 +48,6 @@ export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = con
                 vertical-positioning-mode="${x => (x.position === 'auto' ? 'dynamic' : 'locktodefault')}"
                 vertical-default-position="${x => (x.position === 'above' ? 'top' : 'bottom')}"
                 @loaded="${x => x.regionLoadedHandler()}"
-                @change="${x => x.menuChangeHandler()}"
                 @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
                 ${ref('region')}
             >
