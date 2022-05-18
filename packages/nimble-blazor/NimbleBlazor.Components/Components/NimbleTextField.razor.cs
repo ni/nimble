@@ -21,7 +21,7 @@ public partial class NimbleTextField : NimbleInputBase<string?>
     public int? Size { get; set; }
 
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public TextFieldAppearance? Appearance { get; set; }
 
     [Parameter]
     public TextFieldType? TextFieldType { get; set; }

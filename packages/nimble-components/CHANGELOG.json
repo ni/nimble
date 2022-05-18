@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 17 May 2022 22:28:41 GMT",
+      "tag": "@ni/nimble-components_v9.0.4",
+      "version": "9.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c254c00cda2686d3f0eb872d961a8847fa571c10",
+            "comment": "Update import/formatting of tokens SCSS"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 17 May 2022 16:02:58 GMT",
+      "tag": "@ni/nimble-components_v9.0.3",
+      "version": "9.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e7a22c8fc760f51ebc0d7e56d564576628776456",
+            "comment": "No longer require clients to manually import nimble-toggle-button and nimble-anchored-region when using nimble-menu-button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 17 May 2022 15:15:50 GMT",
       "tag": "@ni/nimble-components_v9.0.2",
       "version": "9.0.2",
