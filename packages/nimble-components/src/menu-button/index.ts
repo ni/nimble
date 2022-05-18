@@ -25,7 +25,7 @@ declare global {
  */
 export class MenuButton extends FoundationElement implements IButton {
     @attr
-    public appearance: ButtonAppearance = ButtonAppearance.Outline;
+    public appearance: ButtonAppearance = ButtonAppearance.outline;
 
     @attr({ mode: 'boolean' })
     public disabled = false;

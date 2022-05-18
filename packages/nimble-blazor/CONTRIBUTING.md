@@ -14,7 +14,7 @@ For Nimble Blazor development on Windows, the suggested tools to install are:
 - (Optional) Enable IIS (see "Enabling IIS", below)
 - ASP.NET Core Runtime 6.0.x (6.0.3 or higher): Choose "Hosting Bundle" under ASP.NET Core Runtime, on the [.NET 6.0 Download Page](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
-In Visual Studio, run either the `NimbleBlazor.Demo.Server` or `NimbleBlazor.Demo.Projects` to see the Blazor demo apps.
+In Visual Studio, run either the `Demo.Server` or `Demo.Projects` to see the Blazor demo apps.
 
 ### Mac / Visual Studio Code
 Install [Visual Studio Code](https://code.visualstudio.com/), and install the suggested extensions that appear once you open the NimbleBlazor project folders.
@@ -66,7 +66,7 @@ The C# code for a property supporting 2-way binding will look like this:
 ```
 
 - For a form/ input control (textbox, etc.,), the component should derive from `NimbleInputBase<TValue>`, the `.razor` file needs to bind a DOM element attribute to `CurrentValue` or `CurrentValueAsString`, and set one of those 2 properties in the DOM event listener (generally `@onchange`). `NimbleInputBase` will then handle invoking the `EventCallback`. See `NimbleTextField` for an example.
-- The `@onchange` event callback built-in to Blazor supports DOM elements that fire a `change` event, and provides only `element.value` (which must be `string`, `string[]`, or `boolean`) in the event args. Most other cases (custom events with different names, the need to pass additional info from the DOM element to C# in the event args, etc.) will require using Blazor's [custom event arguments/ custom event type](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-6.0#custom-event-arguments) support. See `NimbleDrawer` for an example. The event and its event arg type are declared in `EventHandlers.cs`, and `NimbleBlazor.Components.lib.module.js` should be updated to register the custom event type, and create the event args in JavaScript. The event listener (C#) in this case needs to invoke the `[PropertyName]Changed` `EventCallback` itself.
+- The `@onchange` event callback built-in to Blazor supports DOM elements that fire a `change` event, and provides only `element.value` (which must be `string`, `string[]`, or `boolean`) in the event args. Most other cases (custom events with different names, the need to pass additional info from the DOM element to C# in the event args, etc.) will require using Blazor's [custom event arguments/ custom event type](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-6.0#custom-event-arguments) support. See `NimbleDrawer` for an example. The event and its event arg type are declared in `EventHandlers.cs`, and `NimbleBlazor.lib.module.js` should be updated to register the custom event type, and create the event args in JavaScript. The event listener (C#) in this case needs to invoke the `[PropertyName]Changed` `EventCallback` itself.
 
 ## Testing
 
@@ -76,15 +76,15 @@ Testing the Nimble Blazor components is possible through the use of xUnit and bU
 
 ### Example App / Manual Testing
 
-Each Nimble Blazor component should also be showcased in the `NimbleBlazor.Demo` example projects. Simple component examples can be added directly in the `ComponentsDemo.razor` file (in the `NimbleBlazor.Demo.Shared` project). The example project is very similar to the Nimble Angular example-client-app, and component demos can be adapted from that Angular app. Things to keep in mind that are specific to Blazor:
+Each Nimble Blazor component should also be showcased in the `Demo` example projects. Simple component examples can be added directly in the `ComponentsDemo.razor` file (in the `Demo.Shared` project). The example project is very similar to the Nimble Angular example-client-app, and component demos can be adapted from that Angular app. Things to keep in mind that are specific to Blazor:
 - There's no out-of-the-box support for SCSS. The Nimble tokens can still be used as CSS variables (`var(--ni-nimble-...)`)
 - In order to target Nimble Blazor components via CSS, you'll need to add `::deep` on the CSS selector. See [fast-blazor #125](https://github.com/microsoft/fast-blazor/issues/125) for more info.
 
 Visual Studio Code commands are included to build and run the example projects:
-- `blazor-server-example:build`: Build the `NimbleBlazor.Demo.Server` project
-- `blazor-server-example:watch`: Run the `NimbleBlazor.Demo.Server` project in watch mode (to automatically pick up code changes)
-- `blazor-wasm-example:build`: Build the `NimbleBlazor.Demo.Client` project
-- `blazor-wasm-example:watch`: Run the `NimbleBlazor.Demo.Client` project in watch mode (to automatically pick up code changes)
+- `blazor-server-example:build`: Build the `Demo.Server` project
+- `blazor-server-example:watch`: Run the `Demo.Server` project in watch mode (to automatically pick up code changes)
+- `blazor-wasm-example:build`: Build the `Demo.Client` project
+- `blazor-wasm-example:watch`: Run the `Demo.Client` project in watch mode (to automatically pick up code changes)
 
 ## Additional Tips
 

@@ -92,20 +92,20 @@ const metadata: Meta<ButtonArgs> = {
 export default metadata;
 
 export const outlineButton: StoryObj<ButtonArgs> = {
-    args: { label: 'Outline Button', appearance: ButtonAppearance.Outline }
+    args: { label: 'Outline Button', appearance: ButtonAppearance.outline }
 };
 
 export const ghostButton: StoryObj<ButtonArgs> = {
-    args: { label: 'Ghost Button', appearance: ButtonAppearance.Ghost }
+    args: { label: 'Ghost Button', appearance: ButtonAppearance.ghost }
 };
 export const blockButton: StoryObj<ButtonArgs> = {
-    args: { label: 'Block Button', appearance: ButtonAppearance.Block }
+    args: { label: 'Block Button', appearance: ButtonAppearance.block }
 };
 export const iconButton: StoryObj<ButtonArgs> = {
     args: {
         label: 'Icon Button',
         icon: true,
         contentHidden: true,
-        appearance: ButtonAppearance.Outline
+        appearance: ButtonAppearance.outline
     }
 };

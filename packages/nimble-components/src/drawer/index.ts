@@ -31,10 +31,10 @@ const animationDurationWhenDisabledMilliseconds = 0.001;
  */
 export class Drawer extends FoundationDialog {
     @attr
-    public location: DrawerLocation = DrawerLocation.Left;
+    public location: DrawerLocation = DrawerLocation.left;
 
     @attr
-    public state: DrawerState = DrawerState.Closed;
+    public state: DrawerState = DrawerState.closed;
 
     /**
      * True to prevent dismissing the drawer when the overlay outside the drawer is clicked.
@@ -99,12 +99,12 @@ export class Drawer extends FoundationDialog {
 
     public override show(): void {
         // Not calling super.show() as that will immediately show the drawer, whereas 'Opening' state will animate
-        this.state = DrawerState.Opening;
+        this.state = DrawerState.opening;
     }
 
     public override hide(): void {
         // Not calling super.hide() as that will immediately hide the drawer, whereas 'Closing' state will animate
-        this.state = DrawerState.Closing;
+        this.state = DrawerState.closing;
     }
 
     /**
@@ -143,10 +143,10 @@ export class Drawer extends FoundationDialog {
     }
 
     private onHiddenChanged(): void {
-        if (this.hidden && this.state !== DrawerState.Closed) {
-            this.state = DrawerState.Closed;
-        } else if (!this.hidden && this.state === DrawerState.Closed) {
-            this.state = DrawerState.Opened;
+        if (this.hidden && this.state !== DrawerState.closed) {
+            this.state = DrawerState.closed;
+        } else if (!this.hidden && this.state === DrawerState.closed) {
+            this.state = DrawerState.opened;
         }
     }
 
@@ -158,18 +158,18 @@ export class Drawer extends FoundationDialog {
         if (this.isConnected) {
             this.cancelCurrentAnimation();
             switch (this.state) {
-                case DrawerState.Opening:
+                case DrawerState.opening:
                     this.animateOpening();
                     this.hidden = false;
                     break;
-                case DrawerState.Opened:
+                case DrawerState.opened:
                     this.hidden = false;
                     break;
-                case DrawerState.Closing:
+                case DrawerState.closing:
                     this.hidden = false;
                     this.animateClosing();
                     break;
-                case DrawerState.Closed:
+                case DrawerState.closed:
                     this.hidden = true;
                     break;
                 default:
@@ -201,7 +201,7 @@ export class Drawer extends FoundationDialog {
         if (!this.hidden) {
             this.animateOpenClose(false);
         } else {
-            this.state = DrawerState.Closed;
+            this.state = DrawerState.closed;
         }
     }
 
@@ -212,7 +212,7 @@ export class Drawer extends FoundationDialog {
                 : animationConfig.slideOutOptions),
             duration: this.animationDurationMilliseconds
         };
-        const drawerKeyframes = this.location === DrawerLocation.Right
+        const drawerKeyframes = this.location === DrawerLocation.right
             ? animationConfig.slideRightKeyframes
             : animationConfig.slideLeftKeyframes;
         const dialogAnimation = new AnimateTo(this.dialog, undefined, options);
@@ -232,8 +232,8 @@ export class Drawer extends FoundationDialog {
         const animationGroup = new AnimateGroup(animations);
         animationGroup.onFinish = () => {
             this.state = drawerOpening
-                ? DrawerState.Opened
-                : DrawerState.Closed;
+                ? DrawerState.opened
+                : DrawerState.closed;
         };
         this.animationGroup = animationGroup;
         animationGroup.play();

@@ -64,10 +64,10 @@ class ThemedElement extends FASTElement {
  */
 class ThemeController {
     @observable
-    public theme1 = Theme.Light;
+    public theme1: Theme = Theme.light;
 
     @observable
-    public theme2 = Theme.Light;
+    public theme2: Theme = Theme.light;
 
     public themedElement1!: ThemedElement;
     public themedElement2!: ThemedElement;
@@ -164,15 +164,15 @@ describe('The ThemeStylesheetBehavior', () => {
     describe('for unaliased options', () => {
         const configs = [
             {
-                name: Theme.Light,
+                name: Theme.light,
                 resolvedProperty: 'style-light'
             },
             {
-                name: Theme.Dark,
+                name: Theme.dark,
                 resolvedProperty: 'style-dark'
             },
             {
-                name: Theme.Color,
+                name: Theme.color,
                 resolvedProperty: 'style-color'
             }
         ];
@@ -189,15 +189,15 @@ describe('The ThemeStylesheetBehavior', () => {
     describe('for null options', () => {
         const configs = [
             {
-                name: Theme.Light,
+                name: Theme.light,
                 resolvedProperty: 'style-unset'
             },
             {
-                name: Theme.Dark,
+                name: Theme.dark,
                 resolvedProperty: 'style-unset'
             },
             {
-                name: Theme.Color,
+                name: Theme.color,
                 resolvedProperty: 'style-unset'
             }
         ];
@@ -210,15 +210,15 @@ describe('The ThemeStylesheetBehavior', () => {
     describe('for an aliased dark option', () => {
         const configs = [
             {
-                name: Theme.Light,
+                name: Theme.light,
                 resolvedProperty: 'style-light'
             },
             {
-                name: Theme.Dark,
+                name: Theme.dark,
                 resolvedProperty: 'style-light'
             },
             {
-                name: Theme.Color,
+                name: Theme.color,
                 resolvedProperty: 'style-color'
             }
         ];
@@ -226,7 +226,7 @@ describe('The ThemeStylesheetBehavior', () => {
         const disabled: Theme[] = [];
         const styles = ThemedElement.createStyle(
             ThemedElement.createThemeStyle('style-light'),
-            Theme.Light,
+            Theme.light,
             ThemedElement.createThemeStyle('style-color')
         );
         themedElementTest(configs, focused, disabled, styles);
@@ -235,15 +235,15 @@ describe('The ThemeStylesheetBehavior', () => {
     describe('for an aliased color option', () => {
         const configs = [
             {
-                name: Theme.Light,
+                name: Theme.light,
                 resolvedProperty: 'style-light'
             },
             {
-                name: Theme.Dark,
+                name: Theme.dark,
                 resolvedProperty: 'style-dark'
             },
             {
-                name: Theme.Color,
+                name: Theme.color,
                 resolvedProperty: 'style-light'
             }
         ];
@@ -252,7 +252,7 @@ describe('The ThemeStylesheetBehavior', () => {
         const styles = ThemedElement.createStyle(
             ThemedElement.createThemeStyle('style-light'),
             ThemedElement.createThemeStyle('style-dark'),
-            Theme.Light
+            Theme.light
         );
         themedElementTest(configs, focused, disabled, styles);
     });
@@ -261,13 +261,13 @@ describe('The ThemeStylesheetBehavior', () => {
         const configs = [
             {
                 name: 'light-dark',
-                theme1: { name: Theme.Light, resolvedProperty: 'style-light' },
-                theme2: { name: Theme.Dark, resolvedProperty: 'style-dark' }
+                theme1: { name: Theme.light, resolvedProperty: 'style-light' },
+                theme2: { name: Theme.dark, resolvedProperty: 'style-dark' }
             },
             {
                 name: 'dark-color',
-                theme1: { name: Theme.Dark, resolvedProperty: 'style-dark' },
-                theme2: { name: Theme.Color, resolvedProperty: 'style-color' }
+                theme1: { name: Theme.dark, resolvedProperty: 'style-dark' },
+                theme2: { name: Theme.color, resolvedProperty: 'style-color' }
             }
         ];
         const focused: Theme[] = [];

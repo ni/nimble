@@ -42,11 +42,11 @@ describe('Drawer', () => {
     });
 
     it('state=opening animates to shown/state=opened, and state=closing animates to hidden/state=closed', async () => {
-        element.state = DrawerState.Opening;
+        element.state = DrawerState.opening;
         await waitForDrawerAnimationsCompleted();
         expect(element.hidden).toBe(false);
         expect(element.state).toEqual('opened');
-        element.state = DrawerState.Closing;
+        element.state = DrawerState.closing;
         await waitForDrawerAnimationsCompleted();
         expect(element.hidden).toBe(true);
         expect(element.state).toEqual('closed');
@@ -75,13 +75,13 @@ describe('Drawer', () => {
     it('updates to "state" property fire the "state-change" event', async () => {
         const stateChange = jasmine.createSpy();
         element.addEventListener('state-change', stateChange);
-        element.state = DrawerState.Opened;
+        element.state = DrawerState.opened;
 
         expect(stateChange.calls.count()).toEqual(1);
     });
 
     it('clicking the overlay fires the "cancel" event and closes the drawer by default', async () => {
-        element.state = DrawerState.Opened;
+        element.state = DrawerState.opened;
         const cancelEventHandler = jasmine.createSpy();
         element.addEventListener('cancel', cancelEventHandler);
         const drawerOverlay = element.shadowRoot!.querySelector('.overlay');
@@ -89,11 +89,11 @@ describe('Drawer', () => {
         await waitForDrawerAnimationsCompleted();
 
         expect(cancelEventHandler.calls.count()).toEqual(1);
-        expect(element.state).toBe(DrawerState.Closed);
+        expect(element.state).toBe(DrawerState.closed);
     });
 
     it('canceling the "cancel" event after an overlay click prevents dismissing', async () => {
-        element.state = DrawerState.Opened;
+        element.state = DrawerState.opened;
         element.addEventListener('cancel', evt => {
             evt.preventDefault();
         });
@@ -101,6 +101,6 @@ describe('Drawer', () => {
         await clickElement(drawerOverlay as HTMLElement);
         await waitForDrawerAnimationsCompleted();
 
-        expect(element.state).toBe(DrawerState.Opened);
+        expect(element.state).toBe(DrawerState.opened);
     });
 });
