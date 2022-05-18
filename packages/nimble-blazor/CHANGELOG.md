@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 17 May 2022 20:06:42 GMT and should not be manually modified.
+This log was last generated on Wed, 18 May 2022 20:52:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.4
+
+Wed, 18 May 2022 20:52:01 GMT
+
+### Patches
+
+- Update icon generation dependencies ([ni/nimble@d6fdd7c](https://github.com/ni/nimble/commit/d6fdd7ce77c264d72f885b2a734a692dc1938e71))
 
 ## 2.0.0
 

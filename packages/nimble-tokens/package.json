@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico",
@@ -30,7 +30,7 @@
     "@ni/eslint-config-javascript": "^3.1.0",
     "cross-env": "^7.0.3",
     "glob": "^8.0.1",
-    "hex-rgb": "^4.0.0",
+    "hex-rgb": "^5.0.0",
     "lodash": "^4.17.21",
     "style-dictionary": "^3.7.0",
     "svg-to-ico": "1.0.8",

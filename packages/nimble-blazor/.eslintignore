@@ -1,6 +1,6 @@
 dist
 Examples/*/bin
 Examples/*/obj
-NimbleBlazor.Components/bin
-NimbleBlazor.Components/obj
-NimbleBlazor.Components/wwwroot/nimble-*
+NimbleBlazor/bin
+NimbleBlazor/obj
+NimbleBlazor/wwwroot/nimble-*
