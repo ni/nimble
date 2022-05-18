@@ -34,9 +34,9 @@ public class NimbleTextAreaTests
     }
 
     [Theory]
-    [InlineData(Appearance.Block, "block")]
-    [InlineData(Appearance.Outline, "outline")]
-    public void TextAreaAppearance_AttributeIsSet(Appearance value, string expectedAttribute)
+    [InlineData(TextAreaAppearance.Block, "block")]
+    [InlineData(TextAreaAppearance.Outline, "outline")]
+    public void TextAreaAppearance_AttributeIsSet(TextAreaAppearance value, string expectedAttribute)
     {
         var textArea = RenderNimbleTextArea(value);
 
@@ -50,7 +50,7 @@ public class NimbleTextAreaTests
         return context.RenderComponent<NimbleTextArea>(p => p.Add(x => x.TextAreaResize, textAreaResize));
     }
 
-    private IRenderedComponent<NimbleTextArea> RenderNimbleTextArea(Appearance appearance)
+    private IRenderedComponent<NimbleTextArea> RenderNimbleTextArea(TextAreaAppearance appearance)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;

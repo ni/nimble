@@ -6,6 +6,8 @@
         "redhat.vscode-yaml",
         "editorconfig.editorconfig",
         "rvest.vs-code-prettier-eslint",
-        "silvenon.mdx"
+        "silvenon.mdx",
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.blazorwasm-companion"
     ]
 }

@@ -20,16 +20,16 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Buttons</div>
-                <NimbleButton Appearance="Appearance.Outline">Outline Button</NimbleButton>
-                <NimbleButton Appearance="Appearance.Block">Block Button</NimbleButton>
-                <NimbleButton Appearance="Appearance.Ghost">Ghost Button</NimbleButton>
+                <NimbleButton Appearance="ButtonAppearance.Outline">Outline Button</NimbleButton>
+                <NimbleButton Appearance="ButtonAppearance.Block">Block Button</NimbleButton>
+                <NimbleButton Appearance="ButtonAppearance.Ghost">Ghost Button</NimbleButton>
             </div>
             <div class="sub-container">
                 <div class="container-label">Buttons - Toggle</div>
-                <NimbleToggleButton Appearance="Appearance.Outline">Outline Toggle Button</NimbleToggleButton>
-                <NimbleToggleButton Appearance="Appearance.Block">Block Toggle Button</NimbleToggleButton>
-                <NimbleToggleButton Appearance="Appearance.Ghost">Ghost Toggle Button</NimbleToggleButton>
-                <NimbleToggleButton ContentHidden="true" Appearance="Appearance.Outline">
+                <NimbleToggleButton Appearance="ButtonAppearance.Outline">Outline Toggle Button</NimbleToggleButton>
+                <NimbleToggleButton Appearance="ButtonAppearance.Block">Block Toggle Button</NimbleToggleButton>
+                <NimbleToggleButton Appearance="ButtonAppearance.Ghost">Ghost Toggle Button</NimbleToggleButton>
+                <NimbleToggleButton ContentHidden="true" Appearance="ButtonAppearance.Outline">
                     <NimbleKeyIcon slot="start"></NimbleKeyIcon>
                     Icon Toggle Button
                 </NimbleToggleButton>
@@ -42,8 +42,8 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Drawer/Sidenav:</div>
-                <NimbleButton Appearance="Appearance.Outline" @onclick="OpenDrawer">Open Drawer</NimbleButton>
-                <NimbleButton Appearance="Appearance.Outline" @onclick="DrawerTogglePinned">Pin/Unpin</NimbleButton>
+                <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDrawer">Open Drawer</NimbleButton>
+                <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="DrawerTogglePinned">Pin/Unpin</NimbleButton>
                 <NimbleSelect class="drawer-location-select" @bind-Value="@DrawerLocationAsString">
                     <NimbleListOption Value="@DrawerLocation.Left.ToString()">Drawer: Left-side</NimbleListOption>
                     <NimbleListOption Value="@DrawerLocation.Right.ToString()">Drawer: Right-side</NimbleListOption>
@@ -124,10 +124,10 @@
             <div class="sub-container">
                 <div class="container-label">Toolbar</div>
                 <NimbleToolbar>
-                    <NimbleButton slot="start" Appearance="Appearance.Outline">First Button</NimbleButton>
-                    <NimbleButton slot="start" Appearance="Appearance.Outline">Second Button</NimbleButton>
+                    <NimbleButton slot="start" Appearance="ButtonAppearance.Outline">First Button</NimbleButton>
+                    <NimbleButton slot="start" Appearance="ButtonAppearance.Outline">Second Button</NimbleButton>
                     <NimbleButton>Middle Button</NimbleButton>
-                    <NimbleButton slot="end" Appearance="Appearance.Outline">Last Button</NimbleButton>
+                    <NimbleButton slot="end" Appearance="ButtonAppearance.Outline">Last Button</NimbleButton>
                 </NimbleToolbar>
             </div>
             <div class="sub-container">
