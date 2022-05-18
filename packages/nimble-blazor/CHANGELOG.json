@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 21:56:07 GMT",
+      "tag": "@ni/nimble-blazor_v3.0.0",
+      "version": "3.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "5a5974c49bed088a4e9208dc67c73dac9a65d3a6",
+            "comment": "Enable no-extraneous-dependencies lint rule"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 May 2022 21:26:22 GMT",
       "tag": "@ni/nimble-blazor_v3.0.0",
       "version": "3.0.0",

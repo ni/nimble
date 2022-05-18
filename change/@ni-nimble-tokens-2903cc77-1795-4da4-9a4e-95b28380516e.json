@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Add explicit devDependency on lodash",
-  "packageName": "@ni/nimble-tokens",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
