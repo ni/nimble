@@ -105,20 +105,20 @@ export default metadata;
 export const outlineButton: StoryObj<MenuButtonArgs> = {
     args: {
         label: 'Outline Menu Button',
-        appearance: ButtonAppearance.Outline
+        appearance: ButtonAppearance.outline
     }
 };
 export const ghostButton: StoryObj<MenuButtonArgs> = {
-    args: { label: 'Ghost Menu Button', appearance: ButtonAppearance.Ghost }
+    args: { label: 'Ghost Menu Button', appearance: ButtonAppearance.ghost }
 };
 export const blockButton: StoryObj<MenuButtonArgs> = {
-    args: { label: 'Block Menu Button', appearance: ButtonAppearance.Block }
+    args: { label: 'Block Menu Button', appearance: ButtonAppearance.block }
 };
 export const iconButton: StoryObj<MenuButtonArgs> = {
     args: {
         label: 'Icon Menu Button',
         icon: true,
         contentHidden: true,
-        appearance: ButtonAppearance.Outline
+        appearance: ButtonAppearance.outline
     }
 };

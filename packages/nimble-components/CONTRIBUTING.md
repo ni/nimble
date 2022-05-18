@@ -127,6 +127,10 @@ Use the `html` tagged template helper to define your custom template. See [Decla
 
 ### Adhere to architectural philosophies
 
+#### Coding conventions
+
+This package follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide) with some exceptions listed in [Coding Conventions](/packages/nimble-components/docs/coding-conventions.md).
+
 #### API naming
 
 Use lower-kebab-case for attributes and enum values that are part of a component's public API.

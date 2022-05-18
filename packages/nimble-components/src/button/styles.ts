@@ -16,7 +16,7 @@ import { ButtonAppearance } from './types';
 export const styles = buttonStyles
     .withBehaviors(
         appearanceBehavior(
-            ButtonAppearance.Outline,
+            ButtonAppearance.outline,
             css`
                 :host(.primary) .control {
                     box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
@@ -40,7 +40,7 @@ export const styles = buttonStyles
             `
         ),
         appearanceBehavior(
-            ButtonAppearance.Block,
+            ButtonAppearance.block,
             css`
                 :host(.primary) .control {
                     background-clip: padding-box;

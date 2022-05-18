@@ -25,7 +25,7 @@ export class TextArea extends FoundationTextArea {
      * HTML Attribute: appearance
      */
     @attr
-    public appearance: TextAreaAppearance = TextAreaAppearance.Outline;
+    public appearance: TextAreaAppearance = TextAreaAppearance.outline;
 }
 
 const nimbleTextArea = TextArea.compose({
