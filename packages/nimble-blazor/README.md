@@ -77,6 +77,22 @@ To test out your changes, do "Debug" >> "Start without Debugging" in Visual Stud
 
 More complete examples can be found in the NimbleBlazor.Demo.Client/Server example projects.
 
+### Using Nimble Design Tokens (CSS/SCSS)
+
+Blazor doesn't have built-in support for using/ building SCSS files, however Nimble's design tokens can be used as CSS variables (`var(--ni-nimble-...)`) in Blazor apps without any additional work.  
+For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Property Names"](https://ni.github.io/nimble/storybook/?path=/story/tokens-property-names--property-names&args=propertyFormat:CSS).
+
+**Experimental: Manually including Nimble Tokens SCSS files**  
+There are currently extra manual steps required to use the Nimble design tokens as SCSS in Blazor projects (which results in better IntelliSense and compile-time checking for the Nimble tokens and variables):
+1. Copy the Nimble tokens SCSS files into your Blazor project: Include `tokens.scss` and `tokens-internal.scss` from the `nimble-components` in your Blazor project directory. The simplest way to get these files is via `unpkg.com` (latest versions: [tokens.scss](https://unpkg.com/@ni/nimble-components/dist/tokens-internal.scss), [tokens-internal.scss](https://unpkg.com/@ni/nimble-components/dist/tokens-internal.scss))
+2. In `tokens.scss`, add a file extension to the `@import` statement at the top (`'./tokens-internal'` => `'./tokens-internal.scss'`)
+3. Add a NuGet package reference to a SASS/SCSS compiler to your Blazor project. Both [LibSassBuilder](https://www.nuget.org/packages/LibSassBuilder) and [DartSassBuilder (latest/prerelease)](https://www.nuget.org/packages/DartSassBuilder) have been tested with Blazor projects and work with no additional configuration required.
+4. Add new SCSS files for your Razor components (e.g. `MyComponent.razor.scss`), and `@import 'tokens.scss'` in it (updating the import relative path as needed).
+5. Use the `$ni-nimble-...` variables in your Blazor application SCSS.
+
+The SCSS compilation happens before the rest of Blazor's compilation, so this approach works fine with Blazor CSS isolation.  
+Note: This approach requires periodically updating the Nimble tokens SCSS files manually (whenever the Nimble Blazor NuGet version is updated).
+
 ## Contributing
 
 Follow the instructions in [CONTRIBUTING.md](/packages/nimble-blazor/CONTRIBUTING.md) to modify this library.
