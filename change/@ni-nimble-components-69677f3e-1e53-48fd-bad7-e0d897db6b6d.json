@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update dark theme token value for header background color",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
