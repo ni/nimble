@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 17 May 2022 16:02:58 GMT and should not be manually modified.
+This log was last generated on Tue, 17 May 2022 22:28:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.4
+
+Tue, 17 May 2022 22:28:41 GMT
+
+### Patches
+
+- Update import/formatting of tokens SCSS ([ni/nimble@c254c00](https://github.com/ni/nimble/commit/c254c00cda2686d3f0eb872d961a8847fa571c10))
 
 ## 9.0.3
 

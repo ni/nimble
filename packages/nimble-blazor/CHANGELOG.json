@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 17 May 2022 22:28:41 GMT",
+      "tag": "@ni/nimble-blazor_v2.0.1",
+      "version": "2.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c254c00cda2686d3f0eb872d961a8847fa571c10",
+            "comment": "Update Blazor docs to discuss using Nimble tokens (CSS/SCSS). Update WASM example app csproj (fixes 'dotnet watch' issue)."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 17 May 2022 20:06:42 GMT",
       "tag": "@ni/nimble-blazor_v2.0.0",
       "version": "2.0.0",
