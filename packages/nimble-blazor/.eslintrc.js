@@ -9,8 +9,8 @@ module.exports = {
                 'build/**/*.js'
             ],
             rules: {
-                // Default setting reports errors using devDependencies in build scripts; this allows it
-                'import/no-extraneous-dependencies': ['error', { bundledDependencies: true, devDependencies: true, optionalDependencies: true, peerDependencies: true }],
+                // Build scripts will not be in published package and are allowed to use devDependencies
+                'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 
                 // Okay to use console.log in build scripts
                 'no-console': 'off',
