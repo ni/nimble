@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 20:19:53 GMT",
+      "tag": "@ni/nimble-components_v10.0.1",
+      "version": "10.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "93810d5d61bdff39451918bbc4a463db57505e27",
+            "comment": "Update dark theme token value for header background color"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 May 2022 19:45:57 GMT",
       "tag": "@ni/nimble-components_v10.0.0",
       "version": "10.0.0",

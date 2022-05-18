@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 18 May 2022 19:45:57 GMT and should not be manually modified.
+This log was last generated on Wed, 18 May 2022 20:19:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 10.0.1
+
+Wed, 18 May 2022 20:19:53 GMT
+
+### Patches
+
+- Update dark theme token value for header background color ([ni/nimble@93810d5](https://github.com/ni/nimble/commit/93810d5d61bdff39451918bbc4a463db57505e27))
 
 ## 10.0.0
 
