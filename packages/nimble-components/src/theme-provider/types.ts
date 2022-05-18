@@ -1,6 +1,6 @@
-export enum Theme {
-    Light = 'light',
-    Dark = 'dark',
-    Color = 'color'
-}
-export type ThemeAttribute = `${Theme}`;
+export const Theme = {
+    light: 'light',
+    dark: 'dark',
+    color: 'color'
+} as const;
+export type Theme = typeof Theme[keyof typeof Theme];

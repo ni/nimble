@@ -6,7 +6,7 @@ import {
     Subscriber
 } from '@microsoft/fast-element';
 import type { DesignTokenChangeRecord } from '@microsoft/fast-foundation';
-import type { Theme, ThemeAttribute } from '../../theme-provider/types';
+import type { Theme } from '../../theme-provider/types';
 import { theme as themeToken } from '../../theme-provider';
 
 type ThemeStyles = { readonly [key in Theme]: ElementStyles | null };
@@ -29,7 +29,7 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
         this.attach(token.getValueFor(target));
     }
 
-    public attach(theme: ThemeAttribute): void {
+    public attach(theme: Theme): void {
         if (this.attached !== this.themeStyles[theme]) {
             if (this.attached !== null) {
                 this.source.$fastController.removeStyles(this.attached);
@@ -43,8 +43,11 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
 }
 
 export type LightStyle = ElementStyles | null;
-export type DarkStyleOrAlias = ElementStyles | null | Theme.Light;
-export type ColorStyleOrAlias = ElementStyles | null | Theme.Light | Theme.Dark;
+export type DarkStyleOrAlias = ElementStyles | null | Extract<Theme, 'light'>;
+export type ColorStyleOrAlias =
+    | ElementStyles
+    | null
+    | Extract<Theme, 'light' | 'dark'>;
 type StyleOrPossibleAliases = ColorStyleOrAlias;
 /**
  * Behavior to conditionally apply theme-based stylesheets.
@@ -139,9 +142,9 @@ class ThemeStyleSheetBehavior implements Behavior {
  * css`
  *  // ...
  * `.withBehaviors(new ThemeStyleSheetBehavior(
- *   css`:host { ... Theme.Light style... }`),
- *   null, // No style needed for Theme.Dark style
- *   Theme.Light // For the Theme.Color style, re-use the previously set Theme.Light style
+ *   css`:host { ... Theme.light style... }`),
+ *   null, // No style needed for Theme.dark style
+ *   Theme.light // For the Theme.color style, re-use the previously set Theme.light style
  * )
  * ```
  */

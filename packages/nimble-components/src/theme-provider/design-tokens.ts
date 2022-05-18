@@ -622,11 +622,11 @@ function getColorForTheme(
     colorThemeColor: string
 ): string {
     switch (theme.getValueFor(element)) {
-        case Theme.Light:
+        case Theme.light:
             return lightThemeColor;
-        case Theme.Dark:
+        case Theme.dark:
             return darkThemeColor;
-        case Theme.Color:
+        case Theme.color:
             return colorThemeColor;
         default:
             return lightThemeColor;

@@ -1,6 +1,7 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrixThemeStory,
     createStory
@@ -44,7 +45,9 @@ const valueStates = [
 ] as const;
 type ValueState = typeof valueStates[number];
 
-const appearanceStates = Object.entries(TextAreaAppearance);
+const appearanceStates = Object.entries(TextAreaAppearance).map(
+    ([key, value]) => [pascalCase(key), value]
+);
 type AppearanceState = typeof appearanceStates[number];
 
 const component = (
