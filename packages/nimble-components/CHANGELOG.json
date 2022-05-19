@@ -2,6 +2,87 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 22:20:28 GMT",
+      "tag": "@ni/nimble-components_v10.0.3",
+      "version": "10.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "382b7bec724966de8edc356a453783861aaa560d",
+            "comment": "Focus menu-button in capture phase of event handler"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 May 2022 20:52:01 GMT",
+      "tag": "@ni/nimble-components_v10.0.2",
+      "version": "10.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d6fdd7ce77c264d72f885b2a734a692dc1938e71",
+            "comment": "Remove unused dist output"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.2.1",
+            "commit": "d6fdd7ce77c264d72f885b2a734a692dc1938e71"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 May 2022 20:19:53 GMT",
+      "tag": "@ni/nimble-components_v10.0.1",
+      "version": "10.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "93810d5d61bdff39451918bbc4a463db57505e27",
+            "comment": "Update dark theme token value for header background color"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 May 2022 19:45:57 GMT",
+      "tag": "@ni/nimble-components_v10.0.0",
+      "version": "10.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1626a16c850dd5f47a6e05d23f2829a56a634554",
+            "comment": "1. Rename enum options to use camelCase instead of PascalCase to improve API consistency.\n2. change all enums to use const object and string union pattern.\n3. Renamed string unions named `*Attribute` to remove the word `Attribute`."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 May 2022 17:18:18 GMT",
+      "tag": "@ni/nimble-components_v9.0.4",
+      "version": "9.0.4",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1158d502fc32500f0a2610b4fbe2a7570cd0a7a3",
+            "comment": "Update contributing docs for using nimble components in new templates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 17 May 2022 22:28:41 GMT",
       "tag": "@ni/nimble-components_v9.0.4",
       "version": "9.0.4",

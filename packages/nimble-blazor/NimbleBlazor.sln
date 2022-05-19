@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NimbleBlazor.Components", "NimbleBlazor.Components\NimbleBlazor.Components.csproj", "{FD4F8A39-17CC-4118-A192-3E392FA728CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NimbleBlazor", "NimbleBlazor\NimbleBlazor.csproj", "{FD4F8A39-17CC-4118-A192-3E392FA728CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.NimbleBlazor", "Tests.NimbleBlazor\Tests.NimbleBlazor.csproj", "{1E11DA86-D43D-4CF7-94F5-B4565450BF4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NimbleBlazor.Tests", "Tests\NimbleBlazor.Tests\NimbleBlazor.Tests.csproj", "{1E11DA86-D43D-4CF7-94F5-B4565450BF4C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{638B1C16-782F-4C91-A09C-3569957356DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NimbleBlazor.Demo.Client", "Examples\NimbleBlazor.Demo.Client\NimbleBlazor.Demo.Client.csproj", "{A8C1D36B-77FA-4D9B-893E-226FA2786D31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Client", "Examples\Demo.Client\Demo.Client.csproj", "{A8C1D36B-77FA-4D9B-893E-226FA2786D31}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NimbleBlazor.Demo.Server", "Examples\NimbleBlazor.Demo.Server\NimbleBlazor.Demo.Server.csproj", "{6A1D0B77-BBF2-415E-B3A8-FAB00879F07C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Server", "Examples\Demo.Server\Demo.Server.csproj", "{6A1D0B77-BBF2-415E-B3A8-FAB00879F07C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NimbleBlazor.Demo.Shared", "Examples\NimbleBlazor.Demo.Shared\NimbleBlazor.Demo.Shared.csproj", "{8B6E367C-E472-4E68-98D2-968CFCF6939D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Shared", "Examples\Demo.Shared\Demo.Shared.csproj", "{8B6E367C-E472-4E68-98D2-968CFCF6939D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E5C31FAF-7DEF-494F-A0D2-C9A4875F2132}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{1E11DA86-D43D-4CF7-94F5-B4565450BF4C} = {E5C31FAF-7DEF-494F-A0D2-C9A4875F2132}
 		{A8C1D36B-77FA-4D9B-893E-226FA2786D31} = {638B1C16-782F-4C91-A09C-3569957356DF}
 		{6A1D0B77-BBF2-415E-B3A8-FAB00879F07C} = {638B1C16-782F-4C91-A09C-3569957356DF}
 		{8B6E367C-E472-4E68-98D2-968CFCF6939D} = {638B1C16-782F-4C91-A09C-3569957356DF}

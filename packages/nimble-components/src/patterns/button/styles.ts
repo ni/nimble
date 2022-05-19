@@ -143,7 +143,7 @@ export const styles = css`
     // prettier-ignore
     .withBehaviors(
         appearanceBehavior(
-            ButtonAppearance.Outline,
+            ButtonAppearance.outline,
             css`
                 .control {
                     background-color: transparent;
@@ -172,7 +172,7 @@ export const styles = css`
             `
         ),
         appearanceBehavior(
-            ButtonAppearance.Ghost,
+            ButtonAppearance.ghost,
             css`
                 .control {
                     background-color: transparent;
@@ -201,7 +201,7 @@ export const styles = css`
             `
         ),
         appearanceBehavior(
-            ButtonAppearance.Block,
+            ButtonAppearance.block,
             css`
                 .control {
                     background-color: rgba(${borderRgbPartialColor}, 0.1);

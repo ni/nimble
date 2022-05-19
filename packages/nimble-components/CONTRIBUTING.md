@@ -123,9 +123,13 @@ const nimbleButton = Button.compose({
 If you need to compose multiple elements into a new component, use previously built Nimble elements or basic HTML elements as your template building blocks.
 Extend `FoundationElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
 
-Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `DesignSystem.tagFor(FastFoundationBaseClass)` instead of hard coding the nimble tag name in the template.
+Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `context.tagFor(NimbleComponentClass)` where `context` is the `ElementDefinitionContext` instead of hard coding the nimble tag name in the template. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
 
 ### Adhere to architectural philosophies
+
+#### Coding conventions
+
+This package follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide) with some exceptions listed in [Coding Conventions](/packages/nimble-components/docs/coding-conventions.md).
 
 #### API naming
 

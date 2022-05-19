@@ -1,5 +1,6 @@
 import { DOM, html } from '@microsoft/fast-element';
 import {
+    eventChange,
     keyArrowDown,
     keyArrowUp,
     keyEnter,
@@ -252,6 +253,21 @@ describe('MenuButton', () => {
         } as KeyboardEventInit);
         menuItem1.dispatchEvent(event);
         expect(document.activeElement).toEqual(element);
+    });
+
+    it("should focus the button before bubbling 'change' event on a menu item", async () => {
+        let menuItemChangeEventHandled = false;
+        const onMenuItemChange = (): void => {
+            expect(document.activeElement).toEqual(element);
+            menuItemChangeEventHandled = true;
+        };
+
+        element.open = true;
+        await connect();
+        menuItem1.addEventListener(eventChange, onMenuItemChange);
+        menuItem1.click();
+        expect(menuItemChangeEventHandled).toBeTrue();
+        menuItem1.removeEventListener(eventChange, onMenuItemChange);
     });
 
     it('should not close the menu when clicking on a disabled menu item', async () => {

@@ -1,6 +1,7 @@
-import { html, ref, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import { DrawerWidthOptions, ExampleContentType } from './types';
 import {
     createUserSelectedThemeStory,
     overrideWarning
@@ -16,18 +17,6 @@ import {
 import { DrawerLocation, DrawerState } from '../types';
 import type { Drawer } from '..';
 import '../../all-components';
-
-enum ExampleContentType {
-    SimpleTextContent = 'SimpleTextContent',
-    HeaderContentFooter = 'HeaderContentFooter'
-}
-
-enum DrawerWidthOptions {
-    Default = 'Default',
-    Small300 = 'Small300',
-    Medium500 = 'Medium500',
-    FitContent = 'FitContent'
-}
 
 interface DrawerArgs {
     location: DrawerLocation;
@@ -74,19 +63,17 @@ const headerFooterContent = html<DrawerArgs>`
         <nimble-button @click="${x => x.drawerRef.hide()}" appearance="outline">OK</nimble-button>
     </footer>`;
 
-const content: {
-    readonly [key in ExampleContentType]: ViewTemplate<DrawerArgs>;
-} = {
-    [ExampleContentType.SimpleTextContent]: simpleContent,
-    [ExampleContentType.HeaderContentFooter]: headerFooterContent
-};
+const content = {
+    [ExampleContentType.simpleTextContent]: simpleContent,
+    [ExampleContentType.headerContentFooter]: headerFooterContent
+} as const;
 
-const widths: { readonly [key in DrawerWidthOptions]: string } = {
-    [DrawerWidthOptions.Default]: drawerWidth.getValueFor(document.body),
-    [DrawerWidthOptions.Small300]: '300px',
-    [DrawerWidthOptions.Medium500]: '500px',
-    [DrawerWidthOptions.FitContent]: 'fit-content'
-};
+const widths = {
+    [DrawerWidthOptions.default]: drawerWidth.getValueFor(document.body),
+    [DrawerWidthOptions.small300]: '300px',
+    [DrawerWidthOptions.medium500]: '500px',
+    [DrawerWidthOptions.fitContent]: 'fit-content'
+} as const;
 
 const widthDescriptionOverride = `
 With SCSS properties, the drawer width can be overriden. For example:
@@ -144,15 +131,15 @@ const metadata: Meta<DrawerArgs> = {
     `),
     argTypes: {
         location: {
-            options: [DrawerLocation.Left, DrawerLocation.Right],
+            options: [DrawerLocation.left, DrawerLocation.right],
             control: { type: 'radio' }
         },
         state: {
             options: [
-                DrawerState.Opening,
-                DrawerState.Opened,
-                DrawerState.Closing,
-                DrawerState.Closed
+                DrawerState.opening,
+                DrawerState.opened,
+                DrawerState.closing,
+                DrawerState.closed
             ],
             control: { type: 'select' }
         },
@@ -164,15 +151,15 @@ const metadata: Meta<DrawerArgs> = {
         },
         content: {
             options: [
-                ExampleContentType.SimpleTextContent,
-                ExampleContentType.HeaderContentFooter
+                ExampleContentType.simpleTextContent,
+                ExampleContentType.headerContentFooter
             ],
             control: {
                 type: 'radio',
                 labels: {
-                    [ExampleContentType.SimpleTextContent]:
+                    [ExampleContentType.simpleTextContent]:
                         'Simple Text Content',
-                    [ExampleContentType.HeaderContentFooter]:
+                    [ExampleContentType.headerContentFooter]:
                         'Header/Content/Footer Example'
                 }
             }
@@ -180,20 +167,20 @@ const metadata: Meta<DrawerArgs> = {
         width: {
             description: widthDescription,
             options: [
-                DrawerWidthOptions.Default,
-                DrawerWidthOptions.Small300,
-                DrawerWidthOptions.Medium500,
-                DrawerWidthOptions.FitContent
+                DrawerWidthOptions.default,
+                DrawerWidthOptions.small300,
+                DrawerWidthOptions.medium500,
+                DrawerWidthOptions.fitContent
             ],
             control: {
                 type: 'select',
                 labels: {
-                    [DrawerWidthOptions.Default]: `Default (${drawerWidth.getValueFor(
+                    [DrawerWidthOptions.default]: `Default (${drawerWidth.getValueFor(
                         document.body
                     )})`,
-                    [DrawerWidthOptions.Small300]: 'Small - 300px',
-                    [DrawerWidthOptions.Medium500]: 'Medium - 500px',
-                    [DrawerWidthOptions.FitContent]: 'fit-content'
+                    [DrawerWidthOptions.small300]: 'Small - 300px',
+                    [DrawerWidthOptions.medium500]: 'Medium - 500px',
+                    [DrawerWidthOptions.fitContent]: 'fit-content'
                 }
             }
         },
@@ -209,15 +196,15 @@ const metadata: Meta<DrawerArgs> = {
         }
     },
     args: {
-        location: DrawerLocation.Left,
-        state: DrawerState.Opened,
+        location: DrawerLocation.left,
+        state: DrawerState.opened,
         modal: 'true',
         preventDismiss: false,
-        content: ExampleContentType.SimpleTextContent,
-        width: DrawerWidthOptions.Default,
+        content: ExampleContentType.simpleTextContent,
+        width: DrawerWidthOptions.default,
         drawerRef: undefined,
         toggleDrawer: (x: Drawer): void => {
-            x.state = x.hidden ? DrawerState.Opening : DrawerState.Closing;
+            x.state = x.hidden ? DrawerState.opening : DrawerState.closing;
         }
     }
 };

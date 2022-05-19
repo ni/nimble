@@ -1,4 +1,4 @@
-<div class="drawer-container" [ngClass]="{'pinned': isDrawerPinned, 'location-right': location === drawerLocations.Right}">
+<div class="drawer-container" [ngClass]="{'pinned': isDrawerPinned, 'location-right': location === drawerLocations.right}">
     <nimble-drawer #drawerReference [location]="location" [modal]="!isDrawerPinned">
         <nimble-tree-view selection-mode="leaves-only">
             <nimble-tree-item>

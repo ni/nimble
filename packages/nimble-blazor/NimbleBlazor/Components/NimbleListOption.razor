@@ -1,0 +1,8 @@
+@namespace NimbleBlazor
+<nimble-list-option disabled="@Disabled"
+               value="@BindConverter.FormatValue(Value?.ToString())"
+               selected="@Context?.CurrentValue?.Equals(Value)"
+               onchange=@Context?.ChangeEventCallback
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-list-option>
