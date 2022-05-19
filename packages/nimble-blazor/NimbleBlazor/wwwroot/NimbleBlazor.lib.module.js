@@ -36,7 +36,7 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    // Used by NimbleDrawer.razor
+    // Used by NimbleMenuButton.razor
     Blazor.registerCustomEventType('nimblemenubuttonopenchange', {
         browserEventName: 'open-change',
         createEventArgs: event => {
