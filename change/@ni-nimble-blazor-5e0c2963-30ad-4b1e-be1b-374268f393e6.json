@@ -1,5 +1,5 @@
 {
-  "type": "patch",
+  "type": "minor",
   "comment": "Blazor support for nimble-menu-button",
   "packageName": "@ni/nimble-blazor",
   "email": "20542556+mollykreis@users.noreply.github.com",
