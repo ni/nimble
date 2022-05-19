@@ -29,13 +29,9 @@ export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = con
             @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
             ${ref('toggleButton')}
         >
-            <span slot="start" part="start">
-                <slot name="start"></slot>
-            </span>
+            <slot slot="start" part="start" name="start"></slot>
             <slot></slot>
-            <span slot="end" part="end">
-                <slot name="end"></slot>
-            </span>
+            <slot slot="end" part="end" name="end"></slot>
         </${context.tagFor(ToggleButton)}>
         ${when(
         x => x.open,
