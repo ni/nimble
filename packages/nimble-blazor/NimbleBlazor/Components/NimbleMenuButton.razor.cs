@@ -1,7 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
-namespace NimbleBlazor.Components;
+namespace NimbleBlazor;
 
 public partial class NimbleMenuButton : ComponentBase
 {
