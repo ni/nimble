@@ -36,4 +36,13 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleDrawer.razor
+    Blazor.registerCustomEventType('nimblemenubuttonopenchange', {
+        browserEventName: 'open-change',
+        createEventArgs: event => {
+            return {
+                open: event.target.open
+            };
+        }
+    });
 }
