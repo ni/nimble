@@ -10,13 +10,13 @@
 # Order is important. The last matching pattern has the most precedence.
 
 # Specs
-/specs/* @rajsite @jattasNI @fredvisser @atmgrifter00
+/specs @rajsite @jattasNI @fredvisser @atmgrifter00
 *.spec.md @rajsite @jattasNI @fredvisser @atmgrifter00
 
 # Specific packages
-/angular-workspace/projects/ni/nimble-angular/* @rajsite @atmgrifter00
-/packages/beachball-lock-update/* @rajsite @jattasNI
-/packages/nimble-blazor/* @atmgrifter00 @msmithNI
+/angular-workspace/projects/ni/nimble-angular @rajsite @atmgrifter00
+/packages/beachball-lock-update @rajsite @jattasNI
+/packages/nimble-blazor @atmgrifter00 @msmithNI
 
 # Change files don't need explicit reviewers
-/change/*
+/change
