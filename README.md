@@ -81,11 +81,11 @@ NOTE: To update the component status:
 | Filter Builder | |  [Issue](https://github.com/ni/nimble/issues/310) | :o: | :o: | :o: |
 | Grid | |  [Issue](https://github.com/ni/nimble/issues/283) | :o: | :o: | :o: |
 | Icon Button | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--icon-button) | :white_check_mark: | :white_check_mark: |
-| Icon Menu Button | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) |  [Issue](https://github.com/ni/nimble/issues/300) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/menu-button--icon-button) | :white_check_mark: | :o: |
+| Icon Menu Button | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) |  [Issue](https://github.com/ni/nimble/issues/300) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/menu-button--icon-button) | :white_check_mark: | :white_check_mark: |
 | Icons | | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/icons--component-icons) | :white_check_mark: | :white_check_mark: |
 | Label | |  [Issue](https://github.com/ni/nimble/issues/312) | :o: | :o: | :o: |
 | Menu | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/c098395e-30f8-4bd4-b8c5-394326b59919) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/menu--custom-menu) | :white_check_mark: | :white_check_mark: |
-| Menu Button | |  [Issue](https://github.com/ni/nimble/issues/300) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/menu-button--outline-button) | :white_check_mark: | :o: |
+| Menu Button | |  [Issue](https://github.com/ni/nimble/issues/300) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/menu-button--outline-button) | :white_check_mark: | :white_check_mark: |
 | Number Field | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf) |  [Issue](https://github.com/ni/nimble/issues/361) | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/number-field--number-field) | :white_check_mark: | :o: |
 | Progress Bar | |  [Issue](https://github.com/ni/nimble/issues/304) | :o: | :o: | :o: |
 | Radio | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) |  [Issue](https://github.com/ni/nimble/issues/297) | :o: | :o: | :o: |
