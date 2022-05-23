@@ -72,6 +72,23 @@
                 </NimbleMenu>
             </div>
             <div class="sub-container">
+                <div class="container-label">Menu button</div>
+                <NimbleMenuButton>
+                    Menu button
+                    <NimbleMenu slot="menu">
+                        <header>Header 1</header>
+                        <NimbleMenuItem>
+                            Item 1
+                            <NimbleAddIcon slot="start"></NimbleAddIcon>
+                        </NimbleMenuItem>
+                        <NimbleMenuItem>Item 2</NimbleMenuItem>
+                        <hr>
+                        <header>Header 2</header>
+                        <NimbleMenuItem>Item 4</NimbleMenuItem>
+                    </NimbleMenu>
+                </NimbleMenuButton>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Select</div>
                 <NimbleSelect>
                     <NimbleListOption>Option 1</NimbleListOption>
