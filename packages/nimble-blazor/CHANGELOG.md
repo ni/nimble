@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 18 May 2022 21:26:22 GMT and should not be manually modified.
+This log was last generated on Mon, 23 May 2022 17:08:16 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.1.0
+
+Mon, 23 May 2022 17:08:16 GMT
+
+### Minor changes
+
+- Blazor support for nimble-menu-button ([ni/nimble@717f2fb](https://github.com/ni/nimble/commit/717f2fbd251509bb8deee23c842dceb5c4325c84))
 
 ## 3.0.0
 

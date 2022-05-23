@@ -13,6 +13,7 @@ import './drawer';
 import './icons/all-icons';
 import './list-option';
 import './menu';
+import './menu-button';
 import './menu-item';
 import './number-field';
 import './select';

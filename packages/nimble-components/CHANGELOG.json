@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 23 May 2022 17:08:16 GMT",
+      "tag": "@ni/nimble-components_v10.0.5",
+      "version": "10.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "717f2fbd251509bb8deee23c842dceb5c4325c84",
+            "comment": "Export nimble-menu-button from all-components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 May 2022 15:27:37 GMT",
       "tag": "@ni/nimble-components_v10.0.4",
       "version": "10.0.4",
