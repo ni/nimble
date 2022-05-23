@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 18 May 2022 22:20:28 GMT and should not be manually modified.
+This log was last generated on Mon, 23 May 2022 15:27:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 10.0.4
+
+Mon, 23 May 2022 15:27:37 GMT
+
+### Patches
+
+- Fix icon opacity for disabled buttons ([ni/nimble@977fb31](https://github.com/ni/nimble/commit/977fb31dfaffefbd30bf142eaa5a8f37e2ef6041))
 
 ## 10.0.3
 
