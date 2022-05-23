@@ -128,12 +128,16 @@ export const styles = css`
     }
 
     :host([disabled]) slot[name='start']::slotted(*) {
-        opacity: 0.6;
+        opacity: 0.3;
     }
 
     [part='end'] {
         display: contents;
         ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+    }
+
+    :host([disabled]) slot[name='end']::slotted(*) {
+        opacity: 0.3;
     }
 
     :host([content-hidden]) [part='end'] {

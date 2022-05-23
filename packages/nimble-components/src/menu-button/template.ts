@@ -28,14 +28,12 @@ export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = con
             @change="${(x, c) => x.toggleButtonCheckedChangeHandler(c.event)}"
             @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
             ${ref('toggleButton')}
+            exportparts="start,end"
         >
-            <span slot="start" part="start">
-                <slot name="start"></slot>
-            </span>
+            ${'' /* Forward the contents of the 'start', 'end', and default slots to the toggle button */}
+            <slot slot="start" name="start"></slot>
             <slot></slot>
-            <span slot="end" part="end">
-                <slot name="end"></slot>
-            </span>
+            <slot slot="end" name="end"></slot>
         </${context.tagFor(ToggleButton)}>
         ${when(
         x => x.open,

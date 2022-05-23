@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 23 May 2022 15:27:37 GMT",
+      "tag": "@ni/nimble-components_v10.0.4",
+      "version": "10.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "977fb31dfaffefbd30bf142eaa5a8f37e2ef6041",
+            "comment": "Fix icon opacity for disabled buttons"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 May 2022 22:20:28 GMT",
       "tag": "@ni/nimble-components_v10.0.3",
       "version": "10.0.3",
