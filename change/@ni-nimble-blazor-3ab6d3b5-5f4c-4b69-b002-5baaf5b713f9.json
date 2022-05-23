@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Test pipeline publish",
-  "packageName": "@ni/nimble-blazor",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

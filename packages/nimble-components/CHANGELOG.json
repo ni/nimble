@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 23 May 2022 21:59:32 GMT",
+      "tag": "@ni/nimble-components_v10.0.7",
+      "version": "10.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v3.2.3",
+            "commit": "0f3646deed98560e59d5d2a458939411c303cd29"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 May 2022 19:28:21 GMT",
       "tag": "@ni/nimble-components_v10.0.6",
       "version": "10.0.6",

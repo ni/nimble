@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 23 May 2022 19:28:21 GMT and should not be manually modified.
+This log was last generated on Mon, 23 May 2022 21:59:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.1.2
+
+Mon, 23 May 2022 21:59:32 GMT
+
+### Patches
+
+- Test pipeline publish ([ni/nimble@0f3646d](https://github.com/ni/nimble/commit/0f3646deed98560e59d5d2a458939411c303cd29))
 
 ## 3.1.1
 
