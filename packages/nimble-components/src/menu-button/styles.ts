@@ -14,14 +14,6 @@ export const styles = css`
         height: 100%;
     }
 
-    [part='start'] {
-        display: contents;
-    }
-
-    [part='end'] {
-        display: contents;
-    }
-
     slot[name='menu']::slotted(*) {
         margin-top: ${smallPadding};
         margin-bottom: ${smallPadding};
