@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 23 May 2022 17:08:16 GMT",
+      "tag": "@ni/nimble-blazor_v3.1.0",
+      "version": "3.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "717f2fbd251509bb8deee23c842dceb5c4325c84",
+            "comment": "Blazor support for nimble-menu-button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 May 2022 21:56:07 GMT",
       "tag": "@ni/nimble-blazor_v3.0.0",
       "version": "3.0.0",
