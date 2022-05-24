@@ -13,6 +13,7 @@ async function setup(
 ): Promise<Fixture<Select>> {
     const viewTemplate = html`
         <nimble-select
+            style="margin:200px;"
             ${position !== undefined ? `position="${position}"` : ''}
             ${open ? 'open' : ''}
         >
@@ -37,17 +38,18 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('should respect "open" and "position" attributes when both set', async () => {
-        const position = 'below';
-        const { element, connect, disconnect } = await setup(position, true);
+    ['below', 'above'].forEach(position => {
+        it(`should respect "open" and "position" attributes when position set to '${position}'`, async () => {
+            const { element, connect, disconnect } = await setup(position, true);
 
-        await connect();
-        await DOM.nextUpdate();
+            await connect();
+            await DOM.nextUpdate();
 
-        expect(element.getAttribute('open')).not.toBeNull();
-        expect(element.getAttribute('position')).toBe(position);
+            expect(element.getAttribute('open')).not.toBeNull();
+            expect(element.getAttribute('position')).toBe(position);
 
-        await disconnect();
+            await disconnect();
+        });
     });
 
     it('should keep selected value when options change', async () => {
