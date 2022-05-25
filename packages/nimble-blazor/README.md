@@ -60,7 +60,7 @@ Additional Resources: [`dotnet add package` documentation](https://docs.microsof
 For a simple modification to the Blazor template project: open `Index.razor` and add the following code at the bottom, to add a Nimble text field that updates when a Nimble button is clicked:
 ```cs
 <NimbleTextField Value="@ButtonClickStatus"></NimbleTextField>
-<NimbleButton Appearance="Appearance.Outline" @onclick="OnButtonClicked">Click Me</NimbleButton>
+<NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OnButtonClicked">Click Me</NimbleButton>
 @code {
     protected string ButtonClickStatus { get; set; } = string.Empty;
     private int _buttonClickCount = 0;
