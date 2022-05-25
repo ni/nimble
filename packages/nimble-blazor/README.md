@@ -35,7 +35,7 @@ Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://
 ### Reference NimbleBlazor in a Blazor project
 
 1. Add a PackageReference to the NimbleBlazor NuGet package:
-    - **(Not yet updated)** ~~Using the published NimbleBlazor NuGet package (recommended)~~
+    - Using the published NimbleBlazor NuGet package (recommended)
         - Visual Studio: "Project" >> "Manage NuGet Packages", pick "nuget.org" in the "Package Source" dropdown, and ensure "Include prerelease" is checked. Search for "NimbleBlazor", select it and click the "Install" button.
         - VS Code: Run the command `dotnet add package NimbleBlazor --source https://api.nuget.org/v3/index.json --prerelease` in the Terminal window.
     - For Nimble developers, with a locally built NimbleBlazor NuGet (built from the Nimble repo):
