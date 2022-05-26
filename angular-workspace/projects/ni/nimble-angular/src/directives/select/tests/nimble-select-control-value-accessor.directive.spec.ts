@@ -1,11 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import type { Select } from '@ni/nimble-components/dist/esm/select';
 import { NimbleSelectModule } from '../nimble-select.module';
 import { NimbleListOptionModule } from '../../list-option/nimble-list-option.module';
 import { waitTask } from '../../../async-test-utilities';
 import { processUpdates } from '../../../testing/async-helpers';
+import type { Select } from '../nimble-select.directive';
 
 function setSelectValue(select: Select, index: number): void {
     select.dispatchEvent(new Event('click'));

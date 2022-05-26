@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 23 May 2022 21:59:32 GMT and should not be manually modified.
+This log was last generated on Fri, 27 May 2022 15:39:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.1.1
+
+Fri, 27 May 2022 15:39:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v10.0.8
+
+## 6.1.0
+
+Thu, 26 May 2022 20:11:03 GMT
+
+### Minor changes
+
+- Ensure enums are exported from Angular directives ([ni/nimble@e6a28f2](https://github.com/ni/nimble/commit/e6a28f29f7a7ce5972f69186250f1c789c62f8a4))
 
 ## 6.0.7
 

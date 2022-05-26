@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import type { ToggleButton } from '@ni/nimble-components/dist/esm/toggle-button';
 import { processUpdates } from '../../../testing/async-helpers';
+import type { ToggleButton } from '../nimble-toggle-button.directive';
 import { NimbleToggleButtonModule } from '../nimble-toggle-button.module';
 
 function toggleButtonState(button: ToggleButton): void {
