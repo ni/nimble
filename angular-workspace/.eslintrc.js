@@ -4,7 +4,7 @@ module.exports = {
         files: ['*.ts'],
         extends: [
             '@ni/eslint-config-angular',
-            '@ni/eslint-config-typescript/requiring-type-checking'
+            '@ni/eslint-config-angular/requiring-type-checking'
         ],
         rules: {
             'no-restricted-imports': ['error', {
