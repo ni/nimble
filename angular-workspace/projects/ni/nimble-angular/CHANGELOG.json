@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 26 May 2022 20:11:03 GMT",
+      "tag": "@ni/nimble-angular_v6.1.0",
+      "version": "6.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e6a28f29f7a7ce5972f69186250f1c789c62f8a4",
+            "comment": "Ensure enums are exported from Angular directives"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 May 2022 21:59:32 GMT",
       "tag": "@ni/nimble-angular_v6.0.7",
       "version": "6.0.7",
