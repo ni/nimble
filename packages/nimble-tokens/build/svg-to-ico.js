@@ -3,8 +3,8 @@ const glob = require('glob');
 const fs = require('fs');
 const svgToIco = require('svg-to-ico');
 
-const iconAssetDir = path.resolve(__dirname, '../../assets-icons/');
-const outputDir = path.resolve(__dirname, '../../dist-ico/');
+const iconAssetDir = path.resolve(__dirname, '../dist/icons/svg/');
+const outputDir = path.resolve(__dirname, '../dist/icons/ico/');
 
 console.log(`Icon asset directory :${iconAssetDir}`);
 console.log(`Output ico directory :${outputDir}`);

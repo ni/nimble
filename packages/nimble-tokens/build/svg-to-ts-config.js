@@ -1,8 +1,14 @@
 const path = require('path');
 
+const iconAssetDir = path.resolve(__dirname, '../dist/icons/svg/*.svg');
+const outputDir = path.resolve(__dirname, '../dist/icons/ts/');
+
+console.log(`Icon asset directory :${iconAssetDir}`);
+console.log(`Output ico directory :${outputDir}`);
+
 const svgToTsConfig = {
     srcFiles: [
-        path.resolve(__dirname, '../../assets-icons/*.svg')
+        iconAssetDir
     ],
     conversionType: 'constants',
     prefix: '',
@@ -19,8 +25,8 @@ const svgToTsConfig = {
             },
         ],
     },
-    fileName: 'nimble-icons-inline',
-    outputDirectory: path.resolve(__dirname, '../../dist-icons'),
+    fileName: 'icons',
+    outputDirectory: outputDir,
     interfaceName: 'NimbleIcon',
     typeName: 'NimbleIconName'
 };
