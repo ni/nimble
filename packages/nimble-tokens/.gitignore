@@ -1,3 +1,6 @@
+# remove the dsp assets
+assets
+
 dist-icons
 dist-icons-esm
 dist-nuget
