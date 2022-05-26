@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 10 May 2022 14:21:51 GMT
+ * Generated on Thu, 26 May 2022 18:20:05 GMT
  */
 
 export const SlLegacyBlue : string;
@@ -28,7 +28,7 @@ export const DigitalGreenLight : string;
 export const Brand85 : string;
 export const Brand100 : string;
 export const Fail85 : string;
-export const RgbNiSky : string;
+export const NiSky : string;
 export const BannerFail100DarkUi : string;
 export const Warning100LightUi : string;
 export const Black30 : string;
@@ -47,6 +47,19 @@ export const CmykNiHoneyDark3 : string;
 export const Black82 : string;
 export const IndigoDark1 : string;
 export const IndigoDark2 : string;
+export const NiHoneyLight : string;
+export const NiScarlet : string;
+export const NiFern : string;
+export const NiScarletDark3 : string;
+export const NiScarletDark1 : string;
+export const NiFernDark1 : string;
+export const NiSea : string;
+export const NiSeaLight : string;
+export const NiTulip : string;
+export const NiIndigo : string;
+export const NiPlumDark1 : string;
+export const NiIndigoDark2 : string;
+export const NiSeaDark2 : string;
 export const Title2Family : string;
 export const Title2Weight : string;
 export const ControlLabel1Family : string;
@@ -105,6 +118,8 @@ export const LinkSelection100LightUiFamily : string;
 export const LinkSelection100LightUiWeight : string;
 export const GridHeaderFamily : string;
 export const GridHeaderWeight : string;
+export const GroupLabelExpanderFamily : string;
+export const GroupLabelExpanderWeight : string;
 export const Title2Size : string;
 export const ControlLabel1Size : string;
 export const BodySize : string;
@@ -134,6 +149,7 @@ export const ErrorLightUiSize : string;
 export const ErrorDarkUiSize : string;
 export const LinkSelection100LightUiSize : string;
 export const GridHeaderSize : string;
+export const GroupLabelExpanderSize : string;
 export const BodyLineHeight : string;
 export const ControlLabel1LineHeight : string;
 export const GroupLabel1LineHeight : string;

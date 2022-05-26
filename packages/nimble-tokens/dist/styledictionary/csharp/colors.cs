@@ -2,7 +2,7 @@
 
 /**
     Do not edit directly
-    Generated on Tue, 10 May 2022 14:21:51 GMT
+    Generated on Thu, 26 May 2022 18:20:05 GMT
 **/
 
 using System.Windows.Media;
@@ -34,7 +34,7 @@ public static class NimbleColorTokens {
     public static readonly Color brand85Color = Color.FromRgb(38, 169, 124);
     public static readonly Color brand100Color = Color.FromRgb(0, 155, 101);
     public static readonly Color fail85Color = Color.FromRgb(207, 26, 55);
-    public static readonly Color rgbNiSkyColor = Color.FromRgb(60, 180, 231);
+    public static readonly Color niSkyColor = Color.FromRgb(60, 180, 231);
     public static readonly Color bannerFail100DarkUiColor = Color.FromRgb(214, 52, 52);
     public static readonly Color warning100LightUiColor = Color.FromRgb(255, 75, 0);
     public static readonly Color black30Color = Color.FromRgb(211, 213, 214);
@@ -53,6 +53,19 @@ public static class NimbleColorTokens {
     public static readonly Color black82Color = Color.FromRgb(67, 68, 69);
     public static readonly Color indigoDark1Color = Color.FromRgb(87, 83, 158);
     public static readonly Color indigoDark2Color = Color.FromRgb(49, 46, 127);
+    public static readonly Color niHoneyLightColor = Color.FromRgb(255, 231, 107);
+    public static readonly Color niScarletColor = Color.FromRgb(239, 70, 63);
+    public static readonly Color niFernColor = Color.FromRgb(118, 188, 67);
+    public static readonly Color niScarletDark3Color = Color.FromRgb(55, 22, 21);
+    public static readonly Color niScarletDark1Color = Color.FromRgb(205, 23, 34);
+    public static readonly Color niFernDark1Color = Color.FromRgb(73, 145, 70);
+    public static readonly Color niSeaColor = Color.FromRgb(0, 171, 165);
+    public static readonly Color niSeaLightColor = Color.FromRgb(165, 216, 200);
+    public static readonly Color niTulipColor = Color.FromRgb(229, 76, 138);
+    public static readonly Color niIndigoColor = Color.FromRgb(142, 120, 183);
+    public static readonly Color niPlumDark1Color = Color.FromRgb(140, 69, 154);
+    public static readonly Color niIndigoDark2Color = Color.FromRgb(49, 46, 127);
+    public static readonly Color niSeaDark2Color = Color.FromRgb(0, 104, 95);
 
 
     public static readonly SolidColorBrush slLegacyBlueBrush = new SolidColorBrush(slLegacyBlueColor);
@@ -80,7 +93,7 @@ public static class NimbleColorTokens {
     public static readonly SolidColorBrush brand85Brush = new SolidColorBrush(brand85Color);
     public static readonly SolidColorBrush brand100Brush = new SolidColorBrush(brand100Color);
     public static readonly SolidColorBrush fail85Brush = new SolidColorBrush(fail85Color);
-    public static readonly SolidColorBrush rgbNiSkyBrush = new SolidColorBrush(rgbNiSkyColor);
+    public static readonly SolidColorBrush niSkyBrush = new SolidColorBrush(niSkyColor);
     public static readonly SolidColorBrush bannerFail100DarkUiBrush = new SolidColorBrush(bannerFail100DarkUiColor);
     public static readonly SolidColorBrush warning100LightUiBrush = new SolidColorBrush(warning100LightUiColor);
     public static readonly SolidColorBrush black30Brush = new SolidColorBrush(black30Color);
@@ -99,5 +112,18 @@ public static class NimbleColorTokens {
     public static readonly SolidColorBrush black82Brush = new SolidColorBrush(black82Color);
     public static readonly SolidColorBrush indigoDark1Brush = new SolidColorBrush(indigoDark1Color);
     public static readonly SolidColorBrush indigoDark2Brush = new SolidColorBrush(indigoDark2Color);
+    public static readonly SolidColorBrush niHoneyLightBrush = new SolidColorBrush(niHoneyLightColor);
+    public static readonly SolidColorBrush niScarletBrush = new SolidColorBrush(niScarletColor);
+    public static readonly SolidColorBrush niFernBrush = new SolidColorBrush(niFernColor);
+    public static readonly SolidColorBrush niScarletDark3Brush = new SolidColorBrush(niScarletDark3Color);
+    public static readonly SolidColorBrush niScarletDark1Brush = new SolidColorBrush(niScarletDark1Color);
+    public static readonly SolidColorBrush niFernDark1Brush = new SolidColorBrush(niFernDark1Color);
+    public static readonly SolidColorBrush niSeaBrush = new SolidColorBrush(niSeaColor);
+    public static readonly SolidColorBrush niSeaLightBrush = new SolidColorBrush(niSeaLightColor);
+    public static readonly SolidColorBrush niTulipBrush = new SolidColorBrush(niTulipColor);
+    public static readonly SolidColorBrush niIndigoBrush = new SolidColorBrush(niIndigoColor);
+    public static readonly SolidColorBrush niPlumDark1Brush = new SolidColorBrush(niPlumDark1Color);
+    public static readonly SolidColorBrush niIndigoDark2Brush = new SolidColorBrush(niIndigoDark2Color);
+    public static readonly SolidColorBrush niSeaDark2Brush = new SolidColorBrush(niSeaDark2Color);
 
 }

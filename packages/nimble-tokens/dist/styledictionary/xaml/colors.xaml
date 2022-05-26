@@ -5,7 +5,7 @@
 
 <!--
   Do not edit directly
-  Generated on Tue, 10 May 2022 14:21:51 GMT
+  Generated on Thu, 26 May 2022 18:20:05 GMT
 -->
     <Color x:Key="SL_LegacyBlue">#ff009ff5</Color>
     <Color x:Key="Information100_DarkUI">#ffa46eff</Color>
@@ -32,7 +32,7 @@
     <Color x:Key="Brand85">#ff26a97c</Color>
     <Color x:Key="Brand100">#ff009b65</Color>
     <Color x:Key="Fail85">#ffcf1a37</Color>
-    <Color x:Key="RGB NI Sky">#ff3cb4e7</Color>
+    <Color x:Key="NI Sky">#ff3cb4e7</Color>
     <Color x:Key="Banner_Fail_100_DarkUI">#ffd63434</Color>
     <Color x:Key="Warning100LightUI">#ffff4b00</Color>
     <Color x:Key="Black30">#ffd3d5d6</Color>
@@ -51,6 +51,19 @@
     <Color x:Key="Black82">#ff434445</Color>
     <Color x:Key="IndigoDark1">#ff57539e</Color>
     <Color x:Key="IndigoDark2">#ff312e7f</Color>
+    <Color x:Key="NI Honey Light">#ffffe76b</Color>
+    <Color x:Key="NI Scarlet">#ffef463f</Color>
+    <Color x:Key="NI Fern">#ff76bc43</Color>
+    <Color x:Key="NI Scarlet Dark 3">#ff371615</Color>
+    <Color x:Key="NI Scarlet Dark 1">#ffcd1722</Color>
+    <Color x:Key="NI Fern Dark 1">#ff499146</Color>
+    <Color x:Key="NI Sea">#ff00aba5</Color>
+    <Color x:Key="NI Sea Light">#ffa5d8c8</Color>
+    <Color x:Key="NI Tulip">#ffe54c8a</Color>
+    <Color x:Key="NI Indigo">#ff8e78b7</Color>
+    <Color x:Key="NI Plum Dark 1">#ff8c459a</Color>
+    <Color x:Key="NI Indigo Dark 2">#ff312e7f</Color>
+    <Color x:Key="NI Sea Dark 2">#ff00685f</Color>
 
 
     <SolidColorBrush x:Key="SL_LegacyBlueBrush" Color="{StaticResource SL_LegacyBlue}"/>
@@ -78,7 +91,7 @@
     <SolidColorBrush x:Key="Brand85Brush" Color="{StaticResource Brand85}"/>
     <SolidColorBrush x:Key="Brand100Brush" Color="{StaticResource Brand100}"/>
     <SolidColorBrush x:Key="Fail85Brush" Color="{StaticResource Fail85}"/>
-    <SolidColorBrush x:Key="RGB NI SkyBrush" Color="{StaticResource RGB NI Sky}"/>
+    <SolidColorBrush x:Key="NI SkyBrush" Color="{StaticResource NI Sky}"/>
     <SolidColorBrush x:Key="Banner_Fail_100_DarkUIBrush" Color="{StaticResource Banner_Fail_100_DarkUI}"/>
     <SolidColorBrush x:Key="Warning100LightUIBrush" Color="{StaticResource Warning100LightUI}"/>
     <SolidColorBrush x:Key="Black30Brush" Color="{StaticResource Black30}"/>
@@ -97,5 +110,18 @@
     <SolidColorBrush x:Key="Black82Brush" Color="{StaticResource Black82}"/>
     <SolidColorBrush x:Key="IndigoDark1Brush" Color="{StaticResource IndigoDark1}"/>
     <SolidColorBrush x:Key="IndigoDark2Brush" Color="{StaticResource IndigoDark2}"/>
+    <SolidColorBrush x:Key="NI Honey LightBrush" Color="{StaticResource NI Honey Light}"/>
+    <SolidColorBrush x:Key="NI ScarletBrush" Color="{StaticResource NI Scarlet}"/>
+    <SolidColorBrush x:Key="NI FernBrush" Color="{StaticResource NI Fern}"/>
+    <SolidColorBrush x:Key="NI Scarlet Dark 3Brush" Color="{StaticResource NI Scarlet Dark 3}"/>
+    <SolidColorBrush x:Key="NI Scarlet Dark 1Brush" Color="{StaticResource NI Scarlet Dark 1}"/>
+    <SolidColorBrush x:Key="NI Fern Dark 1Brush" Color="{StaticResource NI Fern Dark 1}"/>
+    <SolidColorBrush x:Key="NI SeaBrush" Color="{StaticResource NI Sea}"/>
+    <SolidColorBrush x:Key="NI Sea LightBrush" Color="{StaticResource NI Sea Light}"/>
+    <SolidColorBrush x:Key="NI TulipBrush" Color="{StaticResource NI Tulip}"/>
+    <SolidColorBrush x:Key="NI IndigoBrush" Color="{StaticResource NI Indigo}"/>
+    <SolidColorBrush x:Key="NI Plum Dark 1Brush" Color="{StaticResource NI Plum Dark 1}"/>
+    <SolidColorBrush x:Key="NI Indigo Dark 2Brush" Color="{StaticResource NI Indigo Dark 2}"/>
+    <SolidColorBrush x:Key="NI Sea Dark 2Brush" Color="{StaticResource NI Sea Dark 2}"/>
 
 </ResourceDictionary>
