@@ -4,7 +4,7 @@ module.exports = {
         files: ['*.ts'],
         extends: [
             '@ni/eslint-config-angular',
-            '@ni/eslint-config-typescript/requiring-type-checking'
+            '@ni/eslint-config-angular/requiring-type-checking'
         ],
         rules: {
             'no-restricted-imports': ['error', {
@@ -25,6 +25,22 @@ module.exports = {
                 allowNullableString: true,
                 allowNullableNumber: false
             }]
+        }
+    }, {
+        files: ['*.spec.ts'],
+        rules: {
+            'no-restricted-imports': [
+                'error', {
+                    patterns:
+                    [{
+                        group: ['@microsoft/fast-*'],
+                        message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
+                    }, {
+                        group: ['@ni/nimble-components'],
+                        message: 'Nimble Angular tests should not have to directly depend on nimble-components.'
+                    }]
+                }
+            ]
         }
     },
     {

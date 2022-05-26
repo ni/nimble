@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TextField } from '@ni/nimble-components/dist/esm/text-field';
-import type { TextFieldAppearance, TextFieldType } from '@ni/nimble-components/dist/esm/text-field/types';
+import { TextFieldAppearance, TextFieldType } from '@ni/nimble-components/dist/esm/text-field/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { TextField };
-export { TextFieldType };
+export { TextFieldType, TextFieldAppearance };
 
 /**
  * Directive to provide Angular integration for the text field
