@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import type { NumberField } from '@ni/nimble-components/dist/esm/number-field';
 import { processUpdates } from '../../../testing/async-helpers';
+import type { NumberField } from '../nimble-number-field.directive';
 import { NimbleNumberFieldModule } from '../nimble-number-field.module';
 
 function setNumberFieldValue(numberField: NumberField, value: number): void {

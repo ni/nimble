@@ -1,10 +1,10 @@
 import { Component, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import type { Tabs } from '@ni/nimble-components/dist/esm/tabs';
-import type { Tab } from '@ni/nimble-components/dist/esm/tab';
 import { waitTask } from '../../../async-test-utilities';
 import { NimbleTabsModule } from '../nimble-tabs.module';
 import { processUpdates } from '../../../testing/async-helpers';
+import type { Tabs } from '../nimble-tabs.directive';
+import type { Tab } from '../../tab/nimble-tab.directive';
 
 describe('Nimble tabs', () => {
     @Component({

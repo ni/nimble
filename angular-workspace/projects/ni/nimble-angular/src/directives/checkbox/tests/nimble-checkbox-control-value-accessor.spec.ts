@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import type { Checkbox } from '@ni/nimble-components/dist/esm/checkbox';
 import { processUpdates } from '../../../testing/async-helpers';
+import type { Checkbox } from '../nimble-checkbox.directive';
 import { NimbleCheckboxModule } from '../nimble-checkbox.module';
 
 function toggleCheckboxValue(checkbox: Checkbox): void {
