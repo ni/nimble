@@ -1,4 +1,5 @@
-# remove the dsp assets
+# remove the dsp assets as we don't currently
+# leverage the dsp component definitions
 assets
 
 dist-icons
