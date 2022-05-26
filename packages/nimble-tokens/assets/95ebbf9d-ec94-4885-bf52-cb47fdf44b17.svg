@@ -1,7 +1,0 @@
-<svg id="RSlide_Header" xmlns="http://www.w3.org/2000/svg" width="784" height="94" viewBox="0 0 784 94">
-  <rect id="Top_Cover" data-name="Top Cover" width="784" height="94" fill="#fff"/>
-  <rect id="Divider_Top" data-name="Divider Top" width="784" height="2" transform="translate(0 92)" fill="#161617" opacity="0.1"/>
-  <g id="Header" transform="translate(64 32)">
-    <text id="Find_systems_by_address_or_host_name" data-name="Find systems by address or host name" transform="translate(0 22)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="22" font-family="SourceSansPro-Regular, Source Sans Pro" letter-spacing="0.01em"><tspan x="0" y="0">Find systems by address or host name</tspan></text>
-  </g>
-</svg>

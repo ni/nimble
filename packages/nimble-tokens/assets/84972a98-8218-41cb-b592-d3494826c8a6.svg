@@ -1,8 +1,0 @@
-<svg id="RSlide_HeaderSub" xmlns="http://www.w3.org/2000/svg" width="784" height="126" viewBox="0 0 784 126">
-  <rect id="Top_Cover" data-name="Top Cover" width="784" height="126" fill="#fff"/>
-  <rect id="Divider_Top" data-name="Divider Top" width="784" height="2" transform="translate(0 124)" fill="#161617" opacity="0.1"/>
-  <g id="Header" transform="translate(64 32)">
-    <text id="Edit_system" data-name="Edit system" transform="translate(0 22)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="22" font-family="SourceSansPro-Regular, Source Sans Pro" letter-spacing="0.01em"><tspan x="0" y="0">Edit system</tspan></text>
-    <text id="Data_logger_3" data-name="Data logger 3" transform="translate(0 41)" fill="#161617" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="12.8" font-family="SourceSansPro-Light, Source Sans Pro" font-weight="300"><tspan x="0" y="0">Data logger 3</tspan></text>
-  </g>
-</svg>
