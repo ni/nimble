@@ -8,20 +8,21 @@ console.log(`Destination directory for blazor assets: "${destinationDirectory}"`
 const nimbleComponentsPath = resolvePackagePath('@ni/nimble-components');
 const nimbleTokensPath = resolvePackagePath('@ni/nimble-tokens');
 
+const componentsBasePath = nimbleComponentsPath;
 const componentsSrc = [
     { src: 'dist/all-components-bundle.min.js', dest: 'all-components-bundle.min.js' },
     { src: 'dist/all-components-bundle.min.js.map', dest: 'all-components-bundle.min.js.map' }
 ];
 
+const tokensBasePath = path.resolve(nimbleTokensPath, 'dist/');
 const tokensSrc = [
-    { src: 'source/fonts.css' },
-    { src: 'assets-fonts/*' }
+    { src: 'fonts/*' }
 ];
 
 prepareDestinationDirectory('nimble-components');
-copyFiles(componentsSrc, nimbleComponentsPath, 'nimble-components');
+copyFiles(componentsSrc, componentsBasePath, 'nimble-components');
 prepareDestinationDirectory('nimble-tokens');
-copyFiles(tokensSrc, nimbleTokensPath, 'nimble-tokens');
+copyFiles(tokensSrc, tokensBasePath, 'nimble-tokens');
 
 function resolvePackagePath(packageName) {
     return path.dirname(require.resolve(`${packageName}/package.json`));

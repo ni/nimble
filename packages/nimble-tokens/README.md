@@ -72,7 +72,7 @@ Icons are included in the `nimble-tokens` package, but (like tokens) icons shoul
 
 #### Font Faces
 
-Nimble provides font definitions for every font family used by a token. To ensure these fonts are available to your application, include `@ni/nimble-tokens/source/fonts.css` in your application code.
+Nimble provides font definitions for every font family used by a token. To ensure these fonts are available to your application, include `@ni/nimble-tokens/dist/fonts/css/fonts.css` in your application code.
 
 
 ## Contributing

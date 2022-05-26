@@ -5,7 +5,7 @@
  * src/icons. Also generates an all-icons barrel file.
  */
 import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import * as icons from '@ni/nimble-tokens/dist/icons/js';
 
 const fs = require('fs');
 const path = require('path');
@@ -40,7 +40,7 @@ for (const key of Object.keys(icons)) {
     const className = `${pascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
 
     const componentFileContents = `${generatedFilePrefix}
-import { ${svgName} } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {

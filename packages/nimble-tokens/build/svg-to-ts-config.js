@@ -25,7 +25,7 @@ const svgToTsConfig = {
             },
         ],
     },
-    fileName: 'icons',
+    fileName: 'index',
     outputDirectory: outputDir,
     interfaceName: 'NimbleIcon',
     typeName: 'NimbleIconName'

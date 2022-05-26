@@ -42,10 +42,8 @@
   "files": [
     "dist/styledictionary/css/**",
     "dist/styledictionary/js/**",
-    "dist/styledictionary/properties/**",
     "dist/styledictionary/scss/**",
     "dist/fonts/**",
-    "dist/icons/js/**",
-    "dist/icons/ts/**"
+    "dist/icons/js/**"
   ]
 }

@@ -3,7 +3,7 @@ import {
     TreeView as FoundationTreeView
 } from '@microsoft/fast-foundation';
 import { DOM, html, ref } from '@microsoft/fast-element';
-import { notebook16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { notebook16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { clickElement } from '../../utilities/tests/component';
