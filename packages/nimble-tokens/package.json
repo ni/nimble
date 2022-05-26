@@ -34,7 +34,7 @@
     "glob": "^8.0.1",
     "hex-rgb": "4.3.0",
     "lodash": "^4.17.21",
-    "style-dictionary": "^3.7.0",
+    "style-dictionary": "3.7.0",
     "svg-to-ico": "1.0.8",
     "svg-to-ts": "^6.0.1",
     "typescript": "^4.3.2"
