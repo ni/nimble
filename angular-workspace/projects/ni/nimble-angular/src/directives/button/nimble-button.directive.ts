@@ -4,7 +4,6 @@ import type { ButtonAppearance, ButtonType } from '@ni/nimble-components/dist/es
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { Button, ButtonType };
-export { ButtonAppearance };
 
 /**
  * Directive to provide Angular integration for the button.

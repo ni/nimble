@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import type { TextField } from '@ni/nimble-components/dist/esm/text-field';
 import { processUpdates } from '../../../testing/async-helpers';
+import type { TextField } from '../nimble-text-field.directive';
 import { NimbleTextFieldModule } from '../nimble-text-field.module';
 
 function setTextFieldValue(textField: TextField, value: string): void {

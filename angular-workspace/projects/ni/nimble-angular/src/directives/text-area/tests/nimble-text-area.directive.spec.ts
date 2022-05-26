@@ -1,8 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TextAreaAppearance, TextAreaResize } from '@ni/nimble-components/dist/esm/text-area/types';
 import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '../../utilities/template-value-helpers';
-import { NimbleTextAreaDirective, TextArea } from '../nimble-text-area.directive';
+import { NimbleTextAreaDirective, TextArea, TextAreaAppearance, TextAreaResize } from '../nimble-text-area.directive';
 import { NimbleTextAreaModule } from '../nimble-text-area.module';
 
 describe('Nimble text area', () => {

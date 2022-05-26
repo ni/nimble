@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import type { Switch } from '@ni/nimble-components/dist/esm/switch';
 import { processUpdates } from '../../../testing/async-helpers';
+import type { Switch } from '../nimble-switch.directive';
 import { NimbleSwitchModule } from '../nimble-switch.module';
 
 function toggleSwitchState(switchElement: Switch): void {

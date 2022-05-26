@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ButtonAppearance } from '@ni/nimble-components/dist/esm/menu-button/types';
+import { ButtonAppearance } from '../../../public-api';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
 import { NimbleMenuButtonDirective, MenuButton } from '../nimble-menu-button.directive';
 import { NimbleMenuButtonModule } from '../nimble-menu-button.module';
