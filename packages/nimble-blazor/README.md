@@ -35,7 +35,7 @@ Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://
 ### Reference NimbleBlazor in a Blazor project
 
 1. Add a PackageReference to the NimbleBlazor NuGet package:
-    - **(Not yet updated)** ~~Using the published NimbleBlazor NuGet package (recommended)~~
+    - Using the published NimbleBlazor NuGet package (recommended)
         - Visual Studio: "Project" >> "Manage NuGet Packages", pick "nuget.org" in the "Package Source" dropdown, and ensure "Include prerelease" is checked. Search for "NimbleBlazor", select it and click the "Install" button.
         - VS Code: Run the command `dotnet add package NimbleBlazor --source https://api.nuget.org/v3/index.json --prerelease` in the Terminal window.
     - For Nimble developers, with a locally built NimbleBlazor NuGet (built from the Nimble repo):
@@ -60,7 +60,7 @@ Additional Resources: [`dotnet add package` documentation](https://docs.microsof
 For a simple modification to the Blazor template project: open `Index.razor` and add the following code at the bottom, to add a Nimble text field that updates when a Nimble button is clicked:
 ```cs
 <NimbleTextField Value="@ButtonClickStatus"></NimbleTextField>
-<NimbleButton Appearance="Appearance.Outline" @onclick="OnButtonClicked">Click Me</NimbleButton>
+<NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OnButtonClicked">Click Me</NimbleButton>
 @code {
     protected string ButtonClickStatus { get; set; } = string.Empty;
     private int _buttonClickCount = 0;
