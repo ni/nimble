@@ -8,15 +8,14 @@ console.log(`Destination directory for blazor assets: "${destinationDirectory}"`
 const nimbleComponentsPath = resolvePackagePath('@ni/nimble-components');
 const nimbleTokensPath = resolvePackagePath('@ni/nimble-tokens');
 
-const componentsBasePath = nimbleComponentsPath;
+const componentsBasePath = path.resolve(nimbleComponentsPath, 'dist');
 const componentsSrc = [
-    { src: 'dist/all-components-bundle.min.js', dest: 'all-components-bundle.min.js' },
-    { src: 'dist/all-components-bundle.min.js.map', dest: 'all-components-bundle.min.js.map' }
+    { src: 'all-components-bundle.min.*' }
 ];
 
-const tokensBasePath = path.resolve(nimbleTokensPath, 'dist/');
+const tokensBasePath = path.resolve(nimbleTokensPath, 'dist/fonts');
 const tokensSrc = [
-    { src: 'fonts/*' }
+    { src: '**' }
 ];
 
 prepareDestinationDirectory('nimble-components');
@@ -34,7 +33,8 @@ function copyFiles(srcPatterns, srcPath, destRelativeDirectory) {
             // glob paths should only have forward slashes
             // so run glob in resolved path (which has backslashes on windows)
             cwd: srcPath,
-            absolute: true
+            absolute: true,
+            nodir: true
         });
         if (sourcePaths.length <= 0) {
             throw new Error(`No files found at path ${pattern.src}`);

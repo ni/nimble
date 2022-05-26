@@ -18,7 +18,8 @@ const iconAssetPaths = glob.sync(globPattern, {
     // glob paths should only have forward slashes
     // so run glob in resolved path (which has backslashes on windows)
     cwd: iconAssetDir,
-    absolute: true
+    absolute: true,
+    nodir: true
 });
 
 if (iconAssetPaths.length <= 0) {
