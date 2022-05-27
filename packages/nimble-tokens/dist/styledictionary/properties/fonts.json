@@ -50,10 +50,10 @@
     },
     "GroupLabel_1": {
       "family": {
-        "value": "Space Mono"
+        "value": "Source Sans Pro"
       },
       "weight": {
-        "value": "Regular"
+        "value": "Semibold"
       }
     },
     "ButtonLabel_1": {
@@ -231,6 +231,14 @@
       "weight": {
         "value": "Semibold"
       }
+    },
+    "GroupLabel_Expander": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Semibold"
+      }
     }
   },
   "size": {
@@ -321,6 +329,9 @@
       },
       "Grid_Header": {
         "value": "12.800000190734863"
+      },
+      "GroupLabel_Expander": {
+        "value": "14"
       }
     }
   }

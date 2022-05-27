@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Tue, 10 May 2022 14:21:51 GMT
+ * Generated on Thu, 26 May 2022 18:20:05 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -28,7 +28,7 @@ export const DigitalGreenLight = "#009b65";
 export const Brand85 = "#26a97c";
 export const Brand100 = "#009b65";
 export const Fail85 = "#cf1a37";
-export const RgbNiSky = "#3cb4e7";
+export const NiSky = "#3cb4e7";
 export const BannerFail100DarkUi = "#d63434";
 export const Warning100LightUi = "#ff4b00";
 export const Black30 = "#d3d5d6";
@@ -47,6 +47,19 @@ export const CmykNiHoneyDark3 = "#292011";
 export const Black82 = "#434445";
 export const IndigoDark1 = "#57539e";
 export const IndigoDark2 = "#312e7f";
+export const NiHoneyLight = "#ffe76b";
+export const NiScarlet = "#ef463f";
+export const NiFern = "#76bc43";
+export const NiScarletDark3 = "#371615";
+export const NiScarletDark1 = "#cd1722";
+export const NiFernDark1 = "#499146";
+export const NiSea = "#00aba5";
+export const NiSeaLight = "#a5d8c8";
+export const NiTulip = "#e54c8a";
+export const NiIndigo = "#8e78b7";
+export const NiPlumDark1 = "#8c459a";
+export const NiIndigoDark2 = "#312e7f";
+export const NiSeaDark2 = "#00685f";
 export const Title2Family = "Source Sans Pro";
 export const Title2Weight = "400";
 export const ControlLabel1Family = "Source Sans Pro";
@@ -59,8 +72,8 @@ export const SubHeaderFamily = "Source Sans Pro";
 export const SubHeaderWeight = "400";
 export const Header1Family = "Noto Serif";
 export const Header1Weight = "400";
-export const GroupLabel1Family = "Space Mono";
-export const GroupLabel1Weight = "400";
+export const GroupLabel1Family = "Source Sans Pro";
+export const GroupLabel1Weight = "600";
 export const ButtonLabel1Family = "Source Sans Pro";
 export const ButtonLabel1Weight = "400";
 export const Title1Family = "Source Sans Pro";
@@ -105,6 +118,8 @@ export const LinkSelection100LightUiFamily = "Source Sans Pro";
 export const LinkSelection100LightUiWeight = "400";
 export const GridHeaderFamily = "Source Sans Pro";
 export const GridHeaderWeight = "600";
+export const GroupLabelExpanderFamily = "Source Sans Pro";
+export const GroupLabelExpanderWeight = "600";
 export const Title2Size = "22px";
 export const ControlLabel1Size = "11px";
 export const BodySize = "14px";
@@ -134,6 +149,7 @@ export const ErrorLightUiSize = "9px";
 export const ErrorDarkUiSize = "9px";
 export const LinkSelection100LightUiSize = "14px";
 export const GridHeaderSize = "12.800000190734863px";
+export const GroupLabelExpanderSize = "14px";
 export const BodyLineHeight = "18px";
 export const ControlLabel1LineHeight = "16px";
 export const GroupLabel1LineHeight = "16px";
