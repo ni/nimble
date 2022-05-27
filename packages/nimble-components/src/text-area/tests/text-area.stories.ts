@@ -85,7 +85,7 @@ const metadata: Meta<TextAreaArgs> = {
         }
     },
     args: {
-        appearance: TextAreaAppearance.Outline,
+        appearance: TextAreaAppearance.outline,
         label: 'default label',
         placeholder: 'Placeholder',
         value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -102,9 +102,9 @@ const metadata: Meta<TextAreaArgs> = {
 export default metadata;
 
 export const outlineTextArea: StoryObj<TextAreaArgs> = {
-    args: { label: 'Outline Text Area', appearance: TextAreaAppearance.Outline }
+    args: { label: 'Outline Text Area', appearance: TextAreaAppearance.outline }
 };
 
 export const blockTextArea: StoryObj<TextAreaArgs> = {
-    args: { label: 'Block Text Area', appearance: TextAreaAppearance.Block }
+    args: { label: 'Block Text Area', appearance: TextAreaAppearance.block }
 };

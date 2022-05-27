@@ -31,7 +31,7 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
         public parent1Expanded = true;
         public parent2Expanded = true;
         public parent3Disabled = true;
-        public selectionMode = TreeViewSelectionMode.LeavesOnly;
+        public selectionMode = TreeViewSelectionMode.leavesOnly;
     }
 
     let parent1Element: TreeItem;

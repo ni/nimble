@@ -32,8 +32,9 @@ jobs:
       - run: npm ci
 
       # Audit
-      - run: npm audit --only=prod
-      - run: npm audit --audit-level=critical
+      # https://github.com/ni/nimble/issues/581
+      # - run: npm audit --only=prod
+      # - run: npm audit --audit-level=critical
 
       # Build
       - run: npm run build
@@ -109,4 +110,5 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/main')
         env:
           NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}
         run: npm run invoke-publish

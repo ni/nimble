@@ -23,7 +23,7 @@ const tokensFileHeader = `// Nimble Components Tokens SCSS
 // Requires using a <nimble-theme-provider> in the page.
 // For more information see https://github.com/ni/nimble/tree/main/packages/nimble-components#theming
 
-@import './tokens-internal';
+@import './tokens-internal.scss';
 `;
 
 const tokensFileContents = Object.entries(tokenNames)

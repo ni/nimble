@@ -2,6 +2,156 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 26 May 2022 21:26:07 GMT",
+      "tag": "@ni/nimble-blazor_v3.1.2",
+      "version": "3.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "200eed92145c37609efb1b2536d2e9f2c8ef2238",
+            "comment": "Update nimble-blazor readme"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 May 2022 21:59:32 GMT",
+      "tag": "@ni/nimble-blazor_v3.1.2",
+      "version": "3.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0f3646deed98560e59d5d2a458939411c303cd29",
+            "comment": "Test pipeline publish"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 May 2022 19:28:21 GMT",
+      "tag": "@ni/nimble-blazor_v3.1.1",
+      "version": "3.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "b75f06c9fc457338dd94aa47f14e792192867f88",
+            "comment": "Publish to nuget.org"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 May 2022 17:08:16 GMT",
+      "tag": "@ni/nimble-blazor_v3.1.0",
+      "version": "3.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "717f2fbd251509bb8deee23c842dceb5c4325c84",
+            "comment": "Blazor support for nimble-menu-button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 May 2022 21:56:07 GMT",
+      "tag": "@ni/nimble-blazor_v3.0.0",
+      "version": "3.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "5a5974c49bed088a4e9208dc67c73dac9a65d3a6",
+            "comment": "Enable no-extraneous-dependencies lint rule"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 May 2022 21:26:22 GMT",
+      "tag": "@ni/nimble-blazor_v3.0.0",
+      "version": "3.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "6ef01f660e91240fb8381984fde864774bd6b2bb",
+            "comment": "Rename NimbleBlazor.Components to NimbleBlazor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 May 2022 20:52:01 GMT",
+      "tag": "@ni/nimble-blazor_v2.0.4",
+      "version": "2.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "d6fdd7ce77c264d72f885b2a734a692dc1938e71",
+            "comment": "Update icon generation dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 17 May 2022 22:28:41 GMT",
+      "tag": "@ni/nimble-blazor_v2.0.1",
+      "version": "2.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c254c00cda2686d3f0eb872d961a8847fa571c10",
+            "comment": "Update Blazor docs to discuss using Nimble tokens (CSS/SCSS). Update WASM example app csproj (fixes 'dotnet watch' issue)."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 17 May 2022 20:06:42 GMT",
+      "tag": "@ni/nimble-blazor_v2.0.0",
+      "version": "2.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "ae9c35fe75d93aa8b3a947759020b8558eb92490",
+            "comment": "Replace single Appearance enum with one per control (ButtonAppearance, TextAreaAppearance, TextFieldAppearance). Add TextFieldAppearance.Frameless."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 16 May 2022 17:10:25 GMT",
+      "tag": "@ni/nimble-blazor_v1.2.7",
+      "version": "1.2.7",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "cdd584eb582900e581bc47b287ef9a3ffee796f4",
+            "comment": "Use FAST helpers for capitalization"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 May 2022 19:48:25 GMT",
       "tag": "@ni/nimble-blazor_v1.2.5",
       "version": "1.2.5",

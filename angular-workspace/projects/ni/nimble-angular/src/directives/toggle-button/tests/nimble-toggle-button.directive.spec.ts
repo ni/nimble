@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ButtonAppearance } from '@ni/nimble-components/dist/esm/toggle-button/types';
+import { ButtonAppearance } from '../../../public-api';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
 import { NimbleToggleButtonDirective, ToggleButton } from '../nimble-toggle-button.directive';
 import { NimbleToggleButtonModule } from '../nimble-toggle-button.module';
@@ -50,8 +50,8 @@ describe('Nimble toggle button', () => {
         });
 
         it('has expected defaults for appearance', () => {
-            expect(directive.appearance).toBe(ButtonAppearance.Outline);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
+            expect(directive.appearance).toBe(ButtonAppearance.outline);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.outline);
         });
 
         it('has expected defaults for contentHidden', () => {
@@ -70,7 +70,7 @@ describe('Nimble toggle button', () => {
             template: `
                 <nimble-toggle-button #toggleButton
                     disabled
-                    appearance="${ButtonAppearance.Ghost}"
+                    appearance="${ButtonAppearance.ghost}"
                     content-hidden
                     checked>
                 </nimble-toggle-button>`
@@ -101,8 +101,8 @@ describe('Nimble toggle button', () => {
         });
 
         it('will use template string values for appearance', () => {
-            expect(directive.appearance).toBe(ButtonAppearance.Ghost);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
+            expect(directive.appearance).toBe(ButtonAppearance.ghost);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.ghost);
         });
 
         it('will use template string values for contentHidden', () => {
@@ -131,7 +131,7 @@ describe('Nimble toggle button', () => {
             @ViewChild('toggleButton', { read: NimbleToggleButtonDirective }) public directive: NimbleToggleButtonDirective;
             @ViewChild('toggleButton', { read: ElementRef }) public elementRef: ElementRef<ToggleButton>;
             public disabled = false;
-            public appearance = ButtonAppearance.Outline;
+            public appearance: ButtonAppearance = ButtonAppearance.outline;
             public contentHidden = false;
             public checked = false;
         }
@@ -163,14 +163,14 @@ describe('Nimble toggle button', () => {
         });
 
         it('can be configured with property binding for appearance', () => {
-            expect(directive.appearance).toBe(ButtonAppearance.Outline);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
+            expect(directive.appearance).toBe(ButtonAppearance.outline);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.outline);
 
-            fixture.componentInstance.appearance = ButtonAppearance.Ghost;
+            fixture.componentInstance.appearance = ButtonAppearance.ghost;
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(ButtonAppearance.Ghost);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
+            expect(directive.appearance).toBe(ButtonAppearance.ghost);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.ghost);
         });
 
         it('can be configured with property binding for contentHidden', () => {
@@ -211,7 +211,7 @@ describe('Nimble toggle button', () => {
             @ViewChild('toggleButton', { read: NimbleToggleButtonDirective }) public directive: NimbleToggleButtonDirective;
             @ViewChild('toggleButton', { read: ElementRef }) public elementRef: ElementRef<ToggleButton>;
             public disabled: BooleanValueOrAttribute = null;
-            public appearance: ButtonAppearance = ButtonAppearance.Outline;
+            public appearance: ButtonAppearance = ButtonAppearance.outline;
             public contentHidden: BooleanValueOrAttribute = null;
             public checked: BooleanValueOrAttribute = null;
         }
@@ -243,14 +243,14 @@ describe('Nimble toggle button', () => {
         });
 
         it('can be configured with attribute binding for appearance', () => {
-            expect(directive.appearance).toBe(ButtonAppearance.Outline);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Outline);
+            expect(directive.appearance).toBe(ButtonAppearance.outline);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.outline);
 
-            fixture.componentInstance.appearance = ButtonAppearance.Ghost;
+            fixture.componentInstance.appearance = ButtonAppearance.ghost;
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(ButtonAppearance.Ghost);
-            expect(nativeElement.appearance).toBe(ButtonAppearance.Ghost);
+            expect(directive.appearance).toBe(ButtonAppearance.ghost);
+            expect(nativeElement.appearance).toBe(ButtonAppearance.ghost);
         });
 
         it('can be configured with attribute binding for contentHidden', () => {

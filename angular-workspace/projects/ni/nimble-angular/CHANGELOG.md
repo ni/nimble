@@ -1,8 +1,116 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 12 May 2022 18:39:55 GMT and should not be manually modified.
+This log was last generated on Thu, 26 May 2022 20:11:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.1.0
+
+Thu, 26 May 2022 20:11:03 GMT
+
+### Minor changes
+
+- Ensure enums are exported from Angular directives ([ni/nimble@e6a28f2](https://github.com/ni/nimble/commit/e6a28f29f7a7ce5972f69186250f1c789c62f8a4))
+
+## 6.0.7
+
+Mon, 23 May 2022 21:59:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v10.0.7
+
+## 6.0.6
+
+Mon, 23 May 2022 19:28:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v10.0.6
+
+## 6.0.5
+
+Mon, 23 May 2022 17:08:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v10.0.5
+
+## 6.0.4
+
+Mon, 23 May 2022 15:27:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v10.0.4
+
+## 6.0.3
+
+Wed, 18 May 2022 22:20:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v10.0.3
+
+## 6.0.2
+
+Wed, 18 May 2022 20:52:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v10.0.2
+
+## 6.0.1
+
+Wed, 18 May 2022 20:19:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v10.0.1
+
+## 6.0.0
+
+Wed, 18 May 2022 19:45:57 GMT
+
+### Major changes
+
+- 1. Rename enum options to use camelCase instead of PascalCase to improve API consistency.
+2. change all enums to use const object and string union pattern.
+3. Renamed string unions named `*Attribute` to remove the word `Attribute`. ([ni/nimble@1626a16](https://github.com/ni/nimble/commit/1626a16c850dd5f47a6e05d23f2829a56a634554))
+- Bump @ni/nimble-components to v10.0.0
+
+## 5.1.1
+
+Tue, 17 May 2022 22:28:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v9.0.4
+
+## 5.1.0
+
+Tue, 17 May 2022 16:02:58 GMT
+
+### Minor changes
+
+- Angular support for menu-button ([ni/nimble@e7a22c8](https://github.com/ni/nimble/commit/e7a22c8fc760f51ebc0d7e56d564576628776456))
+- Bump @ni/nimble-components to v9.0.3
+
+## 5.0.24
+
+Tue, 17 May 2022 15:15:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v9.0.2
+
+## 5.0.23
+
+Mon, 16 May 2022 22:54:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v9.0.1
 
 ## 5.0.22
 

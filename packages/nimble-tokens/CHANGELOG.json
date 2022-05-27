@@ -2,6 +2,66 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 23 May 2022 21:59:32 GMT",
+      "tag": "@ni/nimble-tokens_v3.2.3",
+      "version": "3.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "0f3646deed98560e59d5d2a458939411c303cd29",
+            "comment": "Test pipeline publish"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 May 2022 19:28:21 GMT",
+      "tag": "@ni/nimble-tokens_v3.2.2",
+      "version": "3.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "b75f06c9fc457338dd94aa47f14e792192867f88",
+            "comment": "Publish to nuget.org"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 May 2022 21:56:07 GMT",
+      "tag": "@ni/nimble-tokens_v3.2.1",
+      "version": "3.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "5a5974c49bed088a4e9208dc67c73dac9a65d3a6",
+            "comment": "Add explicit devDependency on lodash"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 May 2022 20:52:01 GMT",
+      "tag": "@ni/nimble-tokens_v3.2.1",
+      "version": "3.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d6fdd7ce77c264d72f885b2a734a692dc1938e71",
+            "comment": "Remove dist files not supported by respective targets: The .ico files were removed from npm and the .ts files were removed from nuget."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 10 May 2022 20:40:12 GMT",
       "tag": "@ni/nimble-tokens_v3.2.0",
       "version": "3.2.0",

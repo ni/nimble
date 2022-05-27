@@ -146,7 +146,7 @@ describe('TreeView', () => {
 
     describe('with `selectionMode` set to `leavesOnly`', () => {
         beforeEach(() => {
-            model.treeView.selectionMode = TreeViewSelectionMode.LeavesOnly;
+            model.treeView.selectionMode = TreeViewSelectionMode.leavesOnly;
         });
 
         it('when glyph is clicked tree group is expanded', async () => {
@@ -219,7 +219,7 @@ describe('TreeView', () => {
 
     describe('with `selectionMode` set to `all`', () => {
         beforeEach(() => {
-            model.treeView.selectionMode = TreeViewSelectionMode.All;
+            model.treeView.selectionMode = TreeViewSelectionMode.all;
         });
 
         it('when glyph is clicked tree group is expanded', async () => {
@@ -258,7 +258,7 @@ describe('TreeView', () => {
 
     describe('with `selectionMode` set to `none`', () => {
         beforeEach(() => {
-            model.treeView.selectionMode = TreeViewSelectionMode.None;
+            model.treeView.selectionMode = TreeViewSelectionMode.none;
         });
 
         it('when glyph is clicked tree group is expanded', async () => {

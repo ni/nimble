@@ -5,6 +5,7 @@
  * file for each.
  */
 
+import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
 import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
 
 const fs = require('fs');
@@ -15,20 +16,11 @@ const trimSizeFromName = text => {
     return text.replace(/\d+X\d+$/, '');
 };
 
-const camelToPascalCase = text => {
-    return text.substring(0, 1).toUpperCase() + text.substring(1);
-};
-
-const camelToKebabCase = text => {
-    // Adapted from https://stackoverflow.com/a/67243723
-    return text.replace(/[A-Z]+(?![a-z])|[A-Z]/g, (substring, offset) => (offset !== 0 ? '-' : '') + substring.toLowerCase());
-};
-
 const generatedFilePrefix = `@* AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
  // See generation source in nimble-blazor/build/generate-icons *@\n`;
 
 const packageDirectory = path.resolve(__dirname, '../../../');
-const iconsDirectory = path.resolve(packageDirectory, 'NimbleBlazor.Components/Components/Icons');
+const iconsDirectory = path.resolve(packageDirectory, 'NimbleBlazor/Components/Icons');
 console.log(iconsDirectory);
 
 if (fs.existsSync(iconsDirectory)) {
@@ -43,12 +35,12 @@ console.log('Finished creating icons directory');
 console.log('Writing icon Razor component files');
 for (const key of Object.keys(icons)) {
     const iconName = trimSizeFromName(key); // "arrowExpanderLeft"
-    const elementName = `nimble-${camelToKebabCase(iconName)}-icon`; // e.g. "nimble-arrow-expander-left-icon"
-    const className = `${camelToPascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
+    const elementName = `nimble-${spinalCase(iconName)}-icon`; // e.g. "nimble-arrow-expander-left-icon"
+    const className = `${pascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
     const componentName = `Nimble${className}`; // e.g. "NimbleArrowExpanderLeftIcon"
 
     const directiveFileContents = `${generatedFilePrefix}
-@namespace NimbleBlazor.Components
+@namespace NimbleBlazor
 @inherits NimbleIconBase
 <${elementName} @attributes="AdditionalAttributes">
 </${elementName}>

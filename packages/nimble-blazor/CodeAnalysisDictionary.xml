@@ -1,23 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dictionary>
-	<Words>
-		<Recognized>
-			<Word>args</Word>
-			<Word>blazor</Word>
+    <Words>
+        <Recognized>
+            <Word>args</Word>
+            <Word>blazor</Word>
 			<Word>combobox</Word>
-			<Word>enum</Word>
-			<Word>nullable</Word>
-			<Word>runtime</Word>
-			<Word>ltr</Word>
-			<Word>rtl</Word>
-			<Word>href</Word>
-			<Word>lang</Word>
-		</Recognized>
-		<DiscreteExceptions>
-		</DiscreteExceptions>
-	</Words>
-	<Acronyms>
-		<CasingExceptions>
-		</CasingExceptions>
-	</Acronyms>
+            <Word>enum</Word>
+            <Word>nullable</Word>
+            <Word>runtime</Word>
+            <Word>ltr</Word>
+            <Word>rtl</Word>
+            <Word>href</Word>
+            <Word>lang</Word>
+            <Word>frameless</Word>
+        </Recognized>
+        <DiscreteExceptions>
+        </DiscreteExceptions>
+    </Words>
+    <Acronyms>
+        <CasingExceptions>
+        </CasingExceptions>
+    </Acronyms>
 </Dictionary>

@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import type { TextArea } from '@ni/nimble-components/dist/esm/text-area';
 import { processUpdates } from '../../../testing/async-helpers';
+import type { TextArea } from '../nimble-text-area.directive';
 import { NimbleTextAreaModule } from '../nimble-text-area.module';
 
 function setTextAreaValue(textArea: TextArea, value: string): void {

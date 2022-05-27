@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 10 May 2022 20:40:12 GMT and should not be manually modified.
+This log was last generated on Mon, 23 May 2022 21:59:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.2.3
+
+Mon, 23 May 2022 21:59:32 GMT
+
+### Patches
+
+- Test pipeline publish ([ni/nimble@0f3646d](https://github.com/ni/nimble/commit/0f3646deed98560e59d5d2a458939411c303cd29))
+
+## 3.2.2
+
+Mon, 23 May 2022 19:28:21 GMT
+
+### Patches
+
+- Publish to nuget.org ([ni/nimble@b75f06c](https://github.com/ni/nimble/commit/b75f06c9fc457338dd94aa47f14e792192867f88))
+
+## 3.2.1
+
+Wed, 18 May 2022 20:52:01 GMT
+
+### Patches
+
+- Remove dist files not supported by respective targets: The .ico files were removed from npm and the .ts files were removed from nuget. ([ni/nimble@d6fdd7c](https://github.com/ni/nimble/commit/d6fdd7ce77c264d72f885b2a734a692dc1938e71))
 
 ## 3.2.0
 

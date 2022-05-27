@@ -7,7 +7,7 @@ import {
     Black15,
     Black30,
     Black75,
-    Black80,
+    Black88,
     White,
     ForestGreen,
     DigitalGreenLight,
@@ -100,7 +100,7 @@ export const applicationBackgroundColor = DesignToken.create<string>(
 
 export const headerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.headerBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black80, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black88, ForestGreen));
 
 export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
@@ -622,11 +622,11 @@ function getColorForTheme(
     colorThemeColor: string
 ): string {
     switch (theme.getValueFor(element)) {
-        case Theme.Light:
+        case Theme.light:
             return lightThemeColor;
-        case Theme.Dark:
+        case Theme.dark:
             return darkThemeColor;
-        case Theme.Color:
+        case Theme.color:
             return colorThemeColor;
         default:
             return lightThemeColor;

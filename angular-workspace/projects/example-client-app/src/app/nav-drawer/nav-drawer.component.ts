@@ -9,7 +9,7 @@ import { DrawerLocation, DrawerState, NimbleDrawerDirective } from '@ni/nimble-a
 export class NavDrawerComponent {
     public isDrawerPinned = false;
     public drawerLocations = DrawerLocation;
-    @Input() public location: DrawerLocation = DrawerLocation.Right;
+    @Input() public location: DrawerLocation = DrawerLocation.right;
     @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public drawer: NimbleDrawerDirective;
 
     public open(): void {
@@ -18,6 +18,6 @@ export class NavDrawerComponent {
 
     public togglePinned(): void {
         this.isDrawerPinned = !this.isDrawerPinned;
-        this.drawer.state = this.isDrawerPinned ? DrawerState.Opened : DrawerState.Closed;
+        this.drawer.state = this.isDrawerPinned ? DrawerState.opened : DrawerState.closed;
     }
 }

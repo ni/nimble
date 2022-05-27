@@ -1,13 +1,23 @@
-import { elements, html, ref, slotted, when } from '@microsoft/fast-element';
+import {
+    elements,
+    html,
+    ref,
+    slotted,
+    ViewTemplate,
+    when
+} from '@microsoft/fast-element';
+import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { MenuButton } from '.';
+import { ToggleButton } from '../toggle-button';
+import { AnchoredRegion } from '../anchored-region';
 
 // prettier-ignore
-export const template = html<MenuButton>`
+export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = context => html<MenuButton>`
     <template
         ?open="${x => x.open}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
     >
-        <nimble-toggle-button
+        <${context.tagFor(ToggleButton)}
             part="button"
             appearance="${x => x.appearance}"
             content-hidden="${x => x.contentHidden}"
@@ -18,19 +28,17 @@ export const template = html<MenuButton>`
             @change="${(x, c) => x.toggleButtonCheckedChangeHandler(c.event)}"
             @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
             ${ref('toggleButton')}
+            exportparts="start,end"
         >
-            <span slot="start" part="start">
-                <slot name="start"></slot>
-            </span>
+            ${'' /* Forward the contents of the 'start', 'end', and default slots to the toggle button */}
+            <slot slot="start" name="start"></slot>
             <slot></slot>
-            <span slot="end" part="end">
-                <slot name="end"></slot>
-            </span>
-        </nimble-toggle-button>
+            <slot slot="end" name="end"></slot>
+        </${context.tagFor(ToggleButton)}>
         ${when(
         x => x.open,
         html<MenuButton>`
-            <nimble-anchored-region
+            <${context.tagFor(AnchoredRegion)}
                 fixed-placement="true"
                 auto-update-mode="auto"
                 horizontal-inset="true"
@@ -38,14 +46,13 @@ export const template = html<MenuButton>`
                 vertical-positioning-mode="${x => (x.position === 'auto' ? 'dynamic' : 'locktodefault')}"
                 vertical-default-position="${x => (x.position === 'above' ? 'top' : 'bottom')}"
                 @loaded="${x => x.regionLoadedHandler()}"
-                @change="${x => x.menuChangeHandler()}"
                 @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
                 ${ref('region')}
             >
                 <span part="menu">
                     <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
                 </span>
-            </nimble-anchored-region>
+            </${context.tagFor(AnchoredRegion)}>
         `
     )}
     </template>

@@ -22,6 +22,8 @@ export * from './directives/list-option/nimble-list-option.directive';
 export * from './directives/list-option/nimble-list-option.module';
 export * from './directives/menu/nimble-menu.directive';
 export * from './directives/menu/nimble-menu.module';
+export * from './directives/menu-button/nimble-menu-button.directive';
+export * from './directives/menu-button/nimble-menu-button.module';
 export * from './directives/menu-item/nimble-menu-item.directive';
 export * from './directives/menu-item/nimble-menu-item.module';
 export * from './directives/number-field/nimble-number-field-control-value-accessor.directive';
@@ -59,3 +61,6 @@ export * from './directives/tree-item/nimble-tree-item.module';
 export * from './directives/tree-view/nimble-tree-view.directive';
 export * from './directives/tree-view/nimble-tree-view.module';
 export * from './testing/async-helpers';
+
+// To avoid exporting ButtonAppearance from multiple places, export the enum a single time here.
+export { ButtonAppearance } from '@ni/nimble-components/dist/esm/patterns/button/types';

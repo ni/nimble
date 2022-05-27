@@ -73,7 +73,17 @@ const metadata: Meta<MenuButtonArgs> = {
 
             <nimble-menu slot="menu">
                 <nimble-menu-item>Item 1</nimble-menu-item>
-                <nimble-menu-item>Item 2</nimble-menu-item>
+                <nimble-menu-item>
+                    Item 2
+                    <nimble-menu>
+                        <nimble-menu-item>
+                            Item 2.1
+                        </nimble-menu-item>
+                        <nimble-menu-item>
+                            Item 2.2
+                        </nimble-menu-item>
+                    </nimble-menu>
+                </nimble-menu-item>
                 <nimble-menu-item disabled>Item 3 (disabled)</nimble-menu-item>
             </nimble-menu>
         </nimble-menu-button>
@@ -95,20 +105,20 @@ export default metadata;
 export const outlineButton: StoryObj<MenuButtonArgs> = {
     args: {
         label: 'Outline Menu Button',
-        appearance: ButtonAppearance.Outline
+        appearance: ButtonAppearance.outline
     }
 };
 export const ghostButton: StoryObj<MenuButtonArgs> = {
-    args: { label: 'Ghost Menu Button', appearance: ButtonAppearance.Ghost }
+    args: { label: 'Ghost Menu Button', appearance: ButtonAppearance.ghost }
 };
 export const blockButton: StoryObj<MenuButtonArgs> = {
-    args: { label: 'Block Menu Button', appearance: ButtonAppearance.Block }
+    args: { label: 'Block Menu Button', appearance: ButtonAppearance.block }
 };
 export const iconButton: StoryObj<MenuButtonArgs> = {
     args: {
         label: 'Icon Menu Button',
         icon: true,
         contentHidden: true,
-        appearance: ButtonAppearance.Outline
+        appearance: ButtonAppearance.outline
     }
 };

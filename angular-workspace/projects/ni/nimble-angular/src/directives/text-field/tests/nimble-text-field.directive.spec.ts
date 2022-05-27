@@ -1,8 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TextFieldAppearance, TextFieldType } from '@ni/nimble-components/dist/esm/text-field/types';
 import { NimbleTextFieldModule } from '../nimble-text-field.module';
-import { NimbleTextFieldDirective, TextField } from '../nimble-text-field.directive';
+import { NimbleTextFieldDirective, TextField, TextFieldAppearance, TextFieldType } from '../nimble-text-field.directive';
 import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '../../utilities/template-value-helpers';
 
 describe('Nimble text field', () => {
@@ -45,13 +44,13 @@ describe('Nimble text field', () => {
         });
 
         it('has expected defaults for appearance', () => {
-            expect(directive.appearance).toBe(TextFieldAppearance.Underline);
-            expect(nativeElement.appearance).toBe(TextFieldAppearance.Underline);
+            expect(directive.appearance).toBe(TextFieldAppearance.underline);
+            expect(nativeElement.appearance).toBe(TextFieldAppearance.underline);
         });
 
         it('can use the directive to set appearance', () => {
-            directive.appearance = TextFieldAppearance.Block;
-            expect(nativeElement.appearance).toBe(TextFieldAppearance.Block);
+            directive.appearance = TextFieldAppearance.block;
+            expect(nativeElement.appearance).toBe(TextFieldAppearance.block);
         });
 
         it('has expected defaults for readOnly', () => {
@@ -179,7 +178,7 @@ describe('Nimble text field', () => {
         @Component({
             template: `
                 <nimble-text-field #textField
-                    appearance="${TextFieldAppearance.Block}"
+                    appearance="${TextFieldAppearance.block}"
                     readonly
                     type="${TextFieldType.password}"
                     autofocus
@@ -215,8 +214,8 @@ describe('Nimble text field', () => {
         });
 
         it('will use template string values for appearance', () => {
-            expect(directive.appearance).toBe(TextFieldAppearance.Block);
-            expect(nativeElement.appearance).toBe(TextFieldAppearance.Block);
+            expect(directive.appearance).toBe(TextFieldAppearance.block);
+            expect(nativeElement.appearance).toBe(TextFieldAppearance.block);
         });
 
         it('will use template string values for readOnly', () => {
@@ -302,7 +301,7 @@ describe('Nimble text field', () => {
         class TestHostComponent {
             @ViewChild('textField', { read: NimbleTextFieldDirective }) public directive: NimbleTextFieldDirective;
             @ViewChild('textField', { read: ElementRef }) public elementRef: ElementRef<TextField>;
-            public appearance = TextFieldAppearance.Block;
+            public appearance: TextFieldAppearance = TextFieldAppearance.block;
             public readonly = false;
             public type: TextFieldType = TextFieldType.password;
             public autofocus = false;
@@ -333,14 +332,14 @@ describe('Nimble text field', () => {
         });
 
         it('can be configured with property binding for appearance', () => {
-            expect(directive.appearance).toBe(TextFieldAppearance.Block);
-            expect(nativeElement.appearance).toBe(TextFieldAppearance.Block);
+            expect(directive.appearance).toBe(TextFieldAppearance.block);
+            expect(nativeElement.appearance).toBe(TextFieldAppearance.block);
 
-            fixture.componentInstance.appearance = TextFieldAppearance.Outline;
+            fixture.componentInstance.appearance = TextFieldAppearance.outline;
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(TextFieldAppearance.Outline);
-            expect(nativeElement.appearance).toBe(TextFieldAppearance.Outline);
+            expect(directive.appearance).toBe(TextFieldAppearance.outline);
+            expect(nativeElement.appearance).toBe(TextFieldAppearance.outline);
         });
 
         it('can be configured with property binding for readOnly', () => {
@@ -498,7 +497,7 @@ describe('Nimble text field', () => {
         class TestHostComponent {
             @ViewChild('textField', { read: NimbleTextFieldDirective }) public directive: NimbleTextFieldDirective;
             @ViewChild('textField', { read: ElementRef }) public elementRef: ElementRef<TextField>;
-            public appearance: TextFieldAppearance = TextFieldAppearance.Block;
+            public appearance: TextFieldAppearance = TextFieldAppearance.block;
             public readonly: BooleanValueOrAttribute = null;
             public type: TextFieldType = TextFieldType.password;
             public autofocus: BooleanValueOrAttribute = null;
@@ -529,14 +528,14 @@ describe('Nimble text field', () => {
         });
 
         it('can be configured with attribute binding for appearance', () => {
-            expect(directive.appearance).toBe(TextFieldAppearance.Block);
-            expect(nativeElement.appearance).toBe(TextFieldAppearance.Block);
+            expect(directive.appearance).toBe(TextFieldAppearance.block);
+            expect(nativeElement.appearance).toBe(TextFieldAppearance.block);
 
-            fixture.componentInstance.appearance = TextFieldAppearance.Outline;
+            fixture.componentInstance.appearance = TextFieldAppearance.outline;
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(TextFieldAppearance.Outline);
-            expect(nativeElement.appearance).toBe(TextFieldAppearance.Outline);
+            expect(directive.appearance).toBe(TextFieldAppearance.outline);
+            expect(nativeElement.appearance).toBe(TextFieldAppearance.outline);
         });
 
         it('can be configured with attribute binding for readOnly', () => {

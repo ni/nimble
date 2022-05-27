@@ -9,8 +9,8 @@ module.exports = {
                 'build/**/*.js'
             ],
             rules: {
-                // Okay to use dev dependencies in build scripts
-                'import/no-extraneous-dependencies': 'off',
+                // Build scripts will not be in published package and are allowed to use devDependencies
+                'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 
                 // Okay to use console.log in build scripts
                 'no-console': 'off',
