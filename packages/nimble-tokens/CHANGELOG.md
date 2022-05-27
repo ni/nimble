@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 23 May 2022 21:59:32 GMT and should not be manually modified.
+This log was last generated on Fri, 27 May 2022 15:39:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.2.4
+
+Fri, 27 May 2022 15:39:30 GMT
+
+### Patches
+
+- Update DSP Tokens ([ni/nimble@4388896](https://github.com/ni/nimble/commit/438889601beb6770e1d00eb4b6cac0564a17b6c6))
 
 ## 3.2.3
 
