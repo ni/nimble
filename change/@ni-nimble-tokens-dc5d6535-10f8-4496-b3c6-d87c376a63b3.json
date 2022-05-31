@@ -1,6 +1,6 @@
 {
-  "type": "patch",
-  "comment": "Update DSP Tokens",
+  "type": "major",
+  "comment": "NPM package restructured so that all exports are under dist/ as dist/fonts, dist/icons, and dist/styledictionary. Nuget package has no changes.",
   "packageName": "@ni/nimble-tokens",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"

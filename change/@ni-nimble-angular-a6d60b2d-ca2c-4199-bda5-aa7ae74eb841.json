@@ -1,6 +1,6 @@
 {
-  "type": "major",
-  "comment": "Moved package icons and fonts to dist/",
+  "type": "patch",
+  "comment": "Updated icon generation to use new nimble-token paths",
   "packageName": "@ni/nimble-angular",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
