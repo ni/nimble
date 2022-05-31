@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 31 May 2022 17:03:58 GMT",
+      "tag": "@ni/nimble-blazor_v4.0.0",
+      "version": "4.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "eeb6783dd96e74365350826b44592c403ef8376d",
+            "comment": "Moved font import path to _content/NimbleBlazor/nimble-tokens/css/fonts.css"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 May 2022 21:26:07 GMT",
       "tag": "@ni/nimble-blazor_v3.1.2",
       "version": "3.1.2",

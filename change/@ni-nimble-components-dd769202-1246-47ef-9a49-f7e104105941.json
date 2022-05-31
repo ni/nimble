@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Use new nimble-token icon paths. See nimble-tokens changes if using fonts.css directly from nimble-tokens.",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

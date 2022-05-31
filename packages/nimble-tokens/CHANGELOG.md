@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 27 May 2022 15:39:30 GMT and should not be manually modified.
+This log was last generated on Tue, 31 May 2022 17:03:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.0.0
+
+Tue, 31 May 2022 17:03:58 GMT
+
+### Major changes
+
+- NPM package restructured so that all exports are under dist/ as dist/fonts, dist/icons, and dist/styledictionary. Nuget package has no changes. ([ni/nimble@4388896](https://github.com/ni/nimble/commit/438889601beb6770e1d00eb4b6cac0564a17b6c6))
 
 ## 3.2.4
 

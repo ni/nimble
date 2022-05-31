@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 27 May 2022 15:39:30 GMT and should not be manually modified.
+This log was last generated on Tue, 31 May 2022 17:03:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.1.2
+
+Tue, 31 May 2022 17:03:58 GMT
+
+### Patches
+
+- Updated icon generation to use new nimble-token paths ([ni/nimble@eeb6783](https://github.com/ni/nimble/commit/eeb6783dd96e74365350826b44592c403ef8376d))
+- Bump @ni/nimble-components to v10.0.9
 
 ## 6.1.1
 

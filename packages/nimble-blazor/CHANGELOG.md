@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 23 May 2022 21:59:32 GMT and should not be manually modified.
+This log was last generated on Tue, 31 May 2022 17:03:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.0.0
+
+Tue, 31 May 2022 17:03:58 GMT
+
+### Major changes
+
+- Moved font import path to _content/NimbleBlazor/nimble-tokens/css/fonts.css ([ni/nimble@eeb6783](https://github.com/ni/nimble/commit/eeb6783dd96e74365350826b44592c403ef8376d))
 
 ## 3.1.2
 
