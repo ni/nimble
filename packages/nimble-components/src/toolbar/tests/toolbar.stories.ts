@@ -30,24 +30,24 @@ const metadata: Meta = {
     render: createUserSelectedThemeStory(html`
         <nimble-toolbar>
             <nimble-button appearance="ghost" slot="start">
-                <nimble-eye-icon slot="start"></nimble-eye-icon>
+                <nimble-icon-eye slot="start"></nimble-icon-eye>
                 View
             </nimble-button>
             <nimble-button disabled appearance="ghost" slot="start">
-                <nimble-trash-icon slot="start"></nimble-trash-icon>
+                <nimble-icon-trash slot="start"></nimble-icon-trash>
                 Delete
             </nimble-button>
             <nimble-button appearance="ghost" slot="start">
-                <nimble-pencil-icon slot="start"></nimble-pencil-icon>
+                <nimble-icon-pencil slot="start"></nimble-icon-pencil>
                 Edit
             </nimble-button>
 
             <nimble-button appearance="ghost" content-hidden slot="end">
-                <nimble-cog-icon slot="start"></nimble-cog-icon>
+                <nimble-icon-cog slot="start"></nimble-icon-cog>
                 Settings
             </nimble-button>
             <nimble-button appearance="ghost" content-hidden slot="end">
-                <nimble-filter-icon slot="start"></nimble-filter-icon>
+                <nimble-icon-filter slot="start"></nimble-icon-filter>
                 Filter
             </nimble-button>
         </nimble-toolbar>

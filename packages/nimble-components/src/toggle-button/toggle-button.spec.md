@@ -91,7 +91,7 @@ Because the FAST switch's template will not be used directly, tests related to l
 
 ```html
 <nimble-toggle-button checked content-hidden>
-    <nimble-access-control-icon slot="start"></nimble-access-control-icon>
+    <nimble-icon-access-control slot="start"></nimble-icon-access-control>
     Lock
 </nimble-toggle-button>
 ```

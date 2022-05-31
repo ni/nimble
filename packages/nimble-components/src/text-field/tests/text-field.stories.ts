@@ -59,13 +59,13 @@ const metadata: Meta<TextFieldArgs> = {
             error-text="${x => x['error-text']}"
         >
             ${when(x => x.leftIcon, html`
-                <nimble-tag-icon slot="start"></nimble-tag-icon>`)}
+                <nimble-icon-tag slot="start"></nimble-icon-tag>`)}
 
             ${x => x.label}
 
             ${when(x => x.actionButton, html`
                 <nimble-button slot="actions" appearance="ghost" content-hidden>
-                    <nimble-pencil-icon slot="start"></nimble-pencil-icon>
+                    <nimble-icon-pencil slot="start"></nimble-icon-pencil>
                     Edit
                 </nimble-button>`)}
         </nimble-text-field>

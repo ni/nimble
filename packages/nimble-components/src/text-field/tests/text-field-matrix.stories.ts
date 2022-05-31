@@ -113,7 +113,7 @@ const component = (
         ?readonly="${() => readonly}"
         error-text="${() => errorText}"
     >
-        ${when(() => showLeftIcon, html`<nimble-tag-icon slot="start"></nimble-pencil-icon>`)}
+        ${when(() => showLeftIcon, html`<nimble-icon-tag slot="start"></nimble-icon-tag>`)}
 
         ${() => invalidName} ${() => typeName}
         ${() => appearanceName} ${() => noPadName} ${() => valueName}
@@ -122,11 +122,11 @@ const component = (
 
         ${when(() => showActionButtons, html`
             <nimble-button slot="actions" appearance="outline" content-hidden>
-                <nimble-pencil-icon slot="start"></nimble-pencil-icon>
+                <nimble-icon-pencil slot="start"></nimble-icon-pencil>
                 Edit
             </nimble-button>
             <nimble-button slot="actions" appearance="outline" content-hidden>
-                <nimble-xmark-icon slot="start"></nimble-xmark-icon>
+                <nimble-icon-xmark slot="start"></nimble-icon-xmark>
                 Clear
             </nimble-button>`)}
     </nimble-text-field>

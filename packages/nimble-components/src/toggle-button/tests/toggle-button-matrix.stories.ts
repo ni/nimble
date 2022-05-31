@@ -63,9 +63,9 @@ const component = (
         ?content-hidden=${() => !labelVisible}
         ?checked=${() => checked}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
+            ${when(() => iconVisible, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
             ${() => `${checkedName} ${appearanceName!} Toggle Button ${disabledName}`}
-            ${when(() => endIconVisible, html`<nimble-arrow-expander-down-icon slot="end"></nimble-arrow-expander-down-icon>`)}
+            ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
     </nimble-toggle-button>
 `;
 

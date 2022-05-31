@@ -73,9 +73,9 @@ const metadata: Meta<ButtonArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" class="${x => (x.primary ? 'primary' : '')}" ?content-hidden="${x => x.contentHidden}">
-            ${when(x => x.icon, html`<nimble-key-icon slot="start"></nimble-key-icon>`)}
+            ${when(x => x.icon, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
             ${x => x.label}
-            ${when(x => x.endIcon, html`<nimble-arrow-expander-down-icon slot="end"></nimble-arrow-expander-down-icon>`)}
+            ${when(x => x.endIcon, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
         </nimble-button>
 `),
     args: {
