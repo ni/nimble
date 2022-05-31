@@ -1,5 +1,5 @@
-import * as nimbleIconsMap from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import type { NimbleIconName } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
+import type { NimbleIconName } from '@ni/nimble-tokens/dist/icons/js';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';

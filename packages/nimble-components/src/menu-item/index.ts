@@ -4,7 +4,7 @@ import {
     menuItemTemplate as template,
     MenuItemOptions
 } from '@microsoft/fast-foundation';
-import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
 declare global {

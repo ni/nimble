@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Moved font import path to _content/NimbleBlazor/nimble-tokens/css/fonts.css",
+  "packageName": "@ni/nimble-blazor",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

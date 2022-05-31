@@ -3,8 +3,8 @@ const glob = require('glob');
 const fs = require('fs');
 const svgToIco = require('svg-to-ico');
 
-const iconAssetDir = path.resolve(__dirname, '../../assets-icons/');
-const outputDir = path.resolve(__dirname, '../../dist-ico/');
+const iconAssetDir = path.resolve(__dirname, '../dist/icons/svg/');
+const outputDir = path.resolve(__dirname, '../dist/icons/ico/');
 
 console.log(`Icon asset directory :${iconAssetDir}`);
 console.log(`Output ico directory :${outputDir}`);
@@ -18,7 +18,8 @@ const iconAssetPaths = glob.sync(globPattern, {
     // glob paths should only have forward slashes
     // so run glob in resolved path (which has backslashes on windows)
     cwd: iconAssetDir,
-    absolute: true
+    absolute: true,
+    nodir: true
 });
 
 if (iconAssetPaths.length <= 0) {

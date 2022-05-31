@@ -2,7 +2,3 @@ dist/*
 !dist/styledictionary
 dist/styledictionary/*
 !dist/styledictionary/nimble-extensions.js
-
-dist-*
-
-source/build/templates/

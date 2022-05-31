@@ -47,7 +47,7 @@ Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://
     - Open `_Layout.cshtml` (BlazorServer) / `wwwroot/index.html` (Blazor WebAssembly).  
     At the bottom of the `<head>` section (right before `</head>`), add  
         ```html
-        <link href="_content/NimbleBlazor/nimble-tokens/source/fonts.css" rel="stylesheet" />
+        <link href="_content/NimbleBlazor/nimble-tokens/css/fonts.css" rel="stylesheet" />
         ```  
         At the bottom of the `<body>` section (right before `</body>`), add  
         ```html

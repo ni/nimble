@@ -1,4 +1,4 @@
-import '@ni/nimble-tokens/source/fonts.css';
+import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
 import './preview.css';
 import { transformSource } from './transformSource';
 import { backgroundStates, defaultBackgroundState } from '../dist/esm/utilities/tests/states';

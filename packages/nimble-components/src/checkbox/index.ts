@@ -4,10 +4,7 @@ import {
     CheckboxOptions,
     checkboxTemplate as template
 } from '@microsoft/fast-foundation';
-import {
-    check16X16,
-    minus16X16
-} from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { check16X16, minus16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
 declare global {

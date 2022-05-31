@@ -7,7 +7,7 @@ import {
 import {
     arrowExpanderDown16X16,
     arrowExpanderUp16X16
-} from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+} from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
 declare global {

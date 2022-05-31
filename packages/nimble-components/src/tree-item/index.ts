@@ -4,7 +4,7 @@ import {
     TreeItemOptions,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import type { TreeView } from '../tree-view';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { styles } from './styles';

@@ -1,12 +1,10 @@
 # remove the dsp assets as we don't currently
 # leverage the dsp component definitions
-assets
+/assets
 
-dist-icons
-dist-icons-esm
-dist-nuget
-dist-ico
+dist/icons/*
+!dist/icons/svg
 
-source/NimbleTokens/bin
-source/NimbleTokens/obj
-source/NimbleTokens/.vs
+NimbleTokens/bin
+NimbleTokens/obj
+NimbleTokens/.vs
