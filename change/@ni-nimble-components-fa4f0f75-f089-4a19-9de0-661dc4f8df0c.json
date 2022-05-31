@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Include change event in Storybook for nimble-tabs",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
