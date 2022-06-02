@@ -49,7 +49,7 @@ export const menuItem: StoryObj<MenuItemArgs> = {
     parameters: {
         docs: {
             description: {
-                story: 'The `nimble-menu` supports several child elements including `<header>`, `<hr>`, and `<nimble-menu-item>`, and will format them and any `nimble-icons` added as children of `<nimble-menu-item>`.'
+                story: 'The `nimble-menu` supports several child elements including `<header>`, `<hr>`, and `<nimble-menu-item>`, and will format them and any Nimble icons added as children of `<nimble-menu-item>`.'
             }
         }
     },
@@ -57,7 +57,7 @@ export const menuItem: StoryObj<MenuItemArgs> = {
     render: createUserSelectedThemeStory(html`
         <nimble-menu>
             <nimble-menu-item ?disabled="${x => x.disabled}">
-                ${when(x => x.icon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}
+                ${when(x => x.icon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}
                 ${x => x.text}
             </nimble-menu-item>
         </nimble-menu>
@@ -79,7 +79,7 @@ export const menu: StoryObj<MenuArgs> = {
     parameters: {
         docs: {
             description: {
-                story: 'The `nimble-menu` supports several child elements including `<header>`, `<hr>`, and `<nimble-menu-item>`, and will format them and any `nimble-icons` added as children of `<nimble-menu-item>`.'
+                story: 'The `nimble-menu` supports several child elements including `<header>`, `<hr>`, and `<nimble-menu-item>`, and will format them and any Nimble icons added as children of `<nimble-menu-item>`.'
             }
         }
     },
@@ -89,7 +89,7 @@ export const menu: StoryObj<MenuArgs> = {
             ${repeat(x => x.itemOptions, html<ItemArgs>`
                 ${when(x => x.type === 'nimble-menu-item', html<ItemArgs>`
                     <nimble-menu-item ?disabled="${x => x.disabled}">
-                        ${when(x => x.icon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}
+                        ${when(x => x.icon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}
                         ${x => x.text}
                     </nimble-menu-item>
                 `)}
@@ -177,7 +177,7 @@ export const nestedMenu: StoryObj<MenuArgs> = {
         <div style="width: 600px; height: 300px;">
             <nimble-menu>
                 <nimble-menu-item>
-                    <nimble-user-icon slot="start"></nimble-user-icon>
+                    <nimble-icon-user slot="start"></nimble-icon-user>
                     Item 1
                 </nimble-menu-item>
                 <nimble-menu-item>
@@ -225,8 +225,8 @@ export const customMenu: StoryObj<MenuArgs> = {
                 <div style="font-weight: bold; color: black;">lvadmin User</div>
                 <div style="color: gray;">lvadmin</div>
             </div>
-            <nimble-menu-item><nimble-user-icon slot="start"></nimble-user-icon>Account</nimble-menu-item>
-            <nimble-menu-item><nimble-arrow-left-from-line-icon slot="start"></nimble-arrow-left-from-line-icon>Log out</nimble-menu-item>
+            <nimble-menu-item><nimble-icon-user slot="start"></nimble-icon-user>Account</nimble-menu-item>
+            <nimble-menu-item><nimble-icon-arrow-left-from-line slot="start"></nimble-icon-arrow-left-from-line>Log out</nimble-menu-item>
         </nimble-menu>
     `)
 };

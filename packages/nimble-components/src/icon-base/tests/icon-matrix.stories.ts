@@ -32,7 +32,7 @@ type IconStatusState = typeof iconStatusStates[number];
 
 const component = ([stateName, state]: IconStatusState): ViewTemplate => html`
     <span style="color: ${bodyFontColor.createCSS()};">${stateName}</span>
-    <nimble-check-icon class="${state}"></nimble-check-icon>
+    <nimble-icon-check class="${state}"></nimble-icon-check>
 `;
 
 export const iconThemeMatrix: Story = createMatrixThemeStory(
@@ -41,6 +41,6 @@ export const iconThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenIcon: Story = createStory(
     hiddenWrapper(
-        html`<nimble-check-icon class="pass" hidden></nimble-check-icon>`
+        html`<nimble-icon-check class="pass" hidden></nimble-icon-check>`
     )
 );
