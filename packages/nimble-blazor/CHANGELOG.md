@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 31 May 2022 17:03:58 GMT and should not be manually modified.
+This log was last generated on Thu, 02 Jun 2022 15:11:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.0.0
+
+Thu, 02 Jun 2022 15:11:56 GMT
+
+### Major changes
+
+- Icon names updated from the postfix Nimble*Icon to the prefix NimbleIcon*. ([ni/nimble@7d7416e](https://github.com/ni/nimble/commit/7d7416ecb6f539feed219221c905b7365c8c7f79))
 
 ## 4.0.0
 

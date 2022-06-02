@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Icon names updated from the postfix Nimble*Icon to the prefix NimbleIcon*.",
-  "packageName": "@ni/nimble-blazor",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

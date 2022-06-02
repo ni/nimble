@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Icon names updated from the postfix nimble-*-icon to the prefix nimble-icon-*.",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
