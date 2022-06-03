@@ -38,6 +38,12 @@ export class Select extends FoundationSelect {
             this.value = value;
         }
     }
+
+    private maxHeightChanged(): void {
+        if (this.listbox) {
+            this.listbox.style.setProperty('--max-height', `${this.maxHeight}px`);
+        }
+    }
 }
 
 const nimbleSelect = Select.compose<SelectOptions>({
