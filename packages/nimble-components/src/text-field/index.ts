@@ -59,8 +59,7 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
             <slot name="actions"></slot>
         </span>
         <div
-            id="errortext"
-            class="errortext error-content"
+            class="error-text error-content"
             title="${x => x.errorText}"
             aria-live="polite"
         >

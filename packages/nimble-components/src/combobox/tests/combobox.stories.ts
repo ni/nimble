@@ -5,10 +5,11 @@ import '..';
 import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { DropdownPosition } from '../../patterns/dropdown/types';
 
 interface ComboboxArgs {
     disabled: boolean;
-    dropDownPosition: string;
+    dropDownPosition: DropdownPosition;
     autocomplete: ComboboxAutocomplete;
     options: OptionArgs[];
     invalid: boolean;
@@ -27,8 +28,9 @@ const metadata: Meta<ComboboxArgs> = {
     parameters: {
         docs: {
             description: {
-                component:
-                    'Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user cannot manually enter values.'
+                component: `Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user can enter aribtrary values in the input area. 
+                     The combobox provides 'autocomplete' options that help finding and selecting a particular value. The value of the combobox comes from the text content of the selected list-option, unlike the
+                     nimble-select component, which uses the value property of the list-option for its value.`
             }
         },
         design: {
@@ -60,7 +62,7 @@ const metadata: Meta<ComboboxArgs> = {
             control: { type: 'radio' }
         },
         dropDownPosition: {
-            options: ['above', 'below'],
+            options: [DropdownPosition.above, DropdownPosition.below],
             control: { type: 'select' }
         },
         errorText: {

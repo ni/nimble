@@ -8,10 +8,8 @@ import {
     bodyFontColor,
     bodyDisabledFontColor,
     controlHeight,
-    errorTextFont,
     failColor,
     fillSelectedRgbPartialColor,
-    iconSize,
     labelHeight,
     smallDelay,
     controlLabelFont,
@@ -24,9 +22,11 @@ import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-block')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -196,52 +196,6 @@ export const styles = css`
 
     [part='end'] {
         display: contents;
-    }
-
-    .error-content {
-        display: none;
-    }
-
-    :host(.invalid) .error-content {
-        display: contents;
-    }
-
-    :host(.invalid) .error-content svg {
-        height: ${iconSize};
-        width: ${iconSize};
-        flex: none;
-    }
-
-    :host(.invalid) .error-content path {
-        fill: ${failColor};
-    }
-
-    :host([disabled]) .error-content path {
-        fill: ${bodyDisabledFontColor};
-    }
-
-    .errortext {
-        display: none;
-    }
-
-    :host(.invalid) .errortext {
-        display: block;
-        font: ${errorTextFont};
-        color: ${failColor};
-        width: 100%;
-        position: absolute;
-        top: ${controlHeight};
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    :host(.invalid) .error-text:empty {
-        display: none;
-    }
-
-    :host([disabled]) .errortext {
-        color: ${bodyDisabledFontColor};
     }
 
     [part='actions'] {

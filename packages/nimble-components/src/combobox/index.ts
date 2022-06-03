@@ -12,8 +12,8 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
-import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
+import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,7 +26,7 @@ declare global {
  */
 export class Combobox extends FoundationCombobox {
     /**
-     * The ref to the internal `.control` element.
+     * The ref to the internal dropdown button element.
      *
      * @internal
      */
@@ -41,7 +41,7 @@ export class Combobox extends FoundationCombobox {
      * HTML Attribute: error-text
      */
     @attr({ attribute: 'error-text' })
-    public errorText!: string;
+    public errorText: string | undefined;
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
@@ -67,10 +67,11 @@ export class Combobox extends FoundationCombobox {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        // Call setPositioning() after this.forcedPosition is initialized.
-        this.setPositioning();
         this.addEventListener('focusout', this.focusOutHandler);
         const inputElement = this.shadowRoot?.querySelector('.selected-value');
+        // Workaround for https://github.com/microsoft/fast/issues/6041. This doesn't address the case
+        // where a user changes the 'aria-label' attribute programmatically, but I don't think we want
+        // to try and handle that case at the moment.
         if (this.ariaLabel) {
             inputElement?.setAttribute('aria-label', this.ariaLabel);
         }
@@ -142,12 +143,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 />
             </nimble-toggle-button>
         </div>
-        <div
-            id="errortext"
-            class="errortext error-content"
-            title="${x => x.errorText}"
-            aria-live="polite"
-        >
+        <div class="error-text" title="${x => x.errorText}" aria-live="polite">
             ${x => x.errorText}
         </div>
     `

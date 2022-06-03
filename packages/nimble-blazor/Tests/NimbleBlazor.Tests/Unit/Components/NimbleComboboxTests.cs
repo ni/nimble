@@ -1,5 +1,5 @@
 ﻿using Bunit;
-using NimbleBlazor.Components;
+using NimbleBlazor;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;

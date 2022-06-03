@@ -1,25 +1,41 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
-namespace NimbleBlazor.Components;
+namespace NimbleBlazor;
 
 public partial class NimbleCombobox : NimbleInputBase<string?>
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N", null);
     private NimbleOptionContext? _context;
 
+    /// <summary>
+    /// Gets or sets the name of the combobox.
+    /// </summary>
+    /// <remarks>This is used to help provide the context for the contained NimbleListOptions</remarks>
     [Parameter]
     public string? Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the combobox is disabled
+    /// </summary>
     [Parameter]
     public bool? Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets the position of the popup relative to the combobox
+    /// </summary>
     [Parameter]
     public Position? Position { get; set; }
 
+    /// <summary>
+    /// Gets or sets the autocomplete mode for the combobox
+    /// </summary>
     [Parameter]
     public AutoComplete? AutoComplete { get; set; }
 
+    /// <summary>
+    /// Gets or sets the child content to be rendered inside the combobox
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 

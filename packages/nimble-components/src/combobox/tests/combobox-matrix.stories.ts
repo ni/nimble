@@ -13,6 +13,14 @@ import '..';
 import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
+/* array of state name, invalidClass, errorText */
+const comboboxInvalidStates = [
+    ['', ''],
+    ['invalid', 'This is not valid.'],
+    ['invalid', '']
+] as const;
+type ComboboxInvalidState = typeof comboboxInvalidStates[number];
+
 const metadata: Meta = {
     title: 'Tests/Combobox',
     decorators: [withXD],
@@ -30,8 +38,15 @@ const metadata: Meta = {
 export default metadata;
 
 // prettier-ignore
-const component = ([_, disabled]: DisabledState): ViewTemplate => html`
-    <nimble-combobox ?disabled="${() => disabled}">
+const component = (
+    [_, disabled]: DisabledState,
+    [invalidClass, errorText]: ComboboxInvalidState,
+): ViewTemplate => html`
+    <nimble-combobox 
+        ?disabled="${() => disabled}"
+        class="${() => invalidClass}"
+        error-text="${() => errorText}"
+    >
         <nimble-list-option value="1">Option 1</nimble-list-option>
         <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
         <nimble-list-option value="3">Option 3</nimble-list-option>
@@ -40,7 +55,7 @@ const component = ([_, disabled]: DisabledState): ViewTemplate => html`
 `;
 
 export const comboboxThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates])
+    createMatrix(component, [disabledStates, comboboxInvalidStates])
 );
 
 export const hiddenCombobox: Story = createStory(

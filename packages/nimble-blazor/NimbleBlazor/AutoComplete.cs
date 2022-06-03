@@ -1,4 +1,4 @@
-﻿namespace NimbleBlazor.Components;
+﻿namespace NimbleBlazor;
 
 public enum AutoComplete
 {
