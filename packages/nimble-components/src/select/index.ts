@@ -41,7 +41,10 @@ export class Select extends FoundationSelect {
 
     private maxHeightChanged(): void {
         if (this.listbox) {
-            this.listbox.style.setProperty('--max-height', `${this.maxHeight}px`);
+            this.listbox.style.setProperty(
+                '--max-height',
+                `${this.maxHeight}px`
+            );
         }
     }
 }
