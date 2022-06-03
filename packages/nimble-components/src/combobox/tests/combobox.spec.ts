@@ -80,7 +80,7 @@ describe('Combobox', () => {
         );
     });
 
-    it('should disable the button when the disabled is `true`', async () => {
+    it('should disable the button when disabled is `true`', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         element.disabled = true;
