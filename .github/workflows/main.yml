@@ -33,8 +33,8 @@ jobs:
 
       # Audit
       # https://github.com/ni/nimble/issues/581
-      # - run: npm audit --only=prod
-      # - run: npm audit --audit-level=critical
+      - run: npm audit --only=prod
+      - run: npm audit --audit-level=critical
 
       # Build
       - run: npm run build
