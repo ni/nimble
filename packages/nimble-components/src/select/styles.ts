@@ -38,7 +38,9 @@ export const styles = css`
         overflow-y: auto;
         position: absolute;
         width: 100%;
-        max-height: calc(var(--ni-private-select-max-height) - ${controlHeight});
+        max-height: calc(
+            var(--ni-private-select-max-height) - ${controlHeight}
+        );
         z-index: 1;
         padding: 4px;
         box-shadow: 0px 3px 3px ${popupBoxShadowColor};

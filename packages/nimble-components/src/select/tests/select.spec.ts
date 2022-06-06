@@ -72,6 +72,7 @@ describe('Select', () => {
 
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
+            // prettier-ignore
             const viewTemplate = html`
                 <nimble-select>
                     ${repeat(() => [...Array(500).keys()], html<number>`
@@ -90,7 +91,9 @@ describe('Select', () => {
             await DOM.nextUpdate();
 
             expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
-            expect(listbox.offsetHeight).toBeLessThanOrEqual(window.innerHeight - element.offsetTop - element.offsetHeight);
+            expect(listbox.offsetHeight).toBeLessThanOrEqual(
+                window.innerHeight - element.offsetTop - element.offsetHeight
+            );
 
             await disconnect();
         });
