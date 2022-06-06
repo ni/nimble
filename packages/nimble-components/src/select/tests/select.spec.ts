@@ -2,7 +2,7 @@ import {
     DesignSystem,
     Select as FoundationSelect
 } from '@microsoft/fast-foundation';
-import { DOM, html } from '@microsoft/fast-element';
+import { DOM, html, repeat } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select } from '..';
 import '../../list-option';
@@ -70,25 +70,30 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('should limit dropdown height to viewport', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        const listbox = element.shadowRoot!.querySelector('.listbox') as HTMLElement;
-
-        for (let i = 0; i < 500; i++) {
-            const option = document.createElement('nimble-list-option');
-            option.setAttribute('value', i.toString());
-            option.textContent = i.toString();
-            element.appendChild(option);
+    describe('with 500 options', () => {
+        async function setup500Options(): Promise<Fixture<Select>> {
+            const viewTemplate = html`
+                <nimble-select>
+                    ${repeat(() => [...Array(500).keys()], html`
+                        <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
+                </nimble-select>
+            `;
+            return fixture<Select>(viewTemplate);
         }
 
-        element.click();
-        await DOM.nextUpdate();
+        it('should limit dropdown height to viewport', async () => {
+            const { element, connect, disconnect } = await setup500Options();
+            await connect();
+            const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
 
-        expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
-        expect(listbox.offsetHeight).toBeLessThanOrEqual(window.innerHeight - element.offsetTop - element.offsetHeight);
+            element.click();
+            await DOM.nextUpdate();
 
-        await disconnect();
+            expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
+            expect(listbox.offsetHeight).toBeLessThanOrEqual(window.innerHeight - element.offsetTop - element.offsetHeight);
+
+            await disconnect();
+        });
     });
 
     it('should have its tag returned by tagFor(FoundationSelect)', () => {
