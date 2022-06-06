@@ -70,6 +70,28 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('should limit dropdown height to viewport', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const listbox = element.shadowRoot!.querySelector('.listbox') as HTMLElement;
+
+        for (let i = 0; i < 500; i++) {
+            // prettier-ignore
+            element.insertAdjacentHTML(
+                'afterbegin',
+                `<nimble-list-option value="${i}">${i}</nimble-list-option>`
+            );
+        }
+
+        element.click();
+        await DOM.nextUpdate();
+
+        expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
+        expect(listbox.offsetHeight).toBeLessThanOrEqual(window.innerHeight - element.offsetTop - element.offsetHeight);
+
+        await disconnect();
+    });
+
     it('should have its tag returned by tagFor(FoundationSelect)', () => {
         expect(DesignSystem.tagFor(FoundationSelect)).toBe('nimble-select');
     });
