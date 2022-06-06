@@ -98,10 +98,14 @@ describe('Select', () => {
             const controlPlusGapHeight = element.offsetHeight + listboxPadding;
             const totalEmptyVerticalSpace = window.innerHeight - controlPlusGapHeight;
             const largestEmptyVerticalSpan = element.offsetTop < totalEmptyVerticalSpace / 2
-                ? window.innerHeight - element.offsetTop - controlPlusGapHeight
+                ? window.innerHeight
+                      - element.offsetTop
+                      - controlPlusGapHeight
                 : element.offsetTop - listboxPadding;
 
-            expect(listbox.offsetHeight).toBeLessThanOrEqual(largestEmptyVerticalSpan);
+            expect(listbox.offsetHeight).toBeLessThanOrEqual(
+                largestEmptyVerticalSpan
+            );
 
             await disconnect();
         });
