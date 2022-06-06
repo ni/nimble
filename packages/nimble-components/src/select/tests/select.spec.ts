@@ -74,7 +74,7 @@ describe('Select', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             const viewTemplate = html`
                 <nimble-select>
-                    ${repeat(() => [...Array(500).keys()], html`
+                    ${repeat(() => [...Array(500).keys()], html<number>`
                         <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
                 </nimble-select>
             `;
