@@ -91,9 +91,17 @@ describe('Select', () => {
             await DOM.nextUpdate();
 
             expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
-            expect(listbox.offsetHeight).toBeLessThanOrEqual(
-                window.innerHeight - element.offsetTop - element.offsetHeight
-            );
+
+            // listbox will pop up either above or below the element, depending on which has
+            // more space (the element is placed at a random vertical position within the window)
+            const listboxPadding = 4;
+            const controlPlusGapHeight = element.offsetHeight + listboxPadding;
+            const totalEmptyVerticalSpace = window.innerHeight - controlPlusGapHeight;
+            const largestEmptyVerticalSpan = element.offsetTop < totalEmptyVerticalSpace / 2
+                ? window.innerHeight - element.offsetTop - controlPlusGapHeight
+                : element.offsetTop - listboxPadding;
+
+            expect(listbox.offsetHeight).toBeLessThanOrEqual(largestEmptyVerticalSpan);
 
             await disconnect();
         });

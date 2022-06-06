@@ -39,7 +39,7 @@ export const styles = css`
         position: absolute;
         width: 100%;
         max-height: calc(
-            var(--ni-private-select-max-height) - ${controlHeight}
+            var(--ni-private-select-max-height) - 8px
         );
         z-index: 1;
         padding: 4px;
