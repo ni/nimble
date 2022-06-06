@@ -76,11 +76,10 @@ describe('Select', () => {
         const listbox = element.shadowRoot!.querySelector('.listbox') as HTMLElement;
 
         for (let i = 0; i < 500; i++) {
-            // prettier-ignore
-            element.insertAdjacentHTML(
-                'afterbegin',
-                `<nimble-list-option value="${i}">${i}</nimble-list-option>`
-            );
+            const option = document.createElement('nimble-list-option');
+            option.setAttribute('value', i.toString());
+            option.textContent = i.toString();
+            element.appendChild(option);
         }
 
         element.click();

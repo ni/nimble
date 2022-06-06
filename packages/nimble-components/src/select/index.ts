@@ -25,7 +25,7 @@ export class Select extends FoundationSelect {
             return;
         }
         super.setPositioning();
-        this.updateListboxMaxHeightCSSVariable();
+        this.updateListboxMaxHeightCssVariable();
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/5773
@@ -41,10 +41,10 @@ export class Select extends FoundationSelect {
     }
 
     private maxHeightChanged(): void {
-        this.updateListboxMaxHeightCSSVariable();
+        this.updateListboxMaxHeightCssVariable();
     }
 
-    private updateListboxMaxHeightCSSVariable(): void {
+    private updateListboxMaxHeightCssVariable(): void {
         if (this.listbox) {
             this.listbox.style.setProperty(
                 '--ni-private-select-max-height',
