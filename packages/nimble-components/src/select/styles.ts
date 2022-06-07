@@ -38,9 +38,13 @@ export const styles = css`
         overflow-y: auto;
         position: absolute;
         width: 100%;
-        max-height: calc(var(--ni-private-select-max-height) - 8px);
+        --ni-private-listbox-padding: 4px;
+        max-height: calc(
+            var(--ni-private-select-max-height) - 2 *
+                var(--ni-private-listbox-padding)
+        );
         z-index: 1;
-        padding: 4px;
+        padding: var(--ni-private-listbox-padding);
         box-shadow: 0px 3px 3px ${popupBoxShadowColor};
         border: 1px solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
