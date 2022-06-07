@@ -24,6 +24,13 @@ async function setup(
     return fixture<Select>(viewTemplate);
 }
 
+async function clickAndWaitForOpen(select: Select): Promise<void> {
+    select.click();
+    // Takes two updates for listbox to be rendered
+    await DOM.nextUpdate();
+    await DOM.nextUpdate();
+}
+
 describe('Select', () => {
     it('should respect value set before connect is completed', async () => {
         const { element, connect, disconnect } = await setup();
@@ -86,27 +93,23 @@ describe('Select', () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
+            let fullyVisible = false;
+            const intersectionObserver = new IntersectionObserver(
+                entries => {
+                    if (entries[0]?.isIntersecting && entries[0].intersectionRatio === 1.0) {
+                        fullyVisible = true;
+                    }
+                },
+                { threshold: 1.0 }
+            );
+            intersectionObserver.observe(listbox);
 
-            element.click();
-            await DOM.nextUpdate();
+            await clickAndWaitForOpen(element);
 
             expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
+            expect(fullyVisible).toBe(true);
 
-            // listbox will pop up either above or below the element, depending on which has
-            // more space (the element is placed at a random vertical position within the window)
-            const listboxPadding = 4;
-            const controlPlusGapHeight = element.offsetHeight + listboxPadding;
-            const totalEmptyVerticalSpace = window.innerHeight - controlPlusGapHeight;
-            const largestEmptyVerticalSpan = element.offsetTop < totalEmptyVerticalSpace / 2
-                ? window.innerHeight
-                      - element.offsetTop
-                      - controlPlusGapHeight
-                : element.offsetTop - listboxPadding;
-
-            expect(listbox.offsetHeight).toBeLessThanOrEqual(
-                largestEmptyVerticalSpan
-            );
-
+            intersectionObserver.disconnect();
             await disconnect();
         });
     });
