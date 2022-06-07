@@ -38,15 +38,13 @@ export const styles = css`
         overflow-y: auto;
         position: absolute;
         width: 100%;
-        ${
-            /*
-             * The --max-height custom property is defined by fast-foundation.
-             * See: https://github.com/microsoft/fast/blob/af1f8736ae9ff54a7449324bad952865981d1ece/packages/web-components/fast-foundation/src/select/select.ts#L199
-             */ ''
-        }
-        max-height: calc(var(--max-height) - ${controlHeight});
+        --ni-private-listbox-padding: 4px;
+        max-height: calc(
+            var(--ni-private-select-max-height) - 2 *
+                var(--ni-private-listbox-padding)
+        );
         z-index: 1;
-        padding: 4px;
+        padding: var(--ni-private-listbox-padding);
         box-shadow: 0px 3px 3px ${popupBoxShadowColor};
         border: 1px solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};

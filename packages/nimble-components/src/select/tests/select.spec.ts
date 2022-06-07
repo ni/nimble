@@ -2,7 +2,7 @@ import {
     DesignSystem,
     Select as FoundationSelect
 } from '@microsoft/fast-foundation';
-import { DOM, html } from '@microsoft/fast-element';
+import { DOM, html, repeat } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select } from '..';
 import '../../list-option';
@@ -68,6 +68,47 @@ describe('Select', () => {
         expect(element.value).toBe('two');
 
         await disconnect();
+    });
+
+    describe('with 500 options', () => {
+        async function setup500Options(): Promise<Fixture<Select>> {
+            // prettier-ignore
+            const viewTemplate = html`
+                <nimble-select>
+                    ${repeat(() => [...Array(500).keys()], html<number>`
+                        <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
+                </nimble-select>
+            `;
+            return fixture<Select>(viewTemplate);
+        }
+
+        it('should limit dropdown height to viewport', async () => {
+            const { element, connect, disconnect } = await setup500Options();
+            await connect();
+            const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
+
+            element.click();
+            await DOM.nextUpdate();
+
+            expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
+
+            // listbox will pop up either above or below the element, depending on which has
+            // more space (the element is placed at a random vertical position within the window)
+            const listboxPadding = 4;
+            const controlPlusGapHeight = element.offsetHeight + listboxPadding;
+            const totalEmptyVerticalSpace = window.innerHeight - controlPlusGapHeight;
+            const largestEmptyVerticalSpan = element.offsetTop < totalEmptyVerticalSpace / 2
+                ? window.innerHeight
+                      - element.offsetTop
+                      - controlPlusGapHeight
+                : element.offsetTop - listboxPadding;
+
+            expect(listbox.offsetHeight).toBeLessThanOrEqual(
+                largestEmptyVerticalSpan
+            );
+
+            await disconnect();
+        });
     });
 
     it('should have its tag returned by tagFor(FoundationSelect)', () => {

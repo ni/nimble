@@ -25,6 +25,7 @@ export class Select extends FoundationSelect {
             return;
         }
         super.setPositioning();
+        this.updateListboxMaxHeightCssVariable();
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/5773
@@ -36,6 +37,19 @@ export class Select extends FoundationSelect {
         super.slottedOptionsChanged(prev, next);
         if (value) {
             this.value = value;
+        }
+    }
+
+    private maxHeightChanged(): void {
+        this.updateListboxMaxHeightCssVariable();
+    }
+
+    private updateListboxMaxHeightCssVariable(): void {
+        if (this.listbox) {
+            this.listbox.style.setProperty(
+                '--ni-private-select-max-height',
+                `${this.maxHeight}px`
+            );
         }
     }
 }
