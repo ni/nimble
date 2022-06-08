@@ -89,27 +89,38 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
+        const checkFullyVisible = async (
+            element: HTMLElement
+        ): Promise<boolean> => {
+            return new Promise((resolve, _reject) => {
+                const intersectionObserver = new IntersectionObserver(
+                    entries => {
+                        intersectionObserver.disconnect();
+                        if (
+                            entries[0]?.isIntersecting
+                            && entries[0].intersectionRatio === 1.0
+                        ) {
+                            resolve(true);
+                        } else {
+                            resolve(false);
+                        }
+                    },
+                    { threshold: 1.0 }
+                );
+                intersectionObserver.observe(element);
+            });
+        };
+
         it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
-            let fullyVisible = false;
-            const intersectionObserver = new IntersectionObserver(
-                entries => {
-                    if (entries[0]?.isIntersecting && entries[0].intersectionRatio === 1.0) {
-                        fullyVisible = true;
-                    }
-                },
-                { threshold: 1.0 }
-            );
-            intersectionObserver.observe(listbox);
-
             await clickAndWaitForOpen(element);
+            const fullyVisible = await checkFullyVisible(listbox);
 
             expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
             expect(fullyVisible).toBe(true);
 
-            intersectionObserver.disconnect();
             await disconnect();
         });
     });
