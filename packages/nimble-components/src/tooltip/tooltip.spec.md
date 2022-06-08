@@ -1,14 +1,12 @@
-# Nimble Component Name [Template]
+# Nimble Tooltip
 
 ## Overview
 
-*The name of the component, along with a high-level description.*
+The `nimble-tooltip` is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. The Nimble tooltip is based upon [FAST's tooltip component](https://github.com/microsoft/fast/tree/master/packages/web-components/fast-foundation/src/tooltip)
 
 ### Background
 
-*Relevant historical or background information*
-*Link to Visual Design spec*
-*Link to relevant work items, related existing issues, etc.*
+[Visual desgin spec](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/specs/)
 
 ---
 
@@ -16,18 +14,22 @@
 
 ### API
 
-*Include a permalink to FAST's API documentation (from the FAST component spec on GitHub, press `y` to update the URL bar to show the latest commit)*
+[FAST tooltip API](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
+
 *Provide a brief summary of the API below. For each section:*
     *If exposing FAST's API without changes, you can just write "Unchanged".*
     *If deviating from FAST's API, highlight and provide an explanation for the changes.*
 
-*The API summary should include:*
-- *Component Name*
-- *Properties/Attributes*
-- *Methods*
-- *Events*
-- *CSS Classes and Custom Properties that affect the component*
-- *Slots*
+- _Component Name:_ `nimble-tooltip`
+- _Properties/Attributes:_ Unchanged
+- _Methods:_ Unchanged
+- _Events:_ Unchanged
+- _CSS Classes and Custom Properties that affect the component:_ ?
+- _Slots:_ Unchanged
+- _Template:_ ?
+
+[FAST Component tooltip](https://explore.fast.design/components/fast-tooltip)
+Is design similar enough or does need styling changes?
 
 ### Angular integration 
 
@@ -55,4 +57,4 @@
 
 ## Open Issues
 
-*Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.*
+None
