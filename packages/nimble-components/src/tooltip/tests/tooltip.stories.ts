@@ -15,6 +15,7 @@ interface TooltipArgs {
     tooltip: string;
 }
 
+
 const metadata: Meta<TooltipArgs> = {
     title: 'Tooltip',
     decorators: [withXD],
@@ -32,12 +33,11 @@ const metadata: Meta<TooltipArgs> = {
         actions: {
             handles: ['change']
         }
-        // prob change nimble html back to checkbox for now might err
     },
     render: createUserSelectedThemeStory(html`
-        <nimble-tooltip 
+        <nimble-tooltip
+            
         >
-
         </nimble-tooltip>
     `),
     argTypes: {
@@ -51,7 +51,7 @@ The \`indeterminate\` state is not automatically changed when the user changes t
     },
     args: {
         tooltip: 'Tooltip label',
-        anchor: 'anchor? id of element?', // how to set to id of element tooltip anchored to
+        anchor: 'id of element', // how to set to id of element tooltip anchored to
         visible: true,
         delay: 300,
         horiontalViewportLock: false,
@@ -61,4 +61,4 @@ The \`indeterminate\` state is not automatically changed when the user changes t
 
 export default metadata;
 
-export const checkbox: StoryObj<TooltipArgs> = {}; // if checkbox changed to toolbox, breaks
+export const checkbox: StoryObj<TooltipArgs> = {}; // if checkbox changed to tooltip doesn't work
