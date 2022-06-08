@@ -24,10 +24,60 @@ export const styles = css`
         font: ${bodyFont};
         height: ${controlHeight};
         position: relative;
+        justify-content: center;
         user-select: none;
         min-width: 250px;
         outline: none;
         vertical-align: top;
+        --ni-private-hover-indicator-width: 2px;
+    }
+
+    :host::after {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        width: 0px;
+        height: 0px;
+        justify-self: center;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-hover-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    :host(:hover)::after {
+        width: 100%;
+    }
+
+    :host([disabled]:hover)::after {
+        width: 0px;
+    }
+
+    .control {
+        align-items: center;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: flex;
+        min-height: 100%;
+        width: 100%;
+        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
+        background-color: transparent;
+        padding-left: 8px;
+        padding-bottom: 1px;
+    }
+
+    :host([disabled]) .control {
+        cursor: default;
+    }
+
+    :host(.open:not(:hover)) .control {
+        border-bottom: ${borderWidth} solid ${borderHoverColor};
+        transition: border-bottom ${smallDelay};
+    }
+
+    :host([disabled]) .control,
+    :host([disabled]) .control:hover {
+        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
+        color: ${bodyDisabledFontColor};
     }
 
     .listbox {
@@ -53,41 +103,6 @@ export const styles = css`
 
     .listbox[hidden] {
         display: none;
-    }
-
-    .control {
-        align-items: center;
-        box-sizing: border-box;
-        cursor: pointer;
-        display: flex;
-        min-height: 100%;
-        width: 100%;
-        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
-        background-color: transparent;
-        padding-left: 8px;
-        padding-bottom: 1px;
-    }
-
-    :host([disabled]) .control {
-        cursor: default;
-    }
-
-    :host(.open:not(:hover)) .control {
-        border-bottom: ${borderWidth} solid ${borderHoverColor};
-        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
-    }
-
-    :host(:hover) .control {
-        border-bottom: 2px solid ${borderHoverColor};
-        padding-bottom: 0px;
-        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
-    }
-
-    :host([disabled]) .control,
-    :host([disabled]) .control:hover {
-        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
-        padding-bottom: 1px;
-        color: ${bodyDisabledFontColor};
     }
 
     :host([open][position='above']) .listbox {
