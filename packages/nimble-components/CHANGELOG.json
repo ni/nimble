@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 08 Jun 2022 18:11:53 GMT",
+      "tag": "@ni/nimble-components_v11.0.1",
+      "version": "11.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d928589a70a2c14d2845ac81863c6f6f56eade1c",
+            "comment": "Change test to use IntersectionObserver"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 07 Jun 2022 15:43:41 GMT",
       "tag": "@ni/nimble-components_v11.0.1",
       "version": "11.0.1",
