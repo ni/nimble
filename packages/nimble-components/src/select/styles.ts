@@ -14,6 +14,7 @@ import {
     smallDelay,
     smallPadding
 } from '../theme-provider/design-tokens';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -30,6 +31,27 @@ export const styles = css`
         outline: none;
         vertical-align: top;
         --ni-private-hover-indicator-width: 2px;
+        --ni-private-focus-indicator-width: 1px;
+        --ni-private-indicator-lines-gap: 1px;
+    }
+
+    :host::before {
+        content: '';
+        position: absolute;
+        bottom: calc(
+            var(--ni-private-hover-indicator-width) +
+                var(--ni-private-indicator-lines-gap)
+        );
+        width: 0px;
+        height: 0px;
+        justify-self: center;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-focus-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    :host(${focusVisible})::before {
+        width: 100%;
     }
 
     :host::after {
@@ -44,7 +66,8 @@ export const styles = css`
         transition: width ${smallDelay} ease-in;
     }
 
-    :host(:hover)::after {
+    :host(:hover)::after,
+    :host(${focusVisible})::after {
         width: 100%;
     }
 
