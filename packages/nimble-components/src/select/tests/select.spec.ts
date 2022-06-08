@@ -31,6 +31,26 @@ async function clickAndWaitForOpen(select: Select): Promise<void> {
     await DOM.nextUpdate();
 }
 
+async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
+    return new Promise((resolve, _reject) => {
+        const intersectionObserver = new IntersectionObserver(
+            entries => {
+                intersectionObserver.disconnect();
+                if (
+                    entries[0]?.isIntersecting
+                    && entries[0].intersectionRatio === 1.0
+                ) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            },
+            { threshold: 1.0 }
+        );
+        intersectionObserver.observe(element);
+    });
+}
+
 describe('Select', () => {
     it('should respect value set before connect is completed', async () => {
         const { element, connect, disconnect } = await setup();
@@ -89,34 +109,12 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        const checkFullyVisible = async (
-            element: HTMLElement
-        ): Promise<boolean> => {
-            return new Promise((resolve, _reject) => {
-                const intersectionObserver = new IntersectionObserver(
-                    entries => {
-                        intersectionObserver.disconnect();
-                        if (
-                            entries[0]?.isIntersecting
-                            && entries[0].intersectionRatio === 1.0
-                        ) {
-                            resolve(true);
-                        } else {
-                            resolve(false);
-                        }
-                    },
-                    { threshold: 1.0 }
-                );
-                intersectionObserver.observe(element);
-            });
-        };
-
         it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
             await clickAndWaitForOpen(element);
-            const fullyVisible = await checkFullyVisible(listbox);
+            const fullyVisible = await checkFullyInViewport(listbox);
 
             expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
             expect(fullyVisible).toBe(true);
