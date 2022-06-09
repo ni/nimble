@@ -16,52 +16,47 @@ The `nimble-tooltip` is a popup that displays information related to an element 
 
 ### API
 
+[FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
+
 Plan to extend API to support all cases shown in visual design XD document. Will add
 once tooltip is sucessfully implemented with one case.
 
-[FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
+-   _Component Name:_ `nimble-tooltip`
+-   _Properties/Attributes:_ Unchanged
+-   _Methods:_ Unchanged
+-   _Events:_ Unchanged
+-   _CSS Classes and Custom Properties that affect the component:_ None
+-   _Slots:_ Unchanged
+-   _Template:_ Unchanged
 
-*Provide a brief summary of the API below. For each section:*
-    *If exposing FAST's API without changes, you can just write "Unchanged".*
-    *If deviating from FAST's API, highlight and provide an explanation for the changes.*
-
-- _Component Name:_ `nimble-tooltip`
-- _Properties/Attributes:_ Unchanged
-- _Methods:_ Unchanged
-- _Events:_ Unchanged
-- _CSS Classes and Custom Properties that affect the component:_ ?
-- _Slots:_ Unchanged
-- _Template:_ Unchanged
-
-### Angular integration 
+### Angular integration
 
 An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created.
 
-### Blazor integration 
+### Blazor integration
 
 A Blazor wrapper will be created for the component.
 
 ### Additional requirements
 
-*Review the following areas and add brief commentary on each. Highlight any gaps which might require additional work, bugs to be filed to FAST, or write "None" if there are no special requirements.*
-
-- *User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?*
-- *Styling: Does FAST provide APIs to achieve the styling in the visual design spec?*
-    FAST API most likely won't be sufficient for creating extra states in spec, will be adressed later on.
-- *Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?*
-    Will look at options as building, testing may be difficult because only displayed on hover.
-- *Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?*
-    No additional requirements
-- *Tooling: Any new tools, updates to tools, code generation, etc?*
-    No additional requirements
-- *Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc.*
+-   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
+    -   No additional requirements
+-   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
+    -   FAST API most likely won't be sufficient for creating extra states in spec, will be adressed later on.
+-   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
+    -   Will look at options as building, testing may be difficult because only displayed on hover.
+-   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
+    -   No additional requirements
+-   _Tooling: Any new tools, updates to tools, code generation, etc?_
+    -   No additional requirements
+-   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
     -   All accessibility needs should be covered by FAST's implementation. We should do some manual testing to verify that the custom template doesn't break any accessibility behavior.
-- *Globalization: special RTL handling, swapping of icons/visuals, localization, etc.*
-    No additional requirements
-- *Performance: does the FAST component meet Nimble's performance requirements?*
-    No additional requirements
-- *Security: Any requirements for security?*
-    No additional requirements
+-   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
+    -   No additional requirements
+-   _Performance: does the FAST component meet Nimble's performance requirements?_
+    -   No additional requirements
+-   _Security: Any requirements for security?_
+    -   No additional requirements
 
 ---
 
