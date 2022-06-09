@@ -111,7 +111,7 @@ export const styles = css`
         overflow-y: auto;
         position: absolute;
         width: 100%;
-        --ni-private-listbox-padding: 4px;
+        --ni-private-listbox-padding: ${smallPadding};
         max-height: calc(
             var(--ni-private-select-max-height) - 2 *
                 var(--ni-private-listbox-padding)
