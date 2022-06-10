@@ -21,6 +21,9 @@ The `nimble-tooltip` is a popup that displays information related to an element 
 Plan to extend API to support all cases shown in visual design XD document. Will add
 once tooltip is sucessfully implemented with one case.
 
+Plan to first implment the tooltip and let the user choose which type of tooltip (general, error, info) they want
+Additional changes to API expected in the future, but will not be included in first pass of implementation. Listed in Future Imrovements and Open Issues
+
 -   _Component Name:_ `nimble-tooltip`
 -   _Properties/Attributes:_ Unchanged
 -   _Methods:_ Unchanged
@@ -28,6 +31,11 @@ once tooltip is sucessfully implemented with one case.
 -   _CSS Classes and Custom Properties that affect the component:_ None
 -   _Slots:_ Unchanged
 -   _Template:_ Unchanged
+
+### Future Improvements
+
+Attribute for switching between error and info states of tooltip
+Easier integration with other nimble components
 
 ### Angular integration
 
@@ -62,4 +70,5 @@ A Blazor wrapper will be created for the component.
 
 ## Open Issues
 
-None
+When user is using nimble tooltip and nimble components, is there an easier way to add a tooltip so they wouldn't have to anchor to an html element every time they want a tooltip?
+Can tooltip be found by screen reader?
