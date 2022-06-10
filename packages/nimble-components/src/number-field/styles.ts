@@ -99,7 +99,7 @@ export const styles = css`
         width: 0px;
     }
 
-    [part="start"] {
+    [part='start'] {
         display: contents;
     }
 
