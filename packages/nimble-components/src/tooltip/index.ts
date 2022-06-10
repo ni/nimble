@@ -11,14 +11,16 @@ declare global {
     }
 }
 
+/**
+ * A nimble-styled tooltip control.
+ */
 export class Tooltip extends FoundationTooltip {}
 
 const nimbleTooltip = Tooltip.compose({
     baseName: 'tooltip',
     baseClass: FoundationTooltip,
     template,
-    styles
-    //extra?
-})
+    styles,
+});
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTooltip());

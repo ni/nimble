@@ -3,18 +3,14 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import type { AutoUpdateMode } from '@microsoft/fast-foundation';
 
 interface TooltipArgs {
-    visible: boolean;
-    anchor: string;
+    
     delay: number;
-    autoUpdateMode: AutoUpdateMode; // ? Can't put in args
     horiontalViewportLock: boolean;
     verticalViewportLock: boolean;
     tooltip: string;
 }
-
 
 const metadata: Meta<TooltipArgs> = {
     title: 'Tooltip',
@@ -34,25 +30,13 @@ const metadata: Meta<TooltipArgs> = {
             handles: ['change']
         }
     },
-    render: createUserSelectedThemeStory(html`
-        <nimble-tooltip
-            
-        >
-        </nimble-tooltip>
+    render: createUserSelectedThemeStory(html<TooltipArgs>`
+        <nimble-button id="anchor">text</nimble-button>
+
+        <nimble-tooltip anchor='anchor'>tooltip text</nimble-tooltip> 
     `),
-    argTypes: {
-        autoUpdateMode: {
-            description: `Whether the checkbox is in the indeterminate (i.e. partially checked) state. Configured programmatically, not by attribute.
-<details>
-<summary>Usage details</summary>
-The \`indeterminate\` state is not automatically changed when the user changes the \`checked\` state. Client applications that use \`indeterminate\` state are responsible for subscribing to the \`change\` event to respond to this situation.
-</details>`
-        }
-    },
     args: {
         tooltip: 'Tooltip label',
-        anchor: 'id of element', // how to set to id of element tooltip anchored to
-        visible: true,
         delay: 300,
         horiontalViewportLock: false,
         verticalViewportLock: false
