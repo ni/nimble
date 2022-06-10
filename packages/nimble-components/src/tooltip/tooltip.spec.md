@@ -72,3 +72,5 @@ A Blazor wrapper will be created for the component.
 
 When user is using nimble tooltip and nimble components, is there an easier way to add a tooltip so they wouldn't have to anchor to an html element every time they want a tooltip?
 Can tooltip be found by screen reader?
+For testing, can we force the tooltip to be visible without hover? [Possible Ideas](https://stackoverflow.com/questions/62043424/mock-hover-state-in-storybook)
+aria-describedBy recommendation in storybook docs for tooltip for developers
