@@ -14,7 +14,9 @@ import {
     controlLabelFontColor,
     labelHeight,
     smallDelay,
-    bodyFont
+    bodyFont,
+    failColor,
+    standardPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -26,6 +28,7 @@ export const styles = css`
         user-select: none;
         color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
+        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
     }
 
     :host([disabled]) {
@@ -33,32 +36,71 @@ export const styles = css`
         cursor: default;
     }
 
+    .label {
+        display: flex;
+        color: ${controlLabelFontColor};
+        font: ${controlLabelFont};
+    }
+
     .root {
         box-sizing: border-box;
         position: relative;
         display: flex;
         flex-direction: row;
+        justify-content: center;
         border-radius: 0px;
         border-bottom: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-        padding-bottom: 1px;
-        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
+        gap: calc(${standardPadding} / 2);
     }
 
-    @media (prefers-reduced-motion) {
-        .root {
-            transition-duration: 0s;
-        }
-    }
-
-    .root:hover {
-        border-bottom: 2px solid ${borderHoverColor};
-        padding-bottom: 0px;
+    .root:focus-within {
+        border-bottom-color: ${borderHoverColor};
     }
 
     :host([disabled]) .root,
     :host([disabled]) .root:hover {
         border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
-        padding-bottom: 1px;
+    }
+
+    .root::before {
+        ${/* Empty string causes alignment issue */ ''}
+        content: ' ';
+        color: transparent;
+        width: 0px;
+        user-select: none;
+    }
+
+    .root::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        width: 0px;
+        height: 0px;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-hover-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        .root::after {
+            transition-duration: 0s;
+        }
+    }
+
+    :host(.invalid) .root::after {
+        border-bottom-color: ${failColor};
+    }
+
+    :host(:hover) .root::after {
+        width: 100%;
+    }
+
+    :host([disabled]:hover) .root::after {
+        width: 0px;
+    }
+
+    [part="start"] {
+        display: contents;
     }
 
     .control {
@@ -66,11 +108,10 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
-        height: 28px;
+        height: calc(${controlHeight} - ${borderWidth});
         width: 100%;
-        margin-top: auto;
-        margin-bottom: auto;
         border: none;
+        padding: 0px;
     }
 
     .control:hover,
@@ -95,12 +136,6 @@ export const styles = css`
 
     .control[disabled]::placeholder {
         color: ${bodyDisabledFontColor};
-    }
-
-    .label {
-        display: flex;
-        color: ${controlLabelFontColor};
-        font: ${controlLabelFont};
     }
 
     .controls {
