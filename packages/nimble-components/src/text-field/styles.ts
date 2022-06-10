@@ -283,7 +283,7 @@ export const styles = css`
 
             .root:focus-within,
             :host(.invalid) .root {
-                border-bottom-width: 1px;
+                border-bottom-width: ${borderWidth};
             }
 
             .root:focus-within .control,
