@@ -36,6 +36,7 @@ export const styles = css`
         color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
+        --ni-private-height-within-border: calc(${controlHeight} - 2 * ${borderWidth});
     }
 
     :host([disabled]) {
@@ -172,7 +173,7 @@ export const styles = css`
     [part='end']::after {
         content: '';
         position: absolute;
-        bottom: -1px;
+        bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
         border-bottom: ${borderHoverColor}
@@ -261,7 +262,7 @@ export const styles = css`
             }
 
             .control {
-                height: calc(${controlHeight} - 2 * ${borderWidth});
+                height: var(--ni-private-height-within-border);
                 padding-top: ${borderWidth};
                 padding-left: ${borderWidth};
                 padding-right: ${borderWidth};
@@ -308,7 +309,7 @@ export const styles = css`
             }
 
             .control {
-                height: calc(${controlHeight} - 2 * ${borderWidth});
+                height: var(--ni-private-height-within-border);
             }
 
             :host(.invalid) .errortext {

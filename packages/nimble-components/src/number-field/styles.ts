@@ -73,7 +73,7 @@ export const styles = css`
     .root::after {
         content: '';
         position: absolute;
-        bottom: -1px;
+        bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
         border-bottom: ${borderHoverColor}
