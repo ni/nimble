@@ -5,7 +5,7 @@
  * src/icons. Also generates an all-icons barrel file.
  */
 import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import * as icons from '@ni/nimble-tokens/dist/icons/js';
 
 const fs = require('fs');
 const path = require('path');
@@ -36,16 +36,17 @@ for (const key of Object.keys(icons)) {
     const svgName = key; // e.g. "arrowExpanderLeft16X16"
     const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
     const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
-    const elementName = `${spinalCase(iconName)}-icon`; // e.g. "arrow-expander-left-icon"
-    const className = `${pascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
+    const elementBaseName = `icon-${spinalCase(iconName)}`; // e.g. "icon-arrow-expander-left-icon"
+    const elementName = `nimble-${elementBaseName}`;
+    const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
 
     const componentFileContents = `${generatedFilePrefix}
-import { ${svgName} } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-${elementName}': ${className};
+        '${elementName}': ${className};
     }
 }
 
@@ -58,7 +59,7 @@ export class ${className} extends Icon {
     }
 }
 
-registerIcon('${elementName}', ${className});
+registerIcon('${elementBaseName}', ${className});
 `;
 
     const filePath = path.resolve(iconsDirectory, `${fileName}.ts`);

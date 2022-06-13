@@ -4,7 +4,7 @@ import {
     SelectOptions,
     selectTemplate as template
 } from '@microsoft/fast-foundation';
-import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
 declare global {
@@ -25,6 +25,7 @@ export class Select extends FoundationSelect {
             return;
         }
         super.setPositioning();
+        this.updateListboxMaxHeightCssVariable();
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/5773
@@ -36,6 +37,19 @@ export class Select extends FoundationSelect {
         super.slottedOptionsChanged(prev, next);
         if (value) {
             this.value = value;
+        }
+    }
+
+    private maxHeightChanged(): void {
+        this.updateListboxMaxHeightCssVariable();
+    }
+
+    private updateListboxMaxHeightCssVariable(): void {
+        if (this.listbox) {
+            this.listbox.style.setProperty(
+                '--ni-private-select-max-height',
+                `${this.maxHeight}px`
+            );
         }
     }
 }

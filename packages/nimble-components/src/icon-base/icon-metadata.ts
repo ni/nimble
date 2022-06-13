@@ -10,430 +10,430 @@ export const iconMetadata: {
     readonly [key in IconName]: IconMetadata;
 } = {
     /* eslint-disable @typescript-eslint/naming-convention */
-    AddIcon: {
+    IconAdd: {
         tags: ['add-input-field']
     },
-    ArrowDownRightAndArrowUpLeftIcon: {
+    IconArrowDownRightAndArrowUpLeft: {
         tags: ['resize', 'collapse']
     },
-    ArrowExpanderDownIcon: {
+    IconArrowExpanderDown: {
         tags: []
     },
-    ArrowExpanderLeftIcon: {
+    IconArrowExpanderLeft: {
         tags: []
     },
-    ArrowExpanderRightIcon: {
+    IconArrowExpanderRight: {
         tags: []
     },
-    ArrowExpanderUpIcon: {
+    IconArrowExpanderUp: {
         tags: []
     },
-    ArrowLeftFromLineIcon: {
+    IconArrowLeftFromLine: {
         tags: ['logout']
     },
-    ArrowPartialRotateLeftIcon: {
+    IconArrowPartialRotateLeft: {
         tags: ['reset']
     },
-    ArrowRightToLineIcon: {
+    IconArrowRightToLine: {
         tags: ['login']
     },
-    ArrowRotateRightIcon: {
+    IconArrowRotateRight: {
         tags: ['refresh']
     },
-    ArrowURotateLeftIcon: {
+    IconArrowURotateLeft: {
         tags: ['update']
     },
-    ArrowUpLeftAndArrowDownRightIcon: {
+    IconArrowUpLeftAndArrowDownRight: {
         tags: ['resize', 'expand']
     },
-    ArrowsMaximizeIcon: {
+    IconArrowsMaximize: {
         tags: ['resize', 'fullscreen']
     },
-    ArrowsRepeatIcon: {
+    IconArrowsRepeat: {
         tags: ['status', 'looping']
     },
-    BarsIcon: {
+    IconBars: {
         tags: ['hamburger-menu']
     },
-    BellIcon: {
+    IconBell: {
         tags: ['status', 'alarm']
     },
-    BellAndCommentIcon: {
+    IconBellAndComment: {
         tags: ['alarm', 'notification']
     },
-    BellCircleIcon: {
+    IconBellCircle: {
         tags: ['alarm']
     },
-    BellSolidCircleIcon: {
+    IconBellSolidCircle: {
         tags: ['alarm']
     },
-    BlockWithRibbonIcon: {
+    IconBlockWithRibbon: {
         tags: ['certificate']
     },
-    CalendarIcon: {
+    IconCalendar: {
         tags: []
     },
-    ChartDiagramIcon: {
+    IconChartDiagram: {
         tags: ['oidc']
     },
-    ChartDiagramChildFocusIcon: {
+    IconChartDiagramChildFocus: {
         tags: ['managed-systems']
     },
-    ChartDiagramParentFocusIcon: {
+    IconChartDiagramParentFocus: {
         tags: ['manager-asset']
     },
-    ChartDiagramParentFocusTwoChildIcon: {
+    IconChartDiagramParentFocusTwoChild: {
         tags: ['assets']
     },
-    CheckIcon: {
+    IconCheck: {
         tags: ['status', 'alarm-acknowledged']
     },
-    CheckDotIcon: {
+    IconCheckDot: {
         tags: ['status', 'done']
     },
-    CircleIcon: {
+    IconCircle: {
         tags: ['status', 'connected']
     },
-    CircleBrokenIcon: {
+    IconCircleBroken: {
         tags: ['status', 'disconnected']
     },
-    CircleCheckIcon: {
+    IconCircleCheck: {
         tags: ['status', 'acknowledged']
     },
-    CirclePartialBrokenIcon: {
+    IconCirclePartialBroken: {
         tags: ['status', 'partially-connected']
     },
-    CircleSlashIcon: {
+    IconCircleSlash: {
         tags: ['status', 'blocked']
     },
-    CircleXIcon: {
+    IconCircleX: {
         tags: ['status', 'terminated']
     },
-    ClipboardIcon: {
+    IconClipboard: {
         tags: []
     },
-    ClockIcon: {
+    IconClock: {
         tags: ['time']
     },
-    ClockCogIcon: {
+    IconClockCog: {
         tags: ['time-settings']
     },
-    ClockTriangleIcon: {
+    IconClockTriangle: {
         tags: ['status', 'timed-out']
     },
-    CloneIcon: {
+    IconClone: {
         tags: ['duplicate']
     },
-    CloudUploadIcon: {
+    IconCloudUpload: {
         tags: []
     },
-    CloudWithArrowIcon: {
+    IconCloudWithArrow: {
         tags: ['cloud-connector']
     },
-    CogIcon: {
+    IconCog: {
         tags: ['details', 'settings']
     },
-    CogDatabaseIcon: {
+    IconCogDatabase: {
         tags: ['admin', 'administration']
     },
-    CogDatabaseInsetIcon: {
+    IconCogDatabaseInset: {
         tags: ['admin', 'administration']
     },
-    CogSmallCogIcon: {
+    IconCogSmallCog: {
         tags: ['system-manager']
     },
-    CogZoomedIcon: {
+    IconCogZoomed: {
         tags: ['data-indexing']
     },
-    CommentIcon: {
+    IconComment: {
         tags: ['notes', 'alarm-notes', 'speech', 'bubble']
     },
-    ComputerAndMonitorIcon: {
+    IconComputerAndMonitor: {
         tags: ['devices-and-interfaces']
     },
-    CopyIcon: {
+    IconCopy: {
         tags: ['clipboard']
     },
-    CopyTextIcon: {
+    IconCopyText: {
         tags: ['clipboard']
     },
-    DashboardBuilderIcon: {
+    IconDashboardBuilder: {
         tags: []
     },
-    DashboardBuilderLegendIcon: {
+    IconDashboardBuilderLegend: {
         tags: []
     },
-    DashboardBuilderTemplatesIcon: {
+    IconDashboardBuilderTemplates: {
         tags: []
     },
-    DashboardBuilderTileIcon: {
+    IconDashboardBuilderTile: {
         tags: []
     },
-    DatabaseIcon: {
+    IconDatabase: {
         tags: ['measurement-data-analysis']
     },
-    DatabaseCheckIcon: {
+    IconDatabaseCheck: {
         tags: ['system-state-manager']
     },
-    DesktopIcon: {
+    IconDesktop: {
         tags: ['monitor']
     },
-    DonutChartIcon: {
+    IconDonutChart: {
         tags: []
     },
-    DotSolidDotStrokeIcon: {
+    IconDotSolidDotStroke: {
         tags: ['status', 'header']
     },
-    DownloadIcon: {
+    IconDownload: {
         tags: []
     },
-    ElectronicChipZoomedIcon: {
+    IconElectronicChipZoomed: {
         tags: ['data-preparation']
     },
-    ExclamationMarkIcon: {
+    IconExclamationMark: {
         tags: ['error', 'warning']
     },
-    EyeIcon: {
+    IconEye: {
         tags: ['details', 'view']
     },
-    FancyAIcon: {
+    IconFancyA: {
         tags: ['tdms-string-channel']
     },
-    FileIcon: {
+    IconFile: {
         tags: ['file-tdms']
     },
-    FileDrawerIcon: {
+    IconFileDrawer: {
         tags: ['box', 'repository-manager']
     },
-    FileSearchIcon: {
+    IconFileSearch: {
         tags: ['file-viewer']
     },
-    FilterIcon: {
+    IconFilter: {
         tags: []
     },
-    FloppyDiskCheckmarkIcon: {
+    IconFloppyDiskCheckmark: {
         tags: ['save', 'no-unsaved-changed']
     },
-    FloppyDiskStarArrowRightIcon: {
+    IconFloppyDiskStarArrowRight: {
         tags: ['save', 'autosave']
     },
-    FloppyDiskThreeDotsIcon: {
+    IconFloppyDiskThreeDots: {
         tags: ['save', 'in-progress']
     },
-    FolderIcon: {
+    IconFolder: {
         tags: ['ldap']
     },
-    FolderOpenIcon: {
+    IconFolderOpen: {
         tags: ['browse']
     },
-    ForwardSlashIcon: {
+    IconForwardSlash: {
         tags: []
     },
-    FourDotsSquareIcon: {
+    IconFourDotsSquare: {
         tags: ['knurling']
     },
-    FunctionIcon: {
+    IconFunction: {
         tags: ['data-analyzer']
     },
-    GaugeSimpleIcon: {
+    IconGaugeSimple: {
         tags: ['widget']
     },
-    GridThreeByThreeIcon: {
+    IconGridThreeByThree: {
         tags: ['chart']
     },
-    GridTwoByTwoIcon: {
+    IconGridTwoByTwo: {
         tags: ['custom-applications']
     },
-    HammerIcon: {
+    IconHammer: {
         tags: ['operation']
     },
-    HashtagIcon: {
+    IconHashtag: {
         tags: ['number']
     },
-    HomeIcon: {
+    IconHome: {
         tags: []
     },
-    HourglassIcon: {
+    IconHourglass: {
         tags: ['history', 'timer']
     },
-    IndeterminantCheckboxIcon: {
+    IconIndeterminantCheckbox: {
         tags: ['selection']
     },
-    InfoIcon: {
+    IconInfo: {
         tags: []
     },
-    InfoCircleIcon: {
+    IconInfoCircle: {
         tags: []
     },
-    KeyIcon: {
+    IconKey: {
         tags: ['access-control', 'active-directory']
     },
-    LaptopIcon: {
+    IconLaptop: {
         tags: []
     },
-    LayerGroupIcon: {
+    IconLayerGroup: {
         tags: ['jobs']
     },
-    LightningBoltIcon: {
+    IconLightningBolt: {
         tags: ['active-jobs']
     },
-    LinkIcon: {
+    IconLink: {
         tags: []
     },
-    LinkCancelIcon: {
+    IconLinkCancel: {
         tags: ['unlink']
     },
-    ListIcon: {
+    IconList: {
         tags: ['bullet', 'merged-view']
     },
-    ListTreeIcon: {
+    IconListTree: {
         tags: ['tree-view']
     },
-    ListTreeDatabaseIcon: {
+    IconListTreeDatabase: {
         tags: ['measurement-data-analysis']
     },
-    LockIcon: {
+    IconLock: {
         tags: ['security']
     },
-    MagnifyingGlassIcon: {
+    IconMagnifyingGlass: {
         tags: ['search']
     },
-    MarkdownIcon: {
+    IconMarkdown: {
         tags: []
     },
-    MinusIcon: {
+    IconMinus: {
         tags: ['mixed-checkbox']
     },
-    MinusWideIcon: {
+    IconMinusWide: {
         tags: []
     },
-    MobileIcon: {
+    IconMobile: {
         tags: ['phone']
     },
-    NotebookIcon: {
+    IconNotebook: {
         tags: []
     },
-    PasteIcon: {
+    IconPaste: {
         tags: ['clipboard']
     },
-    PencilIcon: {
+    IconPencil: {
         tags: ['edit']
     },
-    PotWithLidIcon: {
+    IconPotWithLid: {
         tags: ['box', 'utilities']
     },
-    QuestionIcon: {
+    IconQuestion: {
         tags: ['help']
     },
-    RunningArrowIcon: {
+    IconRunningArrow: {
         tags: ['status', 'running']
     },
-    ServerIcon: {
+    IconServer: {
         tags: ['analysis', 'automation']
     },
-    ShareSquareIcon: {
+    IconShareSquare: {
         tags: ['export']
     },
-    ShieldCheckIcon: {
+    IconShieldCheck: {
         tags: ['secure']
     },
-    ShieldXmarkIcon: {
+    IconShieldXmark: {
         tags: ['insecure']
     },
-    SignalBarsIcon: {
+    IconSignalBars: {
         tags: ['tdms-channel-group']
     },
-    SineGraphIcon: {
+    IconSineGraph: {
         tags: ['graph']
     },
-    SkipArrowIcon: {
+    IconSkipArrow: {
         tags: ['status', 'skipped']
     },
-    SpinnerIcon: {
+    IconSpinner: {
         tags: ['in-progress']
     },
-    SquareCheckIcon: {
+    IconSquareCheck: {
         tags: ['test-insights']
     },
-    SquareTIcon: {
+    IconSquareT: {
         tags: ['static-text']
     },
-    TIcon: {
+    IconT: {
         tags: ['text']
     },
-    TabletIcon: {
+    IconTablet: {
         tags: []
     },
-    TagIcon: {
+    IconTag: {
         tags: []
     },
-    TagsIcon: {
+    IconTags: {
         tags: ['tag-query']
     },
-    TargetCrosshairsIcon: {
+    IconTargetCrosshairs: {
         tags: ['calibrate']
     },
-    TargetCrosshairsProgressIcon: {
+    IconTargetCrosshairsProgress: {
         tags: ['calibrate', 'self-calibrate']
     },
-    ThreeDotsLineIcon: {
+    IconThreeDotsLine: {
         tags: ['ellipsis', 'options']
     },
-    ThumbtackIcon: {
+    IconThumbtack: {
         tags: []
     },
-    TileSizeIcon: {
+    IconTileSize: {
         tags: []
     },
-    TimesIcon: {
+    IconTimes: {
         tags: ['close']
     },
-    TrashIcon: {
+    IconTrash: {
         tags: ['clear', 'close', 'delete', 'remove', 'x']
     },
-    TriangleIcon: {
+    IconTriangle: {
         tags: ['status', 'alarm-active']
     },
-    TrueFalseRectangleIcon: {
+    IconTrueFalseRectangle: {
         tags: ['tdms-boolean-channel']
     },
-    UnlinkIcon: {
+    IconUnlink: {
         tags: ['link-broken']
     },
-    UnlockIcon: {
+    IconUnlock: {
         tags: []
     },
-    UploadIcon: {
+    IconUpload: {
         tags: []
     },
-    UserIcon: {
+    IconUser: {
         tags: ['admin', 'account']
     },
-    WatchIcon: {
+    IconWatch: {
         tags: ['status', 'waiting']
     },
-    WaveformIcon: {
+    IconWaveform: {
         tags: ['tdms-waveform-channel']
     },
-    WebviCustomIcon: {
+    IconWebviCustom: {
         tags: ['gweb']
     },
-    WebviHostIcon: {
+    IconWebviHost: {
         tags: ['gweb']
     },
-    WindowCodeIcon: {
+    IconWindowCode: {
         tags: ['http-api']
     },
-    WindowTextIcon: {
+    IconWindowText: {
         tags: ['manual']
     },
-    WrenchHammerIcon: {
+    IconWrenchHammer: {
         tags: ['status', 'custom']
     },
-    XmarkIcon: {
+    IconXmark: {
         tags: ['status', 'fail']
     },
-    XmarkCheckIcon: {
+    IconXmarkCheck: {
         tags: ['self-test']
     }
     /* eslint-enable @typescript-eslint/naming-convention */

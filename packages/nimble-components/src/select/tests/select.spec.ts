@@ -2,7 +2,7 @@ import {
     DesignSystem,
     Select as FoundationSelect
 } from '@microsoft/fast-foundation';
-import { DOM, html } from '@microsoft/fast-element';
+import { DOM, html, repeat } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select } from '..';
 import '../../list-option';
@@ -22,6 +22,33 @@ async function setup(
         </nimble-select>
     `;
     return fixture<Select>(viewTemplate);
+}
+
+async function clickAndWaitForOpen(select: Select): Promise<void> {
+    select.click();
+    // Takes two updates for listbox to be rendered
+    await DOM.nextUpdate();
+    await DOM.nextUpdate();
+}
+
+async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
+    return new Promise((resolve, _reject) => {
+        const intersectionObserver = new IntersectionObserver(
+            entries => {
+                intersectionObserver.disconnect();
+                if (
+                    entries[0]?.isIntersecting
+                    && entries[0].intersectionRatio === 1.0
+                ) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            },
+            { threshold: 1.0 }
+        );
+        intersectionObserver.observe(element);
+    });
 }
 
 describe('Select', () => {
@@ -68,6 +95,39 @@ describe('Select', () => {
         expect(element.value).toBe('two');
 
         await disconnect();
+    });
+
+    describe('with 500 options', () => {
+        async function setup500Options(): Promise<Fixture<Select>> {
+            // prettier-ignore
+            const viewTemplate = html`
+                <nimble-select>
+                    ${repeat(() => [...Array(500).keys()], html<number>`
+                        <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
+                </nimble-select>
+            `;
+            return fixture<Select>(viewTemplate);
+        }
+
+        it('should limit dropdown height to viewport', async () => {
+            const { element, connect, disconnect } = await setup500Options();
+            await connect();
+            const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
+            await clickAndWaitForOpen(element);
+            // The test is run in an iframe, and the containing window has a Karma header.
+            // It seems the window is sized without accounting for the header, so a header-height's
+            // worth of content is scrolled out of view. The approach we take with the
+            // IntersectionObserver only works if the full iframe is visible, so we scroll the
+            // containing window to the bottom (i.e. scrolling the Karma header out of view and
+            // the bottom of the iframe into view).
+            window.parent.scrollTo(0, window.parent.document.body.scrollHeight);
+            const fullyVisible = await checkFullyInViewport(listbox);
+
+            expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
+            expect(fullyVisible).toBe(true);
+
+            await disconnect();
+        });
     });
 
     it('should have its tag returned by tagFor(FoundationSelect)', () => {

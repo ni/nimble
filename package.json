@@ -42,8 +42,9 @@
   ],
   "devDependencies": {
     "@lhci/cli": "^0.8.1",
-    "beachball": "^2.20.0",
+    "beachball": "^2.22.4",
+    "cross-env": "^7.0.3",
     "patch-package": "^6.4.7",
-    "cross-env": "^7.0.3"
+    "style-dictionary": "3.1.1"
   }
 }

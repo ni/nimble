@@ -6,7 +6,7 @@
  */
 
 import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import * as icons from '@ni/nimble-tokens/dist/icons/js';
 
 const fs = require('fs');
 const path = require('path');
@@ -43,9 +43,9 @@ const directiveAndModulePaths = [];
 for (const key of Object.keys(icons)) {
     const iconName = trimSizeFromName(key); // "arrowExpanderLeft"
     const directoryName = spinalCase(iconName); // e.g. "arrow-expander-left"
-    const elementName = `nimble-${spinalCase(iconName)}-icon`; // e.g. "nimble-arrow-expander-left-icon"
-    const className = `${pascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
-    const directiveName = `Nimble${className}Directive`; // e.g. "NimbleArrowExpanderLeftIconDirective"
+    const elementName = `nimble-icon-${spinalCase(iconName)}`; // e.g. "nimble-icon-arrow-expander-left"
+    const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
+    const directiveName = `Nimble${className}Directive`; // e.g. "NimbleIconArrowExpanderLeftDirective"
     const iconDirectory = path.resolve(iconsDirectory, directoryName);
     fs.mkdirSync(iconDirectory);
 
@@ -68,7 +68,7 @@ export class ${directiveName} {
     const directiveFilePath = path.resolve(iconDirectory, directiveFileName);
     fs.writeFileSync(`${directiveFilePath}.ts`, directiveFileContents, { encoding: 'utf-8' });
 
-    const moduleName = `Nimble${className}Module`; // e.g. "NimbleArrowExpanderLeftIconModule"
+    const moduleName = `Nimble${className}Module`; // e.g. "NimbleIconArrowExpanderLeftModule"
     const moduleFileContents = `${generatedFilePrefix}
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

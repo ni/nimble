@@ -46,18 +46,18 @@ An example usage of the menu button is as follows:
 
 ```html
 <nimble-menu-button content-hidden appearance="ghost">
-    <nimble-user-icon slot="start"></nimble-user-icon>
+    <nimble-icon-user slot="start"></nimble-icon-user>
     User account
 
     <nimble-menu slot="menu">
         <nimble-menu-item>
-            <nimble-user-icon slot="start"></nimble-user-icon>
+            <nimble-icon-user slot="start"></nimble-icon-user>
             Account
         </nimble-menu-item>
         <nimble-menu-item>
-            <nimble-arrow-left-from-line-icon
+            <nimble-icon-arrow-left-from-line
                 slot="start"
-            ></nimble-arrow-left-from-line-icon>
+            ></nimble-icon-arrow-left-from-line>
             Log out
         </nimble-menu-item>
     </nimble-menu>

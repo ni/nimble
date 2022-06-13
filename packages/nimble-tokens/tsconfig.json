@@ -3,7 +3,7 @@
         "declaration": true,
         "esModuleInterop": true,
         "moduleResolution": "node",
-        "outDir": "dist-icons-esm",
+        "outDir": "dist/icons/js",
         "strictNullChecks": true,
         "experimentalDecorators": true,
         "target": "ESNext",
@@ -21,5 +21,5 @@
         // Whitelist imported @types instead of using them all
         "types": []
     },
-    "include": ["dist-icons"]
+    "include": ["dist/icons/ts"]
 }

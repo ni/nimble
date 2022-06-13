@@ -5,7 +5,7 @@ import {
     TextFieldOptions,
     textFieldTemplate as template
 } from '@microsoft/fast-foundation';
-import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { exclamationMark16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 

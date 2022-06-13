@@ -56,13 +56,13 @@ const component = (
                         <nimble-menu-item>Item 1.1</nimble-menu-item>
                         <nimble-menu-item>Item 1.2</nimble-menu-item>
                         ${when(() => advancedSubMenu, html`<hr>`)}
-                        <nimble-menu-item>${when(() => childIcon, html`<nimble-xmark-icon slot="start"></nimble-xmark-icon>`)}Item 1.3</nimble-menu-item>
+                        <nimble-menu-item>${when(() => childIcon, html`<nimble-icon-xmark slot="start"></nimble-icon-xmark>`)}Item 1.3</nimble-menu-item>
                     </nimble-menu>
                 `)}
             </nimble-menu-item>
             <hr>
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
-            <nimble-menu-item>${when(() => parentIcon, html`<nimble-user-icon slot="start"></nimble-user-icon>`)}Item 3</nimble-menu-item>
+            <nimble-menu-item>${when(() => parentIcon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}Item 3</nimble-menu-item>
             <nimble-menu-item hidden>Item 4</nimble-menu-item>
         </nimble-menu>
     </span>

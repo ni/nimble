@@ -6,7 +6,7 @@
  */
 
 import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import * as icons from '@ni/nimble-tokens/dist/icons/js';
 
 const fs = require('fs');
 const path = require('path');
@@ -35,9 +35,9 @@ console.log('Finished creating icons directory');
 console.log('Writing icon Razor component files');
 for (const key of Object.keys(icons)) {
     const iconName = trimSizeFromName(key); // "arrowExpanderLeft"
-    const elementName = `nimble-${spinalCase(iconName)}-icon`; // e.g. "nimble-arrow-expander-left-icon"
-    const className = `${pascalCase(iconName)}Icon`; // e.g. "ArrowExpanderLeftIcon"
-    const componentName = `Nimble${className}`; // e.g. "NimbleArrowExpanderLeftIcon"
+    const elementName = `nimble-icon-${spinalCase(iconName)}`; // e.g. "nimble-icon-arrow-expander-left"
+    const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
+    const componentName = `Nimble${className}`; // e.g. "NimbleIconArrowExpanderLeft"
 
     const directiveFileContents = `${generatedFilePrefix}
 @namespace NimbleBlazor

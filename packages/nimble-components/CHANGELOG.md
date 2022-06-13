@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 23 May 2022 21:59:32 GMT and should not be manually modified.
+This log was last generated on Tue, 07 Jun 2022 15:43:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.0.1
+
+Tue, 07 Jun 2022 15:43:41 GMT
+
+### Patches
+
+- Fix select drop-down clipping ([ni/nimble@c7a0202](https://github.com/ni/nimble/commit/c7a0202b1f1980159f9e14cbac69e6172ccec075))
+
+## 11.0.0
+
+Thu, 02 Jun 2022 15:11:56 GMT
+
+### Major changes
+
+- Icon names updated from the postfix nimble-*-icon to the prefix nimble-icon-*. ([ni/nimble@7d7416e](https://github.com/ni/nimble/commit/7d7416ecb6f539feed219221c905b7365c8c7f79))
+
+## 10.0.9
+
+Tue, 31 May 2022 17:03:58 GMT
+
+### Patches
+
+- Use new nimble-token icon paths. See nimble-tokens changes if using fonts.css directly from nimble-tokens. ([ni/nimble@eeb6783](https://github.com/ni/nimble/commit/eeb6783dd96e74365350826b44592c403ef8376d))
+- Bump @ni/nimble-tokens to v4.0.0
+
+## 10.0.8
+
+Fri, 27 May 2022 15:39:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v3.2.4
 
 ## 10.0.7
 
