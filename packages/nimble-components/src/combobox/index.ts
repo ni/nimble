@@ -137,10 +137,10 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 aria-haspopup="true"
                 aria-expanded="${x => x.open}"
             >
-                <nimble-arrow-expander-down-icon
+                <nimble-icon-arrow-expander-down
                     slot="start"
-                    class="dropdown-icon"
-                />
+                    class="dropdown-icon">
+                </nimble-icon-arrow-expander-down>
             </nimble-toggle-button>
         </div>
         <div class="error-text" title="${x => x.errorText}" aria-live="polite">
