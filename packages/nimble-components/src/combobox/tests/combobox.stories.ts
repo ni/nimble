@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
-import '..';
+import '../../all-components';
 import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
@@ -14,11 +14,11 @@ interface ComboboxArgs {
     options: OptionArgs[];
     invalid: boolean;
     errorText: string;
+    currentValue: string;
 }
 
 interface OptionArgs {
     label: string;
-    value: string;
     disabled: boolean;
 }
 
@@ -50,6 +50,7 @@ const metadata: Meta<ComboboxArgs> = {
             error-text="${x => x.errorText}"
             class="${x => (x.invalid ? 'invalid' : '')}"
             aria-invalid="${x => x.invalid}"
+            value="${x => x.currentValue}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
                 <nimble-list-option ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
@@ -76,13 +77,14 @@ const metadata: Meta<ComboboxArgs> = {
         autocomplete: ComboboxAutocomplete.both,
         invalid: false,
         errorText: 'Value is invalid',
+        currentValue: 'Joaquin',
         options: [
-            { label: 'Mary', value: '1', disabled: false },
-            { label: 'Sue', value: '2', disabled: false },
-            { label: 'Joaquin', value: '3', disabled: false },
-            { label: 'Frank', value: '4', disabled: false },
-            { label: 'Dracula', value: '5', disabled: true },
-            { label: 'Albert', value: '6', disabled: false }
+            { label: 'Mary', disabled: false },
+            { label: 'Sue', disabled: false },
+            { label: 'Joaquin', disabled: false },
+            { label: 'Frank', disabled: false },
+            { label: 'Dracula', disabled: true },
+            { label: 'Albert', disabled: false }
         ]
     }
 };

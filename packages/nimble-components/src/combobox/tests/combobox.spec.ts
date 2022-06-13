@@ -20,6 +20,7 @@ async function setup(
             <nimble-list-option value="one">One</nimble-list-option>
             <nimble-list-option value="two">Two</nimble-list-option>
             <nimble-list-option value="three">Three</nimble-list-option>
+            <nimble-list-option value="four" disabled>Four</nimble-list-option>
         </nimble-combobox>
     `;
     return fixture<Combobox>(viewTemplate);
@@ -172,6 +173,17 @@ describe('Combobox', () => {
         const inputElement = element.shadowRoot?.querySelector('.selected-value');
 
         expect(inputElement?.getAttribute('aria-label')).toEqual('Combobox');
+
+        await disconnect();
+    });
+
+    it('filterOptions does not include disabled options in resulting filteredOptions', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        element.filterOptions(); // fake call to method that is normally called through typing
+
+        expect(element.filteredOptions.map(option => option.value).includes('four')).toBeFalse();
 
         await disconnect();
     });

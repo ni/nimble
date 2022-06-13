@@ -9,7 +9,7 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import '..';
+import '../../all-components';
 import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 

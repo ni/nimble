@@ -81,9 +81,9 @@ export class Combobox extends FoundationCombobox {
         this.removeEventListener('focusout', this.focusOutHandler);
     }
 
-    public toggleButtonClickHander(e: Event): void {
-        this.open = !this.open;
-        e.stopPropagation();
+    public toggleButtonChangeHandler(e: Event): void {
+        this.open = this.dropdownButton!.checked;
+        e.stopImmediatePropagation();
     }
 
     public toggleButtonKeyDownHandler(e: KeyboardEvent): boolean {
@@ -98,6 +98,12 @@ export class Combobox extends FoundationCombobox {
             default:
                 return true;
         }
+    }
+
+    public override filterOptions(): void {
+        super.filterOptions();
+        const noDisabledOptions = this.filteredOptions.filter(o => !o.disabled);
+        this.filteredOptions = noDisabledOptions;
     }
 
     protected override openChanged(): void {
@@ -130,7 +136,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 ?checked="${x => x.open}"
                 ?disabled="${x => x.disabled}"
                 content-hidden="true"
-                @click="${(x, c) => x.toggleButtonClickHander(c.event)}"
+                @change="${(x, c) => x.toggleButtonChangeHandler(c.event)}"
                 @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
                 class="dropdown-button"
                 part="button"
