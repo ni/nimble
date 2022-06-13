@@ -5,7 +5,7 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface TooltipArgs {
-    
+    // Auto update mode?
     delay: number;
     horiontalViewportLock: boolean;
     verticalViewportLock: boolean;
@@ -17,7 +17,7 @@ const metadata: Meta<TooltipArgs> = {
     decorators: [withXD],
     parameters: {
         docs: {
-            description: {
+            description: { // to be updated
                 component:
                     'Per [W3C](https://w3c.github.io/aria-practices/#checkbox) – The dual-state checkbox is the most common type, as it allows the user to toggle between two choices: checked and not checked.'
             }
