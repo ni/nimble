@@ -45,4 +45,4 @@ const metadata: Meta<TooltipArgs> = {
 
 export default metadata;
 
-export const checkbox: StoryObj<TooltipArgs> = {}; // if checkbox changed to tooltip doesn't work
+export const tooltip: StoryObj<TooltipArgs> = {}; // if checkbox changed to tooltip doesn't work
