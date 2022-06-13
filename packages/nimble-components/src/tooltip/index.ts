@@ -20,7 +20,7 @@ const nimbleTooltip = Tooltip.compose({
     baseName: 'tooltip',
     baseClass: FoundationTooltip,
     template,
-    styles,
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTooltip());

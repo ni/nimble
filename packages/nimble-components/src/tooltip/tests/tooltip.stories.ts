@@ -33,7 +33,14 @@ const metadata: Meta<TooltipArgs> = {
     render: createUserSelectedThemeStory(html<TooltipArgs>`
         <nimble-button id="anchor">text</nimble-button>
 
-        <nimble-tooltip anchor='anchor'>tooltip text</nimble-tooltip> 
+        <nimble-tooltip
+            anchor='anchor' 
+            delay='${x => x.delay}'
+            ?horiontalViewportLock="${x => x.horiontalViewportLock}"
+            ?verticalViewportLock="${x => x.verticalViewportLock}"
+        >
+        ${x => x.tooltip}
+        </nimble-tooltip> 
     `),
     args: {
         tooltip: 'Tooltip label',
@@ -45,4 +52,4 @@ const metadata: Meta<TooltipArgs> = {
 
 export default metadata;
 
-export const tooltip: StoryObj<TooltipArgs> = {}; // if checkbox changed to tooltip doesn't work
+export const tooltip: StoryObj<TooltipArgs> = {}; 
