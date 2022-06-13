@@ -11,7 +11,7 @@ import {
     keyEnter,
     keySpace
 } from '@microsoft/fast-web-utilities';
-import { exclamationMark16X16 } from '@ni/nimble-tokens/dist/icons/ts';
+import { exclamationMark16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 
@@ -143,9 +143,12 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 </nimble-icon-arrow-expander-down>
             </nimble-toggle-button>
         </div>
-        <div class="error-text" title="${x => x.errorText}" aria-live="polite">
-            ${x => x.errorText}
-        </div>
+        <nimble-internal-error-text
+            class="error-text"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+        >
+        </nimble-internal-error-text>
     `
 });
 
