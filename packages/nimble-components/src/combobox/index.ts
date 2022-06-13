@@ -11,7 +11,7 @@ import {
     keyEnter,
     keySpace
 } from '@microsoft/fast-web-utilities';
-import { exclamationMark16X16 } from '@ni/nimble-tokens/dist-icons-esm/nimble-icons-inline';
+import { exclamationMark16X16 } from '@ni/nimble-tokens/dist/icons/ts';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 
