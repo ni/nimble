@@ -36,7 +36,9 @@ export const styles = css`
         color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
-        --ni-private-height-within-border: calc(${controlHeight} - 2 * ${borderWidth});
+        --ni-private-height-within-border: calc(
+            ${controlHeight} - 2 * ${borderWidth}
+        );
     }
 
     :host([disabled]) {
