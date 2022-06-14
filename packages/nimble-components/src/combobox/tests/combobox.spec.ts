@@ -184,6 +184,7 @@ describe('Combobox', () => {
         element.filterOptions(); // fake call to method that is normally called through typing
 
         expect(element.filteredOptions.map(option => option.value).includes('four')).toBeFalse();
+        expect(element.filteredOptions.length).toEqual(3);
 
         await disconnect();
     });
