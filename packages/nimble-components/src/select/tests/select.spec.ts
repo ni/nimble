@@ -24,6 +24,33 @@ async function setup(
     return fixture<Select>(viewTemplate);
 }
 
+async function clickAndWaitForOpen(select: Select): Promise<void> {
+    select.click();
+    // Takes two updates for listbox to be rendered
+    await DOM.nextUpdate();
+    await DOM.nextUpdate();
+}
+
+async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
+    return new Promise((resolve, _reject) => {
+        const intersectionObserver = new IntersectionObserver(
+            entries => {
+                intersectionObserver.disconnect();
+                if (
+                    entries[0]?.isIntersecting
+                    && entries[0].intersectionRatio === 1.0
+                ) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            },
+            { threshold: 1.0 }
+        );
+        intersectionObserver.observe(element);
+    });
+}
+
 describe('Select', () => {
     it('should respect value set before connect is completed', async () => {
         const { element, connect, disconnect } = await setup();
@@ -86,26 +113,18 @@ describe('Select', () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
-
-            element.click();
-            await DOM.nextUpdate();
+            await clickAndWaitForOpen(element);
+            // The test is run in an iframe, and the containing window has a Karma header.
+            // It seems the window is sized without accounting for the header, so a header-height's
+            // worth of content is scrolled out of view. The approach we take with the
+            // IntersectionObserver only works if the full iframe is visible, so we scroll the
+            // containing window to the bottom (i.e. scrolling the Karma header out of view and
+            // the bottom of the iframe into view).
+            window.parent.scrollTo(0, window.parent.document.body.scrollHeight);
+            const fullyVisible = await checkFullyInViewport(listbox);
 
             expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
-
-            // listbox will pop up either above or below the element, depending on which has
-            // more space (the element is placed at a random vertical position within the window)
-            const listboxPadding = 4;
-            const controlPlusGapHeight = element.offsetHeight + listboxPadding;
-            const totalEmptyVerticalSpace = window.innerHeight - controlPlusGapHeight;
-            const largestEmptyVerticalSpan = element.offsetTop < totalEmptyVerticalSpace / 2
-                ? window.innerHeight
-                      - element.offsetTop
-                      - controlPlusGapHeight
-                : element.offsetTop - listboxPadding;
-
-            expect(listbox.offsetHeight).toBeLessThanOrEqual(
-                largestEmptyVerticalSpan
-            );
+            expect(fullyVisible).toBe(true);
 
             await disconnect();
         });
