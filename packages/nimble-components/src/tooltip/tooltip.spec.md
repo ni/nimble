@@ -71,9 +71,10 @@ A Blazor wrapper will be created for the component.
 ## Open Issues
 
 When user is using nimble tooltip and nimble components, is there an easier way to add a tooltip so they wouldn't have to anchor to an html element every time they want a tooltip?
-- Update nimble controls to have tooltip show and be tooltip aware
-- Create a tooltip in the shadow dom internally, would not require a separate tooltip element.
-- If we don't do anything, at least provide an easy way to create unique ids.
+
+-   Update nimble controls to have tooltip show and be tooltip aware
+-   Create a tooltip in the shadow dom internally, would not require a separate tooltip element.
+-   If we don't do anything, at least provide an easy way to create unique ids.
 
 Can tooltip be found by screen reader?
 
