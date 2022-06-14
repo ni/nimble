@@ -58,7 +58,7 @@ A Blazor wrapper will be created for the component.
 -   _Tooling: Any new tools, updates to tools, code generation, etc?_
     -   No additional requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
-    -   All accessibility needs should be covered by FAST's implementation. We should do some manual testing to verify that the custom template doesn't break any accessibility behavior.
+    -   Aria-describedBy recommendation in storybook docs for tooltip for developers
 -   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
     -   No additional requirements
 -   _Performance: does the FAST component meet Nimble's performance requirements?_
@@ -71,16 +71,12 @@ A Blazor wrapper will be created for the component.
 ## Open Issues
 
 When user is using nimble tooltip and nimble components, is there an easier way to add a tooltip so they wouldn't have to anchor to an html element every time they want a tooltip?
-- Update nimble controls to have tooltip slow and be tooltip aware
+- Update nimble controls to have tooltip show and be tooltip aware
 - Create a tooltip in the shadow dom internally, would not require a separate tooltip element.
 - If we don't do anything, at least provide an easy way to create unique ids.
-
-Should we have a tooltip that behaves with a visual indicator? Would it be a new type of component?
 
 Can tooltip be found by screen reader?
 
 For testing, can we force the tooltip to be visible without hover? [Possible Ideas](https://stackoverflow.com/questions/62043424/mock-hover-state-in-storybook)
-
-aria-describedBy recommendation in storybook docs for tooltip for developers
 
 Mobile tooltip is not very functional- have to click on button to show tooltip, and clicking away does not make it disappear
