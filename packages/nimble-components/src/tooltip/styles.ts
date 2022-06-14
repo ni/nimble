@@ -1,18 +1,13 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { focusVisible } from '@microsoft/fast-foundation';
-
 import {
     borderColor,
-    tooltipCaptionFont, 
+    tooltipCaptionFont,
     tooltipCaptionFontColor,
-    controlHeight,
-    borderWidth,
-    smallDelay,
-    
+    borderWidth
 } from '../theme-provider/design-tokens';
 
-//font should be source sans pro regular 11px
+// font should be source sans pro regular 11px
 
 export const styles = css`
     ${display('inline-flex')}
@@ -26,13 +21,7 @@ export const styles = css`
         user-select: none;
     }
 
-    :host([disabled]) {
-        cursor: default;
-    }
-    
-    .control {
-        width: calc(${controlHeight} / 2);
-        height: calc(${controlHeight} / 2);
+    .tooltip {
         box-sizing: border-box;
         flex-shrink: 0;
         border: ${borderWidth} solid ${borderColor};
@@ -40,13 +29,5 @@ export const styles = css`
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        transition: box-shadow ${smallDelay};
-        ${
-            /*
-             * Firefox includes the line height in the outline height calculation (not sure if intended or accidental).
-             * Set it to 0 to ensure the outline is just as high as the control.
-             */ ''
-        }
-        line-height: 0;
     }
 `;

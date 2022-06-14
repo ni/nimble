@@ -51,5 +51,4 @@ const metadata: Meta<TooltipArgs> = {
 };
 
 export default metadata;
-
-export const tooltip: StoryObj<TooltipArgs> = {}; 
+export const tooltip: StoryObj<TooltipArgs> = {};
