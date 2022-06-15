@@ -51,6 +51,16 @@ describe('Nimble combobox', () => {
             expect(directive.autocomplete).toBeUndefined();
             expect(nativeElement.autocomplete).toBeUndefined();
         });
+
+        it('has expected defaults for errorText', () => {
+            expect(directive.errorText).toBeUndefined();
+            expect(nativeElement.errorText).toBeUndefined();
+        });
+
+        it('can use the directive to set errorText', () => {
+            directive.errorText = 'new value';
+            expect(nativeElement.errorText).toBe('new value');
+        });
     });
 
     describe('with template string values', () => {
@@ -58,7 +68,8 @@ describe('Nimble combobox', () => {
             template: `
                 <nimble-combobox #combobox
                     disabled
-                    autocomplete="inline">
+                    autocomplete="inline"
+                    error-text="error text">
                 </nimble-combobox>`
         })
         class TestHostComponent {
@@ -90,6 +101,11 @@ describe('Nimble combobox', () => {
             expect(directive.autocomplete).toEqual(ComboboxAutocomplete.inline);
             expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.inline);
         });
+
+        it('will use template string values for errorText', () => {
+            expect(directive.errorText).toBe('error text');
+            expect(nativeElement.errorText).toBe('error text');
+        });
     });
 
     describe('with property bound values', () => {
@@ -97,7 +113,8 @@ describe('Nimble combobox', () => {
             template: `
                 <nimble-combobox #combobox
                     [disabled]="disabled"
-                    [autocomplete]="autocomplete">
+                    [autocomplete]="autocomplete"
+                    [error-text]="errorText">
                 </nimble-combobox>
             `
         })
@@ -106,6 +123,7 @@ describe('Nimble combobox', () => {
             @ViewChild('combobox', { read: ElementRef }) public elementRef: ElementRef<Combobox>;
             public disabled = false;
             public autocomplete: ComboboxAutocomplete = ComboboxAutocomplete.list;
+            public errorText = 'initial value';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -144,6 +162,17 @@ describe('Nimble combobox', () => {
             expect(directive.autocomplete).toEqual(ComboboxAutocomplete.both);
             expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.both);
         });
+
+        it('can be configured with property binding for errorText', () => {
+            expect(directive.errorText).toBe('initial value');
+            expect(nativeElement.errorText).toBe('initial value');
+
+            fixture.componentInstance.errorText = 'new value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('new value');
+            expect(nativeElement.errorText).toBe('new value');
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -151,7 +180,8 @@ describe('Nimble combobox', () => {
             template: `
                 <nimble-combobox #combobox
                     [attr.disabled]="disabled"
-                    [attr.autocomplete]="autocomplete">
+                    [attr.autocomplete]="autocomplete"
+                    [attr.error-text]="errorText">
                 </nimble-combobox>
             `
         })
@@ -160,6 +190,7 @@ describe('Nimble combobox', () => {
             @ViewChild('combobox', { read: ElementRef }) public elementRef: ElementRef<Combobox>;
             public disabled: BooleanValueOrAttribute = null;
             public autocomplete: ComboboxAutocomplete | undefined = undefined;
+            public errorText = 'initial value';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -197,6 +228,17 @@ describe('Nimble combobox', () => {
 
             expect(directive.autocomplete).toEqual(ComboboxAutocomplete.both);
             expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.both);
+        });
+
+        it('can be configured with attribute binding for errorText', () => {
+            expect(directive.errorText).toBe('initial value');
+            expect(nativeElement.errorText).toBe('initial value');
+
+            fixture.componentInstance.errorText = 'new value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('new value');
+            expect(nativeElement.errorText).toBe('new value');
         });
     });
 });
