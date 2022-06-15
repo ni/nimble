@@ -1,6 +1,4 @@
-import {
-    DesignSystem
-} from '@microsoft/fast-foundation';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import { InternalErrorText } from '..';
 
 describe('InternalErrorText', () => {
@@ -11,8 +9,8 @@ describe('InternalErrorText', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-internal-error-text')).toBeInstanceOf(
-            InternalErrorText
-        );
+        expect(
+            document.createElement('nimble-internal-error-text')
+        ).toBeInstanceOf(InternalErrorText);
     });
 });

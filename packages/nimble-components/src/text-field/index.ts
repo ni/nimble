@@ -37,7 +37,7 @@ export class TextField extends FoundationTextField {
      * HTML Attribute: error-text
      */
     @attr({ attribute: 'error-text' })
-    public errorText!: string;
+    public errorText: string | undefined;
 
     public override connectedCallback(): void {
         super.connectedCallback();

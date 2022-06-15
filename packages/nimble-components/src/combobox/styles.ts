@@ -36,7 +36,7 @@ export const styles = css`
         bottom-border-width: var(--ni-private-bottom-border-width);
     }
 
-    :host .error-text { 
+    :host .error-text {
         display: none;
     }
 
@@ -44,7 +44,7 @@ export const styles = css`
         border-bottom: var(--ni-private-bottom-border-width) solid ${failColor};
     }
 
-    :host(.invalid) .error-text { 
+    :host(.invalid) .error-text {
         display: block;
     }
 

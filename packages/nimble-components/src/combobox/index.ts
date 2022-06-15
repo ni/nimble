@@ -11,7 +11,6 @@ import {
     keyEnter,
     keySpace
 } from '@microsoft/fast-web-utilities';
-import { exclamationMark16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 
@@ -128,7 +127,9 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
     },
     end: html<Combobox>`
         <div class="end-slot-container">
-            <span class="error-content">${exclamationMark16X16.data}</span>
+            <nimble-icon-exclamation-mark
+                class="error-content fail"
+            ></nimble-icon-exclamation-mark>
             <div class="separator"></div>
             <nimble-toggle-button
                 ${ref('dropdownButton')}
@@ -145,7 +146,8 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
             >
                 <nimble-icon-arrow-expander-down
                     slot="start"
-                    class="dropdown-icon">
+                    class="dropdown-icon"
+                >
                 </nimble-icon-arrow-expander-down>
             </nimble-toggle-button>
         </div>

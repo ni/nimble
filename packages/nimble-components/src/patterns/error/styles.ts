@@ -2,7 +2,6 @@ import { css } from '@microsoft/fast-element';
 import {
     controlHeight,
     failColor,
-    iconSize,
     bodyDisabledFontColor,
     errorTextFont,
     borderWidth,
@@ -11,27 +10,16 @@ import {
 
 export const styles = css`
     .error-content {
-        width: ${iconSize};
         display: none;
     }
 
     :host(.invalid) .error-content {
-        display: contents;
-    }
-
-    :host(.invalid) .error-content svg {
-        height: ${iconSize};
-        width: ${iconSize};
+        display: inline-flex;
         padding-right: ${smallPadding};
-        flex: none;
     }
 
-    :host(.invalid) .error-content path {
-        fill: ${failColor};
-    }
-
-    :host([disabled]) .error-content path {
-        fill: ${bodyDisabledFontColor};
+    :host([disabled]) .error-content {
+        --ni-nimble-icon-color: ${bodyDisabledFontColor};
     }
 
     .error-text {

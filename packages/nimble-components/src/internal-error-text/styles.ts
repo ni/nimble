@@ -1,5 +1,10 @@
 import { css } from '@microsoft/fast-element';
-import { bodyDisabledFontColor, controlHeight, errorTextFont, failColor } from '../theme-provider/design-tokens';
+import {
+    bodyDisabledFontColor,
+    controlHeight,
+    errorTextFont,
+    failColor
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
     :host {
