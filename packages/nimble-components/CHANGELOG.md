@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 13 Jun 2022 22:34:57 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Jun 2022 19:12:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.0.3
+
+Wed, 15 Jun 2022 19:12:55 GMT
+
+### Patches
+
+- Keyboard focus styling for select ([ni/nimble@3a3780e](https://github.com/ni/nimble/commit/3a3780e4676fd32ff9d89c0ed7c455c1ce0f6f81))
 
 ## 11.0.2
 
