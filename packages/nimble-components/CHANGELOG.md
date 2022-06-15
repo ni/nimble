@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 07 Jun 2022 15:43:41 GMT and should not be manually modified.
+This log was last generated on Mon, 13 Jun 2022 22:34:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.0.2
+
+Mon, 13 Jun 2022 22:34:57 GMT
+
+### Patches
+
+- Text/Number fields hover indicator grows from middle ([ni/nimble@c930471](https://github.com/ni/nimble/commit/c930471568477d0b665ce9039cd13a73511b5c8e))
 
 ## 11.0.1
 
