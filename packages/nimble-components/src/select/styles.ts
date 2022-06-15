@@ -50,6 +50,12 @@ export const styles = css`
         transition: width ${smallDelay} ease-in;
     }
 
+    @media (prefers-reduced-motion) {
+        :host::before {
+            transition-duration: 0s;
+        }
+    }
+
     :host(${focusVisible})::before {
         width: 100%;
     }
@@ -64,6 +70,12 @@ export const styles = css`
         border-bottom: ${borderHoverColor}
             var(--ni-private-hover-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        :host::after {
+            transition-duration: 0s;
+        }
     }
 
     :host(:hover)::after,
@@ -93,13 +105,12 @@ export const styles = css`
     }
 
     :host(.open:not(:hover)) .control {
-        border-bottom: ${borderWidth} solid ${borderHoverColor};
-        transition: border-bottom ${smallDelay};
+        border-bottom-color: ${borderHoverColor};
     }
 
     :host([disabled]) .control,
     :host([disabled]) .control:hover {
-        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
+        border-bottom-color: ${bodyDisabledFontColor};
         color: ${bodyDisabledFontColor};
     }
 
