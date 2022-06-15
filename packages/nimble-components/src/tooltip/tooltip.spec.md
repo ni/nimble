@@ -4,6 +4,8 @@
 
 The `nimble-tooltip` is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. The Nimble tooltip is based upon [FAST's tooltip component](https://github.com/microsoft/fast/tree/master/packages/web-components/fast-foundation/src/tooltip)
 
+The nimble-tooltip project will first be implemented as a prototype, open issues listed below will be addressed once the prototype is functional.
+
 ### Background
 
 [Nimble issue #309: Tooltip](https://github.com/ni/nimble/issues/309)
@@ -21,7 +23,7 @@ The `nimble-tooltip` is a popup that displays information related to an element 
 Plan to extend API to support all cases shown in visual design XD document. Will add
 once tooltip is sucessfully implemented with one case.
 
-Plan to first implement the tooltip and let the user choose which type of tooltip (general, error, info) they want
+Plan to first implement the tooltip and let the client choose which type of tooltip (general, error, info) they want
 Additional changes to API expected in the future, but will not be included in first pass of implementation. Listed in Future Improvements and Open Issues
 
 -   _Component Name:_ `nimble-tooltip`
