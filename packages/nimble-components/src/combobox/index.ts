@@ -12,6 +12,12 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import type { ToggleButton } from '../toggle-button';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { IconExclamationMark } from '../icons/exclamation-mark';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { IconArrowExpanderDown } from '../icons/arrow-expander-down';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { InternalErrorText } from '../internal-error-text';
 import { styles } from './styles';
 
 declare global {

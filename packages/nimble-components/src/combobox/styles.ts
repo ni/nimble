@@ -15,7 +15,7 @@ export const styles = css`
     ${dropdownStyles}
     ${errorStyles}
 
-        :host {
+    :host {
         --ni-private-hover-bottom-border-width: 2px;
         --ni-private-bottom-border-width: 1px;
     }
