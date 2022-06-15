@@ -86,6 +86,10 @@ export class Combobox extends FoundationCombobox {
         this.removeEventListener('focusout', this.focusOutHandler);
     }
 
+    public toggleButtonClickHandler(e: Event): void {
+        e.stopImmediatePropagation();
+    }
+
     public toggleButtonChangeHandler(e: Event): void {
         this.open = this.dropdownButton!.checked;
         e.stopImmediatePropagation();
@@ -143,6 +147,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 ?checked="${x => x.open}"
                 ?disabled="${x => x.disabled}"
                 content-hidden="true"
+                @click="${(x, c) => x.toggleButtonClickHandler(c.event)}"
                 @change="${(x, c) => x.toggleButtonChangeHandler(c.event)}"
                 @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
                 class="dropdown-button"
