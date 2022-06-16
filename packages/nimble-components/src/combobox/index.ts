@@ -111,8 +111,8 @@ export class Combobox extends FoundationCombobox {
 
     public override filterOptions(): void {
         super.filterOptions();
-        const noDisabledOptions = this.filteredOptions.filter(o => !o.disabled);
-        this.filteredOptions = noDisabledOptions;
+        const enabledOptions = this.filteredOptions.filter(o => !o.disabled);
+        this.filteredOptions = enabledOptions;
     }
 
     protected override openChanged(): void {
