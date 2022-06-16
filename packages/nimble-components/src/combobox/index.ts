@@ -13,11 +13,8 @@ import {
 } from '@microsoft/fast-web-utilities';
 import type { ToggleButton } from '../toggle-button';
 import { errorTextTemplate } from '../patterns/error/templates';
-// These imports are needed to ensure the icons used by this component are available without clients explicitly importing them
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { IconExclamationMark } from '../icons/exclamation-mark';
-import { IconArrowExpanderDown } from '../icons/arrow-expander-down';
-/* eslint-enable @typescript-eslint/no-unused-vars */
+import '../icons/exclamation-mark';
+import '../icons/arrow-expander-down';
 
 import { styles } from './styles';
 
