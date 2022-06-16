@@ -29,6 +29,6 @@
     "jasmine": "^3.7.0"
   },
   "peerDependencies": {
-    "beachball": "^2.22.4"
+    "beachball": "~2.22.4"
   }
 }
