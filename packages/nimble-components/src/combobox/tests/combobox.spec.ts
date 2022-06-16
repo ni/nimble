@@ -39,7 +39,7 @@ describe('Combobox', () => {
         await disconnect();
     });
 
-    it('should respect "open" and "position" attributes when both set', async () => {
+    fit('should respect "open" and "position" attributes when both set', async () => {
         const position = 'above';
         const { element, connect, disconnect } = await setup(position, true);
 
@@ -47,7 +47,9 @@ describe('Combobox', () => {
         await DOM.nextUpdate();
 
         expect(element.getAttribute('open')).not.toBeNull();
+        expect(element.classList.contains('open'));
         expect(element.getAttribute('position')).toBe(position);
+        expect(element.classList.contains(position));
 
         await disconnect();
     });

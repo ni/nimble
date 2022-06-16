@@ -11,7 +11,6 @@ import './button';
 import './checkbox';
 import './combobox';
 import './drawer';
-import './internal-error-text';
 import './icons/all-icons';
 import './list-option';
 import './menu';

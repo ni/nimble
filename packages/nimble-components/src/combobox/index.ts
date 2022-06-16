@@ -12,11 +12,11 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import type { ToggleButton } from '../toggle-button';
+import { errorTextTemplate } from '../patterns/error/templates';
 // These imports are needed to ensure the icons used by this component are available without clients explicitly importing them
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { IconExclamationMark } from '../icons/exclamation-mark';
 import { IconArrowExpanderDown } from '../icons/arrow-expander-down';
-import { InternalErrorText } from '../internal-error-text';
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
 import { styles } from './styles';
@@ -73,6 +73,8 @@ export class Combobox extends FoundationCombobox {
 
     public override connectedCallback(): void {
         super.connectedCallback();
+        // Call setPositioning() after this.forcedPosition is initialized.
+        this.setPositioning();
         this.addEventListener('focusout', this.focusOutHandler);
         const inputElement = this.shadowRoot?.querySelector('.selected-value');
         // Workaround for https://github.com/microsoft/fast/issues/6041. This doesn't address the case
@@ -163,12 +165,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 </nimble-icon-arrow-expander-down>
             </nimble-toggle-button>
         </div>
-        <nimble-internal-error-text
-            class="error-text"
-            error-text="${x => x.errorText}"
-            ?disabled="${x => x.disabled}"
-        >
-        </nimble-internal-error-text>
+        ${errorTextTemplate}
     `
 });
 
