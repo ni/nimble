@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Bump peerDependency version on beachball to uptake security fix",
-  "packageName": "@ni/beachball-lock-update",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
