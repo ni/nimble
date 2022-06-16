@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 15 Jun 2022 19:12:55 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Jun 2022 17:21:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.1.0
+
+Thu, 16 Jun 2022 17:21:19 GMT
+
+### Minor changes
+
+- Export IconStatus enum from nimble-angular ([ni/nimble@99097d9](https://github.com/ni/nimble/commit/99097d94dd325e49c9a2e1886c80577c98fa7a63))
 
 ## 7.0.3
 

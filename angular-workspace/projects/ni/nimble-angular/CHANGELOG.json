@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 16 Jun 2022 17:21:19 GMT",
+      "tag": "@ni/nimble-angular_v7.1.0",
+      "version": "7.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "99097d94dd325e49c9a2e1886c80577c98fa7a63",
+            "comment": "Export IconStatus enum from nimble-angular"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Jun 2022 19:12:55 GMT",
       "tag": "@ni/nimble-angular_v7.0.3",
       "version": "7.0.3",
