@@ -6,6 +6,7 @@ import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox } from '..';
 import '../../list-option';
+import { ComboboxAutocomplete } from '../types';
 
 async function setup(
     position?: string,
@@ -177,17 +178,24 @@ describe('Combobox', () => {
         await disconnect();
     });
 
-    it('filterOptions does not include disabled options in resulting filteredOptions', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
+    const filterOptionTestData: { autocomplete: ComboboxAutocomplete }[] = [
+        { autocomplete: ComboboxAutocomplete.inline },
+        { autocomplete: ComboboxAutocomplete.both }
+    ];
+    filterOptionTestData.forEach(testData => {
+        it('disabled options will not be selected by keyboard input', async () => {
+            const { element, connect, disconnect } = await setup();
+            await connect();
 
-        element.filterOptions(); // fake call to method that is normally called through typing
+            element.autocomplete = testData.autocomplete;
+            element.control.value = 'F';
+            const inputEvent = new InputEvent('F'); // fake user typing 'F' to match 'Four'
+            element.inputHandler(inputEvent);
+            element.focusoutHandler(new FocusEvent('')); // attempt to commit typed value
 
-        expect(
-            element.filteredOptions.map(option => option.value).includes('four')
-        ).toBeFalse();
-        expect(element.filteredOptions.length).toEqual(3);
+            expect(element.value).not.toEqual('Four');
 
-        await disconnect();
+            await disconnect();
+        });
     });
 });
