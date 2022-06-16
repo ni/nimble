@@ -2,6 +2,51 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 16 Jun 2022 18:11:31 GMT",
+      "tag": "@ni/nimble-angular_v7.1.1",
+      "version": "7.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.0.4",
+            "commit": "74a9b600ec41d4a0372dfe863f0ee5705c65aafb"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 16 Jun 2022 17:21:19 GMT",
+      "tag": "@ni/nimble-angular_v7.1.0",
+      "version": "7.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "99097d94dd325e49c9a2e1886c80577c98fa7a63",
+            "comment": "Export IconStatus enum from nimble-angular"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Jun 2022 19:12:55 GMT",
+      "tag": "@ni/nimble-angular_v7.0.3",
+      "version": "7.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.0.3",
+            "commit": "3a3780e4676fd32ff9d89c0ed7c455c1ce0f6f81"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 Jun 2022 22:34:57 GMT",
       "tag": "@ni/nimble-angular_v7.0.2",
       "version": "7.0.2",
