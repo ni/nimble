@@ -20,7 +20,7 @@ export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = con
         <${context.tagFor(ToggleButton)}
             part="button"
             appearance="${x => x.appearance}"
-            content-hidden="${x => x.contentHidden}"
+            ?content-hidden="${x => x.contentHidden}"
             ?checked="${x => x.open}"
             ?disabled="${x => x.disabled}"
             aria-haspopup="true"

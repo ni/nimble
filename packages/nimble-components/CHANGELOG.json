@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 16 Jun 2022 18:11:31 GMT",
+      "tag": "@ni/nimble-components_v11.0.4",
+      "version": "11.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "74a9b600ec41d4a0372dfe863f0ee5705c65aafb",
+            "comment": "Fix bug where menu-button could accidentally hide the button's content"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Jun 2022 19:12:55 GMT",
+      "tag": "@ni/nimble-components_v11.0.3",
+      "version": "11.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3a3780e4676fd32ff9d89c0ed7c455c1ce0f6f81",
+            "comment": "Keyboard focus styling for select"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 Jun 2022 22:34:57 GMT",
       "tag": "@ni/nimble-components_v11.0.2",
       "version": "11.0.2",

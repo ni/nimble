@@ -60,5 +60,6 @@ export * from './directives/tree-view/nimble-tree-view.directive';
 export * from './directives/tree-view/nimble-tree-view.module';
 export * from './testing/async-helpers';
 
-// To avoid exporting ButtonAppearance from multiple places, export the enum a single time here.
+// Export enums that are used by multiple components here to avoid exporting them multiple times.
 export { ButtonAppearance } from '@ni/nimble-components/dist/esm/patterns/button/types';
+export { IconStatus } from '@ni/nimble-components/dist/esm/icon-base/types';
