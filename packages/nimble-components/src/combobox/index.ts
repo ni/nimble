@@ -12,12 +12,13 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import type { ToggleButton } from '../toggle-button';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// These imports are needed to ensure the icons used by this component are available without clients explicitly importing them
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IconExclamationMark } from '../icons/exclamation-mark';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IconArrowExpanderDown } from '../icons/arrow-expander-down';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { InternalErrorText } from '../internal-error-text';
+/* eslint-enable @typescript-eslint/no-unused-vars */
+
 import { styles } from './styles';
 
 declare global {
