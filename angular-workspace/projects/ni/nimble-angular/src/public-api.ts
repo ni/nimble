@@ -62,3 +62,5 @@ export * from './testing/async-helpers';
 
 // To avoid exporting ButtonAppearance from multiple places, export the enum a single time here.
 export { ButtonAppearance } from '@ni/nimble-components/dist/esm/patterns/button/types';
+
+export { IconStatus } from '@ni/nimble-components/dist/esm/icon-base/types';
