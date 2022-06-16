@@ -1,15 +1,19 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
+import type { AutoUpdateMode } from '@microsoft/fast-foundation';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
+import { TooltipStatus } from '../types';
 
 interface TooltipArgs {
-    // Auto update mode?
     delay: number;
     horiontalViewportLock: boolean;
     verticalViewportLock: boolean;
     tooltip: string;
+    status: TooltipStatus;
+    autoUpdateMode: AutoUpdateMode; // Need to figure out how to test / make sure this works?
+    // anchorIdSet: string; // maybe do this?
 }
 
 const metadata: Meta<TooltipArgs> = {
@@ -31,24 +35,33 @@ const metadata: Meta<TooltipArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
-        <nimble-button id="anchor">text</nimble-button>
+        <nimble-button id='anchor'>text</nimble-button>
 
-        <nimble-tooltip
-            anchor='anchor' 
-            delay='${x => x.delay}'
-            ?horiontalViewportLock="${x => x.horiontalViewportLock}"
-            ?verticalViewportLock="${x => x.verticalViewportLock}"
-        >
-        ${x => x.tooltip}
-        </nimble-tooltip> 
+            <nimble-tooltip
+                anchor='anchor' 
+                delay='${x => x.delay}'
+                ?horiontalViewportLock="${x => x.horiontalViewportLock}"
+                ?verticalViewportLock="${x => x.verticalViewportLock}"
+                autoUpdateMode='anchor'
+            >
+            ${x => x.tooltip}
+            </nimble-tooltip> 
     `),
     args: {
         tooltip: 'Tooltip label',
         delay: 300,
         horiontalViewportLock: false,
-        verticalViewportLock: false
-    }
+        verticalViewportLock: false,
+        status: TooltipStatus.default
+    },
+    argTypes: {
+        status: {
+            options: Object.values(TooltipStatus),
+            control: { type: 'radio' },
+        }
+    },
 };
 
 export default metadata;
+
 export const tooltip: StoryObj<TooltipArgs> = {};

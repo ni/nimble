@@ -38,7 +38,7 @@ const verticalViewportLockStates = [
 ] as const;
 type VerticalViewportLockState = typeof verticalViewportLockStates[number];
 
-// WIP need to figure out anchoring
+// WIP need to figure out anchoring- They all have the same ids and anchors- only first button tooltip works
 
 const component = (
     [horiontalViewportLockName, horiontalViewportLock]: HoriontalViewportLockState,
@@ -50,6 +50,7 @@ id="anchor">${horiontalViewportLockName} ${verticalViewportLockName}
 
 <nimble-tooltip
     anchor='anchor'
+    visible
     ?horiontalViewportLock="${() => horiontalViewportLock}"
     ?verticalViewportLock="${() => verticalViewportLock}"
 >
