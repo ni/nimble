@@ -23,13 +23,13 @@ p, a {
 }
 
 .sub-container > * {
-    padding-right: $ni-nimble-standard-padding;
+    margin-right: $ni-nimble-standard-padding;
 }
 
 .theme-select {
     display: block;
     width: 150px;
-    min-width: unset; 
+    min-width: unset;
 }
 
 .drawer-location-select {

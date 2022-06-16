@@ -14,6 +14,7 @@ import {
     smallDelay,
     smallPadding
 } from '../../theme-provider/design-tokens';
+import { focusVisible } from '../../utilities/style/focus';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -24,35 +25,66 @@ export const styles = css`
         font: ${bodyFont};
         height: ${controlHeight};
         position: relative;
+        justify-content: center;
         user-select: none;
         min-width: 250px;
         outline: none;
         vertical-align: top;
+        --ni-private-hover-indicator-width: 2px;
+        --ni-private-focus-indicator-width: 1px;
+        --ni-private-indicator-lines-gap: 1px;
     }
 
-    .listbox {
-        box-sizing: border-box;
-        display: inline-flex;
-        flex-direction: column;
-        left: 0;
-        overflow-y: auto;
+    :host::before {
+        content: '';
         position: absolute;
-        width: 100%;
-        --ni-private-listbox-padding: 4px;
-        max-height: calc(
-            var(--ni-private-select-max-height) - 2 *
-                var(--ni-private-listbox-padding)
+        bottom: calc(
+            var(--ni-private-hover-indicator-width) +
+                var(--ni-private-indicator-lines-gap)
         );
-        z-index: 1;
-        padding: var(--ni-private-listbox-padding);
-        box-shadow: 0px 3px 3px ${popupBoxShadowColor};
-        border: 1px solid ${popupBorderColor};
-        background-color: ${applicationBackgroundColor};
-        background-clip: padding-box;
+        width: 0px;
+        height: 0px;
+        justify-self: center;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-focus-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
     }
 
-    .listbox[hidden] {
-        display: none;
+    @media (prefers-reduced-motion) {
+        :host::before {
+            transition-duration: 0s;
+        }
+    }
+
+    :host(${focusVisible})::before {
+        width: 100%;
+    }
+
+    :host::after {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        width: 0px;
+        height: 0px;
+        justify-self: center;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-hover-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        :host::after {
+            transition-duration: 0s;
+        }
+    }
+
+    :host(:hover)::after,
+    :host(${focusVisible})::after {
+        width: 100%;
+    }
+
+    :host([disabled]:hover)::after {
+        width: 0px;
     }
 
     .control {
@@ -73,21 +105,38 @@ export const styles = css`
     }
 
     :host(.open:not(:hover)) .control {
-        border-bottom: ${borderWidth} solid ${borderHoverColor};
-        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
-    }
-
-    :host(:hover) .control {
-        border-bottom: 2px solid ${borderHoverColor};
-        padding-bottom: 0px;
-        transition: border-bottom ${smallDelay}, padding-bottom ${smallDelay};
+        border-bottom-color: ${borderHoverColor};
     }
 
     :host([disabled]) .control,
     :host([disabled]) .control:hover {
-        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
-        padding-bottom: 1px;
+        border-bottom-color: ${bodyDisabledFontColor};
         color: ${bodyDisabledFontColor};
+    }
+
+    .listbox {
+        box-sizing: border-box;
+        display: inline-flex;
+        flex-direction: column;
+        left: 0;
+        overflow-y: auto;
+        position: absolute;
+        width: 100%;
+        --ni-private-listbox-padding: ${smallPadding};
+        max-height: calc(
+            var(--ni-private-select-max-height) - 2 *
+                var(--ni-private-listbox-padding)
+        );
+        z-index: 1;
+        padding: var(--ni-private-listbox-padding);
+        box-shadow: 0px 3px 3px ${popupBoxShadowColor};
+        border: 1px solid ${popupBorderColor};
+        background-color: ${applicationBackgroundColor};
+        background-clip: padding-box;
+    }
+
+    .listbox[hidden] {
+        display: none;
     }
 
     :host([open][position='above']) .listbox {
