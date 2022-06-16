@@ -17,8 +17,8 @@ export const ComboboxAutocomplete = {
     both: FastComboboxAutocomplete.both,
 
     /**
-      * Performs no autocomplete behavior.
-      */
+     * Performs no autocomplete behavior.
+     */
     none: FastComboboxAutocomplete.none
 } as const;
 export type ComboboxAutocomplete =

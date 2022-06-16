@@ -61,8 +61,7 @@ const metadata: Meta<ComboboxArgs> = {
         autocomplete: {
             options: Object.values(ComboboxAutocomplete),
             control: { type: 'radio' },
-            description:
-            `- inline: Automatically matches the first option that matches the start of the entered text.
+            description: `- inline: Automatically matches the first option that matches the start of the entered text.
 - list: Filters the dropdown to options that start with the entered text.
 - both: Automatically matches and filters list to options that start with the entered text.
 - none: No autocomplete (default).`
