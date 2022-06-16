@@ -75,6 +75,7 @@ export class Combobox extends FoundationCombobox {
         super.connectedCallback();
         // Call setPositioning() after this.forcedPosition is initialized.
         this.setPositioning();
+
         this.addEventListener('focusout', this.focusOutHandler);
         const inputElement = this.shadowRoot?.querySelector('.selected-value');
         // Workaround for https://github.com/microsoft/fast/issues/6041. This doesn't address the case
