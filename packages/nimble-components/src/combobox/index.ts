@@ -12,7 +12,7 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import type { ToggleButton } from '../toggle-button';
-import { errorTextTemplate } from '../patterns/error/templates';
+import { errorTextTemplate } from '../patterns/error/template';
 import '../icons/exclamation-mark';
 import '../icons/arrow-expander-down';
 
@@ -139,7 +139,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
     end: html<Combobox>`
         <div class="end-slot-container">
             <nimble-icon-exclamation-mark
-                class="error-content fail"
+                class="error-icon fail"
             ></nimble-icon-exclamation-mark>
             <div class="separator"></div>
             <nimble-toggle-button

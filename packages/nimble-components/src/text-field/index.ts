@@ -5,9 +5,10 @@ import {
     TextFieldOptions,
     textFieldTemplate as template
 } from '@microsoft/fast-foundation';
-import { exclamationMark16X16 } from '@ni/nimble-tokens/dist/icons/js';
+import '../icons/exclamation-mark';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
+import { errorTextTemplate } from '../patterns/error/template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -54,17 +55,13 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
         delegatesFocus: true
     },
     end: html<TextField>`
-        <span class="error-content">${exclamationMark16X16.data}</span>
+        <nimble-icon-exclamation-mark
+            class="error-icon fail"
+        ></nimble-icon-exclamation-mark>
         <span part="actions">
             <slot name="actions"></slot>
         </span>
-        <div
-            class="error-text error-content"
-            title="${x => x.errorText}"
-            aria-live="polite"
-        >
-            ${x => x.errorText}
-        </div>
+        ${errorTextTemplate}
     `
 });
 

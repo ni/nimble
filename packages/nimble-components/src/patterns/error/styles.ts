@@ -9,16 +9,16 @@ import {
 } from '../../theme-provider/design-tokens';
 
 export const styles = css`
-    .error-content {
+    .error-icon {
         display: none;
     }
 
-    :host(.invalid) .error-content {
+    :host(.invalid) .error-icon {
         display: inline-flex;
         padding-right: ${smallPadding};
     }
 
-    :host([disabled]) .error-content {
+    :host([disabled]) .error-icon {
         --ni-nimble-icon-color: ${bodyDisabledFontColor};
     }
 

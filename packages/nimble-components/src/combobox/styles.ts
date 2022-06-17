@@ -36,16 +36,8 @@ export const styles = css`
         bottom-border-width: var(--ni-private-bottom-border-width);
     }
 
-    :host .error-text {
-        display: none;
-    }
-
     :host(.invalid) .control {
         border-bottom: var(--ni-private-bottom-border-width) solid ${failColor};
-    }
-
-    :host(.invalid) .error-text {
-        display: block;
     }
 
     :host([disabled]) .control {

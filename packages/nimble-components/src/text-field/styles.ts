@@ -267,10 +267,6 @@ export const styles = css`
             .control {
                 height: var(--ni-private-height-within-border);
             }
-
-            :host(.invalid) .errortext {
-                top: calc(${controlHeight} - ${borderWidth});
-            }
         `
                 ),
                 appearanceBehavior(
