@@ -14,7 +14,6 @@ async function setup(
 ): Promise<Fixture<Combobox>> {
     const viewTemplate = html`
         <nimble-combobox
-            aria-label="Combobox"
             ${position !== undefined ? `position="${position}"` : ''}
             ${open ? 'open' : ''}
         >
@@ -171,9 +170,12 @@ describe('Combobox', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
 
-        const inputElement = element.shadowRoot?.querySelector('.selected-value');
+        const expectedLabel = 'new label';
+        element.ariaLabel = expectedLabel;
+        await DOM.nextUpdate();
 
-        expect(inputElement?.getAttribute('aria-label')).toEqual('Combobox');
+        const inputElement = element.shadowRoot?.querySelector('.selected-value');
+        expect(inputElement?.getAttribute('aria-label')).toEqual(expectedLabel);
 
         await disconnect();
     });

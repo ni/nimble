@@ -73,15 +73,9 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
         super.connectedCallback();
         // Call setPositioning() after this.forcedPosition is initialized.
         this.setPositioning();
+        this.updateInputAriaLabel();
 
         this.addEventListener('focusout', this.focusOutHandler);
-        const inputElement = this.shadowRoot?.querySelector('.selected-value');
-        // Workaround for https://github.com/microsoft/fast/issues/6041. This doesn't address the case
-        // where a user changes the 'aria-label' attribute programmatically, but I don't think we want
-        // to try and handle that case at the moment.
-        if (this.ariaLabel) {
-            inputElement?.setAttribute('aria-label', this.ariaLabel);
-        }
     }
 
     public override disconnectedCallback(): void {
@@ -121,6 +115,18 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
         super.openChanged();
         if (this.dropdownButton) {
             this.dropdownButton.checked = this.open;
+        }
+    }
+
+    // Workaround for https://github.com/microsoft/fast/issues/6041.
+    private ariaLabelChanged(_oldValue: string, _newValue: string): void {
+        this.updateInputAriaLabel();
+    }
+
+    private updateInputAriaLabel(): void {
+        if (this.ariaLabel) {
+            const inputElement = this.shadowRoot?.querySelector('.selected-value');
+            inputElement?.setAttribute('aria-label', this.ariaLabel);
         }
     }
 
