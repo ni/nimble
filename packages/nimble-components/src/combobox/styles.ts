@@ -26,7 +26,7 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
-    :host .control {
+    .control {
         bottom-border-width: var(--ni-private-bottom-border-width);
     }
 

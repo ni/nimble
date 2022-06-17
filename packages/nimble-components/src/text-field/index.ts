@@ -9,6 +9,7 @@ import '../icons/exclamation-mark';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
+import type { IHasErrorText } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,7 +20,7 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
-export class TextField extends FoundationTextField {
+export class TextField extends FoundationTextField implements IHasErrorText {
     /**
      * The appearance the text field should have.
      *

@@ -17,6 +17,7 @@ import '../icons/exclamation-mark';
 import '../icons/arrow-expander-down';
 
 import { styles } from './styles';
+import type { IHasErrorText } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,7 +28,7 @@ declare global {
 /**
  * A nimble-styed HTML combobox
  */
-export class Combobox extends FoundationCombobox {
+export class Combobox extends FoundationCombobox implements IHasErrorText {
     /**
      * The ref to the internal dropdown button element.
      *
