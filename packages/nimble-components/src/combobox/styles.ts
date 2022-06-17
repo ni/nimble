@@ -38,6 +38,10 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
+    :host(.invalid[disabled]) .control {
+        border-color: ${failColor};
+    }
+
     .selected-value {
         -webkit-appearance: none;
         background: transparent;
@@ -60,6 +64,7 @@ export const styles = css`
     .end-slot-container {
         display: flex;
         align-items: baseline;
+        padding-right: ${smallPadding};
     }
 
     :host([disabled]) .dropdown-icon {

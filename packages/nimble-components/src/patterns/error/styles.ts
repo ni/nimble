@@ -18,10 +18,6 @@ export const styles = css`
         padding-right: ${smallPadding};
     }
 
-    :host([disabled]) .error-icon {
-        --ni-nimble-icon-color: ${bodyDisabledFontColor};
-    }
-
     .error-text {
         display: none;
     }
@@ -45,9 +41,5 @@ export const styles = css`
 
     :host(.invalid) .error-text:empty {
         display: none;
-    }
-
-    :host([disabled]) .error-text {
-        color: ${bodyDisabledFontColor};
     }
 `;

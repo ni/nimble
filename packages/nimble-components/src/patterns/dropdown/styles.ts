@@ -13,7 +13,8 @@ import {
     popupBoxShadowColor,
     smallDelay,
     smallPadding,
-    failColor
+    failColor,
+    borderRgbPartialColor
 } from '../../theme-provider/design-tokens';
 import { focusVisible } from '../../utilities/style/focus';
 
@@ -105,18 +106,14 @@ export const styles = css`
         padding-bottom: 1px;
     }
 
-    :host([disabled]) .control {
-        cursor: default;
-    }
-
     :host(.open:not(:hover)) .control {
         border-bottom-color: ${borderHoverColor};
     }
 
-    :host([disabled]) .control,
-    :host([disabled]) .control:hover {
-        border-bottom-color: ${bodyDisabledFontColor};
+    :host([disabled]) .control {
+        cursor: default;
         color: ${bodyDisabledFontColor};
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
     .listbox {
