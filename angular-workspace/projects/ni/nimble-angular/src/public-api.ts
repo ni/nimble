@@ -13,6 +13,7 @@ export * from './directives/button/nimble-button.module';
 export * from './directives/checkbox/nimble-checkbox-control-value-accessor.directive';
 export * from './directives/checkbox/nimble-checkbox.directive';
 export * from './directives/checkbox/nimble-checkbox.module';
+export * from './directives/combobox/nimble-combobox-control-value-accessor.directive';
 export * from './directives/combobox/nimble-combobox.directive';
 export * from './directives/combobox/nimble-combobox.module';
 export * from './directives/drawer/nimble-drawer.directive';
