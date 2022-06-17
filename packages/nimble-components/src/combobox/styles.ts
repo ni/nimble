@@ -49,6 +49,8 @@ export const styles = css`
         color: inherit;
         margin: auto 0;
         width: 100%;
+        font-size: inherit;
+        padding-left: 0px;
     }
 
     .selected-value:hover,
@@ -77,6 +79,7 @@ export const styles = css`
         border-right: 2px solid rgba(${borderRgbPartialColor}, 0.15);
         height: calc(${controlHeight} - 12px);
         align-self: center;
+        padding-left: 4px;
     }
 
     .dropdown-button {

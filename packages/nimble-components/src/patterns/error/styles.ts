@@ -2,10 +2,8 @@ import { css } from '@microsoft/fast-element';
 import {
     controlHeight,
     failColor,
-    bodyDisabledFontColor,
     errorTextFont,
-    borderWidth,
-    smallPadding
+    borderWidth
 } from '../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -15,7 +13,7 @@ export const styles = css`
 
     :host(.invalid) .error-icon {
         display: inline-flex;
-        padding-right: ${smallPadding};
+        flex: 1 0 auto;
     }
 
     .error-text {

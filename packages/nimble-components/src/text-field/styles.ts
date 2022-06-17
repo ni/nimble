@@ -68,16 +68,16 @@ export const styles = css`
         gap: calc(${standardPadding} / 2);
     }
 
-    :host(.invalid) .root {
-        border-bottom-color: ${failColor};
-    }
-
     :host([readonly]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
     :host([disabled]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host(.invalid) .root {
+        border-bottom-color: ${failColor};
     }
 
     .root:focus-within {
@@ -175,6 +175,7 @@ export const styles = css`
     [part='end']::after {
         content: '';
         position: absolute;
+        left: 0px;
         bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
