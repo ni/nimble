@@ -12,7 +12,8 @@ import {
     popupBorderColor,
     popupBoxShadowColor,
     smallDelay,
-    smallPadding
+    smallPadding,
+    failColor
 } from '../../theme-provider/design-tokens';
 import { focusVisible } from '../../utilities/style/focus';
 
@@ -30,7 +31,7 @@ export const styles = css`
         min-width: 250px;
         outline: none;
         vertical-align: top;
-        --ni-private-hover-indicator-width: 2px;
+        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-focus-indicator-width: 1px;
         --ni-private-indicator-lines-gap: 1px;
     }
@@ -63,13 +64,17 @@ export const styles = css`
     :host::after {
         content: '';
         position: absolute;
-        bottom: 0px;
+        bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
         justify-self: center;
         border-bottom: ${borderHoverColor}
             var(--ni-private-hover-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
+    }
+
+    :host(.invalid)::after {
+        border-bottom-color: ${failColor};
     }
 
     @media (prefers-reduced-motion) {

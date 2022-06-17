@@ -20,12 +20,6 @@ export const styles = css`
         --ni-private-bottom-border-width: 1px;
     }
 
-    :host(:not([disabled]):hover) {
-        --ni-private-bottom-border-width: var(
-            --ni-private-hover-bottom-border-width
-        );
-    }
-
     :host([disabled]) *,
     :host([disabled]) {
         user-select: none;
