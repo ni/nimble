@@ -12,8 +12,11 @@ import {
     popupBorderColor,
     popupBoxShadowColor,
     smallDelay,
-    smallPadding
+    smallPadding,
+    borderRgbPartialColor,
 } from '../theme-provider/design-tokens';
+import { appearanceBehavior } from '../utilities/style/appearance';
+import { SelectAppearance } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -154,4 +157,89 @@ export const styles = css`
     ::slotted(option) {
         flex: 0 0 auto;
     }
-`;
+`.withBehaviors(
+        appearanceBehavior(
+            SelectAppearance.underline,
+            css`
+            .root {
+                --ni-private-bottom-border-width: 1px;
+                padding-top: ${borderWidth};
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth}; 
+                // am i modifyng the correct values ? is it updating properly ? 
+                // is it able to actually access these values ?
+            }
+
+            :host([disabled]) .root {
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+
+            :host([disabled]) .root:hover {
+                --ni-private-bottom-border-width: 1px;
+            }
+        `
+        ),
+        appearanceBehavior(
+            SelectAppearance.block,
+            css`
+            .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                --ni-private-bottom-border-width: 0px;
+                padding-top: ${borderWidth};
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
+
+            .root:focus-within {
+                --ni-private-bottom-border-width: 1px;
+            }
+
+            .root:focus-within:hover {
+                --ni-private-bottom-border-width: var(
+                    --ni-private-hover-bottom-border-width
+                );
+            }
+
+            :host(.invalid) .root {
+                --ni-private-bottom-border-width: 1px;
+            }
+
+            :host(.invalid) .root:hover {
+                --ni-private-bottom-border-width: var(
+                    --ni-private-hover-bottom-border-width
+                );
+            }
+
+            :host([readonly]) .root {
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
+                border-color: transparent;
+            }
+
+            :host([disabled]) .root {
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
+            }
+
+            :host([disabled]) .root:hover {
+                --ni-private-bottom-border-width: 0px;
+            }
+
+            :host(.invalid[disabled]) .root {
+                --ni-private-bottom-border-width: 1px;
+            }
+        `
+        ),
+        appearanceBehavior(
+            SelectAppearance.outline,
+            css`
+            .root {
+                --ni-private-bottom-border-width: 1px;
+                border-width: ${borderWidth};
+                border-bottom-width: var(--ni-private-bottom-border-width);
+            }
+
+            :host(.invalid) .errortext {
+                top: calc(${controlHeight} - ${borderWidth});
+            }
+        `
+        )
+    );

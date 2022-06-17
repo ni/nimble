@@ -2,12 +2,15 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+// import { SelectAppearance } from '../types';
 import '../../all-components';
+import { SelectAppearance } from '../types';
 
 interface SelectArgs {
     disabled: boolean;
     dropDownPosition: string;
     options: OptionArgs[];
+    appearance: string;
 }
 
 interface OptionArgs {
@@ -48,11 +51,16 @@ const metadata: Meta<SelectArgs> = {
         dropDownPosition: {
             options: ['above', 'below'],
             control: { type: 'select' }
+        },
+        appearance: {
+            options: Object.values(SelectAppearance),
+            control: { type: 'radio' }
         }
     },
     args: {
         disabled: false,
         dropDownPosition: 'below',
+        appearance: SelectAppearance.underline,
         options: [
             { label: 'Option 1', value: '1', disabled: false },
             { label: 'Option 2', value: '2', disabled: true },
@@ -80,4 +88,14 @@ const metadata: Meta<SelectArgs> = {
 
 export default metadata;
 
-export const select: StoryObj<SelectArgs> = {};
+export const underlineSelect: StoryObj<SelectArgs> = {
+    args: { appearance: SelectAppearance.underline }
+};
+
+export const outlineSelect: StoryObj<SelectArgs> = {
+    args: { appearance: SelectAppearance.outline }
+};
+
+export const blockSelect: StoryObj<SelectArgs> = {
+    args: { appearance: SelectAppearance.block }
+};
