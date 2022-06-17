@@ -6,11 +6,13 @@ import {
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import {
-    createMatrixThemeStory,
+    createFixedThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
+import { backgroundStates } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { bodyFont, bodyFontColor, borderColor } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Tooltip',
@@ -26,11 +28,11 @@ const metadata: Meta = {
 
 export default metadata;
 
-const horiontalViewportLockStates = [
-    ['horiontalViewportLock Checked', true],
-    ['horiontalViewportLock Unchecked', false]
+const horizontalViewportLockStates = [
+    ['horizontalViewportLock Checked', true],
+    ['horizontalViewportLock Unchecked', false]
 ] as const;
-type HoriontalViewportLockState = typeof horiontalViewportLockStates[number];
+type HorizontalViewportLockState = typeof horizontalViewportLockStates[number];
 
 const verticalViewportLockStates = [
     ['verticalViewportLock Checked', true],
@@ -38,30 +40,69 @@ const verticalViewportLockStates = [
 ] as const;
 type VerticalViewportLockState = typeof verticalViewportLockStates[number];
 
-// WIP need to figure out anchoring- They all have the same ids and anchors- only first button tooltip works
-
 const component = (
-    [horiontalViewportLockName, horiontalViewportLock]: HoriontalViewportLockState,
+    [horizontalViewportLockName, horizontalViewportLock]: HorizontalViewportLockState,
     [verticalViewportLockName, verticalViewportLock]: VerticalViewportLockState,
 ): ViewTemplate => html`
-<nimble-button
-id="anchor">${horiontalViewportLockName} ${verticalViewportLockName}
-</nimble-button>
+    <style>
+    .container {
+        width: 250px;
+        height: 40px;
+        padding: 20px;
+    }
 
-<nimble-tooltip
-    anchor='anchor'
-    visible
-    ?horiontalViewportLock="${() => horiontalViewportLock}"
-    ?verticalViewportLock="${() => verticalViewportLock}"
->
-    text
-</nimble-tooltip>`;
+    .anchorDiv {
+        border: 1px solid var(${borderColor.cssCustomProperty});
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+    }
+    </style>
 
-export const tooltipThemeMatrix: Story = createMatrixThemeStory(
+<div class='container'>
+    <div class='anchorDiv'
+    id="${() => `${horizontalViewportLockName}_${verticalViewportLockName}`}">${horizontalViewportLockName} ${verticalViewportLockName}
+    </div>
+
+        <nimble-tooltip
+            anchor="${() => `${horizontalViewportLockName}_${verticalViewportLockName}`}"
+            visible
+            ?horizontalViewportLock="${() => horizontalViewportLock}"
+            ?verticalViewportLock="${() => verticalViewportLock}"
+            auto-Update-Mode='auto'
+        >
+            Tooltip
+        </nimble-tooltip>
+</div>
+`;
+
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+] = backgroundStates;
+
+export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
     createMatrix(component, [
-        horiontalViewportLockStates,
+        horizontalViewportLockStates,
         verticalViewportLockStates
-    ])
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
+    createMatrix(component, [
+        horizontalViewportLockStates,
+        verticalViewportLockStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
+    createMatrix(component, [
+        horizontalViewportLockStates,
+        verticalViewportLockStates
+    ]),
+    darkThemeBlackBackground
 );
 
 export const hiddenTooltip: Story = createStory(

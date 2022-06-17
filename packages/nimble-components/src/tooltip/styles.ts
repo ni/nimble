@@ -1,18 +1,12 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    BannerFail100DarkUi,
-    Black15,
-    Information100LightUi,
-    White
-} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import {
     borderRgbPartialColor,
     tooltipCaptionFont,
     tooltipCaptionFontColor,
     borderWidth,
+    tooltipBackgroundColor,
 } from '../theme-provider/design-tokens';
-import { TooltipStatus } from './types';
 
 // box shadow color may need to be fixed
 // purple color needs to be fixed
@@ -35,7 +29,7 @@ export const styles = css`
         flex-shrink: 0;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
         box-shadow: 0px 3px 4px #00000029; 
-        background-color: ${Black15};
+        background-color: ${tooltipBackgroundColor};
         padding: 1px;
         display: inline-flex;
         align-items: center;

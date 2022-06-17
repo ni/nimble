@@ -4,16 +4,16 @@ import { withXD } from 'storybook-addon-xd-designs';
 import type { AutoUpdateMode } from '@microsoft/fast-foundation';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import { TooltipStatus } from '../types';
+import { borderColor, bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
 
 interface TooltipArgs {
     delay: number;
     horiontalViewportLock: boolean;
     verticalViewportLock: boolean;
     tooltip: string;
-    status: TooltipStatus;
     autoUpdateMode: AutoUpdateMode; // Need to figure out how to test / make sure this works?
     // anchorIdSet: string; // maybe do this?
+    status: string;
 }
 
 const metadata: Meta<TooltipArgs> = {
@@ -35,28 +35,41 @@ const metadata: Meta<TooltipArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
-        <nimble-button id='anchor'>text</nimble-button>
+    <style>
+    .container {
+        width: 100px;
+        height: 50px; 
+    }
+
+    .anchorDiv {
+        border: 1px solid var(${borderColor.cssCustomProperty});
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+    }
+    </style>
+    <div class ='container'>
+        <div class='anchorDiv' id='anchor'>Text, Button, Icon, etc.</div>
 
             <nimble-tooltip
                 anchor='anchor' 
                 delay='${x => x.delay}'
                 ?horiontalViewportLock="${x => x.horiontalViewportLock}"
                 ?verticalViewportLock="${x => x.verticalViewportLock}"
-                autoUpdateMode='anchor'
+                auto-Update-Mode="${x => x.autoUpdateMode}"
             >
             ${x => x.tooltip}
             </nimble-tooltip> 
+    </div>
     `),
     args: {
         tooltip: 'Tooltip label',
         delay: 300,
         horiontalViewportLock: false,
         verticalViewportLock: false,
-        status: TooltipStatus.default
     },
     argTypes: {
-        status: {
-            options: Object.values(TooltipStatus),
+        autoUpdateMode: {
+            options: { anchor: 'anchor', auto: 'auto' },
             control: { type: 'radio' },
         }
     },
