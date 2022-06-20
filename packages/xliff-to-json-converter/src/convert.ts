@@ -22,14 +22,10 @@ export function xliff2Json(xliff: XliffFile): JsonFile {
         }
     }
     const json: JsonFile = {
-        locale: get2LetterTargetLanguage(xliff),
+        locale: xliff.targetLanguage,
         translations
     };
     return json;
-}
-
-function get2LetterTargetLanguage(xliff: XliffFile): string {
-    return xliff.targetLanguage.substring(0, 2);
 }
 
 function xliffTranslation2jsonString(xliff: XliffTranslationArray | XliffTranslationObject | XliffTranslationString | undefined): string {

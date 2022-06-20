@@ -22,7 +22,7 @@ describe('xliff2Json', () => {
         const xliff = await parseXliff(xliffContents);
         const json = xliff2Json(xliff);
 
-        expect(json.locale).toEqual('de');
+        expect(json.locale).toEqual('de-DE');
         expect(Object.keys(json.translations).length).toBe(1);
     });
 
@@ -59,7 +59,7 @@ describe('xliff2Json', () => {
         const xliff = await parseXliff(xliffContents);
         const json = xliff2Json(xliff);
 
-        expect(json.locale).toEqual('de');
+        expect(json.locale).toEqual('de-DE');
         expect(json.translations['7611487429832462405']).toEqual('Übersprungen');
     });
 
@@ -79,7 +79,7 @@ describe('xliff2Json', () => {
         const xliff = await parseXliff(xliffContents);
         const json = xliff2Json(xliff);
 
-        expect(json.locale).toEqual('ja');
+        expect(json.locale).toEqual('ja-JP');
         expect(json.translations['3565480987415902267']).toEqual('結果表示を構成');
     });
 
@@ -99,7 +99,7 @@ describe('xliff2Json', () => {
         const xliff = await parseXliff(xliffContents);
         const json = xliff2Json(xliff);
 
-        expect(json.locale).toEqual('zh');
+        expect(json.locale).toEqual('zh-CN');
         expect(json.translations['3565480987415902267']).toEqual('配置结果显示');
     });
 
