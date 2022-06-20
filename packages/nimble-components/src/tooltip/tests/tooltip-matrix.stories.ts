@@ -12,7 +12,11 @@ import {
 import { backgroundStates } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
-import { bodyFont, bodyFontColor, borderColor } from '../../theme-provider/design-tokens';
+import {
+    bodyFont,
+    bodyFontColor,
+    borderColor
+} from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Tooltip',
@@ -41,44 +45,51 @@ const verticalViewportLockStates = [
 type VerticalViewportLockState = typeof verticalViewportLockStates[number];
 
 const component = (
-    [horizontalViewportLockName, horizontalViewportLock]: HorizontalViewportLockState,
-    [verticalViewportLockName, verticalViewportLock]: VerticalViewportLockState,
+    [
+        horizontalViewportLockName,
+        horizontalViewportLock
+    ]: HorizontalViewportLockState,
+    [verticalViewportLockName, verticalViewportLock]: VerticalViewportLockState
 ): ViewTemplate => html`
     <style>
-    .container {
-        width: 250px;
-        height: 40px;
-        padding: 20px;
-    }
+        .container {
+            width: 250px;
+            height: 40px;
+            padding: 20px;
+        }
 
-    .anchorDiv {
-        border: 1px solid var(${borderColor.cssCustomProperty});
-        font: var(${bodyFont.cssCustomProperty});
-        color: var(${bodyFontColor.cssCustomProperty});
-
-    }
+        .anchorDiv {
+            border: 1px solid var(${borderColor.cssCustomProperty});
+            font: var(${bodyFont.cssCustomProperty});
+            color: var(${bodyFontColor.cssCustomProperty});
+        }
     </style>
 
-<div class='container'>
-    <div class='anchorDiv' id="${() => `${horizontalViewportLockName}_${verticalViewportLockName}`}">${horizontalViewportLockName} ${verticalViewportLockName}</div>
+    <div class="container">
+        <div
+            class="anchorDiv"
+            id="${() => `${horizontalViewportLockName}_${verticalViewportLockName}`}"
+        >
+            ${horizontalViewportLockName} ${verticalViewportLockName}
+        </div>
 
         <nimble-tooltip
             anchor="${() => `${horizontalViewportLockName}_${verticalViewportLockName}`}"
             visible
-            position='bottom'
+            position="bottom"
             ?horizontalViewportLock="${() => horizontalViewportLock}"
             ?verticalViewportLock="${() => verticalViewportLock}"
-            auto-Update-Mode='auto'
+            auto-Update-Mode="auto"
         >
             Tooltip
         </nimble-tooltip>
-</div>
+    </div>
 `;
 
 const [
     lightThemeWhiteBackground,
     colorThemeDarkGreenBackground,
-    darkThemeBlackBackground,
+    darkThemeBlackBackground
 ] = backgroundStates;
 
 export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
@@ -106,7 +117,5 @@ export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
 );
 
 export const hiddenTooltip: Story = createStory(
-    hiddenWrapper(
-        html`<nimble-tooltip hidden>Hidden Tooltip</nimble-tooltip>`
-    )
+    hiddenWrapper(html`<nimble-tooltip hidden>Hidden Tooltip</nimble-tooltip>`)
 );

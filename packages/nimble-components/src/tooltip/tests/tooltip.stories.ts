@@ -4,7 +4,11 @@ import { withXD } from 'storybook-addon-xd-designs';
 import type { AutoUpdateMode } from '@microsoft/fast-foundation';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import { borderColor, bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
+import {
+    borderColor,
+    bodyFont,
+    bodyFontColor
+} from '../../theme-provider/design-tokens';
 
 interface TooltipArgs {
     delay: number;
@@ -34,51 +38,54 @@ const metadata: Meta<TooltipArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
-    <style>
-    .container {
-        width: 100px;
-        height: 50px; 
-    }
+        <style>
+            .container {
+                width: 100px;
+                height: 50px;
+            }
 
-    .anchorDiv {
-        border: 1px solid var(${borderColor.cssCustomProperty});
-        font: var(${bodyFont.cssCustomProperty});
-        color: var(${bodyFontColor.cssCustomProperty});
-    }
-    </style>
-    <div class ='container'>
-        <div class='anchorDiv' id='anchor'>Text, Button, Icon, etc.</div>
+            .anchorDiv {
+                border: 1px solid var(${borderColor.cssCustomProperty});
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+            }
+        </style>
+        <div class="container">
+            <div class="anchorDiv" id="anchor">Text, Button, Icon, etc.</div>
 
             <nimble-tooltip
-                anchor='anchor' 
-                delay='${x => x.delay}'
+                anchor="anchor"
+                delay="${x => x.delay}"
                 ?horizontalViewportLock="${x => x.horizontalViewportLock}"
                 ?verticalViewportLock="${x => x.verticalViewportLock}"
                 auto-Update-Mode="${x => x.autoUpdateMode}"
             >
-            ${x => x.tooltip}
-            </nimble-tooltip> 
-    </div>
+                ${x => x.tooltip}
+            </nimble-tooltip>
+        </div>
     `),
     args: {
         tooltip: 'Tooltip label',
         delay: 300,
         horizontalViewportLock: false,
-        verticalViewportLock: false,
+        verticalViewportLock: false
     },
     argTypes: {
         autoUpdateMode: {
             options: { anchor: 'anchor', auto: 'auto' },
             control: { type: 'radio' },
-            description: 'Controls when the tooltip updates its position, default is `anchor` which only updates when the anchor is resized. `auto` will update on scroll/resize events.'
+            description:
+                'Controls when the tooltip updates its position, default is `anchor` which only updates when the anchor is resized. `auto` will update on scroll/resize events.'
         },
         horizontalViewportLock: {
-            description: 'Controls if the tooltip will always remain fully in the viewport on the horizontal axis'
+            description:
+                'Controls if the tooltip will always remain fully in the viewport on the horizontal axis'
         },
         verticalViewportLock: {
-            description: 'Controls if the tooltip will always remain fully in the viewport on the vertical axis'
+            description:
+                'Controls if the tooltip will always remain fully in the viewport on the vertical axis'
         }
-    },
+    }
 };
 
 export default metadata;
