@@ -1,5 +1,5 @@
 {
-  "name": "@ni-kismet/xliff-to-json-converter",
+  "name": "@ni/xliff-to-json-converter",
   "version": "0.0.0",
   "description": "A utility to convert translation files from XLIFF to JSON for Angular localization",
   "main": "dist/commonjs/cli.js",
@@ -18,8 +18,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://dev.azure.com/ni/DevCentral/_git/Skyline",
-    "directory": "Web/Packages/xliff-to-json-converter"
+    "url": "git+https://github.com/ni/nimble.git",
+    "directory": "packages/xliff-to-json-converter"
   },
   "author": "National Instruments",
   "license": "UNLICENSED",

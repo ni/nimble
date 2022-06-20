@@ -1,12 +1,12 @@
-# @ni-kismet/xliff-to-json-converter
+# @ni/xliff-to-json-converter
 
 Library that converts Angular xliff translation files to JSON so that they can be loaded at runtime in Angular apps.
 
-See [the wiki for more info on internationalizing NI Angular apps](https://dev.azure.com/ni/DevCentral/_wiki/wikis/AppCentral.wiki/6636/Internationalization-(Angular)).
+See [the NI internal wiki for more info on internationalizing NI Angular apps](https://dev.azure.com/ni/DevCentral/_wiki/wikis/AppCentral.wiki/6636/Internationalization-(Angular)).
 
 # Usage
 
-1. Install in your Angular app's `devDependencies`: `npm install -D @ni-kismet/xliff-to-json-converter`.
+1. Install in your Angular app's `devDependencies`: `npm install -D @ni/xliff-to-json-converter`.
 2. Add scripts to your app's `package.json` to convert translated XLIFF files to JSON.
 ```json
  "scripts": {
@@ -21,4 +21,4 @@ See [the wiki for more info on internationalizing NI Angular apps](https://dev.a
 
 # Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for instructions to make changes to the library.
+See [CONTRIBUTING.md](/packages/xliff-to-json-converter/CONTRIBUTING.md) for instructions to make changes to the library.

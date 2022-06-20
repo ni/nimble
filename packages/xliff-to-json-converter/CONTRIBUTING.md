@@ -5,7 +5,7 @@
 
 ## Workflows
 
-All workflows are executed from `Web/Packages`:
+All workflows are executed from the repo root:
 
 - Installing dependencies:
     ```
@@ -14,27 +14,27 @@ All workflows are executed from `Web/Packages`:
 
 - Building:
     ```
-    npm run build -w ./xliff-to-json-converter
+    npm run build -w @ni/xliff-to-json-converter
     ```
 
 - Linting:
     ```
-    npm run lint -w ./xliff-to-json-converter
+    npm run lint -w @ni/xliff-to-json-converter
     ```
 
 - Formatting:
     ```
-    npm run format -w ./xliff-to-json-converter
+    npm run format -w @ni/xliff-to-json-converter
     ```
 
 - Packing the package:
     ```
-    npm run pack -w ./xliff-to-json-converter
+    npm run pack -w @ni/xliff-to-json-converter
     ```
 
 ### Running tests
 
-To run tests, run `npm run test -w ./xliff-to-json-converter`.
+To run tests, run `npm run test -w @ni/xliff-to-json-converter`.
 
 Tests using Jasmine's built in test runner (note that unlike most JavaScript/TypeScript projects at NI it doesn't use karma as that is a browser execution environment but this is a Node.js project).
 
