@@ -8,10 +8,8 @@ import {
     bodyFontColor,
     bodyDisabledFontColor,
     controlHeight,
-    errorTextFont,
     failColor,
     fillSelectedRgbPartialColor,
-    iconSize,
     labelHeight,
     smallDelay,
     controlLabelFont,
@@ -24,9 +22,11 @@ import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-block')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -68,16 +68,16 @@ export const styles = css`
         gap: calc(${standardPadding} / 2);
     }
 
-    :host(.invalid) .root {
-        border-bottom-color: ${failColor};
-    }
-
     :host([readonly]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
     :host([disabled]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host(.invalid) .root {
+        border-bottom-color: ${failColor};
     }
 
     .root:focus-within {
@@ -175,6 +175,7 @@ export const styles = css`
     [part='end']::after {
         content: '';
         position: absolute;
+        left: 0px;
         bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
@@ -200,52 +201,6 @@ export const styles = css`
     :host([disabled]:hover) [part='end']::after,
     :host([readonly]:hover) [part='end']::after {
         width: 0px;
-    }
-
-    .error-content {
-        display: none;
-    }
-
-    :host(.invalid) .error-content {
-        display: contents;
-    }
-
-    :host(.invalid) .error-content svg {
-        height: ${iconSize};
-        width: ${iconSize};
-        flex: none;
-    }
-
-    :host(.invalid) .error-content path {
-        fill: ${failColor};
-    }
-
-    :host([disabled]) .error-content path {
-        fill: ${bodyDisabledFontColor};
-    }
-
-    .errortext {
-        display: none;
-    }
-
-    :host(.invalid) .errortext {
-        display: block;
-        font: ${errorTextFont};
-        color: ${failColor};
-        width: 100%;
-        position: absolute;
-        top: ${controlHeight};
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    :host(.invalid) .error-text:empty {
-        display: none;
-    }
-
-    :host([disabled]) .errortext {
-        color: ${bodyDisabledFontColor};
     }
 
     [part='actions'] {
@@ -312,10 +267,6 @@ export const styles = css`
 
             .control {
                 height: var(--ni-private-height-within-border);
-            }
-
-            :host(.invalid) .errortext {
-                top: calc(${controlHeight} - ${borderWidth});
             }
         `
                 ),
