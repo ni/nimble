@@ -13,7 +13,7 @@ import {
     popupBoxShadowColor,
     smallDelay,
     smallPadding,
-    borderRgbPartialColor,
+    borderRgbPartialColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { SelectAppearance } from './types';
@@ -165,7 +165,7 @@ export const styles = css`
                 --ni-private-bottom-border-width: 1px;
                 padding-top: ${borderWidth};
                 padding-left: 9px;
-                padding-right: ${borderWidth}; 
+                padding-right: ${borderWidth};
             }
 
             :host([disabled]) .control {
@@ -201,7 +201,8 @@ export const styles = css`
                 padding-left: 9px;
                 padding-right: ${borderWidth};
                 padding-bottom: 3px;
-                border-bottom: ${borderWidth} rgba(${borderRgbPartialColor}, 0.07);
+                border-bottom: ${borderWidth}
+                    rgba(${borderRgbPartialColor}, 0.07);
             }
 
             .control:focus-within {
