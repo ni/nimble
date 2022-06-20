@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-// import { SelectAppearance } from '../types';
 import '../../all-components';
 import { SelectAppearance } from '../types';
 
