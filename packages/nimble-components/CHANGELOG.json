@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 20 Jun 2022 23:17:47 GMT",
+      "tag": "@ni/nimble-components_v11.1.1",
+      "version": "11.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bb4b2b405cacb7960714617c8863fbdbb6fb2d74",
+            "comment": "Restore animation growing from center"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Jun 2022 20:39:36 GMT",
       "tag": "@ni/nimble-components_v11.1.0",
       "version": "11.1.0",

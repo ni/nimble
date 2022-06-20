@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 20 Jun 2022 20:39:36 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Jun 2022 23:17:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.1.1
+
+Mon, 20 Jun 2022 23:17:47 GMT
+
+### Patches
+
+- Restore animation growing from center ([ni/nimble@bb4b2b4](https://github.com/ni/nimble/commit/bb4b2b405cacb7960714617c8863fbdbb6fb2d74))
 
 ## 11.1.0
 
