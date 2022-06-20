@@ -180,6 +180,23 @@ describe('Combobox', () => {
         await disconnect();
     });
 
+    it('input element removes aria-label when removed from combobox', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        const expectedLabel = 'new label';
+        element.ariaLabel = expectedLabel;
+        await DOM.nextUpdate();
+
+        element.ariaLabel = null;
+        await DOM.nextUpdate();
+
+        const inputElement = element.shadowRoot?.querySelector('.selected-value');
+        expect(inputElement?.getAttribute('aria-label')).toEqual(null);
+
+        await disconnect();
+    });
+
     const filterOptionTestData: { autocomplete: ComboboxAutocomplete }[] = [
         { autocomplete: ComboboxAutocomplete.inline },
         { autocomplete: ComboboxAutocomplete.both }

@@ -124,9 +124,11 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
     }
 
     private updateInputAriaLabel(): void {
+        const inputElement = this.shadowRoot?.querySelector('.selected-value');
         if (this.ariaLabel) {
-            const inputElement = this.shadowRoot?.querySelector('.selected-value');
             inputElement?.setAttribute('aria-label', this.ariaLabel);
+        } else {
+            inputElement?.removeAttribute('aria-label');
         }
     }
 

@@ -160,7 +160,7 @@ export const styles = css`
     }
 
     .selected-value {
-        flex: 1 1 auto;
+        flex: auto;
         font-family: inherit;
         text-align: start;
         white-space: nowrap;
@@ -169,7 +169,7 @@ export const styles = css`
     }
 
     .indicator {
-        flex: 0 0 auto;
+        flex: none;
         margin-inline-start: 1em;
         padding-right: 8px;
         display: flex;
@@ -203,6 +203,6 @@ export const styles = css`
 
     ::slotted([role='option']),
     ::slotted(option) {
-        flex: 0 0 auto;
+        flex: none;
     }
 `;

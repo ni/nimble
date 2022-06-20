@@ -3,7 +3,8 @@ import {
     controlHeight,
     failColor,
     errorTextFont,
-    borderWidth
+    borderWidth,
+    iconSize
 } from '../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -13,7 +14,9 @@ export const styles = css`
 
     :host(.invalid) .error-icon {
         display: inline-flex;
-        flex: 1 0 auto;
+        width: ${iconSize};
+        height: ${iconSize};
+        flex: none;
     }
 
     .error-text {

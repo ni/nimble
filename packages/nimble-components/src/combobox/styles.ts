@@ -69,10 +69,6 @@ export const styles = css`
         padding-right: ${smallPadding};
     }
 
-    :host([disabled]) .dropdown-icon {
-        fill: ${bodyDisabledFontColor};
-    }
-
     .separator {
         display: inline;
         width: 2px;
@@ -83,8 +79,12 @@ export const styles = css`
     }
 
     .dropdown-button {
-        --ni-nimble-control-height: 24px;
+        ${controlHeight.cssCustomProperty}: 24px;
         margin-left: ${smallPadding};
+    }
+
+    :host([disabled]) .dropdown-icon {
+        fill: ${bodyDisabledFontColor};
     }
 
     :host(:empty) .listbox {
