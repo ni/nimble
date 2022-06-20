@@ -140,7 +140,6 @@ export const styles = css`
 
     .controls {
         display: flex;
-        flex-direction: column;
     }
 
     .step-up,
