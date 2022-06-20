@@ -18,7 +18,6 @@ export const styles = css`
     :host {
         --ni-private-hover-bottom-border-width: 2px;
         --ni-private-bottom-border-width: 1px;
-        --ni-private-control-height: ${controlHeight};
     }
 
     :host([disabled]) *,
@@ -81,7 +80,7 @@ export const styles = css`
     }
 
     .dropdown-button {
-        ${controlHeight.cssCustomProperty}: calc(var(--ni-private-control-height) - (2 * ${smallPadding}));
+        ${controlHeight.cssCustomProperty}: 24px;
         margin-left: ${smallPadding};
     }
 
