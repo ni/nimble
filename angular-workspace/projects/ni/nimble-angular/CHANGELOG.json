@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 20 Jun 2022 20:39:36 GMT",
+      "tag": "@ni/nimble-angular_v7.2.0",
+      "version": "7.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "d6af9e70b1058f46e6726f1caf22092523a0ff24",
+            "comment": "Add Combobox directive"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.1.0",
+            "commit": "d6af9e70b1058f46e6726f1caf22092523a0ff24"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Jun 2022 18:11:31 GMT",
       "tag": "@ni/nimble-angular_v7.1.1",
       "version": "7.1.1",
