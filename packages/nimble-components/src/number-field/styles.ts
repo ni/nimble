@@ -73,7 +73,6 @@ export const styles = css`
     .root::after {
         content: '';
         position: absolute;
-        left: 0px;
         bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
