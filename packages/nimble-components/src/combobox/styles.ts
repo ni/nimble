@@ -54,7 +54,8 @@ export const styles = css`
     }
 
     .selected-value:hover,
-    .selected-value${focusVisible}, .selected-value:disabled,
+    .selected-value${focusVisible}, 
+    .selected-value:disabled,
     .selected-value:active {
         outline: none;
     }
