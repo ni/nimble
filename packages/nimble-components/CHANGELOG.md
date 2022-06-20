@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 07 Jun 2022 15:43:41 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Jun 2022 18:11:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.0.4
+
+Thu, 16 Jun 2022 18:11:31 GMT
+
+### Patches
+
+- Fix bug where menu-button could accidentally hide the button's content ([ni/nimble@74a9b60](https://github.com/ni/nimble/commit/74a9b600ec41d4a0372dfe863f0ee5705c65aafb))
+
+## 11.0.3
+
+Wed, 15 Jun 2022 19:12:55 GMT
+
+### Patches
+
+- Keyboard focus styling for select ([ni/nimble@3a3780e](https://github.com/ni/nimble/commit/3a3780e4676fd32ff9d89c0ed7c455c1ce0f6f81))
+
+## 11.0.2
+
+Mon, 13 Jun 2022 22:34:57 GMT
+
+### Patches
+
+- Text/Number fields hover indicator grows from middle ([ni/nimble@c930471](https://github.com/ni/nimble/commit/c930471568477d0b665ce9039cd13a73511b5c8e))
 
 ## 11.0.1
 
