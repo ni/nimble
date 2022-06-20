@@ -3,7 +3,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import { SelectAppearance } from '../types';
+import { SelectAppearance } from '../../patterns/dropdown/types';
 
 interface SelectArgs {
     disabled: boolean;
