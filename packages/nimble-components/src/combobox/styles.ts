@@ -18,6 +18,7 @@ export const styles = css`
     :host {
         --ni-private-hover-bottom-border-width: 2px;
         --ni-private-bottom-border-width: 1px;
+        --ni-private-control-height: ${controlHeight};
     }
 
     :host([disabled]) *,
@@ -54,9 +55,9 @@ export const styles = css`
     }
 
     .selected-value:hover,
-    .selected-value${focusVisible}, 
     .selected-value:disabled,
-    .selected-value:active {
+    .selected-value:active,
+    .selected-value${focusVisible} {
         outline: none;
     }
 
@@ -80,7 +81,7 @@ export const styles = css`
     }
 
     .dropdown-button {
-        ${controlHeight.cssCustomProperty}: 24px;
+        ${controlHeight.cssCustomProperty}: calc(var(--ni-private-control-height) - (2 * ${smallPadding}));
         margin-left: ${smallPadding};
     }
 
