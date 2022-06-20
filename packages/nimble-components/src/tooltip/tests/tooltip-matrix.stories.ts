@@ -55,17 +55,17 @@ const component = (
         border: 1px solid var(${borderColor.cssCustomProperty});
         font: var(${bodyFont.cssCustomProperty});
         color: var(${bodyFontColor.cssCustomProperty});
+
     }
     </style>
 
 <div class='container'>
-    <div class='anchorDiv'
-    id="${() => `${horizontalViewportLockName}_${verticalViewportLockName}`}">${horizontalViewportLockName} ${verticalViewportLockName}
-    </div>
+    <div class='anchorDiv' id="${() => `${horizontalViewportLockName}_${verticalViewportLockName}`}">${horizontalViewportLockName} ${verticalViewportLockName}</div>
 
         <nimble-tooltip
             anchor="${() => `${horizontalViewportLockName}_${verticalViewportLockName}`}"
             visible
+            position='bottom'
             ?horizontalViewportLock="${() => horizontalViewportLock}"
             ?verticalViewportLock="${() => verticalViewportLock}"
             auto-Update-Mode='auto'

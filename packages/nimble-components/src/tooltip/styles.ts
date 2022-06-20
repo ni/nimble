@@ -27,6 +27,7 @@ export const styles = css`
     .tooltip {
         box-sizing: border-box;
         flex-shrink: 0;
+        max-width: 440px;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
         box-shadow: 0px 3px 4px #00000029; 
         background-color: ${tooltipBackgroundColor};
@@ -34,5 +35,6 @@ export const styles = css`
         display: inline-flex;
         align-items: center;
         justify-content: center;
+
     }
 `;

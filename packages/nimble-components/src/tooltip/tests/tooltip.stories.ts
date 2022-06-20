@@ -8,11 +8,10 @@ import { borderColor, bodyFont, bodyFontColor } from '../../theme-provider/desig
 
 interface TooltipArgs {
     delay: number;
-    horiontalViewportLock: boolean;
+    horizontalViewportLock: boolean;
     verticalViewportLock: boolean;
     tooltip: string;
-    autoUpdateMode: AutoUpdateMode; // Need to figure out how to test / make sure this works?
-    // anchorIdSet: string; // maybe do this?
+    autoUpdateMode: AutoUpdateMode;
     status: string;
 }
 
@@ -21,9 +20,9 @@ const metadata: Meta<TooltipArgs> = {
     decorators: [withXD],
     parameters: {
         docs: {
-            description: { // to be updated
+            description: {
                 component:
-                    'Per [W3C](https://w3c.github.io/aria-practices/#tooltip) – A tooltip is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out.'
+                    'Per [W3C](https://w3c.github.io/aria-practices/#tooltip) – A tooltip is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. It is recommended to set up Aria-describedby for tooltips.'
             }
         },
         design: {
@@ -53,7 +52,7 @@ const metadata: Meta<TooltipArgs> = {
             <nimble-tooltip
                 anchor='anchor' 
                 delay='${x => x.delay}'
-                ?horiontalViewportLock="${x => x.horiontalViewportLock}"
+                ?horizontalViewportLock="${x => x.horizontalViewportLock}"
                 ?verticalViewportLock="${x => x.verticalViewportLock}"
                 auto-Update-Mode="${x => x.autoUpdateMode}"
             >
@@ -64,13 +63,20 @@ const metadata: Meta<TooltipArgs> = {
     args: {
         tooltip: 'Tooltip label',
         delay: 300,
-        horiontalViewportLock: false,
+        horizontalViewportLock: false,
         verticalViewportLock: false,
     },
     argTypes: {
         autoUpdateMode: {
             options: { anchor: 'anchor', auto: 'auto' },
             control: { type: 'radio' },
+            description: 'Controls when the tooltip updates its position, default is `anchor` which only updates when the anchor is resized. `auto` will update on scroll/resize events.'
+        },
+        horizontalViewportLock: {
+            description: 'Controls if the tooltip will always remain fully in the viewport on the horizontal axis'
+        },
+        verticalViewportLock: {
+            description: 'Controls if the tooltip will always remain fully in the viewport on the vertical axis'
         }
     },
 };
