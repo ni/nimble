@@ -36,7 +36,7 @@ All workflows are executed from the repo root:
 
 To run tests, run `npm run test -w @ni/xliff-to-json-converter`.
 
-Tests using Jasmine's built in test runner (note that unlike most JavaScript/TypeScript projects at NI it doesn't use karma as that is a browser execution environment but this is a Node.js project).
+Tests execute using Jasmine's built in test runner (note that unlike most JavaScript/TypeScript projects at NI it doesn't use karma as that is a browser execution environment but this is a Node.js project).
 
 To debug tests:
 1. Open the source in VSCode and ensure it has been built.
