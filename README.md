@@ -29,6 +29,7 @@ This repository contains the source for the following packages:
 
 And some additional utility packages:
 - [`@ni/beachball-lock-update`](/packages/beachball-lock-update/) - script to update `package-lock.json` files in npm workspace monorepos
+- [`@ni/xlf-to-json-converter`](/packages/xlf-to-json-converter/) - tool to convert Angular localization files from XLIFF to JSON format
 
 Consult the `README.md` for each package to learn more, including how to use it in an application.
 

@@ -16,6 +16,7 @@
 # Specific packages
 /angular-workspace/projects/ni/nimble-angular @rajsite @atmgrifter00
 /packages/beachball-lock-update @rajsite @jattasNI
+/packages/xlf-to-json-converter @rajsite @jattasNI
 /packages/nimble-blazor @atmgrifter00 @msmithNI
 
 # Change files don't need explicit reviewers
