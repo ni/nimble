@@ -161,21 +161,33 @@ export const styles = css`
         appearanceBehavior(
             SelectAppearance.underline,
             css`
-            .root {
+            .control {
                 --ni-private-bottom-border-width: 1px;
                 padding-top: ${borderWidth};
-                padding-left: ${borderWidth};
+                padding-left: 9px;
                 padding-right: ${borderWidth}; 
-                // am i modifyng the correct values ? is it updating properly ? 
-                // is it able to actually access these values ?
             }
 
-            :host([disabled]) .root {
+            :host([disabled]) .control {
                 border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
 
-            :host([disabled]) .root:hover {
+            :host([disabled]) .control:hover {
                 --ni-private-bottom-border-width: 1px;
+            }
+        `
+        ),
+        appearanceBehavior(
+            SelectAppearance.outline,
+            css`
+            .control {
+                --ni-private-bottom-border-width: 1px;
+                border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
+                border-bottom-width: var(--ni-private-bottom-border-width);
+            }
+
+            :host(.invalid) .errortext {
+                top: calc(${controlHeight} - ${borderWidth});
             }
         `
         ),
@@ -184,61 +196,49 @@ export const styles = css`
             css`
             .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
-                --ni-private-bottom-border-width: 0px;
+                --ni-private-bottom-border-width: 1px;
                 padding-top: ${borderWidth};
-                padding-left: ${borderWidth};
+                padding-left: 9px;
                 padding-right: ${borderWidth};
+                padding-bottom: 3px;
+                border-bottom: ${borderWidth} rgba(${borderRgbPartialColor}, 0.07);
             }
 
-            .root:focus-within {
+            .control:focus-within {
                 --ni-private-bottom-border-width: 1px;
             }
 
-            .root:focus-within:hover {
+            .control:focus-within:hover {
                 --ni-private-bottom-border-width: var(
                     --ni-private-hover-bottom-border-width
                 );
             }
 
-            :host(.invalid) .root {
+            :host(.invalid) .control {
                 --ni-private-bottom-border-width: 1px;
             }
 
-            :host(.invalid) .root:hover {
+            :host(.invalid) .control:hover {
                 --ni-private-bottom-border-width: var(
                     --ni-private-hover-bottom-border-width
                 );
             }
 
-            :host([readonly]) .root {
+            :host([readonly]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
                 border-color: transparent;
             }
 
-            :host([disabled]) .root {
+            :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
 
-            :host([disabled]) .root:hover {
+            :host([disabled]) .control:hover {
                 --ni-private-bottom-border-width: 0px;
             }
 
-            :host(.invalid[disabled]) .root {
+            :host(.invalid[disabled]) .control {
                 --ni-private-bottom-border-width: 1px;
-            }
-        `
-        ),
-        appearanceBehavior(
-            SelectAppearance.outline,
-            css`
-            .root {
-                --ni-private-bottom-border-width: 1px;
-                border-width: ${borderWidth};
-                border-bottom-width: var(--ni-private-bottom-border-width);
-            }
-
-            :host(.invalid) .errortext {
-                top: calc(${controlHeight} - ${borderWidth});
             }
         `
         )
