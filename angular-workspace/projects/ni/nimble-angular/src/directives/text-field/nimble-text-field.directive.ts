@@ -96,13 +96,13 @@ export class NimbleTextFieldDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'pattern', value);
     }
 
-    public get errorText(): string {
+    public get errorText(): string | undefined {
         return this.elementRef.nativeElement.errorText;
     }
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('error-text') public set errorText(value: string) {
+    @Input('error-text') public set errorText(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }
 

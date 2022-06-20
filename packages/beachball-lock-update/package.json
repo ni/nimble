@@ -1,6 +1,6 @@
 {
   "name": "@ni/beachball-lock-update",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Beachball script to update package-lock.json files in npm workspace monorepos",
   "main": "./src/index.js",
   "scripts": {
@@ -29,6 +29,6 @@
     "jasmine": "^3.7.0"
   },
   "peerDependencies": {
-    "beachball": "^2.20.0"
+    "beachball": "~2.22.4"
   }
 }

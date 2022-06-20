@@ -83,6 +83,19 @@
                 </nimble-select>
             </div>
             <div class="sub-container">
+                <div class="container-label">Combobox</div>
+                <nimble-combobox aria-label="Combobox" (change)="onComboboxChange($event)">
+                    <nimble-list-option>Option 1</nimble-list-option>
+                    <nimble-list-option>Option 2</nimble-list-option>
+                    <nimble-list-option>Option 3</nimble-list-option>
+                </nimble-combobox>
+                <div>
+                    <span>
+                        Current value: {{ comboboxValue }}
+                    </span>
+                </div>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Switch</div>
                 <nimble-switch>Switch</nimble-switch>
                 <nimble-switch checked>

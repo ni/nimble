@@ -13,6 +13,9 @@ export * from './directives/button/nimble-button.module';
 export * from './directives/checkbox/nimble-checkbox-control-value-accessor.directive';
 export * from './directives/checkbox/nimble-checkbox.directive';
 export * from './directives/checkbox/nimble-checkbox.module';
+export * from './directives/combobox/nimble-combobox-control-value-accessor.directive';
+export * from './directives/combobox/nimble-combobox.directive';
+export * from './directives/combobox/nimble-combobox.module';
 export * from './directives/drawer/nimble-drawer.directive';
 export * from './directives/drawer/nimble-drawer.module';
 export * from './directives/icons';
@@ -60,5 +63,6 @@ export * from './directives/tree-view/nimble-tree-view.directive';
 export * from './directives/tree-view/nimble-tree-view.module';
 export * from './testing/async-helpers';
 
-// To avoid exporting ButtonAppearance from multiple places, export the enum a single time here.
+// Export enums that are used by multiple components here to avoid exporting them multiple times.
 export { ButtonAppearance } from '@ni/nimble-components/dist/esm/patterns/button/types';
+export { IconStatus } from '@ni/nimble-components/dist/esm/icon-base/types';
