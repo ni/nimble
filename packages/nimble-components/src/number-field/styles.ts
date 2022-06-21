@@ -16,7 +16,8 @@ import {
     smallDelay,
     bodyFont,
     failColor,
-    standardPadding
+    standardPadding,
+    smallPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -140,13 +141,15 @@ export const styles = css`
 
     .controls {
         display: flex;
+        flex-direction: row-reverse;
     }
 
     .step-up,
     .step-down {
         display: inline-flex;
-        height: 15px;
-        width: 15px;
+        height: ${iconSize};
+        width: ${iconSize};
+        padding: ${smallPadding};
         cursor: pointer;
         justify-content: center;
         align-items: center;
