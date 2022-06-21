@@ -35,12 +35,10 @@ function xliffTranslation2jsonString(xliff: XliffTranslationArray | XliffTransla
     }
     if (typeof xliff === 'string') {
         // translation is plain string without interpolation
-        // console.log('translation string', xliff);
         return xliff;
     }
     if (!(xliff instanceof Array)) {
         // translation just interpolation (makes no linguistical sense, but technically possible)
-        // console.log('translation object', xliff);
         return makeParsedTranslation(['', ''], [xliff.Standalone.id]);
     }
     // makeParsedTranslation expects messagePart0, placeholderName0,
@@ -48,9 +46,7 @@ function xliffTranslation2jsonString(xliff: XliffTranslationArray | XliffTransla
     // add empty messagePart at front or back.
     const messageParts: string[] = [];
     const placeholderNames: string[] = [];
-    // console.log('translation array', xliff);
     for (const part of xliff) {
-        // console.log('translation array part', part);
         if (typeof part === 'string') {
             messageParts.push(part);
         } else {
@@ -76,7 +72,6 @@ export function makeParsedTranslation(
     messageParts: readonly string[],
     placeholderNames: readonly string[],
 ): string {
-    // console.log('makeParsedTranslation', messageParts, placeholderNames);
     if (messageParts.length !== placeholderNames.length + 1) {
         throw new Error('translation part length mismatch');
     }
