@@ -1,3 +1,4 @@
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
@@ -9,6 +10,7 @@ import {
     minusWide16X16
 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
+import { NumberFieldAppearance } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,7 +21,10 @@ declare global {
 /**
  * A nimble-styled HTML number input
  */
-export class NumberField extends FoundationNumberField {}
+export class NumberField extends FoundationNumberField {
+    @attr
+    public appearance: NumberFieldAppearance = NumberFieldAppearance.underline;
+}
 
 /**
  * A function that returns a number-field registration for configuring the component with a DesignSystem.

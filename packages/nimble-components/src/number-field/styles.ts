@@ -17,8 +17,11 @@ import {
     bodyFont,
     failColor,
     standardPadding,
-    smallPadding
+    smallPadding,
+    controlLabelDisabledFontColor
 } from '../theme-provider/design-tokens';
+import { appearanceBehavior } from '../utilities/style/appearance';
+import { NumberFieldAppearance } from './types';
 
 export const styles = css`
     ${display('inline-block')}
@@ -43,6 +46,10 @@ export const styles = css`
         font: ${controlLabelFont};
     }
 
+    :host([disabled]) .label {
+        color: ${controlLabelDisabledFontColor};
+    }
+
     .root {
         box-sizing: border-box;
         position: relative;
@@ -50,7 +57,7 @@ export const styles = css`
         flex-direction: row;
         justify-content: center;
         border-radius: 0px;
-        border-bottom: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
+        border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         gap: calc(${standardPadding} / 2);
     }
 
@@ -58,9 +65,8 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
-    :host([disabled]) .root,
-    :host([disabled]) .root:hover {
-        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
+    :host([disabled]) .root {
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
     .root::before {
@@ -109,7 +115,7 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
-        height: calc(${controlHeight} - ${borderWidth});
+        height: ${controlHeight};
         width: 100%;
         border: none;
         padding: 0px;
@@ -142,6 +148,8 @@ export const styles = css`
     .controls {
         display: flex;
         flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
     }
 
     .step-up,
@@ -161,4 +169,51 @@ export const styles = css`
         width: ${iconSize};
         fill: ${borderColor};
     }
-`;
+`.withBehaviors(
+        appearanceBehavior(
+            NumberFieldAppearance.underline,
+            css`
+                .root {
+                    border-bottom-width: ${borderWidth};
+                    padding-top: ${borderWidth};
+                    padding-left: ${borderWidth};
+                    padding-right: ${borderWidth};
+                }
+
+                .control {
+                    height: calc(${controlHeight} - 2 * ${borderWidth});
+                }
+`
+        ),
+        appearanceBehavior(
+            NumberFieldAppearance.block,
+            css`
+                .root {
+                    background-color: rgba(${borderRgbPartialColor}, 0.1);
+                    padding-left: ${borderWidth};
+                    padding-right: ${borderWidth};
+                }
+
+                .root:focus-within,
+                :host(.invalid) .root {
+                    border-bottom-width: ${borderWidth};
+                }
+
+                :host([disabled]) .root {
+                    background-color: rgba(${borderRgbPartialColor}, 0.07);
+                }
+`
+        ),
+        appearanceBehavior(
+            NumberFieldAppearance.outline,
+            css`
+                .root {
+                    border-width: ${borderWidth};
+                }
+
+                .control {
+                    height: calc(${controlHeight} - 2 * ${borderWidth});
+                }
+`
+        )
+    );
