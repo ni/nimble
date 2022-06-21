@@ -1,6 +1,6 @@
-# XLIFF to JSON Converter
+# XLIFF to JSON Converter for Angular
 
-The `@ni/xliff-to-json-converter` library converts Angular XLIFF translation files to JSON so that they can be loaded at runtime in Angular apps.
+The `@ni/xliff-to-json-converter` library converts XLIFF translation files to Angular's JSON format so that they can be loaded at runtime in Angular apps.
 
 # Usage
 
@@ -23,10 +23,14 @@ The `@ni/xliff-to-json-converter` library converts Angular XLIFF translation fil
 
 3. Ensure those converted files are generated at build time and not checked in to source.
 
+# Context
+
+NI employees can see more info about our [recommended Angular localization toolchain in the NI internal wiki](https://dev.azure.com/ni/DevCentral/_wiki/wikis/AppCentral.wiki/6636/Internationalization-(Angular)).
+
 # Contributing
 
 See [CONTRIBUTING.md](/packages/xliff-to-json-converter/CONTRIBUTING.md) for instructions to make changes to the library.
 
 # Acknowledgements
 
-This library is forked from [talque/xliff-to-angular-json](https://github.com/talque/xliff-to-angular-json) with additions including testing, linting, and some small functionality changes. Thanks to its main contributor [vbraun](https://github.com/vbraun) for the starting point!
+This library is forked from [talque/xliff-to-angular-json](https://github.com/talque/xliff-to-angular-json) with additions including auto-testing, linting, and some small functionality changes. Thanks to its main contributor [vbraun](https://github.com/vbraun) for the starting point!
