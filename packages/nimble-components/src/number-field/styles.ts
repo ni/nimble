@@ -167,9 +167,11 @@ export const styles = css`
 
     .step-up:hover,
     .step-down:hover {
-        border: ${borderHoverColor}
-            var(--ni-private-hover-indicator-width) solid;
-        padding: calc(${smallPadding} - var(--ni-private-hover-indicator-width));
+        border: ${borderHoverColor} var(--ni-private-hover-indicator-width)
+            solid;
+        padding: calc(
+            ${smallPadding} - var(--ni-private-hover-indicator-width)
+        );
         transition: border-color ${mediumDelay} ease-in;
     }
 
@@ -190,47 +192,47 @@ export const styles = css`
         appearanceBehavior(
             NumberFieldAppearance.underline,
             css`
-                .root {
-                    border-bottom-width: ${borderWidth};
-                    padding-top: ${borderWidth};
-                    padding-left: ${borderWidth};
-                    padding-right: ${borderWidth};
-                }
+            .root {
+                border-bottom-width: ${borderWidth};
+                padding-top: ${borderWidth};
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
 
-                .control {
-                    height: calc(${controlHeight} - 2 * ${borderWidth});
-                }
-`
+            .control {
+                height: calc(${controlHeight} - 2 * ${borderWidth});
+            }
+        `
         ),
         appearanceBehavior(
             NumberFieldAppearance.block,
             css`
-                .root {
-                    background-color: rgba(${borderRgbPartialColor}, 0.1);
-                    padding-left: ${borderWidth};
-                    padding-right: ${borderWidth};
-                }
+            .root {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
 
-                .root:focus-within,
-                :host(.invalid) .root {
-                    border-bottom-width: ${borderWidth};
-                }
+            .root:focus-within,
+            :host(.invalid) .root {
+                border-bottom-width: ${borderWidth};
+            }
 
-                :host([disabled]) .root {
-                    background-color: rgba(${borderRgbPartialColor}, 0.07);
-                }
-`
+            :host([disabled]) .root {
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
+            }
+        `
         ),
         appearanceBehavior(
             NumberFieldAppearance.outline,
             css`
-                .root {
-                    border-width: ${borderWidth};
-                }
+            .root {
+                border-width: ${borderWidth};
+            }
 
-                .control {
-                    height: calc(${controlHeight} - 2 * ${borderWidth});
-                }
-`
+            .control {
+                height: calc(${controlHeight} - 2 * ${borderWidth});
+            }
+        `
         )
     );

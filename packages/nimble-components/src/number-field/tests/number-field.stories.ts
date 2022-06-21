@@ -44,7 +44,7 @@ const metadata: Meta<NumberFieldArgs> = {
         appearance: {
             options: Object.values(NumberFieldAppearance),
             control: { type: 'radio' }
-        },
+        }
     },
     args: {
         label: 'default label',
@@ -57,13 +57,22 @@ const metadata: Meta<NumberFieldArgs> = {
 export default metadata;
 
 export const underlineNumberField: StoryObj<NumberFieldArgs> = {
-    args: { label: 'Underline Number Field', appearance: NumberFieldAppearance.underline }
+    args: {
+        label: 'Underline Number Field',
+        appearance: NumberFieldAppearance.underline
+    }
 };
 
 export const outlineNumberField: StoryObj<NumberFieldArgs> = {
-    args: { label: 'Outline Number Field', appearance: NumberFieldAppearance.outline }
+    args: {
+        label: 'Outline Number Field',
+        appearance: NumberFieldAppearance.outline
+    }
 };
 
 export const blockNumberField: StoryObj<NumberFieldArgs> = {
-    args: { label: 'Block Number Field', appearance: NumberFieldAppearance.block }
+    args: {
+        label: 'Block Number Field',
+        appearance: NumberFieldAppearance.block
+    }
 };

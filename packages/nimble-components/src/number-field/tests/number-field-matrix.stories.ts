@@ -42,7 +42,7 @@ type AppearanceState = typeof appearanceStates[number];
 const component = (
     [disabledName, disabled]: DisabledState,
     [valueName, valueValue, placeholderValue]: ValueState,
-    [appearanceName, appearance]: AppearanceState,
+    [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <nimble-number-field
         value="${() => valueValue}"
@@ -50,7 +50,7 @@ const component = (
         appearance="${() => appearance}"
         ?disabled="${() => disabled}"
     >
-    ${() => appearanceName} ${() => valueName} ${() => disabledName}
+        ${() => appearanceName} ${() => valueName} ${() => disabledName}
     </nimble-number-field>
 `;
 

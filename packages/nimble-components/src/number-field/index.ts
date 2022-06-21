@@ -5,10 +5,7 @@ import {
     NumberFieldOptions,
     numberFieldTemplate as template
 } from '@microsoft/fast-foundation';
-import {
-    add16X16,
-    minusWide16X16
-} from '@ni/nimble-tokens/dist/icons/js';
+import { add16X16, minusWide16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
 
