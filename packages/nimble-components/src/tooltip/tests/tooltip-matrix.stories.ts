@@ -79,7 +79,7 @@ const component = (
             position="bottom"
             ?horizontalViewportLock="${() => horizontalViewportLock}"
             ?verticalViewportLock="${() => verticalViewportLock}"
-            auto-Update-Mode="auto"
+            auto-update-mode="auto"
         >
             Tooltip
         </nimble-tooltip>

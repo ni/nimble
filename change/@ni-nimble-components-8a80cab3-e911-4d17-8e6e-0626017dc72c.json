@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Formatting for tooltip implementation (#309)",
+  "comment": "Implementation, styling, and tests for the 'default' state of the nimble-tooltip.",
   "packageName": "@ni/nimble-components",
   "email": "103057880+aidendk@users.noreply.github.com",
   "dependentChangeType": "patch"

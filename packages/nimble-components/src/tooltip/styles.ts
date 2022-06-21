@@ -5,25 +5,18 @@ import {
     tooltipCaptionFont,
     tooltipCaptionFontColor,
     borderWidth,
-    tooltipBackgroundColor,
-    tooltipCaptionFontSize
+    tooltipBackgroundColor
 } from '../theme-provider/design-tokens';
-
-// box shadow color may need to be fixed
-// purple color needs to be fixed
 
 export const styles = css`
     ${display('inline-flex')}
 
     :host {
         font: ${tooltipCaptionFont};
-        font-style: normal;
-        font-weight: normal;
         letter-spacing: 0px;
         color: ${tooltipCaptionFontColor};
-        font-size: ${tooltipCaptionFontSize};
-        font-height: 14px;
         text-align: left;
+        cursor: pointer;
     }
 
     .tooltip {
@@ -38,7 +31,5 @@ export const styles = css`
         padding-right: 8px;
         padding-top: 4px;
         display: inline-flex;
-        align-items: center;
-        justify-content: center;
     }
 `;

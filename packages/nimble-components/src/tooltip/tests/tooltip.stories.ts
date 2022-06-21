@@ -11,12 +11,12 @@ import {
 } from '../../theme-provider/design-tokens';
 
 interface TooltipArgs {
+    visible: boolean;
     delay: number;
     horizontalViewportLock: boolean;
     verticalViewportLock: boolean;
     tooltip: string;
     autoUpdateMode: AutoUpdateMode;
-    status: string;
 }
 
 const metadata: Meta<TooltipArgs> = {
@@ -26,7 +26,7 @@ const metadata: Meta<TooltipArgs> = {
         docs: {
             description: {
                 component:
-                    'Per [W3C](https://w3c.github.io/aria-practices/#tooltip) – A tooltip is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. It is recommended to set up Aria-describedby for tooltips.'
+                    'Per [W3C](https://w3c.github.io/aria-practices/#tooltip) – A tooltip is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. It is recommended to set up aria-describedby, an accesibility feature that sets the description of another element through ID references. To do this, the anchor element (button, text, icon, etc.) of the tooltip must have aria-describedby=`name` in its attributes. To call it, use id=`name` in the nimble-tooltip attributes. More information can be found in the [aria-describedby docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby).'
             }
         },
         design: {
@@ -34,7 +34,7 @@ const metadata: Meta<TooltipArgs> = {
                 'https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/specs/'
         },
         actions: {
-            handles: ['change']
+            handles: ['dismiss']
         }
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
@@ -51,21 +51,27 @@ const metadata: Meta<TooltipArgs> = {
             }
         </style>
         <div class="container">
-            <div class="anchorDiv" id="anchor">Text, Button, Icon, etc.</div>
+            <div class="anchorDiv" id="anchor" aria-describedby="ariaAnchor">
+                Text, Button, Icon, etc.
+            </div>
 
             <nimble-tooltip
                 anchor="anchor"
+                ?visible="${x => x.visible}"
                 delay="${x => x.delay}"
                 ?horizontalViewportLock="${x => x.horizontalViewportLock}"
                 ?verticalViewportLock="${x => x.verticalViewportLock}"
-                auto-Update-Mode="${x => x.autoUpdateMode}"
+                auto-update-mode="${x => x.autoUpdateMode}"
+                id="ariaAnchor"
             >
                 ${x => x.tooltip}
             </nimble-tooltip>
         </div>
     `),
     args: {
+        visible: false,
         tooltip: 'Tooltip label',
+        // delay is in milliseconds
         delay: 300,
         horizontalViewportLock: false,
         verticalViewportLock: false
@@ -84,6 +90,10 @@ const metadata: Meta<TooltipArgs> = {
         verticalViewportLock: {
             description:
                 'Controls if the tooltip will always remain fully in the viewport on the vertical axis'
+        },
+        delay: {
+            description:
+                'The delay in milliseconds before a tooltip is shown after a hover event'
         }
     }
 };
