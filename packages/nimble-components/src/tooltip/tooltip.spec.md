@@ -4,8 +4,6 @@
 
 The `nimble-tooltip` is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. The Nimble tooltip is based upon [FAST's tooltip component](https://github.com/microsoft/fast/tree/master/packages/web-components/fast-foundation/src/tooltip)
 
-The nimble-tooltip project will first be implemented as a prototype, open issues listed below will be addressed once the prototype is functional.
-
 ### Background
 
 [Nimble issue #309: Tooltip](https://github.com/ni/nimble/issues/309)
@@ -20,11 +18,13 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
 
-Plan to extend API to support all cases shown in visual design XD document. Will add
-once tooltip is sucessfully implemented with one case.
+For tooltip-states-update: Plan to add radio selector with 'default', 'error', and 'information' states.
 
-Plan to first implement the tooltip and let the client choose which type of tooltip (general, error, info) they want
-Additional changes to API expected in the future, but will not be included in first pass of implementation. Listed in Future Improvements and Open Issues
+Custom css behaviors for each tooltip state will be added, similar to how .withBehaviors and appearanceBehavior are used in C:\...\nimble-components\src\patterns\button\styles.ts
+
+3 different tokens will be used for the backgrounds of the tooltip states- (Light mode has two different states of tooltip backgrounds based on the state of the tooltip, other two modes have the same background colors for all states of tooltips)
+
+Version of error / information tooltips with icons will also be included.
 
 -   _Component Name:_ `nimble-tooltip`
 -   _Properties/Attributes:_ Unchanged
@@ -36,7 +36,11 @@ Additional changes to API expected in the future, but will not be included in fi
 
 ### Future Improvements
 
-Attribute for switching between error and info states of tooltip
+Attribute for switching between error and info states of tooltip:
+
+Plan to add radio selector with 'default', 'error', and 'information' states. 
+Custom css behaviors for each tooltip state will be added, similar to how .withBehaviors and appearanceBehavior are used in C:\...\nimble-components\src\patterns\button\styles.ts
+
 Easier integration with other nimble components
 
 ### Angular integration
@@ -52,15 +56,16 @@ A Blazor wrapper will be created for the component.
 -   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
     -   No additional requirements
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    -   FAST API most likely won't be sufficient for creating extra states in spec, will be adressed later on.
+    -   FAST API most likely won't be sufficient for creating extra states in spec, Custom css behaviors for each tooltip state will be added, similar to how .withBehaviors and appearanceBehavior are used in C:\...\nimble-components\src\patterns\button\styles.ts. 3 different tokens will be used for the backgrounds of the tooltip states- (Light mode has two different states of tooltip backgrounds based on the state of the tooltip, other two modes have the same background colors for all states of tooltips).
+    -   Version of error / information tooltips with icons will also be included.
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
-    -   Will look at options as building, testing may be difficult because only displayed on hover.
+    -   No additional requirements
 -   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
     -   No additional requirements
 -   _Tooling: Any new tools, updates to tools, code generation, etc?_
     -   No additional requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
-    -   Aria-describedBy recommendation in storybook docs for tooltip for developers
+    -   aria-describedby implementation will eventually need to be fixed- currently only works when tooltip attribute is set to visible
 -   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
     -   No additional requirements
 -   _Performance: does the FAST component meet Nimble's performance requirements?_
@@ -80,6 +85,8 @@ When user is using nimble tooltip and nimble components, is there an easier way 
 
 Can tooltip be found by screen reader?
 
-For testing, can we force the tooltip to be visible without hover? [Possible Ideas](https://stackoverflow.com/questions/62043424/mock-hover-state-in-storybook)
-
 Mobile tooltip is not very functional- have to click on button to show tooltip, and clicking away does not make it disappear
+
+aria-describedby only shows up when tooltip attribute is set to visible
+
+How can we give each tooltip a custom id?
