@@ -1,4 +1,4 @@
-# Contributing to @ni/xliff-to-json-converter
+# Contributing to XLIFF to JSON Converter
 
 ## Requirements
 - [`node.js` LTS release](https://nodejs.org/en/download/) (16.14.2 at the moment, already includes `npm`)
