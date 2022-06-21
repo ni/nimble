@@ -14,7 +14,8 @@
     "format": "eslint . --fix",
     "pack": "npm pack",
     "invoke-publish": "npm publish",
-    "test": "npm run build && jasmine"
+    "tdd": "npm run build && npm run test",
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
