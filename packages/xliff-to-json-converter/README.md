@@ -7,7 +7,7 @@ The `@ni/xliff-to-json-converter` library converts Angular XLIFF translation fil
 1. Install in your Angular app's `devDependencies`:
 
     ```
-    npm install -D @ni/xliff-to-json-converter`
+    npm install -D @ni/xliff-to-json-converter
     ```
 
 2. Add scripts to your app's `package.json` to convert translated XLIFF files to JSON.
