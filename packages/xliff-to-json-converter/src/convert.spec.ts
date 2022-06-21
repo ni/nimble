@@ -301,6 +301,50 @@ describe('xliff2Json', () => {
         expect(json.translations['652598044198866766']).toEqual('<i>Nicht verfügbar</i>');
     });
 
+    it('can convert trans-unit with <br>', async () => {
+        const xliffContents = `
+        <?xml version="1.0" encoding="UTF-8"?>
+        <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+            <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="en-US">
+            <body>
+            <trans-unit id="2406462800948436519" datatype="html">
+              <source>Drag files here<x id="LINE_BREAK"/>or</source>
+              <target>Drag files here<x id="LINE_BREAK"/>or</target>
+            </trans-unit>
+            </body>
+            </file>
+        </xliff>
+        `;
+
+        const xliff = await parseXliff(xliffContents);
+        const json = xliff2Json(xliff);
+
+        expect(Object.keys(json.translations).length).toEqual(1);
+        expect(json.translations['2406462800948436519']).toEqual('Drag files here{$LINE_BREAK}or');
+    });
+
+    it('can convert trans-unit with HTML content', async () => {
+        const xliffContents = `
+        <?xml version="1.0" encoding="UTF-8"?>
+        <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+            <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="en-US">
+            <body>
+              <trans-unit id="7325635296562624358" datatype="html">
+                <source>Drag files here or <x id="START_TAG_BUTTON"/><x id="START_UNDERLINED_TEXT"/>browse<x id="CLOSE_UNDERLINED_TEXT"/><x id="CLOSE_TAG_BUTTON"/>.</source>
+                <target>Drag files here or <x id="START_TAG_BUTTON"/><x id="START_UNDERLINED_TEXT"/>browse<x id="CLOSE_UNDERLINED_TEXT"/><x id="CLOSE_TAG_BUTTON"/>.</target>
+              </trans-unit>
+            </body>
+            </file>
+        </xliff>
+        `;
+
+        const xliff = await parseXliff(xliffContents);
+        const json = xliff2Json(xliff);
+
+        expect(Object.keys(json.translations).length).toEqual(1);
+        expect(json.translations['7325635296562624358']).toEqual('Drag files here or {$START_TAG_BUTTON}{$START_UNDERLINED_TEXT}browse{$CLOSE_UNDERLINED_TEXT}{$CLOSE_TAG_BUTTON}.');
+    });
+
     it('omits trans-unit without a target translation', async () => {
         const xliffContents = `
         <?xml version="1.0" encoding="UTF-8"?>
