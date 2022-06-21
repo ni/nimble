@@ -8,26 +8,28 @@ import { convertXliff2Json } from './convert';
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions, @typescript-eslint/no-floating-promises
 yargs(hideBin(process.argv))
     .strict()
-    .scriptName('xliff-to-angular-json')
-    .usage('$0 --src <src.xlf> --dst <dst.json>')
+    .scriptName('xliff-to-json-converter')
+    .usage('$0 --source <src.xlf> --destination <dst.json>')
     .command(
         '$0',
         'Convert source xliff file to angular simple json format',
         yargsObj => yargsObj
-            .option('src', {
+            .option('source', {
+                alias: 's',
                 type: 'string',
                 describe: 'Source xliff file',
                 demandOption: true
             })
-            .option('dst', {
+            .option('destination', {
+                alias: 'd',
                 type: 'string',
                 describe: 'Destination json file',
                 demandOption: true
             }),
         async argv => {
-            const { src, dst } = argv;
-            console.log(`Converting ${src} -> ${dst}`);
-            await convertXliff2Json(src, dst);
+            const { source, destination } = argv;
+            console.log(`Converting ${source} -> ${destination}`);
+            await convertXliff2Json(source, destination);
         }
     )
     .help()
