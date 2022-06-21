@@ -14,6 +14,7 @@ import {
     controlLabelFontColor,
     labelHeight,
     smallDelay,
+    mediumDelay,
     bodyFont,
     failColor,
     standardPadding,
@@ -161,6 +162,22 @@ export const styles = css`
         cursor: pointer;
         justify-content: center;
         align-items: center;
+        border-color: transparent;
+    }
+
+    .step-up:hover,
+    .step-down:hover {
+        border: ${borderHoverColor}
+            var(--ni-private-hover-indicator-width) solid;
+        padding: calc(${smallPadding} - var(--ni-private-hover-indicator-width));
+        transition: border-color ${mediumDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        .step-up:hover,
+        .step-down:hover {
+            transition-duration: 0s;
+        }
     }
 
     .step-up svg,
