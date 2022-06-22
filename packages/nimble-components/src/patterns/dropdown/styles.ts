@@ -14,11 +14,12 @@ import {
     smallDelay,
     smallPadding,
     failColor,
-    borderRgbPartialColor
+    borderRgbPartialColor,
+    standardPadding
 } from '../../theme-provider/design-tokens';
 import { focusVisible } from '../../utilities/style/focus';
 import { appearanceBehavior } from '../../utilities/style/appearance';
-import { SelectAppearance } from './types';
+import { DropdownAppearance } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -209,12 +210,12 @@ export const styles = css`
     }
 `.withBehaviors(
         appearanceBehavior(
-            SelectAppearance.underline,
+            DropdownAppearance.underline,
             css`
         .control {
             --ni-private-bottom-border-width: 1px;
             padding-top: ${borderWidth};
-            padding-left: 9px;
+            padding-left: calc(${borderWidth} + ${standardPadding} / 2);
             padding-right: ${borderWidth};
         }
 
@@ -228,12 +229,11 @@ export const styles = css`
     `
         ),
         appearanceBehavior(
-            SelectAppearance.outline,
+            DropdownAppearance.outline,
             css`
         .control {
             --ni-private-bottom-border-width: 1px;
             border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-            border-bottom-width: var(--ni-private-bottom-border-width);
         }
 
         :host(.invalid) .errortext {
@@ -242,15 +242,13 @@ export const styles = css`
     `
         ),
         appearanceBehavior(
-            SelectAppearance.block,
+            DropdownAppearance.block,
             css`
         .control {
             background-color: rgba(${borderRgbPartialColor}, 0.1);
-            --ni-private-bottom-border-width: 1px;
-            padding-top: ${borderWidth};
-            padding-left: 9px;
+            padding-left: calc(${borderWidth} + ${standardPadding} / 2);
             padding-right: ${borderWidth};
-            padding-bottom: 3px;
+            padding-bottom: calc(${borderWidth});
             border-bottom: ${borderWidth}
                 rgba(${borderRgbPartialColor}, 0.07);
         }
@@ -274,12 +272,7 @@ export const styles = css`
                 --ni-private-hover-bottom-border-width
             );
         }
-
-        :host([readonly]) .control {
-            background-color: rgba(${borderRgbPartialColor}, 0.07);
-            border-color: transparent;
-        }
-
+        
         :host([disabled]) .control {
             background-color: rgba(${borderRgbPartialColor}, 0.07);
         }

@@ -7,7 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
-import { SelectAppearance } from '../patterns/dropdown/types';
+import { DropdownAppearance } from '../patterns/dropdown/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,7 +20,7 @@ declare global {
  */
 export class Select extends FoundationSelect {
     @attr
-    public appearance: SelectAppearance = SelectAppearance.block;
+    public appearance: DropdownAppearance = DropdownAppearance.underline;
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {

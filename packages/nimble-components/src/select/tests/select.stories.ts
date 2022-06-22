@@ -3,7 +3,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import { SelectAppearance } from '../../patterns/dropdown/types';
+import { DropdownAppearance } from '../../patterns/dropdown/types';
 
 interface SelectArgs {
     disabled: boolean;
@@ -53,14 +53,14 @@ const metadata: Meta<SelectArgs> = {
             control: { type: 'select' }
         },
         appearance: {
-            options: Object.values(SelectAppearance),
+            options: Object.values(DropdownAppearance),
             control: { type: 'radio' }
         }
     },
     args: {
         disabled: false,
         dropDownPosition: 'below',
-        appearance: SelectAppearance.underline,
+        appearance: DropdownAppearance.underline,
         options: [
             { label: 'Option 1', value: '1', disabled: false },
             { label: 'Option 2', value: '2', disabled: true },
@@ -89,13 +89,13 @@ const metadata: Meta<SelectArgs> = {
 export default metadata;
 
 export const underlineSelect: StoryObj<SelectArgs> = {
-    args: { appearance: SelectAppearance.underline }
+    args: { appearance: DropdownAppearance.underline }
 };
 
 export const outlineSelect: StoryObj<SelectArgs> = {
-    args: { appearance: SelectAppearance.outline }
+    args: { appearance: DropdownAppearance.outline }
 };
 
 export const blockSelect: StoryObj<SelectArgs> = {
-    args: { appearance: SelectAppearance.block }
+    args: { appearance: DropdownAppearance.block }
 };

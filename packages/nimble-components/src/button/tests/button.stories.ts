@@ -98,11 +98,9 @@ export const outlineButton: StoryObj<ButtonArgs> = {
 export const ghostButton: StoryObj<ButtonArgs> = {
     args: { label: 'Ghost Button', appearance: ButtonAppearance.ghost }
 };
-
 export const blockButton: StoryObj<ButtonArgs> = {
     args: { label: 'Block Button', appearance: ButtonAppearance.block }
 };
-
 export const iconButton: StoryObj<ButtonArgs> = {
     args: {
         label: 'Icon Button',
