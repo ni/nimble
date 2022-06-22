@@ -1,7 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    borderColor,
     borderRgbPartialColor,
     borderHoverColor,
     borderWidth,
@@ -9,16 +8,13 @@ import {
     bodyDisabledFontColor,
     controlHeight,
     fillSelectedRgbPartialColor,
-    iconSize,
     controlLabelFont,
     controlLabelFontColor,
     labelHeight,
     smallDelay,
-    mediumDelay,
     bodyFont,
     failColor,
     standardPadding,
-    smallPadding,
     controlLabelDisabledFontColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
@@ -148,45 +144,12 @@ export const styles = css`
 
     .controls {
         display: flex;
-        flex-direction: row-reverse;
         justify-content: center;
         align-items: center;
     }
 
-    .step-up,
-    .step-down {
-        display: inline-flex;
-        height: ${iconSize};
-        width: ${iconSize};
-        padding: ${smallPadding};
-        cursor: pointer;
-        justify-content: center;
-        align-items: center;
-        border-color: transparent;
-    }
-
-    .step-up:hover,
-    .step-down:hover {
-        border: ${borderHoverColor} var(--ni-private-hover-indicator-width)
-            solid;
-        padding: calc(
-            ${smallPadding} - var(--ni-private-hover-indicator-width)
-        );
-        transition: border-color ${mediumDelay} ease-in;
-    }
-
-    @media (prefers-reduced-motion) {
-        .step-up:hover,
-        .step-down:hover {
-            transition-duration: 0s;
-        }
-    }
-
-    .step-up svg,
-    .step-down svg {
-        height: ${iconSize};
-        width: ${iconSize};
-        fill: ${borderColor};
+    .inc-dec-button {
+        ${controlHeight.cssCustomProperty}: 24px;
     }
 `.withBehaviors(
         appearanceBehavior(

@@ -1,11 +1,10 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
     NumberFieldOptions,
     numberFieldTemplate as template
 } from '@microsoft/fast-foundation';
-import { add16X16, minusWide16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
 
@@ -21,6 +20,17 @@ declare global {
 export class NumberField extends FoundationNumberField {
     @attr
     public appearance: NumberFieldAppearance = NumberFieldAppearance.underline;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+
+        // Reverse the order of the step-up div and the step-down div (so that step-down comes first).
+        // This is the only way to get the tab order the way we want.
+        const controlsDiv = this.control.nextElementSibling!;
+        const stepUpDiv = controlsDiv.querySelector('.step-up')!;
+        controlsDiv.removeChild(stepUpDiv);
+        controlsDiv.appendChild(stepUpDiv);
+    }
 }
 
 /**
@@ -39,8 +49,16 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: minusWide16X16.data,
-    stepUpGlyph: add16X16.data
+    stepDownGlyph: html`
+        <nimble-button class="inc-dec-button" appearance="ghost" content-hidden>
+            <nimble-icon-minus-wide slot="start"></nimble-icon-minus-wide>
+        </nimble-button>
+    `,
+    stepUpGlyph: html`
+        <nimble-button class="inc-dec-button" appearance="ghost" content-hidden>
+            <nimble-icon-add slot="start"></nimble-icon-add>
+        </nimble-button>
+`
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());
