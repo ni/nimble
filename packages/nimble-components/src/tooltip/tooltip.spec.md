@@ -4,6 +4,8 @@
 
 The `nimble-tooltip` is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. The Nimble tooltip is based upon [FAST's tooltip component](https://github.com/microsoft/fast/tree/master/packages/web-components/fast-foundation/src/tooltip)
 
+The nimble-tooltip project will first be implemented as a prototype, open issues listed below will be addressed once the prototype is functional.
+
 ### Background
 
 [Nimble issue #309: Tooltip](https://github.com/ni/nimble/issues/309)
@@ -18,16 +20,16 @@ The `nimble-tooltip` is a popup that displays information related to an element 
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
 
-For tooltip-states-update: Plan to add radio selector with 'default', 'error', and 'information' states.
+Plan to add a `state` attribute with the type `tooltipState`. It will have `default`, `error`, and `information` states, with `state`'s default value being `default`.
 
-Custom css behaviors for each tooltip state will be added, similar to how .withBehaviors and appearanceBehavior are used in C:\...\nimble-components\src\patterns\button\styles.ts
+Custom CSS behaviors for each tooltip state will follow a pattern that is similarly used in other nimble components, like the styling applied to buttons based on their appearance mode.
 
-3 different tokens will be used for the backgrounds of the tooltip states- (Light mode has two different states of tooltip backgrounds based on the state of the tooltip, other two modes have the same background colors for all states of tooltips)
+2 tokens will be used for the backgrounds of the tooltip states- (One will be used for light mode, which has two different states of tooltip backgrounds based on the state of the tooltip, and the other modes will be used for dark and color mode, which have the same background colors for all states of tooltips).
 
-Version of error / information tooltips with icons will also be included.
+Icons will be available for the error and information states- There will be a toggle button to turn on or off the inclusion of the error or information icons with the tooltip. //find out if we need to diverge from fast template to include icon
 
 -   _Component Name:_ `nimble-tooltip`
--   _Properties/Attributes:_ Unchanged
+-   _Properties/Attributes:_ Adding `state` attribute
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ None
@@ -51,7 +53,8 @@ A Blazor wrapper will be created for the component.
 -   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
     -   No additional requirements
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    -   FAST API most likely won't be sufficient for creating extra states in spec, Custom css behaviors for each tooltip state will be added, similar to how .withBehaviors and appearanceBehavior are used in C:\...\nimble-components\src\patterns\button\styles.ts. 3 different tokens will be used for the backgrounds of the tooltip states- (Light mode has two different states of tooltip backgrounds based on the state of the tooltip, other two modes have the same background colors for all states of tooltips).
+    -   FAST API most likely won't be sufficient for creating extra states in spec, Custom CSS behaviors for each tooltip state will follow a pattern that is similarly used in other nimble components, like the styling applied to buttons based on their appearance mode.
+    2 tokens will be used for the backgrounds of the tooltip states- (One will be used for light mode, which has two different states of tooltip backgrounds based on the state of the tooltip, and the other modes will be used for dark and color mode, which have the same background colors for all states of tooltips).
     -   Version of error / information tooltips with icons will also be included.
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
     -   No additional requirements
