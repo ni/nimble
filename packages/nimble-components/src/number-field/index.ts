@@ -58,6 +58,7 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
             content-hidden
             tabindex="-1"
         >
+            "Decrement"
             <nimble-icon-minus-wide slot="start"></nimble-icon-minus-wide>
         </nimble-button>
     `,
@@ -68,6 +69,7 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
             content-hidden
             tabindex="-1"
         >
+            "Increment"
             <nimble-icon-add slot="start"></nimble-icon-add>
         </nimble-button>
     `
