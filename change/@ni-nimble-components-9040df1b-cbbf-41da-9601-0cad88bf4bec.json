@@ -2,6 +2,6 @@
   "type": "minor",
   "comment": "background contrast color new token addition",
   "packageName": "@ni/nimble-components",
-  "email": "email not defined",
+  "email": "ai-linh.nguyen@ni.com",
   "dependentChangeType": "patch"
 }
