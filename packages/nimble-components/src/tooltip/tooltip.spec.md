@@ -36,11 +36,6 @@ Version of error / information tooltips with icons will also be included.
 
 ### Future Improvements
 
-Attribute for switching between error and info states of tooltip:
-
-Plan to add radio selector with 'default', 'error', and 'information' states. 
-Custom css behaviors for each tooltip state will be added, similar to how .withBehaviors and appearanceBehavior are used in C:\...\nimble-components\src\patterns\button\styles.ts
-
 Easier integration with other nimble components
 
 ### Angular integration
