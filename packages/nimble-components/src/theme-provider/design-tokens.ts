@@ -1,6 +1,7 @@
 import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
 import hexRgb from 'hex-rgb';
 import {
+    Black,
     Black7,
     Black91,
     Black85,
@@ -162,6 +163,10 @@ export const popupBoxShadowColor = DesignToken.create<string>(
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
+
+export const tooltipShadowColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tooltipShadowColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.16));
 
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)

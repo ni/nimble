@@ -5,7 +5,10 @@ import {
     tooltipCaptionFont,
     tooltipCaptionFontColor,
     borderWidth,
-    tooltipBackgroundColor
+    tooltipBackgroundColor,
+    smallPadding,
+    standardPadding,
+    tooltipShadowColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -13,7 +16,6 @@ export const styles = css`
 
     :host {
         font: ${tooltipCaptionFont};
-        letter-spacing: 0px;
         color: ${tooltipCaptionFontColor};
         text-align: left;
         cursor: pointer;
@@ -24,12 +26,12 @@ export const styles = css`
         flex-shrink: 0;
         max-width: 440px;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-        box-shadow: 0px 3px 4px #00000029;
+        box-shadow: 0px 3px 4px ${tooltipShadowColor};
         background-color: ${tooltipBackgroundColor};
         padding-bottom: 6px;
-        padding-left: 8px;
-        padding-right: 8px;
-        padding-top: 4px;
+        padding-left: calc(${standardPadding} / 2);
+        padding-right: calc(${standardPadding} / 2);
+        padding-top: ${smallPadding};
         display: inline-flex;
     }
 `;

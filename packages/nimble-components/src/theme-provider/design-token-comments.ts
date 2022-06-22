@@ -174,6 +174,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     tooltipCaptionFontLineHeight: null,
     tooltipCaptionFallbackFontFamily: null,
     tooltipBackgroundColor: 'Default background color for tooltips.',
+    tooltipShadowColor: 'box-shadow color for tooltip box',
     errorTextFont: 'Font shorthand for the "Error_LightUi" base token',
     errorTextFontColor: 'Font color for "Error_LightUi" base token',
     errorTextDisabledFontColor:
