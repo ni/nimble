@@ -12,15 +12,13 @@ export async function convertXliff2Json(src: string, dst: string): Promise<void>
 export function xliff2Json(xliff: XliffFile): JsonFile {
     const translations: Writeable<Translations> = {};
     const template = xliff.resources['ng2.template'];
-    for (const key in template) {
-        if (Object.prototype.hasOwnProperty.call(template, key)) {
-            const target = template[key].target;
-            const translation = xliffTranslation2jsonString(target);
-            if (translation !== '') {
-                translations[key] = translation;
-            }
+    Object.keys(template).forEach(key => {
+        const target = template[key].target;
+        const translation = xliffTranslation2jsonString(target);
+        if (translation !== '') {
+            translations[key] = translation;
         }
-    }
+    });
     const json: JsonFile = {
         locale: xliff.targetLanguage,
         translations
