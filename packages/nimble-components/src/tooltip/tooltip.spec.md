@@ -90,3 +90,5 @@ Mobile tooltip is not very functional- have to click on button to show tooltip, 
 aria-describedby only shows up when tooltip attribute is set to visible
 
 How can we give each tooltip a custom id?
+
+When should we use the tooltip vs. the title attribute? MDN [lists many issues with the title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title#accessibility_concerns). Needs to be discussed with team and designers.
