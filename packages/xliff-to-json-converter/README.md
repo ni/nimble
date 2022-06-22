@@ -15,9 +15,9 @@ The `@ni/xliff-to-json-converter` library converts XLIFF translation files to An
     ```json
     "scripts": {
         "i18n:convert": "npm run i18n:convert:de && npm run i18n:convert:ja && npm run i18n:convert:zh",
-        "i18n:convert:de": "xliff-to-json-converter --src src/locales/messages.de.xlf --dst src/locales/messages.de.json",
-        "i18n:convert:ja": "xliff-to-json-converter --src src/locales/messages.ja.xlf --dst src/locales/messages.ja.json",
-        "i18n:convert:zh": "xliff-to-json-converter --src src/locales/messages.zh.xlf --dst src/locales/messages.zh.json",
+        "i18n:convert:de": "xliff-to-json-converter --source src/locales/messages.de.xlf --destination src/locales/messages.de.json",
+        "i18n:convert:ja": "xliff-to-json-converter --source src/locales/messages.ja.xlf --destination src/locales/messages.ja.json",
+        "i18n:convert:zh": "xliff-to-json-converter --source src/locales/messages.zh.xlf --destination src/locales/messages.zh.json",
     },
     ```
 
