@@ -10,6 +10,7 @@ type TokenName = keyof typeof TokensNamespace;
 export const tokenNames: { readonly [key in TokenName]: string } = {
     actionRgbPartialColor: 'action-rgb-partial-color',
     applicationBackgroundColor: 'application-background-color',
+    backgroundContrastColor: 'background-contrast-color',
     headerBackgroundColor: 'header-background-color',
     sectionBackgroundColor: 'section-background-color',
     fillSelectedColor: 'fill-selected-color',

@@ -7,6 +7,7 @@ import {
     Black15,
     Black30,
     Black75,
+    Black80,
     Black88,
     White,
     ForestGreen,
@@ -105,6 +106,10 @@ export const headerBackgroundColor = DesignToken.create<string>(
 export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, ForestGreen));
+
+export const backgroundContrastColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.backgroundContrastColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
