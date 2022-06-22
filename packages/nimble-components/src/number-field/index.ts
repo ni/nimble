@@ -52,15 +52,25 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
         delegatesFocus: true
     },
     stepDownGlyph: html`
-        <nimble-button class="inc-dec-button" appearance="ghost" content-hidden tabindex="-1">
+        <nimble-button
+            class="inc-dec-button"
+            appearance="ghost"
+            content-hidden
+            tabindex="-1"
+        >
             <nimble-icon-minus-wide slot="start"></nimble-icon-minus-wide>
         </nimble-button>
     `,
     stepUpGlyph: html`
-        <nimble-button class="inc-dec-button" appearance="ghost" content-hidden tabindex="-1">
+        <nimble-button
+            class="inc-dec-button"
+            appearance="ghost"
+            content-hidden
+            tabindex="-1"
+        >
             <nimble-icon-add slot="start"></nimble-icon-add>
         </nimble-button>
-`
+    `
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());
