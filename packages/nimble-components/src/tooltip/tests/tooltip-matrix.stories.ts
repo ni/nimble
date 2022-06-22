@@ -40,21 +40,28 @@ type HorizontalViewportLockState = typeof horizontalViewportLockStates[number];
 
 const verticalViewportLockStates = [
     ['verticalViewportLock Checked', true],
-    ['verticalViewportLock Unchecked', false]
+    ['verticalViewportLock Unchecked', false],
 ] as const;
 type VerticalViewportLockState = typeof verticalViewportLockStates[number];
 
-const component = (
+const valueStates = [
+    ['shortText', 'Hello'],
     [
-        horizontalViewportLockName,
-        horizontalViewportLock
-    ]: HorizontalViewportLockState,
-    [verticalViewportLockName, verticalViewportLock]: VerticalViewportLockState
+        'longText',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
+    ]
+] as const;
+type ValueState = typeof valueStates[number];
+
+const component = (
+    [horizontalViewportLockName, horizontalViewportLock]: HorizontalViewportLockState,
+    [verticalViewportLockName, verticalViewportLock]: VerticalViewportLockState,
+    [valueName, valueValue]: ValueState
 ): ViewTemplate => html`
     <style>
         .container {
             width: 250px;
-            height: 40px;
+            height: 100px;
             padding: 20px;
         }
 
@@ -68,20 +75,20 @@ const component = (
     <div class="container">
         <div
             class="anchorDiv"
-            id="${() => `${horizontalViewportLockName}_${verticalViewportLockName}`}"
+            id="${() => `${horizontalViewportLockName}_${verticalViewportLockName}_${valueName}`}"
         >
-            ${horizontalViewportLockName} ${verticalViewportLockName}
+            ${horizontalViewportLockName} ${verticalViewportLockName} ${valueName}
         </div>
 
         <nimble-tooltip
-            anchor="${() => `${horizontalViewportLockName}_${verticalViewportLockName}`}"
+            anchor="${() => `${horizontalViewportLockName}_${verticalViewportLockName}_${valueName}`}"
             visible
             position="bottom"
             ?horizontalViewportLock="${() => horizontalViewportLock}"
             ?verticalViewportLock="${() => verticalViewportLock}"
             auto-update-mode="auto"
         >
-            Tooltip
+            ${() => valueValue}
         </nimble-tooltip>
     </div>
 `;
@@ -95,7 +102,8 @@ const [
 export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
     createMatrix(component, [
         horizontalViewportLockStates,
-        verticalViewportLockStates
+        verticalViewportLockStates,
+        valueStates
     ]),
     lightThemeWhiteBackground
 );
@@ -103,7 +111,8 @@ export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
     createMatrix(component, [
         horizontalViewportLockStates,
-        verticalViewportLockStates
+        verticalViewportLockStates,
+        valueStates
     ]),
     colorThemeDarkGreenBackground
 );
@@ -111,7 +120,8 @@ export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
     createMatrix(component, [
         horizontalViewportLockStates,
-        verticalViewportLockStates
+        verticalViewportLockStates,
+        valueStates
     ]),
     darkThemeBlackBackground
 );

@@ -8,7 +8,7 @@ import {
     tooltipBackgroundColor,
     smallPadding,
     standardPadding,
-    tooltipShadowColor
+    popupBoxShadowColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -26,7 +26,7 @@ export const styles = css`
         flex-shrink: 0;
         max-width: 440px;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-        box-shadow: 0px 3px 4px ${tooltipShadowColor};
+        box-shadow: 0px 3px 4px ${popupBoxShadowColor};
         background-color: ${tooltipBackgroundColor};
         padding-bottom: 6px;
         padding-left: calc(${standardPadding} / 2);
