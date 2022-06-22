@@ -27,9 +27,11 @@ export class NumberField extends FoundationNumberField {
         // Reverse the order of the step-up div and the step-down div (so that step-down comes first).
         // This is the only way to get the tab order the way we want.
         const controlsDiv = this.control.nextElementSibling!;
-        const stepUpDiv = controlsDiv.querySelector('.step-up')!;
-        controlsDiv.removeChild(stepUpDiv);
-        controlsDiv.appendChild(stepUpDiv);
+        const stepUpDiv = controlsDiv.querySelector('.step-up');
+        if (stepUpDiv) {
+            controlsDiv.removeChild(stepUpDiv);
+            controlsDiv.appendChild(stepUpDiv);
+        }
     }
 }
 
@@ -50,12 +52,12 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
         delegatesFocus: true
     },
     stepDownGlyph: html`
-        <nimble-button class="inc-dec-button" appearance="ghost" content-hidden>
+        <nimble-button class="inc-dec-button" appearance="ghost" content-hidden tabindex="-1">
             <nimble-icon-minus-wide slot="start"></nimble-icon-minus-wide>
         </nimble-button>
     `,
     stepUpGlyph: html`
-        <nimble-button class="inc-dec-button" appearance="ghost" content-hidden>
+        <nimble-button class="inc-dec-button" appearance="ghost" content-hidden tabindex="-1">
             <nimble-icon-add slot="start"></nimble-icon-add>
         </nimble-button>
 `
