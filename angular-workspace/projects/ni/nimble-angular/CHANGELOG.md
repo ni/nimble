@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 16 Jun 2022 18:11:31 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Jun 2022 23:17:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.2.1
+
+Mon, 20 Jun 2022 23:17:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.1.1
+
+## 7.2.0
+
+Mon, 20 Jun 2022 20:39:36 GMT
+
+### Minor changes
+
+- Add Combobox directive ([ni/nimble@d6af9e7](https://github.com/ni/nimble/commit/d6af9e70b1058f46e6726f1caf22092523a0ff24))
+- Bump @ni/nimble-components to v11.1.0
 
 ## 7.1.1
 
