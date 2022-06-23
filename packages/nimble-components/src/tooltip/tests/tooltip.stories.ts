@@ -69,7 +69,7 @@ const metadata: Meta<TooltipArgs> = {
         tooltip: 'Tooltip label',
         // delay is in milliseconds
         delay: 300,
-        autoUpdateMode: 'auto',
+        autoUpdateMode: 'auto'
     },
     argTypes: {
         autoUpdateMode: {

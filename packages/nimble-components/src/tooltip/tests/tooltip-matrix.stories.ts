@@ -41,9 +41,7 @@ const valueStates = [
 ] as const;
 type ValueState = typeof valueStates[number];
 
-const component = (
-    [valueName, valueValue]: ValueState
-): ViewTemplate => html`
+const component = ([valueName, valueValue]: ValueState): ViewTemplate => html`
     <style>
         .container {
             display: inline-flex;
@@ -60,17 +58,11 @@ const component = (
 
         .tooltip {
             justify-content: center;
-        }    
-
+        }
     </style>
 
     <div class="container">
-        <div
-            class="anchorDiv"
-            id="${() => `${valueName}`}"
-        >
-            ${valueName}
-        </div>
+        <div class="anchorDiv" id="${() => `${valueName}`}">${valueName}</div>
 
         <nimble-tooltip
             anchor="${() => `${valueName}`}"
@@ -90,23 +82,17 @@ const [
 ] = backgroundStates;
 
 export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
-    createMatrix(component, [
-        valueStates
-    ]),
+    createMatrix(component, [valueStates]),
     lightThemeWhiteBackground
 );
 
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    createMatrix(component, [
-        valueStates
-    ]),
+    createMatrix(component, [valueStates]),
     colorThemeDarkGreenBackground
 );
 
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
-    createMatrix(component, [
-        valueStates
-    ]),
+    createMatrix(component, [valueStates]),
     darkThemeBlackBackground
 );
 
