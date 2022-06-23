@@ -24,14 +24,7 @@ export class NumberField extends FoundationNumberField {
     public override connectedCallback(): void {
         super.connectedCallback();
 
-        // Reverse the order of the step-up div and the step-down div (so that step-down comes first).
-        // This is the only way to get the tab order the way we want.
-        const controlsDiv = this.control.nextElementSibling!;
-        const stepUpDiv = controlsDiv.querySelector('.step-up');
-        if (stepUpDiv) {
-            controlsDiv.removeChild(stepUpDiv);
-            controlsDiv.appendChild(stepUpDiv);
-        }
+        this.control.setAttribute('role', 'spinbutton');
     }
 }
 
