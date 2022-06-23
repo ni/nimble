@@ -149,7 +149,7 @@ export const styles = css`
         align-items: center;
     }
 
-    .inc-dec-button {
+    .step-up-down-button {
         ${controlHeight.cssCustomProperty}: 24px;
     }
 `.withBehaviors(

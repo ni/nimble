@@ -24,6 +24,7 @@ export class NumberField extends FoundationNumberField {
     public override connectedCallback(): void {
         super.connectedCallback();
 
+        // This is a workaround for FAST issue: https://github.com/microsoft/fast/issues/6148
         this.control.setAttribute('role', 'spinbutton');
     }
 }
@@ -46,7 +47,7 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     },
     stepDownGlyph: html`
         <nimble-button
-            class="inc-dec-button"
+            class="step-up-down-button"
             appearance="ghost"
             content-hidden
             tabindex="-1"
@@ -57,7 +58,7 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     `,
     stepUpGlyph: html`
         <nimble-button
-            class="inc-dec-button"
+            class="step-up-down-button"
             appearance="ghost"
             content-hidden
             tabindex="-1"
