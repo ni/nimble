@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 20 Jun 2022 23:17:47 GMT and should not be manually modified.
+This log was last generated on Thu, 23 Jun 2022 18:40:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.2.0
+
+Thu, 23 Jun 2022 18:40:01 GMT
+
+### Minor changes
+
+- Add appearances and update inc/dec for number field ([ni/nimble@2678f74](https://github.com/ni/nimble/commit/2678f7470e090ed20520a4cd98fc07a8c2ab995b))
 
 ## 11.1.1
 

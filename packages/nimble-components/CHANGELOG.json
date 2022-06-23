@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 23 Jun 2022 18:40:01 GMT",
+      "tag": "@ni/nimble-components_v11.2.0",
+      "version": "11.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2678f7470e090ed20520a4cd98fc07a8c2ab995b",
+            "comment": "Add appearances and update inc/dec for number field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Jun 2022 23:17:47 GMT",
       "tag": "@ni/nimble-components_v11.1.1",
       "version": "11.1.1",
