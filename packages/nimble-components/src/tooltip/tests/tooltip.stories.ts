@@ -9,9 +9,11 @@ import {
     bodyFont,
     bodyFontColor
 } from '../../theme-provider/design-tokens';
+import { TooltipAppearance } from '../types';
 
 interface TooltipArgs {
     visible: boolean;
+    states: string;
     delay: number;
     tooltip: string;
     autoUpdateMode: AutoUpdateMode;
@@ -52,10 +54,10 @@ const metadata: Meta<TooltipArgs> = {
             <div class="anchorDiv" id="anchor" aria-describedby="ariaAnchor">
                 Text, Button, Icon, etc.
             </div>
-
             <nimble-tooltip
                 anchor="anchor"
                 ?visible="${x => x.visible}"
+                states="${x => x.states}"
                 delay="${x => x.delay}"
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
@@ -66,10 +68,11 @@ const metadata: Meta<TooltipArgs> = {
     `),
     args: {
         visible: false,
+        states: 'default',
         tooltip: 'Tooltip label',
         // delay is in milliseconds
         delay: 300,
-        autoUpdateMode: 'auto'
+        autoUpdateMode: 'auto',
     },
     argTypes: {
         autoUpdateMode: {
@@ -81,6 +84,10 @@ const metadata: Meta<TooltipArgs> = {
         delay: {
             description:
                 'The delay in milliseconds before a tooltip is shown after a hover event'
+        },
+        states: {
+            options: Object.values(TooltipAppearance),
+            control: { type: 'radio' }
         }
     }
 };

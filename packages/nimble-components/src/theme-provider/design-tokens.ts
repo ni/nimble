@@ -167,6 +167,10 @@ export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
 
+export const tooltipStatesBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tooltipStatesBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, ForestGreen));
+
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlHeight)

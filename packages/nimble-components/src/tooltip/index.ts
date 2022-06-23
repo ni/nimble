@@ -1,8 +1,11 @@
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Tooltip as FoundationTooltip,
     tooltipTemplate as template
 } from '@microsoft/fast-foundation';
+import type { ITooltip } from './types';
+import { TooltipAppearance } from './types';
 import { styles } from './styles';
 
 declare global {
@@ -14,8 +17,25 @@ declare global {
 /**
  * A nimble-styled tooltip control.
  */
-export class Tooltip extends FoundationTooltip {}
+export class Tooltip extends FoundationTooltip implements ITooltip {
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: states
+     */
+    @attr
+    public states: TooltipAppearance = TooltipAppearance.default;
+}
 
+/**
+ * A function that returns a nimble-button registration for configuring the component with a DesignSystem.
+ * Implements {@link @microsoft/fast-foundation#tooltipTemplate}
+ *
+ * @public
+ * @remarks
+ * Generates HTML Element: \<nimble-button\>
+ *
+ */
 const nimbleTooltip = Tooltip.compose({
     baseName: 'tooltip',
     baseClass: FoundationTooltip,
