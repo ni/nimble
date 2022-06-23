@@ -13,8 +13,6 @@ import {
 interface TooltipArgs {
     visible: boolean;
     delay: number;
-    horizontalViewportLock: boolean;
-    verticalViewportLock: boolean;
     tooltip: string;
     autoUpdateMode: AutoUpdateMode;
 }
@@ -59,8 +57,6 @@ const metadata: Meta<TooltipArgs> = {
                 anchor="anchor"
                 ?visible="${x => x.visible}"
                 delay="${x => x.delay}"
-                ?horizontalViewportLock="${x => x.horizontalViewportLock}"
-                ?verticalViewportLock="${x => x.verticalViewportLock}"
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
             >
@@ -73,8 +69,7 @@ const metadata: Meta<TooltipArgs> = {
         tooltip: 'Tooltip label',
         // delay is in milliseconds
         delay: 300,
-        horizontalViewportLock: false,
-        verticalViewportLock: false
+        autoUpdateMode: 'auto',
     },
     argTypes: {
         autoUpdateMode: {
@@ -82,14 +77,6 @@ const metadata: Meta<TooltipArgs> = {
             control: { type: 'radio' },
             description:
                 'Controls when the tooltip updates its position, default is `anchor` which only updates when the anchor is resized. `auto` will update on scroll/resize events.'
-        },
-        horizontalViewportLock: {
-            description:
-                'Controls if the tooltip will always remain fully in the viewport on the horizontal axis'
-        },
-        verticalViewportLock: {
-            description:
-                'Controls if the tooltip will always remain fully in the viewport on the vertical axis'
         },
         delay: {
             description:
