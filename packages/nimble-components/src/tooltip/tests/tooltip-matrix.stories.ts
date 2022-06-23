@@ -5,12 +5,8 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import {
-    createFixedThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { backgroundStates } from '../../utilities/tests/states';
-import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import {
     bodyFont,
@@ -94,8 +90,4 @@ export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
     createMatrix(component, [valueStates]),
     darkThemeBlackBackground
-);
-
-export const hiddenTooltip: Story = createStory(
-    hiddenWrapper(html`<nimble-tooltip hidden>Hidden Tooltip</nimble-tooltip>`)
 );
