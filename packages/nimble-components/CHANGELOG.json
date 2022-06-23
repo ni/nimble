@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 20 Jun 2022 23:17:47 GMT",
+      "tag": "@ni/nimble-components_v11.1.1",
+      "version": "11.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bb4b2b405cacb7960714617c8863fbdbb6fb2d74",
+            "comment": "Restore animation growing from center"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Jun 2022 20:39:36 GMT",
+      "tag": "@ni/nimble-components_v11.1.0",
+      "version": "11.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d6af9e70b1058f46e6726f1caf22092523a0ff24",
+            "comment": "Add Combobox component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Jun 2022 19:45:58 GMT",
       "tag": "@ni/nimble-components_v11.0.4",
       "version": "11.0.4",

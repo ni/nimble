@@ -137,7 +137,7 @@ Use lower-kebab-case for attributes and enum values that are part of a component
 
 ```ts
     @attr({ attribute: 'error-text' })
-    public errorText!: string;
+    public errorText: string | undefined;
 ```
 
 #### CSS

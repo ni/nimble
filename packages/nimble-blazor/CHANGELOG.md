@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 02 Jun 2022 15:11:56 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Jun 2022 20:39:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.1.0
+
+Mon, 20 Jun 2022 20:39:36 GMT
+
+### Minor changes
+
+- Blazor integration for combobox ([ni/nimble@d6af9e7](https://github.com/ni/nimble/commit/d6af9e70b1058f46e6726f1caf22092523a0ff24))
 
 ## 5.0.0
 
