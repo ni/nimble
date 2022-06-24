@@ -221,9 +221,6 @@ export const styles = css`
             :host([disabled]) .control {
                 border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
-
-            :host([disabled]) .control:hover {
-            }
         `
         ),
         appearanceBehavior(
@@ -250,26 +247,8 @@ export const styles = css`
                     rgba(${borderRgbPartialColor}, 0.07);
             }
 
-            .control:focus-within {
-            }
-
-            .control:focus-within:hover {
-            }
-
-            :host(.invalid) .control {
-            }
-
-            :host(.invalid) .control:hover {
-            }
-
             :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
-            }
-
-            :host([disabled]) .control:hover {
-            }
-
-            :host(.invalid[disabled]) .control {
             }
         `
         )
