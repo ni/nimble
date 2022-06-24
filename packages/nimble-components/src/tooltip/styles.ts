@@ -18,7 +18,6 @@ export const styles = css`
         font: ${tooltipCaptionFont};
         color: ${tooltipCaptionFontColor};
         text-align: left;
-        cursor: pointer;
     }
 
     .tooltip {
