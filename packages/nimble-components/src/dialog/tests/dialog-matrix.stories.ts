@@ -19,7 +19,7 @@ export default metadata;
 const component = html`
     <nimble-dialog
         modal
-        style="margin: 10px; border: 1px solid black; box-shadow: 0px 5px 10px"
+        style="margin: 10px; border: 1px solid var(--ni-nimble-popup-border-color); box-shadow: 0px 5px 15px var(--ni-nimble-popup-box-shadow-color)"
     >
         <div style="padding: 15px">
             <h1>I'm a Dialog!</h1>

@@ -33,7 +33,7 @@ const metadata: Meta<DialogArgs> = {
             modal="${x => x.modal.toString()}"
             trap-focus="${x => x['trap-focus'].toString()}"
             hidden="${x => x.hidden.toString()}"
-            style="border: 1px solid black; box-shadow: 0px 5px 10px"
+            style="border: 1px solid var(--ni-nimble-popup-border-color); box-shadow: 0px 5px 15px var(--ni-nimble-popup-box-shadow-color)"
         >
             <div style="padding: 15px">
                 ${when(x => x.modal, html`<h1>I'm a modal Dialog!</h1>`)}
