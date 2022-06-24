@@ -212,78 +212,65 @@ export const styles = css`
         appearanceBehavior(
             DropdownAppearance.underline,
             css`
-        .control {
-            --ni-private-bottom-border-width: 1px;
-            padding-top: ${borderWidth};
-            padding-left: calc(${borderWidth} + ${standardPadding} / 2);
-            padding-right: ${borderWidth};
-        }
+            .control {
+                padding-top: ${borderWidth};
+                padding-left: calc(${borderWidth} + ${standardPadding} / 2);
+                padding-right: ${borderWidth};
+            }
 
-        :host([disabled]) .control {
-            border-color: rgba(${borderRgbPartialColor}, 0.1);
-        }
+            :host([disabled]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
 
-        :host([disabled]) .control:hover {
-            --ni-private-bottom-border-width: 1px;
-        }
-    `
+            :host([disabled]) .control:hover {
+            }
+        `
         ),
         appearanceBehavior(
             DropdownAppearance.outline,
             css`
-        .control {
-            --ni-private-bottom-border-width: 1px;
-            border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-        }
+            .control {
+                border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
+            }
 
-        :host(.invalid) .errortext {
-            top: calc(${controlHeight} - ${borderWidth});
-        }
-    `
+            :host(.invalid) .errortext {
+                top: calc(${controlHeight} - ${borderWidth});
+            }
+        `
         ),
         appearanceBehavior(
             DropdownAppearance.block,
             css`
-        .control {
-            background-color: rgba(${borderRgbPartialColor}, 0.1);
-            padding-left: calc(${borderWidth} + ${standardPadding} / 2);
-            padding-right: ${borderWidth};
-            padding-bottom: calc(${borderWidth});
-            border-bottom: ${borderWidth}
-                rgba(${borderRgbPartialColor}, 0.07);
-        }
+            .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                padding-left: calc(${borderWidth} + ${standardPadding} / 2);
+                padding-right: ${borderWidth};
+                padding-bottom: calc(${borderWidth});
+                border-bottom: ${borderWidth}
+                    rgba(${borderRgbPartialColor}, 0.07);
+            }
 
-        .control:focus-within {
-            --ni-private-bottom-border-width: 1px;
-        }
+            .control:focus-within {
+            }
 
-        .control:focus-within:hover {
-            --ni-private-bottom-border-width: var(
-                --ni-private-hover-bottom-border-width
-            );
-        }
+            .control:focus-within:hover {
+            }
 
-        :host(.invalid) .control {
-            --ni-private-bottom-border-width: 1px;
-        }
+            :host(.invalid) .control {
+            }
 
-        :host(.invalid) .control:hover {
-            --ni-private-bottom-border-width: var(
-                --ni-private-hover-bottom-border-width
-            );
-        }
-        
-        :host([disabled]) .control {
-            background-color: rgba(${borderRgbPartialColor}, 0.07);
-        }
+            :host(.invalid) .control:hover {
+            }
 
-        :host([disabled]) .control:hover {
-            --ni-private-bottom-border-width: 0px;
-        }
+            :host([disabled]) .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
+            }
 
-        :host(.invalid[disabled]) .control {
-            --ni-private-bottom-border-width: 1px;
-        }
-    `
+            :host([disabled]) .control:hover {
+            }
+
+            :host(.invalid[disabled]) .control {
+            }
+        `
         )
     );
