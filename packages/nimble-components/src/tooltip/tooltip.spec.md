@@ -20,13 +20,13 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
 
-Plan to add a `state` attribute with the type `tooltipState`. It will have `default`, `error`, and `information` states, with `state`'s default value being `default`.
+Plan to add a `states` attribute with the type `tooltipState`. It will have `default`, `error`, `errorIcon`, `information`, and `informationIcon` states, with `states`' default value being `default`.
 
 Custom CSS behaviors for each tooltip state will follow a pattern that is similarly used in other nimble components, like the styling applied to buttons based on their appearance mode.
 
 2 tokens will be used for the backgrounds of the tooltip states- (One will be used for light mode, which has two different states of tooltip backgrounds based on the state of the tooltip, and the other modes will be used for dark and color mode, which have the same background colors for all states of tooltips).
 
-Icons will be available for the error and information states- There will be a toggle button to turn on or off the inclusion of the error or information icons with the tooltip. //find out if we need to diverge from fast template to include icon
+Icons will be available for the error and information states- The states `errorIcon` and `informationIcon` will include their corresponding icons at the beginning of the tooltip.
 
 -   _Component Name:_ `nimble-tooltip`
 -   _Properties/Attributes:_ Adding `state` attribute
@@ -54,7 +54,7 @@ A Blazor wrapper will be created for the component.
     -   No additional requirements
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
     -   FAST API most likely won't be sufficient for creating extra states in spec, Custom CSS behaviors for each tooltip state will follow a pattern that is similarly used in other nimble components, like the styling applied to buttons based on their appearance mode.
-    2 tokens will be used for the backgrounds of the tooltip states- (One will be used for light mode, which has two different states of tooltip backgrounds based on the state of the tooltip, and the other modes will be used for dark and color mode, which have the same background colors for all states of tooltips).
+        2 tokens will be used for the backgrounds of the tooltip states- (One will be used for light mode, which has two different states of tooltip backgrounds based on the state of the tooltip, and the other modes will be used for dark and color mode, which have the same background colors for all states of tooltips).
     -   Version of error / information tooltips with icons will also be included.
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
     -   No additional requirements
@@ -90,3 +90,6 @@ aria-describedby only shows up when tooltip attribute is set to visible
 How can we give each tooltip a custom id?
 
 When should we use the tooltip vs. the title attribute? MDN [lists many issues with the title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title#accessibility_concerns). Needs to be discussed with team and designers.
+
+Will the use of separate states for both icon tooltips be sufficient, or should it be changed later on to something different like a switcher (would toggle icon on or off for error and information states)? Would we allow / expect the client to provide or choose an icon, or will the error and info icons always be used?
+There are pros and cons with both separate states and a switcher, needs to be discussed before making a final descision. Separate states is used for now as a prototype.
