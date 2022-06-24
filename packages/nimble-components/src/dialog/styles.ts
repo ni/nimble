@@ -15,6 +15,7 @@ export const styles = css`
         font: ${bodyFont};
         color: ${bodyFontColor};
         z-index: 999;
+        --ni-nimble-dialog-background-color: ${applicationBackgroundColor}
     }
 
     .positioning-region {
@@ -39,6 +40,6 @@ export const styles = css`
         box-sizing: border-box;
         border-radius: 0px;
         border-width: 0px;
-        background-color: ${applicationBackgroundColor};
+        background-color: var(--ni-nimble-dialog-background-color);
     }
 `;

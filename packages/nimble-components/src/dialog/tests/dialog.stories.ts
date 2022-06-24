@@ -12,6 +12,8 @@ interface DialogArgs {
     modal: boolean;
     'trap-focus': boolean;
     hidden: boolean;
+    'aria-label': string;
+    '--ni-nimble-dialog-background-color': string;
     toggleDialog: (x: Dialog) => void;
 }
 
@@ -22,17 +24,24 @@ const metadata: Meta<DialogArgs> = {
         docs: {
             description: {
                 component:
-                    'TODO'
+                    'A dialog is a window overlaid on either the primary window or another dialog window. May be modal, which prevents interaction with other windows.'
             }
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+    ${when(x => x['--ni-nimble-dialog-background-color'], html`
+        <style>
+            nimble-dialog {
+                --ni-nimble-dialog-background-color: ${(x: DialogArgs) => x['--ni-nimble-dialog-background-color']}
+            }
+        </style>`)}
         <nimble-dialog
             ${ref('dialogRef')}
             modal="${x => x.modal.toString()}"
             trap-focus="${x => x['trap-focus'].toString()}"
             hidden="${x => x.hidden.toString()}"
+            aria-label="${x => x['aria-label']}"
             style="border: 1px solid var(--ni-nimble-popup-border-color); box-shadow: 0px 5px 15px var(--ni-nimble-popup-box-shadow-color)"
         >
             <div style="padding: 15px">
@@ -50,6 +59,20 @@ const metadata: Meta<DialogArgs> = {
         </nimble-button>
     `),
     argTypes: {
+        '--ni-nimble-dialog-background-color': {
+            options: [
+                undefined,
+                'var(--ni-nimble-application-background-color)',
+                'cyan',
+                'yellow'
+            ],
+            control: { type: 'select' },
+            table: {
+                defaultValue: {
+                    summary: 'var(--ni-nimble-application-background-color)'
+                }
+            }
+        },
         toggleDialog: {
             table: {
                 disable: true
@@ -60,7 +83,9 @@ const metadata: Meta<DialogArgs> = {
         modal: true,
         'trap-focus': true,
         hidden: false,
-        toggleDialog: (x: Dialog): void => x.hidden ? x.show() : x.hide()
+        'aria-label': 'Example dialog',
+        '--ni-nimble-dialog-background-color': undefined,
+        toggleDialog: (x: Dialog): void => (x.hidden ? x.show() : x.hide())
     }
 };
 
