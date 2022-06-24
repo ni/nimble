@@ -1,7 +1,7 @@
 import {
     DesignSystem,
     Dialog as FoundationDialog,
-    dialogTemplate as template,
+    dialogTemplate as template
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 

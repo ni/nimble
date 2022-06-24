@@ -1,6 +1,11 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { applicationBackgroundColor, bodyFont, bodyFontColor, popupBorderColor } from '../theme-provider/design-tokens';
+import {
+    applicationBackgroundColor,
+    bodyFont,
+    bodyFontColor,
+    popupBorderColor
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('block')}
@@ -15,7 +20,7 @@ export const styles = css`
         font: ${bodyFont};
         color: ${bodyFontColor};
         z-index: 999;
-        --ni-nimble-dialog-background-color: ${applicationBackgroundColor}
+        --ni-nimble-dialog-background-color: ${applicationBackgroundColor};
     }
 
     .positioning-region {
