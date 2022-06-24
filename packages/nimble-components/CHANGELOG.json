@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 24 Jun 2022 15:18:24 GMT",
+      "tag": "@ni/nimble-components_v11.3.0",
+      "version": "11.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "70e8d554250b8abc4ce7bdc069dcbf28107fee7c",
+            "comment": "Implementation, styling, and tests for the 'default' state of the nimble-tooltip."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 23 Jun 2022 18:40:01 GMT",
       "tag": "@ni/nimble-components_v11.2.0",
       "version": "11.2.0",
