@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "formatting fixes",
+  "packageName": "@ni/nimble-components",
+  "email": "60270271+Dakeondrick@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
