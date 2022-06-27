@@ -5,8 +5,8 @@ import {
     Black91,
     Black85,
     Black15,
-    Black30,
     Black75,
+    Black80,
     Black88,
     White,
     ForestGreen,
@@ -104,7 +104,11 @@ export const headerBackgroundColor = DesignToken.create<string>(
 
 export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+
+export const dividerBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dividerBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)

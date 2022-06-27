@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 27 Jun 2022 17:17:28 GMT",
+      "tag": "@ni/nimble-components_v11.4.0",
+      "version": "11.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "83799549+anguyen777@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "12ed391e04e9bdaac550d401704d54e0b6a10e83",
+            "comment": "New token for divider background color"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 24 Jun 2022 15:18:24 GMT",
       "tag": "@ni/nimble-components_v11.3.0",
       "version": "11.3.0",
