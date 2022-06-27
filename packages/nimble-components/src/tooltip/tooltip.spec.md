@@ -20,7 +20,7 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
 
-Plan to add a `states` attribute with the type `tooltipState`. It will have `default`, `error`, `errorIcon`, `information`, and `informationIcon` states, with `states`' default value being `default`.
+Plan to add a `states` attribute with the type `TooltipAppearance`. It will have `default`, `error`, `errorIcon`, `information`, and `informationIcon` states, with `states`' default value being `default`.
 
 Custom CSS behaviors for each tooltip state will follow a pattern that is similarly used in other nimble components, like the styling applied to buttons based on their appearance mode.
 
@@ -29,7 +29,7 @@ Custom CSS behaviors for each tooltip state will follow a pattern that is simila
 Icons will be available for the error and information states- The states `errorIcon` and `informationIcon` will include their corresponding icons at the beginning of the tooltip.
 
 -   _Component Name:_ `nimble-tooltip`
--   _Properties/Attributes:_ Adding `state` attribute
+-   _Properties/Attributes:_ Adding `states` attribute
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ None
@@ -92,4 +92,5 @@ How can we give each tooltip a custom id?
 When should we use the tooltip vs. the title attribute? MDN [lists many issues with the title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title#accessibility_concerns). Needs to be discussed with team and designers.
 
 Will the use of separate states for both icon tooltips be sufficient, or should it be changed later on to something different like a switcher (would toggle icon on or off for error and information states)? Would we allow / expect the client to provide or choose an icon, or will the error and info icons always be used?
+
 There are pros and cons with both separate states and a switcher, needs to be discussed before making a final descision. Separate states is used for now as a prototype.
