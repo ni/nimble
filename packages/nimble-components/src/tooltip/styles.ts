@@ -68,7 +68,7 @@ export const styles = css`
                     border: ${borderWidth} solid ${BannerFail100DarkUi};
                     background-color: ${tooltipStatesBackgroundColor};
                     padding-bottom: 6px;
-                    padding-left: 30px;
+                    padding-left: calc(${standardPadding} / 2);
                     padding-right: calc(${standardPadding} / 2);
                     padding-top: ${smallPadding};
                 }
@@ -94,7 +94,7 @@ export const styles = css`
                     border: ${borderWidth} solid ${Information100LightUi};
                     background-color: ${tooltipStatesBackgroundColor};
                     padding-bottom: 6px;
-                    padding-left: 30px;
+                    padding-left: calc(${standardPadding} / 2);
                     padding-right: calc(${standardPadding} / 2);
                     padding-top: ${smallPadding};
                 }

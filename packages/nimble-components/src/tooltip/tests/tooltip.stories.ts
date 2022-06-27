@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import type { AutoUpdateMode } from '@microsoft/fast-foundation';
@@ -63,10 +63,8 @@ const metadata: Meta<TooltipArgs> = {
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
             >
-            <nimble-icon-exclamation-mark
-                style=
-            >
-            </nimble-icon-exclamation-mark>
+            ${when(x => x.states === TooltipAppearance.errorIcon, html`<nimble-icon-exclamation-mark></nimble-icon-exclamation-mark>`)}
+            ${when(x => x.states === TooltipAppearance.informationIcon, html`<nimble-icon-info></nimble-icon-info>`)}
             ${x => x.tooltip}
             </nimble-tooltip>
         </div>
