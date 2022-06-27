@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "background contrast color new token addition",
+  "comment": "New token for divider background color",
   "packageName": "@ni/nimble-components",
   "email": "83799549+anguyen777@users.noreply.github.com",
   "dependentChangeType": "patch"
