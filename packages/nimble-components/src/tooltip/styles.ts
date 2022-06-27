@@ -9,7 +9,8 @@ import {
     borderRgbPartialColor,
     tooltipBackgroundColor,
     standardPadding,
-    smallPadding
+    smallPadding,
+    tooltipStatesBackgroundColor
 } from '../theme-provider/design-tokens';
 import { statesBehavior } from '../utilities/style/appearance';
 import { TooltipAppearance } from './types';
@@ -21,7 +22,6 @@ export const styles = css`
         font: ${tooltipCaptionFont};
         color: ${tooltipCaptionFontColor};
         text-align: left;
-        cursor: pointer;
     }
 
     .tooltip {
@@ -53,7 +53,7 @@ export const styles = css`
             css`
                 .tooltip {
                     border: ${borderWidth} solid ${BannerFail100DarkUi};
-                    background-color: ${tooltipBackgroundColor};
+                    background-color: ${tooltipStatesBackgroundColor};
                     padding-bottom: 6px;
                     padding-left: calc(${standardPadding} / 2);
                     padding-right: calc(${standardPadding} / 2);
@@ -66,9 +66,9 @@ export const styles = css`
             css`
                 .tooltip {
                     border: ${borderWidth} solid ${BannerFail100DarkUi};
-                    background-color: ${tooltipBackgroundColor};
+                    background-color: ${tooltipStatesBackgroundColor};
                     padding-bottom: 6px;
-                    padding-left: calc(${standardPadding} / 2);
+                    padding-left: 30px;
                     padding-right: calc(${standardPadding} / 2);
                     padding-top: ${smallPadding};
                 }
@@ -79,7 +79,7 @@ export const styles = css`
             css`
                 .tooltip {
                     border: ${borderWidth} solid ${Information100LightUi};
-                    background-color: ${tooltipBackgroundColor};
+                    background-color: ${tooltipStatesBackgroundColor};
                     padding-bottom: 6px;
                     padding-left: calc(${standardPadding} / 2);
                     padding-right: calc(${standardPadding} / 2);
@@ -92,9 +92,9 @@ export const styles = css`
             css`
                 .tooltip {
                     border: ${borderWidth} solid ${Information100LightUi};
-                    background-color: ${tooltipBackgroundColor};
+                    background-color: ${tooltipStatesBackgroundColor};
                     padding-bottom: 6px;
-                    padding-left: calc(${standardPadding} / 2);
+                    padding-left: 30px;
                     padding-right: calc(${standardPadding} / 2);
                     padding-top: ${smallPadding};
                 }

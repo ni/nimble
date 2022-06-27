@@ -17,6 +17,7 @@ interface TooltipArgs {
     delay: number;
     tooltip: string;
     autoUpdateMode: AutoUpdateMode;
+    icon: string;
 }
 
 const metadata: Meta<TooltipArgs> = {
@@ -62,7 +63,11 @@ const metadata: Meta<TooltipArgs> = {
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
             >
-                ${x => x.tooltip}
+            <nimble-icon-exclamation-mark
+                style=
+            >
+            </nimble-icon-exclamation-mark>
+            ${x => x.tooltip}
             </nimble-tooltip>
         </div>
     `),
@@ -70,7 +75,6 @@ const metadata: Meta<TooltipArgs> = {
         visible: false,
         states: 'default',
         tooltip: 'Tooltip label',
-        // delay is in milliseconds
         delay: 300,
         autoUpdateMode: 'auto',
     },
