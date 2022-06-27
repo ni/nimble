@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 20 Jun 2022 23:17:47 GMT and should not be manually modified.
+This log was last generated on Fri, 24 Jun 2022 15:18:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.3.0
+
+Fri, 24 Jun 2022 15:18:24 GMT
+
+### Minor changes
+
+- Implementation, styling, and tests for the 'default' state of the nimble-tooltip. ([ni/nimble@70e8d55](https://github.com/ni/nimble/commit/70e8d554250b8abc4ce7bdc069dcbf28107fee7c))
+
+## 11.2.0
+
+Thu, 23 Jun 2022 18:40:01 GMT
+
+### Minor changes
+
+- Add appearances and update inc/dec for number field ([ni/nimble@2678f74](https://github.com/ni/nimble/commit/2678f7470e090ed20520a4cd98fc07a8c2ab995b))
 
 ## 11.1.1
 

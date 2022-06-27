@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 24 Jun 2022 15:18:24 GMT",
+      "tag": "@ni/nimble-components_v11.3.0",
+      "version": "11.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "70e8d554250b8abc4ce7bdc069dcbf28107fee7c",
+            "comment": "Implementation, styling, and tests for the 'default' state of the nimble-tooltip."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Jun 2022 18:40:01 GMT",
+      "tag": "@ni/nimble-components_v11.2.0",
+      "version": "11.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2678f7470e090ed20520a4cd98fc07a8c2ab995b",
+            "comment": "Add appearances and update inc/dec for number field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Jun 2022 23:17:47 GMT",
       "tag": "@ni/nimble-components_v11.1.1",
       "version": "11.1.1",
