@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 27 Jun 2022 18:59:58 GMT",
+      "tag": "@ni/nimble-angular_v7.3.0",
+      "version": "7.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "fd5daf29ad46350b3bb7938c79bdf0f4363ddf9e",
+            "comment": "Add appearance to number field Angular wrapper"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 27 Jun 2022 17:17:28 GMT",
       "tag": "@ni/nimble-angular_v7.2.4",
       "version": "7.2.4",
