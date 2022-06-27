@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 24 Jun 2022 15:18:24 GMT and should not be manually modified.
+This log was last generated on Mon, 27 Jun 2022 17:17:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.4.0
+
+Mon, 27 Jun 2022 17:17:28 GMT
+
+### Minor changes
+
+- New token for divider background color ([ni/nimble@12ed391](https://github.com/ni/nimble/commit/12ed391e04e9bdaac550d401704d54e0b6a10e83))
 
 ## 11.3.0
 
