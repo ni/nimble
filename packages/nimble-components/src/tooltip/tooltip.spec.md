@@ -24,7 +24,9 @@ Plan to add a `states` attribute with the type `TooltipAppearance`. It will have
 
 Custom CSS behaviors for each tooltip state will follow a pattern that is similarly used in other nimble components, like the styling applied to buttons based on their appearance mode.
 
-2 tokens will be used for the backgrounds of the tooltip states- (One will be used for light mode, which has two different states of tooltip backgrounds based on the state of the tooltip, and the other modes will be used for dark and color mode, which have the same background colors for all states of tooltips).
+2 theme-aware tokens will be used for the backgrounds of the tooltip states- (One theme-aware token will be used for light mode, which has two different states of tooltip backgrounds based on the state of the tooltip, and the other theme-aware token will be used for dark and color mode, which have the same background colors for all states of tooltips). These tokens will be local to the component.
+
+2 theme-aware tokens will be used for the border colors of the error and information tooltip states (One theme-aware token will be used for the error state, and the other theme-aware token will be used for the information state). These tokens will be local to the component. There is no theme aware token needed for the default state as the border color is the same for every theme.
 
 Icons will be available for the error and information states- The states `errorIcon` and `informationIcon` will include their corresponding icons at the beginning of the tooltip.
 
@@ -53,8 +55,7 @@ A Blazor wrapper will be created for the component.
 -   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
     -   No additional requirements
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    -   FAST API most likely won't be sufficient for creating extra states in spec, Custom CSS behaviors for each tooltip state will follow a pattern that is similarly used in other nimble components, like the styling applied to buttons based on their appearance mode.
-        2 tokens will be used for the backgrounds of the tooltip states- (One will be used for light mode, which has two different states of tooltip backgrounds based on the state of the tooltip, and the other modes will be used for dark and color mode, which have the same background colors for all states of tooltips).
+    -   The `states` attribute described above will be a Nimble-specific API.
     -   Version of error / information tooltips with icons will also be included.
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
     -   No additional requirements
