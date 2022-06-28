@@ -63,8 +63,8 @@ const metadata: Meta<TooltipArgs> = {
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
             >
-            ${when(x => x.states === TooltipAppearance.errorIcon, html`<nimble-icon-exclamation-mark></nimble-icon-exclamation-mark>`)}
-            ${when(x => x.states === TooltipAppearance.informationIcon, html`<nimble-icon-info></nimble-icon-info>`)}
+            ${when(x => x.states === TooltipAppearance.errorIcon, html`<nimble-icon-exclamation-mark class="tooltipError"></nimble-icon-exclamation-mark>`)}
+            ${when(x => x.states === TooltipAppearance.informationIcon, html`<nimble-icon-info class="tooltipInfo"></nimble-icon-info>`)}
             ${x => x.tooltip}
             </nimble-tooltip>
         </div>

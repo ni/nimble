@@ -159,6 +159,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     tooltipCaptionFallbackFontFamily: 'tooltip-caption-fallback-font-family',
     tooltipBackgroundColor: 'tooltip-background-color',
     tooltipStatesBackgroundColor: 'tooltip-states-background-color',
+    tooltipErrorBorderColor: 'tooltip-error-border-color',
+    tooltipInfoBorderColor: 'tooltip-info-border-color',
     errorTextFont: 'error-text-font',
     errorTextFontColor: 'error-text-font-color',
     errorTextDisabledFontColor: 'error-text-disabled-font-color',

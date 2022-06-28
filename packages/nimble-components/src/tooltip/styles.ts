@@ -1,6 +1,5 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { BannerFail100DarkUi, Information100LightUi } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     tooltipCaptionFont,
     tooltipCaptionFontColor,
@@ -10,7 +9,9 @@ import {
     tooltipBackgroundColor,
     standardPadding,
     smallPadding,
-    tooltipStatesBackgroundColor
+    tooltipErrorBorderColor,
+    tooltipStatesBackgroundColor,
+    tooltipInfoBorderColor,
 } from '../theme-provider/design-tokens';
 import { statesBehavior } from '../utilities/style/appearance';
 import { TooltipAppearance } from './types';
@@ -28,9 +29,7 @@ export const styles = css`
         box-sizing: border-box;
         flex-shrink: 0;
         max-width: 440px;
-
         box-shadow: 0px 3px 4px ${popupBoxShadowColor};
-
         display: inline-flex;
     }
 `
@@ -52,7 +51,7 @@ export const styles = css`
             TooltipAppearance.error,
             css`
                 .tooltip {
-                    border: ${borderWidth} solid ${BannerFail100DarkUi};
+                    border: ${borderWidth} solid ${tooltipErrorBorderColor};
                     background-color: ${tooltipStatesBackgroundColor};
                     padding-bottom: 6px;
                     padding-left: calc(${standardPadding} / 2);
@@ -65,20 +64,20 @@ export const styles = css`
             TooltipAppearance.errorIcon,
             css`
                 .tooltip {
-                    border: ${borderWidth} solid ${BannerFail100DarkUi};
+                    border: ${borderWidth} solid ${tooltipErrorBorderColor};
                     background-color: ${tooltipStatesBackgroundColor};
                     padding-bottom: 6px;
                     padding-left: calc(${standardPadding} / 2);
                     padding-right: calc(${standardPadding} / 2);
                     padding-top: ${smallPadding};
-                }
+                },
             `
         ),
         statesBehavior(
             TooltipAppearance.information,
             css`
                 .tooltip {
-                    border: ${borderWidth} solid ${Information100LightUi};
+                    border: ${borderWidth} solid ${tooltipInfoBorderColor};
                     background-color: ${tooltipStatesBackgroundColor};
                     padding-bottom: 6px;
                     padding-left: calc(${standardPadding} / 2);
@@ -91,7 +90,7 @@ export const styles = css`
             TooltipAppearance.informationIcon,
             css`
                 .tooltip {
-                    border: ${borderWidth} solid ${Information100LightUi};
+                    border: ${borderWidth} solid ${tooltipInfoBorderColor};
                     background-color: ${tooltipStatesBackgroundColor};
                     padding-bottom: 6px;
                     padding-left: calc(${standardPadding} / 2);
