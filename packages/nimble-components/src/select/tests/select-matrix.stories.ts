@@ -1,6 +1,7 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrixThemeStory,
     createStory
@@ -12,6 +13,7 @@ import {
 import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { DropdownAppearance } from '../../patterns/dropdown/types';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -27,9 +29,21 @@ const metadata: Meta = {
 
 export default metadata;
 
+const appearanceStates = Object.entries(DropdownAppearance).map(
+    ([key, value]) => [pascalCase(key), value]
+);
+
+type AppearanceState = typeof appearanceStates[number];
+
 // prettier-ignore
-const component = ([_, disabled]: DisabledState): ViewTemplate => html`
-    <nimble-select ?disabled="${() => disabled}">
+const component = (
+    [_, disabled]: DisabledState,
+    [_appearanceName, appearance]: AppearanceState
+): ViewTemplate => html`
+    <nimble-select 
+        ?disabled="${() => disabled}"
+        appearance="${() => appearance}"
+    >
         <nimble-list-option value="1">Option 1</nimble-list-option>
         <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
         <nimble-list-option value="3">Option 3</nimble-list-option>
@@ -38,7 +52,7 @@ const component = ([_, disabled]: DisabledState): ViewTemplate => html`
 `;
 
 export const selectThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates])
+    createMatrix(component, [disabledStates, appearanceStates])
 );
 
 export const hiddenSelect: Story = createStory(
