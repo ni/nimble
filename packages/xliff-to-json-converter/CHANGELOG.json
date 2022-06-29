@@ -1,0 +1,20 @@
+{
+  "name": "@ni/xliff-to-json-converter",
+  "entries": [
+    {
+      "date": "Wed, 22 Jun 2022 19:22:07 GMT",
+      "tag": "@ni/xliff-to-json-converter_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "75c3353599ee91a7aff1b7c7c959c567ab19041b",
+            "comment": "Add new @ni/xliff-to-json-converter package for converting Angular localization files"
+          }
+        ]
+      }
+    }
+  ]
+}

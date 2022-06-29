@@ -14,9 +14,14 @@
 *.spec.md @rajsite @jattasNI @fredvisser @atmgrifter00
 
 # Specific packages
+/angular-workspace/projects/example-client-app @rajsite @atmgrifter00
 /angular-workspace/projects/ni/nimble-angular @rajsite @atmgrifter00
 /packages/beachball-lock-update @rajsite @jattasNI
 /packages/nimble-blazor @atmgrifter00 @msmithNI
+/packages/nimble-components @rajsite @jattasNI
+/packages/nimble-tokens @rajsite @jattasNI @fredvisser
+/packages/site @rajsite @jattasNI
+/packages/xliff-to-json-converter @rajsite @TrevorKarjanis @jattasNI
 
 # Change files don't need explicit reviewers
 /change
