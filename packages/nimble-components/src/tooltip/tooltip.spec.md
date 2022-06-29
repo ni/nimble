@@ -20,13 +20,13 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
 
-Plan to add a `states` attribute with the type `TooltipAppearance`. It will have `default`, `error`, `errorIcon`, `information`, and `informationIcon` states, with `states`' default value being `default`.
+Plan to add a `state` attribute with the type `TooltipAppearance`. It will have `default`, `error`, `errorIcon`, `information`, and `informationIcon` states, with `state`' default value being `default`.
 
-Custom CSS behaviors for each tooltip state will follow a pattern that is similarly used in other nimble components, like the styling applied to buttons based on their appearance mode.
+Custom CSS behaviors for each tooltip state will be represented as classes, with each class having style changes that can be easily implemented in the tooltip.
 
-2 theme-aware tokens will be used for the backgrounds of the tooltip states- (One theme-aware token will be used for light mode, which has two different states of tooltip backgrounds based on the state of the tooltip, and the other theme-aware token will be used for dark and color mode, which have the same background colors for all states of tooltips). These tokens will be local to the component.
+A theme-aware css variable (local to the component) will be used for the backgrounds of the tooltip states- the value of the variable will change based on a combination of theme and the state.
 
-2 theme-aware tokens will be used for the border colors of the error and information tooltip states (One theme-aware token will be used for the error state, and the other theme-aware token will be used for the information state). These tokens will be local to the component. There is no theme aware token needed for the default state as the border color is the same for every theme.
+A theme-aware css variable (local to the component) will be used for the border colors of the error and information tooltip states- the value of the variable will change based on a combination of theme and the state.
 
 Icons will be available for the error and information states- The states `errorIcon` and `informationIcon` will include their corresponding icons at the beginning of the tooltip.
 
@@ -55,7 +55,7 @@ A Blazor wrapper will be created for the component.
 -   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
     -   No additional requirements
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    -   The `states` attribute described above will be a Nimble-specific API.
+    -   The `state` attribute described above will be a Nimble-specific API.
     -   Version of error / information tooltips with icons will also be included.
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
     -   No additional requirements
@@ -94,4 +94,4 @@ When should we use the tooltip vs. the title attribute? MDN [lists many issues w
 
 Will the use of separate states for both icon tooltips be sufficient, or should it be changed later on to something different like a switcher (would toggle icon on or off for error and information states)? Would we allow / expect the client to provide or choose an icon, or will the error and info icons always be used?
 
-There are pros and cons with both separate states and a switcher, needs to be discussed before making a final descision. Separate states is used for now as a prototype.
+There are pros and cons with both separate states and a switcher (Separate states would be more straightforward but possibly more work to maintain since we have two extra states, switcher would have less code but could be confusing in the default state, where no icon is present. The switcher would have to be turned off when the state is default). Separate states is used for now as a prototype.
