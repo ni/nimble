@@ -7,7 +7,7 @@ public enum DropdownAppearance
     Block
 }
 
-internal static class DropdwonAppearanceExtensions
+internal static class DropdownAppearanceExtensions
 {
     private static readonly Dictionary<DropdownAppearance, string> _appearanceValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<DropdownAppearance>();
 
