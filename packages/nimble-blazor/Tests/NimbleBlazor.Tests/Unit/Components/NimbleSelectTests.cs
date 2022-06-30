@@ -30,6 +30,11 @@ public class NimbleSelectTests
         Assert.Contains(expectedAttribute, select.Markup);
     }
 
+    [Theory]
+    [InlineData(DropdownAppearance.Outline, "outline")]
+    [InlineData(DropdownAppearance.Block, "block")]
+    [InlineData(DropdownAppearance.Underline, "underline")]
+
     [Fact]
     public void SelectWithOption_HasListOptionMarkup()
     {
@@ -39,6 +44,12 @@ public class NimbleSelectTests
         Assert.Contains(expectedMarkup, select.Markup);
     }
 
+    public void DropdownAppearance_AttributeIsSet(Position value, string expectedAttribute)
+    {
+        var select = RenderNimbleSelect(value);
+
+        Assert.Contains(expectedAttribute, select.Markup);
+    }
     private IRenderedComponent<NimbleSelect> RenderNimbleSelect(Position position)
     {
         var context = new TestContext();
@@ -51,5 +62,12 @@ public class NimbleSelectTests
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         return context.RenderComponent<NimbleSelect>(p => p.AddChildContent<NimbleListOption>());
+    }
+
+    private IRenderedComponent<NimbleSelect> RenderNimbleSelect(DropdownAppearance appearance)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<NimbleSelect>(p => p.Add(x => x.Appearance, appearance));
     }
 }
