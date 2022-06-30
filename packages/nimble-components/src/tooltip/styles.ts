@@ -1,20 +1,24 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    BannerFail100DarkUi,
+    Black15,
+    Black85,
+    Black91,
+    Information100LightUi,
+    White
+} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import {
     tooltipCaptionFont,
     tooltipCaptionFontColor,
     popupBoxShadowColor,
     borderWidth,
-    borderRgbPartialColor,
-    tooltipBackgroundColor,
     standardPadding,
     smallPadding,
-    tooltipErrorBorderColor,
-    tooltipStatesBackgroundColor,
-    tooltipInfoBorderColor,
+    iconColor
 } from '../theme-provider/design-tokens';
-import { statesBehavior } from '../utilities/style/appearance';
-import { TooltipAppearance } from './types';
+import { hexToRgbaCssColor } from '../utilities/style/colors';
+import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -32,71 +36,142 @@ export const styles = css`
         box-shadow: 0px 3px 4px ${popupBoxShadowColor};
         display: inline-flex;
     }
-`
-    .withBehaviors(
-        statesBehavior(
-            TooltipAppearance.default,
+
+    :host(.defaultState) .tooltip {
+        padding-bottom: 6px;
+        padding-left: calc(${standardPadding} / 2);
+        padding-right: calc(${standardPadding} / 2);
+        padding-top: ${smallPadding};
+    }
+
+    :host(.errorState) .tooltip {
+        padding-bottom: 6px;
+        padding-left: calc(${standardPadding} / 2);
+        padding-right: calc(${standardPadding} / 2);
+        padding-top: ${smallPadding};
+    }
+
+    :host(.errorIconState) .tooltip {
+        padding-bottom: 6px;
+        padding-left: calc(${standardPadding} / 2);
+        padding-right: calc(${standardPadding} / 2);
+        padding-top: ${smallPadding};
+    }
+
+    :host(.infoState) .tooltip {
+        padding-bottom: 6px;
+        padding-left: calc(${standardPadding} / 2);
+        padding-right: calc(${standardPadding} / 2);
+        padding-top: ${smallPadding};
+    }
+
+    :host(.infoIconState) .tooltip {
+        padding-bottom: 6px;
+        padding-left: calc(${standardPadding} / 2);
+        padding-right: calc(${standardPadding} / 2);
+        padding-top: ${smallPadding};
+    }
+
+    
+    
+    
+`.withBehaviors(
+    /* Local Theme Behaviors for tooltip borders and backgrounds */
+        themeBehavior(
             css`
-                .tooltip {
-                    border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-                    background-color: ${tooltipBackgroundColor};
-                    padding-bottom: 6px;
-                    padding-left: calc(${standardPadding} / 2);
-                    padding-right: calc(${standardPadding} / 2);
-                    padding-top: ${smallPadding};
-                }
-            `
-        ),
-        statesBehavior(
-            TooltipAppearance.error,
+            ${'' /* Light Theme */}
+            :host(.defaultState) .tooltip {
+                border: ${borderWidth} solid ${hexToRgbaCssColor(Black91, 0.3)};
+                background-color: ${Black15};
+            }
+
+            :host(.errorState) .tooltip {
+                border: ${borderWidth} solid ${BannerFail100DarkUi};
+                background-color: ${White};
+            }
+
+            :host(.errorIconState) .tooltip {
+                border: ${borderWidth} solid ${BannerFail100DarkUi};
+                background-color: ${White};
+            }
+
+            :host(.infoState) .tooltip {
+                border: ${borderWidth} solid ${Information100LightUi};
+                background-color: ${White};
+            }
+
+            :host(.infoIconState) .tooltip {
+                border: ${borderWidth} solid ${Information100LightUi};
+                background-color: ${White};
+            }
+
+            :host(.tooltipError) {
+                ${iconColor.cssCustomProperty}: ${BannerFail100DarkUi};
+                width: 14px;
+                height: 14px;
+                padding-right: 8px;
+            }
+
+            :host(.tooltipInfo) {
+                ${iconColor.cssCustomProperty}: ${Information100LightUi};
+                width: 14px;
+                height: 14px;
+                padding-right: 8px;
+            }
+        `,
             css`
-                .tooltip {
-                    border: ${borderWidth} solid ${tooltipErrorBorderColor};
-                    background-color: ${tooltipStatesBackgroundColor};
-                    padding-bottom: 6px;
-                    padding-left: calc(${standardPadding} / 2);
-                    padding-right: calc(${standardPadding} / 2);
-                    padding-top: ${smallPadding};
-                }
-            `
-        ),
-        statesBehavior(
-            TooltipAppearance.errorIcon,
+            ${'' /* Dark Theme */}
+            :host(.defaultState) .tooltip {
+                border: ${borderWidth} solid ${hexToRgbaCssColor(Black15, 0.3)};
+                background-color: ${Black85};
+            }
+
+            :host(.errorState) .tooltip {
+                border: ${borderWidth} solid ${BannerFail100DarkUi};
+                background-color: ${Black85};
+            }
+
+            :host(.errorIconState) .tooltip {
+                border: ${borderWidth} solid ${BannerFail100DarkUi};
+                background-color: ${Black85};
+            }
+
+            :host(.infoState) .tooltip {
+                border: ${borderWidth} solid ${Information100LightUi};
+                background-color: ${Black85};
+            }
+
+            :host(.infoIconState) .tooltip {
+                border: ${borderWidth} solid ${Information100LightUi};
+                background-color: ${Black85};
+            }
+        `,
             css`
-                .tooltip {
-                    border: ${borderWidth} solid ${tooltipErrorBorderColor};
-                    background-color: ${tooltipStatesBackgroundColor};
-                    padding-bottom: 6px;
-                    padding-left: calc(${standardPadding} / 2);
-                    padding-right: calc(${standardPadding} / 2);
-                    padding-top: ${smallPadding};
-                },
-            `
-        ),
-        statesBehavior(
-            TooltipAppearance.information,
-            css`
-                .tooltip {
-                    border: ${borderWidth} solid ${tooltipInfoBorderColor};
-                    background-color: ${tooltipStatesBackgroundColor};
-                    padding-bottom: 6px;
-                    padding-left: calc(${standardPadding} / 2);
-                    padding-right: calc(${standardPadding} / 2);
-                    padding-top: ${smallPadding};
-                }
-            `
-        ),
-        statesBehavior(
-            TooltipAppearance.informationIcon,
-            css`
-                .tooltip {
-                    border: ${borderWidth} solid ${tooltipInfoBorderColor};
-                    background-color: ${tooltipStatesBackgroundColor};
-                    padding-bottom: 6px;
-                    padding-left: calc(${standardPadding} / 2);
-                    padding-right: calc(${standardPadding} / 2);
-                    padding-top: ${smallPadding};
-                }
-            `
+            ${'' /* Color Theme */}
+            :host(.defaultState) .tooltip {
+                border: ${borderWidth} solid ${hexToRgbaCssColor(White, 0.3)};
+                background-color: ${hexToRgbaCssColor(White, 0.15)};
+            }
+
+            :host(.errorState) .tooltip {
+                border: ${borderWidth} solid ${White};
+                background-color: ${hexToRgbaCssColor(White, 0.15)};
+            }
+
+            :host(.errorIconState) .tooltip {
+                border: ${borderWidth} solid ${White};
+                background-color: ${hexToRgbaCssColor(White, 0.15)};
+            }
+
+            :host(.infoState) .tooltip {
+                border: ${borderWidth} solid ${White};
+                background-color: ${hexToRgbaCssColor(White, 0.15)};
+            }
+
+            :host(.infoIconState) .tooltip {
+                border: ${borderWidth} solid ${White};
+                background-color: ${hexToRgbaCssColor(White, 0.15)};
+            }
+        `
         )
     );

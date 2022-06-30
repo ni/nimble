@@ -16,10 +16,3 @@ export function appearanceBehavior<AppearanceType>(
 ): Behavior {
     return new PropertyStyleSheetBehavior('appearance', value, styles);
 }
-
-export function statesBehavior<AppearanceType>(
-    value: AppearanceType,
-    styles: ElementStyles
-): Behavior {
-    return new PropertyStyleSheetBehavior('states', value, styles);
-}

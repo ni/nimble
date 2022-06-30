@@ -6,7 +6,6 @@ export interface ITooltip {
      * The appearance the tooltip should have.
      */
     states: TooltipAppearance;
-
 }
 /**
  * Types of tooltip appearance.

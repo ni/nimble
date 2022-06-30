@@ -62,10 +62,35 @@ const metadata: Meta<TooltipArgs> = {
                 delay="${x => x.delay}"
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
+                class="${x => (x.states === TooltipAppearance.default
+        ? 'defaultState'
+        : '')
+                    || (x.states === TooltipAppearance.error
+                        ? 'errorState'
+                        : '')
+                    || (x.states === TooltipAppearance.errorIcon
+                        ? 'errorIconState'
+                        : '')
+                    || (x.states === TooltipAppearance.information
+                        ? 'infoState'
+                        : '')
+                    || (x.states === TooltipAppearance.informationIcon
+                        ? 'infoIconState'
+                        : '')}"
             >
-            ${when(x => x.states === TooltipAppearance.errorIcon, html`<nimble-icon-exclamation-mark class="tooltipError"></nimble-icon-exclamation-mark>`)}
-            ${when(x => x.states === TooltipAppearance.informationIcon, html`<nimble-icon-info class="tooltipInfo"></nimble-icon-info>`)}
-            ${x => x.tooltip}
+                ${when(
+        x => x.states === TooltipAppearance.errorIcon,
+        html`<nimble-icon-exclamation-mark
+                        class="tooltipError"
+                    ></nimble-icon-exclamation-mark>`
+    )}
+                ${when(
+        x => x.states === TooltipAppearance.informationIcon,
+        html`<nimble-icon-info
+                        class="tooltipInfo"
+                    ></nimble-icon-info>`
+    )}
+                ${x => x.tooltip}
             </nimble-tooltip>
         </div>
     `),
@@ -74,7 +99,7 @@ const metadata: Meta<TooltipArgs> = {
         states: 'default',
         tooltip: 'Tooltip label',
         delay: 300,
-        autoUpdateMode: 'auto',
+        autoUpdateMode: 'auto'
     },
     argTypes: {
         autoUpdateMode: {

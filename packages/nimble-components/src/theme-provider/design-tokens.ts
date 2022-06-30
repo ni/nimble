@@ -82,9 +82,7 @@ import {
     GroupLabel1LineHeight,
     ControlLabel1LineHeight,
     ButtonLabel1LineHeight,
-    TooltipCaptionLineHeight,
-    BannerFail100DarkUi,
-    Information100LightUi
+    TooltipCaptionLineHeight
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -164,22 +162,6 @@ export const popupBoxShadowColor = DesignToken.create<string>(
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
-
-export const tooltipBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
-
-export const tooltipStatesBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tooltipStatesBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, ForestGreen));
-
-export const tooltipErrorBorderColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tooltipErrorBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, BannerFail100DarkUi, BannerFail100DarkUi, White));
-
-export const tooltipInfoBorderColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tooltipInfoBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Information100LightUi, Information100LightUi, White));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
