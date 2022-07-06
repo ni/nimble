@@ -48,6 +48,7 @@ N/A
 - *Methods*
     - `open()`
     - `openModal()`
+    - `close()`
 - *Events*
     - `close` - fires when dialog closed
     - `cancel` - fires when the _browser_ cancels the dialog (e.g. ESC pressed, or browser UI used to close dialog)
@@ -118,7 +119,7 @@ The FAST dialog provides very little (e.g. `trapFocus` attr) that the html dialo
 
 Hidden/visible
 - The dialog begins hidden and becomes visible when `open` attribute is set or either of the `show()/showModal()` functions is called (also sets `open`).
-- When `open` is removed, the dialog is hidden.
+- When `open` is removed or `close()` is called, the dialog is hidden.
 
 ### Accessibility
 
