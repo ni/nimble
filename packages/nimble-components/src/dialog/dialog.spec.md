@@ -18,10 +18,9 @@ N/A
 
 ### Features
 
-- Client stylable with good defaults (position, size, font, colors, border, shadow)
-- Easy to create common dialog types e.g. message popups, confirmation/input prompts
 - Modal or non-modal
-- Support dismiss on click outside (modal)
+- Easy to create common dialog types e.g. message popups, confirmation/input prompts
+- Consistent styling (position, font, colors, border, shadow)
 
 ### Risks and Challenges
 
@@ -44,19 +43,20 @@ N/A
     - `nimble-dialog`
 - *Props/Attrs*
     - `modal`
-    - `open`
+    - `open` - shows dialog when set, closes when unset
+    - `returnValue` - see [Dialog doc](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/returnValue). Upon dialog close, takes value of form control that dismissed the dialog.
 - *Methods*
     - `open()`
     - `openModal()`
 - *Events*
-    - `close`
-    - `cancel`
+    - `close` - fires when dialog closed
+    - `cancel` - fires when the _browser_ cancels the dialog (e.g. ESC pressed, or browser UI used to close dialog)
 - *CSS Classes and CSS Custom Properties that affect the component*
     - (none)
 
 ### Anatomy
 
-For consistency with the Drawer, we will apply special styling to `header`, `section`, and `footer` elements that are slotted in the default slot. We will also have a named `left` slot intended for an optional image/icon.
+For consistency with the Drawer, we will apply special styling to `header`, `section`, and `footer` elements that are slotted in the default slot. We will also have a `left` slot intended for an optional image/icon.
 
 Shadow DOM:
 ```
@@ -68,7 +68,7 @@ Shadow DOM:
 
 - *Slot Names*
     - `left`: intended mainly for an icon/image, e.g. info/warning/error glyph
-    - `(default)`: header, section, footer
+    - `(default)`: header, section, and/or footer
 
     ![Slots Example](slots.png)
 
@@ -163,11 +163,12 @@ We will have standard documentation i.e. Storybook.
 
 - Should there be a service to simplify the creation and display of popups? Where?
 - Movable dialogs? How?
-- Sizeable dialogs - Can this be supported? How?
+- Sizeable dialogs? How?
+- How to support buttons and other inputs in the same form? If the user puts `section` and `footer` inside a `<form method='dialog'>` element (to have a footer button automatically close the dialog and submit the form data), then `section` and `footer` will not get default styling.
 - Snackbar mode - A snackbar popup:
     - is non-modal
     - appears at the bottom of the window
-    - is limited to one at a time
+    - is limited to one at a time - how?
 
     This is ideally supported fully by the Nimble dialog (vs being managed by a service) so that it can be reused in both Angular and Blazor apps.
 
