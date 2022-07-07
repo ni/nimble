@@ -107,6 +107,7 @@ Defaults:
 - `top: 50%`
 - `left: 50%`
 - `transform: translate(-50%, -50%)`
+- `max-width: TODO`
 
 ---
 
@@ -129,6 +130,9 @@ By using the native `dialog` element, we get good a11y behavior without having t
 
 - When modal, the dialog will restrict focus to the elements on the dialog.
 - Upon closing a modal dialog, focus will return to the element that had focus before the dialog was opened.
+- ESC key closes the dialog
+
+The one missing part is that `aria-labelledby` should be set to point to an element that is the title for the dialog, or else `aria-label` should provide the title directly.
 
 ### Globalization
 
