@@ -39,6 +39,8 @@ N/A
 
 ### API
 
+We will re-expose the native `dialog` element's API.
+
 - *Component Name*
     - `nimble-dialog`
 - *Props/Attrs*
@@ -123,14 +125,14 @@ Hidden/visible
 
 ### Accessibility
 
-*Consider the accessibility of the component, including:*
+By using the native `dialog` element, we get good a11y behavior without having to explicitly do anything.
 
-- *Keyboard Navigation and Focus*
-- *Form Input*
-- *Use with Assistive Technology*
-  - e.g. The implications shadow dom might have on how roles and attributes are presented to the AT. Components which delegate focus require all global aria-* attributes to be enumerated.
+- When modal, the dialog will restrict focus to the elements on the dialog.
+- Upon closing a modal dialog, focus will return to the element that had focus before the dialog was opened.
 
 ### Globalization
+
+There will be no globalization considerations.
 
 Because Nimble is not localized, we cannot provide OK and Cancel buttons by default; they must be part of the content provided by the user.
 
@@ -159,14 +161,29 @@ N/A
 We will have standard documentation i.e. Storybook.
 
 ---
+## Dialog Service
+
+Separate from the Nimble dialog itself, there will be a `DialogService` in `systemlink-lib-angular` to easily create and display common dialogs:
+- `showErrorPopup(message: string): void`
+    - TODO: NEEDS DESIGN
+- `showMessagePopup(title: string, message: string): void`
+    - TODO: NEEDS DESIGN
+- `showConfirmationPrompt(title: string, message: string, confirmLabel: string, rejectLabel: string): boolean`
+    - returns `true` if confirmed, `false` if rejected/canceled
+    - `confirmLabel` defaults to "Yes" and `rejectLabel` defaults to "No"
+
+Each function will construct and show the respective modal dialog and not return until the dialog is dismissed by the user.
+
+This may be implemented separately, after the Nimble dialog itself is implemented.
+
+---
 
 ## Open Issues
 
-- Should there be a service to simplify the creation and display of popups? Where?
 - Movable dialogs? How?
 - Sizeable dialogs? How?
 - How to support buttons and other inputs in the same form? If the user puts `section` and `footer` inside a `<form method='dialog'>` element (to have a footer button automatically close the dialog and submit the form data), then `section` and `footer` will not get default styling.
-- Snackbar mode - A snackbar popup:
+- Snackbar mode - a snackbar popup:
     - is non-modal
     - appears at the bottom of the window
     - is limited to one at a time - how?
