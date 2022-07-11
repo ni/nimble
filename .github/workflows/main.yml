@@ -32,8 +32,8 @@ jobs:
       - run: npm ci
 
       # Audit
-      - run: npm audit --only=prod
-      - run: npm audit --audit-level=critical
+      #- run: npm audit --only=prod
+      #- run: npm audit --audit-level=critical
 
       # Build
       - run: npm run build
