@@ -30,8 +30,6 @@ public class NimbleSelectTests
         Assert.Contains(expectedAttribute, select.Markup);
     }
 
-    
-
     [Fact]
     public void SelectWithOption_HasListOptionMarkup()
     {
