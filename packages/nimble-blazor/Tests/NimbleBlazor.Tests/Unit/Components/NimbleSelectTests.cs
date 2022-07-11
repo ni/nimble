@@ -30,10 +30,7 @@ public class NimbleSelectTests
         Assert.Contains(expectedAttribute, select.Markup);
     }
 
-    [Theory]
-    [InlineData(DropdownAppearance.Outline, "outline")]
-    [InlineData(DropdownAppearance.Block, "block")]
-    [InlineData(DropdownAppearance.Underline, "underline")]
+    
 
     [Fact]
     public void SelectWithOption_HasListOptionMarkup()
@@ -44,6 +41,10 @@ public class NimbleSelectTests
         Assert.Contains(expectedMarkup, select.Markup);
     }
 
+    [Theory]
+    [InlineData(DropdownAppearance.Outline, "outline")]
+    [InlineData(DropdownAppearance.Block, "block")]
+    [InlineData(DropdownAppearance.Underline, "underline")]
     public void DropdownAppearance_AttributeIsSet(DropdownAppearance value, string expectedAttribute)
     {
         var select = RenderNimbleSelect(value);
