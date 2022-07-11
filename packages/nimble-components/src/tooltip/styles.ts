@@ -72,8 +72,10 @@ export const styles = css`
         padding-top: ${smallPadding};
     }
 
-    
-    
+    .tooltip-container {
+        display: flex;
+        align-items: center;
+    }
     
 `.withBehaviors(
     /* Local Theme Behaviors for tooltip borders and backgrounds */
@@ -105,14 +107,20 @@ export const styles = css`
                 background-color: ${White};
             }
 
-            :host(.tooltipError) {
-                ${iconColor.cssCustomProperty}: ${BannerFail100DarkUi};
+            ::slotted(nimble-icon-exclamation-mark) .icon{
+                width: 14px;
+                height: 14px;
+            }
+
+            slot[name="state-icon"] .icon {
+                display: none;
+                ${iconColor.cssCustomProperty}: ${Information100LightUi};
                 width: 14px;
                 height: 14px;
                 padding-right: 8px;
             }
 
-            :host(.tooltipInfo) {
+            slot[name="info-icon"]::slotted(*).icon svg {
                 ${iconColor.cssCustomProperty}: ${Information100LightUi};
                 width: 14px;
                 height: 14px;

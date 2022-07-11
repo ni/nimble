@@ -23,6 +23,8 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Used to highlight invalid input or for icons to indicate that a process errored or failed',
     passColor:
         'Used to highlight a correct state or the successful completion of a process',
+    infoColor:
+        'Used to highlight information, which provides more details on the item',
     borderHoverColor: 'Border color when hovering component',
     iconColor: 'Equivalent to the font color for icons',
     popupBoxShadowColor: 'Shadow color for menus and dialog boxes',

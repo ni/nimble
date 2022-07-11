@@ -62,9 +62,7 @@ const metadata: Meta<TooltipArgs> = {
                 delay="${x => x.delay}"
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
-                class="${x => (x.states === TooltipAppearance.default
-        ? 'defaultState'
-        : '')
+                class="${x => (x.states === TooltipAppearance.default ? 'defaultState' : '')
                     || (x.states === TooltipAppearance.error
                         ? 'errorState'
                         : '')
@@ -80,15 +78,13 @@ const metadata: Meta<TooltipArgs> = {
             >
                 ${when(
         x => x.states === TooltipAppearance.errorIcon,
-        html`<nimble-icon-exclamation-mark
-                        class="tooltipError"
-                    ></nimble-icon-exclamation-mark>`
+        html`<span><nimble-icon-exclamation-mark slot="state-icon" class="errorIconTool"></nimble-icon-exclamation-mark></span>
+        `
     )}
                 ${when(
         x => x.states === TooltipAppearance.informationIcon,
-        html`<nimble-icon-info
-                        class="tooltipInfo"
-                    ></nimble-icon-info>`
+        html`<span><nimble-icon-info slot="state-icon" class="info"></nimble-icon-info></span>
+    `
     )}
                 ${x => x.tooltip}
             </nimble-tooltip>
