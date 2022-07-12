@@ -2,11 +2,11 @@ import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Tooltip as FoundationTooltip,
-    tooltipTemplate as template
 } from '@microsoft/fast-foundation';
 import type { ITooltip } from './types';
 import { TooltipAppearance } from './types';
 import { styles } from './styles';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {

@@ -1,4 +1,4 @@
-import { html, when } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import type { AutoUpdateMode } from '@microsoft/fast-foundation';
@@ -62,31 +62,21 @@ const metadata: Meta<TooltipArgs> = {
                 delay="${x => x.delay}"
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
-                class="${x => (x.states === TooltipAppearance.default ? 'defaultState' : '')
+                class="${x => (x.states === TooltipAppearance.default ? 'default' : '')
                     || (x.states === TooltipAppearance.error
-                        ? 'errorState'
+                        ? 'fail'
                         : '')
                     || (x.states === TooltipAppearance.errorIcon
-                        ? 'errorIconState'
+                        ? 'fail icon-visible'
                         : '')
                     || (x.states === TooltipAppearance.information
-                        ? 'infoState'
+                        ? 'info'
                         : '')
                     || (x.states === TooltipAppearance.informationIcon
-                        ? 'infoIconState'
+                        ? 'info icon-visible'
                         : '')}"
             >
-                ${when(
-        x => x.states === TooltipAppearance.errorIcon,
-        html`<span><nimble-icon-exclamation-mark slot="state-icon" class="errorIconTool"></nimble-icon-exclamation-mark></span>
-        `
-    )}
-                ${when(
-        x => x.states === TooltipAppearance.informationIcon,
-        html`<span><nimble-icon-info slot="state-icon" class="info"></nimble-icon-info></span>
-    `
-    )}
-                ${x => x.tooltip}
+             ${x => x.tooltip}
             </nimble-tooltip>
         </div>
     `),

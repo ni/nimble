@@ -5,6 +5,7 @@ import {
     Black15,
     Black85,
     Black91,
+    ForestGreen,
     Information100LightUi,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
@@ -15,7 +16,6 @@ import {
     borderWidth,
     standardPadding,
     smallPadding,
-    iconColor
 } from '../theme-provider/design-tokens';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
@@ -27,158 +27,87 @@ export const styles = css`
         font: ${tooltipCaptionFont};
         color: ${tooltipCaptionFontColor};
         text-align: left;
+        --ni-private-tooltip-border-color: ${borderWidth} solid ${hexToRgbaCssColor(Black91, 0.3)};
+        --ni-private-tooltip-background-color: ${Black15};
     }
-
+      
     .tooltip {
         box-sizing: border-box;
         flex-shrink: 0;
         max-width: 440px;
         box-shadow: 0px 3px 4px ${popupBoxShadowColor};
         display: inline-flex;
-    }
-
-    :host(.defaultState) .tooltip {
+        border: var(--ni-private-tooltip-border-color); 
+        background-color: var(--ni-private-background-color);
         padding-bottom: 6px;
         padding-left: calc(${standardPadding} / 2);
         padding-right: calc(${standardPadding} / 2);
         padding-top: ${smallPadding};
     }
 
-    :host(.errorState) .tooltip {
-        padding-bottom: 6px;
-        padding-left: calc(${standardPadding} / 2);
-        padding-right: calc(${standardPadding} / 2);
-        padding-top: ${smallPadding};
+    nimble-icon-exclamation-mark {
+        display: none;
+        color: green;
+        width: 14px;
+        height: 14px;
+        padding-right: 8px;
     }
 
-    :host(.errorIconState) .tooltip {
-        padding-bottom: 6px;
-        padding-left: calc(${standardPadding} / 2);
-        padding-right: calc(${standardPadding} / 2);
-        padding-top: ${smallPadding};
-    }
-
-    :host(.infoState) .tooltip {
-        padding-bottom: 6px;
-        padding-left: calc(${standardPadding} / 2);
-        padding-right: calc(${standardPadding} / 2);
-        padding-top: ${smallPadding};
-    }
-
-    :host(.infoIconState) .tooltip {
-        padding-bottom: 6px;
-        padding-left: calc(${standardPadding} / 2);
-        padding-right: calc(${standardPadding} / 2);
-        padding-top: ${smallPadding};
-    }
-
-    .tooltip-container {
+    :host(.fail.icon-visible) nimble-icon-exclamation-mark {
         display: flex;
-        align-items: center;
+    }
+
+    nimble-icon-info {
+        display: none;
+        color: purple;
+        width: 14px;
+        height: 14px;
+        padding-right: 8px;
     }
     
-`.withBehaviors(
+    :host(.info.icon-visible) nimble-icon-info {
+        display: flex;
+    }
+
+    :host(.fail) .tooltip {
+        --ni-private-tooltip-border-color: ${borderWidth} solid ${BannerFail100DarkUi};
+        --ni-private-tooltip-background-color: ${White};
+    }
+
+    :host(.info) .tooltip {
+        --ni-private-tooltip-border-color: ${borderWidth} solid ${Information100LightUi};
+        --ni-private-tooltip-background color: ${White};
+    }
+    
+    `.withBehaviors(
     /* Local Theme Behaviors for tooltip borders and backgrounds */
         themeBehavior(
             css`
             ${'' /* Light Theme */}
-            :host(.defaultState) .tooltip {
-                border: ${borderWidth} solid ${hexToRgbaCssColor(Black91, 0.3)};
-                background-color: ${Black15};
-            }
-
-            :host(.errorState) .tooltip {
-                border: ${borderWidth} solid ${BannerFail100DarkUi};
-                background-color: ${White};
-            }
-
-            :host(.errorIconState) .tooltip {
-                border: ${borderWidth} solid ${BannerFail100DarkUi};
-                background-color: ${White};
-            }
-
-            :host(.infoState) .tooltip {
-                border: ${borderWidth} solid ${Information100LightUi};
-                background-color: ${White};
-            }
-
-            :host(.infoIconState) .tooltip {
-                border: ${borderWidth} solid ${Information100LightUi};
-                background-color: ${White};
-            }
-
-            ::slotted(nimble-icon-exclamation-mark) .icon{
-                width: 14px;
-                height: 14px;
-            }
-
-            slot[name="state-icon"] .icon {
-                display: none;
-                ${iconColor.cssCustomProperty}: ${Information100LightUi};
-                width: 14px;
-                height: 14px;
-                padding-right: 8px;
-            }
-
-            slot[name="info-icon"]::slotted(*).icon svg {
-                ${iconColor.cssCustomProperty}: ${Information100LightUi};
-                width: 14px;
-                height: 14px;
-                padding-right: 8px;
-            }
         `,
             css`
             ${'' /* Dark Theme */}
-            :host(.defaultState) .tooltip {
+            .tooltip {
+                background-color: ${Black85};
+            }
+
+            :host(.default) .tooltip {
                 border: ${borderWidth} solid ${hexToRgbaCssColor(Black15, 0.3)};
-                background-color: ${Black85};
-            }
-
-            :host(.errorState) .tooltip {
-                border: ${borderWidth} solid ${BannerFail100DarkUi};
-                background-color: ${Black85};
-            }
-
-            :host(.errorIconState) .tooltip {
-                border: ${borderWidth} solid ${BannerFail100DarkUi};
-                background-color: ${Black85};
-            }
-
-            :host(.infoState) .tooltip {
-                border: ${borderWidth} solid ${Information100LightUi};
-                background-color: ${Black85};
-            }
-
-            :host(.infoIconState) .tooltip {
-                border: ${borderWidth} solid ${Information100LightUi};
-                background-color: ${Black85};
             }
         `,
             css`
-            ${'' /* Color Theme */}
-            :host(.defaultState) .tooltip {
-                border: ${borderWidth} solid ${hexToRgbaCssColor(White, 0.3)};
-                background-color: ${hexToRgbaCssColor(White, 0.15)};
-            }
-
-            :host(.errorState) .tooltip {
+            ${'' /* Color Theme In progress fix icon colors */}
+            .tooltip {
                 border: ${borderWidth} solid ${White};
                 background-color: ${hexToRgbaCssColor(White, 0.15)};
             }
 
-            :host(.errorIconState) .tooltip {
-                border: ${borderWidth} solid ${White};
-                background-color: ${hexToRgbaCssColor(White, 0.15)};
+            :host(.default) .tooltip {
+                border: ${borderWidth} solid ${hexToRgbaCssColor(White, 0.15)};
             }
 
-            :host(.infoState) .tooltip {
-                border: ${borderWidth} solid ${White};
-                background-color: ${hexToRgbaCssColor(White, 0.15)};
-            }
-
-            :host(.infoIconState) .tooltip {
-                border: ${borderWidth} solid ${White};
-                background-color: ${hexToRgbaCssColor(White, 0.15)};
+            :host nimble-icon-exclamation-mark {
+                fill: solid ${hexToRgbaCssColor(White, 0.6)};
             }
         `
         )
