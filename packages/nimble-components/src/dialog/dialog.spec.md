@@ -48,9 +48,9 @@ We will re-expose the native `dialog` element's API.
     - `open` - shows dialog when set, closes when unset
     - `returnValue` - see [Dialog doc](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/returnValue). Upon dialog close, takes value of form control that dismissed the dialog.
 - *Methods*
-    - `open()`
-    - `openModal()`
-    - `close()`
+    - `open()` - sets `open`
+    - `openModal()` - sets `open` and `modal`
+    - `close()` - clears `open`
 - *Events*
     - `close` - fires when dialog closed
     - `cancel` - fires when the _browser_ cancels the dialog (e.g. ESC pressed, or browser UI used to close dialog)
@@ -59,29 +59,37 @@ We will re-expose the native `dialog` element's API.
 
 ### Anatomy
 
-For consistency with the Drawer, we will apply special styling to `header`, `section`, and `footer` elements that are slotted in the default slot. We will also have a `left` slot intended for an optional image/icon.
+#### OPTION 1
+One idea is to follow the precedent of the Drawer and apply special styling to `header`, `section`, and `footer` elements that are slotted in the default slot. We could also have a `left` slot intended for an optional image/icon.
+
+
+![Slots Example](slots.png)
+
+_The image is just to demonstrate layout, not the actual look of the dialog._
+
+However, we can only style the top-level slotted elements (i.e. `header`, `section`, and `footer`), not any nested elements. This may still be enough, as the Drawer has the same limitation.
+
+Another obstacle is that if a client wants to host a form on their dialog and have it submit via buttons in the footer, they would have to wrap `section` and `footer` in their `form` element. This would prevent our styling for `section` and `footer` from working.
+
+#### OPTION 2
+Instead, we can just have a single slot and leave layout and styling of contents completely up to the user. We would only be providing some overall styling for the dialog to match the Nimble look and feel.
 
 Shadow DOM:
 ```
 <dialog>
-    <slot name="left">
     <slot>
 </dialog>
 ```
 
 - *Slot Names*
-    - `left`: intended mainly for an icon/image, e.g. info/warning/error glyph
-    - `(default)`: header, section, and/or footer
-
-    ![Slots Example](slots.png)
-
-    The image is just to demonstrate layout, not the actual look of the dialog.
+    - ~~`left`: intended mainly for an icon/image, e.g. info/warning/error glyph~~
+    - `(default)`: ~~header, section, and/or footer~~
 - *Host Classes*
     - (none)
 - *Slotted Content/Slotted Classes*
-    - `header` - styled large and bold
-    - `section` - styled with vertical scrollbar for overflow
-    - `footer` - items right justified
+    - ~~`header` - styled large and bold~~
+    - ~~`section` - styled with vertical scrollbar for overflow~~
+    - ~~`footer` - items right justified~~
 - *CSS Parts*
     - (none)
 
