@@ -14,7 +14,7 @@ import {
     smallDelay,
     smallPadding,
     failColor,
-    borderRgbPartialColor,
+    borderRgbPartialColor
 } from '../../theme-provider/design-tokens';
 import { focusVisible } from '../../utilities/style/focus';
 
@@ -204,4 +204,5 @@ export const styles = css`
     ::slotted([role='option']),
     ::slotted(option) {
         flex: none;
-    } `;
+    }
+`;
