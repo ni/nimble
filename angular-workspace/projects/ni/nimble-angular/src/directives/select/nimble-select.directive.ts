@@ -19,5 +19,9 @@ export class NimbleSelectDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
     }
 
+    public get disabled(): boolean {
+        return this.elementRef.nativeElement.disabled;
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Select>) {}
 }
