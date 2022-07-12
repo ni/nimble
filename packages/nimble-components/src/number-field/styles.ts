@@ -19,9 +19,11 @@ import {
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { NumberFieldAppearance } from './types';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-block')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -53,9 +55,9 @@ export const styles = css`
         display: flex;
         flex-direction: row;
         justify-content: center;
+        align-items: center;
         border-radius: 0px;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
-        gap: calc(${standardPadding} / 2);
     }
 
     .root:focus-within {
@@ -64,6 +66,10 @@ export const styles = css`
 
     :host([disabled]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host(.invalid) .root {
+        border-bottom-color: ${failColor};
     }
 
     .root::before {
@@ -116,6 +122,7 @@ export const styles = css`
         width: 100%;
         border: none;
         padding: 0px;
+        padding-left: calc(${standardPadding} / 2);
     }
 
     .control:hover,
@@ -143,14 +150,29 @@ export const styles = css`
     }
 
     .controls {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center;
-        align-items: center;
+        display: contents;
+    }
+
+    .step-up {
+        order: 3;
+        padding-right: calc(${standardPadding} / 4);
+    }
+
+    .step-down {
+        order: 2;
     }
 
     .step-up-down-button {
         ${controlHeight.cssCustomProperty}: 24px;
+    }
+
+    [part='end'] {
+        display: contents;
+    }
+
+    .error-icon {
+        order: 1;
+        padding-right: calc(${standardPadding} / 4);
     }
 `.withBehaviors(
         appearanceBehavior(
@@ -180,6 +202,11 @@ export const styles = css`
             .root:focus-within,
             :host(.invalid) .root {
                 border-bottom-width: ${borderWidth};
+            }
+
+            .root:focus-within .control,
+            :host(.invalid) .control {
+                height: calc(${controlHeight} - ${borderWidth});
             }
 
             :host([disabled]) .root {
