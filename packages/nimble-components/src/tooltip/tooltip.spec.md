@@ -20,11 +20,9 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
 
-Plan to add a `state` attribute with the type `TooltipAppearance`. It will have `default`, `error`, `errorIcon`, `information`, and `informationIcon` states, with `state`'s default value being `default`.
+Two css classes will be used to determine the type of tooltip to be displayed. The first class will have `default`, `error`, or `information` values, with the following class determining if the corresponding icon is visible or not by using `icon-visible`.
 
-Icons will be available for the error and information states- The states `errorIcon` and `informationIcon` will include their corresponding icons at the beginning of the tooltip.
-
-Two css classes will be used to determine the type of tooltip to be displayed. The first class will have `default`, `error`, or `information` values, with the following class determining if the corresponding icon is visible or not by using `icon-visible`. By default the icons are set to be invisible.
+Icons will be available for the error and information states- The corresponding icon can be shown by using the `icon` switcher, which calls the class `icon-visible` when `true`. No icon will be shown for the `default` class so that clients can easily switch between `default` and `error` classes without having to update the icon state.
 
 Two local css variables will be created for the tooltips- one that controls the border color of the tooltip, and one that controls the background color of the tooltip. These variables will be changed based on the css classes described above.
 
