@@ -5,19 +5,17 @@ export interface ITooltip {
     /**
      * The appearance the tooltip should have.
      */
-    states: TooltipAppearance;
+    state: TooltipStatus;
 }
 /**
  * Types of tooltip appearance.
  * @public
  */
-export const TooltipAppearance = {
+export const TooltipStatus = {
     default: 'default',
-    error: 'error',
-    errorIcon: 'errorIcon',
+    fail: 'fail',
     information: 'information',
-    informationIcon: 'informationIcon'
 } as const;
 
-export type TooltipAppearance =
-    typeof TooltipAppearance[keyof typeof TooltipAppearance];
+export type TooltipStatus =
+    typeof TooltipStatus[keyof typeof TooltipStatus];

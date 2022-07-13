@@ -25,7 +25,7 @@ export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = contex
             >
                 <div class="tooltip" part="tooltip" role="tooltip">
                     <nimble-icon-exclamation-mark class="fail"></nimble-icon-exclamation-mark>
-                    <nimble-icon-info class="info"></nimble-icon-info>
+                    <nimble-icon-info class="information"></nimble-icon-info>
                     <slot></slot>
                 </div>
             </${context.tagFor(AnchoredRegion)}>

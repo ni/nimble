@@ -36,7 +36,7 @@ export const styles = css`
         ${iconColor.cssCustomProperty}: ${passColor};
     }
 
-    :host(.info) {
+    :host(.information) {
         ${iconColor.cssCustomProperty}: ${infoColor};
     }
 

@@ -5,7 +5,6 @@ import {
     Black15,
     Black85,
     Black91,
-    ForestGreen,
     Information100LightUi,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
@@ -65,7 +64,7 @@ export const styles = css`
         padding-right: 8px;
     }
     
-    :host(.info.icon-visible) nimble-icon-info {
+    :host(.information.icon-visible) nimble-icon-info {
         display: flex;
     }
 
@@ -74,7 +73,7 @@ export const styles = css`
         --ni-private-tooltip-background-color: ${White};
     }
 
-    :host(.info) .tooltip {
+    :host(.information) .tooltip {
         --ni-private-tooltip-border-color: ${borderWidth} solid ${Information100LightUi};
         --ni-private-tooltip-background color: ${White};
     }

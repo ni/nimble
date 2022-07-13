@@ -9,15 +9,15 @@ import {
     bodyFont,
     bodyFontColor
 } from '../../theme-provider/design-tokens';
-import { TooltipAppearance } from '../types';
+import { TooltipStatus } from '../types';
 
 interface TooltipArgs {
     visible: boolean;
-    states: string;
+    state: string;
     delay: number;
     tooltip: string;
     autoUpdateMode: AutoUpdateMode;
-    icon: string;
+    icon: boolean;
 }
 
 const metadata: Meta<TooltipArgs> = {
@@ -58,31 +58,20 @@ const metadata: Meta<TooltipArgs> = {
             <nimble-tooltip
                 anchor="anchor"
                 ?visible="${x => x.visible}"
-                states="${x => x.states}"
+                state="${x => x.state}"
                 delay="${x => x.delay}"
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
-                class="${x => (x.states === TooltipAppearance.default ? 'default' : '')
-                    || (x.states === TooltipAppearance.error
-                        ? 'fail'
-                        : '')
-                    || (x.states === TooltipAppearance.errorIcon
-                        ? 'fail icon-visible'
-                        : '')
-                    || (x.states === TooltipAppearance.information
-                        ? 'info'
-                        : '')
-                    || (x.states === TooltipAppearance.informationIcon
-                        ? 'info icon-visible'
-                        : '')}"
-            >
+                class="${x => (x.state)} ${x => (x.icon ? 'icon-visible' : '')}"
+             >
              ${x => x.tooltip}
             </nimble-tooltip>
         </div>
     `),
     args: {
         visible: false,
-        states: 'default',
+        state: 'default',
+        icon: false,
         tooltip: 'Tooltip label',
         delay: 300,
         autoUpdateMode: 'auto'
@@ -98,10 +87,10 @@ const metadata: Meta<TooltipArgs> = {
             description:
                 'The delay in milliseconds before a tooltip is shown after a hover event'
         },
-        states: {
-            options: Object.values(TooltipAppearance),
-            control: { type: 'radio' }
-        }
+        state: {
+            options: Object.values(TooltipStatus),
+            control: { type: 'radio' },
+        },
     }
 };
 

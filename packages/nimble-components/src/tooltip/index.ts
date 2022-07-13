@@ -4,7 +4,7 @@ import {
     Tooltip as FoundationTooltip,
 } from '@microsoft/fast-foundation';
 import type { ITooltip } from './types';
-import { TooltipAppearance } from './types';
+import { TooltipStatus } from './types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -21,10 +21,10 @@ export class Tooltip extends FoundationTooltip implements ITooltip {
     /**
      * @public
      * @remarks
-     * HTML Attribute: states
+     * HTML Attribute: state
      */
     @attr
-    public states: TooltipAppearance = TooltipAppearance.default;
+    public state: TooltipStatus = TooltipStatus.default;
 }
 
 /**
