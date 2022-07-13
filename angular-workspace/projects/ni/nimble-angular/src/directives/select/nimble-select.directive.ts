@@ -1,8 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { Select } from '@ni/nimble-components/dist/esm/select';
-import type { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
+import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 
 export type { Select };
+export { DropdownAppearance };
 
 /**
  * Directive for Nimble select control Angular integration
