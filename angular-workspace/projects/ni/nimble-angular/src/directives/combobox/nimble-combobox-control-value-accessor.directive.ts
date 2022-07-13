@@ -36,6 +36,18 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this._compareWith = fn;
     }
 
+    /**
+     * Maps the provided ngValue to the expected display value. The provided function should additionally be used
+     * to populate the content of each nimble-list-option within the nimble-combobox.
+     */
+    @Input()
+    public set displayWith(fn: (value: unknown) => string) {
+        if (typeof fn !== 'function') {
+            throw new Error(`displayWith must be a function, but received ${JSON.stringify(fn)}`);
+        }
+        this._displayWith = fn;
+    }
+
     /** @internal */
     public readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
 
@@ -51,21 +63,12 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     private onChange: (_: string) => void;
 
     /**
-     * The registered callback function called when a blur event occurs on the input element.
-     * @nodoc
-     */
+      * The registered callback function called when a blur event occurs on the input element.
+      * @nodoc
+      */
     private onTouched: () => void;
 
     public constructor(private readonly _renderer: Renderer2, private readonly _elementRef: ElementRef) {}
-
-    /**
-     * Maps the provided ngValue to the expected display value. The provided function should additionally be used
-     * to populate the content of each nimble-list-option within the nimble-combobox.
-     */
-    @Input()
-    public displayWith: ((value: unknown) => string) = (value => {
-        return (typeof value === 'string') ? value : '';
-    });
 
     /**
      * Updates the underlying nimble-combobox value with the expected display string.
@@ -102,4 +105,12 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     private setProperty(key: string, value: string): void {
         this._renderer.setProperty(this._elementRef.nativeElement, key, value);
     }
+
+    private _displayWith: ((value: unknown) => string) = (value => {
+        if (typeof value === 'string') {
+            return value;
+        }
+
+        throw new Error('Unknown value type requires custom `displayWith` override');
+    });
 }
