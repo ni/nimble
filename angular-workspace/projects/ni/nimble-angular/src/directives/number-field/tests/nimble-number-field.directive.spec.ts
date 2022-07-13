@@ -100,6 +100,16 @@ describe('Nimble number field', () => {
             directive.placeholder = 'Put stuff here';
             expect(nativeElement.placeholder).toBe('Put stuff here');
         });
+
+        it('has expected defaults for errorText', () => {
+            expect(directive.errorText).toBeUndefined();
+            expect(nativeElement.errorText).toBeUndefined();
+        });
+
+        it('can use the directive to set errorText', () => {
+            directive.errorText = 'new value';
+            expect(nativeElement.errorText).toBe('new value');
+        });
     });
 
     describe('with template string values', () => {
@@ -111,7 +121,8 @@ describe('Nimble number field', () => {
                     min=10
                     max=20
                     step=2
-                    placeholder="Placeholder value">
+                    placeholder="Placeholder value"
+                    error-text="error text">
                 </nimble-number-field>`
         })
         class TestHostComponent {
@@ -163,6 +174,11 @@ describe('Nimble number field', () => {
             expect(directive.placeholder).toBe('Placeholder value');
             expect(nativeElement.placeholder).toBe('Placeholder value');
         });
+
+        it('will use template string values for errorText', () => {
+            expect(directive.errorText).toBe('error text');
+            expect(nativeElement.errorText).toBe('error text');
+        });
     });
 
     describe('with property bound values', () => {
@@ -174,7 +190,8 @@ describe('Nimble number field', () => {
                 [min]="min"
                 [max]="max"
                 [step]="step"
-                [placeholder]="placeholder">
+                [placeholder]="placeholder"
+                [error-text]="errorText">
             </nimble-number-field>`
         })
         class TestHostComponent {
@@ -186,6 +203,7 @@ describe('Nimble number field', () => {
             public max = 20;
             public step = 2;
             public placeholder = 'initial';
+            public errorText = 'initial value';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -268,6 +286,17 @@ describe('Nimble number field', () => {
             expect(directive.placeholder).toBe('ph');
             expect(nativeElement.placeholder).toBe('ph');
         });
+
+        it('can be configured with property binding for errorText', () => {
+            expect(directive.errorText).toBe('initial value');
+            expect(nativeElement.errorText).toBe('initial value');
+
+            fixture.componentInstance.errorText = 'new value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('new value');
+            expect(nativeElement.errorText).toBe('new value');
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -279,7 +308,8 @@ describe('Nimble number field', () => {
                     [attr.min]="min"
                     [attr.max]="max"
                     [attr.step]="step"
-                    [attr.placeholder]="placeholder">
+                    [attr.placeholder]="placeholder"
+                    [attr.error-text]="errorText">
                 </nimble-number-field>`
         })
         class TestHostComponent {
@@ -291,6 +321,7 @@ describe('Nimble number field', () => {
             public max: NumberValueOrAttribute = 20;
             public step: NumberValueOrAttribute = 2;
             public placeholder = 'initial';
+            public errorText = 'initial value';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -372,6 +403,17 @@ describe('Nimble number field', () => {
 
             expect(directive.placeholder).toBe('ph');
             expect(nativeElement.placeholder).toBe('ph');
+        });
+
+        it('can be configured with attribute binding for errorText', () => {
+            expect(directive.errorText).toBe('initial value');
+            expect(nativeElement.errorText).toBe('initial value');
+
+            fixture.componentInstance.errorText = 'new value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('new value');
+            expect(nativeElement.errorText).toBe('new value');
         });
     });
 });

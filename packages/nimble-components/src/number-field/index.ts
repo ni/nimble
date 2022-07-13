@@ -8,6 +8,9 @@ import {
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
+import '../icons/add';
+import '../icons/exclamation-mark';
+import '../icons/minus-wide';
 
 declare global {
     interface HTMLElementTagNameMap {
