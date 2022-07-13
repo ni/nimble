@@ -88,7 +88,8 @@ const metadata: Meta<ComboboxArgs> = {
             { label: 'Joaquin', disabled: false },
             { label: 'Frank', disabled: false },
             { label: 'Dracula', disabled: true },
-            { label: 'Albert', disabled: false }
+            { label: 'Albert', disabled: false },
+            { label: 'Sue Ann', disabled: false }
         ]
     }
 };

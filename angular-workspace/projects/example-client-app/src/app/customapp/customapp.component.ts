@@ -34,8 +34,12 @@ export class CustomAppComponent implements OnInit {
         alert(`drawerLocation: ${value}`);
     }
 
-    public onComboboxChange(value: ComboboxItem): void {
-        this.lastName = value.last;
+    public onComboboxChange(value: ComboboxItem | symbol): void {
+        if (typeof value !== 'symbol') {
+            this.lastName = value.last;
+        } else {
+            this.lastName = '';
+        }
     }
 
     public ngOnInit(): void {

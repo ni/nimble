@@ -24,13 +24,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class NimbleComboboxControlValueAccessorDirective implements ControlValueAccessor {
     /**
-     * Maps the provided ngValue to the expected display value. The provided function should additionally be used
-     * to populate the content of each nimble-list-option within the nimble-combobox.
-     */
-    @Input()
-    public displayWith: ((value: unknown) => string) | null;
-
-    /**
      * @description
      * Tracks the option comparison algorithm for tracking identities when
      * checking for changes.
@@ -66,18 +59,20 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     public constructor(private readonly _renderer: Renderer2, private readonly _elementRef: ElementRef) {}
 
     /**
+     * Maps the provided ngValue to the expected display value. The provided function should additionally be used
+     * to populate the content of each nimble-list-option within the nimble-combobox.
+     */
+    @Input()
+    public displayWith: ((value: unknown) => string) = (value => {
+        return (typeof value === 'string') ? value : '';
+    });
+
+    /**
      * Updates the underlying nimble-combobox value with the expected display string.
      * @param value The ngValue set on the nimble-combobox
-     * @throws Will throw an error if no 'displayWith' function has been provided
      */
     public writeValue(value: unknown): void {
-        if (this.displayWith) {
-            this.setProperty('value', this.displayWith(value));
-        } else if (typeof value === 'string' || value === undefined || value === null) {
-            this.setProperty('value', value ?? '');
-        } else {
-            throw new Error('Unexpected value type or the necessary "displayWith" function was not provided.');
-        }
+        this.setProperty('value', this.displayWith(value));
     }
 
     /**
@@ -86,7 +81,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnChange(fn: (value: unknown) => void): void {
         this.onChange = (valueString: string): void => {
-            this.value = this._optionMap.get(valueString) ?? valueString;
+            this.value = this._optionMap.get(valueString) ?? Symbol(valueString);
             fn(this.value);
         };
     }

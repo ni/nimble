@@ -16,7 +16,7 @@ describe('Nimble combobox control value accessor', () => {
     describe('when using option\'s [ngValue] binding', () => {
         @Component({
             template: `
-                <nimble-combobox #combobox [(ngModel)]="selectedOption" [compareWith]="compareWith" [disabled]="selectDisabled" [displayWith]="displayWith">
+                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" [displayWith]="displayWith">
                     <nimble-list-option *ngFor="let option of selectOptions"
                         [ngValue]="option">
                         {{ option.name }}
@@ -37,6 +37,8 @@ describe('Nimble combobox control value accessor', () => {
 
             public selectDisabled = false;
 
+            public callbackValue: unknown;
+
             public compareWith(option1: { name: string, value: number } | null, option2: { name: string, value: number } | null): boolean {
                 return !!option1 && !!option2 && option1.value === option2.value;
             }
@@ -44,6 +46,10 @@ describe('Nimble combobox control value accessor', () => {
             public readonly displayWith = (value: { name: string, value: number } | null | undefined): string => {
                 return (value !== null && value !== undefined) ? value.name : '';
             };
+
+            public onModelValueChange(value: { name: string, value: number } | symbol): void {
+                this.callbackValue = value;
+            }
         }
 
         let combobox: Combobox;
@@ -109,6 +115,24 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.getAttribute('disabled')).toBe('');
             expect(combobox.disabled).toBe(true);
         }));
+
+        it('and user enters aribtrary text for value, callback value type is "symbol"', () => {
+            combobox.control.value = 'f';
+            combobox.control.dispatchEvent(new InputEvent('input', { data: 'f', inputType: 'insertText' }));
+            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            fixture.detectChanges();
+
+            expect(typeof testHostComponent.callbackValue).toEqual('symbol');
+        });
+
+        it('and user enters options text for value, callback value type is not "symbol"', () => {
+            combobox.control.value = 'Option 1';
+            combobox.control.dispatchEvent(new InputEvent('input', { data: 'Option 1', inputType: 'insertText' }));
+            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            fixture.detectChanges();
+
+            expect(typeof testHostComponent.callbackValue).not.toEqual('symbol');
+        });
     });
 
     describe('when using option\'s [value] binding', () => {
@@ -176,6 +200,15 @@ describe('Nimble combobox control value accessor', () => {
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2].name.toString());
+        });
+
+        it('updates bound property to Symbol(foo) when \'foo\' entered', () => {
+            combobox.control.value = 'foo';
+            combobox.control.dispatchEvent(new InputEvent('input', { data: 'foo', inputType: 'insertText' }));
+            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            fixture.detectChanges();
+
+            expect(testHostComponent.selectedOption.toString()).toEqual('Symbol(foo)');
         });
     });
 });
