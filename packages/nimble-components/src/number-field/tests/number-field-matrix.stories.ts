@@ -62,12 +62,18 @@ const component = (
         ?disabled="${() => disabled}"
         error-text="${() => errorText}"
     >
-    ${() => invalidName} ${() => appearanceName} ${() => valueName} ${() => disabledName}
+        ${() => invalidName} ${() => appearanceName} ${() => valueName}
+        ${() => disabledName}
     </nimble-number-field>
 `;
 
 export const numberFieldThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, valueStates, numberFieldInvalidStates, appearanceStates])
+    createMatrix(component, [
+        disabledStates,
+        valueStates,
+        numberFieldInvalidStates,
+        appearanceStates
+    ])
 );
 
 export const hiddenNumberField: Story = createStory(
