@@ -96,6 +96,13 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2]);
         });
 
+        it('uses \'displayWith\' override for text display', () => {
+            setComboboxValue(combobox, 2);
+            fixture.detectChanges();
+
+            expect(combobox.control.value).toEqual(testHostComponent.selectOptions[2].name);
+        });
+
         it('uses "compareWith" function to determine value equality', fakeAsync(() => {
             // copy object to test equality checking
             const newValue = JSON.parse(JSON.stringify(testHostComponent.selectOptions[2])) as { name: string, value: number };
@@ -124,15 +131,6 @@ describe('Nimble combobox control value accessor', () => {
             fixture.detectChanges();
 
             expect(typeof testHostComponent.callbackValue).toEqual('symbol');
-        });
-
-        it('and user enters options text for value, callback value type is not "symbol"', () => {
-            combobox.control.value = 'Option 1';
-            combobox.control.dispatchEvent(new InputEvent('input', { data: 'Option 1', inputType: 'insertText' }));
-            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-            fixture.detectChanges();
-
-            expect(typeof testHostComponent.callbackValue).not.toEqual('symbol');
         });
     });
 
