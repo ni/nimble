@@ -48,6 +48,10 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this._displayWith = fn;
     }
 
+    public get displayWith(): (value: unknown) => string {
+        return this._displayWith;
+    }
+
     /** @internal */
     public readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
 
@@ -109,6 +113,10 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     private _displayWith: ((value: unknown) => string) = (value => {
         if (typeof value === 'string') {
             return value;
+        }
+
+        if (value === null || value === undefined) {
+            return '';
         }
 
         throw new Error('Unknown value type requires custom `displayWith` override');

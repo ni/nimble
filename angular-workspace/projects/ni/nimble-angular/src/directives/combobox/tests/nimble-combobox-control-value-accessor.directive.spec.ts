@@ -116,7 +116,8 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.disabled).toBe(true);
         }));
 
-        it('and user enters aribtrary text for value, callback value type is "symbol"', () => {
+        // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
+        xit('and user enters aribtrary text for value, callback value type is "symbol"', () => {
             combobox.control.value = 'f';
             combobox.control.dispatchEvent(new InputEvent('input', { data: 'f', inputType: 'insertText' }));
             combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
@@ -202,7 +203,8 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2].name.toString());
         });
 
-        it('updates bound property to Symbol(foo) when \'foo\' entered', () => {
+        // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
+        xit('updates bound property to Symbol(foo) when \'foo\' entered', () => {
             combobox.control.value = 'foo';
             combobox.control.dispatchEvent(new InputEvent('input', { data: 'foo', inputType: 'insertText' }));
             combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
