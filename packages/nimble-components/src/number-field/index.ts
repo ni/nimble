@@ -1,14 +1,12 @@
+import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
     NumberFieldOptions,
     numberFieldTemplate as template
 } from '@microsoft/fast-foundation';
-import {
-    arrowExpanderDown16X16,
-    arrowExpanderUp16X16
-} from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
+import { NumberFieldAppearance } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,7 +17,17 @@ declare global {
 /**
  * A nimble-styled HTML number input
  */
-export class NumberField extends FoundationNumberField {}
+export class NumberField extends FoundationNumberField {
+    @attr
+    public appearance: NumberFieldAppearance = NumberFieldAppearance.underline;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+
+        // This is a workaround for FAST issue: https://github.com/microsoft/fast/issues/6148
+        this.control.setAttribute('role', 'spinbutton');
+    }
+}
 
 /**
  * A function that returns a number-field registration for configuring the component with a DesignSystem.
@@ -37,8 +45,28 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: arrowExpanderDown16X16.data,
-    stepUpGlyph: arrowExpanderUp16X16.data
+    stepDownGlyph: html`
+        <nimble-button
+            class="step-up-down-button"
+            appearance="ghost"
+            content-hidden
+            tabindex="-1"
+        >
+            "Decrement"
+            <nimble-icon-minus-wide slot="start"></nimble-icon-minus-wide>
+        </nimble-button>
+    `,
+    stepUpGlyph: html`
+        <nimble-button
+            class="step-up-down-button"
+            appearance="ghost"
+            content-hidden
+            tabindex="-1"
+        >
+            "Increment"
+            <nimble-icon-add slot="start"></nimble-icon-add>
+        </nimble-button>
+    `
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());

@@ -10,6 +10,7 @@ type TokenName = keyof typeof TokensNamespace;
 export const tokenNames: { readonly [key in TokenName]: string } = {
     actionRgbPartialColor: 'action-rgb-partial-color',
     applicationBackgroundColor: 'application-background-color',
+    dividerBackgroundColor: 'divider-background-color',
     headerBackgroundColor: 'header-background-color',
     sectionBackgroundColor: 'section-background-color',
     fillSelectedColor: 'fill-selected-color',
@@ -157,6 +158,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     tooltipCaptionFontWeight: 'tooltip-caption-font-weight',
     tooltipCaptionFontLineHeight: 'tooltip-caption-font-line-height',
     tooltipCaptionFallbackFontFamily: 'tooltip-caption-fallback-font-family',
+    tooltipBackgroundColor: 'tooltip-background-color',
     errorTextFont: 'error-text-font',
     errorTextFontColor: 'error-text-font-color',
     errorTextDisabledFontColor: 'error-text-disabled-font-color',

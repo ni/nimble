@@ -28,5 +28,6 @@ import './text-field';
 import './theme-provider';
 import './toggle-button';
 import './toolbar';
+import './tooltip';
 import './tree-item';
 import './tree-view';

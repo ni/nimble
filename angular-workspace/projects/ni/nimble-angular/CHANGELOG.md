@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 20 Jun 2022 23:17:47 GMT and should not be manually modified.
+This log was last generated on Mon, 27 Jun 2022 18:59:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.3.0
+
+Mon, 27 Jun 2022 18:59:58 GMT
+
+### Minor changes
+
+- Add appearance to number field Angular wrapper ([ni/nimble@fd5daf2](https://github.com/ni/nimble/commit/fd5daf29ad46350b3bb7938c79bdf0f4363ddf9e))
+
+## 7.2.4
+
+Mon, 27 Jun 2022 17:17:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.4.0
+
+## 7.2.3
+
+Fri, 24 Jun 2022 15:18:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.3.0
+
+## 7.2.2
+
+Thu, 23 Jun 2022 18:40:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.2.0
 
 ## 7.2.1
 
