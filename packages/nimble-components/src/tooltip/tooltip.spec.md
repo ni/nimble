@@ -20,18 +20,16 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
 
-Plan to add a `state` attribute with the type `TooltipAppearance`. It will have `default`, `error`, `errorIcon`, `information`, and `informationIcon` states, with `state`' default value being `default`.
-
-Custom CSS behaviors for each tooltip state will be represented as classes, with each class having style changes that can be easily implemented in the tooltip.
-
-A theme-aware css variable (local to the component) will be used for the backgrounds of the tooltip states- the value of the variable will change based on a combination of theme and the state.
-
-A theme-aware css variable (local to the component) will be used for the border colors of the error and information tooltip states- the value of the variable will change based on a combination of theme and the state.
+Plan to add a `state` attribute with the type `TooltipAppearance`. It will have `default`, `error`, `errorIcon`, `information`, and `informationIcon` states, with `state`'s default value being `default`.
 
 Icons will be available for the error and information states- The states `errorIcon` and `informationIcon` will include their corresponding icons at the beginning of the tooltip.
 
+Two css classes will be used to determine the type of tooltip to be displayed. The first class will have `default`, `error`, or `information` values, with the following class determining if the corresponding icon is visible or not by using `icon-visible`. By default the icons are set to be invisible.
+
+Two local css variables will be created for the tooltips- one that controls the border color of the tooltip, and one that controls the background color of the tooltip. These variables will be changed based on the css classes described above.
+
 -   _Component Name:_ `nimble-tooltip`
--   _Properties/Attributes:_ Adding `states` attribute
+-   _Properties/Attributes:_ Adding `state` attribute
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ None
@@ -93,5 +91,3 @@ How can we give each tooltip a custom id?
 When should we use the tooltip vs. the title attribute? MDN [lists many issues with the title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title#accessibility_concerns). Needs to be discussed with team and designers.
 
 Will the use of separate states for both icon tooltips be sufficient, or should it be changed later on to something different like a switcher (would toggle icon on or off for error and information states)? Would we allow / expect the client to provide or choose an icon, or will the error and info icons always be used?
-
-There are pros and cons with both separate states and a switcher (Separate states would be more straightforward but possibly more work to maintain since we have two extra states, switcher would have less code but could be confusing in the default state, where no icon is present. The switcher would have to be turned off when the state is default). Separate states is used for now as a prototype.
