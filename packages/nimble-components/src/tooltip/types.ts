@@ -4,8 +4,8 @@
  */
 export const TooltipStatus = {
     default: '',
+    fail: 'fail',
     information: 'information',
-    warning: 'warning'
 } as const;
 
 export type TooltipStatus =
