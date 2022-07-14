@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DropdownAppearance, NimbleSelectDirective, Select } from '../nimble-select.directive';
+import { DropdownAppearance } from '../../../public-api';
+import { NimbleSelectDirective, Select } from '../nimble-select.directive';
 import { NimbleSelectModule } from '../nimble-select.module';
 
 describe('Nimble select', () => {
