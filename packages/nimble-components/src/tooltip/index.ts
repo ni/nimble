@@ -3,7 +3,6 @@ import {
     DesignSystem,
     Tooltip as FoundationTooltip,
 } from '@microsoft/fast-foundation';
-import type { ITooltip } from './types';
 import { TooltipStatus } from './types';
 import { styles } from './styles';
 import { template } from './template';
@@ -17,7 +16,7 @@ declare global {
 /**
  * A nimble-styled tooltip control.
  */
-export class Tooltip extends FoundationTooltip implements ITooltip {
+export class Tooltip extends FoundationTooltip {
     /**
      * @public
      * @remarks

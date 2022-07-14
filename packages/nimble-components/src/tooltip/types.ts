@@ -1,20 +1,11 @@
 /**
- * The interface that tooltips of various types implement.
- */
-export interface ITooltip {
-    /**
-     * The appearance the tooltip should have.
-     */
-    state: TooltipStatus;
-}
-/**
  * Types of tooltip appearance.
  * @public
  */
 export const TooltipStatus = {
-    default: 'default',
-    fail: 'fail',
+    default: '',
     information: 'information',
+    warning: 'warning'
 } as const;
 
 export type TooltipStatus =
