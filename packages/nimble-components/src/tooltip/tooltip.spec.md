@@ -20,17 +20,16 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
 
+The appearance of the tooltip will be controlled by CSS classes. The state of the tooltip can be changed by setting the `error`, or `information` class. If none of these classes are applied, the tooltip will use the `default` appearance- a state that does not require a CSS class. When the tooltip has the `error` or `information` class applied, an icon can optionally be visible in the tooltip by setting the `icon-visible` class. The `icon-visible` class will have no impact on the tooltip when it has the `default` appearance. This will allow clients to easily switch between `default` and `error` without also having to change whether or not the `icon-visible` class is applied.
 Two css classes will be used to determine the type of tooltip to be displayed. The first class will have `default`, `error`, or `information` values, with the following class determining if the corresponding icon is visible or not by using `icon-visible`.
-
-Icons will be available for the error and information states- The corresponding icon can be shown by using the `icon` switcher, which calls the class `icon-visible` when `true`. No icon will be shown for the `default` class so that clients can easily switch between `default` and `error` classes without having to update the icon state.
 
 Two local css variables will be created for the tooltips- one that controls the border color of the tooltip, and one that controls the background color of the tooltip. These variables will be changed based on the css classes described above.
 
 -   _Component Name:_ `nimble-tooltip`
--   _Properties/Attributes:_ Adding `state` attribute
+-   _Properties/Attributes:_ Unchanged
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
--   _CSS Classes and Custom Properties that affect the component:_ None
+-   _CSS Classes and Custom Properties that affect the component:_ `icon-visible` and the special states of the tooltip (`warning` and `information`)
 -   _Slots:_ Unchanged
 -   _Template:_ Unchanged
 
@@ -51,7 +50,7 @@ A Blazor wrapper will be created for the component.
 -   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
     -   No additional requirements
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    -   The `state` attribute described above will be a Nimble-specific API.
+    -   No additional requirements
     -   Version of error / information tooltips with icons will also be included.
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
     -   No additional requirements
@@ -87,5 +86,3 @@ aria-describedby only shows up when tooltip attribute is set to visible
 How can we give each tooltip a custom id?
 
 When should we use the tooltip vs. the title attribute? MDN [lists many issues with the title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title#accessibility_concerns). Needs to be discussed with team and designers.
-
-Will the use of separate states for both icon tooltips be sufficient, or should it be changed later on to something different like a switcher (would toggle icon on or off for error and information states)? Would we allow / expect the client to provide or choose an icon, or will the error and info icons always be used?
