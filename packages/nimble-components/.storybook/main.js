@@ -14,7 +14,8 @@ module.exports = {
         },
         'storybook-addon-xd-designs',
         '@storybook/addon-a11y',
-        '@storybook/addon-interactions'
+        '@storybook/addon-interactions',
+        'storybook-anima'
     ],
     features: {
         previewCsfV3: true
