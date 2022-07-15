@@ -20,16 +20,19 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
 
-The appearance of the tooltip will be controlled by CSS classes. The state of the tooltip can be changed by setting the `error`, or `information` class. If none of these classes are applied, the tooltip will use the `default` appearance- a state that does not require a CSS class. When the tooltip has the `error` or `information` class applied, an icon can optionally be visible in the tooltip by setting the `icon-visible` class. The `icon-visible` class will have no impact on the tooltip when it has the `default` appearance. This will allow clients to easily switch between `default` and `error` without also having to change whether or not the `icon-visible` class is applied.
-Two css classes will be used to determine the type of tooltip to be displayed. The first class will have `default`, `error`, or `information` values, with the following class determining if the corresponding icon is visible or not by using `icon-visible`.
+The state of the tooltip can be changed by setting the `error`, or `information` class. If neither of these classes are applied, the tooltip will use the `default` appearance- a state that does not require a CSS class. When the tooltip has the `error` or `information` class applied, an icon can optionally be visible in the tooltip by setting the `icon-visible` class. The `icon-visible` class will have no impact on the tooltip when it has the `default` appearance. This will allow clients to easily switch between `default` and `error` without also having to change whether or not the `icon-visible` class is applied.
 
 Two local css variables will be created for the tooltips- one that controls the border color of the tooltip, and one that controls the background color of the tooltip. These variables will be changed based on the css classes described above.
+
+CSS constants for the `error`, `information`, and `default` states will be added to make configuring tooltip classes easier. `icon-visible` will not have constants, as it is easier to style the icon component itself.
+
+The tooltip will have a custom template based on FAST's template. In addition to the HTML that is in FAST's template, the template wll contain the two icons needed for the information and error states as shown in the XD spec. These icons will always be part of the template and their visibility will be controlled by a combination of the `icon-visible` class and the state classes.
 
 -   _Component Name:_ `nimble-tooltip`
 -   _Properties/Attributes:_ Unchanged
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
--   _CSS Classes and Custom Properties that affect the component:_ `icon-visible` and the special states of the tooltip (`warning` and `information`)
+-   _CSS Classes and Custom Properties that affect the component:_ `icon-visible` and the special states of the tooltip (`error` and `information`)
 -   _Slots:_ Unchanged
 -   _Template:_ Unchanged
 
