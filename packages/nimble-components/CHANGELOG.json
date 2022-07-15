@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 15 Jul 2022 21:12:50 GMT",
+      "tag": "@ni/nimble-components_v11.4.1",
+      "version": "11.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aa729cc29ca4969f14f4ab9313c3abdac2c8b248",
+            "comment": "Fix icon colors for the Color theme.(#629)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 27 Jun 2022 17:17:28 GMT",
       "tag": "@ni/nimble-components_v11.4.0",
       "version": "11.4.0",

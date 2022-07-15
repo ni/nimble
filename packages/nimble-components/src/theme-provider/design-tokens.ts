@@ -646,26 +646,16 @@ function getWarningColorForTheme(element: HTMLElement): string {
         element,
         Warning100LightUi,
         Warning100DarkUi,
-        Warning100DarkUi
+        White
     );
 }
 
 function getFailColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        Fail100LightUi,
-        Fail100DarkUi,
-        Fail100DarkUi
-    );
+    return getColorForTheme(element, Fail100LightUi, Fail100DarkUi, White);
 }
 
 function getPassColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        Pass100LightUi,
-        Pass100DarkUi,
-        Pass100DarkUi
-    );
+    return getColorForTheme(element, Pass100LightUi, Pass100DarkUi, White);
 }
 
 function getDefaultLineColorForTheme(element: HTMLElement): string {
