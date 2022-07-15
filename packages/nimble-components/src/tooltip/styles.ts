@@ -54,6 +54,7 @@ export const styles = css`
 
     :host(.fail.icon-visible) nimble-icon-exclamation-mark {
         display: flex;
+        flex: 0 0 auto;
     }
 
     nimble-icon-info {
@@ -66,6 +67,7 @@ export const styles = css`
     
     :host(.information.icon-visible) nimble-icon-info {
         display: flex;
+        flex: 0 0 auto;
     }
 
     :host(.fail) .tooltip {

@@ -42,7 +42,7 @@ export const styles = css`
 
     .icon svg {
         fill: ${iconColor};
-        width: 14px;
-        height: 14px;
+        width: 100%;
+        height: 100%;
     }
 `;
