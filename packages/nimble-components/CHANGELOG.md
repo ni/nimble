@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 27 Jun 2022 17:17:28 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Jul 2022 21:12:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.4.1
+
+Fri, 15 Jul 2022 21:12:50 GMT
+
+### Patches
+
+- Fix icon colors for the Color theme.(#629) ([ni/nimble@aa729cc](https://github.com/ni/nimble/commit/aa729cc29ca4969f14f4ab9313c3abdac2c8b248))
 
 ## 11.4.0
 
