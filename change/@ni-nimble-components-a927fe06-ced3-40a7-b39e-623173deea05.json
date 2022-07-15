@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix icon colors for the Color theme.(#629)",
+  "packageName": "@ni/nimble-components",
+  "email": "103057880+aidendk@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
