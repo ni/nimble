@@ -36,12 +36,15 @@ No final visual design spec exists yet.
 [HTML `<dialog>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 
 Most of the dialogs currently in SLE look like this:
+
 ![Confirmation prompt](confirm-remove-system.png)
 
 Another example has both a title and description:
+
 ![Cancel uploads prompt](cancel-uploads.png)
 
 An example from SLS's assets page called out by TJ as something that might need to be supported:
+
 ![Calibration policy prompt](calibration-policy.png)
 
 Some [early designs](https://xd.adobe.com/view/00ff3aa4-594f-48eb-6e29-84104374952f-76ce/screen/1085a774-78a1-44a4-8975-2f98286a78e5) from Brandon:
@@ -57,11 +60,11 @@ Some [early designs](https://xd.adobe.com/view/00ff3aa4-594f-48eb-6e29-841043749
 -   _Component Name_
     -   `nimble-dialog`
 -   _Props/Attrs_
-    -   `open` - shows dialog when set, closes when cleared
+    -   ~~`open` - shows dialog when set, closes when cleared. However, clients should _not_ set this value, otherwise the dialog opens non-modally, uncentered, and without focus management. `showModal()` should be called instead. The only reason to expose this attribute is to support one-way binding use cases.~~
     -   `prevent-dismiss` - prevent dismissal by pressing ESC (this attribute also exists on the Nimble drawer)
 -   _Methods_
-    -   `showModal()` - sets `open`, returns a `Promise` that is resolved when the dialog is closed
-    -   `close()` - clears `open`
+    -   `showModal()` - opens the dialog and returns a `Promise` that is resolved when the dialog is closed
+    -   `close()` - closes the dialog (returning focus to the control that had it before opening)
 -   _Events_
     -   `close` - fires when dialog closed
     -   `cancel` - fires when the _browser_ cancels the dialog (e.g. ESC pressed, or browser UI used to close dialog)
@@ -144,8 +147,8 @@ The FAST dialog provides very little that the html dialog doesn't. It does have 
 
 Hidden/visible
 
--   The dialog begins hidden and becomes visible when `open` attribute is set or the `showModal()` function is called (also sets `open`).
--   When `open` is removed or `close()` is called, the dialog is hidden.
+-   The dialog begins hidden and becomes visible when ~~`open` attribute is set or~~ the `showModal()` function is called.
+-   When ~~`open` is removed or~~ `close()` is called, the dialog is hidden.
 
 ### Accessibility
 
@@ -215,3 +218,6 @@ The nimble-drawer component shares some similarities with a dialog. We might con
 ---
 
 ## Open Issues
+- The `dialog` API uses mismatched terminology i.e. "show"/"close". Should we use the same (mismatched) names or switch to `openModal()`/`close()` or `showModal()`/`hide()`?
+
+- Do we need an `isOpen()` function?
