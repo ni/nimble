@@ -1,4 +1,4 @@
-import { html, observable, ref } from '@microsoft/fast-element';
+import { attr, html, observable, ref } from '@microsoft/fast-element';
 import {
     DesignSystem,
     FoundationElement
@@ -15,10 +15,32 @@ declare global {
  * A nimble-styled dialog.
  */
 export class Dialog extends FoundationElement {
+    @attr({ mode: 'boolean' })
+    public open = false;
+
+    @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
+    public preventDismiss = false;
+
     @observable
     public readonly dialogElement: HTMLDialogElement | undefined;
 
     private resolveShowModal: (() => void) | null = null;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+
+        this.dialogElement!.open = this.open;
+
+        this.dialogElement!.addEventListener('cancel', event => {
+            if (this.preventDismiss) {
+                event.preventDefault();
+            }
+        });
+
+        this.dialogElement!.addEventListener('close', _event => {
+            this.onClose();
+        });
+    }
 
     public async showModal(): Promise<void> {
         this.dialogElement?.showModal();
@@ -32,16 +54,25 @@ export class Dialog extends FoundationElement {
     }
 
     public onClose(): void {
+        this.open = false;
+
         if (this.resolveShowModal) {
             this.resolveShowModal();
             this.resolveShowModal = null;
         }
     }
+
+    public openChanged(_prev: boolean | undefined, _next: boolean): void {
+        if (this.dialogElement) {
+            this.dialogElement!.open = this.open;
+        }
+        console.log("open = " + this.open);
+    }
 }
 
 const template = html<Dialog>`
     <template>
-        <dialog ${ref('dialogElement')} onclose="onClose()">
+        <dialog ${ref('dialogElement')}>
             <slot></slot>
         </dialog>
     </template>
