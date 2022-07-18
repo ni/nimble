@@ -26,15 +26,6 @@ export class Tooltip extends FoundationTooltip {
     public state: TooltipStatus = TooltipStatus.default;
 }
 
-/**
- * A function that returns a nimble-button registration for configuring the component with a DesignSystem.
- * Implements {@link @microsoft/fast-foundation#tooltipTemplate}
- *
- * @public
- * @remarks
- * Generates HTML Element: \<nimble-button\>
- *
- */
 const nimbleTooltip = Tooltip.compose({
     baseName: 'tooltip',
     baseClass: FoundationTooltip,
