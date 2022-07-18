@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Make NI.CSharp.Analyzers a private dependency",
+  "packageName": "@ni/nimble-blazor",
+  "email": "83148975+yaqian256@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
