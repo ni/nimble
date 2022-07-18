@@ -1,20 +1,16 @@
-import { Directive, ElementRef, forwardRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+export const notFoundSymbol = Symbol('not found');
 /**
  * Control Value Accessor implementation to target combobox inputs.
- *
- * Directive decorator based on DefaultValueAccessor decorator
- * https://github.com/angular/angular/blob/master/packages/forms/src/directives/default_value_accessor.ts#L72
  */
 @Directive({
     selector:
       'nimble-combobox[formControlName],nimble-combobox[formControl],nimble-combobox[ngModel]',
-    // The following host metadata is duplicated from DefaultValueAccessor
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property
     host: {
-        '(change)': 'onChange($event.target.value)',
-        '(blur)': 'onTouched()'
+        '(change)': 'onChange($event.target.value)'
     },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
@@ -36,22 +32,6 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this._compareWith = fn;
     }
 
-    /**
-     * Maps the provided ngValue to the expected display value. The provided function should additionally be used
-     * to populate the content of each nimble-list-option within the nimble-combobox.
-     */
-    @Input()
-    public set displayWith(fn: (value: unknown) => string) {
-        if (typeof fn !== 'function') {
-            throw new Error(`displayWith must be a function, but received ${JSON.stringify(fn)}`);
-        }
-        this._displayWith = fn;
-    }
-
-    public get displayWith(): (value: unknown) => string {
-        return this._displayWith;
-    }
-
     /** @internal */
     public readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
 
@@ -70,6 +50,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
       * The registered callback function called when a blur event occurs on the input element.
       * @nodoc
       */
+    @HostListener('blur')
     private onTouched: () => void;
 
     public constructor(private readonly _renderer: Renderer2, private readonly _elementRef: ElementRef) {}
@@ -79,7 +60,8 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      * @param value The ngValue set on the nimble-combobox
      */
     public writeValue(value: unknown): void {
-        this.setProperty('value', this.displayWith(value));
+        const valueAsString = this.getValueStringFromValue(value);
+        this.setProperty('value', valueAsString ?? '');
     }
 
     /**
@@ -88,7 +70,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnChange(fn: (value: unknown) => void): void {
         this.onChange = (valueString: string): void => {
-            this.value = this._optionMap.get(valueString) ?? Symbol(valueString);
+            this.value = this._optionMap.get(valueString) ?? notFoundSymbol;
             fn(this.value);
         };
     }
@@ -101,6 +83,16 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this.onTouched = fn;
     }
 
+    private getValueStringFromValue(value: unknown): string | undefined {
+        for (const optionValue of this._optionMap.values()) {
+            if (optionValue === value) {
+                return Array.from(this._optionMap.keys()).find(key => this._optionMap.get(key) === optionValue);
+            }
+        }
+
+        return undefined;
+    }
+
     /**
      * Helper method that sets a property on a target element using the current Renderer
      * implementation.
@@ -109,16 +101,4 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     private setProperty(key: string, value: string): void {
         this._renderer.setProperty(this._elementRef.nativeElement, key, value);
     }
-
-    private _displayWith: ((value: unknown) => string) = (value => {
-        if (typeof value === 'string') {
-            return value;
-        }
-
-        if (value === null || value === undefined) {
-            return '';
-        }
-
-        throw new Error('Unknown value type requires custom `displayWith` override');
-    });
 }

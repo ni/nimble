@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import { Component, OnInit } from '@angular/core';
-import { DrawerLocation, MenuItem } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, notFoundSymbol } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
@@ -34,11 +34,11 @@ export class CustomAppComponent implements OnInit {
         alert(`drawerLocation: ${value}`);
     }
 
-    public onComboboxChange(value: ComboboxItem | symbol): void {
-        if (typeof value !== 'symbol') {
-            this.lastName = value.last;
+    public onComboboxChange(value: ComboboxItem | unknown): void {
+        if (value !== notFoundSymbol) {
+            this.lastName = (value as ComboboxItem).last;
         } else {
-            this.lastName = '';
+            this.lastName = 'not found';
         }
     }
 
@@ -47,7 +47,7 @@ export class CustomAppComponent implements OnInit {
         this.lastName = this.selectedOption.last;
     }
 
-    public comboboxDisplayName(value: unknown | null | undefined): string {
+    public comboboxDisplayName(value: unknown | null | undefined): string | undefined {
         return (value !== null && value !== undefined) ? (value as ComboboxItem).first : '';
     }
 }

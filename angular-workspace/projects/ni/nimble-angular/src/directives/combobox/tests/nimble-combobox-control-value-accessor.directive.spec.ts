@@ -6,6 +6,7 @@ import { NimbleListOptionModule } from '../../list-option/nimble-list-option.mod
 import { waitTask } from '../../../async-test-utilities';
 import { processUpdates } from '../../../testing/async-helpers';
 import type { Combobox } from '../nimble-combobox.directive';
+import { notFoundSymbol } from '../nimble-combobox-control-value-accessor.directive';
 
 function setComboboxValue(combobox: Combobox, index: number): void {
     combobox.dispatchEvent(new Event('click'));
@@ -16,11 +17,8 @@ describe('Nimble combobox control value accessor', () => {
     describe('when using option\'s [ngValue] binding', () => {
         @Component({
             template: `
-                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" [displayWith]="displayWith">
-                    <nimble-list-option *ngFor="let option of selectOptions"
-                        [ngValue]="option">
-                        {{ option.name }}
-                    </nimble-list-option>
+                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled">                    
+                    <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option.name }}</nimble-list-option>
                 </nimble-combobox>
              `
         })
@@ -33,21 +31,19 @@ describe('Nimble combobox control value accessor', () => {
                 { name: 'Option 3', value: 3 }
             ];
 
-            public selectedOption = this.selectOptions[1];
+            public selectedOption: { name: string, value: number } | unknown = this.selectOptions[1];
 
             public selectDisabled = false;
 
             public callbackValue: unknown;
 
+            public useDefaultOptions = true;
+
             public compareWith(option1: { name: string, value: number } | null, option2: { name: string, value: number } | null): boolean {
                 return !!option1 && !!option2 && option1.value === option2.value;
             }
 
-            public readonly displayWith = (value: { name: string, value: number } | null | undefined): string => {
-                return (value !== null && value !== undefined) ? value.name : '';
-            };
-
-            public onModelValueChange(value: { name: string, value: number } | symbol): void {
+            public onModelValueChange(value: { name: string, value: number } | unknown): void {
                 this.callbackValue = value;
             }
         }
@@ -96,13 +92,6 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2]);
         });
 
-        it('uses \'displayWith\' override for text display', () => {
-            setComboboxValue(combobox, 2);
-            fixture.detectChanges();
-
-            expect(combobox.control.value).toEqual(testHostComponent.selectOptions[2].name);
-        });
-
         it('uses "compareWith" function to determine value equality', fakeAsync(() => {
             // copy object to test equality checking
             const newValue = JSON.parse(JSON.stringify(testHostComponent.selectOptions[2])) as { name: string, value: number };
@@ -123,14 +112,49 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.disabled).toBe(true);
         }));
 
+        it('sets text to empty string for model value not in list options', fakeAsync(() => {
+            expect(combobox.control.value).toEqual('Option 2');
+            testHostComponent.selectedOption = { name: 'foo', value: 4 };
+            fixture.detectChanges();
+            tick();
+            processUpdates();
+
+            expect(combobox.control.value).toEqual('');
+        }));
+
+        it('list-option with current combobox value is removed, combobox display value is unchanged', fakeAsync(() => {
+            testHostComponent.selectOptions.splice(1, 1);
+            fixture.detectChanges();
+            tick();
+            processUpdates();
+
+            expect(combobox.control.value).toEqual('Option 2');
+        }));
+
+        it('list-option is removed followed by text of removed option entered as value, then \'testHostComponent.selectedOption\' is set to notFoundSymbol', fakeAsync(() => {
+            testHostComponent.selectOptions.splice(0, 1); // remove 'Option 1'
+            fixture.detectChanges();
+            tick();
+            processUpdates();
+
+            combobox.control.value = 'Option 1';
+            combobox.control.dispatchEvent(new InputEvent('input', { data: 'Option 1', inputType: 'insertText' }));
+            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            fixture.detectChanges();
+            tick();
+            processUpdates();
+
+            expect(testHostComponent.selectedOption).toEqual(notFoundSymbol);
+        }));
+
         // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
-        xit('and user enters aribtrary text for value, callback value type is "symbol"', () => {
+        xit('and user enters aribtrary text for value, callback value is notFoundSymbol', () => {
             combobox.control.value = 'f';
             combobox.control.dispatchEvent(new InputEvent('input', { data: 'f', inputType: 'insertText' }));
             combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
             fixture.detectChanges();
 
-            expect(typeof testHostComponent.callbackValue).toEqual('symbol');
+            expect(testHostComponent.callbackValue).toEqual(notFoundSymbol);
         });
     });
 
@@ -154,7 +178,7 @@ describe('Nimble combobox control value accessor', () => {
                 { name: 'Option 3', value: 3 }
             ];
 
-            public selectedOption = this.selectOptions[1].name.toString();
+            public selectedOption: string | unknown = this.selectOptions[1].name.toString();
         }
 
         let combobox: Combobox;
@@ -202,13 +226,13 @@ describe('Nimble combobox control value accessor', () => {
         });
 
         // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
-        xit('updates bound property to Symbol(foo) when \'foo\' entered', () => {
+        it('updates bound property to notFoundSymbol when \'foo\' entered', () => {
             combobox.control.value = 'foo';
             combobox.control.dispatchEvent(new InputEvent('input', { data: 'foo', inputType: 'insertText' }));
             combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
             fixture.detectChanges();
 
-            expect(testHostComponent.selectedOption.toString()).toEqual('Symbol(foo)');
+            expect(testHostComponent.selectedOption).toEqual(notFoundSymbol);
         });
     });
 });

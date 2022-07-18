@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgSelectOption } from '@angular/forms';
 import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
 import { NimbleComboboxControlValueAccessorDirective } from '../combobox/nimble-combobox-control-value-accessor.directive';
@@ -12,7 +12,7 @@ import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/templat
 @Directive({
     selector: 'nimble-list-option'
 })
-export class NimbleComboboxListOptionDirective extends NgSelectOption {
+export class NimbleComboboxListOptionDirective extends NgSelectOption implements AfterViewInit, OnDestroy {
     public get disabled(): boolean {
         return this.elementRef.nativeElement.disabled;
     }
@@ -21,6 +21,10 @@ export class NimbleComboboxListOptionDirective extends NgSelectOption {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
+    private _value: unknown;
+
+    private _currentValueString: string | undefined = undefined;
+
     public constructor(
         private readonly elementRef: ElementRef<ListOption>,
         private readonly renderer: Renderer2,
@@ -28,6 +32,19 @@ export class NimbleComboboxListOptionDirective extends NgSelectOption {
     ) {
         // @ts-expect-error The 'select' parameter can indeed be null
         super(elementRef, renderer, null);
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.combobox && this.elementRef.nativeElement.textContent) {
+            this._currentValueString = this.elementRef.nativeElement.textContent;
+            this.combobox._optionMap.set(this._currentValueString, this._value ?? null);
+        }
+    }
+
+    public ngOnDestroy(): void {
+        if (this.combobox && this._currentValueString) {
+            this.combobox._optionMap.delete(this._currentValueString);
+        }
     }
 
     /**
@@ -39,6 +56,7 @@ export class NimbleComboboxListOptionDirective extends NgSelectOption {
     @Input('ngValue')
     public set ngValue(value: unknown) {
         if (this.combobox) {
+            this._value = value;
             this.updateComboboxValue(value);
         }
     }
@@ -52,16 +70,22 @@ export class NimbleComboboxListOptionDirective extends NgSelectOption {
     @Input('value')
     public set value(value: unknown) {
         if (this.combobox) {
+            if (this._currentValueString) {
+                this.combobox._optionMap.delete(this._currentValueString);
+            }
+            this._currentValueString = value as string;
             // it's necessary to update the _optionMap on the combobox value accessor even when the values are just strings
-            this.updateComboboxValue(value as string);
+            this.updateComboboxValue(this._currentValueString);
         }
     }
 
     /** @internal */
     private updateComboboxValue(value: unknown): void {
-        const valueString = this.combobox.displayWith(value);
-        this.setElementValue(valueString);
-        this.combobox._optionMap.set(valueString, value);
+        const currentValueString = this._currentValueString ?? this.elementRef.nativeElement.textContent;
+        this.setElementValue(currentValueString ?? '');
+        if (currentValueString) {
+            this.combobox._optionMap.set(currentValueString, value);
+        }
     }
 
     /** @internal */
