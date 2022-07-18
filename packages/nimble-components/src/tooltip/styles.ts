@@ -14,7 +14,8 @@ import {
     popupBoxShadowColor,
     borderWidth,
     standardPadding,
-    smallPadding
+    smallPadding,
+    iconColor
 } from '../theme-provider/design-tokens';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
@@ -114,7 +115,17 @@ export const styles = css`
             }
 
             :host nimble-icon-exclamation-mark {
-                fill: solid ${hexToRgbaCssColor(White, 0.6)};
+                ${iconColor.cssCustomProperty}: ${hexToRgbaCssColor(
+                White,
+                0.6
+            )};
+            }
+
+            :host nimble-icon-info {
+                ${iconColor.cssCustomProperty}: ${hexToRgbaCssColor(
+                White,
+                0.6
+            )};
             }
         `
         )
