@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "peerDependencies": {
+    "@angular/cdk": "^12.1.0",
     "@angular/common": "^12.1.0",
     "@angular/core": "^12.1.0",
     "@angular/forms": "^12.1.0",

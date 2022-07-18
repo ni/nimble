@@ -18,6 +18,8 @@ export * from './directives/checkbox/nimble-checkbox.module';
 export * from './directives/combobox/nimble-combobox-control-value-accessor.directive';
 export * from './directives/combobox/nimble-combobox.directive';
 export * from './directives/combobox/nimble-combobox.module';
+export * from './directives/dialog/nimble-dialog.directive';
+export * from './directives/dialog/nimble-dialog.module';
 export * from './directives/drawer/nimble-drawer.directive';
 export * from './directives/drawer/nimble-drawer.module';
 export * from './directives/icons';
