@@ -14,7 +14,7 @@ import {
     popupBoxShadowColor,
     borderWidth,
     standardPadding,
-    smallPadding,
+    smallPadding
 } from '../theme-provider/design-tokens';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
@@ -26,17 +26,17 @@ export const styles = css`
         font: ${tooltipCaptionFont};
         color: ${tooltipCaptionFontColor};
         text-align: left;
-        --ni-private-tooltip-border-color: ${borderWidth} solid ${hexToRgbaCssColor(Black91, 0.3)};
+        --ni-private-tooltip-border-color: ${hexToRgbaCssColor(Black91, 0.3)};
         --ni-private-tooltip-background-color: ${Black15};
     }
-      
+
     .tooltip {
         box-sizing: border-box;
         flex-shrink: 0;
         max-width: 440px;
         box-shadow: 0px 3px 4px ${popupBoxShadowColor};
         display: inline-flex;
-        border: var(--ni-private-tooltip-border-color); 
+        border: ${borderWidth} solid var(--ni-private-tooltip-border-color);
         background-color: var(--ni-private-background-color);
         padding-bottom: 6px;
         padding-left: calc(${standardPadding} / 2);
@@ -64,23 +64,22 @@ export const styles = css`
         height: 14px;
         padding-right: 8px;
     }
-    
+
     :host(.information.icon-visible) nimble-icon-info {
         display: flex;
         flex: 0 0 auto;
     }
 
     :host(.fail) .tooltip {
-        --ni-private-tooltip-border-color: ${borderWidth} solid ${BannerFail100DarkUi};
+        --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
         --ni-private-tooltip-background-color: ${White};
     }
 
     :host(.information) .tooltip {
-        --ni-private-tooltip-border-color: ${borderWidth} solid ${Information100LightUi};
-        --ni-private-tooltip-background color: ${White};
+        --ni-private-tooltip-border-color: ${Information100LightUi};
+        --ni-private-tooltip-background-color: ${White};
     }
-    
-    `.withBehaviors(
+`.withBehaviors(
     /* Local Theme Behaviors for tooltip borders and backgrounds */
         themeBehavior(
             css`
@@ -89,22 +88,29 @@ export const styles = css`
             css`
             ${'' /* Dark Theme */}
             .tooltip {
+                --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
+                Black15,
+                0.3
+            )};
                 background-color: ${Black85};
-            }
-
-            :host(.default) .tooltip {
-                border: ${borderWidth} solid ${hexToRgbaCssColor(Black15, 0.3)};
             }
         `,
             css`
             ${'' /* Color Theme In progress fix icon colors */}
             .tooltip {
-                border: ${borderWidth} solid ${White};
+                --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
+                White,
+                0.15
+            )};
                 background-color: ${hexToRgbaCssColor(White, 0.15)};
             }
 
-            :host(.default) .tooltip {
-                border: ${borderWidth} solid ${hexToRgbaCssColor(White, 0.15)};
+            :host(.fail) .tooltip {
+                --ni-private-tooltip-border-color: ${White};
+            }
+
+            :host(.information) .tooltip {
+                --ni-private-tooltip-border-color: ${White};
             }
 
             :host nimble-icon-exclamation-mark {

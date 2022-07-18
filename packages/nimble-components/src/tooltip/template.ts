@@ -1,10 +1,13 @@
 import { html, ref, ViewTemplate, when } from '@microsoft/fast-element';
-import { AnchoredRegion, FoundationElementTemplate } from '@microsoft/fast-foundation';
+import {
+    AnchoredRegion,
+    FoundationElementTemplate
+} from '@microsoft/fast-foundation';
 import type { Tooltip } from '.';
 
 export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = context => {
     return html<Tooltip>`
-        ${when(
+            ${when(
         x => x.tooltipVisible,
         html<Tooltip>`
             <${context.tagFor(AnchoredRegion)}
@@ -31,5 +34,5 @@ export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = contex
             </${context.tagFor(AnchoredRegion)}>
         `
     )}
-    `;
+        `;
 };

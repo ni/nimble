@@ -13,7 +13,7 @@ import { TooltipStatus } from '../types';
 
 interface TooltipArgs {
     visible: boolean;
-    state: string;
+    state: keyof typeof TooltipStatus;
     delay: number;
     tooltip: string;
     autoUpdateMode: AutoUpdateMode;
@@ -58,13 +58,12 @@ const metadata: Meta<TooltipArgs> = {
             <nimble-tooltip
                 anchor="anchor"
                 ?visible="${x => x.visible}"
-                state="${x => x.state}"
                 delay="${x => x.delay}"
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
-                class="${x => (x.state)} ${x => (x.icon ? 'icon-visible' : '')}"
-             >
-             ${x => x.tooltip}
+                class="${x => TooltipStatus[x.state]} ${x => (x.icon ? 'icon-visible' : '')}"
+            >
+                ${x => x.tooltip}
             </nimble-tooltip>
         </div>
     `),
@@ -88,9 +87,9 @@ const metadata: Meta<TooltipArgs> = {
                 'The delay in milliseconds before a tooltip is shown after a hover event'
         },
         state: {
-            options: Object.values(TooltipStatus),
-            control: { type: 'radio' },
-        },
+            options: Object.keys(TooltipStatus),
+            control: { type: 'radio' }
+        }
     }
 };
 

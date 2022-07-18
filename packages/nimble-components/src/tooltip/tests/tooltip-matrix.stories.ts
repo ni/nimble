@@ -35,32 +35,42 @@ export default metadata;
 const tooltipStates = [
     ['defaultShortText', '', 'Hello'],
     [
-        'defaultLongText', '',
+        'defaultLongText',
+        '',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
     ],
     ['failShortText', 'fail', 'Hello'],
     [
-        'failLongText', 'fail',
+        'failLongText',
+        'fail',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
     ],
     ['failIconShortText', 'fail icon-visible', 'Hello'],
-    ['failIconLongText', 'fail icon-visible',
+    [
+        'failIconLongText',
+        'fail icon-visible',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
     ],
     ['infoShortText', 'information', 'Hello'],
     [
-        'infoLongText', 'information',
+        'infoLongText',
+        'information',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
-
     ],
     ['infoIconShortText', 'information icon-visible', 'Hello'],
-    ['infoIconLongText', 'information icon-visible',
+    [
+        'infoIconLongText',
+        'information icon-visible',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
-    ],
+    ]
 ] as const;
 type TooltipStates = typeof tooltipStates[number];
 
-const component = ([tooltipName, tooltipClass, tooltipValue]: TooltipStates): ViewTemplate => html`
+const component = ([
+    tooltipName,
+    tooltipClass,
+    tooltipValue
+]: TooltipStates): ViewTemplate => html`
     <style>
         div {
             max-width: 1430px;
@@ -82,10 +92,12 @@ const component = ([tooltipName, tooltipClass, tooltipValue]: TooltipStates): Vi
         .tooltip {
             justify-content: left;
         }
-   </style>
+    </style>
 
     <div class="container">
-        <div class="anchorDiv" id="${() => `${tooltipName}`}">${tooltipName}</div>
+        <div class="anchorDiv" id="${() => `${tooltipName}`}">
+            ${tooltipName}
+        </div>
 
         <nimble-tooltip
             anchor="${() => `${tooltipName}`}"

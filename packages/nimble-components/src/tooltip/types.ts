@@ -5,8 +5,7 @@
 export const TooltipStatus = {
     default: '',
     fail: 'fail',
-    information: 'information',
+    information: 'information'
 } as const;
 
-export type TooltipStatus =
-    typeof TooltipStatus[keyof typeof TooltipStatus];
+export type TooltipStatus = typeof TooltipStatus[keyof typeof TooltipStatus];

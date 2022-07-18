@@ -1,7 +1,7 @@
 import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
-    Tooltip as FoundationTooltip,
+    Tooltip as FoundationTooltip
 } from '@microsoft/fast-foundation';
 import { TooltipStatus } from './types';
 import { styles } from './styles';
