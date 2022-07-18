@@ -18,18 +18,30 @@ export class Dialog extends FoundationElement {
     @observable
     public readonly dialogElement: HTMLDialogElement | undefined;
 
-    public showModal(): void {
+    private resolveShowModal: (() => void) | null = null;
+
+    public async showModal(): Promise<void> {
         this.dialogElement?.showModal();
+        return new Promise((resolve, _reject) => {
+            this.resolveShowModal = resolve;
+        });
     }
 
     public close(): void {
         this.dialogElement?.close();
     }
+
+    public onClose(): void {
+        if (this.resolveShowModal) {
+            this.resolveShowModal();
+            this.resolveShowModal = null;
+        }
+    }
 }
 
 const template = html<Dialog>`
     <template>
-        <dialog ${ref('dialogElement')}>
+        <dialog ${ref('dialogElement')} onclose="onClose()">
             <slot></slot>
         </dialog>
     </template>
