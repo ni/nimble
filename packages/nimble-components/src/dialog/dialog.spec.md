@@ -118,6 +118,8 @@ Blazor support will be provided, following the same patterns as used for existin
 
 We will apply styling to give dialogs a consistent border, shadow, background, and font/font color.
 
+Dialogs will not have a title bar and close control ("X") by default. It will be up to a client to provide that if needed.
+
 Dialogs will always be opened in the center of the screen, sized to fit the contents. Scrolling the page while a dialog is open will not move the dialog, i.e. it will stay centered.
 
 Dialogs will not be movable or sizeable (in this initial design).
