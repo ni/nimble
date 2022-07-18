@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 16 Jun 2022 18:11:31 GMT and should not be manually modified.
+This log was last generated on Mon, 18 Jul 2022 15:25:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.5.0
+
+Mon, 18 Jul 2022 15:25:53 GMT
+
+### Minor changes
+
+- Adding invalid state support to number field ([ni/nimble@7dcb1af](https://github.com/ni/nimble/commit/7dcb1af22c1827320b2516e9b967830f3295e86a))
+
+## 11.4.1
+
+Fri, 15 Jul 2022 21:12:50 GMT
+
+### Patches
+
+- Fix icon colors for the Color theme.(#629) ([ni/nimble@aa729cc](https://github.com/ni/nimble/commit/aa729cc29ca4969f14f4ab9313c3abdac2c8b248))
+
+## 11.4.0
+
+Mon, 27 Jun 2022 17:17:28 GMT
+
+### Minor changes
+
+- New token for divider background color ([ni/nimble@12ed391](https://github.com/ni/nimble/commit/12ed391e04e9bdaac550d401704d54e0b6a10e83))
+
+## 11.3.0
+
+Fri, 24 Jun 2022 15:18:24 GMT
+
+### Minor changes
+
+- Implementation, styling, and tests for the 'default' state of the nimble-tooltip. ([ni/nimble@70e8d55](https://github.com/ni/nimble/commit/70e8d554250b8abc4ce7bdc069dcbf28107fee7c))
+
+## 11.2.0
+
+Thu, 23 Jun 2022 18:40:01 GMT
+
+### Minor changes
+
+- Add appearances and update inc/dec for number field ([ni/nimble@2678f74](https://github.com/ni/nimble/commit/2678f7470e090ed20520a4cd98fc07a8c2ab995b))
+
+## 11.1.1
+
+Mon, 20 Jun 2022 23:17:47 GMT
+
+### Patches
+
+- Restore animation growing from center ([ni/nimble@bb4b2b4](https://github.com/ni/nimble/commit/bb4b2b405cacb7960714617c8863fbdbb6fb2d74))
+
+## 11.1.0
+
+Mon, 20 Jun 2022 20:39:36 GMT
+
+### Minor changes
+
+- Add Combobox component ([ni/nimble@d6af9e7](https://github.com/ni/nimble/commit/d6af9e70b1058f46e6726f1caf22092523a0ff24))
 
 ## 11.0.4
 

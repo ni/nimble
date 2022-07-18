@@ -8,10 +8,8 @@ import {
     bodyFontColor,
     bodyDisabledFontColor,
     controlHeight,
-    errorTextFont,
     failColor,
     fillSelectedRgbPartialColor,
-    iconSize,
     labelHeight,
     smallDelay,
     controlLabelFont,
@@ -24,9 +22,11 @@ import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-block')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -66,10 +66,7 @@ export const styles = css`
         justify-content: center;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         gap: calc(${standardPadding} / 2);
-    }
-
-    :host(.invalid) .root {
-        border-bottom-color: ${failColor};
+        padding: ${borderWidth};
     }
 
     :host([readonly]) .root {
@@ -78,6 +75,10 @@ export const styles = css`
 
     :host([disabled]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host(.invalid) .root {
+        border-bottom-color: ${failColor};
     }
 
     .root:focus-within {
@@ -127,7 +128,7 @@ export const styles = css`
         background: transparent;
         color: inherit;
         padding: 0px;
-        height: ${controlHeight};
+        height: var(--ni-private-height-within-border);
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
@@ -158,10 +159,6 @@ export const styles = css`
 
     .control::placeholder {
         color: ${controlLabelFontColor};
-    }
-
-    .control:not([readonly]):focus-within::placeholder {
-        opacity: 1;
     }
 
     .control[disabled]::placeholder {
@@ -202,52 +199,6 @@ export const styles = css`
         width: 0px;
     }
 
-    .error-content {
-        display: none;
-    }
-
-    :host(.invalid) .error-content {
-        display: contents;
-    }
-
-    :host(.invalid) .error-content svg {
-        height: ${iconSize};
-        width: ${iconSize};
-        flex: none;
-    }
-
-    :host(.invalid) .error-content path {
-        fill: ${failColor};
-    }
-
-    :host([disabled]) .error-content path {
-        fill: ${bodyDisabledFontColor};
-    }
-
-    .errortext {
-        display: none;
-    }
-
-    :host(.invalid) .errortext {
-        display: block;
-        font: ${errorTextFont};
-        color: ${failColor};
-        width: 100%;
-        position: absolute;
-        top: ${controlHeight};
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    :host(.invalid) .error-text:empty {
-        display: none;
-    }
-
-    :host([disabled]) .errortext {
-        color: ${bodyDisabledFontColor};
-    }
-
     [part='actions'] {
         display: contents;
     }
@@ -261,13 +212,7 @@ export const styles = css`
                     css`
             .root {
                 border-bottom-width: ${borderWidth};
-            }
-
-            .control {
-                height: var(--ni-private-height-within-border);
-                padding-top: ${borderWidth};
-                padding-left: ${borderWidth};
-                padding-right: ${borderWidth};
+                padding-bottom: 0;
             }
         `
                 ),
@@ -286,11 +231,11 @@ export const styles = css`
             .root:focus-within,
             :host(.invalid) .root {
                 border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
             }
 
-            .root:focus-within .control,
-            :host(.invalid) .control {
-                height: calc(${controlHeight} - ${borderWidth});
+            :host(:hover) .root {
+                padding-bottom: 0;
             }
 
             :host([readonly]) .root {
@@ -308,14 +253,7 @@ export const styles = css`
                     css`
             .root {
                 border-width: ${borderWidth};
-            }
-
-            .control {
-                height: var(--ni-private-height-within-border);
-            }
-
-            :host(.invalid) .errortext {
-                top: calc(${controlHeight} - ${borderWidth});
+                padding: 0;
             }
         `
                 ),

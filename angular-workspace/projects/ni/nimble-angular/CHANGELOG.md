@@ -1,8 +1,74 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 16 Jun 2022 18:11:31 GMT and should not be manually modified.
+This log was last generated on Mon, 18 Jul 2022 15:25:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.4.0
+
+Mon, 18 Jul 2022 15:25:53 GMT
+
+### Minor changes
+
+- Adding error-text to number field's directive ([ni/nimble@7dcb1af](https://github.com/ni/nimble/commit/7dcb1af22c1827320b2516e9b967830f3295e86a))
+- Bump @ni/nimble-components to v11.5.0
+
+## 7.3.1
+
+Fri, 15 Jul 2022 21:12:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.4.1
+
+## 7.3.0
+
+Mon, 27 Jun 2022 18:59:58 GMT
+
+### Minor changes
+
+- Add appearance to number field Angular wrapper ([ni/nimble@fd5daf2](https://github.com/ni/nimble/commit/fd5daf29ad46350b3bb7938c79bdf0f4363ddf9e))
+
+## 7.2.4
+
+Mon, 27 Jun 2022 17:17:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.4.0
+
+## 7.2.3
+
+Fri, 24 Jun 2022 15:18:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.3.0
+
+## 7.2.2
+
+Thu, 23 Jun 2022 18:40:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.2.0
+
+## 7.2.1
+
+Mon, 20 Jun 2022 23:17:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.1.1
+
+## 7.2.0
+
+Mon, 20 Jun 2022 20:39:36 GMT
+
+### Minor changes
+
+- Add Combobox directive ([ni/nimble@d6af9e7](https://github.com/ni/nimble/commit/d6af9e70b1058f46e6726f1caf22092523a0ff24))
+- Bump @ni/nimble-components to v11.1.0
 
 ## 7.1.1
 

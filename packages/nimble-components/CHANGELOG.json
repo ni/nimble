@@ -2,6 +2,126 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 18 Jul 2022 15:25:53 GMT",
+      "tag": "@ni/nimble-components_v11.5.0",
+      "version": "11.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7dcb1af22c1827320b2516e9b967830f3295e86a",
+            "comment": "Adding invalid state support to number field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Jul 2022 21:46:06 GMT",
+      "tag": "@ni/nimble-components_v11.4.1",
+      "version": "11.4.1",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "810c12e81ba735599efb53601a56499067728f9e",
+            "comment": "tooltip spec updates for states (#309)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Jul 2022 21:12:50 GMT",
+      "tag": "@ni/nimble-components_v11.4.1",
+      "version": "11.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aa729cc29ca4969f14f4ab9313c3abdac2c8b248",
+            "comment": "Fix icon colors for the Color theme.(#629)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 27 Jun 2022 17:17:28 GMT",
+      "tag": "@ni/nimble-components_v11.4.0",
+      "version": "11.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "83799549+anguyen777@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "12ed391e04e9bdaac550d401704d54e0b6a10e83",
+            "comment": "New token for divider background color"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 24 Jun 2022 15:18:24 GMT",
+      "tag": "@ni/nimble-components_v11.3.0",
+      "version": "11.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "70e8d554250b8abc4ce7bdc069dcbf28107fee7c",
+            "comment": "Implementation, styling, and tests for the 'default' state of the nimble-tooltip."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Jun 2022 18:40:01 GMT",
+      "tag": "@ni/nimble-components_v11.2.0",
+      "version": "11.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2678f7470e090ed20520a4cd98fc07a8c2ab995b",
+            "comment": "Add appearances and update inc/dec for number field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Jun 2022 23:17:47 GMT",
+      "tag": "@ni/nimble-components_v11.1.1",
+      "version": "11.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bb4b2b405cacb7960714617c8863fbdbb6fb2d74",
+            "comment": "Restore animation growing from center"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Jun 2022 20:39:36 GMT",
+      "tag": "@ni/nimble-components_v11.1.0",
+      "version": "11.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d6af9e70b1058f46e6726f1caf22092523a0ff24",
+            "comment": "Add Combobox component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Jun 2022 19:45:58 GMT",
       "tag": "@ni/nimble-components_v11.0.4",
       "version": "11.0.4",

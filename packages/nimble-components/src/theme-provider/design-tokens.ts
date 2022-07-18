@@ -5,8 +5,8 @@ import {
     Black91,
     Black85,
     Black15,
-    Black30,
     Black75,
+    Black80,
     Black88,
     White,
     ForestGreen,
@@ -106,7 +106,11 @@ export const headerBackgroundColor = DesignToken.create<string>(
 
 export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+
+export const dividerBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dividerBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
@@ -168,6 +172,10 @@ export const popupBoxShadowColor = DesignToken.create<string>(
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
+
+export const tooltipBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(

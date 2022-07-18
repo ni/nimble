@@ -33,6 +33,7 @@
   ],
   "workspaces": [
     "packages/beachball-lock-update",
+    "packages/xliff-to-json-converter",
     "packages/nimble-tokens",
     "packages/nimble-components",
     "angular-workspace",

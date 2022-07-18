@@ -32,8 +32,9 @@ jobs:
       - run: npm ci
 
       # Audit
-      - run: npm audit --only=prod
-      - run: npm audit --audit-level=critical
+      # https://github.com/ni/nimble/issues/625
+      #- run: npm audit --only=prod
+      #- run: npm audit --audit-level=critical
 
       # Build
       - run: npm run build
@@ -61,18 +62,18 @@ jobs:
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
+      # Lint
+      - run: npm run lint
+
+      # Test
+      - run: npm run test
+
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
         if: github.event_name == 'push'
         run: npm run performance
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-
-      # Lint
-      - run: npm run lint
-
-      # Test
-      - run: npm run test
 
       # Check Changelog
       - run: npm run check

@@ -72,7 +72,9 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Number Field</div>
-                <nimble-number-field placeholder="Number Field" value="42">Number Field Label</nimble-number-field>
+                <nimble-number-field appearance="underline" placeholder="Number Field" value="42">Underline Number Field</nimble-number-field>
+                <nimble-number-field appearance="outline" placeholder="Number Field" value="42">Outline Number Field</nimble-number-field>
+                <nimble-number-field appearance="block" placeholder="Number Field" value="42">Block Number Field</nimble-number-field>
             </div>
             <div class="sub-container">
                 <div class="container-label">Select</div>
@@ -81,6 +83,19 @@
                     <nimble-list-option>Option 2</nimble-list-option>
                     <nimble-list-option>Option 3</nimble-list-option>
                 </nimble-select>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Combobox</div>
+                <nimble-combobox aria-label="Combobox" (change)="onComboboxChange($event)">
+                    <nimble-list-option>Option 1</nimble-list-option>
+                    <nimble-list-option>Option 2</nimble-list-option>
+                    <nimble-list-option>Option 3</nimble-list-option>
+                </nimble-combobox>
+                <div>
+                    <span>
+                        Current value: {{ comboboxValue }}
+                    </span>
+                </div>
             </div>
             <div class="sub-container">
                 <div class="container-label">Switch</div>
@@ -117,7 +132,9 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Text Field</div>
-                <nimble-text-field placeholder="Text Field" value="Here is text!">Text Field Label</nimble-text-field>
+                <nimble-text-field appearance="underline" placeholder="Text Field" value="Here is text!">Underline Text Field</nimble-text-field>
+                <nimble-text-field appearance="outline" placeholder="Text Field" value="Here is text!">Outline Text Field</nimble-text-field>
+                <nimble-text-field appearance="block" placeholder="Text Field" value="Here is text!">Block Text Field</nimble-text-field>
             </div>
             <div class="sub-container">
                 <div class="container-label">Toolbar</div>

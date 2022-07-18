@@ -1,7 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    borderColor,
     borderRgbPartialColor,
     borderHoverColor,
     borderWidth,
@@ -9,18 +8,22 @@ import {
     bodyDisabledFontColor,
     controlHeight,
     fillSelectedRgbPartialColor,
-    iconSize,
     controlLabelFont,
     controlLabelFontColor,
     labelHeight,
     smallDelay,
     bodyFont,
     failColor,
-    standardPadding
+    standardPadding,
+    controlLabelDisabledFontColor
 } from '../theme-provider/design-tokens';
+import { appearanceBehavior } from '../utilities/style/appearance';
+import { NumberFieldAppearance } from './types';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-block')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -29,6 +32,9 @@ export const styles = css`
         color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
+        --ni-private-height-within-border: calc(
+            ${controlHeight} - 2 * ${borderWidth}
+        );
     }
 
     :host([disabled]) {
@@ -42,24 +48,32 @@ export const styles = css`
         font: ${controlLabelFont};
     }
 
+    :host([disabled]) .label {
+        color: ${controlLabelDisabledFontColor};
+    }
+
     .root {
         box-sizing: border-box;
         position: relative;
         display: flex;
         flex-direction: row;
         justify-content: center;
+        align-items: center;
         border-radius: 0px;
-        border-bottom: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-        gap: calc(${standardPadding} / 2);
+        border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
+        padding: ${borderWidth};
     }
 
     .root:focus-within {
         border-bottom-color: ${borderHoverColor};
     }
 
-    :host([disabled]) .root,
-    :host([disabled]) .root:hover {
-        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
+    :host([disabled]) .root {
+        border-color: rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host(.invalid) .root {
+        border-bottom-color: ${failColor};
     }
 
     .root::before {
@@ -108,10 +122,11 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
-        height: calc(${controlHeight} - ${borderWidth});
+        height: var(--ni-private-height-within-border);
         width: 100%;
         border: none;
         padding: 0px;
+        padding-left: calc(${standardPadding} / 2);
     }
 
     .control:hover,
@@ -130,33 +145,77 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .control:focus-within::placeholder {
-        opacity: 1;
-    }
-
     .control[disabled]::placeholder {
         color: ${bodyDisabledFontColor};
     }
 
     .controls {
-        display: flex;
-        flex-direction: column;
+        display: contents;
     }
 
-    .step-up,
+    ${
+        /* We are using flex `order` to define the visual ordering of the inc/dec buttons and the invalid icon because they are not "interactive" i.e. part of the tab order */ ''
+    }
+    .step-up {
+        order: 3;
+        padding-right: calc(${standardPadding} / 4);
+    }
+
     .step-down {
-        display: inline-flex;
-        height: 15px;
-        width: 15px;
-        cursor: pointer;
-        justify-content: center;
-        align-items: center;
+        order: 2;
     }
 
-    .step-up svg,
-    .step-down svg {
-        height: ${iconSize};
-        width: ${iconSize};
-        fill: ${borderColor};
+    .step-up-down-button {
+        ${controlHeight.cssCustomProperty}: 24px;
     }
-`;
+
+    [part='end'] {
+        display: contents;
+    }
+
+    .error-icon {
+        order: 1;
+        padding-right: calc(${standardPadding} / 4);
+    }
+`.withBehaviors(
+            appearanceBehavior(
+                NumberFieldAppearance.underline,
+                css`
+            .root {
+                border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
+            }
+        `
+            ),
+            appearanceBehavior(
+                NumberFieldAppearance.block,
+                css`
+            .root {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+
+            .root:focus-within,
+            :host(.invalid) .root {
+                border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
+            }
+
+            :host(:hover) .root {
+                padding-bottom: 0;
+            }
+
+            :host([disabled]) .root {
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
+            }
+        `
+            ),
+            appearanceBehavior(
+                NumberFieldAppearance.outline,
+                css`
+            .root {
+                border-width: ${borderWidth};
+                padding: 0;
+            }
+        `
+            )
+        );
