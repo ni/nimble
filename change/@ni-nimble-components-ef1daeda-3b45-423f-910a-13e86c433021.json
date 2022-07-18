@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Adding invalid state support to number field",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

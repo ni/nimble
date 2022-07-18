@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 18 Jul 2022 15:25:53 GMT",
+      "tag": "@ni/nimble-angular_v7.4.0",
+      "version": "7.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7dcb1af22c1827320b2516e9b967830f3295e86a",
+            "comment": "Adding error-text to number field's directive"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.5.0",
+            "commit": "7dcb1af22c1827320b2516e9b967830f3295e86a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Jul 2022 21:12:50 GMT",
       "tag": "@ni/nimble-angular_v7.3.1",
       "version": "7.3.1",

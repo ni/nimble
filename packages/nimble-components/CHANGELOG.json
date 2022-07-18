@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 18 Jul 2022 15:25:53 GMT",
+      "tag": "@ni/nimble-components_v11.5.0",
+      "version": "11.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7dcb1af22c1827320b2516e9b967830f3295e86a",
+            "comment": "Adding invalid state support to number field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Jul 2022 21:46:06 GMT",
       "tag": "@ni/nimble-components_v11.4.1",
       "version": "11.4.1",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 15 Jul 2022 21:12:50 GMT and should not be manually modified.
+This log was last generated on Mon, 18 Jul 2022 15:25:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.5.0
+
+Mon, 18 Jul 2022 15:25:53 GMT
+
+### Minor changes
+
+- Adding invalid state support to number field ([ni/nimble@7dcb1af](https://github.com/ni/nimble/commit/7dcb1af22c1827320b2516e9b967830f3295e86a))
 
 ## 11.4.1
 
