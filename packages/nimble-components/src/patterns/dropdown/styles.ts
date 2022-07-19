@@ -40,10 +40,7 @@ export const styles = css`
     :host::before {
         content: '';
         position: absolute;
-        bottom: calc(
-            ${borderWidth} 
-            + var(--ni-private-indicator-lines-gap)
-        );
+        bottom: calc(${borderWidth} + var(--ni-private-indicator-lines-gap));
         width: 0px;
         height: 0px;
         justify-self: center;

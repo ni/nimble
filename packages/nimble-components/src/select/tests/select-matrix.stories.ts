@@ -40,10 +40,9 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <label>
-    ${() => disabledName} ${() => appearanceName}
-    </label>
-    <nimble-select 
+    <div style="display: inline-flex; flex-direction: column; margin: 5px; font: var(--ni-nimble-control-label-font); color: var(--ni-nimble-control-label-font-color)">
+    <label>${() => disabledName} ${() => appearanceName}</label>
+    <nimble-select
         ?disabled="${() => disabled}"
         appearance="${() => appearance}"
     >
@@ -52,6 +51,7 @@ const component = (
         <nimble-list-option value="3">Option 3</nimble-list-option>
         <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
     </nimble-select>
+    </div>
 `;
 
 export const selectThemeMatrix: Story = createMatrixThemeStory(
