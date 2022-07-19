@@ -15,9 +15,6 @@ declare global {
  * A nimble-styled dialog.
  */
 export class Dialog extends FoundationElement {
-    @attr({ mode: 'boolean' })
-    public open = false;
-
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
@@ -28,8 +25,6 @@ export class Dialog extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-
-        this.dialogElement!.open = this.open;
 
         this.dialogElement!.addEventListener('cancel', event => {
             if (this.preventDismiss) {
@@ -54,19 +49,10 @@ export class Dialog extends FoundationElement {
     }
 
     public onClose(): void {
-        this.open = false;
-
         if (this.resolveShowModal) {
             this.resolveShowModal();
             this.resolveShowModal = null;
         }
-    }
-
-    public openChanged(_prev: boolean | undefined, _next: boolean): void {
-        if (this.dialogElement) {
-            this.dialogElement!.open = this.open;
-        }
-        console.log("open = " + this.open);
     }
 }
 

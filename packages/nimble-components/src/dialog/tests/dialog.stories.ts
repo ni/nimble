@@ -5,7 +5,6 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface DialogArgs {
-    open: boolean;
     'prevent-dismiss': boolean;
 }
 
@@ -22,7 +21,6 @@ const metadata: Meta<DialogArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <nimble-dialog
-            ?open="${x => x.open}"
             ?prevent-dismiss="${x => x['prevent-dismiss']}"
         >
             <h1>Here is a dialog</h1>
@@ -32,13 +30,8 @@ const metadata: Meta<DialogArgs> = {
         <nimble-button onclick='document.querySelector("nimble-dialog").showModal().then(() => console.log("Dialog closed"))'>Open</nimble-button>
     `),
     argTypes: {
-        open: {
-            description:
-                'Do not set this attribute. Call the `showModal()` function instead.'
-        },
     },
     args: {
-        open: false,
         'prevent-dismiss': false
     }
 };
