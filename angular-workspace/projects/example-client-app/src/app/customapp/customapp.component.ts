@@ -16,18 +16,18 @@ export class CustomAppComponent {
     public drawerLocation: DrawerLocation = DrawerLocation.right;
     public isDrawerPinned = false;
     public drawerLocations = DrawerLocation;
-    public lastName: string;
+    public comboboxSelectedLastName: string;
     public comboboxItems: ComboboxItem[] = [
         { first: 'foo', last: 'bar' },
         { first: 'Bubba', last: 'Hotep' },
         { first: 'Mister', last: 'Smithers' }
     ];
 
-    public selectedOption: ComboboxItem;
+    public comboboxSelectedOption: ComboboxItem;
 
     public constructor() {
-        this.selectedOption = this.comboboxItems[0];
-        this.lastName = this.selectedOption.last;
+        this.comboboxSelectedOption = this.comboboxItems[0];
+        this.comboboxSelectedLastName = this.comboboxSelectedOption.last;
     }
 
     public onMenuButtonMenuChange(event: Event): void {
@@ -41,9 +41,9 @@ export class CustomAppComponent {
 
     public onComboboxChange(value: ComboboxItem | unknown): void {
         if (value !== notFoundSymbol) {
-            this.lastName = (value as ComboboxItem).last;
+            this.comboboxSelectedLastName = (value as ComboboxItem).last;
         } else {
-            this.lastName = 'not found';
+            this.comboboxSelectedLastName = 'not found';
         }
     }
 }

@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "Adding Combobox CVA and refactor of ListOption CVA",
+  "comment": "Adding Combobox CVA and refactor of ListOption CVA. The breaking change is that NimbleListOptionDirective is being refactored into two new types: NimbleSelectListOptionDirective, and NimbleComboboxListOptionDirective. Existing imports of NimbleListOptionDirective should switch to use NimbleSelectListOptionDirective.",
   "packageName": "@ni/nimble-angular",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "patch"

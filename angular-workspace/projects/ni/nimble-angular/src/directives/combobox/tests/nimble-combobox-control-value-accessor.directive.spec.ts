@@ -6,7 +6,8 @@ import { NimbleListOptionModule } from '../../list-option/nimble-list-option.mod
 import { waitTask } from '../../../async-test-utilities';
 import { processUpdates } from '../../../testing/async-helpers';
 import type { Combobox } from '../nimble-combobox.directive';
-import { notFoundSymbol } from '../nimble-combobox-control-value-accessor.directive';
+import { NimbleCheckboxControlValueAccessorDirective } from 'dist/ni/nimble-angular/public-api';
+import { NimbleComboboxControlValueAccessorDirective } from '../nimble-combobox-control-value-accessor.directive';
 
 function setComboboxValue(combobox: Combobox, index: number): void {
     combobox.dispatchEvent(new Event('click'));
@@ -144,7 +145,7 @@ describe('Nimble combobox control value accessor', () => {
             tick();
             processUpdates();
 
-            expect(testHostComponent.selectedOption).toEqual(notFoundSymbol);
+            expect(testHostComponent.selectedOption).toEqual(NimbleComboboxControlValueAccessorDirective.notFoundSymbol);
         }));
 
         // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
@@ -154,7 +155,7 @@ describe('Nimble combobox control value accessor', () => {
             combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
             fixture.detectChanges();
 
-            expect(testHostComponent.callbackValue).toEqual(notFoundSymbol);
+            expect(testHostComponent.callbackValue).toEqual(NimbleComboboxControlValueAccessorDirective.notFoundSymbol);
         });
     });
 
@@ -232,7 +233,7 @@ describe('Nimble combobox control value accessor', () => {
             combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
             fixture.detectChanges();
 
-            expect(testHostComponent.selectedOption).toEqual(notFoundSymbol);
+            expect(testHostComponent.selectedOption).toEqual(NimbleComboboxControlValueAccessorDirective.notFoundSymbol);
         });
     });
 });

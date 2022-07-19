@@ -86,12 +86,12 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Combobox</div>
-                <nimble-combobox aria-label="Combobox" [(ngModel)]="selectedOption" (ngModelChange)="onComboboxChange($event)">
+                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)">
                     <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item.first }}</nimble-list-option>
                 </nimble-combobox>
                 <div>
                     <span>
-                        Last name: {{ lastName }}
+                        Last name: {{ comboboxSelectedLastName }}
                     </span>
                 </div>
             </div>

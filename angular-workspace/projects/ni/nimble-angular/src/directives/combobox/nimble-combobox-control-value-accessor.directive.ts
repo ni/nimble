@@ -1,17 +1,12 @@
 import { Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export const notFoundSymbol = Symbol('not found');
 /**
  * Control Value Accessor implementation to target combobox inputs.
  */
 @Directive({
     selector:
       'nimble-combobox[formControlName],nimble-combobox[formControl],nimble-combobox[ngModel]',
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        '(change)': 'onChange($event.target.value)'
-    },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => NimbleComboboxControlValueAccessorDirective),
@@ -19,6 +14,7 @@ export const notFoundSymbol = Symbol('not found');
     }]
 })
 export class NimbleComboboxControlValueAccessorDirective implements ControlValueAccessor {
+    public static notFoundSymbol = Symbol('not found');
     /**
      * @description
      * Tracks the option comparison algorithm for tracking identities when
@@ -44,6 +40,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      * element.
      * @nodoc
      */
+    @HostListener('change', ['$event.target.value]'])
     private onChange: (_: string) => void;
 
     /**
@@ -70,7 +67,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnChange(fn: (value: unknown) => void): void {
         this.onChange = (valueString: string): void => {
-            this.value = this._optionMap.get(valueString) ?? notFoundSymbol;
+            this.value = this._optionMap.get(valueString) ?? NimbleComboboxControlValueAccessorDirective.notFoundSymbol;
             fn(this.value);
         };
     }
