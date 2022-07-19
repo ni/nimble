@@ -41,8 +41,8 @@ export const styles = css`
         content: '';
         position: absolute;
         bottom: calc(
-            var(--ni-private-hover-indicator-width) +
-                var(--ni-private-indicator-lines-gap)
+            ${borderWidth} 
+            + var(--ni-private-indicator-lines-gap)
         );
         width: 0px;
         height: 0px;

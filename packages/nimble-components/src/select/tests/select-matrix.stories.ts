@@ -37,9 +37,12 @@ type AppearanceState = typeof appearanceStates[number];
 
 // prettier-ignore
 const component = (
-    [_, disabled]: DisabledState,
-    [_appearanceName, appearance]: AppearanceState
+    [disabledName, disabled]: DisabledState,
+    [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
+    <label>
+    ${() => disabledName} ${() => appearanceName}
+    </label>
     <nimble-select 
         ?disabled="${() => disabled}"
         appearance="${() => appearance}"
