@@ -14,7 +14,6 @@ import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
-import { bodyFont } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Select',
