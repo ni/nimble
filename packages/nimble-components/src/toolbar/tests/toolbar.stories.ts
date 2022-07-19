@@ -28,19 +28,44 @@ const metadata: Meta = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+
+        <nimble-menu-button tabindex="-1" appearance="ghost" slot="start">
+            Settings
+
+            <nimble-menu slot="menu">
+                <nimble-menu-item>Item 1</nimble-menu-item>
+                <nimble-menu-item>Item 2</nimble-menu-item>
+                <nimble-menu-item>Item 3</nimble-menu-item>
+            </nimble-menu>
+        </nimble-menu-button>
+
         <nimble-toolbar>
             <nimble-button appearance="ghost" slot="start">
                 <nimble-icon-eye slot="start"></nimble-icon-eye>
                 View
             </nimble-button>
-            <nimble-button disabled appearance="ghost" slot="start">
+            <nimble-button appearance="ghost" slot="start">
                 <nimble-icon-trash slot="start"></nimble-icon-trash>
                 Delete
             </nimble-button>
+            <nimble-menu-button appearance="ghost" slot="start">
+                Settings
+
+                <nimble-menu slot="menu">
+                    <nimble-menu-item>Item 1</nimble-menu-item>
+                    <nimble-menu-item>Item 2</nimble-menu-item>
+                    <nimble-menu-item>Item 3</nimble-menu-item>
+                </nimble-menu>
+            </nimble-menu-button>
             <nimble-button appearance="ghost" slot="start">
                 <nimble-icon-pencil slot="start"></nimble-icon-pencil>
                 Edit
             </nimble-button>
+            <nimble-select slot="${_x => 'start'}">
+                <nimble-list-option>option 1</nimble-list-option>
+                <nimble-list-option>option 2</nimble-list-option>
+                <nimble-list-option>option 3</nimble-list-option>
+            </nimble-select>
 
             <nimble-button appearance="ghost" content-hidden slot="end">
                 <nimble-icon-cog slot="start"></nimble-icon-cog>

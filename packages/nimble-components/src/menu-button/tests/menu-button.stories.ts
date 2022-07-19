@@ -61,6 +61,7 @@ const metadata: Meta<MenuButtonArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <nimble-menu-button
+            tabindex="-1"
             ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"
             ?content-hidden="${x => x.contentHidden}"

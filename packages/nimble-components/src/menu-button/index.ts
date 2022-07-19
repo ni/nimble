@@ -110,6 +110,12 @@ export class MenuButton extends FoundationElement implements IButton {
             // wait until the menu is actually opened before firing the event.
             this.$emit('open-change');
         }
+
+        if (this.open) {
+            // debugger;
+            // this.tabIndex = 0;
+            this.setAttribute('tabindex', '0');
+        }
     }
 
     public regionLoadedHandler(): void {
