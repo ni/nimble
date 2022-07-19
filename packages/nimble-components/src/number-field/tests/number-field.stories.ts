@@ -10,6 +10,8 @@ interface NumberFieldArgs {
     value: number;
     appearance: NumberFieldAppearance;
     disabled: boolean;
+    invalid: boolean;
+    'error-text': string;
 }
 
 const metadata: Meta<NumberFieldArgs> = {
@@ -36,6 +38,8 @@ const metadata: Meta<NumberFieldArgs> = {
             value="${x => x.value}"
             appearance="${x => x.appearance}"
             ?disabled="${x => x.disabled}"
+            class="${x => (x.invalid ? 'invalid' : '')}"
+            error-text="${x => x['error-text']}"
         >
             ${x => x.label}
         </nimble-number-field>
@@ -50,7 +54,9 @@ const metadata: Meta<NumberFieldArgs> = {
         label: 'default label',
         value: 42,
         appearance: NumberFieldAppearance.underline,
-        disabled: false
+        disabled: false,
+        invalid: false,
+        'error-text': 'Value is invalid'
     }
 };
 

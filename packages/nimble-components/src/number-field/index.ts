@@ -7,6 +7,10 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
+import { errorTextTemplate } from '../patterns/error/template';
+import '../icons/add';
+import '../icons/exclamation-mark';
+import '../icons/minus-wide';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,6 +24,16 @@ declare global {
 export class NumberField extends FoundationNumberField {
     @attr
     public appearance: NumberFieldAppearance = NumberFieldAppearance.underline;
+
+    /**
+     * A message explaining why the value is invalid.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: error-text
+     */
+    @attr({ attribute: 'error-text' })
+    public errorText: string | undefined;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -66,6 +80,12 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
             "Increment"
             <nimble-icon-add slot="start"></nimble-icon-add>
         </nimble-button>
+    `,
+    end: html<NumberField>`
+        <nimble-icon-exclamation-mark
+            class="error-icon fail"
+        ></nimble-icon-exclamation-mark>
+        ${errorTextTemplate}
     `
 });
 

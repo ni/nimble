@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 27 Jun 2022 18:59:58 GMT and should not be manually modified.
+This log was last generated on Mon, 18 Jul 2022 15:25:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.4.0
+
+Mon, 18 Jul 2022 15:25:53 GMT
+
+### Minor changes
+
+- Adding error-text to number field's directive ([ni/nimble@7dcb1af](https://github.com/ni/nimble/commit/7dcb1af22c1827320b2516e9b967830f3295e86a))
+- Bump @ni/nimble-components to v11.5.0
+
+## 7.3.1
+
+Fri, 15 Jul 2022 21:12:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.4.1
 
 ## 7.3.0
 
