@@ -159,9 +159,7 @@ By using the native `dialog` element, we get good a11y behavior without having t
 -   ESC key closes the dialog
 -   The dialog has the a11y role `dialog`
 
-A related role is `alertdialog`, which is supposed to be set on "the node containing both the alert message and the rest of the dialog" when the dialog contains an alert message. It will be up to the user to set the role of the nimble-dialog to `alertdialog` when appropriate.
-
-Another task for the user is to set `aria-labelledby` to point to an element that is the title for the dialog, or else `aria-label` should provide the title directly.
+The WAI-ARIA guidelines also state that a dialog should always have at least one focusable element, which typically is satisfied by a Close/OK/Cancel button.
 
 ### Globalization
 
@@ -221,3 +219,5 @@ The nimble-drawer component shares some similarities with a dialog. We might con
 - The `dialog` API uses mismatched terminology i.e. "show"/"close". Should we use the same (mismatched) names or switch to `openModal()`/`close()` or `showModal()`/`hide()`?
 
 - Do we need an `isOpen()` function?
+
+- Accessibility: The role `alertdialog` should be used for most modal dialogs. `role` and other aria attributes are not inherited across the shadow DOM boundary, so the user cannot change the role or other aria attributes on the `dialog` element. When role is `alertdialog`, `aria-describedby` is also supposed to be set to reference the element containing the alert message (which would be part of the user-provided content). Similarly, for both `dialog` and `alertdialog` roles, `aria-labelledby` should be set to point to an element that is the title for the dialog, or else `aria-label` should provide the title directly.
