@@ -7,7 +7,7 @@ import { NimbleSelectControlValueAccessorDirective } from '../select/nimble-sele
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 /**
- * Directive to provide Angular integration for the list option.
+ * Directive to provide Angular integration for the list option when used with a select.
  */
 @Directive({
     selector: 'nimble-list-option'
