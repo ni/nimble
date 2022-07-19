@@ -78,7 +78,6 @@ export class NimbleComboboxListOptionDirective extends NgSelectOption implements
         }
     }
 
-
     private updateComboboxValue(value: unknown): void {
         const currentValueString = this._currentValueString ?? this.elementRef.nativeElement.textContent;
         this.setElementValue(currentValueString ?? '');

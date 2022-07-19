@@ -6,7 +6,6 @@ import { NimbleListOptionModule } from '../../list-option/nimble-list-option.mod
 import { waitTask } from '../../../async-test-utilities';
 import { processUpdates } from '../../../testing/async-helpers';
 import type { Combobox } from '../nimble-combobox.directive';
-import { NimbleCheckboxControlValueAccessorDirective } from 'dist/ni/nimble-angular/public-api';
 import { NimbleComboboxControlValueAccessorDirective } from '../nimble-combobox-control-value-accessor.directive';
 
 function setComboboxValue(combobox: Combobox, index: number): void {
