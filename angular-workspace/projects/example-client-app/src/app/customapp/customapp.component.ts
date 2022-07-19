@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import { Component } from '@angular/core';
-import { DrawerLocation, MenuItem, notFoundSymbol } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, NimbleComboboxControlValueAccessorDirective } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
@@ -40,7 +40,7 @@ export class CustomAppComponent {
     }
 
     public onComboboxChange(value: ComboboxItem | unknown): void {
-        if (value !== notFoundSymbol) {
+        if (value !== NimbleComboboxControlValueAccessorDirective.notFoundSymbol) {
             this.comboboxSelectedLastName = (value as ComboboxItem).last;
         } else {
             this.comboboxSelectedLastName = 'not found';
