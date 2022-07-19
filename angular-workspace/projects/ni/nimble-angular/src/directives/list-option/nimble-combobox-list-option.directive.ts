@@ -7,7 +7,7 @@ import { NimbleComboboxControlValueAccessorDirective } from '../combobox/nimble-
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 /**
- * Directive to provide Angular integration for the list option.
+ * Directive to provide Angular integration for the list option when used with a combobox.
  */
 @Directive({
     selector: 'nimble-list-option'
