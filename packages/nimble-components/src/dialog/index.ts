@@ -26,15 +26,15 @@ export class Dialog extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
 
-        this.dialogElement!.addEventListener('cancel', event => {
-            if (this.preventDismiss) {
-                event.preventDefault();
-            }
-        });
+        this.dialogElement!.addEventListener('cancel', this.cancelHandler);
+        this.dialogElement!.addEventListener('close', this.closeHandler);
+    }
 
-        this.dialogElement!.addEventListener('close', _event => {
-            this.onClose();
-        });
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        this.dialogElement!.removeEventListener('cancel', this.cancelHandler);
+        this.dialogElement!.removeEventListener('close', this.closeHandler);
     }
 
     public async showModal(): Promise<void> {
@@ -54,6 +54,30 @@ export class Dialog extends FoundationElement {
             this.resolveShowModal = null;
         }
     }
+
+    private readonly cancelHandler = (event: Event): void => {
+        if (this.preventDismiss) {
+            event.preventDefault();
+        } else {
+            const shouldDismiss = this.$emit(
+                'cancel',
+                {},
+                { bubbles: event.bubbles, cancelable: event.cancelable, composed: event.composed }
+            );
+            if (!shouldDismiss) {
+                event.preventDefault();
+            }
+        }
+    };
+
+    private readonly closeHandler = (event: Event): void => {
+        this.onClose();
+        this.$emit(
+            'close',
+            {},
+            { bubbles: event.bubbles, cancelable: event.cancelable, composed: event.composed }
+        );
+    };
 }
 
 const template = html<Dialog>`
