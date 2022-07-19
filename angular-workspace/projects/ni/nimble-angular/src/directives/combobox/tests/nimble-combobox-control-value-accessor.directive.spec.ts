@@ -113,7 +113,6 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('sets text to empty string for model value not in list options', fakeAsync(() => {
-            expect(combobox.control.value).toEqual('Option 2');
             testHostComponent.selectedOption = { name: 'foo', value: 4 };
             fixture.detectChanges();
             tick();

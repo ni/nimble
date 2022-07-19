@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DrawerLocation, MenuItem, notFoundSymbol } from '@ni/nimble-angular';
 
 interface ComboboxItem {
@@ -12,7 +12,7 @@ interface ComboboxItem {
     templateUrl: './customapp.component.html',
     styleUrls: ['./customapp.component.scss']
 })
-export class CustomAppComponent implements OnInit {
+export class CustomAppComponent {
     public drawerLocation: DrawerLocation = DrawerLocation.right;
     public isDrawerPinned = false;
     public drawerLocations = DrawerLocation;
@@ -24,6 +24,11 @@ export class CustomAppComponent implements OnInit {
     ];
 
     public selectedOption: ComboboxItem;
+
+    public constructor() {
+        this.selectedOption = this.comboboxItems[0];
+        this.lastName = this.selectedOption.last;
+    }
 
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;
@@ -40,14 +45,5 @@ export class CustomAppComponent implements OnInit {
         } else {
             this.lastName = 'not found';
         }
-    }
-
-    public ngOnInit(): void {
-        this.selectedOption = this.comboboxItems[0];
-        this.lastName = this.selectedOption.last;
-    }
-
-    public comboboxDisplayName(value: unknown | null | undefined): string | undefined {
-        return (value !== null && value !== undefined) ? (value as ComboboxItem).first : '';
     }
 }
