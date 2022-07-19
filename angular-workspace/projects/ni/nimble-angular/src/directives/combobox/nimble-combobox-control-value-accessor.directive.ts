@@ -85,7 +85,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
 
     private getValueStringFromValue(value: unknown): string | undefined {
         for (const optionValue of this._optionMap.values()) {
-            if (optionValue === value) {
+            if (this._compareWith(optionValue, value)) {
                 return Array.from(this._optionMap.keys()).find(key => this._optionMap.get(key) === optionValue);
             }
         }

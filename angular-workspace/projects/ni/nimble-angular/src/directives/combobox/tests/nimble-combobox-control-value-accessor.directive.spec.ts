@@ -131,7 +131,8 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.control.value).toEqual('Option 2');
         }));
 
-        it('list-option is removed followed by text of removed option entered as value, then \'testHostComponent.selectedOption\' is set to notFoundSymbol', fakeAsync(() => {
+        // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
+        xit('list-option is removed followed by text of removed option entered as value, then \'testHostComponent.selectedOption\' is set to notFoundSymbol', fakeAsync(() => {
             testHostComponent.selectOptions.splice(0, 1); // remove 'Option 1'
             fixture.detectChanges();
             tick();
@@ -226,7 +227,7 @@ describe('Nimble combobox control value accessor', () => {
         });
 
         // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
-        it('updates bound property to notFoundSymbol when \'foo\' entered', () => {
+        xit('updates bound property to notFoundSymbol when \'foo\' entered', () => {
             combobox.control.value = 'foo';
             combobox.control.dispatchEvent(new InputEvent('input', { data: 'foo', inputType: 'insertText' }));
             combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
