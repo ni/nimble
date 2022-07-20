@@ -66,6 +66,7 @@ export const styles = css`
         justify-content: center;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         gap: calc(${standardPadding} / 2);
+        padding: ${borderWidth};
     }
 
     :host([readonly]) .root {
@@ -127,7 +128,7 @@ export const styles = css`
         background: transparent;
         color: inherit;
         padding: 0px;
-        height: ${controlHeight};
+        height: var(--ni-private-height-within-border);
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
@@ -158,10 +159,6 @@ export const styles = css`
 
     .control::placeholder {
         color: ${controlLabelFontColor};
-    }
-
-    .control:not([readonly]):focus-within::placeholder {
-        opacity: 1;
     }
 
     .control[disabled]::placeholder {
@@ -215,13 +212,7 @@ export const styles = css`
                     css`
             .root {
                 border-bottom-width: ${borderWidth};
-            }
-
-            .control {
-                height: var(--ni-private-height-within-border);
-                padding-top: ${borderWidth};
-                padding-left: ${borderWidth};
-                padding-right: ${borderWidth};
+                padding-bottom: 0;
             }
         `
                 ),
@@ -240,11 +231,11 @@ export const styles = css`
             .root:focus-within,
             :host(.invalid) .root {
                 border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
             }
 
-            .root:focus-within .control,
-            :host(.invalid) .control {
-                height: calc(${controlHeight} - ${borderWidth});
+            :host(:hover) .root {
+                padding-bottom: 0;
             }
 
             :host([readonly]) .root {
@@ -262,10 +253,7 @@ export const styles = css`
                     css`
             .root {
                 border-width: ${borderWidth};
-            }
-
-            .control {
-                height: var(--ni-private-height-within-border);
+                padding: 0;
             }
         `
                 ),
