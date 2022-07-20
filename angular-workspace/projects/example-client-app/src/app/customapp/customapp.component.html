@@ -86,7 +86,7 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Combobox</div>
-                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)">
+                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" autocomplete="both">
                     <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item.first }}</nimble-list-option>
                 </nimble-combobox>
                 <div>

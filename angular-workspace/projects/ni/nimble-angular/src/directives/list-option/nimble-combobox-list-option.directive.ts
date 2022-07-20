@@ -1,6 +1,4 @@
 /* The following disabled rules are needed to indicate that the 'combobox' constructor parameter is allowed to be null */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgSelectOption } from '@angular/forms';
 import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
@@ -59,7 +57,7 @@ export class NimbleComboboxListOptionDirective extends NgSelectOption implements
     public constructor(
         private readonly elementRef: ElementRef<ListOption>,
         private readonly renderer: Renderer2,
-        @Inject(NimbleComboboxControlValueAccessorDirective) @Optional() @Host() private readonly combobox: NimbleComboboxControlValueAccessorDirective
+        @Inject(NimbleComboboxControlValueAccessorDirective) @Optional() @Host() private readonly combobox?: NimbleComboboxControlValueAccessorDirective
     ) {
         // @ts-expect-error The 'select' parameter can indeed be null. Prevents ts(2345).
         super(elementRef, renderer, null);
@@ -82,7 +80,7 @@ export class NimbleComboboxListOptionDirective extends NgSelectOption implements
         const currentValueString = this._currentValueString ?? this.elementRef.nativeElement.textContent;
         this.setElementValue(currentValueString ?? '');
         if (currentValueString) {
-            this.combobox._optionMap.set(currentValueString, value);
+            this.combobox!._optionMap.set(currentValueString, value);
         }
     }
 
