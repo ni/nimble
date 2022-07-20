@@ -1,4 +1,3 @@
-/* The following disabled rules are needed to indicate that the 'combobox' constructor parameter is allowed to be null */
 import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgSelectOption } from '@angular/forms';
 import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
