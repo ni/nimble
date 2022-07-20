@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 20 Jun 2022 20:39:36 GMT and should not be manually modified.
+This log was last generated on Mon, 18 Jul 2022 18:28:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.1.7
+
+Mon, 18 Jul 2022 18:28:07 GMT
+
+### Patches
+
+- Make NI.CSharp.Analyzers a private dependency ([ni/nimble@a88aa03](https://github.com/ni/nimble/commit/a88aa03c588aeb0b2eeccf2f81b897aaf715d3ca))
 
 ## 5.1.0
 

@@ -2,6 +2,72 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 18 Jul 2022 15:25:53 GMT",
+      "tag": "@ni/nimble-angular_v7.4.0",
+      "version": "7.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7dcb1af22c1827320b2516e9b967830f3295e86a",
+            "comment": "Adding error-text to number field's directive"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.5.0",
+            "commit": "7dcb1af22c1827320b2516e9b967830f3295e86a"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Jul 2022 21:12:50 GMT",
+      "tag": "@ni/nimble-angular_v7.3.1",
+      "version": "7.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.4.1",
+            "commit": "aa729cc29ca4969f14f4ab9313c3abdac2c8b248"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 27 Jun 2022 18:59:58 GMT",
+      "tag": "@ni/nimble-angular_v7.3.0",
+      "version": "7.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "fd5daf29ad46350b3bb7938c79bdf0f4363ddf9e",
+            "comment": "Add appearance to number field Angular wrapper"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 27 Jun 2022 17:17:28 GMT",
+      "tag": "@ni/nimble-angular_v7.2.4",
+      "version": "7.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.4.0",
+            "commit": "12ed391e04e9bdaac550d401704d54e0b6a10e83"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 24 Jun 2022 15:18:24 GMT",
       "tag": "@ni/nimble-angular_v7.2.3",
       "version": "7.2.3",

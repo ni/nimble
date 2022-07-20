@@ -5,8 +5,8 @@ import {
     Black91,
     Black85,
     Black15,
-    Black30,
     Black75,
+    Black80,
     Black88,
     White,
     ForestGreen,
@@ -104,7 +104,11 @@ export const headerBackgroundColor = DesignToken.create<string>(
 
 export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black30, Black91, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+
+export const dividerBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dividerBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
@@ -642,26 +646,16 @@ function getWarningColorForTheme(element: HTMLElement): string {
         element,
         Warning100LightUi,
         Warning100DarkUi,
-        Warning100DarkUi
+        White
     );
 }
 
 function getFailColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        Fail100LightUi,
-        Fail100DarkUi,
-        Fail100DarkUi
-    );
+    return getColorForTheme(element, Fail100LightUi, Fail100DarkUi, White);
 }
 
 function getPassColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        Pass100LightUi,
-        Pass100DarkUi,
-        Pass100DarkUi
-    );
+    return getColorForTheme(element, Pass100LightUi, Pass100DarkUi, White);
 }
 
 function getDefaultLineColorForTheme(element: HTMLElement): string {
