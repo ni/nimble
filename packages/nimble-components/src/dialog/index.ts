@@ -28,7 +28,7 @@ export class Dialog extends FoundationElement {
     public ariaLabelledBy: string | null = null;
 
     @attr({ attribute: 'aria-label' })
-    public override ariaLabel: string | null = null;
+    public ariaLabel: string | null = null;
 
     @observable
     public readonly dialogElement: HTMLDialogElement | undefined;
@@ -101,9 +101,9 @@ export class Dialog extends FoundationElement {
 
     private updateDialogAriaLabelledBy(): void {
         if (this.ariaLabelledBy) {
-            this.dialogElement?.setAttribute('aria-lablledby', this.ariaLabelledBy);
+            this.dialogElement?.setAttribute('aria-labelledby', this.ariaLabelledBy);
         } else {
-            this.dialogElement?.removeAttribute('aria-lablledby');
+            this.dialogElement?.removeAttribute('aria-labelledby');
         }
     }
 
@@ -113,9 +113,9 @@ export class Dialog extends FoundationElement {
 
     private updateDialogAriaLabel(): void {
         if (this.ariaLabel) {
-            this.dialogElement?.setAttribute('aria-labl', this.ariaLabel);
+            this.dialogElement?.setAttribute('aria-label', this.ariaLabel);
         } else {
-            this.dialogElement?.removeAttribute('aria-labl');
+            this.dialogElement?.removeAttribute('aria-label');
         }
     }
 
