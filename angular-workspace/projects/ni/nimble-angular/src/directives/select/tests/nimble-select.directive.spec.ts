@@ -83,8 +83,8 @@ describe('Nimble select', () => {
         });
 
         it('has expected defaults for disabled', () => {
-            expect(directive.disabled).toBeFalse();
-            expect(nativeElement.disabled).toBeFalse();
+            expect(directive.disabled).toBeTrue();
+            expect(nativeElement.disabled).toBeTrue();
         });
 
         it('will use template string values for appearance', () => {
