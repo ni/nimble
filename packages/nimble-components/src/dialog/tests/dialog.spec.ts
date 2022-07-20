@@ -2,7 +2,6 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
-import { keyEscape } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Dialog } from '..';
 
@@ -56,15 +55,14 @@ fdescribe('Dialog', () => {
         await disconnect();
     });
 
-    it('should be dimissed by ESC', async () => {
+    it('should emit close event when close() called', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
+        const handler = jasmine.createSpy();
+        element.addEventListener('close', handler);
         void element.showModal();
-        await DOM.nextUpdate();
-        const nativeElement = element.shadowRoot!.querySelector('dialog') as Element;
-        nativeElement.dispatchEvent(new KeyboardEvent('keypress', { key: keyEscape }));
-        await DOM.nextUpdate();
-        expect(getComputedStyle(nativeElement).display).toBe('none');
+        element.close();
+        expect(handler.calls.count()).toEqual(1);
         await disconnect();
     });
 });
