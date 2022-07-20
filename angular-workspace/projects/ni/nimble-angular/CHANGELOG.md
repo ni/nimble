@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 18 Jul 2022 15:25:53 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Jul 2022 18:41:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.5.0
+
+Wed, 20 Jul 2022 18:41:04 GMT
+
+### Minor changes
+
+- add appearance to select wrapper and exmaple project ([ni/nimble@a188d7b](https://github.com/ni/nimble/commit/a188d7baa54e1061ad07ffa65b0e5d0a2b495238))
+- Bump @ni/nimble-components to v11.6.0
 
 ## 7.4.0
 
