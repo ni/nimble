@@ -25,7 +25,7 @@ No final visual design spec exists yet.
 
 ### Risks and Challenges
 
-- The latest version of TypeScript does not have the `dialog` element's full API, which will leads to dev-time errors in the editor (however everything is fine at run-time): https://github.com/microsoft/TypeScript/issues/48267. The TypeScript-DOM-lib-generator source has been updated to have the missing members, so this may be easily fixed through a dependency update and release from the TypeScript repo.
+-   The latest version of TypeScript does not have the `dialog` element's full API, which will leads to dev-time errors in the editor (however everything is fine at run-time): https://github.com/microsoft/TypeScript/issues/48267. The TypeScript-DOM-lib-generator source has been updated to have the missing members, so this may be easily fixed through a dependency update and release from the TypeScript repo.
 
 ### Prior Art/Examples
 
@@ -220,6 +220,7 @@ The nimble-drawer component shares some similarities with a dialog. We might con
 ---
 
 ## Open Issues
-- The `dialog` API uses mismatched terminology i.e. "show"/"close". Should we use the same (mismatched) names or switch to `openModal()`/`close()` or `showModal()`/`hide()`?
 
-- Do we need an `isOpen()` function?
+-   The `dialog` API uses mismatched terminology i.e. "show"/"close". Should we use the same (mismatched) names or switch to `openModal()`/`close()` or `showModal()`/`hide()`?
+
+-   Do we need an `isOpen()` function?
