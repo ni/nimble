@@ -1,6 +1,6 @@
-import { DomPortalOutlet } from '@angular/cdk/portal';
-import { AfterViewInit, ApplicationRef, ComponentFactoryResolver, Directive, ElementRef, Injector } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import type { Dialog } from '@ni/nimble-components/dist/esm/dialog';
+import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { Dialog };
 
@@ -10,22 +10,29 @@ export type { Dialog };
 @Directive({
     selector: 'nimble-dialog'
 })
-export class NimbleDialogDirective implements AfterViewInit {
-    private host: DomPortalOutlet;
+export class NimbleDialogDirective {
+    public get preventDismiss(): boolean {
+        return this.elementRef.nativeElement.preventDismiss;
+    }
 
-    public constructor(
-        private readonly el: ElementRef,
-        private readonly cfr: ComponentFactoryResolver,
-        private readonly appRef: ApplicationRef,
-        private readonly injector: Injector
-    ) {}
+    // preventDismiss property intentionally maps to the prevent-dismiss attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('prevent-dismiss') public set preventDismiss(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
+    }
 
-    public ngAfterViewInit(): void {
-        this.host = new DomPortalOutlet(
-            this.el.nativeElement as Element,
-            this.cfr,
-            this.appRef,
-            this.injector
-        );
+    @Output() public dialogClose = new EventEmitter<void>();
+    @Output() public dialogCancel = new EventEmitter<void>();
+
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Dialog>) {}
+
+    @HostListener('close')
+    public onClose(): void {
+        this.dialogClose.emit();
+    }
+
+    @HostListener('cancel')
+    public onCancel(): void {
+        this.dialogCancel.emit();
     }
 }
