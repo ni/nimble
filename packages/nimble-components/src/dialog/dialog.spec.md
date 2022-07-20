@@ -119,13 +119,13 @@ Blazor support will be provided, following the same patterns as used for existin
 
 ### Visual Appearance
 
-We will apply styling to give dialogs a consistent border, shadow, background, and font/font color.
+We will apply styling to give dialogs a consistent border, shadow, background. We will also set font/font color, but slotted content will often override aspects of the font, and the native dialog's user agent stylesheet may override the color with a non-theme-conforming value (this is the case in Chrome). To ensure proper theme-conforming styling, it is up to clients to properly style their content with theme-aware tokens (e.g. for font/font color, etc).
 
-Dialogs will not have a title bar and close control ("X") by default. It will be up to a client to provide that if needed.
+Dialogs will not have a title bar and close control ("X") by default. It will be up to the client to provide that if needed.
 
 Dialogs will always be opened in the center of the screen, sized to fit the contents. Scrolling the page while a dialog is open will not move the dialog, i.e. it will stay centered.
 
-Dialogs will not be movable or sizeable (in this initial design).
+Dialogs will not be movable or sizeable.
 
 The page behind an open dialog will be slightly dimmed to indicate that it cannot be interacted with.
 
