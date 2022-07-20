@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Minor style fix. Resolves #639.",
+  "packageName": "@ni/nimble-components",
+  "email": "26874831+atmgrifter00@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
