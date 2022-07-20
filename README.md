@@ -74,7 +74,7 @@ NOTE: To update the component status:
 | Card | |  [Issue](https://github.com/ni/nimble/issues/296) | :o: | :o: | :o: |
 | Checkbox | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/checkbox--checkbox) | :white_check_mark: | :white_check_mark: |
 | Chip/Pill | |  [Issue](https://github.com/ni/nimble/issues/413) | :o: | :o: | :o: |
-| Combo box | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae) |  [Issue](https://github.com/ni/nimble/issues/341) | :o: | :o: | :o: |
+| Combo box | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/combobox--combobox) | :white_check_mark: | :white_check_mark: |
 | Datepicker | |  [Issue](https://github.com/ni/nimble/issues/342) | :o: | :o: | :o: |
 | Dialog | |  [Issue](https://github.com/ni/nimble/issues/378) | :o: | :o: | :o: |
 | Drawer | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/drawer--drawer) | :white_check_mark: | :white_check_mark: |
