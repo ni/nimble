@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "add appearance to select wrapper and exmaple project",
-  "packageName": "@ni/nimble-angular",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

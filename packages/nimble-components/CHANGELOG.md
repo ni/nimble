@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 18 Jul 2022 15:25:53 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Jul 2022 18:41:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.6.0
+
+Wed, 20 Jul 2022 18:41:04 GMT
+
+### Minor changes
+
+- adding block and outline appearances to select ([ni/nimble@a188d7b](https://github.com/ni/nimble/commit/a188d7baa54e1061ad07ffa65b0e5d0a2b495238))
 
 ## 11.5.0
 

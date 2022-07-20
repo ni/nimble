@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "adding block and outline appearances to select",
-  "packageName": "@ni/nimble-components",
-  "email": "60270271+Dakeondrick@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
