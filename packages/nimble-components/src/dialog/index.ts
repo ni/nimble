@@ -18,6 +18,18 @@ export class Dialog extends FoundationElement {
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
+    @attr
+    public role: string | null = null;
+
+    @attr({ attribute: 'aria-describedby' })
+    public ariaDescribedBy: string | null = null;
+
+    @attr({ attribute: 'aria-labelledby' })
+    public ariaLabelledBy: string | null = null;
+
+    @attr({ attribute: 'aria-label' })
+    public override ariaLabel: string | null = null;
+
     @observable
     public readonly dialogElement: HTMLDialogElement | undefined;
 
@@ -26,6 +38,10 @@ export class Dialog extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
 
+        this.updateDialogRole();
+        this.updateDialogAriaDescribedBy();
+        this.updateDialogAriaLabelledBy();
+        this.updateDialogAriaLabel();
         this.dialogElement!.addEventListener('cancel', this.cancelHandler);
         this.dialogElement!.addEventListener('close', this.closeHandler);
     }
@@ -52,6 +68,54 @@ export class Dialog extends FoundationElement {
         if (this.resolveShowModal) {
             this.resolveShowModal();
             this.resolveShowModal = null;
+        }
+    }
+
+    private roleChanged(_oldValue: string, _newValue: string): void {
+        this.updateDialogRole();
+    }
+
+    private updateDialogRole(): void {
+        if (this.role) {
+            this.dialogElement?.setAttribute('role', this.role);
+        } else {
+            this.dialogElement?.removeAttribute('role');
+        }
+    }
+
+    private ariaDescribedByChanged(_oldValue: string, _newValue: string): void {
+        this.updateDialogAriaDescribedBy();
+    }
+
+    private updateDialogAriaDescribedBy(): void {
+        if (this.ariaDescribedBy) {
+            this.dialogElement?.setAttribute('aria-describedby', this.ariaDescribedBy);
+        } else {
+            this.dialogElement?.removeAttribute('aria-describedby');
+        }
+    }
+
+    private ariaLabelledByChanged(_oldValue: string, _newValue: string): void {
+        this.updateDialogAriaLabelledBy();
+    }
+
+    private updateDialogAriaLabelledBy(): void {
+        if (this.ariaLabelledBy) {
+            this.dialogElement?.setAttribute('aria-lablledby', this.ariaLabelledBy);
+        } else {
+            this.dialogElement?.removeAttribute('aria-lablledby');
+        }
+    }
+
+    private ariaLabelChanged(_oldValue: string, _newValue: string): void {
+        this.updateDialogAriaLabel();
+    }
+
+    private updateDialogAriaLabel(): void {
+        if (this.ariaLabel) {
+            this.dialogElement?.setAttribute('aria-labl', this.ariaLabel);
+        } else {
+            this.dialogElement?.removeAttribute('aria-labl');
         }
     }
 
