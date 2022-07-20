@@ -3,11 +3,13 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
+import { DropdownAppearance } from '../../patterns/dropdown/types';
 
 interface SelectArgs {
     disabled: boolean;
     dropDownPosition: string;
     options: OptionArgs[];
+    appearance: string;
 }
 
 interface OptionArgs {
@@ -36,7 +38,8 @@ const metadata: Meta<SelectArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-select ?disabled="${x => x.disabled}" position="${x => x.dropDownPosition}">
+        <nimble-select ?disabled="${x => x.disabled}" position="${x => x.dropDownPosition}"
+        appearance="${x => x.appearance}">
             ${repeat(x => x.options, html<OptionArgs>`
                 <nimble-list-option value="${x => x.value}" ?disabled="${x => x.disabled}">
                     ${x => x.label}
@@ -48,11 +51,16 @@ const metadata: Meta<SelectArgs> = {
         dropDownPosition: {
             options: ['above', 'below'],
             control: { type: 'select' }
+        },
+        appearance: {
+            options: Object.values(DropdownAppearance),
+            control: { type: 'radio' }
         }
     },
     args: {
         disabled: false,
         dropDownPosition: 'below',
+        appearance: DropdownAppearance.underline,
         options: [
             { label: 'Option 1', value: '1', disabled: false },
             { label: 'Option 2', value: '2', disabled: true },
@@ -80,4 +88,14 @@ const metadata: Meta<SelectArgs> = {
 
 export default metadata;
 
-export const select: StoryObj<SelectArgs> = {};
+export const underlineSelect: StoryObj<SelectArgs> = {
+    args: { appearance: DropdownAppearance.underline }
+};
+
+export const outlineSelect: StoryObj<SelectArgs> = {
+    args: { appearance: DropdownAppearance.outline }
+};
+
+export const blockSelect: StoryObj<SelectArgs> = {
+    args: { appearance: DropdownAppearance.block }
+};
