@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 18 Jul 2022 18:28:07 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Jul 2022 18:41:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.2.0
+
+Wed, 20 Jul 2022 18:41:04 GMT
+
+### Minor changes
+
+- Add appearance to select wrapper and example project ([ni/nimble@a188d7b](https://github.com/ni/nimble/commit/a188d7baa54e1061ad07ffa65b0e5d0a2b495238))
 
 ## 5.1.7
 
