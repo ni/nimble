@@ -152,9 +152,9 @@ export const passColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.passColor)
 ).withDefault((element: HTMLElement) => getPassColorForTheme(element));
 
-export const infoColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.infoColor)
-).withDefault((element: HTMLElement) => getInfoColorForTheme(element));
+export const informationColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.informationColor)
+).withDefault((element: HTMLElement) => getInformationColorForTheme(element));
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
@@ -664,7 +664,7 @@ function getPassColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Pass100LightUi, Pass100DarkUi, White);
 }
 
-function getInfoColorForTheme(element: HTMLElement): string {
+function getInformationColorForTheme(element: HTMLElement): string {
     return getColorForTheme(
         element,
         Information100LightUi,

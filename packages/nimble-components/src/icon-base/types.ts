@@ -7,6 +7,6 @@ export const IconStatus = {
     warning: 'warning',
     pass: 'pass',
     regular: 'regular',
-    info: 'info'
+    information: 'information'
 } as const;
 export type IconStatus = typeof IconStatus[keyof typeof IconStatus];

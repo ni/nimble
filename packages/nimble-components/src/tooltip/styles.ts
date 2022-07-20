@@ -47,7 +47,6 @@ export const styles = css`
 
     nimble-icon-exclamation-mark {
         display: none;
-        color: green;
         width: 14px;
         height: 14px;
         padding-right: 8px;
@@ -60,7 +59,6 @@ export const styles = css`
 
     nimble-icon-info {
         display: none;
-        color: purple;
         width: 14px;
         height: 14px;
         padding-right: 8px;
@@ -83,11 +81,11 @@ export const styles = css`
 `.withBehaviors(
     /* Local Theme Behaviors for tooltip borders and backgrounds */
         themeBehavior(
+        // Light Theme
+            null,
+
+            // Dark Theme
             css`
-            ${'' /* Light Theme */}
-        `,
-            css`
-            ${'' /* Dark Theme */}
             .tooltip {
                 --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
                 Black15,
@@ -96,8 +94,8 @@ export const styles = css`
                 background-color: ${Black85};
             }
         `,
+            // Color Theme
             css`
-            ${'' /* Color Theme In progress fix icon colors */}
             .tooltip {
                 --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
                 White,

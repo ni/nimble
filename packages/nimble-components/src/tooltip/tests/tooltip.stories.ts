@@ -73,7 +73,7 @@ const metadata: Meta<TooltipArgs> = {
         icon: false,
         tooltip: 'Tooltip label',
         delay: 300,
-        autoUpdateMode: 'auto'
+        autoUpdateMode: 'anchor'
     },
     argTypes: {
         autoUpdateMode: {
@@ -88,7 +88,13 @@ const metadata: Meta<TooltipArgs> = {
         },
         state: {
             options: Object.keys(TooltipStatus),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description:
+                'Set the `default`, `fail`, or `information` CSS class on the tooltip to switch between the theme-aware color options.'
+        },
+        icon: {
+            description:
+                'Adds the `icon-visible` CSS class to the tooltip when true, making the corresponding icon of the tooltip state show up.'
         }
     }
 };

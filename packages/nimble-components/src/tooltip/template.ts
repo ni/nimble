@@ -1,8 +1,6 @@
 import { html, ref, ViewTemplate, when } from '@microsoft/fast-element';
-import {
-    AnchoredRegion,
-    FoundationElementTemplate
-} from '@microsoft/fast-foundation';
+import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
+import { AnchoredRegion } from '../anchored-region';
 import type { Tooltip } from '.';
 
 export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = context => {
