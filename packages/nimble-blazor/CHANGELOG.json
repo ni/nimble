@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 20 Jul 2022 18:41:04 GMT",
+      "tag": "@ni/nimble-blazor_v5.2.0",
+      "version": "5.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a188d7baa54e1061ad07ffa65b0e5d0a2b495238",
+            "comment": "Add appearance to select wrapper and example project"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 18 Jul 2022 18:28:07 GMT",
       "tag": "@ni/nimble-blazor_v5.1.7",
       "version": "5.1.7",

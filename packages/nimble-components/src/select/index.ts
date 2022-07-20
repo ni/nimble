@@ -1,3 +1,4 @@
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Select as FoundationSelect,
@@ -6,6 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
+import { DropdownAppearance } from '../patterns/dropdown/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -14,9 +16,12 @@ declare global {
 }
 
 /**
- * A nimble-styed HTML select
+ * A nimble-styled HTML select
  */
 export class Select extends FoundationSelect {
+    @attr
+    public appearance: DropdownAppearance = DropdownAppearance.underline;
+
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {

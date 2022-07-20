@@ -6,3 +6,11 @@ export const DropdownPosition = {
 } as const;
 export type DropdownPosition =
     typeof DropdownPosition[keyof typeof DropdownPosition];
+
+export const DropdownAppearance = {
+    underline: 'underline',
+    outline: 'outline',
+    block: 'block'
+} as const;
+export type DropdownAppearance =
+    typeof DropdownAppearance[keyof typeof DropdownAppearance];
