@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 18 Jul 2022 18:28:07 GMT",
+      "tag": "@ni/nimble-blazor_v5.1.7",
+      "version": "5.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "83148975+yaqian256@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a88aa03c588aeb0b2eeccf2f81b897aaf715d3ca",
+            "comment": "Make NI.CSharp.Analyzers a private dependency"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Jun 2022 20:39:36 GMT",
       "tag": "@ni/nimble-blazor_v5.1.0",
       "version": "5.1.0",

@@ -20,23 +20,24 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
 
-Plan to extend API to support all cases shown in visual design XD document. Will add
-once tooltip is sucessfully implemented with one case.
+The state of the tooltip can be changed by setting the `error`, or `information` class. If neither of these classes are applied, the tooltip will use the `default` appearance- a state that does not require a CSS class. When the tooltip has the `error` or `information` class applied, an icon can optionally be visible in the tooltip by setting the `icon-visible` class. The `icon-visible` class will have no impact on the tooltip when it has the `default` appearance. This will allow clients to easily switch between `default` and `error` without also having to change whether or not the `icon-visible` class is applied.
 
-Plan to first implement the tooltip and let the client choose which type of tooltip (general, error, info) they want
-Additional changes to API expected in the future, but will not be included in first pass of implementation. Listed in Future Improvements and Open Issues
+Two local css variables will be created for the tooltips- one that controls the border color of the tooltip, and one that controls the background color of the tooltip. These variables will be changed based on the css classes described above.
+
+CSS constants for the `error`, `information`, and `default` states will be added to make configuring tooltip classes easier. `icon-visible` will not have constants, as it is easier to style the icon component itself.
+
+The tooltip will have a custom template based on FAST's template. In addition to the HTML that is in FAST's template, the template wll contain the two icons needed for the information and error states as shown in the XD spec. These icons will always be part of the template and their visibility will be controlled by a combination of the `icon-visible` class and the state classes.
 
 -   _Component Name:_ `nimble-tooltip`
 -   _Properties/Attributes:_ Unchanged
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
--   _CSS Classes and Custom Properties that affect the component:_ None
+-   _CSS Classes and Custom Properties that affect the component:_ `icon-visible` and the special states of the tooltip (`error` and `information`)
 -   _Slots:_ Unchanged
 -   _Template:_ Unchanged
 
 ### Future Improvements
 
-Attribute for switching between error and info states of tooltip
 Easier integration with other nimble components
 
 ### Angular integration
@@ -52,15 +53,16 @@ A Blazor wrapper will be created for the component.
 -   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
     -   No additional requirements
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    -   FAST API most likely won't be sufficient for creating extra states in spec, will be adressed later on.
+    -   No additional requirements
+    -   Version of error / information tooltips with icons will also be included.
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
-    -   Will look at options as building, testing may be difficult because only displayed on hover.
+    -   No additional requirements
 -   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
     -   No additional requirements
 -   _Tooling: Any new tools, updates to tools, code generation, etc?_
     -   No additional requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
-    -   Aria-describedBy recommendation in storybook docs for tooltip for developers
+    -   aria-describedby implementation will eventually need to be fixed- currently only works when tooltip attribute is set to visible
 -   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
     -   No additional requirements
 -   _Performance: does the FAST component meet Nimble's performance requirements?_
@@ -80,6 +82,10 @@ When user is using nimble tooltip and nimble components, is there an easier way 
 
 Can tooltip be found by screen reader?
 
-For testing, can we force the tooltip to be visible without hover? [Possible Ideas](https://stackoverflow.com/questions/62043424/mock-hover-state-in-storybook)
-
 Mobile tooltip is not very functional- have to click on button to show tooltip, and clicking away does not make it disappear
+
+aria-describedby only shows up when tooltip attribute is set to visible
+
+How can we give each tooltip a custom id?
+
+When should we use the tooltip vs. the title attribute? MDN [lists many issues with the title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title#accessibility_concerns). Needs to be discussed with team and designers.

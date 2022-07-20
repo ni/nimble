@@ -19,9 +19,11 @@ import {
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { NumberFieldAppearance } from './types';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-block')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -30,6 +32,9 @@ export const styles = css`
         color: ${bodyFontColor};
         height: calc(${labelHeight} + ${controlHeight});
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
+        --ni-private-height-within-border: calc(
+            ${controlHeight} - 2 * ${borderWidth}
+        );
     }
 
     :host([disabled]) {
@@ -53,9 +58,10 @@ export const styles = css`
         display: flex;
         flex-direction: row;
         justify-content: center;
+        align-items: center;
         border-radius: 0px;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
-        gap: calc(${standardPadding} / 2);
+        padding: ${borderWidth};
     }
 
     .root:focus-within {
@@ -64,6 +70,10 @@ export const styles = css`
 
     :host([disabled]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host(.invalid) .root {
+        border-bottom-color: ${failColor};
     }
 
     .root::before {
@@ -112,10 +122,11 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
-        height: ${controlHeight};
+        height: var(--ni-private-height-within-border);
         width: 100%;
         border: none;
         padding: 0px;
+        padding-left: calc(${standardPadding} / 2);
     }
 
     .control:hover,
@@ -134,69 +145,77 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .control:focus-within::placeholder {
-        opacity: 1;
-    }
-
     .control[disabled]::placeholder {
         color: ${bodyDisabledFontColor};
     }
 
     .controls {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center;
-        align-items: center;
+        display: contents;
+    }
+
+    ${
+        /* We are using flex `order` to define the visual ordering of the inc/dec buttons and the invalid icon because they are not "interactive" i.e. part of the tab order */ ''
+    }
+    .step-up {
+        order: 3;
+        padding-right: calc(${standardPadding} / 4);
+    }
+
+    .step-down {
+        order: 2;
     }
 
     .step-up-down-button {
         ${controlHeight.cssCustomProperty}: 24px;
     }
+
+    [part='end'] {
+        display: contents;
+    }
+
+    .error-icon {
+        order: 1;
+        padding-right: calc(${standardPadding} / 4);
+    }
 `.withBehaviors(
-        appearanceBehavior(
-            NumberFieldAppearance.underline,
-            css`
+            appearanceBehavior(
+                NumberFieldAppearance.underline,
+                css`
             .root {
                 border-bottom-width: ${borderWidth};
-                padding-top: ${borderWidth};
-                padding-left: ${borderWidth};
-                padding-right: ${borderWidth};
-            }
-
-            .control {
-                height: calc(${controlHeight} - 2 * ${borderWidth});
+                padding-bottom: 0;
             }
         `
-        ),
-        appearanceBehavior(
-            NumberFieldAppearance.block,
-            css`
+            ),
+            appearanceBehavior(
+                NumberFieldAppearance.block,
+                css`
             .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
-                padding-left: ${borderWidth};
-                padding-right: ${borderWidth};
             }
 
             .root:focus-within,
             :host(.invalid) .root {
                 border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
+            }
+
+            :host(:hover) .root {
+                padding-bottom: 0;
             }
 
             :host([disabled]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
         `
-        ),
-        appearanceBehavior(
-            NumberFieldAppearance.outline,
-            css`
+            ),
+            appearanceBehavior(
+                NumberFieldAppearance.outline,
+                css`
             .root {
                 border-width: ${borderWidth};
-            }
-
-            .control {
-                height: calc(${controlHeight} - 2 * ${borderWidth});
+                padding: 0;
             }
         `
-        )
-    );
+            )
+        );
