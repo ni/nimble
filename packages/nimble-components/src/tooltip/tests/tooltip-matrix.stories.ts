@@ -73,14 +73,13 @@ const component = ([
 ]: TooltipStates): ViewTemplate => html`
     <style>
         div {
-            max-width: 1430px;
+            display: inline-block;
         }
 
         .container {
-            display: inline-flex;
             padding: 120px;
-            justify-content: center;
-            text-align: center;
+            width: 100px;
+            height: 50px;
         }
 
         .anchorDiv {

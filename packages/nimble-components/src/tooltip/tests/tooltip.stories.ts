@@ -27,7 +27,7 @@ const metadata: Meta<TooltipArgs> = {
         docs: {
             description: {
                 component:
-                    '<b>Experimental - The tooltip is still in development, it will be ready for app use soon.</b>Per [W3C](https://w3c.github.io/aria-practices/#tooltip) – A tooltip is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. <br><br> It is recommended to set up aria-describedby, an accesibility feature that sets the description of another element through ID references. To do this, the anchor element (button, text, icon, etc.) of the tooltip must have `aria-describedby= name` in its attributes. To call it, use `id= name` in the nimble-tooltip attributes. More information can be found in the [aria-describedby docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby).'
+                    '<b>Experimental - The tooltip is still in development; it will be ready for app use soon.</b>Per [W3C](https://w3c.github.io/aria-practices/#tooltip) – A tooltip is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. <br><br> It is recommended to set up aria-describedby, an accesibility feature that sets the description of another element through ID references. To do this, the anchor element (button, text, icon, etc.) of the tooltip must have `aria-describedby= name` in its attributes. To call it, use `id= name` in the nimble-tooltip attributes. More information can be found in the [aria-describedby docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby).'
             }
         },
         design: {
@@ -94,7 +94,7 @@ const metadata: Meta<TooltipArgs> = {
         },
         icon: {
             description:
-                'Adds the `icon-visible` CSS class to the tooltip when true, making the corresponding icon of the tooltip state show up.'
+                'Add the `icon-visible` CSS class to the tooltip to show the icon corresponding to the tooltip state. The `default` state will not show an icon even if `icon-visible` is set.'
         }
     }
 };
