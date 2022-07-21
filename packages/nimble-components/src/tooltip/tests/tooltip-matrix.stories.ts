@@ -73,7 +73,7 @@ const component = ([
 ]: TooltipStates): ViewTemplate => html`
     <style>
         div {
-            display: inline-block;
+            display: -webkit-inline-box;
         }
 
         .container {
