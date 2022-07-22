@@ -185,5 +185,5 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     errorTextFontLineHeight: null,
     errorTextFallbackFontFamily: null,
     selectedTextBackgroundColor: 'Background color for selected text',
-    selectedTextForegroundColor: 'Foreground color for selected text',
+    selectedTextForegroundColor: 'Foreground color for selected text'
 };
