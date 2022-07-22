@@ -34,7 +34,10 @@ export default metadata;
 
 const textStates = [
     ['Short Text', 'Hello'],
-    ['Long Text', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.']
+    [
+        'Long Text',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
+    ]
 ] as const;
 type TextState = typeof textStates[number];
 
@@ -79,8 +82,12 @@ const component = (
     </style>
 
     <div class="container">
-        <div class="anchorDiv" id="${() => `${textName}`} ${() => `${valueName}`} ${() => `${iconName}`}">
-            ${() => `${textName}`} ${() => `${valueName}`} ${() => `${iconName}`}
+        <div
+            class="anchorDiv"
+            id="${() => `${textName}`} ${() => `${valueName}`} ${() => `${iconName}`}"
+        >
+            ${() => `${textName}`} ${() => `${valueName}`}
+            ${() => `${iconName}`}
         </div>
 
         <nimble-tooltip
@@ -102,29 +109,17 @@ const [
 ] = backgroundStates;
 
 export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
-    createMatrix(component, [
-        textStates,
-        valueStates,
-        iconStates
-    ]),
+    createMatrix(component, [textStates, valueStates, iconStates]),
     lightThemeWhiteBackground
 );
 
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    createMatrix(component, [
-        textStates,
-        valueStates,
-        iconStates
-    ]),
+    createMatrix(component, [textStates, valueStates, iconStates]),
     colorThemeDarkGreenBackground
 );
 
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
-    createMatrix(component, [
-        textStates,
-        valueStates,
-        iconStates
-    ]),
+    createMatrix(component, [textStates, valueStates, iconStates]),
     darkThemeBlackBackground
 );
 

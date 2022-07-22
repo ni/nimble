@@ -69,11 +69,10 @@ export const styles = css`
         display: flex;
         flex: 0 0 auto;
     }
-
 `.withBehaviors(
     /* Local Theme Behaviors for tooltip borders and backgrounds */
         themeBehavior(
-            // Light Theme
+        // Light Theme
             css`
             :host(.fail) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
@@ -84,7 +83,7 @@ export const styles = css`
                 --ni-private-tooltip-border-color: ${Information100LightUi};
                 --ni-private-tooltip-background-color: ${White};
             }
-            `,
+        `,
             // Dark Theme
             css`
             .tooltip {
@@ -94,7 +93,7 @@ export const styles = css`
             )};
                 background-color: ${Black85};
             }
-            
+
             :host(.information) .tooltip {
                 --ni-private-tooltip-border-color: ${Information100DarkUi};
             }
@@ -102,7 +101,6 @@ export const styles = css`
             :host(.fail) .tooltip {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
             }
-
         `,
             // Color Theme
             css`

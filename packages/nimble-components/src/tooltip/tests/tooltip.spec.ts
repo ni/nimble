@@ -1,4 +1,8 @@
-import { DesignSystem, TooltipPosition, Tooltip as FoundationTooltip } from '@microsoft/fast-foundation';
+import {
+    DesignSystem,
+    TooltipPosition,
+    Tooltip as FoundationTooltip
+} from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Tooltip } from '..';
