@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import { Component } from '@angular/core';
-import { DrawerLocation, MenuItem, NimbleComboboxControlValueAccessorDirective } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, OptionNotFound, OPTION_NOT_FOUND } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
@@ -16,19 +16,15 @@ export class CustomAppComponent {
     public drawerLocation: DrawerLocation = DrawerLocation.right;
     public isDrawerPinned = false;
     public drawerLocations = DrawerLocation;
-    public comboboxSelectedLastName: string;
-    public comboboxItems: ComboboxItem[] = [
+    public comboboxItems: (ComboboxItem | null)[] = [
         { first: 'foo', last: 'bar' },
         { first: 'Bubba', last: 'Hotep' },
-        { first: 'Mister', last: 'Smithers' }
+        { first: 'Mister', last: 'Smithers' },
+        null
     ];
 
-    public comboboxSelectedOption: ComboboxItem;
-
-    public constructor() {
-        this.comboboxSelectedOption = this.comboboxItems[0];
-        this.comboboxSelectedLastName = this.comboboxSelectedOption.last;
-    }
+    public comboboxSelectedOption = this.comboboxItems[0];
+    public comboboxSelectedLastName = this.comboboxSelectedOption!.last;
 
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;
@@ -39,9 +35,9 @@ export class CustomAppComponent {
         alert(`drawerLocation: ${value}`);
     }
 
-    public onComboboxChange(value: ComboboxItem | unknown): void {
-        if (value !== NimbleComboboxControlValueAccessorDirective.notFoundSymbol) {
-            this.comboboxSelectedLastName = (value as ComboboxItem).last;
+    public onComboboxChange(value: ComboboxItem | OptionNotFound): void {
+        if (value !== OPTION_NOT_FOUND) {
+            this.comboboxSelectedLastName = value.last;
         } else {
             this.comboboxSelectedLastName = 'not found';
         }

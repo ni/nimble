@@ -1,6 +1,4 @@
-/* The following disabled rules are needed to indicate that the 'combobox' constructor parameter is allowed to be null */
-import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2, AfterViewInit, OnDestroy } from '@angular/core';
-import { NgSelectOption } from '@angular/forms';
+import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
 import { NimbleComboboxControlValueAccessorDirective } from '../combobox/nimble-combobox-control-value-accessor.directive';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
@@ -11,7 +9,7 @@ import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/templat
 @Directive({
     selector: 'nimble-list-option'
 })
-export class NimbleComboboxListOptionDirective extends NgSelectOption implements AfterViewInit, OnDestroy {
+export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestroy {
     public get disabled(): boolean {
         return this.elementRef.nativeElement.disabled;
     }
@@ -28,63 +26,38 @@ export class NimbleComboboxListOptionDirective extends NgSelectOption implements
     @Input()
     public set ngValue(value: unknown) {
         if (this.combobox) {
-            this._value = value;
+            this._modelValue = value;
             this.updateComboboxValue(value);
         }
     }
 
-    /**
-      * @description
-      * Tracks simple string values bound to the option element.
-      * For objects, use the `ngValue` input binding.
-      */
-    @Input()
-    public set value(value: unknown) {
-        if (this.combobox) {
-            if (this._currentValueString) {
-                this.combobox._optionMap.delete(this._currentValueString);
-            }
-            this._currentValueString = value as string;
-            // it's necessary to update the _optionMap on the combobox value accessor even when the values are just strings
-            this.updateComboboxValue(this._currentValueString);
-        }
-    }
-
-    private _value: unknown;
-
-    private _currentValueString: string | undefined = undefined;
+    private _modelValue: unknown = undefined;
+    private _currentTextContent: string;
 
     public constructor(
         private readonly elementRef: ElementRef<ListOption>,
         private readonly renderer: Renderer2,
+        private readonly changeDetector: ChangeDetectorRef,
         @Inject(NimbleComboboxControlValueAccessorDirective) @Optional() @Host() private readonly combobox?: NimbleComboboxControlValueAccessorDirective
-    ) {
-        // @ts-expect-error The 'select' parameter can indeed be null. Prevents ts(2345).
-        super(elementRef, renderer, null);
-    }
+    ) { }
 
     public ngAfterViewInit(): void {
-        if (this.combobox && this.elementRef.nativeElement.textContent) {
-            this._currentValueString = this.elementRef.nativeElement.textContent;
-            this.combobox._optionMap.set(this._currentValueString, this._value ?? null);
+        if (this.combobox) {
+            this._currentTextContent = this.elementRef.nativeElement.textContent!;
+            this.combobox._optionMap.set(this._currentTextContent, this._modelValue);
         }
     }
 
     public ngOnDestroy(): void {
-        if (this.combobox && this._currentValueString) {
-            this.combobox._optionMap.delete(this._currentValueString);
+        if (this.combobox) {
+            this.combobox._optionMap.delete(this._currentTextContent);
         }
     }
 
     private updateComboboxValue(value: unknown): void {
-        const currentValueString = this._currentValueString ?? this.elementRef.nativeElement.textContent;
-        this.setElementValue(currentValueString ?? '');
-        if (currentValueString) {
-            this.combobox!._optionMap.set(currentValueString, value);
-        }
-    }
-
-    private setElementValue(value: string): void {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'value', value);
+        this.combobox!._optionMap.delete(this._currentTextContent);
+        this.changeDetector.detectChanges();
+        this._currentTextContent = this.elementRef.nativeElement.textContent!;
+        this.combobox!._optionMap.set(this._currentTextContent, value);
     }
 }

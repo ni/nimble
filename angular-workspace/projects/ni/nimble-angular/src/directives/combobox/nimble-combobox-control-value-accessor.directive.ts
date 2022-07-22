@@ -2,6 +2,14 @@ import { Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } fro
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /**
+* @description
+* This symbol instance will be returned when the value input of the Combobox is set
+* to a value not found in the set of options.
+*/
+export const OPTION_NOT_FOUND: unique symbol = Symbol('not found');
+export type OptionNotFound = typeof OPTION_NOT_FOUND;
+
+/**
  * Control Value Accessor implementation to target combobox inputs.
  */
 @Directive({
@@ -14,7 +22,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }]
 })
 export class NimbleComboboxControlValueAccessorDirective implements ControlValueAccessor {
-    public static notFoundSymbol = Symbol('not found');
     /**
      * @description
      * Tracks the option comparison algorithm for tracking identities when
@@ -67,7 +74,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnChange(fn: (value: unknown) => void): void {
         this.onChange = (valueString: string): void => {
-            this.value = this._optionMap.get(valueString) ?? NimbleComboboxControlValueAccessorDirective.notFoundSymbol;
+            this.value = this._optionMap.get(valueString) ?? OPTION_NOT_FOUND;
             fn(this.value);
         };
     }
@@ -81,12 +88,11 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     }
 
     private getValueStringFromValue(value: unknown): string | undefined {
-        for (const optionValue of this._optionMap.values()) {
+        for (const [optionKey, optionValue] of this._optionMap.entries()) {
             if (this._compareWith(optionValue, value)) {
-                return Array.from(this._optionMap.keys()).find(key => this._optionMap.get(key) === optionValue);
+                return optionKey;
             }
         }
-
         return undefined;
     }
 
