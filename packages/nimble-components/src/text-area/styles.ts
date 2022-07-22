@@ -4,14 +4,15 @@ import {
     borderRgbPartialColor,
     borderHoverColor,
     borderWidth,
-    fillSelectedRgbPartialColor,
     smallDelay,
     bodyFontColor,
     bodyDisabledFontColor,
     controlLabelFont,
     controlLabelFontColor,
     bodyFont,
-    controlLabelDisabledFontColor
+    controlLabelDisabledFontColor,
+    selectedTextBackgroundColor,
+    selectedTextForegroundColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
@@ -84,8 +85,8 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${controlLabelFontColor};
-        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
+        color: ${selectedTextForegroundColor};
+        background: ${selectedTextBackgroundColor};
     }
 
     .control::placeholder {

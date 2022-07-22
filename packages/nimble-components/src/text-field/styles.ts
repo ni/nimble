@@ -9,14 +9,15 @@ import {
     bodyDisabledFontColor,
     controlHeight,
     failColor,
-    fillSelectedRgbPartialColor,
     labelHeight,
     smallDelay,
     controlLabelFont,
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    standardPadding
+    standardPadding,
+    selectedTextForegroundColor,
+    selectedTextBackgroundColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -153,8 +154,8 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${controlLabelFontColor};
-        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
+        color: ${selectedTextForegroundColor};
+        background: ${selectedTextBackgroundColor};
     }
 
     .control::placeholder {

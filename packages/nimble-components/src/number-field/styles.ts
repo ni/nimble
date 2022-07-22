@@ -7,7 +7,6 @@ import {
     bodyFontColor,
     bodyDisabledFontColor,
     controlHeight,
-    fillSelectedRgbPartialColor,
     controlLabelFont,
     controlLabelFontColor,
     labelHeight,
@@ -15,7 +14,9 @@ import {
     bodyFont,
     failColor,
     standardPadding,
-    controlLabelDisabledFontColor
+    controlLabelDisabledFontColor,
+    selectedTextForegroundColor,
+    selectedTextBackgroundColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { NumberFieldAppearance } from './types';
@@ -137,8 +138,8 @@ export const styles = css`
     }
 
     .control::selection {
-        color: ${controlLabelFontColor};
-        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
+        color: ${selectedTextForegroundColor};
+        background: ${selectedTextBackgroundColor};
     }
 
     .control::placeholder {

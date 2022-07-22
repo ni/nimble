@@ -11,6 +11,7 @@ import {
     White,
     ForestGreen,
     DigitalGreenLight,
+    DigitalGreenDark,
     Fail100LightUi,
     SmallDelay,
     MediumDelay,
@@ -170,6 +171,14 @@ export const popupBorderColor = DesignToken.create<string>(
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
+
+export const selectedTextBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.selectedTextBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, DigitalGreenDark, White));
+
+export const selectedTextForegroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.selectedTextForegroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, White, ForestGreen));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(

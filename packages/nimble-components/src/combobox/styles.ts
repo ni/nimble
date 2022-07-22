@@ -4,7 +4,9 @@ import {
     failColor,
     bodyDisabledFontColor,
     borderRgbPartialColor,
-    smallPadding
+    smallPadding,
+    selectedTextForegroundColor,
+    selectedTextBackgroundColor
 } from '../theme-provider/design-tokens';
 
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
@@ -58,6 +60,11 @@ export const styles = css`
     .selected-value:active,
     .selected-value${focusVisible} {
         outline: none;
+    }
+
+    .selected-value::selection {
+        color: ${selectedTextForegroundColor};
+        background: ${selectedTextBackgroundColor};
     }
 
     [part='indicator'] {
