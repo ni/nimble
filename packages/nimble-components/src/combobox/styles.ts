@@ -5,6 +5,7 @@ import {
     bodyDisabledFontColor,
     borderRgbPartialColor,
     smallPadding,
+    borderHoverColor,
     selectedTextForegroundColor,
     selectedTextBackgroundColor
 } from '../theme-provider/design-tokens';
@@ -30,6 +31,10 @@ export const styles = css`
 
     .control {
         bottom-border-width: var(--ni-private-bottom-border-width);
+    }
+
+    .control:focus-within {
+        border-bottom-color: ${borderHoverColor};
     }
 
     :host(.invalid) .control {
