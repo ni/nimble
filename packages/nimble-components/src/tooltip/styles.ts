@@ -5,6 +5,7 @@ import {
     Black15,
     Black85,
     Black91,
+    Information100DarkUi,
     Information100LightUi,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
@@ -38,7 +39,7 @@ export const styles = css`
         box-shadow: 0px 3px 4px ${popupBoxShadowColor};
         display: inline-flex;
         border: ${borderWidth} solid var(--ni-private-tooltip-border-color);
-        background-color: var(--ni-private-background-color);
+        background-color: var(--ni-private-tooltip-background-color);
         padding-bottom: 6px;
         padding-left: calc(${standardPadding} / 2);
         padding-right: calc(${standardPadding} / 2);
@@ -69,21 +70,21 @@ export const styles = css`
         flex: 0 0 auto;
     }
 
-    :host(.fail) .tooltip {
-        --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
-        --ni-private-tooltip-background-color: ${White};
-    }
-
-    :host(.information) .tooltip {
-        --ni-private-tooltip-border-color: ${Information100LightUi};
-        --ni-private-tooltip-background-color: ${White};
-    }
 `.withBehaviors(
     /* Local Theme Behaviors for tooltip borders and backgrounds */
         themeBehavior(
-        // Light Theme
-            null,
+            // Light Theme
+            css`
+            :host(.fail) {
+                --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
+                --ni-private-tooltip-background-color: ${White};
+            }
 
+            :host(.information) {
+                --ni-private-tooltip-border-color: ${Information100LightUi};
+                --ni-private-tooltip-background-color: ${White};
+            }
+            `,
             // Dark Theme
             css`
             .tooltip {
@@ -93,6 +94,15 @@ export const styles = css`
             )};
                 background-color: ${Black85};
             }
+            
+            :host(.information) .tooltip {
+                --ni-private-tooltip-border-color: ${Information100DarkUi};
+            }
+
+            :host(.fail) .tooltip {
+                --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
+            }
+
         `,
             // Color Theme
             css`
@@ -104,11 +114,11 @@ export const styles = css`
                 background-color: ${hexToRgbaCssColor(White, 0.15)};
             }
 
-            :host(.fail) .tooltip {
+            :host(.fail) {
                 --ni-private-tooltip-border-color: ${White};
             }
 
-            :host(.information) .tooltip {
+            :host(.information) {
                 --ni-private-tooltip-border-color: ${White};
             }
 

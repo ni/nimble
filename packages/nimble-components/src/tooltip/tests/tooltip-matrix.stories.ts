@@ -32,52 +32,37 @@ const metadata: Meta = {
 
 export default metadata;
 
-const tooltipStates = [
-    ['defaultShortText', '', 'Hello'],
-    [
-        'defaultLongText',
-        '',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
-    ],
-    ['failShortText', 'fail', 'Hello'],
-    [
-        'failLongText',
-        'fail',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
-    ],
-    ['failIconShortText', 'fail icon-visible', 'Hello'],
-    [
-        'failIconLongText',
-        'fail icon-visible',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
-    ],
-    ['infoShortText', 'information', 'Hello'],
-    [
-        'infoLongText',
-        'information',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
-    ],
-    ['infoIconShortText', 'information icon-visible', 'Hello'],
-    [
-        'infoIconLongText',
-        'information icon-visible',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
-    ]
+const textStates = [
+    ['Short Text', 'Hello'],
+    ['Long Text', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.']
 ] as const;
-type TooltipStates = typeof tooltipStates[number];
+type TextState = typeof textStates[number];
 
-const component = ([
-    tooltipName,
-    tooltipClass,
-    tooltipValue
-]: TooltipStates): ViewTemplate => html`
+const valueStates = [
+    ['Default', ''],
+    ['Fail', 'fail'],
+    ['Information', 'information']
+] as const;
+type ValueState = typeof valueStates[number];
+
+const iconStates = [
+    ['No Icon', ''],
+    ['Icon Visible', 'icon-visible']
+] as const;
+type IconState = typeof iconStates[number];
+
+const component = (
+    [textName, text]: TextState,
+    [valueName, value]: ValueState,
+    [iconName, icon]: IconState
+): ViewTemplate => html`
     <style>
         div {
-            display: -webkit-inline-box;
+            display: inline-block;
         }
 
         .container {
-            padding: 120px;
+            padding: 200px;
             width: 100px;
             height: 50px;
         }
@@ -94,18 +79,18 @@ const component = ([
     </style>
 
     <div class="container">
-        <div class="anchorDiv" id="${() => `${tooltipName}`}">
-            ${tooltipName}
+        <div class="anchorDiv" id="${() => `${textName}`} ${() => `${valueName}`} ${() => `${iconName}`}">
+            ${() => `${textName}`} ${() => `${valueName}`} ${() => `${iconName}`}
         </div>
 
         <nimble-tooltip
-            anchor="${() => `${tooltipName}`}"
+            anchor="${() => `${textName}`} ${() => `${valueName}`} ${() => `${iconName}`}"
             visible
             position="bottom"
             auto-update-mode="auto"
-            class="${() => `${tooltipClass}`}"
+            class="${() => `${value} ${icon}`}"
         >
-            ${() => tooltipValue}
+            ${() => `${text}`}
         </nimble-tooltip>
     </div>
 `;
@@ -117,17 +102,29 @@ const [
 ] = backgroundStates;
 
 export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
-    createMatrix(component, [tooltipStates]),
+    createMatrix(component, [
+        textStates,
+        valueStates,
+        iconStates
+    ]),
     lightThemeWhiteBackground
 );
 
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    createMatrix(component, [tooltipStates]),
+    createMatrix(component, [
+        textStates,
+        valueStates,
+        iconStates
+    ]),
     colorThemeDarkGreenBackground
 );
 
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
-    createMatrix(component, [tooltipStates]),
+    createMatrix(component, [
+        textStates,
+        valueStates,
+        iconStates
+    ]),
     darkThemeBlackBackground
 );
 

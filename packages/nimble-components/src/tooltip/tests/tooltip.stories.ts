@@ -80,7 +80,7 @@ const metadata: Meta<TooltipArgs> = {
             options: { anchor: 'anchor', auto: 'auto' },
             control: { type: 'radio' },
             description:
-                'Controls when the tooltip updates its position, default is `anchor` which only updates when the anchor is resized. `auto` will update on scroll/resize events.'
+                'Controls when the tooltip updates its position. The default is `anchor`, which only updates when the anchor is resized. `auto` will update on scroll/resize events.'
         },
         delay: {
             description:

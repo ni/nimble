@@ -1,4 +1,4 @@
-import { DesignSystem, TooltipPosition } from '@microsoft/fast-foundation';
+import { DesignSystem, TooltipPosition, Tooltip as FoundationTooltip } from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Tooltip } from '..';
@@ -130,7 +130,7 @@ describe('Tooltip', () => {
         element.visible = true;
 
         await connect();
-        // await DOM.nextUpdate();
+        await DOM.nextUpdate();
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -143,7 +143,7 @@ describe('Tooltip', () => {
         element.classList.add('icon-visible');
 
         await connect();
-        // await DOM.nextUpdate();
+        await DOM.nextUpdate();
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -367,7 +367,7 @@ describe('Tooltip', () => {
     // end of position tests ^
 
     it('should have its tag returned by tagFor(FoundationTooltip)', () => {
-        expect(DesignSystem.tagFor(Tooltip)).toBe('nimble-tooltip');
+        expect(DesignSystem.tagFor(FoundationTooltip)).toBe('nimble-tooltip');
     });
 
     it('can construct an element instance', () => {
