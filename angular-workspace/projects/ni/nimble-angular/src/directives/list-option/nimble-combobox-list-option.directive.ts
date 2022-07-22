@@ -20,8 +20,7 @@ export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestr
 
     /**
      * @description
-     * Tracks the value bound to the option element. Unlike the value binding,
-     * ngValue supports binding to objects.
+     * Tracks the value bound to the option element.
      */
     @Input()
     public set ngValue(value: unknown) {
