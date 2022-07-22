@@ -39,7 +39,7 @@ A Blazor wrapper will be created for the new component.
 -   Testing: Unit tests will be added to ensure the value of `selected` and `aria-current` stay synchronized with each other.
 -   _Documentation: No additional requirements_
 -   _Tooling: No additional requirements_
--   Accessibility: [aria-current](https://www.w3.org/TR/wai-aria-1.1/#aria-current) will be used to make the `selected` state accessible.
+-   Accessibility: [aria-current](https://www.w3.org/TR/wai-aria-1.1/#aria-current) will be used to make the `selected` state accessible. Other accessibility behaviors like role and keyboard interaction will be inherited from the native HTML button.
 -   _Globalization: No additional requirements_
 -   _Performance: No additional requirements_
 -   _Security: No additional requirements_
