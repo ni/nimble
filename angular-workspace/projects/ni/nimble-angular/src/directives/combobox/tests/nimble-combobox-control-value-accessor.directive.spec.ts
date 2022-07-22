@@ -6,7 +6,7 @@ import { NimbleListOptionModule } from '../../list-option/nimble-list-option.mod
 import { waitTask } from '../../../async-test-utilities';
 import { processUpdates } from '../../../testing/async-helpers';
 import type { Combobox } from '../nimble-combobox.directive';
-import { OPTION_NOT_FOUND } from '../nimble-combobox-control-value-accessor.directive';
+import { OptionNotFound, OPTION_NOT_FOUND } from '../nimble-combobox-control-value-accessor.directive';
 
 function setComboboxValue(combobox: Combobox, index: number): void {
     combobox.dispatchEvent(new Event('click'));
@@ -18,34 +18,36 @@ describe('Nimble combobox control value accessor', () => {
         @Component({
             template: `
                 <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled">                    
-                    <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option.name }}</nimble-list-option>
-                    <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption.name }}</nimble-list-option>
+                    <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
+                    <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                 </nimble-combobox>
              `
         })
         class TestHostComponent {
             @ViewChild('combobox', { static: true }) public combobox: ElementRef<Combobox>;
 
-            public selectOptions: { name: string, value: number }[] = [
+            public selectOptions: ({ name: string, value: number } | null)[] = [
                 { name: 'Option 1', value: 1 },
                 { name: 'Option 2', value: 2 },
-                { name: 'Option 3', value: 3 }
+                { name: 'Option 3', value: 3 },
+                null
             ];
 
-            public selectedOption: { name: string, value: number } | unknown = this.selectOptions[1];
-            public dynamicOption = { name: 'Dynamic Option 1', value: 4 };
+            public selectedOption: { name: string, value: number } | null | OptionNotFound = this.selectOptions[1];
+            public dynamicOption: { name: string, value: number } = { name: 'Dynamic Option 1', value: 4 };
+            public readonly nullValueString = 'null';
 
             public selectDisabled = false;
 
-            public callbackValue: unknown;
+            public callbackValue: { name: string, value: number } | OptionNotFound;
 
             public useDefaultOptions = true;
 
             public compareWith(option1: { name: string, value: number } | null, option2: { name: string, value: number } | null): boolean {
-                return !!option1 && !!option2 && option1.value === option2.value;
+                return (!!option1 && !!option2 && option1.value === option2.value) || (option1 === null && option2 === null);
             }
 
-            public onModelValueChange(value: { name: string, value: number } | unknown): void {
+            public onModelValueChange(value: { name: string, value: number } | OptionNotFound): void {
                 this.callbackValue = value;
             }
         }
@@ -137,12 +139,31 @@ describe('Nimble combobox control value accessor', () => {
             fixture.detectChanges();
             tick();
             processUpdates();
-            setComboboxValue(combobox, 3);
+            testHostComponent.selectedOption = testHostComponent.dynamicOption;
             fixture.detectChanges();
             tick();
             processUpdates();
 
             expect(combobox.control.value).toEqual('foo');
+        }));
+
+        it('null option is selected, combobox display value is set to provided display string for null', fakeAsync(() => {
+            setComboboxValue(combobox, 3); // select null option
+            fixture.detectChanges();
+            tick();
+            processUpdates();
+
+            expect(combobox.control.value).toEqual(testHostComponent.nullValueString);
+        }));
+
+        it('set bound value to null, combobox selectedIndex set to option with null value', fakeAsync(() => {
+            testHostComponent.selectedOption = null;
+            fixture.detectChanges();
+            tick();
+            processUpdates();
+
+            expect(combobox.selectedIndex).toEqual(3);
+            expect(combobox.control.value).toEqual(testHostComponent.nullValueString);
         }));
 
         // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
