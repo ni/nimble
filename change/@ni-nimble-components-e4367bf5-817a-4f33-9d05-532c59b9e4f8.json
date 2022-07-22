@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Change colors for selected text",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
