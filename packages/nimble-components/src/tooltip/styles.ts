@@ -46,26 +46,19 @@ export const styles = css`
         padding-top: ${smallPadding};
     }
 
-    nimble-icon-exclamation-mark {
+    .status-icon {
         display: none;
         width: 14px;
         height: 14px;
         padding-right: 8px;
     }
 
-    :host(.fail.icon-visible) nimble-icon-exclamation-mark {
+    :host(.fail.icon-visible) .fail {
         display: flex;
         flex: 0 0 auto;
     }
 
-    nimble-icon-info {
-        display: none;
-        width: 14px;
-        height: 14px;
-        padding-right: 8px;
-    }
-
-    :host(.information.icon-visible) nimble-icon-info {
+    :host(.information.icon-visible) .information {
         display: flex;
         flex: 0 0 auto;
     }
@@ -104,7 +97,7 @@ export const styles = css`
         `,
             // Color Theme
             css`
-            nimble-anchored-region {
+            .anchored-region {
                 background-color: ${ForestGreen};
             }
 
@@ -127,11 +120,7 @@ export const styles = css`
                 --ni-private-tooltip-border-color: ${White};
             }
 
-            nimble-icon-exclamation-mark {
-                opacity: 0.6;
-            }
-
-            nimble-icon-info {
+            .status-icon {
                 opacity: 0.6;
             }
         `

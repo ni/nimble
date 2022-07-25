@@ -47,7 +47,7 @@ ${scssInternalPropertySetterMarkdown(tokenNames.iconColor, 'purple')}
 `;
 
 const statusDescription = `
-Set the \`pass\`, \`fail\`, or \`warning\` CSS class on the element to switch between the theme-aware color options.
+Set the \`pass\`, \`fail\` \`warning\` or \`information\` CSS class on the element to switch between the theme-aware color options.
 
 ${overrideWarning('Color', statusDescriptionOverride)}
 `;

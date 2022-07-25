@@ -1,6 +1,8 @@
 import { html, ref, ViewTemplate, when } from '@microsoft/fast-element';
 import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import { AnchoredRegion } from '../anchored-region';
+import { IconExclamationMark } from '../icons/exclamation-mark';
+import { IconInfo } from '../icons/info';
 import type { Tooltip } from '.';
 
 export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = context => {
@@ -9,6 +11,7 @@ export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = contex
         x => x.tooltipVisible,
         html<Tooltip>`
             <${context.tagFor(AnchoredRegion)}
+                class="anchored-region"
                 fixed-placement="true"
                 auto-update-mode="${x => x.autoUpdateMode}"
                 vertical-positioning-mode="${x => x.verticalPositioningMode}"
@@ -25,8 +28,16 @@ export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = contex
                 ${ref('region')}
             >
                 <div class="tooltip" part="tooltip" role="tooltip">
-                    <nimble-icon-exclamation-mark class="fail"></nimble-icon-exclamation-mark>
-                    <nimble-icon-info class="information"></nimble-icon-info>
+                    <${context.tagFor(
+        IconExclamationMark
+    )} class="fail status-icon"></${context.tagFor(
+    IconExclamationMark
+)}>
+                    <${context.tagFor(
+        IconInfo
+    )} class="information status-icon"></${context.tagFor(
+    IconInfo
+)}>
                     <slot></slot>
                 </div>
             </${context.tagFor(AnchoredRegion)}>
