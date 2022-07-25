@@ -55,7 +55,6 @@ const metadata: Meta<ComboboxArgs> = {
             ${repeat(x => x.options, html<OptionArgs>`
                 <nimble-list-option ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
             `)}
-            <nimble-list-option></nimble-list-option>
         </nimble-combobox>
     `),
     argTypes: {
