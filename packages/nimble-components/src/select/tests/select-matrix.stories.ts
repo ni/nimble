@@ -65,3 +65,10 @@ export const hiddenSelect: Story = createStory(
         </nimble-select>`
     )
 );
+
+export const blankListOption: Story = createStory(
+    html`<nimble-select>
+        <nimble-list-option value="1">Option 1</nimble-list-option>
+        <nimble-list-option></nimble-list-option>
+    </nimble-select>`
+);
