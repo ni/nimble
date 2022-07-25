@@ -5,6 +5,7 @@ import {
     Black15,
     Black85,
     Black91,
+    ForestGreen,
     Information100DarkUi,
     Information100LightUi,
     White
@@ -15,8 +16,7 @@ import {
     popupBoxShadowColor,
     borderWidth,
     standardPadding,
-    smallPadding,
-    iconColor
+    smallPadding
 } from '../theme-provider/design-tokens';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
@@ -86,30 +86,37 @@ export const styles = css`
         `,
             // Dark Theme
             css`
-            .tooltip {
+            :host {
                 --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
                 Black15,
                 0.3
             )};
-                background-color: ${Black85};
+                --ni-private-tooltip-background-color: ${Black85};
             }
 
-            :host(.information) .tooltip {
+            :host(.information) {
                 --ni-private-tooltip-border-color: ${Information100DarkUi};
             }
 
-            :host(.fail) .tooltip {
+            :host(.fail) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
             }
         `,
             // Color Theme
             css`
-            .tooltip {
+            nimble-anchored-region {
+                background-color: ${ForestGreen};
+            }
+
+            :host {
                 --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
+                White,
+                0.3
+            )};
+                --ni-private-tooltip-background-color: ${hexToRgbaCssColor(
                 White,
                 0.15
             )};
-                background-color: ${hexToRgbaCssColor(White, 0.15)};
             }
 
             :host(.fail) {
@@ -120,18 +127,12 @@ export const styles = css`
                 --ni-private-tooltip-border-color: ${White};
             }
 
-            :host nimble-icon-exclamation-mark {
-                ${iconColor.cssCustomProperty}: ${hexToRgbaCssColor(
-                White,
-                0.6
-            )};
+            nimble-icon-exclamation-mark {
+                opacity: 0.6;
             }
 
-            :host nimble-icon-info {
-                ${iconColor.cssCustomProperty}: ${hexToRgbaCssColor(
-                White,
-                0.6
-            )};
+            nimble-icon-info {
+                opacity: 0.6;
             }
         `
         )

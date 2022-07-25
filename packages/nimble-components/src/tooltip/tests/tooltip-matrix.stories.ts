@@ -33,30 +33,30 @@ const metadata: Meta = {
 export default metadata;
 
 const textStates = [
-    ['Short Text', 'Hello'],
+    ['Short_Text', 'Hello'],
     [
-        'Long Text',
+        'Long_Text',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
     ]
 ] as const;
 type TextState = typeof textStates[number];
 
-const valueStates = [
+const statusStates = [
     ['Default', ''],
     ['Fail', 'fail'],
     ['Information', 'information']
 ] as const;
-type ValueState = typeof valueStates[number];
+type StatusState = typeof statusStates[number];
 
 const iconStates = [
-    ['No Icon', ''],
-    ['Icon Visible', 'icon-visible']
+    ['No_Icon', ''],
+    ['Icon_Visible', 'icon-visible']
 ] as const;
 type IconState = typeof iconStates[number];
 
 const component = (
     [textName, text]: TextState,
-    [valueName, value]: ValueState,
+    [valueName, value]: StatusState,
     [iconName, icon]: IconState
 ): ViewTemplate => html`
     <style>
@@ -75,23 +75,19 @@ const component = (
             font: var(${bodyFont.cssCustomProperty});
             color: var(${bodyFontColor.cssCustomProperty});
         }
-
-        .tooltip {
-            justify-content: left;
-        }
     </style>
 
     <div class="container">
         <div
             class="anchorDiv"
-            id="${() => `${textName}`} ${() => `${valueName}`} ${() => `${iconName}`}"
+            id="${() => `${textName}_${valueName}_${iconName}`}"
         >
             ${() => `${textName}`} ${() => `${valueName}`}
             ${() => `${iconName}`}
         </div>
 
         <nimble-tooltip
-            anchor="${() => `${textName}`} ${() => `${valueName}`} ${() => `${iconName}`}"
+            anchor="${() => `${textName}_${valueName}_${iconName}`}"
             visible
             position="bottom"
             auto-update-mode="auto"
@@ -109,17 +105,17 @@ const [
 ] = backgroundStates;
 
 export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
-    createMatrix(component, [textStates, valueStates, iconStates]),
+    createMatrix(component, [textStates, statusStates, iconStates]),
     lightThemeWhiteBackground
 );
 
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    createMatrix(component, [textStates, valueStates, iconStates]),
+    createMatrix(component, [textStates, statusStates, iconStates]),
     colorThemeDarkGreenBackground
 );
 
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
-    createMatrix(component, [textStates, valueStates, iconStates]),
+    createMatrix(component, [textStates, statusStates, iconStates]),
     darkThemeBlackBackground
 );
 
