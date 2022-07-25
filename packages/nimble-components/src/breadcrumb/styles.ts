@@ -32,7 +32,7 @@ export const styles = css`
     }
 
     ::slotted(*:first-child) {
-        padding-left: 1px;
+        padding-left: 0px;
     }
 
     ::slotted(*:not([href]):last-child) {
