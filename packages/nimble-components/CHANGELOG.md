@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 22 Jul 2022 14:58:44 GMT and should not be manually modified.
+This log was last generated on Mon, 25 Jul 2022 18:44:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.6.2
+
+Mon, 25 Jul 2022 18:44:33 GMT
+
+### Patches
+
+- Adding option to Combobox Storybook. Fix styling for empty options. ([ni/nimble@9039cd2](https://github.com/ni/nimble/commit/9039cd29ed7223123aa7b3a09ac5ee90ec2c388a))
 
 ## 11.6.1
 
