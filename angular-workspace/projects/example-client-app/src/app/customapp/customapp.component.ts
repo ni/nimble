@@ -16,15 +16,14 @@ export class CustomAppComponent {
     public drawerLocation: DrawerLocation = DrawerLocation.right;
     public isDrawerPinned = false;
     public drawerLocations = DrawerLocation;
-    public comboboxItems: (ComboboxItem | null)[] = [
+    public comboboxItems: ComboboxItem[] = [
         { first: 'foo', last: 'bar' },
         { first: 'Bubba', last: 'Hotep' },
-        { first: 'Mister', last: 'Smithers' },
-        null
+        { first: 'Mister', last: 'Smithers' }
     ];
 
     public comboboxSelectedOption = this.comboboxItems[0];
-    public comboboxSelectedLastName = this.comboboxSelectedOption!.last;
+    public comboboxSelectedLastName = this.comboboxSelectedOption.last;
 
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;

@@ -11,6 +11,10 @@ export type OptionNotFound = typeof OPTION_NOT_FOUND;
 
 /**
  * Control Value Accessor implementation to target combobox inputs.
+ * @description
+ * The expectation when binding value via 'ngModel', is that the content in each list-option be
+ * unique. When this isn't the case the behavior is undefined. Additionally, it is expected
+ * that when using 'ngModel' that each list-option bind a value via 'ngValue', and not 'value'.
  */
 @Directive({
     selector:
@@ -37,8 +41,6 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
 
     /** @internal */
     public readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
-
-    private value: unknown;
 
     private _compareWith: (o1: unknown, o2: unknown) => boolean = Object.is;
 
@@ -74,8 +76,8 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnChange(fn: (value: unknown) => void): void {
         this.onChange = (valueString: string): void => {
-            this.value = this._optionMap.get(valueString) ?? OPTION_NOT_FOUND;
-            fn(this.value);
+            const modelValue = this._optionMap.get(valueString) ?? OPTION_NOT_FOUND;
+            fn(modelValue);
         };
     }
 
