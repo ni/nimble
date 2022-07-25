@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 22 Jul 2022 14:58:44 GMT",
+      "tag": "@ni/nimble-components_v11.6.1",
+      "version": "11.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ea1854aba1c043971e9348b39e6f525b0456a10a",
+            "comment": "Minor style fix to combobox. Resolves #639."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Jul 2022 18:41:04 GMT",
+      "tag": "@ni/nimble-components_v11.6.0",
+      "version": "11.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "60270271+Dakeondrick@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a188d7baa54e1061ad07ffa65b0e5d0a2b495238",
+            "comment": "adding block and outline appearances to select"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 18 Jul 2022 15:25:53 GMT",
       "tag": "@ni/nimble-components_v11.5.0",
       "version": "11.5.0",

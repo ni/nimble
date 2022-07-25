@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 18 Jul 2022 15:25:53 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Jul 2022 14:58:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.6.1
+
+Fri, 22 Jul 2022 14:58:44 GMT
+
+### Patches
+
+- Minor style fix to combobox. Resolves #639. ([ni/nimble@ea1854a](https://github.com/ni/nimble/commit/ea1854aba1c043971e9348b39e6f525b0456a10a))
+
+## 11.6.0
+
+Wed, 20 Jul 2022 18:41:04 GMT
+
+### Minor changes
+
+- adding block and outline appearances to select ([ni/nimble@a188d7b](https://github.com/ni/nimble/commit/a188d7baa54e1061ad07ffa65b0e5d0a2b495238))
 
 ## 11.5.0
 

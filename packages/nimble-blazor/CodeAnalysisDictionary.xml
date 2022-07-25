@@ -13,6 +13,7 @@
             <Word>href</Word>
             <Word>lang</Word>
             <Word>frameless</Word>
+            <Word>Dropdown</Word>
         </Recognized>
         <DiscreteExceptions>
         </DiscreteExceptions>

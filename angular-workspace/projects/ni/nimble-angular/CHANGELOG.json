@@ -2,6 +2,42 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 22 Jul 2022 14:58:44 GMT",
+      "tag": "@ni/nimble-angular_v7.5.1",
+      "version": "7.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.6.1",
+            "commit": "ea1854aba1c043971e9348b39e6f525b0456a10a"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Jul 2022 18:41:04 GMT",
+      "tag": "@ni/nimble-angular_v7.5.0",
+      "version": "7.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a188d7baa54e1061ad07ffa65b0e5d0a2b495238",
+            "comment": "add appearance to select wrapper and exmaple project"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.6.0",
+            "commit": "a188d7baa54e1061ad07ffa65b0e5d0a2b495238"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 18 Jul 2022 15:25:53 GMT",
       "tag": "@ni/nimble-angular_v7.4.0",
       "version": "7.4.0",
