@@ -15,7 +15,7 @@ No final visual design spec exists yet.
 ### Non-goals
 
 -   We are not creating a component that will provide "snackbar" functionality, as that has distinct enough requirements that it should be a separate component and/or service. It could be built on top of the (non-modal) native `dialog` element, but there isn't much to be gained by building it on top of nimble-dialog (based on the proposals in this spec).
--   We are not defining a dialog service that would provide a fully programmatic way to create and display simple dialogs. That can still be explored at a later time, but it is not a goal of this design.
+-   We are not defining a dialog service that would provide a fully programmatic way to create and display simple dialogs. The proposed API allows clients to define their own service. We plan to update the existing `systemlink-lib-angular` confirm-dialog service to use `nimble-dialog`.
 
 ### Features
 
@@ -60,26 +60,25 @@ Some [early designs](https://xd.adobe.com/view/00ff3aa4-594f-48eb-6e29-841043749
 -   _Component Name_
     -   `nimble-dialog`
 -   _Props/Attrs_
-    -   ~~`open` - shows dialog when set, closes when cleared. However, clients should _not_ set this value, otherwise the dialog opens non-modally, uncentered, and without focus management. `showModal()` should be called instead. The only reason to expose this attribute is to support one-way binding use cases.~~
+    -   `open` - read-only attribute that is set while the dialog is open. The native dialog supports setting this attribute, but it opens the dialog non-modally, uncentered, and without focus management. For that reason our API only supports `show()` as the way to open a dialog.
     -   `prevent-dismiss` - prevent dismissal by pressing ESC (this attribute also exists on the Nimble drawer)
 -   _Methods_
-    -   `showModal()` - opens the dialog and returns a `Promise` that is resolved when the dialog is closed
-    -   `close()` - closes the dialog (returning focus to the control that had it before opening)
+    -   `show()` - opens the dialog and returns a `Promise` that is resolved when the dialog is closed. The value of the resolved `Promise` indicates why/how the dialog was closed.
+    -   `close(reason)` - closes the dialog (returning focus to the control that had it before opening), optionally specifying the reason/method (a value of any type). When no reason is specified, a `USER_DISMISSED` Symbol is given as the reason.
 -   _Events_
-    -   `close` - fires when dialog closed
-    -   `cancel` - fires when the _browser_ cancels the dialog (e.g. ESC pressed, or browser UI used to close dialog)
+    -   (none)
 -   _CSS Classes and CSS Custom Properties that affect the component_
     -   (none)
 
 Leslie informed us that modal dialogs should not be dismissable by clicking outside. This is something the drawer currently supports but apparently should be treated as a bug to fix.
 
-Multiple dialogs may be opened at the same time. The latest dialog opened will always be on top, forming a stack of open dialogs. Only the top dialog is interactive.
+Multiple dialogs may be opened at the same time. The latest dialog opened will always be on top, forming a stack of open dialogs. Only the top dialog is interactive. The dialog uses the [top layer context](https://developer.chrome.com/blog/top-layer-devtools/#what-are-the-top-layer-and-top-layer-elements), which is above all other elements using the z-index to control stacking position.
 
 We will not make any special effort to provide forms support (i.e. form `type="dialog"`). Specifically, we will not provide access to the `returnValue` attribute of the native `dialog` that is set upon form submission. Angular and Blazor frameworks have their own way of handling forms.
 
 ### Anatomy
 
-We will have a single, default slot and leave layout and styling of contents completely up to the user. One unfortunate consequence of this is that the component will not be able to enforce design coherence, like position, style, label casing, etc. of dialog buttons. Ideally this can be mitigated by implementation of a higher-level service that creates consistently-styled, common dialogs.
+Because we do not have concrete designs for Nimble dialogs, we will initially have a single, default slot and leave layout and styling of contents completely up to the client. One unfortunate consequence of this is that the component will not be able to enforce design coherence, like position, style, label casing, etc. of dialog buttons. This can be mitigated by implementation of a higher-level service that creates consistently-styled, common dialogs. When we have designs for the dialog, we can revisit this and try to apply some common styling and layout.
 
 Shadow DOM:
 
@@ -100,14 +99,13 @@ Shadow DOM:
 
 #### ALTERNATIVE
 
-One alternative is to follow the precedent of the Drawer and apply special styling to `header`, `section`, and `footer` elements that are slotted in the default slot. However, we can only style the top-level slotted elements (i.e. `header`, `section`, and `footer`), not any nested elements. This may still be enough, as the Drawer has the same limitation.
+One alternative is to follow the precedent of the Drawer and apply special styling to `header`, `section`, and `footer` elements that are slotted in the default slot. However, we can only style the top-level slotted elements (i.e. `header`, `section`, and `footer`), not any nested elements. This may still be enough, as the Drawer has the same limitation. However, since we don't have designs for the dialog at this point, we will not do any such special element styling.
 
-~~Another potential obstacle is that if a client wants to host a form on their dialog and have it submit via buttons in the footer, they would have to wrap `section` and `footer` in their `form` element. This would prevent our styling for `section` and `footer` from working.~~
+### Form-based dialogs
 
-Ultimately, we will not bother styling these special elements because:
+Native dialogs have form support via setting `method="dialog"` on the `form` element. This allows form elements to close the dialog and pass their values back to the caller via the `returnValue` property on the dialog. We won't expose a `returnValue` property or otherwise support forms in our implementation.
 
--   we cannot style the buttons _within_ the `footer`
--   there is very little useful styling that we could apply to the `header` and `section`
+A potential complication arrises if we also want to style certain elements like `header`, `section`, and `footer`. If a client wants to host a form on their dialog and have it submit via buttons in the footer, they would have to wrap `section` and `footer` in their `form` element. This would prevent our styling for `section` and `footer` from working.
 
 ### Angular integration
 
@@ -123,7 +121,7 @@ We will apply styling to give dialogs a consistent border, shadow, background. W
 
 Dialogs will not have a title bar and close control ("X") by default. It will be up to the client to provide that if needed.
 
-Dialogs will always be opened in the center of the screen, sized to fit the contents. Scrolling the page while a dialog is open will not move the dialog, i.e. it will stay centered.
+Dialogs will always be opened in the center of the screen, sized to fit the contents. Scrolling the page while a dialog is open will not move the dialog, i.e. it will stay visible in the same, fixed location rather than scrolling with the page. This is the default behavior of the native `dialog`.
 
 Dialogs will not be movable or sizeable.
 
@@ -157,17 +155,15 @@ By using the native `dialog` element, we get good a11y behavior without having t
 -   When modal, the dialog will restrict focus to the elements on the dialog.
 -   Upon closing a modal dialog, focus will return to the element that had focus before the dialog was opened.
 -   ESC key closes the dialog
--   The dialog has the a11y role `dialog`
+-   The native dialog defaults to the a11y role `dialog` (but we will override this, as discussed below)
 
-The role `alertdialog` should be used for most modal dialogs (since they demand the user's attention). When role is `alertdialog`, `aria-describedby` is also supposed to be set to reference the element containing the alert message (which would be part of the user-provided content). Similarly, for both `dialog` and `alertdialog` roles, `aria-labelledby` should be set to point to an element that is the title for the dialog, or else `aria-label` should provide the title directly. It is up to the user to set these attributes appropriately. We will add logic to synchronize these attributes on the `nimble-dialog` with the `dialog` element in the shadow root.
+The role `alertdialog` should be used for most modal dialogs (since they demand the user's attention), so we will set it by default. When role is `alertdialog`, `aria-describedby` is also supposed to be set to reference the element containing the alert message (which would be part of the user-provided content). Unfortunately, because the `dialog` and the alert message element are on different sides of the shadow DOM boundary, we can't reference the element ID. Similarly, `aria-labelledby` is supposed to point to an element that is the title for the dialog, but it has the same problem with referencing IDs. Instead, `aria-label` should provide the title directly. It is up to the client to set `aria-label` appropriately, and we will synchronize it between `nimble-dialog` and the `dialog` element in the shadow root.
 
 The WAI-ARIA guidelines also state that a dialog should always have at least one focusable element, which typically is satisfied by a Close/OK/Cancel button.
 
 ### Globalization
 
 There will be no globalization considerations.
-
-Because Nimble is not localized, we cannot provide OK and Cancel buttons by default; they must be part of the content provided by the user.
 
 ### Security
 
@@ -184,8 +180,6 @@ None
 ### Test Plan
 
 Because we will not be based on a FAST component, we will create a full range of tests to exercise supported behaviors.
-
-Unit tests will not be able to cover the ESC dismissal behavior or the `prevent-dismiss` attribute, because we cannot simulate an ESC keypress in a way that causes the dialog to dismiss.
 
 ### Tooling
 
@@ -209,22 +203,22 @@ There is also the `SlNotificationService`, but this currently operates using `Ma
 
 ## Loading Spinner Component
 
-There have been requests for Nimble to provide a [loading spinner component](https://github.com/ni/nimble/issues/346), which has some aspects in common with a modal dialog. For example, it prevents interaction with a portion of the UI, and displays some custom content (i.e. the animated spinner and an optional message) in the center of the target area. A question might be whether the nimble-dialog ought to have a spinner mode, or if a separate spinner component should be built on top of nimble-dialog.
+There have been requests for Nimble to provide a [loading spinner component](https://github.com/ni/nimble/issues/346), which has some aspects in common with a modal dialog. For example, it prevents interaction with a portion of the UI, and displays some custom content (i.e. the animated spinner and an optional message) in the center of the target area. A question might be whether the nimble-dialog ought to have a spinner mode/appearance, or if a separate spinner component should be built on top of nimble-dialog.
 
-I suggest that it is not intuitive that a loading spinner is a mode of a nimble-dialog, and that a separate nimble-spinner component is more discoverable and less likely to pollute the nimble-dialog's API with spinner-specific configuration (e.g. spinner size).
+I suggest that it is not intuitive that a loading spinner is a mode/appearance of a nimble-dialog, and that a separate nimble-spinner component is more discoverable and less likely to pollute the nimble-dialog's API with spinner-specific configuration (e.g. spinner size).
 
 It is probably as easy, or easier, to build a nimble-spinner on top of the native `dialog` than to build it on top of nimble-dialog. The latter has a more limited API and provides styling that probably isn't wanted, e.g. border, shadow, and background.
+
+Still, the decision of how we implement a spinner is not final and would best be addressed in a separate spec/HLD. We will not be doing anything to preclude that possibility in the future.
 
 ---
 
 ## Nimble Drawer Component
 
-The nimble-drawer component shares some similarities with a dialog. We might consider updating the drawer's implementation to use a nimble-dialog. The benefits (automatic focus behavior, a11y support) would come primarily from the underlying `dialog` element, so it might be a better idea to build on top of that instead. One potential hurdle would be to support the drawer's slide-in/out animation.
+The nimble-drawer component shares some similarities with a dialog. We might consider updating the drawer's implementation to use a nimble-dialog. The benefits (automatic focus behavior, a11y support) would come primarily from the underlying `dialog` element, so it might be a better idea to build on top of that instead. We have [an issue](https://github.com/ni/nimble/issues/592) regarding exactly that. One potential hurdle would be to support the drawer's slide-in/out animation.
 
 ---
 
 ## Open Issues
 
--   The `dialog` API uses mismatched terminology i.e. "show"/"close". Should we use the same (mismatched) names or switch to `openModal()`/`close()` or `showModal()`/`hide()`?
-
--   Do we need an `isOpen()` function?
+-   The `dialog` API uses mismatched terminology i.e. "show"/"close". Should we use the same (mismatched) names or switch to `open()`/`close()`?
