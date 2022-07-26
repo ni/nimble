@@ -5,6 +5,7 @@ import { IconExclamationMark } from '../icons/exclamation-mark';
 import { IconInfo } from '../icons/info';
 import type { Tooltip } from '.';
 
+// prettier-ignore
 export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = context => {
     return html<Tooltip>`
             ${when(
@@ -28,16 +29,8 @@ export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = contex
                 ${ref('region')}
             >
                 <div class="tooltip" part="tooltip" role="tooltip">
-                    <${context.tagFor(
-        IconExclamationMark
-    )} class="fail status-icon"></${context.tagFor(
-    IconExclamationMark
-)}>
-                    <${context.tagFor(
-        IconInfo
-    )} class="information status-icon"></${context.tagFor(
-    IconInfo
-)}>
+                    <${context.tagFor(IconExclamationMark)} class="fail status-icon"></${context.tagFor(IconExclamationMark)}>
+                    <${context.tagFor(IconInfo)} class="information status-icon"></${context.tagFor(IconInfo)}>
                     <slot></slot>
                 </div>
             </${context.tagFor(AnchoredRegion)}>

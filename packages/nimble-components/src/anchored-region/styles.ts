@@ -6,7 +6,4 @@ export const styles = css`
         display: block;
         z-index: 1000;
     }
-
-    .IconExclamationMark {
-    }
 `;
