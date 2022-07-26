@@ -19,7 +19,7 @@ The `nimble-card-button` will have minimal styling associate with it, as the maj
 [FAST button API](https://github.com/microsoft/fast/blob/0f63894082e89bbd7502e507d92932561322899e/packages/web-components/fast-foundation/src/button/button.spec.md)
 
 -   Component Name - `nimble-card-button`
--   Properties/Attributes - An additional `selected` boolean attribute that has styling associated with it will be added. This is required by the summary panel in SystemLink. For accessiblity the value of [aria-current](https://www.w3.org/TR/wai-aria-1.1/#aria-current) will be configured based on the value of `selected`. An attribute is favored over a css class so that changes to the value can easily be observered in order to update the value of `aria-current`.
+-   Properties/Attributes - An additional `selected` boolean attribute that has styling associated with it will be added. This is required by the summary panel in SystemLink. An attribute is preferred over a CSS class in this case to enable ARIA attributes to be tied to the `selected` state in the future (see open issues section for more information).
 -   Methods - _unchanged_
 -   Events - _unchanged_
 -   CSS Classes and Custom Properties that affect the component - _unchanged_
@@ -36,10 +36,10 @@ A Blazor wrapper will be created for the new component.
 ### Additional requirements
 
 -   Styling: A `selected` attribute will added to the API and will be used for styling.
--   Testing: Unit tests will be added to ensure the value of `selected` and `aria-current` stay synchronized with each other.
+-   _Testing: No additional requirements_
 -   _Documentation: No additional requirements_
 -   _Tooling: No additional requirements_
--   Accessibility: [aria-current](https://www.w3.org/TR/wai-aria-1.1/#aria-current) will be used to make the `selected` state accessible. Other accessibility behaviors like role and keyboard interaction will be inherited from the native HTML button.
+-   _Accessibility: No additional requirements. Accessibility behaviors like role and keyboard interaction will be inherited from the native HTML button._
 -   _Globalization: No additional requirements_
 -   _Performance: No additional requirements_
 -   _Security: No additional requirements_
@@ -66,4 +66,8 @@ Because the new component has the concept of being selected, an option could be 
 
 ## Open Issues
 
-_None_
+-   Should an ARIA attribute be associated with the `selected` attribute?
+    -   It's possible that `aria-current` is the most appropriate attribute, but there are a number of open questions surrounding this:
+        -   Would that ARIA attribute actually benefit screen reader users? [See here for more info](https://www.accessibility-developer-guide.com/examples/sensible-aria-usage/current/#peculiarities-and-side-effects)
+        -   Would the buttons need to be parented within an element with `role="group`? If so, is there an additional nimble component that needs to be created to parent the collection of `nimble-card-button` elements, or is it the responsibility of clients to set the role on an appropriate element within an app?
+        -   Does there need to be a way for a client to opt out of setting `aria-current`, such as a `standalone` attribute, or is setting `aria-current="false"` sufficient?
