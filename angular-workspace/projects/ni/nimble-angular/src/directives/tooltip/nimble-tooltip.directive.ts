@@ -12,38 +12,20 @@ export type { Tooltip, TooltipStatus };
     selector: 'nimble-tooltip'
 })
 export class NimbleTooltipDirective {
-    public get state(): TooltipStatus {
-        return this.elementRef.nativeElement.
+    public get visible(): boolean {
+        return this.elementRef.nativeElement.visible;
     }
 
-    @Input() public set appearance(value: TooltipStatus) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'state', value);
+    @Input() public set visible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'visible', toBooleanProperty(value));
     }
 
-    public get disabled(): boolean {
-        return this.elementRef.nativeElement.disabled;
+    public get anchor(): string {
+        return this.elementRef.nativeElement.anchor;
     }
 
-    @Input() public set disabled(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
-    }
-
-    public get type(): ButtonType {
-        return this.elementRef.nativeElement.type;
-    }
-
-    @Input() public set type(value: ButtonType) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'type', value);
-    }
-
-    public get contentHidden(): boolean {
-        return this.elementRef.nativeElement.;
-    }
-
-    // contentHidden property intentionally maps to the content-hidden attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('content-hidden') public set contentHidden(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
+    @Input() public set anchor(value: string) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'anchor', value);
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Tooltip>) {}
