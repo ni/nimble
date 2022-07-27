@@ -87,6 +87,14 @@ export const styles = css`
         opacity: 0.3;
     }
 
+    .control[disabled]:active {
+        --ni-private-card-button-border-color: transparent;
+    }
+
+    :host([selected]) .control[disabled]:active {
+        --ni-private-card-button-border-color: var(--ni-private-card-button-border-selected-color);
+    }
+
     .content {
         display: contents;
     }
