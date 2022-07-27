@@ -26,7 +26,8 @@ const iconStatusStates = [
     ['Pass', IconStatus.pass],
     ['Fail', IconStatus.fail],
     ['Warning', IconStatus.warning],
-    ['Regular', IconStatus.regular]
+    ['Regular', IconStatus.regular],
+    ['Information', IconStatus.information]
 ] as const;
 type IconStatusState = typeof iconStatusStates[number];
 

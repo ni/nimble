@@ -5,8 +5,12 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { createFixedThemeStory } from '../../utilities/tests/storybook';
+import {
+    createFixedThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { backgroundStates } from '../../utilities/tests/states';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import {
     bodyFont,
@@ -28,22 +32,42 @@ const metadata: Meta = {
 
 export default metadata;
 
-const valueStates = [
-    ['shortText', 'Hello'],
+const textStates = [
+    ['Short_Text', 'Hello'],
     [
-        'longText',
+        'Long_Text',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
     ]
 ] as const;
-type ValueState = typeof valueStates[number];
+type TextState = typeof textStates[number];
 
-const component = ([valueName, valueValue]: ValueState): ViewTemplate => html`
+const statusStates = [
+    ['Default', ''],
+    ['Fail', 'fail'],
+    ['Information', 'information']
+] as const;
+type StatusState = typeof statusStates[number];
+
+const iconStates = [
+    ['No_Icon', ''],
+    ['Icon_Visible', 'icon-visible']
+] as const;
+type IconState = typeof iconStates[number];
+
+const component = (
+    [textName, text]: TextState,
+    [valueName, value]: StatusState,
+    [iconName, icon]: IconState
+): ViewTemplate => html`
     <style>
+        div {
+            display: inline-block;
+        }
+
         .container {
-            display: inline-flex;
-            padding: 120px;
-            justify-content: center;
-            text-align: center;
+            padding: 200px;
+            width: 100px;
+            height: 50px;
         }
 
         .anchorDiv {
@@ -51,22 +75,25 @@ const component = ([valueName, valueValue]: ValueState): ViewTemplate => html`
             font: var(${bodyFont.cssCustomProperty});
             color: var(${bodyFontColor.cssCustomProperty});
         }
-
-        .tooltip {
-            justify-content: center;
-        }
     </style>
 
     <div class="container">
-        <div class="anchorDiv" id="${() => `${valueName}`}">${valueName}</div>
+        <div
+            class="anchorDiv"
+            id="${() => `${textName}_${valueName}_${iconName}`}"
+        >
+            ${() => `${textName}`} ${() => `${valueName}`}
+            ${() => `${iconName}`}
+        </div>
 
         <nimble-tooltip
-            anchor="${() => `${valueName}`}"
+            anchor="${() => `${textName}_${valueName}_${iconName}`}"
             visible
             position="bottom"
             auto-update-mode="auto"
+            class="${() => `${value} ${icon}`}"
         >
-            ${() => valueValue}
+            ${() => `${text}`}
         </nimble-tooltip>
     </div>
 `;
@@ -78,16 +105,20 @@ const [
 ] = backgroundStates;
 
 export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
-    createMatrix(component, [valueStates]),
+    createMatrix(component, [textStates, statusStates, iconStates]),
     lightThemeWhiteBackground
 );
 
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    createMatrix(component, [valueStates]),
+    createMatrix(component, [textStates, statusStates, iconStates]),
     colorThemeDarkGreenBackground
 );
 
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
-    createMatrix(component, [valueStates]),
+    createMatrix(component, [textStates, statusStates, iconStates]),
     darkThemeBlackBackground
+);
+
+export const hiddenTooltip: Story = createStory(
+    hiddenWrapper(html`<nimble-tooltip hidden>Hidden Tooltip</nimble-tooltip>`)
 );

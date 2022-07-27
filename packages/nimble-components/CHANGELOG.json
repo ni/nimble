@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 27 Jul 2022 15:38:00 GMT",
+      "tag": "@ni/nimble-components_v11.7.1",
+      "version": "11.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8b1dc127df77135a98f0a954b16337c718849c30",
+            "comment": "Update fast-foundation."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Jul 2022 00:53:31 GMT",
+      "tag": "@ni/nimble-components_v11.7.0",
+      "version": "11.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5142136ea7753d4a71c7047c86fdc05bab2ed66f",
+            "comment": "Implementation of the different states of the Nimble Tooltip."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 25 Jul 2022 18:44:33 GMT",
+      "tag": "@ni/nimble-components_v11.6.2",
+      "version": "11.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9039cd29ed7223123aa7b3a09ac5ee90ec2c388a",
+            "comment": "Adding option to Combobox Storybook. Fix styling for empty options."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Jul 2022 14:58:44 GMT",
       "tag": "@ni/nimble-components_v11.6.1",
       "version": "11.6.1",

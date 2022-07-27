@@ -1,27 +1,109 @@
-import { Directive, forwardRef } from '@angular/core';
-import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /**
- * Extension of Angular's DefaultValueAccessor to target combobox inputs.
- *
- * Directive decorator based on DefaultValueAccessor decorator
- * https://github.com/angular/angular/blob/master/packages/forms/src/directives/default_value_accessor.ts#L72
+* @description
+* This symbol instance will be returned when the value input of the Combobox is set
+* to a value not found in the set of options.
+*/
+export const OPTION_NOT_FOUND: unique symbol = Symbol('not found');
+export type OptionNotFound = typeof OPTION_NOT_FOUND;
+
+/**
+ * Control Value Accessor implementation to target combobox inputs.
+ * @description
+ * The expectation when binding value via 'ngModel', is that the content in each list-option be
+ * unique. When this isn't the case the behavior is undefined. Additionally, it is expected
+ * that when using 'ngModel' that each list-option bind a value via 'ngValue', and not 'value'.
  */
 @Directive({
     selector:
       'nimble-combobox[formControlName],nimble-combobox[formControl],nimble-combobox[ngModel]',
-    // The following host metadata is duplicated from DefaultValueAccessor
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        '(input)': '$any(this)._handleInput($event.target.value)',
-        '(blur)': 'onTouched()',
-        '(compositionstart)': '$any(this)._compositionStart()',
-        '(compositionend)': '$any(this)._compositionEnd($event.target.value)'
-    },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => NimbleComboboxControlValueAccessorDirective),
         multi: true
     }]
 })
-export class NimbleComboboxControlValueAccessorDirective extends DefaultValueAccessor {}
+export class NimbleComboboxControlValueAccessorDirective implements ControlValueAccessor {
+    /**
+     * @description
+     * Tracks the option comparison algorithm for tracking identities when
+     * checking for changes.
+     */
+    @Input()
+    public set compareWith(fn: (o1: unknown, o2: unknown) => boolean) {
+        if (typeof fn !== 'function') {
+            throw new Error(`compareWith must be a function, but received ${JSON.stringify(fn)}`);
+        }
+        this._compareWith = fn;
+    }
+
+    /** @internal */
+    public readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
+
+    private _compareWith: (o1: unknown, o2: unknown) => boolean = Object.is;
+
+    /**
+     * The registered callback function called when a change or input event occurs on the input
+     * element.
+     * @nodoc
+     */
+    @HostListener('change', ['$event.target.value]'])
+    private onChange: (_: string) => void;
+
+    /**
+      * The registered callback function called when a blur event occurs on the input element.
+      * @nodoc
+      */
+    @HostListener('blur')
+    private onTouched: () => void;
+
+    public constructor(private readonly _renderer: Renderer2, private readonly _elementRef: ElementRef) {}
+
+    /**
+     * Updates the underlying nimble-combobox value with the expected display string.
+     * @param value The ngValue set on the nimble-combobox
+     */
+    public writeValue(value: unknown): void {
+        const valueAsString = this.getValueStringFromValue(value);
+        this.setProperty('value', valueAsString ?? '');
+    }
+
+    /**
+     * Registers a function called when the control value changes.
+     * @nodoc
+     */
+    public registerOnChange(fn: (value: unknown) => void): void {
+        this.onChange = (valueString: string): void => {
+            const modelValue = this._optionMap.get(valueString) ?? OPTION_NOT_FOUND;
+            fn(modelValue);
+        };
+    }
+
+    /**
+     * Registers a function called when the control is touched.
+     * @nodoc
+     */
+    public registerOnTouched(fn: () => void): void {
+        this.onTouched = fn;
+    }
+
+    private getValueStringFromValue(value: unknown): string | undefined {
+        for (const [optionKey, optionValue] of this._optionMap.entries()) {
+            if (this._compareWith(optionValue, value)) {
+                return optionKey;
+            }
+        }
+        return undefined;
+    }
+
+    /**
+     * Helper method that sets a property on a target element using the current Renderer
+     * implementation.
+     * @nodoc
+     */
+    private setProperty(key: string, value: string): void {
+        this._renderer.setProperty(this._elementRef.nativeElement, key, value);
+    }
+}

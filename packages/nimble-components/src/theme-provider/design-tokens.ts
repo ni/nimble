@@ -83,7 +83,9 @@ import {
     GroupLabel1LineHeight,
     ControlLabel1LineHeight,
     ButtonLabel1LineHeight,
-    TooltipCaptionLineHeight
+    TooltipCaptionLineHeight,
+    Information100LightUi,
+    Information100DarkUi
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -150,6 +152,10 @@ export const warningColor = DesignToken.create<string>(
 export const passColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.passColor)
 ).withDefault((element: HTMLElement) => getPassColorForTheme(element));
+
+export const informationColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.informationColor)
+).withDefault((element: HTMLElement) => getInformationColorForTheme(element));
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
@@ -665,6 +671,15 @@ function getFailColorForTheme(element: HTMLElement): string {
 
 function getPassColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Pass100LightUi, Pass100DarkUi, White);
+}
+
+function getInformationColorForTheme(element: HTMLElement): string {
+    return getColorForTheme(
+        element,
+        Information100LightUi,
+        Information100DarkUi,
+        White
+    );
 }
 
 function getDefaultLineColorForTheme(element: HTMLElement): string {
