@@ -69,6 +69,4 @@ const metadata: Meta<CardButtonArgs> = {
 
 export default metadata;
 
-export const cardButtonStory: StoryObj<CardButtonArgs> = {
-    name: 'Card Button'
-};
+export const cardButton: StoryObj<CardButtonArgs> = {};
