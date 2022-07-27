@@ -70,4 +70,3 @@ export * from './testing/async-helpers';
 export { ButtonAppearance } from '@ni/nimble-components/dist/esm/patterns/button/types';
 export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 export { IconStatus } from '@ni/nimble-components/dist/esm/icon-base/types';
-export { TooltipStatus } from '@ni/nimble-components/dist/esm/tooltip/types';
