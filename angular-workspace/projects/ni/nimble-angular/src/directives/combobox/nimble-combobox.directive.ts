@@ -5,6 +5,7 @@ import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/templat
 
 export type { Combobox };
 export { ComboboxAutocomplete };
+
 /**
  * Directive for Nimble combobox control Angular integration
  */

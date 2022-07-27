@@ -8,7 +8,8 @@ import {
     fillHoverSelectedColor,
     fillHoverColor,
     bodyFont,
-    bodyDisabledFontColor
+    bodyDisabledFontColor,
+    controlHeight
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -18,6 +19,7 @@ export const styles = css`
         font: ${bodyFont};
         cursor: pointer;
         justify-content: left;
+        height: ${controlHeight};
     }
 
     .content {

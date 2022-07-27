@@ -65,3 +65,10 @@ export const hiddenCombobox: Story = createStory(
         </nimble-combobox>`
     )
 );
+
+export const blankListOption: Story = createStory(
+    html`<nimble-combobox open>
+        <nimble-list-option value="1">Option 1</nimble-list-option>
+        <nimble-list-option></nimble-list-option>
+    </nimble-combobox>`
+);

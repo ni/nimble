@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 18 Jul 2022 15:25:53 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Jul 2022 15:38:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.7.1
+
+Wed, 27 Jul 2022 15:38:00 GMT
+
+### Patches
+
+- Update fast-foundation. ([ni/nimble@8b1dc12](https://github.com/ni/nimble/commit/8b1dc127df77135a98f0a954b16337c718849c30))
+
+## 11.7.0
+
+Wed, 27 Jul 2022 00:53:31 GMT
+
+### Minor changes
+
+- Implementation of the different states of the Nimble Tooltip. ([ni/nimble@5142136](https://github.com/ni/nimble/commit/5142136ea7753d4a71c7047c86fdc05bab2ed66f))
+
+## 11.6.2
+
+Mon, 25 Jul 2022 18:44:33 GMT
+
+### Patches
+
+- Adding option to Combobox Storybook. Fix styling for empty options. ([ni/nimble@9039cd2](https://github.com/ni/nimble/commit/9039cd29ed7223123aa7b3a09ac5ee90ec2c388a))
+
+## 11.6.1
+
+Fri, 22 Jul 2022 14:58:44 GMT
+
+### Patches
+
+- Minor style fix to combobox. Resolves #639. ([ni/nimble@ea1854a](https://github.com/ni/nimble/commit/ea1854aba1c043971e9348b39e6f525b0456a10a))
+
+## 11.6.0
+
+Wed, 20 Jul 2022 18:41:04 GMT
+
+### Minor changes
+
+- adding block and outline appearances to select ([ni/nimble@a188d7b](https://github.com/ni/nimble/commit/a188d7baa54e1061ad07ffa65b0e5d0a2b495238))
 
 ## 11.5.0
 

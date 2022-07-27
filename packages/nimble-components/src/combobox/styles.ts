@@ -4,7 +4,8 @@ import {
     failColor,
     bodyDisabledFontColor,
     borderRgbPartialColor,
-    smallPadding
+    smallPadding,
+    borderHoverColor
 } from '../theme-provider/design-tokens';
 
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
@@ -28,6 +29,10 @@ export const styles = css`
 
     .control {
         bottom-border-width: var(--ni-private-bottom-border-width);
+    }
+
+    .control:focus-within {
+        border-bottom-color: ${borderHoverColor};
     }
 
     :host(.invalid) .control {
