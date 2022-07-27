@@ -72,12 +72,11 @@ const component = (
 `;
 
 export const buttonThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [
-        disabledStates,
-        selectedStates
-    ])
+    createMatrix(component, [disabledStates, selectedStates])
 );
 
 export const hiddenButton: Story = createStory(
-    hiddenWrapper(html`<nimble-card-button hidden>Hidden Card Button</nimble-card-button>`)
+    hiddenWrapper(
+        html`<nimble-card-button hidden>Hidden Card Button</nimble-card-button>`
+    )
 );
