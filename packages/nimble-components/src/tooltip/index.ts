@@ -1,9 +1,9 @@
 import {
     DesignSystem,
-    Tooltip as FoundationTooltip,
-    tooltipTemplate as template
+    Tooltip as FoundationTooltip
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
