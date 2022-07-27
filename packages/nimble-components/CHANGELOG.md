@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 27 Jul 2022 00:53:31 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Jul 2022 15:38:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.7.1
+
+Wed, 27 Jul 2022 15:38:00 GMT
+
+### Patches
+
+- Update fast-foundation. ([ni/nimble@8b1dc12](https://github.com/ni/nimble/commit/8b1dc127df77135a98f0a954b16337c718849c30))
 
 ## 11.7.0
 
