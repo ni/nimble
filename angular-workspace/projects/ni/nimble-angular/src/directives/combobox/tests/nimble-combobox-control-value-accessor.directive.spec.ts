@@ -166,8 +166,7 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.control.value).toEqual(testHostComponent.nullValueString);
         }));
 
-        // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
-        xit('model changes for option, text display of old option entered, callback value is notFound ', fakeAsync(() => {
+        it('model changes for option, text display of old option entered, callback value is notFound ', fakeAsync(() => {
             testHostComponent.dynamicOption = { name: 'foo', value: 10 };
             fixture.detectChanges();
             tick();
@@ -182,8 +181,7 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.callbackValue).toEqual(OPTION_NOT_FOUND);
         }));
 
-        // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
-        xit('list-option is removed followed by text of removed option entered as value, then \'testHostComponent.selectedOption\' is set to notFound', fakeAsync(() => {
+        it('list-option is removed followed by text of removed option entered as value, then \'testHostComponent.selectedOption\' is set to notFound', fakeAsync(() => {
             testHostComponent.selectOptions.splice(0, 1); // remove 'Option 1'
             fixture.detectChanges();
             tick();
@@ -199,8 +197,7 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption).toEqual(OPTION_NOT_FOUND);
         }));
 
-        // TODO: enable test when FAST Issue #6111 (https://github.com/microsoft/fast/issues/6111) is addressed
-        xit('and user enters aribtrary text for value, callback value is notFound', () => {
+        it('and user enters aribtrary text for value, callback value is notFound', () => {
             combobox.control.value = 'f';
             combobox.control.dispatchEvent(new InputEvent('input', { data: 'f', inputType: 'insertText' }));
             combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
