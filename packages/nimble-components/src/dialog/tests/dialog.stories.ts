@@ -15,22 +15,36 @@ const metadata: Meta<DialogArgs> = {
         docs: {
             description: {
                 component:
-                    'TODO'
+                    'A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.'
             }
         }
     },
     render: createUserSelectedThemeStory(html`
         <nimble-dialog
+            id="dialog"
+            aria-label="Here is a dialog"
             ?prevent-dismiss="${x => x['prevent-dismiss']}"
         >
             <h1>Here is a dialog</h1>
             <p>It can have some detailed message here.</p>
-            <nimble-button onclick='document.querySelector("nimble-dialog").close()'>Cancel</nimble-button>
+            <nimble-button onclick='dialog.close("Cancel pressed")'
+                >Cancel</nimble-button
+            >
+            <nimble-button onclick='dialog.close("OK pressed")'
+                >OK</nimble-button
+            >
         </nimble-dialog>
-        <nimble-button onclick='document.querySelector("nimble-dialog").showModal().then(() => console.log("Dialog closed"))'>Open</nimble-button>
+        <nimble-button
+            onclick="dialog.show().then(x => { reason.value = x.toString() })"
+            >Open</nimble-button
+        >
+        <div>
+            <nimble-text-field id="reason" readonly
+                >Close reason</nimble-text-field
+            >
+        </div>
     `),
-    argTypes: {
-    },
+    argTypes: {},
     args: {
         'prevent-dismiss': false
     }

@@ -1,8 +1,5 @@
 import { attr, html, observable, ref } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    FoundationElement
-} from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
 declare global {
@@ -11,36 +8,55 @@ declare global {
     }
 }
 
+export const USER_DISMISSED: unique symbol = Symbol('user dismissed');
+export type UserDismissed = typeof USER_DISMISSED;
+
+/**
+ * This is a workaround for an incomplete definition of the native dialog element:
+ * https://github.com/microsoft/TypeScript/issues/48267
+ */
+export interface ExtendedDialog extends HTMLDialogElement {
+    showModal(): void;
+    close(): void;
+}
+
 /**
  * A nimble-styled dialog.
  */
 export class Dialog extends FoundationElement {
+    /**
+     * @public
+     * @description
+     * Prevents dismissing the dialog via the Escape key
+     */
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
     @attr
     public role: string | null = null;
 
-    @attr({ attribute: 'aria-describedby' })
-    public ariaDescribedBy: string | null = null;
-
-    @attr({ attribute: 'aria-labelledby' })
-    public ariaLabelledBy: string | null = null;
-
     @attr({ attribute: 'aria-label' })
-    public ariaLabel: string | null = null;
+    public override ariaLabel: string | null = null;
 
+    /**
+     * The ref to the internal dialog element.
+     *
+     * @internal
+     */
     @observable
-    public readonly dialogElement: HTMLDialogElement | undefined;
+    public readonly dialogElement: ExtendedDialog | undefined;
 
-    private resolveShowModal: (() => void) | null = null;
+    public get open(): boolean {
+        return this.resolveShow !== null;
+    }
+
+    private resolveShow: ((reason: unknown) => void) | null = null;
+    private closeReason: unknown = null;
 
     public override connectedCallback(): void {
         super.connectedCallback();
 
         this.updateDialogRole();
-        this.updateDialogAriaDescribedBy();
-        this.updateDialogAriaLabelledBy();
         this.updateDialogAriaLabel();
         this.dialogElement!.addEventListener('cancel', this.cancelHandler);
         this.dialogElement!.addEventListener('close', this.closeHandler);
@@ -53,21 +69,29 @@ export class Dialog extends FoundationElement {
         this.dialogElement!.removeEventListener('close', this.closeHandler);
     }
 
-    public async showModal(): Promise<void> {
+    public async show(): Promise<unknown> {
+        if (this.open) {
+            throw new Error('Dialog is already open');
+        }
         this.dialogElement?.showModal();
         return new Promise((resolve, _reject) => {
-            this.resolveShowModal = resolve;
+            this.resolveShow = resolve;
         });
     }
 
-    public close(): void {
+    public close(reason?: unknown): void {
+        if (!this.open) {
+            throw new Error('Dialog is not open');
+        }
+        this.closeReason = reason;
         this.dialogElement?.close();
     }
 
-    public onClose(): void {
-        if (this.resolveShowModal) {
-            this.resolveShowModal();
-            this.resolveShowModal = null;
+    private onClose(): void {
+        if (this.resolveShow) {
+            this.resolveShow(this.closeReason);
+            this.resolveShow = null;
+            this.closeReason = null;
         }
     }
 
@@ -79,31 +103,7 @@ export class Dialog extends FoundationElement {
         if (this.role) {
             this.dialogElement?.setAttribute('role', this.role);
         } else {
-            this.dialogElement?.removeAttribute('role');
-        }
-    }
-
-    private ariaDescribedByChanged(_oldValue: string, _newValue: string): void {
-        this.updateDialogAriaDescribedBy();
-    }
-
-    private updateDialogAriaDescribedBy(): void {
-        if (this.ariaDescribedBy) {
-            this.dialogElement?.setAttribute('aria-describedby', this.ariaDescribedBy);
-        } else {
-            this.dialogElement?.removeAttribute('aria-describedby');
-        }
-    }
-
-    private ariaLabelledByChanged(_oldValue: string, _newValue: string): void {
-        this.updateDialogAriaLabelledBy();
-    }
-
-    private updateDialogAriaLabelledBy(): void {
-        if (this.ariaLabelledBy) {
-            this.dialogElement?.setAttribute('aria-labelledby', this.ariaLabelledBy);
-        } else {
-            this.dialogElement?.removeAttribute('aria-labelledby');
+            this.dialogElement?.setAttribute('role', 'alertdialog');
         }
     }
 
@@ -123,24 +123,12 @@ export class Dialog extends FoundationElement {
         if (this.preventDismiss) {
             event.preventDefault();
         } else {
-            const shouldDismiss = this.$emit(
-                'cancel',
-                {},
-                { bubbles: event.bubbles, cancelable: event.cancelable, composed: event.composed }
-            );
-            if (!shouldDismiss) {
-                event.preventDefault();
-            }
+            this.closeReason = USER_DISMISSED;
         }
     };
 
-    private readonly closeHandler = (event: Event): void => {
+    private readonly closeHandler = (_event: Event): void => {
         this.onClose();
-        this.$emit(
-            'close',
-            {},
-            { bubbles: event.bubbles, cancelable: event.cancelable, composed: event.composed }
-        );
     };
 }
 
