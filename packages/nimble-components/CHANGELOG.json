@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 27 Jul 2022 15:56:11 GMT",
+      "tag": "@ni/nimble-components_v11.7.1",
+      "version": "11.7.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e3b4c4c89b91759c5e2ed0b132fbe0ca5c1afd8e",
+            "comment": "Create spec for nimble-card-button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 27 Jul 2022 15:38:00 GMT",
       "tag": "@ni/nimble-components_v11.7.1",
       "version": "11.7.1",
