@@ -15,7 +15,7 @@ No final visual design spec exists yet.
 ### Non-goals
 
 -   We are not creating a component that will provide "snackbar" functionality, as that has distinct enough requirements that it should be a separate component and/or service. It could be built on top of the (non-modal) native `dialog` element, but there isn't much to be gained by building it on top of nimble-dialog (based on the proposals in this spec).
--   We are not defining a dialog service that would provide a fully programmatic way to create and display simple dialogs. The proposed API allows clients to define their own service. We plan to update the existing `systemlink-lib-angular` confirm-dialog service to use `nimble-dialog`.
+-   We are not defining a dialog service that would provide a fully programmatic way to create and display simple dialogs. The proposed API allows clients to define their own service. We plan to update the existing `systemlink-lib-angular` confirm-dialog service to use `nimble-dialog`. Any other questions e.g. potentially creating a service in Nimble itself or for Blazor or vanilla js are left for a separate discussion.
 
 ### Features
 
