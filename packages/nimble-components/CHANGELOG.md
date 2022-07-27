@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 25 Jul 2022 18:44:33 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Jul 2022 00:53:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.7.0
+
+Wed, 27 Jul 2022 00:53:31 GMT
+
+### Minor changes
+
+- Implementation of the different states of the Nimble Tooltip. ([ni/nimble@5142136](https://github.com/ni/nimble/commit/5142136ea7753d4a71c7047c86fdc05bab2ed66f))
 
 ## 11.6.2
 
