@@ -136,6 +136,7 @@ export const styles = css`
         }
     }
 `
+    // prettier-ignore
     .withBehaviors(
         themeBehavior(
             css`
