@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import {
     Button as FoundationButton,
     buttonTemplate as template,
@@ -23,10 +23,6 @@ export class CardButton extends FoundationButton {
      */
     @attr({ mode: 'boolean' })
     public selected = false;
-
-    public selectedChanged(_prev: boolean | undefined, next: boolean): void {
-        this.ariaCurrent = next ? 'true' : 'false';
-    }
 }
 
 /**

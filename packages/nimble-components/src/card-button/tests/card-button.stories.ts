@@ -101,10 +101,43 @@ export const iconCardButtonStory: StoryObj<CardButtonArgs> = {
         ?disabled=${x => x.disabled}
         ?selected=${x => x.selected}
     >
-        <div class="wrapper">
+        <span class="wrapper">
             <nimble-icon-webvi-host class="icon"></nimble-icon-webvi-host>
             <span class="label">Open WebVIs</span>
-        </div>
+        </span>
+    </nimble-card-button>
+    `)
+};
+
+export const emptyCardButtonStory: StoryObj<CardButtonArgs> = {
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html`<style>
+        nimble-card-button {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <nimble-card-button
+        ?disabled=${x => x.disabled}
+        ?selected=${x => x.selected}
+    >
+    </nimble-card-button>
+    `)
+};
+
+export const textOnlyCardButtonStory: StoryObj<CardButtonArgs> = {
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html`<style>
+        nimble-card-button {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <nimble-card-button
+        ?disabled=${x => x.disabled}
+        ?selected=${x => x.selected}
+    >
+        <div>Foo bar 123</div>
     </nimble-card-button>
     `)
 };
