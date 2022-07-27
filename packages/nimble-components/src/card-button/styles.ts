@@ -34,14 +34,6 @@ export const styles = css`
         box-shadow: none;
     }
 
-    :host([selected]) {
-        box-shadow: none;
-    }
-
-    :host([selected]:not[disabled]:hover) {
-        box-shadow: 0px 1px 4px var(--ni-private-card-button-box-shadow-hover-color);
-    }
-
     :host([disabled]) {
         cursor: default;
         box-shadow: none;
@@ -53,13 +45,9 @@ export const styles = css`
         width: 100%;
         border: ${borderWidth} solid var(--ni-private-card-button-border-color);
         --ni-private-card-button-border-color: transparent;
-        box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
         fill: inherit;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
         cursor: inherit;
         font: inherit;
         outline: none;
@@ -71,7 +59,7 @@ export const styles = css`
         background: var(--ni-private-card-button-background-hover-color);
     }
 
-    .control${focusVisible}:not(:active) {
+    .control${focusVisible} {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
         --ni-private-card-button-border-color: ${borderHoverColor};
         outline: ${borderWidth} solid ${borderHoverColor};
@@ -81,6 +69,8 @@ export const styles = css`
     .control:active {
         background: var(--ni-private-card-button-background-active-color);
         --ni-private-card-button-border-color: var(--ni-private-card-button-border-active-color);
+        outline: none;
+        box-shadow: none;
     }
 
     :host([selected]) .control {
@@ -88,9 +78,8 @@ export const styles = css`
         --ni-private-card-button-border-color: var(--ni-private-card-button-border-selected-color);
     }
 
-    :host([selected]:not([disabled])) .control:hover {
-        background: var(--ni-private-card-button-background-active-color);
-        --ni-private-card-button-border-color: var(--ni-private-card-button-border-selected-color);
+    :host([selected]) .control:active {
+        --ni-private-card-button-border-color: var(--ni-private-card-button-border-active-color);
     }
 
     .control[disabled] {
@@ -123,43 +112,43 @@ export const styles = css`
             ${'' /* Light theme */}
             :host {
                 --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(
-                Black,
-                0.3
-            )};
+                    Black,
+                    0.3
+                )};
                 --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
-                White,
-                0.3
-            )};
+                    White,
+                    0.3
+                )};
                 --ni-private-card-button-background-active-color: ${White};
                 --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
-                Black91,
-                0.2
-            )};
+                    Black91,
+                    0.2
+                )};
                 --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(
-                Black91,
-                0.6
-            )};
+                    Black91,
+                    0.6
+                )};
             }
         `,
             css`
             ${'' /* Dark theme */}
             :host {
                 --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(
-                Black,
-                0.77
-            )};
+                    Black,
+                    0.77
+                )};
                 --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
-                Black15,
-                0.07
-            )};
+                    Black15,
+                    0.07
+                )};
                 --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(
-                Black15,
-                0.15
-            )};
+                    Black15,
+                    0.15
+                )};
                 --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
-                Black15,
-                0.2
-            )};
+                    Black15,
+                    0.2
+                )};
                 --ni-private-card-button-border-selected-color: ${Black15};
             }
         `,
@@ -167,25 +156,25 @@ export const styles = css`
             ${'' /* Color theme */}
             :host {                
                 --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(
-                White,
-                0.77
-            )};
+                    White,
+                    0.77
+                )};
                 --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
-                White,
-                0.2
-            )};
+                    White,
+                    0.2
+                )};
                 --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(
-                White,
-                0.4
-            )};
+                    White,
+                    0.4
+                )};
                 --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
-                White,
-                0.2
-            )};
+                    White,
+                    0.2
+                )};
                 --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(
-                White,
-                0.6
-            )};
+                    White,
+                    0.6
+                )};
             }
         `
         )
