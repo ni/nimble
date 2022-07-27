@@ -78,8 +78,17 @@ export const styles = css`
         --ni-private-card-button-border-color: var(--ni-private-card-button-border-selected-color);
     }
 
+    :host([selected]) .control${focusVisible} {
+        --ni-private-card-button-border-color: ${borderHoverColor};
+    }
+
     :host([selected]) .control:active {
         --ni-private-card-button-border-color: var(--ni-private-card-button-border-active-color);
+    }
+
+    :host([selected]) .control${focusVisible}:active {
+        outline: none;
+        box-shadow: none
     }
 
     .control[disabled] {

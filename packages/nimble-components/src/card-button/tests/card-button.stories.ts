@@ -1,17 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html, repeat } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import { bodyFont, groupHeaderFont, sectionBackgroundColor, titleFont } from '../../theme-provider/design-tokens';
-import type { CardButton } from '..';
+import { bodyFont } from '../../theme-provider/design-tokens';
 
 interface CardButtonArgs {
     disabled: boolean;
     selected: boolean;
 }
 
-const overviewText = `TODO`;
+const overviewText = `The \`nimble-card-button\` is a button that is designed to contain arbitrary content that is specified by a client
+application. The \`nimble-card-button\` is intended to be larger and more prominent on a page than the standard \`nimble-button\`
+
+Note: The styling for the "Color" theme is not complete.`;
 
 const metadata: Meta<CardButtonArgs> = {
     title: 'Card Button',
@@ -31,15 +33,8 @@ const metadata: Meta<CardButtonArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style>
-            .section {
-                width: 100%;
-                height: 100%;
-                padding: 32px;
-                background: var(${sectionBackgroundColor.cssCustomProperty});
-            }
-
             .wrapper {
-                padding: 32px 40px;
+                margin: 32px 40px;
                 display: flex;
                 font: var(${bodyFont.cssCustomProperty});
                 align-items: center;
@@ -56,17 +51,15 @@ const metadata: Meta<CardButtonArgs> = {
                 font-weight: 600;
             }
         </style>
-        <div class="section">
-            <nimble-card-button
-                ?disabled=${x => x.disabled}
-                ?selected=${x => x.selected}
-            >
-                <div class="wrapper">
-                    <div class="count">15</div>
-                    <div class="label">systems</div>
-                </div>
-            </nimble-card-button>
-        </div>
+        <nimble-card-button
+            ?disabled=${x => x.disabled}
+            ?selected=${x => x.selected}
+        >
+            <div class="wrapper">
+                <div class="count">15</div>
+                <div class="label">systems</div>
+            </div>
+        </nimble-card-button>
     `),
     args: {
         disabled: false,
@@ -78,66 +71,4 @@ export default metadata;
 
 export const cardButtonStory: StoryObj<CardButtonArgs> = {
     name: 'Card Button'
-};
-
-export const iconCardButtonStory: StoryObj<CardButtonArgs> = {
-    // prettier-ignore
-    render: createUserSelectedThemeStory(html`<style>
-        .wrapper {
-            padding: 32px 40px;
-            display: flex;
-            font: var(${titleFont.cssCustomProperty});
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .icon {
-            width: 76px;
-            height: 76px;
-            padding-bottom: 10px;
-        }
-    </style>
-    <nimble-card-button
-        ?disabled=${x => x.disabled}
-        ?selected=${x => x.selected}
-    >
-        <span class="wrapper">
-            <nimble-icon-webvi-host class="icon"></nimble-icon-webvi-host>
-            <span class="label">Open WebVIs</span>
-        </span>
-    </nimble-card-button>
-    `)
-};
-
-export const emptyCardButtonStory: StoryObj<CardButtonArgs> = {
-    // prettier-ignore
-    render: createUserSelectedThemeStory(html`<style>
-        nimble-card-button {
-            width: 100px;
-            height: 100px;
-        }
-    </style>
-    <nimble-card-button
-        ?disabled=${x => x.disabled}
-        ?selected=${x => x.selected}
-    >
-    </nimble-card-button>
-    `)
-};
-
-export const textOnlyCardButtonStory: StoryObj<CardButtonArgs> = {
-    // prettier-ignore
-    render: createUserSelectedThemeStory(html`<style>
-        nimble-card-button {
-            width: 100px;
-            height: 100px;
-        }
-    </style>
-    <nimble-card-button
-        ?disabled=${x => x.disabled}
-        ?selected=${x => x.selected}
-    >
-        <div>Foo bar 123</div>
-    </nimble-card-button>
-    `)
 };
