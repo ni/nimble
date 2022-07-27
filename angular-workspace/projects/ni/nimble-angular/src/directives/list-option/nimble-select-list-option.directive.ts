@@ -4,15 +4,13 @@ import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
 import { NimbleSelectControlValueAccessorDirective } from '../select/nimble-select-control-value-accessor.directive';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
-export type { ListOption };
-
 /**
- * Directive to provide Angular integration for the list option.
+ * Directive to provide Angular integration for the list option when used with a select.
  */
 @Directive({
     selector: 'nimble-list-option'
 })
-export class NimbleListOptionDirective extends NgSelectOption {
+export class NimbleSelectListOptionDirective extends NgSelectOption {
     public get disabled(): boolean {
         return this.elementRef.nativeElement.disabled;
     }
