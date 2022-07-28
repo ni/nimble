@@ -73,18 +73,14 @@ export const styles = css`
 
     .control:active {
         background: var(--ni-private-card-button-background-active-color);
-        border-color: var(
-            --ni-private-card-button-border-active-color
-        );
+        border-color: var(--ni-private-card-button-border-active-color);
         outline: none;
         box-shadow: none;
     }
 
     :host([selected]) .control {
         background: var(--ni-private-card-button-background-active-color);
-        border-color: var(
-            --ni-private-card-button-border-selected-color
-        );
+        border-color: var(--ni-private-card-button-border-selected-color);
     }
 
     :host([selected]) .control${focusVisible} {
@@ -92,9 +88,7 @@ export const styles = css`
     }
 
     :host([selected]) .control:active {
-        border-color: var(
-            --ni-private-card-button-border-active-color
-        );
+        border-color: var(--ni-private-card-button-border-active-color);
     }
 
     :host([selected]) .control${focusVisible}:active {
@@ -112,9 +106,7 @@ export const styles = css`
     }
 
     :host([selected]) .control[disabled]:active {
-        border-color: var(
-            --ni-private-card-button-border-selected-color
-        );
+        border-color: var(--ni-private-card-button-border-selected-color);
     }
 
     .content {
