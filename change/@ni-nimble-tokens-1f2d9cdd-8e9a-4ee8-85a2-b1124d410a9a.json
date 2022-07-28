@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update README examples",
+  "packageName": "@ni/nimble-tokens",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
