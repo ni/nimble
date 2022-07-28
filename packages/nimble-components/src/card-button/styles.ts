@@ -18,6 +18,7 @@ import {
 import { themeBehavior } from '../utilities/style/theme';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
+// prettier-ignore
 export const styles = css`
     ${display('inline-flex')}
 
@@ -127,76 +128,36 @@ export const styles = css`
         }
     }
 `
-    // prettier-ignore
     .withBehaviors(
         themeBehavior(
             // Light theme
             css`
                 :host {
-                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(
-                Black,
-                0.3
-            )};
-                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
-                White,
-                0.3
-            )};
+                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(Black, 0.3)};
+                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(White, 0.3)};
                     --ni-private-card-button-background-active-color: ${White};
-                    --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
-                Black91,
-                0.2
-            )};
-                    --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(
-                Black91,
-                0.6
-            )};
+                    --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(Black91, 0.2)};
+                    --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(Black91, 0.6)};
                 }
             `,
             // Dark theme
             css`
                 :host {
-                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(
-                Black,
-                0.77
-            )};
-                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
-                Black15,
-                0.07
-            )};
-                    --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(
-                Black15,
-                0.15
-            )};
-                    --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
-                Black15,
-                0.2
-            )};
+                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(Black, 0.77)};
+                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(Black15, 0.07)};
+                    --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(Black15, 0.15)};
+                    --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(Black15, 0.2)};
                     --ni-private-card-button-border-selected-color: ${Black15};
                 }
             `,
             // Color theme
             css`
                 :host {
-                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(
-                White,
-                0.77
-            )};
-                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
-                White,
-                0.2
-            )};
-                    --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(
-                White,
-                0.4
-            )};
-                    --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
-                White,
-                0.2
-            )};
-                    --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(
-                White,
-                0.6
-            )};
+                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(White, 0.77)};
+                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(White, 0.2)};
+                    --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(White, 0.4)};
+                    --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(White, 0.2)};
+                    --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(White, 0.6)};
                 }
             `
         )
