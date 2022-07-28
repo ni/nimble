@@ -28,7 +28,9 @@ const metadata: Meta<CardButtonArgs> = {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d4ebeb5d-023c-4ff2-a71c-f6385fffca20/specs/'
         },
-        actions: {}
+        actions: {
+            handles: ['click']
+        }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
