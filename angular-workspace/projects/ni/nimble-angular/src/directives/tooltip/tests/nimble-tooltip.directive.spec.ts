@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
-import { Tooltip, NimbleTooltipDirective } from '../nimble-tooltip.directive';
+import { Tooltip, NimbleTooltipDirective, TooltipStatus } from '../nimble-tooltip.directive';
 import { NimbleTooltipModule } from '../nimble-tooltip.module';
 
 describe('Nimble tooltip', () => {
@@ -14,6 +14,14 @@ describe('Nimble tooltip', () => {
 
         it('defines custom element', () => {
             expect(customElements.get('nimble-tooltip')).not.toBeUndefined();
+        });
+    });
+
+    describe('TooltipStatus', () => {
+        it('can use TooltipStatus values', () => {
+            // Ensure TooltipStatus is exported correctly so that it can be used
+            // as more than a type.
+            expect(TooltipStatus.information).toEqual(TooltipStatus.information);
         });
     });
 

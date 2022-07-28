@@ -1,9 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Tooltip } from '@ni/nimble-components/dist/esm/tooltip';
-import type { TooltipStatus } from '@ni/nimble-components/dist/esm/tooltip/types';
+import { Tooltip } from '@ni/nimble-components/dist/esm/tooltip';
+import { TooltipStatus } from '@ni/nimble-components/dist/esm/tooltip/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
-export type { Tooltip, TooltipStatus };
+export { Tooltip, TooltipStatus };
 
 /**
  * Directive to provide Angular integration for the tooltip.
