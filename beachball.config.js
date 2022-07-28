@@ -1,11 +1,4 @@
-const path = require('path');
-const lockPath = path.resolve(__dirname, './package-lock.json');
-const { createPostbump } = require('@ni/beachball-lock-update');
-
 module.exports = {
-    hooks: {
-        postbump: createPostbump(lockPath)
-    },
     changelog: {
         customRenderers: {
             // Original template: https://github.com/microsoft/beachball/blob/aefbc1ac37ee85961cc787133c827f1fd3925550/src/changelog/renderPackageChangelog.ts#L93
