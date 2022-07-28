@@ -11,7 +11,7 @@ interface CardButtonArgs {
 }
 
 const overviewText = `The \`nimble-card-button\` is a button that is designed to contain arbitrary content that is specified by a client
-application. The \`nimble-card-button\` is intended to be larger and more prominent on a page than the standard \`nimble-button\`
+application. The \`nimble-card-button\` is intended to be larger and more prominent on a page than the standard \`nimble-button\`.
 
 Note: The styling for the "Color" theme is not complete.`;
 
