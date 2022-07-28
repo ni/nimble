@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 28 Jul 2022 20:37:04 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Jul 2022 21:21:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.0
+
+Thu, 28 Jul 2022 21:21:12 GMT
+
+### Minor changes
+
+- Create nimble-card-button component ([ni/nimble@00c328d](https://github.com/ni/nimble/commit/00c328dcae2cdaa93505cfe81e92d7019e34423b))
 
 ## 11.7.2
 
