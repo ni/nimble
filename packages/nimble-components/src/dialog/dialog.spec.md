@@ -220,4 +220,3 @@ The nimble-drawer component shares some similarities with a dialog. We might con
 ---
 
 ## Open Issues
-
