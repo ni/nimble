@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
 import { Tooltip, NimbleTooltipDirective, TooltipStatus } from '../nimble-tooltip.directive';
 import { NimbleTooltipModule } from '../nimble-tooltip.module';
 
@@ -51,11 +50,6 @@ describe('Nimble tooltip', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('has expected defaults for visible', () => {
-            expect(directive.visible).toBeUndefined();
-            expect(nativeElement.visible).toBeUndefined();
-        });
-
         it('has expected defaults for anchor', () => {
             expect(directive.anchor).toBe('');
             expect(nativeElement.anchor).toBe('');
@@ -66,7 +60,6 @@ describe('Nimble tooltip', () => {
         @Component({
             template: `
                 <nimble-tooltip #tooltip
-                    visible
                     anchor="anchor">
                 </nimble-tooltip>`
         })
@@ -90,11 +83,6 @@ describe('Nimble tooltip', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('will use template string values for visible', () => {
-            expect(directive.visible).toBeTrue();
-            expect(nativeElement.visible).toBeTrue();
-        });
-
         it('will use template string values for anchor', () => {
             expect(directive.anchor).toBe('anchor');
             expect(nativeElement.anchor).toBe('anchor');
@@ -105,7 +93,6 @@ describe('Nimble tooltip', () => {
         @Component({
             template: `
                 <nimble-tooltip #tooltip
-                    [visible]="visible"
                     [anchor]="anchor">
                 </nimble-tooltip>
             `
@@ -113,7 +100,6 @@ describe('Nimble tooltip', () => {
         class TestHostComponent {
             @ViewChild('tooltip', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
             @ViewChild('tooltip', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
-            public visible = false;
             public anchor = 'anchor';
         }
 
@@ -130,17 +116,6 @@ describe('Nimble tooltip', () => {
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
-        });
-
-        it('can be configured with property binding for visible', () => {
-            expect(directive.visible).toBeFalse();
-            expect(nativeElement.visible).toBeFalse();
-
-            fixture.componentInstance.visible = true;
-            fixture.detectChanges();
-
-            expect(directive.visible).toBeTrue();
-            expect(nativeElement.visible).toBeTrue();
         });
 
         it('can be configured with property binding for anchor', () => {
@@ -159,7 +134,6 @@ describe('Nimble tooltip', () => {
         @Component({
             template: `
                 <nimble-tooltip #tooltip
-                    [attr.visible]="visible"
                     [attr.anchor]="anchor">
                 </nimble-tooltip>
             `
@@ -167,7 +141,6 @@ describe('Nimble tooltip', () => {
         class TestHostComponent {
             @ViewChild('tooltip', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
             @ViewChild('tooltip', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
-            public visible: BooleanValueOrAttribute = false;
             public anchor = 'anchor';
         }
 
@@ -184,17 +157,6 @@ describe('Nimble tooltip', () => {
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
-        });
-
-        it('can be configured with attribute binding for visible', () => {
-            expect(directive.visible).toBeFalse();
-            expect(nativeElement.visible).toBeFalse();
-
-            fixture.componentInstance.visible = '';
-            fixture.detectChanges();
-
-            expect(directive.visible).toBeTrue();
-            expect(nativeElement.visible).toBeTrue();
         });
 
         it('can be configured with attribute binding for anchor', () => {
