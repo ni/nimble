@@ -63,8 +63,8 @@ Some [early designs](https://xd.adobe.com/view/00ff3aa4-594f-48eb-6e29-841043749
     -   `open` - read-only attribute that is set while the dialog is open. The native dialog supports setting this attribute, but it opens the dialog non-modally, uncentered, and without focus management. For that reason our API only supports `show()` as the way to open a dialog.
     -   `prevent-dismiss` - prevent dismissal by pressing ESC (this attribute also exists on the Nimble drawer)
 -   _Methods_
-    -   `show()` - opens the dialog and returns a `Promise` that is resolved when the dialog is closed. The value of the resolved `Promise` indicates why/how the dialog was closed.
-    -   `close(reason)` - closes the dialog (returning focus to the control that had it before opening), optionally specifying the reason/method (a value of any type). When no reason is specified, a `USER_DISMISSED` Symbol is given as the reason.
+    -   `show()` - opens the dialog and returns a `Promise` that is resolved when the dialog is closed. The value of the resolved `Promise` indicates why/how the dialog was closed. When the dialog is closed by the user pressing ESC, a `USER_DISMISSED` Symbol is returned as the reason.
+    -   `close(reason)` - closes the dialog (returning focus to the control that had it before opening), optionally specifying the reason/method (a value of any type).
 -   _Events_
     -   (none)
 -   _CSS Classes and CSS Custom Properties that affect the component_
@@ -145,8 +145,8 @@ The FAST dialog provides very little that the html dialog doesn't. It does have 
 
 Hidden/visible
 
--   The dialog begins hidden and becomes visible when ~~`open` attribute is set or~~ the `showModal()` function is called.
--   When ~~`open` is removed or~~ `close()` is called, the dialog is hidden.
+-   The dialog begins hidden and becomes visible when the `show()` function is called.
+-   When `close()` is called, the dialog is hidden.
 
 ### Accessibility
 
@@ -221,4 +221,3 @@ The nimble-drawer component shares some similarities with a dialog. We might con
 
 ## Open Issues
 
--   The `dialog` API uses mismatched terminology i.e. "show"/"close". Should we use the same (mismatched) names or switch to `open()`/`close()`?
