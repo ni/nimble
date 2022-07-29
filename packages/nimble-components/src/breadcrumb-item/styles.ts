@@ -37,7 +37,7 @@ export const styles = css`
         padding-right: calc(4px - ${borderWidth});
     }
 
-    .control:link {
+    .control:any-link {
         cursor: pointer;
         text-decoration: none;
     }
@@ -51,7 +51,7 @@ export const styles = css`
         text-decoration: underline;
     }
 
-    .control:link${focusVisible} {
+    .control:any-link${focusVisible} {
         border: ${borderWidth} solid ${borderHoverColor};
         outline: 2px solid ${borderHoverColor};
         outline-offset: 1px;
