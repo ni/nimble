@@ -44,6 +44,7 @@ export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestr
         if (this.combobox) {
             this._currentTextContent = this.elementRef.nativeElement.textContent!;
             this.combobox._optionMap.set(this._currentTextContent, this._modelValue);
+            this.combobox.updateDisplayValue();
         }
     }
 
@@ -58,5 +59,6 @@ export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestr
         this.changeDetector.detectChanges();
         this._currentTextContent = this.elementRef.nativeElement.textContent!;
         this.combobox!._optionMap.set(this._currentTextContent, value);
+        this.combobox!.updateDisplayValue();
     }
 }
