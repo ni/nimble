@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 28 Jul 2022 21:21:13 GMT and should not be manually modified.
+This log was last generated on Mon, 01 Aug 2022 16:43:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.1.0
+
+Mon, 01 Aug 2022 16:43:14 GMT
+
+### Minor changes
+
+- Add Angular support for nimble-card-button ([ni/nimble@a1eacfb](https://github.com/ni/nimble/commit/a1eacfb8830eff1dfeae0219e1415a0252387b2a))
 
 ## 8.0.4
 
