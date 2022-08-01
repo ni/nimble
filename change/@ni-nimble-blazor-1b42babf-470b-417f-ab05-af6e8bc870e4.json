@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add Blazor support for nimble-card-button",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
