@@ -36,7 +36,7 @@ export class Dialog extends FoundationElement {
     public role: string | null = null;
 
     @attr({ attribute: 'aria-label' })
-    public override ariaLabel: string | null = null;
+    public ariaLabel: string | null = null;
 
     /**
      * The ref to the internal dialog element.
