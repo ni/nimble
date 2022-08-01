@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 01 Aug 2022 16:43:14 GMT",
+      "tag": "@ni/nimble-angular_v8.1.0",
+      "version": "8.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a1eacfb8830eff1dfeae0219e1415a0252387b2a",
+            "comment": "Add Angular support for nimble-card-button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Jul 2022 21:21:13 GMT",
       "tag": "@ni/nimble-angular_v8.0.4",
       "version": "8.0.4",
