@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 27 Jul 2022 15:38:00 GMT and should not be manually modified.
+This log was last generated on Mon, 01 Aug 2022 17:54:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.1
+
+Mon, 01 Aug 2022 17:54:58 GMT
+
+### Patches
+
+- Fix focus styling on breadcrumb items ([ni/nimble@056605c](https://github.com/ni/nimble/commit/056605c8deebb7dba01bbac1a86dd0a1d670c5e3))
+
+## 11.8.0
+
+Thu, 28 Jul 2022 21:21:12 GMT
+
+### Minor changes
+
+- Create nimble-card-button component ([ni/nimble@00c328d](https://github.com/ni/nimble/commit/00c328dcae2cdaa93505cfe81e92d7019e34423b))
+
+## 11.7.2
+
+Thu, 28 Jul 2022 20:37:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v4.0.1
 
 ## 11.7.1
 

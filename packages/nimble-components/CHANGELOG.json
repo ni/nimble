@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 01 Aug 2022 19:47:13 GMT",
+      "tag": "@ni/nimble-components_v11.8.1",
+      "version": "11.8.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "529f59c647d17fc620206aa17449989c398817d9",
+            "comment": "Adding dialog spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Aug 2022 17:54:58 GMT",
+      "tag": "@ni/nimble-components_v11.8.1",
+      "version": "11.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "056605c8deebb7dba01bbac1a86dd0a1d670c5e3",
+            "comment": "Fix focus styling on breadcrumb items"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Jul 2022 21:21:12 GMT",
+      "tag": "@ni/nimble-components_v11.8.0",
+      "version": "11.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "00c328dcae2cdaa93505cfe81e92d7019e34423b",
+            "comment": "Create nimble-card-button component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Jul 2022 20:37:04 GMT",
+      "tag": "@ni/nimble-components_v11.7.2",
+      "version": "11.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.0.1",
+            "commit": "2a5afca370ed399241244f9b135bb1b533ec6bd3"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 27 Jul 2022 15:56:11 GMT",
       "tag": "@ni/nimble-components_v11.7.1",
       "version": "11.7.1",

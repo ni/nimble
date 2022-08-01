@@ -49,9 +49,9 @@ body { background-color: var(--ni-nimble-base-white); }
 #### JavaScript and TypeScript
 
 Tokens like colors, font families, and spacing are also available as JavaScript and TypeScript string constants. 
-- colors are represented as hex RGB strings like `"#ff8126"`
-- font families and fallbacks are represented as comma separated strings like `"'Roboto', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', sans-serif"`
-- spacing is represented in CSS units like `"12px"`
+- colors are represented as hex RGB strings like: `#ff8126`
+- font families and fallbacks are represented as comma separated strings like: `Roboto, Microsoft YaHei, Hiragino Kaku Gothic Pro, sans-serif`
+- spacing is represented in CSS units like: `12px`
 
 In your application JavaScript or TypeScript code, import the token strings you want to use:
 
