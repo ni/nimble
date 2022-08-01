@@ -8,6 +8,7 @@ import './anchored-region';
 import './breadcrumb';
 import './breadcrumb-item';
 import './button';
+import './card-button';
 import './checkbox';
 import './combobox';
 import './drawer';

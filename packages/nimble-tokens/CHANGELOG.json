@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 28 Jul 2022 20:37:04 GMT",
+      "tag": "@ni/nimble-tokens_v4.0.1",
+      "version": "4.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "2a5afca370ed399241244f9b135bb1b533ec6bd3",
+            "comment": "Update README examples"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 31 May 2022 17:03:58 GMT",
       "tag": "@ni/nimble-tokens_v4.0.0",
       "version": "4.0.0",

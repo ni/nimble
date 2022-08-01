@@ -1,8 +1,50 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 22 Jul 2022 14:58:44 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Jul 2022 21:21:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.0.4
+
+Thu, 28 Jul 2022 21:21:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.0
+
+## 8.0.3
+
+Thu, 28 Jul 2022 20:37:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.7.2
+
+## 8.0.2
+
+Wed, 27 Jul 2022 15:38:00 GMT
+
+### Patches
+
+- Update fast-foundation. ([ni/nimble@8b1dc12](https://github.com/ni/nimble/commit/8b1dc127df77135a98f0a954b16337c718849c30))
+- Bump @ni/nimble-components to v11.7.1
+
+## 8.0.1
+
+Wed, 27 Jul 2022 00:53:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.7.0
+
+## 8.0.0
+
+Mon, 25 Jul 2022 18:44:33 GMT
+
+### Major changes
+
+- Adding Combobox CVA and refactor of ListOption CVA. The breaking change is that NimbleListOptionDirective is being refactored into two new types: NimbleSelectListOptionDirective, and NimbleComboboxListOptionDirective. Existing imports of NimbleListOptionDirective should switch to use NimbleSelectListOptionDirective. ([ni/nimble@9039cd2](https://github.com/ni/nimble/commit/9039cd29ed7223123aa7b3a09ac5ee90ec2c388a))
+- Bump @ni/nimble-components to v11.6.2
 
 ## 7.5.1
 

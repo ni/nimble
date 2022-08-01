@@ -23,6 +23,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     failColor: 'fail-color',
     warningColor: 'warning-color',
     passColor: 'pass-color',
+    informationColor: 'information-color',
     borderHoverColor: 'border-hover-color',
     iconColor: 'icon-color',
     popupBoxShadowColor: 'popup-box-shadow-color',
