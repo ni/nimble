@@ -39,8 +39,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this._compareWith = fn;
     }
 
-    /** @internal */
-    public readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
+    private readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
 
     private _modelValue: unknown;
 
@@ -78,7 +77,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnChange(fn: (value: unknown) => void): void {
         this.onChange = (valueString: string): void => {
-            const modelValue = this._optionMap.get(valueString) ?? OPTION_NOT_FOUND;
+            const modelValue = this._optionMap.has(valueString) ? this._optionMap.get(valueString) : OPTION_NOT_FOUND;
             this._modelValue = modelValue;
             fn(modelValue);
         };
@@ -92,7 +91,22 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this.onTouched = fn;
     }
 
-    public updateDisplayValue(): void {
+    /**
+     * @internal
+     */
+    public addOption(displayValue: string, modelValue: unknown): void {
+        this._optionMap.set(displayValue, modelValue);
+        this.updateDisplayValue();
+    }
+
+    /**
+     * @internal
+     */
+    public removeOption(displayValue: string): void {
+        this._optionMap.delete(displayValue);
+    }
+
+    private updateDisplayValue(): void {
         const valueAsString = this.getValueStringFromValue(this._modelValue);
         this.setProperty('value', valueAsString ?? '');
     }

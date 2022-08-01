@@ -13,7 +13,12 @@ function setComboboxValue(combobox: Combobox, index: number): void {
     combobox.options[index].dispatchEvent(new Event('click', { bubbles: true }));
 }
 
-describe('Nimble combobox control value accessor', () => {
+interface TestModel {
+    name: string;
+    value: number;
+}
+
+fdescribe('Nimble combobox control value accessor', () => {
     describe('when using option\'s [ngValue] binding on template-based form', () => {
         @Component({
             template: `
@@ -26,28 +31,28 @@ describe('Nimble combobox control value accessor', () => {
         class TestHostComponent {
             @ViewChild('combobox', { static: true }) public combobox: ElementRef<Combobox>;
 
-            public selectOptions: ({ name: string, value: number } | null)[] = [
+            public selectOptions: (TestModel | null)[] = [
                 { name: 'Option 1', value: 1 },
                 { name: 'Option 2', value: 2 },
                 { name: 'Option 3', value: 3 },
                 null
             ];
 
-            public selectedOption: { name: string, value: number } | null | OptionNotFound = this.selectOptions[1];
-            public dynamicOption: { name: string, value: number } = { name: 'Dynamic Option 1', value: 4 };
+            public selectedOption: TestModel | null | OptionNotFound = this.selectOptions[1];
+            public dynamicOption: TestModel = { name: 'Dynamic Option 1', value: 4 };
             public readonly nullValueString = 'null';
 
             public selectDisabled = false;
 
-            public callbackValue: { name: string, value: number } | OptionNotFound;
+            public callbackValue: TestModel | OptionNotFound;
 
             public useDefaultOptions = true;
 
-            public compareWith(option1: { name: string, value: number } | null, option2: { name: string, value: number } | null): boolean {
+            public compareWith(option1: TestModel | null, option2: TestModel | null): boolean {
                 return (!!option1 && !!option2 && option1.value === option2.value) || (option1 === null && option2 === null);
             }
 
-            public onModelValueChange(value: { name: string, value: number } | OptionNotFound): void {
+            public onModelValueChange(value: TestModel | OptionNotFound): void {
                 this.callbackValue = value;
             }
         }
@@ -98,7 +103,7 @@ describe('Nimble combobox control value accessor', () => {
 
         it('uses "compareWith" function to determine value equality', fakeAsync(() => {
             // copy object to test equality checking
-            const newValue = JSON.parse(JSON.stringify(testHostComponent.selectOptions[2])) as { name: string, value: number };
+            const newValue = JSON.parse(JSON.stringify(testHostComponent.selectOptions[2])) as TestModel;
             testHostComponent.selectedOption = newValue;
             fixture.detectChanges();
             tick();
@@ -126,12 +131,14 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('list-option with current combobox value is removed, combobox display value is unchanged', fakeAsync(() => {
+            const currentValue = testHostComponent.selectOptions[1];
             testHostComponent.selectOptions.splice(1, 1);
             fixture.detectChanges();
             tick();
             processUpdates();
 
             expect(combobox.control.value).toEqual('Option 2');
+            expect(testHostComponent.selectedOption).toBe(currentValue);
         }));
 
         it('model changes for option, then option selected, combobox display value uses text from new model value', fakeAsync(() => {
@@ -221,7 +228,7 @@ describe('Nimble combobox control value accessor', () => {
         class TestHostComponent {
             @ViewChild('combobox', { static: true }) public combobox: ElementRef<Combobox>;
 
-            public selectOptions: ({ name: string, value: number } | null)[] = [
+            public selectOptions: (TestModel | null)[] = [
                 { name: 'Option 1', value: 1 },
                 { name: 'Option 2', value: 2 },
                 { name: 'Option 3', value: 3 },
@@ -229,7 +236,7 @@ describe('Nimble combobox control value accessor', () => {
             ];
 
             public selectedOption = new FormControl(this.selectOptions[1]);
-            public dynamicOption: { name: string, value: number } = { name: 'Dynamic Option 1', value: 4 };
+            public dynamicOption: TestModel = { name: 'Dynamic Option 1', value: 4 };
             public readonly nullValueString = 'null';
 
             public selectDisabled = false;
@@ -238,7 +245,7 @@ describe('Nimble combobox control value accessor', () => {
 
             public useDefaultOptions = true;
 
-            public compareWith(option1: { name: string, value: number } | null, option2: { name: string, value: number } | null): boolean {
+            public compareWith(option1: TestModel | null, option2: TestModel | null): boolean {
                 return (!!option1 && !!option2 && option1.value === option2.value) || (option1 === null && option2 === null);
             }
 
@@ -292,13 +299,15 @@ describe('Nimble combobox control value accessor', () => {
         });
 
         it('uses "compareWith" function to determine value equality', fakeAsync(() => {
+            const initialIndex = combobox.selectedIndex;
             // copy object to test equality checking
-            const newValue = JSON.parse(JSON.stringify(testHostComponent.selectOptions[2])) as { name: string, value: number };
+            const newValue = JSON.parse(JSON.stringify(testHostComponent.selectOptions[2])) as TestModel;
             testHostComponent.selectedOption.setValue(newValue);
             fixture.detectChanges();
             tick();
 
-            expect(combobox.selectedIndex).toBe(2);
+            expect(initialIndex).toEqual(1);
+            expect(combobox.selectedIndex).toEqual(2);
         }));
 
         it('sets "disabled" attribute with value of bound property', fakeAsync(() => {
@@ -321,12 +330,14 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('list-option with current combobox value is removed, combobox display value is unchanged', fakeAsync(() => {
+            const currentModelValue: unknown = testHostComponent.selectedOption.value;
             testHostComponent.selectOptions.splice(1, 1);
             fixture.detectChanges();
             tick();
             processUpdates();
 
             expect(combobox.control.value).toEqual('Option 2');
+            expect(testHostComponent.selectedOption.value).toBe(currentModelValue);
         }));
 
         it('model changes for option, then option selected, combobox display value uses text from new model value', fakeAsync(() => {
@@ -340,6 +351,7 @@ describe('Nimble combobox control value accessor', () => {
             processUpdates();
 
             expect(combobox.control.value).toEqual('foo');
+            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.dynamicOption);
         }));
 
         it('null option is selected, combobox display value is set to provided display string for null', fakeAsync(() => {
@@ -349,6 +361,7 @@ describe('Nimble combobox control value accessor', () => {
             processUpdates();
 
             expect(combobox.control.value).toEqual(testHostComponent.nullValueString);
+            expect(testHostComponent.selectedOption.value).toBe(null);
         }));
 
         it('set bound value to null, combobox selectedIndex set to option with null value', fakeAsync(() => {
