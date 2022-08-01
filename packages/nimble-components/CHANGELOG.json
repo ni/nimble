@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 01 Aug 2022 19:47:13 GMT",
+      "tag": "@ni/nimble-components_v11.8.1",
+      "version": "11.8.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "529f59c647d17fc620206aa17449989c398817d9",
+            "comment": "Adding dialog spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Aug 2022 17:54:58 GMT",
+      "tag": "@ni/nimble-components_v11.8.1",
+      "version": "11.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "056605c8deebb7dba01bbac1a86dd0a1d670c5e3",
+            "comment": "Fix focus styling on breadcrumb items"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Jul 2022 21:21:12 GMT",
       "tag": "@ni/nimble-components_v11.8.0",
       "version": "11.8.0",
