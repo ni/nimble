@@ -10,6 +10,8 @@ export * from './directives/breadcrumb-item/nimble-breadcrumb-item.directive';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item.module';
 export * from './directives/button/nimble-button.directive';
 export * from './directives/button/nimble-button.module';
+export * from './directives/card-button/nimble-card-button.directive';
+export * from './directives/card-button/nimble-card-button.module';
 export * from './directives/checkbox/nimble-checkbox-control-value-accessor.directive';
 export * from './directives/checkbox/nimble-checkbox.directive';
 export * from './directives/checkbox/nimble-checkbox.module';
@@ -19,7 +21,8 @@ export * from './directives/combobox/nimble-combobox.module';
 export * from './directives/drawer/nimble-drawer.directive';
 export * from './directives/drawer/nimble-drawer.module';
 export * from './directives/icons';
-export * from './directives/list-option/nimble-list-option.directive';
+export * from './directives/list-option/nimble-combobox-list-option.directive';
+export * from './directives/list-option/nimble-select-list-option.directive';
 export * from './directives/list-option/nimble-list-option.module';
 export * from './directives/menu/nimble-menu.directive';
 export * from './directives/menu/nimble-menu.module';
@@ -65,4 +68,5 @@ export * from './testing/async-helpers';
 
 // Export enums that are used by multiple components here to avoid exporting them multiple times.
 export { ButtonAppearance } from '@ni/nimble-components/dist/esm/patterns/button/types';
+export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 export { IconStatus } from '@ni/nimble-components/dist/esm/icon-base/types';

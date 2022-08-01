@@ -5,7 +5,8 @@ import {
     warningColor,
     failColor,
     passColor,
-    iconColor
+    iconColor,
+    informationColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -33,6 +34,10 @@ export const styles = css`
 
     :host(.pass) {
         ${iconColor.cssCustomProperty}: ${passColor};
+    }
+
+    :host(.information) {
+        ${iconColor.cssCustomProperty}: ${informationColor};
     }
 
     .icon svg {

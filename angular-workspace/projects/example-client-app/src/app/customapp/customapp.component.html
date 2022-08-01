@@ -25,6 +25,15 @@
                 <nimble-toggle-button appearance="ghost">Ghost Toggle Button</nimble-toggle-button>
             </div>
             <div class="sub-container">
+                <div class="container-label">Card Button</div>
+                <nimble-card-button>
+                    <span class="card-button-content">Card Button</span>
+                </nimble-card-button>
+                <nimble-card-button selected>
+                    <span class="card-button-content">Selected Card Button</span>
+                </nimble-card-button>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Checkbox</div>
                 <nimble-checkbox>Checkbox label</nimble-checkbox>
                 <nimble-checkbox>Checkbox label</nimble-checkbox>
@@ -34,7 +43,7 @@
                 <div class="container-label">Drawer/Sidenav:</div>
                 <nimble-button appearance="outline" (click)="navDrawer.open()">Open Drawer</nimble-button>
                 <nimble-button appearance="outline" (click)="navDrawer.togglePinned()">Pin/Unpin</nimble-button>
-                <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
+                <nimble-select class="drawer-location-select" name="DrawerSelect" [(ngModel)]="drawerLocation" (ngModelChange)="onDrawerLocationChanged($event)">
                     <nimble-list-option [value]="drawerLocations.left">Drawer: Left-side</nimble-list-option>
                     <nimble-list-option [value]="drawerLocations.right">Drawer: Right-side</nimble-list-option>
                 </nimble-select>
@@ -78,7 +87,17 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Select</div>
-                <nimble-select>
+                <nimble-select appearance="underline">
+                    <nimble-list-option>Option 1</nimble-list-option>
+                    <nimble-list-option>Option 2</nimble-list-option>
+                    <nimble-list-option>Option 3</nimble-list-option>
+                </nimble-select>
+                <nimble-select appearance="outline">
+                    <nimble-list-option>Option 1</nimble-list-option>
+                    <nimble-list-option>Option 2</nimble-list-option>
+                    <nimble-list-option>Option 3</nimble-list-option>
+                </nimble-select>
+                <nimble-select appearance="block">
                     <nimble-list-option>Option 1</nimble-list-option>
                     <nimble-list-option>Option 2</nimble-list-option>
                     <nimble-list-option>Option 3</nimble-list-option>
@@ -86,14 +105,12 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Combobox</div>
-                <nimble-combobox aria-label="Combobox" (change)="onComboboxChange($event)">
-                    <nimble-list-option>Option 1</nimble-list-option>
-                    <nimble-list-option>Option 2</nimble-list-option>
-                    <nimble-list-option>Option 3</nimble-list-option>
+                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" autocomplete="both">
+                    <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
                 </nimble-combobox>
                 <div>
                     <span>
-                        Current value: {{ comboboxValue }}
+                        Last name: {{ comboboxSelectedLastName }}
                     </span>
                 </div>
             </div>
