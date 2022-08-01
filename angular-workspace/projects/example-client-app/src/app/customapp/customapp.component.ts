@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import { Component } from '@angular/core';
-import { Dialog, DrawerLocation, MenuItem, OptionNotFound, OPTION_NOT_FOUND, USER_DISMISSED } from '@ni/nimble-angular';
+import { Dialog, DrawerLocation, MenuItem, OptionNotFound, OPTION_NOT_FOUND, TextField, USER_DISMISSED } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
