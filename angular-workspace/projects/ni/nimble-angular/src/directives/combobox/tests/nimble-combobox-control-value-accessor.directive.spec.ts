@@ -18,7 +18,7 @@ interface TestModel {
     value: number;
 }
 
-fdescribe('Nimble combobox control value accessor', () => {
+describe('Nimble combobox control value accessor', () => {
     describe('when using option\'s [ngValue] binding on template-based form', () => {
         @Component({
             template: `
