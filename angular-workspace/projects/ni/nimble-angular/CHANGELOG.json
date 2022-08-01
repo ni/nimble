@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 01 Aug 2022 17:54:58 GMT",
+      "tag": "@ni/nimble-angular_v8.1.1",
+      "version": "8.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.8.1",
+            "commit": "056605c8deebb7dba01bbac1a86dd0a1d670c5e3"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Aug 2022 16:43:14 GMT",
+      "tag": "@ni/nimble-angular_v8.1.0",
+      "version": "8.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a1eacfb8830eff1dfeae0219e1415a0252387b2a",
+            "comment": "Add Angular support for nimble-card-button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Jul 2022 21:21:13 GMT",
+      "tag": "@ni/nimble-angular_v8.0.4",
+      "version": "8.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.8.0",
+            "commit": "00c328dcae2cdaa93505cfe81e92d7019e34423b"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Jul 2022 20:37:04 GMT",
+      "tag": "@ni/nimble-angular_v8.0.3",
+      "version": "8.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.7.2",
+            "commit": "2a5afca370ed399241244f9b135bb1b533ec6bd3"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 27 Jul 2022 15:38:00 GMT",
       "tag": "@ni/nimble-angular_v8.0.2",
       "version": "8.0.2",
