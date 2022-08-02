@@ -135,7 +135,7 @@ export const highLevelTooltip: StoryObj<TooltipArgs> = {
         </style>
         <div class="container">
             <div class="anchorDiv" id="anchor" aria-describedby="ariaAnchor">
-               High level tooltip 
+                High level tooltip
             </div>
             <nimble-tooltip
                 anchor="anchor"
@@ -147,34 +147,34 @@ export const highLevelTooltip: StoryObj<TooltipArgs> = {
             >
                 <div class="tooltipText">
                     Wafer 15 - A2CPQ-46B6
-                    <br>
+                    <br />
                     <div class="grouping">
                         <div class="grouping-left">
-                            <div class="section"> 
+                            <div class="section">
                                 <b class="title">Total Units</b>
-                                <br>
+                                <br />
                                 <span>2800</span>
                             </div>
                             <div class="section">
                                 <b class="title">Total Good</b>
-                                <br>
+                                <br />
                                 <span>2519</span>
                             </div>
                             <div class="section">
                                 <b class="title">Total Bad</b>
-                                <br>
-                                <span>2801</span>
+                                <br />
+                                <span>281</span>
                             </div>
                         </div>
                         <div class="grouping-right">
                             <div class="section">
                                 <b class="title">Yield</b>
-                                <br>
+                                <br />
                                 <span>89.99%</span>
                             </div>
                             <div class="section">
                                 <b class="title">Classification</b>
-                                <br>
+                                <br />
                                 <span>Bullseye</span>
                             </div>
                         </div>
