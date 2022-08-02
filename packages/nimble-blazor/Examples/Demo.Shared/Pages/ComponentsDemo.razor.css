@@ -45,3 +45,8 @@ example-header {
 ::deep nimble-toolbar::part(positioning-region) {
     background-color: var(--ni-nimble-section-background-color);
 }
+
+.card-button-content {
+    display: flex;
+    margin: var(--ni-nimble-standard-padding);
+}

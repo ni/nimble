@@ -43,3 +43,8 @@ example-header {
 nimble-toolbar::part(positioning-region) {
     background-color: $ni-nimble-section-background-color;
 }
+
+.card-button-content {
+    display: flex;
+    margin: $ni-nimble-standard-padding;
+}
