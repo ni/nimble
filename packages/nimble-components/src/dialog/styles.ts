@@ -3,8 +3,8 @@ import { display } from '@microsoft/fast-foundation';
 
 import {
     applicationBackgroundColor,
-    bodyFont,
     bodyFontColor,
+    bodyFontFamily,
     borderWidth,
     popupBoxShadowColor,
     popupBorderColor
@@ -13,14 +13,15 @@ import {
 export const styles = css`
     ${display('grid')}
 
-    :host {
-        font: ${bodyFont};
-        color: ${bodyFontColor};
-    }
-
     dialog {
         background-color: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
+        max-width: 50%;
+    }
+
+    ::slotted(*) {
+        font-family: ${bodyFontFamily};
+        color: ${bodyFontColor};
     }
 `;
