@@ -102,3 +102,85 @@ const metadata: Meta<TooltipArgs> = {
 export default metadata;
 
 export const tooltip: StoryObj<TooltipArgs> = {};
+export const highLevelTooltip: StoryObj<TooltipArgs> = {
+    render: createUserSelectedThemeStory(html<TooltipArgs>`
+        <style>
+            .container {
+                width: 100px;
+                height: 50px;
+            }
+
+            .anchorDiv {
+                border: 1px solid var(${borderColor.cssCustomProperty});
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+            }
+
+            .grouping {
+                display: flex;
+            }
+
+            .grouping-left {
+                padding-right: 10px;
+            }
+
+            .grouping-right {
+                padding-left: 10px;
+            }
+
+            .section {
+                padding-bottom: 5px;
+                padding-top: 5px;
+            }
+        </style>
+        <div class="container">
+            <div class="anchorDiv" id="anchor" aria-describedby="ariaAnchor">
+               High level tooltip 
+            </div>
+            <nimble-tooltip
+                anchor="anchor"
+                ?visible="${x => x.visible}"
+                delay="${x => x.delay}"
+                auto-update-mode="${x => x.autoUpdateMode}"
+                id="ariaAnchor"
+                class="${x => TooltipStatus[x.state]} ${x => (x.icon ? 'icon-visible' : '')}"
+            >
+                <div class="tooltipText">
+                    Wafer 15 - A2CPQ-46B6
+                    <br>
+                    <div class="grouping">
+                        <div class="grouping-left">
+                            <div class="section"> 
+                                <b class="title">Total Units</b>
+                                <br>
+                                <span>2800</span>
+                            </div>
+                            <div class="section">
+                                <b class="title">Total Good</b>
+                                <br>
+                                <span>2519</span>
+                            </div>
+                            <div class="section">
+                                <b class="title">Total Bad</b>
+                                <br>
+                                <span>2801</span>
+                            </div>
+                        </div>
+                        <div class="grouping-right">
+                            <div class="section">
+                                <b class="title">Yield</b>
+                                <br>
+                                <span>89.99%</span>
+                            </div>
+                            <div class="section">
+                                <b class="title">Classification</b>
+                                <br>
+                                <span>Bullseye</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nimble-tooltip>
+        </div>
+    `)
+};
