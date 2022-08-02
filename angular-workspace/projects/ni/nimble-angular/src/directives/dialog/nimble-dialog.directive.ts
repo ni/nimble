@@ -34,7 +34,7 @@ export class NimbleDialogDirective {
     }
 
     public get role(): string | null {
-        return this.elementRef.nativeElement.ariaLabel;
+        return this.elementRef.nativeElement.role;
     }
 
     @Input() public set role(value: string | null) {
