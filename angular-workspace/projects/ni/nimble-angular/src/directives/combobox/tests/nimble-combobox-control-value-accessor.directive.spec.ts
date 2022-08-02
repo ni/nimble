@@ -38,7 +38,8 @@ describe('Nimble combobox control value accessor', () => {
                 null
             ];
 
-            public selectedOption: TestModel | null | OptionNotFound = this.selectOptions[1];
+            public defaultSelection = this.selectOptions[1];
+            public selectedOption: TestModel | null | OptionNotFound = this.defaultSelection;
             public dynamicOption: TestModel = { name: 'Dynamic Option 1', value: 4 };
             public readonly nullValueString = 'null';
 
@@ -82,7 +83,7 @@ describe('Nimble combobox control value accessor', () => {
         });
 
         it('sets correct initial selected value', () => {
-            expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[1]);
+            expect(testHostComponent.selectedOption).toBe(testHostComponent.defaultSelection);
             expect(combobox.selectedIndex).toBe(1);
         });
 
@@ -122,16 +123,18 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('sets text to empty string for model value not in list options', fakeAsync(() => {
-            testHostComponent.selectedOption = { name: 'foo', value: 5 };
+            const modelValueNotInList: TestModel = { name: 'foo', value: 5 };
+            testHostComponent.selectedOption = modelValueNotInList;
             fixture.detectChanges();
             tick();
             processUpdates();
 
             expect(combobox.control.value).toEqual('');
+            expect(testHostComponent.selectedOption).toBe(modelValueNotInList);
         }));
 
         it('list-option with current combobox value is removed, combobox display value is unchanged', fakeAsync(() => {
-            const currentValue = testHostComponent.selectOptions[1];
+            const currentValue = testHostComponent.defaultSelection;
             testHostComponent.selectOptions.splice(1, 1);
             fixture.detectChanges();
             tick();
@@ -152,6 +155,7 @@ describe('Nimble combobox control value accessor', () => {
             processUpdates();
 
             expect(combobox.control.value).toEqual('foo');
+            expect(testHostComponent.selectedOption).toBe(testHostComponent.dynamicOption);
         }));
 
         it('null option is selected, combobox display value is set to provided display string for null', fakeAsync(() => {
@@ -161,6 +165,7 @@ describe('Nimble combobox control value accessor', () => {
             processUpdates();
 
             expect(combobox.control.value).toEqual(testHostComponent.nullValueString);
+            expect(testHostComponent.selectedOption).toBe(null);
         }));
 
         it('set bound value to null, combobox selectedIndex set to option with null value', fakeAsync(() => {
@@ -171,9 +176,10 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(combobox.selectedIndex).toEqual(3);
             expect(combobox.control.value).toEqual(testHostComponent.nullValueString);
+            expect(testHostComponent.selectedOption).toBe(null);
         }));
 
-        it('model changes for option, text display of old option entered, callback value is notFound ', fakeAsync(() => {
+        it('model changes for option, text display of old option entered, callback value is notFound', fakeAsync(() => {
             testHostComponent.dynamicOption = { name: 'foo', value: 10 };
             fixture.detectChanges();
             tick();
@@ -235,7 +241,8 @@ describe('Nimble combobox control value accessor', () => {
                 null
             ];
 
-            public selectedOption = new FormControl(this.selectOptions[1]);
+            public defaultOption = this.selectOptions[1];
+            public selectedOption = new FormControl(this.defaultOption);
             public dynamicOption: TestModel = { name: 'Dynamic Option 1', value: 4 };
             public readonly nullValueString = 'null';
 
@@ -279,7 +286,7 @@ describe('Nimble combobox control value accessor', () => {
         });
 
         it('sets correct initial selected value', () => {
-            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.selectOptions[1]);
+            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.defaultOption);
             expect(combobox.selectedIndex).toBe(1);
         });
 
@@ -320,18 +327,21 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.disabled).toBe(true);
         }));
 
-        it('sets text to empty string for model value not in list options', fakeAsync(() => {
-            testHostComponent.selectedOption.setValue({ name: 'foo', value: 5 });
+        it('sets text to empty string for model value not in list options but maintains set model value', fakeAsync(() => {
+            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.defaultOption);
+            const valueNotInOptions = { name: 'foo', value: 5 };
+            testHostComponent.selectedOption.setValue(valueNotInOptions);
             fixture.detectChanges();
             tick();
             processUpdates();
 
             expect(combobox.control.value).toEqual('');
+            expect(testHostComponent.selectedOption.value).toBe(valueNotInOptions);
         }));
 
-        it('list-option with current combobox value is removed, combobox display value is unchanged', fakeAsync(() => {
+        it('list-option with current combobox value is removed, combobox display value and model value is unchanged', fakeAsync(() => {
             const currentModelValue: unknown = testHostComponent.selectedOption.value;
-            testHostComponent.selectOptions.splice(1, 1);
+            testHostComponent.selectOptions.splice(1, 1); // removes currently selected option from set
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -372,6 +382,7 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(combobox.selectedIndex).toEqual(3);
             expect(combobox.control.value).toEqual(testHostComponent.nullValueString);
+            expect(testHostComponent.selectedOption.value).toBe(null);
         }));
 
         it('model changes for option, text display of old option entered, callback value is notFound ', fakeAsync(() => {
