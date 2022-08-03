@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { NumberValueOrAttribute } from 'dist/ni/nimble-angular/directives/utilities/template-value-helpers';
 import { Tooltip, NimbleTooltipDirective, TooltipStatus } from '../nimble-tooltip.directive';
 import { NimbleTooltipModule } from '../nimble-tooltip.module';
 
@@ -54,13 +55,19 @@ describe('Nimble tooltip', () => {
             expect(directive.anchor).toBe('');
             expect(nativeElement.anchor).toBe('');
         });
+
+        it('has expected defaults for delay', () => {
+            expect(directive.delay).toBe(300);
+            expect(nativeElement.delay).toBe(300);
+        });
     });
 
     describe('with template string values', () => {
         @Component({
             template: `
                 <nimble-tooltip #tooltip
-                    anchor="anchor">
+                    anchor="anchor"
+                    delay=300>
                 </nimble-tooltip>`
         })
         class TestHostComponent {
@@ -87,13 +94,19 @@ describe('Nimble tooltip', () => {
             expect(directive.anchor).toBe('anchor');
             expect(nativeElement.anchor).toBe('anchor');
         });
+
+        it('will use template string values for delay', () => {
+            expect(directive.delay).toBe(300);
+            expect(nativeElement.delay).toBe(300);
+        });
     });
 
     describe('with property bound values', () => {
         @Component({
             template: `
                 <nimble-tooltip #tooltip
-                    [anchor]="anchor">
+                    [anchor]="anchor"
+                    [delay]="delay">
                 </nimble-tooltip>
             `
         })
@@ -101,6 +114,7 @@ describe('Nimble tooltip', () => {
             @ViewChild('tooltip', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
             @ViewChild('tooltip', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
             public anchor = 'anchor';
+            public delay = 300;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -128,13 +142,24 @@ describe('Nimble tooltip', () => {
             expect(directive.anchor).toBe('anchor2');
             expect(nativeElement.anchor).toBe('anchor2');
         });
+        it('can be configured with property binding for delay', () => {
+            expect(directive.delay).toBe(300);
+            expect(nativeElement.delay).toBe(300);
+
+            fixture.componentInstance.delay = 400;
+            fixture.detectChanges();
+
+            expect(directive.delay).toBe(400);
+            expect(nativeElement.delay).toBe(400);
+        });
     });
 
     describe('with attribute bound values', () => {
         @Component({
             template: `
                 <nimble-tooltip #tooltip
-                    [attr.anchor]="anchor">
+                    [attr.anchor]="anchor"
+                    [attr.delay]="delay">
                 </nimble-tooltip>
             `
         })
@@ -142,6 +167,7 @@ describe('Nimble tooltip', () => {
             @ViewChild('tooltip', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
             @ViewChild('tooltip', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
             public anchor = 'anchor';
+            public delay: NumberValueOrAttribute = 300;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -168,6 +194,17 @@ describe('Nimble tooltip', () => {
 
             expect(directive.anchor).toBe('anchor2');
             expect(nativeElement.anchor).toBe('anchor2');
+        });
+        // Test is disabled because of [FAST bug](https://github.com/microsoft/fast/issues/6257)
+        xit('can be configured with attribute binding for delay', () => {
+            expect(directive.delay).toBe(300);
+            expect(nativeElement.delay).toBe(300);
+
+            fixture.componentInstance.delay = 400;
+            fixture.detectChanges();
+
+            expect(directive.delay).toBe(400);
+            expect(nativeElement.delay).toBe(400);
         });
     });
 });
