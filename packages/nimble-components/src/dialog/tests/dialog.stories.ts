@@ -54,5 +54,7 @@ const metadata: Meta<DialogArgs> = {
 export default metadata;
 
 export const dialog: StoryObj<DialogArgs> = {
-    play: (): void => { document.querySelector('#open')?.dispatchEvent(new Event('click')); }
+    play: (): void => {
+        document.querySelector('#open')?.dispatchEvent(new Event('click'));
+    }
 };
