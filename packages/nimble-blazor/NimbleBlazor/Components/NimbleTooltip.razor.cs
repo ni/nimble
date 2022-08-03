@@ -8,6 +8,9 @@ public partial class NimbleTooltip : ComponentBase
     public string? Anchor { get; set; }
 
     [Parameter]
+    public int? Delay { get; set; }
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
