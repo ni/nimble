@@ -43,20 +43,20 @@ export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestr
     public ngAfterViewInit(): void {
         if (this.combobox) {
             this._currentTextContent = this.elementRef.nativeElement.textContent!;
-            this.combobox._optionMap.set(this._currentTextContent, this._modelValue);
+            this.combobox.addOption(this._currentTextContent, this._modelValue);
         }
     }
 
     public ngOnDestroy(): void {
         if (this.combobox) {
-            this.combobox._optionMap.delete(this._currentTextContent);
+            this.combobox.removeOption(this._currentTextContent);
         }
     }
 
     private updateComboboxValue(value: unknown): void {
-        this.combobox!._optionMap.delete(this._currentTextContent);
+        this.combobox!.removeOption(this._currentTextContent);
         this.changeDetector.detectChanges();
         this._currentTextContent = this.elementRef.nativeElement.textContent!;
-        this.combobox!._optionMap.set(this._currentTextContent, value);
+        this.combobox!.addOption(this._currentTextContent, value);
     }
 }
