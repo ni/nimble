@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import { Component } from '@angular/core';
-import { Dialog, DrawerLocation, MenuItem, OptionNotFound, OPTION_NOT_FOUND, TextField, USER_DISMISSED } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, OptionNotFound, OPTION_NOT_FOUND } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
@@ -40,10 +40,5 @@ export class CustomAppComponent {
         } else {
             this.comboboxSelectedLastName = 'not found';
         }
-    }
-
-    public async openDialog(dialog: Dialog, reason: TextField): Promise<void> {
-        const closeReason = await dialog.show();
-        reason.value = (closeReason === USER_DISMISSED) ? 'escape pressed' : closeReason as string;
     }
 }
