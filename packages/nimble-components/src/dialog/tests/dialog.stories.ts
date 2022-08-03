@@ -35,6 +35,7 @@ const metadata: Meta<DialogArgs> = {
             >
         </nimble-dialog>
         <nimble-button
+            id="open"
             onclick="dialog.show().then(x => { reason.value = x.toString() })"
             >Open</nimble-button
         >
@@ -52,4 +53,6 @@ const metadata: Meta<DialogArgs> = {
 
 export default metadata;
 
-export const dialog: StoryObj<DialogArgs> = {};
+export const dialog: StoryObj<DialogArgs> = {
+    play: (): void => { document.querySelector('#open')?.dispatchEvent(new Event('click')) }
+};
