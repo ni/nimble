@@ -1,5 +1,5 @@
-import { PropertyStyleSheetBehavior } from '@microsoft/fast-foundation';
 import type { Behavior, ElementStyles } from '@microsoft/fast-element';
+import { MultivaluePropertyStyleSheetBehavior } from '../multivalue-property-stylesheet-behavior';
 
 /**
  * Behavior that will conditionally apply a stylesheet based on the element's
@@ -11,8 +11,12 @@ import type { Behavior, ElementStyles } from '@microsoft/fast-element';
  * @public
  */
 export function appearanceBehavior<AppearanceType>(
-    value: AppearanceType,
+    value: AppearanceType | AppearanceType[],
     styles: ElementStyles
 ): Behavior {
-    return new PropertyStyleSheetBehavior('appearance', value, styles);
+    return new MultivaluePropertyStyleSheetBehavior(
+        'appearance',
+        value,
+        styles
+    );
 }
