@@ -1,11 +1,11 @@
 import type { Behavior, ElementStyles } from '@microsoft/fast-element';
-import { MultivaluePropertyStyleSheetBehavior } from '../multivalue-property-stylesheet-behavior';
+import { MultivaluePropertyStyleSheetBehavior } from './multivalue-property-stylesheet-behavior';
 
 /**
  * Behavior that will conditionally apply a stylesheet based on the element's
  * appearance property
  *
- * @param value - The value of the appearance property
+ * @param value - The value or values of the appearance property
  * @param styles - The styles to be applied when condition matches
  *
  * @public

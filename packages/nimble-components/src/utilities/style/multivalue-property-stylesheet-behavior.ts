@@ -17,7 +17,7 @@ implements Behavior {
     /**
      * Constructs a {@link PropertyStyleSheetBehavior} instance.
      * @param propertyName - The property name to operate from.
-     * @param value - The property value to operate from.
+     * @param value - The property value or values to operate from.
      * @param styles - The styles to coordinate with the property.
      */
     public constructor(

@@ -93,7 +93,7 @@ class ThemeStyleSheetBehavior implements Behavior {
  * `.withBehaviors(
  *     themeBehavior(Theme.light, css` ... `),
  *     // Apply style for both dark and color theme
- *     themeBheavior([Theme.dark, Theme.color], css` ... `)
+ *     themeBehavior([Theme.dark, Theme.color], css` ... `)
  * )
  * ```
  */
