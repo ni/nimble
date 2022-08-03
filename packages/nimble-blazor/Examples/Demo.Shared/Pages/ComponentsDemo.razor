@@ -50,6 +50,17 @@
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
             </div>
             <div class="sub-container">
+                <div class="container-label">Dialog:</div>
+                <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDialogAsync">Open Dialog</NimbleButton>
+                <NimbleTextField readonly Value="@ClosedReason">Closed reason</NimbleTextField>
+                <NimbleDialog @ref="_dialog">
+                    <h1>Have a nice day</h1>
+                    <p>And also a nice week</p>
+                    <NimbleButton @onclick='() => CloseDialogAsync("OK clicked")'>OK</NimbleButton>
+                    <NimbleButton @onclick='() => CloseDialogAsync("Cancel clicked")'>Cancel</NimbleButton>
+                </NimbleDialog>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Drawer/Sidenav:</div>
                 <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDrawer">Open Drawer</NimbleButton>
                 <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="DrawerTogglePinned">Pin/Unpin</NimbleButton>

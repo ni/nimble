@@ -10,6 +10,8 @@ namespace Demo.Shared.Pages
         private NavigationDrawer? _navigationDrawer;
         private DrawerLocation _drawerLocation = DrawerLocation.Right;
         private string? ActiveTabId { get; set; }
+        private NimbleDialog? _dialog;
+        private string? ClosedReason { get; set; }
 
         private string DrawerLocationAsString
         {
@@ -25,6 +27,16 @@ namespace Demo.Shared.Pages
         public void DrawerTogglePinned()
         {
             _navigationDrawer!.TogglePinned();
+        }
+
+        public async Task OpenDialogAsync()
+        {
+            ClosedReason = await _dialog!.ShowAsync();
+        }
+
+        public async Task CloseDialogAsync(string reason = "")
+        {
+            await _dialog!.CloseAsync(reason);
         }
     }
 }

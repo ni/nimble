@@ -46,3 +46,21 @@ export function afterStarted(Blazor) {
         }
     });
 }
+
+/* This method is required to show the nimble dialog component
+ * @param privateId : the private-id of the nimble-dialog to show
+*/
+window.showDialog = async function (dialogReference) {
+    const reason = await dialogReference.show();
+    // User dismissed constant must match definition in NimbleDialog
+    // TODO: how to reference USER_DISMISSED Symbol from nimble-components?
+    return (reason.toString() === 'Symbol(user dismissed)') ? 'USER_DISMISSED' : reason;
+};
+
+/* This method is required to close the nimble dialog component
+ * @param privateId : the private-id of the nimble-dialog to close
+ * @param reason : an optional reason for closing the dialog
+*/
+window.closeDialog = function (dialogReference, reason) {
+    dialogReference.close(reason);
+};
