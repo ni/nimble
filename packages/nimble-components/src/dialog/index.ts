@@ -45,7 +45,7 @@ export class Dialog extends FoundationElement {
      *
      * @internal
      */
-    public readonly dialogElement: ExtendedDialog | undefined;
+    public readonly dialogElement!: ExtendedDialog;
 
     public get open(): boolean {
         return this.resolveShow !== undefined;
@@ -62,7 +62,7 @@ export class Dialog extends FoundationElement {
         if (this.open) {
             throw new Error('Dialog is already open');
         }
-        this.dialogElement!.showModal();
+        this.dialogElement.showModal();
         return new Promise((resolve, _reject) => {
             this.resolveShow = resolve;
         });
@@ -77,7 +77,7 @@ export class Dialog extends FoundationElement {
             throw new Error('Dialog is not open');
         }
         this.closeReason = reason;
-        this.dialogElement!.close();
+        this.dialogElement.close();
     }
 
     public closeHandler(): boolean {
