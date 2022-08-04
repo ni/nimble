@@ -15,7 +15,7 @@ const metadata: Meta<DialogArgs> = {
         docs: {
             description: {
                 component:
-                    'A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.'
+                    'A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.\n\nBy default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.'
             }
         }
     },

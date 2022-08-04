@@ -11,8 +11,8 @@ async function setup(preventDismiss?: boolean): Promise<Fixture<Dialog>> {
     return fixture<Dialog>(viewTemplate);
 }
 
-describe('Dialog', () => {
-    function nativeDialogElement(nimbleDialogElement: Element): ExtendedDialog {
+fdescribe('Dialog', () => {
+    function nativeDialogElement(nimbleDialogElement: Dialog): ExtendedDialog {
         return nimbleDialogElement.shadowRoot!.querySelector(
             'dialog'
         ) as ExtendedDialog;
@@ -239,38 +239,6 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('forwards value of role to dialog element', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-
-        const expectedValue = 'doughnut';
-        element.role = expectedValue;
-        await DOM.nextUpdate();
-
-        expect(nativeDialogElement(element)?.getAttribute('role')).toEqual(
-            expectedValue
-        );
-
-        await disconnect();
-    });
-
-    it('sets default role of alertdialog on dialog element when role cleared from host', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-
-        element.role = 'not empty';
-        await DOM.nextUpdate();
-
-        element.role = null;
-        await DOM.nextUpdate();
-
-        expect(nativeDialogElement(element)?.getAttribute('role')).toBe(
-            'alertdialog'
-        );
-
-        await disconnect();
-    });
-
     it('forwards value of aria-label to dialog element', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
@@ -293,7 +261,7 @@ describe('Dialog', () => {
         element.ariaLabel = 'not empty';
         await DOM.nextUpdate();
 
-        element.ariaLabel = null;
+        element.ariaLabel = undefined;
         await DOM.nextUpdate();
 
         expect(

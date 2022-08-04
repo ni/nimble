@@ -1,6 +1,7 @@
-import { attr, html, observable, ref } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -8,6 +9,10 @@ declare global {
     }
 }
 
+/**
+ * Symbol that is returned as the dialog close reason (from the Promise returned by show()) when
+ * the dialog was closed by pressing the ESC key (vs. calling the close() function).
+ */
 export const USER_DISMISSED: unique symbol = Symbol('user dismissed');
 export type UserDismissed = typeof USER_DISMISSED;
 
@@ -32,119 +37,76 @@ export class Dialog extends FoundationElement {
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
-    @attr
-    public role: string | null = null;
-
     @attr({ attribute: 'aria-label' })
-    public ariaLabel: string | null = null;
+    public ariaLabel: string | undefined = undefined;
 
     /**
      * The ref to the internal dialog element.
      *
      * @internal
      */
-    @observable
     public readonly dialogElement: ExtendedDialog | undefined;
 
     public get open(): boolean {
-        return this.resolveShow !== null;
+        return this.resolveShow !== undefined;
     }
 
-    private resolveShow: ((reason: unknown) => void) | null = null;
-    private closeReason: unknown = null;
+    private resolveShow: ((reason: unknown) => void) | undefined = undefined;
+    private closeReason: unknown = undefined;
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
-
-        this.updateDialogRole();
-        this.updateDialogAriaLabel();
-        this.dialogElement!.addEventListener('cancel', this.cancelHandler);
-        this.dialogElement!.addEventListener('close', this.closeHandler);
-    }
-
-    public override disconnectedCallback(): void {
-        super.disconnectedCallback();
-
-        this.dialogElement!.removeEventListener('cancel', this.cancelHandler);
-        this.dialogElement!.removeEventListener('close', this.closeHandler);
-    }
-
+    /**
+     * Opens the dialog
+     * @returns Promise that is resolved when the dialog is closed. The value of the resolved Promise is the reason value passed to the close() method, or USER_DISMISSED if the dialog was closed via the ESC key.
+     */
     public async show(): Promise<unknown> {
         if (this.open) {
             throw new Error('Dialog is already open');
         }
-        this.dialogElement?.showModal();
+        this.dialogElement!.showModal();
         return new Promise((resolve, _reject) => {
             this.resolveShow = resolve;
         });
     }
 
+    /**
+     * Closes the dialog
+     * @param reason An optional value indicating how/why the dialog was closed.
+     */
     public close(reason?: unknown): void {
         if (!this.open) {
             throw new Error('Dialog is not open');
         }
         this.closeReason = reason;
-        this.dialogElement?.close();
+        this.dialogElement!.close();
     }
 
-    private onClose(): void {
+    public closeHandler(): boolean {
         if (this.resolveShow) {
             this.resolveShow(this.closeReason);
-            this.resolveShow = null;
-            this.closeReason = null;
+            this.resolveShow = undefined;
+            this.closeReason = undefined;
         }
+        return true;
     }
 
-    private roleChanged(_oldValue: string, _newValue: string): void {
-        this.updateDialogRole();
-    }
-
-    private updateDialogRole(): void {
-        if (this.role) {
-            this.dialogElement?.setAttribute('role', this.role);
-        } else {
-            this.dialogElement?.setAttribute('role', 'alertdialog');
-        }
-    }
-
-    private ariaLabelChanged(_oldValue: string, _newValue: string): void {
-        this.updateDialogAriaLabel();
-    }
-
-    private updateDialogAriaLabel(): void {
-        if (this.ariaLabel) {
-            this.dialogElement?.setAttribute('aria-label', this.ariaLabel);
-        } else {
-            this.dialogElement?.removeAttribute('aria-label');
-        }
-    }
-
-    private readonly cancelHandler = (event: Event): void => {
+    public cancelHandler(event: Event): boolean {
         if (this.preventDismiss) {
             event.preventDefault();
         } else {
             this.closeReason = USER_DISMISSED;
         }
-    };
-
-    private readonly closeHandler = (_event: Event): void => {
-        this.onClose();
-    };
+        return true;
+    }
 }
-
-const template = html<Dialog>`
-    <template>
-        <dialog ${ref('dialogElement')}>
-            <slot></slot>
-        </dialog>
-    </template>
-`;
 
 const nimbleDialog = Dialog.compose({
     baseName: 'dialog',
     template,
     styles,
-    baseClass: Dialog
+    baseClass: Dialog,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDialog());

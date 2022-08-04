@@ -19,9 +19,4 @@ export const styles = css`
         box-shadow: 0px 2px 3px ${popupBoxShadowColor};
         max-width: 50%;
     }
-
-    ::slotted(*) {
-        font-family: ${bodyFontFamily};
-        color: ${bodyFontColor};
-    }
 `;
