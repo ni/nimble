@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
@@ -21,26 +21,28 @@ const metadata: Meta<DialogArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <nimble-dialog
-            id="dialog"
+            ${ref('dialog')}
             aria-label="Here is a dialog"
             ?prevent-dismiss="${x => x['prevent-dismiss']}"
         >
             <h1>Here is a dialog</h1>
             <p>It can have some detailed message here.</p>
-            <nimble-button onclick='dialog.close("Cancel pressed")'
+            <nimble-button @click="${x => x.dialog.close('Cancel pressed')}"
                 >Cancel</nimble-button
             >
-            <nimble-button onclick='dialog.close("OK pressed")'
+            <nimble-button @click="${x => x.dialog.close('OK pressed')}"
                 >OK</nimble-button
             >
         </nimble-dialog>
         <nimble-button
             id="open"
-            onclick="dialog.show().then(x => { reason.value = x.toString() })"
+            @click="${x => x.dialog.show().then(reason => {
+        x.textField.value = reason.toString();
+    })}"
             >Open</nimble-button
         >
         <div>
-            <nimble-text-field id="reason" readonly
+            <nimble-text-field ${ref('textField')} readonly
                 >Close reason</nimble-text-field
             >
         </div>
@@ -55,6 +57,6 @@ export default metadata;
 
 export const dialog: StoryObj<DialogArgs> = {
     play: (): void => {
-        document.querySelector('#open')?.dispatchEvent(new Event('click'));
+        document.getElementById('open')!.dispatchEvent(new Event('click'));
     }
 };

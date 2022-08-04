@@ -278,7 +278,7 @@ describe('Dialog', () => {
     it('restores focus to the element that had it before opening', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const button2 = document.getElementById("button2")!;
+        const button2 = document.getElementById('button2')!;
         button2.focus();
 
         expect(document.activeElement).toBe(button2);
@@ -299,7 +299,7 @@ describe('Dialog', () => {
     it('focuses the first button on the dialog when it opens', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const okButton = document.getElementById("ok")!;
+        const okButton = document.getElementById('ok')!;
 
         void element.show();
         await DOM.nextUpdate();
@@ -313,8 +313,8 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
 
-        const cancelButton = document.getElementById("cancel")!;
-        cancelButton.setAttribute("autofocus", "");
+        const cancelButton = document.getElementById('cancel')!;
+        cancelButton.setAttribute('autofocus', '');
         await DOM.nextUpdate();
 
         void element.show();
