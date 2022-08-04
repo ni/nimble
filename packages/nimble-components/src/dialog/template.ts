@@ -8,10 +8,7 @@ export const template = html<Dialog>`
             role="alertdialog"
             aria-label="${x => x.ariaLabel}"
             @cancel="${(x, c) => x.cancelHandler(c.event)}"
-            @close="${x => {
-        console.log('in close binding');
-        return x.closeHandler();
-    }}"
+            @close="${x => x.closeHandler()}"
         >
             <slot></slot>
         </dialog>

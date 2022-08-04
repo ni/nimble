@@ -11,7 +11,7 @@ async function setup(preventDismiss?: boolean): Promise<Fixture<Dialog>> {
     return fixture<Dialog>(viewTemplate);
 }
 
-fdescribe('Dialog', () => {
+describe('Dialog', () => {
     function nativeDialogElement(nimbleDialogElement: Dialog): ExtendedDialog {
         return nimbleDialogElement.shadowRoot!.querySelector(
             'dialog'

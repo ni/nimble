@@ -3,8 +3,6 @@ import { display } from '@microsoft/fast-foundation';
 
 import {
     applicationBackgroundColor,
-    bodyFontColor,
-    bodyFontFamily,
     borderWidth,
     popupBoxShadowColor,
     popupBorderColor
