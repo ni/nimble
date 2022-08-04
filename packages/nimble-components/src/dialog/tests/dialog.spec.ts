@@ -6,7 +6,11 @@ import { Dialog, ExtendedDialog, UserDismissed, USER_DISMISSED } from '..';
 async function setup(preventDismiss?: boolean): Promise<Fixture<Dialog>> {
     const viewTemplate = html`
         <nimble-dialog ${preventDismiss ? 'prevent-dismiss' : ''}>
+            <nimble-button id="ok">OK</nimble-button>
+            <nimble-button id="cancel">Cancel</nimble-button>
         </nimble-dialog>
+        <nimble-button id="button1">Button 1</nimble-button>
+        <nimble-button id="button2">Button 2</nimble-button>
     `;
     return fixture<Dialog>(viewTemplate);
 }
@@ -267,6 +271,56 @@ describe('Dialog', () => {
         expect(
             nativeDialogElement(element)?.getAttribute('aria-label')
         ).toBeNull();
+
+        await disconnect();
+    });
+
+    it('restores focus to the element that had it before opening', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const button2 = document.getElementById("button2")!;
+        button2.focus();
+
+        expect(document.activeElement).toBe(button2);
+
+        void element.show();
+        await DOM.nextUpdate();
+
+        expect(document.activeElement).not.toBe(button2);
+
+        element.close();
+        await DOM.nextUpdate();
+
+        expect(document.activeElement).toBe(button2);
+
+        await disconnect();
+    });
+
+    it('focuses the first button on the dialog when it opens', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const okButton = document.getElementById("ok")!;
+
+        void element.show();
+        await DOM.nextUpdate();
+
+        expect(document.activeElement).toBe(okButton);
+
+        await disconnect();
+    });
+
+    it('focuses the button with autofocus when the dialog opens', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        const cancelButton = document.getElementById("cancel")!;
+        cancelButton.setAttribute("autofocus", "");
+        await DOM.nextUpdate();
+
+        void element.show();
+        await DOM.nextUpdate();
+
+        expect(document.activeElement).toBe(cancelButton);
 
         await disconnect();
     });
