@@ -1,0 +1,71 @@
+# Nimble Radio Button
+
+## Overview
+
+The `nimble-radio-button` is an implementation of a radio button as a form-connected web-component.
+Facilitating single select from a group of visible choices through a toggled T/F user input.
+
+### Background
+
+[Nimble Issue 297: Radio] (https://github.com/ni/nimble/issues/297)
+
+[`Visual Design Spec`] (https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7)
+
+---
+
+## Design
+
+### API
+
+[FAST Radio Button API] (https://github.com/microsoft/fast/blob/7934089e4b161ea5a14da817ef2439c0fb47786b/packages/web-components/fast-foundation/src/radio/radio.spec.md)
+
+[FAST Radio Group API] (https://github.com/microsoft/fast/blob/7934089e4b161ea5a14da817ef2439c0fb47786b/packages/web-components/fast-foundation/src/radio-group/radio-group.spec.md)
+
+The state of the radio button can be changed by clicking the button or accompanied title. When the radio button has the `disabled` class applied, the contents of the button will appear in a greyed-out state and will be inaccessible by users. This component will include no alternative appearances.
+
+The two components will share almost all of their attributes aside from the 'Radio Group' component containing an additional 'orientation' attribute. This will set the visual orientation of the radio group as either vertical or horizontal.
+
+- _Component Name:_ `nimble-radio-button`
+- _Properties/Attributes:_ Unchanged
+- _Methods:_ Unchanged
+- _Events:_ Unchanged
+- _CSS Classes and Custom Properties that affect the component:_ Unchanged
+- _Slots:_ Unchanged
+- _Template:_ Unchanged
+
+### Angular integration 
+
+An Angular directive will be created for the component, the details will be discussed in future updates. The component will have form association, so a `ControlValueAccessor` will be created.
+
+### Blazor integration 
+
+A Blazor wrapper will be created for the component, the details will discussed in future updates.
+
+### Additional requirements
+
+-   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
+    -   No additional requirements
+-   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
+    - We believe all styles are possible to achieve but the double-outline in the focus tate might pose some issues, will revisit spec later if we are unable to implement.
+-   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
+    -   No additional requirements, their tests have good coverage and our component is not adding any custom functionality that requires additional testing
+-   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
+    -   No additional requirements
+-   _Tooling: Any new tools, updates to tools, code generation, etc?_
+    -   No additional requirements
+-   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
+    -   The current FAST implementation already provides an adequate amount of accessibility, no additional requirements needed as of now
+-   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
+    -   No additional requirements
+-   _Performance: does the FAST component meet Nimble's performance requirements?_
+    -   No additional requirements
+-   _Security: Any requirements for security?_
+    -   No additional requirements
+
+---
+
+## Open Issues
+
+Will the 'checked' state require a custom icon ?
+
+Does screen-reader work in the 'read-only' state ?
