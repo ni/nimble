@@ -3,9 +3,13 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
+import type { Dialog } from '..';
+import type { TextField } from '../../text-field';
 
 interface DialogArgs {
     'prevent-dismiss': boolean;
+    dialogRef: Dialog;
+    textFieldRef: TextField;
 }
 
 const metadata: Meta<DialogArgs> = {
@@ -21,28 +25,30 @@ const metadata: Meta<DialogArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <nimble-dialog
-            ${ref('dialog')}
+            ${ref('dialogRef')}
             aria-label="Here is a dialog"
             ?prevent-dismiss="${x => x['prevent-dismiss']}"
         >
             <h1>Here is a dialog</h1>
             <p>It can have some detailed message here.</p>
-            <nimble-button @click="${x => x.dialog.close('Cancel pressed')}"
+            <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}"
                 >Cancel</nimble-button
             >
-            <nimble-button @click="${x => x.dialog.close('OK pressed')}"
+            <nimble-button @click="${x => x.dialogRef.close('OK pressed')}"
                 >OK</nimble-button
             >
         </nimble-dialog>
         <nimble-button
             id="open"
-            @click="${x => x.dialog.show().then(reason => {
-        x.textField.value = reason.toString();
+            @click="${async x => x.dialogRef.show().then(reason => {
+        x.textFieldRef.value = typeof reason === 'string'
+            ? reason
+            : 'ESC pressed';
     })}"
             >Open</nimble-button
         >
         <div>
-            <nimble-text-field ${ref('textField')} readonly
+            <nimble-text-field ${ref('textFieldRef')} readonly
                 >Close reason</nimble-text-field
             >
         </div>
