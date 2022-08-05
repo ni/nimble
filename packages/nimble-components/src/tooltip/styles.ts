@@ -53,26 +53,25 @@ export const styles = css`
         padding-right: 8px;
     }
 
-    :host(.fail.icon-visible) .fail {
+    :host([appearance="error"][icon-visible]) [appearance="error"] {
         display: flex;
         flex: 0 0 auto;
     }
 
-    :host(.information.icon-visible) .information {
+    :host([appearance="information"][icon-visible]) [appearance="information"] {
         display: flex;
         flex: 0 0 auto;
     }
 `.withBehaviors(
-    /* Local Theme Behaviors for tooltip borders and backgrounds */
         themeBehavior(
         // Light Theme
             css`
-            :host(.fail) {
+            :host([appearance="error"]) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
                 --ni-private-tooltip-background-color: ${White};
             }
 
-            :host(.information) {
+            :host([appearance="information"]) {
                 --ni-private-tooltip-border-color: ${Information100LightUi};
                 --ni-private-tooltip-background-color: ${White};
             }
@@ -87,11 +86,11 @@ export const styles = css`
                 --ni-private-tooltip-background-color: ${Black85};
             }
 
-            :host(.information) {
+            :host([appearance="information"]) {
                 --ni-private-tooltip-border-color: ${Information100DarkUi};
             }
 
-            :host(.fail) {
+            :host([appearance="error"]) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
             }
         `,
@@ -112,11 +111,11 @@ export const styles = css`
             )};
             }
 
-            :host(.fail) {
+            :host([appearance="error"]) {
                 --ni-private-tooltip-border-color: ${White};
             }
 
-            :host(.information) {
+            :host([appearance="information"]) {
                 --ni-private-tooltip-border-color: ${White};
             }
 

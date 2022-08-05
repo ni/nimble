@@ -9,11 +9,11 @@ import {
     bodyFont,
     bodyFontColor
 } from '../../theme-provider/design-tokens';
-import { TooltipStatus } from '../types';
+import { TooltipAppearance } from '../types';
 
 interface TooltipArgs {
     visible: boolean;
-    state: keyof typeof TooltipStatus;
+    state: keyof typeof TooltipAppearance;
     delay: number;
     tooltip: string;
     autoUpdateMode: AutoUpdateMode;
@@ -61,7 +61,7 @@ const metadata: Meta<TooltipArgs> = {
                 delay="${x => x.delay}"
                 auto-update-mode="${x => x.autoUpdateMode}"
                 id="ariaAnchor"
-                class="${x => TooltipStatus[x.state]} ${x => (x.icon ? 'icon-visible' : '')}"
+                class="${x => TooltipAppearance[x.state]} ${x => (x.icon ? 'icon-visible' : '')}"
             >
                 ${x => x.tooltip}
             </nimble-tooltip>
@@ -87,7 +87,7 @@ const metadata: Meta<TooltipArgs> = {
                 'The delay in milliseconds before a tooltip is shown after a hover event'
         },
         state: {
-            options: Object.keys(TooltipStatus),
+            options: Object.keys(TooltipAppearance),
             control: { type: 'radio' },
             description:
                 'Set the `default`, `fail`, or `information` CSS class on the tooltip to switch between the theme-aware color options.'

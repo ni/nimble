@@ -9,7 +9,7 @@ import '../icons/exclamation-mark';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
-import type { IHasErrorText } from '../patterns/error/types';
+import type { ErrorPattern } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,7 +20,7 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
-export class TextField extends FoundationTextField implements IHasErrorText {
+export class TextField extends FoundationTextField implements ErrorPattern {
     /**
      * The appearance the text field should have.
      *
@@ -39,7 +39,13 @@ export class TextField extends FoundationTextField implements IHasErrorText {
      * HTML Attribute: error-text
      */
     @attr({ attribute: 'error-text' })
-    public errorText: string | undefined;
+    public errorText?: string;
+
+    @attr({ attribute: 'error-visible', mode: 'boolean' })
+    public errorVisible = false;
+
+    @attr({ attribute: 'edges-flush', mode: 'boolean' })
+    public edgesFlush = false;
 
     public override connectedCallback(): void {
         super.connectedCallback();

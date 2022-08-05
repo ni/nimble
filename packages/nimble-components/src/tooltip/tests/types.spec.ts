@@ -1,4 +1,4 @@
-import type { TooltipStatus } from '../types';
+import type { TooltipAppearance } from '../types';
 
 describe('Tooltip type', () => {
     it('TooltipStatus fails compile if assigning arbitrary string values', () => {

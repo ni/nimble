@@ -71,7 +71,7 @@ export const styles = css`
         transition: width ${smallDelay} ease-in;
     }
 
-    :host(.invalid)::after {
+    :host([error-visible])::after {
         border-bottom-color: ${failColor};
     }
 
@@ -103,7 +103,7 @@ export const styles = css`
         padding-bottom: 1px;
     }
 
-    :host(.open:not(:hover)) .control {
+    :host([open]:not(:hover)) .control {
         border-bottom-color: ${borderHoverColor};
     }
 

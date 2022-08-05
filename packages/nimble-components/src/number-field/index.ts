@@ -11,6 +11,7 @@ import { errorTextTemplate } from '../patterns/error/template';
 import '../icons/add';
 import '../icons/exclamation-mark';
 import '../icons/minus-wide';
+import type { ErrorPattern } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -21,7 +22,7 @@ declare global {
 /**
  * A nimble-styled HTML number input
  */
-export class NumberField extends FoundationNumberField {
+export class NumberField extends FoundationNumberField implements ErrorPattern {
     @attr
     public appearance: NumberFieldAppearance = NumberFieldAppearance.underline;
 
@@ -33,7 +34,10 @@ export class NumberField extends FoundationNumberField {
      * HTML Attribute: error-text
      */
     @attr({ attribute: 'error-text' })
-    public errorText: string | undefined;
+    public errorText?: string;
+
+    @attr({ attribute: 'error-visible', mode: 'boolean' })
+    public errorVisible = false;
 
     public override connectedCallback(): void {
         super.connectedCallback();

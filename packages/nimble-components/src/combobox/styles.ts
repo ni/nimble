@@ -35,7 +35,7 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
-    :host(.invalid) .control {
+    :host([error-visible]) .control {
         border-bottom: var(--ni-private-bottom-border-width) solid ${failColor};
     }
 
@@ -43,7 +43,7 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host(.invalid[disabled]) .control {
+    :host([error-visible][disabled]) .control {
         border-color: ${failColor};
     }
 

@@ -1,5 +1,6 @@
 import type { Story, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -8,7 +9,7 @@ import {
     createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
-import { IconStatus } from '../types';
+import { IconAppearance } from '../types';
 import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
@@ -22,18 +23,14 @@ const metadata: Meta = {
 
 export default metadata;
 
-const iconStatusStates = [
-    ['Pass', IconStatus.pass],
-    ['Fail', IconStatus.fail],
-    ['Warning', IconStatus.warning],
-    ['Regular', IconStatus.regular],
-    ['Information', IconStatus.information]
-] as const;
+const iconStatusStates: [string, string | undefined][] = Object.entries(IconAppearance).map(
+    ([key, value]) => [pascalCase(key), value]
+);
 type IconStatusState = typeof iconStatusStates[number];
 
 const component = ([stateName, state]: IconStatusState): ViewTemplate => html`
-    <span style="color: ${bodyFontColor.createCSS()};">${stateName}</span>
-    <nimble-icon-check class="${state}"></nimble-icon-check>
+    <span style="color: ${() => bodyFontColor.createCSS()};">${() => stateName}</span>
+    <nimble-icon-check appearance="${() => state}"></nimble-icon-check>
 `;
 
 export const iconThemeMatrix: Story = createMatrixThemeStory(

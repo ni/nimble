@@ -2,10 +2,10 @@
  * Types of tooltip appearance.
  * @public
  */
-export const TooltipStatus = {
-    default: '',
-    fail: 'fail',
+export const TooltipAppearance = {
+    default: undefined,
+    error: 'error',
     information: 'information'
 } as const;
 
-export type TooltipStatus = typeof TooltipStatus[keyof typeof TooltipStatus];
+export type TooltipAppearance = typeof TooltipAppearance[keyof typeof TooltipAppearance];

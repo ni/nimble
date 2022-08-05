@@ -33,7 +33,7 @@ export const styles = css`
                 border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
             }
 
-            :host(.invalid) .errortext {
+            :host([error-visible]) .errortext {
                 top: calc(${controlHeight} - ${borderWidth});
             }
         `

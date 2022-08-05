@@ -77,7 +77,7 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host(.invalid) .root {
+    :host([error-visible]) .root {
         border-bottom-color: ${failColor};
     }
 
@@ -85,7 +85,7 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
-    :host([appearance='frameless'].clear-inline-padding) .root {
+    :host([appearance='frameless'][edges-flush]) .root {
         padding-left: 0px;
         padding-right: 0px;
     }
@@ -98,7 +98,7 @@ export const styles = css`
         user-select: none;
     }
 
-    :host([appearance='frameless'].clear-inline-padding) .root::before {
+    :host([appearance='frameless'][edges-flush]) .root::before {
         display: none;
     }
 
@@ -110,7 +110,7 @@ export const styles = css`
         user-select: none;
     }
 
-    :host([appearance='frameless'].clear-inline-padding) .root::after {
+    :host([appearance='frameless'][edges-flush]) .root::after {
         display: none;
     }
 
@@ -186,7 +186,7 @@ export const styles = css`
         }
     }
 
-    :host(.invalid) [part='end']::after {
+    :host([error-visible]) [part='end']::after {
         border-bottom-color: ${failColor};
     }
 
@@ -229,7 +229,7 @@ export const styles = css`
             }
 
             .root:focus-within,
-            :host(.invalid) .root {
+            :host([error-visible]) .root {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }

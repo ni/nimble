@@ -7,7 +7,7 @@ import '../../all-components';
 
 interface ButtonArgs {
     label: string;
-    appearance: string;
+    appearance: ButtonAppearance;
     primary: boolean;
     disabled: boolean;
     icon: boolean;

@@ -17,7 +17,7 @@ import '../icons/exclamation-mark';
 import '../icons/arrow-expander-down';
 
 import { styles } from './styles';
-import type { IHasErrorText } from '../patterns/error/types';
+import type { ErrorPattern } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -28,14 +28,14 @@ declare global {
 /**
  * A nimble-styed HTML combobox
  */
-export class Combobox extends FoundationCombobox implements IHasErrorText {
+export class Combobox extends FoundationCombobox implements ErrorPattern {
     /**
      * The ref to the internal dropdown button element.
      *
      * @internal
      */
     @observable
-    public readonly dropdownButton: ToggleButton | undefined;
+    public readonly dropdownButton!: ToggleButton;
 
     /**
      * A message explaining why the value is invalid.
@@ -45,7 +45,10 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
      * HTML Attribute: error-text
      */
     @attr({ attribute: 'error-text' })
-    public errorText: string | undefined;
+    public errorText?: string;
+
+    @attr({ attribute: 'error-visible', mode: 'boolean' })
+    public errorVisible = false;
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
@@ -87,7 +90,7 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
     }
 
     public toggleButtonChangeHandler(e: Event): void {
-        this.open = this.dropdownButton!.checked;
+        this.open = this.dropdownButton.checked;
         e.stopImmediatePropagation();
     }
 
@@ -113,9 +116,7 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
 
     protected override openChanged(): void {
         super.openChanged();
-        if (this.dropdownButton) {
-            this.dropdownButton.checked = this.open;
-        }
+        this.dropdownButton.checked = this.open;
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/6041.

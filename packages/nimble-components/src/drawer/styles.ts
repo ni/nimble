@@ -82,10 +82,6 @@ export const styles = css`
         height: 100%;
     }
 
-    :host(.hidden) .control {
-        visibility: hidden;
-    }
-
     :host([location='left']) .control {
         left: 0px;
         border-right: ${borderWidth} solid ${popupBoxShadowColor};

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
-import { IconStatus } from '../types';
+import { IconAppearance } from '../types';
 import {
     createUserSelectedThemeStory,
     overrideWarning
@@ -16,7 +16,7 @@ import {
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
 
 interface IconArgs {
-    status: IconStatus;
+    status: IconAppearance;
 }
 
 const metadata: Meta<IconArgs> = {
@@ -34,7 +34,7 @@ type IconClass = typeof Icon;
 const iconTemplate = html<IconClass, IconArgs>`
     ${(x, c) => html`
         <${DesignSystem.tagFor(x)}
-            class="${c.parent.status}"
+            appearance=${() => c.parent.status}
             title=${DesignSystem.tagFor(x)}
         >
         </${DesignSystem.tagFor(x)}>
@@ -47,17 +47,17 @@ ${scssInternalPropertySetterMarkdown(tokenNames.iconColor, 'purple')}
 `;
 
 const statusDescription = `
-Set the \`pass\`, \`fail\`, \`warning\`, or \`information\` CSS class on the element to switch between the theme-aware color options.
+Set appearance on the element to switch between the theme-aware color options.
 
 ${overrideWarning('Color', statusDescriptionOverride)}
 `;
 
 // prettier-ignore
 export const icons: StoryObj<IconArgs> = {
-    args: { status: IconStatus.regular },
+    args: { status: IconAppearance.default },
     argTypes: {
         status: {
-            options: Object.values(IconStatus),
+            options: Object.values(IconAppearance),
             control: { type: 'radio' },
             description: statusDescription
         }

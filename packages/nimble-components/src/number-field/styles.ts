@@ -72,7 +72,7 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host(.invalid) .root {
+    :host([error-visible]) .root {
         border-bottom-color: ${failColor};
     }
 
@@ -101,7 +101,7 @@ export const styles = css`
         }
     }
 
-    :host(.invalid) .root::after {
+    :host([error-visible]) .root::after {
         border-bottom-color: ${failColor};
     }
 
@@ -154,7 +154,8 @@ export const styles = css`
     }
 
     ${
-        /* We are using flex `order` to define the visual ordering of the inc/dec buttons and the invalid icon because they are not "interactive" i.e. part of the tab order */ ''
+        /* We are using flex `order` to define the visual ordering of the inc/dec buttons
+         and the invalid icon because they are not "interactive" i.e. part of the tab order */ ''
     }
     .step-up {
         order: 3;
@@ -195,7 +196,7 @@ export const styles = css`
             }
 
             .root:focus-within,
-            :host(.invalid) .root {
+            :host([error-visible]) .root {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
