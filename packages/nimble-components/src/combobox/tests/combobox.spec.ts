@@ -197,6 +197,34 @@ describe('Combobox', () => {
         await disconnect();
     });
 
+    it('value updates on input', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await DOM.nextUpdate();
+
+        element.autocomplete = ComboboxAutocomplete.both;
+        element.control.value = 'O';
+        let inputEvent = new InputEvent('input', {
+            data: 'O',
+            inputType: 'insertText'
+        }); // fake user typing 'O' to match 'One'
+        element.inputHandler(inputEvent);
+        element.dispatchEvent(inputEvent);
+        await DOM.nextUpdate();
+        expect(element.value).toEqual('One'); // value set to input text which should autocomplete to 'One'
+
+        element.control.value = 'O';
+        inputEvent = new InputEvent('input', {
+            inputType: 'deleteContentForward'
+        }); // delete autocompleted portion
+        element.inputHandler(inputEvent);
+        element.dispatchEvent(inputEvent);
+        await DOM.nextUpdate();
+        expect(element.value).toEqual('O');
+
+        await disconnect();
+    });
+
     const filterOptionTestData: { autocomplete: ComboboxAutocomplete }[] = [
         { autocomplete: ComboboxAutocomplete.inline },
         { autocomplete: ComboboxAutocomplete.both }

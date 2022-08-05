@@ -117,11 +117,14 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Combobox</div>
-                <NimbleCombobox AutoComplete="AutoComplete.Both">
+                <NimbleCombobox @ref="_nimbleCombobox" AutoComplete="AutoComplete.Both" @oninput="OnComboboxInput">
                     <NimbleListOption>Mary</NimbleListOption>
                     <NimbleListOption>Sue</NimbleListOption>
                     <NimbleListOption>Dexter</NimbleListOption>
                 </NimbleCombobox>
+                <div>
+                    <NimbleTextField Value="@_comboboxValue"></NimbleTextField>
+                </div>
             </div>
            <div class="sub-container">
                 <div class="container-label">Switch</div>

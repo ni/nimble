@@ -1,4 +1,5 @@
-﻿using NimbleBlazor;
+﻿using Microsoft.AspNetCore.Components;
+using NimbleBlazor;
 
 namespace Demo.Shared.Pages
 {
@@ -10,6 +11,8 @@ namespace Demo.Shared.Pages
         private NavigationDrawer? _navigationDrawer;
         private DrawerLocation _drawerLocation = DrawerLocation.Right;
         private string? ActiveTabId { get; set; }
+        private NimbleCombobox _nimbleCombobox;
+        private string _comboboxValue;
 
         private string DrawerLocationAsString
         {
@@ -25,6 +28,11 @@ namespace Demo.Shared.Pages
         public void DrawerTogglePinned()
         {
             _navigationDrawer!.TogglePinned();
+        }
+
+        private void OnComboboxInput(ChangeEventArgs args)
+        {
+            _comboboxValue = (string)args.Value;
         }
     }
 }

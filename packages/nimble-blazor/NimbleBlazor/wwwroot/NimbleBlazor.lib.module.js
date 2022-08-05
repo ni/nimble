@@ -45,4 +45,13 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleCombobox.razor
+    Blazor.registerCustomEventType('nimblecomboboxinput', {
+        browserEventName: 'input',
+        createEventArgs: event => {
+            return {
+                value: event.target.control.value
+            };
+        }
+    });
 }

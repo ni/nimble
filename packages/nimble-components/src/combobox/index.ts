@@ -76,10 +76,12 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
         this.updateInputAriaLabel();
 
         this.addEventListener('focusout', this.focusOutHandler);
+        this.addEventListener('input', e => this.inputEventHandler(e));
     }
 
     public override disconnectedCallback(): void {
         this.removeEventListener('focusout', this.focusOutHandler);
+        this.removeEventListener('input', this.inputEventHandler);
     }
 
     public toggleButtonClickHandler(e: Event): void {
@@ -134,6 +136,11 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
 
     private readonly focusOutHandler = (): void => {
         this.open = false;
+    };
+
+    private readonly inputEventHandler = (_: Event): void => {
+        this.value = this.control.value;
+        this.$emit('change');
     };
 }
 

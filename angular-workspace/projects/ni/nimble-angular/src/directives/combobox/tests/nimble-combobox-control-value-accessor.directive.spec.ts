@@ -13,6 +13,13 @@ function setComboboxValue(combobox: Combobox, index: number): void {
     combobox.options[index].dispatchEvent(new Event('click', { bubbles: true }));
 }
 
+function updateComboboxWithText(combobox: Combobox, text: string): void {
+    combobox.control.value = text;
+    const inputEvent = new InputEvent('input', { data: text, inputType: 'insertText' });
+    combobox.inputHandler(inputEvent);
+    combobox.dispatchEvent(inputEvent);
+}
+
 interface TestModel {
     name: string;
     value: number;
@@ -22,7 +29,7 @@ describe('Nimble combobox control value accessor', () => {
     describe('when using option\'s [ngValue] binding on template-based form', () => {
         @Component({
             template: `
-                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled">                    
+                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="both">                    
                     <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                     <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                 </nimble-combobox>
@@ -184,9 +191,7 @@ describe('Nimble combobox control value accessor', () => {
             fixture.detectChanges();
             tick();
             processUpdates();
-            combobox.control.value = 'Dynamic Option 1';
-            combobox.control.dispatchEvent(new InputEvent('input', { data: 'Dynamic Option 1', inputType: 'insertText' }));
-            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            updateComboboxWithText(combobox, 'Dynamic Option 1');
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -200,9 +205,7 @@ describe('Nimble combobox control value accessor', () => {
             tick();
             processUpdates();
 
-            combobox.control.value = 'Option 1';
-            combobox.control.dispatchEvent(new InputEvent('input', { data: 'Option 1', inputType: 'insertText' }));
-            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            updateComboboxWithText(combobox, 'Option 1');
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -211,9 +214,7 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('and user enters aribtrary text for value, callback value is notFound', () => {
-            combobox.control.value = 'f';
-            combobox.control.dispatchEvent(new InputEvent('input', { data: 'f', inputType: 'insertText' }));
-            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            updateComboboxWithText(combobox, 'f');
             fixture.detectChanges();
 
             expect(testHostComponent.callbackValue).toEqual(OPTION_NOT_FOUND);
@@ -224,7 +225,7 @@ describe('Nimble combobox control value accessor', () => {
         @Component({
             template: `
                 <form>
-                    <nimble-combobox #combobox [formControl]="selectedOption" (change)="onModelValueChange()" [compareWith]="compareWith" [disabled]="selectDisabled">                    
+                    <nimble-combobox #combobox [formControl]="selectedOption" (change)="onModelValueChange()" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="both">                    
                         <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                         <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                     </nimble-combobox>
@@ -390,9 +391,7 @@ describe('Nimble combobox control value accessor', () => {
             fixture.detectChanges();
             tick();
             processUpdates();
-            combobox.control.value = 'Dynamic Option 1';
-            combobox.control.dispatchEvent(new InputEvent('input', { data: 'Dynamic Option 1', inputType: 'insertText' }));
-            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            updateComboboxWithText(combobox, 'Dynamic Option 1');
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -406,9 +405,7 @@ describe('Nimble combobox control value accessor', () => {
             tick();
             processUpdates();
 
-            combobox.control.value = 'Option 1';
-            combobox.control.dispatchEvent(new InputEvent('input', { data: 'Option 1', inputType: 'insertText' }));
-            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            updateComboboxWithText(combobox, 'Option 1');
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -417,9 +414,7 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('and user enters aribtrary text for value, callback value is notFound', () => {
-            combobox.control.value = 'f';
-            combobox.control.dispatchEvent(new InputEvent('input', { data: 'f', inputType: 'insertText' }));
-            combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            updateComboboxWithText(combobox, 'f');
             fixture.detectChanges();
 
             expect(testHostComponent.callbackValue).toEqual(OPTION_NOT_FOUND);
