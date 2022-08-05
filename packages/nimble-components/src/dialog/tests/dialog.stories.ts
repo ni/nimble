@@ -41,9 +41,7 @@ const metadata: Meta<DialogArgs> = {
         <nimble-button
             id="open"
             @click="${async x => x.dialogRef.show().then(reason => {
-        x.textFieldRef.value = typeof reason === 'string'
-            ? reason
-            : 'ESC pressed';
+        x.textFieldRef.value = typeof reason === 'string' ? reason : 'ESC pressed';
     })}"
             >Open</nimble-button
         >
