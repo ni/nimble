@@ -12,7 +12,7 @@ interface ComboboxArgs {
     dropDownPosition: DropdownPosition;
     autocomplete: ComboboxAutocomplete;
     options: OptionArgs[];
-    invalid: boolean;
+    errorVisible: boolean;
     errorText: string;
     currentValue: string;
 }
@@ -48,8 +48,9 @@ const metadata: Meta<ComboboxArgs> = {
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
             error-text="${x => x.errorText}"
-            class="${x => (x.invalid ? 'invalid' : '')}"
-            aria-invalid="${x => x.invalid}"
+            ?error-visible="${x => x.errorVisible}"
+            ${/* This should be handled by the error-visible attr */ ''}
+            aria-invalid="${x => x.errorVisible}"
             value="${x => x.currentValue}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
@@ -79,7 +80,7 @@ const metadata: Meta<ComboboxArgs> = {
         disabled: false,
         dropDownPosition: 'below',
         autocomplete: ComboboxAutocomplete.both,
-        invalid: false,
+        errorVisible: false,
         errorText: 'Value is invalid',
         currentValue: 'Joaquin',
         options: [

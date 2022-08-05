@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
-import { ButtonAppearance } from '../types';
+import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface ButtonArgs {
     label: string;
     appearance: ButtonAppearance;
+    appearanceVariant: keyof typeof ButtonAppearanceVariant;
     primary: boolean;
     disabled: boolean;
     icon: boolean;
@@ -72,15 +73,24 @@ const metadata: Meta<ButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" class="${x => (x.primary ? 'primary' : '')}" ?content-hidden="${x => x.contentHidden}">
-            ${when(x => x.icon, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+        <nimble-button
+            ?disabled="${x => x.disabled}"
+            appearance="${x => x.appearance}"
+            appearance-variant="${x => ButtonAppearanceVariant[x.appearanceVariant]}"
+            ?content-hidden="${x => x.contentHidden}">
+            ${when(x => x.icon, html`
+                <nimble-icon-key slot="start"></nimble-icon-key>
+            `)}
             ${x => x.label}
-            ${when(x => x.endIcon, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
+            ${when(x => x.endIcon, html`
+                <nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>
+            `)}
         </nimble-button>
 `),
     args: {
         label: 'Ghost Button',
         appearance: 'ghost',
+        appearanceVariant: 'default',
         primary: false,
         icon: false,
         endIcon: false,

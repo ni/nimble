@@ -35,7 +35,7 @@ export class Combobox extends FoundationCombobox implements ErrorPattern {
      * @internal
      */
     @observable
-    public readonly dropdownButton!: ToggleButton;
+    public readonly dropdownButton?: ToggleButton;
 
     /**
      * A message explaining why the value is invalid.
@@ -90,7 +90,7 @@ export class Combobox extends FoundationCombobox implements ErrorPattern {
     }
 
     public toggleButtonChangeHandler(e: Event): void {
-        this.open = this.dropdownButton.checked;
+        this.open = this.dropdownButton!.checked;
         e.stopImmediatePropagation();
     }
 
@@ -116,7 +116,9 @@ export class Combobox extends FoundationCombobox implements ErrorPattern {
 
     protected override openChanged(): void {
         super.openChanged();
-        this.dropdownButton.checked = this.open;
+        if (this.dropdownButton) {
+            this.dropdownButton.checked = this.open;
+        }
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/6041.
@@ -149,7 +151,8 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
     end: html<Combobox>`
         <div class="end-slot-container">
             <nimble-icon-exclamation-mark
-                class="error-icon fail"
+                appearance="error"
+                class="error-icon"
             ></nimble-icon-exclamation-mark>
             <div class="separator"></div>
             <nimble-toggle-button

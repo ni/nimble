@@ -87,7 +87,8 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     `,
     end: html<NumberField>`
         <nimble-icon-exclamation-mark
-            class="error-icon fail"
+            appearance="error"
+            class="error-icon"
         ></nimble-icon-exclamation-mark>
         ${errorTextTemplate}
     `

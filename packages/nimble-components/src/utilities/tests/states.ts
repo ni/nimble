@@ -26,11 +26,12 @@ export const disabledStates = [
 ] as const;
 export type DisabledState = typeof disabledStates[number];
 
-export const invalidStates = [
-    ['', ''],
-    ['Invalid', 'invalid']
+export const errorStates = [
+    ['', false, ''],
+    ['Error Message', true, 'This is not valid.'],
+    ['Error No Message', true, '']
 ] as const;
-export type InvalidState = typeof invalidStates[number];
+export type ErrorState = typeof errorStates[number];
 
 export const readOnlyStates = [
     ['', false],
