@@ -140,7 +140,6 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
 
     private readonly inputEventHandler = (_: Event): void => {
         this.value = this.control.value;
-        this.$emit('change');
     };
 }
 

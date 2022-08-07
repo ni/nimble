@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NimbleComboboxModule } from '../nimble-combobox.module';
 import { NimbleListOptionModule } from '../../list-option/nimble-list-option.module';
 import { waitTask } from '../../../async-test-utilities';
@@ -224,8 +224,8 @@ describe('Nimble combobox control value accessor', () => {
     describe('when using option\'s [ngValue] binding on Reactive form', () => {
         @Component({
             template: `
-                <form>
-                    <nimble-combobox #combobox [formControl]="selectedOption" (change)="onModelValueChange()" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="both">                    
+                <form [formGroup]="form">
+                    <nimble-combobox #combobox [formControl]="selectedOption" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="both">                    
                         <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                         <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                     </nimble-combobox>
@@ -244,21 +244,19 @@ describe('Nimble combobox control value accessor', () => {
 
             public defaultOption = this.selectOptions[1];
             public selectedOption = new FormControl(this.defaultOption);
+            public form: FormGroup = new FormGroup({
+                selectOption: this.selectedOption
+            });
+
             public dynamicOption: TestModel = { name: 'Dynamic Option 1', value: 4 };
             public readonly nullValueString = 'null';
 
             public selectDisabled = false;
 
-            public callbackValue: unknown;
-
             public useDefaultOptions = true;
 
             public compareWith(option1: TestModel | null, option2: TestModel | null): boolean {
                 return (!!option1 && !!option2 && option1.value === option2.value) || (option1 === null && option2 === null);
-            }
-
-            public onModelValueChange(): void {
-                this.callbackValue = this.selectedOption.value;
             }
         }
 
@@ -386,7 +384,7 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption.value).toBe(null);
         }));
 
-        it('model changes for option, text display of old option entered, callback value is notFound ', fakeAsync(() => {
+        it('model changes for option, text display of old option entered, selectedOption value is OPTION_NOT_FOUND ', fakeAsync(() => {
             testHostComponent.dynamicOption = { name: 'foo', value: 10 };
             fixture.detectChanges();
             tick();
@@ -396,10 +394,10 @@ describe('Nimble combobox control value accessor', () => {
             tick();
             processUpdates();
 
-            expect(testHostComponent.callbackValue).toEqual(OPTION_NOT_FOUND);
+            expect(testHostComponent.selectedOption.value).toEqual(OPTION_NOT_FOUND);
         }));
 
-        it('list-option is removed followed by text of removed option entered as value, then \'testHostComponent.selectedOption\' is set to notFound', fakeAsync(() => {
+        it('list-option is removed followed by text of removed option entered as value, selectedOption value is OPTION_NOT_FOUND', fakeAsync(() => {
             testHostComponent.selectOptions.splice(0, 1); // remove 'Option 1'
             fixture.detectChanges();
             tick();
@@ -413,11 +411,16 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption.value).toEqual(OPTION_NOT_FOUND);
         }));
 
-        it('and user enters aribtrary text for value, callback value is notFound', () => {
+        it('as user types, selectedOption value is updated', () => {
             updateComboboxWithText(combobox, 'f');
             fixture.detectChanges();
 
-            expect(testHostComponent.callbackValue).toEqual(OPTION_NOT_FOUND);
+            expect(testHostComponent.selectedOption.value).toEqual(OPTION_NOT_FOUND);
+
+            updateComboboxWithText(combobox, 'O'); // value should autocomplete to 'Option 1'
+            fixture.detectChanges();
+
+            expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[0]);
         });
     });
 });
