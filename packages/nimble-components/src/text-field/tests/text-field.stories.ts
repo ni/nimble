@@ -9,12 +9,12 @@ interface TextFieldArgs {
     label: string;
     type: string;
     appearance: string;
-    'clear-inline-padding': boolean;
+    edgesFlush: boolean;
     value: string;
     readonly: boolean;
     disabled: boolean;
-    invalid: boolean;
-    'error-text': string;
+    errorVisible: boolean;
+    errorText: string;
     actionButton: boolean;
     leftIcon: boolean;
 }
@@ -52,11 +52,13 @@ const metadata: Meta<TextFieldArgs> = {
             type="${x => x.type}"
             appearance="${x => x.appearance}"
             value="${x => x.value}"
-            class="${x => (x.invalid ? 'invalid' : '')} ${x => (x['clear-inline-padding'] ? 'clear-inline-padding' : '')}"
-            aria-invalid="${x => x.invalid}"
+            ${/* TODO: This should be handled by the error-visible attr */ ''}
+            aria-invalid="${x => x.errorVisible}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
-            error-text="${x => x['error-text']}"
+            error-text="${x => x.errorText}"
+            ?error-visible="${x => x.errorVisible}"
+            ?edges-flush="${x => x.edgesFlush}"
         >
             ${when(x => x.leftIcon, html`
                 <nimble-icon-tag slot="start"></nimble-icon-tag>`)}
@@ -79,11 +81,11 @@ const metadata: Meta<TextFieldArgs> = {
             options: Object.values(TextFieldAppearance),
             control: { type: 'radio' }
         },
-        'clear-inline-padding': {
+        edgesFlush: {
             description:
                 'Add the class `clear-inline-padding` to remove the start and end padding. Only affects the frameless appearance.'
         },
-        'error-text': {
+        errorText: {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
         },
@@ -98,12 +100,12 @@ const metadata: Meta<TextFieldArgs> = {
         label: 'default label',
         type: 'text',
         appearance: 'underline',
-        'clear-inline-padding': false,
+        edgesFlush: false,
         value: '',
         readonly: false,
         disabled: false,
-        invalid: false,
-        'error-text': 'Value is invalid',
+        errorVisible: false,
+        errorText: 'Value is invalid',
         actionButton: false,
         leftIcon: false
     }

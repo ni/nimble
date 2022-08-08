@@ -14,6 +14,7 @@ import {
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Button',
@@ -39,16 +40,14 @@ const partVisibilityStates = [
 ] as const;
 type PartVisibilityState = typeof partVisibilityStates[number];
 
-const appearanceStates = Object.entries(ButtonAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
+const appearanceStates: [string, string | undefined][] = Object
+    .entries(ButtonAppearance)
+    .map(([key, value]) => [pascalCase(key), value]);
 type AppearanceState = typeof appearanceStates[number];
 
 const appearanceVariantStates: [string, string | undefined][] = Object
     .entries(ButtonAppearanceVariant)
-    .map(
-        ([key, value]) => [pascalCase(key), value]
-    );
+    .map(([key, value]) => [pascalCase(key), value]);
 type AppearanceVariantState = typeof appearanceVariantStates[number];
 
 // prettier-ignore
@@ -65,7 +64,7 @@ const component = (
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
-            ${() => `${appearanceVariantName} ${appearanceName!} Button ${disabledName}`}
+            ${() => `${appearanceVariantName} ${appearanceName} Button ${disabledName}`}
             ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
     </nimble-button>
 `;
@@ -81,4 +80,10 @@ export const buttonThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenButton: Story = createStory(
     hiddenWrapper(html`<nimble-button hidden>Hidden Button</nimble-button>`)
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<nimble-button>Button</nimble-button>`
+    )
 );

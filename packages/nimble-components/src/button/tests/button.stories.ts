@@ -7,9 +7,8 @@ import '../../all-components';
 
 interface ButtonArgs {
     label: string;
-    appearance: ButtonAppearance;
+    appearance: keyof typeof ButtonAppearance;
     appearanceVariant: keyof typeof ButtonAppearanceVariant;
-    primary: boolean;
     disabled: boolean;
     icon: boolean;
     contentHidden: boolean;
@@ -21,7 +20,7 @@ enables users to trigger an action or event, such as submitting a form, opening 
 action, or performing a delete operation. A common convention for informing users that a button launches
 a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".`;
 
-const primaryDescription = `Set the \`primary\` CSS class on the element to make a button primary. This class has no effect on buttons with a \`ghost\` appearance.
+const appearanceVariantDescription = `This attribute has no effect on buttons with a \`ghost\` appearance.
 
 <details>
     <summary>Primary Button Usage</summary>
@@ -57,11 +56,14 @@ const metadata: Meta<ButtonArgs> = {
     },
     argTypes: {
         appearance: {
-            options: Object.values(ButtonAppearance),
+            options: Object.keys(ButtonAppearance),
             control: { type: 'radio' }
         },
-        primary: {
-            description: primaryDescription
+        appearanceVariant: {
+            name: 'appearance-variant',
+            options: Object.keys(ButtonAppearanceVariant),
+            control: { type: 'radio' },
+            description: appearanceVariantDescription
         },
         icon: {
             description:
@@ -75,7 +77,7 @@ const metadata: Meta<ButtonArgs> = {
     render: createUserSelectedThemeStory(html`
         <nimble-button
             ?disabled="${x => x.disabled}"
-            appearance="${x => x.appearance}"
+            appearance="${x => ButtonAppearance[x.appearance]}"
             appearance-variant="${x => ButtonAppearanceVariant[x.appearanceVariant]}"
             ?content-hidden="${x => x.contentHidden}">
             ${when(x => x.icon, html`
@@ -88,10 +90,9 @@ const metadata: Meta<ButtonArgs> = {
         </nimble-button>
 `),
     args: {
-        label: 'Ghost Button',
-        appearance: 'ghost',
+        label: 'Button',
+        appearance: 'outline',
         appearanceVariant: 'default',
-        primary: false,
         icon: false,
         endIcon: false,
         contentHidden: false,

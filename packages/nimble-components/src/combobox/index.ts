@@ -18,6 +18,7 @@ import '../icons/arrow-expander-down';
 
 import { styles } from './styles';
 import type { ErrorPattern } from '../patterns/error/types';
+import type { DropdownPattern } from '../patterns/dropdown/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -28,7 +29,7 @@ declare global {
 /**
  * A nimble-styed HTML combobox
  */
-export class Combobox extends FoundationCombobox implements ErrorPattern {
+export class Combobox extends FoundationCombobox implements DropdownPattern, ErrorPattern {
     /**
      * The ref to the internal dropdown button element.
      *

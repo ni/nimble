@@ -38,10 +38,16 @@ const metadata: Meta<SelectArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-select ?disabled="${x => x.disabled}" position="${x => x.dropDownPosition}"
-        appearance="${x => x.appearance}">
+        <nimble-select
+            ?disabled="${x => x.disabled}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+        >
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-list-option value="${x => x.value}" ?disabled="${x => x.disabled}">
+                <nimble-list-option
+                    value="${x => x.value}"
+                    ?disabled="${x => x.disabled}"
+                >
                     ${x => x.label}
                 </nimble-list-option>
             `)}

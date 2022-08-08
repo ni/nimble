@@ -14,6 +14,7 @@ import { disabledStates, DisabledState, errorStates, ErrorState } from '../../ut
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { NumberFieldAppearance } from '../types';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Number Field',
@@ -74,5 +75,11 @@ export const hiddenNumberField: Story = createStory(
         html`<nimble-number-field hidden
             >Hidden number field</nimble-number-field
         >`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<nimble-number-field value="42">Number field</nimble-number-field>`
     )
 );

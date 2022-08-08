@@ -14,6 +14,7 @@ import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -71,4 +72,15 @@ export const blankListOption: Story = createStory(
         <nimble-list-option value="1">Option 1</nimble-list-option>
         <nimble-list-option></nimble-list-option>
     </nimble-select>`
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`
+        <nimble-select>
+            Inner text
+            <nimble-list-option> Nimble select item </nimble-list-option>
+        </nimble-select>
+        `
+    )
 );

@@ -20,6 +20,7 @@ import {
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',
@@ -80,5 +81,16 @@ export const hiddenTreeView: Story = createStory(
         html`<nimble-tree-view hidden>
             <nimble-tree-item>Item 1</nimble-tree-item>
         </nimble-tree-view>`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`
+        <nimble-tree-view>
+            Inner text
+            <nimble-tree-item>Tree item</nimble-tree-item>
+        </nimble-tree-view>
+        `
     )
 );

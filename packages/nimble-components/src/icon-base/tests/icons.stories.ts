@@ -16,7 +16,7 @@ import {
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
 
 interface IconArgs {
-    status: IconAppearance;
+    appearance: keyof typeof IconAppearance;
 }
 
 const metadata: Meta<IconArgs> = {
@@ -34,32 +34,34 @@ type IconClass = typeof Icon;
 const iconTemplate = html<IconClass, IconArgs>`
     ${(x, c) => html`
         <${DesignSystem.tagFor(x)}
-            appearance=${() => c.parent.status}
+            appearance=${() => IconAppearance[c.parent.appearance]}
             title=${DesignSystem.tagFor(x)}
         >
         </${DesignSystem.tagFor(x)}>
     `}
 `;
 
-const statusDescriptionOverride = `
+const appearanceDescriptionOverride = `
 With SCSS properties, the icon color can be overriden. For example:
 ${scssInternalPropertySetterMarkdown(tokenNames.iconColor, 'purple')}
 `;
 
-const statusDescription = `
+const appearanceDescription = `
 Set appearance on the element to switch between the theme-aware color options.
 
-${overrideWarning('Color', statusDescriptionOverride)}
+${overrideWarning('Color', appearanceDescriptionOverride)}
 `;
 
 // prettier-ignore
 export const icons: StoryObj<IconArgs> = {
-    args: { status: IconAppearance.default },
+    args: {
+        appearance: 'default'
+    },
     argTypes: {
-        status: {
-            options: Object.values(IconAppearance),
+        appearance: {
+            options: Object.keys(IconAppearance),
             control: { type: 'radio' },
-            description: statusDescription
+            description: appearanceDescription
         }
     },
     render: createUserSelectedThemeStory(html`

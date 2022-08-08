@@ -4,7 +4,6 @@ import { appearanceBehavior } from '../utilities/style/appearance';
 import { DropdownAppearance } from '../patterns/dropdown/types';
 import {
     borderWidth,
-    controlHeight,
     borderRgbPartialColor,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -31,10 +30,6 @@ export const styles = css`
             css`
             .control {
                 border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-            }
-
-            :host([error-visible]) .errortext {
-                top: calc(${controlHeight} - ${borderWidth});
             }
         `
         ),

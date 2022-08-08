@@ -13,11 +13,11 @@ import { TooltipAppearance } from '../types';
 
 interface TooltipArgs {
     visible: boolean;
-    state: keyof typeof TooltipAppearance;
+    appearance: keyof typeof TooltipAppearance;
     delay: number;
-    tooltip: string;
+    value: string;
     autoUpdateMode: AutoUpdateMode;
-    icon: boolean;
+    iconVisible: boolean;
 }
 
 const metadata: Meta<TooltipArgs> = {
@@ -39,39 +39,43 @@ const metadata: Meta<TooltipArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
-        <style>
+        <style class="code-hide">
             .container {
                 width: 100px;
                 height: 50px;
             }
 
-            .anchorDiv {
+            #myanchor {
                 border: 1px solid var(${borderColor.cssCustomProperty});
                 font: var(${bodyFont.cssCustomProperty});
                 color: var(${bodyFontColor.cssCustomProperty});
             }
         </style>
         <div class="container">
-            <div class="anchorDiv" id="anchor" aria-describedby="ariaAnchor">
+            <div
+                id="myanchor"
+                aria-describedby="mytooltip"
+            >
                 Text, Button, Icon, etc.
             </div>
             <nimble-tooltip
-                anchor="anchor"
+                id="mytooltip"
+                anchor="myanchor"
                 ?visible="${x => x.visible}"
                 delay="${x => x.delay}"
                 auto-update-mode="${x => x.autoUpdateMode}"
-                id="ariaAnchor"
-                class="${x => TooltipAppearance[x.state]} ${x => (x.icon ? 'icon-visible' : '')}"
+                appearance="${x => TooltipAppearance[x.appearance]}"
+                ?icon-visible="${x => x.iconVisible}"
             >
-                ${x => x.tooltip}
+                ${x => x.value}
             </nimble-tooltip>
         </div>
     `),
     args: {
         visible: false,
-        state: 'default',
-        icon: false,
-        tooltip: 'Tooltip label',
+        appearance: 'default',
+        iconVisible: false,
+        value: 'Tooltip label',
         delay: 300,
         autoUpdateMode: 'anchor'
     },
@@ -86,15 +90,9 @@ const metadata: Meta<TooltipArgs> = {
             description:
                 'The delay in milliseconds before a tooltip is shown after a hover event'
         },
-        state: {
+        appearance: {
             options: Object.keys(TooltipAppearance),
             control: { type: 'radio' },
-            description:
-                'Set the `default`, `fail`, or `information` CSS class on the tooltip to switch between the theme-aware color options.'
-        },
-        icon: {
-            description:
-                'Add the `icon-visible` CSS class to the tooltip to show the icon corresponding to the tooltip state. The `default` state will not show an icon even if `icon-visible` is set.'
         }
     }
 };

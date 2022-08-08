@@ -46,11 +46,6 @@ export class TextField extends FoundationTextField implements ErrorPattern {
 
     @attr({ attribute: 'edges-flush', mode: 'boolean' })
     public edgesFlush = false;
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.control.setAttribute('aria-errormessage', 'errortext');
-    }
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
@@ -63,7 +58,8 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
     },
     end: html<TextField>`
         <nimble-icon-exclamation-mark
-            class="error-icon fail"
+            appearance="error"
+            class="error-icon"
         ></nimble-icon-exclamation-mark>
         <span part="actions">
             <slot name="actions"></slot>

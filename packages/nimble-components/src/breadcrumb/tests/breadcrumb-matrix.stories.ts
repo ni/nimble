@@ -13,6 +13,7 @@ import {
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { BreadcrumbAppearance } from '../types';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Breadcrumb',
@@ -54,5 +55,11 @@ export const hiddenBreadcrumb: Story = createStory(
             <nimble-breadcrumb-item href="#">Item 1</nimble-breadcrumb-item>
             <nimble-breadcrumb-item>Current (No Link)</nimble-breadcrumb-item>
         </nimble-breadcrumb>`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<nimble-breadcrumb-item>Breadcrumb item</nimble-breadcrumb-item>`
     )
 );
