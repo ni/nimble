@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 20 Jul 2022 18:41:04 GMT and should not be manually modified.
+This log was last generated on Mon, 01 Aug 2022 17:08:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.3.0
+
+Mon, 01 Aug 2022 17:08:37 GMT
+
+### Minor changes
+
+- Add Blazor support for nimble-card-button ([ni/nimble@dd8ef82](https://github.com/ni/nimble/commit/dd8ef820cdbe34a6091ce0140228ae0bdbe6f8cb))
 
 ## 5.2.0
 

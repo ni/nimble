@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 28 Jul 2022 21:21:13 GMT and should not be manually modified.
+This log was last generated on Tue, 02 Aug 2022 16:35:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.1.2
+
+Tue, 02 Aug 2022 16:35:19 GMT
+
+### Patches
+
+- Fix Combobox CVA for Reactive forms. ([ni/nimble@a76bbd3](https://github.com/ni/nimble/commit/a76bbd31626d43cc97c7eb04f306f8fdb889c3cd))
+
+## 8.1.1
+
+Mon, 01 Aug 2022 17:54:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.1
+
+## 8.1.0
+
+Mon, 01 Aug 2022 16:43:14 GMT
+
+### Minor changes
+
+- Add Angular support for nimble-card-button ([ni/nimble@a1eacfb](https://github.com/ni/nimble/commit/a1eacfb8830eff1dfeae0219e1415a0252387b2a))
 
 ## 8.0.4
 
