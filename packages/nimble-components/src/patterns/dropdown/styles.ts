@@ -49,12 +49,6 @@ export const styles = css`
         transition: width ${smallDelay} ease-in;
     }
 
-    @media (prefers-reduced-motion) {
-        :host::before {
-            transition-duration: 0s;
-        }
-    }
-
     :host(${focusVisible})::before {
         width: calc(100% - 8px);
     }
@@ -73,12 +67,6 @@ export const styles = css`
 
     :host(.invalid)::after {
         border-bottom-color: ${failColor};
-    }
-
-    @media (prefers-reduced-motion) {
-        :host::after {
-            transition-duration: 0s;
-        }
     }
 
     :host(:hover)::after,

@@ -71,12 +71,6 @@ export const styles = css`
         padding: 0px;
     }
 
-    @media (prefers-reduced-motion) {
-        .control {
-            transition-duration: 0s;
-        }
-    }
-
     .control:hover {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
         outline: none;
