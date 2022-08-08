@@ -47,6 +47,9 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
     @attr({ attribute: 'error-text' })
     public errorText: string | undefined;
 
+    private valueUpdatedByInput = false;
+    private valueBeforeTextUpdate: string | undefined = undefined;
+
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {
@@ -77,11 +80,13 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
 
         this.addEventListener('focusout', this.focusOutHandler);
         this.addEventListener('input', e => this.inputEventHandler(e));
+        this.addEventListener('keydown', e => this.keydownEventHandler(e));
     }
 
     public override disconnectedCallback(): void {
         this.removeEventListener('focusout', this.focusOutHandler);
         this.removeEventListener('input', this.inputEventHandler);
+        this.removeEventListener('keydown', this.keydownEventHandler);
     }
 
     public toggleButtonClickHandler(e: Event): void {
@@ -134,13 +139,44 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
         }
     }
 
-    private readonly focusOutHandler = (): void => {
-        this.open = false;
+    private readonly keydownEventHandler = (e: KeyboardEvent): boolean => {
+        switch (e.key) {
+            case keyEnter:
+                this.emitChangeIfValueUpdated();
+                return false;
+            default:
+                return true;
+        }
     };
 
-    private readonly inputEventHandler = (_: Event): void => {
-        this.value = this.control.value;
+    private readonly focusOutHandler = (): void => {
+        this.open = false;
+        this.emitChangeIfValueUpdated();
     };
+
+    /**
+     * This is a workaround for the issue described here: https://github.com/microsoft/fast/issues/6267
+     * For now, we will update the value ourselves while a user types in text. Note that there is other
+     * implementation related to this (like the 'keydownEventHandler') needed to create the complete set
+     * of desired behavior described in the issue noted above.
+     */
+    private readonly inputEventHandler = (_: Event): void => {
+        if (!this.valueUpdatedByInput) {
+            this.valueBeforeTextUpdate = this.value;
+        }
+        this.value = this.control.value;
+        this.valueUpdatedByInput = true;
+    };
+
+    private emitChangeIfValueUpdated(): void {
+        if (this.valueUpdatedByInput) {
+            if (this.value !== this.valueBeforeTextUpdate) {
+                this.$emit('change');
+            }
+
+            this.valueUpdatedByInput = false;
+        }
+    }
 }
 
 const nimbleCombobox = Combobox.compose<ComboboxOptions>({
