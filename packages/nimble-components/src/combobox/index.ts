@@ -35,7 +35,7 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
      * @internal
      */
     @observable
-    public readonly dropdownButton: ToggleButton | undefined;
+    public readonly dropdownButton?: ToggleButton;
 
     /**
      * A message explaining why the value is invalid.
@@ -48,7 +48,7 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
     public errorText: string | undefined;
 
     private valueUpdatedByInput = false;
-    private valueBeforeTextUpdate: string | undefined = undefined;
+    private valueBeforeTextUpdate?: string;
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
@@ -77,16 +77,6 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
         // Call setPositioning() after this.forcedPosition is initialized.
         this.setPositioning();
         this.updateInputAriaLabel();
-
-        this.addEventListener('focusout', this.focusOutHandler);
-        this.addEventListener('input', e => this.inputEventHandler(e));
-        this.addEventListener('keydown', e => this.keydownEventHandler(e));
-    }
-
-    public override disconnectedCallback(): void {
-        this.removeEventListener('focusout', this.focusOutHandler);
-        this.removeEventListener('input', this.inputEventHandler);
-        this.removeEventListener('keydown', this.keydownEventHandler);
     }
 
     public toggleButtonClickHandler(e: Event): void {
@@ -118,6 +108,44 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
         this.filteredOptions = enabledOptions;
     }
 
+    /**
+     * This is a workaround for the issue described here: https://github.com/microsoft/fast/issues/6267
+     * For now, we will update the value ourselves while a user types in text. Note that there is other
+     * implementation related to this (like the 'keydownEventHandler') needed to create the complete set
+     * of desired behavior described in the issue noted above.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    public override inputHandler(e: InputEvent): boolean | void {
+        const returnValue = super.inputHandler(e);
+        if (!this.valueUpdatedByInput) {
+            this.valueBeforeTextUpdate = this.value;
+        }
+        this.value = this.control.value;
+        this.valueUpdatedByInput = true;
+        return returnValue;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    public override keydownHandler(e: KeyboardEvent): boolean | void {
+        const returnValue = super.keydownHandler(e);
+        switch (e.key) {
+            case keyEnter:
+                this.emitChangeIfValueUpdated();
+                break;
+            default:
+                return returnValue;
+        }
+        return returnValue;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    public override focusoutHandler(e: FocusEvent): boolean | void {
+        const returnValue = super.focusoutHandler(e);
+        this.open = false;
+        this.emitChangeIfValueUpdated();
+        return returnValue;
+    }
+
     protected override openChanged(): void {
         super.openChanged();
         if (this.dropdownButton) {
@@ -139,35 +167,16 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
         }
     }
 
-    private readonly keydownEventHandler = (e: KeyboardEvent): boolean => {
-        switch (e.key) {
-            case keyEnter:
-                this.emitChangeIfValueUpdated();
-                return false;
-            default:
-                return true;
-        }
-    };
-
-    private readonly focusOutHandler = (): void => {
-        this.open = false;
-        this.emitChangeIfValueUpdated();
-    };
-
     /**
-     * This is a workaround for the issue described here: https://github.com/microsoft/fast/issues/6267
-     * For now, we will update the value ourselves while a user types in text. Note that there is other
-     * implementation related to this (like the 'keydownEventHandler') needed to create the complete set
-     * of desired behavior described in the issue noted above.
+     * This will only emit a `change` event after text entry where the text in the input prior to
+     * typing is different than the text present upon an attempt to commit (e.g. pressing <Enter>).
+     * So, for a concrete example:
+     * 1) User types 'Sue' (when Combobox input was blank).
+     * 2) User presses <Enter> -> 'change' event fires
+     * 3) User deletes 'Sue'
+     * 4) User re-types 'Sue'
+     * 5) User presses <Enter> -> NO 'change' event is fired
      */
-    private readonly inputEventHandler = (_: Event): void => {
-        if (!this.valueUpdatedByInput) {
-            this.valueBeforeTextUpdate = this.value;
-        }
-        this.value = this.control.value;
-        this.valueUpdatedByInput = true;
-    };
-
     private emitChangeIfValueUpdated(): void {
         if (this.valueUpdatedByInput) {
             if (this.value !== this.valueBeforeTextUpdate) {
