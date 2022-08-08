@@ -8,7 +8,7 @@ export interface ErrorPattern {
     errorText?: string;
 
     /*
-    * Show the error appearance of the control
-    */
+     * Show the error appearance of the control
+     */
     errorVisible: boolean;
 }

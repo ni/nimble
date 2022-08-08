@@ -29,7 +29,9 @@ declare global {
 /**
  * A nimble-styed HTML combobox
  */
-export class Combobox extends FoundationCombobox implements DropdownPattern, ErrorPattern {
+export class Combobox
+    extends FoundationCombobox
+    implements DropdownPattern, ErrorPattern {
     /**
      * The ref to the internal dropdown button element.
      *

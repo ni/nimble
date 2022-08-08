@@ -10,7 +10,12 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { disabledStates, DisabledState, errorStates, ErrorState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    errorStates,
+    ErrorState
+} from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { NumberFieldAppearance } from '../types';
@@ -72,9 +77,11 @@ export const numberFieldThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenNumberField: Story = createStory(
     hiddenWrapper(
-        html`<nimble-number-field hidden
-            >Hidden number field</nimble-number-field
-        >`
+        html`
+            <nimble-number-field hidden>
+                Hidden number field
+            </nimble-number-field>
+        `
     )
 );
 

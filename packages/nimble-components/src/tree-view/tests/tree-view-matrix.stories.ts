@@ -87,10 +87,10 @@ export const hiddenTreeView: Story = createStory(
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-        <nimble-tree-view>
-            Inner text
-            <nimble-tree-item>Tree item</nimble-tree-item>
-        </nimble-tree-view>
+            <nimble-tree-view>
+                Inner text
+                <nimble-tree-item>Tree item</nimble-tree-item>
+            </nimble-tree-view>
         `
     )
 );

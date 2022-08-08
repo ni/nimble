@@ -39,11 +39,7 @@ export default metadata;
 const valueStates = [
     ['Placeholder', null, 'placeholder'],
     ['Value', 'Hello', null],
-    [
-        'Long Value',
-        loremIpsum,
-        null
-    ]
+    ['Long Value', loremIpsum, null]
 ] as const;
 type ValueState = typeof valueStates[number];
 
@@ -143,6 +139,8 @@ export const hiddenTextArea: Story = createStory(
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`<nimble-text-area value="${loremIpsum}">Text area</nimble-text-area>`
+        html` <nimble-text-area value="${loremIpsum}">
+            Text area
+        </nimble-text-area>`
     )
 );

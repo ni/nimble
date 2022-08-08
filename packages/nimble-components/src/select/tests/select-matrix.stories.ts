@@ -77,10 +77,10 @@ export const blankListOption: Story = createStory(
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-        <nimble-select>
-            Inner text
-            <nimble-list-option> Nimble select item </nimble-list-option>
-        </nimble-select>
+            <nimble-select>
+                Inner text
+                <nimble-list-option> Nimble select item </nimble-list-option>
+            </nimble-select>
         `
     )
 );

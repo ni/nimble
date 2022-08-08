@@ -23,18 +23,20 @@ const metadata: Meta = {
 
 export default metadata;
 
-const iconStatusStates: [string, string | undefined][] = Object.entries(IconAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
-type IconStatusState = typeof iconStatusStates[number];
+const appearanceStates: [string, string | undefined][] = Object.entries(
+    IconAppearance
+).map(([key, value]) => [pascalCase(key), value]);
+type AppearanceState = typeof appearanceStates[number];
 
-const component = ([stateName, state]: IconStatusState): ViewTemplate => html`
-    <span style="color: ${() => bodyFontColor.createCSS()};">${() => stateName}</span>
+const component = ([stateName, state]: AppearanceState): ViewTemplate => html`
+    <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
+        ${() => stateName}
+    </span>
     <nimble-icon-check appearance="${() => state}"></nimble-icon-check>
 `;
 
 export const iconThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [iconStatusStates])
+    createMatrix(component, [appearanceStates])
 );
 
 export const hiddenIcon: Story = createStory(

@@ -52,10 +52,7 @@ const metadata: Meta<TooltipArgs> = {
             }
         </style>
         <div class="container">
-            <div
-                id="myanchor"
-                aria-describedby="mytooltip"
-            >
+            <div id="myanchor" aria-describedby="mytooltip">
                 Text, Button, Icon, etc.
             </div>
             <nimble-tooltip
@@ -92,7 +89,7 @@ const metadata: Meta<TooltipArgs> = {
         },
         appearance: {
             options: Object.keys(TooltipAppearance),
-            control: { type: 'radio' },
+            control: { type: 'radio' }
         }
     }
 };

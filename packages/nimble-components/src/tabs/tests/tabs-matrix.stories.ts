@@ -69,11 +69,11 @@ export const hiddenTabs: Story = createStory(
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-        <nimble-tabs>
-            Inner text
-            <nimble-tabs-toolbar>Tabs toolbar</nimble-tabs-toolbar>
-            <nimble-tab>Tab</nimble-tab>
-        </nimble-tabs>
+            <nimble-tabs>
+                Inner text
+                <nimble-tabs-toolbar>Tabs toolbar</nimble-tabs-toolbar>
+                <nimble-tab>Tab</nimble-tab>
+            </nimble-tabs>
         `
     )
 );

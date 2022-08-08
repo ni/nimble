@@ -500,6 +500,10 @@ export const hiddenTextField: Story = createStory(
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`<nimble-text-field value="${loremIpsum}">Text field</nimble-text-field>`
+        html`
+            <nimble-text-field value="${loremIpsum}">
+                Text field
+            </nimble-text-field>
+        `
     )
 );

@@ -67,7 +67,5 @@ export const hiddenCheckbox: Story = createStory(
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
-    textCustomizationWrapper(
-        html`<nimble-checkbox>Checkbox</nimble-checkbox>`
-    )
+    textCustomizationWrapper(html`<nimble-checkbox>Checkbox</nimble-checkbox>`)
 );

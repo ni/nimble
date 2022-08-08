@@ -53,12 +53,12 @@ export const styles = css`
         padding-right: 8px;
     }
 
-    :host([appearance="error"][icon-visible]) [appearance="error"] {
+    :host([appearance='error'][icon-visible]) [appearance='error'] {
         display: flex;
         flex: 0 0 auto;
     }
 
-    :host([appearance="information"][icon-visible]) [appearance="information"] {
+    :host([appearance='information'][icon-visible]) [appearance='information'] {
         display: flex;
         flex: 0 0 auto;
     }
@@ -66,12 +66,12 @@ export const styles = css`
         themeBehavior(
         // Light Theme
             css`
-            :host([appearance="error"]) {
+            :host([appearance='error']) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
                 --ni-private-tooltip-background-color: ${White};
             }
 
-            :host([appearance="information"]) {
+            :host([appearance='information']) {
                 --ni-private-tooltip-border-color: ${Information100LightUi};
                 --ni-private-tooltip-background-color: ${White};
             }
@@ -86,11 +86,11 @@ export const styles = css`
                 --ni-private-tooltip-background-color: ${Black85};
             }
 
-            :host([appearance="information"]) {
+            :host([appearance='information']) {
                 --ni-private-tooltip-border-color: ${Information100DarkUi};
             }
 
-            :host([appearance="error"]) {
+            :host([appearance='error']) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
             }
         `,
@@ -111,11 +111,11 @@ export const styles = css`
             )};
             }
 
-            :host([appearance="error"]) {
+            :host([appearance='error']) {
                 --ni-private-tooltip-border-color: ${White};
             }
 
-            :host([appearance="information"]) {
+            :host([appearance='information']) {
                 --ni-private-tooltip-border-color: ${White};
             }
 

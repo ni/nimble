@@ -83,8 +83,7 @@ export const hiddenMenu: Story = createStory(
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`
-        <nimble-menu>
+        html` <nimble-menu>
             Inner text
             <nimble-menu-item>Menu item</nimble-menu-item>
         </nimble-menu>`

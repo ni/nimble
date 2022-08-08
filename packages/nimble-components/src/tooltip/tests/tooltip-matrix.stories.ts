@@ -37,16 +37,13 @@ export default metadata;
 
 const textStates = [
     ['Short_Text', 'Hello'],
-    [
-        'Long_Text',
-        loremIpsum
-    ]
+    ['Long_Text', loremIpsum]
 ] as const;
 type TextState = typeof textStates[number];
 
-const appearanceStates: [string, string | undefined][] = Object
-    .entries(TooltipAppearance)
-    .map(([key, value]) => [pascalCase(key), value]);
+const appearanceStates: [string, string | undefined][] = Object.entries(
+    TooltipAppearance
+).map(([key, value]) => [pascalCase(key), value]);
 type AppearanceState = typeof appearanceStates[number];
 
 const iconVisibleStates = [
@@ -112,7 +109,11 @@ export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
 );
 
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    createMatrix(component, [textStates, appearanceStates, iconVisibleStates]),
+    createMatrix(component, [
+        textStates,
+        appearanceStates,
+        iconVisibleStates
+    ]),
     colorThemeDarkGreenBackground
 );
 

@@ -10,7 +10,12 @@ import {
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import '../../all-components';
-import { disabledStates, DisabledState, errorStates, ErrorState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    errorStates,
+    ErrorState
+} from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {

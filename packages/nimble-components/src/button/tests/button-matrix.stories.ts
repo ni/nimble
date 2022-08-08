@@ -40,14 +40,14 @@ const partVisibilityStates = [
 ] as const;
 type PartVisibilityState = typeof partVisibilityStates[number];
 
-const appearanceStates: [string, string | undefined][] = Object
-    .entries(ButtonAppearance)
-    .map(([key, value]) => [pascalCase(key), value]);
+const appearanceStates: [string, string | undefined][] = Object.entries(
+    ButtonAppearance
+).map(([key, value]) => [pascalCase(key), value]);
 type AppearanceState = typeof appearanceStates[number];
 
-const appearanceVariantStates: [string, string | undefined][] = Object
-    .entries(ButtonAppearanceVariant)
-    .map(([key, value]) => [pascalCase(key), value]);
+const appearanceVariantStates: [string, string | undefined][] = Object.entries(
+    ButtonAppearanceVariant
+).map(([key, value]) => [pascalCase(key), value]);
 type AppearanceVariantState = typeof appearanceVariantStates[number];
 
 // prettier-ignore
@@ -83,7 +83,5 @@ export const hiddenButton: Story = createStory(
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
-    textCustomizationWrapper(
-        html`<nimble-button>Button</nimble-button>`
-    )
+    textCustomizationWrapper(html`<nimble-button>Button</nimble-button>`)
 );

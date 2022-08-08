@@ -29,16 +29,19 @@ const metadata: Meta = {
 
 export default metadata;
 
-const breadcrumbAppearanceStates: [string, string | undefined][] = Object.entries(BreadcrumbAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
-type BreadcrumbAppearanceState = typeof breadcrumbAppearanceStates[number];
+const appearanceStates: [string, string | undefined][] = Object.entries(
+    BreadcrumbAppearance
+).map(([key, value]) => [pascalCase(key), value]);
+type AppearanceState = typeof appearanceStates[number];
 
 const component = ([
     appearanceName,
     appearance
-]: BreadcrumbAppearanceState): ViewTemplate => html`
-    <nimble-breadcrumb appearance="${() => appearance}" style="margin-right: 24px">
+]: AppearanceState): ViewTemplate => html`
+    <nimble-breadcrumb
+        appearance="${() => appearance}"
+        style="margin-right: 24px"
+    >
         <nimble-breadcrumb-item href="${parent.location.href}">
             ${() => `Breadcrumb (${appearanceName}) - Link`}
         </nimble-breadcrumb-item>
@@ -46,7 +49,7 @@ const component = ([
     </nimble-breadcrumb>
 `;
 export const breadcrumbThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [breadcrumbAppearanceStates])
+    createMatrix(component, [appearanceStates])
 );
 
 export const hiddenBreadcrumb: Story = createStory(

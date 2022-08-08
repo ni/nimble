@@ -74,7 +74,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
         appearance: {
             options: Object.keys(BreadcrumbAppearance),
             control: { type: 'radio' }
-        },
+        }
     },
     args: {
         options: [
