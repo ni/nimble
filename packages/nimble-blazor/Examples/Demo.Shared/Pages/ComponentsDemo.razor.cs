@@ -31,7 +31,7 @@ namespace Demo.Shared.Pages
 
         private void OnComboboxInput(ChangeEventArgs args)
         {
-            _comboboxValue = (string)args.Value;
+            _comboboxValue = (args.Value as string) ?? string.Empty;
         }
     }
 }
