@@ -7,9 +7,10 @@ import type { Dialog } from '..';
 import type { TextField } from '../../text-field';
 
 interface DialogArgs {
-    'prevent-dismiss': boolean;
+    preventDismiss: boolean;
     dialogRef: Dialog;
     textFieldRef: TextField;
+    openAndHandleResult: (dialogRef: Dialog, textFieldRef: TextField) => void;
 }
 
 const metadata: Meta<DialogArgs> = {
@@ -24,44 +25,58 @@ const metadata: Meta<DialogArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
+        <style class="code-hide">
+            h1 {
+                font: var(--ni-nimble-title-font);
+                color: var(--ni-nimble-title-font-color);
+            }
+            p {
+                font: var(--ni-nimble-body-font);
+                color: var(--ni-nimble-body-font-color);
+            }
+        </style>
         <nimble-dialog
             ${ref('dialogRef')}
             aria-label="Here is a dialog"
-            ?prevent-dismiss="${x => x['prevent-dismiss']}"
+            ?prevent-dismiss="${x => x.preventDismiss}"
         >
-            <h1
-                style="font:var(--ni-nimble-title-font); color:var(--ni-nimble-title-font-color)"
-            >
-                Here is a dialog
-            </h1>
-            <p
-                style="font:var(--ni-nimble-body-font); color:var(--ni-nimble-body-font-color)"
-            >
-                It can have some detailed message here.
-            </p>
-            <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}"
-                >Cancel</nimble-button
-            >
-            <nimble-button @click="${x => x.dialogRef.close('OK pressed')}"
-                >OK</nimble-button
-            >
+            <h1>Here is a dialog</h1>
+            <p>It can have some detailed message here.</p>
+            <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}">
+                Cancel
+            </nimble-button>
+            <nimble-button @click="${x => x.dialogRef.close('OK pressed')}">
+                OK
+            </nimble-button>
         </nimble-dialog>
         <nimble-button
             id="open"
-            @click="${async x => x.dialogRef.show().then(reason => {
-        x.textFieldRef.value = typeof reason === 'string' ? reason : 'ESC pressed';
-    })}"
-            >Open</nimble-button
+            @click="${x => x.openAndHandleResult(x.dialogRef, x.textFieldRef)}"
         >
+            Open
+        </nimble-button>
         <div>
-            <nimble-text-field ${ref('textFieldRef')} readonly
-                >Close reason</nimble-text-field
-            >
+            <nimble-text-field ${ref('textFieldRef')} readonly>
+                Close reason
+            </nimble-text-field>
         </div>
     `),
-    argTypes: {},
+    argTypes: {
+        preventDismiss: {
+            name: 'prevent-dismiss'
+        },
+        openAndHandleResult: {
+            table: {
+                disable: true
+            }
+        }
+    },
     args: {
-        'prevent-dismiss': false
+        preventDismiss: false,
+        openAndHandleResult: async (dialogRef, textFieldRef) => {
+            const reason = await dialogRef.show();
+            textFieldRef.value = typeof reason === 'string' ? reason : 'ESC pressed';
+        }
     }
 };
 

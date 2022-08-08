@@ -5,7 +5,7 @@ import { Dialog, ExtendedDialog, UserDismissed, USER_DISMISSED } from '..';
 
 async function setup(preventDismiss?: boolean): Promise<Fixture<Dialog>> {
     const viewTemplate = html`
-        <nimble-dialog ${preventDismiss ? 'prevent-dismiss' : ''}>
+        <nimble-dialog ?prevent-dismiss="${() => preventDismiss}">
             <nimble-button id="ok">OK</nimble-button>
             <nimble-button id="cancel">Cancel</nimble-button>
         </nimble-dialog>
@@ -174,7 +174,7 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
 
-        let reason;
+        let reason: unknown | UserDismissed;
         void element.show().then(x => {
             reason = x;
         });
@@ -186,7 +186,7 @@ describe('Dialog', () => {
         await DOM.nextUpdate();
 
         expect(element.open).toBeFalse();
-        expect(reason as unknown as UserDismissed).toBe(USER_DISMISSED);
+        expect(reason).toBe(USER_DISMISSED);
 
         await disconnect();
     });
@@ -201,22 +201,7 @@ describe('Dialog', () => {
         void element.show();
         await DOM.nextUpdate();
 
-        // For some reason doing expect(() => { void element.show(); }).toThrow() does not work,
-        // so instead, assert that the rejected callback is called.
-        let fulfilled = false;
-        let rejected = false;
-        element.show().then(
-            () => {
-                fulfilled = true;
-            },
-            () => {
-                rejected = true;
-            }
-        );
-        await DOM.nextUpdate();
-
-        expect(fulfilled).toBeFalse();
-        expect(rejected).toBeTrue();
+        await expectAsync(element.show()).toBeRejectedWithError();
 
         await disconnect();
     });

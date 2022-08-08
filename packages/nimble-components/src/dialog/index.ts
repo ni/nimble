@@ -19,6 +19,7 @@ export type UserDismissed = typeof USER_DISMISSED;
 /**
  * This is a workaround for an incomplete definition of the native dialog element:
  * https://github.com/microsoft/TypeScript/issues/48267
+ * @internal
  */
 export interface ExtendedDialog extends HTMLDialogElement {
     showModal(): void;
@@ -38,7 +39,7 @@ export class Dialog extends FoundationElement {
     public preventDismiss = false;
 
     @attr({ attribute: 'aria-label' })
-    public ariaLabel: string | undefined = undefined;
+    public ariaLabel?: string;
 
     /**
      * The ref to the internal dialog element.
@@ -51,14 +52,14 @@ export class Dialog extends FoundationElement {
         return this.resolveShow !== undefined;
     }
 
-    private resolveShow: ((reason: unknown) => void) | undefined = undefined;
-    private closeReason: unknown = undefined;
+    private resolveShow?: (reason: unknown | UserDismissed | undefined) => void;
+    private closeReason?: unknown | UserDismissed;
 
     /**
      * Opens the dialog
      * @returns Promise that is resolved when the dialog is closed. The value of the resolved Promise is the reason value passed to the close() method, or USER_DISMISSED if the dialog was closed via the ESC key.
      */
-    public async show(): Promise<unknown> {
+    public async show(): Promise<unknown | UserDismissed | undefined> {
         if (this.open) {
             throw new Error('Dialog is already open');
         }
@@ -81,11 +82,9 @@ export class Dialog extends FoundationElement {
     }
 
     public closeHandler(): boolean {
-        if (this.resolveShow) {
-            this.resolveShow(this.closeReason);
-            this.resolveShow = undefined;
-            this.closeReason = undefined;
-        }
+        this.resolveShow!(this.closeReason);
+        this.resolveShow = undefined;
+        this.closeReason = undefined;
         return true;
     }
 
