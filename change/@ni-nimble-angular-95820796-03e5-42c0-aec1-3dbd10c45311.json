@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Tooltip Angular Integration (#309)",
+  "packageName": "@ni/nimble-angular",
+  "email": "103057880+aidendk@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
