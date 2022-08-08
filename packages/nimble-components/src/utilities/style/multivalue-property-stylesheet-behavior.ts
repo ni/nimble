@@ -15,7 +15,7 @@ import {
 export class MultivaluePropertyStyleSheetBehavior<PropertyType>
 implements Behavior {
     /**
-     * Constructs a {@link PropertyStyleSheetBehavior} instance.
+     * Constructs a {@link MultivaluePropertyStyleSheetBehavior} instance.
      * @param propertyName - The property name to operate from.
      * @param value - The property value or values to operate from.
      * @param styles - The styles to coordinate with the property.
@@ -42,9 +42,9 @@ implements Behavior {
      * Unbinds the behavior from the element.
      * @param source - The element for which the behavior is unbinding.
      */
-    public unbind(source: typeof FASTElement & HTMLElement): void {
+    public unbind(source: FASTElement & HTMLElement): void {
         Observable.getNotifier(source).unsubscribe(this, this.propertyName);
-        (source as unknown as FASTElement).$fastController.removeStyles(
+        source.$fastController.removeStyles(
             this.styles
         );
     }
