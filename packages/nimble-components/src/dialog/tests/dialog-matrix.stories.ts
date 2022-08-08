@@ -18,8 +18,14 @@ export default metadata;
 
 const component = html`
     <nimble-dialog>
-        <h2 style='font:var(--ni-nimble-title-font); color:var(--ni-nimble-title-font-color)'>Title</h2>
-        <p style='font:var(--ni-nimble-body-font); color:var(--ni-nimble-body-font-color)'>
+        <h2
+            style="font:var(--ni-nimble-title-font); color:var(--ni-nimble-title-font-color)"
+        >
+            Title
+        </h2>
+        <p
+            style="font:var(--ni-nimble-body-font); color:var(--ni-nimble-body-font-color)"
+        >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>

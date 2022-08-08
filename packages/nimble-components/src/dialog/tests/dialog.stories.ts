@@ -29,8 +29,16 @@ const metadata: Meta<DialogArgs> = {
             aria-label="Here is a dialog"
             ?prevent-dismiss="${x => x['prevent-dismiss']}"
         >
-            <h1 style='font:var(--ni-nimble-title-font); color:var(--ni-nimble-title-font-color)'>Here is a dialog</h1>
-            <p style='font:var(--ni-nimble-body-font); color:var(--ni-nimble-body-font-color)'>It can have some detailed message here.</p>
+            <h1
+                style="font:var(--ni-nimble-title-font); color:var(--ni-nimble-title-font-color)"
+            >
+                Here is a dialog
+            </h1>
+            <p
+                style="font:var(--ni-nimble-body-font); color:var(--ni-nimble-body-font-color)"
+            >
+                It can have some detailed message here.
+            </p>
             <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}"
                 >Cancel</nimble-button
             >
