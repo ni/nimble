@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 08 Aug 2022 13:26:50 GMT",
+      "tag": "@ni/nimble-angular_v8.2.0",
+      "version": "8.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "74efe0cc15a6c21ee54626898f7a4c492bdaf012",
+            "comment": "Tooltip Angular Integration (#309)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Aug 2022 16:35:19 GMT",
       "tag": "@ni/nimble-angular_v8.1.2",
       "version": "8.1.2",
