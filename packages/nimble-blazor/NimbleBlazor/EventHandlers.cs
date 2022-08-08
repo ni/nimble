@@ -34,7 +34,7 @@ public class MenuButtonOpenChangeEventArgs : EventArgs
 
 public class NimbleComboboxInputEventArgs : EventArgs
 {
-    public string Value { get; set; }
+    public string Value { get; set; } = string.Empty;
 }
 
 [EventHandler("onnimbledrawerstatechange", typeof(DrawerStateChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
