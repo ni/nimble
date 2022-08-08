@@ -324,4 +324,26 @@ describe('Dialog', () => {
 
         await disconnect();
     });
+
+    it('supports opening multiple dialogs on top of each other', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const secondDialog = document.createElement('nimble-dialog');
+        const secondDialogButton = document.createElement('nimble-button');
+        secondDialog.append(secondDialogButton);
+        element.parentElement!.append(secondDialog);
+        await DOM.nextUpdate();
+
+        void element.show();
+        await DOM.nextUpdate();
+
+        void secondDialog.show();
+        await DOM.nextUpdate();
+
+        expect(element.open).toBeTrue();
+        expect(secondDialog.open).toBeTrue();
+        expect(document.activeElement).toBe(secondDialogButton);
+
+        await disconnect();
+    });
 });
