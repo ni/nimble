@@ -32,16 +32,10 @@ public class MenuButtonOpenChangeEventArgs : EventArgs
     public bool Open { get; set; }
 }
 
-public class NimbleComboboxInputEventArgs : EventArgs
-{
-    public string Value { get; set; } = string.Empty;
-}
-
 [EventHandler("onnimbledrawerstatechange", typeof(DrawerStateChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimbletabsactiveidchange", typeof(TabsChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblecheckedchange", typeof(CheckboxChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblemenubuttonopenchange", typeof(MenuButtonOpenChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onnimblecomboboxinput", typeof(NimbleComboboxInputEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }

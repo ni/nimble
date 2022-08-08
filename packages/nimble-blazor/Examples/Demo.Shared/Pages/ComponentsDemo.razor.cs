@@ -11,7 +11,6 @@ namespace Demo.Shared.Pages
         private NavigationDrawer? _navigationDrawer;
         private DrawerLocation _drawerLocation = DrawerLocation.Right;
         private string? ActiveTabId { get; set; }
-        private string _comboboxValue = string.Empty;
 
         private string DrawerLocationAsString
         {
@@ -27,11 +26,6 @@ namespace Demo.Shared.Pages
         public void DrawerTogglePinned()
         {
             _navigationDrawer!.TogglePinned();
-        }
-
-        private void OnComboboxInput(ChangeEventArgs args)
-        {
-            _comboboxValue = (args.Value as string) ?? string.Empty;
         }
     }
 }
