@@ -44,9 +44,7 @@ implements Behavior {
      */
     public unbind(source: FASTElement & HTMLElement): void {
         Observable.getNotifier(source).unsubscribe(this, this.propertyName);
-        source.$fastController.removeStyles(
-            this.styles
-        );
+        source.$fastController.removeStyles(this.styles);
     }
 
     /**
