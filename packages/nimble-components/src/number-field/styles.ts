@@ -136,11 +136,6 @@ export const styles = css`
         outline: none;
     }
 
-    .control::selection {
-        color: ${controlLabelFontColor};
-        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
-    }
-
     .control::placeholder {
         color: ${controlLabelFontColor};
     }

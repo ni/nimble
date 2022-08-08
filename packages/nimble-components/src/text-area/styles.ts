@@ -83,11 +83,6 @@ export const styles = css`
         box-shadow: none;
     }
 
-    .control::selection {
-        color: ${controlLabelFontColor};
-        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
-    }
-
     .control::placeholder {
         color: ${controlLabelFontColor};
     }

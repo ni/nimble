@@ -152,11 +152,6 @@ export const styles = css`
         text-overflow: clip;
     }
 
-    .control::selection {
-        color: ${controlLabelFontColor};
-        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
-    }
-
     .control::placeholder {
         color: ${controlLabelFontColor};
     }
