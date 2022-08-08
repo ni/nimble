@@ -4,7 +4,6 @@ import {
     borderRgbPartialColor,
     borderHoverColor,
     borderWidth,
-    fillSelectedRgbPartialColor,
     smallDelay,
     bodyFontColor,
     bodyDisabledFontColor,

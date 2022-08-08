@@ -7,7 +7,6 @@ import {
     bodyFontColor,
     bodyDisabledFontColor,
     controlHeight,
-    fillSelectedRgbPartialColor,
     controlLabelFont,
     controlLabelFontColor,
     labelHeight,
