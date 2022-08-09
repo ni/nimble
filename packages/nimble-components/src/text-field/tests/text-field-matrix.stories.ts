@@ -80,11 +80,11 @@ const appearanceStates = Object.entries(TextFieldAppearance).map(
 );
 type AppearanceState = typeof appearanceStates[number];
 
-const edgesFlushStates = [
+const fullBleedStates = [
     ['', false],
-    ['Edges Flush', true]
+    ['Full Bleed', true]
 ] as const;
-type EdgesFlushState = typeof edgesFlushStates[number];
+type FullBleedState = typeof fullBleedStates[number];
 
 // prettier-ignore
 const component = (
@@ -95,12 +95,12 @@ const component = (
     [errorName, errorVisible, errorText]: ErrorState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
-    [edgesFluashName, edgesFlush]: EdgesFlushState,
+    [fullBleedName, fullBleed]: FullBleedState,
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-text-field
         style="width: 350px; padding: 8px;"
-        ?edges-flush="${() => edgesFlush}"
+        ?full-bleed="${() => fullBleed}"
         ?disabled="${() => disabled}"
         type="${() => type}"
         appearance="${() => appearance}"
@@ -117,7 +117,7 @@ const component = (
         ${() => errorName}
         ${() => typeName}
         ${() => appearanceName}
-        ${() => edgesFluashName}
+        ${() => fullBleedName}
         ${() => valueName}
 
         ${when(() => showActionButtons, html`
@@ -141,7 +141,7 @@ export const lightThemeEditableEnabledWithoutButtons: Story = createFixedThemeSt
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -156,7 +156,7 @@ export const lightThemeEditableEnabledWithButtons: Story = createFixedThemeStory
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -171,7 +171,7 @@ export const lightThemeEditableDisabledWithoutButtons: Story = createFixedThemeS
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -186,7 +186,7 @@ export const lightThemeEditableDisabledWithButtons: Story = createFixedThemeStor
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -201,7 +201,7 @@ export const lightThemeReadOnlyEnabledWithoutButtons: Story = createFixedThemeSt
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -216,7 +216,7 @@ export const lightThemeReadOnlyEnabledWithButtons: Story = createFixedThemeStory
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -231,7 +231,7 @@ export const lightThemeReadOnlyDisabledWithoutButtons: Story = createFixedThemeS
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -246,7 +246,7 @@ export const lightThemeReadOnlyDisabledWithButtons: Story = createFixedThemeStor
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -261,7 +261,7 @@ export const darkThemeEditableEnabledWithoutButtons: Story = createFixedThemeSto
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -276,7 +276,7 @@ export const darkThemeEditableEnabledWithButtons: Story = createFixedThemeStory(
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -291,7 +291,7 @@ export const darkThemeEditableDisabledWithoutButtons: Story = createFixedThemeSt
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -306,7 +306,7 @@ export const darkThemeEditableDisabledWithButtons: Story = createFixedThemeStory
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -321,7 +321,7 @@ export const darkThemeReadOnlyEnabledWithoutButtons: Story = createFixedThemeSto
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -336,7 +336,7 @@ export const darkThemeReadOnlyEnabledWithButtons: Story = createFixedThemeStory(
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -351,7 +351,7 @@ export const darkThemeReadOnlyDisabledWithoutButtons: Story = createFixedThemeSt
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -366,7 +366,7 @@ export const darkThemeReadOnlyDisabledWithButtons: Story = createFixedThemeStory
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -381,7 +381,7 @@ export const colorThemeEditableEnabledWithoutButtons: Story = createFixedThemeSt
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -396,7 +396,7 @@ export const colorThemeEditableEnabledWithButtons: Story = createFixedThemeStory
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -411,7 +411,7 @@ export const colorThemeEditableDisabledWithoutButtons: Story = createFixedThemeS
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -426,7 +426,7 @@ export const colorThemeEditableDisabledWithButtons: Story = createFixedThemeStor
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -441,7 +441,7 @@ export const colorThemeReadOnlyEnabledWithoutButtons: Story = createFixedThemeSt
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -456,7 +456,7 @@ export const colorThemeReadOnlyEnabledWithButtons: Story = createFixedThemeStory
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -471,7 +471,7 @@ export const colorThemeReadOnlyDisabledWithoutButtons: Story = createFixedThemeS
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -486,7 +486,7 @@ export const colorThemeReadOnlyDisabledWithButtons: Story = createFixedThemeStor
         errorStates,
         typeStates,
         appearanceStates,
-        edgesFlushStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground

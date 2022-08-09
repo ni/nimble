@@ -85,7 +85,7 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
-    :host([appearance='frameless'][edges-flush]) .root {
+    :host([appearance='frameless'][full-bleed]) .root {
         padding-left: 0px;
         padding-right: 0px;
     }
@@ -98,7 +98,7 @@ export const styles = css`
         user-select: none;
     }
 
-    :host([appearance='frameless'][edges-flush]) .root::before {
+    :host([appearance='frameless'][full-bleed]) .root::before {
         display: none;
     }
 
@@ -110,7 +110,7 @@ export const styles = css`
         user-select: none;
     }
 
-    :host([appearance='frameless'][edges-flush]) .root::after {
+    :host([appearance='frameless'][full-bleed]) .root::after {
         display: none;
     }
 

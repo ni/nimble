@@ -9,7 +9,7 @@ interface TextFieldArgs {
     label: string;
     type: string;
     appearance: string;
-    edgesFlush: boolean;
+    fullBleed: boolean;
     value: string;
     readonly: boolean;
     disabled: boolean;
@@ -58,7 +58,7 @@ const metadata: Meta<TextFieldArgs> = {
             ?disabled="${x => x.disabled}"
             error-text="${x => x.errorText}"
             ?error-visible="${x => x.errorVisible}"
-            ?edges-flush="${x => x.edgesFlush}"
+            ?full-bleed="${x => x.fullBleed}"
         >
             ${when(x => x.leftIcon, html`
                 <nimble-icon-tag slot="start"></nimble-icon-tag>`)}
@@ -81,9 +81,9 @@ const metadata: Meta<TextFieldArgs> = {
             options: Object.values(TextFieldAppearance),
             control: { type: 'radio' }
         },
-        edgesFlush: {
+        fullBleed: {
             description:
-                'Add the class `clear-inline-padding` to remove the start and end padding. Only affects the frameless appearance.'
+                'Remove the start and end margins causing the text to stretch across the full control width. Only applies to the frameless appearance.'
         },
         errorText: {
             description:
@@ -100,7 +100,7 @@ const metadata: Meta<TextFieldArgs> = {
         label: 'default label',
         type: 'text',
         appearance: 'underline',
-        edgesFlush: false,
+        fullBleed: false,
         value: '',
         readonly: false,
         disabled: false,

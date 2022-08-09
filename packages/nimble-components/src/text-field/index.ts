@@ -44,8 +44,8 @@ export class TextField extends FoundationTextField implements ErrorPattern {
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
 
-    @attr({ attribute: 'edges-flush', mode: 'boolean' })
-    public edgesFlush = false;
+    @attr({ attribute: 'full-bleed', mode: 'boolean' })
+    public fullBleed = false;
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
