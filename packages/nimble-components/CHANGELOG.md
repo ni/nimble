@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 09 Aug 2022 15:57:14 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Aug 2022 18:05:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.4
+
+Tue, 09 Aug 2022 18:05:33 GMT
+
+### Patches
+
+- Remove custom text selection styling ([ni/nimble@fd627f2](https://github.com/ni/nimble/commit/fd627f21dee853ce1e6d77196c673f28d58e2daa))
 
 ## 11.8.3
 
