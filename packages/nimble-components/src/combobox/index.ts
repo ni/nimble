@@ -221,6 +221,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 part="button"
                 aria-haspopup="true"
                 aria-expanded="${x => x.open}"
+                tabindex="-1"
             >
                 <nimble-icon-arrow-expander-down
                     slot="start"
