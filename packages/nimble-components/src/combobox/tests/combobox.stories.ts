@@ -92,7 +92,6 @@ const metadata: Meta<ComboboxArgs> = {
         autocomplete: ComboboxAutocomplete.both,
         invalid: false,
         errorText: 'Value is invalid',
-        currentValue: 'Joaquin',
         appearance: DropdownAppearance.underline,
         placeholder: 'Select value...',
         options: [
