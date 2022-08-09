@@ -10,6 +10,7 @@ import {
     bodyFont,
     bodyFontColor
 } from '../theme-provider/design-tokens';
+import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 
@@ -40,8 +41,8 @@ export const styles = css`
     }
 `.withBehaviors(
         themeBehavior(
+            Theme.light,
             css`
-            ${'' /* Light theme */}
             :host {
                 --ni-private-breadcrumb-link-active-font-color: ${DigitalGreenDark};
             }
@@ -49,9 +50,11 @@ export const styles = css`
             :host(.prominent-links) {
                 --ni-private-breadcrumb-link-font-color: ${DigitalGreenDark};
             }
-        `,
+        `
+        ),
+        themeBehavior(
+            Theme.dark,
             css`
-            ${'' /* Dark theme */}
             :host {
                 --ni-private-breadcrumb-link-active-font-color: ${PowerGreen};
             }
@@ -59,9 +62,11 @@ export const styles = css`
             :host(.prominent-links) {
                 --ni-private-breadcrumb-link-font-color: ${PowerGreen};
             }
-        `,
+        `
+        ),
+        themeBehavior(
+            Theme.color,
             css`
-            ${'' /* Color theme */}
             :host {
                 --ni-private-breadcrumb-link-active-font-color: ${hexToRgbaCssColor(
                 White,
