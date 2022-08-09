@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 09 Aug 2022 00:07:50 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Aug 2022 15:57:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.3
+
+Tue, 09 Aug 2022 15:57:14 GMT
+
+### Patches
+
+- Remove tab focus from button in combobox. ([ni/nimble@56ee1ee](https://github.com/ni/nimble/commit/56ee1eeb21568b86a6e5b351d1f1985e23d228dc))
 
 ## 11.8.2
 
