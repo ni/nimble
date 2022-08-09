@@ -40,32 +40,27 @@ const metadata: Meta<TooltipArgs> = {
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
         <style>
-            .container {
-                width: 100px;
-                height: 50px;
-            }
-
-            .anchorDiv {
+            #anchor {
                 border: 1px solid var(${borderColor.cssCustomProperty});
                 font: var(${bodyFont.cssCustomProperty});
                 color: var(${bodyFontColor.cssCustomProperty});
+                width: 80px;
+                height: 35px;
             }
         </style>
-        <div class="container">
-            <div class="anchorDiv" id="anchor" aria-describedby="ariaAnchor">
-                Hover here to see tooltip
-            </div>
-            <nimble-tooltip
-                anchor="anchor"
-                ?visible="${x => x.visible}"
-                delay="${x => x.delay}"
-                auto-update-mode="${x => x.autoUpdateMode}"
-                id="text-tooltip"
-                class="${x => TooltipStatus[x.state]} ${x => (x.icon ? 'icon-visible' : '')}"
-            >
-                ${x => x.tooltip}
-            </nimble-tooltip>
+        <div id="anchor" aria-describedby="aria-anchor">
+            Hover here to see tooltip
         </div>
+        <nimble-tooltip
+            anchor="anchor"
+            ?visible="${x => x.visible}"
+            delay="${x => x.delay}"
+            auto-update-mode="${x => x.autoUpdateMode}"
+            id="text-tooltip"
+            class="${x => TooltipStatus[x.state]} ${x => (x.icon ? 'icon-visible' : '')}"
+        >
+            ${x => x.tooltip}
+        </nimble-tooltip>
     `),
     args: {
         visible: false,
@@ -104,16 +99,13 @@ export default metadata;
 export const tooltip: StoryObj<TooltipArgs> = {};
 export const complexContentTooltip: StoryObj<TooltipArgs> = {
     render: createUserSelectedThemeStory(html<TooltipArgs>`
-        <style>
-            .container {
-                width: 100px;
-                height: 50px;
-            }
-
-            .anchorDiv {
+        <style class="code-hide">
+            #complex-anchor {
                 border: 1px solid var(${borderColor.cssCustomProperty});
                 font: var(${bodyFont.cssCustomProperty});
                 color: var(${bodyFontColor.cssCustomProperty});
+                width: 100px;
+                height: 55px;
             }
 
             .grouping {
@@ -137,53 +129,47 @@ export const complexContentTooltip: StoryObj<TooltipArgs> = {
                 margin-block: 0em;
             }
         </style>
-        <div class="container">
-            <div
-                class="anchorDiv"
-                id="complexAnchor"
-                aria-describedby="ariaAnchor"
-            >
-                Hover here to see complex content tooltip
-            </div>
-            <nimble-tooltip
-                anchor="complexAnchor"
-                ?visible="${x => x.visible}"
-                delay="${x => x.delay}"
-                auto-update-mode="${x => x.autoUpdateMode}"
-                id="complex-tooltip"
-                class="${x => TooltipStatus[x.state]} ${x => (x.icon ? 'icon-visible' : '')}"
-            >
-                <div class="tooltipText">
-                    Wafer 15 - A2CPQ-46B6
-                    <br />
-                    <div class="grouping">
-                        <div class="grouping-left">
-                            <div class="section">
-                                <h4 class="title">Total Units</h4>
-                                <span>2800</span>
-                            </div>
-                            <div class="section">
-                                <h4 class="title">Total Good</h4>
-                                <span>2519</span>
-                            </div>
-                            <div class="section">
-                                <h4 class="title">Total Bad</h4>
-                                <span>281</span>
-                            </div>
+        <div id="complex-anchor" aria-describedby="aria-anchor">
+            Hover here to see complex content tooltip
+        </div>
+        <nimble-tooltip
+            anchor="complex-anchor"
+            ?visible="${x => x.visible}"
+            delay="${x => x.delay}"
+            auto-update-mode="${x => x.autoUpdateMode}"
+            id="complex-tooltip"
+            class="${x => TooltipStatus[x.state]} ${x => (x.icon ? 'icon-visible' : '')}"
+        >
+            <div class="tooltip-text">
+                Wafer 15 - A2CPQ-46B6
+                <br />
+                <div class="grouping">
+                    <div class="grouping-left">
+                        <div class="section">
+                            <h4 class="title">Total Units</h4>
+                            <span>2800</span>
                         </div>
-                        <div class="grouping-right">
-                            <div class="section">
-                                <h4 class="title">Yield</h4>
-                                <span>89.99%</span>
-                            </div>
-                            <div class="section">
-                                <h4 class="title">Classification</h4>
-                                <span>Bullseye</span>
-                            </div>
+                        <div class="section">
+                            <h4 class="title">Total Good</h4>
+                            <span>2519</span>
+                        </div>
+                        <div class="section">
+                            <h4 class="title">Total Bad</h4>
+                            <span>281</span>
+                        </div>
+                    </div>
+                    <div class="grouping-right">
+                        <div class="section">
+                            <h4 class="title">Yield</h4>
+                            <span>89.99%</span>
+                        </div>
+                        <div class="section">
+                            <h4 class="title">Classification</h4>
+                            <span>Bullseye</span>
                         </div>
                     </div>
                 </div>
-            </nimble-tooltip>
-        </div>
+            </div>
+        </nimble-tooltip>
     `)
 };
