@@ -6,7 +6,8 @@ import {
     tokenNames,
     cssPropertyFromTokenName,
     scssPropertyFromTokenName,
-    tokenSuffixes
+    TokenSuffix,
+    suffixFromTokenName
 } from '../design-token-names';
 import { comments } from '../design-token-comments';
 import '../../all-components';
@@ -55,13 +56,12 @@ const colorTemplate = html<TokenName>`
 `;
 
 /* eslint-disable @typescript-eslint/naming-convention */
-type TokenSuffixes = typeof tokenSuffixes[number];
 const tokenTemplates: {
-    readonly [key in TokenSuffixes]: ViewTemplate<TokenName>;
+    readonly [key in TokenSuffix]: ViewTemplate<TokenName>;
 } = {
     Color: colorTemplate,
     RgbPartialColor: defaultTemplate,
-    FontColor: defaultTemplate,
+    FontColor: colorTemplate,
     FontLineHeight: defaultTemplate,
     FontWeight: defaultTemplate,
     FontSize: defaultTemplate,
@@ -79,14 +79,9 @@ const tokenTemplates: {
 const templateForTokenName = (
     tokenName: TokenName
 ): ViewTemplate<TokenName> => {
-    const suffixIndex = tokenSuffixes.findIndex(tokenSuffix => tokenName.endsWith(tokenSuffix));
-    const suffix = tokenSuffixes[suffixIndex];
+    const suffix = suffixFromTokenName(tokenName);
     if (suffix === undefined) {
-        throw new Error(
-            `Cannot identify suffix for token: ${tokenName}, allowed suffixes: ${tokenSuffixes.join(
-                ', '
-            )}`
-        );
+        throw new Error(`Cannot identify suffix for token: ${tokenName}`);
     }
     const template = tokenTemplates[suffix];
     return template;

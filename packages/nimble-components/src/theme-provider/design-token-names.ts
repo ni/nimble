@@ -182,7 +182,7 @@ export const scssInternalPropertySetterMarkdown = (
 ): string => `\`#{$${prefix}-internal-${tokenName}}: ${property};\``;
 
 // Order of suffixes in the array matter, as we want single word suffixes after the multi-word ones
-export const tokenSuffixes = [
+const tokenSuffixes = [
     'RgbPartialColor',
     'FontColor',
     'FontLineHeight',
@@ -198,3 +198,9 @@ export const tokenSuffixes = [
     'Padding',
     'Color'
 ] as const;
+export type TokenSuffix = typeof tokenSuffixes[number];
+export const suffixFromTokenName = (
+    tokenName: string
+): TokenSuffix | undefined => tokenSuffixes[
+    tokenSuffixes.findIndex(tokenSuffix => tokenName.endsWith(tokenSuffix))
+];
