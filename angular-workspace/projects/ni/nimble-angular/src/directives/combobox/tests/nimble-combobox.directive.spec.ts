@@ -171,7 +171,7 @@ describe('Nimble combobox', () => {
             expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.both);
         });
 
-        it('can be configured with property binding for autocomplete', () => {
+        it('can be configured with property binding for placeholder', () => {
             expect(directive.placeholder).toEqual('Enter value:');
             expect(nativeElement.placeholder).toEqual('Enter value:');
 
