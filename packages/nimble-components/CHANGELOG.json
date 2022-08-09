@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 09 Aug 2022 00:07:50 GMT",
+      "tag": "@ni/nimble-components_v11.8.2",
+      "version": "11.8.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9a2f49176f39b5e9027486b89a9a910f7a68f454",
+            "comment": "theme and appearance behaviors refactor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Aug 2022 19:47:13 GMT",
       "tag": "@ni/nimble-components_v11.8.1",
       "version": "11.8.1",

@@ -18,6 +18,7 @@ import {
     standardPadding,
     smallPadding
 } from '../theme-provider/design-tokens';
+import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 
@@ -64,7 +65,7 @@ export const styles = css`
     }
 `.withBehaviors(
         themeBehavior(
-        // Light Theme
+            Theme.light,
             css`
             :host([appearance='error']) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
@@ -75,8 +76,10 @@ export const styles = css`
                 --ni-private-tooltip-border-color: ${Information100LightUi};
                 --ni-private-tooltip-background-color: ${White};
             }
-        `,
-            // Dark Theme
+        `
+        ),
+        themeBehavior(
+            Theme.dark,
             css`
             :host {
                 --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
@@ -93,8 +96,10 @@ export const styles = css`
             :host([appearance='error']) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
             }
-        `,
-            // Color Theme
+        `
+        ),
+        themeBehavior(
+            Theme.color,
             css`
             .anchored-region {
                 background-color: ${ForestGreen};

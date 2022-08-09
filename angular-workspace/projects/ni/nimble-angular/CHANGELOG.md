@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 02 Aug 2022 16:35:19 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Aug 2022 00:07:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.2.1
+
+Tue, 09 Aug 2022 00:07:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.2
+
+## 8.2.0
+
+Mon, 08 Aug 2022 13:26:50 GMT
+
+### Minor changes
+
+- Tooltip Angular Integration (#309) ([ni/nimble@74efe0c](https://github.com/ni/nimble/commit/74efe0cc15a6c21ee54626898f7a4c492bdaf012))
 
 ## 8.1.2
 
