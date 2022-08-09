@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 09 Aug 2022 22:19:14 GMT",
+      "tag": "@ni/nimble-components_v11.8.5",
+      "version": "11.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f232213f3f0078a7a97879e2fd8f49937e14eef4",
+            "comment": "Combobox text input updates value."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Aug 2022 19:30:28 GMT",
+      "tag": "@ni/nimble-components_v11.8.4",
+      "version": "11.8.4",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2b7f6744f4c9f1504b3852aa059f2b1f1676222c",
+            "comment": "Adding 'Placeholder' APIs to Combobox."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Aug 2022 18:05:33 GMT",
+      "tag": "@ni/nimble-components_v11.8.4",
+      "version": "11.8.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fd627f21dee853ce1e6d77196c673f28d58e2daa",
+            "comment": "Remove custom text selection styling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Aug 2022 15:57:14 GMT",
+      "tag": "@ni/nimble-components_v11.8.3",
+      "version": "11.8.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "56ee1eeb21568b86a6e5b351d1f1985e23d228dc",
+            "comment": "Remove tab focus from button in combobox."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Aug 2022 00:07:50 GMT",
       "tag": "@ni/nimble-components_v11.8.2",
       "version": "11.8.2",

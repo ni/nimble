@@ -15,6 +15,7 @@ interface ComboboxArgs {
     errorVisible: boolean;
     errorText: string;
     currentValue: string;
+    placeholder: string;
 }
 
 interface OptionArgs {
@@ -38,7 +39,7 @@ const metadata: Meta<ComboboxArgs> = {
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae/specs/'
         },
         actions: {
-            handles: ['change']
+            handles: ['change', 'input']
         }
     },
     // prettier-ignore
@@ -52,6 +53,7 @@ const metadata: Meta<ComboboxArgs> = {
             ${/* TODO: This should be handled by the error-visible attr */ ''}
             aria-invalid="${x => x.errorVisible}"
             value="${x => x.currentValue}"
+            placeholder="${x => x.placeholder}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
                 <nimble-list-option ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
@@ -82,7 +84,7 @@ const metadata: Meta<ComboboxArgs> = {
         autocomplete: ComboboxAutocomplete.both,
         errorVisible: false,
         errorText: 'Value is invalid',
-        currentValue: 'Joaquin',
+        placeholder: 'Select value...',
         options: [
             { label: 'Mary', disabled: false },
             { label: 'Sue', disabled: false },

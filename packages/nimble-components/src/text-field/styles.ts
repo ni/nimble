@@ -10,7 +10,6 @@ import {
     bodyDisabledFontColor,
     controlHeight,
     failColor,
-    fillSelectedRgbPartialColor,
     labelHeight,
     smallDelay,
     controlLabelFont,
@@ -151,11 +150,6 @@ export const styles = css`
                See https://webcompat.com/issues/104481 */ ''
         }
         text-overflow: clip;
-    }
-
-    .control::selection {
-        color: ${controlLabelFontColor};
-        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
     }
 
     .control::placeholder {
