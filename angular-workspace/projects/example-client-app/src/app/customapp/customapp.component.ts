@@ -22,7 +22,7 @@ export class CustomAppComponent {
         { first: 'Mister', last: 'Smithers' }
     ];
 
-    public comboboxSelectedOption: ComboboxItem | undefined = undefined;
+    public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
 
     public onMenuButtonMenuChange(event: Event): void {
