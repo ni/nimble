@@ -1,7 +1,8 @@
 import {
     DesignSystem,
     TooltipPosition,
-    Tooltip as FoundationTooltip
+    Tooltip as FoundationTooltip,
+    ElementDisambiguation
 } from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
@@ -144,7 +145,7 @@ describe('Tooltip', () => {
 
     it('should render the default state when selected and not render an icon when true', async () => {
         element.visible = true;
-        element.classList.add('icon-visible');
+        element.iconVisible = true;
 
         await connect();
         await DOM.nextUpdate();
@@ -157,7 +158,7 @@ describe('Tooltip', () => {
 
     it('should render the error state when selected', async () => {
         element.visible = true;
-        element.classList.add('fail');
+        element.appearance = 'error';
 
         await connect();
         await DOM.nextUpdate();
@@ -170,8 +171,8 @@ describe('Tooltip', () => {
 
     it('should render the error state when selected and render the corresponding icon when true', async () => {
         element.visible = true;
-        element.classList.add('fail');
-        element.classList.add('icon-visible');
+        element.appearance = 'error';
+        element.iconVisible = true;
 
         await connect();
         await DOM.nextUpdate();
@@ -184,7 +185,7 @@ describe('Tooltip', () => {
 
     it('should render the info state when selected', async () => {
         element.visible = true;
-        element.classList.add('information');
+        element.appearance = 'information';
 
         await connect();
         await DOM.nextUpdate();
@@ -197,8 +198,8 @@ describe('Tooltip', () => {
 
     it('should render the information state when selected and render the corresponding icon when true', async () => {
         element.visible = true;
-        element.classList.add('information');
-        element.classList.add('icon-visible');
+        element.appearance = 'information';
+        element.iconVisible = true;
 
         await connect();
         await DOM.nextUpdate();
