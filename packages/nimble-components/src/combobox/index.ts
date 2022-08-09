@@ -128,6 +128,10 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public override keydownHandler(e: KeyboardEvent): boolean | void {
         const returnValue = super.keydownHandler(e);
+        if (e.ctrlKey || e.altKey) {
+            return returnValue;
+        }
+
         switch (e.key) {
             case keyEnter:
                 this.emitChangeIfValueUpdated();
