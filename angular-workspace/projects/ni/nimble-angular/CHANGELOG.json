@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 09 Aug 2022 19:30:28 GMT",
+      "tag": "@ni/nimble-angular_v8.2.4",
+      "version": "8.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "2b7f6744f4c9f1504b3852aa059f2b1f1676222c",
+            "comment": "Adding 'Placeholder' APIs to Combobox."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Aug 2022 18:05:34 GMT",
       "tag": "@ni/nimble-angular_v8.2.3",
       "version": "8.2.3",
