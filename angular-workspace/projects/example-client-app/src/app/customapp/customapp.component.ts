@@ -22,8 +22,8 @@ export class CustomAppComponent {
         { first: 'Mister', last: 'Smithers' }
     ];
 
-    public comboboxSelectedOption = this.comboboxItems[0];
-    public comboboxSelectedLastName = this.comboboxSelectedOption.last;
+    public comboboxSelectedOption?: ComboboxItem;
+    public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
 
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;

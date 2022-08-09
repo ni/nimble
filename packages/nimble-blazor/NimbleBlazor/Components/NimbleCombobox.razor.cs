@@ -40,6 +40,12 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     public AutoComplete? AutoComplete { get; set; }
 
     /// <summary>
+    /// Gets or sets the placeholder for the combobox
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content to be rendered inside the combobox
     /// </summary>
     [Parameter]
