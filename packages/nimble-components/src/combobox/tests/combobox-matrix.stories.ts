@@ -17,7 +17,11 @@ import {
     ErrorState
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import { controlLabelFont, controlLabelFontColor, standardPadding } from '../../theme-provider/design-tokens';
+import {
+    controlLabelFont,
+    controlLabelFontColor,
+    standardPadding
+} from '../../theme-provider/design-tokens';
 
 const valueStates = [
     ['No Value', undefined, 'placeholder'],

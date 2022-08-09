@@ -15,7 +15,11 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
-import { controlLabelFont, controlLabelFontColor, standardPadding } from '../../theme-provider/design-tokens';
+import {
+    controlLabelFont,
+    controlLabelFontColor,
+    standardPadding
+} from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Select',

@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { Tooltip } from '@ni/nimble-components/dist/esm/tooltip';
-import { TooltipStatus } from '@ni/nimble-components/dist/esm/tooltip/types';
+import { TooltipAppearance } from '@ni/nimble-components/dist/esm/tooltip/types';
 import { NumberValueOrAttribute, toNumberProperty } from '../utilities/template-value-helpers';
 
 export type { Tooltip };
-export { TooltipStatus };
+export { TooltipAppearance };
 
 /**
  * Directive to provide Angular integration for the tooltip.
