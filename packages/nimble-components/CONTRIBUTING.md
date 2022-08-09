@@ -131,9 +131,7 @@ Use the `html` tagged template helper to define your custom template. See [Decla
 
 This package follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide) with some exceptions listed in [Coding Conventions](/packages/nimble-components/docs/coding-conventions.md).
 
-#### API
-
-##### API naming
+#### API naming
 
 Use lower-kebab-case for attributes and enum values that are part of a component's public API.
 
@@ -141,24 +139,6 @@ Use lower-kebab-case for attributes and enum values that are part of a component
     @attr({ attribute: 'error-text' })
     public errorText: string | undefined;
 ```
-
-##### Attributes for alternative states
-
-https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#content_versus_idl_attributes
-
-error-visible
-appear-invalid
-
-:valid
-:invalid
-novalidate attribute
-checkValidity
-reportValidity
-setCustomValidity
-:required
-:optional
-
-todo check that appearance behavior works for undefined values, looks like it should
 
 #### CSS
 

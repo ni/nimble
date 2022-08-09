@@ -120,7 +120,7 @@ For example:
 :host(${focusVisible}) {} /* focusVisible is specific to FAST */
 :host(:active) {}
 :host(:invalid) {}
-:host(.custom-state) {} TODO :host\(.*\.[\w]+.*\)
+:host(.custom-state) {}
 :host([disabled]) {} /* disabled styles override all others in the cascade*/
 ```
 
@@ -161,7 +161,7 @@ const styles = css`
 
 When styling the invalid state of a form component, it may seem natural to use `:host(:invalid)` in the CSS selector. `:invalid` applies when the form validation has run (generally happens immediately) and failed on that component. The problem with styling based on this pseudo-class is that it prevents a client from having control over when the invalid styling is displayed. For example, if a required input is initially empty, it is common not to show the error styling until the user has changed the value (and subsequently left it empty).
 
-Instead of styling based on `:invalid`, use the TODO class `invalid`. Then the client can create a binding to apply the `invalid` class based on the associated `FormControl`'s status properties, like `invalid`, `dirty`, and `touched`.
+Instead of styling based on `:invalid`, use the class `invalid`. Then the client can create a binding to apply the `invalid` class based on the associated `FormControl`'s status properties, like `invalid`, `dirty`, and `touched`.
 
 ## Use FAST's `display` utility for styling host element
 
