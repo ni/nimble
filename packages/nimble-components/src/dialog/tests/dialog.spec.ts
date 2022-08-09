@@ -1,9 +1,10 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Dialog, ExtendedDialog, UserDismissed, USER_DISMISSED } from '..';
+import { Dialog, ExtendedDialog, USER_DISMISSED } from '..';
 
-async function setup(preventDismiss?: boolean): Promise<Fixture<Dialog>> {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+async function setup<CloseReason = void>(preventDismiss?: boolean): Promise<Fixture<Dialog<CloseReason>>> {
     const viewTemplate = html`
         <nimble-dialog ?prevent-dismiss="${() => preventDismiss}">
             <nimble-button id="ok">OK</nimble-button>
@@ -12,7 +13,7 @@ async function setup(preventDismiss?: boolean): Promise<Fixture<Dialog>> {
         <nimble-button id="button1">Button 1</nimble-button>
         <nimble-button id="button2">Button 2</nimble-button>
     `;
-    return fixture<Dialog>(viewTemplate);
+    return fixture<Dialog<CloseReason>>(viewTemplate);
 }
 
 describe('Dialog', () => {
@@ -33,16 +34,17 @@ describe('Dialog', () => {
     it('should initially be hidden', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
+
         expect(getComputedStyle(nativeDialogElement(element)).display).toBe(
             'none'
         );
+
         await disconnect();
     });
 
     it('should be displayed after calling show()', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
         void element.show();
         await DOM.nextUpdate();
 
@@ -56,7 +58,6 @@ describe('Dialog', () => {
     it('should be hidden after calling close()', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
         void element.show();
         await DOM.nextUpdate();
         element.close();
@@ -81,7 +82,6 @@ describe('Dialog', () => {
     it('should set open to true after calling show()', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
         void element.show();
         await DOM.nextUpdate();
 
@@ -93,10 +93,8 @@ describe('Dialog', () => {
     it('should set open to false after calling close()', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
         void element.show();
         await DOM.nextUpdate();
-
         element.close();
         await DOM.nextUpdate();
 
@@ -108,46 +106,26 @@ describe('Dialog', () => {
     it('should resolve promise when closed', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
-        let fulfilled = false;
-        let rejected = false;
-        element.show().then(
-            () => {
-                fulfilled = true;
-            },
-            () => {
-                rejected = true;
-            }
-        );
+        const dialogPromise = element.show();
         await DOM.nextUpdate();
-
-        expect(fulfilled).toBeFalse();
-        expect(rejected).toBeFalse();
-
         element.close();
         await DOM.nextUpdate();
 
-        expect(fulfilled).toBeTrue();
-        expect(rejected).toBeFalse();
+        await expectAsync(dialogPromise).not.toBeRejectedWithError();
 
         await disconnect();
     });
 
     it('should resolve promise with value passed to close()', async () => {
-        const { element, connect, disconnect } = await setup();
+        const { element, connect, disconnect } = await setup<string>();
         await connect();
-
-        let reason = '';
         const expectedReason = 'just because';
-        void element.show().then(x => {
-            reason = x as string;
-        });
+        const dialogDromise = element.show();
         await DOM.nextUpdate();
-
         element.close(expectedReason);
         await DOM.nextUpdate();
 
-        expect(reason).toBe(expectedReason);
+        await expectAsync(dialogDromise).toBeResolvedTo(expectedReason);
 
         await disconnect();
     });
@@ -155,17 +133,12 @@ describe('Dialog', () => {
     it('should resolve promise with undefined when nothing passed to close()', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
-        let reason = '';
-        void element.show().then(x => {
-            reason = x as string;
-        });
+        const dialogPromise = element.show();
         await DOM.nextUpdate();
-
         element.close();
         await DOM.nextUpdate();
 
-        expect(reason).toBeUndefined();
+        await expectAsync(dialogPromise).toBeResolvedTo(undefined);
 
         await disconnect();
     });
@@ -173,31 +146,41 @@ describe('Dialog', () => {
     it('should resolve promise with USER_DISMISSED when cancel event fired', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
-        let reason: unknown | UserDismissed;
-        void element.show().then(x => {
-            reason = x;
-        });
+        const dialogPromise = element.show();
         await DOM.nextUpdate();
-
-        // We can't actually cause the dialog to close, but we can fake it by sending both cancel and close events.
-        nativeDialogElement(element).dispatchEvent(new Event('cancel'));
+        // Simulate user dismiss events in browser
+        const cancelEvent = new Event('cancel', { cancelable: true });
+        nativeDialogElement(element).dispatchEvent(cancelEvent);
         nativeDialogElement(element).dispatchEvent(new Event('close'));
         await DOM.nextUpdate();
 
+        await expectAsync(dialogPromise).toBeResolvedTo(USER_DISMISSED);
+        expect(cancelEvent.defaultPrevented).toBeFalse();
         expect(element.open).toBeFalse();
-        expect(reason).toBe(USER_DISMISSED);
 
         await disconnect();
     });
 
-    // We cannot simulate pressing ESC in a way that fires the cancel event and actually closes the dialog.
-    // This prevents us from testing the prevent-dismiss attribute.
+    it('should dismiss an attempted cancel event when prevent-dismiss is enabled', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        element.preventDismiss = true;
+        void element.show();
+        await DOM.nextUpdate();
+        // Simulate user dismiss events in browser that are cancelled
+        const cancelEvent = new Event('cancel', { cancelable: true });
+        nativeDialogElement(element).dispatchEvent(cancelEvent);
+        await DOM.nextUpdate();
+
+        expect(cancelEvent.defaultPrevented).toBeTrue();
+        expect(element.open).toBeTrue();
+
+        await disconnect();
+    });
 
     it('throws calling show() a second time', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
         void element.show();
         await DOM.nextUpdate();
 
@@ -231,7 +214,6 @@ describe('Dialog', () => {
     it('forwards value of aria-label to dialog element', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
         const expectedValue = 'doughnut';
         element.ariaLabel = expectedValue;
         await DOM.nextUpdate();
@@ -246,11 +228,9 @@ describe('Dialog', () => {
     it('removes value of aria-label from dialog element when cleared from host', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
         element.ariaLabel = 'not empty';
         await DOM.nextUpdate();
-
-        element.ariaLabel = undefined;
+        element.ariaLabel = null;
         await DOM.nextUpdate();
 
         expect(
@@ -265,18 +245,17 @@ describe('Dialog', () => {
         await connect();
         const button2 = document.getElementById('button2')!;
         button2.focus();
-
-        expect(document.activeElement).toBe(button2);
-
+        const initialActiveElement = document.activeElement;
         void element.show();
         await DOM.nextUpdate();
-
-        expect(document.activeElement).not.toBe(button2);
-
+        const afterDialogOpenActiveElement = document.activeElement;
         element.close();
         await DOM.nextUpdate();
+        const afterDialogCloseActiveElement = document.activeElement;
 
-        expect(document.activeElement).toBe(button2);
+        expect(initialActiveElement).toBe(button2);
+        expect(afterDialogOpenActiveElement).not.toBe(button2);
+        expect(afterDialogCloseActiveElement).toBe(button2);
 
         await disconnect();
     });
@@ -285,7 +264,6 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const okButton = document.getElementById('ok')!;
-
         void element.show();
         await DOM.nextUpdate();
 
@@ -297,11 +275,9 @@ describe('Dialog', () => {
     it('focuses the button with autofocus when the dialog opens', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-
         const cancelButton = document.getElementById('cancel')!;
         cancelButton.setAttribute('autofocus', '');
         await DOM.nextUpdate();
-
         void element.show();
         await DOM.nextUpdate();
 
@@ -318,10 +294,8 @@ describe('Dialog', () => {
         secondDialog.append(secondDialogButton);
         element.parentElement!.append(secondDialog);
         await DOM.nextUpdate();
-
         void element.show();
         await DOM.nextUpdate();
-
         void secondDialog.show();
         await DOM.nextUpdate();
 

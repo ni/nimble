@@ -1,5 +1,5 @@
 import { attr } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { applyMixins, ARIAGlobalStatesAndProperties, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -29,7 +29,8 @@ export interface ExtendedDialog extends HTMLDialogElement {
 /**
  * A nimble-styled dialog.
  */
-export class Dialog extends FoundationElement {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+export class Dialog<CloseReason = void> extends FoundationElement {
     /**
      * @public
      * @description
@@ -37,9 +38,6 @@ export class Dialog extends FoundationElement {
      */
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
-
-    @attr({ attribute: 'aria-label' })
-    public ariaLabel?: string;
 
     /**
      * The ref to the internal dialog element.
@@ -52,14 +50,14 @@ export class Dialog extends FoundationElement {
         return this.resolveShow !== undefined;
     }
 
-    private resolveShow?: (reason: unknown | UserDismissed | undefined) => void;
-    private closeReason?: unknown | UserDismissed;
+    private resolveShow?: (reason: CloseReason | UserDismissed) => void;
+    private closeReason!: CloseReason | UserDismissed;
 
     /**
      * Opens the dialog
      * @returns Promise that is resolved when the dialog is closed. The value of the resolved Promise is the reason value passed to the close() method, or USER_DISMISSED if the dialog was closed via the ESC key.
      */
-    public async show(): Promise<unknown | UserDismissed | undefined> {
+    public async show(): Promise<CloseReason | UserDismissed> {
         if (this.open) {
             throw new Error('Dialog is already open');
         }
@@ -73,7 +71,7 @@ export class Dialog extends FoundationElement {
      * Closes the dialog
      * @param reason An optional value indicating how/why the dialog was closed.
      */
-    public close(reason?: unknown): void {
+    public close(reason: CloseReason): void {
         if (!this.open) {
             throw new Error('Dialog is not open');
         }
@@ -84,7 +82,6 @@ export class Dialog extends FoundationElement {
     public closeHandler(): boolean {
         this.resolveShow!(this.closeReason);
         this.resolveShow = undefined;
-        this.closeReason = undefined;
         return true;
     }
 
@@ -97,6 +94,10 @@ export class Dialog extends FoundationElement {
         return true;
     }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface Dialog extends ARIAGlobalStatesAndProperties {}
+applyMixins(Dialog, ARIAGlobalStatesAndProperties);
 
 const nimbleDialog = Dialog.compose({
     baseName: 'dialog',
