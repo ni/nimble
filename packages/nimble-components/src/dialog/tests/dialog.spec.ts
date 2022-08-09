@@ -4,7 +4,9 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Dialog, ExtendedDialog, USER_DISMISSED } from '..';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-async function setup<CloseReason = void>(preventDismiss?: boolean): Promise<Fixture<Dialog<CloseReason>>> {
+async function setup<CloseReason = void>(
+    preventDismiss = false
+): Promise<Fixture<Dialog<CloseReason>>> {
     const viewTemplate = html`
         <nimble-dialog ?prevent-dismiss="${() => preventDismiss}">
             <nimble-button id="ok">OK</nimble-button>
@@ -162,9 +164,8 @@ describe('Dialog', () => {
     });
 
     it('should dismiss an attempted cancel event when prevent-dismiss is enabled', async () => {
-        const { element, connect, disconnect } = await setup();
+        const { element, connect, disconnect } = await setup(true);
         await connect();
-        element.preventDismiss = true;
         void element.show();
         await DOM.nextUpdate();
         // Simulate user dismiss events in browser that are cancelled

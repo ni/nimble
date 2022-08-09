@@ -1,5 +1,10 @@
 import { attr } from '@microsoft/fast-element';
-import { applyMixins, ARIAGlobalStatesAndProperties, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    applyMixins,
+    ARIAGlobalStatesAndProperties,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 
