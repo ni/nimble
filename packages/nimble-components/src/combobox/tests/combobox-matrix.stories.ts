@@ -17,6 +17,7 @@ import {
     ErrorState
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import { controlLabelFont, controlLabelFontColor, smallPadding } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Combobox',
@@ -39,18 +40,25 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [errorName, errorVisible, errorText]: ErrorState,
 ): ViewTemplate => html`
-    <div style="display: inline-flex; flex-direction: column; margin: 5px; font: var(--ni-nimble-control-label-font); color: var(--ni-nimble-control-label-font-color)">
-    <label>${() => disabledName} ${() => errorName}</label>
-    <nimble-combobox 
-        ?disabled="${() => disabled}"
-        ?error-visible="${() => errorVisible}"
-        error-text="${() => errorText}"
+    <div style="
+        display: inline-flex;
+        flex-direction: column;
+        margin: var(${smallPadding.cssCustomProperty});
+        font: var(${controlLabelFont.cssCustomProperty});
+        color: var(${controlLabelFontColor.cssCustomProperty});"
     >
-        <nimble-list-option value="1">Option 1</nimble-list-option>
-        <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
-        <nimble-list-option value="3">Option 3</nimble-list-option>
-        <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
-    </nimble-combobox>
+        <label>${() => disabledName} ${() => errorName}</label>
+        <nimble-combobox 
+            ?disabled="${() => disabled}"
+            ?error-visible="${() => errorVisible}"
+            error-text="${() => errorText}"
+        >
+            <nimble-list-option value="1">Option 1</nimble-list-option>
+            <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
+            <nimble-list-option value="3">Option 3</nimble-list-option>
+            <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
+        </nimble-combobox>
+    </div>
 `;
 
 export const comboboxThemeMatrix: Story = createMatrixThemeStory(

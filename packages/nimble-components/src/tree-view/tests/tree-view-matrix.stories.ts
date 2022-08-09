@@ -11,10 +11,6 @@ import {
 import {
     disabledStates,
     DisabledState,
-    ExpandedState,
-    expandedStates,
-    SelectedState,
-    selectedStates,
     IconVisibleState,
     iconVisibleStates
 } from '../../utilities/tests/states';
@@ -28,6 +24,18 @@ const metadata: Meta = {
         ...sharedMatrixParameters()
     }
 };
+
+const expandedStates = [
+    ['Collapsed', false],
+    ['Expanded', true]
+] as const;
+type ExpandedState = typeof expandedStates[number];
+
+const selectedStates = [
+    ['Unselected', false],
+    ['Selected', true]
+] as const;
+type SelectedState = typeof selectedStates[number];
 
 // prettier-ignore
 const component = (

@@ -41,15 +41,3 @@ export type ReadOnlyState = typeof readOnlyStates[number];
 
 export const iconVisibleStates = [false, true] as const;
 export type IconVisibleState = typeof iconVisibleStates[number];
-
-export const expandedStates = [
-    ['Collapsed', false],
-    ['Expanded', true]
-] as const;
-export type ExpandedState = typeof expandedStates[number];
-
-export const selectedStates = [
-    ['Unselected', false],
-    ['Selected', true]
-] as const;
-export type SelectedState = typeof selectedStates[number];
