@@ -20,7 +20,6 @@ import { styles } from './styles';
 import type { IHasErrorText } from '../patterns/error/types';
 import { DropdownAppearance } from '../patterns/dropdown/types';
 
-
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-combobox': Combobox;

@@ -5,7 +5,10 @@ import '../../all-components';
 import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { DropdownAppearance, DropdownPosition } from '../../patterns/dropdown/types';
+import {
+    DropdownAppearance,
+    DropdownPosition
+} from '../../patterns/dropdown/types';
 
 interface ComboboxArgs {
     disabled: boolean;
