@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { Combobox } from '@ni/nimble-components/dist/esm/combobox';
 import { ComboboxAutocomplete } from '@ni/nimble-components/dist/esm/combobox/types';
+import type { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { Combobox };
@@ -13,6 +14,14 @@ export { ComboboxAutocomplete };
     selector: 'nimble-combobox',
 })
 export class NimbleComboboxDirective {
+    public get appearance(): DropdownAppearance {
+        return this.elementRef.nativeElement.appearance;
+    }
+
+    @Input() public set appearance(value: DropdownAppearance) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
+    }
+
     public get disabled(): boolean {
         return this.elementRef.nativeElement.disabled;
     }

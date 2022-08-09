@@ -14,9 +14,12 @@ import {
     smallDelay,
     smallPadding,
     failColor,
-    borderRgbPartialColor
+    borderRgbPartialColor,
+    standardPadding
 } from '../../theme-provider/design-tokens';
+import { appearanceBehavior } from '../../utilities/style/appearance';
 import { focusVisible } from '../../utilities/style/focus';
+import { DropdownAppearance } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -202,4 +205,48 @@ export const styles = css`
     ::slotted(option) {
         flex: none;
     }
-`;
+`.withBehaviors(
+        appearanceBehavior(
+            DropdownAppearance.underline,
+            css`
+            .control {
+                padding-top: ${borderWidth};
+                padding-left: calc(${borderWidth} + ${standardPadding} / 2);
+                padding-right: ${borderWidth};
+            }
+
+            :host([disabled]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+        `
+        ),
+        appearanceBehavior(
+            DropdownAppearance.outline,
+            css`
+            .control {
+                border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
+            }
+
+            :host(.invalid) .errortext {
+                top: calc(${controlHeight} - ${borderWidth});
+            }
+        `
+        ),
+        appearanceBehavior(
+            DropdownAppearance.block,
+            css`
+            .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                padding-left: calc(${borderWidth} + ${standardPadding} / 2);
+                padding-right: ${borderWidth};
+                padding-bottom: calc(${borderWidth});
+                border-bottom: ${borderWidth}
+                    rgba(${borderRgbPartialColor}, 0.07);
+            }
+
+            :host([disabled]) .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
+            }
+        `
+        )
+    );

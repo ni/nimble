@@ -28,6 +28,12 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     public Position? Position { get; set; }
 
     /// <summary>
+    /// Gets or sets the appearance of the combobox
+    /// </summary>
+    [Parameter]
+    public DropdownAppearance? Appearance { get; set; }
+
+    /// <summary>
     /// Gets or sets the autocomplete mode for the combobox
     /// </summary>
     [Parameter]
