@@ -1,5 +1,7 @@
 ﻿using Bunit;
 using NimbleBlazor;
+using System;
+using System.Linq.Expressions;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
@@ -26,7 +28,7 @@ public class NimbleComboboxTests
     [InlineData(Position.Above, "above")]
     public void ComboboxPosition_AttributeIsSet(Position value, string expectedAttribute)
     {
-        var select = RenderNimbleCombobox(value);
+        var select = RenderNimbleComboboxWithPropertySet(x => x.Position, value);
 
         Assert.Contains(expectedAttribute, select.Markup);
     }
@@ -38,9 +40,18 @@ public class NimbleComboboxTests
     [InlineData(AutoComplete.None, "none")]
     public void ComboboxAutoComplete_AttributeIsSet(AutoComplete value, string expectedAttribute)
     {
-        var select = RenderNimbleCombobox(value);
+        var select = RenderNimbleComboboxWithPropertySet(x => x.AutoComplete, value);
 
         Assert.Contains(expectedAttribute, select.Markup);
+    }
+
+    [Fact]
+    public void ComboboxPlaceholder_AttributeIsSet()
+    {
+        var placeholder = "Select value...";
+        var select = RenderNimbleComboboxWithPropertySet(x => x.Placeholder, placeholder);
+
+        Assert.Contains("placeholder", select.Markup);
     }
 
     [Fact]
@@ -52,18 +63,11 @@ public class NimbleComboboxTests
         Assert.Contains(expectedMarkup, select.Markup);
     }
 
-    private IRenderedComponent<NimbleCombobox> RenderNimbleCombobox(Position position)
+    private IRenderedComponent<NimbleCombobox> RenderNimbleComboboxWithPropertySet<TProperty>(Expression<Func<NimbleCombobox, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleCombobox>(p => p.Add(x => x.Position, position));
-    }
-
-    private IRenderedComponent<NimbleCombobox> RenderNimbleCombobox(AutoComplete autoComplete)
-    {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleCombobox>(p => p.Add(x => x.AutoComplete, autoComplete));
+        return context.RenderComponent<NimbleCombobox>(p => p.Add(propertyGetter, propertyValue));
     }
 
     private IRenderedComponent<NimbleCombobox> RenderNimbleComboboxWithOption()
