@@ -132,6 +132,12 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
             case keyEnter:
                 this.emitChangeIfValueUpdated();
                 break;
+            case keyArrowDown:
+            case keyArrowUp:
+                if (this.open && this.valueUpdatedByInput) {
+                    this.valueUpdatedByInput = false;
+                }
+                break;
             default:
                 return returnValue;
         }

@@ -3,7 +3,7 @@ import {
     Combobox as FoundationCombobox
 } from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
-import { keyEnter } from '@microsoft/fast-web-utilities';
+import { keyArrowDown, keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox } from '..';
 import '../../list-option';
@@ -274,6 +274,7 @@ describe('Combobox', () => {
         element.dispatchEvent(enterEvent); // commit value ('O')
 
         const changeEvent = jasmine.createSpy();
+        element.addEventListener('change', changeEvent);
         element.control.value = '';
         element.control.dispatchEvent(
             new InputEvent('input', { inputType: 'deleteContentBackward' })
@@ -281,6 +282,31 @@ describe('Combobox', () => {
         updateComboboxWithText(element, 'O');
         element.dispatchEvent(enterEvent); // commit value ('O')
         expect(changeEvent).toHaveBeenCalledTimes(0);
+
+        await disconnect();
+    });
+
+    it('after text entry if user browses popup and selects option pressing <Enter>, emit only one change event', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await DOM.nextUpdate();
+
+        element.autocomplete = ComboboxAutocomplete.none;
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('change', changeEvent);
+        updateComboboxWithText(element, 'O');
+        const keydownEvent = new KeyboardEvent('keydown', {
+            key: keyArrowDown
+        } as KeyboardEventInit);
+        element.dispatchEvent(keydownEvent); // open dropdown
+        element.dispatchEvent(keydownEvent); // browse to 'One'
+        const enterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        element.dispatchEvent(enterEvent); // commit value ('One')
+        await DOM.nextUpdate();
+
+        expect(changeEvent).toHaveBeenCalledTimes(1);
 
         await disconnect();
     });
