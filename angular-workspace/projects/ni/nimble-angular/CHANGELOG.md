@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 09 Aug 2022 18:05:34 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Aug 2022 19:30:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.2.4
+
+Tue, 09 Aug 2022 19:30:28 GMT
+
+### Patches
+
+- Adding 'Placeholder' APIs to Combobox. ([ni/nimble@2b7f674](https://github.com/ni/nimble/commit/2b7f6744f4c9f1504b3852aa059f2b1f1676222c))
 
 ## 8.2.3
 

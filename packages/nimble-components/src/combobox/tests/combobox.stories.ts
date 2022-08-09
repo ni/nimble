@@ -15,6 +15,7 @@ interface ComboboxArgs {
     invalid: boolean;
     errorText: string;
     currentValue: string;
+    placeholder: string;
 }
 
 interface OptionArgs {
@@ -51,6 +52,7 @@ const metadata: Meta<ComboboxArgs> = {
             class="${x => (x.invalid ? 'invalid' : '')}"
             aria-invalid="${x => x.invalid}"
             value="${x => x.currentValue}"
+            placeholder="${x => x.placeholder}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
                 <nimble-list-option ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
@@ -81,7 +83,7 @@ const metadata: Meta<ComboboxArgs> = {
         autocomplete: ComboboxAutocomplete.both,
         invalid: false,
         errorText: 'Value is invalid',
-        currentValue: 'Joaquin',
+        placeholder: 'Select value...',
         options: [
             { label: 'Mary', disabled: false },
             { label: 'Sue', disabled: false },
