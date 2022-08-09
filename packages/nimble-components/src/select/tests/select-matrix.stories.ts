@@ -15,7 +15,7 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
-import { controlLabelFont, controlLabelFontColor, smallPadding } from '../../theme-provider/design-tokens';
+import { controlLabelFont, controlLabelFontColor, standardPadding } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -45,7 +45,7 @@ const component = (
     <div style="
         display: inline-flex;
         flex-direction: column;
-        margin: var(${smallPadding.cssCustomProperty});
+        margin: var(${standardPadding.cssCustomProperty});
         font: var(${controlLabelFont.cssCustomProperty});
         color: var(${controlLabelFontColor.cssCustomProperty});"
     >

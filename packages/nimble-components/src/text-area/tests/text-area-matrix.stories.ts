@@ -62,7 +62,9 @@ const component = (
         placeholder="${() => placeholderValue}"
         ?readonly="${() => readonly}"
     >
-        ${() => disabledName} ${() => appearanceName} ${() => valueName}
+        ${() => disabledName}
+        ${() => appearanceName}
+        ${() => valueName}
         ${() => readOnlyName}
     </nimble-text-area>
 `;

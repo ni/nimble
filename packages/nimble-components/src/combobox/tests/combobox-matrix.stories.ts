@@ -17,7 +17,13 @@ import {
     ErrorState
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import { controlLabelFont, controlLabelFontColor, smallPadding } from '../../theme-provider/design-tokens';
+import { controlLabelFont, controlLabelFontColor, standardPadding } from '../../theme-provider/design-tokens';
+
+const valueStates = [
+    ['No Value', undefined, 'placeholder'],
+    ['Value', 'Hello', 'placeholder']
+] as const;
+type ValueState = typeof valueStates[number];
 
 const metadata: Meta = {
     title: 'Tests/Combobox',
@@ -39,19 +45,26 @@ export default metadata;
 const component = (
     [disabledName, disabled]: DisabledState,
     [errorName, errorVisible, errorText]: ErrorState,
+    [valueName, value, placeholder]: ValueState
 ): ViewTemplate => html`
     <div style="
         display: inline-flex;
         flex-direction: column;
-        margin: var(${smallPadding.cssCustomProperty});
+        margin: var(${standardPadding.cssCustomProperty});
         font: var(${controlLabelFont.cssCustomProperty});
         color: var(${controlLabelFontColor.cssCustomProperty});"
     >
-        <label>${() => disabledName} ${() => errorName}</label>
+        <label>
+            ${() => disabledName}
+            ${() => errorName}
+            ${() => valueName}
+        </label>
         <nimble-combobox 
             ?disabled="${() => disabled}"
             ?error-visible="${() => errorVisible}"
             error-text="${() => errorText}"
+            value="${() => value}"
+            placeholder="${() => placeholder}"
         >
             <nimble-list-option value="1">Option 1</nimble-list-option>
             <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
@@ -62,7 +75,7 @@ const component = (
 `;
 
 export const comboboxThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, errorStates])
+    createMatrix(component, [disabledStates, errorStates, valueStates])
 );
 
 export const hiddenCombobox: Story = createStory(
