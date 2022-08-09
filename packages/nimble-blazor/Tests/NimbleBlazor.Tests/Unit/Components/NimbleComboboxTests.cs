@@ -1,7 +1,7 @@
-﻿using Bunit;
-using NimbleBlazor;
-using System;
+﻿using System;
 using System.Linq.Expressions;
+using Bunit;
+using NimbleBlazor;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
