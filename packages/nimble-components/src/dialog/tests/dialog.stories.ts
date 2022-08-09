@@ -3,14 +3,17 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import type { Dialog } from '..';
+import { Dialog, USER_DISMISSED } from '..';
 import type { TextField } from '../../text-field';
 
 interface DialogArgs {
     preventDismiss: boolean;
-    dialogRef: Dialog;
+    dialogRef: Dialog<string>;
     textFieldRef: TextField;
-    openAndHandleResult: (dialogRef: Dialog, textFieldRef: TextField) => void;
+    openAndHandleResult: (
+        dialogRef: Dialog<string>,
+        textFieldRef: TextField
+    ) => void;
 }
 
 const metadata: Meta<DialogArgs> = {
@@ -75,7 +78,7 @@ const metadata: Meta<DialogArgs> = {
         preventDismiss: false,
         openAndHandleResult: async (dialogRef, textFieldRef) => {
             const reason = await dialogRef.show();
-            textFieldRef.value = typeof reason === 'string' ? reason : 'ESC pressed';
+            textFieldRef.value = reason === USER_DISMISSED ? 'ESC pressed' : reason;
         }
     }
 };
