@@ -14,7 +14,7 @@
             <Word>lang</Word>
             <Word>frameless</Word>
             <Word>Dropdown</Word>
-			<Word>Getter</Word>
+	    <Word>Getter</Word>
         </Recognized>
         <DiscreteExceptions>
         </DiscreteExceptions>
