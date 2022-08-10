@@ -100,10 +100,9 @@ export const styles = css`
         display: flex;
         min-height: 100%;
         width: 100%;
-        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
+        border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         background-color: transparent;
-        padding-left: 8px;
-        padding-bottom: 1px;
+        padding: ${borderWidth};
     }
 
     :host(.open:not(:hover)) .control {
@@ -166,6 +165,8 @@ export const styles = css`
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        padding: 0px;
+        padding-left: calc(${standardPadding} / 2);
     }
 
     .selected-value[disabled]::placeholder {
@@ -214,9 +215,8 @@ export const styles = css`
             DropdownAppearance.underline,
             css`
             .control {
-                padding-top: ${borderWidth};
-                padding-left: calc(${borderWidth} + ${standardPadding} / 2);
-                padding-right: ${borderWidth};
+                border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
             }
 
             :host([disabled]) .control {
@@ -228,7 +228,8 @@ export const styles = css`
             DropdownAppearance.outline,
             css`
             .control {
-                border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
+                border-width: ${borderWidth};
+                padding: 0;
             }
         `
         ),
@@ -237,13 +238,9 @@ export const styles = css`
             css`
             .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
-                padding-left: calc(${borderWidth} + ${standardPadding} / 2);
-                padding-right: ${borderWidth};
-                padding-bottom: calc(${borderWidth});
-                border-bottom: ${borderWidth}
-                    rgba(${borderRgbPartialColor}, 0.07);
             }
 
+            .control:focus-within,
             :host(.invalid) .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;

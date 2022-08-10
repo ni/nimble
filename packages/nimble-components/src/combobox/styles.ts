@@ -5,7 +5,8 @@ import {
     bodyDisabledFontColor,
     borderRgbPartialColor,
     smallPadding,
-    borderHoverColor
+    borderHoverColor,
+    borderWidth
 } from '../theme-provider/design-tokens';
 
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
@@ -19,6 +20,9 @@ export const styles = css`
     :host {
         --ni-private-hover-bottom-border-width: 2px;
         --ni-private-bottom-border-width: 1px;
+        --ni-private-height-within-border: calc(
+            ${controlHeight} - 2 * ${borderWidth}
+        );
     }
 
     :host([disabled]) *,
@@ -55,7 +59,7 @@ export const styles = css`
         margin: auto 0;
         width: 100%;
         font-size: inherit;
-        padding-left: 0px;
+        height: var(--ni-private-height-within-border);
     }
 
     .selected-value:hover,
