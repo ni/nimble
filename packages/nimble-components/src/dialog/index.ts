@@ -51,6 +51,9 @@ export class Dialog<CloseReason = void> extends FoundationElement {
      */
     public readonly dialogElement!: ExtendedDialog;
 
+    /**
+     * True if the dialog is open/showing, false otherwise
+     */
     public get open(): boolean {
         return this.resolveShow !== undefined;
     }
@@ -84,12 +87,18 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         this.dialogElement.close();
     }
 
+    /**
+     * @internal
+     */
     public closeHandler(): boolean {
         this.resolveShow!(this.closeReason);
         this.resolveShow = undefined;
         return true;
     }
 
+    /**
+     * @internal
+     */
     public cancelHandler(event: Event): boolean {
         if (this.preventDismiss) {
             event.preventDefault();
