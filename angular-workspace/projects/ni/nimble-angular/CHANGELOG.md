@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 10 Aug 2022 17:05:04 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Aug 2022 21:38:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.3.0
+
+Wed, 10 Aug 2022 21:38:38 GMT
+
+### Minor changes
+
+- Add Appearance to Combobox. ([ni/nimble@32b4ed9](https://github.com/ni/nimble/commit/32b4ed97aaaea52ff211118a405fd34922a3c0cd))
+- Bump @ni/nimble-components to v11.10.0
 
 ## 8.2.6
 
