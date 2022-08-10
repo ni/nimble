@@ -53,12 +53,9 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host(.invalid[disabled]) .control {
-        border-color: ${failColor};
-    }
-
+    :host(.invalid[disabled]) .control,
     :host(.open.invalid) .control {
-        border-bottom-color: ${failColor};
+        border-color: ${failColor};
     }
 
     .selected-value {
