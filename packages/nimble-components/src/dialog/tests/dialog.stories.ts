@@ -85,8 +85,4 @@ const metadata: Meta<DialogArgs> = {
 
 export default metadata;
 
-export const dialog: StoryObj<DialogArgs> = {
-    play: (): void => {
-        document.getElementById('open')!.dispatchEvent(new Event('click'));
-    }
-};
+export const dialog: StoryObj<DialogArgs> = {};
