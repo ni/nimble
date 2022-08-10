@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 01 Aug 2022 17:54:58 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Aug 2022 22:19:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.5
+
+Tue, 09 Aug 2022 22:19:14 GMT
+
+### Patches
+
+- Combobox text input updates value. ([ni/nimble@f232213](https://github.com/ni/nimble/commit/f232213f3f0078a7a97879e2fd8f49937e14eef4))
+
+## 11.8.4
+
+Tue, 09 Aug 2022 18:05:33 GMT
+
+### Patches
+
+- Remove custom text selection styling ([ni/nimble@fd627f2](https://github.com/ni/nimble/commit/fd627f21dee853ce1e6d77196c673f28d58e2daa))
+
+## 11.8.3
+
+Tue, 09 Aug 2022 15:57:14 GMT
+
+### Patches
+
+- Remove tab focus from button in combobox. ([ni/nimble@56ee1ee](https://github.com/ni/nimble/commit/56ee1eeb21568b86a6e5b351d1f1985e23d228dc))
+
+## 11.8.2
+
+Tue, 09 Aug 2022 00:07:50 GMT
+
+### Patches
+
+- theme and appearance behaviors refactor ([ni/nimble@9a2f491](https://github.com/ni/nimble/commit/9a2f49176f39b5e9027486b89a9a910f7a68f454))
 
 ## 11.8.1
 

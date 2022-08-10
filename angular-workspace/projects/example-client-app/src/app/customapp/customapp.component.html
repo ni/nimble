@@ -105,7 +105,7 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Combobox</div>
-                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" autocomplete="both">
+                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" autocomplete="both" placeholder="Select value...">
                     <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
                 </nimble-combobox>
                 <div>
@@ -161,6 +161,19 @@
                     <nimble-button>Middle button</nimble-button>
                     <nimble-button slot="end" appearance="outline">Last button</nimble-button>
                 </nimble-toolbar>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Tooltip</div>
+                <nimble-button id="anchor1">Default</nimble-button>
+                <nimble-tooltip anchor="anchor1">Tooltip label</nimble-tooltip>
+                <nimble-button id="anchor2">Fail</nimble-button>
+                <nimble-tooltip anchor="anchor2" class="fail">Tooltip label</nimble-tooltip>
+                <nimble-button id="anchor3">Information</nimble-button>
+                <nimble-tooltip anchor="anchor3" class="information">Tooltip label</nimble-tooltip>
+                <nimble-button id="anchor4">Fail Icon </nimble-button>
+                <nimble-tooltip anchor="anchor4" class="fail icon-visible">Tooltip label</nimble-tooltip>
+                <nimble-button id="anchor5">Information Icon</nimble-button>
+                <nimble-tooltip anchor="anchor5" class="information icon-visible">Tooltip label</nimble-tooltip>
             </div>
             <div class="sub-container">
                 <div class="container-label">Tree View</div>

@@ -39,8 +39,9 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this._compareWith = fn;
     }
 
-    /** @internal */
-    public readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
+    private readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
+
+    private _modelValue: unknown;
 
     private _compareWith: (o1: unknown, o2: unknown) => boolean = Object.is;
 
@@ -49,6 +50,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      * element.
      * @nodoc
      */
+    @HostListener('input', ['$event.target.control.value]'])
     @HostListener('change', ['$event.target.value]'])
     private onChange: (_: string) => void;
 
@@ -66,8 +68,8 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      * @param value The ngValue set on the nimble-combobox
      */
     public writeValue(value: unknown): void {
-        const valueAsString = this.getValueStringFromValue(value);
-        this.setProperty('value', valueAsString ?? '');
+        this._modelValue = value;
+        this.updateDisplayValue();
     }
 
     /**
@@ -76,7 +78,8 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnChange(fn: (value: unknown) => void): void {
         this.onChange = (valueString: string): void => {
-            const modelValue = this._optionMap.get(valueString) ?? OPTION_NOT_FOUND;
+            const modelValue = this._optionMap.has(valueString) ? this._optionMap.get(valueString) : OPTION_NOT_FOUND;
+            this._modelValue = modelValue;
             fn(modelValue);
         };
     }
@@ -87,6 +90,26 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnTouched(fn: () => void): void {
         this.onTouched = fn;
+    }
+
+    /**
+     * @internal
+     */
+    public addOption(displayValue: string, modelValue: unknown): void {
+        this._optionMap.set(displayValue, modelValue);
+        this.updateDisplayValue();
+    }
+
+    /**
+     * @internal
+     */
+    public removeOption(displayValue: string): void {
+        this._optionMap.delete(displayValue);
+    }
+
+    private updateDisplayValue(): void {
+        const valueAsString = this.getValueStringFromValue(this._modelValue);
+        this.setProperty('value', valueAsString ?? '');
     }
 
     private getValueStringFromValue(value: unknown): string | undefined {
