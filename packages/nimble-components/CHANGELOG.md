@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 09 Aug 2022 22:19:14 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Aug 2022 17:05:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.9.0
+
+Wed, 10 Aug 2022 17:05:04 GMT
+
+### Minor changes
+
+- Add nimble-dialog component ([ni/nimble@fd2f531](https://github.com/ni/nimble/commit/fd2f53162c9d194b943f8573eb140539eb0eccbc))
 
 ## 11.8.5
 
