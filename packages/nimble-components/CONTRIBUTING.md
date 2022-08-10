@@ -167,7 +167,7 @@ It is common in web development to represent variations of control states using 
 
     An `appearance-variant` attribute may also be used to represent smaller mutually exclusive variations of an appearance. Likely implemented with CSS attribute selectors.
 
-##### Atribute common value patterns
+##### Attribute common value patterns
 
 -   When applicable, the default value for an attribute that is allowed to be unconfigured should have the enum name `default` and be the enum value `undefined`.
 -   States representing the following ideas should use those names: `success`, `error`, `warning`, `information`.
