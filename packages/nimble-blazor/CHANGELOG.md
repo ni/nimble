@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 10 Aug 2022 21:38:38 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Aug 2022 23:35:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.5.0
+
+Wed, 10 Aug 2022 23:35:50 GMT
+
+### Minor changes
+
+- Nimble Tooltip Blazor Integration (#309) ([ni/nimble@ab33209](https://github.com/ni/nimble/commit/ab3320969c08460b6449bffa74e76a07d4d3277a))
 
 ## 5.4.0
 

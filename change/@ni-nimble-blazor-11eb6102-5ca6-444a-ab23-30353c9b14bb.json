@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Nimble Tooltip Blazor Integration (#309)",
-  "packageName": "@ni/nimble-blazor",
-  "email": "103057880+aidendk@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
