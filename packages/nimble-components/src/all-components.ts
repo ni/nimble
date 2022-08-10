@@ -11,6 +11,7 @@ import './button';
 import './card-button';
 import './checkbox';
 import './combobox';
+import './dialog';
 import './drawer';
 import './icons/all-icons';
 import './list-option';
