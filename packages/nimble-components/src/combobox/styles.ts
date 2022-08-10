@@ -111,10 +111,10 @@ export const styles = css`
         appearanceBehavior(
             DropdownAppearance.block,
             css`
-        :host(.invalid) .control {
-            border-bottom-width: ${borderWidth};
-            padding-bottom: 0;
-        }
+            :host(.invalid) .control {
+                border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
+            }
         `
         )
     );
