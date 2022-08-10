@@ -5,7 +5,10 @@ import '../../all-components';
 import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { DropdownPosition } from '../../patterns/dropdown/types';
+import {
+    DropdownAppearance,
+    DropdownPosition
+} from '../../patterns/dropdown/types';
 
 interface ComboboxArgs {
     disabled: boolean;
@@ -15,6 +18,7 @@ interface ComboboxArgs {
     invalid: boolean;
     errorText: string;
     currentValue: string;
+    appearance: string;
     placeholder: string;
 }
 
@@ -51,6 +55,7 @@ const metadata: Meta<ComboboxArgs> = {
             error-text="${x => x.errorText}"
             class="${x => (x.invalid ? 'invalid' : '')}"
             aria-invalid="${x => x.invalid}"
+            appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
         >
@@ -72,6 +77,10 @@ const metadata: Meta<ComboboxArgs> = {
             options: [DropdownPosition.above, DropdownPosition.below],
             control: { type: 'select' }
         },
+        appearance: {
+            options: Object.values(DropdownAppearance),
+            control: { type: 'radio' }
+        },
         errorText: {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
@@ -83,6 +92,7 @@ const metadata: Meta<ComboboxArgs> = {
         autocomplete: ComboboxAutocomplete.both,
         invalid: false,
         errorText: 'Value is invalid',
+        appearance: DropdownAppearance.underline,
         placeholder: 'Select value...',
         options: [
             { label: 'Mary', disabled: false },
@@ -98,4 +108,14 @@ const metadata: Meta<ComboboxArgs> = {
 
 export default metadata;
 
-export const combobox: StoryObj<ComboboxArgs> = {};
+export const underlineCombobox: StoryObj<ComboboxArgs> = {
+    args: { appearance: DropdownAppearance.underline }
+};
+
+export const outlineCombobox: StoryObj<ComboboxArgs> = {
+    args: { appearance: DropdownAppearance.outline }
+};
+
+export const blockCombobox: StoryObj<ComboboxArgs> = {
+    args: { appearance: DropdownAppearance.block }
+};

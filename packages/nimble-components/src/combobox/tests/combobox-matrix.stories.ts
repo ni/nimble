@@ -1,6 +1,7 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrixThemeStory,
     createStory
@@ -10,8 +11,14 @@ import {
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import '../../all-components';
-import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    placeholderStates,
+    PlaceholderState
+} from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import { DropdownAppearance } from '../../patterns/dropdown/types';
 
 /* array of state name, invalidClass, errorText */
 const comboboxInvalidStates = [
@@ -37,25 +44,43 @@ const metadata: Meta = {
 
 export default metadata;
 
+const appearanceStates = Object.entries(DropdownAppearance).map(
+    ([key, value]) => [pascalCase(key), value]
+);
+
+type AppearanceState = typeof appearanceStates[number];
+
 // prettier-ignore
 const component = (
-    [_, disabled]: DisabledState,
+    [disabledName, disabled]: DisabledState,
+    [appearanceName, appearance]: AppearanceState,
+    [placeHolderName, placeholder]: PlaceholderState,
     [invalidClass, errorText]: ComboboxInvalidState,
 ): ViewTemplate => html`
-    <nimble-combobox 
-        ?disabled="${() => disabled}"
-        class="${() => invalidClass}"
-        error-text="${() => errorText}"
-    >
-        <nimble-list-option value="1">Option 1</nimble-list-option>
-        <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
-        <nimble-list-option value="3">Option 3</nimble-list-option>
-        <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
-    </nimble-combobox>
+    <div style="display: inline-flex; flex-direction: column; margin: 5px; font: var(--ni-nimble-control-label-font); color: var(--ni-nimble-control-label-font-color)">
+        <label>${() => disabledName} ${() => appearanceName} ${() => placeHolderName}</label>
+        <nimble-combobox 
+            ?disabled="${() => disabled}"
+            appearance="${() => appearance}"
+            class="${() => invalidClass}"
+            placeholder="${() => placeholder}"
+            error-text="${() => errorText}"
+        >
+            <nimble-list-option value="1">Option 1</nimble-list-option>
+            <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
+            <nimble-list-option value="3">Option 3</nimble-list-option>
+            <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
+        </nimble-combobox>
+    </div>
 `;
 
 export const comboboxThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, comboboxInvalidStates])
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        placeholderStates,
+        comboboxInvalidStates
+    ])
 );
 
 export const hiddenCombobox: Story = createStory(

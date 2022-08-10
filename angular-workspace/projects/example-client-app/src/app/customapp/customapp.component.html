@@ -105,7 +105,7 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Combobox</div>
-                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" autocomplete="both" placeholder="Select value...">
+                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="underline" autocomplete="both" placeholder="Select value...">
                     <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
                 </nimble-combobox>
                 <div>
@@ -113,6 +113,12 @@
                         Last name: {{ comboboxSelectedLastName }}
                     </span>
                 </div>
+                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="outline" autocomplete="both" placeholder="Select value...">
+                    <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                </nimble-combobox>
+                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="block" autocomplete="both" placeholder="Select value...">
+                    <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                </nimble-combobox>
             </div>
             <div class="sub-container">
                 <div class="container-label">Switch</div>
