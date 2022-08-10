@@ -57,6 +57,10 @@ export const styles = css`
         border-color: ${failColor};
     }
 
+    :host(.open.invalid) .control {
+        border-bottom-color: ${failColor};
+    }
+
     .selected-value {
         -webkit-appearance: none;
         background: transparent;
