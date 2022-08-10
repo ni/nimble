@@ -147,12 +147,15 @@ It is common in web development to represent variations of control states using 
 
 ##### Attribute naming convention
 
-Use lower-kebab-case for attributes and enum values that are part of a component's public API.
+-   Do not use attribute names that conflict with native attribute names:
+    -   Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
+    -   Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
+-   Use lower-kebab-case for attributes and enum values that are part of a component's public API.
 
-```ts
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
-```
+    ```ts
+        @attr({ attribute: 'error-text' })
+        public errorText?: string;
+    ```
 
 ##### Attribute common name patterns
 
