@@ -185,6 +185,19 @@
                 </NimbleToolbar>
             </div>
             <div class="sub-container">
+                <div class="container-label">Tooltip</div>
+                <NimbleButton id="default-anchor">Default</NimbleButton>
+                <NimbleTooltip Anchor="default-anchor">Tooltip label</NimbleTooltip>
+                <NimbleButton id="fail-anchor">Fail</NimbleButton>
+                <NimbleTooltip Anchor="fail-anchor" class="fail">Tooltip label</NimbleTooltip>
+                <NimbleButton id="information-anchor">Information</NimbleButton>
+                <NimbleTooltip Anchor="information-anchor" class="information">Tooltip label</NimbleTooltip>
+                <NimbleButton id="fail-icon-anchor">Fail Icon</NimbleButton>
+                <NimbleTooltip Anchor="fail-icon-anchor" class="fail icon-visible">Tooltip label</NimbleTooltip>
+                <NimbleButton id="information-icon-anchor">Information Icon</NimbleButton>
+                <NimbleTooltip Anchor="information-icon-anchor" class="information icon-visible">Tooltip label</NimbleTooltip>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Tree View</div>
                 <NimbleTreeView>
                     <NimbleTreeItem>
