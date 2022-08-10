@@ -15,6 +15,7 @@
             <Word>frameless</Word>
             <Word>Dropdown</Word>
             <Word>Tooltip</Word>
+	          <Word>Getter</Word>
         </Recognized>
         <DiscreteExceptions>
         </DiscreteExceptions>

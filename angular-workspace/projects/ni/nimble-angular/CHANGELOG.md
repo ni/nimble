@@ -1,8 +1,57 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 02 Aug 2022 16:35:19 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Aug 2022 22:19:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.2.5
+
+Tue, 09 Aug 2022 22:19:14 GMT
+
+### Patches
+
+- Combobox text input updates value. ([ni/nimble@f232213](https://github.com/ni/nimble/commit/f232213f3f0078a7a97879e2fd8f49937e14eef4))
+- Bump @ni/nimble-components to v11.8.5
+
+## 8.2.4
+
+Tue, 09 Aug 2022 19:30:28 GMT
+
+### Patches
+
+- Adding 'Placeholder' APIs to Combobox. ([ni/nimble@2b7f674](https://github.com/ni/nimble/commit/2b7f6744f4c9f1504b3852aa059f2b1f1676222c))
+
+## 8.2.3
+
+Tue, 09 Aug 2022 18:05:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.4
+
+## 8.2.2
+
+Tue, 09 Aug 2022 15:57:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.3
+
+## 8.2.1
+
+Tue, 09 Aug 2022 00:07:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.2
+
+## 8.2.0
+
+Mon, 08 Aug 2022 13:26:50 GMT
+
+### Minor changes
+
+- Tooltip Angular Integration (#309) ([ni/nimble@74efe0c](https://github.com/ni/nimble/commit/74efe0cc15a6c21ee54626898f7a4c492bdaf012))
 
 ## 8.1.2
 

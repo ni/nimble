@@ -7,7 +7,6 @@ import {
     bodyFontColor,
     bodyDisabledFontColor,
     controlHeight,
-    fillSelectedRgbPartialColor,
     controlLabelFont,
     controlLabelFontColor,
     labelHeight,
@@ -134,11 +133,6 @@ export const styles = css`
     .control:disabled,
     .control:active {
         outline: none;
-    }
-
-    .control::selection {
-        color: ${controlLabelFontColor};
-        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
     }
 
     .control::placeholder {

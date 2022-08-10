@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 09 Aug 2022 19:30:28 GMT",
+      "tag": "@ni/nimble-blazor_v5.3.5",
+      "version": "5.3.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2b7f6744f4c9f1504b3852aa059f2b1f1676222c",
+            "comment": "Adding 'Placeholder' APIs to Combobox."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Aug 2022 17:08:37 GMT",
       "tag": "@ni/nimble-blazor_v5.3.0",
       "version": "5.3.0",

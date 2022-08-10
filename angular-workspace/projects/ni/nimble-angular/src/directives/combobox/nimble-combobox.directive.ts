@@ -29,6 +29,14 @@ export class NimbleComboboxDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'autocomplete', value);
     }
 
+    public get placeholder(): string {
+        return this.elementRef.nativeElement.placeholder;
+    }
+
+    @Input() public set placeholder(value: string) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
+    }
+
     public get errorText(): string | undefined {
         return this.elementRef.nativeElement.errorText;
     }
