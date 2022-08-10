@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 10 Aug 2022 17:05:04 GMT",
+      "tag": "@ni/nimble-components_v11.9.0",
+      "version": "11.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fd2f53162c9d194b943f8573eb140539eb0eccbc",
+            "comment": "Add nimble-dialog component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Aug 2022 14:36:49 GMT",
       "tag": "@ni/nimble-components_v11.8.5",
       "version": "11.8.5",
