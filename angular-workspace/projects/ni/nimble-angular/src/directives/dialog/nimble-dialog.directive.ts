@@ -12,7 +12,7 @@ export { USER_DISMISSED };
 @Directive({
     selector: 'nimble-dialog'
 })
-export class NimbleDialogDirective<CloseReason> {
+export class NimbleDialogDirective<CloseReason = void> {
     public get preventDismiss(): boolean {
         return this.elementRef.nativeElement.preventDismiss;
     }

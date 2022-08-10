@@ -48,8 +48,8 @@ describe('Nimble dialog', () => {
         });
 
         it('has expected defaults for ariaLabel', () => {
-            expect(directive.ariaLabel).toBeNull();
-            expect(nativeElement.ariaLabel).toBeNull();
+            expect(directive.ariaLabel).toBeUndefined();
+            expect(nativeElement.ariaLabel).toBeUndefined();
         });
 
         it('has expected defaults for open', () => {
@@ -63,8 +63,7 @@ describe('Nimble dialog', () => {
             template: `
                 <nimble-dialog #dialog
                     prevent-dismiss
-                    aria-label="label"
-                    role="role">
+                    aria-label="label">
                 </nimble-dialog>`
         })
         class TestHostComponent {
@@ -103,8 +102,7 @@ describe('Nimble dialog', () => {
             template: `
                 <nimble-dialog #dialog
                     [preventDismiss]="preventDismiss"
-                    [ariaLabel]="ariaLabel"
-                    [role]="role">
+                    [ariaLabel]="ariaLabel">
                 </nimble-dialog>`
         })
         class TestHostComponent {
@@ -112,7 +110,6 @@ describe('Nimble dialog', () => {
             @ViewChild('dialog', { read: ElementRef }) public elementRef: ElementRef<Dialog>;
             public preventDismiss = false;
             public ariaLabel = 'label';
-            public role = 'role';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -158,8 +155,7 @@ describe('Nimble dialog', () => {
             template: `
                 <nimble-dialog #dialog
                     [attr.prevent-dismiss]="preventDismiss"
-                    [attr.aria-label]="ariaLabel"
-                    [attr.role]="role">
+                    [attr.aria-label]="ariaLabel">
                 </nimble-dialog>`
         })
         class TestHostComponent {
@@ -167,7 +163,6 @@ describe('Nimble dialog', () => {
             @ViewChild('dialog', { read: ElementRef }) public elementRef: ElementRef<Dialog>;
             public preventDismiss = false;
             public ariaLabel = 'label';
-            public role = 'role';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
