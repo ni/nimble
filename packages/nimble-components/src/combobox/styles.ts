@@ -55,7 +55,7 @@ export const styles = css`
 
     :host(.invalid[disabled]) .control,
     :host(.open.invalid) .control {
-        border-color: ${failColor};
+        border-bottom-color: ${failColor};
     }
 
     .selected-value {
