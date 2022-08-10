@@ -39,7 +39,7 @@ const metadata: Meta<TooltipArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
-        <style>
+        <style class="code-hide">
             #anchor {
                 border: 1px solid var(${borderColor.cssCustomProperty});
                 font: var(${bodyFont.cssCustomProperty});
@@ -48,7 +48,7 @@ const metadata: Meta<TooltipArgs> = {
                 height: 35px;
             }
         </style>
-        <div id="anchor" aria-describedby="aria-anchor">
+        <div id="anchor" aria-describedby="text-tooltip">
             Hover here to see tooltip
         </div>
         <nimble-tooltip
@@ -129,7 +129,7 @@ export const complexContentTooltip: StoryObj<TooltipArgs> = {
                 margin-block: 0em;
             }
         </style>
-        <div id="complex-anchor" aria-describedby="aria-anchor">
+        <div id="complex-anchor" aria-describedby="complex-tooltip">
             Hover here to see complex content tooltip
         </div>
         <nimble-tooltip
