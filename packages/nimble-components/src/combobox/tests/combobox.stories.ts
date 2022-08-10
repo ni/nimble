@@ -39,7 +39,7 @@ const metadata: Meta<ComboboxArgs> = {
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae/specs/'
         },
         actions: {
-            handles: ['change']
+            handles: ['change', 'input']
         }
     },
     // prettier-ignore

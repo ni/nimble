@@ -50,6 +50,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      * element.
      * @nodoc
      */
+    @HostListener('input', ['$event.target.control.value]'])
     @HostListener('change', ['$event.target.value]'])
     private onChange: (_: string) => void;
 
