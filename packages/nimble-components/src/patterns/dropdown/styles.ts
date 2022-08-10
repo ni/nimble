@@ -168,6 +168,10 @@ export const styles = css`
         overflow: hidden;
     }
 
+    .selected-value[disabled]::placeholder {
+        color: ${bodyDisabledFontColor};
+    }
+
     .indicator {
         flex: none;
         margin-inline-start: 1em;
@@ -226,10 +230,6 @@ export const styles = css`
             .control {
                 border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
             }
-
-            :host(.invalid) .errortext {
-                top: calc(${controlHeight} - ${borderWidth});
-            }
         `
         ),
         appearanceBehavior(
@@ -242,6 +242,11 @@ export const styles = css`
                 padding-bottom: calc(${borderWidth});
                 border-bottom: ${borderWidth}
                     rgba(${borderRgbPartialColor}, 0.07);
+            }
+
+            :host(.invalid) .control {
+                border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
             }
 
             :host([disabled]) .control {
