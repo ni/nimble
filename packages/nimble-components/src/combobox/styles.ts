@@ -5,12 +5,15 @@ import {
     bodyDisabledFontColor,
     borderRgbPartialColor,
     smallPadding,
-    borderHoverColor
+    borderHoverColor,
+    borderWidth
 } from '../theme-provider/design-tokens';
 
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
 import { styles as errorStyles } from '../patterns/error/styles';
 import { focusVisible } from '../utilities/style/focus';
+import { appearanceBehavior } from '../utilities/style/appearance';
+import { DropdownAppearance } from '../select/types';
 
 export const styles = css`
     ${dropdownStyles}
@@ -19,12 +22,19 @@ export const styles = css`
     :host {
         --ni-private-hover-bottom-border-width: 2px;
         --ni-private-bottom-border-width: 1px;
+        --ni-private-height-within-border: calc(
+            ${controlHeight} - 2 * ${borderWidth}
+        );
     }
 
     :host([disabled]) *,
     :host([disabled]) {
         user-select: none;
         color: ${bodyDisabledFontColor};
+    }
+
+    :host(.invalid)::after {
+        border-bottom-color: ${failColor};
     }
 
     .control {
@@ -43,8 +53,9 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host(.invalid[disabled]) .control {
-        border-color: ${failColor};
+    :host(.invalid[disabled]) .control,
+    :host(.open.invalid) .control {
+        border-bottom-color: ${failColor};
     }
 
     .selected-value {
@@ -55,7 +66,7 @@ export const styles = css`
         margin: auto 0;
         width: 100%;
         font-size: inherit;
-        padding-left: 0px;
+        height: var(--ni-private-height-within-border);
     }
 
     .selected-value:hover,
@@ -96,4 +107,14 @@ export const styles = css`
     :host(:empty) .listbox {
         display: none;
     }
-`;
+`.withBehaviors(
+        appearanceBehavior(
+            DropdownAppearance.block,
+            css`
+            :host(.invalid) .control {
+                border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
+            }
+        `
+        )
+    );
