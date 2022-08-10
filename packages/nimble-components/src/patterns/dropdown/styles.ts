@@ -13,7 +13,6 @@ import {
     popupBoxShadowColor,
     smallDelay,
     smallPadding,
-    failColor,
     borderRgbPartialColor,
     standardPadding
 } from '../../theme-provider/design-tokens';
@@ -72,10 +71,6 @@ export const styles = css`
         border-bottom: ${borderHoverColor}
             var(--ni-private-hover-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
-    }
-
-    :host(.invalid)::after {
-        border-bottom-color: ${failColor};
     }
 
     @media (prefers-reduced-motion) {
@@ -240,8 +235,7 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
 
-            .control:focus-within,
-            :host(.invalid) .control {
+            .control:focus-within {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }

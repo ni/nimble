@@ -12,6 +12,8 @@ import {
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
 import { styles as errorStyles } from '../patterns/error/styles';
 import { focusVisible } from '../utilities/style/focus';
+import { appearanceBehavior } from '../utilities/style/appearance';
+import { DropdownAppearance } from '../select/types';
 
 export const styles = css`
     ${dropdownStyles}
@@ -29,6 +31,10 @@ export const styles = css`
     :host([disabled]) {
         user-select: none;
         color: ${bodyDisabledFontColor};
+    }
+
+    :host(.invalid)::after {
+        border-bottom-color: ${failColor};
     }
 
     .control {
@@ -100,4 +106,14 @@ export const styles = css`
     :host(:empty) .listbox {
         display: none;
     }
-`;
+`.withBehaviors(
+        appearanceBehavior(
+            DropdownAppearance.block,
+            css`
+        :host(.invalid) .control {
+            border-bottom-width: ${borderWidth};
+            padding-bottom: 0;
+        }
+        `
+        )
+    );
