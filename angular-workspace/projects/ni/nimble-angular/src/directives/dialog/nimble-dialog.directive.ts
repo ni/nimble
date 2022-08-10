@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Dialog } from '@ni/nimble-components/dist/esm/dialog';
+import type { Dialog, UserDismissed } from '@ni/nimble-components/dist/esm/dialog';
 import { USER_DISMISSED } from '@ni/nimble-components/dist/esm/dialog';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
@@ -12,7 +12,7 @@ export { USER_DISMISSED };
 @Directive({
     selector: 'nimble-dialog'
 })
-export class NimbleDialogDirective<CloseReasonType = void> {
+export class NimbleDialogDirective<CloseReason> {
     public get preventDismiss(): boolean {
         return this.elementRef.nativeElement.preventDismiss;
     }
@@ -37,13 +37,13 @@ export class NimbleDialogDirective<CloseReasonType = void> {
         return this.elementRef.nativeElement.open;
     }
 
-    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Dialog<CloseReasonType>>) {}
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Dialog<CloseReason>>) {}
 
-    public async show(): Promise<unknown> {
+    public async show(): Promise<CloseReason | UserDismissed> {
         return this.elementRef.nativeElement.show();
     }
 
-    public close(reason: CloseReasonType): void {
+    public close(reason: CloseReason): void {
         this.elementRef.nativeElement.close(reason);
     }
 }
