@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 09 Aug 2022 22:19:14 GMT",
+      "tag": "@ni/nimble-components_v11.8.5",
+      "version": "11.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f232213f3f0078a7a97879e2fd8f49937e14eef4",
+            "comment": "Combobox text input updates value."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Aug 2022 19:30:28 GMT",
       "tag": "@ni/nimble-components_v11.8.4",
       "version": "11.8.4",
