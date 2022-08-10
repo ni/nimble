@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 10 Aug 2022 14:36:49 GMT",
+      "tag": "@ni/nimble-components_v11.8.5",
+      "version": "11.8.5",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aa44633d4f88ace9269f996ce54e0eda00e27104",
+            "comment": "Complex content tooltip example"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Aug 2022 22:19:14 GMT",
       "tag": "@ni/nimble-components_v11.8.5",
       "version": "11.8.5",
