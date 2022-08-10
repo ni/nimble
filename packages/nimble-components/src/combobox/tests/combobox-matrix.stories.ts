@@ -57,7 +57,7 @@ const component = (
     [placeHolderName, placeholder]: PlaceholderState,
     [invalidClass, errorText]: ComboboxInvalidState,
 ): ViewTemplate => html`
-    <div style="display: inline-flex; flex-direction: column; margin: 5px; font: var(--ni-nimble-control-label-font); color: var(--ni-nimble-control-label-font-color)">
+    <div style="display: inline-flex; flex-direction: column; margin: 5px; font: var(--ni-nimble-control-label-font); color: var(--ni-nimble-control-label-font-color)"></div>
     <label>${() => disabledName} ${() => appearanceName} ${() => placeHolderName}</label>
     <nimble-combobox 
         ?disabled="${() => disabled}"
