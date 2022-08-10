@@ -57,20 +57,21 @@ const component = (
     [placeHolderName, placeholder]: PlaceholderState,
     [invalidClass, errorText]: ComboboxInvalidState,
 ): ViewTemplate => html`
-    <div style="display: inline-flex; flex-direction: column; margin: 5px; font: var(--ni-nimble-control-label-font); color: var(--ni-nimble-control-label-font-color)"></div>
-    <label>${() => disabledName} ${() => appearanceName} ${() => placeHolderName}</label>
-    <nimble-combobox 
-        ?disabled="${() => disabled}"
-        appearance="${() => appearance}"
-        class="${() => invalidClass}"
-        placeholder="${() => placeholder}"
-        error-text="${() => errorText}"
-    >
-        <nimble-list-option value="1">Option 1</nimble-list-option>
-        <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
-        <nimble-list-option value="3">Option 3</nimble-list-option>
-        <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
-    </nimble-combobox>
+    <div style="display: inline-flex; flex-direction: column; margin: 5px; font: var(--ni-nimble-control-label-font); color: var(--ni-nimble-control-label-font-color)">
+        <label>${() => disabledName} ${() => appearanceName} ${() => placeHolderName}</label>
+        <nimble-combobox 
+            ?disabled="${() => disabled}"
+            appearance="${() => appearance}"
+            class="${() => invalidClass}"
+            placeholder="${() => placeholder}"
+            error-text="${() => errorText}"
+        >
+            <nimble-list-option value="1">Option 1</nimble-list-option>
+            <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
+            <nimble-list-option value="3">Option 3</nimble-list-option>
+            <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
+        </nimble-combobox>
+    </div>
 `;
 
 export const comboboxThemeMatrix: Story = createMatrixThemeStory(
