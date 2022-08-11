@@ -66,6 +66,7 @@ export const styles = css`
         margin: auto 0;
         width: 100%;
         font-size: inherit;
+        font-style: inherit;
         height: var(--ni-private-height-within-border);
     }
 
