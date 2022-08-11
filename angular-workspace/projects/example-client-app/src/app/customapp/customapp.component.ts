@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
-import { Component } from '@angular/core';
-import { DrawerLocation, MenuItem, OptionNotFound, OPTION_NOT_FOUND } from '@ni/nimble-angular';
+import { Component, ViewChild } from '@angular/core';
+import { DrawerLocation, MenuItem, NimbleDialogDirective, OptionNotFound, OPTION_NOT_FOUND, USER_DISMISSED } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
@@ -13,6 +13,8 @@ interface ComboboxItem {
     styleUrls: ['./customapp.component.scss']
 })
 export class CustomAppComponent {
+    @ViewChild('dialog', { read: NimbleDialogDirective }) public dialog: NimbleDialogDirective<string>;
+    public dialogCloseReason: string;
     public drawerLocation: DrawerLocation = DrawerLocation.right;
     public isDrawerPinned = false;
     public drawerLocations = DrawerLocation;
@@ -40,5 +42,14 @@ export class CustomAppComponent {
         } else {
             this.comboboxSelectedLastName = 'not found';
         }
+    }
+
+    public async openDialog(): Promise<void> {
+        const closeReason = await this.dialog.show();
+        this.dialogCloseReason = (closeReason === USER_DISMISSED) ? 'escape pressed' : closeReason;
+    }
+
+    public closeDialog(reason: string): void {
+        this.dialog.close(reason);
     }
 }
