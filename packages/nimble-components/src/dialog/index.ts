@@ -117,10 +117,7 @@ const nimbleDialog = Dialog.compose({
     baseName: 'dialog',
     template,
     styles,
-    baseClass: Dialog,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    baseClass: Dialog
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDialog());
