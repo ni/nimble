@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 11 Aug 2022 20:28:40 GMT and should not be manually modified.
+This log was last generated on Thu, 11 Aug 2022 22:20:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.10.2
+
+Thu, 11 Aug 2022 22:20:09 GMT
+
+### Patches
+
+- Remove delegatesFocus from dialog ([ni/nimble@ab34f42](https://github.com/ni/nimble/commit/ab34f42e9602c20bef3fa3b49a8d82630aeca880))
 
 ## 11.10.1
 

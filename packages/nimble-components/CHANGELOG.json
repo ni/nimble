@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 11 Aug 2022 22:20:09 GMT",
+      "tag": "@ni/nimble-components_v11.10.2",
+      "version": "11.10.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ab34f42e9602c20bef3fa3b49a8d82630aeca880",
+            "comment": "Remove delegatesFocus from dialog"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 11 Aug 2022 20:28:40 GMT",
       "tag": "@ni/nimble-components_v11.10.1",
       "version": "11.10.1",
