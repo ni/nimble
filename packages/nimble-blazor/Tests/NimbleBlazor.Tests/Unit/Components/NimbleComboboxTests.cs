@@ -45,6 +45,17 @@ public class NimbleComboboxTests
         Assert.Contains(expectedAttribute, select.Markup);
     }
 
+    [Theory]
+    [InlineData(DropdownAppearance.Block, "block")]
+    [InlineData(DropdownAppearance.Underline, "underline")]
+    [InlineData(DropdownAppearance.Outline, "outline")]
+    public void ComboboxAppearance_AttributeIsSet(DropdownAppearance value, string expectedAttribute)
+    {
+        var select = RenderNimbleComboboxWithPropertySet(x => x.Appearance, value);
+
+        Assert.Contains(expectedAttribute, select.Markup);
+    }
+
     [Fact]
     public void ComboboxPlaceholder_AttributeIsSet()
     {

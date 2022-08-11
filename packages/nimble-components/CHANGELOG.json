@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 10 Aug 2022 21:38:38 GMT",
+      "tag": "@ni/nimble-components_v11.10.0",
+      "version": "11.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "32b4ed97aaaea52ff211118a405fd34922a3c0cd",
+            "comment": "Add Appearance to Combobox."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Aug 2022 17:05:04 GMT",
       "tag": "@ni/nimble-components_v11.9.0",
       "version": "11.9.0",
