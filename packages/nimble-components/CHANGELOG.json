@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 11 Aug 2022 20:28:40 GMT",
+      "tag": "@ni/nimble-components_v11.10.1",
+      "version": "11.10.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7858f3155a4f9f774e79bc303641b39d7a05f1f9",
+            "comment": "Specify tslib version"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Aug 2022 21:38:38 GMT",
       "tag": "@ni/nimble-components_v11.10.0",
       "version": "11.10.0",
