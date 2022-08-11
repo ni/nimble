@@ -8,6 +8,12 @@ export { USER_DISMISSED };
 
 /**
  * Directive to provide Angular integration for the dialog element.
+ * @description
+ * In order to provide a custom value for the `CloseReason` for the dialog you need to obtain
+ * a `@ViewChild` reference with the custom type specified. For example, to specify the type as `string`:
+ * ```ts
+ * @ViewChild('dialog', { read: NimbleDialogDirective }) public dialog: NimbleDialogDirective<string>;
+ * ```
  */
 @Directive({
     selector: 'nimble-dialog'
