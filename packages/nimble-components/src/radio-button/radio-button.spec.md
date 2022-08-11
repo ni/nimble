@@ -46,7 +46,7 @@ A Blazor wrapper will be created for the component, the details will discussed i
 -   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
     -   No additional requirements
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    - We believe all styles are possible to achieve but the double-outline in the focus tate might pose some issues, will revisit spec later if we are unable to implement.
+    - We believe all styles are possible to achieve but the double-outline in the focus state might pose some issues, will revisit spec later if we are unable to implement.
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
     -   No additional requirements, their tests have good coverage and our component is not adding any custom functionality that requires additional testing
 -   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
@@ -66,7 +66,9 @@ A Blazor wrapper will be created for the component, the details will discussed i
 
 ## Open Issues
 
+Blazor wrapper will be discussed in later spec
 
+Double outline focus state will be revisited later
 
 Will the 'checked' state require a custom icon ?
 
