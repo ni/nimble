@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 10 Aug 2022 21:38:38 GMT and should not be manually modified.
+This log was last generated on Thu, 11 Aug 2022 20:28:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.10.1
+
+Thu, 11 Aug 2022 20:28:40 GMT
+
+### Patches
+
+- Specify tslib version ([ni/nimble@7858f31](https://github.com/ni/nimble/commit/7858f3155a4f9f774e79bc303641b39d7a05f1f9))
 
 ## 11.10.0
 
