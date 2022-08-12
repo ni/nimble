@@ -1,3 +1,6 @@
+/* eslint-disable func-names */
+/* eslint-disable no-undef */
+
 /**
  * Register the custom event types used by Nimble components.
  *
