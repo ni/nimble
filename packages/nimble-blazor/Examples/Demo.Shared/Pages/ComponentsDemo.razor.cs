@@ -10,7 +10,7 @@ namespace Demo.Shared.Pages
         private NavigationDrawer? _navigationDrawer;
         private DrawerLocation _drawerLocation = DrawerLocation.Right;
         private string? ActiveTabId { get; set; }
-        private NimbleDialog? _dialog;
+        private NimbleDialog<string>? _dialog;
         private string? ClosedReason { get; set; }
 
         private string DrawerLocationAsString

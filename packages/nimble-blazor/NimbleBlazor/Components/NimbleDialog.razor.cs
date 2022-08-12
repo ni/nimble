@@ -3,14 +3,12 @@ using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
 
-public partial class NimbleDialog : ComponentBase
+public partial class NimbleDialog<TCloseReason> : ComponentBase
 {
     private ElementReference _dialogElement;
 
     internal static string ShowDialogMethodName = "showDialog";
     internal static string CloseDialogMethodName = "closeDialog";
-
-    public const string UserDismissed = "USER_DISMISSED";
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -27,21 +25,21 @@ public partial class NimbleDialog : ComponentBase
     /// <summary>
     /// Show/Open the dialog.
     /// </summary>
-    public async ValueTask<string> ShowAsync()
+    public async ValueTask<TCloseReason> ShowAsync()
     {
         if (JSRuntime is not null)
         {
-            return await JSRuntime.InvokeAsync<string>(ShowDialogMethodName, _dialogElement);
+            return await JSRuntime.InvokeAsync<TCloseReason>(ShowDialogMethodName, _dialogElement);
         }
 
-        return string.Empty;
+        return default!;
     }
 
     /// <summary>
     /// Hide/Close the dialog.
     /// </summary>
     /// <param name="reason">Optional reason for closing the dialog</param>
-    public async Task CloseAsync(string reason = "")
+    public async Task CloseAsync(TCloseReason reason = default!)
     {
         if (JSRuntime is not null)
         {

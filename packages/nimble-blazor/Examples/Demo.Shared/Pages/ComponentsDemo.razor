@@ -53,7 +53,7 @@
                 <div class="container-label">Dialog:</div>
                 <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDialogAsync">Open Dialog</NimbleButton>
                 <NimbleTextField readonly Value="@ClosedReason">Closed reason</NimbleTextField>
-                <NimbleDialog @ref="_dialog">
+                <NimbleDialog TCloseReason="string" @ref="_dialog">
                     <h1>Have a nice day</h1>
                     <p>And also a nice week</p>
                     <NimbleButton @onclick='() => CloseDialogAsync("OK clicked")'>OK</NimbleButton>

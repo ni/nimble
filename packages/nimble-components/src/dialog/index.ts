@@ -36,6 +36,10 @@ export interface ExtendedDialog extends HTMLDialogElement {
  */
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export class Dialog<CloseReason = void> extends FoundationElement {
+    // We want the member to match the name of the constant
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public static readonly USER_DISMISSED = USER_DISMISSED;
+
     /**
      * @public
      * @description
