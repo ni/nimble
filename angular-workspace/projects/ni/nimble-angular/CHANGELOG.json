@@ -2,6 +2,42 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 11 Aug 2022 22:20:09 GMT",
+      "tag": "@ni/nimble-angular_v8.4.0",
+      "version": "8.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ab34f42e9602c20bef3fa3b49a8d82630aeca880",
+            "comment": "Add nimble-dialog component"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.10.2",
+            "commit": "ab34f42e9602c20bef3fa3b49a8d82630aeca880"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 Aug 2022 20:28:40 GMT",
+      "tag": "@ni/nimble-angular_v8.3.1",
+      "version": "8.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.10.1",
+            "commit": "7858f3155a4f9f774e79bc303641b39d7a05f1f9"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Aug 2022 21:38:38 GMT",
       "tag": "@ni/nimble-angular_v8.3.0",
       "version": "8.3.0",
