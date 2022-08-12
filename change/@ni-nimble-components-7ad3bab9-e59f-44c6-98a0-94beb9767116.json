@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Replicating updated design tokens",
-  "packageName": "@ni/nimble-components",
-  "email": "109235103+nate-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

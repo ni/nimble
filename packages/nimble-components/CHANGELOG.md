@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 11 Aug 2022 22:20:09 GMT and should not be manually modified.
+This log was last generated on Fri, 12 Aug 2022 19:14:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.10.3
+
+Fri, 12 Aug 2022 19:14:22 GMT
+
+### Patches
+
+- Replicating updated design tokens ([ni/nimble@f293311](https://github.com/ni/nimble/commit/f2933114b1b89a3c8cdae5d26d4a4779e1972596))
 
 ## 11.10.2
 
