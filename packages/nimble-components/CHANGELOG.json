@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 12 Aug 2022 19:14:22 GMT",
+      "tag": "@ni/nimble-components_v11.10.3",
+      "version": "11.10.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f2933114b1b89a3c8cdae5d26d4a4779e1972596",
+            "comment": "Replicating updated design tokens"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 11 Aug 2022 22:20:09 GMT",
       "tag": "@ni/nimble-components_v11.10.2",
       "version": "11.10.2",

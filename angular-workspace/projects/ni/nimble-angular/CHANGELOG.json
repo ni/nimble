@@ -2,6 +2,29 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 12 Aug 2022 19:14:22 GMT",
+      "tag": "@ni/nimble-angular_v8.4.1",
+      "version": "8.4.1",
+      "comments": {
+        "none": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "f2933114b1b89a3c8cdae5d26d4a4779e1972596",
+            "comment": "Adding valid nimble design tokens"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.10.3",
+            "commit": "f2933114b1b89a3c8cdae5d26d4a4779e1972596"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 11 Aug 2022 22:20:09 GMT",
       "tag": "@ni/nimble-angular_v8.4.0",
       "version": "8.4.0",
