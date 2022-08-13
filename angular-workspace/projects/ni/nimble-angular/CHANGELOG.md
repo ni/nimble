@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 10 Aug 2022 21:38:38 GMT and should not be manually modified.
+This log was last generated on Fri, 12 Aug 2022 19:14:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.4.1
+
+Fri, 12 Aug 2022 19:14:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.3
+
+## 8.4.0
+
+Thu, 11 Aug 2022 22:20:09 GMT
+
+### Minor changes
+
+- Add nimble-dialog component ([ni/nimble@ab34f42](https://github.com/ni/nimble/commit/ab34f42e9602c20bef3fa3b49a8d82630aeca880))
+- Bump @ni/nimble-components to v11.10.2
+
+## 8.3.1
+
+Thu, 11 Aug 2022 20:28:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.1
 
 ## 8.3.0
 

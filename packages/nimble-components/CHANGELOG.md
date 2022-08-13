@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 10 Aug 2022 21:38:38 GMT and should not be manually modified.
+This log was last generated on Fri, 12 Aug 2022 19:14:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.10.3
+
+Fri, 12 Aug 2022 19:14:22 GMT
+
+### Patches
+
+- Replicating updated design tokens ([ni/nimble@f293311](https://github.com/ni/nimble/commit/f2933114b1b89a3c8cdae5d26d4a4779e1972596))
+
+## 11.10.2
+
+Thu, 11 Aug 2022 22:20:09 GMT
+
+### Patches
+
+- Remove delegatesFocus from dialog ([ni/nimble@ab34f42](https://github.com/ni/nimble/commit/ab34f42e9602c20bef3fa3b49a8d82630aeca880))
+
+## 11.10.1
+
+Thu, 11 Aug 2022 20:28:40 GMT
+
+### Patches
+
+- Specify tslib version ([ni/nimble@7858f31](https://github.com/ni/nimble/commit/7858f3155a4f9f774e79bc303641b39d7a05f1f9))
 
 ## 11.10.0
 

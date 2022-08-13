@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 12 Aug 2022 19:14:22 GMT",
+      "tag": "@ni/nimble-components_v11.10.3",
+      "version": "11.10.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f2933114b1b89a3c8cdae5d26d4a4779e1972596",
+            "comment": "Replicating updated design tokens"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 Aug 2022 22:20:09 GMT",
+      "tag": "@ni/nimble-components_v11.10.2",
+      "version": "11.10.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ab34f42e9602c20bef3fa3b49a8d82630aeca880",
+            "comment": "Remove delegatesFocus from dialog"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 Aug 2022 20:28:40 GMT",
+      "tag": "@ni/nimble-components_v11.10.1",
+      "version": "11.10.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7858f3155a4f9f774e79bc303641b39d7a05f1f9",
+            "comment": "Specify tslib version"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Aug 2022 21:38:38 GMT",
       "tag": "@ni/nimble-components_v11.10.0",
       "version": "11.10.0",
