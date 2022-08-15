@@ -31,7 +31,7 @@ interface TokenArgs {
 }
 
 const metadata: Meta = {
-    title: 'Tokens/Property Names',
+    title: 'Tokens/Theme Aware Tokens',
     parameters: {
         docs: {
             description: {
@@ -122,7 +122,7 @@ const templateForTokenName = (
 };
 
 // prettier-ignore
-export const propertyNames: StoryObj<TokenArgs> = {
+export const themeAwareTokens: StoryObj<TokenArgs> = {
     parameters: {
         controls: { hideNoControlsWarning: true }
     },
