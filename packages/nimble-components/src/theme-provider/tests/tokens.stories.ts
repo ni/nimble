@@ -43,7 +43,12 @@ const metadata: Meta = {
 
 export default metadata;
 
-const defaultTemplate = html<TokenName>`-`;
+const cssValueFromTokenName = (tokenName: string): string => {
+    return getComputedStyle(document.documentElement).getPropertyValue(
+        cssPropertyFromTokenName(tokenName)
+    );
+};
+
 const colorTemplate = html<TokenName>`
     <div
         style="
@@ -52,7 +57,36 @@ const colorTemplate = html<TokenName>`
         width: 24px;
         background-color: var(${x => cssPropertyFromTokenName(tokenNames[x])});
     "
+        title="${x => cssValueFromTokenName(tokenNames[x])}"
     ></div>
+`;
+
+const rgbColorTemplate = html<TokenName>`
+    <div
+        style="
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+        background-color: rgba(var(${x => cssPropertyFromTokenName(tokenNames[x])}), 1.0);
+    "
+    ></div>
+`;
+
+const stringValueTemplate = html<TokenName>`
+    <div style="display: inline-block;">
+        ${x => cssValueFromTokenName(tokenNames[x])}
+    </div>
+`;
+
+const fontTemplate = html<TokenName>`
+    <div
+        style="
+        display: inline-block;
+        font: var(${x => cssPropertyFromTokenName(tokenNames[x])});
+    "
+    >
+        Nimble
+    </div>
 `;
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -60,19 +94,19 @@ const tokenTemplates: {
     readonly [key in TokenSuffix]: ViewTemplate<TokenName>;
 } = {
     Color: colorTemplate,
-    RgbPartialColor: defaultTemplate,
+    RgbPartialColor: rgbColorTemplate,
     FontColor: colorTemplate,
-    FontLineHeight: defaultTemplate,
-    FontWeight: defaultTemplate,
-    FontSize: defaultTemplate,
-    TextTransform: defaultTemplate,
-    FontFamily: defaultTemplate,
-    Font: defaultTemplate,
-    Size: defaultTemplate,
-    Width: defaultTemplate,
-    Height: defaultTemplate,
-    Delay: defaultTemplate,
-    Padding: defaultTemplate
+    FontLineHeight: stringValueTemplate,
+    FontWeight: stringValueTemplate,
+    FontSize: stringValueTemplate,
+    TextTransform: stringValueTemplate,
+    FontFamily: stringValueTemplate,
+    Font: fontTemplate,
+    Size: stringValueTemplate,
+    Width: stringValueTemplate,
+    Height: stringValueTemplate,
+    Delay: stringValueTemplate,
+    Padding: stringValueTemplate
 };
 /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -113,7 +147,10 @@ export const propertyNames: StoryObj<TokenArgs> = {
                 color: var(${groupHeaderFontColor.cssCustomProperty});
                 text-transform: var(${groupHeaderTextTransform.cssCustomProperty});
             }
-            td { padding: 10px;}
+            td { 
+                padding: 10px;
+                height: 32px;
+            }
         </style>
         <table>
             <thead>
