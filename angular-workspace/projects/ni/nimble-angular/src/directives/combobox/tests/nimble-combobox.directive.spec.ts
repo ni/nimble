@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ComboboxAutocomplete } from '../../../public-api';
+import { ComboboxAutocomplete, DropdownAppearance } from '../../../public-api';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
 import { Combobox, NimbleComboboxDirective } from '../nimble-combobox.directive';
 import { NimbleComboboxModule } from '../nimble-combobox.module';
@@ -52,6 +52,11 @@ describe('Nimble combobox', () => {
             expect(nativeElement.autocomplete).toBeUndefined();
         });
 
+        it('has expected defaults for appearance', () => {
+            expect(directive.appearance).toBe(DropdownAppearance.underline);
+            expect(nativeElement.appearance).toBe(DropdownAppearance.underline);
+        });
+
         it('has expected defaults for errorText', () => {
             expect(directive.errorText).toBeUndefined();
             expect(nativeElement.errorText).toBeUndefined();
@@ -69,7 +74,9 @@ describe('Nimble combobox', () => {
                 <nimble-combobox #combobox
                     disabled
                     autocomplete="inline"
-                    error-text="error text">
+                    appearance="outline"
+                    error-text="error text"
+                    placeholder="Enter value:">
                 </nimble-combobox>`
         })
         class TestHostComponent {
@@ -102,6 +109,16 @@ describe('Nimble combobox', () => {
             expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.inline);
         });
 
+        it('will use template string values for appearance', () => {
+            expect(directive.appearance).toEqual(DropdownAppearance.outline);
+            expect(nativeElement.appearance).toEqual(DropdownAppearance.outline);
+        });
+
+        it('will use template string values for placeholder', () => {
+            expect(directive.placeholder).toBe('Enter value:');
+            expect(nativeElement.placeholder).toBe('Enter value:');
+        });
+
         it('will use template string values for errorText', () => {
             expect(directive.errorText).toBe('error text');
             expect(nativeElement.errorText).toBe('error text');
@@ -114,7 +131,9 @@ describe('Nimble combobox', () => {
                 <nimble-combobox #combobox
                     [disabled]="disabled"
                     [autocomplete]="autocomplete"
-                    [error-text]="errorText">
+                    [appearance]="appearance"
+                    [error-text]="errorText"
+                    [placeholder]="placeholder">
                 </nimble-combobox>
             `
         })
@@ -123,7 +142,9 @@ describe('Nimble combobox', () => {
             @ViewChild('combobox', { read: ElementRef }) public elementRef: ElementRef<Combobox>;
             public disabled = false;
             public autocomplete: ComboboxAutocomplete = ComboboxAutocomplete.list;
+            public appearance: DropdownAppearance = DropdownAppearance.outline;
             public errorText = 'initial value';
+            public placeholder = 'Enter value:';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -163,6 +184,29 @@ describe('Nimble combobox', () => {
             expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.both);
         });
 
+        it('can be configured with property binding for appearance', () => {
+            expect(directive.appearance).toEqual(DropdownAppearance.outline);
+            expect(nativeElement.appearance).toEqual(DropdownAppearance.outline);
+
+            fixture.componentInstance.appearance = DropdownAppearance.underline;
+            fixture.detectChanges();
+
+            expect(directive.appearance).toEqual(DropdownAppearance.underline);
+            expect(nativeElement.appearance).toEqual(DropdownAppearance.underline);
+        });
+
+        it('can be configured with property binding for placeholder', () => {
+            expect(directive.placeholder).toEqual('Enter value:');
+            expect(nativeElement.placeholder).toEqual('Enter value:');
+
+            const newPlaceholderValue = 'Enter new value:';
+            fixture.componentInstance.placeholder = newPlaceholderValue;
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toEqual(newPlaceholderValue);
+            expect(nativeElement.placeholder).toEqual(newPlaceholderValue);
+        });
+
         it('can be configured with property binding for errorText', () => {
             expect(directive.errorText).toBe('initial value');
             expect(nativeElement.errorText).toBe('initial value');
@@ -181,6 +225,8 @@ describe('Nimble combobox', () => {
                 <nimble-combobox #combobox
                     [attr.disabled]="disabled"
                     [attr.autocomplete]="autocomplete"
+                    [attr.appearance]="appearance"
+                    [attr.placeholder]="placeholder"
                     [attr.error-text]="errorText">
                 </nimble-combobox>
             `
@@ -190,6 +236,8 @@ describe('Nimble combobox', () => {
             @ViewChild('combobox', { read: ElementRef }) public elementRef: ElementRef<Combobox>;
             public disabled: BooleanValueOrAttribute = null;
             public autocomplete: ComboboxAutocomplete | undefined = undefined;
+            public appearance: DropdownAppearance = DropdownAppearance.underline;
+            public placeholder = 'Enter value:';
             public errorText = 'initial value';
         }
 
@@ -228,6 +276,29 @@ describe('Nimble combobox', () => {
 
             expect(directive.autocomplete).toEqual(ComboboxAutocomplete.both);
             expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.both);
+        });
+
+        it('can be configured with attribute binding for appearance', () => {
+            expect(directive.appearance).toBe(DropdownAppearance.underline);
+            expect(nativeElement.appearance).toBe(DropdownAppearance.underline);
+
+            fixture.componentInstance.appearance = DropdownAppearance.outline;
+            fixture.detectChanges();
+
+            expect(directive.appearance).toEqual(DropdownAppearance.outline);
+            expect(nativeElement.appearance).toEqual(DropdownAppearance.outline);
+        });
+
+        it('can be configured with attribute binding for placeholder', () => {
+            expect(directive.placeholder).toBe('Enter value:');
+            expect(nativeElement.placeholder).toBe('Enter value:');
+
+            const newPlaceholderValue = 'Enter new value:';
+            fixture.componentInstance.placeholder = newPlaceholderValue;
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toEqual(newPlaceholderValue);
+            expect(nativeElement.placeholder).toEqual(newPlaceholderValue);
         });
 
         it('can be configured with attribute binding for errorText', () => {

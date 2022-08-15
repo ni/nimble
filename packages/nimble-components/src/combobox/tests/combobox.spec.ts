@@ -3,6 +3,7 @@ import {
     Combobox as FoundationCombobox
 } from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
+import { keyArrowDown, keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox } from '..';
 import '../../list-option';
@@ -24,6 +25,16 @@ async function setup(
         </nimble-combobox>
     `;
     return fixture<Combobox>(viewTemplate);
+}
+
+function updateComboboxWithText(combobox: Combobox, text: string): void {
+    combobox.control.value = text;
+    const inputEvent = new InputEvent('input', {
+        data: text,
+        inputType: 'insertText'
+    });
+    combobox.inputHandler(inputEvent);
+    combobox.dispatchEvent(inputEvent);
 }
 
 describe('Combobox', () => {
@@ -197,6 +208,109 @@ describe('Combobox', () => {
         await disconnect();
     });
 
+    it('value updates on input', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await DOM.nextUpdate();
+
+        element.autocomplete = ComboboxAutocomplete.both;
+        updateComboboxWithText(element, 'O');
+        await DOM.nextUpdate();
+        expect(element.value).toEqual('One'); // value set to input text which should autocomplete to 'One'
+
+        element.control.value = 'O';
+        const inputEvent = new InputEvent('input', {
+            inputType: 'deleteContentForward'
+        }); // delete autocompleted portion
+        element.inputHandler(inputEvent);
+        element.dispatchEvent(inputEvent);
+        await DOM.nextUpdate();
+        expect(element.value).toEqual('O');
+
+        await disconnect();
+    });
+
+    it('emits one change event after changing value through text entry', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await DOM.nextUpdate();
+
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('change', changeEvent);
+        element.autocomplete = ComboboxAutocomplete.none;
+        updateComboboxWithText(element, 'O');
+        expect(changeEvent).toHaveBeenCalledTimes(0);
+        await DOM.nextUpdate();
+
+        updateComboboxWithText(element, 'On');
+        await DOM.nextUpdate();
+        expect(changeEvent).toHaveBeenCalledTimes(0);
+
+        const enterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        element.dispatchEvent(enterEvent); // commit value
+        expect(changeEvent).toHaveBeenCalledTimes(1);
+
+        const focusoutEvent = new FocusEvent('focusout', {
+            relatedTarget: element
+        });
+        element.dispatchEvent(focusoutEvent); // focusout should not also emit a change event
+        expect(changeEvent).toHaveBeenCalledTimes(1);
+
+        await disconnect();
+    });
+
+    it('should not emit change event if entered text matches value prior to typing', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await DOM.nextUpdate();
+
+        element.autocomplete = ComboboxAutocomplete.none;
+        updateComboboxWithText(element, 'O');
+        const enterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        element.dispatchEvent(enterEvent); // commit value ('O')
+
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('change', changeEvent);
+        element.control.value = '';
+        element.control.dispatchEvent(
+            new InputEvent('input', { inputType: 'deleteContentBackward' })
+        );
+        updateComboboxWithText(element, 'O');
+        element.dispatchEvent(enterEvent); // commit value ('O')
+        expect(changeEvent).toHaveBeenCalledTimes(0);
+
+        await disconnect();
+    });
+
+    it('after text entry if user browses popup and selects option pressing <Enter>, emit only one change event', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await DOM.nextUpdate();
+
+        element.autocomplete = ComboboxAutocomplete.none;
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('change', changeEvent);
+        updateComboboxWithText(element, 'O');
+        const keydownEvent = new KeyboardEvent('keydown', {
+            key: keyArrowDown
+        } as KeyboardEventInit);
+        element.dispatchEvent(keydownEvent); // open dropdown
+        element.dispatchEvent(keydownEvent); // browse to 'One'
+        const enterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        element.dispatchEvent(enterEvent); // commit value ('One')
+        await DOM.nextUpdate();
+
+        expect(changeEvent).toHaveBeenCalledTimes(1);
+
+        await disconnect();
+    });
+
     const filterOptionTestData: { autocomplete: ComboboxAutocomplete }[] = [
         { autocomplete: ComboboxAutocomplete.inline },
         { autocomplete: ComboboxAutocomplete.both }
@@ -207,9 +321,7 @@ describe('Combobox', () => {
             await connect();
 
             element.autocomplete = testData.autocomplete;
-            element.control.value = 'F';
-            const inputEvent = new InputEvent('F'); // fake user typing 'F' to match 'Four'
-            element.inputHandler(inputEvent);
+            updateComboboxWithText(element, 'F');
             element.focusoutHandler(new FocusEvent('')); // attempt to commit typed value
 
             expect(element.value).not.toEqual('Four');

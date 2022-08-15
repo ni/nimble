@@ -18,6 +18,8 @@ export * from './directives/checkbox/nimble-checkbox.module';
 export * from './directives/combobox/nimble-combobox-control-value-accessor.directive';
 export * from './directives/combobox/nimble-combobox.directive';
 export * from './directives/combobox/nimble-combobox.module';
+export * from './directives/dialog/nimble-dialog.directive';
+export * from './directives/dialog/nimble-dialog.module';
 export * from './directives/drawer/nimble-drawer.directive';
 export * from './directives/drawer/nimble-drawer.module';
 export * from './directives/icons';
@@ -64,6 +66,8 @@ export * from './directives/tree-item/nimble-tree-item.directive';
 export * from './directives/tree-item/nimble-tree-item.module';
 export * from './directives/tree-view/nimble-tree-view.directive';
 export * from './directives/tree-view/nimble-tree-view.module';
+export * from './directives/tooltip/nimble-tooltip.directive';
+export * from './directives/tooltip/nimble-tooltip.module';
 export * from './testing/async-helpers';
 
 // Export enums that are used by multiple components here to avoid exporting them multiple times.
