@@ -1,8 +1,91 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 09 Aug 2022 00:07:50 GMT and should not be manually modified.
+This log was last generated on Mon, 15 Aug 2022 15:50:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.4.2
+
+Mon, 15 Aug 2022 15:50:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.4
+
+## 8.4.1
+
+Fri, 12 Aug 2022 19:14:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.3
+
+## 8.4.0
+
+Thu, 11 Aug 2022 22:20:09 GMT
+
+### Minor changes
+
+- Add nimble-dialog component ([ni/nimble@ab34f42](https://github.com/ni/nimble/commit/ab34f42e9602c20bef3fa3b49a8d82630aeca880))
+- Bump @ni/nimble-components to v11.10.2
+
+## 8.3.1
+
+Thu, 11 Aug 2022 20:28:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.1
+
+## 8.3.0
+
+Wed, 10 Aug 2022 21:38:38 GMT
+
+### Minor changes
+
+- Add Appearance to Combobox. ([ni/nimble@32b4ed9](https://github.com/ni/nimble/commit/32b4ed97aaaea52ff211118a405fd34922a3c0cd))
+- Bump @ni/nimble-components to v11.10.0
+
+## 8.2.6
+
+Wed, 10 Aug 2022 17:05:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.9.0
+
+## 8.2.5
+
+Tue, 09 Aug 2022 22:19:14 GMT
+
+### Patches
+
+- Combobox text input updates value. ([ni/nimble@f232213](https://github.com/ni/nimble/commit/f232213f3f0078a7a97879e2fd8f49937e14eef4))
+- Bump @ni/nimble-components to v11.8.5
+
+## 8.2.4
+
+Tue, 09 Aug 2022 19:30:28 GMT
+
+### Patches
+
+- Adding 'Placeholder' APIs to Combobox. ([ni/nimble@2b7f674](https://github.com/ni/nimble/commit/2b7f6744f4c9f1504b3852aa059f2b1f1676222c))
+
+## 8.2.3
+
+Tue, 09 Aug 2022 18:05:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.4
+
+## 8.2.2
+
+Tue, 09 Aug 2022 15:57:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.3
 
 ## 8.2.1
 

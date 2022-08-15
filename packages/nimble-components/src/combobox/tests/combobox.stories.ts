@@ -5,7 +5,10 @@ import '../../all-components';
 import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { DropdownPosition } from '../../patterns/dropdown/types';
+import {
+    DropdownAppearance,
+    DropdownPosition
+} from '../../patterns/dropdown/types';
 
 interface ComboboxArgs {
     disabled: boolean;
@@ -15,6 +18,8 @@ interface ComboboxArgs {
     invalid: boolean;
     errorText: string;
     currentValue: string;
+    appearance: string;
+    placeholder: string;
 }
 
 interface OptionArgs {
@@ -38,7 +43,7 @@ const metadata: Meta<ComboboxArgs> = {
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae/specs/'
         },
         actions: {
-            handles: ['change']
+            handles: ['change', 'input']
         }
     },
     // prettier-ignore
@@ -50,7 +55,9 @@ const metadata: Meta<ComboboxArgs> = {
             error-text="${x => x.errorText}"
             class="${x => (x.invalid ? 'invalid' : '')}"
             aria-invalid="${x => x.invalid}"
+            appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
+            placeholder="${x => x.placeholder}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
                 <nimble-list-option ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
@@ -70,6 +77,10 @@ const metadata: Meta<ComboboxArgs> = {
             options: [DropdownPosition.above, DropdownPosition.below],
             control: { type: 'select' }
         },
+        appearance: {
+            options: Object.values(DropdownAppearance),
+            control: { type: 'radio' }
+        },
         errorText: {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
@@ -81,7 +92,8 @@ const metadata: Meta<ComboboxArgs> = {
         autocomplete: ComboboxAutocomplete.both,
         invalid: false,
         errorText: 'Value is invalid',
-        currentValue: 'Joaquin',
+        appearance: DropdownAppearance.underline,
+        placeholder: 'Select value...',
         options: [
             { label: 'Mary', disabled: false },
             { label: 'Sue', disabled: false },
@@ -96,4 +108,14 @@ const metadata: Meta<ComboboxArgs> = {
 
 export default metadata;
 
-export const combobox: StoryObj<ComboboxArgs> = {};
+export const underlineCombobox: StoryObj<ComboboxArgs> = {
+    args: { appearance: DropdownAppearance.underline }
+};
+
+export const outlineCombobox: StoryObj<ComboboxArgs> = {
+    args: { appearance: DropdownAppearance.outline }
+};
+
+export const blockCombobox: StoryObj<ComboboxArgs> = {
+    args: { appearance: DropdownAppearance.block }
+};
