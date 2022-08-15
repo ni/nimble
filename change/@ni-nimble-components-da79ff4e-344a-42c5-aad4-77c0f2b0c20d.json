@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Simple style change to support font-style",
-  "packageName": "@ni/nimble-components",
-  "email": "26874831+atmgrifter00@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

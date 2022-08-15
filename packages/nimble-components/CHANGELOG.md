@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 12 Aug 2022 19:14:22 GMT and should not be manually modified.
+This log was last generated on Mon, 15 Aug 2022 15:50:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.10.4
+
+Mon, 15 Aug 2022 15:50:12 GMT
+
+### Patches
+
+- Simple style change to support font-style ([ni/nimble@4753667](https://github.com/ni/nimble/commit/475366789d09c01b902a97f795b91e70a54b3efb))
 
 ## 11.10.3
 

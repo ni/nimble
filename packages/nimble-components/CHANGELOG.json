@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 15 Aug 2022 15:50:12 GMT",
+      "tag": "@ni/nimble-components_v11.10.4",
+      "version": "11.10.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "475366789d09c01b902a97f795b91e70a54b3efb",
+            "comment": "Simple style change to support font-style"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 12 Aug 2022 19:14:22 GMT",
       "tag": "@ni/nimble-components_v11.10.3",
       "version": "11.10.3",
