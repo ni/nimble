@@ -8,6 +8,7 @@ interface RadioButtonArgs {
     label: string;
     checked: boolean;
     disabled: boolean;
+    name: string;
 }
 
 const metadata: Meta<RadioButtonArgs> = {
@@ -32,6 +33,7 @@ const metadata: Meta<RadioButtonArgs> = {
         <nimble-radio-button
             checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
+            name="${x => x.name}"
         >
             ${x => x.label}
         </nimble-radio-button>
@@ -40,6 +42,11 @@ const metadata: Meta<RadioButtonArgs> = {
         label: 'Radio button label',
         checked: false,
         disabled: false
+    },
+    argTypes: {
+        name: {
+            description: 'Radio buttons whose values are mutually exclusive should set the same `name` attribute.'
+        }
     }
 };
 
