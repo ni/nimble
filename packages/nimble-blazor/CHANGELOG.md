@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 01 Aug 2022 17:08:37 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Aug 2022 23:35:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.5.0
+
+Wed, 10 Aug 2022 23:35:50 GMT
+
+### Minor changes
+
+- Nimble Tooltip Blazor Integration (#309) ([ni/nimble@ab33209](https://github.com/ni/nimble/commit/ab3320969c08460b6449bffa74e76a07d4d3277a))
+
+## 5.4.0
+
+Wed, 10 Aug 2022 21:38:38 GMT
+
+### Minor changes
+
+- Add Appearance to Combobox. ([ni/nimble@32b4ed9](https://github.com/ni/nimble/commit/32b4ed97aaaea52ff211118a405fd34922a3c0cd))
+
+## 5.3.5
+
+Tue, 09 Aug 2022 19:30:28 GMT
+
+### Patches
+
+- Adding 'Placeholder' APIs to Combobox. ([ni/nimble@2b7f674](https://github.com/ni/nimble/commit/2b7f6744f4c9f1504b3852aa059f2b1f1676222c))
 
 ## 5.3.0
 
