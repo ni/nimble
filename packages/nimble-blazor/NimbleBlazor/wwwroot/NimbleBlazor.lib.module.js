@@ -61,4 +61,4 @@ window.NimbleBlazor = {
             dialogReference.close(reason);
         }
     }
-}
+};
