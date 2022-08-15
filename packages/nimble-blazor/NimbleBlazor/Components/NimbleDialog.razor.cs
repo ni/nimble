@@ -7,8 +7,8 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
 {
     private ElementReference _dialogElement;
 
-    internal static string ShowDialogMethodName = "showDialog";
-    internal static string CloseDialogMethodName = "closeDialog";
+    internal static string ShowDialogMethodName = "NimbleBlazor.Dialog.show";
+    internal static string CloseDialogMethodName = "NimbleBlazor.Dialog.close";
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

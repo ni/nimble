@@ -50,17 +50,15 @@ export function afterStarted(Blazor) {
     });
 }
 
-/* This method is required to show the nimble dialog component
-*/
-window.showDialog = async function (dialogReference) {
-    const reason = await dialogReference.show();
-    const userDismissed = window.customElements.get('nimble-dialog').USER_DISMISSED;
-    return (reason === userDismissed) ? 'ESC pressed' : reason;
-};
-
-/* This method is required to close the nimble dialog component
- * @param reason : an optional reason for closing the dialog
-*/
-window.closeDialog = function (dialogReference, reason) {
-    dialogReference.close(reason);
-};
+window.NimbleBlazor = {
+    Dialog: {
+        show: async function (dialogReference) {
+            const reason = await dialogReference.show();
+            const userDismissed = window.customElements.get('nimble-dialog').USER_DISMISSED;
+            return (reason === userDismissed) ? 'ESC pressed' : reason;
+        },
+        close: function (dialogReference, reason) {
+            dialogReference.close(reason);
+        }
+    }
+}
