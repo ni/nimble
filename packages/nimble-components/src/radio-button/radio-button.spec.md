@@ -25,28 +25,28 @@ The state of the radio button can be changed by clicking the button or accompani
 
 The two components will share almost all of their attributes aside from the 'Radio Group' component containing an additional 'orientation' attribute. This will set the visual orientation of the radio group as either vertical or horizontal.
 
-- _Component Name:_ `nimble-radio-button`
-- _Properties/Attributes:_ Unchanged
-- _Methods:_ Unchanged
-- _Events:_ Unchanged
-- _CSS Classes and Custom Properties that affect the component:_ Unchanged
-- _Slots:_ Unchanged
-- _Template:_ Unchanged
+-   _Component Name:_ `nimble-radio-button`
+-   _Properties/Attributes:_ We will not expose the readOnly property. If it is needed at a future time, it can be added then.
+-   _Methods:_ Unchanged
+-   _Events:_ Unchanged
+-   _CSS Classes and Custom Properties that affect the component:_ Unchanged
+-   _Slots:_ Unchanged
+-   _Template:_ Unchanged
 
-### Angular integration 
+### Angular integration
 
 We will implement an Angular `ControlValueAccessor` with `RadioControlValueAccessor` as the base class: [https://angular.io/api/forms/RadioControlValueAccessor]
 
-### Blazor integration 
+### Blazor integration
 
-A Blazor wrapper will be created for the component, the details will discussed in future updates.
+A Blazor wrapper will be created for the component.
 
 ### Additional requirements
 
 -   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
     -   No additional requirements
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    - We believe all styles are possible to achieve but the double-outline in the focus state might pose some issues, will revisit spec later if we are unable to implement.
+    -   We believe all styles are possible to achieve.
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
     -   No additional requirements, their tests have good coverage and our component is not adding any custom functionality that requires additional testing
 -   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
@@ -65,11 +65,3 @@ A Blazor wrapper will be created for the component, the details will discussed i
 ---
 
 ## Open Issues
-
-Blazor wrapper will be discussed in later spec
-
-Double outline focus state will be revisited later
-
-Will the 'checked' state require a custom icon ?
-
-Does screen-reader work in the 'read-only' state ?
