@@ -53,7 +53,9 @@ The steps to use components from Nimble Angular are similar to using components 
     @import '~@ni/nimble-angular/styles/tokens';
 
     .my-element {
-        font-family: $ni-nimble-font-family
+        font-family: $ni-nimble-body-font-family;
+        font-size: $ni-nimble-body-font-size;
+        color: $ni-nimble-body-font-color;
     }
     ```
 

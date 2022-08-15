@@ -13,10 +13,12 @@ import {
     popupBoxShadowColor,
     smallDelay,
     smallPadding,
-    failColor,
-    borderRgbPartialColor
+    borderRgbPartialColor,
+    standardPadding
 } from '../../theme-provider/design-tokens';
+import { appearanceBehavior } from '../../utilities/style/appearance';
 import { focusVisible } from '../../utilities/style/focus';
+import { DropdownAppearance } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -71,10 +73,6 @@ export const styles = css`
         transition: width ${smallDelay} ease-in;
     }
 
-    :host(.invalid)::after {
-        border-bottom-color: ${failColor};
-    }
-
     @media (prefers-reduced-motion) {
         :host::after {
             transition-duration: 0s;
@@ -97,10 +95,9 @@ export const styles = css`
         display: flex;
         min-height: 100%;
         width: 100%;
-        border-bottom: ${borderWidth} solid ${bodyDisabledFontColor};
+        border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         background-color: transparent;
-        padding-left: 8px;
-        padding-bottom: 1px;
+        padding: ${borderWidth};
     }
 
     :host(.open:not(:hover)) .control {
@@ -163,6 +160,12 @@ export const styles = css`
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        padding: 0px;
+        padding-left: calc(${standardPadding} / 2);
+    }
+
+    .selected-value[disabled]::placeholder {
+        color: ${bodyDisabledFontColor};
     }
 
     .indicator {
@@ -202,4 +205,44 @@ export const styles = css`
     ::slotted(option) {
         flex: none;
     }
-`;
+`.withBehaviors(
+        appearanceBehavior(
+            DropdownAppearance.underline,
+            css`
+            .control {
+                border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
+            }
+
+            :host([disabled]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+        `
+        ),
+        appearanceBehavior(
+            DropdownAppearance.outline,
+            css`
+            .control {
+                border-width: ${borderWidth};
+                padding: 0;
+            }
+        `
+        ),
+        appearanceBehavior(
+            DropdownAppearance.block,
+            css`
+            .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+
+            .control:focus-within {
+                border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
+            }
+
+            :host([disabled]) .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
+            }
+        `
+        )
+    );

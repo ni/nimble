@@ -1,8 +1,88 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 01 Aug 2022 17:54:58 GMT and should not be manually modified.
+This log was last generated on Mon, 15 Aug 2022 15:50:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.10.4
+
+Mon, 15 Aug 2022 15:50:12 GMT
+
+### Patches
+
+- Simple style change to support font-style ([ni/nimble@4753667](https://github.com/ni/nimble/commit/475366789d09c01b902a97f795b91e70a54b3efb))
+
+## 11.10.3
+
+Fri, 12 Aug 2022 19:14:22 GMT
+
+### Patches
+
+- Replicating updated design tokens ([ni/nimble@f293311](https://github.com/ni/nimble/commit/f2933114b1b89a3c8cdae5d26d4a4779e1972596))
+
+## 11.10.2
+
+Thu, 11 Aug 2022 22:20:09 GMT
+
+### Patches
+
+- Remove delegatesFocus from dialog ([ni/nimble@ab34f42](https://github.com/ni/nimble/commit/ab34f42e9602c20bef3fa3b49a8d82630aeca880))
+
+## 11.10.1
+
+Thu, 11 Aug 2022 20:28:40 GMT
+
+### Patches
+
+- Specify tslib version ([ni/nimble@7858f31](https://github.com/ni/nimble/commit/7858f3155a4f9f774e79bc303641b39d7a05f1f9))
+
+## 11.10.0
+
+Wed, 10 Aug 2022 21:38:38 GMT
+
+### Minor changes
+
+- Add Appearance to Combobox. ([ni/nimble@32b4ed9](https://github.com/ni/nimble/commit/32b4ed97aaaea52ff211118a405fd34922a3c0cd))
+
+## 11.9.0
+
+Wed, 10 Aug 2022 17:05:04 GMT
+
+### Minor changes
+
+- Add nimble-dialog component ([ni/nimble@fd2f531](https://github.com/ni/nimble/commit/fd2f53162c9d194b943f8573eb140539eb0eccbc))
+
+## 11.8.5
+
+Tue, 09 Aug 2022 22:19:14 GMT
+
+### Patches
+
+- Combobox text input updates value. ([ni/nimble@f232213](https://github.com/ni/nimble/commit/f232213f3f0078a7a97879e2fd8f49937e14eef4))
+
+## 11.8.4
+
+Tue, 09 Aug 2022 18:05:33 GMT
+
+### Patches
+
+- Remove custom text selection styling ([ni/nimble@fd627f2](https://github.com/ni/nimble/commit/fd627f21dee853ce1e6d77196c673f28d58e2daa))
+
+## 11.8.3
+
+Tue, 09 Aug 2022 15:57:14 GMT
+
+### Patches
+
+- Remove tab focus from button in combobox. ([ni/nimble@56ee1ee](https://github.com/ni/nimble/commit/56ee1eeb21568b86a6e5b351d1f1985e23d228dc))
+
+## 11.8.2
+
+Tue, 09 Aug 2022 00:07:50 GMT
+
+### Patches
+
+- theme and appearance behaviors refactor ([ni/nimble@9a2f491](https://github.com/ni/nimble/commit/9a2f49176f39b5e9027486b89a9a910f7a68f454))
 
 ## 11.8.1
 
