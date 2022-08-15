@@ -29,7 +29,10 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
     {
         if (JSRuntime is not null)
         {
-            return await JSRuntime.InvokeAsync<TCloseReason>(ShowDialogMethodName, _dialogElement);
+            // Pass cancellation token to disable default async timeout
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            return await JSRuntime.InvokeAsync<TCloseReason>(ShowDialogMethodName, token, _dialogElement);
         }
 
         return default!;
