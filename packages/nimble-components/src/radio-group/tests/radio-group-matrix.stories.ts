@@ -48,14 +48,13 @@ const component = (
 </nimble-radio-button>`;
 
 export const radioGroupThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [
-        disabledStates,
-        orientationStates
-    ])
+    createMatrix(component, [disabledStates, orientationStates])
 );
 
 export const hiddenRadioGroup: Story = createStory(
     hiddenWrapper(
-        html`<nimble-radio-button hidden>Hidden Radio Button</nimble-radio-button>`
+        html`<nimble-radio-button hidden
+            >Hidden Radio Button</nimble-radio-button
+        >`
     )
 );

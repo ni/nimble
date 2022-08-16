@@ -51,12 +51,7 @@ const metadata: Meta<RadioGroupArgs> = {
     },
     argTypes: {
         value: {
-            options: [
-                'none',
-                'apple',
-                'mango',
-                'orange'
-            ],
+            options: ['none', 'apple', 'mango', 'orange'],
             control: {
                 type: 'radio'
             }
@@ -75,7 +70,8 @@ const metadata: Meta<RadioGroupArgs> = {
             }
         },
         name: {
-            description: 'Radio buttons whose values are mutually exclusive should set the same `name` attribute. Setting the name on the group sets it on all child radio buttons.'
+            description:
+                'Radio buttons whose values are mutually exclusive should set the same `name` attribute. Setting the name on the group sets it on all child radio buttons.'
         }
     }
 };

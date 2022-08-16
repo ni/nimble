@@ -6,10 +6,14 @@ import { RadioGroup } from '..';
 
 describe('Radio Group', () => {
     it('should have its tag returned by tagFor(FoundationRadioGroup)', () => {
-        expect(DesignSystem.tagFor(FoundationRadioGroup)).toBe('nimble-radio-group');
+        expect(DesignSystem.tagFor(FoundationRadioGroup)).toBe(
+            'nimble-radio-group'
+        );
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-radio-group')).toBeInstanceOf(RadioGroup);
+        expect(document.createElement('nimble-radio-group')).toBeInstanceOf(
+            RadioGroup
+        );
     });
 });

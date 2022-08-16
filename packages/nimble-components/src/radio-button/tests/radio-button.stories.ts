@@ -45,7 +45,8 @@ const metadata: Meta<RadioButtonArgs> = {
     },
     argTypes: {
         name: {
-            description: 'Radio buttons whose values are mutually exclusive should set the same `name` attribute.'
+            description:
+                'Radio buttons whose values are mutually exclusive should set the same `name` attribute.'
         }
     }
 };

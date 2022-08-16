@@ -1,6 +1,10 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { controlLabelDisabledFontColor, controlLabelFont, controlLabelFontColor } from '../theme-provider/design-tokens';
+import {
+    controlLabelDisabledFontColor,
+    controlLabelFont,
+    controlLabelFontColor
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('inline-block')}
@@ -9,20 +13,20 @@ export const styles = css`
         display: flex;
     }
 
-    :host([orientation="vertical"]) .positioning-region {
+    :host([orientation='vertical']) .positioning-region {
         flex-direction: column;
     }
 
-    :host([orientation="horizontal"]) .positioning-region {
+    :host([orientation='horizontal']) .positioning-region {
         flex-direction: row;
     }
 
-    slot[name="label"] {
+    slot[name='label'] {
         font: ${controlLabelFont};
         color: ${controlLabelFontColor};
     }
 
-    :host([disabled]) slot[name="label"] {
+    :host([disabled]) slot[name='label'] {
         color: ${controlLabelDisabledFontColor};
     }
 `;
