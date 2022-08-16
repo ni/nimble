@@ -59,6 +59,12 @@ export const styles = css`
         resize: none;
     }
 
+    @media (prefers-reduced-motion) {
+        .control {
+            transition-duration: 0s;
+        }
+    }
+
     .control:hover {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px 1px ${borderHoverColor};

@@ -77,6 +77,12 @@ export const styles = css`
         transition: width ${smallDelay} ease-in;
     }
 
+    @media (prefers-reduced-motion) {
+        :host::before {
+            transition-duration: 0.01s;
+        }
+    }
+
     :host(${focusVisible})::before {
         width: 100%;
     }
@@ -90,6 +96,12 @@ export const styles = css`
         border-bottom: ${borderHoverColor}
             var(--ni-private-active-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        :host::after {
+            transition-duration: 0.01s;
+        }
     }
 
     :host([aria-selected='true'])::after {

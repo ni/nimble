@@ -95,6 +95,12 @@ export const styles = css`
         transition: width ${smallDelay} ease-in;
     }
 
+    @media (prefers-reduced-motion) {
+        .root::after {
+            transition-duration: 0s;
+        }
+    }
+
     :host(.invalid) .root::after {
         border-bottom-color: ${failColor};
     }

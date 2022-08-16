@@ -30,7 +30,6 @@ export const styles = css`
         outline: none;
         border: none;
         box-sizing: border-box;
-        transition: box-shadow ${smallDelay};
     }
 
     :host(:hover) {
@@ -58,6 +57,7 @@ export const styles = css`
         cursor: inherit;
         font: inherit;
         outline: none;
+        transition: box-shadow ${smallDelay};
         padding: 0px;
     }
 
@@ -120,6 +120,12 @@ export const styles = css`
 
     slot[name='end'] {
         display: none;
+    }
+
+    @media (prefers-reduced-motion) {
+        .control {
+            transition-duration: 0s;
+        }
     }
 `
     .withBehaviors(

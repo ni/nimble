@@ -50,6 +50,12 @@ export const styles = css`
         line-height: 0;
     }
 
+    @media (prefers-reduced-motion) {
+        .control {
+            transition-duration: 0s;
+        }
+    }
+
     :host([disabled]) .control {
         background-color: rgba(${borderRgbPartialColor}, 0.1);
         border-color: rgba(${borderRgbPartialColor}, 0.2);

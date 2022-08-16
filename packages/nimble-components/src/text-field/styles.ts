@@ -180,6 +180,12 @@ export const styles = css`
         transition: width ${smallDelay} ease-in;
     }
 
+    @media (prefers-reduced-motion) {
+        [part='end']::after {
+            transition-duration: 0s;
+        }
+    }
+
     :host(.invalid) [part='end']::after {
         border-bottom-color: ${failColor};
     }

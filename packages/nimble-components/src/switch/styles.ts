@@ -154,6 +154,13 @@ export const styles = css`
     slot[name='checked-message']::slotted(*) {
         margin-inline-start: 8px;
     }
+
+    @media (prefers-reduced-motion) {
+        .checked-indicator-inner,
+        .checked-indicator-spacer {
+            transition-duration: 0s;
+        }
+    }
 `.withBehaviors(
         themeBehavior(
             css`
