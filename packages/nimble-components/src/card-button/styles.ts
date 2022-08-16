@@ -17,6 +17,7 @@ import {
 } from '../theme-provider/design-tokens';
 import { themeBehavior } from '../utilities/style/theme';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
+import { Theme } from '../theme-provider/types';
 
 // prettier-ignore
 export const styles = css`
@@ -121,10 +122,9 @@ export const styles = css`
     slot[name='end'] {
         display: none;
     }
-`
-    .withBehaviors(
+`.withBehaviors(
         themeBehavior(
-            // Light theme
+            Theme.light,
             css`
                 :host {
                     --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(Black, 0.3)};
@@ -133,8 +133,9 @@ export const styles = css`
                     --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(Black91, 0.2)};
                     --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(Black91, 0.6)};
                 }
-            `,
-            // Dark theme
+            `
+        ), themeBehavior(
+            Theme.dark,
             css`
                 :host {
                     --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(Black, 0.77)};
@@ -143,8 +144,9 @@ export const styles = css`
                     --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(Black15, 0.2)};
                     --ni-private-card-button-border-selected-color: ${Black15};
                 }
-            `,
-            // Color theme
+            `
+        ), themeBehavior(
+            Theme.color,
             css`
                 :host {
                     --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(White, 0.77)};

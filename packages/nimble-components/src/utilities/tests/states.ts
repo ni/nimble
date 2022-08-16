@@ -52,3 +52,9 @@ export const selectedStates = [
     ['Selected', true]
 ] as const;
 export type SelectedState = typeof selectedStates[number];
+
+export const placeholderStates = [
+    ['Placeholder', 'Placeholder...'],
+    ['No Placeholder', '']
+] as const;
+export type PlaceholderState = typeof placeholderStates[number];

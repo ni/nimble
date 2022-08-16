@@ -18,6 +18,7 @@ import '../icons/arrow-expander-down';
 
 import { styles } from './styles';
 import type { IHasErrorText } from '../patterns/error/types';
+import { DropdownAppearance } from '../patterns/dropdown/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -29,13 +30,16 @@ declare global {
  * A nimble-styed HTML combobox
  */
 export class Combobox extends FoundationCombobox implements IHasErrorText {
+    @attr
+    public appearance: DropdownAppearance = DropdownAppearance.underline;
+
     /**
      * The ref to the internal dropdown button element.
      *
      * @internal
      */
     @observable
-    public readonly dropdownButton: ToggleButton | undefined;
+    public readonly dropdownButton?: ToggleButton;
 
     /**
      * A message explaining why the value is invalid.
@@ -46,6 +50,9 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
      */
     @attr({ attribute: 'error-text' })
     public errorText: string | undefined;
+
+    private valueUpdatedByInput = false;
+    private valueBeforeTextUpdate?: string;
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
@@ -74,12 +81,6 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
         // Call setPositioning() after this.forcedPosition is initialized.
         this.setPositioning();
         this.updateInputAriaLabel();
-
-        this.addEventListener('focusout', this.focusOutHandler);
-    }
-
-    public override disconnectedCallback(): void {
-        this.removeEventListener('focusout', this.focusOutHandler);
     }
 
     public toggleButtonClickHandler(e: Event): void {
@@ -111,6 +112,54 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
         this.filteredOptions = enabledOptions;
     }
 
+    /**
+     * This is a workaround for the issue described here: https://github.com/microsoft/fast/issues/6267
+     * For now, we will update the value ourselves while a user types in text. Note that there is other
+     * implementation related to this (like the 'keydownEventHandler') needed to create the complete set
+     * of desired behavior described in the issue noted above.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    public override inputHandler(e: InputEvent): boolean | void {
+        const returnValue = super.inputHandler(e);
+        if (!this.valueUpdatedByInput) {
+            this.valueBeforeTextUpdate = this.value;
+        }
+        this.value = this.control.value;
+        this.valueUpdatedByInput = true;
+        return returnValue;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    public override keydownHandler(e: KeyboardEvent): boolean | void {
+        const returnValue = super.keydownHandler(e);
+        if (e.ctrlKey || e.altKey) {
+            return returnValue;
+        }
+
+        switch (e.key) {
+            case keyEnter:
+                this.emitChangeIfValueUpdated();
+                break;
+            case keyArrowDown:
+            case keyArrowUp:
+                if (this.open && this.valueUpdatedByInput) {
+                    this.valueUpdatedByInput = false;
+                }
+                break;
+            default:
+                return returnValue;
+        }
+        return returnValue;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    public override focusoutHandler(e: FocusEvent): boolean | void {
+        const returnValue = super.focusoutHandler(e);
+        this.open = false;
+        this.emitChangeIfValueUpdated();
+        return returnValue;
+    }
+
     protected override openChanged(): void {
         super.openChanged();
         if (this.dropdownButton) {
@@ -132,9 +181,25 @@ export class Combobox extends FoundationCombobox implements IHasErrorText {
         }
     }
 
-    private readonly focusOutHandler = (): void => {
-        this.open = false;
-    };
+    /**
+     * This will only emit a `change` event after text entry where the text in the input prior to
+     * typing is different than the text present upon an attempt to commit (e.g. pressing <Enter>).
+     * So, for a concrete example:
+     * 1) User types 'Sue' (when Combobox input was blank).
+     * 2) User presses <Enter> -> 'change' event fires
+     * 3) User deletes 'Sue'
+     * 4) User re-types 'Sue'
+     * 5) User presses <Enter> -> NO 'change' event is fired
+     */
+    private emitChangeIfValueUpdated(): void {
+        if (this.valueUpdatedByInput) {
+            if (this.value !== this.valueBeforeTextUpdate) {
+                this.$emit('change');
+            }
+
+            this.valueUpdatedByInput = false;
+        }
+    }
 }
 
 const nimbleCombobox = Combobox.compose<ComboboxOptions>({
@@ -164,6 +229,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 part="button"
                 aria-haspopup="true"
                 aria-expanded="${x => x.open}"
+                tabindex="-1"
             >
                 <nimble-icon-arrow-expander-down
                     slot="start"

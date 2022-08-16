@@ -2,6 +2,51 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 10 Aug 2022 23:35:50 GMT",
+      "tag": "@ni/nimble-blazor_v5.5.0",
+      "version": "5.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "ab3320969c08460b6449bffa74e76a07d4d3277a",
+            "comment": "Nimble Tooltip Blazor Integration (#309)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Aug 2022 21:38:38 GMT",
+      "tag": "@ni/nimble-blazor_v5.4.0",
+      "version": "5.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "32b4ed97aaaea52ff211118a405fd34922a3c0cd",
+            "comment": "Add Appearance to Combobox."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Aug 2022 19:30:28 GMT",
+      "tag": "@ni/nimble-blazor_v5.3.5",
+      "version": "5.3.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2b7f6744f4c9f1504b3852aa059f2b1f1676222c",
+            "comment": "Adding 'Placeholder' APIs to Combobox."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Aug 2022 17:08:37 GMT",
       "tag": "@ni/nimble-blazor_v5.3.0",
       "version": "5.3.0",
