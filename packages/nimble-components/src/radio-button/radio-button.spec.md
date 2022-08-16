@@ -23,7 +23,7 @@ Facilitating single select from a group of visible choices through a toggled T/F
 
 The state of the radio button can be changed by clicking the button or accompanied title. When the radio button has the `disabled` class applied, the contents of the button will appear in a greyed-out state and will be non-interactive. This component will include no alternative appearances.
 
-The two components will share almost all of their attributes aside from the 'Radio Group' component containing an additional 'orientation' attribute. This will set the visual orientation of the radio group as either vertical or horizontal.
+The two components will expose common attributes shared by all components. In addition the 'Radio Group' component exposes an 'orientation' attribute. This will set the visual orientation of the radio group as either vertical or horizontal.
 
 -   _Component Name:_ `nimble-radio-button` and `nimble-radio-group`
 -   _Properties/Attributes:_ We will not expose the readOnly property. If it is needed at a future time, it can be added then.
