@@ -93,7 +93,6 @@ export const styles = css`
 
     :host([aria-checked='true']) .checked-indicator-spacer {
         flex-grow: 1;
-        transition: flex-grow ${smallDelay} ease-in-out;
     }
 
     .checked-indicator {
@@ -148,18 +147,10 @@ export const styles = css`
 
     :host([aria-checked='true']) .checked-indicator-inner {
         opacity: 1;
-        transition: opacity ${smallDelay} ease-in-out;
     }
 
     slot[name='checked-message']::slotted(*) {
         margin-inline-start: 8px;
-    }
-
-    @media (prefers-reduced-motion) {
-        .checked-indicator-inner,
-        .checked-indicator-spacer {
-            transition-duration: 0s;
-        }
     }
 `.withBehaviors(
         themeBehavior(
