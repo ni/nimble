@@ -23,6 +23,11 @@ export const styles = css`
         outline: none;
         margin: ${smallPadding};
         width: fit-content;
+        cursor: pointer;
+    }
+
+    :host([disabled]) {
+        cursor: default;
     }
 
     .control {
