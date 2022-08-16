@@ -20,6 +20,7 @@ import './menu-button';
 import './menu-item';
 import './number-field';
 import './radio-button';
+import './radio-group';
 import './select';
 import './switch';
 import './tab';

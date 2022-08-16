@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyDisabledFontColor, bodyFontColor, borderColor, borderHoverColor, borderRgbPartialColor, borderWidth, buttonLabelFont, controlHeight, iconSize, smallDelay } from '../theme-provider/design-tokens';
+import { bodyDisabledFontColor, bodyFontColor, borderColor, borderHoverColor, borderRgbPartialColor, borderWidth, buttonLabelFont, controlHeight, smallDelay, smallPadding } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
@@ -10,6 +10,8 @@ export const styles = css`
         font: ${buttonLabelFont};
         align-items: center;
         outline: none;
+        margin: ${smallPadding};
+        width: fit-content;
     }
 
     .control {

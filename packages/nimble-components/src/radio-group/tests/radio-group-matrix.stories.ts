@@ -1,6 +1,7 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { Orientation } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -14,7 +15,7 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 
 const metadata: Meta = {
-    title: 'Tests/Radio Button',
+    title: 'Tests/Radio Group',
     decorators: [withXD],
     parameters: {
         ...sharedMatrixParameters(),
@@ -27,30 +28,33 @@ const metadata: Meta = {
 
 export default metadata;
 
-const checkedStates = [
-    ['Checked', true],
-    ['Unchecked', false]
+const orientationStates = [
+    ['Horizontal', Orientation.horizontal],
+    ['Vertical', Orientation.vertical]
 ] as const;
-type CheckedState = typeof checkedStates[number];
+type OrientationState = typeof orientationStates[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,
-    [checkedName, checked]: CheckedState
-): ViewTemplate => html`<nimble-radio-button
-    checked="${() => checked}"
+    [orientationName, orientation]: OrientationState
+): ViewTemplate => html`<nimble-radio-group
+    orientation="${() => orientation}"
     ?disabled="${() => disabled}"
+    value="1"
 >
-    ${checkedName} ${disabledName}
+    <label slot="label">${orientationName} ${disabledName}</label>
+    <nimble-radio-button value="1">Option 1</nimble-radio-button>
+    <nimble-radio-button value="2">Option 2</nimble-radio-button>
 </nimble-radio-button>`;
 
-export const radioButtonThemeMatrix: Story = createMatrixThemeStory(
+export const radioGroupThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
-        checkedStates
+        orientationStates
     ])
 );
 
-export const hiddenRadioButton: Story = createStory(
+export const hiddenRadioGroup: Story = createStory(
     hiddenWrapper(
         html`<nimble-radio-button hidden>Hidden Radio Button</nimble-radio-button>`
     )
