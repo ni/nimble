@@ -1,6 +1,5 @@
 import {
     Radio as FoundationRadio,
-    // RadioOptions,
     radioTemplate as template,
     DesignSystem,
     RadioOptions
