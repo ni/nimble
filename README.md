@@ -90,7 +90,7 @@ NOTE: To update the component status:
 | Menu Button | |  [Issue](https://github.com/ni/nimble/issues/300) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/menu-button--outline-button) | :white_check_mark: | :white_check_mark: |
 | Number Field | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf) |  [Issue](https://github.com/ni/nimble/issues/361) | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/number-field--number-field) | :white_check_mark: | :o: |
 | Progress Bar | |  [Issue](https://github.com/ni/nimble/issues/304) | :o: | :o: | :o: |
-| Radio | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) |  [Issue](https://github.com/ni/nimble/issues/297) | :o: | :o: | :o: |
+| Radio | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) |  [Issue](https://github.com/ni/nimble/issues/297) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/radio-group--radio-group) | :o: | :o: |
 | Search Field | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/842889a5-67ba-4350-91c1-55eee48f4fa2) |  [Issue](https://github.com/ni/nimble/issues/299) | :o: | :o: | :o: |
 | Slider | |  [Issue](https://github.com/ni/nimble/issues/295) | :o: | :o: | :o: |
 | Spinner | |  [Issue](https://github.com/ni/nimble/issues/346) | :o: | :o: | :o: |
