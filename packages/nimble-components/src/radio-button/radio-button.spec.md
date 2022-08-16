@@ -26,7 +26,7 @@ The state of the radio button can be changed by clicking the button or accompani
 The two components will expose common attributes shared by all components. In addition the 'Radio Group' component exposes an 'orientation' attribute. This will set the visual orientation of the radio group as either vertical or horizontal.
 
 -   _Component Name:_ `nimble-radio-button` and `nimble-radio-group`
--   _Properties/Attributes:_ We will not expose the readOnly property. If it is needed at a future time, it can be added then.
+-   _Properties/Attributes:_ We will not expose the `readOnly` property since we don't have a design or a use case to distinguish it from `disabled`. If it is needed at a future time, it can be added then.
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
