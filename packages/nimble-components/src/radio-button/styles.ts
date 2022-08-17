@@ -62,10 +62,13 @@ export const styles = css`
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
 
-    :host(${focusVisible}) .control {
-        border-color: ${borderHoverColor};
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: 1px;
+    :host(${focusVisible}) .control::after {
+        content: '';
+        position: absolute;
+        width: calc(2px + ${controlHeight} / 2);
+        height: calc(2px + ${controlHeight} / 2);
+        border: 2px solid ${borderHoverColor};
+        border-radius: 999px;
     }
 
     .label {
