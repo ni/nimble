@@ -31,7 +31,7 @@ interface TokenArgs {
 }
 
 const metadata: Meta = {
-    title: 'Tokens/Theme Aware Tokens',
+    title: 'Tokens/Theme-aware Tokens',
     parameters: {
         docs: {
             description: {
@@ -43,7 +43,7 @@ const metadata: Meta = {
 
 export default metadata;
 
-const cssValueFromTokenName = (tokenName: string): string => {
+const computedCSSValueFromTokenName = (tokenName: string): string => {
     return getComputedStyle(document.documentElement).getPropertyValue(
         cssPropertyFromTokenName(tokenName)
     );
@@ -61,7 +61,7 @@ const colorTemplate = html<TokenName>`
     "
     ></div>
     <nimble-tooltip anchor="${x => x}" delay="100" auto-update-mode="auto">
-        ${x => cssValueFromTokenName(tokenNames[x])}
+        ${x => computedCSSValueFromTokenName(tokenNames[x])}
     </nimble-tooltip>
 `;
 
@@ -77,13 +77,13 @@ const rgbColorTemplate = html<TokenName>`
     "
     ></div>
     <nimble-tooltip anchor="${x => x}" delay="100" auto-update-mode="auto">
-        ${x => cssValueFromTokenName(tokenNames[x])}
+        ${x => computedCSSValueFromTokenName(tokenNames[x])}
     </nimble-tooltip>
 `;
 
 const stringValueTemplate = html<TokenName>`
     <div style="display: inline-block;">
-        ${x => cssValueFromTokenName(tokenNames[x])}
+        ${x => computedCSSValueFromTokenName(tokenNames[x])}
     </div>
 `;
 
@@ -188,3 +188,5 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
         </table>
     `)
 };
+
+themeAwareTokens.storyName = 'Theme-aware Tokens';

@@ -1,5 +1,5 @@
 {
-  "type": "none",
+  "type": "patch",
   "comment": "Add token previews to storybook",
   "packageName": "@ni/nimble-components",
   "email": "rajsite@users.noreply.github.com",
