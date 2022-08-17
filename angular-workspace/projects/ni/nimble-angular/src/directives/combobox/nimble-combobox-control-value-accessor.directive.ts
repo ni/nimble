@@ -137,7 +137,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      * implementation.
      * @nodoc
      */
-    private setProperty(key: string, value: string | boolean): void {
+    private setProperty(key: string, value: unknown): void {
         this._renderer.setProperty(this._elementRef.nativeElement, key, value);
     }
 }
