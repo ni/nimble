@@ -55,6 +55,7 @@ const colorTemplate = html<TokenName>`
         display: inline-block;
         height: 24px;
         width: 24px;
+        border: 1px solid black;
         background-color: var(${x => cssPropertyFromTokenName(tokenNames[x])});
     "
         title="${x => cssValueFromTokenName(tokenNames[x])}"
@@ -67,6 +68,7 @@ const rgbColorTemplate = html<TokenName>`
         display: inline-block;
         height: 24px;
         width: 24px;
+        border: 1px solid black;
         background-color: rgba(var(${x => cssPropertyFromTokenName(tokenNames[x])}), 1.0);
     "
     ></div>
