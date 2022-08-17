@@ -11,14 +11,15 @@ There is an existing drawer within nimble that is based on the FAST dialog. A nu
 As part of the re-write, the drawer's API and recommended usage will be scoped specifically for use as a modal pane.
 
 Relevant bugs:
-- [Change drawer to use dialog element](https://github.com/ni/nimble/issues/592)
-- [Drawer should not dismiss when clicking outside](https://github.com/ni/nimble/issues/636)
-- [nimble-drawer with modal=false: Always consumes Escape key on webpage if drawer is open](https://github.com/ni/nimble/issues/234)
-- [Drawer unexpected modal attribute boolean behavior](https://github.com/ni/nimble/issues/190)
-- [Nimble Drawer should trap focus when opened modal](https://github.com/ni/nimble/issues/186)
-- [Slide-outs have inconsistent dismiss behavior when clicking outside](https://dev.azure.com/ni/DevCentral/_queries/edit/2015838/)
-- [Pressing ESC when two slide-outs are open closes the wrong one](https://dev.azure.com/ni/DevCentral/_queries/edit/2051165/)
-- [sl-slide-out User able to perform background operations when slide-out menu is opened](https://ni.visualstudio.com/DevCentral/_workitems/edit/2104596)
+
+-   [Change drawer to use dialog element](https://github.com/ni/nimble/issues/592)
+-   [Drawer should not dismiss when clicking outside](https://github.com/ni/nimble/issues/636)
+-   [nimble-drawer with modal=false: Always consumes Escape key on webpage if drawer is open](https://github.com/ni/nimble/issues/234)
+-   [Drawer unexpected modal attribute boolean behavior](https://github.com/ni/nimble/issues/190)
+-   [Nimble Drawer should trap focus when opened modal](https://github.com/ni/nimble/issues/186)
+-   [Slide-outs have inconsistent dismiss behavior when clicking outside](https://dev.azure.com/ni/DevCentral/_queries/edit/2015838/)
+-   [Pressing ESC when two slide-outs are open closes the wrong one](https://dev.azure.com/ni/DevCentral/_queries/edit/2051165/)
+-   [sl-slide-out User able to perform background operations when slide-out menu is opened](https://ni.visualstudio.com/DevCentral/_workitems/edit/2104596)
 
 [Design spec](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff/specs/)
 
@@ -26,21 +27,21 @@ Relevant bugs:
 
 ### Non-goals
 
-- The drawer will not support a non-modal mode.
-- The drawer will not have a first-class way to be pinned, like the SLE navigation pane.
-- The drawer will not support closing when the user clicks off of it.
-  
+-   The drawer will not support a non-modal mode.
+-   The drawer will not have a first-class way to be pinned, like the SLE navigation pane.
+-   The drawer will not support closing when the user clicks off of it.
+
 ### Features
 
-- The drawer can be displayed on the left or right of the page based on its configuration.
-- The page beneath the drawer cannot be interacted with or focused in any way.
-- The drawer will automatically focus an element within the drawer when it is opened.
-- The drawer can be configured to prevent dismissing through non-programatic means (i.e. it does not dismiss when the user presses `Esc`).
-- The drawer will animate into and out of the page.
+-   The drawer can be displayed on the left or right of the page based on its configuration.
+-   The page beneath the drawer cannot be interacted with or focused in any way.
+-   The drawer will automatically focus an element within the drawer when it is opened.
+-   The drawer can be configured to prevent dismissing through non-programatic means (i.e. it does not dismiss when the user presses `Esc`).
+-   The drawer will animate into and out of the page.
 
 ### Risks and Challenges
 
-*None identified*
+_None identified_
 
 ### Prior Art/Examples
 
@@ -55,9 +56,10 @@ The `nimble-drawer` will no longer be used for the navigation pane. A separate c
 The `nimble-drawer` provides a control for place arbitrary content that should be shown in a slide-out over the rest of a page's content. It provides the infrastructure for animating the content's entry and exit from the page, and it is also responsible for enforcing that the rest of the page is not interactable.
 
 ### API
-- *Component Name*
-    - `nimble-drawer`
-- *Props/Attrs*
+
+-   _Component Name_
+    -   `nimble-drawer`
+-   _Props/Attrs_
     -   `open`
         -   A read-only boolean property that represents whether or not the drawer is open.
     -   `location`
@@ -67,37 +69,37 @@ The `nimble-drawer` provides a control for place arbitrary content that should b
     -   `preventDismiss`
         -   A boolean attribute to configure whether or not the drawer is dismissible via the `Esc` key, or any other dismiss action that is supported in the future.
         -   The default value is `false`.
-- *Methods*
+-   _Methods_
     -   `show()`
         -   A method that opens the drawer and returns a `Promise` that is resolved when the drawer is closed.
         -   The value of the resolved `Promise` indicates why/how the drawer was closed. When the drawer is closed by the user pressing `Esc`, a `USER_DISMISSED` Symbol is returned as the reason.
     -   `close(reason)`
         -   A method that closes the drawer and returns focus to the control that had it before the drawer was opened.
         -   The reason for closing the drawer can optionally be passed to the method.
-- *Events*
-    - *none*
-- *CSS Classes and CSS Custom Properties that affect the component*
-    - *none*
+-   _Events_
+    -   _none_
+-   _CSS Classes and CSS Custom Properties that affect the component_
+    -   _none_
 
-### Anatomy 
+### Anatomy
 
 The drawer's template will consist of a `<dialog>` containing the default `<slot>`. Additional elements will likely be required to facilitate animation.
 
-- *Slot Names*
+-   _Slot Names_
     -   `(default)`
-        - The content to display within the drawer
+        -   The content to display within the drawer
 -   _Host Classes_
-    -   *(none)*
+    -   _(none)_
 -   _Slotted Content/Slotted Classes_
     -   The existing styling for slotted `<header>`, `<section>`, and `<footer>` elements will be kept.
 -   _CSS Parts_
-    -   *(none)*
+    -   _(none)_
 
-### Angular integration 
+### Angular integration
 
 An Angular wrapper will be provided, following the same patterns as used for existing Nimble components. The drawer does not need a value accessor for form integration support.
 
-### Blazor integration 
+### Blazor integration
 
 Blazor support will be provided, following the same patterns as used for existing Nimble components.
 
@@ -122,13 +124,13 @@ Hidden/visible
 
 ### Accessibility
 
-- There will be no integration with native `forms`.
-- Focus behavior will be inherited from the native `<dialog>` element including:
-    - auto-focusing an element within the drawer
-    - diabling the ability to focus elements outside of the drawer
-- By default, the `Esc` key will close the drawer, but this behavior can be controlled through the `preventDismiss` attribute.
-- The `<dialog>` in the shadow root will automatically have `aria-modal="true"` configured on it when `showModal` is called to open it.
-- The client should set an `aria-label` on the `nimble-drawer`, which will be reflected onto the `<dialog>` element within the shadow root.
+-   There will be no integration with native `forms`.
+-   Focus behavior will be inherited from the native `<dialog>` element including:
+    -   auto-focusing an element within the drawer
+    -   diabling the ability to focus elements outside of the drawer
+-   By default, the `Esc` key will close the drawer, but this behavior can be controlled through the `preventDismiss` attribute.
+-   The `<dialog>` in the shadow root will automatically have `aria-modal="true"` configured on it when `showModal` is called to open it.
+-   The client should set an `aria-label` on the `nimble-drawer`, which will be reflected onto the `<dialog>` element within the shadow root.
 
 ### Globalization
 
@@ -144,22 +146,23 @@ There are no performance considerations.
 
 ### Dependencies
 
-*none*
+_none_
 
 ### Test Plan
 
-- Storybook & matrix tests will be created for visual testing
-- Unit tests will be created to test the entirety of the API since we are not inheriting from an existing FAST component.
+-   Storybook & matrix tests will be created for visual testing
+-   Unit tests will be created to test the entirety of the API since we are not inheriting from an existing FAST component.
 
 ### Tooling
 
-*none*
+_none_
 
 ### Documentation
 
 The existing storybook page will be updated.
 
 ---
+
 ## Open Issues
 
-*none*
+_none_
