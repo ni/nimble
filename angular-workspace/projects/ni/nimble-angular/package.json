@@ -22,7 +22,7 @@
     "@angular/core": "^12.1.0",
     "@angular/forms": "^12.1.0",
     "@angular/router": "^12.1.0",
-    "@ni/nimble-components": "^11.10.4"
+    "@ni/nimble-components": "^11.10.5"
   },
   "dependencies": {
     "tslib": "^2.2.0"

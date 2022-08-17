@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 15 Aug 2022 15:50:12 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Aug 2022 18:59:48 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.10.5
+
+Wed, 17 Aug 2022 18:59:48 GMT
+
+### Patches
+
+- Add token previews to storybook ([ni/nimble@bc7262c](https://github.com/ni/nimble/commit/bc7262c578faf4af964fba4d63a92445703ed2da))
 
 ## 11.10.4
 
