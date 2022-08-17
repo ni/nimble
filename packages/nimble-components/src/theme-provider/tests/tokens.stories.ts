@@ -51,7 +51,7 @@ const computedCSSValueFromTokenName = (tokenName: string): string => {
 
 const colorTemplate = html<TokenName>`
     <div
-        id="${x => x}"
+        title="${x => computedCSSValueFromTokenName(tokenNames[x])}"
         style="
         display: inline-block;
         height: 24px;
@@ -60,14 +60,11 @@ const colorTemplate = html<TokenName>`
         background-color: var(${x => cssPropertyFromTokenName(tokenNames[x])});
     "
     ></div>
-    <nimble-tooltip anchor="${x => x}" delay="100" auto-update-mode="auto">
-        ${x => computedCSSValueFromTokenName(tokenNames[x])}
-    </nimble-tooltip>
 `;
 
 const rgbColorTemplate = html<TokenName>`
     <div
-        id="${x => x}"
+        title="${x => computedCSSValueFromTokenName(tokenNames[x])}"
         style="
         display: inline-block;
         height: 24px;
@@ -76,9 +73,6 @@ const rgbColorTemplate = html<TokenName>`
         background-color: rgba(var(${x => cssPropertyFromTokenName(tokenNames[x])}), 1.0);
     "
     ></div>
-    <nimble-tooltip anchor="${x => x}" delay="100" auto-update-mode="auto">
-        ${x => computedCSSValueFromTokenName(tokenNames[x])}
-    </nimble-tooltip>
 `;
 
 const stringValueTemplate = html<TokenName>`
