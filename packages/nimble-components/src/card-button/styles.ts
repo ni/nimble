@@ -155,7 +155,7 @@ export const styles = css`
             Theme.color,
             css`
                 :host {
-                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(Black, 0.77)};
+                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(Black, 0.3)};
                     --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(White, 0.07)};
                     --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(White, 0.15)};
                     --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(White, 0.2)};
