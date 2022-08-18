@@ -23,10 +23,10 @@
     }
   },
   "peerDependencies": {
-    "@angular/common": "^12.1.0",
-    "@angular/core": "^12.1.0",
-    "@angular/forms": "^12.1.0",
-    "@angular/router": "^12.1.0",
+    "@angular/common": "^14.2.0",
+    "@angular/core": "^14.2.0",
+    "@angular/forms": "^14.2.0",
+    "@angular/router": "^14.2.0",
     "@ni/nimble-components": "^11.13.1"
   },
   "dependencies": {

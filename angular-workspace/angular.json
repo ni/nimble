@@ -170,6 +170,5 @@
         }
       }
     }
-  },
-  "defaultProject": "@ni/nimble-angular"
+  }
 }

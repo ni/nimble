@@ -11,7 +11,7 @@ import { NG_VALUE_ACCESSOR, NumberValueAccessor } from '@angular/forms';
     selector:
         'nimble-number-field[formControlName],nimble-number-field[formControl],nimble-number-field[ngModel]',
     // The following host metadata is duplicated from NumberValueAccessor
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
     host: { '(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
@@ -19,4 +19,4 @@ import { NG_VALUE_ACCESSOR, NumberValueAccessor } from '@angular/forms';
         multi: true
     }]
 })
-export class NimbleNumberFieldControlValueAccessorDirective extends NumberValueAccessor {}
+export class NimbleNumberFieldControlValueAccessorDirective extends NumberValueAccessor { }

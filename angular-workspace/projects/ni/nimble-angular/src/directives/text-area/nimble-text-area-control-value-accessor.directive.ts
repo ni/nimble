@@ -9,14 +9,16 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
  */
 @Directive({
     selector:
-      'nimble-text-area[formControlName],nimble-text-area[formControl],nimble-text-area[ngModel]',
+        'nimble-text-area[formControlName],nimble-text-area[formControl],nimble-text-area[ngModel]',
     // The following host metadata is duplicated from DefaultValueAccessor
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property
     host: {
+        /* eslint-disable @typescript-eslint/naming-convention */
         '(input)': '$any(this)._handleInput($event.target.value)',
         '(blur)': 'onTouched()',
         '(compositionstart)': '$any(this)._compositionStart()',
         '(compositionend)': '$any(this)._compositionEnd($event.target.value)'
+        /* eslint-enable @typescript-eslint/naming-convention */
     },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
@@ -24,4 +26,4 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
         multi: true
     }]
 })
-export class NimbleTextAreaControlValueAccessorDirective extends DefaultValueAccessor {}
+export class NimbleTextAreaControlValueAccessorDirective extends DefaultValueAccessor { }

@@ -64,6 +64,9 @@ typings/
 
 # Output of 'npm pack'
 *.tgz
+!packages/ni-eslint-config-angular-3.3.1.tgz
+!packages/ni-eslint-config-javascript-3.1.0.tgz
+!packages/ni-eslint-config-typescript-3.0.5.tgz
 
 # Yarn Integrity file
 .yarn-integrity

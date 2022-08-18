@@ -24,7 +24,7 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     }
 
     @Component({ template: '' })
-    class BlankComponent {}
+    class BlankComponent { }
 
     let breadcrumbItem1: BreadcrumbItem;
     let fixture: ComponentFixture<TestHostComponent>;
@@ -32,8 +32,8 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     let router: Router;
     let location: Location;
     let anchor: HTMLAnchorElement;
-    let routerNavigateByUrlSpy: jasmine.Spy<jasmine.Func>;
-    let anchorClickHandlerSpy: jasmine.Spy<jasmine.Func>;
+    let routerNavigateByUrlSpy: jasmine.Spy;
+    let anchorClickHandlerSpy: jasmine.Spy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -41,7 +41,8 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
             imports: [NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
                 CommonModule,
                 RouterTestingModule.withRoutes(
-                    [{ path: '', redirectTo: '/start', pathMatch: 'full' },
+                    [
+                        { path: '', redirectTo: '/start', pathMatch: 'full' },
                         { path: 'page1', component: BlankComponent },
                         { path: 'start', component: TestHostComponent }
                     ], { useHash: true }
