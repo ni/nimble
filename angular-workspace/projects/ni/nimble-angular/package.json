@@ -17,6 +17,11 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
+  "exports": {
+    "./styles/*": {
+      "sass": "./styles/*.scss"
+    }
+  },
   "peerDependencies": {
     "@angular/common": "^12.1.0",
     "@angular/core": "^12.1.0",
