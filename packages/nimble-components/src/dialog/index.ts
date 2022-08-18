@@ -18,7 +18,7 @@ declare global {
 }
 
 /**
- * This is a workaround for an incomplete definition of the native dialog element:
+ * This is a workaround for an incomplete definition of the native dialog element. Remove when using Typescript >=4.8.3.
  * https://github.com/microsoft/TypeScript/issues/48267
  * @internal
  */
