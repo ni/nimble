@@ -152,7 +152,8 @@ _none_
 
 -   Storybook & matrix tests will be created for visual testing
 -   Unit tests will be created to test the entirety of the API since we are not inheriting from an existing FAST component. This will include:
-    -   Testing that `close()` can be called successfully while the open animation is still in progress
+    -   Calling `close()` immediately starts closing the drawer, even if the opening animation is not complete
+    -   Calling `close()` while the close animation is in progress throws an exception
     -   When `close()` is called, `open` still returns `true` until the animation is complete
     -   The `Promise` returned from `show()` does not resolve until the closing animation is complete
 
