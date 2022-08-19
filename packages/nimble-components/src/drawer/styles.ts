@@ -27,30 +27,52 @@ export const styles = css`
         outline: none;
         font: ${bodyFont};
         color: ${bodyFontColor};
-        background-color: ${applicationBackgroundColor};
-    }
-
-    :host([location='left']) {
-        left: 0px;
-    }
-
-    :host([location='right']) {
-        right: 0px;
     }
 
     .dialog-contents {
-        width: ${drawerWidth};
-        height: 100%;
+        background-color: ${applicationBackgroundColor};
+        min-height: 100%;
+        transition: transform ${largeDelay} ease-in;
     }
 
-    dialog.animation-complete .dialog-contents {
-        width: 100%;
+    @media (prefers-reduced-motion) {
+        .dialog-contents {
+            transition-duration: 0s;
+        }
+    }
+
+    :host([location='left']) .dialog-contents {
+        transform: translate(-100%);
+        border-right: ${borderWidth} solid ${popupBoxShadowColor};
+        box-shadow: 3px 0px 8px ${popupBoxShadowColor};
+    }
+
+    :host([location='left']) dialog.open .dialog-contents {
+        transform: translate(0%);
+    }
+
+    :host([location='right']) .dialog-contents {
+        ${
+            /*
+                TODO: This animation doesn't work correctly in chromium, but it does work in Firefox.
+                In chromium there seems to be a bug where it incorrectly calculates what a translation of 100%
+                places the element unless the dialog has been open for "some amount of time" (i.e. requestAnimationFrame)
+                does not help.
+            */ ''
+        }
+        transform: translate(100%);
+        border-left: ${borderWidth} solid ${popupBoxShadowColor};
+        box-shadow: -3px 0px 8px ${popupBoxShadowColor};
+    }
+
+    :host([location='right']) dialog.open .dialog-contents {
+        transform: translate(0%);
     }
 
     dialog {
         color: inherit;
         font: inherit;
-        background-color: inherit;
+        background-color: transparent;
         width: ${drawerWidth};
         top: 0px;
         bottom: 0px;
@@ -68,44 +90,14 @@ export const styles = css`
             */ ''
         }
         overflow-x: hidden;
-    }    
-    
-
-    :host([location='left']) dialog {
-        border-right: ${borderWidth} solid ${popupBoxShadowColor};
-        box-shadow: 3px 0px 8px ${popupBoxShadowColor};
     }
 
     :host([location='right']) dialog {
         left: auto;
-        border-left: ${borderWidth} solid ${popupBoxShadowColor};
-        box-shadow: -3px 0px 8px ${popupBoxShadowColor};
     }
 
     :host(.hidden) dialog {
         visibility: hidden;
-    }
-
-    dialog.animation-complete {
-        overflow-x: auto;
-    }
-
-    :host([location='left']) dialog {
-        transform: translate(-100%);
-        transition: transform ${largeDelay} ease-in;
-    }
-
-    :host([location='left']) dialog.open {
-        transform: translate(0%);
-    }
-
-    :host([location='right']) dialog {
-        width: 0px;
-        transition: width ${largeDelay} ease-in;
-    }
-
-    :host([location='right']) dialog.open {
-        width: ${drawerWidth};
     }
 
     dialog::backdrop {

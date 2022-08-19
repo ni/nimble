@@ -106,7 +106,6 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     }
 
     private triggerAnimation(opening: boolean): void {
-        this.dialog.classList.remove('animation-complete');
         this.closing = !opening;
         if (opening) {
             this.dialog.classList.add('open');
@@ -118,7 +117,6 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     }
 
     private transitionEndHandler(): void {
-        this.dialog.classList.add('animation-complete');
         this.dialog.removeEventListener(eventTransitionEnd, this.transitionEndHandlerFunction);
         if (this.closing) {
             this.dialog.close();
