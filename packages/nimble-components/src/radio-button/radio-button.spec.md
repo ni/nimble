@@ -21,12 +21,12 @@ Facilitating single select from a group of visible choices through a toggled T/F
 
 [FAST Radio Group API](https://github.com/microsoft/fast/blob/7934089e4b161ea5a14da817ef2439c0fb47786b/packages/web-components/fast-foundation/src/radio-group/radio-group.spec.md)
 
-The state of the radio button can be changed by clicking the button or accompanied title. When the radio button has the `disabled` class applied, the contents of the button will appear in a greyed-out state and will be non-interactive. This component will include no alternative appearances.
+The state of the radio button can be changed by clicking the button or accompanied title. When the radio button has the `disabled` attribute applied, the contents of the button will appear in a greyed-out state and will be non-interactive. This component will include no alternative appearances.
 
 The two components will expose common attributes shared by all components. In addition the 'Radio Group' component exposes an 'orientation' attribute. This will set the visual orientation of the radio group as either vertical or horizontal.
 
 -   _Component Name:_ `nimble-radio-button` and `nimble-radio-group`
--   _Properties/Attributes:_ We will not expose the `readOnly` property since we don't have a design or a use case to distinguish it from `disabled`. If it is needed at a future time, it can be added then.
+-   _Properties/Attributes:_ We will not expose the `readOnly` property since we don't have a design or a use case to distinguish it from `disabled`. We will document this in the Storybook page. If it is needed at a future time, it can be added then.
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
