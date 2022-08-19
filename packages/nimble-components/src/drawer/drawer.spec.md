@@ -151,7 +151,10 @@ _none_
 ### Test Plan
 
 -   Storybook & matrix tests will be created for visual testing
--   Unit tests will be created to test the entirety of the API since we are not inheriting from an existing FAST component.
+-   Unit tests will be created to test the entirety of the API since we are not inheriting from an existing FAST component. This will include:
+    -   Testing that `close()` can be called successfully while the open animation is still in progress
+    -   When `close()` is called, `open` still returns `true` until the animation is complete
+    -   The `Promise` returned from `show()` does not resolve until the closing animation is complete
 
 ### Tooling
 
