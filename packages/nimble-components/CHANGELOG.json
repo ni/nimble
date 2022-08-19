@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 19 Aug 2022 16:58:19 GMT",
+      "tag": "@ni/nimble-components_v11.10.5",
+      "version": "11.10.5",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "83f499c96d30f0989d587a2314362258ffcfa543",
+            "comment": "radio button spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Aug 2022 15:33:21 GMT",
       "tag": "@ni/nimble-components_v11.10.5",
       "version": "11.10.5",
