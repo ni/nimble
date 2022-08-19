@@ -25,6 +25,19 @@ const metadata: Meta<DialogArgs> = {
                 component:
                     'A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.\n\nBy default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.'
             }
+        },
+        a11y: {
+            config: {
+                rules: [
+                    {
+                        // The nimble-dialog has no role, but may have an aria-label that is forwarded on to the
+                        // native dialog element in the shadow DOM. The nimble-dialog is already ignored in the
+                        // a11y tree because it has role=none.
+                        id: 'aria-allowed-attr',
+                        selector: '*:not(nimble-dialog)'
+                    }
+                ]
+            }
         }
     },
     render: createUserSelectedThemeStory(html`
