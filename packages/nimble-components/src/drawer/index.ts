@@ -26,19 +26,17 @@ export type UserDismissed = typeof USER_DISMISSED;
  * - turn off animations when prefers reduced motion is set
  * - figure out why exposing USER_DISMISSED isn't working correctly in Angular (duplicate export?)
  * - slide-in animations don't work from the right when width is set to 'fit-content'
- * - double check spec colors (border, drop-shadow, etc)
  */
 
 /**
  * Drawer/Sidenav control. Shows content in a panel on the left / right side of the screen,
  * which animates to be visible with a slide-in / slide-out animation.
- * Configured via 'location', 'state', 'modal', 'preventDismiss' properties.
  */
 export class Drawer<CloseReason = void> extends FoundationElement {
     @attr
     public location: DrawerLocation = DrawerLocation.left;
 
-    @attr({ attribute: 'prevent-dismiss' })
+    @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
     public dialog!: HTMLDialogElement;

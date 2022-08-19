@@ -73,11 +73,13 @@ export const styles = css`
 
     :host([location='left']) dialog {
         border-right: ${borderWidth} solid ${popupBoxShadowColor};
+        box-shadow: 3px 0px 8px ${popupBoxShadowColor};
     }
 
     :host([location='right']) dialog {
         left: auto;
         border-left: ${borderWidth} solid ${popupBoxShadowColor};
+        box-shadow: -3px 0px 8px ${popupBoxShadowColor};
     }
 
     :host(.hidden) dialog {
