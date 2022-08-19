@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 19 Aug 2022 15:33:21 GMT",
+      "tag": "@ni/nimble-components_v11.10.5",
+      "version": "11.10.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7c831f23917994742872d5dd525fd56a2036311a",
+            "comment": "Create spec for the redesign of the nimble-drawer"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Aug 2022 18:59:48 GMT",
+      "tag": "@ni/nimble-components_v11.10.5",
+      "version": "11.10.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bc7262c578faf4af964fba4d63a92445703ed2da",
+            "comment": "Add token previews to storybook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 15 Aug 2022 15:50:12 GMT",
       "tag": "@ni/nimble-components_v11.10.4",
       "version": "11.10.4",
