@@ -1,5 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { Black15, Black91, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
     bodyFont,
@@ -9,25 +10,24 @@ import {
     popupBoxShadowColor,
     standardPadding,
     titlePlus1Font,
-    drawerWidth
+    drawerWidth,
+    largeDelay
 } from '../theme-provider/design-tokens';
+import { Theme } from '../theme-provider/types';
+import { hexToRgbaCssColor } from '../utilities/style/colors';
+import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
     ${display('block')}
 
     :host {
-        position: relative;
-        top: 0;
-        bottom: 0;
-        width: fit-content;
+        position: absolute;
+        width: auto;
         height: 100%;
         outline: none;
         font: ${bodyFont};
         color: ${bodyFontColor};
-    }
-
-    :host([modal]) {
-        position: absolute;
+        background-color: ${applicationBackgroundColor};
     }
 
     :host([location='left']) {
@@ -38,62 +38,87 @@ export const styles = css`
         right: 0px;
     }
 
-    .positioning-region {
-        display: block;
-        position: relative;
-        justify-content: center;
-        width: fit-content;
-        height: 100%;
-        inset: 0px;
-        overflow: hidden;
-        z-index: 999;
-    }
-
-    :host([modal]) .positioning-region {
-        width: 100%;
-        position: fixed;
-        display: flex;
-    }
-
-    ${/* Note: overlay is only present in the DOM when modal=true */ ''}
-    .overlay {
-        position: fixed;
-        inset: 0px;
-        background: ${popupBorderColor};
-        touch-action: none;
-    }
-
-    .control {
-        position: relative;
-        top: 0px;
-        bottom: 0px;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-        border-radius: 0px;
-        border-width: 0px;
+    .dialog-contents {
         width: ${drawerWidth};
         height: 100%;
-        background-color: ${applicationBackgroundColor};
     }
 
-    :host([modal]) .control {
-        position: absolute;
+    dialog.animation-complete .dialog-contents {
+        width: 100%;
+    }
+
+    dialog {
+        color: inherit;
+        font: inherit;
+        background-color: inherit;
+        width: ${drawerWidth};
+        top: 0px;
+        bottom: 0px;
+        border-radius: 0px;
+        border-width: 0px;
         height: 100%;
-    }
+        margin: 0px;
+        padding: 0px;
+        max-width: none;
+        max-height: none;
+        ${
+            /*
+                Set overflow-x to hidden while the animation is in progress so that a scrollbar
+                isn't visible while the drawer hasn't expanded to its full width.
+            */ ''
+        }
+        overflow-x: hidden;
+    }    
+    
 
-    :host(.hidden) .control {
-        visibility: hidden;
-    }
-
-    :host([location='left']) .control {
-        left: 0px;
+    :host([location='left']) dialog {
         border-right: ${borderWidth} solid ${popupBoxShadowColor};
     }
 
-    :host([location='right']) .control {
-        right: 0px;
+    :host([location='right']) dialog {
+        left: auto;
         border-left: ${borderWidth} solid ${popupBoxShadowColor};
+    }
+
+    :host(.hidden) dialog {
+        visibility: hidden;
+    }
+
+    dialog.animation-complete {
+        overflow-x: auto;
+    }
+
+    :host([location='left']) dialog {
+        transform: translate(-100%);
+        transition: transform ${largeDelay} ease-in;
+    }
+
+    :host([location='left']) dialog.open {
+        transform: translate(0%);
+    }
+
+    :host([location='right']) dialog {
+        width: 0px;
+        transition: width ${largeDelay} ease-in;
+    }
+
+    :host([location='right']) dialog.open {
+        width: ${drawerWidth};
+    }
+
+    dialog::backdrop {
+        opacity:0;
+        ${
+            /*
+                The largeDelay token cannot be used on the backdrop because it is not
+                a descendant of the nimble-theme-provider
+            */ ''
+        }
+        transition: opacity 0.25s ease-in;
+    }
+
+    dialog.open::backdrop {
+        opacity: 1;
     }
 
     ${
@@ -122,4 +147,33 @@ export const styles = css`
         justify-content: flex-end;
         border-top: ${borderWidth} solid ${popupBorderColor};
     }
-`;
+`.withBehaviors(
+            /*
+                Local Theme Behaviors to style the backdrop because it is not a descendent of the theme provider. As a result,
+                the backdrop cannot be styled using tokens directly.
+            */
+            themeBehavior(
+                Theme.light,
+                css`
+                dialog::backdrop {
+                    background: ${hexToRgbaCssColor(Black91, 0.3)};
+                }
+            `
+            ),
+            themeBehavior(
+                Theme.dark,
+                css`
+                dialog::backdrop {
+                    background: ${hexToRgbaCssColor(Black15, 0.3)};
+                }
+            `
+            ),
+            themeBehavior(
+                Theme.color,
+                css`
+                dialog::backdrop {
+                    background: ${hexToRgbaCssColor(White, 0.3)};
+                }
+            `
+            )
+        );

@@ -1,20 +1,12 @@
-import { AnimateGroup, AnimateTo } from '@microsoft/fast-animation';
-import {
-    attr,
-    Notifier,
-    Observable,
-    Subscriber
-} from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
-    Dialog as FoundationDialog,
-    dialogTemplate as template
+    FoundationElement
 } from '@microsoft/fast-foundation';
-import { largeDelay } from '../theme-provider/design-tokens';
-import { prefersReducedMotionMediaQuery } from '../utilities/style/prefers-reduced-motion';
-import { animationConfig } from './animations';
+import { eventTransitionEnd } from '@microsoft/fast-web-utilities';
 import { styles } from './styles';
-import { DrawerLocation, DrawerState } from './types';
+import { template } from './template';
+import { DrawerLocation } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,225 +14,120 @@ declare global {
     }
 }
 
-const animationDurationWhenDisabledMilliseconds = 0.001;
+/**
+ * Symbol that is returned as the dialog close reason (from the Promise returned by show()) when
+ * the drawer was closed by pressing the ESC key (vs. calling the close() function).
+ */
+export const USER_DISMISSED: unique symbol = Symbol('user dismissed');
+export type UserDismissed = typeof USER_DISMISSED;
+
+/**
+ * TODOs:
+ * - turn off animations when prefers reduced motion is set
+ * - figure out why exposing USER_DISMISSED isn't working correctly in Angular (duplicate export?)
+ * - slide-in animations don't work from the right when width is set to 'fit-content'
+ * - double check spec colors (border, drop-shadow, etc)
+ */
 
 /**
  * Drawer/Sidenav control. Shows content in a panel on the left / right side of the screen,
  * which animates to be visible with a slide-in / slide-out animation.
  * Configured via 'location', 'state', 'modal', 'preventDismiss' properties.
  */
-export class Drawer extends FoundationDialog {
+export class Drawer<CloseReason = void> extends FoundationElement {
     @attr
     public location: DrawerLocation = DrawerLocation.left;
 
-    @attr
-    public state: DrawerState = DrawerState.closed;
-
-    /**
-     * True to prevent dismissing the drawer when the overlay outside the drawer is clicked.
-     * Only applicable when 'modal' is set to true (i.e. when the overlay is used).
-     * HTML Attribute: prevent-dismiss
-     */
-    @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
+    @attr({ attribute: 'prevent-dismiss' })
     public preventDismiss = false;
 
-    private readonly propertiesToWatch = ['hidden', 'location', 'state'];
-    private propertyChangeNotifier?: Notifier;
+    public dialog!: HTMLDialogElement;
+    private closing = false;
 
-    private animationDurationMilliseconds =
-    animationDurationWhenDisabledMilliseconds;
+    private resolveShow?: (reason: CloseReason | UserDismissed) => void;
+    private closeReason!: CloseReason | UserDismissed;
 
-    private animationGroup?: AnimateGroup;
-    private animationsEnabledChangedHandler?: () => void;
-    private propertyChangeSubscriber?: Subscriber;
-
-    /** @internal */
-    public override connectedCallback(): void {
-        // disable trapFocus before super.connectedCallback as FAST Dialog will immediately queue work to
-        // change focus if it's true before connectedCallback
-        this.trapFocus = false;
-        super.connectedCallback();
-        this.updateAnimationDuration();
-        this.animationsEnabledChangedHandler = () => this.updateAnimationDuration();
-        prefersReducedMotionMediaQuery.addEventListener(
-            'change',
-            this.animationsEnabledChangedHandler
-        );
-        this.onStateChanged();
-        const notifier = Observable.getNotifier(this);
-        const subscriber: Subscriber = {
-            handleChange: (_source: unknown, propertyName: string) => this.onPropertyChange(propertyName)
-        };
-        this.propertiesToWatch.forEach(propertyName => notifier.subscribe(subscriber, propertyName));
-        this.propertyChangeSubscriber = subscriber;
-        this.propertyChangeNotifier = notifier;
-    }
-
-    /** @internal */
-    public override disconnectedCallback(): void {
-        super.disconnectedCallback();
-        this.cancelCurrentAnimation();
-        if (this.propertyChangeNotifier && this.propertyChangeSubscriber) {
-            this.propertiesToWatch.forEach(propertyName => this.propertyChangeNotifier!.unsubscribe(
-                this.propertyChangeSubscriber!,
-                propertyName
-            ));
-            this.propertyChangeNotifier = undefined;
-            this.propertyChangeSubscriber = undefined;
-        }
-        if (this.animationsEnabledChangedHandler) {
-            prefersReducedMotionMediaQuery.removeEventListener(
-                'change',
-                this.animationsEnabledChangedHandler
-            );
-            this.animationsEnabledChangedHandler = undefined;
-        }
-    }
-
-    public override show(): void {
-        // Not calling super.show() as that will immediately show the drawer, whereas 'Opening' state will animate
-        this.state = DrawerState.opening;
-    }
-
-    public override hide(): void {
-        // Not calling super.hide() as that will immediately hide the drawer, whereas 'Closing' state will animate
-        this.state = DrawerState.closing;
+    /**
+     * True if the dialog is open/showing, false otherwise
+     */
+    public get open(): boolean {
+        return this.resolveShow !== undefined;
     }
 
     /**
-     * Handler for overlay clicks (user-initiated dismiss requests) only.
+     * Opens the drawer
+     * @returns Promise that is resolved when the drawer is closed. The value of the resolved Promise is the reason value passed to the close() method, or
+     * USER_DISMISSED if the dialog was closed via the ESC key or clicking off the drawer.
+     */
+    public async show(): Promise<CloseReason | UserDismissed> {
+        if (this.open) {
+            throw new Error('Dialog is already open');
+        }
+        this.openDialog();
+        return new Promise((resolve, _reject) => {
+            this.resolveShow = resolve;
+        });
+    }
+
+    /**
+     * Closes the dialog
+     * @param reason An optional value indicating how/why the dialog was closed.
+     */
+    public close(reason: CloseReason): void {
+        if (!this.open || this.closing) {
+            throw new Error('Dialog is not open');
+        }
+        this.closeReason = reason;
+        this.closeDialog();
+    }
+
+    /**
      * @internal
      */
-    public override dismiss(): void {
-        // Note: intentionally not calling super() in this function in order to implement custom preventDismiss behavior
-        const shouldDismiss = this.$emit(
-            'cancel',
-            {},
-            // Aligned with the configuration of HTMLDialogElement cancel event:
-            // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/cancel_event
-            { bubbles: false, cancelable: true, composed: false }
-        );
-        if (shouldDismiss && !this.preventDismiss) {
-            this.$emit('dismiss');
-            this.hide();
+    public cancelHandler(event: Event): boolean {
+        // Allowing the dialog to close itself bypasses the drawer's animation logic, so we
+        // should close the drawer ourselves when preventDismiss is not true.
+        event.preventDefault();
+
+        if (!this.preventDismiss) {
+            this.closeReason = USER_DISMISSED;
+            this.closeDialog();
         }
+        return true;
     }
 
-    private onPropertyChange(propertyName: string): void {
-        switch (propertyName) {
-            case 'hidden':
-                this.onHiddenChanged();
-                break;
-            case 'location':
-                this.onLocationChanged();
-                break;
-            case 'state':
-                this.onStateChanged();
-                break;
-            default:
-                break;
-        }
+    private readonly transitionEndHandlerFunction = (): void => this.transitionEndHandler();
+
+    private openDialog(): void {
+        this.dialog.showModal();
+        this.triggerAnimation(true);
     }
 
-    private onHiddenChanged(): void {
-        if (this.hidden && this.state !== DrawerState.closed) {
-            this.state = DrawerState.closed;
-        } else if (!this.hidden && this.state === DrawerState.closed) {
-            this.state = DrawerState.opened;
-        }
+    private closeDialog(): void {
+        this.triggerAnimation(false);
     }
 
-    private onLocationChanged(): void {
-        this.cancelCurrentAnimation();
-    }
-
-    private onStateChanged(): void {
-        if (this.isConnected) {
-            this.cancelCurrentAnimation();
-            switch (this.state) {
-                case DrawerState.opening:
-                    this.animateOpening();
-                    this.hidden = false;
-                    break;
-                case DrawerState.opened:
-                    this.hidden = false;
-                    break;
-                case DrawerState.closing:
-                    this.hidden = false;
-                    this.animateClosing();
-                    break;
-                case DrawerState.closed:
-                    this.hidden = true;
-                    break;
-                default:
-                    throw new Error(
-                        'Unsupported state value. Expected: opening/opened/closing/closed'
-                    );
-            }
-            this.$emit('state-change');
-        }
-    }
-
-    private updateAnimationDuration(): void {
-        const disableAnimations: boolean = prefersReducedMotionMediaQuery.matches;
-        if (disableAnimations) {
-            this.animationDurationMilliseconds = animationDurationWhenDisabledMilliseconds;
+    private triggerAnimation(opening: boolean): void {
+        this.dialog.classList.remove('animation-complete');
+        this.closing = !opening;
+        if (opening) {
+            this.dialog.classList.add('open');
         } else {
-            // string ends in 's' unit specifier
-            const secondsString: string = largeDelay.getValueFor(this);
-            const secondsNumber: number = parseFloat(secondsString);
-            this.animationDurationMilliseconds = 1000 * secondsNumber;
-        }
-    }
-
-    private animateOpening(): void {
-        this.animateOpenClose(true);
-    }
-
-    private animateClosing(): void {
-        if (!this.hidden) {
-            this.animateOpenClose(false);
-        } else {
-            this.state = DrawerState.closed;
-        }
-    }
-
-    private animateOpenClose(drawerOpening: boolean): void {
-        const options = {
-            ...(drawerOpening
-                ? animationConfig.slideInOptions
-                : animationConfig.slideOutOptions),
-            duration: this.animationDurationMilliseconds
-        };
-        const drawerKeyframes = this.location === DrawerLocation.right
-            ? animationConfig.slideRightKeyframes
-            : animationConfig.slideLeftKeyframes;
-        const dialogAnimation = new AnimateTo(this.dialog, undefined, options);
-        dialogAnimation.addKeyframes(drawerKeyframes);
-        const animations = [dialogAnimation];
-        const overlay = this.shadowRoot?.querySelector('.overlay');
-        if (overlay) {
-            const overlayAnimation = new AnimateTo(
-                overlay as HTMLElement,
-                undefined,
-                options
-            );
-            overlayAnimation.addKeyframes(animationConfig.fadeOverlayKeyframes);
-            animations.push(overlayAnimation);
+            this.dialog.classList.remove('open');
         }
 
-        const animationGroup = new AnimateGroup(animations);
-        animationGroup.onFinish = () => {
-            this.state = drawerOpening
-                ? DrawerState.opened
-                : DrawerState.closed;
-        };
-        this.animationGroup = animationGroup;
-        animationGroup.play();
+        this.dialog.addEventListener(eventTransitionEnd, this.transitionEndHandlerFunction);
     }
 
-    private cancelCurrentAnimation(): void {
-        this.animationGroup?.cancel();
+    private transitionEndHandler(): void {
+        this.dialog.classList.add('animation-complete');
+        this.dialog.removeEventListener(eventTransitionEnd, this.transitionEndHandlerFunction);
+        if (this.closing) {
+            this.dialog.close();
+            this.closing = false;
+            this.resolveShow!(this.closeReason);
+            this.resolveShow = undefined;
+        }
     }
 }
 
@@ -249,5 +136,4 @@ const nimbleDrawer = Drawer.compose({
     template,
     styles
 });
-
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDrawer());
