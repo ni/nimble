@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 17 Aug 2022 18:59:48 GMT",
+      "tag": "@ni/nimble-angular_v8.4.3",
+      "version": "8.4.3",
+      "comments": {
+        "none": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.10.5",
+            "commit": "bc7262c578faf4af964fba4d63a92445703ed2da"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Aug 2022 15:30:06 GMT",
+      "tag": "@ni/nimble-angular_v8.4.3",
+      "version": "8.4.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "5c379332c7ee54a2a1c1371f16f5ec1129ffbba7",
+            "comment": "Implement setDisabledState on the combobox's control value accessor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 15 Aug 2022 15:50:12 GMT",
       "tag": "@ni/nimble-angular_v8.4.2",
       "version": "8.4.2",
