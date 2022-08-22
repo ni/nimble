@@ -1,6 +1,9 @@
 import { attr } from '@microsoft/fast-element';
 import {
+    applyMixins,
+    ARIAGlobalStatesAndProperties,
     DesignSystem,
+    Dialog,
     FoundationElement
 } from '@microsoft/fast-foundation';
 import { eventTransitionEnd } from '@microsoft/fast-web-utilities';
@@ -126,6 +129,10 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         }
     }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface Drawer extends ARIAGlobalStatesAndProperties {}
+applyMixins(Drawer, ARIAGlobalStatesAndProperties);
 
 const nimbleDrawer = Drawer.compose({
     baseName: 'drawer',
