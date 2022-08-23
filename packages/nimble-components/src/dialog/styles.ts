@@ -22,11 +22,11 @@ export const styles = css`
         max-width: 50%;
     }
 `.withBehaviors(
-        /*
-         * These colors/opacities for the backdrop should be the same as modalBackdropColor.
-         * We cannot use that token directly because the backdrop element is not a descendant
-         * of the nimble-theme-provider element.
-         */
+    /*
+     * These colors/opacities for the backdrop should be the same as modalBackdropColor.
+     * We cannot use that token directly because the backdrop element is not a descendant
+     * of the nimble-theme-provider element.
+     */
         themeBehavior(
             Theme.light,
             css`
