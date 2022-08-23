@@ -1,6 +1,7 @@
 import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
 import hexRgb from 'hex-rgb';
 import {
+    Black,
     Black7,
     Black91,
     Black85,
@@ -164,6 +165,10 @@ export const borderHoverColor = DesignToken.create<string>(
 export const iconColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.iconColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White));
+
+export const modalBackdropColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.modalBackdropColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(Black, getOpacityForTheme(element, 0.3, 0.6, 0.6)));
 
 export const popupBoxShadowColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBoxShadowColor)
@@ -627,6 +632,24 @@ function createFontTokens(
         fontLineHeightToken,
         fontFallbackFamilyToken
     ] as const;
+}
+
+function getOpacityForTheme(
+    element: HTMLElement,
+    lightThemeOpacity: number,
+    darkThemeOpacity: number,
+    colorThemeOpacity: number
+): number {
+    switch (theme.getValueFor(element)) {
+        case Theme.light:
+            return lightThemeOpacity;
+        case Theme.dark:
+            return darkThemeOpacity;
+        case Theme.color:
+            return colorThemeOpacity;
+        default:
+            return lightThemeOpacity;
+    }
 }
 
 function getColorForTheme(
