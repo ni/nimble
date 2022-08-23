@@ -3,26 +3,21 @@ import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
     DesignSystem,
-    Dialog,
     FoundationElement
 } from '@microsoft/fast-foundation';
 import { eventTransitionEnd } from '@microsoft/fast-web-utilities';
+import { USER_DISMISSED, UserDismissed } from '../patterns/dialog/constants';
 import { styles } from './styles';
 import { template } from './template';
 import { DrawerLocation } from './types';
+
+export { USER_DISMISSED, UserDismissed } from '../patterns/dialog/constants';
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-drawer': Drawer;
     }
 }
-
-/**
- * Symbol that is returned as the dialog close reason (from the Promise returned by show()) when
- * the drawer was closed by pressing the ESC key (vs. calling the close() function).
- */
-export const USER_DISMISSED: unique symbol = Symbol('user dismissed');
-export type UserDismissed = typeof USER_DISMISSED;
 
 /**
  * TODOs:

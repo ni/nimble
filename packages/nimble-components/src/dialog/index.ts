@@ -5,21 +5,17 @@ import {
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
+import { USER_DISMISSED, UserDismissed } from '../patterns/dialog/constants';
 import { styles } from './styles';
 import { template } from './template';
+
+export { USER_DISMISSED, UserDismissed } from '../patterns/dialog/constants';
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-dialog': Dialog;
     }
 }
-
-/**
- * Symbol that is returned as the dialog close reason (from the Promise returned by show()) when
- * the dialog was closed by pressing the ESC key (vs. calling the close() function).
- */
-export const USER_DISMISSED: unique symbol = Symbol('user dismissed');
-export type UserDismissed = typeof USER_DISMISSED;
 
 /**
  * This is a workaround for an incomplete definition of the native dialog element:

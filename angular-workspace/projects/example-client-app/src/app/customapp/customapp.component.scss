@@ -48,3 +48,8 @@ nimble-toolbar::part(positioning-region) {
     display: flex;
     margin: $ni-nimble-standard-padding;
 }
+
+.drawer-footer {
+    display: flex;
+    gap: $ni-nimble-standard-padding;
+}

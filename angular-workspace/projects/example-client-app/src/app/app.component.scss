@@ -1,9 +1,10 @@
 :host {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     height: 100%;
-    grid-template-rows: auto 1fr;
 }
 
-router-outlet {
-    display: none;
+.router-outlet {
+    overflow-y: auto;
 }

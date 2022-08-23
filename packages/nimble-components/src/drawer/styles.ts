@@ -30,8 +30,12 @@ export const styles = css`
     }
 
     .dialog-contents {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        width: 100%;
         background-color: ${applicationBackgroundColor};
-        min-height: 100%;
+        height: 100%;
         transition: transform ${largeDelay} ease-in;
     }
 

@@ -19,7 +19,7 @@ async function setup<CloseReason = void>(
     return fixture<Drawer<CloseReason>>(viewTemplate);
 }
 
-fdescribe('Drawer', () => {
+describe('Drawer', () => {
     function nativeDialogElement(nimbleDrawerElement: Drawer | Drawer<string>): HTMLDialogElement {
         return nimbleDrawerElement.shadowRoot!.querySelector(
             'dialog'
