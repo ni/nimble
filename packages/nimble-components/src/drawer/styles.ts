@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { Black15, Black91, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { Black } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
     bodyFont,
@@ -34,14 +34,14 @@ export const styles = css`
         flex-direction: column;
         position: absolute;
         width: 100%;
-        background-color: ${applicationBackgroundColor};
         height: 100%;
+        background-color: ${applicationBackgroundColor};
         transition: transform ${largeDelay} ease-in;
     }
 
     @media (prefers-reduced-motion) {
         .dialog-contents {
-            transition-duration: 0s;
+            transition-duration: 1ms;
         }
     }
 
@@ -67,10 +67,6 @@ export const styles = css`
         transform: translate(100%);
         border-left: ${borderWidth} solid ${popupBoxShadowColor};
         box-shadow: -3px 0px 8px ${popupBoxShadowColor};
-    }
-
-    :host([location='right']) dialog.open .dialog-contents {
-        transform: translate(0%);
     }
 
     dialog {
@@ -154,7 +150,7 @@ export const styles = css`
                 Theme.light,
                 css`
                 dialog::backdrop {
-                    background: ${hexToRgbaCssColor(Black91, 0.3)};
+                    background: ${hexToRgbaCssColor(Black, 0.3)};
                 }
             `
             ),
@@ -162,7 +158,7 @@ export const styles = css`
                 Theme.dark,
                 css`
                 dialog::backdrop {
-                    background: ${hexToRgbaCssColor(Black15, 0.3)};
+                    background: ${hexToRgbaCssColor(Black, 0.6)};
                 }
             `
             ),
@@ -170,7 +166,7 @@ export const styles = css`
                 Theme.color,
                 css`
                 dialog::backdrop {
-                    background: ${hexToRgbaCssColor(White, 0.3)};
+                    background: ${hexToRgbaCssColor(Black, 0.6)};
                 }
             `
             )
