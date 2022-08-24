@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "5.5.4",
+  "version": "5.5.5",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build:release && npm run build:client",

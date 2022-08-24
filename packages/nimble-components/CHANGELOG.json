@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 24 Aug 2022 22:18:14 GMT",
+      "tag": "@ni/nimble-components_v11.10.6",
+      "version": "11.10.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f375ba91d4e19bd24b66a6f1d5393dd6c3a9f997",
+            "comment": "Use correct colors in nimble-card-button on Color UI"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Aug 2022 16:58:19 GMT",
       "tag": "@ni/nimble-components_v11.10.5",
       "version": "11.10.5",

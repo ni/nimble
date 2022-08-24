@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 Aug 2022 18:59:48 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Aug 2022 22:18:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.10.6
+
+Wed, 24 Aug 2022 22:18:14 GMT
+
+### Patches
+
+- Use correct colors in nimble-card-button on Color UI ([ni/nimble@f375ba9](https://github.com/ni/nimble/commit/f375ba91d4e19bd24b66a6f1d5393dd6c3a9f997))
 
 ## 11.10.5
 
