@@ -27,15 +27,10 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
     /// </summary>
     public async ValueTask<TCloseReason> ShowAsync()
     {
-        if (JSRuntime is not null)
-        {
-            // Pass cancellation token to disable default async timeout
-            CancellationTokenSource source = new CancellationTokenSource();
-            CancellationToken token = source.Token;
-            return await JSRuntime.InvokeAsync<TCloseReason>(ShowDialogMethodName, token, _dialogElement);
-        }
-
-        return default!;
+        // Pass cancellation token to disable default async timeout
+        CancellationTokenSource source = new CancellationTokenSource();
+        CancellationToken token = source.Token;
+        return await JSRuntime!.InvokeAsync<TCloseReason>(ShowDialogMethodName, token, _dialogElement);
     }
 
     /// <summary>
@@ -44,9 +39,6 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
     /// <param name="reason">Optional reason for closing the dialog</param>
     public async Task CloseAsync(TCloseReason reason = default!)
     {
-        if (JSRuntime is not null)
-        {
-            await JSRuntime.InvokeVoidAsync(CloseDialogMethodName, _dialogElement, reason);
-        }
+        await JSRuntime!.InvokeVoidAsync(CloseDialogMethodName, _dialogElement, reason);
     }
 }
