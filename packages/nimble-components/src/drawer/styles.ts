@@ -36,7 +36,11 @@ export const styles = css`
         width: 100%;
         height: 100%;
         background-color: ${applicationBackgroundColor};
-        transition: transform ${largeDelay} ease-in;
+        visibility: hidden;
+    }
+
+    dialog.visible .dialog-contents {
+        visibility: visible;
     }
 
     @media (prefers-reduced-motion) {
@@ -45,32 +49,40 @@ export const styles = css`
         }
     }
 
+    @keyframes slideinleft {
+        0% { transform: translate(-100%); }
+        100% { transform: translate(0%); }
+    }
+
     :host([location='left']) .dialog-contents {
-        transform: translate(-100%);
         border-right: ${borderWidth} solid ${popupBoxShadowColor};
         box-shadow: 3px 0px 8px ${popupBoxShadowColor};
     }
 
-    :host([location='left']) dialog.open .dialog-contents {
-        transform: translate(0%);
+    :host([location='left']) dialog.animating .dialog-contents {
+        animation: slideinleft ${largeDelay} ease-in;
+    }
+
+    :host([location='left']) dialog.closing .dialog-contents {
+        animation-direction: reverse;
+    }
+
+    @keyframes slideinright {
+        0% { transform: translate(100%); }
+        100% { transform: translate(0%); }
     }
 
     :host([location='right']) .dialog-contents {
-        ${
-            /*
-                TODO: This animation doesn't work correctly in chromium, but it does work in Firefox.
-                In chromium there seems to be a bug where it incorrectly calculates what a translation of 100%
-                places the element unless the dialog has been open for "some amount of time" (i.e. requestAnimationFrame)
-                does not help.
-            */ ''
-        }
-        transform: translate(100%);
         border-left: ${borderWidth} solid ${popupBoxShadowColor};
         box-shadow: -3px 0px 8px ${popupBoxShadowColor};
     }
 
-    :host([location='right']) dialog.open .dialog-contents {
-        transform: translate(0%);
+    :host([location='right']) dialog.animating .dialog-contents {
+        animation: slideinright ${largeDelay} ease-in;
+    }
+
+    :host([location='right']) dialog.closing .dialog-contents {
+        animation-direction: reverse;
     }
 
     dialog {

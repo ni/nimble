@@ -5,7 +5,7 @@ import {
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import { eventTransitionEnd } from '@microsoft/fast-web-utilities';
+import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { USER_DISMISSED, UserDismissed } from '../patterns/dialog/constants';
 import { styles } from './styles';
 import { template } from './template';
@@ -92,7 +92,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         return true;
     }
 
-    private readonly transitionEndHandlerFunction = (): void => this.transitionEndHandler();
+    private readonly animationEndHandlerFunction = (): void => this.animationEndHandler();
 
     private openDialog(): void {
         this.dialog.showModal();
@@ -106,17 +106,22 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     private triggerAnimation(opening: boolean): void {
         this.closing = !opening;
         if (opening) {
-            this.dialog.classList.add('open');
-        } else {
-            this.dialog.classList.remove('open');
+            this.dialog.classList.add('visible');
+        }
+        this.dialog.classList.add('animating');
+        if (this.closing) {
+            this.dialog.classList.add('closing');
         }
 
-        this.dialog.addEventListener(eventTransitionEnd, this.transitionEndHandlerFunction);
+        this.dialog.addEventListener(eventAnimationEnd, this.animationEndHandlerFunction);
     }
 
-    private transitionEndHandler(): void {
-        this.dialog.removeEventListener(eventTransitionEnd, this.transitionEndHandlerFunction);
+    private animationEndHandler(): void {
+        this.dialog.removeEventListener(eventAnimationEnd, this.animationEndHandlerFunction);
+        this.dialog.classList.remove('animating');
         if (this.closing) {
+            this.dialog.classList.remove('visible');
+            this.dialog.classList.remove('closing');
             this.dialog.close();
             this.closing = false;
             this.resolveShow!(this.closeReason);
