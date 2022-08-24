@@ -33,6 +33,9 @@ export const textCustomizationStory: Story = createUserSelectedThemeStory(html`
             Inner text
             <nimble-list-option> Nimble select item </nimble-list-option>
         </nimble-select>
+        <nimble-combobox>
+            <nimble-list-option selected>Nimble combobox item</nimble-list-option>
+        </nimble-combobox>
         <nimble-tabs>
             Inner text
             <nimble-tabs-toolbar>Tabs toolbar</nimble-tabs-toolbar>

@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 11 Aug 2022 22:20:09 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Aug 2022 18:59:48 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.10.5
+
+Wed, 17 Aug 2022 18:59:48 GMT
+
+### Patches
+
+- Add token previews to storybook ([ni/nimble@bc7262c](https://github.com/ni/nimble/commit/bc7262c578faf4af964fba4d63a92445703ed2da))
+
+## 11.10.4
+
+Mon, 15 Aug 2022 15:50:12 GMT
+
+### Patches
+
+- Simple style change to support font-style ([ni/nimble@4753667](https://github.com/ni/nimble/commit/475366789d09c01b902a97f795b91e70a54b3efb))
+
+## 11.10.3
+
+Fri, 12 Aug 2022 19:14:22 GMT
+
+### Patches
+
+- Replicating updated design tokens ([ni/nimble@f293311](https://github.com/ni/nimble/commit/f2933114b1b89a3c8cdae5d26d4a4779e1972596))
 
 ## 11.10.2
 

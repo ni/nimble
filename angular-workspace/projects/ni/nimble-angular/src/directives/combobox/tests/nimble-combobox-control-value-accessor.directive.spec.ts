@@ -225,7 +225,7 @@ describe('Nimble combobox control value accessor', () => {
         @Component({
             template: `
                 <form [formGroup]="form">
-                    <nimble-combobox #combobox [formControl]="selectedOption" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="both">                    
+                    <nimble-combobox #combobox [formControl]="selectedOption" [compareWith]="compareWith" autocomplete="both">                    
                         <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                         <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                     </nimble-combobox>
@@ -250,8 +250,6 @@ describe('Nimble combobox control value accessor', () => {
 
             public dynamicOption: TestModel = { name: 'Dynamic Option 1', value: 4 };
             public readonly nullValueString = 'null';
-
-            public selectDisabled = false;
 
             public useDefaultOptions = true;
 
@@ -316,15 +314,24 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.selectedIndex).toEqual(2);
         }));
 
-        it('sets "disabled" attribute with value of bound property', fakeAsync(() => {
-            testHostComponent.selectDisabled = true;
-            fixture.detectChanges();
-            tick();
+        it('disables combobox when disable() is called on the form control', () => {
+            testHostComponent.selectedOption.disable();
             processUpdates();
 
             expect(combobox.getAttribute('disabled')).toBe('');
             expect(combobox.disabled).toBe(true);
-        }));
+        });
+
+        it('enables combobox when enable() is called on the form control', () => {
+            combobox.disabled = true;
+            processUpdates();
+
+            testHostComponent.selectedOption.enable();
+            processUpdates();
+
+            expect(combobox.getAttribute('disabled')).toBe(null);
+            expect(combobox.disabled).toBe(false);
+        });
 
         it('sets text to empty string for model value not in list options but maintains set model value', fakeAsync(() => {
             expect(testHostComponent.selectedOption.value).toBe(testHostComponent.defaultOption);
