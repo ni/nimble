@@ -10,7 +10,7 @@ namespace Demo.Shared.Pages
         private NavigationDrawer? _navigationDrawer;
         private DrawerLocation _drawerLocation = DrawerLocation.Right;
         private string? ActiveTabId { get; set; }
-        private NimbleDialog<string>? _dialog;
+        private NimbleDialog<DialogResult>? _dialog;
         private string? ClosedReason { get; set; }
 
         private string DrawerLocationAsString
@@ -31,12 +31,20 @@ namespace Demo.Shared.Pages
 
         public async Task OpenDialogAsync()
         {
-            ClosedReason = await _dialog!.ShowAsync();
+            var response = await _dialog!.ShowAsync();
+            ClosedReason = response.UserDismissed ? "User dismissed"
+                                                  : response.CloseReason.ToString();
         }
 
-        public async Task CloseDialogAsync(string reason = "")
+        public async Task CloseDialogAsync(DialogResult reason)
         {
             await _dialog!.CloseAsync(reason);
         }
+    }
+
+    public enum DialogResult
+    {
+        OK,
+        Cancel
     }
 }

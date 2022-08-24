@@ -6,6 +6,7 @@ namespace NimbleBlazor;
 public partial class NimbleDialog<TCloseReason> : ComponentBase
 {
     private ElementReference _dialogElement;
+    private TCloseReason _closeReason = default!;
 
     internal static string ShowDialogMethodName = "NimbleBlazor.Dialog.show";
     internal static string CloseDialogMethodName = "NimbleBlazor.Dialog.close";
@@ -25,12 +26,13 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
     /// <summary>
     /// Show/Open the dialog.
     /// </summary>
-    public async ValueTask<TCloseReason> ShowAsync()
+    public async ValueTask<DialogResponse<TCloseReason>> ShowAsync()
     {
         // Pass cancellation token to disable default async timeout
         CancellationTokenSource source = new CancellationTokenSource();
         CancellationToken token = source.Token;
-        return await JSRuntime!.InvokeAsync<TCloseReason>(ShowDialogMethodName, token, _dialogElement);
+        var userDismissed = await JSRuntime!.InvokeAsync<bool>(ShowDialogMethodName, token, _dialogElement);
+        return new DialogResponse<TCloseReason>(_closeReason, userDismissed);
     }
 
     /// <summary>
@@ -39,6 +41,7 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
     /// <param name="reason">Optional reason for closing the dialog</param>
     public async Task CloseAsync(TCloseReason reason = default!)
     {
-        await JSRuntime!.InvokeVoidAsync(CloseDialogMethodName, _dialogElement, reason);
+        _closeReason = reason;
+        await JSRuntime!.InvokeVoidAsync(CloseDialogMethodName, _dialogElement);
     }
 }

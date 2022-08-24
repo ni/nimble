@@ -54,8 +54,7 @@ window.NimbleBlazor = {
     Dialog: {
         show: async function (dialogReference) {
             const reason = await dialogReference.show();
-            const userDismissed = window.customElements.get('nimble-dialog').USER_DISMISSED;
-            return (reason === userDismissed) ? 'ESC pressed' : reason;
+            return reason === window.customElements.get('nimble-dialog').USER_DISMISSED;
         },
         close: function (dialogReference, reason) {
             dialogReference.close(reason);
