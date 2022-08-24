@@ -69,6 +69,10 @@ export const styles = css`
         box-shadow: -3px 0px 8px ${popupBoxShadowColor};
     }
 
+    :host([location='right']) dialog.open .dialog-contents {
+        transform: translate(0%);
+    }
+
     dialog {
         color: inherit;
         font: inherit;
