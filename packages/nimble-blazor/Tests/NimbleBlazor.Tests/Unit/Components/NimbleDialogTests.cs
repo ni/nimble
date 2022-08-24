@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Xunit;
@@ -27,6 +28,25 @@ public class NimbleDialogTests
         var expectedMarkup = "nimble-button";
 
         Assert.Contains(expectedMarkup, dialog.Markup);
+    }
+
+    enum DialogResult
+    {
+        OK
+    }
+
+    [Fact]
+    public async Task NimbleDialog_ResultValueCanBeArbitraryType()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var rendered = context.RenderComponent<NimbleDialog<DialogResult>>();
+        var task = rendered.Instance.ShowAsync();
+        await rendered.Instance.CloseAsync(DialogResult.OK);
+        var resultFromShow = await task;
+
+        Assert.False(resultFromShow.UserDismissed);
+        Assert.Equal(DialogResult.OK, resultFromShow.CloseReason);
     }
 
     private IRenderedComponent<NimbleDialog<string>> RenderDialogWithContent<TContent>()
