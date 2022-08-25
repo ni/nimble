@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "update icons",
+  "packageName": "@ni/nimble-tokens",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
