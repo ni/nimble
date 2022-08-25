@@ -119,7 +119,7 @@ export const styles = css`
         transition: opacity 0.25s ease-in;
     }
 
-    dialog.open::backdrop {
+    dialog.visible::backdrop {
         opacity: 1;
     }
 
