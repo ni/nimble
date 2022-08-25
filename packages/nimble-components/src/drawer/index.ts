@@ -20,13 +20,6 @@ declare global {
 }
 
 /**
- * TODOs:
- * - turn off animations when prefers reduced motion is set
- * - figure out why exposing USER_DISMISSED isn't working correctly in Angular (duplicate export?)
- * - slide-in animations don't work from the right when width is set to 'fit-content'
- */
-
-/**
  * Drawer/Sidenav control. Shows content in a panel on the left / right side of the screen,
  * which animates to be visible with a slide-in / slide-out animation.
  */
@@ -110,11 +103,13 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         } else {
             this.dialog.classList.remove('open');
         }
+        this.dialog.classList.add('animating');
 
         this.dialog.addEventListener(eventTransitionEnd, this.transitionEndHandlerFunction);
     }
 
     private transitionEndHandler(): void {
+        this.dialog.classList.remove('animating');
         this.dialog.removeEventListener(eventTransitionEnd, this.transitionEndHandlerFunction);
         if (this.closing) {
             this.dialog.close();

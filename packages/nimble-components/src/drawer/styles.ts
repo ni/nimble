@@ -33,10 +33,16 @@ export const styles = css`
         display: flex;
         flex-direction: column;
         position: absolute;
-        width: 100%;
+        width: ${drawerWidth};
         height: 100%;
         background-color: ${applicationBackgroundColor};
         transition: transform ${largeDelay} ease-in;
+        visibility: hidden;
+    }
+
+    dialog.animating .dialog-contents,
+    dialog.open .dialog-contents {
+        visibility: visible;
     }
 
     @media (prefers-reduced-motion) {
@@ -56,14 +62,7 @@ export const styles = css`
     }
 
     :host([location='right']) .dialog-contents {
-        ${
-            /*
-                TODO: This animation doesn't work correctly in chromium, but it does work in Firefox.
-                In chromium there seems to be a bug where it incorrectly calculates what a translation of 100%
-                places the element unless the dialog has been open for "some amount of time" (i.e. requestAnimationFrame)
-                does not help.
-            */ ''
-        }
+        right: 0px;
         transform: translate(100%);
         border-left: ${borderWidth} solid ${popupBoxShadowColor};
         box-shadow: -3px 0px 8px ${popupBoxShadowColor};
@@ -77,7 +76,7 @@ export const styles = css`
         color: inherit;
         font: inherit;
         background-color: transparent;
-        width: ${drawerWidth};
+        width: auto;
         top: 0px;
         bottom: 0px;
         border-radius: 0px;
@@ -94,10 +93,6 @@ export const styles = css`
             */ ''
         }
         overflow-x: hidden;
-    }
-
-    :host([location='right']) dialog {
-        left: auto;
     }
 
     :host(.hidden) dialog {
