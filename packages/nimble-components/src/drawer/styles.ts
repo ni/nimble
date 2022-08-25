@@ -36,40 +36,49 @@ export const styles = css`
         width: ${drawerWidth};
         height: 100%;
         background-color: ${applicationBackgroundColor};
-        transition: transform ${largeDelay} ease-in;
-        visibility: hidden;
-    }
-
-    dialog.animating .dialog-contents,
-    dialog.open .dialog-contents {
-        visibility: visible;
     }
 
     @media (prefers-reduced-motion) {
         .dialog-contents {
-            transition-duration: 1ms;
+            animation-duration: 1ms;
         }
     }
 
+    @keyframes slideinleft {
+        0% { transform: translate(-100%); }
+        100% { transform: translate(0%); }
+    }
+
     :host([location='left']) .dialog-contents {
-        transform: translate(-100%);
         border-right: ${borderWidth} solid ${popupBoxShadowColor};
         box-shadow: 3px 0px 8px ${popupBoxShadowColor};
     }
 
-    :host([location='left']) dialog.open .dialog-contents {
-        transform: translate(0%);
+    :host([location='left']) dialog.animating .dialog-contents {
+        animation: slideinleft ${largeDelay} ease-in;
+    }
+
+    :host([location='left']) dialog.closing .dialog-contents {
+        animation-direction: reverse;
+    }
+
+    @keyframes slideinright {
+        0% { transform: translate(100%); }
+        100% { transform: translate(0%); }
     }
 
     :host([location='right']) .dialog-contents {
         right: 0px;
-        transform: translate(100%);
         border-left: ${borderWidth} solid ${popupBoxShadowColor};
         box-shadow: -3px 0px 8px ${popupBoxShadowColor};
     }
 
-    :host([location='right']) dialog.open .dialog-contents {
-        transform: translate(0%);
+    :host([location='right']) dialog.animating .dialog-contents {
+        animation: slideinright ${largeDelay} ease-in;
+    }
+
+    :host([location='right']) dialog.closing .dialog-contents {
+        animation-direction: reverse;
     }
 
     dialog {

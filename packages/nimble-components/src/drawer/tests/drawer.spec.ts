@@ -1,5 +1,5 @@
 import { DOM, html } from '@microsoft/fast-element';
-import { eventTransitionEnd } from '@microsoft/fast-web-utilities';
+import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Drawer, USER_DISMISSED } from '..';
 import { DrawerLocation } from '../types';
@@ -28,7 +28,7 @@ describe('Drawer', () => {
 
     function completeAnimation(nimbleDrawerElement: Drawer | Drawer<string>): void {
         const dialog = nativeDialogElement(nimbleDrawerElement);
-        dialog.dispatchEvent(new Event(eventTransitionEnd));
+        dialog.dispatchEvent(new Event(eventAnimationEnd));
     }
 
     describe('with default setup', () => {
@@ -56,20 +56,6 @@ describe('Drawer', () => {
 
         it('should default the location to left', () => {
             expect(element.location).toBe(DrawerLocation.left);
-        });
-
-        it('should put dialog on left when location is set to left', () => {
-            expect(getComputedStyle(nativeDialogElement(element)).left).toBe(
-                '0px'
-            );
-        });
-
-        it('should put dialog on left when location is set to right', async () => {
-            element.location = DrawerLocation.right;
-            await DOM.nextUpdate();
-            expect(getComputedStyle(nativeDialogElement(element)).left).toBe(
-                'auto'
-            );
         });
 
         it('should initially be hidden', async () => {
