@@ -2,6 +2,42 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 26 Aug 2022 14:00:36 GMT",
+      "tag": "@ni/nimble-components_v11.11.0",
+      "version": "11.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "75b48c20131c2ac891ac50a766d9c3fb88c50718",
+            "comment": "Added IconBookMagnifyingGlass, IconCircleFilled, IconCloud, IconShareNodes, IconThreeVerticalLines icons"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.1.0",
+            "commit": "75b48c20131c2ac891ac50a766d9c3fb88c50718"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Aug 2022 22:18:14 GMT",
+      "tag": "@ni/nimble-components_v11.10.6",
+      "version": "11.10.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f375ba91d4e19bd24b66a6f1d5393dd6c3a9f997",
+            "comment": "Use correct colors in nimble-card-button on Color UI"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Aug 2022 16:58:19 GMT",
       "tag": "@ni/nimble-components_v11.10.5",
       "version": "11.10.5",
