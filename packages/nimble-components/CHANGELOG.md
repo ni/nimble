@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 24 Aug 2022 22:18:14 GMT and should not be manually modified.
+This log was last generated on Fri, 26 Aug 2022 14:00:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.11.0
+
+Fri, 26 Aug 2022 14:00:36 GMT
+
+### Minor changes
+
+- Added IconBookMagnifyingGlass, IconCircleFilled, IconCloud, IconShareNodes, IconThreeVerticalLines icons ([ni/nimble@75b48c2](https://github.com/ni/nimble/commit/75b48c20131c2ac891ac50a766d9c3fb88c50718))
+- Bump @ni/nimble-tokens to v4.1.0
 
 ## 11.10.6
 
