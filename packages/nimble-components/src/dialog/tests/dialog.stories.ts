@@ -8,6 +8,8 @@ import type { TextField } from '../../text-field';
 
 interface DialogArgs {
     preventDismiss: boolean;
+    show: null;
+    close: null;
     dialogRef: Dialog<string>;
     textFieldRef: TextField;
     openAndHandleResult: (
@@ -67,6 +69,14 @@ const metadata: Meta<DialogArgs> = {
     argTypes: {
         preventDismiss: {
             name: 'prevent-dismiss'
+        },
+        show: {
+            name: 'show()',
+            description: 'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol USER_DISMISSED if the dialog was dismissed via the ESC key.',
+        },
+        close: {
+            name: 'close(reason)',
+            description: 'Call this member function to close the dialog. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`',
         },
         openAndHandleResult: {
             table: {
