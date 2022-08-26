@@ -97,14 +97,14 @@ export const iconMetadata: {
     IconCircle: {
         tags: ['status', 'connected']
     },
-    IconCircle8Px: {
-        tags: []
-    },
     IconCircleBroken: {
         tags: ['status', 'disconnected']
     },
     IconCircleCheck: {
         tags: ['status', 'acknowledged']
+    },
+    IconCircleFilled: {
+        tags: []
     },
     IconCirclePartialBroken: {
         tags: ['status', 'partially-connected']
@@ -195,9 +195,6 @@ export const iconMetadata: {
     },
     IconDownload: {
         tags: []
-    },
-    IconDrawVRight: {
-        tags: ['share']
     },
     IconElectronicChipZoomed: {
         tags: ['data-preparation']
@@ -342,6 +339,9 @@ export const iconMetadata: {
     },
     IconServer: {
         tags: ['analysis', 'automation']
+    },
+    IconShareNodes: {
+        tags: []
     },
     IconShareSquare: {
         tags: ['export']
