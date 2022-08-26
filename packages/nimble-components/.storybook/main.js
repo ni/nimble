@@ -4,6 +4,7 @@ module.exports = {
     core: {
         builder: 'webpack5'
     },
+    framework: '@storybook/html',
     stories: ['../src/**/*.stories.@(ts|mdx)', '../docs/**/*.stories.mdx'],
     addons: [
         {
@@ -20,7 +21,7 @@ module.exports = {
     features: {
         previewCsfV3: true
     },
-    webpackFinal: async config => {
+    webpackFinal: async (config) => {
         config.module.rules.push({
             test: /\.ts$/,
             use: [
