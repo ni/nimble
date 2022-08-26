@@ -32,8 +32,8 @@ namespace Demo.Shared.Pages
         public async Task OpenDialogAsync()
         {
             var response = await _dialog!.ShowAsync();
-            ClosedReason = response.UserDismissed ? "User dismissed"
-                                                  : response.CloseReason.ToString();
+            ClosedReason = response.Reason == DialogCloseReason.UserDismissed ? "User dismissed"
+                                                                              : response.Value.ToString();
         }
 
         public async Task CloseDialogAsync(DialogResult reason)

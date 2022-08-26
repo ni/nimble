@@ -45,8 +45,8 @@ public class NimbleDialogTests
         await rendered.Instance.CloseAsync(DialogResult.OK);
         var resultFromShow = await task;
 
-        Assert.False(resultFromShow.UserDismissed);
-        Assert.Equal(DialogResult.OK, resultFromShow.CloseReason);
+        Assert.Equal(DialogCloseReason.Closed, resultFromShow.Reason);
+        Assert.Equal(DialogResult.OK, resultFromShow.Value);
     }
 
     private IRenderedComponent<NimbleDialog<string>> RenderDialogWithContent<TContent>()
