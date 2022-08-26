@@ -100,7 +100,7 @@
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-terser": "^7.0.2",
     "storybook-addon-xd-designs": "^6.0.0",
-    "storybook-anima": "^1.31.0",
+    "storybook-anima": "^1.39.0",
     "ts-loader": "^9.2.5",
     "typescript": "^4.3.2",
     "webpack": "^5.37.0",

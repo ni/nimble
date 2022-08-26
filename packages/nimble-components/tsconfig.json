@@ -3,7 +3,7 @@
         "declaration": true,
         "esModuleInterop": true,
         "moduleResolution": "node",
-        "outDir": "dist/storybook",
+        "outDir": "dist/esm",
         "strict": true,
         "experimentalDecorators": true,
         "target": "ES2020",
