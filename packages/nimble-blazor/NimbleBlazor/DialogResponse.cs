@@ -10,9 +10,9 @@ public enum DialogCloseReason
 
 public class DialogResponse<TCloseReason>
 {
-    public readonly DialogCloseReason Reason;
+    public DialogCloseReason Reason { get; private set; }
     /* When Reason is Closed, this is the value that was passed to the Close() function. */
-    public readonly TCloseReason? Value;
+    public TCloseReason? Value { get; private set; }
 
     public DialogResponse(DialogCloseReason reason, TCloseReason? value)
     {
