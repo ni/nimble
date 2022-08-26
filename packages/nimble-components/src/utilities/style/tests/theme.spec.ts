@@ -7,276 +7,340 @@ import {
     css,
     ref,
     ElementStyles,
-    ViewTemplate,
     DOM
 } from '@microsoft/fast-element';
 import type { ThemeProvider } from '../../../theme-provider';
 import { Theme } from '../../../theme-provider/types';
-import type { LightStyle, DarkStyleOrAlias, ColorStyleOrAlias } from '../theme';
 import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
 import { themeBehavior } from '../theme';
-import { getSpecTypeByNamedList } from '../../tests/parameterized';
 
 /**
  * Test element with theme-aware styles
  */
 class ThemedElement extends FASTElement {
-    public themeTarget!: HTMLDivElement;
-
-    public static createThemeStyle(name: string): ElementStyles {
-        return css`
-            div {
-                --private-prop: '${CSS.escape(name)}';
-            }
-        `;
-    }
-
-    public static createStyle(
-        lightStyle: LightStyle,
-        darkStyleOrAlias: DarkStyleOrAlias,
-        colorStyleOrAlias: ColorStyleOrAlias
-    ): ElementStyles {
-        return ThemedElement.createThemeStyle('style-unset').withBehaviors(
-            themeBehavior(lightStyle, darkStyleOrAlias, colorStyleOrAlias)
-        );
-    }
-
-    public static createTemplate(): ViewTemplate {
-        return html<ThemedElement>`<div ${ref('themeTarget')}></div>`;
-    }
-
-    public getThemedStyle(): string {
-        // Computed custom property values are double quoted strings very similar to JSON strings.
-        // Think it's safe to JSON.parse, but if the pattern is used elsewhere then validate the
-        // CSS "serialize a string" alogorithm is compatible with JSON.parse:
-        // https://drafts.csswg.org/cssom/#serialize-a-string
-        return JSON.parse(
-            window
-                .getComputedStyle(this.themeTarget)
-                .getPropertyValue('--private-prop')
-        ) as string;
-    }
-}
-
-/**
- * Test helper to configure theme
- */
-class ThemeController {
-    @observable
-    public theme1: Theme = Theme.light;
-
-    @observable
-    public theme2: Theme = Theme.light;
-
-    public themedElement1!: ThemedElement;
-    public themedElement2!: ThemedElement;
-}
-
-const setup = async (
-    themeController: ThemeController,
-    styles: ElementStyles
-): Promise<Fixture<ThemeProvider>> => {
-    const name = uniqueElementName();
-    const template = ThemedElement.createTemplate();
-
-    /** @inheritdoc */
-    class ThemedElementVariation extends ThemedElement {
-        public static definition = {
-            name,
-            template,
-            styles
-        };
-    }
-    FASTElement.define(ThemedElementVariation);
-
-    const fixtureTemplate = html<ThemeController>`
-        <nimble-theme-provider theme=${x => x.theme1}>
-            <${name} ${ref('themedElement1')}></${name}>
-        </nimble-theme-provider>
-        <nimble-theme-provider theme=${x => x.theme2}>
-            <${name} ${ref('themedElement2')}></${name}>
-        </nimble-theme-provider>
+    public static template = html<ThemedElement>`
+        <div ${ref('themeTarget')}></div>
     `;
 
-    return fixture<ThemeProvider>(fixtureTemplate, { source: themeController });
-};
+    public static allBehaviorsStyles = css`
+        div {
+            --private-prop: theme-unset;
+        }
+    `.withBehaviors(
+            themeBehavior(
+                Theme.light,
+                css`
+                div {
+                    --private-prop: theme-light;
+                }
+            `
+            ),
+            themeBehavior(
+                Theme.dark,
+                css`
+                div {
+                    --private-prop: theme-dark;
+                }
+            `
+            ),
+            themeBehavior(
+                Theme.color,
+                css`
+                div {
+                    --private-prop: theme-color;
+                }
+            `
+            )
+        );
 
-interface ThemeConfig {
-    name: Theme;
-    resolvedProperty: string;
+    public static sharedDarkColorBehaviorsStyles = css`
+        div {
+            --private-prop: theme-unset;
+        }
+    `.withBehaviors(
+            themeBehavior(
+                Theme.light,
+                css`
+                div {
+                    --private-prop: theme-light;
+                }
+            `
+            ),
+            themeBehavior(
+                [Theme.dark, Theme.color],
+                css`
+                div {
+                    --private-prop: theme-dark;
+                }
+            `
+            )
+        );
+
+    public static unsetDarkColorBehaviorsStyles = css`
+        div {
+            --private-prop: theme-unset;
+        }
+    `.withBehaviors(
+            themeBehavior(
+                Theme.light,
+                css`
+                div {
+                    --private-prop: theme-light;
+                }
+            `
+            )
+        );
+
+    public themeTarget!: HTMLDivElement;
+
+    public resolveThemedStyle(): Theme | 'theme-unset' {
+        const result = window
+            .getComputedStyle(this.themeTarget)
+            .getPropertyValue('--private-prop');
+
+        if (result.includes('theme-unset')) {
+            return 'theme-unset';
+        }
+        if (result.includes('theme-light')) {
+            return Theme.light;
+        }
+        if (result.includes('theme-dark')) {
+            return Theme.dark;
+        }
+        if (result.includes('theme-color')) {
+            return Theme.color;
+        }
+        throw new Error(`Unexpected property value: ${result}`);
+    }
 }
 
-const themedElementTest = (
-    configs: ThemeConfig[],
-    focused: Theme[],
-    disabled: Theme[],
-    styles: ElementStyles
-): void => {
-    for (const config of configs) {
-        const specType = getSpecTypeByNamedList(config, focused, disabled);
-        specType(`Can respond to theme ${config.name}`, async () => {
+describe('The ThemeStylesheetBehavior', () => {
+    describe('for a single themed element', () => {
+        /**
+         * Test helper to configure theme
+         */
+        class ThemeController {
+            @observable
+            public theme: Theme = Theme.light;
+
+            public themedElement!: ThemedElement;
+        }
+
+        const setup = async (
+            themeController: ThemeController,
+            styles: ElementStyles
+        ): Promise<Fixture<ThemeProvider>> => {
+            const name = uniqueElementName();
+            const template = ThemedElement.template;
+
+            /** @inheritdoc */
+            class ThemedElementVariation extends ThemedElement {
+                public static definition = {
+                    name,
+                    template,
+                    styles
+                };
+            }
+            FASTElement.define(ThemedElementVariation);
+
+            const fixtureTemplate = html<ThemeController>`
+                <nimble-theme-provider theme=${x => x.theme}>
+                    <${name} ${ref('themedElement')}></${name}>
+                </nimble-theme-provider>
+            `;
+
+            return fixture<ThemeProvider>(fixtureTemplate, {
+                source: themeController
+            });
+        };
+
+        it('responds to light theme', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(themeController, styles);
+            const { connect } = await setup(
+                themeController,
+                ThemedElement.allBehaviorsStyles
+            );
             await connect();
-            themeController.theme1 = config.name;
+            themeController.theme = Theme.light;
             await DOM.nextUpdate();
-            expect(themeController.themedElement1.getThemedStyle()).toBe(
-                config.resolvedProperty
+            expect(themeController.themedElement.resolveThemedStyle()).toBe(
+                Theme.light
             );
         });
-    }
-};
 
-const independentThemedElementTest = (
-    configs: {
-        name: string,
-        theme1: ThemeConfig,
-        theme2: ThemeConfig
-    }[],
-    focused: string[],
-    disabled: string[],
-    styles: ElementStyles
-): void => {
-    for (const config of configs) {
-        const specType = getSpecTypeByNamedList(config, focused, disabled);
-        specType(
-            `Can respond to multiple/different themes (${config.name}) set on multiple elements`,
-            async () => {
-                const themeController = new ThemeController();
-                const { connect } = await setup(themeController, styles);
-                await connect();
-                themeController.theme1 = config.theme1.name;
-                themeController.theme2 = config.theme2.name;
-                await DOM.nextUpdate();
-                expect(themeController.themedElement1.getThemedStyle()).toBe(
-                    config.theme1.resolvedProperty
-                );
-                expect(themeController.themedElement2.getThemedStyle()).toBe(
-                    config.theme2.resolvedProperty
-                );
-            }
-        );
-    }
-};
+        it('responds to dark theme', async () => {
+            const themeController = new ThemeController();
+            const { connect } = await setup(
+                themeController,
+                ThemedElement.allBehaviorsStyles
+            );
+            await connect();
+            themeController.theme = Theme.dark;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement.resolveThemedStyle()).toBe(
+                Theme.dark
+            );
+        });
 
-describe('The ThemeStylesheetBehavior', () => {
-    describe('for unaliased options', () => {
-        const configs = [
-            {
-                name: Theme.light,
-                resolvedProperty: 'style-light'
-            },
-            {
-                name: Theme.dark,
-                resolvedProperty: 'style-dark'
-            },
-            {
-                name: Theme.color,
-                resolvedProperty: 'style-color'
-            }
-        ];
-        const focused: Theme[] = [];
-        const disabled: Theme[] = [];
-        const styles = ThemedElement.createStyle(
-            ThemedElement.createThemeStyle('style-light'),
-            ThemedElement.createThemeStyle('style-dark'),
-            ThemedElement.createThemeStyle('style-color')
-        );
-        themedElementTest(configs, focused, disabled, styles);
+        it('responds to color theme', async () => {
+            const themeController = new ThemeController();
+            const { connect } = await setup(
+                themeController,
+                ThemedElement.allBehaviorsStyles
+            );
+            await connect();
+            themeController.theme = Theme.color;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement.resolveThemedStyle()).toBe(
+                Theme.color
+            );
+        });
+
+        it('responds to change from light theme to dark theme', async () => {
+            const themeController = new ThemeController();
+            const { connect } = await setup(
+                themeController,
+                ThemedElement.allBehaviorsStyles
+            );
+            await connect();
+            themeController.theme = Theme.light;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement.resolveThemedStyle()).toBe(
+                Theme.light
+            );
+            themeController.theme = Theme.dark;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement.resolveThemedStyle()).toBe(
+                Theme.dark
+            );
+        });
+
+        it('can share styles for dark and color themes', async () => {
+            const themeController = new ThemeController();
+            const { connect } = await setup(
+                themeController,
+                ThemedElement.sharedDarkColorBehaviorsStyles
+            );
+            await connect();
+            themeController.theme = Theme.dark;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement.resolveThemedStyle()).toBe(
+                Theme.dark
+            );
+            themeController.theme = Theme.color;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement.resolveThemedStyle()).toBe(
+                Theme.dark
+            );
+        });
+
+        it('can have unset color and dark themes', async () => {
+            const themeController = new ThemeController();
+            const { connect } = await setup(
+                themeController,
+                ThemedElement.unsetDarkColorBehaviorsStyles
+            );
+            await connect();
+            themeController.theme = Theme.light;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement.resolveThemedStyle()).toBe(
+                Theme.light
+            );
+            themeController.theme = Theme.dark;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement.resolveThemedStyle()).toBe(
+                'theme-unset'
+            );
+            themeController.theme = Theme.color;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement.resolveThemedStyle()).toBe(
+                'theme-unset'
+            );
+        });
     });
 
-    describe('for null options', () => {
-        const configs = [
-            {
-                name: Theme.light,
-                resolvedProperty: 'style-unset'
-            },
-            {
-                name: Theme.dark,
-                resolvedProperty: 'style-unset'
-            },
-            {
-                name: Theme.color,
-                resolvedProperty: 'style-unset'
-            }
-        ];
-        const focused: Theme[] = [];
-        const disabled: Theme[] = [];
-        const styles = ThemedElement.createStyle(null, null, null);
-        themedElementTest(configs, focused, disabled, styles);
-    });
+    describe('for multiple themed elements', () => {
+        /**
+         * Test helper to configure theme
+         */
+        class ThemeController {
+            @observable
+            public theme1: Theme = Theme.light;
 
-    describe('for an aliased dark option', () => {
-        const configs = [
-            {
-                name: Theme.light,
-                resolvedProperty: 'style-light'
-            },
-            {
-                name: Theme.dark,
-                resolvedProperty: 'style-light'
-            },
-            {
-                name: Theme.color,
-                resolvedProperty: 'style-color'
-            }
-        ];
-        const focused: Theme[] = [];
-        const disabled: Theme[] = [];
-        const styles = ThemedElement.createStyle(
-            ThemedElement.createThemeStyle('style-light'),
-            Theme.light,
-            ThemedElement.createThemeStyle('style-color')
-        );
-        themedElementTest(configs, focused, disabled, styles);
-    });
+            @observable
+            public theme2: Theme = Theme.light;
 
-    describe('for an aliased color option', () => {
-        const configs = [
-            {
-                name: Theme.light,
-                resolvedProperty: 'style-light'
-            },
-            {
-                name: Theme.dark,
-                resolvedProperty: 'style-dark'
-            },
-            {
-                name: Theme.color,
-                resolvedProperty: 'style-light'
-            }
-        ];
-        const focused: Theme[] = [];
-        const disabled: Theme[] = [];
-        const styles = ThemedElement.createStyle(
-            ThemedElement.createThemeStyle('style-light'),
-            ThemedElement.createThemeStyle('style-dark'),
-            Theme.light
-        );
-        themedElementTest(configs, focused, disabled, styles);
-    });
+            public themedElement1!: ThemedElement;
+            public themedElement2!: ThemedElement;
+        }
 
-    describe('for unaliased options and multiple active themes', () => {
-        const configs = [
-            {
-                name: 'light-dark',
-                theme1: { name: Theme.light, resolvedProperty: 'style-light' },
-                theme2: { name: Theme.dark, resolvedProperty: 'style-dark' }
-            },
-            {
-                name: 'dark-color',
-                theme1: { name: Theme.dark, resolvedProperty: 'style-dark' },
-                theme2: { name: Theme.color, resolvedProperty: 'style-color' }
+        const setup = async (
+            themeController: ThemeController,
+            styles: ElementStyles
+        ): Promise<Fixture<ThemeProvider>> => {
+            const name = uniqueElementName();
+            const template = ThemedElement.template;
+
+            /** @inheritdoc */
+            class ThemedElementVariation extends ThemedElement {
+                public static definition = {
+                    name,
+                    template,
+                    styles
+                };
             }
-        ];
-        const focused: Theme[] = [];
-        const disabled: Theme[] = [];
-        const styles = ThemedElement.createStyle(
-            ThemedElement.createThemeStyle('style-light'),
-            ThemedElement.createThemeStyle('style-dark'),
-            ThemedElement.createThemeStyle('style-color')
-        );
-        independentThemedElementTest(configs, focused, disabled, styles);
+            FASTElement.define(ThemedElementVariation);
+
+            const fixtureTemplate = html<ThemeController>`
+                <nimble-theme-provider theme=${x => x.theme1}>
+                    <${name} ${ref('themedElement1')}></${name}>
+                </nimble-theme-provider>
+                <nimble-theme-provider theme=${x => x.theme2}>
+                    <${name} ${ref('themedElement2')}></${name}>
+                </nimble-theme-provider>
+            `;
+
+            return fixture<ThemeProvider>(fixtureTemplate, {
+                source: themeController
+            });
+        };
+
+        it('can have one light and one dark themed element', async () => {
+            const themeController = new ThemeController();
+            const { connect } = await setup(
+                themeController,
+                ThemedElement.allBehaviorsStyles
+            );
+            await connect();
+            themeController.theme1 = Theme.light;
+            themeController.theme2 = Theme.dark;
+            await DOM.nextUpdate();
+            expect(themeController.themedElement1.resolveThemedStyle()).toBe(
+                Theme.light
+            );
+            expect(themeController.themedElement2.resolveThemedStyle()).toBe(
+                Theme.dark
+            );
+        });
+
+        it('can have one dark and one color themed element', async () => {
+            const themeController = new ThemeController();
+            const { connect } = await setup(
+                themeController,
+                ThemedElement.allBehaviorsStyles
+            );
+            await connect();
+            themeController.theme1 = Theme.dark;
+            themeController.theme2 = Theme.color;
+            await DOM.nextUpdate();
+
+            expect(themeController.themedElement1.resolveThemedStyle()).toBe(
+                Theme.dark
+            );
+            expect(themeController.themedElement2.resolveThemedStyle()).toBe(
+                Theme.color
+            );
+        });
     });
 });

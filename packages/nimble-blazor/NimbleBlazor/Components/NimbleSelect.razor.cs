@@ -20,6 +20,9 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     [Parameter]
     public Position? Position { get; set; }
 
+    [Parameter]
+    public DropdownAppearance? Appearance { get; set; }
+
     /// <summary>
     /// Gets or sets the child content to be rendering inside the <see cref="NimbleSelect"/>.
     /// </summary>

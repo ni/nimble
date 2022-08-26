@@ -9,10 +9,6 @@
 # Owners of specific locations or file patterns in the repo. Locations are relative to the root of the repo.
 # Order is important. The last matching pattern has the most precedence.
 
-# Specs
-/specs @rajsite @jattasNI @fredvisser @atmgrifter00
-*.spec.md @rajsite @jattasNI @fredvisser @atmgrifter00
-
 # Specific packages
 /angular-workspace/projects/example-client-app @rajsite @atmgrifter00
 /angular-workspace/projects/ni/nimble-angular @rajsite @atmgrifter00
@@ -22,6 +18,10 @@
 /packages/nimble-tokens @rajsite @jattasNI @fredvisser
 /packages/site @rajsite @jattasNI
 /packages/xliff-to-json-converter @rajsite @TrevorKarjanis @jattasNI
+
+# Specs (placed after packages to have higher precedence for spec files contained in packages)
+/specs @rajsite @jattasNI @fredvisser @atmgrifter00
+*.spec.md @rajsite @jattasNI @fredvisser @atmgrifter00
 
 # Change files don't need explicit reviewers
 /change

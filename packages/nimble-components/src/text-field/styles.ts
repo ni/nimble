@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 
@@ -9,7 +10,6 @@ import {
     bodyDisabledFontColor,
     controlHeight,
     failColor,
-    fillSelectedRgbPartialColor,
     labelHeight,
     smallDelay,
     controlLabelFont,
@@ -66,6 +66,7 @@ export const styles = css`
         justify-content: center;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         gap: calc(${standardPadding} / 2);
+        padding: ${borderWidth};
     }
 
     :host([readonly]) .root {
@@ -127,7 +128,7 @@ export const styles = css`
         background: transparent;
         color: inherit;
         padding: 0px;
-        height: ${controlHeight};
+        height: var(--ni-private-height-within-border);
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
@@ -151,17 +152,8 @@ export const styles = css`
         text-overflow: clip;
     }
 
-    .control::selection {
-        color: ${controlLabelFontColor};
-        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
-    }
-
     .control::placeholder {
         color: ${controlLabelFontColor};
-    }
-
-    .control:not([readonly]):focus-within::placeholder {
-        opacity: 1;
     }
 
     .control[disabled]::placeholder {
@@ -210,24 +202,18 @@ export const styles = css`
         ${controlHeight.cssCustomProperty}: 24px;
     }
 `.withBehaviors(
-                appearanceBehavior(
-                    TextFieldAppearance.underline,
-                    css`
+    appearanceBehavior(
+        TextFieldAppearance.underline,
+        css`
             .root {
                 border-bottom-width: ${borderWidth};
-            }
-
-            .control {
-                height: var(--ni-private-height-within-border);
-                padding-top: ${borderWidth};
-                padding-left: ${borderWidth};
-                padding-right: ${borderWidth};
+                padding-bottom: 0;
             }
         `
-                ),
-                appearanceBehavior(
-                    TextFieldAppearance.block,
-                    css`
+    ),
+    appearanceBehavior(
+        TextFieldAppearance.block,
+        css`
             .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
@@ -240,11 +226,11 @@ export const styles = css`
             .root:focus-within,
             :host(.invalid) .root {
                 border-bottom-width: ${borderWidth};
+                padding-bottom: 0;
             }
 
-            .root:focus-within .control,
-            :host(.invalid) .control {
-                height: calc(${controlHeight} - ${borderWidth});
+            :host(:hover) .root {
+                padding-bottom: 0;
             }
 
             :host([readonly]) .root {
@@ -256,22 +242,19 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
         `
-                ),
-                appearanceBehavior(
-                    TextFieldAppearance.outline,
-                    css`
+    ),
+    appearanceBehavior(
+        TextFieldAppearance.outline,
+        css`
             .root {
                 border-width: ${borderWidth};
-            }
-
-            .control {
-                height: var(--ni-private-height-within-border);
+                padding: 0;
             }
         `
-                ),
-                appearanceBehavior(
-                    TextFieldAppearance.frameless,
-                    css`
+    ),
+    appearanceBehavior(
+        TextFieldAppearance.frameless,
+        css`
             .control {
                 padding-left: ${borderWidth};
                 padding-right: ${borderWidth};
@@ -281,21 +264,21 @@ export const styles = css`
                 border-color: transparent;
             }
         `
-                ),
-                themeBehavior(
-                    css`
-            ${'' /* Light theme */}
+    ),
+    themeBehavior(
+        Theme.light,
+        css`
             .control::-ms-reveal {
                 filter: invert(0%);
             }
-        `,
-                    css`
-            ${'' /* Dark theme */}
+        `
+    ),
+    themeBehavior(
+        [Theme.dark, Theme.color],
+        css`
             .control::-ms-reveal {
                 filter: invert(100%);
             }
-        `,
-                    // Color theme
-                    Theme.dark
-                )
-            );
+        `
+    )
+);

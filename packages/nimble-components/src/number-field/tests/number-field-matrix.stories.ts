@@ -34,6 +34,14 @@ const valueStates = [
 ] as const;
 type ValueState = typeof valueStates[number];
 
+/* array of state name, invalidClass, errorText */
+const invalidStates = [
+    ['', '', 'This is not valid.'],
+    ['Invalid', 'invalid', ''],
+    ['Invalid w/ Error', 'invalid', 'This is not valid.']
+] as const;
+type InvalidState = typeof invalidStates[number];
+
 const appearanceStates = Object.entries(NumberFieldAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
@@ -42,20 +50,30 @@ type AppearanceState = typeof appearanceStates[number];
 const component = (
     [disabledName, disabled]: DisabledState,
     [valueName, valueValue, placeholderValue]: ValueState,
+    [invalidName, invalidClass, errorText]: InvalidState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <nimble-number-field
+        style="width: 250px; padding: 8px;"
+        class="${() => invalidClass}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         appearance="${() => appearance}"
         ?disabled="${() => disabled}"
+        error-text="${() => errorText}"
     >
-        ${() => appearanceName} ${() => valueName} ${() => disabledName}
+        ${() => invalidName} ${() => appearanceName} ${() => valueName}
+        ${() => disabledName}
     </nimble-number-field>
 `;
 
 export const numberFieldThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, valueStates, appearanceStates])
+    createMatrix(component, [
+        disabledStates,
+        valueStates,
+        invalidStates,
+        appearanceStates
+    ])
 );
 
 export const hiddenNumberField: Story = createStory(

@@ -1,8 +1,223 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 27 Jun 2022 18:59:58 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Aug 2022 22:18:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.4.4
+
+Wed, 24 Aug 2022 22:18:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.6
+
+## 8.4.3
+
+Wed, 17 Aug 2022 15:30:06 GMT
+
+### Patches
+
+- Implement setDisabledState on the combobox's control value accessor ([ni/nimble@5c37933](https://github.com/ni/nimble/commit/5c379332c7ee54a2a1c1371f16f5ec1129ffbba7))
+
+## 8.4.2
+
+Mon, 15 Aug 2022 15:50:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.4
+
+## 8.4.1
+
+Fri, 12 Aug 2022 19:14:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.3
+
+## 8.4.0
+
+Thu, 11 Aug 2022 22:20:09 GMT
+
+### Minor changes
+
+- Add nimble-dialog component ([ni/nimble@ab34f42](https://github.com/ni/nimble/commit/ab34f42e9602c20bef3fa3b49a8d82630aeca880))
+- Bump @ni/nimble-components to v11.10.2
+
+## 8.3.1
+
+Thu, 11 Aug 2022 20:28:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.1
+
+## 8.3.0
+
+Wed, 10 Aug 2022 21:38:38 GMT
+
+### Minor changes
+
+- Add Appearance to Combobox. ([ni/nimble@32b4ed9](https://github.com/ni/nimble/commit/32b4ed97aaaea52ff211118a405fd34922a3c0cd))
+- Bump @ni/nimble-components to v11.10.0
+
+## 8.2.6
+
+Wed, 10 Aug 2022 17:05:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.9.0
+
+## 8.2.5
+
+Tue, 09 Aug 2022 22:19:14 GMT
+
+### Patches
+
+- Combobox text input updates value. ([ni/nimble@f232213](https://github.com/ni/nimble/commit/f232213f3f0078a7a97879e2fd8f49937e14eef4))
+- Bump @ni/nimble-components to v11.8.5
+
+## 8.2.4
+
+Tue, 09 Aug 2022 19:30:28 GMT
+
+### Patches
+
+- Adding 'Placeholder' APIs to Combobox. ([ni/nimble@2b7f674](https://github.com/ni/nimble/commit/2b7f6744f4c9f1504b3852aa059f2b1f1676222c))
+
+## 8.2.3
+
+Tue, 09 Aug 2022 18:05:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.4
+
+## 8.2.2
+
+Tue, 09 Aug 2022 15:57:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.3
+
+## 8.2.1
+
+Tue, 09 Aug 2022 00:07:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.2
+
+## 8.2.0
+
+Mon, 08 Aug 2022 13:26:50 GMT
+
+### Minor changes
+
+- Tooltip Angular Integration (#309) ([ni/nimble@74efe0c](https://github.com/ni/nimble/commit/74efe0cc15a6c21ee54626898f7a4c492bdaf012))
+
+## 8.1.2
+
+Tue, 02 Aug 2022 16:35:19 GMT
+
+### Patches
+
+- Fix Combobox CVA for Reactive forms. ([ni/nimble@a76bbd3](https://github.com/ni/nimble/commit/a76bbd31626d43cc97c7eb04f306f8fdb889c3cd))
+
+## 8.1.1
+
+Mon, 01 Aug 2022 17:54:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.1
+
+## 8.1.0
+
+Mon, 01 Aug 2022 16:43:14 GMT
+
+### Minor changes
+
+- Add Angular support for nimble-card-button ([ni/nimble@a1eacfb](https://github.com/ni/nimble/commit/a1eacfb8830eff1dfeae0219e1415a0252387b2a))
+
+## 8.0.4
+
+Thu, 28 Jul 2022 21:21:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.8.0
+
+## 8.0.3
+
+Thu, 28 Jul 2022 20:37:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.7.2
+
+## 8.0.2
+
+Wed, 27 Jul 2022 15:38:00 GMT
+
+### Patches
+
+- Update fast-foundation. ([ni/nimble@8b1dc12](https://github.com/ni/nimble/commit/8b1dc127df77135a98f0a954b16337c718849c30))
+- Bump @ni/nimble-components to v11.7.1
+
+## 8.0.1
+
+Wed, 27 Jul 2022 00:53:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.7.0
+
+## 8.0.0
+
+Mon, 25 Jul 2022 18:44:33 GMT
+
+### Major changes
+
+- Adding Combobox CVA and refactor of ListOption CVA. The breaking change is that NimbleListOptionDirective is being refactored into two new types: NimbleSelectListOptionDirective, and NimbleComboboxListOptionDirective. Existing imports of NimbleListOptionDirective should switch to use NimbleSelectListOptionDirective. ([ni/nimble@9039cd2](https://github.com/ni/nimble/commit/9039cd29ed7223123aa7b3a09ac5ee90ec2c388a))
+- Bump @ni/nimble-components to v11.6.2
+
+## 7.5.1
+
+Fri, 22 Jul 2022 14:58:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.6.1
+
+## 7.5.0
+
+Wed, 20 Jul 2022 18:41:04 GMT
+
+### Minor changes
+
+- add appearance to select wrapper and exmaple project ([ni/nimble@a188d7b](https://github.com/ni/nimble/commit/a188d7baa54e1061ad07ffa65b0e5d0a2b495238))
+- Bump @ni/nimble-components to v11.6.0
+
+## 7.4.0
+
+Mon, 18 Jul 2022 15:25:53 GMT
+
+### Minor changes
+
+- Adding error-text to number field's directive ([ni/nimble@7dcb1af](https://github.com/ni/nimble/commit/7dcb1af22c1827320b2516e9b967830f3295e86a))
+- Bump @ni/nimble-components to v11.5.0
+
+## 7.3.1
+
+Fri, 15 Jul 2022 21:12:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.4.1
 
 ## 7.3.0
 
