@@ -32,7 +32,9 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
         CancellationTokenSource source = new CancellationTokenSource();
         CancellationToken token = source.Token;
         var userDismissed = await JSRuntime!.InvokeAsync<bool>(ShowDialogMethodName, token, _dialogElement);
-        return new DialogResponse<TCloseReason>(userDismissed ? DialogCloseReason.UserDismissed : DialogCloseReason.Closed, _closeValue);
+        var value = _closeValue;
+        _closeValue = default;
+        return new DialogResponse<TCloseReason>(userDismissed ? DialogCloseReason.UserDismissed : DialogCloseReason.Closed, value);
     }
 
     /// <summary>

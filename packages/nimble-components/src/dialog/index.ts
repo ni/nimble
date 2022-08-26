@@ -63,7 +63,6 @@ export class Dialog<CloseReason = void> extends FoundationElement {
     }
 
     private resolveShow?: (reason: CloseReason | UserDismissed) => void;
-    private closeReason!: CloseReason | UserDismissed;
 
     /**
      * Opens the dialog
@@ -87,17 +86,9 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         if (!this.open) {
             throw new Error('Dialog is not open');
         }
-        this.closeReason = reason;
         this.dialogElement.close();
-    }
-
-    /**
-     * @internal
-     */
-    public closeHandler(): boolean {
-        this.resolveShow!(this.closeReason);
+        this.resolveShow!(reason);
         this.resolveShow = undefined;
-        return true;
     }
 
     /**
@@ -107,7 +98,8 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         if (this.preventDismiss) {
             event.preventDefault();
         } else {
-            this.closeReason = USER_DISMISSED;
+            this.resolveShow!(USER_DISMISSED);
+            this.resolveShow = undefined;
         }
         return true;
     }
