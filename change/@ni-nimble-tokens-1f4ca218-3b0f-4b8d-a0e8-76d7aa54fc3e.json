@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "update icons",
+  "comment": "Added IconBookMagnifyingGlass, IconCircleFilled, IconCloud, IconShareNodes, IconThreeVerticalLines icons",
   "packageName": "@ni/nimble-tokens",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"
