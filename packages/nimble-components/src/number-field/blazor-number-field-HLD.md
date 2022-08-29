@@ -2,16 +2,24 @@
 
 ## Problem Statement
 
-The NumberField presents an interesting array of exposure options in a .NET environment. Here is at least a subset of possibilities:
-1. Provide a generic-typed interface ala `NumericTextField<Int>`, thereby leveraging the Blazor means of supplying generic type parameters
-to Razor files.
-    - This approach creates a notable difference in usage between different UI frameworks. Blazor apps would be able to deal in specific
-    numeric types, while JS-based frameworks would not. One of the consequences of this could be that improperly formatted values (such as
-    entering "1.5" for an integer via text entry) could/should result in form invalidation.
-2. Implement an API that crosses all UI frameworks allowing users to specify the desired numeric representation for the `NumberField`.
-    - While this may be the most desirable approach in the long run, this seems like a potentially non-trivial effort, and shouldn't keep
-    us from having a usable `NumberField` until that time.
-3. Provide a `NimbleNumber
+The NumberField presents an array of exposure options in a .NET environment. Here is at least a subset of possibilities:
+
+### Option 1: `NimbleNumberField<Int>`, `NimbleNumberField<Double>`, etc...
+
+Pros: 
+- Provides the natural API that a C# developer might expect for a numeric component.
+
+Cons:
+- Assymetric API to what the JS `nimble-number-field` offers, which has no concept of various numeric types.
+
+### Option 2: `NimbleNumberField` (no generics)
+
+Pros:
+- Symmetrical API to JS `nimble-number-field`
+- Simple implementation strategy
+
+Cons:
+- Not leveraging possible client expectations for numeric type support
 
 ## Links To Relevant Work Items and Reference Material
 
