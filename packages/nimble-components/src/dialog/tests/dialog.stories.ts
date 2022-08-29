@@ -72,11 +72,13 @@ const metadata: Meta<DialogArgs> = {
         },
         show: {
             name: 'show()',
-            description: 'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol USER_DISMISSED if the dialog was dismissed via the ESC key.',
+            description:
+                'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol USER_DISMISSED if the dialog was dismissed via the ESC key.'
         },
         close: {
             name: 'close(reason)',
-            description: 'Call this member function to close the dialog. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`',
+            description:
+                'Call this member function to close the dialog. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`'
         },
         openAndHandleResult: {
             table: {
