@@ -173,6 +173,7 @@ Accessibility is a requirement for all new components. For the Nimble design sys
 This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
 
 Animations can trigger users with vestibular disorders. [WCAG provides guidance](https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html) to disable certain kinds of animations when the [prefers-reduced-motion CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) is enabled:
+
 > An element which moves into place or changes size while appearing is considered to be animated. An element which appears instantly without transitioning is not using animation. Motion animation does not include changes of color, blurring, or opacity which do not change the perceived size, shape, or position of the element.
 
 As suggested, simple fades can be substituted for more substantial animations. [Search this repo for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) to find examples of how it's done.
