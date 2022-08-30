@@ -35,8 +35,7 @@ export const styles = css`
     }
 
     :host(:hover) {
-        box-shadow: 0px 1px 4px
-            var(--ni-private-card-button-box-shadow-hover-color);
+        box-shadow: 0px 1px 4px ${hexToRgbaCssColor(Black, 0.3)};
     }
 
     :host(:active) {
@@ -127,7 +126,6 @@ export const styles = css`
             Theme.light,
             css`
                 :host {
-                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(Black, 0.3)};
                     --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(White, 0.3)};
                     --ni-private-card-button-background-active-color: ${White};
                     --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(Black91, 0.2)};
@@ -138,7 +136,6 @@ export const styles = css`
             Theme.dark,
             css`
                 :host {
-                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(Black, 0.77)};
                     --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(Black15, 0.07)};
                     --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(Black15, 0.15)};
                     --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(Black15, 0.2)};
@@ -149,9 +146,8 @@ export const styles = css`
             Theme.color,
             css`
                 :host {
-                    --ni-private-card-button-box-shadow-hover-color: ${hexToRgbaCssColor(White, 0.77)};
-                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(White, 0.2)};
-                    --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(White, 0.4)};
+                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(White, 0.07)};
+                    --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(White, 0.15)};
                     --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(White, 0.2)};
                     --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(White, 0.6)};
                 }

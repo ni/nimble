@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 15 Aug 2022 15:50:12 GMT and should not be manually modified.
+This log was last generated on Fri, 26 Aug 2022 14:00:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.11.0
+
+Fri, 26 Aug 2022 14:00:36 GMT
+
+### Minor changes
+
+- Added IconBookMagnifyingGlass, IconCircleFilled, IconCloud, IconShareNodes, IconThreeVerticalLines icons ([ni/nimble@75b48c2](https://github.com/ni/nimble/commit/75b48c20131c2ac891ac50a766d9c3fb88c50718))
+- Bump @ni/nimble-tokens to v4.1.0
+
+## 11.10.6
+
+Wed, 24 Aug 2022 22:18:14 GMT
+
+### Patches
+
+- Use correct colors in nimble-card-button on Color UI ([ni/nimble@f375ba9](https://github.com/ni/nimble/commit/f375ba91d4e19bd24b66a6f1d5393dd6c3a9f997))
+
+## 11.10.5
+
+Wed, 17 Aug 2022 18:59:48 GMT
+
+### Patches
+
+- Add token previews to storybook ([ni/nimble@bc7262c](https://github.com/ni/nimble/commit/bc7262c578faf4af964fba4d63a92445703ed2da))
 
 ## 11.10.4
 
