@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 30 Aug 2022 18:14:50 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Aug 2022 19:03:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.12.1
+
+Tue, 30 Aug 2022 19:03:18 GMT
+
+### Patches
+
+- update nimble logos ([ni/nimble@96b2413](https://github.com/ni/nimble/commit/96b2413d2cec7cdf9a4a848ecbd7de6358ea2caa))
 
 ## 11.12.0
 

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 30 Aug 2022 19:03:18 GMT",
+      "tag": "@ni/nimble-components_v11.12.1",
+      "version": "11.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "96b2413d2cec7cdf9a4a848ecbd7de6358ea2caa",
+            "comment": "update nimble logos"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 30 Aug 2022 18:14:50 GMT",
       "tag": "@ni/nimble-components_v11.12.0",
       "version": "11.12.0",
