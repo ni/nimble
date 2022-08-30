@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Blazor integration for nimble-dialog",
-  "packageName": "@ni/nimble-blazor",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
