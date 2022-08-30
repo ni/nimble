@@ -1,7 +1,6 @@
 import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
 import hexRgb from 'hex-rgb';
 import {
-    Black,
     Black7,
     Black91,
     Black85,
@@ -87,6 +86,11 @@ import {
     Information100LightUi,
     Information100DarkUi
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import {
+    modalBackdropColorThemeColor,
+    modalBackdropColorThemeDark,
+    modalBackdropColorThemeLight
+} from './design-tokens-static';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
@@ -168,7 +172,8 @@ export const iconColor = DesignToken.create<string>(
 
 export const modalBackdropColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.modalBackdropColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(Black, getOpacityForTheme(element, 0.3, 0.6, 0.6)));
+    // ).withDefault((element: HTMLElement) => hexToRgbaCssColor(Black91, 0.6));
+).withDefault((element: HTMLElement) => getModalBackdropForTheme(element));
 
 export const popupBoxShadowColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBoxShadowColor)
@@ -634,24 +639,6 @@ function createFontTokens(
     ] as const;
 }
 
-function getOpacityForTheme(
-    element: HTMLElement,
-    lightThemeOpacity: number,
-    darkThemeOpacity: number,
-    colorThemeOpacity: number
-): number {
-    switch (theme.getValueFor(element)) {
-        case Theme.light:
-            return lightThemeOpacity;
-        case Theme.dark:
-            return darkThemeOpacity;
-        case Theme.color:
-            return colorThemeOpacity;
-        default:
-            return lightThemeOpacity;
-    }
-}
-
 function getColorForTheme(
     element: HTMLElement,
     lightThemeColor: string,
@@ -719,4 +706,17 @@ function getFillHoverColorForTheme(element: HTMLElement): string {
 
 function getFillDownColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
+}
+
+function getModalBackdropForTheme(element: HTMLElement): string {
+    switch (theme.getValueFor(element)) {
+        case Theme.light:
+            return modalBackdropColorThemeLight.getValueFor(element);
+        case Theme.dark:
+            return modalBackdropColorThemeDark.getValueFor(element);
+        case Theme.color:
+            return modalBackdropColorThemeColor.getValueFor(element);
+        default:
+            return modalBackdropColorThemeLight.getValueFor(element);
+    }
 }

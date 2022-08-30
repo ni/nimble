@@ -1,6 +1,5 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { Black } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 import {
     applicationBackgroundColor,
@@ -8,8 +7,12 @@ import {
     popupBoxShadowColor,
     popupBorderColor
 } from '../theme-provider/design-tokens';
+import {
+    modalBackdropColorThemeColor,
+    modalBackdropColorThemeDark,
+    modalBackdropColorThemeLight
+} from '../theme-provider/design-tokens-static';
 import { Theme } from '../theme-provider/types';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
@@ -23,15 +26,14 @@ export const styles = css`
     }
 `.withBehaviors(
     /*
-     * These colors/opacities for the backdrop should be the same as modalBackdropColor.
-     * We cannot use that token directly because the backdrop element is not a descendant
-     * of the nimble-theme-provider element.
+     * We cannot use the modalBackdropColor token directly because the backdrop
+     * element is not a descendant of the nimble-theme-provider element.
      */
         themeBehavior(
             Theme.light,
             css`
             dialog::backdrop {
-                background: ${hexToRgbaCssColor(Black, 0.3)};
+                background: ${modalBackdropColorThemeLight};
             }
         `
         ),
@@ -39,7 +41,7 @@ export const styles = css`
             Theme.dark,
             css`
             dialog::backdrop {
-                background: ${hexToRgbaCssColor(Black, 0.6)};
+                background: ${modalBackdropColorThemeDark};
             }
         `
         ),
@@ -47,7 +49,7 @@ export const styles = css`
             Theme.color,
             css`
             dialog::backdrop {
-                background: ${hexToRgbaCssColor(Black, 0.6)};
+                background: ${modalBackdropColorThemeColor};
             }
         `
         )
