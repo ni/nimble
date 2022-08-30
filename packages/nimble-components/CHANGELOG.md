@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 26 Aug 2022 14:00:36 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Aug 2022 18:14:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.12.0
+
+Tue, 30 Aug 2022 18:14:50 GMT
+
+### Minor changes
+
+- Adding USER_DISMISSED to Dialog class and avoid stale cached value ([ni/nimble@891b62c](https://github.com/ni/nimble/commit/891b62c4f672b51f6a3c82e77a428a59763bd09c))
 
 ## 11.11.0
 

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 30 Aug 2022 18:14:50 GMT",
+      "tag": "@ni/nimble-components_v11.12.0",
+      "version": "11.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "891b62c4f672b51f6a3c82e77a428a59763bd09c",
+            "comment": "Adding USER_DISMISSED to Dialog class and avoid stale cached value"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Aug 2022 14:00:36 GMT",
       "tag": "@ni/nimble-components_v11.11.0",
       "version": "11.11.0",
