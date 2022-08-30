@@ -93,6 +93,17 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     }
 
     /**
+     * @description
+     * Function that is called by the forms API when the control status changes to
+     * or from 'DISABLED'. Depending on the status, it enables or disables the
+     * combobox.
+     * @param isDisabled The disabled status to set on the combobox
+     */
+    public setDisabledState(isDisabled: boolean): void {
+        this.setProperty('disabled', isDisabled);
+    }
+
+    /**
      * @internal
      */
     public addOption(displayValue: string, modelValue: unknown): void {
@@ -126,7 +137,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      * implementation.
      * @nodoc
      */
-    private setProperty(key: string, value: string): void {
+    private setProperty(key: string, value: unknown): void {
         this._renderer.setProperty(this._elementRef.nativeElement, key, value);
     }
 }

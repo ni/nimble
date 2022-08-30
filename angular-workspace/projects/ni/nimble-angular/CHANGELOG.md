@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 12 Aug 2022 19:14:22 GMT and should not be manually modified.
+This log was last generated on Fri, 26 Aug 2022 14:00:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.4.5
+
+Fri, 26 Aug 2022 14:00:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.11.0
+
+## 8.4.4
+
+Wed, 24 Aug 2022 22:18:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.6
+
+## 8.4.3
+
+Wed, 17 Aug 2022 15:30:06 GMT
+
+### Patches
+
+- Implement setDisabledState on the combobox's control value accessor ([ni/nimble@5c37933](https://github.com/ni/nimble/commit/5c379332c7ee54a2a1c1371f16f5ec1129ffbba7))
+
+## 8.4.2
+
+Mon, 15 Aug 2022 15:50:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.10.4
 
 ## 8.4.1
 
