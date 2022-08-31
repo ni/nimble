@@ -172,7 +172,6 @@ export const iconColor = DesignToken.create<string>(
 
 export const modalBackdropColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.modalBackdropColor)
-    // ).withDefault((element: HTMLElement) => hexToRgbaCssColor(Black91, 0.6));
 ).withDefault((element: HTMLElement) => getModalBackdropForTheme(element));
 
 export const popupBoxShadowColor = DesignToken.create<string>(
@@ -711,12 +710,12 @@ function getFillDownColorForTheme(element: HTMLElement): string {
 function getModalBackdropForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
         case Theme.light:
-            return modalBackdropColorThemeLight.getValueFor(element);
+            return modalBackdropColorThemeLight;
         case Theme.dark:
-            return modalBackdropColorThemeDark.getValueFor(element);
+            return modalBackdropColorThemeDark;
         case Theme.color:
-            return modalBackdropColorThemeColor.getValueFor(element);
+            return modalBackdropColorThemeColor;
         default:
-            return modalBackdropColorThemeLight.getValueFor(element);
+            return modalBackdropColorThemeLight;
     }
 }
