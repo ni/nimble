@@ -8,8 +8,8 @@ import type { TextField } from '../../text-field';
 
 interface DialogArgs {
     preventDismiss: boolean;
-    show: null;
-    close: null;
+    show: undefined;
+    close: undefined;
     dialogRef: Dialog<string>;
     textFieldRef: TextField;
     openAndHandleResult: (
