@@ -6,6 +6,7 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface RadioGroupArgs {
+    label: string;
     orientation: Orientation;
     disabled: boolean;
     name: string;
@@ -37,13 +38,14 @@ const metadata: Meta<RadioGroupArgs> = {
             name="${x => x.name}"
             value="${x => x.value}"
         >
-            <label slot="label">Fruit</label>
+            <label slot="label">${x => x.label}</label>
             <nimble-radio-button value="apple">Apple</nimble-radio-button>
             <nimble-radio-button value="mango">Mango</nimble-radio-button>
             <nimble-radio-button value="orange">Orange</nimble-radio-button>
         </nimble-radio-group>
     `),
     args: {
+        label: 'Fruit',
         orientation: Orientation.horizontal,
         disabled: false,
         name: 'fruit',
@@ -55,6 +57,10 @@ const metadata: Meta<RadioGroupArgs> = {
             control: {
                 type: 'radio'
             }
+        },
+        label: {
+            description:
+                'You must provide the label element (not just a string) as content of the `nimble-radio-group` and assign it to slot `label`.'
         },
         orientation: {
             options: Object.values(Orientation),
