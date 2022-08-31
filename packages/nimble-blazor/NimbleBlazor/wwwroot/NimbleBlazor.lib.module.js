@@ -1,3 +1,6 @@
+/* eslint-disable func-names */
+/* eslint-disable no-undef */
+
 /**
  * Register the custom event types used by Nimble components.
  *
@@ -46,3 +49,15 @@ export function afterStarted(Blazor) {
         }
     });
 }
+
+window.NimbleBlazor = {
+    Dialog: {
+        show: async function (dialogReference) {
+            const reason = await dialogReference.show();
+            return reason === window.customElements.get('nimble-dialog').USER_DISMISSED;
+        },
+        close: function (dialogReference, reason) {
+            dialogReference.close(reason);
+        }
+    }
+};
