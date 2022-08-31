@@ -77,7 +77,7 @@ NOTE: To update the component status:
 | Chip/Pill | |  [Issue](https://github.com/ni/nimble/issues/413) | :o: | :o: | :o: |
 | Combo box | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae) |  [Issue](https://github.com/ni/nimble/issues/341) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/combobox--combobox) | :white_check_mark: | :white_check_mark: |
 | Datepicker | |  [Issue](https://github.com/ni/nimble/issues/342) | :o: | :o: | :o: |
-| Dialog | |  [Issue](https://github.com/ni/nimble/issues/378) | :o: | :o: | :o: |
+| Dialog | |  [Issue](https://github.com/ni/nimble/issues/378) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/dialog--dialog) | :white_check_mark: | :white_check_mark: |
 | Drawer | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/drawer--drawer) | :white_check_mark: | :white_check_mark: |
 | Dropdown (Select) | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/select--select) | :white_check_mark: | :white_check_mark: |
 | Filter Builder | |  [Issue](https://github.com/ni/nimble/issues/310) | :o: | :o: | :o: |
@@ -103,5 +103,5 @@ NOTE: To update the component status:
 | Text Field - Single | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/842889a5-67ba-4350-91c1-55eee48f4fa2/) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/text-field--text-field) | :white_check_mark: | :white_check_mark: |
 | Toggle Icon Button | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/toggle-button--icon-button) | :white_check_mark: | :white_check_mark: |
 | Toolbar | |  [Issue](https://github.com/ni/nimble/issues/411) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/toolbar--toolbar) | :white_check_mark: | :white_check_mark: |
-| Tooltip | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/) |  [Issue](https://github.com/ni/nimble/issues/309) | [:arrows_counterclockwise: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tooltip--tooltip) | :white_check_mark: | :o: |
+| Tooltip | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/) |  [Issue](https://github.com/ni/nimble/issues/309) | [:warning: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tooltip--tooltip) | :warning: | :warning: |
 | Tree View | | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tree-view--tree-view) | :white_check_mark: | :white_check_mark: |

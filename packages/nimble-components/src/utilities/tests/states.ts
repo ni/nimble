@@ -41,3 +41,5 @@ export type ReadOnlyState = typeof readOnlyStates[number];
 
 export const iconVisibleStates = [false, true] as const;
 export type IconVisibleState = typeof iconVisibleStates[number];
+<<<<<<< HEAD
+=======

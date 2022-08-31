@@ -1,1 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140"><defs><style>.cls-1{fill:#044123;}.cls-2{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,140V0L93.09781.02187A46.91211,46.91211,0,0,1,140,46.94375V140Z"/><rect class="cls-2" x="68.48659" y="35.72583" width="34.20768" height="34.20768" transform="translate(171.18086 105.65934) rotate(180)"/><rect class="cls-2" x="34.14593" y="70.06649" width="34.20768" height="34.20768" transform="translate(102.49955 174.34066) rotate(180)"/><rect class="cls-1" x="67.16832" y="64.67212" width="38.68575" height="2.6307" transform="translate(173.02239 131.97493) rotate(180)"/><rect class="cls-1" x="67.16832" y="59.41592" width="38.68575" height="2.6307" transform="translate(173.02239 121.46253) rotate(180)"/><rect class="cls-1" x="67.16832" y="54.15972" width="38.68575" height="2.6307" transform="translate(173.02239 110.95013) rotate(180)"/><rect class="cls-1" x="67.16832" y="48.90352" width="38.68575" height="2.6307" transform="translate(173.02239 100.43773) rotate(180)"/><rect class="cls-1" x="67.16832" y="43.64732" width="38.68575" height="2.6307" transform="translate(173.02239 89.92534) rotate(180)"/><rect class="cls-1" x="67.16832" y="38.39112" width="38.68575" height="2.6307" transform="translate(173.02239 79.41294) rotate(180)"/></g></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #009b65;
+      }
+
+      .cls-2 {
+        fill: #074023;
+      }
+    </style>
+  </defs>
+  <g id="Group_124" data-name="Group 124">
+    <path id="Path_106" data-name="Path 106" class="cls-2" d="M201.95,16L54.05,240l103.96-60.02c57.41-33.15,77.09-106.56,43.94-163.98h0Z"/>
+    <path id="Path_107" data-name="Path 107" class="cls-1" d="M54.05,240L201.95,16l-103.96,60.02C40.58,109.17,20.9,182.58,54.05,240h0Z"/>
+  </g>
+</svg>

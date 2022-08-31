@@ -19,6 +19,7 @@ import '../icons/arrow-expander-down';
 import { styles } from './styles';
 import type { ErrorPattern } from '../patterns/error/types';
 import type { DropdownPattern } from '../patterns/dropdown/types';
+import { DropdownAppearance } from '../patterns/dropdown/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -32,6 +33,9 @@ declare global {
 export class Combobox
     extends FoundationCombobox
     implements DropdownPattern, ErrorPattern {
+    @attr
+    public appearance: DropdownAppearance = DropdownAppearance.underline;
+
     /**
      * The ref to the internal dropdown button element.
      *

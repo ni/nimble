@@ -1,6 +1,7 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrixThemeStory,
     createStory
@@ -17,6 +18,7 @@ import {
     ErrorState
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import { DropdownAppearance } from '../../patterns/dropdown/types';
 import {
     controlLabelFont,
     controlLabelFontColor,
@@ -45,9 +47,16 @@ const metadata: Meta = {
 
 export default metadata;
 
+const appearanceStates = Object.entries(DropdownAppearance).map(
+    ([key, value]) => [pascalCase(key), value]
+);
+
+type AppearanceState = typeof appearanceStates[number];
+
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
+    [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, value, placeholder]: ValueState
 ): ViewTemplate => html`
@@ -60,11 +69,13 @@ const component = (
     >
         <label>
             ${() => disabledName}
+            ${() => appearanceName}
             ${() => errorName}
             ${() => valueName}
         </label>
         <nimble-combobox 
             ?disabled="${() => disabled}"
+            appearance="${() => appearance}"
             ?error-visible="${() => errorVisible}"
             error-text="${() => errorText}"
             value="${() => value}"
@@ -79,7 +90,7 @@ const component = (
 `;
 
 export const comboboxThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, errorStates, valueStates])
+    createMatrix(component, [disabledStates, appearanceStates, errorStates, valueStates])
 );
 
 export const hiddenCombobox: Story = createStory(
