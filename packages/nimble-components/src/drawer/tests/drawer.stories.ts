@@ -31,7 +31,7 @@ interface DrawerArgs {
     openAndHandleResult: (
         drawerRef: Drawer<string>,
         textFieldRef: TextField
-    ) => void;
+    ) => Promise<void> | undefined;
 }
 
 const simpleContent = html<DrawerArgs>`
