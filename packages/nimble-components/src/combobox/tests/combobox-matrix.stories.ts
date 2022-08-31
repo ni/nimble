@@ -90,7 +90,12 @@ const component = (
 `;
 
 export const comboboxThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, appearanceStates, errorStates, valueStates])
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        errorStates,
+        valueStates
+    ])
 );
 
 export const hiddenCombobox: Story = createStory(
