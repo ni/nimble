@@ -1,7 +1,7 @@
 {
-  "type": "patch",
+  "type": "none",
   "comment": "Adding favicon files",
   "packageName": "@ni/nimble-components",
   "email": "109235103+nate-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "none"
 }
