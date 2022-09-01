@@ -12,7 +12,7 @@
     "prettier-fix": "prettier-eslint \"**/*.*\" --write --prettier-ignore",
     "pack": "npm pack",
     "invoke-publish": "npm publish",
-    "storybook": "start-storybook -p 6006 -s public",
+    "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o dist/storybook",
     "build-components": "tsc -p ./tsconfig.json",
     "build-components:watch": "tsc -p ./tsconfig.json -w",
