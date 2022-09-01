@@ -4,7 +4,7 @@ import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { RadioGroup } from '.';
 
 // prettier-ignore
-export const template: FoundationElementTemplate<ViewTemplate<RadioGroup>> = context => {
+export const template: FoundationElementTemplate<ViewTemplate<RadioGroup>> = _context => {
     return html<RadioGroup>`
         <div
             id="group"
