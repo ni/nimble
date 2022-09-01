@@ -3,7 +3,8 @@ import { display } from '@microsoft/fast-foundation';
 import {
     controlLabelDisabledFontColor,
     controlLabelFont,
-    controlLabelFontColor
+    controlLabelFontColor,
+    standardPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -11,6 +12,7 @@ export const styles = css`
 
     .positioning-region {
         display: flex;
+        gap: ${standardPadding};
     }
 
     :host([orientation='vertical']) .positioning-region {
