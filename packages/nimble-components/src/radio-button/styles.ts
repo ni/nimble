@@ -9,6 +9,7 @@ import {
     borderWidth,
     buttonLabelFont,
     controlHeight,
+    iconSize,
     smallDelay,
     smallPadding
 } from '../theme-provider/design-tokens';
@@ -36,7 +37,7 @@ export const styles = css`
         box-sizing: border-box;
         flex-shrink: 0;
         border: ${borderWidth} solid ${borderColor};
-        border-radius: 999px;
+        border-radius: 100%;
         padding: 2px;
         display: inline-flex;
         align-items: center;
@@ -49,7 +50,6 @@ export const styles = css`
              */ ''
         }
         line-height: 0;
-        --ni-private-checked-indicator-size: 8px;
     }
 
     :host([disabled]) .control {
@@ -68,7 +68,7 @@ export const styles = css`
         width: calc(2px + ${controlHeight} / 2);
         height: calc(2px + ${controlHeight} / 2);
         border: 2px solid ${borderHoverColor};
-        border-radius: 999px;
+        border-radius: 100%;
     }
 
     .label {
@@ -83,20 +83,24 @@ export const styles = css`
     }
 
     slot[name='checked-indicator'] {
-        display: inline;
-        width: var(--ni-private-checked-indicator-size);
-        height: var(--ni-private-checked-indicator-size);
-        border-radius: 999px;
-        background-color: ${borderColor};
-        opacity: 0;
-        transition: opacity ${smallDelay} ease-in-out;
+        display: none;
+    }
+
+    slot[name='checked-indicator'] svg {
+        height: ${iconSize};
+        width: ${iconSize};
+        overflow: visible;
     }
 
     :host(.checked) slot[name='checked-indicator'] {
-        opacity: 1;
+        display: contents;
     }
 
-    :host([disabled]) slot[name='checked-indicator'] {
-        background-color: rgba(${borderRgbPartialColor}, 0.2);
+    slot[name='checked-indicator'] circle {
+        fill: ${borderColor};
+    }
+
+    :host([disabled]) slot[name='checked-indicator'] circle {
+        fill: rgba(${borderRgbPartialColor}, 0.3);
     }
 `;

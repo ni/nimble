@@ -45,7 +45,7 @@ const component = (
     <label slot="label">${orientationName} ${disabledName}</label>
     <nimble-radio-button value="1">Option 1</nimble-radio-button>
     <nimble-radio-button value="2">Option 2</nimble-radio-button>
-</nimble-radio-button>`;
+</nimble-radio-group>`;
 
 export const radioGroupThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [disabledStates, orientationStates])

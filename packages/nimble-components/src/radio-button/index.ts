@@ -4,6 +4,7 @@ import {
     DesignSystem,
     RadioOptions
 } from '@microsoft/fast-foundation';
+import { circleFilled16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
 declare global {
@@ -21,7 +22,8 @@ const nimbleRadioButton = RadioButton.compose<RadioOptions>({
     baseName: 'radio-button',
     baseClass: FoundationRadio,
     template,
-    styles
+    styles,
+    checkedIndicator: circleFilled16X16.data
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRadioButton());
