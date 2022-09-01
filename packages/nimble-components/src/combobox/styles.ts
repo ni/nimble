@@ -33,7 +33,7 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
-    :host(.invalid)::after {
+    :host([error-visible])::after {
         border-bottom-color: ${failColor};
     }
 
@@ -54,7 +54,7 @@ export const styles = css`
     }
 
     :host([error-visible][disabled]) .control,
-    :host([error-visible].open) .control {
+    :host([error-visible][open]) .control {
         border-bottom-color: ${failColor};
     }
 
@@ -111,7 +111,7 @@ export const styles = css`
         appearanceBehavior(
             DropdownAppearance.block,
             css`
-            :host(.invalid) .control {
+            :host([error-visible]) .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
