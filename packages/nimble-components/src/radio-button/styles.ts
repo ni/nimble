@@ -62,6 +62,10 @@ export const styles = css`
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
 
+    :host(${focusVisible}) .control {
+        border-color: ${borderHoverColor};
+    }
+
     :host(${focusVisible}) .control::after {
         content: '';
         position: absolute;
