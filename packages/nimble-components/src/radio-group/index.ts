@@ -1,10 +1,10 @@
 import {
     RadioGroup as FoundationRadioGroup,
-    radioGroupTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
 import type { Orientation } from '@microsoft/fast-web-utilities';
 import { styles } from './styles';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
