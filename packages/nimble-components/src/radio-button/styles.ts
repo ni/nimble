@@ -10,8 +10,7 @@ import {
     buttonLabelFont,
     controlHeight,
     iconSize,
-    smallDelay,
-    smallPadding
+    smallDelay
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 
@@ -22,7 +21,6 @@ export const styles = css`
         font: ${buttonLabelFont};
         align-items: center;
         outline: none;
-        margin: ${smallPadding};
         width: fit-content;
         cursor: pointer;
     }
@@ -38,7 +36,6 @@ export const styles = css`
         flex-shrink: 0;
         border: ${borderWidth} solid ${borderColor};
         border-radius: 100%;
-        padding: 2px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
