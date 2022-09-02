@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 30 Aug 2022 19:03:18 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Sep 2022 17:48:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.13.0
+
+Fri, 02 Sep 2022 17:48:33 GMT
+
+### Minor changes
+
+- Change backdrop overlay color for dialog and drawer ([ni/nimble@29a0456](https://github.com/ni/nimble/commit/29a0456ac99235f13cf5d09c5d0085a14da53661))
 
 ## 11.12.1
 
