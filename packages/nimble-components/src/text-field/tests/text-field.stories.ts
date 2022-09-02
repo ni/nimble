@@ -52,8 +52,6 @@ const metadata: Meta<TextFieldArgs> = {
             type="${x => x.type}"
             appearance="${x => x.appearance}"
             value="${x => x.value}"
-            ${/* TODO: This should be handled by the error-visible attr */ ''}
-            aria-invalid="${x => x.errorVisible}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
             error-text="${x => x.errorText}"

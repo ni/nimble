@@ -54,8 +54,6 @@ const metadata: Meta<ComboboxArgs> = {
             position="${x => x.dropDownPosition}"
             error-text="${x => x.errorText}"
             ?error-visible="${x => x.errorVisible}"
-            ${/* TODO: This should be handled by the error-visible attr */ ''}
-            aria-invalid="${x => x.errorVisible}"
             appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
