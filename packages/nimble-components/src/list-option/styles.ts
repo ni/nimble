@@ -26,13 +26,13 @@ export const styles = css`
         padding: 8px 4px;
     }
 
-    :host([aria-selected="true"]) {
+    :host([aria-selected='true']) {
         box-shadow: none;
         outline: none;
         background-color: ${fillSelectedColor};
     }
 
-    :host([aria-selected="true"]:hover) {
+    :host([aria-selected='true']:hover) {
         background-color: ${fillHoverSelectedColor};
     }
 
