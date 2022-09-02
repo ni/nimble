@@ -2,41 +2,39 @@
 
 ## Problem Statement
 
-The NumberField presents an array of exposure options in a .NET environment. Here is at least a subset of possibilities:
+Numeric-based components in a C# world can carry expectations that the component support various numeric types. However, the `nimble-number-field` web component obvioulsy has no concept of varying numeric types.
 
-### Option 1: `NimbleNumberField<Int>`, `NimbleNumberField<Double>`, etc...
-
-Pros: 
-- Provides the natural API that a C# developer might expect for a numeric component.
-
-Cons:
-- Assymetric API to what the JS `nimble-number-field` offers, which has no concept of various numeric types.
-
-### Option 2: `NimbleNumberField` (no generics)
-
-Pros:
-- Symmetrical API to JS `nimble-number-field`
-- Simple implementation strategy
-
-Cons:
-- Not leveraging possible client expectations for numeric type support
+Ultimately, we expect clients to have various requirements for number inputs, specifically related to the formatting of the number. This can be addressed in the future, by offering an API that allows a client to format the number, and doesn't require that the value represented by the `NumberField` be of a specific numeric type.
 
 ## Links To Relevant Work Items and Reference Material
 
-*Include links to the work items this design addresses.*
-*Include links to any other meaningful reference material.*
+[Blazor NumberField prototype](https://github.com/ni/nimble/tree/blazor-number-field)
+
+[Microsoft FluentNumberField](https://github.com/microsoft/fast-blazor/blob/main/src/Microsoft.Fast.Components.FluentUI/Components/FluentNumberField.razor.cs)
 
 ## Implementation / Design
 
-*Describe the implementation and what systems will be affected. Items to consider include:*
-   - *Does the design follow an existing design in this codebase or FAST?*
-   - *Does the design align with web standards like web components, ARIA, etc?*
-   - *Does the design create new requirements on clients or break any APIs?*
-   - *How does the design affect testing, documentation, performance, security, etc?*
+I propose we create a non-generic `NimbleNumberField`, using a base type of `NimbleInputBase<double?>`. The nullable type will allow the number field to be empty and display placeholder text. Additionally, the `Min`, `Max`, and `Step` parameters will all share the same type of `double`.
+
+The behavior, then, will match what we see in other frameworks like Angular.
+
+Integer-like `NumberField`:
+
+<img src="spec-images/NimbleNumberFieldInt.gif"/>
+
+Double `NumberField`:
+
+<img src="spec-images/NimbleNumberFieldDouble.gif"/>
+
+Clients that ultimately want a numeric value represented by some other type than `double` will have to simply cast/convert to the appropriate type.
+
+### Input Validation
+
+
 
 ## Alternative Implementations / Designs
 
-*Describe any design alternatives and discuss why they were rejected.*
+The other approach would have been to offer an API similar to that of the Microsoft `FluentNumberField` (linked above), where a client could provide a generic argument to `NimbleNumberField` (ala `NimbleNumberField<int>`).
 
 ## Open Issues
 
