@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 02 Sep 2022 17:48:33 GMT",
+      "tag": "@ni/nimble-components_v11.13.0",
+      "version": "11.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "29a0456ac99235f13cf5d09c5d0085a14da53661",
+            "comment": "Change backdrop overlay color for dialog and drawer"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 31 Aug 2022 21:35:23 GMT",
+      "tag": "@ni/nimble-components_v11.12.1",
+      "version": "11.12.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "068fa2ecb8fb6877ea1bf374ced6b9f2d0fe9682",
+            "comment": "Document show and close in dialog story"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Aug 2022 19:03:18 GMT",
+      "tag": "@ni/nimble-components_v11.12.1",
+      "version": "11.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "96b2413d2cec7cdf9a4a848ecbd7de6358ea2caa",
+            "comment": "update nimble logos"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Aug 2022 18:14:50 GMT",
+      "tag": "@ni/nimble-components_v11.12.0",
+      "version": "11.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "891b62c4f672b51f6a3c82e77a428a59763bd09c",
+            "comment": "Adding USER_DISMISSED to Dialog class and avoid stale cached value"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Aug 2022 14:00:36 GMT",
       "tag": "@ni/nimble-components_v11.11.0",
       "version": "11.11.0",
