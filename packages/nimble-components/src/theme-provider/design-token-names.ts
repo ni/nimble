@@ -26,6 +26,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     informationColor: 'information-color',
     borderHoverColor: 'border-hover-color',
     iconColor: 'icon-color',
+    modalBackdropColor: 'modal-backdrop-color',
     popupBoxShadowColor: 'popup-box-shadow-color',
     popupBorderColor: 'popup-border-color',
     controlHeight: 'control-height',
