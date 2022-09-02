@@ -34,6 +34,12 @@ export const styles = css`
         transition: box-shadow ${smallDelay};
     }
 
+    @media (prefers-reduced-motion) {
+        :host {
+            transition-duration: 0s;
+        }
+    }
+
     :host(:hover) {
         box-shadow: 0px 1px 4px ${hexToRgbaCssColor(Black, 0.3)};
     }

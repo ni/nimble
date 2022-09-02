@@ -176,7 +176,13 @@ Animations can trigger users with vestibular disorders. [WCAG provides guidance]
 
 > An element which moves into place or changes size while appearing is considered to be animated. An element which appears instantly without transitioning is not using animation. Motion animation does not include changes of color, blurring, or opacity which do not change the perceived size, shape, or position of the element.
 
-As suggested, simple fades can be substituted for more substantial animations. [Search this repo for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) to find examples of how it's done.
+Nimble interprets this to mean the following types of animations are permitted with `prefers-reduced-motion` is enabled:
+
+1. Animations which don't involve motion (e.g. fades or color changes)
+2. Animations which involve motion but don't significantly affect the perceived size, shape, or position of the object. The only approved example of this is animating border thickness; other candidates can be proposed via PR (along with an update to these docs).
+3. Animations which involved motion but the change in size, shape, or position is synchronized with a user interaction (e.g. a mouse drag to move or resize an object or scrolling through a list).
+
+All other motion animations should either be disabled or replaced with a fade animation when `prefers-reduced-motion` is enabled. [Search this repo for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) to find examples of how it's done.
 
 ### Animations
 

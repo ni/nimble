@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Remove unneeded prefers reduced motion overrides",
+  "comment": "Fix minor animation issues and add guidelines for prefers-reduce-motion",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
