@@ -86,6 +86,11 @@ import {
     Information100LightUi,
     Information100DarkUi
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import {
+    modalBackdropColorThemeColor,
+    modalBackdropColorThemeDark,
+    modalBackdropColorThemeLight
+} from './design-tokens-static';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
@@ -164,6 +169,10 @@ export const borderHoverColor = DesignToken.create<string>(
 export const iconColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.iconColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White));
+
+export const modalBackdropColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.modalBackdropColor)
+).withDefault((element: HTMLElement) => getModalBackdropForTheme(element));
 
 export const popupBoxShadowColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBoxShadowColor)
@@ -696,4 +705,17 @@ function getFillHoverColorForTheme(element: HTMLElement): string {
 
 function getFillDownColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
+}
+
+function getModalBackdropForTheme(element: HTMLElement): string {
+    switch (theme.getValueFor(element)) {
+        case Theme.light:
+            return modalBackdropColorThemeLight;
+        case Theme.dark:
+            return modalBackdropColorThemeDark;
+        case Theme.color:
+            return modalBackdropColorThemeColor;
+        default:
+            return modalBackdropColorThemeLight;
+    }
 }
