@@ -40,7 +40,5 @@ export const iconThemeMatrix: Story = createMatrixThemeStory(
 );
 
 export const hiddenIcon: Story = createStory(
-    hiddenWrapper(
-        html`<nimble-icon-check hidden></nimble-icon-check>`
-    )
+    hiddenWrapper(html`<nimble-icon-check hidden></nimble-icon-check>`)
 );
