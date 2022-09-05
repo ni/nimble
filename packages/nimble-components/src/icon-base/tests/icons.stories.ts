@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
-import { IconAppearance } from '../types';
+import { IconSeverity } from '../types';
 import {
     createUserSelectedThemeStory,
     overrideWarning
@@ -16,7 +16,7 @@ import {
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
 
 interface IconArgs {
-    appearance: keyof typeof IconAppearance;
+    severity: keyof typeof IconSeverity;
 }
 
 const metadata: Meta<IconArgs> = {
@@ -34,7 +34,7 @@ type IconClass = typeof Icon;
 const iconTemplate = html<IconClass, IconArgs>`
     ${(x, c) => html`
         <${DesignSystem.tagFor(x)}
-            appearance=${() => IconAppearance[c.parent.appearance]}
+            severity=${() => IconSeverity[c.parent.severity]}
             title=${DesignSystem.tagFor(x)}
         >
         </${DesignSystem.tagFor(x)}>
@@ -46,8 +46,8 @@ With SCSS properties, the icon color can be overriden. For example:
 ${scssInternalPropertySetterMarkdown(tokenNames.iconColor, 'purple')}
 `;
 
-const appearanceDescription = `
-Set appearance on the element to switch between the theme-aware color options.
+const severityDescription = `
+Set severity on the element to switch between the theme-aware color options.
 
 ${overrideWarning('Color', appearanceDescriptionOverride)}
 `;
@@ -55,13 +55,13 @@ ${overrideWarning('Color', appearanceDescriptionOverride)}
 // prettier-ignore
 export const icons: StoryObj<IconArgs> = {
     args: {
-        appearance: 'default'
+        severity: 'default'
     },
     argTypes: {
-        appearance: {
-            options: Object.keys(IconAppearance),
+        severity: {
+            options: Object.keys(IconSeverity),
             control: { type: 'radio' },
-            description: appearanceDescription
+            description: severityDescription
         }
     },
     render: createUserSelectedThemeStory(html`

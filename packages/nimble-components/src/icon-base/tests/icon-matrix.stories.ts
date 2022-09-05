@@ -9,7 +9,7 @@ import {
     createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
-import { IconAppearance } from '../types';
+import { IconSeverity } from '../types';
 import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
@@ -23,24 +23,24 @@ const metadata: Meta = {
 
 export default metadata;
 
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    IconAppearance
+const severityStates: [string, string | undefined][] = Object.entries(
+    IconSeverity
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = typeof appearanceStates[number];
+type SeverityState = typeof severityStates[number];
 
-const component = ([stateName, state]: AppearanceState): ViewTemplate => html`
+const component = ([stateName, state]: SeverityState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
         ${() => stateName}
     </span>
-    <nimble-icon-check appearance="${() => state}"></nimble-icon-check>
+    <nimble-icon-check severity="${() => state}"></nimble-icon-check>
 `;
 
 export const iconThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [appearanceStates])
+    createMatrix(component, [severityStates])
 );
 
 export const hiddenIcon: Story = createStory(
     hiddenWrapper(
-        html`<nimble-icon-check class="pass" hidden></nimble-icon-check>`
+        html`<nimble-icon-check hidden></nimble-icon-check>`
     )
 );

@@ -2,11 +2,11 @@
  * Predefined icon appearance states
  * @public
  */
-export const IconAppearance = {
+export const IconSeverity = {
     default: undefined,
     error: 'error',
     warning: 'warning',
     success: 'success',
     information: 'information'
 } as const;
-export type IconAppearance = typeof IconAppearance[keyof typeof IconAppearance];
+export type IconSeverity = typeof IconSeverity[keyof typeof IconSeverity];
