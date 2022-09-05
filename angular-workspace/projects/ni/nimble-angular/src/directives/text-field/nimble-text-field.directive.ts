@@ -106,6 +106,16 @@ export class NimbleTextFieldDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }
 
+    public get errorVisible(): boolean {
+        return this.elementRef.nativeElement.errorVisible;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
+    }
+
     public get size(): number {
         return this.elementRef.nativeElement.size;
     }
