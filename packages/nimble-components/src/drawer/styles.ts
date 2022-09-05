@@ -9,7 +9,8 @@ import {
     popupBoxShadowColor,
     standardPadding,
     titlePlus1Font,
-    drawerWidth
+    drawerWidth,
+    modalBackdropColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -59,7 +60,7 @@ export const styles = css`
     .overlay {
         position: fixed;
         inset: 0px;
-        background: ${popupBorderColor};
+        background: ${modalBackdropColor};
         touch-action: none;
     }
 
