@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 06 Sep 2022 16:15:42 GMT",
+      "tag": "@ni/nimble-components_v11.13.0",
+      "version": "11.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "11f4aae4657350af2e08b9a0854dcb4bfb2a03c2",
+            "comment": "Adding favicon files"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 02 Sep 2022 17:48:33 GMT",
       "tag": "@ni/nimble-components_v11.13.0",
       "version": "11.13.0",
