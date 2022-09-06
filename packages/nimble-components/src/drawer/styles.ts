@@ -1,6 +1,5 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { Black } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
     bodyFont,
@@ -13,8 +12,12 @@ import {
     drawerWidth,
     largeDelay
 } from '../theme-provider/design-tokens';
+import {
+    modalBackdropColorThemeColor,
+    modalBackdropColorThemeDark,
+    modalBackdropColorThemeLight
+} from '../theme-provider/design-tokens-static';
 import { Theme } from '../theme-provider/types';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
@@ -150,32 +153,32 @@ export const styles = css`
         border-top: ${borderWidth} solid ${popupBorderColor};
     }
 `.withBehaviors(
-            /*
-                Local Theme Behaviors to style the backdrop because it is not a descendent of the theme provider. As a result,
-                the backdrop cannot be styled using tokens directly.
-            */
-            themeBehavior(
-                Theme.light,
-                css`
-                dialog::backdrop {
-                    background: ${hexToRgbaCssColor(Black, 0.3)};
-                }
-            `
-            ),
-            themeBehavior(
-                Theme.dark,
-                css`
-                dialog::backdrop {
-                    background: ${hexToRgbaCssColor(Black, 0.6)};
-                }
-            `
-            ),
-            themeBehavior(
-                Theme.color,
-                css`
-                dialog::backdrop {
-                    background: ${hexToRgbaCssColor(Black, 0.6)};
-                }
-            `
-            )
-        );
+    /*
+     * We cannot use the modalBackdropColor token directly because the backdrop
+     * element is not a descendant of the nimble-theme-provider element.
+     */
+        themeBehavior(
+            Theme.light,
+            css`
+            dialog::backdrop {
+                background: ${modalBackdropColorThemeLight};
+            }
+        `
+        ),
+        themeBehavior(
+            Theme.dark,
+            css`
+            dialog::backdrop {
+                background: ${modalBackdropColorThemeDark};
+            }
+        `
+        ),
+        themeBehavior(
+            Theme.color,
+            css`
+            dialog::backdrop {
+                background: ${modalBackdropColorThemeColor};
+            }
+        `
+        )
+    );
