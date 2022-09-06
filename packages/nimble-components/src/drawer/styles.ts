@@ -9,13 +9,13 @@ import {
     popupBoxShadowColor,
     standardPadding,
     titlePlus1Font,
-    drawerWidth,
-    largeDelay
+    drawerWidth
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColor,
     modalBackdropColorThemeDark,
-    modalBackdropColorThemeLight
+    modalBackdropColorThemeLight,
+    largeDelay
 } from '../theme-provider/design-tokens-static';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
@@ -98,32 +98,24 @@ export const styles = css`
         padding: 0px;
         max-width: none;
         max-height: none;
-        ${
-            /*
-                Set overflow-x to hidden while the animation is in progress so that a scrollbar
-                isn't visible while the drawer hasn't expanded to its full width.
-            */ ''
-        }
-        overflow-x: hidden;
+        overflow: hidden;
     }
 
     :host(.hidden) dialog {
         visibility: hidden;
+    }    
+
+    @keyframes fadein {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
     }
 
-    dialog::backdrop {
-        opacity:0;
-        ${
-            /*
-                The largeDelay token cannot be used on the backdrop because it is not
-                a descendant of the nimble-theme-provider
-            */ ''
-        }
-        transition: opacity 0.25s ease-in;
+    dialog.animating::backdrop {
+        animation: fadein ${largeDelay} ease-in;
     }
 
-    dialog.visible::backdrop {
-        opacity: 1;
+    dialog.closing::backdrop {
+        animation-direction: reverse;
     }
 
     ${
