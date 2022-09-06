@@ -26,7 +26,7 @@ export class NimbleButtonDirective {
         return this.elementRef.nativeElement.appearanceVariant;
     }
 
-    // appearanceVariant property intentionally maps to the appearance-variant attribute
+    // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('appearance-variant') public set appearanceVariant(value: ButtonAppearanceVariant) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearanceVariant', value);
@@ -52,7 +52,7 @@ export class NimbleButtonDirective {
         return this.elementRef.nativeElement.contentHidden;
     }
 
-    // contentHidden property intentionally maps to the content-hidden attribute
+    // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('content-hidden') public set contentHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
