@@ -35,10 +35,30 @@
                 </NimbleToggleButton>
             </div>
             <div class="sub-container">
+                <div class="container-label">Card Button</div>
+                <NimbleCardButton>
+                    <span class="card-button-content">Card Button</span>
+                </NimbleCardButton>
+                <NimbleCardButton selected>
+                    <span class="card-button-content">Selected Card Button</span>
+                </NimbleCardButton>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Checkbox</div>
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Dialog:</div>
+                <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDialogAsync">Open Dialog</NimbleButton>
+                <NimbleTextField readonly Value="@ClosedReason">Closed reason</NimbleTextField>
+                <NimbleDialog TCloseReason="DialogResult" @ref="_dialog">
+                    <h1>Have a nice day</h1>
+                    <p>And also a nice week</p>
+                    <NimbleButton @onclick='() => CloseDialogAsync(DialogResult.OK)'>OK</NimbleButton>
+                    <NimbleButton @onclick='() => CloseDialogAsync(DialogResult.Cancel)'>Cancel</NimbleButton>
+                </NimbleDialog>
             </div>
             <div class="sub-container">
                 <div class="container-label">Drawer/Sidenav:</div>
@@ -108,7 +128,17 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Combobox</div>
-                <NimbleCombobox AutoComplete="AutoComplete.Both">
+                <NimbleCombobox AutoComplete="AutoComplete.Both" Placeholder="Select value..." Appearance="DropdownAppearance.Underline">
+                    <NimbleListOption>Mary</NimbleListOption>
+                    <NimbleListOption>Sue</NimbleListOption>
+                    <NimbleListOption>Dexter</NimbleListOption>
+                </NimbleCombobox>
+                <NimbleCombobox AutoComplete="AutoComplete.Both" Placeholder="Select value..." Appearance="DropdownAppearance.Outline">
+                    <NimbleListOption>Mary</NimbleListOption>
+                    <NimbleListOption>Sue</NimbleListOption>
+                    <NimbleListOption>Dexter</NimbleListOption>
+                </NimbleCombobox>
+                <NimbleCombobox AutoComplete="AutoComplete.Both" Placeholder="Select value..." Appearance="DropdownAppearance.Block">
                     <NimbleListOption>Mary</NimbleListOption>
                     <NimbleListOption>Sue</NimbleListOption>
                     <NimbleListOption>Dexter</NimbleListOption>
@@ -164,6 +194,19 @@
                     <NimbleButton>Middle Button</NimbleButton>
                     <NimbleButton slot="end" Appearance="ButtonAppearance.Outline">Last Button</NimbleButton>
                 </NimbleToolbar>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Tooltip</div>
+                <NimbleButton id="default-anchor">Default</NimbleButton>
+                <NimbleTooltip Anchor="default-anchor">Tooltip label</NimbleTooltip>
+                <NimbleButton id="fail-anchor">Fail</NimbleButton>
+                <NimbleTooltip Anchor="fail-anchor" class="fail">Tooltip label</NimbleTooltip>
+                <NimbleButton id="information-anchor">Information</NimbleButton>
+                <NimbleTooltip Anchor="information-anchor" class="information">Tooltip label</NimbleTooltip>
+                <NimbleButton id="fail-icon-anchor">Fail Icon</NimbleButton>
+                <NimbleTooltip Anchor="fail-icon-anchor" class="fail icon-visible">Tooltip label</NimbleTooltip>
+                <NimbleButton id="information-icon-anchor">Information Icon</NimbleButton>
+                <NimbleTooltip Anchor="information-icon-anchor" class="information icon-visible">Tooltip label</NimbleTooltip>
             </div>
             <div class="sub-container">
                 <div class="container-label">Tree View</div>

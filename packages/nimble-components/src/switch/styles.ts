@@ -19,6 +19,7 @@ import {
     fillHoverColor,
     smallDelay
 } from '../theme-provider/design-tokens';
+import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { focusVisible } from '../utilities/style/focus';
 import { themeBehavior } from '../utilities/style/theme';
@@ -93,7 +94,6 @@ export const styles = css`
 
     :host([aria-checked='true']) .checked-indicator-spacer {
         flex-grow: 1;
-        transition: flex-grow ${smallDelay} ease-in-out;
     }
 
     .checked-indicator {
@@ -148,7 +148,6 @@ export const styles = css`
 
     :host([aria-checked='true']) .checked-indicator-inner {
         opacity: 1;
-        transition: opacity ${smallDelay} ease-in-out;
     }
 
     slot[name='checked-message']::slotted(*) {
@@ -163,8 +162,8 @@ export const styles = css`
     }
 `.withBehaviors(
         themeBehavior(
+            Theme.light,
             css`
-            ${'' /* Light theme */}
             :host {
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
                 Black91,
@@ -181,9 +180,11 @@ export const styles = css`
                 0.3
             )};
             }
-        `,
+        `
+        ),
+        themeBehavior(
+            Theme.dark,
             css`
-            ${'' /* Dark theme */}
             :host {
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
                 Black15,
@@ -203,9 +204,11 @@ export const styles = css`
                 0.3
             )};
             }
-        `,
+        `
+        ),
+        themeBehavior(
+            Theme.color,
             css`
-            ${'' /* Color theme */}
             :host {
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
                 White,
