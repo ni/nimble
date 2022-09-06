@@ -2,6 +2,81 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 02 Sep 2022 17:48:33 GMT",
+      "tag": "@ni/nimble-angular_v8.4.8",
+      "version": "8.4.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.13.0",
+            "commit": "29a0456ac99235f13cf5d09c5d0085a14da53661"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Aug 2022 19:03:18 GMT",
+      "tag": "@ni/nimble-angular_v8.4.7",
+      "version": "8.4.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.12.1",
+            "commit": "96b2413d2cec7cdf9a4a848ecbd7de6358ea2caa"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Aug 2022 18:14:50 GMT",
+      "tag": "@ni/nimble-angular_v8.4.6",
+      "version": "8.4.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.12.0",
+            "commit": "891b62c4f672b51f6a3c82e77a428a59763bd09c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Aug 2022 14:00:36 GMT",
+      "tag": "@ni/nimble-angular_v8.4.5",
+      "version": "8.4.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.11.0",
+            "commit": "75b48c20131c2ac891ac50a766d9c3fb88c50718"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Aug 2022 22:18:14 GMT",
+      "tag": "@ni/nimble-angular_v8.4.4",
+      "version": "8.4.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.10.6",
+            "commit": "f375ba91d4e19bd24b66a6f1d5393dd6c3a9f997"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Aug 2022 18:59:48 GMT",
       "tag": "@ni/nimble-angular_v8.4.3",
       "version": "8.4.3",

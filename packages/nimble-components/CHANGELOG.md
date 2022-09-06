@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 Aug 2022 18:59:48 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Sep 2022 17:48:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.13.0
+
+Fri, 02 Sep 2022 17:48:33 GMT
+
+### Minor changes
+
+- Change backdrop overlay color for dialog and drawer ([ni/nimble@29a0456](https://github.com/ni/nimble/commit/29a0456ac99235f13cf5d09c5d0085a14da53661))
+
+## 11.12.1
+
+Tue, 30 Aug 2022 19:03:18 GMT
+
+### Patches
+
+- update nimble logos ([ni/nimble@96b2413](https://github.com/ni/nimble/commit/96b2413d2cec7cdf9a4a848ecbd7de6358ea2caa))
+
+## 11.12.0
+
+Tue, 30 Aug 2022 18:14:50 GMT
+
+### Minor changes
+
+- Adding USER_DISMISSED to Dialog class and avoid stale cached value ([ni/nimble@891b62c](https://github.com/ni/nimble/commit/891b62c4f672b51f6a3c82e77a428a59763bd09c))
+
+## 11.11.0
+
+Fri, 26 Aug 2022 14:00:36 GMT
+
+### Minor changes
+
+- Added IconBookMagnifyingGlass, IconCircleFilled, IconCloud, IconShareNodes, IconThreeVerticalLines icons ([ni/nimble@75b48c2](https://github.com/ni/nimble/commit/75b48c20131c2ac891ac50a766d9c3fb88c50718))
+- Bump @ni/nimble-tokens to v4.1.0
+
+## 11.10.6
+
+Wed, 24 Aug 2022 22:18:14 GMT
+
+### Patches
+
+- Use correct colors in nimble-card-button on Color UI ([ni/nimble@f375ba9](https://github.com/ni/nimble/commit/f375ba91d4e19bd24b66a6f1d5393dd6c3a9f997))
 
 ## 11.10.5
 
