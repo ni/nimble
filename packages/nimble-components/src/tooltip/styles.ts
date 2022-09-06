@@ -54,12 +54,12 @@ export const styles = css`
         padding-right: 8px;
     }
 
-    :host([appearance='error'][icon-visible]) [appearance='error'] {
+    :host([appearance='error'][icon-visible]) [severity='error'] {
         display: flex;
         flex: 0 0 auto;
     }
 
-    :host([appearance='information'][icon-visible]) [appearance='information'] {
+    :host([appearance='information'][icon-visible]) [severity='information'] {
         display: flex;
         flex: 0 0 auto;
     }

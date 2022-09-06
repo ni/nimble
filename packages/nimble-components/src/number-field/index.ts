@@ -8,10 +8,11 @@ import {
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
-import '../icons/add';
-import '../icons/exclamation-mark';
-import '../icons/minus-wide';
 import type { ErrorPattern } from '../patterns/error/types';
+import { Button } from '../button';
+import { IconMinusWide } from '../icons/minus-wide';
+import { IconAdd } from '../icons/add';
+import { IconExclamationMark } from '../icons/exclamation-mark';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -64,32 +65,37 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
         delegatesFocus: true
     },
     stepDownGlyph: html`
-        <nimble-button
+        <${DesignSystem.tagFor(Button)}
             class="step-up-down-button"
             appearance="ghost"
             content-hidden
             tabindex="-1"
         >
             "Decrement"
-            <nimble-icon-minus-wide slot="start"></nimble-icon-minus-wide>
-        </nimble-button>
+            <${DesignSystem.tagFor(IconMinusWide)}
+                slot="start"
+            >
+            </${DesignSystem.tagFor(IconMinusWide)}>
+        </${DesignSystem.tagFor(Button)}>
     `,
     stepUpGlyph: html`
-        <nimble-button
+        <${DesignSystem.tagFor(Button)}
             class="step-up-down-button"
             appearance="ghost"
             content-hidden
             tabindex="-1"
         >
             "Increment"
-            <nimble-icon-add slot="start"></nimble-icon-add>
-        </nimble-button>
+            <${DesignSystem.tagFor(IconAdd)}
+                slot="start">
+            </${DesignSystem.tagFor(IconAdd)}>
+        </${DesignSystem.tagFor(Button)}>
     `,
     end: html<NumberField>`
-        <nimble-icon-exclamation-mark
-            appearance="error"
+        <${DesignSystem.tagFor(IconExclamationMark)}
+            severity="error"
             class="error-icon"
-        ></nimble-icon-exclamation-mark>
+        ></${DesignSystem.tagFor(IconExclamationMark)}>
         ${errorTextTemplate}
     `
 });
