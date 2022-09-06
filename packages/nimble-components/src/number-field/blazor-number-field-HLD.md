@@ -2,9 +2,9 @@
 
 ## Problem Statement
 
-Numeric-based components in a C# world can carry expectations that the component support various numeric types. However, the `nimble-number-field` web component obvioulsy has no concept of varying numeric types.
+We currently haven't exposed the `nimble-number-field` in Blazor. This was primarily due to the uncertainty of how we intended to deal with various numeric types which are readily available in .NET, but don't have any presence in `nimble-components`.
 
-Ultimately, we expect clients to have various requirements for number inputs, specifically related to the formatting of the number. This can be addressed in the future, by offering an API that allows a client to format the number, and doesn't require that the value represented by the `NumberField` be of a specific numeric type.
+This proposal serves to outline a near-term solution that, if needed, can still provide a path to a long-term vision that may include native type support in `nimble-components`.
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -14,23 +14,7 @@ Ultimately, we expect clients to have various requirements for number inputs, sp
 
 ## Implementation / Design
 
-I propose we create a non-generic `NimbleNumberField`, using a base type of `NimbleInputBase<double?>`. The nullable type will allow the number field to be empty and display placeholder text. Additionally, the `Min`, `Max`, and `Step` parameters will all share the same type of `double`.
-
-The behavior, then, will match what we see in other frameworks like Angular.
-
-Integer-like `NumberField`:
-
-<img src="spec-images/NimbleNumberFieldInt.gif"/>
-
-Double `NumberField`:
-
-<img src="spec-images/NimbleNumberFieldDouble.gif"/>
-
-Clients that ultimately want a numeric value represented by some other type than `double` will have to simply cast/convert to the appropriate type.
-
-### Input Validation
-
-
+I propose we create a non-generic `NimbleNumberField`, using a base type of `NimbleInputBase<double?>`. The nullable type will allow the number field to be empty and display placeholder text. Additionally, the `Min`, `Max`, and `Step` parameters will all share the same type of `double?`.
 
 ## Alternative Implementations / Designs
 
