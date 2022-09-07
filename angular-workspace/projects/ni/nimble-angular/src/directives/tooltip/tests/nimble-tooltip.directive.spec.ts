@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { NumberValueOrAttribute } from 'dist/ni/nimble-angular/directives/utilities/template-value-helpers';
-import { Tooltip, NimbleTooltipDirective, TooltipAppearance } from '../nimble-tooltip.directive';
+import { Tooltip, NimbleTooltipDirective, TooltipSeverity } from '../nimble-tooltip.directive';
 import { NimbleTooltipModule } from '../nimble-tooltip.module';
 
 describe('Nimble tooltip', () => {
@@ -21,19 +21,19 @@ describe('Nimble tooltip', () => {
         it('can use TooltipStatus values', () => {
             // Ensure TooltipStatus is exported correctly so that it can be used
             // as more than a type.
-            expect(TooltipAppearance.information).toEqual(TooltipAppearance.information);
+            expect(TooltipSeverity.information).toEqual(TooltipSeverity.information);
         });
     });
 
     describe('with no values in template', () => {
         @Component({
             template: `
-                <nimble-tooltip #tooltip></nimble-tooltip>
+                <nimble-tooltip #target></nimble-tooltip>
             `
         })
         class TestHostComponent {
-            @ViewChild('tooltip', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
-            @ViewChild('tooltip', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
+            @ViewChild('target', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
+            @ViewChild('target', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -60,19 +60,26 @@ describe('Nimble tooltip', () => {
             expect(directive.delay).toBe(300);
             expect(nativeElement.delay).toBe(300);
         });
+
+        it('has expected defaults for severity', () => {
+            expect(directive.severity).toBe(TooltipSeverity.default);
+            expect(nativeElement.severity).toBe(TooltipSeverity.default);
+        });
     });
 
     describe('with template string values', () => {
         @Component({
             template: `
-                <nimble-tooltip #tooltip
+                <nimble-tooltip #target
                     anchor="anchor"
-                    delay=300>
+                    delay="300"
+                    severity="information"
+                >
                 </nimble-tooltip>`
         })
         class TestHostComponent {
-            @ViewChild('tooltip', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
-            @ViewChild('tooltip', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
+            @ViewChild('target', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
+            @ViewChild('target', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -99,22 +106,30 @@ describe('Nimble tooltip', () => {
             expect(directive.delay).toBe(300);
             expect(nativeElement.delay).toBe(300);
         });
+
+        it('will use template string values for severity', () => {
+            expect(directive.severity).toBe(TooltipSeverity.information);
+            expect(nativeElement.severity).toBe(TooltipSeverity.information);
+        });
     });
 
     describe('with property bound values', () => {
         @Component({
             template: `
-                <nimble-tooltip #tooltip
+                <nimble-tooltip #target
                     [anchor]="anchor"
-                    [delay]="delay">
+                    [delay]="delay"
+                    [severity]="severity"
+                >
                 </nimble-tooltip>
             `
         })
         class TestHostComponent {
-            @ViewChild('tooltip', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
-            @ViewChild('tooltip', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
+            @ViewChild('target', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
+            @ViewChild('target', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
             public anchor = 'anchor';
             public delay = 300;
+            public severity: TooltipSeverity;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -142,6 +157,7 @@ describe('Nimble tooltip', () => {
             expect(directive.anchor).toBe('anchor2');
             expect(nativeElement.anchor).toBe('anchor2');
         });
+
         it('can be configured with property binding for delay', () => {
             expect(directive.delay).toBe(300);
             expect(nativeElement.delay).toBe(300);
@@ -152,22 +168,36 @@ describe('Nimble tooltip', () => {
             expect(directive.delay).toBe(400);
             expect(nativeElement.delay).toBe(400);
         });
+
+        it('can be configured with property binding for severity', () => {
+            expect(directive.severity).toBe(TooltipSeverity.default);
+            expect(nativeElement.severity).toBe(TooltipSeverity.default);
+
+            fixture.componentInstance.severity = TooltipSeverity.information;
+            fixture.detectChanges();
+
+            expect(directive.severity).toBe(TooltipSeverity.information);
+            expect(nativeElement.severity).toBe(TooltipSeverity.information);
+        });
     });
 
     describe('with attribute bound values', () => {
         @Component({
             template: `
-                <nimble-tooltip #tooltip
+                <nimble-tooltip #target
                     [attr.anchor]="anchor"
-                    [attr.delay]="delay">
+                    [attr.delay]="delay"
+                    [attr.severity]="severity"
+                >
                 </nimble-tooltip>
             `
         })
         class TestHostComponent {
-            @ViewChild('tooltip', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
-            @ViewChild('tooltip', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
+            @ViewChild('target', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
+            @ViewChild('target', { read: ElementRef }) public elementRef: ElementRef<Tooltip>;
             public anchor = 'anchor';
             public delay: NumberValueOrAttribute = 300;
+            public severity: TooltipSeverity;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -195,6 +225,7 @@ describe('Nimble tooltip', () => {
             expect(directive.anchor).toBe('anchor2');
             expect(nativeElement.anchor).toBe('anchor2');
         });
+
         // Test is disabled because of [FAST bug](https://github.com/microsoft/fast/issues/6257)
         xit('can be configured with attribute binding for delay', () => {
             expect(directive.delay).toBe(300);
@@ -205,6 +236,17 @@ describe('Nimble tooltip', () => {
 
             expect(directive.delay).toBe(400);
             expect(nativeElement.delay).toBe(400);
+        });
+
+        it('can be configured with attribute binding for severity', () => {
+            expect(directive.severity).toBe(TooltipSeverity.default);
+            expect(nativeElement.severity).toBe(TooltipSeverity.default);
+
+            fixture.componentInstance.severity = TooltipSeverity.information;
+            fixture.detectChanges();
+
+            expect(directive.severity).toBe(TooltipSeverity.information);
+            expect(nativeElement.severity).toBe(TooltipSeverity.information);
         });
     });
 });

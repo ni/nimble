@@ -5,7 +5,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import type { TooltipAppearance } from './types';
+import type { TooltipSeverity } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,10 +20,10 @@ export class Tooltip extends FoundationTooltip {
     /**
      * @public
      * @remarks
-     * HTML Attribute: appearance
+     * HTML Attribute: severity
      */
     @attr
-    public appearance: TooltipAppearance;
+    public severity: TooltipSeverity;
 
     @attr({ attribute: 'icon-visible', mode: 'boolean' })
     public iconVisible = false;

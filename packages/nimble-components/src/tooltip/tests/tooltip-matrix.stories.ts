@@ -19,7 +19,7 @@ import {
     borderColor
 } from '../../theme-provider/design-tokens';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
-import { TooltipAppearance } from '../types';
+import { TooltipSeverity } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Tooltip',
@@ -41,10 +41,10 @@ const textStates = [
 ] as const;
 type TextState = typeof textStates[number];
 
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    TooltipAppearance
+const severityStates: [string, string | undefined][] = Object.entries(
+    TooltipSeverity
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = typeof appearanceStates[number];
+type SeverityState = typeof severityStates[number];
 
 const iconVisibleStates = [
     ['No_Icon', false],
@@ -54,7 +54,7 @@ type IconVisibleState = typeof iconVisibleStates[number];
 
 const component = (
     [textName, text]: TextState,
-    [appearanceName, appearance]: AppearanceState,
+    [severityName, severity]: SeverityState,
     [iconVisibleName, iconVisible]: IconVisibleState
 ): ViewTemplate => html`
     <style>
@@ -78,18 +78,18 @@ const component = (
     <div class="container">
         <div
             class="anchorDiv"
-            id="${() => `${textName}_${appearanceName}_${iconVisibleName}`}"
+            id="${() => `${textName}_${severityName}_${iconVisibleName}`}"
         >
-            ${() => `${textName}`} ${() => `${appearanceName}`}
+            ${() => `${textName}`} ${() => `${severityName}`}
             ${() => `${iconVisibleName}`}
         </div>
 
         <nimble-tooltip
-            anchor="${() => `${textName}_${appearanceName}_${iconVisibleName}`}"
+            anchor="${() => `${textName}_${severityName}_${iconVisibleName}`}"
             visible
             position="bottom"
             auto-update-mode="auto"
-            appearance="${() => appearance}"
+            severity="${() => severity}"
             ?icon-visible="${() => iconVisible}"
         >
             ${() => `${text}`}
@@ -104,21 +104,21 @@ const [
 ] = backgroundStates;
 
 export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
-    createMatrix(component, [textStates, appearanceStates, iconVisibleStates]),
+    createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     lightThemeWhiteBackground
 );
 
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
     createMatrix(component, [
         textStates,
-        appearanceStates,
+        severityStates,
         iconVisibleStates
     ]),
     colorThemeDarkGreenBackground
 );
 
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
-    createMatrix(component, [textStates, appearanceStates, iconVisibleStates]),
+    createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     darkThemeBlackBackground
 );
 

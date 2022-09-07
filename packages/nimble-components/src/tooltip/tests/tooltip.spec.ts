@@ -155,9 +155,9 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    it('should render the error state when selected', async () => {
+    it('should render the error severity when selected', async () => {
         element.visible = true;
-        element.appearance = 'error';
+        element.severity = 'error';
 
         await connect();
         await DOM.nextUpdate();
@@ -168,9 +168,9 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    it('should render the error state when selected and render the corresponding icon when true', async () => {
+    it('should render the error severity when selected and render the corresponding icon when true', async () => {
         element.visible = true;
-        element.appearance = 'error';
+        element.severity = 'error';
         element.iconVisible = true;
 
         await connect();
@@ -182,9 +182,9 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    it('should render the info state when selected', async () => {
+    it('should render the information severity when selected', async () => {
         element.visible = true;
-        element.appearance = 'information';
+        element.severity = 'information';
 
         await connect();
         await DOM.nextUpdate();
@@ -195,9 +195,9 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    it('should render the information state when selected and render the corresponding icon when true', async () => {
+    it('should render the information severity when selected and render the corresponding icon when true', async () => {
         element.visible = true;
-        element.appearance = 'information';
+        element.severity = 'information';
         element.iconVisible = true;
 
         await connect();

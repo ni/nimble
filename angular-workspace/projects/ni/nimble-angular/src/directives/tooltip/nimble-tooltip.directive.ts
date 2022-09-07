@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { Tooltip } from '@ni/nimble-components/dist/esm/tooltip';
-import { TooltipAppearance } from '@ni/nimble-components/dist/esm/tooltip/types';
+import { TooltipSeverity } from '@ni/nimble-components/dist/esm/tooltip/types';
 import { NumberValueOrAttribute, toNumberProperty } from '../utilities/template-value-helpers';
 
 export type { Tooltip };
-export { TooltipAppearance };
+export { TooltipSeverity };
 
 /**
  * Directive to provide Angular integration for the tooltip.
@@ -27,6 +27,14 @@ export class NimbleTooltipDirective {
 
     @Input() public set delay(value: NumberValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'delay', toNumberProperty(value));
+    }
+
+    public get severity(): TooltipSeverity {
+        return this.elementRef.nativeElement.severity;
+    }
+
+    @Input() public set severity(value: TooltipSeverity) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'severity', value);
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Tooltip>) {}
