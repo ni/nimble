@@ -40,7 +40,9 @@ const simpleContent = html<DrawerArgs>`
             This is a drawer which can slide in from either side of the screen
             and display custom content.
         </p>
-        <nimble-button @click="${x => x.drawerRef.close('Close pressed')}">Close</nimble-button>
+        <nimble-button @click="${x => x.drawerRef.close('Close pressed')}"
+            >Close</nimble-button
+        >
     </section>
 `;
 

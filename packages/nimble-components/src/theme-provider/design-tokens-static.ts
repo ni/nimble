@@ -1,4 +1,7 @@
-import { Black, LargeDelay } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import {
+    Black,
+    LargeDelay
+} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
 export const modalBackdropColorThemeLight = hexToRgbaCssColor(Black, 0.3);

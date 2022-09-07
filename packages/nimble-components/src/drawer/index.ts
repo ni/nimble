@@ -109,11 +109,17 @@ export class Drawer<CloseReason = void> extends FoundationElement {
             this.dialog.classList.add('closing');
         }
 
-        this.dialog.addEventListener(eventAnimationEnd, this.animationEndHandlerFunction);
+        this.dialog.addEventListener(
+            eventAnimationEnd,
+            this.animationEndHandlerFunction
+        );
     }
 
     private animationEndHandler(): void {
-        this.dialog.removeEventListener(eventAnimationEnd, this.animationEndHandlerFunction);
+        this.dialog.removeEventListener(
+            eventAnimationEnd,
+            this.animationEndHandlerFunction
+        );
         this.dialog.classList.remove('animating');
         if (this.closing) {
             this.dialog.classList.remove('closing');

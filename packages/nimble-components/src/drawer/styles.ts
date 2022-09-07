@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
@@ -20,7 +21,6 @@ import {
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
 
-// prettier-ignore
 export const styles = css`
     ${display('block')}
 

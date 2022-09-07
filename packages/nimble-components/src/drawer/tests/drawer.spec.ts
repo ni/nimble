@@ -20,13 +20,15 @@ async function setup<CloseReason = void>(
 }
 
 describe('Drawer', () => {
-    function nativeDialogElement(nimbleDrawerElement: Drawer | Drawer<string>): HTMLDialogElement {
-        return nimbleDrawerElement.shadowRoot!.querySelector(
-            'dialog'
-        )!;
+    function nativeDialogElement(
+        nimbleDrawerElement: Drawer | Drawer<string>
+    ): HTMLDialogElement {
+        return nimbleDrawerElement.shadowRoot!.querySelector('dialog')!;
     }
 
-    function completeAnimation(nimbleDrawerElement: Drawer | Drawer<string>): void {
+    function completeAnimation(
+        nimbleDrawerElement: Drawer | Drawer<string>
+    ): void {
         const dialog = nativeDialogElement(nimbleDrawerElement);
         dialog.dispatchEvent(new Event(eventAnimationEnd));
     }
@@ -36,7 +38,9 @@ describe('Drawer', () => {
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
 
-        function closeDrawerAndCompleteAnimation(nimbleDrawerElement: Drawer): void {
+        function closeDrawerAndCompleteAnimation(
+            nimbleDrawerElement: Drawer
+        ): void {
             nimbleDrawerElement.close();
             completeAnimation(nimbleDrawerElement);
         }
@@ -51,7 +55,9 @@ describe('Drawer', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-drawer')).toBeInstanceOf(Drawer);
+            expect(document.createElement('nimble-drawer')).toBeInstanceOf(
+                Drawer
+            );
         });
 
         it('should default the location to left', () => {
