@@ -52,11 +52,15 @@ export const styles = css`
 
     :host(.hidden) dialog {
         visibility: hidden;
-    }    
+    }
 
     @keyframes fadein {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 
     dialog.animating::backdrop {
@@ -83,8 +87,12 @@ export const styles = css`
     }
 
     @keyframes slideinleft {
-        0% { transform: translate(-100%); }
-        100% { transform: translate(0%); }
+        0% {
+            transform: translate(-100%);
+        }
+        100% {
+            transform: translate(0%);
+        }
     }
 
     :host([location='left']) .dialog-contents {
@@ -101,8 +109,12 @@ export const styles = css`
     }
 
     @keyframes slideinright {
-        0% { transform: translate(100%); }
-        100% { transform: translate(0%); }
+        0% {
+            transform: translate(100%);
+        }
+        100% {
+            transform: translate(0%);
+        }
     }
 
     :host([location='right']) .dialog-contents {
@@ -150,28 +162,28 @@ export const styles = css`
      * We cannot use the modalBackdropColor token directly because the backdrop
      * element is not a descendant of the nimble-theme-provider element.
      */
-        themeBehavior(
-            Theme.light,
-            css`
+    themeBehavior(
+        Theme.light,
+        css`
             dialog::backdrop {
                 background: ${modalBackdropColorThemeLight};
             }
         `
-        ),
-        themeBehavior(
-            Theme.dark,
-            css`
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
             dialog::backdrop {
                 background: ${modalBackdropColorThemeDark};
             }
         `
-        ),
-        themeBehavior(
-            Theme.color,
-            css`
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
             dialog::backdrop {
                 background: ${modalBackdropColorThemeColor};
             }
         `
-        )
-    );
+    )
+);
