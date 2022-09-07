@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
@@ -34,21 +32,14 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
     public int? MaxLength { get; set; }
 
     [Parameter]
-    public double Step { get; set; }
+    public double Step { get; set; } = 1.0;
 
     [Parameter]
-    public double Min { get; set; }
+    public double Min { get; set; } = double.MinValue;
 
     [Parameter]
-    public double Max { get; set; }
+    public double Max { get; set; } = double.MaxValue;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    protected override bool TryParseValueFromString(string? value, out double? result, [NotNullWhen(false)] out string? validationErrorMessage)
-    {
-        result = Convert.ToDouble(value, CultureInfo.CurrentCulture);
-        validationErrorMessage = null;
-        return true;
-    }
 }
