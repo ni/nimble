@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 06 Sep 2022 20:09:58 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7b4a4f1b6b87bff5967ba9c7ce8dbabac9c2d33a",
+            "comment": "Fix minor animation issues and add guidelines for prefers-reduce-motion"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 Sep 2022 16:15:42 GMT",
       "tag": "@ni/nimble-components_v11.13.0",
       "version": "11.13.0",
