@@ -1,9 +1,7 @@
+@typeparam TCloseReason
 @namespace NimbleBlazor
-<nimble-drawer
+<nimble-drawer  @ref="_drawerElement"
         location="@Location.ToAttributeValue()"
-        state="@State.ToAttributeValue()"
-        @onnimbledrawerstatechange="(__value) => UpdateDrawerState(__value.DrawerState)"
-        modal="@Modal"
         prevent-dismiss="@PreventDismiss"
         @attributes="AdditionalAttributes">
     @ChildContent

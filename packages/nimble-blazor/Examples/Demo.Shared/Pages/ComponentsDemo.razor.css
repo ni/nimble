@@ -18,6 +18,7 @@ p, a {
     justify-content: left;
     flex-direction: column;
     padding: 0px 2px 0px 10px;
+    overflow: auto;
 }
 
 .sub-container {
@@ -49,4 +50,8 @@ example-header {
 .card-button-content {
     display: flex;
     margin: var(--ni-nimble-standard-padding);
+}
+
+.drawer-footer {
+    gap: var(--ni-nimble-standard-padding);
 }

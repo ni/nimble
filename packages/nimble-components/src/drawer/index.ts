@@ -20,10 +20,14 @@ declare global {
 }
 
 /**
- * Drawer/Sidenav control. Shows content in a panel on the left / right side of the screen,
+ * Drawer control. Shows content in a panel on the left / right side of the screen,
  * which animates to be visible with a slide-in / slide-out animation.
  */
 export class Drawer<CloseReason = void> extends FoundationElement {
+    // We want the member to match the name of the constant
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public static readonly USER_DISMISSED = USER_DISMISSED;
+
     @attr
     public location: DrawerLocation = DrawerLocation.left;
 
