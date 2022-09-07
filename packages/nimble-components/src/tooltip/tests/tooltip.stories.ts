@@ -110,11 +110,10 @@ const metadata: Meta<TooltipArgs> = {
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
         <div id="usage-warning">
-            WARNING - The tooltip is still in development and considered experimental. It is not recommended for application use.
+            WARNING - The tooltip is still in development and considered
+            experimental. It is not recommended for application use.
         </div>
-        <div ${ref('anchorRef')}
-            id="${x => x.getUniqueId(x.anchorRef)}"
-        >
+        <div ${ref('anchorRef')} id="${x => x.getUniqueId(x.anchorRef)}">
             Hover here to see ${x => x.content} tooltip
         </div>
         <nimble-tooltip
@@ -151,7 +150,9 @@ const metadata: Meta<TooltipArgs> = {
         anchorRef: undefined,
         getUniqueId: (x: HTMLElementWithUniqueID): string => {
             if (x[uniqueId] === undefined) {
-                x[uniqueId] = `uniqueNimbleId_${Math.random().toString(36).substr(2, 9)}`;
+                x[uniqueId] = `uniqueNimbleId_${Math.random()
+                    .toString(36)
+                    .substring(2, 7)}`;
             }
             return x[uniqueId];
         },
@@ -173,10 +174,7 @@ const metadata: Meta<TooltipArgs> = {
             control: { type: 'radio' }
         },
         content: {
-            options: [
-                'simple',
-                'complex'
-            ],
+            options: ['simple', 'complex'],
             control: {
                 type: 'radio'
             }
@@ -190,7 +188,7 @@ const metadata: Meta<TooltipArgs> = {
             table: {
                 disable: true
             }
-        },
+        }
     }
 };
 
