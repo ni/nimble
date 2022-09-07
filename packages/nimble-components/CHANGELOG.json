@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 02 Sep 2022 17:48:33 GMT",
+      "tag": "@ni/nimble-components_v11.13.0",
+      "version": "11.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "29a0456ac99235f13cf5d09c5d0085a14da53661",
+            "comment": "Change backdrop overlay color for dialog and drawer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 31 Aug 2022 21:35:23 GMT",
       "tag": "@ni/nimble-components_v11.12.1",
       "version": "11.12.1",
