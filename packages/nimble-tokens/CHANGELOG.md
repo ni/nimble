@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 31 May 2022 17:03:58 GMT and should not be manually modified.
+This log was last generated on Fri, 26 Aug 2022 14:00:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.1.0
+
+Fri, 26 Aug 2022 14:00:36 GMT
+
+### Minor changes
+
+- Added IconBookMagnifyingGlass, IconCircleFilled, IconCloud, IconShareNodes, IconThreeVerticalLines icons ([ni/nimble@75b48c2](https://github.com/ni/nimble/commit/75b48c20131c2ac891ac50a766d9c3fb88c50718))
+
+## 4.0.1
+
+Thu, 28 Jul 2022 20:37:04 GMT
+
+### Patches
+
+- Update README examples ([ni/nimble@2a5afca](https://github.com/ni/nimble/commit/2a5afca370ed399241244f9b135bb1b533ec6bd3))
 
 ## 4.0.0
 

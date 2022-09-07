@@ -25,10 +25,30 @@
                 <nimble-toggle-button appearance="ghost">Ghost Toggle Button</nimble-toggle-button>
             </div>
             <div class="sub-container">
+                <div class="container-label">Card Button</div>
+                <nimble-card-button>
+                    <span class="card-button-content">Card Button</span>
+                </nimble-card-button>
+                <nimble-card-button selected>
+                    <span class="card-button-content">Selected Card Button</span>
+                </nimble-card-button>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Checkbox</div>
                 <nimble-checkbox>Checkbox label</nimble-checkbox>
                 <nimble-checkbox>Checkbox label</nimble-checkbox>
                 <nimble-checkbox>Checkbox label</nimble-checkbox>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Dialog</div>
+                <nimble-dialog #dialog>
+                    <h2>This is a dialog</h2>
+                    <p>It opened when you pushed the button</p>
+                    <nimble-button (click)="closeDialog('cancel pressed')">Cancel</nimble-button>
+                    <nimble-button (click)="closeDialog('OK pressed')">OK</nimble-button>
+                </nimble-dialog>
+                <nimble-button (click)="openDialog()">Open Dialog</nimble-button>
+                <nimble-text-field readonly [ngModel]="dialogCloseReason">Closed Reason</nimble-text-field>
             </div>
             <div class="sub-container">
                 <div class="container-label">Drawer/Sidenav:</div>
@@ -96,7 +116,7 @@
             </div>
             <div class="sub-container">
                 <div class="container-label">Combobox</div>
-                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" autocomplete="both">
+                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="underline" autocomplete="both" placeholder="Select value...">
                     <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
                 </nimble-combobox>
                 <div>
@@ -104,6 +124,12 @@
                         Last name: {{ comboboxSelectedLastName }}
                     </span>
                 </div>
+                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="outline" autocomplete="both" placeholder="Select value...">
+                    <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                </nimble-combobox>
+                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="block" autocomplete="both" placeholder="Select value...">
+                    <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                </nimble-combobox>
             </div>
             <div class="sub-container">
                 <div class="container-label">Switch</div>
@@ -152,6 +178,19 @@
                     <nimble-button>Middle button</nimble-button>
                     <nimble-button slot="end" appearance="outline">Last button</nimble-button>
                 </nimble-toolbar>
+            </div>
+            <div class="sub-container">
+                <div class="container-label">Tooltip</div>
+                <nimble-button id="anchor1">Default</nimble-button>
+                <nimble-tooltip anchor="anchor1">Tooltip label</nimble-tooltip>
+                <nimble-button id="anchor2">Fail</nimble-button>
+                <nimble-tooltip anchor="anchor2" class="fail">Tooltip label</nimble-tooltip>
+                <nimble-button id="anchor3">Information</nimble-button>
+                <nimble-tooltip anchor="anchor3" class="information">Tooltip label</nimble-tooltip>
+                <nimble-button id="anchor4">Fail Icon </nimble-button>
+                <nimble-tooltip anchor="anchor4" class="fail icon-visible">Tooltip label</nimble-tooltip>
+                <nimble-button id="anchor5">Information Icon</nimble-button>
+                <nimble-tooltip anchor="anchor5" class="information icon-visible">Tooltip label</nimble-tooltip>
             </div>
             <div class="sub-container">
                 <div class="container-label">Tree View</div>

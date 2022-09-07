@@ -1,8 +1,185 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 25 Jul 2022 18:44:33 GMT and should not be manually modified.
+This log was last generated on Tue, 06 Sep 2022 20:09:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.13.1
+
+Tue, 06 Sep 2022 20:09:58 GMT
+
+### Patches
+
+- Fix minor animation issues and add guidelines for prefers-reduce-motion ([ni/nimble@7b4a4f1](https://github.com/ni/nimble/commit/7b4a4f1b6b87bff5967ba9c7ce8dbabac9c2d33a))
+
+## 11.13.0
+
+Fri, 02 Sep 2022 17:48:33 GMT
+
+### Minor changes
+
+- Change backdrop overlay color for dialog and drawer ([ni/nimble@29a0456](https://github.com/ni/nimble/commit/29a0456ac99235f13cf5d09c5d0085a14da53661))
+
+## 11.12.1
+
+Tue, 30 Aug 2022 19:03:18 GMT
+
+### Patches
+
+- update nimble logos ([ni/nimble@96b2413](https://github.com/ni/nimble/commit/96b2413d2cec7cdf9a4a848ecbd7de6358ea2caa))
+
+## 11.12.0
+
+Tue, 30 Aug 2022 18:14:50 GMT
+
+### Minor changes
+
+- Adding USER_DISMISSED to Dialog class and avoid stale cached value ([ni/nimble@891b62c](https://github.com/ni/nimble/commit/891b62c4f672b51f6a3c82e77a428a59763bd09c))
+
+## 11.11.0
+
+Fri, 26 Aug 2022 14:00:36 GMT
+
+### Minor changes
+
+- Added IconBookMagnifyingGlass, IconCircleFilled, IconCloud, IconShareNodes, IconThreeVerticalLines icons ([ni/nimble@75b48c2](https://github.com/ni/nimble/commit/75b48c20131c2ac891ac50a766d9c3fb88c50718))
+- Bump @ni/nimble-tokens to v4.1.0
+
+## 11.10.6
+
+Wed, 24 Aug 2022 22:18:14 GMT
+
+### Patches
+
+- Use correct colors in nimble-card-button on Color UI ([ni/nimble@f375ba9](https://github.com/ni/nimble/commit/f375ba91d4e19bd24b66a6f1d5393dd6c3a9f997))
+
+## 11.10.5
+
+Wed, 17 Aug 2022 18:59:48 GMT
+
+### Patches
+
+- Add token previews to storybook ([ni/nimble@bc7262c](https://github.com/ni/nimble/commit/bc7262c578faf4af964fba4d63a92445703ed2da))
+
+## 11.10.4
+
+Mon, 15 Aug 2022 15:50:12 GMT
+
+### Patches
+
+- Simple style change to support font-style ([ni/nimble@4753667](https://github.com/ni/nimble/commit/475366789d09c01b902a97f795b91e70a54b3efb))
+
+## 11.10.3
+
+Fri, 12 Aug 2022 19:14:22 GMT
+
+### Patches
+
+- Replicating updated design tokens ([ni/nimble@f293311](https://github.com/ni/nimble/commit/f2933114b1b89a3c8cdae5d26d4a4779e1972596))
+
+## 11.10.2
+
+Thu, 11 Aug 2022 22:20:09 GMT
+
+### Patches
+
+- Remove delegatesFocus from dialog ([ni/nimble@ab34f42](https://github.com/ni/nimble/commit/ab34f42e9602c20bef3fa3b49a8d82630aeca880))
+
+## 11.10.1
+
+Thu, 11 Aug 2022 20:28:40 GMT
+
+### Patches
+
+- Specify tslib version ([ni/nimble@7858f31](https://github.com/ni/nimble/commit/7858f3155a4f9f774e79bc303641b39d7a05f1f9))
+
+## 11.10.0
+
+Wed, 10 Aug 2022 21:38:38 GMT
+
+### Minor changes
+
+- Add Appearance to Combobox. ([ni/nimble@32b4ed9](https://github.com/ni/nimble/commit/32b4ed97aaaea52ff211118a405fd34922a3c0cd))
+
+## 11.9.0
+
+Wed, 10 Aug 2022 17:05:04 GMT
+
+### Minor changes
+
+- Add nimble-dialog component ([ni/nimble@fd2f531](https://github.com/ni/nimble/commit/fd2f53162c9d194b943f8573eb140539eb0eccbc))
+
+## 11.8.5
+
+Tue, 09 Aug 2022 22:19:14 GMT
+
+### Patches
+
+- Combobox text input updates value. ([ni/nimble@f232213](https://github.com/ni/nimble/commit/f232213f3f0078a7a97879e2fd8f49937e14eef4))
+
+## 11.8.4
+
+Tue, 09 Aug 2022 18:05:33 GMT
+
+### Patches
+
+- Remove custom text selection styling ([ni/nimble@fd627f2](https://github.com/ni/nimble/commit/fd627f21dee853ce1e6d77196c673f28d58e2daa))
+
+## 11.8.3
+
+Tue, 09 Aug 2022 15:57:14 GMT
+
+### Patches
+
+- Remove tab focus from button in combobox. ([ni/nimble@56ee1ee](https://github.com/ni/nimble/commit/56ee1eeb21568b86a6e5b351d1f1985e23d228dc))
+
+## 11.8.2
+
+Tue, 09 Aug 2022 00:07:50 GMT
+
+### Patches
+
+- theme and appearance behaviors refactor ([ni/nimble@9a2f491](https://github.com/ni/nimble/commit/9a2f49176f39b5e9027486b89a9a910f7a68f454))
+
+## 11.8.1
+
+Mon, 01 Aug 2022 17:54:58 GMT
+
+### Patches
+
+- Fix focus styling on breadcrumb items ([ni/nimble@056605c](https://github.com/ni/nimble/commit/056605c8deebb7dba01bbac1a86dd0a1d670c5e3))
+
+## 11.8.0
+
+Thu, 28 Jul 2022 21:21:12 GMT
+
+### Minor changes
+
+- Create nimble-card-button component ([ni/nimble@00c328d](https://github.com/ni/nimble/commit/00c328dcae2cdaa93505cfe81e92d7019e34423b))
+
+## 11.7.2
+
+Thu, 28 Jul 2022 20:37:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v4.0.1
+
+## 11.7.1
+
+Wed, 27 Jul 2022 15:38:00 GMT
+
+### Patches
+
+- Update fast-foundation. ([ni/nimble@8b1dc12](https://github.com/ni/nimble/commit/8b1dc127df77135a98f0a954b16337c718849c30))
+
+## 11.7.0
+
+Wed, 27 Jul 2022 00:53:31 GMT
+
+### Minor changes
+
+- Implementation of the different states of the Nimble Tooltip. ([ni/nimble@5142136](https://github.com/ni/nimble/commit/5142136ea7753d4a71c7047c86fdc05bab2ed66f))
 
 ## 11.6.2
 

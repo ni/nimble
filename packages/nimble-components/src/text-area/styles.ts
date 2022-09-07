@@ -4,7 +4,6 @@ import {
     borderRgbPartialColor,
     borderHoverColor,
     borderWidth,
-    fillSelectedRgbPartialColor,
     smallDelay,
     bodyFontColor,
     bodyDisabledFontColor,
@@ -81,11 +80,6 @@ export const styles = css`
     .control[disabled]:hover {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
         box-shadow: none;
-    }
-
-    .control::selection {
-        color: ${controlLabelFontColor};
-        background: rgba(${fillSelectedRgbPartialColor}, 0.3);
     }
 
     .control::placeholder {
