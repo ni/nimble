@@ -48,7 +48,7 @@ export const drawerLightThemeWhiteBackground: Story = createFixedThemeStory(
 
 drawerLightThemeWhiteBackground.play = playFunction;
 drawerLightThemeWhiteBackground.parameters = {
-    chromatic: { delay: 0.5 }
+    chromatic: { delay: 500 }
 };
 
 export const drawerColorThemeDarkGreenBackground: Story = createFixedThemeStory(
@@ -58,7 +58,7 @@ export const drawerColorThemeDarkGreenBackground: Story = createFixedThemeStory(
 
 drawerColorThemeDarkGreenBackground.play = playFunction;
 drawerLightThemeWhiteBackground.parameters = {
-    chromatic: { delay: 0.5 }
+    chromatic: { delay: 500 }
 };
 
 export const drawerDarkThemeBlackBackground: Story = createFixedThemeStory(
@@ -68,5 +68,5 @@ export const drawerDarkThemeBlackBackground: Story = createFixedThemeStory(
 
 drawerDarkThemeBlackBackground.play = playFunction;
 drawerLightThemeWhiteBackground.parameters = {
-    chromatic: { delay: 0.5 }
+    chromatic: { delay: 500 }
 };
