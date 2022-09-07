@@ -50,10 +50,6 @@ export const styles = css`
         overflow: hidden;
     }
 
-    :host(.hidden) dialog {
-        visibility: hidden;
-    }
-
     @keyframes fadein {
         0% {
             opacity: 0;
