@@ -7,7 +7,6 @@ import type { RadioGroup } from '.';
 export const template: FoundationElementTemplate<ViewTemplate<RadioGroup>> = _context => {
     return html<RadioGroup>`
         <div
-            id="group"
             role="radiogroup"
             aria-labelledby="label"
             aria-disabled="${x => x.disabled}"
@@ -16,7 +15,7 @@ export const template: FoundationElementTemplate<ViewTemplate<RadioGroup>> = _co
             @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
             @focusout="${(x, c) => x.focusOutHandler(c.event as FocusEvent)}"
         >
-            <label id="label" for="group">
+            <label id="label">
                 <slot name="label"></slot>
             </label>
             <div
