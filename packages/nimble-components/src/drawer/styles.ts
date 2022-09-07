@@ -20,6 +20,7 @@ import {
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
 
+// prettier-ignore
 export const styles = css`
     ${display('block')}
 
