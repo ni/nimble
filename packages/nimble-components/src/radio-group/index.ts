@@ -1,6 +1,8 @@
 import {
     RadioGroup as FoundationRadioGroup,
-    DesignSystem
+    DesignSystem,
+    applyMixins,
+    ARIAGlobalStatesAndProperties
 } from '@microsoft/fast-foundation';
 import type { Orientation } from '@microsoft/fast-web-utilities';
 import { styles } from './styles';
@@ -18,6 +20,10 @@ export type { Orientation };
  * A nimble-styled grouping element for radio buttons
  */
 export class RadioGroup extends FoundationRadioGroup {}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RadioGroup extends ARIAGlobalStatesAndProperties {}
+applyMixins(RadioGroup, ARIAGlobalStatesAndProperties);
 
 const nimbleRadioGroup = RadioGroup.compose({
     baseName: 'radio-group',
