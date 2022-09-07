@@ -41,7 +41,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     private closeReason!: CloseReason | UserDismissed;
 
     /**
-     * True if the dialog is open/showing, false otherwise
+     * True if the drawer is open, opening, or closing. Otherwise, false.
      */
     public get open(): boolean {
         return this.resolveShow !== undefined;
@@ -49,12 +49,13 @@ export class Drawer<CloseReason = void> extends FoundationElement {
 
     /**
      * Opens the drawer
-     * @returns Promise that is resolved when the drawer is closed. The value of the resolved Promise is the reason value passed to the close() method, or
-     * USER_DISMISSED if the dialog was closed via the ESC key or clicking off the drawer.
+     * @returns Promise that is resolved when the drawer finishes closing. The value of the resolved
+     * Promise is the reason value passed to the close() method, or  USER_DISMISSED if the drawer was
+     * closed via the ESC key.
      */
     public async show(): Promise<CloseReason | UserDismissed> {
         if (this.open) {
-            throw new Error('Dialog is already open');
+            throw new Error('Drawer is already open');
         }
         this.openDialog();
         return new Promise((resolve, _reject) => {
@@ -63,12 +64,12 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     }
 
     /**
-     * Closes the dialog
-     * @param reason An optional value indicating how/why the dialog was closed.
+     * Closes the drawer
+     * @param reason An optional value indicating how/why the drawer was closed.
      */
     public close(reason: CloseReason): void {
         if (!this.open || this.closing) {
-            throw new Error('Dialog is not open');
+            throw new Error('Drawer is not open or already closing');
         }
         this.closeReason = reason;
         this.closeDialog();
@@ -102,9 +103,6 @@ export class Drawer<CloseReason = void> extends FoundationElement {
 
     private triggerAnimation(opening: boolean): void {
         this.closing = !opening;
-        if (opening) {
-            this.dialog.classList.add('visible');
-        }
         this.dialog.classList.add('animating');
         if (this.closing) {
             this.dialog.classList.add('closing');
@@ -117,7 +115,6 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         this.dialog.removeEventListener(eventAnimationEnd, this.animationEndHandlerFunction);
         this.dialog.classList.remove('animating');
         if (this.closing) {
-            this.dialog.classList.remove('visible');
             this.dialog.classList.remove('closing');
             this.dialog.close();
             this.closing = false;

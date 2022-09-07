@@ -32,6 +32,40 @@ export const styles = css`
         color: ${bodyFontColor};
     }
 
+    dialog {
+        color: inherit;
+        font: inherit;
+        background-color: transparent;
+        width: auto;
+        top: 0px;
+        bottom: 0px;
+        border-radius: 0px;
+        border-width: 0px;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+        max-width: none;
+        max-height: none;
+        overflow: hidden;
+    }
+
+    :host(.hidden) dialog {
+        visibility: hidden;
+    }    
+
+    @keyframes fadein {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    dialog.animating::backdrop {
+        animation: fadein ${largeDelay} ease-in;
+    }
+
+    dialog.closing::backdrop {
+        animation-direction: reverse;
+    }
+
     .dialog-contents {
         display: flex;
         flex-direction: column;
@@ -81,40 +115,6 @@ export const styles = css`
     }
 
     :host([location='right']) dialog.closing .dialog-contents {
-        animation-direction: reverse;
-    }
-
-    dialog {
-        color: inherit;
-        font: inherit;
-        background-color: transparent;
-        width: auto;
-        top: 0px;
-        bottom: 0px;
-        border-radius: 0px;
-        border-width: 0px;
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-        max-width: none;
-        max-height: none;
-        overflow: hidden;
-    }
-
-    :host(.hidden) dialog {
-        visibility: hidden;
-    }    
-
-    @keyframes fadein {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
-    }
-
-    dialog.animating::backdrop {
-        animation: fadein ${largeDelay} ease-in;
-    }
-
-    dialog.closing::backdrop {
         animation-direction: reverse;
     }
 

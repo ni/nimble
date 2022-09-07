@@ -24,6 +24,8 @@ interface DrawerArgs {
     preventDismiss: boolean;
     content: ExampleContentType;
     width: DrawerWidthOptions;
+    show: undefined;
+    close: undefined;
     drawerRef: Drawer<string>;
     textFieldRef: TextField;
     openAndHandleResult: (
@@ -45,8 +47,14 @@ const simpleContent = html<DrawerArgs>`
 // prettier-ignore
 const headerFooterContent = html<DrawerArgs>`
     <style>
-        .cancel-button {
-            margin-right: var(${standardPadding.cssCustomProperty});
+        .example-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(${standardPadding.cssCustomProperty});
+        }
+
+        footer {
+            gap: var(${standardPadding.cssCustomProperty});
         }
     </style>
     <header>Header</header>
@@ -54,7 +62,7 @@ const headerFooterContent = html<DrawerArgs>`
         <p>This is a drawer with <code>header</code>, <code>section</code>, and <code>footer</code> elements.</p>
         <p>When placed in a <code>nimble-drawer</code> they will be automatically styled for you!</p>
 
-        <div style="display: flex; flex-direction: column; gap: 16px">
+        <div class="example-content">
             <nimble-number-field>I am not auto focused</nimble-number-field>
             <nimble-number-field autofocus>I am auto focused</nimble-number-field>
             <nimble-select>
@@ -72,7 +80,7 @@ const headerFooterContent = html<DrawerArgs>`
         </p>
     </section>
     <footer>
-        <nimble-button @click="${x => x.drawerRef.close('Cancel pressed')}" appearance="ghost" class="cancel-button">Cancel</nimble-button>
+        <nimble-button @click="${x => x.drawerRef.close('Cancel pressed')}" appearance="ghost">Cancel</nimble-button>
         <nimble-button @click="${x => x.drawerRef.close('OK pressed')}" appearance="outline">OK</nimble-button>
     </footer>`;
 
@@ -107,7 +115,7 @@ const metadata: Meta<DrawerArgs> = {
         docs: {
             description: {
                 component:
-                    'Specialized dialog designed to slide in from either side of the page. Typically contains navigation or configuration panes.'
+                    'Specialized dialog designed to slide in from either side of the page. Typically used for a configuration pane.'
             }
         },
         design: {
@@ -128,22 +136,19 @@ const metadata: Meta<DrawerArgs> = {
         >
             ${x => content[x.content]}
         </nimble-drawer>
-        <div
-            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; gap: 16px;"
-        >
         <nimble-button
             @click="${x => x.openAndHandleResult(x.drawerRef, x.textFieldRef)}"
-            class="code-hide"
         >
             Open
-        </nimble-button><div>
-        <nimble-text-field
-            ${ref('textFieldRef')}
-            readonly
-            class="code-hide"
-        >
-            Close reason
-        </nimble-text-field>
+        </nimble-button>
+        <div>
+            <nimble-text-field
+                ${ref('textFieldRef')}
+                readonly
+            >
+                Close reason
+            </nimble-text-field>
+        </div>
     `),
     argTypes: {
         location: {
@@ -184,6 +189,16 @@ const metadata: Meta<DrawerArgs> = {
                     [DrawerWidthOptions.fitContent]: 'fit-content'
                 }
             }
+        },
+        show: {
+            name: 'show()',
+            description:
+                'Call this member function to open the drawer. It returns a `Promise` that is resolved when the drawer is closed. The resolved value is either the reason passed to `close(...)` or the symbol USER_DISMISSED if the drawer was dismissed via the ESC key.'
+        },
+        close: {
+            name: 'close(reason)',
+            description:
+                'Call this member function to close the drawer. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`'
         },
         drawerRef: {
             table: {
