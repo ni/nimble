@@ -51,7 +51,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     /**
      * Opens the drawer
      * @returns Promise that is resolved when the drawer finishes closing. The value of the resolved
-     * Promise is the reason value passed to the close() method, or  USER_DISMISSED if the drawer was
+     * Promise is the reason value passed to the close() method, or USER_DISMISSED if the drawer was
      * closed via the ESC key.
      */
     public async show(): Promise<CloseReason | UserDismissed> {
@@ -81,7 +81,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
      */
     public cancelHandler(event: Event): boolean {
         // Allowing the dialog to close itself bypasses the drawer's animation logic, so we
-        // should close the drawer ourselves when preventDismiss is not true.
+        // should close the drawer ourselves when preventDismiss is false.
         event.preventDefault();
 
         if (!this.preventDismiss) {
@@ -95,15 +95,15 @@ export class Drawer<CloseReason = void> extends FoundationElement {
 
     private openDialog(): void {
         this.dialog.showModal();
-        this.triggerAnimation(true);
+        this.triggerAnimation();
     }
 
     private closeDialog(): void {
-        this.triggerAnimation(false);
+        this.closing = true;
+        this.triggerAnimation();
     }
 
-    private triggerAnimation(opening: boolean): void {
-        this.closing = !opening;
+    private triggerAnimation(): void {
         this.dialog.classList.add('animating');
         if (this.closing) {
             this.dialog.classList.add('closing');
