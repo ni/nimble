@@ -70,6 +70,9 @@ export const iconMetadata: {
     IconBlockWithRibbon: {
         tags: ['certificate']
     },
+    IconBookMagnifyingGlass: {
+        tags: ['analyze']
+    },
     IconCalendar: {
         tags: []
     },
@@ -100,6 +103,9 @@ export const iconMetadata: {
     IconCircleCheck: {
         tags: ['status', 'acknowledged']
     },
+    IconCircleFilled: {
+        tags: []
+    },
     IconCirclePartialBroken: {
         tags: ['status', 'partially-connected']
     },
@@ -123,6 +129,9 @@ export const iconMetadata: {
     },
     IconClone: {
         tags: ['duplicate']
+    },
+    IconCloud: {
+        tags: []
     },
     IconCloudUpload: {
         tags: []
@@ -331,6 +340,9 @@ export const iconMetadata: {
     IconServer: {
         tags: ['analysis', 'automation']
     },
+    IconShareNodes: {
+        tags: []
+    },
     IconShareSquare: {
         tags: ['export']
     },
@@ -378,6 +390,9 @@ export const iconMetadata: {
     },
     IconThreeDotsLine: {
         tags: ['ellipsis', 'options']
+    },
+    IconThreeVerticalLines: {
+        tags: []
     },
     IconThumbtack: {
         tags: []
