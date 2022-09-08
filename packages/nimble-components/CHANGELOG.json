@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 08 Sep 2022 19:20:13 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ea887aaa72b27d74d9ca1c2a29adbda969b4b2a7",
+            "comment": "Minor doc update."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 08 Sep 2022 18:11:57 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "97f8cd8fb5201bfa08add672121860a1509770e7",
+            "comment": "Blazor NumberField spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Sep 2022 20:09:58 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7b4a4f1b6b87bff5967ba9c7ce8dbabac9c2d33a",
+            "comment": "Fix minor animation issues and add guidelines for prefers-reduce-motion"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Sep 2022 16:15:42 GMT",
+      "tag": "@ni/nimble-components_v11.13.0",
+      "version": "11.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "11f4aae4657350af2e08b9a0854dcb4bfb2a03c2",
+            "comment": "Adding favicon files"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 02 Sep 2022 17:48:33 GMT",
       "tag": "@ni/nimble-components_v11.13.0",
       "version": "11.13.0",

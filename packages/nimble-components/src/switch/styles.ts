@@ -94,7 +94,6 @@ export const styles = css`
 
     :host([aria-checked='true']) .checked-indicator-spacer {
         flex-grow: 1;
-        transition: flex-grow ${smallDelay} ease-in-out;
     }
 
     .checked-indicator {
@@ -149,7 +148,6 @@ export const styles = css`
 
     :host([aria-checked='true']) .checked-indicator-inner {
         opacity: 1;
-        transition: opacity ${smallDelay} ease-in-out;
     }
 
     slot[name='checked-message']::slotted(*) {
