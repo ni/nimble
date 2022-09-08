@@ -39,14 +39,14 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
     public double Step { get; set; } = 1.0;
 
     /// <summary>
-    /// Gets or sets the step value of the number field.
+    /// Gets or sets the min value of the number field.
     /// </summary>
     /// <remarks>default is <see cref="double.MinValue"/></remarks>
     [Parameter]
     public double Min { get; set; } = double.MinValue;
 
     /// <summary>
-    /// Gets or sets the step value of the number field.
+    /// Gets or sets the max value of the number field.
     /// </summary>
     /// <remarks>default is <see cref="double.MaxValue"/></remarks>
     [Parameter]
