@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 08 Sep 2022 23:02:30 GMT",
+      "tag": "@ni/nimble-blazor_v5.6.3",
+      "version": "5.6.3",
+      "comments": {
+        "none": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "fcf18ca2ea8e806a0c6d3645d82c002622c17f21",
+            "comment": "favicon fixes for Storybook and example apps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 30 Aug 2022 18:14:50 GMT",
       "tag": "@ni/nimble-blazor_v5.6.0",
       "version": "5.6.0",
