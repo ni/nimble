@@ -42,7 +42,7 @@ if (remaining.length > 0) {
 
 const playFunction = (): void => {
     void document.querySelector('nimble-drawer')!.show();
-}
+};
 
 export const drawerLightThemeWhiteBackground: Story = createFixedThemeStory(
     component,
