@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 08 Sep 2022 18:11:57 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "97f8cd8fb5201bfa08add672121860a1509770e7",
+            "comment": "Blazor NumberField spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 Sep 2022 20:09:58 GMT",
       "tag": "@ni/nimble-components_v11.13.1",
       "version": "11.13.1",
