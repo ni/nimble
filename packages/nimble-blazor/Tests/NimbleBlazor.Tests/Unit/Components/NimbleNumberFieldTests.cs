@@ -26,9 +26,9 @@ public class NimbleNumberFieldTests
     [InlineData(NumberFieldAppearance.Underline, "underline")]
     public void NumberFieldAppearance_AttributeIsSet(NumberFieldAppearance value, string expectedAttribute)
     {
-        var textField = RenderNimbleTextField(value);
+        var numberField = RenderNimbleTextField(value);
 
-        Assert.Contains(expectedAttribute, textField.Markup);
+        Assert.Contains(expectedAttribute, numberField.Markup);
     }
 
     private IRenderedComponent<NimbleNumberField> RenderNimbleTextField(NumberFieldAppearance appearance)
