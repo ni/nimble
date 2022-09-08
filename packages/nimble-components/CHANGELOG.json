@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 08 Sep 2022 19:20:13 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ea887aaa72b27d74d9ca1c2a29adbda969b4b2a7",
+            "comment": "Minor doc update."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 08 Sep 2022 18:11:57 GMT",
       "tag": "@ni/nimble-components_v11.13.1",
       "version": "11.13.1",
