@@ -14,7 +14,8 @@ const metadata: Meta = {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff/specs/'
-        }
+        },
+        chromatic: { delay: 300 }
     }
 };
 
@@ -47,9 +48,6 @@ export const drawerLightThemeWhiteBackground: Story = createFixedThemeStory(
 );
 
 drawerLightThemeWhiteBackground.play = playFunction;
-drawerLightThemeWhiteBackground.parameters = {
-    chromatic: { delay: 500 }
-};
 
 export const drawerColorThemeDarkGreenBackground: Story = createFixedThemeStory(
     component,
@@ -57,9 +55,6 @@ export const drawerColorThemeDarkGreenBackground: Story = createFixedThemeStory(
 );
 
 drawerColorThemeDarkGreenBackground.play = playFunction;
-drawerLightThemeWhiteBackground.parameters = {
-    chromatic: { delay: 500 }
-};
 
 export const drawerDarkThemeBlackBackground: Story = createFixedThemeStory(
     component,
@@ -67,6 +62,3 @@ export const drawerDarkThemeBlackBackground: Story = createFixedThemeStory(
 );
 
 drawerDarkThemeBlackBackground.play = playFunction;
-drawerLightThemeWhiteBackground.parameters = {
-    chromatic: { delay: 500 }
-};
