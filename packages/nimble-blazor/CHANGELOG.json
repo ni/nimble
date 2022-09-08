@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 30 Aug 2022 18:14:50 GMT",
+      "tag": "@ni/nimble-blazor_v5.6.0",
+      "version": "5.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "891b62c4f672b51f6a3c82e77a428a59763bd09c",
+            "comment": "Blazor integration for nimble-dialog"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Aug 2022 23:35:50 GMT",
       "tag": "@ni/nimble-blazor_v5.5.0",
       "version": "5.5.0",

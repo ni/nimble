@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 10 Aug 2022 23:35:50 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Aug 2022 18:14:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.6.0
+
+Tue, 30 Aug 2022 18:14:50 GMT
+
+### Minor changes
+
+- Blazor integration for nimble-dialog ([ni/nimble@891b62c](https://github.com/ni/nimble/commit/891b62c4f672b51f6a3c82e77a428a59763bd09c))
 
 ## 5.5.0
 

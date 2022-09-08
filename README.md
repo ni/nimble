@@ -77,7 +77,7 @@ NOTE: To update the component status:
 | Chip/Pill | |  [Issue](https://github.com/ni/nimble/issues/413) | :o: | :o: | :o: |
 | Combo box | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae) |  [Issue](https://github.com/ni/nimble/issues/341) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/combobox--combobox) | :white_check_mark: | :white_check_mark: |
 | Datepicker | |  [Issue](https://github.com/ni/nimble/issues/342) | :o: | :o: | :o: |
-| Dialog | |  [Issue](https://github.com/ni/nimble/issues/378) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/dialog--dialog) | :white_check_mark: | :o: |
+| Dialog | |  [Issue](https://github.com/ni/nimble/issues/378) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/dialog--dialog) | :white_check_mark: | :white_check_mark: |
 | Drawer | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/drawer--drawer) | :white_check_mark: | :white_check_mark: |
 | Dropdown (Select) | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/select--select) | :white_check_mark: | :white_check_mark: |
 | Filter Builder | |  [Issue](https://github.com/ni/nimble/issues/310) | :o: | :o: | :o: |
