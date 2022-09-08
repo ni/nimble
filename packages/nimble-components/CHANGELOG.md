@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 02 Sep 2022 17:48:33 GMT and should not be manually modified.
+This log was last generated on Tue, 06 Sep 2022 20:09:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.13.1
+
+Tue, 06 Sep 2022 20:09:58 GMT
+
+### Patches
+
+- Fix minor animation issues and add guidelines for prefers-reduce-motion ([ni/nimble@7b4a4f1](https://github.com/ni/nimble/commit/7b4a4f1b6b87bff5967ba9c7ce8dbabac9c2d33a))
 
 ## 11.13.0
 
