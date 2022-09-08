@@ -38,7 +38,7 @@ const metadata: Meta<RadioGroupArgs> = {
             name="${x => x.name}"
             value="${x => x.value}"
         >
-            <span slot="label">${x => x.label}</span>
+            <label slot="label">${x => x.label}</span>
             <nimble-radio-button value="apple">Apple</nimble-radio-button>
             <nimble-radio-button value="mango">Mango</nimble-radio-button>
             <nimble-radio-button value="orange">Orange</nimble-radio-button>
@@ -60,7 +60,7 @@ const metadata: Meta<RadioGroupArgs> = {
         },
         label: {
             description:
-                'You must provide a `div` or `span` element with `slot="label"` as content of the `nimble-radio-group`. This element should contain the label string.'
+                'You must provide a `label` element with `slot="label"` as content of the `nimble-radio-group`.'
         },
         orientation: {
             options: Object.values(Orientation),

@@ -42,7 +42,7 @@ const component = (
     ?disabled="${() => disabled}"
     value="1"
 >
-    <span slot="label">${orientationName} ${disabledName}</span>
+    <label slot="label">${orientationName} ${disabledName}</span>
     <nimble-radio-button value="1">Option 1</nimble-radio-button>
     <nimble-radio-button value="2">Option 2</nimble-radio-button>
 </nimble-radio-group>`;
