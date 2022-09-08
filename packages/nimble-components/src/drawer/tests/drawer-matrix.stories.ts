@@ -14,8 +14,7 @@ const metadata: Meta = {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff/specs/'
-        },
-        chromatic: { delay: 300 }
+        }
     }
 };
 
@@ -38,8 +37,17 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-const playFunction = (): void => {
+const playFunction = async (): Promise<void> => {
     void document.querySelector('nimble-drawer')!.show();
+    let resolvePromise: () => void;
+    const promise = new Promise<void>((resolve, _reject) => {
+        resolvePromise = resolve;
+    });
+    setTimeout(() => {
+        resolvePromise();
+    }, 500);
+
+    return promise;
 };
 
 export const drawerLightThemeWhiteBackground: Story = createFixedThemeStory(
