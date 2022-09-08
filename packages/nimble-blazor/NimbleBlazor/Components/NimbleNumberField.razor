@@ -1,19 +1,15 @@
 ﻿@namespace NimbleBlazor
 @inherits NimbleInputBase<double?>
-<nimble-number-field autofocus="@AutoFocus"
-                   appearance="@Appearance.ToAttributeValue()"
+<nimble-number-field appearance="@Appearance.ToAttributeValue()"
                    value="@Value"
                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-                   size="@Size"
-                   minlength="@MinLength"
-                   maxlength="@MaxLength"
                    readonly="@ReadOnly"
                    disabled="@Disabled"
-                   required="@Required"
                    placeholder="@Placeholder"
                    step="@Step"
                    min="@Min"
                    max="@Max"
+                   error-text="@ErrorText"
                    @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-number-field>
