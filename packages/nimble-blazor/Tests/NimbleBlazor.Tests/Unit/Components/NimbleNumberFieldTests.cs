@@ -24,7 +24,7 @@ public class NimbleNumberFieldTests
     [InlineData(NumberFieldAppearance.Outline, "outline")]
     [InlineData(NumberFieldAppearance.Block, "block")]
     [InlineData(NumberFieldAppearance.Underline, "underline")]
-    public void TextFieldAppearance_AttributeIsSet(NumberFieldAppearance value, string expectedAttribute)
+    public void NumberFieldAppearance_AttributeIsSet(NumberFieldAppearance value, string expectedAttribute)
     {
         var textField = RenderNimbleTextField(value);
 
