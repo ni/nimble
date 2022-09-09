@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 08 Sep 2022 23:02:30 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fcf18ca2ea8e806a0c6d3645d82c002622c17f21",
+            "comment": "fixing path to favicon in Storybook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 08 Sep 2022 19:20:13 GMT",
       "tag": "@ni/nimble-components_v11.13.1",
       "version": "11.13.1",
