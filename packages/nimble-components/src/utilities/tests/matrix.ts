@@ -17,7 +17,7 @@ export const sharedMatrixParameters = () => ({
             disable: true
         }
     },
-    viewMode: 'canvas',
+    viewMode: 'story',
     previewTabs: {
         'storybook/docs/panel': {
             hidden: true
