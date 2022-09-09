@@ -38,7 +38,7 @@ const metadata: Meta<RadioGroupArgs> = {
             name="${x => x.name}"
             value="${x => x.value}"
         >
-            <label slot="label">${x => x.label}</span>
+            <label slot="label">${x => x.label}</label>
             <nimble-radio-button value="apple">Apple</nimble-radio-button>
             <nimble-radio-button value="mango">Mango</nimble-radio-button>
             <nimble-radio-button value="orange">Orange</nimble-radio-button>
