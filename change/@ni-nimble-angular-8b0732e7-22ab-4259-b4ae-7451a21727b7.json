@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Import side-effects in the list option module.",
+  "packageName": "@ni/nimble-angular",
+  "email": "2351292+TrevorKarjanis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
