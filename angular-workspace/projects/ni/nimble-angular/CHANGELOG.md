@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 02 Sep 2022 17:48:33 GMT and should not be manually modified.
+This log was last generated on Sat, 10 Sep 2022 23:43:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.4.10
+
+Sat, 10 Sep 2022 23:43:40 GMT
+
+### Patches
+
+- Import side-effects in the list option module. ([ni/nimble@b2e7f21](https://github.com/ni/nimble/commit/b2e7f21abaf7171e0a9682b0f92f0b9ef3c66260))
+
+## 8.4.9
+
+Tue, 06 Sep 2022 20:09:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v11.13.1
 
 ## 8.4.8
 

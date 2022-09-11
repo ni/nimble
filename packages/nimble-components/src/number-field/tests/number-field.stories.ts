@@ -8,6 +8,9 @@ import { NumberFieldAppearance } from '../types';
 interface NumberFieldArgs {
     label: string;
     value: number;
+    step: number;
+    min: number;
+    max: number;
     appearance: NumberFieldAppearance;
     disabled: boolean;
     errorVisible: boolean;
@@ -36,6 +39,9 @@ const metadata: Meta<NumberFieldArgs> = {
         <nimble-number-field
             placeholder="${x => x.label}"
             value="${x => x.value}"
+            step="${x => x.step}"
+            min="${x => x.min}"
+            max="${x => x.max}"
             appearance="${x => x.appearance}"
             ?disabled="${x => x.disabled}"
             ?error-visible="${x => x.errorVisible}"
@@ -59,6 +65,9 @@ const metadata: Meta<NumberFieldArgs> = {
     args: {
         label: 'default label',
         value: 42,
+        step: 1,
+        min: -10,
+        max: 50,
         appearance: NumberFieldAppearance.underline,
         disabled: false,
         errorVisible: false,
