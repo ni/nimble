@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { NumberValueOrAttribute } from 'dist/ni/nimble-angular/directives/utilities/template-value-helpers';
+import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
 import { Tooltip, NimbleTooltipDirective, TooltipSeverity } from '../nimble-tooltip.directive';
 import { NimbleTooltipModule } from '../nimble-tooltip.module';
 
@@ -65,6 +66,11 @@ describe('Nimble tooltip', () => {
             expect(directive.severity).toBe(TooltipSeverity.default);
             expect(nativeElement.severity).toBe(TooltipSeverity.default);
         });
+
+        it('has expected defaults for iconVisible', () => {
+            expect(directive.iconVisible).toBeFalse();
+            expect(nativeElement.iconVisible).toBeFalse();
+        });
     });
 
     describe('with template string values', () => {
@@ -74,6 +80,7 @@ describe('Nimble tooltip', () => {
                     anchor="anchor"
                     delay="300"
                     severity="information"
+                    icon-visible
                 >
                 </nimble-tooltip>`
         })
@@ -111,6 +118,11 @@ describe('Nimble tooltip', () => {
             expect(directive.severity).toBe(TooltipSeverity.information);
             expect(nativeElement.severity).toBe(TooltipSeverity.information);
         });
+
+        it('will use template string values for iconVisible', () => {
+            expect(directive.iconVisible).toBeTrue();
+            expect(nativeElement.iconVisible).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -120,6 +132,7 @@ describe('Nimble tooltip', () => {
                     [anchor]="anchor"
                     [delay]="delay"
                     [severity]="severity"
+                    [icon-visible]="iconVisible"
                 >
                 </nimble-tooltip>
             `
@@ -130,6 +143,7 @@ describe('Nimble tooltip', () => {
             public anchor = 'anchor';
             public delay = 300;
             public severity: TooltipSeverity;
+            public iconVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -179,6 +193,17 @@ describe('Nimble tooltip', () => {
             expect(directive.severity).toBe(TooltipSeverity.information);
             expect(nativeElement.severity).toBe(TooltipSeverity.information);
         });
+
+        it('can be configured with property binding for iconVisible', () => {
+            expect(directive.iconVisible).toBeFalse();
+            expect(nativeElement.iconVisible).toBeFalse();
+
+            fixture.componentInstance.iconVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.iconVisible).toBeTrue();
+            expect(nativeElement.iconVisible).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -188,6 +213,7 @@ describe('Nimble tooltip', () => {
                     [attr.anchor]="anchor"
                     [attr.delay]="delay"
                     [attr.severity]="severity"
+                    [attr.icon-visible]="iconVisible"
                 >
                 </nimble-tooltip>
             `
@@ -198,6 +224,7 @@ describe('Nimble tooltip', () => {
             public anchor = 'anchor';
             public delay: NumberValueOrAttribute = 300;
             public severity: TooltipSeverity;
+            public iconVisible: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -247,6 +274,17 @@ describe('Nimble tooltip', () => {
 
             expect(directive.severity).toBe(TooltipSeverity.information);
             expect(nativeElement.severity).toBe(TooltipSeverity.information);
+        });
+
+        it('can be configured with attribute binding for iconVisible', () => {
+            expect(directive.iconVisible).toBeFalse();
+            expect(nativeElement.iconVisible).toBeFalse();
+
+            fixture.componentInstance.iconVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.iconVisible).toBeTrue();
+            expect(nativeElement.iconVisible).toBeTrue();
         });
     });
 });

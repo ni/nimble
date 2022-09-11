@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { Tooltip } from '@ni/nimble-components/dist/esm/tooltip';
 import { TooltipSeverity } from '@ni/nimble-components/dist/esm/tooltip/types';
-import { NumberValueOrAttribute, toNumberProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '../utilities/template-value-helpers';
 
 export type { Tooltip };
 export { TooltipSeverity };
@@ -35,6 +35,16 @@ export class NimbleTooltipDirective {
 
     @Input() public set severity(value: TooltipSeverity) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'severity', value);
+    }
+
+    public get iconVisible(): boolean {
+        return this.elementRef.nativeElement.iconVisible;
+    }
+
+    // iconVisible property intentionally maps to the icon-visible attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('icon-visible') public set iconVisible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'iconVisible', toBooleanProperty(value));
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Tooltip>) {}
