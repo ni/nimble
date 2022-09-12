@@ -1,19 +1,18 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { focusVisible } from '../utilities/style/focus';
-
 import {
+    bodyDisabledFontColor,
+    bodyFontColor,
     borderColor,
     borderHoverColor,
     borderRgbPartialColor,
-    bodyFontColor,
-    bodyDisabledFontColor,
+    borderWidth,
+    buttonLabelFont,
     controlHeight,
     iconSize,
-    borderWidth,
-    smallDelay,
-    buttonLabelFont
+    smallDelay
 } from '../theme-provider/design-tokens';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -21,9 +20,9 @@ export const styles = css`
     :host {
         font: ${buttonLabelFont};
         align-items: center;
-        cursor: pointer;
         outline: none;
-        user-select: none;
+        width: fit-content;
+        cursor: pointer;
     }
 
     :host([disabled]) {
@@ -36,7 +35,7 @@ export const styles = css`
         box-sizing: border-box;
         flex-shrink: 0;
         border: ${borderWidth} solid ${borderColor};
-        padding: 2px;
+        border-radius: 100%;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -48,12 +47,6 @@ export const styles = css`
              */ ''
         }
         line-height: 0;
-    }
-
-    @media (prefers-reduced-motion) {
-        .control {
-            transition-duration: 0s;
-        }
     }
 
     :host([disabled]) .control {
@@ -68,8 +61,15 @@ export const styles = css`
 
     :host(${focusVisible}) .control {
         border-color: ${borderHoverColor};
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: 1px;
+    }
+
+    :host(${focusVisible}) .control::after {
+        content: '';
+        position: absolute;
+        width: calc(2px + ${controlHeight} / 2);
+        height: calc(2px + ${controlHeight} / 2);
+        border: 2px solid ${borderHoverColor};
+        border-radius: 100%;
     }
 
     .label {
@@ -83,8 +83,7 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
-    slot[name='checked-indicator'],
-    slot[name='indeterminate-indicator'] {
+    slot[name='checked-indicator'] {
         display: none;
     }
 
@@ -94,33 +93,15 @@ export const styles = css`
         overflow: visible;
     }
 
-    :host(.checked:not(.indeterminate)) slot[name='checked-indicator'] {
+    :host(.checked) slot[name='checked-indicator'] {
         display: contents;
     }
 
-    slot[name='checked-indicator'] path {
+    slot[name='checked-indicator'] circle {
         fill: ${borderColor};
     }
 
-    :host([disabled]) slot[name='checked-indicator'] path {
-        fill: rgba(${borderRgbPartialColor}, 0.3);
-    }
-
-    slot[name='indeterminate-indicator'] svg {
-        height: ${iconSize};
-        width: ${iconSize};
-        overflow: visible;
-    }
-
-    :host(.indeterminate) slot[name='indeterminate-indicator'] {
-        display: contents;
-    }
-
-    slot[name='indeterminate-indicator'] path {
-        fill: ${borderColor};
-    }
-
-    :host([disabled]) slot[name='indeterminate-indicator'] path {
+    :host([disabled]) slot[name='checked-indicator'] circle {
         fill: rgba(${borderRgbPartialColor}, 0.3);
     }
 `;

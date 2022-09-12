@@ -24,6 +24,11 @@ export const textCustomizationStory: Story = createUserSelectedThemeStory(html`
     <nimble-breadcrumb-item>Breadcrumb item</nimble-breadcrumb-item>
         <nimble-button>Button</nimble-button>
         <nimble-checkbox>Checkbox</nimble-checkbox>
+        <nimble-radio-group>
+            <label slot="label">Radio buttons</label>
+            <nimble-radio-button>Option 1</nimble-radio-button>
+            <nimble-radio-button>Option 2</nimble-radio-button>
+        </nimble-radio-group>
         <nimble-menu>
             Inner text
             <nimble-menu-item>Menu item</nimble-menu-item>
