@@ -50,7 +50,7 @@ export const styles = css`
         overflow: hidden;
     }
 
-    @keyframes fadein {
+    @keyframes ni-private-drawer-fade-in-keyframes {
         0% {
             opacity: 0;
         }
@@ -60,7 +60,7 @@ export const styles = css`
     }
 
     dialog.animating::backdrop {
-        animation: fadein ${largeDelay} ease-in;
+        animation: ni-private-drawer-fade-in-keyframes ${largeDelay} ease-in;
     }
 
     dialog.closing::backdrop {
@@ -76,7 +76,7 @@ export const styles = css`
         background-color: ${applicationBackgroundColor};
     }
 
-    @keyframes slideinleft {
+    @keyframes ni-private-drawer-slide-in-left-keyframes {
         0% {
             transform: translate(-100%);
         }
@@ -91,14 +91,14 @@ export const styles = css`
     }
 
     :host([location='left']) dialog.animating .dialog-contents {
-        animation: slideinleft ${largeDelay} ease-in;
+        animation: ni-private-drawer-slide-in-left-keyframes ${largeDelay} ease-in;
     }
 
     :host([location='left']) dialog.closing .dialog-contents {
         animation-direction: reverse;
     }
 
-    @keyframes slideinright {
+    @keyframes ni-private-drawer-slide-in-right-keyframes {
         0% {
             transform: translate(100%);
         }
@@ -114,7 +114,7 @@ export const styles = css`
     }
 
     :host([location='right']) dialog.animating .dialog-contents {
-        animation: slideinright ${largeDelay} ease-in;
+        animation: ni-private-drawer-slide-in-right-keyframes ${largeDelay} ease-in;
     }
 
     :host([location='right']) dialog.closing .dialog-contents {
