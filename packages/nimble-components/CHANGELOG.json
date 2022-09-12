@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 12 Sep 2022 19:16:32 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "82e233103177d3a600ba8a11e421ea1af871f973",
+            "comment": "Update Storybook to 6.5.10"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 09 Sep 2022 22:04:34 GMT",
       "tag": "@ni/nimble-components_v11.13.1",
       "version": "11.13.1",
