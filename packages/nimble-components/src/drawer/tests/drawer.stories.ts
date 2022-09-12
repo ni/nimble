@@ -157,6 +157,10 @@ const metadata: Meta<DrawerArgs> = {
             options: [DrawerLocation.left, DrawerLocation.right],
             control: { type: 'radio' }
         },
+        preventDismiss: {
+            name: 'prevent-dismiss',
+            description: 'A boolean attribute to configure whether or not the drawer is dismissible via the `Esc` key, or any other dismiss action that is supported in the future'
+        },
         content: {
             options: [
                 ExampleContentType.simpleTextContent,
@@ -195,7 +199,7 @@ const metadata: Meta<DrawerArgs> = {
         show: {
             name: 'show()',
             description:
-                'Call this member function to open the drawer. It returns a `Promise` that is resolved when the drawer is closed. The resolved value is either the reason passed to `close(...)` or the symbol USER_DISMISSED if the drawer was dismissed via the ESC key.'
+                'Call this member function to open the drawer. It returns a `Promise` that is resolved when the drawer is closed. The resolved value is either the reason passed to `close(...)` or the symbol `USER_DISMISSED` if the drawer was dismissed via the `Esc` key.'
         },
         close: {
             name: 'close(reason)',
