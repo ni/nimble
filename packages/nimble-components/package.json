@@ -46,7 +46,6 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
-    "@microsoft/fast-animation": "^4.2.2",
     "@microsoft/fast-element": "^1.10.1",
     "@microsoft/fast-foundation": "^2.46.11",
     "@microsoft/fast-web-utilities": "^5.4.1",
