@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 12 Sep 2022 22:11:39 GMT",
+      "tag": "@ni/nimble-blazor_v5.7.0",
+      "version": "5.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "7d7cb6587d27bd3c05e20a94de01127ba8480112",
+            "comment": "Add NimbleNumberField to Blazor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 08 Sep 2022 23:02:30 GMT",
       "tag": "@ni/nimble-blazor_v5.6.3",
       "version": "5.6.3",
