@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 12 Sep 2022 19:16:32 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "82e233103177d3a600ba8a11e421ea1af871f973",
+            "comment": "Update Storybook to 6.5.10"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Sep 2022 22:04:34 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b30d6a1e3b741c1ccc31537f3c2f4deaa194375c",
+            "comment": "Number field storybook changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 08 Sep 2022 23:02:30 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fcf18ca2ea8e806a0c6d3645d82c002622c17f21",
+            "comment": "fixing path to favicon in Storybook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 08 Sep 2022 19:20:13 GMT",
       "tag": "@ni/nimble-components_v11.13.1",
       "version": "11.13.1",
