@@ -159,7 +159,8 @@ const metadata: Meta<DrawerArgs> = {
         },
         preventDismiss: {
             name: 'prevent-dismiss',
-            description: 'A boolean attribute to configure whether or not the drawer is dismissible via the `Esc` key, or any other dismiss action that is supported in the future'
+            description:
+                'A boolean attribute to configure whether or not the drawer is dismissible via the `Esc` key, or any other dismiss action that is supported in the future'
         },
         content: {
             options: [

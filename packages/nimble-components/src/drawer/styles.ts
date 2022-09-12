@@ -122,8 +122,8 @@ export const styles = css`
     }
 
     @media (prefers-reduced-motion) {
-        :host([location="left"]) dialog.animating .dialog-contents,
-        :host([location="right"]) dialog.animating .dialog-contents {
+        :host([location='left']) dialog.animating .dialog-contents,
+        :host([location='right']) dialog.animating .dialog-contents {
             animation-duration: 1ms;
         }
     }
