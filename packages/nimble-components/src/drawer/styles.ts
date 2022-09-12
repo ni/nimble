@@ -10,13 +10,14 @@ import {
     popupBoxShadowColor,
     standardPadding,
     titlePlus1Font,
-    drawerWidth
+    drawerWidth,
+    largeDelay
 } from '../theme-provider/design-tokens';
 import {
-    modalBackdropColorThemeColor,
-    modalBackdropColorThemeDark,
-    modalBackdropColorThemeLight,
-    largeDelay
+    modalBackdropColorThemeColorStatic,
+    modalBackdropColorThemeDarkStatic,
+    modalBackdropColorThemeLightStatic,
+    largeDelayStatic
 } from '../theme-provider/design-tokens-static';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
@@ -60,7 +61,7 @@ export const styles = css`
     }
 
     dialog.animating::backdrop {
-        animation: ni-private-drawer-fade-in-keyframes ${largeDelay} ease-in;
+        animation: ni-private-drawer-fade-in-keyframes ${largeDelayStatic} ease-in;
     }
 
     dialog.closing::backdrop {
@@ -163,7 +164,7 @@ export const styles = css`
         Theme.light,
         css`
             dialog::backdrop {
-                background: ${modalBackdropColorThemeLight};
+                background: ${modalBackdropColorThemeLightStatic};
             }
         `
     ),
@@ -171,7 +172,7 @@ export const styles = css`
         Theme.dark,
         css`
             dialog::backdrop {
-                background: ${modalBackdropColorThemeDark};
+                background: ${modalBackdropColorThemeDarkStatic};
             }
         `
     ),
@@ -179,7 +180,7 @@ export const styles = css`
         Theme.color,
         css`
             dialog::backdrop {
-                background: ${modalBackdropColorThemeColor};
+                background: ${modalBackdropColorThemeColorStatic};
             }
         `
     )
