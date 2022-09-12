@@ -58,3 +58,20 @@ nimble-toolbar::part(positioning-region) {
 .drawer-footer {
     gap: $ni-nimble-standard-padding;
 }
+
+nimble-dialog {
+    h2 {
+        font: $ni-nimble-title-font;
+        color: $ni-nimble-title-font-color;
+    }
+
+    p {
+        color: $ni-nimble-body-font-color;
+    }
+}
+
+nimble-drawer {
+    p {
+        color: $ni-nimble-body-font-color;
+    }
+}
