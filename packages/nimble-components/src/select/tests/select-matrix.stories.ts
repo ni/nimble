@@ -15,6 +15,14 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 
+/* array of state name, invalidClass, errorText */
+const selectInvalidStates = [
+    ['', ''],
+    ['invalid', 'This is not valid.'],
+    ['invalid', '']
+] as const;
+type SelectInvalidState = typeof selectInvalidStates[number];
+
 const metadata: Meta = {
     title: 'Tests/Select',
     decorators: [withXD],
@@ -38,11 +46,14 @@ type AppearanceState = typeof appearanceStates[number];
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
-    [appearanceName, appearance]: AppearanceState
+    [appearanceName, appearance]: AppearanceState,
+    [invalidClass, errorText]: SelectInvalidState,
 ): ViewTemplate => html`
     <div style="display: inline-flex; flex-direction: column; margin: 5px; font: var(--ni-nimble-control-label-font); color: var(--ni-nimble-control-label-font-color)">
     <label>${() => disabledName} ${() => appearanceName}</label>
     <nimble-select
+        class="${() => invalidClass}"
+        error-text="${() => errorText}"
         ?disabled="${() => disabled}"
         appearance="${() => appearance}"
     >
@@ -55,7 +66,7 @@ const component = (
 `;
 
 export const selectThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, appearanceStates])
+    createMatrix(component, [disabledStates, appearanceStates, selectInvalidStates])
 );
 
 export const hiddenSelect: Story = createStory(

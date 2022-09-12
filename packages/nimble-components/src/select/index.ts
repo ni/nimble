@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Select as FoundationSelect,
@@ -8,6 +8,9 @@ import {
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { DropdownAppearance } from '../patterns/dropdown/types';
+import '../icons/exclamation-mark';
+import { errorTextTemplate } from '../patterns/error/template';
+import type { IHasErrorText } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,9 +21,19 @@ declare global {
 /**
  * A nimble-styled HTML select
  */
-export class Select extends FoundationSelect {
+export class Select extends FoundationSelect implements IHasErrorText {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
+
+    /**
+     * A message explaining why the value is invalid.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: error-text
+     */
+    @attr({ attribute: 'error-text' })
+    public errorText: string | undefined;
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
@@ -64,7 +77,13 @@ const nimbleSelect = Select.compose<SelectOptions>({
     baseClass: FoundationSelect,
     template,
     styles,
-    indicator: arrowExpanderDown16X16.data
+    indicator: arrowExpanderDown16X16.data,
+    end: html<Select>`
+        <nimble-icon-exclamation-mark
+            class="error-icon fail"
+        ></nimble-icon-exclamation-mark>
+        ${errorTextTemplate}
+    `
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSelect());

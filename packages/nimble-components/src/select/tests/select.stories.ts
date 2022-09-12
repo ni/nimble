@@ -7,6 +7,8 @@ import { DropdownAppearance } from '../../patterns/dropdown/types';
 
 interface SelectArgs {
     disabled: boolean;
+    invalid: boolean;
+    errorText: string;
     dropDownPosition: string;
     options: OptionArgs[];
     appearance: string;
@@ -38,8 +40,12 @@ const metadata: Meta<SelectArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-select ?disabled="${x => x.disabled}" position="${x => x.dropDownPosition}"
-        appearance="${x => x.appearance}">
+        <nimble-select
+            class="${x => (x.invalid ? 'invalid' : '')}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}">
             ${repeat(x => x.options, html<OptionArgs>`
                 <nimble-list-option value="${x => x.value}" ?disabled="${x => x.disabled}">
                     ${x => x.label}
@@ -55,10 +61,15 @@ const metadata: Meta<SelectArgs> = {
         appearance: {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' }
+        },
+        errorText: {
+            name: 'error-text'
         }
     },
     args: {
         disabled: false,
+        invalid: false,
+        errorText: 'Value is invalid',
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         options: [

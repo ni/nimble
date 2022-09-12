@@ -14,7 +14,8 @@ import {
     smallDelay,
     smallPadding,
     borderRgbPartialColor,
-    standardPadding
+    standardPadding,
+    failColor
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { focusVisible } from '../../utilities/style/focus';
@@ -108,6 +109,14 @@ export const styles = css`
         cursor: default;
         color: ${bodyDisabledFontColor};
         border-color: rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host(.invalid) .control,
+    :host(.invalid.open) .control,
+    :host(.invalid[disabled]) .control,
+    :host(.invalid):before,
+    :host(.invalid):after {
+        border-bottom-color: ${failColor};
     }
 
     .listbox {
