@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Sat, 10 Sep 2022 23:43:40 GMT",
+      "tag": "@ni/nimble-angular_v8.4.10",
+      "version": "8.4.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "2351292+TrevorKarjanis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b2e7f21abaf7171e0a9682b0f92f0b9ef3c66260",
+            "comment": "Import side-effects in the list option module."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 Sep 2022 20:09:58 GMT",
       "tag": "@ni/nimble-angular_v8.4.9",
       "version": "8.4.9",
