@@ -1,7 +1,7 @@
 import { DOM, html } from '@microsoft/fast-element';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Drawer, USER_DISMISSED } from '..';
+import { Drawer, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -166,7 +166,7 @@ describe('Drawer', () => {
             await expectAsync(promise).toBeResolvedTo(undefined);
         });
 
-        it('should resolve promise with USER_DISMISSED when cancel event fired', async () => {
+        it('should resolve promise with UserDismissed when cancel event fired', async () => {
             const promise = element.show();
             await DOM.nextUpdate();
             // Simulate user dismiss events in browser
@@ -176,7 +176,7 @@ describe('Drawer', () => {
 
             completeAnimation(element);
 
-            await expectAsync(promise).toBeResolvedTo(USER_DISMISSED);
+            await expectAsync(promise).toBeResolvedTo(UserDismissed);
             expect(element.open).toBeFalse();
         });
 

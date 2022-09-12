@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import { Dialog, USER_DISMISSED } from '..';
+import { Dialog, UserDismissed } from '..';
 import type { TextField } from '../../text-field';
 
 interface DialogArgs {
@@ -73,7 +73,7 @@ const metadata: Meta<DialogArgs> = {
         show: {
             name: 'show()',
             description:
-                'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol USER_DISMISSED if the dialog was dismissed via the ESC key.'
+                'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the dialog was dismissed via the ESC key.'
         },
         close: {
             name: 'close(reason)',
@@ -90,7 +90,7 @@ const metadata: Meta<DialogArgs> = {
         preventDismiss: false,
         openAndHandleResult: async (dialogRef, textFieldRef) => {
             const reason = await dialogRef.show();
-            textFieldRef.value = reason === USER_DISMISSED ? 'ESC pressed' : reason;
+            textFieldRef.value = reason === UserDismissed ? 'ESC pressed' : reason;
         }
     }
 };

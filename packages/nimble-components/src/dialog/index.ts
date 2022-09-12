@@ -5,11 +5,11 @@ import {
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import { USER_DISMISSED, UserDismissed } from '../patterns/dialog/constants';
+import { UserDismissed } from '../patterns/dialog/types';
 import { styles } from './styles';
 import { template } from './template';
 
-export { USER_DISMISSED, UserDismissed } from '../patterns/dialog/constants';
+export { UserDismissed };
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -34,7 +34,7 @@ export interface ExtendedDialog extends HTMLDialogElement {
 export class Dialog<CloseReason = void> extends FoundationElement {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    public static readonly USER_DISMISSED = USER_DISMISSED;
+    public static readonly UserDismissed = UserDismissed;
 
     /**
      * @public
@@ -62,7 +62,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
 
     /**
      * Opens the dialog
-     * @returns Promise that is resolved when the dialog is closed. The value of the resolved Promise is the reason value passed to the close() method, or USER_DISMISSED if the dialog was closed via the ESC key.
+     * @returns Promise that is resolved when the dialog is closed. The value of the resolved Promise is the reason value passed to the close() method, or UserDismissed if the dialog was closed via the ESC key.
      */
     public async show(): Promise<CloseReason | UserDismissed> {
         if (this.open) {
@@ -94,7 +94,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         if (this.preventDismiss) {
             event.preventDefault();
         } else {
-            this.resolveShow!(USER_DISMISSED);
+            this.resolveShow!(UserDismissed);
             this.resolveShow = undefined;
         }
         return true;

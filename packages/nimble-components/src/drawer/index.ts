@@ -6,12 +6,12 @@ import {
     FoundationElement
 } from '@microsoft/fast-foundation';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
-import { USER_DISMISSED, UserDismissed } from '../patterns/dialog/constants';
+import { UserDismissed } from '../patterns/dialog/types';
 import { styles } from './styles';
 import { template } from './template';
 import { DrawerLocation } from './types';
 
-export { USER_DISMISSED, UserDismissed } from '../patterns/dialog/constants';
+export { UserDismissed };
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,10 +27,10 @@ declare global {
 export class Drawer<CloseReason = void> extends FoundationElement {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    public static readonly USER_DISMISSED = USER_DISMISSED;
+    public static readonly UserDismissed = UserDismissed;
 
     @attr
-    public location: DrawerLocation = DrawerLocation.left;
+    public location: DrawerLocation = DrawerLocation.right;
 
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
@@ -51,7 +51,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     /**
      * Opens the drawer
      * @returns Promise that is resolved when the drawer finishes closing. The value of the resolved
-     * Promise is the reason value passed to the close() method, or USER_DISMISSED if the drawer was
+     * Promise is the reason value passed to the close() method, or UserDismissed if the drawer was
      * closed via the ESC key.
      */
     public async show(): Promise<CloseReason | UserDismissed> {
@@ -85,7 +85,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         event.preventDefault();
 
         if (!this.preventDismiss) {
-            this.closeReason = USER_DISMISSED;
+            this.closeReason = UserDismissed;
             this.closeDialog();
         }
         return true;

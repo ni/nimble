@@ -45,7 +45,7 @@ window.NimbleBlazor = {
     Dialog: {
         show: async function (dialogReference) {
             const reason = await dialogReference.show();
-            return reason === window.customElements.get('nimble-dialog').USER_DISMISSED;
+            return reason === window.customElements.get('nimble-dialog').UserDismissed;
         },
         close: function (dialogReference, reason) {
             dialogReference.close(reason);
@@ -54,7 +54,7 @@ window.NimbleBlazor = {
     Drawer: {
         show: async function (drawerReference) {
             const reason = await drawerReference.show();
-            return reason === window.customElements.get('nimble-drawer').USER_DISMISSED;
+            return reason === window.customElements.get('nimble-drawer').UserDismissed;
         },
         close: function (drawerReference, reason) {
             drawerReference.close(reason);

@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import { Component, ViewChild } from '@angular/core';
-import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, USER_DISMISSED } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
@@ -45,7 +45,7 @@ export class CustomAppComponent {
 
     public async openDialog(): Promise<void> {
         const closeReason = await this.dialog.show();
-        this.dialogCloseReason = (closeReason === USER_DISMISSED) ? 'escape pressed' : closeReason;
+        this.dialogCloseReason = (closeReason === UserDismissed) ? 'escape pressed' : closeReason;
     }
 
     public closeDialog(reason: string): void {
@@ -54,7 +54,7 @@ export class CustomAppComponent {
 
     public async openDrawer(): Promise<void> {
         const closeReason = await this.drawer.show();
-        this.drawerCloseReason = (closeReason === USER_DISMISSED) ? 'escape pressed' : closeReason;
+        this.drawerCloseReason = (closeReason === UserDismissed) ? 'escape pressed' : closeReason;
     }
 
     public closeDrawer(reason: string): void {

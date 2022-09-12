@@ -15,7 +15,7 @@ import {
     standardPadding
 } from '../../theme-provider/design-tokens';
 import { DrawerLocation } from '../types';
-import { Drawer, USER_DISMISSED } from '..';
+import { Drawer, UserDismissed } from '..';
 import '../../all-components';
 import type { TextField } from '../../text-field';
 
@@ -200,7 +200,7 @@ const metadata: Meta<DrawerArgs> = {
         show: {
             name: 'show()',
             description:
-                'Call this member function to open the drawer. It returns a `Promise` that is resolved when the drawer is closed. The resolved value is either the reason passed to `close(...)` or the symbol `USER_DISMISSED` if the drawer was dismissed via the `Esc` key.'
+                'Call this member function to open the drawer. It returns a `Promise` that is resolved when the drawer is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the drawer was dismissed via the `Esc` key.'
         },
         close: {
             name: 'close(reason)',
@@ -232,7 +232,7 @@ const metadata: Meta<DrawerArgs> = {
         textFieldRef: undefined,
         openAndHandleResult: async (drawerRef, textFieldRef) => {
             const reason = await drawerRef.show();
-            textFieldRef.value = reason === USER_DISMISSED ? 'User dismissed' : reason;
+            textFieldRef.value = reason === UserDismissed ? 'User dismissed' : reason;
         }
     }
 };
