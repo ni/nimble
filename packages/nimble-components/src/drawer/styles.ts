@@ -76,12 +76,6 @@ export const styles = css`
         background-color: ${applicationBackgroundColor};
     }
 
-    @media (prefers-reduced-motion) {
-        .dialog-contents {
-            animation-duration: 1ms;
-        }
-    }
-
     @keyframes slideinleft {
         0% {
             transform: translate(-100%);
@@ -125,6 +119,13 @@ export const styles = css`
 
     :host([location='right']) dialog.closing .dialog-contents {
         animation-direction: reverse;
+    }
+
+    @media (prefers-reduced-motion) {
+        :host([location="left"]) dialog.animating .dialog-contents,
+        :host([location="right"]) dialog.animating .dialog-contents {
+            animation-duration: 1ms;
+        }
     }
 
     ${
