@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 30 Aug 2022 18:14:50 GMT and should not be manually modified.
+This log was last generated on Mon, 12 Sep 2022 22:11:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.7.0
+
+Mon, 12 Sep 2022 22:11:39 GMT
+
+### Minor changes
+
+- Add NimbleNumberField to Blazor ([ni/nimble@7d7cb65](https://github.com/ni/nimble/commit/7d7cb6587d27bd3c05e20a94de01127ba8480112))
 
 ## 5.6.0
 
