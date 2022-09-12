@@ -2,6 +2,11 @@
     background-color: var(--ni-nimble-application-background-color);
 }
 
+.content {
+    font: var(--ni-nimble-body-font);
+    overflow-y: auto;
+}
+
 .container-label {
     font: var(--ni-nimble-group-header-font);
     color: var(--ni-nimble-group-header-font-color);
@@ -18,7 +23,6 @@ p, a {
     justify-content: left;
     flex-direction: column;
     padding: 0px 2px 0px 10px;
-    overflow-y: auto;
 }
 
 .sub-container {
