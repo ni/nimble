@@ -69,7 +69,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
      * @param reason An optional value indicating how/why the drawer was closed.
      */
     public close(reason: CloseReason): void {
-        if (!this.open || this.closing) {
+        if (!this.open) {
             throw new Error('Drawer is not open or already closing');
         }
         this.closeReason = reason;
