@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add nimble-radio-button and nimble-radio-group",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
