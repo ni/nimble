@@ -61,7 +61,8 @@ export const styles = css`
     }
 
     dialog.animating::backdrop {
-        animation: ni-private-drawer-fade-in-keyframes ${largeDelayStatic} ease-in;
+        animation: ni-private-drawer-fade-in-keyframes ${largeDelayStatic}
+            ease-in;
     }
 
     dialog.closing::backdrop {
@@ -92,7 +93,8 @@ export const styles = css`
     }
 
     :host([location='left']) dialog.animating .dialog-contents {
-        animation: ni-private-drawer-slide-in-left-keyframes ${largeDelay} ease-in;
+        animation: ni-private-drawer-slide-in-left-keyframes ${largeDelay}
+            ease-in;
     }
 
     :host([location='left']) dialog.closing .dialog-contents {
@@ -115,7 +117,8 @@ export const styles = css`
     }
 
     :host([location='right']) dialog.animating .dialog-contents {
-        animation: ni-private-drawer-slide-in-right-keyframes ${largeDelay} ease-in;
+        animation: ni-private-drawer-slide-in-right-keyframes ${largeDelay}
+            ease-in;
     }
 
     :host([location='right']) dialog.closing .dialog-contents {

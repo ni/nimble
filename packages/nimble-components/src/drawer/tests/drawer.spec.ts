@@ -25,12 +25,16 @@ describe('Drawer', () => {
         return nimbleDrawerElement.shadowRoot!.querySelector('dialog')!;
     }
 
-    function isDrawerAnimating(nimbleDrawerElement: Drawer | Drawer<string>): boolean {
+    function isDrawerAnimating(
+        nimbleDrawerElement: Drawer | Drawer<string>
+    ): boolean {
         const dialogElement = nativeDialogElement(nimbleDrawerElement);
         return dialogElement.classList.contains('animating');
     }
 
-    async function completeAnimationAsync(nimbleDrawerElement: Drawer | Drawer<string>): Promise<void> {
+    async function completeAnimationAsync(
+        nimbleDrawerElement: Drawer | Drawer<string>
+    ): Promise<void> {
         while (isDrawerAnimating(nimbleDrawerElement)) {
             // eslint-disable-next-line no-await-in-loop
             await DOM.nextUpdate();
