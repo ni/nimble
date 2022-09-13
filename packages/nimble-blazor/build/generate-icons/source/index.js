@@ -43,7 +43,7 @@ for (const key of Object.keys(icons)) {
 @namespace NimbleBlazor
 @inherits NimbleIconBase
 <${elementName}
-    @severity="Severity.ToAttributeValue()"
+    severity="@Severity.ToAttributeValue()"
     @attributes="AdditionalAttributes">
 </${elementName}>
  `;
