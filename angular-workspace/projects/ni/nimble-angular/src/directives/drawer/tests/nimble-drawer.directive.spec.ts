@@ -43,8 +43,8 @@ describe('Nimble drawer', () => {
         });
 
         it('has expected defaults for location', () => {
-            expect(directive.location).toBe(DrawerLocation.left);
-            expect(nativeElement.location).toBe(DrawerLocation.left);
+            expect(directive.location).toBe(DrawerLocation.right);
+            expect(nativeElement.location).toBe(DrawerLocation.right);
         });
 
         it('has expected defaults for preventDismiss', () => {
