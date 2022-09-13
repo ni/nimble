@@ -193,7 +193,7 @@ describe('Drawer', () => {
             }).toThrow();
         });
 
-        it('throws calling close() before close animation completes', async () => {
+        it('throws calling close() a second time before the close animation completes', async () => {
             void element.show();
             await DOM.nextUpdate();
             element.close();
