@@ -101,6 +101,7 @@
               ],
               "outputHashing": "all",
               "assets": [
+                "projects/example-client-app/src/favicon.ico",
                 {
                   "glob": "package.json",
                   "input": "./projects/example-client-app/build-assets",
