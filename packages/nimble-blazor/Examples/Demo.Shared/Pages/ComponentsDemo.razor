@@ -13,8 +13,8 @@
             <div class="sub-container">
                 <div class="container-label">Breadcrumb</div>
                 <NimbleBreadcrumb>
-                    <NimbleBreadcrumbItem href="#">Page 1</NimbleBreadcrumbItem>
-                    <NimbleBreadcrumbItem href="#">Page 2</NimbleBreadcrumbItem>
+                    <NimbleBreadcrumbItem Href="#">Page 1</NimbleBreadcrumbItem>
+                    <NimbleBreadcrumbItem Href="#">Page 2</NimbleBreadcrumbItem>
                     <NimbleBreadcrumbItem>Current Page (No Link)</NimbleBreadcrumbItem>
                 </NimbleBreadcrumb>
             </div>
@@ -73,9 +73,9 @@
                 <div class="container-label">Icons (subset - see <a href="https://ni.github.io/nimble/storybook/?path=/docs/icons--icons">
                     Icons Storybook page</a> for complete set)</div>
                 <NimbleIconChartDiagram></NimbleIconChartDiagram>
-                <NimbleIconSquareCheck class="pass"></NimbleIconSquareCheck>
-                <NimbleIconXmarkCheck class="warning"></NimbleIconXmarkCheck>
-                <NimbleIconXmark class="fail"></NimbleIconXmark>
+                <NimbleIconSquareCheck Severity="IconSeverity.Success"></NimbleIconSquareCheck>
+                <NimbleIconXmarkCheck Severity="IconSeverity.Warning"></NimbleIconXmarkCheck>
+                <NimbleIconXmark Severity="IconSeverity.Error"></NimbleIconXmark>
             </div>
             <div class="sub-container">
                 <div class="container-label">Menu</div>
@@ -204,13 +204,13 @@
                 <NimbleButton id="default-anchor">Default</NimbleButton>
                 <NimbleTooltip Anchor="default-anchor">Tooltip label</NimbleTooltip>
                 <NimbleButton id="fail-anchor">Fail</NimbleButton>
-                <NimbleTooltip Anchor="fail-anchor" class="fail">Tooltip label</NimbleTooltip>
+                <NimbleTooltip Anchor="fail-anchor" Severity="TooltipSeverity.Error">Tooltip label</NimbleTooltip>
                 <NimbleButton id="information-anchor">Information</NimbleButton>
-                <NimbleTooltip Anchor="information-anchor" class="information">Tooltip label</NimbleTooltip>
+                <NimbleTooltip Anchor="information-anchor" Severity="TooltipSeverity.Information">Tooltip label</NimbleTooltip>
                 <NimbleButton id="fail-icon-anchor">Fail Icon</NimbleButton>
-                <NimbleTooltip Anchor="fail-icon-anchor" class="fail icon-visible">Tooltip label</NimbleTooltip>
+                <NimbleTooltip Anchor="fail-icon-anchor" Severity="TooltipSeverity.Error" IconVisible="true">Tooltip label</NimbleTooltip>
                 <NimbleButton id="information-icon-anchor">Information Icon</NimbleButton>
-                <NimbleTooltip Anchor="information-icon-anchor" class="information icon-visible">Tooltip label</NimbleTooltip>
+                <NimbleTooltip Anchor="information-icon-anchor" Severity="TooltipSeverity.Information" IconVisible="true">Tooltip label</NimbleTooltip>
             </div>
             <div class="sub-container">
                 <div class="container-label">Tree View</div>
@@ -221,7 +221,7 @@
                         <NimbleTreeItem>Child 2</NimbleTreeItem>
                         <NimbleTreeItem Disabled="true">Child 3</NimbleTreeItem>
                     </NimbleTreeItem>
-                    <NimbleTreeItem expanded>
+                    <NimbleTreeItem Expanded="true">
                         Parent 2
                         <NimbleTreeItem Selected="true">Child 2-1</NimbleTreeItem>
                         <NimbleTreeItem>Child 2-2</NimbleTreeItem>

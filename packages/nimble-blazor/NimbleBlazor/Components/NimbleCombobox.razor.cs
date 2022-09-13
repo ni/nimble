@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleCombobox : NimbleInputBase<string?>
+public partial class NimbleCombobox : NimbleInputBase<string?>, IErrorPattern
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N", null);
     private NimbleOptionContext? _context;
@@ -44,6 +44,18 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     /// </summary>
     [Parameter]
     public string? Placeholder { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the combobox error text
+    /// </summary>
+    [Parameter]
+    public string? ErrorText { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the combobox error is visible
+    /// </summary>
+    [Parameter]
+    public bool? ErrorVisible { get; set; }
 
     /// <summary>
     /// Gets or sets the child content to be rendered inside the combobox

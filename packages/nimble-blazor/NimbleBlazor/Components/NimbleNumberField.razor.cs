@@ -5,7 +5,7 @@ namespace NimbleBlazor;
 /// <summary>
 /// The Blazor wrapper for the 'nimble-number-field' web component
 /// </summary>
-public partial class NimbleNumberField : NimbleInputBase<double?>
+public partial class NimbleNumberField : NimbleInputBase<double?>, IErrorPattern
 {
     /// <summary>
     /// Gets or sets the disabled state of the number field.
@@ -53,10 +53,16 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
     public double Max { get; set; } = double.MaxValue;
 
     /// <summary>
-    /// Gets or sets the error text of the number field.
+    /// Gets or sets the number field error text.
     /// </summary>
     [Parameter]
     public string? ErrorText { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the number field error is visible.
+    /// </summary>
+    [Parameter]
+    public bool? ErrorVisible { get; set; }
 
     /// <summary>
     /// Gets or sets the child content to be rendered inside the combobox

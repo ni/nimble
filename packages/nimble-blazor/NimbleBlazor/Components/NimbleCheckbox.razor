@@ -1,11 +1,11 @@
 @namespace NimbleBlazor
 @inherits NimbleInputBase<bool>
 <nimble-checkbox disabled="@Disabled"
-                 current-checked="@BindConverter.FormatValue(CurrentValue)"
-                 @onnimblecheckedchange="(__value) => CurrentValue = __value.Checked"
-                 indeterminate="@Indeterminate"
-                 required="@Required"
-                 readonly="@ReadOnly"
-                 @attributes="AdditionalAttributes">
+    current-checked="@BindConverter.FormatValue(CurrentValue)"
+    @onnimblecheckedchange="(__value) => CurrentValue = __value.Checked"
+    indeterminate="@Indeterminate"
+    required="@Required"
+    readonly="@ReadOnly"
+    @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-checkbox>
