@@ -169,7 +169,7 @@ describe('Drawer', () => {
             }).toThrow();
         });
 
-        it('forwards value of aria-label to dialog element', () => {
+        it('forwards value of aria-label to internal dialog element', () => {
             const expectedValue = 'doughnut';
             element.ariaLabel = expectedValue;
             DOM.processUpdates();
@@ -178,7 +178,7 @@ describe('Drawer', () => {
             ).toEqual(expectedValue);
         });
 
-        it('removes value of aria-label from dialog element when cleared from host', () => {
+        it('removes value of aria-label from internal dialog element when cleared from host', () => {
             element.ariaLabel = 'not empty';
             DOM.processUpdates();
             element.ariaLabel = null;
