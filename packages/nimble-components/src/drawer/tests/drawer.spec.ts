@@ -1,5 +1,4 @@
 import { DOM, html } from '@microsoft/fast-element';
-import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Drawer, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
@@ -26,24 +25,22 @@ describe('Drawer', () => {
         return nimbleDrawerElement.shadowRoot!.querySelector('dialog')!;
     }
 
-    function completeAnimation(
-        nimbleDrawerElement: Drawer | Drawer<string>
-    ): void {
-        const dialog = nativeDialogElement(nimbleDrawerElement);
-        dialog.dispatchEvent(new Event(eventAnimationEnd));
+    function isDrawerAnimating(nimbleDrawerElement: Drawer | Drawer<string>): boolean {
+        const dialogElement = nativeDialogElement(nimbleDrawerElement);
+        return dialogElement.classList.contains('animating');
+    }
+
+    async function completeAnimationAsync(nimbleDrawerElement: Drawer | Drawer<string>): Promise<void> {
+        while (isDrawerAnimating(nimbleDrawerElement)) {
+            // eslint-disable-next-line no-await-in-loop
+            await DOM.nextUpdate();
+        }
     }
 
     describe('with default setup', () => {
         let element: Drawer;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
-
-        function closeDrawerAndCompleteAnimation(
-            nimbleDrawerElement: Drawer
-        ): void {
-            nimbleDrawerElement.close();
-            completeAnimation(nimbleDrawerElement);
-        }
 
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
@@ -60,164 +57,128 @@ describe('Drawer', () => {
             );
         });
 
-        it('should default the location to left', () => {
-            expect(element.location).toBe(DrawerLocation.left);
+        it('should default the location to right', () => {
+            expect(element.location).toBe(DrawerLocation.right);
         });
 
-        it('should initially be hidden', async () => {
+        it('should initially be hidden', () => {
             expect(getComputedStyle(nativeDialogElement(element)).display).toBe(
                 'none'
             );
         });
 
-        it('should be displayed after calling show()', async () => {
+        it('should be displayed after calling show()', () => {
             void element.show();
-            await DOM.nextUpdate();
-
             expect(getComputedStyle(nativeDialogElement(element)).display).toBe(
                 'block'
             );
         });
 
         it('should be hidden after calling close()', async () => {
-            void element.show();
-            await DOM.nextUpdate();
-            closeDrawerAndCompleteAnimation(element);
-            await DOM.nextUpdate();
-
+            const promise = element.show();
+            element.close();
+            await promise;
             expect(getComputedStyle(nativeDialogElement(element)).display).toBe(
                 'none'
             );
         });
 
-        it('should initialize open to false', async () => {
+        it('should initialize open to false', () => {
             expect(element.open).toBeFalse();
         });
 
-        it('should set open to true after calling show()', async () => {
+        it('should set open to true after calling show()', () => {
             void element.show();
-            await DOM.nextUpdate();
-
             expect(element.open).toBeTrue();
         });
 
-        it('should set open to false after calling close()', async () => {
-            void element.show();
-            await DOM.nextUpdate();
-            closeDrawerAndCompleteAnimation(element);
-            await DOM.nextUpdate();
-
+        it('should set open to false after calling close() and waiting for the animation to complete', async () => {
+            const promise = element.show();
+            element.close();
+            await promise;
             expect(element.open).toBeFalse();
         });
 
-        it('should keep open as true while closing animation is in progress', async () => {
+        it('should keep open as true while the closing animation is in progress', () => {
             void element.show();
-            await DOM.nextUpdate();
             element.close();
-            await DOM.nextUpdate();
-
             expect(element.open).toBeTrue();
         });
 
         it('should resolve promise when closed', async () => {
             const promise = element.show();
-            await DOM.nextUpdate();
-            closeDrawerAndCompleteAnimation(element);
-            await DOM.nextUpdate();
-
+            element.close();
             await expectAsync(promise).not.toBeRejectedWithError();
         });
 
         it('should not resolve promise while closing animation is in progress', async () => {
             const promise = element.show();
-            await DOM.nextUpdate();
             element.close();
-            await DOM.nextUpdate();
-
             await expectAsync(promise).toBePending();
         });
 
         it('should resolve promise if drawer completely opens before being closed', async () => {
             const promise = element.show();
-            completeAnimation(element);
-            await DOM.nextUpdate();
-            closeDrawerAndCompleteAnimation(element);
-            await DOM.nextUpdate();
-
+            await completeAnimationAsync(element);
+            element.close();
             await expectAsync(promise).toBeResolved();
         });
 
         it('should resolve promise if drawer does not completely open before being closed', async () => {
             const promise = element.show();
             // Do not wait for open animation to complete
-            await DOM.nextUpdate();
-            closeDrawerAndCompleteAnimation(element);
-            await DOM.nextUpdate();
-
+            element.close();
             await expectAsync(promise).toBeResolved();
         });
 
         it('should resolve promise with undefined when nothing passed to close()', async () => {
             const promise = element.show();
-            await DOM.nextUpdate();
-            closeDrawerAndCompleteAnimation(element);
-            await DOM.nextUpdate();
-
+            element.close();
             await expectAsync(promise).toBeResolvedTo(undefined);
         });
 
         it('should resolve promise with UserDismissed when cancel event fired', async () => {
             const promise = element.show();
-            await DOM.nextUpdate();
-            // Simulate user dismiss events in browser
+            // Simulate user dismiss event in browser
             const cancelEvent = new Event('cancel', { cancelable: true });
             nativeDialogElement(element).dispatchEvent(cancelEvent);
-            await DOM.nextUpdate();
-
-            completeAnimation(element);
-
             await expectAsync(promise).toBeResolvedTo(UserDismissed);
             expect(element.open).toBeFalse();
         });
 
         it('throws calling show() a second time', async () => {
             void element.show();
-            await DOM.nextUpdate();
-
             await expectAsync(element.show()).toBeRejectedWithError();
         });
 
-        it('throws calling close() before showing', async () => {
+        it('throws calling close() before showing', () => {
             expect(() => {
                 element.close();
             }).toThrow();
         });
 
-        it('throws calling close() before close animation completes', async () => {
+        it('throws calling close() before close animation completes', () => {
             void element.show();
-            await DOM.nextUpdate();
             element.close();
             expect(() => {
                 element.close();
             }).toThrow();
         });
 
-        it('forwards value of aria-label to dialog element', async () => {
+        it('forwards value of aria-label to dialog element', () => {
             const expectedValue = 'doughnut';
             element.ariaLabel = expectedValue;
-            await DOM.nextUpdate();
-
+            DOM.processUpdates();
             expect(
                 nativeDialogElement(element).getAttribute('aria-label')
             ).toEqual(expectedValue);
         });
 
-        it('removes value of aria-label from dialog element when cleared from host', async () => {
+        it('removes value of aria-label from dialog element when cleared from host', () => {
             element.ariaLabel = 'not empty';
-            await DOM.nextUpdate();
+            DOM.processUpdates();
             element.ariaLabel = null;
-            await DOM.nextUpdate();
-
+            DOM.processUpdates();
             expect(
                 nativeDialogElement(element).getAttribute('aria-label')
             ).toBeNull();
@@ -227,11 +188,10 @@ describe('Drawer', () => {
             const button2 = document.getElementById('button2')!;
             button2.focus();
             const initialActiveElement = document.activeElement;
-            void element.show();
-            await DOM.nextUpdate();
+            const promise = element.show();
             const afterDrawerOpenActiveElement = document.activeElement;
-            closeDrawerAndCompleteAnimation(element);
-            await DOM.nextUpdate();
+            element.close();
+            await promise;
             const afterDrawerCloseActiveElement = document.activeElement;
 
             expect(initialActiveElement).toBe(button2);
@@ -242,18 +202,14 @@ describe('Drawer', () => {
         it('focuses the first button on the drawer when it opens', async () => {
             const okButton = document.getElementById('ok')!;
             void element.show();
-            await DOM.nextUpdate();
-
             expect(document.activeElement).toBe(okButton);
         });
 
         it('focuses the button with autofocus when the drawer opens', async () => {
             const cancelButton = document.getElementById('cancel')!;
             cancelButton.setAttribute('autofocus', '');
-            await DOM.nextUpdate();
+            DOM.processUpdates();
             void element.show();
-            await DOM.nextUpdate();
-
             expect(document.activeElement).toBe(cancelButton);
         });
 
@@ -262,11 +218,8 @@ describe('Drawer', () => {
             const secondDrawerButton = document.createElement('nimble-button');
             secondDrawer.append(secondDrawerButton);
             element.parentElement!.append(secondDrawer);
-            await DOM.nextUpdate();
             void element.show();
-            await DOM.nextUpdate();
             void secondDrawer.show();
-            await DOM.nextUpdate();
 
             expect(element.open).toBeTrue();
             expect(secondDrawer.open).toBeTrue();
@@ -280,27 +233,27 @@ describe('Drawer', () => {
             await connect();
             const expectedReason = 'just because';
             const promise = element.show();
-            await DOM.nextUpdate();
             element.close(expectedReason);
-            completeAnimation(element);
-            await DOM.nextUpdate();
-
             await expectAsync(promise).toBeResolvedTo(expectedReason);
 
             await disconnect();
         });
 
-        it('should dismiss an attempted cancel event when prevent-dismiss is enabled', async () => {
+        it('should not dismiss the drawer when a cancel event occurs if prevent-dismiss is true', async () => {
             const { element, connect, disconnect } = await setup(true);
             await connect();
             void element.show();
-            await DOM.nextUpdate();
-            // Simulate user dismiss events in browser that are cancelled
+            // Wait for the opening animation to complete so that we can later check that an
+            // animation is not in progess.
+            await completeAnimationAsync(element);
+            // Simulate user dismiss event in browser
             const cancelEvent = new Event('cancel', { cancelable: true });
             nativeDialogElement(element).dispatchEvent(cancelEvent);
-            await DOM.nextUpdate();
+            DOM.processUpdates();
 
             expect(element.open).toBeTrue();
+            // The drawer should not be closing
+            expect(isDrawerAnimating(element)).toBeFalse();
 
             await disconnect();
         });
