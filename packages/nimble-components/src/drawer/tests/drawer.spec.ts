@@ -157,7 +157,7 @@ describe('Drawer', () => {
             }).toThrow();
         });
 
-        it('throws calling close() before close animation completes', () => {
+        it('throws calling close() a second time before the close animation completes', () => {
             void element.show();
             element.close();
             expect(() => {
