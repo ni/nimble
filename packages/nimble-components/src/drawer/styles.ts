@@ -70,6 +70,7 @@ export const styles = css`
     }
 
     .dialog-contents {
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         position: absolute;
