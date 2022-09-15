@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Orientation } from '@microsoft/fast-web-utilities';
+import { Orientation } from '@ni/nimble-components/dist/esm/radio-group';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
 import { NimbleRadioGroupDirective, RadioGroup } from '../nimble-radio-group.directive';
 import { NimbleRadioGroupModule } from '../nimble-radio-group.module';
