@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Orientation } from '@microsoft/fast-web-utilities';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
 import { NimbleRadioGroupDirective, RadioGroup } from '../nimble-radio-group.directive';
 import { NimbleRadioGroupModule } from '../nimble-radio-group.module';
@@ -50,11 +51,21 @@ describe('Nimble radio group', () => {
             directive.disabled = true;
             expect(nativeElement.disabled).toBeTrue();
         });
+
+        it('has expected defaults for orientation', () => {
+            expect(directive.orientation).toBe(Orientation.horizontal);
+            expect(nativeElement.orientation).toBe(Orientation.horizontal);
+        });
+
+        it('can use the directive to set orientation', () => {
+            directive.orientation = Orientation.vertical;
+            expect(nativeElement.orientation).toBe(Orientation.vertical);
+        });
     });
 
     describe('with template string values', () => {
         @Component({
-            template: '<nimble-radio-group #radioGroup disabled></nimble-radio-group>'
+            template: '<nimble-radio-group #radioGroup disabled orientation="vertical"></nimble-radio-group>'
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;
@@ -80,16 +91,22 @@ describe('Nimble radio group', () => {
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
         });
+
+        it('will use template values for orientation', () => {
+            expect(directive.orientation).toBe(Orientation.vertical);
+            expect(nativeElement.orientation).toBe(Orientation.vertical);
+        });
     });
 
     describe('with property bound values', () => {
         @Component({
-            template: '<nimble-radio-group #radioGroup [disabled]="disabled"></nimble-radio-group>'
+            template: '<nimble-radio-group #radioGroup [disabled]="disabled" [orientation]="orientation"></nimble-radio-group>'
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;
             @ViewChild('radioGroup', { read: ElementRef }) public elementRef: ElementRef<RadioGroup>;
             public disabled = false;
+            public orientation: Orientation = Orientation.vertical;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -117,16 +134,28 @@ describe('Nimble radio group', () => {
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
         });
+
+        it('can be configured with property binding for orientation', () => {
+            expect(directive.orientation).toBe(Orientation.vertical);
+            expect(nativeElement.orientation).toBe(Orientation.vertical);
+
+            fixture.componentInstance.orientation = Orientation.horizontal;
+            fixture.detectChanges();
+
+            expect(directive.orientation).toBe(Orientation.horizontal);
+            expect(nativeElement.orientation).toBe(Orientation.horizontal);
+        });
     });
 
     describe('with attribute bound values', () => {
         @Component({
-            template: '<nimble-radio-group #radioGroup [attr.disabled]="disabled"></nimble-radio-group>'
+            template: '<nimble-radio-group #radioGroup [attr.disabled]="disabled" [attr.orientation]="orientation"></nimble-radio-group>'
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;
             @ViewChild('radioGroup', { read: ElementRef }) public elementRef: ElementRef<RadioGroup>;
             public disabled: BooleanValueOrAttribute = null;
+            public orientation: Orientation = Orientation.vertical;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -153,6 +182,17 @@ describe('Nimble radio group', () => {
 
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for orientation', () => {
+            expect(directive.orientation).toBe(Orientation.vertical);
+            expect(nativeElement.orientation).toBe(Orientation.vertical);
+
+            fixture.componentInstance.orientation = Orientation.horizontal;
+            fixture.detectChanges();
+
+            expect(directive.orientation).toBe(Orientation.horizontal);
+            expect(nativeElement.orientation).toBe(Orientation.horizontal);
         });
     });
 });

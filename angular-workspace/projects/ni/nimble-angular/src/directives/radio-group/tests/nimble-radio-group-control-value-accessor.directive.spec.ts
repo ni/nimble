@@ -15,7 +15,7 @@ describe('Nimble radio group control value accessor', () => {
     describe('when using radio button\'s [ngValue] binding in a template-based form', () => {
         @Component({
             template: `
-                <nimble-radio-group #radioGroup name="options" [(ngModel)]="selectedRadioButton" [disabled]="radioDisabled">
+                <nimble-radio-group #radioGroup name="options" [(ngModel)]="selectedRadioButton">
                     <nimble-radio-button *ngFor="let option of radioButtons" [ngValue]="option.value">
                         {{ option.name }}
                     </nimble-radio-button>
@@ -78,16 +78,6 @@ describe('Nimble radio group control value accessor', () => {
 
             expect(testHostComponent.selectedRadioButton).toBe(testHostComponent.radioButtons[2].value);
         });
-
-        it('sets "disabled" attribute with value of bound property', fakeAsync(() => {
-            testHostComponent.radioDisabled = true;
-            fixture.detectChanges();
-            tick();
-            processUpdates();
-
-            expect(radioGroup.getAttribute('disabled')).toBe('');
-            expect(radioGroup.disabled).toBe(true);
-        }));
     });
 
     describe('when using radio button\'s [ngValue] binding in a reactive form', () => {

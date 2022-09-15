@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
+import type { Orientation, RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { RadioGroup };
@@ -17,6 +17,14 @@ export class NimbleRadioGroupDirective {
 
     @Input() public set disabled(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
+    }
+
+    public get orientation(): Orientation {
+        return this.elementRef.nativeElement.orientation;
+    }
+
+    @Input() public set orientation(value: Orientation) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'orientation', value);
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<RadioGroup>) {}
