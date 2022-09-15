@@ -5,6 +5,7 @@ import { NimbleRadioGroupModule } from '../nimble-radio-group.module';
 import { NimbleRadioButtonModule, RadioButton } from '../../radio-button/nimble-radio-button.module';
 import type { RadioGroup } from '../nimble-radio-group.directive';
 import { processUpdates } from '../../../testing/async-helpers';
+import { waitTask } from '../../../async-test-utilities';
 
 function setSelectedRadioIndex(radioGroup: RadioGroup, index: number): void {
     radioGroup.children[index].dispatchEvent(new Event('click', { bubbles: true }));
@@ -46,30 +47,30 @@ describe('Nimble radio group control value accessor', () => {
             });
         });
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestHostComponent);
             testHostComponent = fixture.componentInstance;
             radioGroup = testHostComponent.radioGroup.nativeElement;
             fixture.detectChanges();
+            await waitTask();
         });
 
         afterEach(() => {
             processUpdates();
         });
 
-        it('sets correct initial selected value', async () => {
-            await fixture.whenRenderingDone();
+        it('sets correct initial selected value', () => {
             expect((radioGroup.children[1] as RadioButton).checked).toBeTrue();
         });
 
-        it('updates selected value when bound property is changed', async () => {
+        it('updates selected value when bound property is changed', fakeAsync(() => {
             testHostComponent.selectedRadioButton = testHostComponent.radioButtons[2].value;
             fixture.detectChanges();
+            tick();
             processUpdates();
-            await fixture.whenRenderingDone();
 
             expect((radioGroup.children[2] as RadioButton).checked).toBeTrue();
-        });
+        }));
 
         it('updates bound property when selected value is changed', () => {
             setSelectedRadioIndex(radioGroup, 2);
@@ -132,25 +133,25 @@ describe('Nimble radio group control value accessor', () => {
             testHostComponent = fixture.componentInstance;
             radioGroup = testHostComponent.radioGroup.nativeElement;
             fixture.detectChanges();
+            await waitTask();
         });
 
         afterEach(() => {
             processUpdates();
         });
 
-        it('sets correct initial selected value', async () => {
-            await fixture.whenRenderingDone();
+        it('sets correct initial selected value', () => {
             expect((radioGroup.children[1] as RadioButton).checked).toBeTrue();
         });
 
-        it('updates selected value when bound property is changed', async () => {
+        it('updates selected value when bound property is changed', fakeAsync(() => {
             testHostComponent.selectedRadioButton.setValue(testHostComponent.radioButtons[2].value);
             fixture.detectChanges();
+            tick();
             processUpdates();
-            await fixture.whenRenderingDone();
 
             expect((radioGroup.children[2] as RadioButton).checked).toBeTrue();
-        });
+        }));
 
         it('updates bound property when selected value is changed', () => {
             setSelectedRadioIndex(radioGroup, 2);
