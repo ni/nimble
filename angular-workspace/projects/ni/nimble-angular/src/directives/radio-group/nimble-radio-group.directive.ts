@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Orientation, RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
+import { Orientation, RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
+export { Orientation };
 export type { RadioGroup };
 
 /**

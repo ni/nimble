@@ -1,8 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Orientation } from '@ni/nimble-components/dist/esm/radio-group';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
-import { NimbleRadioGroupDirective, RadioGroup } from '../nimble-radio-group.directive';
+import { NimbleRadioGroupDirective, RadioGroup, Orientation } from '../nimble-radio-group.directive';
 import { NimbleRadioGroupModule } from '../nimble-radio-group.module';
 
 describe('Nimble radio group', () => {
@@ -182,7 +181,7 @@ describe('Nimble radio group', () => {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;
             @ViewChild('radioGroup', { read: ElementRef }) public elementRef: ElementRef<RadioGroup>;
             public disabled: BooleanValueOrAttribute = null;
-            public name: string = 'foo';
+            public name = 'foo';
             public orientation: Orientation = Orientation.vertical;
         }
 
