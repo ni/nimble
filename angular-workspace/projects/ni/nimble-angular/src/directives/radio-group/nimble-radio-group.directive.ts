@@ -19,6 +19,14 @@ export class NimbleRadioGroupDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
+    public get name(): string {
+        return this.elementRef.nativeElement.name;
+    }
+
+    @Input() public set name(value: string) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'name', value);
+    }
+
     public get orientation(): Orientation {
         return this.elementRef.nativeElement.orientation;
     }
