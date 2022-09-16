@@ -106,18 +106,21 @@ describe('Drawer', () => {
         it('should keep open as true while the closing animation is in progress', () => {
             void element.show();
             element.close();
+            expect(isDrawerAnimating(element)).toBeTrue();
             expect(element.open).toBeTrue();
         });
 
         it('should resolve promise when closed', async () => {
             const promise = element.show();
             element.close();
-            await expectAsync(promise).not.toBeRejectedWithError();
+            await expectAsync(promise).toBeResolved();
         });
 
         it('should not resolve promise while closing animation is in progress', async () => {
             const promise = element.show();
             element.close();
+            expect(isDrawerAnimating(element)).toBeTrue();
+            // toBePending does not wait for the promise to fulfill
             await expectAsync(promise).toBePending();
         });
 
@@ -131,6 +134,7 @@ describe('Drawer', () => {
         it('should resolve promise if drawer does not completely open before being closed', async () => {
             const promise = element.show();
             // Do not wait for open animation to complete
+            expect(isDrawerAnimating(element)).toBeTrue();
             element.close();
             await expectAsync(promise).toBeResolved();
         });

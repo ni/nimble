@@ -47,8 +47,8 @@ window.NimbleBlazor = {
             const reason = await dialogReference.show();
             return reason === window.customElements.get('nimble-dialog').UserDismissed;
         },
-        close: function (dialogReference, reason) {
-            dialogReference.close(reason);
+        close: function (dialogReference) {
+            dialogReference.close();
         }
     },
     Drawer: {
@@ -56,8 +56,8 @@ window.NimbleBlazor = {
             const reason = await drawerReference.show();
             return reason === window.customElements.get('nimble-drawer').UserDismissed;
         },
-        close: function (drawerReference, reason) {
-            drawerReference.close(reason);
+        close: function (drawerReference) {
+            drawerReference.close();
         }
     }
 };
