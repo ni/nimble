@@ -3,8 +3,6 @@ import { display } from '@microsoft/fast-foundation';
 
 import {
     applicationBackgroundColor,
-    borderWidth,
-    popupBorderColor,
     titlePlus2Font,
     standardPadding,
     actionRgbPartialColor,
@@ -26,7 +24,6 @@ export const styles = css`
 
     dialog {
         background-color: ${applicationBackgroundColor};
-        border: ${borderWidth} solid ${popupBorderColor};
         box-shadow: 0px 4px 8px #0000004D;
         padding: 0px;
         width: ${dialogWidth};
