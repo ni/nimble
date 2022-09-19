@@ -143,98 +143,96 @@ export const styles = css`
     :host([content-hidden]) [part='end'] {
         display: none;
     }
-`
-    // prettier-ignore
-    .withBehaviors(
-        appearanceBehavior(
-            ButtonAppearance.outline,
-            css`
-                .control {
-                    background-color: transparent;
-                    border-color: rgba(${actionRgbPartialColor}, 0.3);
-                }
+`.withBehaviors(
+    appearanceBehavior(
+        ButtonAppearance.outline,
+        css`
+            .control {
+                background-color: transparent;
+                border-color: rgba(${actionRgbPartialColor}, 0.3);
+            }
 
-                .control:hover {
-                    background-color: transparent;
-                    border-color: ${borderHoverColor};
-                }
+            .control:hover {
+                background-color: transparent;
+                border-color: ${borderHoverColor};
+            }
 
-                .control${focusVisible} {
-                    background-color: transparent;
-                    border-color: ${borderHoverColor};
-                }
+            .control${focusVisible} {
+                background-color: transparent;
+                border-color: ${borderHoverColor};
+            }
 
-                .control:active {
-                    background-color: ${fillSelectedColor};
-                    border-color: ${fillSelectedColor};
-                }
+            .control:active {
+                background-color: ${fillSelectedColor};
+                border-color: ${fillSelectedColor};
+            }
 
-                .control[disabled] {
-                    background-color: transparent;
-                    border-color: rgba(${borderRgbPartialColor}, 0.2);
-                }
-            `
-        ),
-        appearanceBehavior(
-            ButtonAppearance.ghost,
-            css`
-                .control {
-                    background-color: transparent;
-                    border-color: transparent;
-                }
+            .control[disabled] {
+                background-color: transparent;
+                border-color: rgba(${borderRgbPartialColor}, 0.2);
+            }
+        `
+    ),
+    appearanceBehavior(
+        ButtonAppearance.ghost,
+        css`
+            .control {
+                background-color: transparent;
+                border-color: transparent;
+            }
 
-                .control:hover {
-                    background-color: transparent;
-                    border-color: ${borderHoverColor};
-                }
+            .control:hover {
+                background-color: transparent;
+                border-color: ${borderHoverColor};
+            }
 
-                .control${focusVisible} {
-                    background-color: transparent;
-                    border-color: ${borderHoverColor};
-                }
+            .control${focusVisible} {
+                background-color: transparent;
+                border-color: ${borderHoverColor};
+            }
 
-                .control:active {
-                    background-color: ${fillSelectedColor};
-                    border-color: ${fillSelectedColor};
-                }
+            .control:active {
+                background-color: ${fillSelectedColor};
+                border-color: ${fillSelectedColor};
+            }
 
-                .control[disabled] {
-                    background-color: transparent;
-                    border-color: transparent;
-                }
-            `
-        ),
-        appearanceBehavior(
-            ButtonAppearance.block,
-            css`
-                .control {
-                    background-color: rgba(${borderRgbPartialColor}, 0.1);
-                    border-color: transparent;
-                }
+            .control[disabled] {
+                background-color: transparent;
+                border-color: transparent;
+            }
+        `
+    ),
+    appearanceBehavior(
+        ButtonAppearance.block,
+        css`
+            .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                border-color: transparent;
+            }
 
-                .control:hover {
-                    background-color: transparent;
-                    border-color: ${borderHoverColor};
-                }
+            .control:hover {
+                background-color: transparent;
+                border-color: ${borderHoverColor};
+            }
 
-                .control${focusVisible} {
-                    background-color: rgba(${borderRgbPartialColor}, 0.1);
-                    border-color: ${borderHoverColor};
-                }
+            .control${focusVisible} {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                border-color: ${borderHoverColor};
+            }
 
-                .control${focusVisible}:hover {
-                    background-color: transparent;
-                }
+            .control${focusVisible}:hover {
+                background-color: transparent;
+            }
 
-                .control:active {
-                    background-color: ${fillSelectedColor};
-                    border-color: ${fillSelectedColor};
-                }
+            .control:active {
+                background-color: ${fillSelectedColor};
+                border-color: ${fillSelectedColor};
+            }
 
-                .control[disabled] {
-                    background-color: rgba(${borderRgbPartialColor}, 0.1);
-                    border-color: transparent;
-                }
-            `
-        )
-    );
+            .control[disabled] {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                border-color: transparent;
+            }
+        `
+    )
+);
