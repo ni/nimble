@@ -24,6 +24,7 @@ export const styles = css`
 
     dialog {
         background-color: ${applicationBackgroundColor};
+        border: none;
         box-shadow: 0px 4px 8px #0000004D;
         padding: 0px;
         width: ${dialogWidth};
