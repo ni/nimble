@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 15 Sep 2022 18:33:47 GMT and should not be manually modified.
+This log was last generated on Mon, 19 Sep 2022 19:10:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.15.1
+
+Mon, 19 Sep 2022 19:10:55 GMT
+
+### Patches
+
+- Turn off @typescript-eslint/indent for styles.ts files ([ni/nimble@c7509f7](https://github.com/ni/nimble/commit/c7509f7321c3cf635ba9f346026c4e097079aa5c))
 
 ## 11.15.0
 
