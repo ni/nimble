@@ -37,6 +37,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     iconSize: 'icon-size',
     groupHeaderTextTransform: 'group-header-text-transform',
     drawerWidth: 'drawer-width',
+    dialogWidth: 'dialog-width',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
     largeDelay: 'large-delay',

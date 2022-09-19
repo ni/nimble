@@ -40,6 +40,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     iconSize: 'Standard layout height for all icons',
     groupHeaderTextTransform: 'CSS text-transform string to use for headers',
     drawerWidth: 'TODO: delete when able',
+    dialogWidth: 'TODO: delete when able',
     smallDelay:
         'Elements with small transition areas, such as icons and selection controls, have short durations.',
     mediumDelay:

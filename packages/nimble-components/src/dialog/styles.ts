@@ -4,14 +4,14 @@ import { display } from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
     borderWidth,
-    popupBoxShadowColor,
     popupBorderColor,
     titlePlus2Font,
     standardPadding,
     actionRgbPartialColor,
     bodyFont,
     titlePlus2FontColor,
-    bodyFontColor
+    bodyFontColor,
+    dialogWidth
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColor,
@@ -29,8 +29,7 @@ export const styles = css`
         border: ${borderWidth} solid ${popupBorderColor};
         box-shadow: 0px 4px 8px #0000004D;
         padding: 0px;
-
-        width: 400px;
+        width: ${dialogWidth};
     }
 
     ::slotted(header) {
@@ -46,7 +45,7 @@ export const styles = css`
 
     ::slotted(section) {
         font: ${bodyFont};
-        color: ${bodyFontColor}
+        color: ${bodyFontColor};
         padding: 24px;
         display: flex;
         flex-direction: column;

@@ -1,16 +1,18 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory, overrideWarning } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { Dialog, USER_DISMISSED } from '..';
 import type { TextField } from '../../text-field';
-import { ExampleContentType } from './types';
-import { standardPadding } from '../../theme-provider/design-tokens';
+import { DialogWidthOptions, ExampleContentType } from './types';
+import { dialogWidth, standardPadding } from '../../theme-provider/design-tokens';
+import { scssInternalPropertySetterMarkdown, tokenNames } from '../../theme-provider/design-token-names';
 
 interface DialogArgs {
     preventDismiss: boolean;
     content: ExampleContentType;
+    width: DialogWidthOptions;
     show: undefined;
     close: undefined;
     dialogRef: Dialog<string>;
@@ -55,7 +57,7 @@ const headerFooterContent = html<DialogArgs>`
     }
 </style>
 <header>
-    <div class="title">Are you sure you want to delete the selected result?</div>
+    <div class="title">Delete result</div>
     <div class="subtitle">Subtitle or message in this location</div>
 </header>
 <section>
@@ -71,6 +73,25 @@ const content = {
     [ExampleContentType.simpleTextContent]: simpleContent,
     [ExampleContentType.headerContentFooter]: headerFooterContent
 } as const;
+
+const widths = {
+    [DialogWidthOptions.default]: dialogWidth.getValueFor(document.body),
+    [DialogWidthOptions.small300]: '300px',
+    [DialogWidthOptions.large600]: '600px',
+    [DialogWidthOptions.fitContent]: 'fit-content'
+} as const;
+
+const widthDescriptionOverride = `
+With SCSS properties, the dialog width can be overriden. For example:
+${scssInternalPropertySetterMarkdown(tokenNames.dialogWidth, '100px')}
+
+Dialog widths can be any [CSS width](https://developer.mozilla.org/en-US/docs/Web/CSS/width) value, including \`fit-content\`, etc.
+`;
+
+const widthDescription = `
+Width of a nimble dialog.
+${overrideWarning('Dialog Width', widthDescriptionOverride)}
+`;
 
 const metadata: Meta<DialogArgs> = {
     title: 'Dialog',
@@ -102,6 +123,7 @@ const metadata: Meta<DialogArgs> = {
             ${ref('dialogRef')}
             aria-label="Here is a dialog"
             ?prevent-dismiss="${x => x.preventDismiss}"
+            style="${x => `${dialogWidth.cssCustomProperty}:${widths[x.width]};`}"
         >
             ${x => content[x.content]}
         </nimble-dialog>
@@ -136,6 +158,26 @@ const metadata: Meta<DialogArgs> = {
                 }
             }
         },
+        width: {
+            description: widthDescription,
+            options: [
+                DialogWidthOptions.default,
+                DialogWidthOptions.small300,
+                DialogWidthOptions.large600,
+                DialogWidthOptions.fitContent
+            ],
+            control: {
+                type: 'select',
+                labels: {
+                    [DialogWidthOptions.default]: `Default (${dialogWidth.getValueFor(
+                        document.body
+                    )})`,
+                    [DialogWidthOptions.small300]: 'Small - 300px',
+                    [DialogWidthOptions.large600]: 'Large - 600px',
+                    [DialogWidthOptions.fitContent]: 'fit-content'
+                }
+            }
+        },
         show: {
             name: 'show()',
             description:
@@ -154,6 +196,8 @@ const metadata: Meta<DialogArgs> = {
     },
     args: {
         preventDismiss: false,
+        content: ExampleContentType.headerContentFooter,
+        width: DialogWidthOptions.default,
         openAndHandleResult: async (dialogRef, textFieldRef) => {
             const reason = await dialogRef.show();
             textFieldRef.value = reason === USER_DISMISSED ? 'ESC pressed' : reason;
