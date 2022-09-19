@@ -88,6 +88,7 @@ module.exports = {
         {
             files: ['styles.ts'],
             rules: {
+                // Prettier and eslint conflict in how they format CSS in styles files and we prefer prettier's output
                 '@typescript-eslint/indent': 'off'
             }
         },
