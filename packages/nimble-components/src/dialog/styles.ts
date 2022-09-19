@@ -5,7 +5,13 @@ import {
     applicationBackgroundColor,
     borderWidth,
     popupBoxShadowColor,
-    popupBorderColor
+    popupBorderColor,
+    titlePlus2Font,
+    standardPadding,
+    actionRgbPartialColor,
+    bodyFont,
+    titlePlus2FontColor,
+    bodyFontColor
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColor,
@@ -16,13 +22,44 @@ import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
-    ${display('grid')}
+    ${display('inline-flex')}
 
     dialog {
         background-color: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
-        box-shadow: 0px 2px 3px ${popupBoxShadowColor};
-        max-width: 50%;
+        box-shadow: 0px 4px 8px #0000004D;
+        padding: 0px;
+
+        width: 400px;
+    }
+
+    ::slotted(header) {
+        font: ${titlePlus2Font};
+        color: ${titlePlus2FontColor};
+        min-height: 48px;
+        padding: 24px 24px 0px 24px;
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    ::slotted(section) {
+        font: ${bodyFont};
+        color: ${bodyFontColor}
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: ${standardPadding};
+    }
+
+    ::slotted(footer) {
+        padding: 24px;
+        flex: none;
+        display: flex;
+        gap: ${standardPadding};
+        justify-content: flex-end;
+        border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
     }
 `.withBehaviors(
     /*

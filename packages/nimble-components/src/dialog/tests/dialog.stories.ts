@@ -5,9 +5,12 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { Dialog, USER_DISMISSED } from '..';
 import type { TextField } from '../../text-field';
+import { ExampleContentType } from './types';
+import { standardPadding } from '../../theme-provider/design-tokens';
 
 interface DialogArgs {
     preventDismiss: boolean;
+    content: ExampleContentType;
     show: undefined;
     close: undefined;
     dialogRef: Dialog<string>;
@@ -18,6 +21,57 @@ interface DialogArgs {
     ) => void;
 }
 
+const simpleContent = html<DialogArgs>`
+<section>
+    <p>
+        This is a dialog.
+    </p>
+    <nimble-button @click="${x => x.dialogRef.close('Close pressed')}"
+        >Close</nimble-button
+    >
+</section>
+`;
+
+// prettier-ignore
+const headerFooterContent = html<DialogArgs>`
+<style>
+    .example-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(${standardPadding.cssCustomProperty});
+    }
+
+    .title {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        line-height: 28px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 300;
+    }
+</style>
+<header>
+    <div class="title">Are you sure you want to delete the selected result?</div>
+    <div class="subtitle">Subtitle or message in this location</div>
+</header>
+<section>
+    Deleting a result permanently removes it from SystemLink. Are you sure you want to delete the selected result?
+    <nimble-checkbox>Delete all attachments associated with the selected result</nimble-checkbox>
+</section>
+<footer>
+    <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}" appearance="ghost">Cancel</nimble-button>
+    <nimble-button @click="${x => x.dialogRef.close('OK pressed')}" appearance="outline">Delete</nimble-button>
+</footer>`;
+
+const content = {
+    [ExampleContentType.simpleTextContent]: simpleContent,
+    [ExampleContentType.headerContentFooter]: headerFooterContent
+} as const;
+
 const metadata: Meta<DialogArgs> = {
     title: 'Dialog',
     decorators: [withXD],
@@ -26,6 +80,10 @@ const metadata: Meta<DialogArgs> = {
             description: {
                 component:
                     'A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.\n\nBy default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.'
+            },
+            design: {
+                artboardUrl:
+                    'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6f1b5b4d-2e50-4f8d-ad49-e3dac564a006/specs/'
             }
         }
     },
@@ -45,14 +103,7 @@ const metadata: Meta<DialogArgs> = {
             aria-label="Here is a dialog"
             ?prevent-dismiss="${x => x.preventDismiss}"
         >
-            <h1>Here is a dialog</h1>
-            <p>It can have some detailed message here.</p>
-            <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}">
-                Cancel
-            </nimble-button>
-            <nimble-button @click="${x => x.dialogRef.close('OK pressed')}">
-                OK
-            </nimble-button>
+            ${x => content[x.content]}
         </nimble-dialog>
         <nimble-button
             id="open"
@@ -69,6 +120,21 @@ const metadata: Meta<DialogArgs> = {
     argTypes: {
         preventDismiss: {
             name: 'prevent-dismiss'
+        },
+        content: {
+            options: [
+                ExampleContentType.simpleTextContent,
+                ExampleContentType.headerContentFooter
+            ],
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleContentType.simpleTextContent]:
+                        'Simple Text Content',
+                    [ExampleContentType.headerContentFooter]:
+                        'Header/Content/Footer Example'
+                }
+            }
         },
         show: {
             name: 'show()',
