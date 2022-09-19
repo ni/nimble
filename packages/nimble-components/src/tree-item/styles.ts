@@ -185,8 +185,8 @@ export const styles: FoundationElementTemplate<ElementStyles, TreeItemOptions> =
             }
         `.withBehaviors(
             new DirectionalStyleSheetBehavior(
+                // ltr styles
                 css`
-                    ${/* ltr styles */ ''}
                     .expand-collapse-button {
                         left: var(
                             --ni-private-expand-collapse-button-nested-width,
@@ -202,8 +202,8 @@ export const styles: FoundationElementTemplate<ElementStyles, TreeItemOptions> =
                         transform: rotate(180deg);
                     }
                 `,
+                // rtl styles
                 css`
-                    ${/* rtl styles */ ''}
                     .expand-collapse-button {
                         right: var(
                             --ni-private-expand-collapse-button-nested-width,

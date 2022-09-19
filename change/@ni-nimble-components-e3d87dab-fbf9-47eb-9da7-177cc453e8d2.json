@@ -1,5 +1,5 @@
 {
-  "type": "none",
+  "type": "patch",
   "comment": "Turn off @typescript-eslint/indent for styles.ts files",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
