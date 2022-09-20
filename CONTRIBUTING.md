@@ -1,6 +1,6 @@
 # Contributing to Nimble
 
-⚠️ **Note**: Nimble doesn't yet support normal open source fork-pull workflows (see #634). To contribute pull requests you must be granted access to the repo. See the [Community section of the README](/README.md#community) to get in touch if you need access.
+⚠️ **Note**: Nimble doesn't yet support normal open source fork-pull workflows (see https://github.com/ni/nimble/issues/634). To contribute pull requests you must be granted access to the repo. See the [Community section of the README](/README.md#community) to get in touch if you need access.
 
 ## Repository overview
 
