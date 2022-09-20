@@ -12,6 +12,8 @@ export type { RadioGroup };
     selector: 'nimble-radio-group'
 })
 export class NimbleRadioGroupDirective {
+    private _nextOpenId = 0;
+
     public get disabled(): boolean {
         return this.elementRef.nativeElement.disabled;
     }
@@ -36,5 +38,20 @@ export class NimbleRadioGroupDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'orientation', value);
     }
 
+    public get value(): string {
+        return this.elementRef.nativeElement.value;
+    }
+
+    @Input() public set value(value: string) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'value', value);
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<RadioGroup>) {}
+
+    /** @internal */
+    public allocateId(): string {
+        const id = this._nextOpenId.toString();
+        this._nextOpenId += 1;
+        return id;
+    }
 }

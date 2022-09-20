@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import type { RadioButton } from '@ni/nimble-components/dist/esm/radio-button';
-import { NimbleRadioButtonDirective } from './nimble-radio-button.directive';
+import { RadioButton } from '@ni/nimble-components/dist/esm/radio-button';
+import { NimbleRadioButtonControlValueAccessorDirective } from './nimble-radio-button-control-value-accessor.directive';
 
-import '@ni/nimble-components/dist/esm/radio-button';
-
-export type { RadioButton };
+export { RadioButton };
 
 @NgModule({
-    declarations: [NimbleRadioButtonDirective],
+    declarations: [NimbleRadioButtonControlValueAccessorDirective],
     imports: [CommonModule],
-    exports: [NimbleRadioButtonDirective]
+    exports: [NimbleRadioButtonControlValueAccessorDirective]
 })
 export class NimbleRadioButtonModule { }
