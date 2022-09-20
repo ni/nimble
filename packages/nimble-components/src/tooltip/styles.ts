@@ -64,9 +64,9 @@ export const styles = css`
         flex: 0 0 auto;
     }
 `.withBehaviors(
-        themeBehavior(
-            Theme.light,
-            css`
+    themeBehavior(
+        Theme.light,
+        css`
             :host([severity='error']) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
                 --ni-private-tooltip-background-color: ${White};
