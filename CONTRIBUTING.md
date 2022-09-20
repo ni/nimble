@@ -1,5 +1,7 @@
 # Contributing to Nimble
 
+⚠️ **Note**: Nimble doesn't yet support normal open source fork-pull workflows (see #634). To contribute pull requests you must be granted access to the repo. See the [Community section of the README](/README.md#community) to get in touch if you need access.
+
 ## Repository overview
 
 This repository uses the following tooling. See below for more info.
@@ -12,8 +14,6 @@ This repository uses the following tooling. See below for more info.
 
 ### Helpful links
 
-- [Design System HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Design%20System%20for%20Angular%20and%20Blazor%20UI%20Components.md&version=GBmaster&_a=preview)
-- [Nimble Angular HLD](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=%2FSpecs%2FWorking%20Groups%2FUI%2FHLD%20-%20Nimble%20Angular.md&version=GBmaster&_a=preview)
 - [Nimble architecture](/docs/Architecture.md)
 - [Nimble Components XD Library](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/)
 
