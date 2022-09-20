@@ -12,15 +12,14 @@ import { styles as buttonStyles } from '../patterns/button/styles';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { ButtonAppearance } from './types';
 
-// prettier-ignore
-export const styles = buttonStyles
-    .withBehaviors(
-        appearanceBehavior(
-            ButtonAppearance.outline,
-            css`
-                :host([appearance-variant="primary"]) .control {
-                    box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
-                }
+export const styles = buttonStyles.withBehaviors(
+    appearanceBehavior(
+        ButtonAppearance.outline,
+        css`
+            :host([appearance-variant="primary"]) .control {
+                box-shadow: 0px 0px 0px ${borderWidth}
+                    rgba(${actionRgbPartialColor}, 0.3) inset;
+            }
 
                 :host([appearance-variant="primary"]) .control:hover {
                     box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;

@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 19 Sep 2022 19:10:55 GMT",
+      "tag": "@ni/nimble-components_v11.15.1",
+      "version": "11.15.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c7509f7321c3cf635ba9f346026c4e097079aa5c",
+            "comment": "Turn off @typescript-eslint/indent for styles.ts files"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Sep 2022 18:33:47 GMT",
+      "tag": "@ni/nimble-components_v11.15.0",
+      "version": "11.15.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a04abdb9c8f58af14565752920b09aa002e53173",
+            "comment": "Export Orientation enum so it can be used as value"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 14 Sep 2022 14:15:38 GMT",
+      "tag": "@ni/nimble-components_v11.14.0",
+      "version": "11.14.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "579b984746f298ef81e9197d4ceb7a4faed95d6d",
+            "comment": "Re-organizes specs into a specs folder per component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Sep 2022 20:18:53 GMT",
       "tag": "@ni/nimble-components_v11.14.0",
       "version": "11.14.0",

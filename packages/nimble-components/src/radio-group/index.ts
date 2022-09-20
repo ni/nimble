@@ -3,7 +3,7 @@ import {
     radioGroupTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import type { Orientation } from '@microsoft/fast-web-utilities';
+import { Orientation } from '@microsoft/fast-web-utilities';
 import { styles } from './styles';
 
 declare global {
@@ -12,7 +12,7 @@ declare global {
     }
 }
 
-export type { Orientation };
+export { Orientation };
 
 /**
  * A nimble-styled grouping element for radio buttons

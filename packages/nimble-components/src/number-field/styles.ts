@@ -173,18 +173,18 @@ export const styles = css`
         padding-right: calc(${standardPadding} / 4);
     }
 `.withBehaviors(
-            appearanceBehavior(
-                NumberFieldAppearance.underline,
-                css`
+    appearanceBehavior(
+        NumberFieldAppearance.underline,
+        css`
             .root {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
         `
-            ),
-            appearanceBehavior(
-                NumberFieldAppearance.block,
-                css`
+    ),
+    appearanceBehavior(
+        NumberFieldAppearance.block,
+        css`
             .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
@@ -203,14 +203,14 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
         `
-            ),
-            appearanceBehavior(
-                NumberFieldAppearance.outline,
-                css`
+    ),
+    appearanceBehavior(
+        NumberFieldAppearance.outline,
+        css`
             .root {
                 border-width: ${borderWidth};
                 padding: 0;
             }
         `
-            )
-        );
+    )
+);

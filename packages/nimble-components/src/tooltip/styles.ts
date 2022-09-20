@@ -77,15 +77,15 @@ export const styles = css`
                 --ni-private-tooltip-background-color: ${White};
             }
         `
-        ),
-        themeBehavior(
-            Theme.dark,
-            css`
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
             :host {
                 --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
-                Black15,
-                0.3
-            )};
+                    Black15,
+                    0.3
+                )};
                 --ni-private-tooltip-background-color: ${Black85};
             }
 
@@ -97,23 +97,23 @@ export const styles = css`
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
             }
         `
-        ),
-        themeBehavior(
-            Theme.color,
-            css`
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
             .anchored-region {
                 background-color: ${ForestGreen};
             }
 
             :host {
                 --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
-                White,
-                0.3
-            )};
+                    White,
+                    0.3
+                )};
                 --ni-private-tooltip-background-color: ${hexToRgbaCssColor(
-                White,
-                0.15
-            )};
+                    White,
+                    0.15
+                )};
             }
 
             :host([severity='error']) {
@@ -128,5 +128,5 @@ export const styles = css`
                 opacity: 0.6;
             }
         `
-        )
-    );
+    )
+);

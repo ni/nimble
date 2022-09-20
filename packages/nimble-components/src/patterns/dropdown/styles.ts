@@ -206,9 +206,9 @@ export const styles = css`
         flex: none;
     }
 `.withBehaviors(
-        appearanceBehavior(
-            DropdownAppearance.underline,
-            css`
+    appearanceBehavior(
+        DropdownAppearance.underline,
+        css`
             .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
@@ -218,19 +218,19 @@ export const styles = css`
                 border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
-        ),
-        appearanceBehavior(
-            DropdownAppearance.outline,
-            css`
+    ),
+    appearanceBehavior(
+        DropdownAppearance.outline,
+        css`
             .control {
                 border-width: ${borderWidth};
                 padding: 0;
             }
         `
-        ),
-        appearanceBehavior(
-            DropdownAppearance.block,
-            css`
+    ),
+    appearanceBehavior(
+        DropdownAppearance.block,
+        css`
             .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
@@ -244,5 +244,5 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
         `
-        )
-    );
+    )
+);

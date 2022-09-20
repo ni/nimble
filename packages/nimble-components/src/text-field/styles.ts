@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 

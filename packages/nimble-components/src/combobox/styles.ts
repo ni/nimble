@@ -116,5 +116,5 @@ export const styles = css`
                 padding-bottom: 0;
             }
         `
-        )
-    );
+    )
+);
