@@ -77,7 +77,7 @@ Create a new folder named after your component with some core files:
 
 | File                                   | Description                                                                                                                                                                                                                                                                |
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| component-name.spec.md                 | Contains the original API and implementation specification for the component.                                                                                                                                                                                              |
+| specs/\*.md                            | Contains the original API and implementation specifications for the component.                                                                                                                                                                                             |
 | index.ts                               | Contains the component class definition and registration. All TypeScript logic contained in the component belongs here.                                                                                                                                                    |
 | styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts).                                             |
 | template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                                                 |
@@ -97,6 +97,8 @@ All components should have an import added to `src/all-components.ts` so they ar
 If Fast Foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble"; namespacing is accomplished through imports. Use `MyComponent.compose()` to add the component to Nimble.
 
 If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value. Make sure to include a test that shows the tag name for the element is found when using `DesignSystem.tagFor(FastFoundationBaseClass)`.
+
+Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template).
 
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
@@ -225,13 +227,25 @@ Accessibility is a requirement for all new components. For the Nimble design sys
 
 This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
 
+Animations can trigger users with vestibular disorders. [WCAG provides guidance](https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html) to disable certain kinds of animations when the [prefers-reduced-motion CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) is enabled:
+
+> An element which moves into place or changes size while appearing is considered to be animated. An element which appears instantly without transitioning is not using animation. Motion animation does not include changes of color, blurring, or opacity which do not change the perceived size, shape, or position of the element.
+
+Nimble interprets this to mean the following types of animations are permitted with `prefers-reduced-motion` is enabled:
+
+1. Animations which don't involve motion (e.g. fades or color changes)
+2. Animations which involve motion but don't significantly affect the perceived size, shape, or position of the object. The only approved example of this is animating border thickness; other candidates can be proposed via PR (along with an update to these docs).
+3. Animations which involved motion but the change in size, shape, or position is synchronized with a user interaction (e.g. a mouse drag to move or resize an object or scrolling through a list).
+
+All other motion animations should either be disabled or replaced with a fade animation when `prefers-reduced-motion` is enabled. [Search this repo for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) to find examples of how it's done.
+
 ### Animations
 
 We're using the [fast-animation package](https://www.npmjs.com/package/@microsoft/fast-animation) for some animations (see the Drawer component as an example). That package allows us to create and start animations from JS/TS code, gives us ways to group/sequence multiple animations together, and lets us be notified when animations complete.
 
 For new component animations, using fast-animation is preferred for complex/sequenced animations, and animations which will have additional JS/TS logic when they finish. CSS animations can still be used for simple standalone animations with no start/end JS/TS logic.
 
-In either case, animations should honor the [prefers-reduced-motion CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). This repo has examples to support that in both TS code (for fast-animation) and in CSS, [search for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) for examples.
+See the above accessibility section for implications related to animations.
 
 ### Leveraging icons
 

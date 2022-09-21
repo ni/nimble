@@ -94,7 +94,6 @@ export const styles = css`
 
     :host([aria-checked='true']) .checked-indicator-spacer {
         flex-grow: 1;
-        transition: flex-grow ${smallDelay} ease-in-out;
     }
 
     .checked-indicator {
@@ -149,7 +148,6 @@ export const styles = css`
 
     :host([aria-checked='true']) .checked-indicator-inner {
         opacity: 1;
-        transition: opacity ${smallDelay} ease-in-out;
     }
 
     slot[name='checked-message']::slotted(*) {
@@ -163,73 +161,73 @@ export const styles = css`
         }
     }
 `.withBehaviors(
-        themeBehavior(
-            Theme.light,
-            css`
+    themeBehavior(
+        Theme.light,
+        css`
             :host {
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
-                Black91,
-                0.07
-            )};
+                    Black91,
+                    0.07
+                )};
                 --ni-private-switch-indicator-background-color: ${White};
                 --ni-private-switch-indicator-background-disabled-color: ${hexToRgbaCssColor(
-                White,
-                0.1
-            )};
+                    White,
+                    0.1
+                )};
                 --ni-private-switch-indicator-border-color: ${Black91};
                 --ni-private-switch-indicator-border-disabled-color: ${hexToRgbaCssColor(
-                Black91,
-                0.3
-            )};
+                    Black91,
+                    0.3
+                )};
             }
         `
-        ),
-        themeBehavior(
-            Theme.dark,
-            css`
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
             :host {
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
-                Black15,
-                0.07
-            )};
+                    Black15,
+                    0.07
+                )};
                 --ni-private-switch-indicator-background-color: ${hexToRgbaCssColor(
-                Black91,
-                0.3
-            )};
+                    Black91,
+                    0.3
+                )};
                 --ni-private-switch-indicator-background-disabled-color: ${hexToRgbaCssColor(
-                Black91,
-                0.1
-            )};
+                    Black91,
+                    0.1
+                )};
                 --ni-private-switch-indicator-border-color: ${Black7};
                 --ni-private-switch-indicator-border-disabled-color: ${hexToRgbaCssColor(
-                Black7,
-                0.3
-            )};
+                    Black7,
+                    0.3
+                )};
             }
         `
-        ),
-        themeBehavior(
-            Theme.color,
-            css`
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
             :host {
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
-                White,
-                0.07
-            )};
+                    White,
+                    0.07
+                )};
                 --ni-private-switch-indicator-background-color: ${hexToRgbaCssColor(
-                White,
-                0.1
-            )};
+                    White,
+                    0.1
+                )};
                 --ni-private-switch-indicator-background-disabled-color: ${hexToRgbaCssColor(
-                White,
-                0.1
-            )};
+                    White,
+                    0.1
+                )};
                 --ni-private-switch-indicator-border-color: ${White};
                 --ni-private-switch-indicator-border-disabled-color: ${hexToRgbaCssColor(
-                White,
-                0.3
-            )};
+                    White,
+                    0.3
+                )};
             }
         `
-        )
-    );
+    )
+);

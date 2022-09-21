@@ -2,6 +2,417 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 19 Sep 2022 19:10:55 GMT",
+      "tag": "@ni/nimble-components_v11.15.1",
+      "version": "11.15.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c7509f7321c3cf635ba9f346026c4e097079aa5c",
+            "comment": "Turn off @typescript-eslint/indent for styles.ts files"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Sep 2022 18:33:47 GMT",
+      "tag": "@ni/nimble-components_v11.15.0",
+      "version": "11.15.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a04abdb9c8f58af14565752920b09aa002e53173",
+            "comment": "Export Orientation enum so it can be used as value"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 14 Sep 2022 14:15:38 GMT",
+      "tag": "@ni/nimble-components_v11.14.0",
+      "version": "11.14.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "579b984746f298ef81e9197d4ceb7a4faed95d6d",
+            "comment": "Re-organizes specs into a specs folder per component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Sep 2022 20:18:53 GMT",
+      "tag": "@ni/nimble-components_v11.14.0",
+      "version": "11.14.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5a160efcf22098a21420834470a511878c81f387",
+            "comment": "Add nimble-radio-button and nimble-radio-group"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Sep 2022 19:16:32 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "82e233103177d3a600ba8a11e421ea1af871f973",
+            "comment": "Update Storybook to 6.5.10"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Sep 2022 22:04:34 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b30d6a1e3b741c1ccc31537f3c2f4deaa194375c",
+            "comment": "Number field storybook changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 08 Sep 2022 23:02:30 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fcf18ca2ea8e806a0c6d3645d82c002622c17f21",
+            "comment": "fixing path to favicon in Storybook"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 08 Sep 2022 19:20:13 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ea887aaa72b27d74d9ca1c2a29adbda969b4b2a7",
+            "comment": "Minor doc update."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 08 Sep 2022 18:11:57 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "97f8cd8fb5201bfa08add672121860a1509770e7",
+            "comment": "Blazor NumberField spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Sep 2022 20:09:58 GMT",
+      "tag": "@ni/nimble-components_v11.13.1",
+      "version": "11.13.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7b4a4f1b6b87bff5967ba9c7ce8dbabac9c2d33a",
+            "comment": "Fix minor animation issues and add guidelines for prefers-reduce-motion"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Sep 2022 16:15:42 GMT",
+      "tag": "@ni/nimble-components_v11.13.0",
+      "version": "11.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "11f4aae4657350af2e08b9a0854dcb4bfb2a03c2",
+            "comment": "Adding favicon files"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Sep 2022 17:48:33 GMT",
+      "tag": "@ni/nimble-components_v11.13.0",
+      "version": "11.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "29a0456ac99235f13cf5d09c5d0085a14da53661",
+            "comment": "Change backdrop overlay color for dialog and drawer"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 31 Aug 2022 21:35:23 GMT",
+      "tag": "@ni/nimble-components_v11.12.1",
+      "version": "11.12.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "068fa2ecb8fb6877ea1bf374ced6b9f2d0fe9682",
+            "comment": "Document show and close in dialog story"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Aug 2022 19:03:18 GMT",
+      "tag": "@ni/nimble-components_v11.12.1",
+      "version": "11.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "96b2413d2cec7cdf9a4a848ecbd7de6358ea2caa",
+            "comment": "update nimble logos"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Aug 2022 18:14:50 GMT",
+      "tag": "@ni/nimble-components_v11.12.0",
+      "version": "11.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "891b62c4f672b51f6a3c82e77a428a59763bd09c",
+            "comment": "Adding USER_DISMISSED to Dialog class and avoid stale cached value"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Aug 2022 14:00:36 GMT",
+      "tag": "@ni/nimble-components_v11.11.0",
+      "version": "11.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "75b48c20131c2ac891ac50a766d9c3fb88c50718",
+            "comment": "Added IconBookMagnifyingGlass, IconCircleFilled, IconCloud, IconShareNodes, IconThreeVerticalLines icons"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.1.0",
+            "commit": "75b48c20131c2ac891ac50a766d9c3fb88c50718"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Aug 2022 22:18:14 GMT",
+      "tag": "@ni/nimble-components_v11.10.6",
+      "version": "11.10.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f375ba91d4e19bd24b66a6f1d5393dd6c3a9f997",
+            "comment": "Use correct colors in nimble-card-button on Color UI"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Aug 2022 16:58:19 GMT",
+      "tag": "@ni/nimble-components_v11.10.5",
+      "version": "11.10.5",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "83f499c96d30f0989d587a2314362258ffcfa543",
+            "comment": "radio button spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Aug 2022 15:33:21 GMT",
+      "tag": "@ni/nimble-components_v11.10.5",
+      "version": "11.10.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7c831f23917994742872d5dd525fd56a2036311a",
+            "comment": "Create spec for the redesign of the nimble-drawer"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Aug 2022 18:59:48 GMT",
+      "tag": "@ni/nimble-components_v11.10.5",
+      "version": "11.10.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bc7262c578faf4af964fba4d63a92445703ed2da",
+            "comment": "Add token previews to storybook"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 Aug 2022 15:50:12 GMT",
+      "tag": "@ni/nimble-components_v11.10.4",
+      "version": "11.10.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "475366789d09c01b902a97f795b91e70a54b3efb",
+            "comment": "Simple style change to support font-style"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 12 Aug 2022 19:14:22 GMT",
+      "tag": "@ni/nimble-components_v11.10.3",
+      "version": "11.10.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f2933114b1b89a3c8cdae5d26d4a4779e1972596",
+            "comment": "Replicating updated design tokens"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 Aug 2022 22:20:09 GMT",
+      "tag": "@ni/nimble-components_v11.10.2",
+      "version": "11.10.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ab34f42e9602c20bef3fa3b49a8d82630aeca880",
+            "comment": "Remove delegatesFocus from dialog"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 Aug 2022 20:28:40 GMT",
+      "tag": "@ni/nimble-components_v11.10.1",
+      "version": "11.10.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7858f3155a4f9f774e79bc303641b39d7a05f1f9",
+            "comment": "Specify tslib version"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Aug 2022 21:38:38 GMT",
+      "tag": "@ni/nimble-components_v11.10.0",
+      "version": "11.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "32b4ed97aaaea52ff211118a405fd34922a3c0cd",
+            "comment": "Add Appearance to Combobox."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Aug 2022 17:05:04 GMT",
+      "tag": "@ni/nimble-components_v11.9.0",
+      "version": "11.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fd2f53162c9d194b943f8573eb140539eb0eccbc",
+            "comment": "Add nimble-dialog component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Aug 2022 14:36:49 GMT",
+      "tag": "@ni/nimble-components_v11.8.5",
+      "version": "11.8.5",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aa44633d4f88ace9269f996ce54e0eda00e27104",
+            "comment": "Complex content tooltip example"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Aug 2022 22:19:14 GMT",
       "tag": "@ni/nimble-components_v11.8.5",
       "version": "11.8.5",

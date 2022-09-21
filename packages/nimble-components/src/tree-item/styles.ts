@@ -183,43 +183,41 @@ export const styles: FoundationElementTemplate<ElementStyles, TreeItemOptions> =
             :host([expanded]) .items {
                 display: block;
             }
-        `
-// prettier-ignore
-    .withBehaviors(
-        new DirectionalStyleSheetBehavior(
-            css`
-                        ${/* ltr styles */ ''}
-                        .expand-collapse-button {
-                            left: var(
-                                --ni-private-expand-collapse-button-nested-width,
-                                calc(${iconSize} * -1)
-                            );
-                        }
+        `.withBehaviors(
+            new DirectionalStyleSheetBehavior(
+                // ltr styles
+                css`
+                    .expand-collapse-button {
+                        left: var(
+                            --ni-private-expand-collapse-button-nested-width,
+                            calc(${iconSize} * -1)
+                        );
+                    }
 
-                        .expand-collapse-button svg {
-                            transform: rotate(90deg);
-                        }
+                    .expand-collapse-button svg {
+                        transform: rotate(90deg);
+                    }
 
-                        :host([expanded]) .expand-collapse-button svg {
-                            transform: rotate(180deg);
-                        }
-                    `,
-            css`
-                        ${/* rtl styles */ ''}
-                        .expand-collapse-button {
-                            right: var(
-                                --ni-private-expand-collapse-button-nested-width,
-                                calc(${iconSize} * -1)
-                            );
-                        }
+                    :host([expanded]) .expand-collapse-button svg {
+                        transform: rotate(180deg);
+                    }
+                `,
+                // rtl styles
+                css`
+                    .expand-collapse-button {
+                        right: var(
+                            --ni-private-expand-collapse-button-nested-width,
+                            calc(${iconSize} * -1)
+                        );
+                    }
 
-                        .expand-collapse-button svg {
-                            transform: rotate(180deg);
-                        }
+                    .expand-collapse-button svg {
+                        transform: rotate(180deg);
+                    }
 
-                        :host([expanded]) .expand-collapse-button svg {
-                            transform: rotate(135deg);
-                        }
-                    `
-        )
-    );
+                    :host([expanded]) .expand-collapse-button svg {
+                        transform: rotate(135deg);
+                    }
+                `
+            )
+        );

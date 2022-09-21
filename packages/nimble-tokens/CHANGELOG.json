@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 26 Aug 2022 14:00:36 GMT",
+      "tag": "@ni/nimble-tokens_v4.1.0",
+      "version": "4.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "75b48c20131c2ac891ac50a766d9c3fb88c50718",
+            "comment": "Added IconBookMagnifyingGlass, IconCircleFilled, IconCloud, IconShareNodes, IconThreeVerticalLines icons"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Jul 2022 20:37:04 GMT",
       "tag": "@ni/nimble-tokens_v4.0.1",
       "version": "4.0.1",

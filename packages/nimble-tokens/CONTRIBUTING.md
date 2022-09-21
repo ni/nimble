@@ -60,7 +60,7 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
       <img src="docs/ai-export-4.png" width="600"> 
 
-2. Search for all `fill` attributes in the exported `.svg` files, and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
+2. Search for all `<defs>.*</defs>` tags in the exported `.svg` files (in the `packages/nimble-tokens/dist/icons/svg` directory), and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
 
       <img src="docs/find-replace-5.png" width="1000">
 
