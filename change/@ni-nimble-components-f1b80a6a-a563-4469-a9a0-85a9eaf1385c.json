@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Export Orientation enum so it can be used as value",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

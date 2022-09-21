@@ -19,7 +19,6 @@ import { themeBehavior } from '../utilities/style/theme';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { Theme } from '../theme-provider/types';
 
-// prettier-ignore
 export const styles = css`
     ${display('inline-flex')}
 
@@ -128,35 +127,67 @@ export const styles = css`
         display: none;
     }
 `.withBehaviors(
-        themeBehavior(
-            Theme.light,
-            css`
-                :host {
-                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(White, 0.3)};
-                    --ni-private-card-button-background-active-color: ${White};
-                    --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(Black91, 0.2)};
-                    --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(Black91, 0.6)};
-                }
-            `
-        ), themeBehavior(
-            Theme.dark,
-            css`
-                :host {
-                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(Black15, 0.07)};
-                    --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(Black15, 0.15)};
-                    --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(Black15, 0.2)};
-                    --ni-private-card-button-border-selected-color: ${Black15};
-                }
-            `
-        ), themeBehavior(
-            Theme.color,
-            css`
-                :host {
-                    --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(White, 0.07)};
-                    --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(White, 0.15)};
-                    --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(White, 0.2)};
-                    --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(White, 0.6)};
-                }
-            `
-        )
-    );
+    themeBehavior(
+        Theme.light,
+        css`
+            :host {
+                --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
+                    White,
+                    0.3
+                )};
+                --ni-private-card-button-background-active-color: ${White};
+                --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
+                    Black91,
+                    0.2
+                )};
+                --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(
+                    Black91,
+                    0.6
+                )};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
+            :host {
+                --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
+                    Black15,
+                    0.07
+                )};
+                --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(
+                    Black15,
+                    0.15
+                )};
+                --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
+                    Black15,
+                    0.2
+                )};
+                --ni-private-card-button-border-selected-color: ${Black15};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
+            :host {
+                --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
+                    White,
+                    0.07
+                )};
+                --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(
+                    White,
+                    0.15
+                )};
+                --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
+                    White,
+                    0.2
+                )};
+                --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(
+                    White,
+                    0.6
+                )};
+            }
+        `
+    )
+);
