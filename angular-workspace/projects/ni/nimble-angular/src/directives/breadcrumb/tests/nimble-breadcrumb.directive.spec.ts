@@ -152,7 +152,7 @@ describe('Nimble breadcrumb', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with attribute binding for disabled', () => {
+        it('can be configured with attribute binding for appearance', () => {
             expect(directive.appearance).toBe(BreadcrumbAppearance.default);
             expect(nativeElement.appearance).toBe(BreadcrumbAppearance.default);
 

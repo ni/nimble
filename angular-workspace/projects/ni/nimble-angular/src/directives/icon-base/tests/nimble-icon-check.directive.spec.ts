@@ -75,7 +75,7 @@ describe('Nimble icon check', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('will use template string values for disabled', () => {
+        it('will use template string values for severity', () => {
             expect(directive.severity).toBe(IconSeverity.error);
             expect(nativeElement.severity).toBe(IconSeverity.error);
         });
@@ -153,7 +153,7 @@ describe('Nimble icon check', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with attribute binding for disabled', () => {
+        it('can be configured with attribute binding for severity', () => {
             expect(directive.severity).toBe(IconSeverity.default);
             expect(nativeElement.severity).toBe(IconSeverity.default);
 
