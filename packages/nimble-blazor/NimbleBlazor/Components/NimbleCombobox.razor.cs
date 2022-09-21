@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleCombobox : NimbleInputBase<string?>, IErrorPattern
+public partial class NimbleCombobox : NimbleInputBase<string?>
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N", null);
     private NimbleOptionContext? _context;

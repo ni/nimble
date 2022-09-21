@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTextField : NimbleInputBase<string?>, IErrorPattern
+public partial class NimbleTextField : NimbleInputBase<string?>
 {
     [Parameter]
     public bool? Disabled { get; set; }

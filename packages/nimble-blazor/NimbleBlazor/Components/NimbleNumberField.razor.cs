@@ -5,7 +5,7 @@ namespace NimbleBlazor;
 /// <summary>
 /// The Blazor wrapper for the 'nimble-number-field' web component
 /// </summary>
-public partial class NimbleNumberField : NimbleInputBase<double?>, IErrorPattern
+public partial class NimbleNumberField : NimbleInputBase<double?>
 {
     /// <summary>
     /// Gets or sets the disabled state of the number field.
