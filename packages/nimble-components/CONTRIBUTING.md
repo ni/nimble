@@ -133,36 +133,90 @@ Use the `html` tagged template helper to define your custom template. See [Decla
 
 This package follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide) with some exceptions listed in [Coding Conventions](/packages/nimble-components/docs/coding-conventions.md).
 
-#### API naming
-
-Use lower-kebab-case for attributes and enum values that are part of a component's public API.
-
-```ts
-    @attr({ attribute: 'error-text' })
-    public errorText: string | undefined;
-```
-
 #### CSS
 
 Component CSS should follow the patterns described in [CSS Guidelines](/packages/nimble-components/docs/css-guidelines.md).
 
+#### Represent control states as attributes
+
+##### Why attributes over classes
+
+It is common in web development to represent variations of control states using css classes. While it is possible to apply custom styles to web components based on user-added CSS classes, i.e. `:host(.my-class)`, it is not allowed in nimble for the following reasons:
+
+-   The `class` attribute is a user-configured attribute. For native HTML elements it would be surprising if setting a class, i.e. `<div class="my-class">`, caused the element to have a new style that the user did not define in their stylesheet. However, other attributes are expected to have element defined behavior, i.e. `<div hidden>`.
+-   Classes set in the `class` attribute are not as well-typed across frameworks. Users have to contort a bit to use exported enums for CSS class strings while attributes and attribute values are well-typed in wrappers.
+-   Binding to updates in the `class` attribute is more difficult / not an expected pattern. This makes it difficult to forward configured properties to inner elements. Alternatively, binding to attributes and forwarding bound attribute values in templates is a well supported pattern.
+
+##### Attribute naming convention
+
+-   Do not use attribute names that conflict with native attribute names:
+    -   Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
+    -   Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
+-   Use lower-kebab-case for attributes and enum values that are part of a component's public API.
+
+    ```ts
+        @attr({ attribute: 'error-text' })
+        public errorText?: string;
+    ```
+
+##### Attribute common name patterns
+
+-   For attributes that control the visibility of a part, use either the boolean attribute `<part>-visible` or `<part>-hidden`, i.e. `icon-visible` or `icon-hidden`.
+
+    The default configuration should be the most common configuration and the boolean attribute should be added for the less common alternate configuration that differs from the default. An element should NOT implement both `-visible` and `-hidden` attributes for a given `<part>`, only one or the other.
+
+-   Use the `appearance` attribute to represent mutually exclusive visual modes of a component that represent large style changes. Likely implemented with an attribute behavior.
+
+    An `appearance-variant` attribute may also be used to represent smaller mutually exclusive variations of an appearance. Likely implemented with CSS attribute selectors.
+
+##### Attribute common value patterns
+
+-   When applicable, the default value for an attribute that is allowed to be unconfigured should have the enum name `default` and be the enum value `undefined`.
+-   States representing the following ideas should use those names: `success`, `error`, `warning`, `information`.
+
+    Avoid shorthands, i.e. `warn`, `info` and avoid alternatives, i.e. `pass`, `fail`, `invalid`.
+
+##### Responding to attribute values
+
+With an attribute defined there are several ways to react to updates. To minimize performance overhead, prefer in order (may utilize more that one):
+
+1. Respond to attribute values from css:
+
+    ```css
+    :host([my-attribute='some-value']) {
+        /* ... */
+    }
+    ```
+
+    Using attribute selectors in CSS is particularly useful if there are relatively few spots peppered throughout the file where style should be overridden based on a configured attribute.
+
+2. Respond to attribute values using a behavior:
+
+    <!-- prettier-ignore -->
+    ```ts
+    import { css } from '@microsoft/fast-element';
+    css`
+        /* ... */
+    `.withBehaviors(
+        // ...
+    );
+    ```
+
+    Behaviors are useful when a large block of styles is overridden based on the attibute configuration, i.e. on the order of replacing a large chunk of the stylesheet based on the configuration.
+
+    Behaviors should not be used for attributes that change rapidly on a page. Behaviors internally change the stylesheets that are on the page and can trigger expensive style recalculations when stylesheets are added and removed from the page based on the attribute value.
+
+    Behaviors are ideal for attributes that are set initially on an element and are not expected to change often / ever during the element lifetime. In these scenarios they actually provide an important performance advantage by eliminating large chunks of unnecessary styles from the page that the browser would need to evaluate.
+
+3. Respond to the value of an attribute programmatically. This may be done by binding to an attribute value or listening to an attribute value change.
+
+    This should NOT be done for style purposes and instead rely on CSS attribute selectors or behaviors as previously described.
+
+    Some valid use cases are reflecting correct aria values based on the updated attribute or forwarding updates to child components.
+
 #### Comments
 
 At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
-
-#### Behaviors
-
-When configuring different variants of a single element, use behaviors.
-
-<!-- prettier-ignore -->
-```ts
-import { css } from '@microsoft/fast-element';
-css`
-    /* ... */
-`.withBehaviors(
-    // ...
-);
-```
 
 ### Adhere to accessibility guidelines
 
@@ -170,7 +224,6 @@ Accessibility is a requirement for all new components. For the Nimble design sys
 
 -   Focus states are defined for every element and work on all browsers.
 -   Colors have sufficient contrast across all themes.
--   **TODO: UX to fill out requirements.**
 
 This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
 
