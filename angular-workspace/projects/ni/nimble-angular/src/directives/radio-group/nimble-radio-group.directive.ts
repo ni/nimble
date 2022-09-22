@@ -3,7 +3,7 @@ import { Orientation, RadioGroup } from '@ni/nimble-components/dist/esm/radio-gr
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export { Orientation };
-export type { RadioGroup };
+export { RadioGroup };
 
 /**
  * Directive to provide Angular integration for the radio group.

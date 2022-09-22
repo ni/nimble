@@ -1,7 +1,7 @@
 import { Directive, ElementRef, forwardRef, Injector, OnInit, Renderer2 } from '@angular/core';
 // eslint-disable-next-line camelcase
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor, ɵangular_packages_forms_forms_r } from '@angular/forms';
-import type { RadioGroup } from '../radio-group/nimble-radio-group.directive';
+import { RadioGroup } from '../radio-group/nimble-radio-group.directive';
 import type { RadioButton } from './nimble-radio-button.module';
 
 /**
@@ -47,8 +47,8 @@ export class NimbleRadioButtonControlValueAccessorDirective extends RadioControl
      */
     public override writeValue(value: unknown): void {
         super.writeValue(value);
-        const parentGroup = (this.elementRef.nativeElement as RadioButton).parentElement as RadioGroup;
-        if (this.value === value && parentGroup) {
+        const parentGroup = (this.elementRef.nativeElement as RadioButton).parentElement;
+        if (this.value === value && parentGroup && parentGroup instanceof RadioGroup) {
             // This is a workaround to a problem where all of the buttons are initialized as unchecked.
             // The radio group tries to synchronize its value and the checked states of the radio buttons.
             // In response to the slotchange DOM event, the radio group sets the checked state of each
