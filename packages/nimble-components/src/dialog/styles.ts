@@ -3,13 +3,16 @@ import { display } from '@microsoft/fast-foundation';
 
 import {
     applicationBackgroundColor,
-    titlePlus2Font,
     standardPadding,
     actionRgbPartialColor,
     bodyFont,
-    titlePlus2FontColor,
     bodyFontColor,
-    dialogWidth
+    dialogWidth,
+    titlePlus1Font,
+    titlePlus1FontColor,
+    smallPadding,
+    subtitleFont,
+    subtitleFontColor
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColor,
@@ -29,10 +32,10 @@ export const styles = css`
         padding: 0px;
         width: ${dialogWidth};
     }
-
+ ${/*
     ::slotted(header) {
-        font: ${titlePlus2Font};
-        color: ${titlePlus2FontColor};
+        font: ${titlePlus1Font};
+        color: ${titlePlus1FontColor};
         min-height: 48px;
         padding: 24px 24px 0px 24px;
         flex: none;
@@ -57,6 +60,81 @@ export const styles = css`
         gap: ${standardPadding};
         justify-content: flex-end;
         border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
+    }
+    */ ''}
+
+    header {
+        min-height: 48px;
+        padding: 24px 24px 0px 24px;
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        gap: ${smallPadding}
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+    }
+
+    slot[name='title'] {
+        font: ${titlePlus1Font};
+        color: ${titlePlus1FontColor};
+    }
+
+    slot[name='title']::slotted(*) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .close-button {
+        --ni-nimble-control-height: 24px;
+        margin-left: auto;
+    }
+
+    slot[name='subtitle'] {
+        font: ${subtitleFont};
+        color: ${subtitleFontColor};
+    }
+
+    .content slot {
+        font: ${bodyFont};
+        color: ${bodyFontColor};
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: ${standardPadding}
+    }
+
+    footer {
+        padding: 24px;
+        flex: none;
+        display: flex;
+        border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
+    }
+
+    footer.empty {
+        padding: 0px;
+        height: 72px;
+        border-top: none;
+    }
+
+    .footer-start-container {
+        display: flex;
+        gap: ${standardPadding};
+    }
+    
+    .footer-middle-container {
+        display: flex;
+        gap: ${standardPadding};
+        margin-left: auto;
+    }
+    
+    .footer-end-container {
+        display: flex;
+        gap: ${standardPadding};
+        margin-left: auto;
     }
 `.withBehaviors(
     /*

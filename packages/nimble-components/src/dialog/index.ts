@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
@@ -55,6 +55,22 @@ export class Dialog<CloseReason = void> extends FoundationElement {
      */
     public readonly dialogElement!: ExtendedDialog;
 
+    /** @internal */
+    @observable
+    public footerIsEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedFooterStart?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public readonly slottedFooterMiddle?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public readonly slottedFooterEnd?: HTMLElement[];
+
     /**
      * True if the dialog is open/showing, false otherwise
      */
@@ -91,6 +107,18 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         this.resolveShow = undefined;
     }
 
+    public slottedFooterStartChanged(_prev: HTMLElement[] | undefined, _next: HTMLElement[] | undefined): void {
+        this.checkForEmptyFooter();
+    }
+
+    public slottedFooterMiddleChanged(_prev: HTMLElement[] | undefined, _next: HTMLElement[] | undefined): void {
+        this.checkForEmptyFooter();
+    }
+
+    public slottedFooterEndChanged(_prev: HTMLElement[] | undefined, _next: HTMLElement[] | undefined): void {
+        this.checkForEmptyFooter();
+    }
+
     /**
      * @internal
      */
@@ -102,6 +130,12 @@ export class Dialog<CloseReason = void> extends FoundationElement {
             this.resolveShow = undefined;
         }
         return true;
+    }
+
+    private checkForEmptyFooter(): void {
+        this.footerIsEmpty = !this.slottedFooterStart?.length
+            && !this.slottedFooterMiddle?.length
+            && !this.slottedFooterEnd?.length;
     }
 }
 

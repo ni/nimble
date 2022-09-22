@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory, overrideWarning } from '../../utilities/tests/storybook';
@@ -6,13 +6,18 @@ import '../../all-components';
 import { Dialog, USER_DISMISSED } from '..';
 import type { TextField } from '../../text-field';
 import { DialogWidthOptions, ExampleContentType } from './types';
-import { dialogWidth, standardPadding } from '../../theme-provider/design-tokens';
+import { dialogWidth } from '../../theme-provider/design-tokens';
 import { scssInternalPropertySetterMarkdown, tokenNames } from '../../theme-provider/design-token-names';
 
 interface DialogArgs {
+    title: string;
+    subtitle: string;
     preventDismiss: boolean;
     content: ExampleContentType;
     width: DialogWidthOptions;
+    showLeftAlignedFooterButtons: boolean;
+    showCenteredFooterButtons: boolean;
+    showRightAlignedFooterButtons: boolean;
     show: undefined;
     close: undefined;
     dialogRef: Dialog<string>;
@@ -36,38 +41,18 @@ const simpleContent = html<DialogArgs>`
 
 // prettier-ignore
 const headerFooterContent = html<DialogArgs>`
-<style>
-    .example-content {
-        display: flex;
-        flex-direction: column;
-        gap: var(${standardPadding.cssCustomProperty});
-    }
+<div slot="title">${x => x.title}</div>
+<div slot="subtitle">${x => x.subtitle}</div>
+<span>This action is destructive. Are you sure you would like to do it?</span>
+<nimble-checkbox>Perform some other relevant action too</nimble-checkbox>
+${when(x => x.showLeftAlignedFooterButtons, html<DialogArgs>`<nimble-button @click="${x => x.dialogRef.close('Back pressed')}" appearance="ghost" slot="footer-start">Back</nimble-button>`)}
+${when(x => x.showCenteredFooterButtons, html<DialogArgs>`<nimble-button @click="${x => x.dialogRef.close('OK pressed')}" appearance="outline" slot="footer-middle">OK</nimble-button>`)}
+${when(x => x.showRightAlignedFooterButtons, html<DialogArgs>`
+    <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}" appearance="ghost" slot="footer-end">Cancel</nimble-button>
+    <nimble-button @click="${x => x.dialogRef.close('Continue pressed')}" appearance="outline" slot="footer-end">Continue</nimble-button>
+`)}
 
-    .title {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        line-height: 28px;
-    }
-
-    .subtitle {
-        font-size: 14px;
-        line-height: 18px;
-        font-weight: 300;
-    }
-</style>
-<header>
-    <div class="title">Delete result</div>
-    <div class="subtitle">Subtitle or message in this location</div>
-</header>
-<section>
-    Deleting a result permanently removes it from SystemLink. Are you sure you want to delete the selected result?
-    <nimble-checkbox>Delete all attachments associated with the selected result</nimble-checkbox>
-</section>
-<footer>
-    <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}" appearance="ghost">Cancel</nimble-button>
-    <nimble-button @click="${x => x.dialogRef.close('OK pressed')}" appearance="outline">Delete</nimble-button>
-</footer>`;
+`;
 
 const content = {
     [ExampleContentType.simpleTextContent]: simpleContent,
@@ -101,11 +86,11 @@ const metadata: Meta<DialogArgs> = {
             description: {
                 component:
                     'A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.\n\nBy default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.'
-            },
-            design: {
-                artboardUrl:
-                    'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6f1b5b4d-2e50-4f8d-ad49-e3dac564a006/specs/'
             }
+        },
+        design: {
+            artboardUrl:
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6f1b5b4d-2e50-4f8d-ad49-e3dac564a006/specs/'
         }
     },
     render: createUserSelectedThemeStory(html`
@@ -121,7 +106,6 @@ const metadata: Meta<DialogArgs> = {
         </style>
         <nimble-dialog
             ${ref('dialogRef')}
-            aria-label="Here is a dialog"
             ?prevent-dismiss="${x => x.preventDismiss}"
             style="${x => `${dialogWidth.cssCustomProperty}:${widths[x.width]};`}"
         >
@@ -196,8 +180,13 @@ const metadata: Meta<DialogArgs> = {
     },
     args: {
         preventDismiss: false,
+        title: 'Dialog title',
+        subtitle: 'Dialog subtitle',
         content: ExampleContentType.headerContentFooter,
         width: DialogWidthOptions.default,
+        showLeftAlignedFooterButtons: false,
+        showCenteredFooterButtons: false,
+        showRightAlignedFooterButtons: true,
         openAndHandleResult: async (dialogRef, textFieldRef) => {
             const reason = await dialogRef.show();
             textFieldRef.value = reason === USER_DISMISSED ? 'ESC pressed' : reason;
