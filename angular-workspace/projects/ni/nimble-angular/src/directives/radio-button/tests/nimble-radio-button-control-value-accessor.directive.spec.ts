@@ -61,6 +61,23 @@ describe('Nimble radio button control value accessor', () => {
             expect((radioGroup.children[1] as RadioButton).checked).toBeTrue();
         });
 
+        it('checks button upon re-adding it', async () => {
+            const secondRadioButton = radioGroup.children[1] as RadioButton;
+            secondRadioButton.remove();
+            fixture.detectChanges();
+            await waitTask();
+
+            expect((radioGroup.children[0] as RadioButton).checked).toBeFalse();
+            expect((radioGroup.children[1] as RadioButton).checked).toBeFalse();
+
+            secondRadioButton.checked = false;
+            radioGroup.append(secondRadioButton);
+            fixture.detectChanges();
+            await waitTask();
+
+            expect((radioGroup.children[2] as RadioButton).checked).toBeTrue();
+        });
+
         it('updates selected value when bound property is changed', fakeAsync(() => {
             testHostComponent.selectedRadioButton = testHostComponent.radioButtons[2].value;
             fixture.detectChanges();

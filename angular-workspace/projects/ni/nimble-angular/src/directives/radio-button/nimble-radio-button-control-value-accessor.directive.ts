@@ -1,7 +1,7 @@
-import { Directive, ElementRef, forwardRef, Host, Inject, Injector, OnInit, Optional, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, forwardRef, Injector, OnInit, Renderer2 } from '@angular/core';
 // eslint-disable-next-line camelcase
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor, ɵangular_packages_forms_forms_r } from '@angular/forms';
-import { NimbleRadioGroupDirective } from '../radio-group/nimble-radio-group.directive';
+import type { RadioGroup } from '../radio-group/nimble-radio-group.directive';
 import type { RadioButton } from './nimble-radio-button.module';
 
 /**
@@ -20,19 +20,25 @@ import type { RadioButton } from './nimble-radio-button.module';
     }]
 })
 export class NimbleRadioButtonControlValueAccessorDirective extends RadioControlValueAccessor implements OnInit {
+    private static _nextOpenId = 0;
     private _privateOnChange?: () => void;
 
     // Type ɵangular_packages_forms_forms_r from base class isn't in camelcase
     // eslint-disable-next-line camelcase
-    public constructor(renderer: Renderer2, private readonly elementRef: ElementRef, _registry: ɵangular_packages_forms_forms_r, _injector: Injector,
-        @Inject(NimbleRadioGroupDirective) @Optional() @Host() private readonly _radioGroup?: NimbleRadioGroupDirective) {
+    public constructor(renderer: Renderer2, private readonly elementRef: ElementRef, _registry: ɵangular_packages_forms_forms_r, _injector: Injector) {
         super(renderer, elementRef, _registry, _injector);
     }
 
+    private static allocateId(): string {
+        const id = NimbleRadioButtonControlValueAccessorDirective._nextOpenId.toString();
+        NimbleRadioButtonControlValueAccessorDirective._nextOpenId += 1;
+        return id;
+    }
+
     public ngOnInit(): void {
-        if (this._radioGroup) {
-            (this.elementRef.nativeElement as RadioButton).value = this._radioGroup.allocateId();
-        }
+        // We need each button element to have a unique string value, because the FAST radio group looks at
+        // these values when trying to manage the checked state.
+        (this.elementRef.nativeElement as RadioButton).value = NimbleRadioButtonControlValueAccessorDirective.allocateId();
     }
 
     /**
@@ -41,8 +47,17 @@ export class NimbleRadioButtonControlValueAccessorDirective extends RadioControl
      */
     public override writeValue(value: unknown): void {
         super.writeValue(value);
-        if (this.value === value && this._radioGroup) {
-            this._radioGroup.value = (this.elementRef.nativeElement as RadioButton).value;
+        const parentGroup = (this.elementRef.nativeElement as RadioButton).parentElement as RadioGroup;
+        if (this.value === value && parentGroup) {
+            // This is a workaround to a problem where all of the buttons are initialized as unchecked.
+            // The radio group tries to synchronize its value and the checked states of the radio buttons.
+            // In response to the slotchange DOM event, the radio group sets the checked state of each
+            // newly slotted button, based on whether the button's value matches the group's value.
+            // If the group's value is uninitialized, it unchecks all radio buttons.
+            // Unfortunately, this occurs _after_ the CVA initializes the checked state of each radio
+            // button, meaning the initially checked button gets unchecked by the group. To avoid this,
+            // we need to set the group's value to match the checked button.
+            parentGroup.value = (this.elementRef.nativeElement as RadioButton).value;
         }
     }
 
