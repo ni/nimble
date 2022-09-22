@@ -50,6 +50,15 @@
                 <NimbleCheckbox>Checkbox label</NimbleCheckbox>
             </div>
             <div class="sub-container">
+                <div class="container-label">Radio Buttons</div>
+                <NimbleRadioGroup Name="options" @bind-Value="@SelectedRadio">
+                    <NimbleRadioButton Value="1">Option 1</NimbleRadioButton>
+                    <NimbleRadioButton Value="2">Option 2</NimbleRadioButton>
+                    <NimbleRadioButton Value="3">Option 3</NimbleRadioButton>
+                </NimbleRadioGroup>
+                <NimbleTextField @bind-Value="@SelectedRadio">Value</NimbleTextField>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Dialog:</div>
                 <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDialogAsync">Open Dialog</NimbleButton>
                 <NimbleTextField readonly Value="@ClosedReason">Closed reason</NimbleTextField>

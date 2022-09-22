@@ -12,6 +12,7 @@ namespace Demo.Shared.Pages
         private string? ActiveTabId { get; set; }
         private NimbleDialog<DialogResult>? _dialog;
         private string? ClosedReason { get; set; }
+        private string? SelectedRadio { get; set; } = "2";
 
         private string DrawerLocationAsString
         {
