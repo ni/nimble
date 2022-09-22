@@ -19,7 +19,7 @@ public partial class NimbleRadioGroup : NimbleInputBase<string>
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        result = value ?? "";
+        result = value ?? string.Empty;
         validationErrorMessage = null;
         return true;
     }
