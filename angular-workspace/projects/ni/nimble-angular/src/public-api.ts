@@ -36,6 +36,7 @@ export * from './directives/number-field/nimble-number-field-control-value-acces
 export * from './directives/number-field/nimble-number-field.directive';
 export * from './directives/number-field/nimble-number-field.module';
 export * from './directives/radio-button/nimble-radio-button-control-value-accessor.directive';
+export * from './directives/radio-button/nimble-radio-button.directive';
 export * from './directives/radio-button/nimble-radio-button.module';
 export * from './directives/radio-group/nimble-radio-group.directive';
 export * from './directives/radio-group/nimble-radio-group.module';
