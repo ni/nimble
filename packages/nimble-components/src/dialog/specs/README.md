@@ -81,15 +81,15 @@ We will not make any special effort to provide forms support (i.e. form `type="d
 The visual design spec has a few different layouts for the dialog. Not all layouts will be supported in the initial styling pass of the dialog. See below for details on what parts will and will not be supported in the intial styling pass:
 - Title
     - Included in initial styling pass: Yes
-    - Rationale: The title of the dialog is straight-forward to add and is a fundamental part of the dialog. Adding the title will also resolve an accessibility issue with the label of the dialog.
+    - Rationale: The title is a fundamental part of the dialog. Adding the title will also resolve an accessibility issue with the dialog's aria-label.
     - Additional details: The content provided for the title will be used as the label of the dialog for accessibility purposes.
 - Subtitle
     - Included in initial styling pass: Yes
-    - Rationale:
+    - Rationale: The styling of the subtitle is straight-forward and there are no open questions associated with it.
 - Warning message
     - Included in initial styling pass: No
-    - Rationale: There isn't a pressing need for this component yet, and there are a number of questions that need to be resolved prior to adding the messages:
-        - Should the messages be arbitrary content provided by the user, or should we have an API around a message's severity, icon, color, etc?
+    - Rationale: There isn't a pressing need for this part of the dialog yet, and there are a number of questions that need to be resolved prior to adding the messages:
+        - Should the messages be arbitrary content provided by the user, or should we have an API around providing message(s) with a specified severity, icon, color, etc?
         - What, if any, is the overlap between these messages and a future `<nimble-banner>` component?
 - Close button
     - Included in initial styling pass: No
@@ -101,7 +101,7 @@ The visual design spec has a few different layouts for the dialog. Not all layou
     - Included in initial styling pass: Yes
     - Rationale: This is critical for using a dialog
 - Footer buttons
-    - Included in initial styling pass: Yes, but will not support hiding the footer in the initial pass
+    - Included in initial styling pass: Yes, but hiding the footer when it contains no buttons will not be supported
     - Rationale: These buttons are required for interacting with the dialog. We will not support hiding the footer entirely because this is not required until we have support for a close button.
     - Additional details:
         - There will be support for left-aligned buttons, centered buttons, and right-aligned buttons
@@ -171,7 +171,7 @@ Blazor support will be provided, following the same patterns as used for existin
 
 ### Visual Appearance
 
-The dialog's width can be configured using a "dialogWidth" token, similar to the `<nimble-drawer>`. It will have a default value, but clients can set the value of this token to change the default.
+The dialog's width will be set in the shadow DOM styling, and it will not be configurable by clients. This decision can be revisited when there is a use-case for different sized dialogs.
 
 We will apply styling to give dialogs a consistent border, shadow, background. We will also set font/font color, but slotted content will often override aspects of the font, and the native dialog's user agent stylesheet may override the color with a non-theme-conforming value (this is the case in Chrome). To ensure proper theme-conforming styling, it is up to clients to properly style their content with theme-aware tokens (e.g. for font/font color, etc).
 
