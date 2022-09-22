@@ -17,9 +17,9 @@ public partial class NimbleRadioGroup : NimbleInputBase<string>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        result = value;
+        result = value ?? "";
         validationErrorMessage = null;
         return true;
     }
