@@ -4,8 +4,8 @@ import { IconSeverity } from '../../../public-api';
 import { IconCheck, NimbleIconCheckDirective } from '../../icons/check/nimble-icon-check.directive';
 import { NimbleIconCheckModule } from '../../icons/check/nimble-icon-check.module';
 
-// As the icon are generated and have identical apis, testing every icon seemed unnecessary
-// so just chose one to test directive bindings to represent them all.
+// As the icons are generated and have identical apis, testing every icon seemed unnecessary.
+// Chose one icon to test directive bindings to represent them all.
 describe('Nimble icon check', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
