@@ -29,7 +29,7 @@ export class Table extends FoundationElement {
             await this.viewer.load(table);
             const data = {
                 x: [0, 1, 2],
-                y: [0, 1, 2],
+                y: [0, 1, 2]
             };
             table.update(data);
             await this.viewer.toggleConfig(true);
