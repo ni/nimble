@@ -27,17 +27,10 @@ export class Table extends FoundationElement {
                 y: 'float'
             });
             await this.viewer.load(table);
-            const data = [
-                {
-                    x: 0,
-                    y: 0
-                },
-                {
-                    x: 1,
-                    y: 1
-                }
-            ];
-            // @ts-expect-error sfd
+            const data = {
+                x: [0, 1, 2],
+                y: [0, 1, 2],
+            };
             table.update(data);
             await this.viewer.toggleConfig(true);
         })();
