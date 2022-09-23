@@ -49,6 +49,22 @@ export class Dialog<CloseReason = void> extends FoundationElement {
     public preventDismiss = false;
 
     /**
+     * @public
+     * @description
+     * Hides the header of the dialog.
+     */
+    @attr({ attribute: 'header-hidden', mode: 'boolean' })
+    public headerHidden = false;
+
+    /**
+     * @public
+     * @description
+     * Hides the footer of the dialog.
+     */
+    @attr({ attribute: 'footer-hidden', mode: 'boolean' })
+    public footerHidden = false;
+
+    /**
      * The ref to the internal dialog element.
      *
      * @internal
@@ -61,15 +77,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
 
     /** @internal */
     @observable
-    public readonly slottedFooterStart?: HTMLElement[];
-
-    /** @internal */
-    @observable
-    public readonly slottedFooterMiddle?: HTMLElement[];
-
-    /** @internal */
-    @observable
-    public readonly slottedFooterEnd?: HTMLElement[];
+    public readonly slottedFooterElements?: HTMLElement[];
 
     /**
      * True if the dialog is open/showing, false otherwise
@@ -107,16 +115,8 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         this.resolveShow = undefined;
     }
 
-    public slottedFooterStartChanged(_prev: HTMLElement[] | undefined, _next: HTMLElement[] | undefined): void {
-        this.checkForEmptyFooter();
-    }
-
-    public slottedFooterMiddleChanged(_prev: HTMLElement[] | undefined, _next: HTMLElement[] | undefined): void {
-        this.checkForEmptyFooter();
-    }
-
-    public slottedFooterEndChanged(_prev: HTMLElement[] | undefined, _next: HTMLElement[] | undefined): void {
-        this.checkForEmptyFooter();
+    public slottedFooterElementsChanged(_prev: HTMLElement[] | undefined, next: HTMLElement[] | undefined): void {
+        this.footerIsEmpty = !next?.length;
     }
 
     /**
@@ -130,12 +130,6 @@ export class Dialog<CloseReason = void> extends FoundationElement {
             this.resolveShow = undefined;
         }
         return true;
-    }
-
-    private checkForEmptyFooter(): void {
-        this.footerIsEmpty = !this.slottedFooterStart?.length
-            && !this.slottedFooterMiddle?.length
-            && !this.slottedFooterEnd?.length;
     }
 }
 

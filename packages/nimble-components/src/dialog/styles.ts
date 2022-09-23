@@ -32,36 +32,6 @@ export const styles = css`
         padding: 0px;
         width: ${dialogWidth};
     }
- ${/*
-    ::slotted(header) {
-        font: ${titlePlus1Font};
-        color: ${titlePlus1FontColor};
-        min-height: 48px;
-        padding: 24px 24px 0px 24px;
-        flex: none;
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    ::slotted(section) {
-        font: ${bodyFont};
-        color: ${bodyFontColor};
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: ${standardPadding};
-    }
-
-    ::slotted(footer) {
-        padding: 24px;
-        flex: none;
-        display: flex;
-        gap: ${standardPadding};
-        justify-content: flex-end;
-        border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
-    }
-    */ ''}
 
     header {
         min-height: 48px;
@@ -72,9 +42,8 @@ export const styles = css`
         gap: ${smallPadding}
     }
 
-    .title {
-        display: flex;
-        align-items: center;
+    :host([header-hidden]) header {
+        display: none;
     }
 
     slot[name='title'] {
@@ -88,17 +57,12 @@ export const styles = css`
         white-space: nowrap;
     }
 
-    .close-button {
-        --ni-nimble-control-height: 24px;
-        margin-left: auto;
-    }
-
     slot[name='subtitle'] {
         font: ${subtitleFont};
         color: ${subtitleFontColor};
     }
 
-    .content slot {
+    section {
         font: ${bodyFont};
         color: ${bodyFontColor};
         padding: 24px;
@@ -112,8 +76,20 @@ export const styles = css`
         flex: none;
         display: flex;
         border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
+        gap: ${standardPadding}
     }
 
+    footer.empty {
+        padding: 0px;
+        height: 72px;
+        border-top: none;
+    }
+
+    :host([footer-hidden]) footer {
+        display: none;
+    }
+
+    ${'' /*
     footer.empty {
         padding: 0px;
         height: 72px;
@@ -124,18 +100,18 @@ export const styles = css`
         display: flex;
         gap: ${standardPadding};
     }
-    
+
     .footer-middle-container {
         display: flex;
         gap: ${standardPadding};
         margin-left: auto;
     }
-    
+
     .footer-end-container {
         display: flex;
         gap: ${standardPadding};
         margin-left: auto;
-    }
+    } */}
 `.withBehaviors(
     /*
      * We cannot use the modalBackdropColor token directly because the backdrop

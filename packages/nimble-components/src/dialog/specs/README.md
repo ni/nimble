@@ -62,6 +62,8 @@ Some [early designs](https://xd.adobe.com/view/00ff3aa4-594f-48eb-6e29-841043749
 -   _Props/Attrs_
     -   `open` - read-only attribute that is set while the dialog is open. The native dialog supports setting this attribute, but it opens the dialog non-modally, uncentered, and without focus management. For that reason our API only supports `show()` as the way to open a dialog.
     -   `prevent-dismiss` - prevent dismissal by pressing ESC (this attribute also exists on the Nimble drawer)
+    -   `header-hidden` - Collapse the header of the dialog, which includes the title and subtitle. This places the content of the dialog at the top of the dialog.
+    -   `footer-hidden` - Collapse the footer of the dialog.
 -   _Methods_
     -   `show()` - opens the dialog and returns a `Promise` that is resolved when the dialog is closed. The value of the resolved `Promise` indicates why/how the dialog was closed. When the dialog is closed by the user pressing ESC, a `USER_DISMISSED` Symbol is returned as the reason.
     -   `close(reason)` - closes the dialog (returning focus to the control that had it before opening), optionally specifying the reason/method (a value of any type).
@@ -101,12 +103,13 @@ The visual design spec has a few different layouts for the dialog. Not all layou
     - Included in initial styling pass: Yes
     - Rationale: This is critical for using a dialog
 - Footer buttons
-    - Included in initial styling pass: Yes, but hiding the footer when it contains no buttons will not be supported
-    - Rationale: These buttons are required for interacting with the dialog. We will not support hiding the footer entirely because this is not required until we have support for a close button.
+    - Included in initial styling pass: Yes
+    - Rationale: These buttons are required for interacting with the dialog.
     - Additional details:
-        - There will be support for left-aligned buttons, centered buttons, and right-aligned buttons
+        - The footer container will have a `flex` layout to allow a client to easily align buttons in the appropriate place within the footer. There will not be explicit slots within the dialog for the various alignments of buttons in the footer.
         - There will be no connection between the `prevent-dismiss` attribute on the dialog and the state of the buttons because the dialog will not make any assumptions about the action associated with any button slotted in the footer.
         - There will be no automatic applying of an `appearance` to any of the buttons. It is the client's responsibility to specify the appropriate `appearance` for all buttons slotted in the footer.
+        - If no buttons are slotted in the footer, the horizontal separator between the footer and content will be removed. The height of the footer will also be adjusted to align with the visual design spec.
 
 
 Shadow DOM:
@@ -117,28 +120,16 @@ Shadow DOM:
     aria-labelledby="title"
 >
     <header>
-        <span id="title" class="title">
+        <span id="title">
             <slot name="title"></slot>
         </span>
-        <span class="subtitle">
-            <slot name="subtitle"></slot>
-        </span>
+        <slot name="subtitle"></slot>
     </header>
     <section>
-        <span class="content">
-            <slot></slot>
-        </span>
+        <slot></slot>
     </section>
     <footer>
-        <span class="footer-start-container">
-            <slot name="footer-start"></slot>
-        </span>
-        <span class="footer-middle-container">
-            <slot name="footer-middle"></slot>
-        </span>
-        <span class="footer-end-container">
-            <slot name="footer-end"></slot>
-        </span>
+        <slot name="footer"></slot>
     </footer>
 </dialog>
 ```
@@ -147,9 +138,7 @@ Shadow DOM:
     -   `title` - Displayed at the top of the dialog and styled using an appropriate nimble font. The title will be used to label the dialog. The title will not wrap if it is too long; instead, overflow will be hidden with ellipsis.
     -   `subtitle` - Displayed at the top of the dialog under the title and styled using an appropriate nimble font.
     -   `(default)` - The primary content of the dialog. If multiple elements are provided for this slot, they will be stacked vertically with padding between them.
-    -   `footer-start` - Buttons to be displayed left-aligned at the bottom of the dialog.
-    -   `footer-middle` - Buttons to be displayed centered at the bottom of the dialog.
-    -   `footer-end` - Buttons to be displayed right-aligned at the bottom of the dialog.
+    -   `footer` - Displayed at the bottom of the dialog for buttons that perform an action within the dialog.
 -   _Host Classes_
     -   (none)
 -   _Slotted Content/Slotted Classes_

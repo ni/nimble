@@ -13,25 +13,13 @@ export const template = html<Dialog>`
                 <span id="title" class="title">
                     <slot name="title"></slot>
                 </span>
-                <span class="subtitle">
-                    <slot name="subtitle"></slot>
-                </span>
+                <slot name="subtitle"></slot>
             </header>
             <section>
-                <span class="content">
-                    <slot></slot>
-                </span>
+                <slot></slot>
             </section>
-            <footer>
-                <span class="footer-start-container">
-                    <slot name="footer-start" ${slotted({ property: 'slottedFooterStart' })}></slot>
-                </span>
-                <span class="footer-middle-container">
-                    <slot name="footer-middle" ${slotted({ property: 'slottedFooterMiddle' })}></slot>
-                </span>
-                <span class="footer-end-container">
-                    <slot name="footer-end" ${slotted({ property: 'slottedFooterEnd' })}></slot>
-                </span>
+            <footer class="${x => (x.footerIsEmpty ? 'empty' : '')}">
+                <slot name="footer" ${slotted({ property: 'slottedFooterElements' })}></slot>
             </footer>
         </dialog>
     </template>

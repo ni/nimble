@@ -39,19 +39,29 @@ const simpleContent = html<DialogArgs>`
 </section>
 `;
 
+// // prettier-ignore
+// const headerFooterContent = html<DialogArgs>`
+// <div slot="title">${x => x.title}</div>
+// <div slot="subtitle">${x => x.subtitle}</div>
+// <span>This action is destructive. Are you sure you would like to do it?</span>
+// <nimble-checkbox>Perform some other relevant action too</nimble-checkbox>
+// ${when(x => x.showLeftAlignedFooterButtons, html<DialogArgs>`<nimble-button @click="${x => x.dialogRef.close('Back pressed')}" appearance="ghost" slot="footer-start">Back</nimble-button>`)}
+// ${when(x => x.showCenteredFooterButtons, html<DialogArgs>`<nimble-button @click="${x => x.dialogRef.close('OK pressed')}" appearance="outline" slot="footer-middle">OK</nimble-button>`)}
+// ${when(x => x.showRightAlignedFooterButtons, html<DialogArgs>`
+//     <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}" appearance="ghost" slot="footer-end">Cancel</nimble-button>
+//     <nimble-button @click="${x => x.dialogRef.close('Continue pressed')}" appearance="outline" slot="footer-end">Continue</nimble-button>
+// `)}
+
+// `;
+
 // prettier-ignore
 const headerFooterContent = html<DialogArgs>`
-<div slot="title">${x => x.title}</div>
-<div slot="subtitle">${x => x.subtitle}</div>
-<span>This action is destructive. Are you sure you would like to do it?</span>
-<nimble-checkbox>Perform some other relevant action too</nimble-checkbox>
-${when(x => x.showLeftAlignedFooterButtons, html<DialogArgs>`<nimble-button @click="${x => x.dialogRef.close('Back pressed')}" appearance="ghost" slot="footer-start">Back</nimble-button>`)}
-${when(x => x.showCenteredFooterButtons, html<DialogArgs>`<nimble-button @click="${x => x.dialogRef.close('OK pressed')}" appearance="outline" slot="footer-middle">OK</nimble-button>`)}
-${when(x => x.showRightAlignedFooterButtons, html<DialogArgs>`
-    <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}" appearance="ghost" slot="footer-end">Cancel</nimble-button>
-    <nimble-button @click="${x => x.dialogRef.close('Continue pressed')}" appearance="outline" slot="footer-end">Continue</nimble-button>
-`)}
-
+    <div slot="title">${x => x.title}</div>
+    <div slot="subtitle">${x => x.subtitle}</div>
+    <span>This action is destructive. Are you sure you would like to do it?</span>
+    <nimble-checkbox>Perform some other relevant action too</nimble-checkbox>
+    <!-- <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}" appearance="ghost" slot="footer">Cancel</nimble-button>
+    <nimble-button @click="${x => x.dialogRef.close('Continue pressed')}" appearance="outline" slot="footer">Continue</nimble-button> -->
 `;
 
 const content = {
