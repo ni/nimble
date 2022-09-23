@@ -27,14 +27,19 @@ export class Table extends FoundationElement {
                 y: 'float'
             });
             await this.viewer.load(table);
-            table.update([
+            const data = [
                 {
-                    // @ts-expect-error sfd
                     x: 0,
-                    // @ts-expect-error sfd
                     y: 0
+                },
+                {
+                    x: 1,
+                    y: 1
                 }
-            ]);
+            ];
+            // @ts-expect-error sfd
+            table.update(data);
+            await this.viewer.toggleConfig(true);
         })();
     }
 }
