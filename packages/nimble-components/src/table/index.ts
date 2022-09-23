@@ -27,12 +27,14 @@ export class Table extends FoundationElement {
                 y: 'float'
             });
             await this.viewer.load(table);
-            table.update([{
-                // @ts-expect-error sfd
-                x: 0,
-                // @ts-expect-error sfd
-                y: 0
-            }]);
+            table.update([
+                {
+                    // @ts-expect-error sfd
+                    x: 0,
+                    // @ts-expect-error sfd
+                    y: 0
+                }
+            ]);
         })();
     }
 }
