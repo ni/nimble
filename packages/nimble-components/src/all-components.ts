@@ -25,6 +25,7 @@ import './select';
 import './switch';
 import './tab';
 import './tab-panel';
+import './table';
 import './tabs';
 import './tabs-toolbar';
 import './text-area';

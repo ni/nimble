@@ -46,6 +46,9 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
+    "@finos/perspective": "^1.6.5",
+    "@finos/perspective-viewer": "^1.6.5",
+    "@finos/perspective-viewer-datagrid": "^1.6.5",
     "@microsoft/fast-animation": "^4.2.2",
     "@microsoft/fast-element": "^1.10.1",
     "@microsoft/fast-foundation": "^2.46.11",
@@ -75,6 +78,7 @@
     "@storybook/theming": "^6.5.10",
     "@types/jasmine": "^3.6.0",
     "@types/webpack-env": "^1.15.2",
+    "@types/ws": "^8.5.3",
     "babel-loader": "^8.2.2",
     "chromatic": "^5.9.2",
     "circular-dependency-plugin": "^5.2.0",
