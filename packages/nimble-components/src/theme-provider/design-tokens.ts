@@ -208,9 +208,6 @@ export const iconSize = DesignToken.create<string>(
 export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
-export const dialogWidth = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.dialogWidth)
-).withDefault('400px');
 
 // Font Tokens
 export const [

@@ -7,7 +7,6 @@ import {
     actionRgbPartialColor,
     bodyFont,
     bodyFontColor,
-    dialogWidth,
     titlePlus1Font,
     titlePlus1FontColor,
     smallPadding,
@@ -32,7 +31,7 @@ export const styles = css`
         border: none;
         box-shadow: 0px 4px 8px #0000004D;
         padding: 0px;
-        width: ${dialogWidth};
+        width: 400px;
         max-height: 600px;
     }
 
@@ -42,11 +41,17 @@ export const styles = css`
         flex: none;
         display: flex;
         flex-direction: column;
-        gap: ${smallPadding}
+        gap: ${smallPadding};
     }
 
     :host([header-hidden]) header {
         display: none;
+    }
+
+    .title {
+        display: flex;
+        flex-direction: column;
+        gap: ${smallPadding};
     }
 
     slot[name='title'] {
@@ -81,6 +86,7 @@ export const styles = css`
         padding: 24px;
         flex: none;
         display: flex;
+        justify-content: flex-end;
         border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
         gap: ${standardPadding};
     }

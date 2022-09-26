@@ -1,23 +1,18 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createUserSelectedThemeStory, overrideWarning } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { Dialog, USER_DISMISSED } from '..';
 import type { TextField } from '../../text-field';
-import { DialogWidthOptions, ExampleContentType } from './types';
-import { dialogWidth } from '../../theme-provider/design-tokens';
-import { scssInternalPropertySetterMarkdown, tokenNames } from '../../theme-provider/design-token-names';
 
 interface DialogArgs {
     title: string;
     subtitle: string;
+    headerHidden: boolean;
+    footerHidden: boolean;
+    includeFooterButtons: boolean;
     preventDismiss: boolean;
-    content: ExampleContentType;
-    width: DialogWidthOptions;
-    showLeftAlignedFooterButtons: boolean;
-    showCenteredFooterButtons: boolean;
-    showRightAlignedFooterButtons: boolean;
     show: undefined;
     close: undefined;
     dialogRef: Dialog<string>;
@@ -27,66 +22,6 @@ interface DialogArgs {
         textFieldRef: TextField
     ) => void;
 }
-
-const simpleContent = html<DialogArgs>`
-<section>
-    <p>
-        This is a dialog.
-    </p>
-    <nimble-button @click="${x => x.dialogRef.close('Close pressed')}"
-        >Close</nimble-button
-    >
-</section>
-`;
-
-// // prettier-ignore
-// const headerFooterContent = html<DialogArgs>`
-// <div slot="title">${x => x.title}</div>
-// <div slot="subtitle">${x => x.subtitle}</div>
-// <span>This action is destructive. Are you sure you would like to do it?</span>
-// <nimble-checkbox>Perform some other relevant action too</nimble-checkbox>
-// ${when(x => x.showLeftAlignedFooterButtons, html<DialogArgs>`<nimble-button @click="${x => x.dialogRef.close('Back pressed')}" appearance="ghost" slot="footer-start">Back</nimble-button>`)}
-// ${when(x => x.showCenteredFooterButtons, html<DialogArgs>`<nimble-button @click="${x => x.dialogRef.close('OK pressed')}" appearance="outline" slot="footer-middle">OK</nimble-button>`)}
-// ${when(x => x.showRightAlignedFooterButtons, html<DialogArgs>`
-//     <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}" appearance="ghost" slot="footer-end">Cancel</nimble-button>
-//     <nimble-button @click="${x => x.dialogRef.close('Continue pressed')}" appearance="outline" slot="footer-end">Continue</nimble-button>
-// `)}
-
-// `;
-
-// prettier-ignore
-const headerFooterContent = html<DialogArgs>`
-    <div slot="title">${x => x.title}</div>
-    <div slot="subtitle">${x => x.subtitle}</div>
-    <span>This action is destructive. Are you sure you would like to do it?</span>
-    <nimble-checkbox>Perform some other relevant action too</nimble-checkbox>
-    <!-- <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}" appearance="ghost" slot="footer">Cancel</nimble-button>
-    <nimble-button @click="${x => x.dialogRef.close('Continue pressed')}" appearance="outline" slot="footer">Continue</nimble-button> -->
-`;
-
-const content = {
-    [ExampleContentType.simpleTextContent]: simpleContent,
-    [ExampleContentType.headerContentFooter]: headerFooterContent
-} as const;
-
-const widths = {
-    [DialogWidthOptions.default]: dialogWidth.getValueFor(document.body),
-    [DialogWidthOptions.small300]: '300px',
-    [DialogWidthOptions.large600]: '600px',
-    [DialogWidthOptions.fitContent]: 'fit-content'
-} as const;
-
-const widthDescriptionOverride = `
-With SCSS properties, the dialog width can be overriden. For example:
-${scssInternalPropertySetterMarkdown(tokenNames.dialogWidth, '100px')}
-
-Dialog widths can be any [CSS width](https://developer.mozilla.org/en-US/docs/Web/CSS/width) value, including \`fit-content\`, etc.
-`;
-
-const widthDescription = `
-Width of a nimble dialog.
-${overrideWarning('Dialog Width', widthDescriptionOverride)}
-`;
 
 const metadata: Meta<DialogArgs> = {
     title: 'Dialog',
@@ -105,21 +40,25 @@ const metadata: Meta<DialogArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <style class="code-hide">
-            h1 {
-                font: var(--ni-nimble-title-font);
-                color: var(--ni-nimble-title-font-color);
-            }
-            p {
-                font: var(--ni-nimble-body-font);
-                color: var(--ni-nimble-body-font-color);
+            .first-button {
+                margin-right: auto;
             }
         </style>
         <nimble-dialog
             ${ref('dialogRef')}
             ?prevent-dismiss="${x => x.preventDismiss}"
-            style="${x => `${dialogWidth.cssCustomProperty}:${widths[x.width]};`}"
+            ?header-hidden="${x => x.headerHidden}"
+            ?footer-hidden="${x => x.footerHidden}"
         >
-            ${x => content[x.content]}
+            <div slot="title">${x => x.title}</div>
+            <div slot="subtitle">${x => x.subtitle}</div>
+            <span>This action is destructive. Are you sure you would like to do it?</span>
+            <nimble-checkbox>Perform some other relevant action too</nimble-checkbox>
+            ${when(x => x.includeFooterButtons, html<DialogArgs>`
+                <nimble-button @click="${x => x.dialogRef.close('Back pressed')}" appearance="ghost" slot="footer" class="first-button">Back</nimble-button>
+                <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}" appearance="ghost" slot="footer">Cancel</nimble-button>
+                <nimble-button @click="${x => x.dialogRef.close('Continue pressed')}" appearance="outline" slot="footer">Continue</nimble-button>
+            `)}
         </nimble-dialog>
         <nimble-button
             id="open"
@@ -136,41 +75,6 @@ const metadata: Meta<DialogArgs> = {
     argTypes: {
         preventDismiss: {
             name: 'prevent-dismiss'
-        },
-        content: {
-            options: [
-                ExampleContentType.simpleTextContent,
-                ExampleContentType.headerContentFooter
-            ],
-            control: {
-                type: 'radio',
-                labels: {
-                    [ExampleContentType.simpleTextContent]:
-                        'Simple Text Content',
-                    [ExampleContentType.headerContentFooter]:
-                        'Header/Content/Footer Example'
-                }
-            }
-        },
-        width: {
-            description: widthDescription,
-            options: [
-                DialogWidthOptions.default,
-                DialogWidthOptions.small300,
-                DialogWidthOptions.large600,
-                DialogWidthOptions.fitContent
-            ],
-            control: {
-                type: 'select',
-                labels: {
-                    [DialogWidthOptions.default]: `Default (${dialogWidth.getValueFor(
-                        document.body
-                    )})`,
-                    [DialogWidthOptions.small300]: 'Small - 300px',
-                    [DialogWidthOptions.large600]: 'Large - 600px',
-                    [DialogWidthOptions.fitContent]: 'fit-content'
-                }
-            }
         },
         show: {
             name: 'show()',
@@ -189,14 +93,12 @@ const metadata: Meta<DialogArgs> = {
         }
     },
     args: {
-        preventDismiss: false,
         title: 'Dialog title',
         subtitle: 'Dialog subtitle',
-        content: ExampleContentType.headerContentFooter,
-        width: DialogWidthOptions.default,
-        showLeftAlignedFooterButtons: false,
-        showCenteredFooterButtons: false,
-        showRightAlignedFooterButtons: true,
+        headerHidden: false,
+        footerHidden: false,
+        includeFooterButtons: true,
+        preventDismiss: false,
         openAndHandleResult: async (dialogRef, textFieldRef) => {
             const reason = await dialogRef.show();
             textFieldRef.value = reason === USER_DISMISSED ? 'ESC pressed' : reason;
