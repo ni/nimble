@@ -51,7 +51,7 @@ describe('Dialog', () => {
         await DOM.nextUpdate();
 
         expect(getComputedStyle(nativeDialogElement(element)).display).toBe(
-            'block'
+            'flex'
         );
 
         await disconnect();
@@ -208,35 +208,6 @@ describe('Dialog', () => {
         expect(nativeDialogElement(element)?.getAttribute('role')).toBe(
             'alertdialog'
         );
-
-        await disconnect();
-    });
-
-    it('forwards value of aria-label to dialog element', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        const expectedValue = 'doughnut';
-        element.ariaLabel = expectedValue;
-        await DOM.nextUpdate();
-
-        expect(
-            nativeDialogElement(element)?.getAttribute('aria-label')
-        ).toEqual(expectedValue);
-
-        await disconnect();
-    });
-
-    it('removes value of aria-label from dialog element when cleared from host', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        element.ariaLabel = 'not empty';
-        await DOM.nextUpdate();
-        element.ariaLabel = null;
-        await DOM.nextUpdate();
-
-        expect(
-            nativeDialogElement(element)?.getAttribute('aria-label')
-        ).toBeNull();
 
         await disconnect();
     });
