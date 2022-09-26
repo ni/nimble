@@ -15,7 +15,7 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
+/*
 const component = html`
     <nimble-dialog>
         <h2
@@ -35,8 +35,8 @@ const component = html`
 
 const [
     lightThemeWhiteBackground,
-    // colorThemeDarkGreenBackground,
-    // darkThemeBlackBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
     ...remaining
 ] = backgroundStates;
 
@@ -44,11 +44,6 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const temporaryStandIn: Story = createFixedThemeStory(
-    html`This is a stand-in story for the dialog, because the real stories started breaking Chromatic builds due to their Firefox version not supporting the HTML dialog.`,
-    lightThemeWhiteBackground
-);
-/*
 const playFunction = (): void => {
     void document.querySelector('nimble-dialog')!.show();
 };
@@ -74,3 +69,12 @@ export const dialogDarkThemeBlackBackground: Story = createFixedThemeStory(
 
 dialogDarkThemeBlackBackground.play = playFunction;
 */
+
+const [
+    lightThemeWhiteBackground
+] = backgroundStates;
+
+export const temporaryStandIn: Story = createFixedThemeStory(
+    html`This is a stand-in story for the dialog, because the real stories started breaking Chromatic builds due to their Firefox version not supporting the HTML dialog.`,
+    lightThemeWhiteBackground
+);
