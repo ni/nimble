@@ -8,5 +8,6 @@ describe('Tab', () => {
 
     it('can construct an element instance', () => {
         expect(document.createElement('nimble-tab')).toBeInstanceOf(Tab);
+        console.error('barf');
     });
 });
