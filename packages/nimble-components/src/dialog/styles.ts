@@ -25,7 +25,7 @@ import { themeBehavior } from '../utilities/style/theme';
 export const styles = css`
     ${display('inline-flex')}
 
-    dialog {
+    dialog[open] {
         display: flex;
         flex-direction: column;
         background-color: ${applicationBackgroundColor};
@@ -82,7 +82,7 @@ export const styles = css`
         flex: none;
         display: flex;
         border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
-        gap: ${standardPadding}
+        gap: ${standardPadding};
     }
 
     footer.empty {
