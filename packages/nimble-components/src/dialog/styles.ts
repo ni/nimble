@@ -73,7 +73,6 @@ export const styles = css`
     section {
         flex: auto;
         overflow-y: auto;
-
         font: ${bodyFont};
         color: ${bodyFontColor};
         padding: 24px;
@@ -83,11 +82,11 @@ export const styles = css`
     }
 
     footer {
+        border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
         padding: 24px;
         flex: none;
         display: flex;
         justify-content: flex-end;
-        border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
         gap: ${standardPadding};
     }
 
@@ -100,30 +99,6 @@ export const styles = css`
     :host([footer-hidden]) footer {
         display: none;
     }
-
-    ${'' /*
-    footer.empty {
-        padding: 0px;
-        height: 72px;
-        border-top: none;
-    }
-
-    .footer-start-container {
-        display: flex;
-        gap: ${standardPadding};
-    }
-
-    .footer-middle-container {
-        display: flex;
-        gap: ${standardPadding};
-        margin-left: auto;
-    }
-
-    .footer-end-container {
-        display: flex;
-        gap: ${standardPadding};
-        margin-left: auto;
-    } */}
 `.withBehaviors(
     /*
      * We cannot use the modalBackdropColor token directly because the backdrop
