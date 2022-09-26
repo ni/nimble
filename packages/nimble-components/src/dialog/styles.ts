@@ -26,11 +26,14 @@ export const styles = css`
     ${display('inline-flex')}
 
     dialog {
+        display: flex;
+        flex-direction: column;
         background-color: ${applicationBackgroundColor};
         border: none;
         box-shadow: 0px 4px 8px #0000004D;
         padding: 0px;
         width: ${dialogWidth};
+        max-height: 600px;
     }
 
     header {
@@ -63,6 +66,9 @@ export const styles = css`
     }
 
     section {
+        flex: auto;
+        overflow-y: auto;
+
         font: ${bodyFont};
         color: ${bodyFontColor};
         padding: 24px;

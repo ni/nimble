@@ -12,8 +12,8 @@ export const template = html<Dialog>`
             <header>
                 <span id="title" class="title">
                     <slot name="title"></slot>
+                    <slot name="subtitle"></slot>
                 </span>
-                <slot name="subtitle"></slot>
             </header>
             <section>
                 <slot></slot>
