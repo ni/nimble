@@ -24,3 +24,6 @@ getTestBed().initTestEnvironment(
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
+
+// eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
+console.error = (data: any): void => fail(data);
