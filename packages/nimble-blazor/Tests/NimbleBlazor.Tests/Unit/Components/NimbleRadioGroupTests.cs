@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
@@ -37,6 +39,29 @@ public class NimbleRadioGroupTests
         var select = RenderNimbleRadioGroupWithButton();
 
         Assert.Contains(expectedMarkup, select.Markup);
+    }
+
+    [Fact]
+    public void NimbleRadioGroupDisabled_AttributeIsSet()
+    {
+        var radioGroup = RenderNimbleRadioGroupWithPropertySet(x => x.Disabled, true);
+
+        Assert.Contains("disabled", radioGroup.Markup);
+    }
+
+    [Fact]
+    public void NimbleRadioGroupName_AttributeIsSet()
+    {
+        var radioGroup = RenderNimbleRadioGroupWithPropertySet(x => x.Name, "foo");
+
+        Assert.Contains("name", radioGroup.Markup);
+    }
+
+    private IRenderedComponent<NimbleRadioGroup> RenderNimbleRadioGroupWithPropertySet<TProperty>(Expression<Func<NimbleRadioGroup, TProperty>> propertyGetter, TProperty propertyValue)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<NimbleRadioGroup>(p => p.Add(propertyGetter, propertyValue));
     }
 
     private IRenderedComponent<NimbleRadioGroup> RenderNimbleRadioGroupWithButton()
