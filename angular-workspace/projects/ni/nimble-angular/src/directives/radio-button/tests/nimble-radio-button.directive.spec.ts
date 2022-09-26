@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
-import { NimbleRadioButtonDirective } from '../nimble-radio-button.directive';
-import { NimbleRadioButtonModule, RadioButton } from '../nimble-radio-button.module';
+import { NimbleRadioButtonDirective, RadioButton } from '../nimble-radio-button.directive';
+import { NimbleRadioButtonModule } from '../nimble-radio-button.module';
 
 describe('Nimble radio button', () => {
     beforeEach(() => {

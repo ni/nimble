@@ -1,11 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NimbleRadioButtonModule, RadioButton } from '../nimble-radio-button.module';
+import { NimbleRadioButtonModule } from '../nimble-radio-button.module';
 import { processUpdates } from '../../../testing/async-helpers';
 import { waitTask } from '../../../async-test-utilities';
 import { NimbleRadioGroupModule } from '../../radio-group/nimble-radio-group.module';
 import type { RadioGroup } from '../../radio-group/nimble-radio-group.directive';
+import type { RadioButton } from '../nimble-radio-button.directive';
 
 function setSelectedRadioIndex(radioGroup: RadioGroup, index: number): void {
     radioGroup.children[index].dispatchEvent(new Event('click', { bubbles: true }));
