@@ -17,9 +17,10 @@ describe('AppComponent', () => {
         });
     });
 
-    it('should create the app', () => {
+    it('should create the app', async () => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.componentInstance;
+        await new Promise(() => console.error('barf'));
         expect(app).toBeTruthy();
     });
 });

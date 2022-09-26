@@ -10,5 +10,6 @@ describe('Nimble tab', () => {
 
     it('custom element is defined', () => {
         expect(customElements.get('nimble-tab')).not.toBeUndefined();
+        console.error('barf');
     });
 });
