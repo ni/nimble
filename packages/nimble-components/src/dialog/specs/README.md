@@ -81,44 +81,41 @@ We will not make any special effort to provide forms support (i.e. form `type="d
 ### Anatomy
 
 The visual design spec has a few different layouts for the dialog. Not all layouts will be supported in the initial styling pass of the dialog. See below for details on what parts will and will not be supported in the intial styling pass:
-- Title
-    - Included in initial styling pass: Yes
-    - Rationale: The title is a fundamental part of the dialog. Adding the title will also resolve an accessibility issue with the dialog's aria-label.
-    - Additional details: The content provided for the title will be used as the label of the dialog for accessibility purposes.
-- Subtitle
-    - Included in initial styling pass: Yes
-    - Rationale: The styling of the subtitle is straight-forward and there are no open questions associated with it.
-- Warning message
-    - Included in initial styling pass: No
-    - Rationale: There isn't a pressing need for this part of the dialog yet, and there are a number of questions that need to be resolved prior to adding the messages:
-        - Should the messages be arbitrary content provided by the user, or should we have an API around providing message(s) with a specified severity, icon, color, etc?
-        - What, if any, is the overlap between these messages and a future `<nimble-banner>` component?
-- Close button
-    - Included in initial styling pass: No
-    - Rationale: There isn't a pressing need for this component yet, and there are a number of questions that need to be resolved prior to adding the button:
-        - Should the API allow a client to slot any arbitrary buttons, including a close button, or should we only support one single button that is "close"?
-        - What control do we need to give over the close button? Do we need a way for the user to explicitly disable it?
-        - Should there be any connection between the `prevent-dismiss` attribute on the dialog and the visibility or disabled state of the close button?
-- Content
-    - Included in initial styling pass: Yes
-    - Rationale: This is critical for using a dialog
-- Footer buttons
-    - Included in initial styling pass: Yes
-    - Rationale: These buttons are required for interacting with the dialog.
-    - Additional details:
-        - The footer container will have a `flex` layout to allow a client to easily align buttons in the appropriate place within the footer. There will not be explicit slots within the dialog for the various alignments of buttons in the footer.
-        - There will be no connection between the `prevent-dismiss` attribute on the dialog and the state of the buttons because the dialog will not make any assumptions about the action associated with any button slotted in the footer.
-        - There will be no automatic applying of an `appearance` to any of the buttons. It is the client's responsibility to specify the appropriate `appearance` for all buttons slotted in the footer.
-        - If no buttons are slotted in the footer, the horizontal separator between the footer and content will be removed. The height of the footer will also be adjusted to align with the visual design spec.
 
+-   Title
+    -   Included in initial styling pass: Yes
+    -   Rationale: The title is a fundamental part of the dialog. Adding the title will also resolve an accessibility issue with the dialog's aria-label.
+    -   Additional details: The content provided for the title will be used as the label of the dialog for accessibility purposes.
+-   Subtitle
+    -   Included in initial styling pass: Yes
+    -   Rationale: The styling of the subtitle is straight-forward and there are no open questions associated with it.
+-   Warning message
+    -   Included in initial styling pass: No
+    -   Rationale: There isn't a pressing need for this part of the dialog yet, and there are a number of questions that need to be resolved prior to adding the messages:
+        -   Should the messages be arbitrary content provided by the user, or should we have an API around providing message(s) with a specified severity, icon, color, etc?
+        -   What, if any, is the overlap between these messages and a future `<nimble-banner>` component?
+-   Close button
+    -   Included in initial styling pass: No
+    -   Rationale: There isn't a pressing need for this component yet, and there are a number of questions that need to be resolved prior to adding the button:
+        -   Should the API allow a client to slot any arbitrary buttons, including a close button, or should we only support one single button that is "close"?
+        -   What control do we need to give over the close button? Do we need a way for the user to explicitly disable it?
+        -   Should there be any connection between the `prevent-dismiss` attribute on the dialog and the visibility or disabled state of the close button?
+-   Content
+    -   Included in initial styling pass: Yes
+    -   Rationale: This is critical for using a dialog
+-   Footer buttons
+    -   Included in initial styling pass: Yes
+    -   Rationale: These buttons are required for interacting with the dialog.
+    -   Additional details:
+        -   The footer container will have a `flex` layout to allow a client to easily align buttons in the appropriate place within the footer. There will not be explicit slots within the dialog for the various alignments of buttons in the footer.
+        -   There will be no connection between the `prevent-dismiss` attribute on the dialog and the state of the buttons because the dialog will not make any assumptions about the action associated with any button slotted in the footer.
+        -   There will be no automatic applying of an `appearance` to any of the buttons. It is the client's responsibility to specify the appropriate `appearance` for all buttons slotted in the footer.
+        -   If no buttons are slotted in the footer, the horizontal separator between the footer and content will be removed. The height of the footer will also be adjusted to align with the visual design spec.
 
 Shadow DOM:
 
 ```html
-<dialog
-    role="alertdialog"
-    aria-labelledby="title"
->
+<dialog role="alertdialog" aria-labelledby="title">
     <header>
         <span id="title">
             <slot name="title"></slot>

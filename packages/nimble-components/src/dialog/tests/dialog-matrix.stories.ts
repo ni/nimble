@@ -21,7 +21,9 @@ const component = html`
         <div slot="title">This is my dialog's title. It is pretty long</div>
         <div slot="subtitle">The dialog has a subtitle here.</div>
         <div>Here is the first piece of content in the dialog</div>
-        <div>Here is another piece of content in the dialog. It is a bit longer.</div>
+        <div>
+            Here is another piece of content in the dialog. It is a bit longer.
+        </div>
         <nimble-button slot="footer">Cancel</nimble-button>
         <nimble-button slot="footer">OK</nimble-button>
     </nimble-dialog>

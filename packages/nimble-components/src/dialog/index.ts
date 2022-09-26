@@ -115,7 +115,10 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         this.resolveShow = undefined;
     }
 
-    public slottedFooterElementsChanged(_prev: HTMLElement[] | undefined, next: HTMLElement[] | undefined): void {
+    public slottedFooterElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
         this.footerIsEmpty = !next?.length;
     }
 

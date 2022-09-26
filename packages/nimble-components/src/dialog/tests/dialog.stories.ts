@@ -52,13 +52,37 @@ const metadata: Meta<DialogArgs> = {
         >
             <div slot="title">${x => x.title}</div>
             <div slot="subtitle">${x => x.subtitle}</div>
-            <span>This action is destructive. Are you sure you would like to do it?</span>
-            <nimble-checkbox>Perform some other relevant action too</nimble-checkbox>
-            ${when(x => x.includeFooterButtons, html<DialogArgs>`
-                <nimble-button @click="${x => x.dialogRef.close('Back pressed')}" appearance="ghost" slot="footer" class="first-button">Back</nimble-button>
-                <nimble-button @click="${x => x.dialogRef.close('Cancel pressed')}" appearance="ghost" slot="footer">Cancel</nimble-button>
-                <nimble-button @click="${x => x.dialogRef.close('Continue pressed')}" appearance="outline" slot="footer">Continue</nimble-button>
-            `)}
+            <span
+                >This action is destructive. Are you sure you would like to do
+                it?</span
+            >
+            <nimble-checkbox
+                >Perform some other relevant action too</nimble-checkbox
+            >
+            ${when(
+        x => x.includeFooterButtons,
+        html<DialogArgs>`
+                    <nimble-button
+                        @click="${x => x.dialogRef.close('Back pressed')}"
+                        appearance="ghost"
+                        slot="footer"
+                        class="first-button"
+                        >Back</nimble-button
+                    >
+                    <nimble-button
+                        @click="${x => x.dialogRef.close('Cancel pressed')}"
+                        appearance="ghost"
+                        slot="footer"
+                        >Cancel</nimble-button
+                    >
+                    <nimble-button
+                        @click="${x => x.dialogRef.close('Continue pressed')}"
+                        appearance="outline"
+                        slot="footer"
+                        >Continue</nimble-button
+                    >
+                `
+    )}
         </nimble-dialog>
         <nimble-button
             id="open"

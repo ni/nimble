@@ -19,7 +19,10 @@ export const template = html<Dialog>`
                 <slot></slot>
             </section>
             <footer class="${x => (x.footerIsEmpty ? 'empty' : '')}">
-                <slot name="footer" ${slotted({ property: 'slottedFooterElements' })}></slot>
+                <slot
+                    name="footer"
+                    ${slotted({ property: 'slottedFooterElements' })}
+                ></slot>
             </footer>
         </dialog>
     </template>

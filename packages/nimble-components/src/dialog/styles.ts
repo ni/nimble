@@ -29,7 +29,7 @@ export const styles = css`
         flex-direction: column;
         background-color: ${applicationBackgroundColor};
         border: none;
-        box-shadow: 0px 4px 8px #0000004D;
+        box-shadow: 0px 4px 8px #0000004d;
         padding: 0px;
         width: 400px;
         max-height: 600px;
@@ -78,7 +78,7 @@ export const styles = css`
         padding: 24px;
         display: flex;
         flex-direction: column;
-        gap: ${standardPadding}
+        gap: ${standardPadding};
     }
 
     footer {
