@@ -2,7 +2,6 @@
 @inherits NimbleInputBase<string>
 <nimble-radio-group disabled=@Disabled
                     name="@Name"
-                    value="@Value"
                     orientation="@Orientation.ToAttributeValue()"
                     current-value="@CurrentValue"
                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValue = __value, CurrentValue))"

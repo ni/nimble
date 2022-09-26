@@ -5,24 +5,39 @@ namespace NimbleBlazor;
 
 public partial class NimbleRadioButton : ComponentBase
 {
-    [Parameter]
-    public string? Value { get; set; }
-
+    /// <summary>
+    /// Gets or sets the value.
+    /// </summary>
     [Parameter]
     public string? CurrentValue { get; set; }
 
+    /// <summary>
+    /// Gets or sets the disabled state.
+    /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the checked state.
+    /// </summary>
     [Parameter]
     public bool? Checked { get; set; }
 
+    /// <summary>
+    /// Gets or sets the child content to be rendered inside the <see cref="NimbleRadioButton"/>.
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets any additional attributes to set on the element.
+    /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }
