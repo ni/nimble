@@ -108,13 +108,13 @@ export const styles = css`
         display: none;
     }
 `.withBehaviors(
-        appearanceBehavior(
-            DropdownAppearance.block,
-            css`
+    appearanceBehavior(
+        DropdownAppearance.block,
+        css`
             :host(.invalid) .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
         `
-        )
-    );
+    )
+);

@@ -157,13 +157,13 @@ const styles = css`
 `;
 ```
 
-## Avoid styling the `:invalid` pseudo-class
+## Avoid styling the invalid pseudo-class
 
 When styling the invalid state of a form component, it may seem natural to use `:host(:invalid)` in the CSS selector. `:invalid` applies when the form validation has run (generally happens immediately) and failed on that component. The problem with styling based on this pseudo-class is that it prevents a client from having control over when the invalid styling is displayed. For example, if a required input is initially empty, it is common not to show the error styling until the user has changed the value (and subsequently left it empty).
 
-Instead of styling based on `:invalid`, use the class `invalid`. Then the client can create a binding to apply the `invalid` class based on the associated `FormControl`'s status properties, like `invalid`, `dirty`, and `touched`.
+Instead of styling based on `:invalid`, style the `[error-visible]` attribute. Then the client can create a binding to apply the `invalid` class based on the associated `FormControl`'s status properties, like `invalid`, `dirty`, and `touched`.
 
-## Use FAST's `display` utility for styling host element
+## Use FAST's display utility for styling host element
 
 For consistent styling, use FAST's `display` utility when setting a `display` style on the host element.
 
