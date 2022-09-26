@@ -2,7 +2,7 @@ import { Directive, ElementRef, forwardRef, Injector, OnInit, Renderer2 } from '
 // eslint-disable-next-line camelcase
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor, ɵangular_packages_forms_forms_r } from '@angular/forms';
 import { RadioGroup } from '../radio-group/nimble-radio-group.directive';
-import type { RadioButton } from './nimble-radio-button.module';
+import type { RadioButton } from './nimble-radio-button.directive';
 
 /**
  * Control Value Accessor implementation for the radio group.
