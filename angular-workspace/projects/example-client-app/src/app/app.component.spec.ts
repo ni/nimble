@@ -20,6 +20,7 @@ describe('AppComponent', () => {
     it('should create the app', async () => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.componentInstance;
+        // eslint-disable-next-line no-console
         await new Promise(() => console.error('barf'));
         expect(app).toBeTruthy();
     });
