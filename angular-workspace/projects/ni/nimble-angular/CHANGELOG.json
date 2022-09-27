@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 27 Sep 2022 21:39:15 GMT",
+      "tag": "@ni/nimble-angular_v8.5.0",
+      "version": "8.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "6906246ea159f42edcd34b2cc881611afa32186d",
+            "comment": "Angular integration for radio button and group"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 19 Sep 2022 19:10:55 GMT",
       "tag": "@ni/nimble-angular_v8.4.12",
       "version": "8.4.12",
