@@ -70,11 +70,11 @@ export const dialogDarkThemeBlackBackground: Story = createFixedThemeStory(
 dialogDarkThemeBlackBackground.play = playFunction;
 */
 
-const [
-    lightThemeWhiteBackground
-] = backgroundStates;
+const [lightThemeWhiteBackground] = backgroundStates;
 
 export const temporaryStandIn: Story = createFixedThemeStory(
-    html`This is a stand-in story for the dialog, because the real stories started breaking Chromatic builds due to their Firefox version not supporting the HTML dialog.`,
+    html`This is a stand-in story for the dialog, because the real stories
+    started breaking Chromatic builds due to their Firefox version not
+    supporting the HTML dialog.`,
     lightThemeWhiteBackground
 );
