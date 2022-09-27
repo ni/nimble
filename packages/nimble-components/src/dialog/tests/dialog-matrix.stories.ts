@@ -15,7 +15,7 @@ const metadata: Meta = {
 };
 
 export default metadata;
-/*
+
 const component = html`
     <nimble-dialog>
         <h2
@@ -54,6 +54,10 @@ export const dialogLightThemeWhiteBackground: Story = createFixedThemeStory(
 );
 
 dialogLightThemeWhiteBackground.play = playFunction;
+// Disabling until Chromatic's Capture Cloud supports a version of Firefox that supports the dialog element
+dialogLightThemeWhiteBackground.parameters = {
+    chromatic: { disableSnapshot: true }
+};
 
 export const dialogColorThemeDarkGreenBackground: Story = createFixedThemeStory(
     component,
@@ -61,6 +65,10 @@ export const dialogColorThemeDarkGreenBackground: Story = createFixedThemeStory(
 );
 
 dialogColorThemeDarkGreenBackground.play = playFunction;
+// Disabling until Chromatic's Capture Cloud supports a version of Firefox that supports the dialog element
+dialogColorThemeDarkGreenBackground.parameters = {
+    chromatic: { disableSnapshot: true }
+};
 
 export const dialogDarkThemeBlackBackground: Story = createFixedThemeStory(
     component,
@@ -68,13 +76,7 @@ export const dialogDarkThemeBlackBackground: Story = createFixedThemeStory(
 );
 
 dialogDarkThemeBlackBackground.play = playFunction;
-*/
-
-const [lightThemeWhiteBackground] = backgroundStates;
-
-export const temporaryStandIn: Story = createFixedThemeStory(
-    html`This is a stand-in story for the dialog, because the real stories
-    started breaking Chromatic builds due to their Firefox version not
-    supporting the HTML dialog.`,
-    lightThemeWhiteBackground
-);
+// Disabling until Chromatic's Capture Cloud supports a version of Firefox that supports the dialog element
+dialogDarkThemeBlackBackground.parameters = {
+    chromatic: { disableSnapshot: true }
+};
