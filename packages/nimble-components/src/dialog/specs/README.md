@@ -115,7 +115,7 @@ The visual design spec has a few different layouts for the dialog. Not all layou
     -   Additional details:
         -   The footer is a `flex` layout container that allows a client to easily place buttons at the bottom of the dialog.
         -   If no content is slotted in the footer, the horizontal separator between the footer and content will be removed. The height of the footer will also be adjusted to align with the visual design spec.
-        -   If content is slotted in the footer, it will automatially be placed with the correct horizontal spacing between the vertical line and the bottom of the dialog.
+        -   If content is slotted in the footer, it will automatically be placed with the correct vertical spacing between the horizontal line and the bottom of the dialog and with the correct horizontal spacing around content items.
         -   There will not be explicit slots within the dialog for the various alignments of buttons in the footer.
         -   Buttons will automatically be placed on the right of the footer, but this can be changed by the client since the footer has a `flex` layout. For example, to move the first button to be left-aligned, that button can be styled with `margin-right: auto`.
         -   The client will control the order of the buttons within the footer.
