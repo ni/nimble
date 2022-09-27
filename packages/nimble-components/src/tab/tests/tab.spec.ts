@@ -8,7 +8,5 @@ describe('Tab', () => {
 
     it('can construct an element instance', () => {
         expect(document.createElement('nimble-tab')).toBeInstanceOf(Tab);
-        // eslint-disable-next-line no-console
-        console.error('barf');
     });
 });
