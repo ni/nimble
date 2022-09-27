@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Angular integration for radio button and group",
+  "packageName": "@ni/nimble-angular",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
