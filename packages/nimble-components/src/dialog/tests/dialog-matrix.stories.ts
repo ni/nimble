@@ -45,7 +45,10 @@ if (remaining.length > 0) {
 }
 
 const playFunction = (): void => {
-    void document.querySelector('nimble-dialog')!.show();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+    if ((window as any).HTMLDialogElement) {
+        void document.querySelector('nimble-dialog')!.show();
+    }
 };
 
 export const dialogLightThemeWhiteBackground: Story = createFixedThemeStory(
@@ -54,10 +57,6 @@ export const dialogLightThemeWhiteBackground: Story = createFixedThemeStory(
 );
 
 dialogLightThemeWhiteBackground.play = playFunction;
-// Disabling until Chromatic's Capture Cloud supports a version of Firefox that supports the dialog element
-dialogLightThemeWhiteBackground.parameters = {
-    chromatic: { disableSnapshot: true }
-};
 
 export const dialogColorThemeDarkGreenBackground: Story = createFixedThemeStory(
     component,
@@ -65,10 +64,6 @@ export const dialogColorThemeDarkGreenBackground: Story = createFixedThemeStory(
 );
 
 dialogColorThemeDarkGreenBackground.play = playFunction;
-// Disabling until Chromatic's Capture Cloud supports a version of Firefox that supports the dialog element
-dialogColorThemeDarkGreenBackground.parameters = {
-    chromatic: { disableSnapshot: true }
-};
 
 export const dialogDarkThemeBlackBackground: Story = createFixedThemeStory(
     component,
@@ -76,7 +71,3 @@ export const dialogDarkThemeBlackBackground: Story = createFixedThemeStory(
 );
 
 dialogDarkThemeBlackBackground.play = playFunction;
-// Disabling until Chromatic's Capture Cloud supports a version of Firefox that supports the dialog element
-dialogDarkThemeBlackBackground.parameters = {
-    chromatic: { disableSnapshot: true }
-};
