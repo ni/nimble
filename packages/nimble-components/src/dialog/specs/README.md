@@ -106,7 +106,7 @@ The visual design spec has a few different layouts for the dialog. Not all layou
     -   Included in initial styling pass: Yes
     -   Rationale: This is critical for using a dialog
     -   Additional details:
-        -   The content is a `flex` layout container that allows a clinet to easily place multiple items within the dialog.
+        -   The content is a `flex` layout container that allows a client to easily place multiple items within the dialog.
         -   Content will have a `flex-direction` of `column` so that content stacks vertically.
         -   A `gap` will be provided so that that mutliple content elements have appropriate spacing between them.
 -   Footer buttons
