@@ -29,28 +29,28 @@ export const styles = css`
      * We cannot use the modalBackdropColor token directly because the backdrop
      * element is not a descendant of the nimble-theme-provider element.
      */
-        themeBehavior(
-            Theme.light,
-            css`
+    themeBehavior(
+        Theme.light,
+        css`
             dialog::backdrop {
                 background: ${modalBackdropColorThemeLightStatic};
             }
         `
-        ),
-        themeBehavior(
-            Theme.dark,
-            css`
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
             dialog::backdrop {
                 background: ${modalBackdropColorThemeDarkStatic};
             }
         `
-        ),
-        themeBehavior(
-            Theme.color,
-            css`
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
             dialog::backdrop {
                 background: ${modalBackdropColorThemeColorStatic};
             }
         `
-        )
-    );
+    )
+);
