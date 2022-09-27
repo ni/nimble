@@ -212,7 +212,7 @@ By using the native `dialog` element, we get good a11y behavior without having t
 
 The role `dialog` with `modal: true` will automatically be applied to the `dialog` element, so the `nimble-dialog` will not have any custom logic or configuration to modify this behavior. The `nimble-dialog`'s template will automatically label the `dialog` element by setting `aria-labelledby` to the ID of the element containing the `title` and `subtitle` slots. As a result, if a client provides a title and/or subtitle, their dialog will automatically be labelled. This should be done even if the client is setting `header-hidden = true` to ensure that the dialog is accesible.
 
-The `nimble-dialog` will not configure `aria-describedby` on the `dialog` element because according to the WAI-ARIA guidelines, it is advisable to omit applying `aria-describedby` when the content would be difficult to understand when announced as a single unbroken string. Therefore, the `nimble-dialog` will not make assumptions about the content of the dialog.
+The `nimble-dialog` will not configure `aria-describedby` on the `dialog` element because according to [the WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal/), it is advisable to omit applying `aria-describedby` when the content would be difficult to understand when announced as a single unbroken string. Therefore, the `nimble-dialog` will not make assumptions about the content of the dialog.
 
 The WAI-ARIA guidelines also state that a dialog should always have at least one focusable element, which typically is satisfied by a Close/OK/Cancel button.
 
