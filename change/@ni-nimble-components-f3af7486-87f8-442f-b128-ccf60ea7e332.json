@@ -1,6 +1,6 @@
 {
-  "type": "minor",
-  "comment": "Extend styling on nimble-dialog by implementing a slotted template",
+  "type": "major",
+  "comment": "Extend styling on nimble-dialog by implementing a slotted template. 'aria-label' is no longer a valid attribute on the nimble-dialog.",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
