@@ -18,7 +18,7 @@ export default metadata;
 
 const component = html`
     <nimble-dialog>
-        <div slot="title">This is my dialog's title. It is pretty long</div>
+        <div slot="title">This is my dialog's title. It is pretty long.</div>
         <div slot="subtitle">The dialog has a subtitle here.</div>
         <div>Here is the first piece of content in the dialog</div>
         <div>

@@ -5,15 +5,13 @@ export const template = html<Dialog>`
     <template>
         <dialog
             ${ref('dialogElement')}
-            role="alertdialog"
+            role="dialog"
             @cancel="${(x, c) => x.cancelHandler(c.event)}"
-            aria-labelledby="title"
+            aria-labelledby="header"
         >
-            <header>
-                <span id="title" class="title">
-                    <slot name="title"></slot>
-                    <slot name="subtitle"></slot>
-                </span>
+            <header id="header">
+                <slot name="title"></slot>
+                <slot name="subtitle"></slot>
             </header>
             <section>
                 <slot></slot>

@@ -22,7 +22,7 @@ import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
-    ${display('inline-flex')}
+    ${display('grid')}
 
     dialog[open] {
         display: flex;
@@ -48,12 +48,6 @@ export const styles = css`
         display: none;
     }
 
-    .title {
-        display: flex;
-        flex-direction: column;
-        gap: ${smallPadding};
-    }
-
     slot[name='title'] {
         font: ${titlePlus1Font};
         color: ${titlePlus1FontColor};
@@ -75,10 +69,18 @@ export const styles = css`
         overflow-y: auto;
         font: ${bodyFont};
         color: ${bodyFontColor};
-        padding: 24px;
         display: flex;
         flex-direction: column;
         gap: ${standardPadding};
+
+        ${'' /*
+            Use padding on the left & right so that the scrollbar is pushed
+            all the way to the right-hand side of the dialog. Use a margin
+            on the top & bottom so that the spacing between the header & section
+            and section & footer is maintained even when the section scrolls.
+        */}
+        padding: 0px 24px;
+        margin: 24px 0px;
     }
 
     footer {
