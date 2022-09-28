@@ -88,7 +88,7 @@ export const styles = css`
         display: flex;
         flex-direction: column;
         gap: ${standardPadding};
-        
+
         ${
             /**
              * Use padding on the left & right so that the scrollbar is pushed

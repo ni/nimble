@@ -53,7 +53,8 @@ const metadata: Meta<DialogArgs> = {
             <div slot="title">${x => x.title}</div>
             <div slot="subtitle">${x => x.subtitle}</div>
             <span>
-                This action is destructive. Are you sure you would like to do it?
+                This action is destructive. Are you sure you would like to do
+                it?
             </span>
             <nimble-checkbox>
                 Perform some other relevant action too
