@@ -91,15 +91,15 @@ export const styles = css`
 
         ${
             /**
-             * Use padding on the left & right so that the scrollbar is pushed
-             * all the way to the right-hand side of the dialog. Use a margin on
-             * the top & bottom so that the spacing between the header & section
-             * and section & footer is maintained even when the section scrolls.
+             * Use padding on all sides except the top because the padding is within
+             * the scrollable area. The whole scrollable area, including the top of
+             * the scrollbar, should be 24px away from the header, so use a margin
+             * instead of padding for the top.
              */
             ''
         }
-        padding: 0px 24px;
-        margin: 24px 0px;
+        padding: 0px 24px 24px 24px;
+        margin-top: 24px;
     }
 
     footer {
