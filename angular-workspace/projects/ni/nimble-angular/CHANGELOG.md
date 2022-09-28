@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 15 Sep 2022 18:33:47 GMT and should not be manually modified.
+This log was last generated on Tue, 27 Sep 2022 21:39:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.5.0
+
+Tue, 27 Sep 2022 21:39:15 GMT
+
+### Minor changes
+
+- Angular integration for radio button and group ([ni/nimble@6906246](https://github.com/ni/nimble/commit/6906246ea159f42edcd34b2cc881611afa32186d))
 
 ## 8.4.12
 
