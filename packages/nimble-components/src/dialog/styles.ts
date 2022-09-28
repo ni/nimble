@@ -45,7 +45,23 @@ export const styles = css`
     }
 
     :host([header-hidden]) header {
-        display: none;
+        ${
+            /**
+             * Hide content visually while keeping it screen reader-accessible.
+             * Source: https://webaim.org/techniques/css/invisiblecontent/#techniques
+             * See discussion here: https://github.com/microsoft/fast/issues/5740#issuecomment-1068195035
+             */
+            ''
+        }
+        display: inline-block;
+        height: 1px;
+        width: 1px;
+        position: absolute;
+        margin: -1px;
+        clip: rect(1px, 1px, 1px, 1px);
+        clip-path: inset(50%);
+        overflow: hidden;
+        padding: 0;
     }
 
     slot[name='title'] {
@@ -72,13 +88,16 @@ export const styles = css`
         display: flex;
         flex-direction: column;
         gap: ${standardPadding};
-
-        ${'' /*
-            Use padding on the left & right so that the scrollbar is pushed
-            all the way to the right-hand side of the dialog. Use a margin
-            on the top & bottom so that the spacing between the header & section
-            and section & footer is maintained even when the section scrolls.
-        */}
+        
+        ${
+            /**
+             * Use padding on the left & right so that the scrollbar is pushed
+             * all the way to the right-hand side of the dialog. Use a margin on
+             * the top & bottom so that the spacing between the header & section
+             * and section & footer is maintained even when the section scrolls.
+             */
+            ''
+        }
         padding: 0px 24px;
         margin: 24px 0px;
     }
