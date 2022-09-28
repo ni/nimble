@@ -201,12 +201,12 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('has default role of alertdialog', async () => {
+    it('has default role of dialog', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
 
         expect(nativeDialogElement(element)?.getAttribute('role')).toBe(
-            'alertdialog'
+            'dialog'
         );
 
         await disconnect();
