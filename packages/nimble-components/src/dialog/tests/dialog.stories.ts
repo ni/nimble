@@ -103,6 +103,12 @@ const metadata: Meta<DialogArgs> = {
         preventDismiss: {
             name: 'prevent-dismiss'
         },
+        headerHidden: {
+            name: 'header-hidden'
+        },
+        footerHidden: {
+            name: 'footer-hidden'
+        },
         show: {
             name: 'show()',
             description:
