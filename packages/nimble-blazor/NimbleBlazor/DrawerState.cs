@@ -10,7 +10,7 @@ public enum DrawerState
 
 internal static class DrawerStateExtensions
 {
-    private static readonly Dictionary<DrawerState, string> _drawerStateValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<DrawerState>();
+    private static readonly Dictionary<DrawerState, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<DrawerState>();
 
-    public static string? ToAttributeValue(this DrawerState? value) => value == null ? null : _drawerStateValues[value.Value];
+    public static string? ToAttributeValue(this DrawerState? value) => value == null ? null : _enumValues[value.Value];
 }

@@ -10,14 +10,12 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule } from '@ni/nimble-angular';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
-import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent,
         HeaderComponent,
         NavDrawerComponent,
         CustomAppComponent
@@ -57,8 +55,7 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
         NimbleRadioGroupModule,
         NimbleRadioModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: '/login', pathMatch: 'full' },
-            { path: 'login', component: LoginComponent },
+            { path: '', redirectTo: '/customapp', pathMatch: 'full' },
             { path: 'customapp', component: CustomAppComponent }
         ],
         { useHash: true })

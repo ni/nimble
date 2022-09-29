@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
-import { ButtonAppearance } from '../types';
+import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface ButtonArgs {
     label: string;
-    appearance: string;
-    primary: boolean;
+    appearance: keyof typeof ButtonAppearance;
+    appearanceVariant: keyof typeof ButtonAppearanceVariant;
     disabled: boolean;
     icon: boolean;
     contentHidden: boolean;
@@ -20,7 +20,7 @@ enables users to trigger an action or event, such as submitting a form, opening 
 action, or performing a delete operation. A common convention for informing users that a button launches
 a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".`;
 
-const primaryDescription = `Set the \`primary\` CSS class on the element to make a button primary. This class has no effect on buttons with a \`ghost\` appearance.
+const appearanceVariantDescription = `This attribute has no effect on buttons with a \`ghost\` appearance.
 
 <details>
     <summary>Primary Button Usage</summary>
@@ -56,11 +56,14 @@ const metadata: Meta<ButtonArgs> = {
     },
     argTypes: {
         appearance: {
-            options: Object.values(ButtonAppearance),
+            options: Object.keys(ButtonAppearance),
             control: { type: 'radio' }
         },
-        primary: {
-            description: primaryDescription
+        appearanceVariant: {
+            name: 'appearance-variant',
+            options: Object.keys(ButtonAppearanceVariant),
+            control: { type: 'radio' },
+            description: appearanceVariantDescription
         },
         icon: {
             description:
@@ -72,16 +75,24 @@ const metadata: Meta<ButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-button ?disabled="${x => x.disabled}" appearance="${x => x.appearance}" class="${x => (x.primary ? 'primary' : '')}" ?content-hidden="${x => x.contentHidden}">
-            ${when(x => x.icon, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+        <nimble-button
+            ?disabled="${x => x.disabled}"
+            appearance="${x => ButtonAppearance[x.appearance]}"
+            appearance-variant="${x => ButtonAppearanceVariant[x.appearanceVariant]}"
+            ?content-hidden="${x => x.contentHidden}">
+            ${when(x => x.icon, html`
+                <nimble-icon-key slot="start"></nimble-icon-key>
+            `)}
             ${x => x.label}
-            ${when(x => x.endIcon, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
+            ${when(x => x.endIcon, html`
+                <nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>
+            `)}
         </nimble-button>
 `),
     args: {
-        label: 'Ghost Button',
-        appearance: 'ghost',
-        primary: false,
+        label: 'Button',
+        appearance: 'outline',
+        appearanceVariant: 'default',
         icon: false,
         endIcon: false,
         contentHidden: false,

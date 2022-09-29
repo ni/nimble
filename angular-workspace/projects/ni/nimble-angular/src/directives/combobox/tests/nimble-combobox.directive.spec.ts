@@ -66,6 +66,17 @@ describe('Nimble combobox', () => {
             directive.errorText = 'new value';
             expect(nativeElement.errorText).toBe('new value');
         });
+
+        it('has expected defaults for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+        });
+
+        it('can use the directive to set errorVisible', () => {
+            directive.errorVisible = true;
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -75,8 +86,10 @@ describe('Nimble combobox', () => {
                     disabled
                     autocomplete="inline"
                     appearance="outline"
+                    placeholder="Enter value:"
                     error-text="error text"
-                    placeholder="Enter value:">
+                    error-visible
+                >
                 </nimble-combobox>`
         })
         class TestHostComponent {
@@ -123,6 +136,11 @@ describe('Nimble combobox', () => {
             expect(directive.errorText).toBe('error text');
             expect(nativeElement.errorText).toBe('error text');
         });
+
+        it('will use template string values for errorVisible', () => {
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -132,8 +150,10 @@ describe('Nimble combobox', () => {
                     [disabled]="disabled"
                     [autocomplete]="autocomplete"
                     [appearance]="appearance"
+                    [placeholder]="placeholder"
                     [error-text]="errorText"
-                    [placeholder]="placeholder">
+                    [error-visible]="errorVisible"
+                >
                 </nimble-combobox>
             `
         })
@@ -145,6 +165,7 @@ describe('Nimble combobox', () => {
             public appearance: DropdownAppearance = DropdownAppearance.outline;
             public errorText = 'initial value';
             public placeholder = 'Enter value:';
+            public errorVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -217,6 +238,17 @@ describe('Nimble combobox', () => {
             expect(directive.errorText).toBe('new value');
             expect(nativeElement.errorText).toBe('new value');
         });
+
+        it('can be configured with property binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -227,7 +259,9 @@ describe('Nimble combobox', () => {
                     [attr.autocomplete]="autocomplete"
                     [attr.appearance]="appearance"
                     [attr.placeholder]="placeholder"
-                    [attr.error-text]="errorText">
+                    [attr.error-text]="errorText"
+                    [attr.error-visible]="errorVisible"
+                >
                 </nimble-combobox>
             `
         })
@@ -239,6 +273,7 @@ describe('Nimble combobox', () => {
             public appearance: DropdownAppearance = DropdownAppearance.underline;
             public placeholder = 'Enter value:';
             public errorText = 'initial value';
+            public errorVisible: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -310,6 +345,17 @@ describe('Nimble combobox', () => {
 
             expect(directive.errorText).toBe('new value');
             expect(nativeElement.errorText).toBe('new value');
+        });
+
+        it('can be configured with attribute binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
         });
     });
 });

@@ -5,9 +5,9 @@ import {
     buttonTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import type { IButton } from '../patterns/button/types';
+import type { ButtonPattern } from '../patterns/button/types';
 import { styles } from './styles';
-import { ButtonAppearance } from './types';
+import { ButtonAppearance, ButtonAppearanceVariant } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,7 +18,7 @@ declare global {
 /**
  * A nimble-styled HTML button
  */
-export class Button extends FoundationButton implements IButton {
+export class Button extends FoundationButton implements ButtonPattern {
     /**
      * @public
      * @remarks
@@ -26,6 +26,14 @@ export class Button extends FoundationButton implements IButton {
      */
     @attr
     public appearance: ButtonAppearance = ButtonAppearance.outline;
+
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: appearance-variant
+     */
+    @attr({ attribute: 'appearance-variant' })
+    public appearanceVariant: ButtonAppearanceVariant;
 
     /**
      * @public

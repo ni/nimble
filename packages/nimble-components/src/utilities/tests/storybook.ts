@@ -1,5 +1,7 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import type { Story } from '@storybook/html';
+import { ThemeProvider } from '../../theme-provider';
 import type { Theme } from '../../theme-provider/types';
 import { createMatrix } from './matrix';
 import {
@@ -57,12 +59,12 @@ export const createUserSelectedThemeStory = <TSource>(
 ): Story<TSource> => {
     return (source: TSource, context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
-            <nimble-theme-provider
+            <${DesignSystem.tagFor(ThemeProvider)}
                 theme="${getGlobalTheme(context)}"
                 class="code-hide-top-container"
             >
                 ${viewTemplate}
-            </nimble-theme-provider>
+            </${DesignSystem.tagFor(ThemeProvider)}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
@@ -81,7 +83,7 @@ export const createFixedThemeStory = <TSource>(
 ): Story<TSource> => {
     return (source: TSource, _context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
-            <nimble-theme-provider
+            <${DesignSystem.tagFor(ThemeProvider)}
                 theme="${backgroundState.theme}"
                 class="code-hide-top-container"
             >
@@ -97,7 +99,7 @@ export const createFixedThemeStory = <TSource>(
                 >
                     ${viewTemplate}
                 </div>
-            </nimble-theme-provider>
+            </${DesignSystem.tagFor(ThemeProvider)}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
@@ -114,11 +116,12 @@ export const createMatrixThemeStory = <TSource>(
     return (source: TSource, _context: unknown): Element => {
         const matrixTemplate = createMatrix(
             ({ theme, value }: BackgroundState) => html`
-                <nimble-theme-provider theme="${theme}">
+                <${DesignSystem.tagFor(ThemeProvider)}
+                    theme="${theme}">
                     <div style="background-color: ${value}; padding:20px;">
                         ${viewTemplate}
                     </div>
-                </nimble-theme-provider>
+                </${DesignSystem.tagFor(ThemeProvider)}>
             `,
             [backgroundStates]
         );
