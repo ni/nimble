@@ -60,9 +60,7 @@ export const hiddenRadioGroup: Story = createStory(
 
 export const hiddenRadioButton: Story = createStory(
     hiddenWrapper(
-        html`<nimble-radio hidden>
-            Hidden Radio Button
-        </nimble-radio>`
+        html`<nimble-radio hidden>Hidden Radio Button</nimble-radio>`
     )
 );
 
