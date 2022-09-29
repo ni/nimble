@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 28 Sep 2022 14:06:28 GMT",
+      "tag": "@ni/nimble-components_v11.15.1",
+      "version": "11.15.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "be52bb0145134c4882e20d3650eca580b4bd24c1",
+            "comment": "Update nimble-dialog Readme to include visual design spec and styling updates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Sep 2022 17:36:11 GMT",
       "tag": "@ni/nimble-components_v11.15.1",
       "version": "11.15.1",

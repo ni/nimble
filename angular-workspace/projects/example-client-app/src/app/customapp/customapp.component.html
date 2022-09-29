@@ -40,6 +40,15 @@
                 <nimble-checkbox>Checkbox label</nimble-checkbox>
             </div>
             <div class="sub-container">
+                <div class="container-label">Radio Buttons</div>
+                <nimble-radio-group name="fruit">
+                    <nimble-radio-button value="apple" [(ngModel)]="selectedRadioButton">Apple</nimble-radio-button>
+                    <nimble-radio-button value="banana" [(ngModel)]="selectedRadioButton">Banana</nimble-radio-button>
+                    <nimble-radio-button value="mango" [(ngModel)]="selectedRadioButton">Mango</nimble-radio-button>
+                </nimble-radio-group>
+                <nimble-text-field [(ngModel)]="selectedRadioButton">Selected value</nimble-text-field>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Dialog</div>
                 <nimble-dialog #dialog>
                     <h2>This is a dialog</h2>
