@@ -9,7 +9,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import type { IButton } from '../patterns/button/types';
+import type { ButtonPattern } from '../patterns/button/types';
 import { ButtonAppearance } from './types';
 
 declare global {
@@ -21,7 +21,7 @@ declare global {
 /**
  * A nimble-styled toggle button control.
  */
-export class ToggleButton extends FoundationSwitch implements IButton {
+export class ToggleButton extends FoundationSwitch implements ButtonPattern {
     /**
      * @public
      * @remarks

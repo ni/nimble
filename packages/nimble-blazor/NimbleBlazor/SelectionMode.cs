@@ -9,7 +9,7 @@ public enum SelectionMode
 
 internal static class SelectionModeExtensions
 {
-    private static readonly Dictionary<SelectionMode, string> _selectionModeValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<SelectionMode>();
+    private static readonly Dictionary<SelectionMode, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<SelectionMode>();
 
-    public static string? ToAttributeValue(this SelectionMode? value) => value == null ? null : _selectionModeValues[value.Value];
+    public static string? ToAttributeValue(this SelectionMode? value) => value == null ? null : _enumValues[value.Value];
 }

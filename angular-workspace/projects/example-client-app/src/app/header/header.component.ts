@@ -36,11 +36,6 @@ export class HeaderComponent {
         this.userSettingsDrawer.hide();
     }
 
-    public onLogoutSelected(): void {
-        this.toggleMenuHidden();
-        void this.router.navigate(['/login']);
-    }
-
     private toggleMenuHidden(): void {
         this.hideMenu = !this.hideMenu;
     }

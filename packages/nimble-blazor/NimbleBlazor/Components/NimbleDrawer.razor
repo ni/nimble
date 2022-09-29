@@ -1,10 +1,10 @@
 @namespace NimbleBlazor
 <nimble-drawer
-        location="@Location.ToAttributeValue()"
-        state="@State.ToAttributeValue()"
-        @onnimbledrawerstatechange="(__value) => UpdateDrawerState(__value.DrawerState)"
-        modal="@Modal"
-        prevent-dismiss="@PreventDismiss"
-        @attributes="AdditionalAttributes">
+    location="@Location.ToAttributeValue()"
+    state="@State.ToAttributeValue()"
+    @onnimbledrawerstatechange="(__value) => UpdateDrawerState(__value.DrawerState)"
+    modal="@Modal"
+    prevent-dismiss="@PreventDismiss"
+    @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-drawer>

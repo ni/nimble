@@ -1,6 +1,7 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -17,6 +18,8 @@ import {
     bodyFontColor,
     borderColor
 } from '../../theme-provider/design-tokens';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+import { TooltipSeverity } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Tooltip',
@@ -34,30 +37,25 @@ export default metadata;
 
 const textStates = [
     ['Short_Text', 'Hello'],
-    [
-        'Long_Text',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
-    ]
+    ['Long_Text', loremIpsum]
 ] as const;
 type TextState = typeof textStates[number];
 
-const statusStates = [
-    ['Default', ''],
-    ['Fail', 'fail'],
-    ['Information', 'information']
-] as const;
-type StatusState = typeof statusStates[number];
+const severityStates: [string, string | undefined][] = Object.entries(
+    TooltipSeverity
+).map(([key, value]) => [pascalCase(key), value]);
+type SeverityState = typeof severityStates[number];
 
-const iconStates = [
-    ['No_Icon', ''],
-    ['Icon_Visible', 'icon-visible']
+const iconVisibleStates = [
+    ['No_Icon', false],
+    ['Icon_Visible', true]
 ] as const;
-type IconState = typeof iconStates[number];
+type IconVisibleState = typeof iconVisibleStates[number];
 
 const component = (
     [textName, text]: TextState,
-    [valueName, value]: StatusState,
-    [iconName, icon]: IconState
+    [severityName, severity]: SeverityState,
+    [iconVisibleName, iconVisible]: IconVisibleState
 ): ViewTemplate => html`
     <style>
         div {
@@ -80,18 +78,19 @@ const component = (
     <div class="container">
         <div
             class="anchorDiv"
-            id="${() => `${textName}_${valueName}_${iconName}`}"
+            id="${() => `${textName}_${severityName}_${iconVisibleName}`}"
         >
-            ${() => `${textName}`} ${() => `${valueName}`}
-            ${() => `${iconName}`}
+            ${() => `${textName}`} ${() => `${severityName}`}
+            ${() => `${iconVisibleName}`}
         </div>
 
         <nimble-tooltip
-            anchor="${() => `${textName}_${valueName}_${iconName}`}"
+            anchor="${() => `${textName}_${severityName}_${iconVisibleName}`}"
             visible
             position="bottom"
             auto-update-mode="auto"
-            class="${() => `${value} ${icon}`}"
+            severity="${() => severity}"
+            ?icon-visible="${() => iconVisible}"
         >
             ${() => `${text}`}
         </nimble-tooltip>
@@ -105,17 +104,21 @@ const [
 ] = backgroundStates;
 
 export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
-    createMatrix(component, [textStates, statusStates, iconStates]),
+    createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     lightThemeWhiteBackground
 );
 
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    createMatrix(component, [textStates, statusStates, iconStates]),
+    createMatrix(component, [
+        textStates,
+        severityStates,
+        iconVisibleStates
+    ]),
     colorThemeDarkGreenBackground
 );
 
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
-    createMatrix(component, [textStates, statusStates, iconStates]),
+    createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     darkThemeBlackBackground
 );
 

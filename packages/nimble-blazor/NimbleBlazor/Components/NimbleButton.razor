@@ -1,2 +1,9 @@
 @namespace NimbleBlazor
-<nimble-button appearance="@Appearance.ToAttributeValue()" disabled="@Disabled" autofocus="@AutoFocus" @attributes="AdditionalAttributes">@ChildContent</nimble-button>
+<nimble-button
+    appearance="@Appearance.ToAttributeValue()"
+    appearance-variant="@AppearanceVariant.ToAttributeValue()"
+    disabled="@Disabled"
+    autofocus="@AutoFocus"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-button>

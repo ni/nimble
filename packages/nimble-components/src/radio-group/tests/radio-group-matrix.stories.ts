@@ -13,6 +13,7 @@ import {
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Radio Group',
@@ -62,5 +63,17 @@ export const hiddenRadioButton: Story = createStory(
         html`<nimble-radio-button hidden>
             Hidden Radio Button
         </nimble-radio-button>`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`
+            <nimble-radio-group>
+                <label slot="label">Radio buttons</label>
+                <nimble-radio-button>Option 1</nimble-radio-button>
+                <nimble-radio-button>Option 2</nimble-radio-button>
+            </nimble-radio-group>
+        `
     )
 );

@@ -9,7 +9,7 @@ public enum Theme
 
 internal static class ThemeExtensions
 {
-    private static readonly Dictionary<Theme, string> _themeValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<Theme>();
+    private static readonly Dictionary<Theme, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<Theme>();
 
-    public static string? ToAttributeValue(this Theme? value) => value == null ? null : _themeValues[value.Value];
+    public static string? ToAttributeValue(this Theme? value) => value == null ? null : _enumValues[value.Value];
 }

@@ -1,23 +1,16 @@
-import {
-    elements,
-    html,
-    ref,
-    slotted,
-    ViewTemplate,
-    when
-} from '@microsoft/fast-element';
-import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
+import { elements, html, ref, slotted, when } from '@microsoft/fast-element';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import type { MenuButton } from '.';
 import { ToggleButton } from '../toggle-button';
 import { AnchoredRegion } from '../anchored-region';
 
 // prettier-ignore
-export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = context => html<MenuButton>`
+export const template = html<MenuButton>`
     <template
         ?open="${x => x.open}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
     >
-        <${context.tagFor(ToggleButton)}
+        <${DesignSystem.tagFor(ToggleButton)}
             part="button"
             appearance="${x => x.appearance}"
             ?content-hidden="${x => x.contentHidden}"
@@ -34,11 +27,11 @@ export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = con
             <slot slot="start" name="start"></slot>
             <slot></slot>
             <slot slot="end" name="end"></slot>
-        </${context.tagFor(ToggleButton)}>
+        </${DesignSystem.tagFor(ToggleButton)}>
         ${when(
         x => x.open,
         html<MenuButton>`
-            <${context.tagFor(AnchoredRegion)}
+            <${DesignSystem.tagFor(AnchoredRegion)}
                 fixed-placement="true"
                 auto-update-mode="auto"
                 horizontal-inset="true"
@@ -52,7 +45,7 @@ export const template: FoundationElementTemplate<ViewTemplate<MenuButton>> = con
                 <span part="menu">
                     <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
                 </span>
-            </${context.tagFor(AnchoredRegion)}>
+            </${DesignSystem.tagFor(AnchoredRegion)}>
         `
     )}
     </template>
