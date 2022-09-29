@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 29 Sep 2022 19:39:31 GMT and should not be manually modified.
+This log was last generated on Thu, 29 Sep 2022 20:03:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.0.0
+
+Thu, 29 Sep 2022 20:03:25 GMT
+
+### Major changes
+
+- Migrated from CSS classes to element attributes for configuring components. For the list of specific elements and classes changed see: [#738](https://github.com/ni/nimble/pull/738). ([ni/nimble@9023d71](https://github.com/ni/nimble/commit/9023d71ddb4740a624e5b9eac0114a0c91fbca78))
 
 ## 5.8.0
 
