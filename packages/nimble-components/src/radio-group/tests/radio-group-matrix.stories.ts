@@ -59,9 +59,7 @@ export const hiddenRadioGroup: Story = createStory(
 );
 
 export const hiddenRadioButton: Story = createStory(
-    hiddenWrapper(
-        html`<nimble-radio hidden>Hidden Radio Button</nimble-radio>`
-    )
+    hiddenWrapper(html`<nimble-radio hidden>Hidden Radio Button</nimble-radio>`)
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
