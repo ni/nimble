@@ -24,12 +24,6 @@ public partial class NimbleRadioButton : ComponentBase
     public string? Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the checked state.
-    /// </summary>
-    [Parameter]
-    public bool? Checked { get; set; }
-
-    /// <summary>
     /// Gets or sets the child content to be rendered inside the <see cref="NimbleRadioButton"/>.
     /// </summary>
     [Parameter]
