@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 12 Sep 2022 22:11:39 GMT and should not be manually modified.
+This log was last generated on Thu, 29 Sep 2022 19:39:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.8.0
+
+Thu, 29 Sep 2022 19:39:31 GMT
+
+### Minor changes
+
+- Blazor wrapper for radio button and group ([ni/nimble@eb8d708](https://github.com/ni/nimble/commit/eb8d708a8eda9e0772f9c3208c99926b12d7cb45))
 
 ## 5.7.0
 
