@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { DesignSystem, display, TreeItem } from '@microsoft/fast-foundation';
+import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 import {
     bodyFontColor,
@@ -147,7 +147,12 @@ export const styles = css`
         height: ${iconSize};
     }
 
-    ::slotted(${DesignSystem.tagFor(TreeItem)}) {
+    ${/*
+        Cannot call DesignSystem.tagFor(TreeItem) as this string is evaluated
+        before the registration of the element itself; the style is self-referencing.
+        Instead styling against the role which is more general and likely a better approach.
+    */ ''}
+    ::slotted([role='treeitem']) {
         --ni-private-tree-item-nested-width: 1em;
         --ni-private-expand-collapse-button-nested-width: calc(
             ${iconSize} * -1
