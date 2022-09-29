@@ -26,8 +26,8 @@ export const textCustomizationStory: Story = createUserSelectedThemeStory(html`
         <nimble-checkbox>Checkbox</nimble-checkbox>
         <nimble-radio-group>
             <label slot="label">Radio buttons</label>
-            <nimble-radio-button>Option 1</nimble-radio-button>
-            <nimble-radio-button>Option 2</nimble-radio-button>
+            <nimble-radio>Option 1</nimble-radio>
+            <nimble-radio>Option 2</nimble-radio>
         </nimble-radio-group>
         <nimble-menu>
             Inner text

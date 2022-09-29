@@ -1,17 +1,17 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { RadioButton } from '@ni/nimble-components/dist/esm/radio-button';
+import { Radio } from '@ni/nimble-components/dist/esm/radio';
 import type { RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
-export type { RadioButton };
+export type { Radio };
 
 /**
  * Directive to provide Angular integration for the radio button.
  */
 @Directive({
-    selector: 'nimble-radio-button'
+    selector: 'nimble-radio'
 })
-export class NimbleRadioButtonDirective {
+export class NimbleRadioDirective {
     public get disabled(): boolean {
         return this.elementRef.nativeElement.disabled;
     }

@@ -27,7 +27,7 @@ export class CustomAppComponent {
     public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
 
-    public selectedRadioButton = 'mango';
+    public selectedRadio = 'mango';
 
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;

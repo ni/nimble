@@ -2,18 +2,18 @@ import {
     DesignSystem,
     Radio as FoundationRadio
 } from '@microsoft/fast-foundation';
-import { RadioButton } from '..';
+import { Radio } from '..';
 
-describe('Radio Button', () => {
+describe('Radio', () => {
     it('should have its tag returned by tagFor(FoundationRadio)', () => {
         expect(DesignSystem.tagFor(FoundationRadio)).toBe(
-            'nimble-radio-button'
+            'nimble-radio'
         );
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-radio-button')).toBeInstanceOf(
-            RadioButton
+        expect(document.createElement('nimble-radio')).toBeInstanceOf(
+            Radio
         );
     });
 });

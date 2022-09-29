@@ -7,7 +7,7 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleTabModule, NimbleTabPanelModule, NimbleTabsModule, NimbleTabsToolbarModule, NimbleMenuModule,
     NimbleMenuItemModule, NimbleCheckboxModule, NimbleToggleButtonModule, NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
     NimbleIconAddModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
-    NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioButtonModule } from '@ni/nimble-angular';
+    NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule } from '@ni/nimble-angular';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { LoginComponent } from './login/login.component';
@@ -55,7 +55,7 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
         NimbleCardButtonModule,
         NimbleDialogModule,
         NimbleRadioGroupModule,
-        NimbleRadioButtonModule,
+        NimbleRadioModule,
         RouterModule.forRoot([
             { path: '', redirectTo: '/login', pathMatch: 'full' },
             { path: 'login', component: LoginComponent },

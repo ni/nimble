@@ -1,25 +1,25 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NimbleRadioButtonModule } from '../nimble-radio-button.module';
+import { NimbleRadioModule } from '../nimble-radio.module';
 import { processUpdates } from '../../../testing/async-helpers';
 import { waitTask } from '../../../async-test-utilities';
 import { NimbleRadioGroupModule } from '../../radio-group/nimble-radio-group.module';
 import type { RadioGroup } from '../../radio-group/nimble-radio-group.directive';
-import type { RadioButton } from '../nimble-radio-button.directive';
+import type { Radio } from '../nimble-radio.directive';
 
 function setSelectedRadioIndex(radioGroup: RadioGroup, index: number): void {
     radioGroup.children[index].dispatchEvent(new Event('click', { bubbles: true }));
 }
 
-describe('Nimble radio button control value accessor', () => {
+describe('Nimble radio control value accessor', () => {
     describe('when using a template-based form', () => {
         @Component({
             template: `
                 <nimble-radio-group #radioGroup name="options">
-                    <nimble-radio-button *ngFor="let button of radioButtons" [value]="button.value" [(ngModel)]="selectedRadioButton">
+                    <nimble-radio *ngFor="let button of radioButtons" [value]="button.value" [(ngModel)]="selectedRadioButton">
                         {{ button.name }}
-                    </nimble-radio-button>
+                    </nimble-radio>
                 </nimble-radio-group>
              `
         })
@@ -42,7 +42,7 @@ describe('Nimble radio button control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRadioGroupModule, NimbleRadioButtonModule, FormsModule, ReactiveFormsModule]
+                imports: [NimbleRadioGroupModule, NimbleRadioModule, FormsModule, ReactiveFormsModule]
             });
         });
 
@@ -59,24 +59,24 @@ describe('Nimble radio button control value accessor', () => {
         });
 
         it('sets correct initial selected value', () => {
-            expect((radioGroup.children[1] as RadioButton).checked).toBeTrue();
+            expect((radioGroup.children[1] as Radio).checked).toBeTrue();
         });
 
         it('checks button upon re-adding it', async () => {
-            const secondRadioButton = radioGroup.children[1] as RadioButton;
+            const secondRadioButton = radioGroup.children[1] as Radio;
             secondRadioButton.remove();
             fixture.detectChanges();
             await waitTask();
 
-            expect((radioGroup.children[0] as RadioButton).checked).toBeFalse();
-            expect((radioGroup.children[1] as RadioButton).checked).toBeFalse();
+            expect((radioGroup.children[0] as Radio).checked).toBeFalse();
+            expect((radioGroup.children[1] as Radio).checked).toBeFalse();
 
             secondRadioButton.checked = false;
             radioGroup.append(secondRadioButton);
             fixture.detectChanges();
             await waitTask();
 
-            expect((radioGroup.children[2] as RadioButton).checked).toBeTrue();
+            expect((radioGroup.children[2] as Radio).checked).toBeTrue();
         });
 
         it('updates selected value when bound property is changed', fakeAsync(() => {
@@ -85,7 +85,7 @@ describe('Nimble radio button control value accessor', () => {
             tick();
             processUpdates();
 
-            expect((radioGroup.children[2] as RadioButton).checked).toBeTrue();
+            expect((radioGroup.children[2] as Radio).checked).toBeTrue();
         }));
 
         it('updates bound property when selected value is changed', () => {
@@ -101,9 +101,9 @@ describe('Nimble radio button control value accessor', () => {
             template: `
                 <form [formGroup]="form">
                     <nimble-radio-group #radioGroup>
-                        <nimble-radio-button *ngFor="let option of radioButtons" [value]="option.value" [formControl]="selectedRadioButton">
+                        <nimble-radio *ngFor="let option of radioButtons" [value]="option.value" [formControl]="selectedRadioButton">
                             {{ option.name }}
-                        </nimble-radio-button>
+                        </nimble-radio>
                     </nimble-radio-group>
                 </form>
                 `
@@ -130,7 +130,7 @@ describe('Nimble radio button control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRadioGroupModule, NimbleRadioButtonModule, ReactiveFormsModule]
+                imports: [NimbleRadioGroupModule, NimbleRadioModule, ReactiveFormsModule]
             });
         });
 
@@ -147,7 +147,7 @@ describe('Nimble radio button control value accessor', () => {
         });
 
         it('sets correct initial selected value', () => {
-            expect((radioGroup.children[1] as RadioButton).checked).toBeTrue();
+            expect((radioGroup.children[1] as Radio).checked).toBeTrue();
         });
 
         it('updates selected value when bound property is changed', fakeAsync(() => {
@@ -156,7 +156,7 @@ describe('Nimble radio button control value accessor', () => {
             tick();
             processUpdates();
 
-            expect((radioGroup.children[2] as RadioButton).checked).toBeTrue();
+            expect((radioGroup.children[2] as Radio).checked).toBeTrue();
         }));
 
         it('updates bound property when selected value is changed', () => {

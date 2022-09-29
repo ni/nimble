@@ -1,39 +1,39 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
-import { NimbleRadioButtonDirective, RadioButton } from '../nimble-radio-button.directive';
-import { NimbleRadioButtonModule } from '../nimble-radio-button.module';
+import { NimbleRadioDirective, Radio } from '../nimble-radio.directive';
+import { NimbleRadioModule } from '../nimble-radio.module';
 
-describe('Nimble radio button', () => {
+describe('Nimble radio', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NimbleRadioButtonModule]
+            imports: [NimbleRadioModule]
         });
     });
 
     it('custom element is defined', () => {
-        expect(customElements.get('nimble-radio-button')).not.toBeUndefined();
+        expect(customElements.get('nimble-radio')).not.toBeUndefined();
     });
 
     describe('with no values in template', () => {
         @Component({
             template: `
-                <nimble-radio-button #radioButton></nimble-radio-button>
+                <nimble-radio #radioButton></nimble-radio>
             `
         })
         class TestHostComponent {
-            @ViewChild('radioButton', { read: NimbleRadioButtonDirective }) public directive: NimbleRadioButtonDirective;
-            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<RadioButton>;
+            @ViewChild('radioButton', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
+            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<Radio>;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
-        let directive: NimbleRadioButtonDirective;
-        let nativeElement: RadioButton;
+        let directive: NimbleRadioDirective;
+        let nativeElement: Radio;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRadioButtonModule]
+                imports: [NimbleRadioModule]
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -54,21 +54,21 @@ describe('Nimble radio button', () => {
 
     describe('with template string values', () => {
         @Component({
-            template: '<nimble-radio-button #radioButton disabled></nimble-radio-button>'
+            template: '<nimble-radio #radioButton disabled></nimble-radio>'
         })
         class TestHostComponent {
-            @ViewChild('radioButton', { read: NimbleRadioButtonDirective }) public directive: NimbleRadioButtonDirective;
-            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<RadioButton>;
+            @ViewChild('radioButton', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
+            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<Radio>;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
-        let directive: NimbleRadioButtonDirective;
-        let nativeElement: RadioButton;
+        let directive: NimbleRadioDirective;
+        let nativeElement: Radio;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRadioButtonModule]
+                imports: [NimbleRadioModule]
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -84,22 +84,22 @@ describe('Nimble radio button', () => {
 
     describe('with property bound values', () => {
         @Component({
-            template: '<nimble-radio-button #radioButton [disabled]="disabled"></nimble-radio-button>'
+            template: '<nimble-radio #radioButton [disabled]="disabled"></nimble-radio>'
         })
         class TestHostComponent {
-            @ViewChild('radioButton', { read: NimbleRadioButtonDirective }) public directive: NimbleRadioButtonDirective;
-            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<RadioButton>;
+            @ViewChild('radioButton', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
+            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<Radio>;
             public disabled = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
-        let directive: NimbleRadioButtonDirective;
-        let nativeElement: RadioButton;
+        let directive: NimbleRadioDirective;
+        let nativeElement: Radio;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRadioButtonModule]
+                imports: [NimbleRadioModule]
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -121,22 +121,22 @@ describe('Nimble radio button', () => {
 
     describe('with attribute bound values', () => {
         @Component({
-            template: '<nimble-radio-button #radioButton [attr.disabled]="disabled"></nimble-radio-button>'
+            template: '<nimble-radio #radioButton [attr.disabled]="disabled"></nimble-radio>'
         })
         class TestHostComponent {
-            @ViewChild('radioButton', { read: NimbleRadioButtonDirective }) public directive: NimbleRadioButtonDirective;
-            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<RadioButton>;
+            @ViewChild('radioButton', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
+            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<Radio>;
             public disabled: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
-        let directive: NimbleRadioButtonDirective;
-        let nativeElement: RadioButton;
+        let directive: NimbleRadioDirective;
+        let nativeElement: Radio;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRadioButtonModule]
+                imports: [NimbleRadioModule]
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
