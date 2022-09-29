@@ -38,6 +38,21 @@ public partial class NimbleTextField : NimbleInputBase<string?>
     [Parameter]
     public bool? Spellcheck { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the combobox error text
+    /// </summary>
+    [Parameter]
+    public string? ErrorText { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the combobox error is visible
+    /// </summary>
+    [Parameter]
+    public bool? ErrorVisible { get; set; }
+
+    [Parameter]
+    public bool? FullBleed { get; set; }
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 

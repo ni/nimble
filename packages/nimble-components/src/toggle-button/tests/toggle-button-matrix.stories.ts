@@ -14,6 +14,7 @@ import {
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Toggle Button',
@@ -39,9 +40,9 @@ const partVisibilityStates = [
 ] as const;
 type PartVisibilityState = typeof partVisibilityStates[number];
 
-const appearanceStates = Object.entries(ButtonAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
+const appearanceStates: [string, string | undefined][] = Object.entries(
+    ButtonAppearance
+).map(([key, value]) => [pascalCase(key), value]);
 type AppearanceState = typeof appearanceStates[number];
 
 const checkedStates = [
@@ -64,7 +65,7 @@ const component = (
         ?checked=${() => checked}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
-            ${() => `${checkedName} ${appearanceName!} Toggle Button ${disabledName}`}
+            ${() => `${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
             ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
     </nimble-toggle-button>
 `;
@@ -83,5 +84,11 @@ export const hiddenButton: Story = createStory(
         html`<nimble-toggle-button hidden
             >Hidden Toggle Button</nimble-toggle-button
         >`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<nimble-toggle-button>Toggle button</nimble-toggle-button>`
     )
 );

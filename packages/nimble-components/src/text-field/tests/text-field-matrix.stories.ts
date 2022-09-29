@@ -4,7 +4,8 @@ import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createStory,
-    createFixedThemeStory
+    createFixedThemeStory,
+    createMatrixThemeStory
 } from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
 import {
@@ -16,10 +17,14 @@ import {
     DisabledState,
     ReadOnlyState,
     readOnlyStates,
-    backgroundStates
+    backgroundStates,
+    errorStates,
+    ErrorState
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Text Field',
@@ -70,55 +75,50 @@ const leftIconStates = [
 ] as const;
 type LeftIconState = typeof leftIconStates[number];
 
-/* array of state name, invalidClass, errorText */
-const textFieldInvalidStates = [
-    ['', '', 'This is not valid.'],
-    ['', '', ''],
-    ['Invalid w/ Error', 'invalid', 'This is not valid.'],
-    ['Invalid', 'invalid', '']
-] as const;
-type TextFieldInvalidState = typeof textFieldInvalidStates[number];
-
 const appearanceStates = Object.entries(TextFieldAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
 type AppearanceState = typeof appearanceStates[number];
 
-const clearInlinePaddingStates = [
-    ['', ''],
-    ['No Pad', 'clear-inline-padding']
+const fullBleedStates = [
+    ['', false],
+    ['Full Bleed', true]
 ] as const;
-type ClearInlinePaddingState = typeof clearInlinePaddingStates[number];
+type FullBleedState = typeof fullBleedStates[number];
 
 // prettier-ignore
 const component = (
-    [readOnlyName, readonly]: ReadOnlyState,
+    [_readOnlyName, readonly]: ReadOnlyState,
     [_disabledName, disabled]: DisabledState,
-    [showActionButtonsName, showActionButtons]: ActionButtonState,
+    [_showActionButtonsName, showActionButtons]: ActionButtonState,
     [showLeftIconName, showLeftIcon]: LeftIconState,
-    [invalidName, invalidClass, errorText]: TextFieldInvalidState,
+    [errorName, errorVisible, errorText]: ErrorState,
     [typeName, type]: TypeState,
     [appearanceName, appearance]: AppearanceState,
-    [noPadName, clearInlinePadding]: ClearInlinePaddingState,
+    [fullBleedName, fullBleed]: FullBleedState,
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <nimble-text-field
         style="width: 350px; padding: 8px;"
-        class="${() => invalidClass} ${() => clearInlinePadding}"
+        ?full-bleed="${() => fullBleed}"
         ?disabled="${() => disabled}"
         type="${() => type}"
         appearance="${() => appearance}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         ?readonly="${() => readonly}"
+        ?error-visible="${() => errorVisible}"
         error-text="${() => errorText}"
     >
         ${when(() => showLeftIcon, html`<nimble-icon-tag slot="start"></nimble-icon-tag>`)}
 
-        ${() => invalidName} ${() => typeName}
-        ${() => appearanceName} ${() => noPadName} ${() => valueName}
-        ${() => readOnlyName} ${() => showLeftIconName} ${() => showActionButtonsName}
-
+        ${/* Only include states in label that are not expanded on page */ ''}
+        ${() => showLeftIconName}
+        ${() => errorName}
+        ${() => typeName}
+        ${() => appearanceName}
+        ${() => fullBleedName}
+        ${() => valueName}
 
         ${when(() => showActionButtons, html`
             <nimble-button slot="actions" appearance="outline" content-hidden>
@@ -138,10 +138,10 @@ export const lightThemeEditableEnabledWithoutButtons: Story = createFixedThemeSt
         [disabledStates[0]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -153,10 +153,10 @@ export const lightThemeEditableEnabledWithButtons: Story = createFixedThemeStory
         [disabledStates[0]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -168,10 +168,10 @@ export const lightThemeEditableDisabledWithoutButtons: Story = createFixedThemeS
         [disabledStates[1]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -183,10 +183,10 @@ export const lightThemeEditableDisabledWithButtons: Story = createFixedThemeStor
         [disabledStates[1]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -198,10 +198,10 @@ export const lightThemeReadOnlyEnabledWithoutButtons: Story = createFixedThemeSt
         [disabledStates[0]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -213,10 +213,10 @@ export const lightThemeReadOnlyEnabledWithButtons: Story = createFixedThemeStory
         [disabledStates[0]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -228,10 +228,10 @@ export const lightThemeReadOnlyDisabledWithoutButtons: Story = createFixedThemeS
         [disabledStates[1]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -243,10 +243,10 @@ export const lightThemeReadOnlyDisabledWithButtons: Story = createFixedThemeStor
         [disabledStates[1]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     lightThemeWhiteBackground
@@ -258,10 +258,10 @@ export const darkThemeEditableEnabledWithoutButtons: Story = createFixedThemeSto
         [disabledStates[0]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -273,10 +273,10 @@ export const darkThemeEditableEnabledWithButtons: Story = createFixedThemeStory(
         [disabledStates[0]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -288,10 +288,10 @@ export const darkThemeEditableDisabledWithoutButtons: Story = createFixedThemeSt
         [disabledStates[1]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -303,10 +303,10 @@ export const darkThemeEditableDisabledWithButtons: Story = createFixedThemeStory
         [disabledStates[1]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -318,10 +318,10 @@ export const darkThemeReadOnlyEnabledWithoutButtons: Story = createFixedThemeSto
         [disabledStates[0]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -333,10 +333,10 @@ export const darkThemeReadOnlyEnabledWithButtons: Story = createFixedThemeStory(
         [disabledStates[0]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -348,10 +348,10 @@ export const darkThemeReadOnlyDisabledWithoutButtons: Story = createFixedThemeSt
         [disabledStates[1]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -363,10 +363,10 @@ export const darkThemeReadOnlyDisabledWithButtons: Story = createFixedThemeStory
         [disabledStates[1]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     darkThemeBlackBackground
@@ -378,10 +378,10 @@ export const colorThemeEditableEnabledWithoutButtons: Story = createFixedThemeSt
         [disabledStates[0]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -393,10 +393,10 @@ export const colorThemeEditableEnabledWithButtons: Story = createFixedThemeStory
         [disabledStates[0]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -408,10 +408,10 @@ export const colorThemeEditableDisabledWithoutButtons: Story = createFixedThemeS
         [disabledStates[1]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -423,10 +423,10 @@ export const colorThemeEditableDisabledWithButtons: Story = createFixedThemeStor
         [disabledStates[1]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -438,10 +438,10 @@ export const colorThemeReadOnlyEnabledWithoutButtons: Story = createFixedThemeSt
         [disabledStates[0]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -453,10 +453,10 @@ export const colorThemeReadOnlyEnabledWithButtons: Story = createFixedThemeStory
         [disabledStates[0]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -468,10 +468,10 @@ export const colorThemeReadOnlyDisabledWithoutButtons: Story = createFixedThemeS
         [disabledStates[1]],
         [actionButtonStates[0]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -483,10 +483,10 @@ export const colorThemeReadOnlyDisabledWithButtons: Story = createFixedThemeStor
         [disabledStates[1]],
         [actionButtonStates[1]],
         leftIconStates,
-        textFieldInvalidStates,
+        errorStates,
         typeStates,
         appearanceStates,
-        clearInlinePaddingStates,
+        fullBleedStates,
         valueStates
     ]),
     colorThemeDarkGreenBackground
@@ -495,5 +495,15 @@ export const colorThemeReadOnlyDisabledWithButtons: Story = createFixedThemeStor
 export const hiddenTextField: Story = createStory(
     hiddenWrapper(
         html`<nimble-text-field hidden>Hidden text field</nimble-text-field>`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`
+            <nimble-text-field value="${loremIpsum}">
+                Text field
+            </nimble-text-field>
+        `
     )
 );

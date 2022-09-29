@@ -106,6 +106,16 @@ export class NimbleTextFieldDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }
 
+    public get errorVisible(): boolean {
+        return this.elementRef.nativeElement.errorVisible;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
+    }
+
     public get size(): number {
         return this.elementRef.nativeElement.size;
     }
@@ -120,6 +130,16 @@ export class NimbleTextFieldDirective {
 
     @Input() public set spellcheck(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'spellcheck', toBooleanProperty(value));
+    }
+
+    public get fullBleed(): boolean {
+        return this.elementRef.nativeElement.fullBleed;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('full-bleed') public set fullBleed(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'fullBleed', toBooleanProperty(value));
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TextField>) {}

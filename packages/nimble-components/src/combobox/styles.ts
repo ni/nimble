@@ -33,7 +33,7 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
-    :host(.invalid)::after {
+    :host([error-visible])::after {
         border-bottom-color: ${failColor};
     }
 
@@ -45,7 +45,7 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
-    :host(.invalid) .control {
+    :host([error-visible]) .control {
         border-bottom: var(--ni-private-bottom-border-width) solid ${failColor};
     }
 
@@ -53,8 +53,8 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host(.invalid[disabled]) .control,
-    :host(.open.invalid) .control {
+    :host([error-visible][disabled]) .control,
+    :host([error-visible][open]) .control {
         border-bottom-color: ${failColor};
     }
 
@@ -111,7 +111,7 @@ export const styles = css`
     appearanceBehavior(
         DropdownAppearance.block,
         css`
-            :host(.invalid) .control {
+            :host([error-visible]) .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }

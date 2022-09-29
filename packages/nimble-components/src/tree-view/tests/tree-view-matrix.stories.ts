@@ -11,15 +11,12 @@ import {
 import {
     disabledStates,
     DisabledState,
-    ExpandedState,
-    expandedStates,
-    SelectedState,
-    selectedStates,
     IconVisibleState,
     iconVisibleStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',
@@ -27,6 +24,18 @@ const metadata: Meta = {
         ...sharedMatrixParameters()
     }
 };
+
+const expandedStates = [
+    ['Collapsed', false],
+    ['Expanded', true]
+] as const;
+type ExpandedState = typeof expandedStates[number];
+
+const selectedStates = [
+    ['Unselected', false],
+    ['Selected', true]
+] as const;
+type SelectedState = typeof selectedStates[number];
 
 // prettier-ignore
 const component = (
@@ -80,5 +89,16 @@ export const hiddenTreeView: Story = createStory(
         html`<nimble-tree-view hidden>
             <nimble-tree-item>Item 1</nimble-tree-item>
         </nimble-tree-view>`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`
+            <nimble-tree-view>
+                Inner text
+                <nimble-tree-item>Tree item</nimble-tree-item>
+            </nimble-tree-view>
+        `
     )
 );

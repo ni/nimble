@@ -1,20 +1,21 @@
 @namespace NimbleBlazor
 @inherits NimbleInputBase<string?>
-<nimble-text-area autofocus="@AutoFocus"
-                   appearance="@Appearance.ToAttributeValue()"
-                   current-value="@BindConverter.FormatValue(CurrentValue)"
-                   @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-                   size="@Size"
-                   minlength="@MinLength"
-                   maxlength="@MaxLength"
-                   resize="@TextAreaResize.ToAttributeValue()"
-                   rows="@Rows"
-                   cols="@Cols"
-                   spellcheck="@Spellcheck"
-                   readonly="@ReadOnly"
-                   disabled="@Disabled"
-                   required="@Required"
-                   placeholder="@Placeholder"
-                   @attributes="AdditionalAttributes">
+<nimble-text-area
+    autofocus="@AutoFocus"
+    appearance="@Appearance.ToAttributeValue()"
+    current-value="@BindConverter.FormatValue(CurrentValue)"
+    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+    size="@Size"
+    minlength="@MinLength"
+    maxlength="@MaxLength"
+    resize="@TextAreaResize.ToAttributeValue()"
+    rows="@Rows"
+    cols="@Cols"
+    spellcheck="@Spellcheck"
+    readonly="@ReadOnly"
+    disabled="@Disabled"
+    required="@Required"
+    placeholder="@Placeholder"
+    @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-text-area>

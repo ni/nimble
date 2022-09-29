@@ -1,2 +1,9 @@
 @namespace NimbleBlazor
-<nimble-tooltip anchor="@Anchor" delay="@Delay" @attributes="AdditionalAttributes">@ChildContent</nimble-tooltip>
+<nimble-tooltip
+    anchor="@Anchor"
+    delay="@Delay"
+    severity="@Severity.ToAttributeValue()"
+    icon-visible="@IconVisible"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-tooltip>

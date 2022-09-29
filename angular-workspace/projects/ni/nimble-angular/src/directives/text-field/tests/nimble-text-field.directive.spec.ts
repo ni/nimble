@@ -153,6 +153,17 @@ describe('Nimble text field', () => {
             expect(nativeElement.errorText).toBe('new value');
         });
 
+        it('has expected defaults for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+        });
+
+        it('can use the directive to set errorVisible', () => {
+            directive.errorVisible = true;
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
+
         it('has expected defaults for size', () => {
             expect(directive.size).toBeUndefined();
             expect(nativeElement.size).toBeUndefined();
@@ -172,6 +183,16 @@ describe('Nimble text field', () => {
             directive.spellcheck = true;
             expect(nativeElement.spellcheck).toBeTrue();
         });
+
+        it('has expected defaults for fullBleed', () => {
+            expect(directive.fullBleed).toBeFalse();
+            expect(nativeElement.fullBleed).toBeFalse();
+        });
+
+        it('can use the directive to set fullBleed', () => {
+            directive.fullBleed = true;
+            expect(nativeElement.fullBleed).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -189,8 +210,11 @@ describe('Nimble text field', () => {
                     minlength="20"
                     pattern="foo *"
                     error-text="error text"
+                    error-visible
                     size="10"
-                    spellcheck>
+                    spellcheck
+                    full-bleed
+                >
                 </nimble-text-field>`
         })
         class TestHostComponent {
@@ -268,6 +292,11 @@ describe('Nimble text field', () => {
             expect(nativeElement.errorText).toBe('error text');
         });
 
+        it('will use template string values for errorVisible', () => {
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
+
         it('will use template string values for size', () => {
             expect(directive.size).toBe(10);
             expect(nativeElement.size).toBe(10);
@@ -276,6 +305,11 @@ describe('Nimble text field', () => {
         it('will use template string values for spellcheck', () => {
             expect(directive.spellcheck).toBeTrue();
             expect(nativeElement.spellcheck).toBeTrue();
+        });
+
+        it('will use template string values for fullBleed', () => {
+            expect(directive.fullBleed).toBeTrue();
+            expect(nativeElement.fullBleed).toBeTrue();
         });
     });
 
@@ -294,8 +328,11 @@ describe('Nimble text field', () => {
                     [minlength]="minlength"
                     [pattern]="pattern"
                     [error-text]="errorText"
+                    [error-visible]="errorVisible"
                     [size]="size"
-                    [spellcheck]="spellcheck">
+                    [spellcheck]="spellcheck"
+                    [full-bleed]="fullBleed"
+                >
                 </nimble-text-field>`
         })
         class TestHostComponent {
@@ -312,8 +349,10 @@ describe('Nimble text field', () => {
             public minlength = 5;
             public pattern = 'initial';
             public errorText = 'initial value';
+            public errorVisible = false;
             public size = 2;
             public spellcheck = false;
+            public fullBleed = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -452,6 +491,17 @@ describe('Nimble text field', () => {
             expect(nativeElement.errorText).toBe('new value');
         });
 
+        it('can be configured with property binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
+
         it('can be configured with property binding for size', () => {
             expect(directive.size).toBe(2);
             expect(nativeElement.size).toBe(2);
@@ -473,6 +523,17 @@ describe('Nimble text field', () => {
             expect(directive.spellcheck).toBeTrue();
             expect(nativeElement.spellcheck).toBeTrue();
         });
+
+        it('can be configured with property binding for fullBleed', () => {
+            expect(directive.fullBleed).toBeFalse();
+            expect(nativeElement.fullBleed).toBeFalse();
+
+            fixture.componentInstance.fullBleed = true;
+            fixture.detectChanges();
+
+            expect(directive.fullBleed).toBeTrue();
+            expect(nativeElement.fullBleed).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -490,8 +551,11 @@ describe('Nimble text field', () => {
                     [attr.minlength]="minlength"
                     [attr.pattern]="pattern"
                     [attr.error-text]="errorText"
+                    [attr.error-visible]="errorVisible"
                     [attr.size]="size"
-                    [attr.spellcheck]="spellcheck">
+                    [attr.spellcheck]="spellcheck"
+                    [attr.full-bleed]="fullBleed"
+                >
                 </nimble-text-field>`
         })
         class TestHostComponent {
@@ -508,8 +572,10 @@ describe('Nimble text field', () => {
             public minlength: NumberValueOrAttribute = 5;
             public pattern = 'initial';
             public errorText = 'initial value';
+            public errorVisible: BooleanValueOrAttribute = null;
             public size: NumberValueOrAttribute = 2;
             public spellcheck: BooleanValueOrAttribute = null;
+            public fullBleed: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -648,6 +714,17 @@ describe('Nimble text field', () => {
             expect(nativeElement.errorText).toBe('new value');
         });
 
+        it('can be configured with attribute binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
+
         it('can be configured with attribute binding for size', () => {
             expect(directive.size).toBe(2);
             expect(nativeElement.size).toBe(2);
@@ -668,6 +745,17 @@ describe('Nimble text field', () => {
 
             expect(directive.spellcheck).toBeTrue();
             expect(nativeElement.spellcheck).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for fullBleed', () => {
+            expect(directive.fullBleed).toBeFalse();
+            expect(nativeElement.fullBleed).toBeFalse();
+
+            fixture.componentInstance.fullBleed = '';
+            fixture.detectChanges();
+
+            expect(directive.fullBleed).toBeTrue();
+            expect(nativeElement.fullBleed).toBeTrue();
         });
     });
 });

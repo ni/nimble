@@ -7,6 +7,9 @@ namespace NimbleBlazor;
 /// </summary>
 public abstract class NimbleIconBase : ComponentBase
 {
+    [Parameter]
+    public IconSeverity? Severity { get; set; }
+
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>

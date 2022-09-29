@@ -40,6 +40,15 @@
                 <nimble-checkbox>Checkbox label</nimble-checkbox>
             </div>
             <div class="sub-container">
+                <div class="container-label">Radio Buttons</div>
+                <nimble-radio-group name="fruit">
+                    <nimble-radio-button value="apple" [(ngModel)]="selectedRadioButton">Apple</nimble-radio-button>
+                    <nimble-radio-button value="banana" [(ngModel)]="selectedRadioButton">Banana</nimble-radio-button>
+                    <nimble-radio-button value="mango" [(ngModel)]="selectedRadioButton">Mango</nimble-radio-button>
+                </nimble-radio-group>
+                <nimble-text-field [(ngModel)]="selectedRadioButton">Selected value</nimble-text-field>
+            </div>
+            <div class="sub-container">
                 <div class="container-label">Dialog</div>
                 <nimble-dialog #dialog>
                     <h2>This is a dialog</h2>
@@ -184,13 +193,13 @@
                 <nimble-button id="anchor1">Default</nimble-button>
                 <nimble-tooltip anchor="anchor1">Tooltip label</nimble-tooltip>
                 <nimble-button id="anchor2">Fail</nimble-button>
-                <nimble-tooltip anchor="anchor2" class="fail">Tooltip label</nimble-tooltip>
+                <nimble-tooltip anchor="anchor2" severity="error">Tooltip label</nimble-tooltip>
                 <nimble-button id="anchor3">Information</nimble-button>
-                <nimble-tooltip anchor="anchor3" class="information">Tooltip label</nimble-tooltip>
+                <nimble-tooltip anchor="anchor3" severity="information">Tooltip label</nimble-tooltip>
                 <nimble-button id="anchor4">Fail Icon </nimble-button>
-                <nimble-tooltip anchor="anchor4" class="fail icon-visible">Tooltip label</nimble-tooltip>
+                <nimble-tooltip anchor="anchor4" severity="error" icon-visible>Tooltip label</nimble-tooltip>
                 <nimble-button id="anchor5">Information Icon</nimble-button>
-                <nimble-tooltip anchor="anchor5" class="information icon-visible">Tooltip label</nimble-tooltip>
+                <nimble-tooltip anchor="anchor5" severity="information" icon-visible>Tooltip label</nimble-tooltip>
             </div>
             <div class="sub-container">
                 <div class="container-label">Tree View</div>
