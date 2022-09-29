@@ -1,2 +1,7 @@
 ﻿@namespace NimbleBlazor
-<nimble-theme-provider direction="@Direction.ToAttributeValue()" theme="@Theme.ToAttributeValue()" >@ChildContent</nimble-theme-provider>
+<nimble-theme-provider
+    direction="@Direction.ToAttributeValue()"
+    theme="@Theme.ToAttributeValue()"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-theme-provider>
