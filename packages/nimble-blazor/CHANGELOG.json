@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 29 Sep 2022 19:39:31 GMT",
+      "tag": "@ni/nimble-blazor_v5.8.0",
+      "version": "5.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "eb8d708a8eda9e0772f9c3208c99926b12d7cb45",
+            "comment": "Blazor wrapper for radio button and group"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Sep 2022 22:11:39 GMT",
       "tag": "@ni/nimble-blazor_v5.7.0",
       "version": "5.7.0",
