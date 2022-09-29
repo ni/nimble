@@ -3,8 +3,8 @@
 <nimble-radio-group disabled=@Disabled
                     name="@Name"
                     orientation="@Orientation.ToAttributeValue()"
-                    current-value="@CurrentValue"
-                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValue = __value, CurrentValue))"
+                    value="@Value"
+                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => Value = __value, CurrentValue))"
                     @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-radio-group>
