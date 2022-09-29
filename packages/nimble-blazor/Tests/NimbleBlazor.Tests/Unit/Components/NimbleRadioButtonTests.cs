@@ -46,14 +46,6 @@ public class NimbleRadioButtonTests
         Assert.Contains("name", radioButton.Markup);
     }
 
-    [Fact]
-    public void NimbleRadioButtonChecked_AttributeIsSet()
-    {
-        var radioButton = RenderNimbleRadioButtonWithPropertySet(x => x.Checked, true);
-
-        Assert.Contains("checked", radioButton.Markup);
-    }
-
     private IRenderedComponent<NimbleRadioButton> RenderNimbleRadioButtonWithPropertySet<TProperty>(Expression<Func<NimbleRadioButton, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
