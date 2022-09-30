@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 30 Sep 2022 21:06:13 GMT",
+      "tag": "@ni/nimble-angular_v9.0.1",
+      "version": "9.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ffdb3092ce59e6bf414b04285d3a1aaaa00301db",
+            "comment": "Modify console.error handling in unit tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 29 Sep 2022 20:33:02 GMT",
       "tag": "@ni/nimble-angular_v9.0.1",
       "version": "9.0.1",

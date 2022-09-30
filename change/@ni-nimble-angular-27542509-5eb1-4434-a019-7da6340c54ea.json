@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Modify console.error handling in unit tests",
-  "packageName": "@ni/nimble-angular",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
