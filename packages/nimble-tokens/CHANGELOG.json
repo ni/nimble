@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 29 Sep 2022 20:33:02 GMT",
+      "tag": "@ni/nimble-tokens_v4.1.1",
+      "version": "4.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "21569a7511ea37f1bab18a1edae89cd9fa2ce8f6",
+            "comment": "Add font assets for Light & SemiBold SourceSansPro"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Aug 2022 14:00:36 GMT",
       "tag": "@ni/nimble-tokens_v4.1.0",
       "version": "4.1.0",

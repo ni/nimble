@@ -1,14 +1,17 @@
 ﻿@namespace NimbleBlazor
 @inherits NimbleInputBase<string?>
 <CascadingValue TValue=NimbleOptionContext IsFixed=true Value=_context @key=_context>
-    <nimble-combobox current-value="@CurrentValueAsString"
-                   @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-                   disabled="@Disabled"
-                   position="@Position.ToAttributeValue()"
-                   autocomplete="@AutoComplete.ToAttributeValue()"
-                   appearance="@Appearance.ToAttributeValue()"
-                   placeholder="@Placeholder"
-                   @attributes="AdditionalAttributes">
+    <nimble-combobox
+        current-value="@CurrentValueAsString"
+        @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+        disabled="@Disabled"
+        position="@Position.ToAttributeValue()"
+        autocomplete="@AutoComplete.ToAttributeValue()"
+        appearance="@Appearance.ToAttributeValue()"
+        placeholder="@Placeholder"
+        error-text="@ErrorText"
+        error-visible="@ErrorVisible"
+        @attributes="AdditionalAttributes">
         @ChildContent
     </nimble-combobox>
 </CascadingValue>

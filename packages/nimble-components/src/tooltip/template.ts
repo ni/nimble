@@ -1,17 +1,16 @@
-import { html, ref, ViewTemplate, when } from '@microsoft/fast-element';
-import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
+import { html, ref, when } from '@microsoft/fast-element';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import { AnchoredRegion } from '../anchored-region';
 import { IconExclamationMark } from '../icons/exclamation-mark';
 import { IconInfo } from '../icons/info';
 import type { Tooltip } from '.';
 
 // prettier-ignore
-export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = context => {
-    return html<Tooltip>`
+export const template = html<Tooltip>`
             ${when(
         x => x.tooltipVisible,
         html<Tooltip>`
-            <${context.tagFor(AnchoredRegion)}
+            <${DesignSystem.tagFor(AnchoredRegion)}
                 class="anchored-region"
                 fixed-placement="true"
                 auto-update-mode="${x => x.autoUpdateMode}"
@@ -29,12 +28,17 @@ export const template: FoundationElementTemplate<ViewTemplate<Tooltip>> = contex
                 ${ref('region')}
             >
                 <div class="tooltip" part="tooltip" role="tooltip">
-                    <${context.tagFor(IconExclamationMark)} class="fail status-icon"></${context.tagFor(IconExclamationMark)}>
-                    <${context.tagFor(IconInfo)} class="information status-icon"></${context.tagFor(IconInfo)}>
+                    <${DesignSystem.tagFor(IconExclamationMark)}
+                        severity="error"
+                        class="status-icon"
+                    ></${DesignSystem.tagFor(IconExclamationMark)}>
+                    <${DesignSystem.tagFor(IconInfo)}
+                        severity="information"
+                        class="status-icon"
+                    ></${DesignSystem.tagFor(IconInfo)}>
                     <slot></slot>
                 </div>
-            </${context.tagFor(AnchoredRegion)}>
+            </${DesignSystem.tagFor(AnchoredRegion)}>
         `
     )}
-        `;
-};
+`;

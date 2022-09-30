@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 26 Aug 2022 14:00:36 GMT and should not be manually modified.
+This log was last generated on Thu, 29 Sep 2022 20:33:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.1.1
+
+Thu, 29 Sep 2022 20:33:02 GMT
+
+### Patches
+
+- Add font assets for Light & SemiBold SourceSansPro ([ni/nimble@21569a7](https://github.com/ni/nimble/commit/21569a7511ea37f1bab18a1edae89cd9fa2ce8f6))
 
 ## 4.1.0
 

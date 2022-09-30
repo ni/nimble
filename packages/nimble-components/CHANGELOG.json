@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 29 Sep 2022 20:33:02 GMT",
+      "tag": "@ni/nimble-components_v12.0.1",
+      "version": "12.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.1.1",
+            "commit": "21569a7511ea37f1bab18a1edae89cd9fa2ce8f6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 Sep 2022 20:03:25 GMT",
+      "tag": "@ni/nimble-components_v12.0.0",
+      "version": "12.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9023d71ddb4740a624e5b9eac0114a0c91fbca78",
+            "comment": "Migrated from CSS classes to element attributes for configuring components. For the list of specific elements and classes changed see: [#738](https://github.com/ni/nimble/pull/738)."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 28 Sep 2022 14:06:28 GMT",
       "tag": "@ni/nimble-components_v11.15.1",
       "version": "11.15.1",

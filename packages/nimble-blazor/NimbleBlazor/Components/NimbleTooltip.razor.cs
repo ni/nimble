@@ -11,6 +11,12 @@ public partial class NimbleTooltip : ComponentBase
     public int? Delay { get; set; }
 
     [Parameter]
+    public TooltipSeverity? Severity { get; set; }
+
+    [Parameter]
+    public bool? IconVisible { get; set; }
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]

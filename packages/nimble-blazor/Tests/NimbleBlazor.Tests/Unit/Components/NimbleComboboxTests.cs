@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Bunit;
-using NimbleBlazor;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
@@ -12,15 +11,15 @@ namespace NimbleBlazor.Tests.Unit.Components;
 public class NimbleComboboxTests
 {
     [Fact]
-    public void NimbleCombobox_Rendered_HasSelectMarkup()
+    public void NimbleCombobox_Rendered_HasComboboxMarkup()
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-combobox";
 
-        var select = context.RenderComponent<NimbleCombobox>();
+        var combobox = context.RenderComponent<NimbleCombobox>();
 
-        Assert.Contains(expectedMarkup, select.Markup);
+        Assert.Contains(expectedMarkup, combobox.Markup);
     }
 
     [Theory]
@@ -28,9 +27,9 @@ public class NimbleComboboxTests
     [InlineData(Position.Above, "above")]
     public void ComboboxPosition_AttributeIsSet(Position value, string expectedAttribute)
     {
-        var select = RenderNimbleComboboxWithPropertySet(x => x.Position, value);
+        var combobox = RenderWithPropertySet(x => x.Position, value);
 
-        Assert.Contains(expectedAttribute, select.Markup);
+        Assert.Contains(expectedAttribute, combobox.Markup);
     }
 
     [Theory]
@@ -40,9 +39,9 @@ public class NimbleComboboxTests
     [InlineData(AutoComplete.None, "none")]
     public void ComboboxAutoComplete_AttributeIsSet(AutoComplete value, string expectedAttribute)
     {
-        var select = RenderNimbleComboboxWithPropertySet(x => x.AutoComplete, value);
+        var combobox = RenderWithPropertySet(x => x.AutoComplete, value);
 
-        Assert.Contains(expectedAttribute, select.Markup);
+        Assert.Contains(expectedAttribute, combobox.Markup);
     }
 
     [Theory]
@@ -51,30 +50,46 @@ public class NimbleComboboxTests
     [InlineData(DropdownAppearance.Outline, "outline")]
     public void ComboboxAppearance_AttributeIsSet(DropdownAppearance value, string expectedAttribute)
     {
-        var select = RenderNimbleComboboxWithPropertySet(x => x.Appearance, value);
+        var combobox = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Contains(expectedAttribute, select.Markup);
+        Assert.Contains(expectedAttribute, combobox.Markup);
     }
 
     [Fact]
     public void ComboboxPlaceholder_AttributeIsSet()
     {
-        var placeholder = "Select value...";
-        var select = RenderNimbleComboboxWithPropertySet(x => x.Placeholder, placeholder);
+        var placeholder = "Combobox value...";
+        var combobox = RenderWithPropertySet(x => x.Placeholder, placeholder);
 
-        Assert.Contains("placeholder", select.Markup);
+        Assert.Contains("placeholder", combobox.Markup);
     }
 
     [Fact]
-    public void SelectWithOption_HasListOptionMarkup()
+    public void ComboboxErrorText_AttributeIsSet()
     {
-        var expectedMarkup = "nimble-list-option";
-        var select = RenderNimbleComboboxWithOption();
+        var combobox = RenderWithPropertySet(x => x.ErrorText, "bad number");
 
-        Assert.Contains(expectedMarkup, select.Markup);
+        Assert.Contains("error-text=\"bad number\"", combobox.Markup);
     }
 
-    private IRenderedComponent<NimbleCombobox> RenderNimbleComboboxWithPropertySet<TProperty>(Expression<Func<NimbleCombobox, TProperty>> propertyGetter, TProperty propertyValue)
+    [Fact]
+    public void ComboboxErrorVisible_AttributeIsSet()
+    {
+        var combobox = RenderWithPropertySet(x => x.ErrorVisible, true);
+
+        Assert.Contains("error-visible", combobox.Markup);
+    }
+
+    [Fact]
+    public void ComboboxWithOption_HasListOptionMarkup()
+    {
+        var expectedMarkup = "nimble-list-option";
+        var combobox = RenderNimbleComboboxWithOption();
+
+        Assert.Contains(expectedMarkup, combobox.Markup);
+    }
+
+    private IRenderedComponent<NimbleCombobox> RenderWithPropertySet<TProperty>(Expression<Func<NimbleCombobox, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;

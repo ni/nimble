@@ -5,6 +5,9 @@ namespace NimbleBlazor;
 public partial class NimbleBreadcrumb : ComponentBase
 {
     [Parameter]
+    public BreadcrumbAppearance? Appearance { get; set; }
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
