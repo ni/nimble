@@ -1,0 +1,18 @@
+<div class="header">
+  <nimble-drawer #drawerReference location="right">
+      <div class="user-settings-drawer">
+          <h1>User settings</h1>
+          <!-- <nimble-select class="theme-select" [ngModel]="theme" (ngModelChange)="themeSelectionChange($event)">
+              <nimble-list-option [value]="themes.light">Light theme</nimble-list-option>
+              <nimble-list-option [value]="themes.dark">Dark theme</nimble-list-option>
+          </nimble-select> -->
+          <nimble-button class="close-button" appearance="outline" (click)="closeButtonClicked()">Close</nimble-button>
+      </div>
+  </nimble-drawer>
+  <div class="menu-container">
+      <nimble-button appearance="outline" (click)="onMenuButtonClick()">Menu</nimble-button>
+      <nimble-menu class="menu" [hidden]="hideMenu">
+          <nimble-menu-item (change)="onUserSettingsSelected()">User Settings</nimble-menu-item>
+      </nimble-menu>
+  </div>
+</div>
