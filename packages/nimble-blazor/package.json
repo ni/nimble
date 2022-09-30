@@ -29,7 +29,7 @@
   "author": {
     "name": "National Instruments"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ni/nimble/issues"
   },
