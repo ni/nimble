@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 03 Oct 2022 22:16:20 GMT",
+      "tag": "@ni/nimble-tokens_v4.1.2",
+      "version": "4.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "31021de203162ed44452ab54425946b220cf9f0f",
+            "comment": "Updating licenses to MIT"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 29 Sep 2022 20:33:02 GMT",
       "tag": "@ni/nimble-tokens_v4.1.1",
       "version": "4.1.1",

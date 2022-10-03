@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Updating licenses to MIT",
-  "packageName": "@ni/nimble-components",
-  "email": "109235103+nate-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

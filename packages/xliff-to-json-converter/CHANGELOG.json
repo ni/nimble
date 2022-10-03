@@ -2,6 +2,21 @@
   "name": "@ni/xliff-to-json-converter",
   "entries": [
     {
+      "date": "Mon, 03 Oct 2022 22:16:20 GMT",
+      "tag": "@ni/xliff-to-json-converter_v1.0.1",
+      "version": "1.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "31021de203162ed44452ab54425946b220cf9f0f",
+            "comment": "Updating licenses to MIT"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Jun 2022 19:22:07 GMT",
       "tag": "@ni/xliff-to-json-converter_v1.0.0",
       "version": "1.0.0",

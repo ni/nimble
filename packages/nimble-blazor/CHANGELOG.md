@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 29 Sep 2022 20:03:25 GMT and should not be manually modified.
+This log was last generated on Mon, 03 Oct 2022 22:16:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.0.2
+
+Mon, 03 Oct 2022 22:16:20 GMT
+
+### Patches
+
+- Updating licenses to MIT ([ni/nimble@31021de](https://github.com/ni/nimble/commit/31021de203162ed44452ab54425946b220cf9f0f))
 
 ## 6.0.0
 
