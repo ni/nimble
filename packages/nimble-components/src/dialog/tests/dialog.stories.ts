@@ -105,11 +105,11 @@ const metadata: Meta<DialogArgs> = {
         },
         title: {
             description:
-                'Primary text that is displayed in the header when `header-hidden` is not set. Dialogs should always include a title even when `header-hidden` is set. The dialog includes the title as part of `aria-labelledby` to provide a dialog label in assistive technologies regardless of the value of `header-hidden`.'
+                'Primary text that is displayed in the header when `header-hidden` is not set. Dialogs should **always include a title** even when `header-hidden` is set. The title is used to provide an accessible name to assistive technologies regardless of the value of `header-hidden`.'
         },
         subtitle: {
             description:
-                'Secondary text that is displayed in the header when `header-hidden` is not set. If a dialog has an appropriate value to set for the subtitle, it should be included even when `header-hidden` is set. The dialog includes the subtitle as part of `aria-labelledby` to provide a dialog label in assistive technologies regardless of the value of `header-hidden`.'
+                'Secondary text that is displayed in the header when `header-hidden` is not set. If a dialog has an appropriate value to set for the subtitle, it should be included even when `header-hidden` is set. If the subtitle is set, it is used with the title to provide an accessible name to assistive technologies regardless of the value of `header-hidden`.'
         },
         headerHidden: {
             name: 'header-hidden',
@@ -120,6 +120,9 @@ const metadata: Meta<DialogArgs> = {
             name: 'footer-hidden',
             description:
                 'Setting `footer-hidden` hides the footer of the dialog and any content that has been slotted within it. Setting `footer-hidden` also allows the main content of the dialog to fill the space that would otherwise be reserved for the footer.'
+        },
+        includeFooterButtons: {
+            name: 'Include footer buttons'
         },
         show: {
             name: 'show()',
