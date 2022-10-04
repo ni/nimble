@@ -1,10 +1,8 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { Dialog, UserDismissed } from '@ni/nimble-components/dist/esm/dialog';
-import { USER_DISMISSED } from '@ni/nimble-components/dist/esm/dialog';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { Dialog };
-export { USER_DISMISSED };
 
 /**
  * Directive to provide Angular integration for the dialog element.

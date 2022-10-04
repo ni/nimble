@@ -8,9 +8,9 @@ import {
     popupBorderColor
 } from '../theme-provider/design-tokens';
 import {
-    modalBackdropColorThemeColor,
-    modalBackdropColorThemeDark,
-    modalBackdropColorThemeLight
+    modalBackdropColorThemeColorStatic,
+    modalBackdropColorThemeDarkStatic,
+    modalBackdropColorThemeLightStatic
 } from '../theme-provider/design-tokens-static';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
@@ -33,7 +33,7 @@ export const styles = css`
         Theme.light,
         css`
             dialog::backdrop {
-                background: ${modalBackdropColorThemeLight};
+                background: ${modalBackdropColorThemeLightStatic};
             }
         `
     ),
@@ -41,7 +41,7 @@ export const styles = css`
         Theme.dark,
         css`
             dialog::backdrop {
-                background: ${modalBackdropColorThemeDark};
+                background: ${modalBackdropColorThemeDarkStatic};
             }
         `
     ),
@@ -49,7 +49,7 @@ export const styles = css`
         Theme.color,
         css`
             dialog::backdrop {
-                background: ${modalBackdropColorThemeColor};
+                background: ${modalBackdropColorThemeColorStatic};
             }
         `
     )
