@@ -1,1 +1,22 @@
-@import '~@ni/nimble-angular/styles/fonts';
+@import "~@ni/nimble-angular/styles/fonts";
+@import "~@ni/nimble-angular/styles/tokens";
+
+body {
+  margin: 0px;
+}
+
+.nimble-typography {
+  h1 {
+    font: $ni-nimble-headline-font;
+  }
+  p,
+  a {
+    font: $ni-nimble-body-font;
+    color: $ni-nimble-link-standard-font-color;
+  }
+}
+
+.container {
+  background-color: $ni-nimble-application-background-color;
+  padding: $ni-nimble-small-padding;
+}

@@ -1,0 +1,5 @@
+@import "~@ni/nimble-angular/styles/tokens";
+.header{
+  background-color: $ni-nimble-header-background-color;
+  padding: $ni-nimble-small-padding;
+}

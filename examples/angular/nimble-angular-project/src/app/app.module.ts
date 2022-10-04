@@ -13,7 +13,6 @@ import {
   NimbleDialogModule,
   NimbleDrawerModule,
   NimbleIconAddModule,
-  NimbleIconKeyModule,
   NimbleListOptionModule,
   NimbleMenuButtonModule,
   NimbleMenuItemModule,
@@ -38,14 +37,12 @@ import {
 } from '@ni/nimble-angular';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
-import { NavDrawerComponent } from './nav-drawer/nav-drawer.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent,
-    NavDrawerComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

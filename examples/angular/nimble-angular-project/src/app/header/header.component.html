@@ -1,18 +1,37 @@
 <div class="header">
-  <nimble-drawer #drawerReference location="right">
-      <div class="user-settings-drawer">
-          <h1>User settings</h1>
-          <!-- <nimble-select class="theme-select" [ngModel]="theme" (ngModelChange)="themeSelectionChange($event)">
-              <nimble-list-option [value]="themes.light">Light theme</nimble-list-option>
-              <nimble-list-option [value]="themes.dark">Dark theme</nimble-list-option>
-          </nimble-select> -->
-          <nimble-button class="close-button" appearance="outline" (click)="closeButtonClicked()">Close</nimble-button>
-      </div>
-  </nimble-drawer>
+  <div class="drawer-container">
+    <nimble-drawer #drawerReference [location]="location">
+      <nimble-button appearance="outline" (click)="closeDrawer()">Button in drawer</nimble-button>
+      <nimble-select class="theme-select" [ngModel]="theme" (ngModelChange)="themeSelectionChange($event)">
+        <nimble-list-option [value]="themes.light">Light theme</nimble-list-option>
+        <nimble-list-option [value]="themes.dark">Dark theme</nimble-list-option>
+      </nimble-select>
+        <nimble-tree-view selection-mode="leaves-only">
+            <nimble-tree-item>
+                Top Level 1
+                <nimble-tree-item>Item 1</nimble-tree-item>
+                <nimble-tree-item>Item 2</nimble-tree-item>
+                <nimble-tree-item disabled>Item 3 (disabled)</nimble-tree-item>
+                <nimble-tree-item>Item 4</nimble-tree-item>
+            </nimble-tree-item>
+            <nimble-tree-item>
+                Top Level 2
+                <nimble-tree-item>Item 1</nimble-tree-item>
+                <nimble-tree-item>Item 2</nimble-tree-item>
+                <nimble-tree-item>Item 3</nimble-tree-item>
+                <nimble-tree-item>Item 4</nimble-tree-item>
+            </nimble-tree-item>
+            <nimble-tree-item expanded>
+                Top Level 3
+                <nimble-tree-item>Item 1</nimble-tree-item>
+                <nimble-tree-item>Item 2</nimble-tree-item>
+                <nimble-tree-item>Item 3</nimble-tree-item>
+                <nimble-tree-item>Item 4</nimble-tree-item>
+            </nimble-tree-item>
+        </nimble-tree-view>
+    </nimble-drawer>
+  </div>
   <div class="menu-container">
-      <nimble-button appearance="outline" (click)="onMenuButtonClick()">Menu</nimble-button>
-      <nimble-menu class="menu" [hidden]="hideMenu">
-          <nimble-menu-item (change)="onUserSettingsSelected()">User Settings</nimble-menu-item>
-      </nimble-menu>
+      <nimble-button appearance="outline" (click)="openDrawer()">Open drawer</nimble-button>
   </div>
 </div>
