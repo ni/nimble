@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog",
-  "packageName": "@ni/nimble-angular",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

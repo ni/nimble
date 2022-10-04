@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 04 Oct 2022 16:41:24 GMT",
+      "tag": "@ni/nimble-angular_v10.0.0",
+      "version": "10.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e31785bf51ac6d2e2d188ee3dceed3d862565d3e",
+            "comment": "Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v13.0.0",
+            "commit": "e31785bf51ac6d2e2d188ee3dceed3d862565d3e"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 03 Oct 2022 22:16:20 GMT",
       "tag": "@ni/nimble-angular_v9.0.2",
       "version": "9.0.2",

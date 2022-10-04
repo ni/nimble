@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 04 Oct 2022 16:41:24 GMT",
+      "tag": "@ni/nimble-components_v13.0.0",
+      "version": "13.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e31785bf51ac6d2e2d188ee3dceed3d862565d3e",
+            "comment": "Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 03 Oct 2022 22:16:20 GMT",
       "tag": "@ni/nimble-components_v12.0.2",
       "version": "12.0.2",

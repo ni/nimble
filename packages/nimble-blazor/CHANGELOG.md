@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 03 Oct 2022 22:16:20 GMT and should not be manually modified.
+This log was last generated on Tue, 04 Oct 2022 16:41:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.0.0
+
+Tue, 04 Oct 2022 16:41:24 GMT
+
+### Major changes
+
+- Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog ([ni/nimble@e31785b](https://github.com/ni/nimble/commit/e31785bf51ac6d2e2d188ee3dceed3d862565d3e))
 
 ## 6.0.2
 
