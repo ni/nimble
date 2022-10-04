@@ -30,21 +30,13 @@ const shortContent = html`
     <span>
         This action is destructive. Are you sure you would like to do it?
     </span>
-    <nimble-checkbox>
-        Perform some other relevant action too
-    </nimble-checkbox>
+    <nimble-checkbox> Perform some other relevant action too </nimble-checkbox>
 `;
 
 const longContent = html`
-    <span>
-        ${loremIpsum}
-    </span>
-    <span>
-        ${loremIpsum}
-    </span>
-    <span>
-        ${loremIpsum}
-    </span>
+    <span> ${loremIpsum} </span>
+    <span> ${loremIpsum} </span>
+    <span> ${loremIpsum} </span>
     <nimble-checkbox>Checkbox 1</nimble-checkbox>
     <nimble-checkbox>Checkbox 2</nimble-checkbox>
     <nimble-checkbox>Checkbox 3</nimble-checkbox>
@@ -88,7 +80,6 @@ const metadata: Meta<DialogArgs> = {
             <div slot="subtitle">${x => x.subtitle}</div>
 
             ${x => content[x.content]}
-
             ${when(
         x => x.includeFooterButtons,
         html<DialogArgs>`
@@ -162,10 +153,8 @@ const metadata: Meta<DialogArgs> = {
             control: {
                 type: 'radio',
                 labels: {
-                    [ExampleContentType.shortContent]:
-                        'Short content',
-                    [ExampleContentType.longContent]:
-                        'Long content'
+                    [ExampleContentType.shortContent]: 'Short content',
+                    [ExampleContentType.longContent]: 'Long content'
                 }
             }
         },
