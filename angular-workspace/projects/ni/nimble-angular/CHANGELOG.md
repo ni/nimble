@@ -1,8 +1,42 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 15 Sep 2022 18:33:47 GMT and should not be manually modified.
+This log was last generated on Mon, 03 Oct 2022 22:16:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.2
+
+Mon, 03 Oct 2022 22:16:20 GMT
+
+### Patches
+
+- Updating licenses to MIT ([ni/nimble@31021de](https://github.com/ni/nimble/commit/31021de203162ed44452ab54425946b220cf9f0f))
+- Bump @ni/nimble-components to v12.0.2
+
+## 9.0.1
+
+Thu, 29 Sep 2022 20:33:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v12.0.1
+
+## 9.0.0
+
+Thu, 29 Sep 2022 20:03:25 GMT
+
+### Major changes
+
+- Migrated from CSS classes to element attributes for configuring components. For the list of specific elements and classes changed see: [#738](https://github.com/ni/nimble/pull/738). ([ni/nimble@9023d71](https://github.com/ni/nimble/commit/9023d71ddb4740a624e5b9eac0114a0c91fbca78))
+- Bump @ni/nimble-components to v12.0.0
+
+## 8.5.0
+
+Tue, 27 Sep 2022 21:39:15 GMT
+
+### Minor changes
+
+- Angular integration for radio button and group ([ni/nimble@6906246](https://github.com/ni/nimble/commit/6906246ea159f42edcd34b2cc881611afa32186d))
 
 ## 8.4.12
 

@@ -13,6 +13,7 @@ namespace Demo.Shared.Pages
         private string? DialogClosedReason { get; set; }
         private NimbleDrawer<DialogResult>? _drawer;
         private string? DrawerClosedReason { get; set; }
+        private string? SelectedRadio { get; set; } = "2";
 
         private string DrawerLocationAsString
         {

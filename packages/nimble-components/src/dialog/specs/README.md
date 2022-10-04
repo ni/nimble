@@ -10,7 +10,7 @@ See request in [GitHub issue #378](https://github.com/ni/nimble/issues/378).
 
 Also tracked by [AzDO User Story 2042565](https://ni.visualstudio.com/DevCentral/_workitems/edit/2042565).
 
-No final visual design spec exists yet.
+[Visual design spec](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6f1b5b4d-2e50-4f8d-ad49-e3dac564a006/specs/)
 
 ### Non-goals
 
@@ -62,6 +62,8 @@ Some [early designs](https://xd.adobe.com/view/00ff3aa4-594f-48eb-6e29-841043749
 -   _Props/Attrs_
     -   `open` - read-only attribute that is set while the dialog is open. The native dialog supports setting this attribute, but it opens the dialog non-modally, uncentered, and without focus management. For that reason our API only supports `show()` as the way to open a dialog.
     -   `prevent-dismiss` - prevent dismissal by pressing ESC (this attribute also exists on the Nimble drawer)
+    -   `header-hidden` - Collapse the header of the dialog, which includes the title and subtitle. This places the content of the dialog at the top of the dialog.
+    -   `footer-hidden` - Collapse the footer of the dialog.
 -   _Methods_
     -   `show()` - opens the dialog and returns a `Promise` that is resolved when the dialog is closed. The value of the resolved `Promise` indicates why/how the dialog was closed. When the dialog is closed by the user pressing ESC, a `USER_DISMISSED` Symbol is returned as the reason.
     -   `close(reason)` - closes the dialog (returning focus to the control that had it before opening), optionally specifying the reason/method (a value of any type).
@@ -78,18 +80,72 @@ We will not make any special effort to provide forms support (i.e. form `type="d
 
 ### Anatomy
 
-Because we do not have concrete designs for Nimble dialogs, we will initially have a single, default slot and leave layout and styling of contents completely up to the client. One unfortunate consequence of this is that the component will not be able to enforce design coherence, like position, style, label casing, etc. of dialog buttons. This can be mitigated by implementation of a higher-level service that creates consistently-styled, common dialogs. When we have designs for the dialog, we can revisit this and try to apply some common styling and layout.
+The visual design spec has a few different layouts for the dialog. Not all layouts will be supported in the initial styling pass of the dialog. See below for details on what parts will and will not be supported in the intial styling pass:
+
+-   Title
+    -   Included in initial styling pass: Yes
+    -   Rationale: The title is a fundamental part of the dialog. Adding the title will also resolve an accessibility issue with the dialog's aria-label.
+    -   Additional details: The content provided for the title and sub-title will be used as the label of the dialog for accessibility purposes.
+-   Subtitle
+    -   Included in initial styling pass: Yes
+    -   Rationale: The styling of the subtitle is straight-forward and there are no open questions associated with it.
+    -   Additional details: The content provided for the title and sub-title will be used as the label of the dialog for accessibility purposes.
+-   Warning message
+    -   Included in initial styling pass: No
+    -   Rationale: There isn't a pressing need for this part of the dialog yet, and there are a number of questions that need to be resolved prior to adding the messages:
+        -   Should the messages be arbitrary content provided by the user, or should we have an API around providing message(s) with a specified severity, icon, color, etc?
+        -   What, if any, is the overlap between these messages and a future `<nimble-banner>` component?
+        -   Do we allow multiple messages at the same time? If so, is there a maximum height the messages can consume within the dialog?
+-   Close button
+    -   Included in initial styling pass: No
+    -   Rationale: There isn't a pressing need for this component yet, and there are a number of questions that need to be resolved prior to adding the button:
+        -   Should the API allow a client to slot any arbitrary buttons, including a close button, or should we only support one single button that closes the dialog?
+        -   What control do we need to give over the close button? Do we need a way for the user to explicitly disable it?
+        -   Should there be any connection between the `prevent-dismiss` attribute on the dialog and the visibility or disabled state of the close button?
+-   Content
+    -   Included in initial styling pass: Yes
+    -   Rationale: This is critical for using a dialog
+    -   Additional details:
+        -   The content is a `flex` layout container that allows a client to easily place multiple items within the dialog.
+        -   Content will have a `flex-direction` of `column` so that content stacks vertically.
+        -   A `gap` will be provided so that that mutliple content elements have appropriate spacing between them.
+-   Footer buttons
+    -   Included in initial styling pass: Yes
+    -   Rationale: These buttons are required for interacting with the dialog.
+    -   Additional details:
+        -   The footer is a `flex` layout container that allows a client to easily place buttons at the bottom of the dialog.
+        -   If no content is slotted in the footer, the horizontal separator between the footer and content will be removed. The height of the footer will also be adjusted to align with the visual design spec.
+        -   If content is slotted in the footer, it will automatically be placed with the correct vertical spacing between the horizontal line and the bottom of the dialog and with the correct horizontal spacing around content items.
+        -   There will not be explicit slots within the dialog for the various alignments of buttons in the footer.
+        -   Buttons will automatically be placed on the right of the footer, but this can be changed by the client since the footer has a `flex` layout. For example, to move the first button to be left-aligned, that button can be styled with `margin-right: auto`.
+        -   The client will control the order of the buttons within the footer.
+        -   There will be no connection between the `prevent-dismiss` attribute on the dialog and the state of the buttons because the dialog will not make any assumptions about the action associated with any button slotted in the footer.
+        -   There will be no automatic applying of an `appearance` to any of the buttons. It is the client's responsibility to specify the appropriate `appearance` for all buttons slotted in the footer.
 
 Shadow DOM:
 
-```
-<dialog>
-    <slot>
+```html
+<dialog aria-labelledby="title">
+    <header>
+        <span id="title">
+            <slot name="title"></slot>
+            <slot name="subtitle"></slot>
+        </span>
+    </header>
+    <section>
+        <slot></slot>
+    </section>
+    <footer>
+        <slot name="footer"></slot>
+    </footer>
 </dialog>
 ```
 
 -   _Slot Names_
-    -   `(default)`
+    -   `title` - Displayed at the top of the dialog and styled using an appropriate nimble font. The title will be used to label the dialog. The title will not wrap if it is too long; instead, overflow will be hidden with ellipsis.
+    -   `subtitle` - Displayed at the top of the dialog under the title and styled using an appropriate nimble font.
+    -   `(default)` - The primary content of the dialog. If multiple elements are provided for this slot, they will be stacked vertically with padding between them.
+    -   `footer` - Displayed at the bottom of the dialog for buttons that perform an action within the dialog.
 -   _Host Classes_
     -   (none)
 -   _Slotted Content/Slotted Classes_
@@ -97,15 +153,9 @@ Shadow DOM:
 -   _CSS Parts_
     -   (none)
 
-#### ALTERNATIVE
-
-One alternative is to follow the precedent of the Drawer and apply special styling to `header`, `section`, and `footer` elements that are slotted in the default slot. However, we can only style the top-level slotted elements (i.e. `header`, `section`, and `footer`), not any nested elements. This may still be enough, as the Drawer has the same limitation. However, since we don't have designs for the dialog at this point, we will not do any such special element styling.
-
 ### Form-based dialogs
 
 Native dialogs have form support via setting `method="dialog"` on the `form` element. This allows form elements to close the dialog and pass their values back to the caller via the `returnValue` property on the dialog. We won't expose a `returnValue` property or otherwise support forms in our implementation.
-
-A potential complication arrises if we also want to style certain elements like `header`, `section`, and `footer`. If a client wants to host a form on their dialog and have it submit via buttons in the footer, they would have to wrap `section` and `footer` in their `form` element. This would prevent our styling for `section` and `footer` from working.
 
 ### Angular integration
 
@@ -117,11 +167,13 @@ Blazor support will be provided, following the same patterns as used for existin
 
 ### Visual Appearance
 
+The dialog's width will not be configurable by clients. This decision can be revisited when there is a use-case for different sized dialogs.
+
+The dialog will grow vertically based on the content within the dialog. Once it reaches a maximum height, which will not be configurable, the default slot will scroll while the placement of the `title`, `subtitle`, and `footer` slots will all remain fixed.
+
 We will apply styling to give dialogs a consistent border, shadow, background. We will also set font/font color, but slotted content will often override aspects of the font, and the native dialog's user agent stylesheet may override the color with a non-theme-conforming value (this is the case in Chrome). To ensure proper theme-conforming styling, it is up to clients to properly style their content with theme-aware tokens (e.g. for font/font color, etc).
 
-Dialogs will not have a title bar and close control ("X") by default. It will be up to the client to provide that if needed.
-
-Dialogs will always be opened in the center of the screen, sized to fit the contents. Scrolling the page while a dialog is open will not move the dialog, i.e. it will stay visible in the same, fixed location rather than scrolling with the page. This is the default behavior of the native `dialog`.
+Dialogs will always be opened in the center of the screen. Scrolling the page while a dialog is open will not move the dialog, i.e. it will stay visible in the same, fixed location rather than scrolling with the page. This is the default behavior of the native `dialog`.
 
 Dialogs will not be movable or sizeable.
 
@@ -155,9 +207,12 @@ By using the native `dialog` element, we get good a11y behavior without having t
 -   When modal, the dialog will restrict focus to the elements on the dialog.
 -   Upon closing a modal dialog, focus will return to the element that had focus before the dialog was opened.
 -   ESC key closes the dialog
--   The native dialog defaults to the a11y role `dialog` (but we will override this, as discussed below)
+-   The native dialog defaults to the a11y role `dialog`
+-   The native dialog automatically sets `modal: true` when opened using `showModal`
 
-The role `alertdialog` should be used for most modal dialogs (since they demand the user's attention), so we will set it by default. When role is `alertdialog`, `aria-describedby` is also supposed to be set to reference the element containing the alert message (which would be part of the user-provided content). Unfortunately, because the `dialog` and the alert message element are on different sides of the shadow DOM boundary, we can't reference the element ID. Similarly, `aria-labelledby` is supposed to point to an element that is the title for the dialog, but it has the same problem with referencing IDs. Instead, `aria-label` should provide the title directly. It is up to the client to set `aria-label` appropriately, and we will synchronize it between `nimble-dialog` and the `dialog` element in the shadow root.
+The role `dialog` with `modal: true` will automatically be applied to the `dialog` element, so the `nimble-dialog` will not have any custom logic or configuration to modify this behavior. The `nimble-dialog`'s template will automatically label the `dialog` element by setting `aria-labelledby` to the ID of the element containing the `title` and `subtitle` slots. As a result, if a client provides a title and/or subtitle, their dialog will automatically be labelled. This should be done even if the client is setting `header-hidden = true` to ensure that the dialog is accesible.
+
+The `nimble-dialog` will not configure `aria-describedby` on the `dialog` element because according to [the WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal/), it is advisable to omit applying `aria-describedby` when the content would be difficult to understand when announced as a single unbroken string. Therefore, the `nimble-dialog` will not make assumptions about the content of the dialog.
 
 The WAI-ARIA guidelines also state that a dialog should always have at least one focusable element, which typically is satisfied by a Close/OK/Cancel button.
 

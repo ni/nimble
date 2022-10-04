@@ -28,7 +28,7 @@ export const styles = css`
         flex-wrap: wrap;
     }
 
-    :host(.prominent-links) {
+    :host([appearance='prominent']) {
         --ni-private-breadcrumb-link-active-font-color: ${bodyFontColor};
     }
 
@@ -47,7 +47,7 @@ export const styles = css`
                 --ni-private-breadcrumb-link-active-font-color: ${DigitalGreenDark};
             }
 
-            :host(.prominent-links) {
+            :host([appearance='prominent']) {
                 --ni-private-breadcrumb-link-font-color: ${DigitalGreenDark};
             }
         `
@@ -59,7 +59,7 @@ export const styles = css`
                 --ni-private-breadcrumb-link-active-font-color: ${PowerGreen};
             }
 
-            :host(.prominent-links) {
+            :host([appearance='prominent']) {
                 --ni-private-breadcrumb-link-font-color: ${PowerGreen};
             }
         `
@@ -74,7 +74,7 @@ export const styles = css`
                 )};
             }
 
-            :host(.prominent-links) {
+            :host([appearance='prominent']) {
                 --ni-private-breadcrumb-link-font-color: ${PowerGreen};
             }
         `

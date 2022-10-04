@@ -10,7 +10,7 @@ public enum TextAreaResize
 
 internal static class TextAreaResizeExtensions
 {
-    private static readonly Dictionary<TextAreaResize, string> _textAreaResizeValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<TextAreaResize>();
+    private static readonly Dictionary<TextAreaResize, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<TextAreaResize>();
 
-    public static string? ToAttributeValue(this TextAreaResize? value) => value == null ? null : _textAreaResizeValues[value.Value];
+    public static string? ToAttributeValue(this TextAreaResize? value) => value == null ? null : _enumValues[value.Value];
 }

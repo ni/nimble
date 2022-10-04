@@ -28,8 +28,4 @@ export class HeaderComponent {
     public closeButtonClicked(): void {
         this.userSettingsDrawer.close();
     }
-
-    public onLogoutSelected(): void {
-        void this.router.navigate(['/login']);
-    }
 }

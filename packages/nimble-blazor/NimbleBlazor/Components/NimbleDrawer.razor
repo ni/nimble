@@ -1,8 +1,9 @@
 @typeparam TCloseReason
 @namespace NimbleBlazor
-<nimble-drawer @ref="_drawerElement"
-        location="@Location.ToAttributeValue()"
-        prevent-dismiss="@PreventDismiss"
-        @attributes="AdditionalAttributes">
+<nimble-drawer
+    @ref="_drawerElement"
+    location="@Location.ToAttributeValue()"
+    prevent-dismiss="@PreventDismiss"
+    @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-drawer>
