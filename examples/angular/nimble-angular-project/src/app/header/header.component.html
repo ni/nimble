@@ -2,10 +2,10 @@
   <div class="drawer-container">
     <nimble-drawer #drawerReference [location]="location">
       <nimble-button appearance="outline" (click)="closeDrawer()">Button in drawer</nimble-button>
-      <nimble-select class="theme-select" [ngModel]="theme" (ngModelChange)="themeSelectionChange($event)">
+      <!-- <nimble-select class="theme-select" [ngModel]="theme" (ngModelChange)="themeSelectionChange($event)">
         <nimble-list-option [value]="themes.light">Light theme</nimble-list-option>
         <nimble-list-option [value]="themes.dark">Dark theme</nimble-list-option>
-      </nimble-select>
+      </nimble-select> -->
         <nimble-tree-view selection-mode="leaves-only">
             <nimble-tree-item>
                 Top Level 1
