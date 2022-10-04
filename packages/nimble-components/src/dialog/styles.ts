@@ -24,8 +24,7 @@ import { themeBehavior } from '../utilities/style/theme';
 export const styles = css`
     ${display('grid')}
 
-    dialog[open] {
-        display: flex;
+    dialog {
         flex-direction: column;
         background-color: ${applicationBackgroundColor};
         border: none;
@@ -33,6 +32,10 @@ export const styles = css`
         padding: 0px;
         width: 400px;
         max-height: 600px;
+    }
+
+    dialog[open] {
+        display: flex;
     }
 
     header {
@@ -64,7 +67,7 @@ export const styles = css`
         padding: 0;
     }
 
-    slot[name='title'] {
+    .title {
         font: ${titlePlus1Font};
         color: ${titlePlus1FontColor};
     }
@@ -75,7 +78,7 @@ export const styles = css`
         white-space: nowrap;
     }
 
-    slot[name='subtitle'] {
+    .subtitle {
         font: ${subtitleFont};
         color: ${subtitleFontColor};
     }

@@ -5,6 +5,8 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { Dialog, USER_DISMISSED } from '..';
 import type { TextField } from '../../text-field';
+import { ExampleContentType } from './types';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 interface DialogArgs {
     title: string;
@@ -13,6 +15,7 @@ interface DialogArgs {
     footerHidden: boolean;
     includeFooterButtons: boolean;
     preventDismiss: boolean;
+    content: ExampleContentType;
     show: undefined;
     close: undefined;
     dialogRef: Dialog<string>;
@@ -22,6 +25,37 @@ interface DialogArgs {
         textFieldRef: TextField
     ) => void;
 }
+
+const shortContent = html`
+    <span>
+        This action is destructive. Are you sure you would like to do it?
+    </span>
+    <nimble-checkbox>
+        Perform some other relevant action too
+    </nimble-checkbox>
+`;
+
+const longContent = html`
+    <span>
+        ${loremIpsum}
+    </span>
+    <span>
+        ${loremIpsum}
+    </span>
+    <span>
+        ${loremIpsum}
+    </span>
+    <nimble-checkbox>Checkbox 1</nimble-checkbox>
+    <nimble-checkbox>Checkbox 2</nimble-checkbox>
+    <nimble-checkbox>Checkbox 3</nimble-checkbox>
+    <nimble-checkbox>Checkbox 4</nimble-checkbox>
+    <nimble-checkbox>Checkbox 5</nimble-checkbox>
+`;
+
+const content = {
+    [ExampleContentType.shortContent]: shortContent,
+    [ExampleContentType.longContent]: longContent
+} as const;
 
 const metadata: Meta<DialogArgs> = {
     title: 'Dialog',
@@ -52,13 +86,9 @@ const metadata: Meta<DialogArgs> = {
         >
             <div slot="title">${x => x.title}</div>
             <div slot="subtitle">${x => x.subtitle}</div>
-            <span>
-                This action is destructive. Are you sure you would like to do
-                it?
-            </span>
-            <nimble-checkbox>
-                Perform some other relevant action too
-            </nimble-checkbox>
+
+            ${x => content[x.content]}
+
             ${when(
         x => x.includeFooterButtons,
         html<DialogArgs>`
@@ -124,6 +154,21 @@ const metadata: Meta<DialogArgs> = {
         includeFooterButtons: {
             name: 'Include footer buttons'
         },
+        content: {
+            options: [
+                ExampleContentType.shortContent,
+                ExampleContentType.longContent
+            ],
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleContentType.shortContent]:
+                        'Short content',
+                    [ExampleContentType.longContent]:
+                        'Long content'
+                }
+            }
+        },
         show: {
             name: 'show()',
             description:
@@ -147,6 +192,7 @@ const metadata: Meta<DialogArgs> = {
         footerHidden: false,
         includeFooterButtons: true,
         preventDismiss: false,
+        content: ExampleContentType.shortContent,
         openAndHandleResult: async (dialogRef, textFieldRef) => {
             const reason = await dialogRef.show();
             textFieldRef.value = reason === USER_DISMISSED ? 'ESC pressed' : reason;
