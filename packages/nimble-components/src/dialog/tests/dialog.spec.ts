@@ -44,6 +44,18 @@ describe('Dialog', () => {
         await disconnect();
     });
 
+    it('should use flex display for items in the default slot', async() => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        const section = nativeDialogElement(element).querySelector('section')!;
+        expect(getComputedStyle(section).display).toBe(
+            'flex'
+        );
+
+        await disconnect();
+    });
+
     it('should be displayed after calling show()', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
