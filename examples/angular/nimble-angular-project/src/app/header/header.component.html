@@ -1,37 +1,31 @@
 <div class="header">
-  <div class="drawer-container">
-    <nimble-drawer #drawerReference [location]="location">
-      <nimble-button appearance="outline" (click)="closeDrawer()">Button in drawer</nimble-button>
-      <!-- <nimble-select class="theme-select" [ngModel]="theme" (ngModelChange)="themeSelectionChange($event)">
-        <nimble-list-option [value]="themes.light">Light theme</nimble-list-option>
-        <nimble-list-option [value]="themes.dark">Dark theme</nimble-list-option>
-      </nimble-select> -->
-        <nimble-tree-view selection-mode="leaves-only">
-            <nimble-tree-item>
-                Top Level 1
-                <nimble-tree-item>Item 1</nimble-tree-item>
-                <nimble-tree-item>Item 2</nimble-tree-item>
-                <nimble-tree-item disabled>Item 3 (disabled)</nimble-tree-item>
-                <nimble-tree-item>Item 4</nimble-tree-item>
-            </nimble-tree-item>
-            <nimble-tree-item>
-                Top Level 2
-                <nimble-tree-item>Item 1</nimble-tree-item>
-                <nimble-tree-item>Item 2</nimble-tree-item>
-                <nimble-tree-item>Item 3</nimble-tree-item>
-                <nimble-tree-item>Item 4</nimble-tree-item>
-            </nimble-tree-item>
-            <nimble-tree-item expanded>
-                Top Level 3
-                <nimble-tree-item>Item 1</nimble-tree-item>
-                <nimble-tree-item>Item 2</nimble-tree-item>
-                <nimble-tree-item>Item 3</nimble-tree-item>
-                <nimble-tree-item>Item 4</nimble-tree-item>
-            </nimble-tree-item>
-        </nimble-tree-view>
-    </nimble-drawer>
-  </div>
-  <div class="menu-container">
-      <nimble-button appearance="outline" (click)="openDrawer()">Open drawer</nimble-button>
-  </div>
+  <nimble-drawer #drawerReference [location]="location">
+    <div class="drawer-content">
+      <nimble-button appearance="outline" (click)="closeDrawer()">Close drawer</nimble-button>
+      <br />
+      <form [formGroup]="settingsForm">
+        <p>Theme</p>
+        <nimble-select appearance="outline" formControlName="theme" (change)="themeSelectionChange($event)">
+          <nimble-list-option [value]="themes.light">Light theme</nimble-list-option>
+          <nimble-list-option [value]="themes.dark">Dark theme</nimble-list-option>
+        </nimble-select>
+      </form>
+    </div>
+    <h4>Navigation</h4>
+    <nimble-tree-view selection-mode="leaves-only" expanded>
+      <nimble-tree-item>
+        Example pages
+        <nimble-tree-item (click)="goToRoute('')">Home</nimble-tree-item>
+        <nimble-tree-item (click)="goToRoute('/page-two')">Page Two</nimble-tree-item>
+      </nimble-tree-item>
+      <nimble-tree-item>
+        Placeholder
+        <nimble-tree-item>Placeholder Item 1</nimble-tree-item>
+        <nimble-tree-item disabled="">Placeholder Item 2 (disabled)</nimble-tree-item>
+        <nimble-tree-item>Placeholder Item 3</nimble-tree-item>
+        <nimble-tree-item>Placeholder Item 4</nimble-tree-item>
+      </nimble-tree-item>
+    </nimble-tree-view>
+  </nimble-drawer>
+  <nimble-button appearance="outline" (click)="openDrawer()">Open drawer</nimble-button>
 </div>

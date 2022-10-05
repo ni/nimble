@@ -1,6 +1,11 @@
 @import "~@ni/nimble-angular/styles/fonts";
 @import "~@ni/nimble-angular/styles/tokens";
 
+:host{
+  background-color: $ni-nimble-application-background-color;
+  height: 100%;
+}
+
 body {
   margin: 0px;
 }
@@ -9,10 +14,28 @@ body {
   h1 {
     font: $ni-nimble-headline-font;
   }
+  h2, h3, h4 {
+    font: $ni-nimble-body-font;
+    color: $ni-nimble-link-standard-font-color;
+  }
+  h2{
+    font: $ni-nimble-title-plus-2-font;
+  }
+  h3{
+    font: $ni-nimble-title-plus-1-font;
+  }
+  h4{
+    font: $ni-nimble-title-font;
+  }
   p,
   a {
     font: $ni-nimble-body-font;
     color: $ni-nimble-link-standard-font-color;
+  }
+  label{
+    margin: $ni-nimble-standard-padding;
+    font: $ni-nimble-control-label-font;
+    color: $ni-nimble-control-label-font-color;
   }
 }
 

@@ -3,3 +3,12 @@
   background-color: $ni-nimble-header-background-color;
   padding: $ni-nimble-small-padding;
 }
+
+.drawer-content{
+  padding: $ni-nimble-standard-padding;
+}
+
+form {
+  display: inline-flex;
+  flex-direction: column;
+}
