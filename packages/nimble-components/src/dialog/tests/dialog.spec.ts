@@ -44,7 +44,7 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('should use flex display for items in the default slot', async() => {
+    it('should use flex display for items in the default slot', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
 
