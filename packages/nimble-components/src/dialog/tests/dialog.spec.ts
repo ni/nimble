@@ -49,9 +49,7 @@ describe('Dialog', () => {
         await connect();
 
         const section = nativeDialogElement(element).querySelector('section')!;
-        expect(getComputedStyle(section).display).toBe(
-            'flex'
-        );
+        expect(getComputedStyle(section).display).toBe('flex');
 
         await disconnect();
     });
