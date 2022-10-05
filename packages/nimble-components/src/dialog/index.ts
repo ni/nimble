@@ -5,21 +5,17 @@ import {
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
+import { UserDismissed } from '../patterns/dialog/types';
 import { styles } from './styles';
 import { template } from './template';
+
+export { UserDismissed };
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-dialog': Dialog;
     }
 }
-
-/**
- * Symbol that is returned as the dialog close reason (from the Promise returned by show()) when
- * the dialog was closed by pressing the ESC key (vs. calling the close() function).
- */
-export const USER_DISMISSED: unique symbol = Symbol('user dismissed');
-export type UserDismissed = typeof USER_DISMISSED;
 
 /**
  * This is a workaround for an incomplete definition of the native dialog element:
@@ -38,7 +34,7 @@ export interface ExtendedDialog extends HTMLDialogElement {
 export class Dialog<CloseReason = void> extends FoundationElement {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    public static readonly USER_DISMISSED = USER_DISMISSED;
+    public static readonly UserDismissed = UserDismissed;
 
     /**
      * @public
@@ -90,7 +86,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
 
     /**
      * Opens the dialog
-     * @returns Promise that is resolved when the dialog is closed. The value of the resolved Promise is the reason value passed to the close() method, or USER_DISMISSED if the dialog was closed via the ESC key.
+     * @returns Promise that is resolved when the dialog is closed. The value of the resolved Promise is the reason value passed to the close() method, or UserDismissed if the dialog was closed via the ESC key.
      */
     public async show(): Promise<CloseReason | UserDismissed> {
         if (this.open) {
@@ -129,7 +125,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         if (this.preventDismiss) {
             event.preventDefault();
         } else {
-            this.resolveShow!(USER_DISMISSED);
+            this.resolveShow!(UserDismissed);
             this.resolveShow = undefined;
         }
         return true;

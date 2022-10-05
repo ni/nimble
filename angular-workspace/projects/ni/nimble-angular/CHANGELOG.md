@@ -1,8 +1,26 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 29 Sep 2022 20:33:02 GMT and should not be manually modified.
+This log was last generated on Tue, 04 Oct 2022 16:41:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 10.0.0
+
+Tue, 04 Oct 2022 16:41:24 GMT
+
+### Major changes
+
+- Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog ([ni/nimble@e31785b](https://github.com/ni/nimble/commit/e31785bf51ac6d2e2d188ee3dceed3d862565d3e))
+- Bump @ni/nimble-components to v13.0.0
+
+## 9.0.2
+
+Mon, 03 Oct 2022 22:16:20 GMT
+
+### Patches
+
+- Updating licenses to MIT ([ni/nimble@31021de](https://github.com/ni/nimble/commit/31021de203162ed44452ab54425946b220cf9f0f))
+- Bump @ni/nimble-components to v12.0.2
 
 ## 9.0.1
 

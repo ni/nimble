@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "9.0.1",
+  "version": "10.0.0",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
     "invoke-publish": "cd ../../../ && npm run build:library && cd dist/ni/nimble-angular && npm publish"
@@ -12,7 +12,7 @@
   "author": {
     "name": "National Instruments"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ni/nimble/issues"
   },
@@ -22,7 +22,7 @@
     "@angular/core": "^12.1.0",
     "@angular/forms": "^12.1.0",
     "@angular/router": "^12.1.0",
-    "@ni/nimble-components": "^12.0.1"
+    "@ni/nimble-components": "^13.0.0"
   },
   "dependencies": {
     "tslib": "^2.2.0"

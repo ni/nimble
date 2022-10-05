@@ -10,18 +10,18 @@ namespace NimbleBlazor.Tests.Unit.Components;
 public class NimbleDrawerTests
 {
     [Fact]
-    public void NimbleDrawerRendered_HasDrawerMarkup()
+    public void NimbleDrawer_Rendered_HasDrawerMarkup()
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-drawer";
-        var drawer = context.RenderComponent<NimbleDrawer>();
+        var drawer = context.RenderComponent<NimbleDrawer<string>>();
 
         Assert.Contains(expectedMarkup, drawer.Markup);
     }
 
     [Fact]
-    public void NimbleDrawerWithChildContent_HasChildMarkup()
+    public void NimbleDrawer_WithChildContent_HasChildMarkup()
     {
         var drawer = RenderDrawerWithContent<NimbleButton>();
         var expectedMarkup = "nimble-button";
@@ -29,11 +29,11 @@ public class NimbleDrawerTests
         Assert.Contains(expectedMarkup, drawer.Markup);
     }
 
-    private IRenderedComponent<NimbleDrawer> RenderDrawerWithContent<TContent>()
+    private IRenderedComponent<NimbleDrawer<string>> RenderDrawerWithContent<TContent>()
         where TContent : IComponent
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleDrawer>(parameters => parameters.AddChildContent<TContent>());
+        return context.RenderComponent<NimbleDrawer<string>>(parameters => parameters.AddChildContent<TContent>());
     }
 }

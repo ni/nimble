@@ -21,7 +21,7 @@ const metadata: Meta = {
 export default metadata;
 
 const component = html`
-    <nimble-drawer state="opened" location="right" modal>
+    <nimble-drawer location="right">
         <p style="margin: 10px;">Drawer containing text content</p>
     </nimble-drawer>
 `;
@@ -37,17 +37,27 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
+const playFunction = (): void => {
+    void document.querySelector('nimble-drawer')!.show();
+};
+
 export const drawerLightThemeWhiteBackground: Story = createFixedThemeStory(
     component,
     lightThemeWhiteBackground
 );
+
+drawerLightThemeWhiteBackground.play = playFunction;
 
 export const drawerColorThemeDarkGreenBackground: Story = createFixedThemeStory(
     component,
     colorThemeDarkGreenBackground
 );
 
+drawerColorThemeDarkGreenBackground.play = playFunction;
+
 export const drawerDarkThemeBlackBackground: Story = createFixedThemeStory(
     component,
     darkThemeBlackBackground
 );
+
+drawerDarkThemeBlackBackground.play = playFunction;

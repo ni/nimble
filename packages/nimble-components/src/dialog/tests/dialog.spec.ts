@@ -1,7 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Dialog, ExtendedDialog, USER_DISMISSED } from '..';
+import { Dialog, ExtendedDialog, UserDismissed } from '..';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
@@ -145,7 +145,7 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('should resolve promise with USER_DISMISSED when cancel event fired', async () => {
+    it('should resolve promise with UserDismissed when cancel event fired', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const dialogPromise = element.show();
@@ -156,7 +156,7 @@ describe('Dialog', () => {
         nativeDialogElement(element).dispatchEvent(new Event('close'));
         await DOM.nextUpdate();
 
-        await expectAsync(dialogPromise).toBeResolvedTo(USER_DISMISSED);
+        await expectAsync(dialogPromise).toBeResolvedTo(UserDismissed);
         expect(cancelEvent.defaultPrevented).toBeFalse();
         expect(element.open).toBeFalse();
 

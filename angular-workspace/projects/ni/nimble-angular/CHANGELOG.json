@@ -2,6 +2,63 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 04 Oct 2022 16:41:24 GMT",
+      "tag": "@ni/nimble-angular_v10.0.0",
+      "version": "10.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e31785bf51ac6d2e2d188ee3dceed3d862565d3e",
+            "comment": "Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v13.0.0",
+            "commit": "e31785bf51ac6d2e2d188ee3dceed3d862565d3e"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Oct 2022 22:16:20 GMT",
+      "tag": "@ni/nimble-angular_v9.0.2",
+      "version": "9.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "31021de203162ed44452ab54425946b220cf9f0f",
+            "comment": "Updating licenses to MIT"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v12.0.2",
+            "commit": "31021de203162ed44452ab54425946b220cf9f0f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 30 Sep 2022 21:06:13 GMT",
+      "tag": "@ni/nimble-angular_v9.0.1",
+      "version": "9.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ffdb3092ce59e6bf414b04285d3a1aaaa00301db",
+            "comment": "Modify console.error handling in unit tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 29 Sep 2022 20:33:02 GMT",
       "tag": "@ni/nimble-angular_v9.0.1",
       "version": "9.0.1",

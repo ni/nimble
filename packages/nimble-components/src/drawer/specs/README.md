@@ -72,7 +72,7 @@ The `nimble-drawer` provides a control for place arbitrary content that should b
 -   _Methods_
     -   `show()`
         -   A method that opens the drawer and returns a `Promise` that is resolved when the drawer is closed.
-        -   The value of the resolved `Promise` indicates why/how the drawer was closed. When the drawer is closed by the user pressing `Esc`, a `USER_DISMISSED` Symbol is returned as the reason.
+        -   The value of the resolved `Promise` indicates why/how the drawer was closed. When the drawer is closed by the user pressing `Esc`, a `UserDismissed` Symbol is returned as the reason.
     -   `close(reason)`
         -   A method that closes the drawer and returns focus to the control that had it before the drawer was opened.
         -   The reason for closing the drawer can optionally be passed to the method.
