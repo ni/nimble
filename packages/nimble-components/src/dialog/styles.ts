@@ -70,9 +70,6 @@ export const styles = css`
     .title {
         font: ${titlePlus1Font};
         color: ${titlePlus1FontColor};
-    }
-
-    slot[name='title']::slotted(*) {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

@@ -10,12 +10,12 @@ export const template = html<Dialog>`
             aria-labelledby="header"
         >
             <header id="header">
-                <span class="title">
+                <div class="title">
                     <slot name="title"></slot>
-                </span>
-                <span class="subtitle">
+                </div>
+                <div class="subtitle">
                     <slot name="subtitle"></slot>
-                </span>
+                </div>
             </header>
             <section>
                 <slot></slot>

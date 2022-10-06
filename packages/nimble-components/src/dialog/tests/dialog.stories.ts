@@ -76,8 +76,8 @@ const metadata: Meta<DialogArgs> = {
             ?header-hidden="${x => x.headerHidden}"
             ?footer-hidden="${x => x.footerHidden}"
         >
-            <div slot="title">${x => x.title}</div>
-            <div slot="subtitle">${x => x.subtitle}</div>
+            <span slot="title">${x => x.title}</span>
+            <span slot="subtitle">${x => x.subtitle}</span>
 
             ${x => content[x.content]}
             ${when(
@@ -126,11 +126,11 @@ const metadata: Meta<DialogArgs> = {
         },
         title: {
             description:
-                'Primary text that is displayed in the header when `header-hidden` is not set. Dialogs should **always include a title** even when `header-hidden` is set. The title is used to provide an accessible name to assistive technologies regardless of the value of `header-hidden`.'
+                'Primary text that is displayed in the header when `header-hidden` is not set. Dialogs should **always include a title** even when `header-hidden` is set. The title is used to provide an accessible name to assistive technologies regardless of the value of `header-hidden`.<br><br>The title should be specified using an `inline` element, such as a `<span>`.'
         },
         subtitle: {
             description:
-                'Secondary text that is displayed in the header when `header-hidden` is not set. If a dialog has an appropriate value to set for the subtitle, it should be included even when `header-hidden` is set. If the subtitle is set, it is used with the title to provide an accessible name to assistive technologies regardless of the value of `header-hidden`.'
+                'Secondary text that is displayed in the header when `header-hidden` is not set. If a dialog has an appropriate value to set for the subtitle, it should be included even when `header-hidden` is set. If the subtitle is set, it is used with the title to provide an accessible name to assistive technologies regardless of the value of `header-hidden`.<br><br>The subtitle should be specified using an `inline` element, such as a `<span>`.'
         },
         headerHidden: {
             name: 'header-hidden',
