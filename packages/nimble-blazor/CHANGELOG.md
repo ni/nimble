@@ -1,8 +1,23 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 04 Oct 2022 16:41:24 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Oct 2022 17:54:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.0.0
+
+Thu, 06 Oct 2022 17:54:42 GMT
+
+### Major changes
+
+- - Extend styling on nimble-dialog by implementing a slotted template.
+  - `aria-label` no longer correctly labels the dialog. Provide text content in the `title` and/or `subtitle` to give the dialog an accessible label.
+  - Styling has changed. Update dialogs in one of the two ways:
+      1. To lay out content using recommended patterns, use exposed slots of `title`, `subtitle`, and `footer` to lay out content using recommended patterns.
+      2. To keep (nearly) identical layout as before this change:
+          - set `header-hidden` and `footer-hidden` on the dialog
+          - wrap the entire contents of the dialog in a single element, such as a `<div>` to avoid having the default flex layout applied to content
+          - note: it is still recommended to provide a title/subtitle for accessibility purposes even when setting `header-hidden` ([ni/nimble@980a9da](https://github.com/ni/nimble/commit/980a9dac9961ef1487833281470f97c79f0f5197))
 
 ## 7.0.0
 
