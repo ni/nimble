@@ -50,7 +50,7 @@
         <div class="sub-container">
             <div class="container-label">Dialog</div>
             <nimble-dialog #dialog>
-                <div slot="title">This is a dialog</div>
+                <span slot="title">This is a dialog</span>
                 <div>It opened when you pushed the button</div>
                 <nimble-button slot="footer" (click)="closeDialog('cancel pressed')">Cancel</nimble-button>
                 <nimble-button slot="footer" (click)="closeDialog('OK pressed')">OK</nimble-button>
