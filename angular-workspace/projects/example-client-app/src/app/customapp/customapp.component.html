@@ -50,10 +50,10 @@
         <div class="sub-container">
             <div class="container-label">Dialog</div>
             <nimble-dialog #dialog>
-                <h2>This is a dialog</h2>
-                <p>It opened when you pushed the button</p>
-                <nimble-button (click)="closeDialog('cancel pressed')">Cancel</nimble-button>
-                <nimble-button (click)="closeDialog('OK pressed')">OK</nimble-button>
+                <span slot="title">This is a dialog</span>
+                <div>It opened when you pushed the button</div>
+                <nimble-button slot="footer" (click)="closeDialog('cancel pressed')">Cancel</nimble-button>
+                <nimble-button slot="footer" (click)="closeDialog('OK pressed')">OK</nimble-button>
             </nimble-dialog>
             <nimble-button (click)="openDialog()">Open Dialog</nimble-button>
             <nimble-text-field readonly [ngModel]="dialogCloseReason">Closed Reason</nimble-text-field>

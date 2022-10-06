@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "- Extend styling on nimble-dialog by implementing a slotted template.\n  - `aria-label` no longer correctly labels the dialog. Provide text content in the `title` and/or `subtitle` to give the dialog an accessible label.\n  - Styling has changed. Update dialogs in one of the two ways:\n      1. To lay out content using recommended patterns, use exposed slots of `title`, `subtitle`, and `footer` to lay out content using recommended patterns.\n      2. To keep (nearly) identical layout as before this change:\n          - set `header-hidden` and `footer-hidden` on the dialog\n          - wrap the entire contents of the dialog in a single element, such as a `<div>` to avoid having the default flex layout applied to content\n          - note: it is still recommended to provide a title/subtitle for accessibility purposes even when setting `header-hidden`",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
@@ -45,11 +45,35 @@ export class Dialog<CloseReason = void> extends FoundationElement {
     public preventDismiss = false;
 
     /**
+     * @public
+     * @description
+     * Hides the header of the dialog.
+     */
+    @attr({ attribute: 'header-hidden', mode: 'boolean' })
+    public headerHidden = false;
+
+    /**
+     * @public
+     * @description
+     * Hides the footer of the dialog.
+     */
+    @attr({ attribute: 'footer-hidden', mode: 'boolean' })
+    public footerHidden = false;
+
+    /**
      * The ref to the internal dialog element.
      *
      * @internal
      */
     public readonly dialogElement!: ExtendedDialog;
+
+    /** @internal */
+    @observable
+    public footerIsEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedFooterElements?: HTMLElement[];
 
     /**
      * True if the dialog is open/showing, false otherwise
@@ -85,6 +109,13 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         this.dialogElement.close();
         this.resolveShow!(reason);
         this.resolveShow = undefined;
+    }
+
+    public slottedFooterElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.footerIsEmpty = !next?.length;
     }
 
     /**
