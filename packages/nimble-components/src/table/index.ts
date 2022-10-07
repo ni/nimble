@@ -250,11 +250,8 @@ export class Table extends FoundationElement {
                 return this.viewport;
             },
             estimateSize: (_: number) => 32,
-            // scrollToFn: elementScroll,
-            scrollToFn: (offset: number, canSmoooth: boolean, instance: Virtualizer) => {
-                elementScroll(offset, canSmoooth, instance);
-                this.visibleItems = instance.getVirtualItems();
-            },
+            enableSmoothScroll: true,
+            scrollToFn: elementScroll,
             observeElementOffset,
             observeElementRect,
             onChange: (virtualizer: Virtualizer) => {
