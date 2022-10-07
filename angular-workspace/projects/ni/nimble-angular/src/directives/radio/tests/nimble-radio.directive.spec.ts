@@ -18,12 +18,12 @@ describe('Nimble radio', () => {
     describe('with no values in template', () => {
         @Component({
             template: `
-                <nimble-radio #radioButton></nimble-radio>
+                <nimble-radio #radio></nimble-radio>
             `
         })
         class TestHostComponent {
-            @ViewChild('radioButton', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
-            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<Radio>;
+            @ViewChild('radio', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
+            @ViewChild('radio', { read: ElementRef }) public elementRef: ElementRef<Radio>;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -54,11 +54,11 @@ describe('Nimble radio', () => {
 
     describe('with template string values', () => {
         @Component({
-            template: '<nimble-radio #radioButton disabled></nimble-radio>'
+            template: '<nimble-radio #radio disabled></nimble-radio>'
         })
         class TestHostComponent {
-            @ViewChild('radioButton', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
-            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<Radio>;
+            @ViewChild('radio', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
+            @ViewChild('radio', { read: ElementRef }) public elementRef: ElementRef<Radio>;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -84,11 +84,11 @@ describe('Nimble radio', () => {
 
     describe('with property bound values', () => {
         @Component({
-            template: '<nimble-radio #radioButton [disabled]="disabled"></nimble-radio>'
+            template: '<nimble-radio #radio [disabled]="disabled"></nimble-radio>'
         })
         class TestHostComponent {
-            @ViewChild('radioButton', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
-            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<Radio>;
+            @ViewChild('radio', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
+            @ViewChild('radio', { read: ElementRef }) public elementRef: ElementRef<Radio>;
             public disabled = false;
         }
 
@@ -121,11 +121,11 @@ describe('Nimble radio', () => {
 
     describe('with attribute bound values', () => {
         @Component({
-            template: '<nimble-radio #radioButton [attr.disabled]="disabled"></nimble-radio>'
+            template: '<nimble-radio #radio [attr.disabled]="disabled"></nimble-radio>'
         })
         class TestHostComponent {
-            @ViewChild('radioButton', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
-            @ViewChild('radioButton', { read: ElementRef }) public elementRef: ElementRef<Radio>;
+            @ViewChild('radio', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
+            @ViewChild('radio', { read: ElementRef }) public elementRef: ElementRef<Radio>;
             public disabled: BooleanValueOrAttribute = null;
         }
 

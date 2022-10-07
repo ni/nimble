@@ -33,7 +33,7 @@ public class NimbleRadioGroupTests
     }
 
     [Fact]
-    public void RadioGroupWithButton_HasRadioButtonMarkup()
+    public void RadioGroupWithButton_HasRadioMarkup()
     {
         var expectedMarkup = "nimble-radio";
         var select = RenderNimbleRadioGroupWithButton();

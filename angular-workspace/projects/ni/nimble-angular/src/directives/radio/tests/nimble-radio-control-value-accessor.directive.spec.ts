@@ -17,7 +17,7 @@ describe('Nimble radio control value accessor', () => {
         @Component({
             template: `
                 <nimble-radio-group #radioGroup name="options">
-                    <nimble-radio *ngFor="let button of radioButtons" [value]="button.value" [(ngModel)]="selectedRadioButton">
+                    <nimble-radio *ngFor="let button of radios" [value]="button.value" [(ngModel)]="selectedRadio">
                         {{ button.name }}
                     </nimble-radio>
                 </nimble-radio-group>
@@ -26,13 +26,13 @@ describe('Nimble radio control value accessor', () => {
         class TestHostComponent {
             @ViewChild('radioGroup', { static: true }) public radioGroup: ElementRef<RadioGroup>;
 
-            public radioButtons: { name: string, value: unknown }[] = [
+            public radios: { name: string, value: unknown }[] = [
                 { name: 'Option 1', value: 1 },
                 { name: 'Option 2', value: 2 },
                 { name: 'Option 3', value: 3 }
             ];
 
-            public selectedRadioButton: unknown = this.radioButtons[1].value;
+            public selectedRadio: unknown = this.radios[1].value;
         }
 
         let radioGroup: RadioGroup;
@@ -62,17 +62,17 @@ describe('Nimble radio control value accessor', () => {
             expect((radioGroup.children[1] as Radio).checked).toBeTrue();
         });
 
-        it('checks button upon re-adding it', async () => {
-            const secondRadioButton = radioGroup.children[1] as Radio;
-            secondRadioButton.remove();
+        it('checks radio upon re-adding it', async () => {
+            const secondRadio = radioGroup.children[1] as Radio;
+            secondRadio.remove();
             fixture.detectChanges();
             await waitTask();
 
             expect((radioGroup.children[0] as Radio).checked).toBeFalse();
             expect((radioGroup.children[1] as Radio).checked).toBeFalse();
 
-            secondRadioButton.checked = false;
-            radioGroup.append(secondRadioButton);
+            secondRadio.checked = false;
+            radioGroup.append(secondRadio);
             fixture.detectChanges();
             await waitTask();
 
@@ -80,7 +80,7 @@ describe('Nimble radio control value accessor', () => {
         });
 
         it('updates selected value when bound property is changed', fakeAsync(() => {
-            testHostComponent.selectedRadioButton = testHostComponent.radioButtons[2].value;
+            testHostComponent.selectedRadio = testHostComponent.radios[2].value;
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -92,7 +92,7 @@ describe('Nimble radio control value accessor', () => {
             setSelectedRadioIndex(radioGroup, 2);
             fixture.detectChanges();
 
-            expect(testHostComponent.selectedRadioButton).toBe(testHostComponent.radioButtons[2].value);
+            expect(testHostComponent.selectedRadio).toBe(testHostComponent.radios[2].value);
         });
     });
 
@@ -101,7 +101,7 @@ describe('Nimble radio control value accessor', () => {
             template: `
                 <form [formGroup]="form">
                     <nimble-radio-group #radioGroup>
-                        <nimble-radio *ngFor="let option of radioButtons" [value]="option.value" [formControl]="selectedRadioButton">
+                        <nimble-radio *ngFor="let option of radios" [value]="option.value" [formControl]="selectedRadio">
                             {{ option.name }}
                         </nimble-radio>
                     </nimble-radio-group>
@@ -111,15 +111,15 @@ describe('Nimble radio control value accessor', () => {
         class TestHostComponent {
             @ViewChild('radioGroup', { static: true }) public radioGroup: ElementRef<RadioGroup>;
 
-            public radioButtons: { name: string, value: unknown }[] = [
+            public radios: { name: string, value: unknown }[] = [
                 { name: 'Option 1', value: 1 },
                 { name: 'Option 2', value: 2 },
                 { name: 'Option 3', value: 3 }
             ];
 
-            public selectedRadioButton = new FormControl(this.radioButtons[1].value);
+            public selectedRadio = new FormControl(this.radios[1].value);
             public form: FormGroup = new FormGroup({
-                selectedRadioButton: this.selectedRadioButton
+                selectedRadio: this.selectedRadio
             });
         }
 
@@ -151,7 +151,7 @@ describe('Nimble radio control value accessor', () => {
         });
 
         it('updates selected value when bound property is changed', fakeAsync(() => {
-            testHostComponent.selectedRadioButton.setValue(testHostComponent.radioButtons[2].value);
+            testHostComponent.selectedRadio.setValue(testHostComponent.radios[2].value);
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -163,7 +163,7 @@ describe('Nimble radio control value accessor', () => {
             setSelectedRadioIndex(radioGroup, 2);
             fixture.detectChanges();
 
-            expect(testHostComponent.selectedRadioButton.value).toBe(testHostComponent.radioButtons[2].value);
+            expect(testHostComponent.selectedRadio.value).toBe(testHostComponent.radios[2].value);
         });
     });
 });
