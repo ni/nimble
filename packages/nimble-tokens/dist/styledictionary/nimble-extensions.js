@@ -35,6 +35,20 @@ StyleDictionary.registerTransform({
     }
 });
 
+StyleDictionary.registerTransform({
+    type: 'value',
+    transitive: true,
+    name: 'size/toRem',
+    matcher: token => token.attributes.category === 'size',
+    transformer: token => {
+        let numericValue = parseFloat(token.value);
+        numericValue = parseInt(numericValue * 100, 10) / 100;
+        numericValue /= 16;
+        const remValue = `${numericValue}rem`;
+        return remValue;
+    }
+});
+
 // Workaround as name/dsp/kebab does not support prefixes
 // See: https://github.com/AdobeXD/design-system-package-dsp/issues/27
 const { type, matcher, transformer } = StyleDictionary.transform['name/dsp/kebab'];
@@ -55,7 +69,7 @@ StyleDictionary.registerTransformGroup({
         'name/nimble/kebab', // replaces name/dsp/kebab from DSP config
         'time/seconds',
         'content/icon',
-        'size/px', // replaces size/rem from DSP config
+        'size/toRem', // replaces size/rem from DSP config
         'color/css',
         'font/weight'
     ]
@@ -69,7 +83,7 @@ StyleDictionary.registerTransformGroup({
         'name/nimble/kebab', // replaces name/dsp/kebab from DSP config
         'time/seconds',
         'content/icon',
-        'size/px', // replaces size/rem from DSP config
+        'size/toRem', // replaces size/rem from DSP config
         'color/css',
         'font/weight'
     ]

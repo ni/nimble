@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 26 May 2022 18:20:05 GMT
+ * Generated on Fri, 07 Oct 2022 12:11:39 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
