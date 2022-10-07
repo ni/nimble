@@ -85,7 +85,6 @@ export class Table extends FoundationElement {
     private _rowContainerHeight = 0;
     private _ready = false;
     private readonly resizeObserver: ResizeObserver;
-    // private readonly viewportMutationObserver: MutationObserver;
 
     public constructor() {
         super();
