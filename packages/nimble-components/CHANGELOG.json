@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 07 Oct 2022 21:13:41 GMT",
+      "tag": "@ni/nimble-components_v15.0.0",
+      "version": "15.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8f496f0aaca48e5765e942292c88e78094e81386",
+            "comment": "Rename nimble \"radio button\" to \"radio\""
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Oct 2022 17:54:42 GMT",
       "tag": "@ni/nimble-components_v14.0.0",
       "version": "14.0.0",

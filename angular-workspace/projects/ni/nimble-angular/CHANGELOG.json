@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 07 Oct 2022 21:13:41 GMT",
+      "tag": "@ni/nimble-angular_v12.0.0",
+      "version": "12.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "8f496f0aaca48e5765e942292c88e78094e81386",
+            "comment": "Rename nimble \"radio button\" to \"radio\""
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v15.0.0",
+            "commit": "8f496f0aaca48e5765e942292c88e78094e81386"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Oct 2022 17:54:42 GMT",
       "tag": "@ni/nimble-angular_v11.0.0",
       "version": "11.0.0",

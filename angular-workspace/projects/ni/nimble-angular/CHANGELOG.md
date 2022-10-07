@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 06 Oct 2022 17:54:42 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Oct 2022 21:13:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.0.0
+
+Fri, 07 Oct 2022 21:13:41 GMT
+
+### Major changes
+
+- Rename nimble "radio button" to "radio" ([ni/nimble@8f496f0](https://github.com/ni/nimble/commit/8f496f0aaca48e5765e942292c88e78094e81386))
+- Bump @ni/nimble-components to v15.0.0
 
 ## 11.0.0
 
