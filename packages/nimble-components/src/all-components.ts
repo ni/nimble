@@ -28,6 +28,7 @@ import './tab-panel';
 import './tabs';
 import './tabs-toolbar';
 import './table';
+import './table-row';
 import './table-cell';
 import './text-area';
 import './text-field';

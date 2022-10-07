@@ -52,6 +52,7 @@
     "@microsoft/fast-web-utilities": "^5.4.1",
     "@ni/nimble-tokens": "^4.1.0",
     "@tanstack/table-core": "^8.5.13",
+    "@tanstack/virtual-core": "^3.0.0-beta.18",
     "hex-rgb": "^5.0.0",
     "tslib": "^2.2.0"
   },

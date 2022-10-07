@@ -14,9 +14,11 @@ import {
     Column,
     Row,
 } from '@tanstack/table-core';
+import { Virtualizer, VirtualizerOptions, elementScroll, observeElementOffset, observeElementRect, windowScroll, VirtualItem } from '@tanstack/virtual-core';
 import { template } from './template';
 import { styles } from './styles';
 import type { TableCell } from '../table-cell';
+import type { TableRowData } from '../table-row';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -63,15 +65,27 @@ interface ObjectInterface {
  * Table
  */
 export class Table extends FoundationElement {
+    public readonly rowContainer!: HTMLElement;
+    public readonly viewport!: HTMLElement;
+    public readonly tableContainer!: HTMLElement;
+    public virtualizer?: Virtualizer;
+
+    @observable
+    public viewportReady = false;
+
     private readonly table: TanstackTable<unknown>;
     private _data: unknown[] = [];
     private _columns: TableColumn[] = [];
-    private _rows: TableRow[] = [];
+    private _rows: TableRowData[] = [];
     private _headers: TableHeader[] = [];
     private _options: TableOptionsResolved<unknown>;
     private _sorting: SortingState = [];
     private _tanstackcolumns: ColumnDef<unknown>[] = [];
+    private _visibleItems: VirtualItem<unknown>[] = [];
+    private _rowContainerHeight = 0;
     private _ready = false;
+    private readonly resizeObserver: ResizeObserver;
+    // private readonly viewportMutationObserver: MutationObserver;
 
     public constructor() {
         super();
@@ -93,6 +107,30 @@ export class Table extends FoundationElement {
             renderFallbackValue: null,
         };
         this.table = createTable(this._options);
+        const nimbleTable = this;
+        this.resizeObserver = new ResizeObserver(entries => {
+            if (entries.map(entry => entry.target).includes(this.viewport)) {
+                nimbleTable.initializeVirtualizer();
+                nimbleTable.virtualizer!._willUpdate();
+                nimbleTable.visibleItems = nimbleTable.virtualizer!.getVirtualItems();
+                nimbleTable.rowContainerHeight = nimbleTable.virtualizer!.getTotalSize();
+            }
+        });
+
+        // this.viewportMutationObserver = new MutationObserver((mutations: MutationRecord[], _: MutationObserver) => {
+        //     const mutatedElements = mutations.map(mutation => mutation.target);
+        //     if (mutatedElements.includes(this.viewport)) {
+        //         this.viewportReady = true;
+        //         // this.resizeObserver.observe(this.rowContainer);
+        //     }
+        // });
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.viewport?.addEventListener('scroll', e => this.handleScroll(e, this), { passive: true, capture: true });
+        this.resizeObserver.observe(this.viewport);
+        // this.viewportMutationObserver.observe()
     }
 
     public get data(): unknown[] {
@@ -130,8 +168,8 @@ export class Table extends FoundationElement {
         this.update(this.table.initialState);
         this.refreshRows();
         this.refreshHeaders();
+        this.table.getColumn(this.columns[0]?.columnDataKey ?? '').toggleSorting();
         this.ready = true;
-        Observable.notify(this, 'ready');
     }
 
     public get ready(): boolean {
@@ -144,14 +182,14 @@ export class Table extends FoundationElement {
         Observable.notify(this, 'ready');
     }
 
-    public get tableRows(): TableRow[] {
-        Observable.track(this, 'tableRows');
+    public get tableData(): TableRowData[] {
+        Observable.track(this, 'tableData');
         return this._rows;
     }
 
-    public set tableRows(value: TableRow[]) {
+    public set tableData(value: TableRowData[]) {
         this._rows = value;
-        Observable.notify(this, 'tableRows');
+        Observable.notify(this, 'tableData');
     }
 
     public get tableHeaders(): TableHeader[] {
@@ -162,6 +200,29 @@ export class Table extends FoundationElement {
     public set tableHeaders(value: TableHeader[]) {
         this._headers = value;
         Observable.notify(this, 'tableHeaders');
+    }
+
+    /**
+     * @internal
+     */
+    public get visibleItems(): VirtualItem<unknown>[] {
+        Observable.track(this, 'visibleItems');
+        return this._visibleItems;
+    }
+
+    public set visibleItems(value: VirtualItem<unknown>[]) {
+        this._visibleItems = value;
+        Observable.notify(this, 'visibleItems');
+    }
+
+    public get rowContainerHeight(): number {
+        Observable.track(this, 'rowContainerHeight');
+        return this._rowContainerHeight;
+    }
+
+    public set rowContainerHeight(value: number) {
+        this._rowContainerHeight = value;
+        Observable.notify(this, 'rowContainerHeight');
     }
 
     public getColumnTemplate(index: number): ViewTemplate {
@@ -182,9 +243,33 @@ export class Table extends FoundationElement {
         this.refreshHeaders();
     };
 
+    private initializeVirtualizer(): void {
+        const virtualizerOptions = {
+            count: this.data.length,
+            getScrollElement: () => {
+                return this.viewport;
+            },
+            estimateSize: (_: number) => 32,
+            // scrollToFn: elementScroll,
+            scrollToFn: (offset: number, canSmoooth: boolean, instance: Virtualizer) => {
+                elementScroll(offset, canSmoooth, instance);
+                this.visibleItems = instance.getVirtualItems();
+            },
+            observeElementOffset,
+            observeElementRect,
+            onChange: (virtualizer: Virtualizer) => {
+                this.visibleItems = virtualizer.getVirtualItems();
+            }
+        } as VirtualizerOptions;
+        this.virtualizer = new Virtualizer(virtualizerOptions);
+    }
+
     private refreshRows(): void {
         const rows = this.table.getRowModel().rows;
-        this.tableRows = rows.map(row => { return ({ row, id: Math.random().toString() } as TableRow); });
+        this.tableData = rows.map(row => {
+            const tableRow = { row, parent: this } as TableRowData;
+            return tableRow;
+        });
     }
 
     private refreshHeaders(): void {
@@ -209,6 +294,11 @@ export class Table extends FoundationElement {
                 this.update(updatedState);
             },
         }));
+    };
+
+    private readonly handleScroll = (event: Event, table: Table): void => {
+        // this.virtualizer?._willUpdate();
+        // this.visibleItems = this.virtualizer?.getVirtualItems() ?? [];
     };
 }
 

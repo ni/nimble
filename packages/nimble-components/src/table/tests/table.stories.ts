@@ -20,14 +20,14 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-table style="max-height: 300px"
+        <nimble-table style="max-height: 500px"
             :data="${x => x.data}"
             :columns="${x => x.columns}"
         >
         </nimble-table>
     `),
     args: {
-        data: makeData(100),
+        data: makeData(2000),
         columns: getColumns()
     }
 };

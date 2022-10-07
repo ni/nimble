@@ -1,13 +1,11 @@
-import { attr, HTMLView, Observable, observable, ViewTemplate, defaultExecutionContext } from '@microsoft/fast-element';
+import { attr, HTMLView, Observable, observable, ViewTemplate, defaultExecutionContext, html } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { dataGridCellTemplate } from './template';
+import { template } from './template';
 import { styles } from './styles';
 
-declare global {
-    interface HTMLElementTagNameMap {
-        'nimble-table-cell': TableCell;
-    }
-}
+const spanTemplate = html<TableCell>`
+    <span>${x => x.cellData}</span>
+`;
 
 /**
  * rdfg
@@ -46,29 +44,36 @@ export class TableCell extends FoundationElement {
         super();
     }
 
+    public override connectedCallback(): void {
+        this.updateCellView();
+    }
+
     public override disconnectedCallback(): void {
         this.disconnectCellView();
     }
 
     private updateCellView(): void {
-        this.disconnectCellView();
-        this.customCellView = this.cellItemTemplate?.create(this);
-        this.customCellView?.bind(this, defaultExecutionContext);
-        this.customCellView?.appendTo(this.shadowRoot!);
+        // this.disconnectCellView();
+        const newCellView = this.customCellView === undefined;
+        if (newCellView) {
+            this.customCellView = this.cellItemTemplate!.create(this);
+            this.customCellView?.bind(this, defaultExecutionContext);
+        }
+
+        if (newCellView) {
+            this.customCellView!.appendTo(this.shadowRoot!);
+        }
     }
 
     private disconnectCellView(): void {
-        if (this.customCellView !== null) {
-            this.customCellView?.dispose();
-            this.customCellView = undefined;
-        }
+        this.customCellView?.remove();
+        this.customCellView = undefined;
     }
 }
 
 const nimbleTableCell = TableCell.compose({
     baseName: 'table-cell',
-    template: dataGridCellTemplate(),
-    styles
+    template
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableCell());
