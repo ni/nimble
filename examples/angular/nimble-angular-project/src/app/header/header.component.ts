@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Inject, Input, Output, ViewChild, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Router} from '@angular/router';
+import { NavigationEnd, Router} from '@angular/router';
 import { DrawerLocation, NimbleDrawerDirective, Theme } from '@ni/nimble-angular';
+import { Subscription } from 'rxjs';
+import { tap, filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'header',
@@ -9,7 +12,7 @@ import { DrawerLocation, NimbleDrawerDirective, Theme } from '@ni/nimble-angular
   styleUrls: ['./header.component.scss']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   @Input() public location: DrawerLocation = DrawerLocation.left;
   @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public drawer: NimbleDrawerDirective;
 
@@ -19,10 +22,21 @@ export class HeaderComponent implements OnInit {
   public themes = Theme;
   settingsForm: FormGroup;
 
-  public constructor(private fb:FormBuilder, private router: Router ) { }
+  private subscription = new Subscription();
+
+  public constructor(private fb:FormBuilder, private router: Router ) {
+    this.subscription.add(router.events.pipe(
+      filter(x => x instanceof NavigationEnd && this.drawer.open),
+      tap(() => this.closeDrawer())
+    ).subscribe());
+  }
 
   ngOnInit(): void {
     this.initializeSettingsForm();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   initializeSettingsForm(): void {
@@ -35,19 +49,13 @@ export class HeaderComponent implements OnInit {
     this.drawer.show();
   }
 
-  public themeSelectionChange(e: any) :void {
-    // public themeSelectionChange(value: Theme): void {
-      console.log(e);
+  // public themeSelectionChange() :void {
+  public themeSelectionChange(value: Theme): void {
 
-    // this.themeChange.emit(e.target.);
+    this.themeChange.emit(value);
   }
 
   public closeDrawer(): void {
-    this.drawer.hide();
-  }
-
-  public goToRoute(route: string){
-    this.router.navigate([route]);
-    this.closeDrawer();
+    this.drawer.close();
   }
 }

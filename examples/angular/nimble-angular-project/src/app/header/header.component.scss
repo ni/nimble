@@ -8,6 +8,10 @@
   padding: $ni-nimble-standard-padding;
 }
 
+.active{
+  color: red;
+}
+
 form {
   display: inline-flex;
   flex-direction: column;

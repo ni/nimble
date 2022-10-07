@@ -11,21 +11,8 @@
         </nimble-select>
       </form>
     </div>
-    <h4>Navigation</h4>
-    <nimble-tree-view selection-mode="leaves-only" expanded>
-      <nimble-tree-item>
-        Example pages
-        <nimble-tree-item (click)="goToRoute('')">Home</nimble-tree-item>
-        <nimble-tree-item (click)="goToRoute('/page-two')">Page Two</nimble-tree-item>
-      </nimble-tree-item>
-      <nimble-tree-item>
-        Placeholder
-        <nimble-tree-item>Placeholder Item 1</nimble-tree-item>
-        <nimble-tree-item disabled="">Placeholder Item 2 (disabled)</nimble-tree-item>
-        <nimble-tree-item>Placeholder Item 3</nimble-tree-item>
-        <nimble-tree-item>Placeholder Item 4</nimble-tree-item>
-      </nimble-tree-item>
-    </nimble-tree-view>
+    <a routerLink="/" routerLinkActive="active">Home</a>
+    <a routerLink="page-two" routerLinkActive="active">Page Two</a>
   </nimble-drawer>
   <nimble-button appearance="outline" (click)="openDrawer()">Open drawer</nimble-button>
 </div>
