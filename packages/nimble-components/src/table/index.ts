@@ -116,21 +116,11 @@ export class Table extends FoundationElement {
                 nimbleTable.rowContainerHeight = nimbleTable.virtualizer!.getTotalSize();
             }
         });
-
-        // this.viewportMutationObserver = new MutationObserver((mutations: MutationRecord[], _: MutationObserver) => {
-        //     const mutatedElements = mutations.map(mutation => mutation.target);
-        //     if (mutatedElements.includes(this.viewport)) {
-        //         this.viewportReady = true;
-        //         // this.resizeObserver.observe(this.rowContainer);
-        //     }
-        // });
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.viewport?.addEventListener('scroll', e => this.handleScroll(e, this), { passive: true, capture: true });
         this.resizeObserver.observe(this.viewport);
-        // this.viewportMutationObserver.observe()
     }
 
     public get data(): unknown[] {
@@ -291,11 +281,6 @@ export class Table extends FoundationElement {
                 this.update(updatedState);
             },
         }));
-    };
-
-    private readonly handleScroll = (event: Event, table: Table): void => {
-        // this.virtualizer?._willUpdate();
-        // this.visibleItems = this.virtualizer?.getVirtualItems() ?? [];
     };
 }
 
