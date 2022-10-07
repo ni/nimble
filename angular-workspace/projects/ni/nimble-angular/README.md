@@ -115,19 +115,6 @@ The @ni/nimble-angular package is now compiled with Ivy. The consequence of this
 
 While Nimble Angular will strive to stay current on the most recent version of Angular, there will be some grace period to allow client applications time to make the migration before-hand (which is [required](https://angular.io/guide/creating-libraries#ensuring-library-version-compatibility) in order to use Nimble Angular).
 
-## Known Issues
-
-Currently the fast-animation library we depend on only exports CommonJS modules, which triggers an Angular project build warning (and potentially suboptimal bundle optimizations).
-
-Currently clients consuming the nimble Angular integration may need to make the following change in their `angular.json`, if they wish to suppress that build warning, in the `projects.[projectName].architect.build.options` section:
-```json
-"allowedCommonJsDependencies": [
-  "@microsoft/fast-animation"
-]
-```
-
-[nimble issue #189](https://github.com/ni/nimble/issues/189) tracks this issue.
-
 ## Contributing
 
 Follow the instructions in [CONTRIBUTING.md](/angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md) to modify this library.

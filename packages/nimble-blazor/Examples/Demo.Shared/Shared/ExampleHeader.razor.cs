@@ -8,7 +8,7 @@ namespace Demo.Shared
     /// </summary>
     public partial class ExampleHeader
     {
-        private NimbleDrawer? _drawerReference;
+        private NimbleDrawer<string>? _drawerReference;
 
         [Parameter]
         public Theme Theme { get; set; }
@@ -28,14 +28,14 @@ namespace Demo.Shared
             await ThemeChanged.InvokeAsync(Theme);
         }
 
-        private void OnUserSettingsSelected()
+        private async void OnUserSettingsSelected()
         {
-            _drawerReference!.Show();
+            await _drawerReference!.ShowAsync();
         }
 
-        private void OnCloseButtonClicked()
+        private async void OnCloseButtonClicked()
         {
-            _drawerReference!.Hide();
+            await _drawerReference!.CloseAsync();
         }
     }
 }

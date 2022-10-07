@@ -11,13 +11,11 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
-import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        NavDrawerComponent,
         CustomAppComponent
     ],
     imports: [

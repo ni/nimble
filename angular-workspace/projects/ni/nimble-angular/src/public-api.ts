@@ -81,3 +81,4 @@ export { ButtonAppearance } from '@ni/nimble-components/dist/esm/patterns/button
 export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 export { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
 export type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
+export { UserDismissed } from '@ni/nimble-components/dist/esm/dialog';

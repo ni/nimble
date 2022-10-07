@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "11.15.1",
+  "version": "14.0.0",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
@@ -40,17 +40,16 @@
   "author": {
     "name": "National Instruments"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
-    "@microsoft/fast-animation": "^4.2.2",
     "@microsoft/fast-element": "^1.10.1",
     "@microsoft/fast-foundation": "^2.46.11",
     "@microsoft/fast-web-utilities": "^5.4.1",
-    "@ni/nimble-tokens": "^4.1.0",
+    "@ni/nimble-tokens": "^4.1.2",
     "hex-rgb": "^5.0.0",
     "tslib": "^2.2.0"
   },

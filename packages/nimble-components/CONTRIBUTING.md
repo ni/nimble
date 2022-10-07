@@ -239,14 +239,6 @@ Nimble interprets this to mean the following types of animations are permitted w
 
 All other motion animations should either be disabled or replaced with a fade animation when `prefers-reduced-motion` is enabled. [Search this repo for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) to find examples of how it's done.
 
-### Animations
-
-We're using the [fast-animation package](https://www.npmjs.com/package/@microsoft/fast-animation) for some animations (see the Drawer component as an example). That package allows us to create and start animations from JS/TS code, gives us ways to group/sequence multiple animations together, and lets us be notified when animations complete.
-
-For new component animations, using fast-animation is preferred for complex/sequenced animations, and animations which will have additional JS/TS logic when they finish. CSS animations can still be used for simple standalone animations with no start/end JS/TS logic.
-
-See the above accessibility section for implications related to animations.
-
 ### Leveraging icons
 
 Nimble components should leverage inline svg icons from nimble tokens. The icons are exported from nimble tokens as svg strings similar to the following format:

@@ -1,137 +1,30 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
-import { DrawerState, DrawerLocation, Drawer, NimbleDrawerDirective } from '../nimble-drawer.directive';
+import { Drawer, DrawerLocation, NimbleDrawerDirective } from '../nimble-drawer.directive';
 import { NimbleDrawerModule } from '../nimble-drawer.module';
 
-describe('Nimble drawer directive', () => {
-    describe('with property bound values', () => {
-        @Component({
-            template: `
-                <nimble-drawer #drawerConfigured [location]="drawerLocation" [(state)]="drawerState" [modal]="isDrawerModal" [preventDismiss]="drawerPreventDismiss" (cancel)="canceled()">
-                    Drawer Content
-                </nimble-drawer>
-                <nimble-drawer #drawerUnconfigured>
-                    Drawer Content
-                </nimble-drawer>
-             `
-        })
-        class TestHostComponent {
-            @ViewChild('drawerConfigured', { static: true }) public drawerConfigured: ElementRef<Drawer>;
-            @ViewChild('drawerUnconfigured', { static: true }) public drawerUnconfigured: ElementRef<Drawer>;
-            public drawerLocation: DrawerLocation = DrawerLocation.right;
-            public drawerState: DrawerState = DrawerState.opened;
-            public isDrawerModal = false;
-            public drawerPreventDismiss = false;
-            public canceled(): void {}
-        }
-
-        let fixture: ComponentFixture<TestHostComponent>;
-        let testHostComponent: TestHostComponent;
-        let drawerConfigured: Drawer;
-        let drawerUnconfigured: Drawer;
-
+describe('Nimble drawer', () => {
+    describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [TestHostComponent],
                 imports: [NimbleDrawerModule]
             });
         });
 
-        beforeEach(() => {
-            fixture = TestBed.createComponent(TestHostComponent);
-            testHostComponent = fixture.componentInstance;
-            drawerConfigured = testHostComponent.drawerConfigured.nativeElement;
-            drawerUnconfigured = testHostComponent.drawerUnconfigured.nativeElement;
-            fixture.detectChanges();
-        });
-
-        async function waitForDrawerState(drawer: Drawer, state: DrawerState): Promise<void> {
-            return new Promise(resolve => {
-                drawer.addEventListener('state-change', function handler() {
-                    if (drawer.state === state) {
-                        drawer.removeEventListener('state-change', handler);
-                        resolve();
-                    }
-                });
-            });
-        }
-
         it('custom element is defined', () => {
             expect(customElements.get('nimble-drawer')).not.toBeUndefined();
         });
-
-        it('the Drawer DOM element has expected default property values when no directive properties are set', () => {
-            expect(drawerUnconfigured.location).toBe(DrawerLocation.left);
-            expect(drawerUnconfigured.state).toBe(DrawerState.closed);
-            expect(drawerUnconfigured.modal).toBe(true);
-        });
-
-        it('the Drawer DOM element reflects correct initial state set via NimbleDrawerDirective', () => {
-            expect(drawerConfigured.location).toBe(DrawerLocation.right);
-            expect(drawerConfigured.state).toBe(DrawerState.opened);
-            expect(drawerConfigured.modal).toBe(false);
-        });
-
-        describe('when directive properties change, the drawer DOM element is updated', () => {
-            it('for location', () => {
-                testHostComponent.drawerLocation = DrawerLocation.left;
-                fixture.detectChanges();
-
-                expect(drawerConfigured.location).toBe(DrawerLocation.left);
-            });
-
-            it('for state', () => {
-                testHostComponent.drawerState = DrawerState.closed;
-                fixture.detectChanges();
-
-                expect(drawerConfigured.state).toBe(DrawerState.closed);
-            });
-
-            it('for modal', () => {
-                testHostComponent.isDrawerModal = true;
-                fixture.detectChanges();
-
-                expect(drawerConfigured.modal).toBe(true);
-            });
-
-            it('for preventDismiss', () => {
-                testHostComponent.drawerPreventDismiss = true;
-                fixture.detectChanges();
-
-                expect(drawerConfigured.preventDismiss).toBe(true);
-            });
-        });
-
-        it('when "location" property changes on drawer DOM element, directive state updates correctly', async () => {
-            drawerConfigured.state = DrawerState.closing;
-            await waitForDrawerState(drawerConfigured, DrawerState.closed);
-            fixture.detectChanges();
-
-            expect(testHostComponent.drawerState).toEqual(DrawerState.closed);
-        });
-
-        it('when drawer overlay is clicked, cancel output/event is triggered', async () => {
-            const canceledSpy = spyOn(testHostComponent, 'canceled');
-            const drawerOverlay = drawerConfigured.shadowRoot!.querySelector('.overlay')!;
-            (drawerOverlay as HTMLElement).click();
-
-            expect(canceledSpy).toHaveBeenCalledTimes(1);
-        });
     });
 
-    describe('with attribute bound values', () => {
+    describe('with no values in template', () => {
         @Component({
             template: `
-            <nimble-drawer #drawerConfigured [attr.prevent-dismiss]="drawerPreventDismiss">
-                Drawer Content
-            </nimble-drawer>
+                <nimble-drawer #drawer></nimble-drawer>
             `
         })
         class TestHostComponent {
-            @ViewChild('drawerConfigured', { read: NimbleDrawerDirective }) public directive: NimbleDrawerDirective;
-            @ViewChild('drawerConfigured', { read: ElementRef }) public elementRef: ElementRef<Drawer>;
-            public drawerPreventDismiss: BooleanValueOrAttribute = null;
+            @ViewChild('drawer', { read: NimbleDrawerDirective }) public directive: NimbleDrawerDirective;
+            @ViewChild('drawer', { read: ElementRef }) public elementRef: ElementRef<Drawer>;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -149,15 +42,201 @@ describe('Nimble drawer directive', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with attribute binding for preventDismiss', () => {
+        it('has expected defaults for location', () => {
+            expect(directive.location).toBe(DrawerLocation.right);
+            expect(nativeElement.location).toBe(DrawerLocation.right);
+        });
+
+        it('has expected defaults for preventDismiss', () => {
+            expect(directive.preventDismiss).toBeFalse();
+            expect(nativeElement.preventDismiss).toBeFalse();
+        });
+
+        it('has expected defaults for ariaLabel', () => {
+            expect(directive.ariaLabel).toBeUndefined();
+            expect(nativeElement.ariaLabel).toBeUndefined();
+        });
+
+        it('has expected defaults for open', () => {
+            expect(directive.open).toBeFalse();
+            expect(nativeElement.open).toBeFalse();
+        });
+    });
+
+    describe('with template string values', () => {
+        @Component({
+            template: `
+                <nimble-drawer #drawer
+                    location="right"
+                    prevent-dismiss
+                    aria-label="label">
+                </nimble-drawer>`
+        })
+        class TestHostComponent {
+            @ViewChild('drawer', { read: NimbleDrawerDirective }) public directive: NimbleDrawerDirective;
+            @ViewChild('drawer', { read: ElementRef }) public elementRef: ElementRef<Drawer>;
+        }
+
+        let fixture: ComponentFixture<TestHostComponent>;
+        let directive: NimbleDrawerDirective;
+        let nativeElement: Drawer;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestHostComponent],
+                imports: [NimbleDrawerModule]
+            });
+            fixture = TestBed.createComponent(TestHostComponent);
+            fixture.detectChanges();
+            directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
+        });
+
+        it('will use template string values for location', () => {
+            expect(directive.location).toBe(DrawerLocation.right);
+            expect(nativeElement.location).toBe(DrawerLocation.right);
+        });
+
+        it('will use template string values for preventDismiss', () => {
+            expect(directive.preventDismiss).toBeTrue();
+            expect(nativeElement.preventDismiss).toBeTrue();
+        });
+
+        it('will use template string values for ariaLabel', () => {
+            expect(directive.ariaLabel).toBe('label');
+            expect(nativeElement.ariaLabel).toBe('label');
+        });
+    });
+
+    describe('with property bound values', () => {
+        @Component({
+            template: `
+                <nimble-drawer #drawer
+                    [location]="location"
+                    [preventDismiss]="preventDismiss"
+                    [ariaLabel]="ariaLabel">
+                </nimble-drawer>`
+        })
+        class TestHostComponent {
+            @ViewChild('drawer', { read: NimbleDrawerDirective }) public directive: NimbleDrawerDirective;
+            @ViewChild('drawer', { read: ElementRef }) public elementRef: ElementRef<Drawer>;
+            public location: DrawerLocation = DrawerLocation.right;
+            public preventDismiss = false;
+            public ariaLabel = 'label';
+        }
+
+        let fixture: ComponentFixture<TestHostComponent>;
+        let directive: NimbleDrawerDirective;
+        let nativeElement: Drawer;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestHostComponent],
+                imports: [NimbleDrawerModule]
+            });
+            fixture = TestBed.createComponent(TestHostComponent);
+            fixture.detectChanges();
+            directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
+        });
+
+        it('can be configured with property binding for location', () => {
+            expect(directive.location).toBe(DrawerLocation.right);
+            expect(nativeElement.location).toBe(DrawerLocation.right);
+
+            fixture.componentInstance.location = DrawerLocation.left;
+            fixture.detectChanges();
+
+            expect(directive.location).toBe(DrawerLocation.left);
+            expect(nativeElement.location).toBe(DrawerLocation.left);
+        });
+
+        it('can be configured with property binding for preventDismiss', () => {
             expect(directive.preventDismiss).toBeFalse();
             expect(nativeElement.preventDismiss).toBeFalse();
 
-            fixture.componentInstance.drawerPreventDismiss = '';
+            fixture.componentInstance.preventDismiss = true;
             fixture.detectChanges();
 
             expect(directive.preventDismiss).toBeTrue();
             expect(nativeElement.preventDismiss).toBeTrue();
+        });
+
+        it('can be configured with property binding for ariaLabel', () => {
+            expect(directive.ariaLabel).toBe('label');
+            expect(nativeElement.ariaLabel).toBe('label');
+
+            fixture.componentInstance.ariaLabel = 'new label';
+            fixture.detectChanges();
+
+            expect(directive.ariaLabel).toBe('new label');
+            expect(nativeElement.ariaLabel).toBe('new label');
+        });
+    });
+
+    describe('with attribute bound values', () => {
+        @Component({
+            template: `
+                <nimble-drawer #drawer
+                    [attr.location]="location"
+                    [attr.prevent-dismiss]="preventDismiss"
+                    [attr.aria-label]="ariaLabel">
+                </nimble-drawer>`
+        })
+        class TestHostComponent {
+            @ViewChild('drawer', { read: NimbleDrawerDirective }) public directive: NimbleDrawerDirective;
+            @ViewChild('drawer', { read: ElementRef }) public elementRef: ElementRef<Drawer>;
+            public location: DrawerLocation = DrawerLocation.right;
+            public preventDismiss = false;
+            public ariaLabel = 'label';
+        }
+
+        let fixture: ComponentFixture<TestHostComponent>;
+        let directive: NimbleDrawerDirective;
+        let nativeElement: Drawer;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestHostComponent],
+                imports: [NimbleDrawerModule]
+            });
+            fixture = TestBed.createComponent(TestHostComponent);
+            fixture.detectChanges();
+            directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
+        });
+
+        it('can be configured with attribute binding for location', () => {
+            expect(directive.location).toBe(DrawerLocation.right);
+            expect(nativeElement.location).toBe(DrawerLocation.right);
+
+            fixture.componentInstance.location = DrawerLocation.left;
+            fixture.detectChanges();
+
+            expect(directive.location).toBe(DrawerLocation.left);
+            expect(nativeElement.location).toBe(DrawerLocation.left);
+        });
+
+        it('can be configured with attribute binding for preventDismiss', () => {
+            expect(directive.preventDismiss).toBeFalse();
+            expect(nativeElement.preventDismiss).toBeFalse();
+
+            fixture.componentInstance.preventDismiss = true;
+            fixture.detectChanges();
+
+            expect(directive.preventDismiss).toBeTrue();
+            expect(nativeElement.preventDismiss).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for ariaLabel', () => {
+            expect(directive.ariaLabel).toBe('label');
+            expect(nativeElement.ariaLabel).toBe('label');
+
+            fixture.componentInstance.ariaLabel = 'new label';
+            fixture.detectChanges();
+
+            expect(directive.ariaLabel).toBe('new label');
+            expect(nativeElement.ariaLabel).toBe('new label');
         });
     });
 });
