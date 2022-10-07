@@ -44,8 +44,8 @@ const component = (
     value="1"
 >
     <label slot="label">${orientationName} ${disabledName}</label>
-    <nimble-radio-button value="1">Option 1</nimble-radio-button>
-    <nimble-radio-button value="2">Option 2</nimble-radio-button>
+    <nimble-radio value="1">Option 1</nimble-radio>
+    <nimble-radio value="2">Option 2</nimble-radio>
 </nimble-radio-group>`;
 
 export const radioGroupThemeMatrix: Story = createMatrixThemeStory(
@@ -58,12 +58,8 @@ export const hiddenRadioGroup: Story = createStory(
     )
 );
 
-export const hiddenRadioButton: Story = createStory(
-    hiddenWrapper(
-        html`<nimble-radio-button hidden>
-            Hidden Radio Button
-        </nimble-radio-button>`
-    )
+export const hiddenRadio: Story = createStory(
+    hiddenWrapper(html`<nimble-radio hidden>Hidden Radio</nimble-radio>`)
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
@@ -71,8 +67,8 @@ export const textCustomized: Story = createMatrixThemeStory(
         html`
             <nimble-radio-group>
                 <label slot="label">Radio buttons</label>
-                <nimble-radio-button>Option 1</nimble-radio-button>
-                <nimble-radio-button>Option 2</nimble-radio-button>
+                <nimble-radio>Option 1</nimble-radio>
+                <nimble-radio>Option 2</nimble-radio>
             </nimble-radio-group>
         `
     )

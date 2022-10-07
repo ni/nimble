@@ -33,9 +33,9 @@ public class NimbleRadioGroupTests
     }
 
     [Fact]
-    public void RadioGroupWithButton_HasRadioButtonMarkup()
+    public void RadioGroupWithButton_HasRadioMarkup()
     {
-        var expectedMarkup = "nimble-radio-button";
+        var expectedMarkup = "nimble-radio";
         var select = RenderNimbleRadioGroupWithButton();
 
         Assert.Contains(expectedMarkup, select.Markup);
@@ -68,7 +68,7 @@ public class NimbleRadioGroupTests
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleRadioGroup>(p => p.AddChildContent<NimbleRadioButton>());
+        return context.RenderComponent<NimbleRadioGroup>(p => p.AddChildContent<NimbleRadio>());
     }
 
     private IRenderedComponent<NimbleRadioGroup> RenderNimbleRadioGroup(Orientation orientation)

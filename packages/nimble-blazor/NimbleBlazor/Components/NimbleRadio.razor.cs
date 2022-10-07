@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleRadioButton : ComponentBase
+public partial class NimbleRadio : ComponentBase
 {
     /// <summary>
     /// Gets or sets the value.
@@ -24,7 +24,7 @@ public partial class NimbleRadioButton : ComponentBase
     public string? Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the child content to be rendered inside the <see cref="NimbleRadioButton"/>.
+    /// Gets or sets the child content to be rendered inside the <see cref="NimbleRadio"/>.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

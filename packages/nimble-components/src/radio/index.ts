@@ -9,21 +9,21 @@ import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-radio-button': RadioButton;
+        'nimble-radio': Radio;
     }
 }
 
 /**
  * A nimble-styled radio button
  */
-export class RadioButton extends FoundationRadio {}
+export class Radio extends FoundationRadio {}
 
-const nimbleRadioButton = RadioButton.compose<RadioOptions>({
-    baseName: 'radio-button',
+const nimbleRadio = Radio.compose<RadioOptions>({
+    baseName: 'radio',
     baseClass: FoundationRadio,
     template,
     styles,
     checkedIndicator: circleFilled16X16.data
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRadioButton());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRadio());

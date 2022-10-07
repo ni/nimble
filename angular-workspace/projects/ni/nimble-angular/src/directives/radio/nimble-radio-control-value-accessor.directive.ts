@@ -2,24 +2,24 @@ import { Directive, ElementRef, forwardRef, Injector, OnInit, Renderer2 } from '
 // eslint-disable-next-line camelcase
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor, ɵangular_packages_forms_forms_r } from '@angular/forms';
 import { RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
-import type { RadioButton } from '@ni/nimble-components/dist/esm/radio-button';
+import type { Radio } from '@ni/nimble-components/dist/esm/radio';
 
 /**
  * Control Value Accessor implementation for the radio group.
  */
 @Directive({
     selector:
-        'nimble-radio-button[formControlName],nimble-radio-button[formControl],nimble-radio-button[ngModel]',
+        'nimble-radio[formControlName],nimble-radio[formControl],nimble-radio[ngModel]',
     // The following host metadata is duplicated from RadioControlValueAccessor
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property
     host: { '(change)': 'nimbleOnChange($event.target.checked)', '(blur)': 'onTouched()' },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => NimbleRadioButtonControlValueAccessorDirective),
+        useExisting: forwardRef(() => NimbleRadioControlValueAccessorDirective),
         multi: true
     }]
 })
-export class NimbleRadioButtonControlValueAccessorDirective extends RadioControlValueAccessor implements OnInit {
+export class NimbleRadioControlValueAccessorDirective extends RadioControlValueAccessor implements OnInit {
     private static _nextOpenId = 0;
     private _privateOnChange?: () => void;
 
@@ -30,15 +30,15 @@ export class NimbleRadioButtonControlValueAccessorDirective extends RadioControl
     }
 
     private static allocateId(): string {
-        const id = NimbleRadioButtonControlValueAccessorDirective._nextOpenId.toString();
-        NimbleRadioButtonControlValueAccessorDirective._nextOpenId += 1;
+        const id = NimbleRadioControlValueAccessorDirective._nextOpenId.toString();
+        NimbleRadioControlValueAccessorDirective._nextOpenId += 1;
         return id;
     }
 
     public ngOnInit(): void {
         // We need each button element to have a unique string value, because the FAST radio group looks at
         // these values when trying to manage the checked state.
-        (this.elementRef.nativeElement as RadioButton).value = NimbleRadioButtonControlValueAccessorDirective.allocateId();
+        (this.elementRef.nativeElement as Radio).value = NimbleRadioControlValueAccessorDirective.allocateId();
     }
 
     /**
@@ -47,7 +47,7 @@ export class NimbleRadioButtonControlValueAccessorDirective extends RadioControl
      */
     public override writeValue(value: unknown): void {
         super.writeValue(value);
-        const parentGroup = (this.elementRef.nativeElement as RadioButton).parentElement;
+        const parentGroup = (this.elementRef.nativeElement as Radio).parentElement;
         if (this.value === value && parentGroup && parentGroup instanceof RadioGroup) {
             // This is a workaround to a problem where all of the buttons are initialized as unchecked.
             // The radio group tries to synchronize its value and the checked states of the radio buttons.
@@ -57,7 +57,7 @@ export class NimbleRadioButtonControlValueAccessorDirective extends RadioControl
             // Unfortunately, this occurs _after_ the CVA initializes the checked state of each radio
             // button, meaning the initially checked button gets unchecked by the group. To avoid this,
             // we need to set the group's value to match the checked button.
-            parentGroup.value = (this.elementRef.nativeElement as RadioButton).value;
+            parentGroup.value = (this.elementRef.nativeElement as Radio).value;
         }
     }
 
