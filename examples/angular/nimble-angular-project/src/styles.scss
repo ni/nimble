@@ -3,40 +3,45 @@
 
 :host{
   background-color: $ni-nimble-application-background-color;
-  height: 100%;
+  height: 100vh;
 }
 
 body {
   margin: 0px;
+  height: 100vh;
 }
 
 .nimble-typography {
-  h1 {
+  .headline-2{
     font: $ni-nimble-headline-font;
+    color: $ni-nimble-headline-font-color;
   }
-  h2, h3, h4 {
-    font: $ni-nimble-body-font;
-    color: $ni-nimble-link-standard-font-color;
+  .headline-1 {
+    font: $ni-nimble-headline-plus-1-font;
+    color: $ni-nimble-headline-plus-1-font-color;
   }
-  h2{
+  .title-3{
     font: $ni-nimble-title-plus-2-font;
+    color: $ni-nimble-title-plus-2-font-color;
   }
-  h3{
+  .title-2{
     font: $ni-nimble-title-plus-1-font;
+    color: $ni-nimble-title-plus-1-font-color;
   }
-  h4{
+  .title-1{
     font: $ni-nimble-title-font;
+    color: $ni-nimble-title-font-color;
   }
-  p,
-  a {
-    font: $ni-nimble-body-font;
-    color: $ni-nimble-link-standard-font-color;
-  }
-  label{
-    margin: $ni-nimble-standard-padding;
-    font: $ni-nimble-control-label-font;
-    color: $ni-nimble-control-label-font-color;
-  }
+  // p,
+  // a {
+  //   font: $ni-nimble-body-font;
+  //   color: $ni-nimble-link-standard-font-color;
+  // }
+  // label{
+  //   margin: $ni-nimble-standard-padding;
+  //   font: $ni-nimble-control-label-font;
+  //   color: $ni-nimble-control-label-font-color;
+  // }
 }
 
 .container {
