@@ -95,7 +95,8 @@ StyleDictionary.registerTransformGroup({
     transforms: [
         'attribute/cti',
         'name/dsp/pascal', // replaces 'name/cti/pascal',
-        'size/px', // replaces size/rem from DSP config
+        // 'size/px', // replaces size/rem from DSP config
+        'size/toRem', // replaces size/rem from DSP config
         'color/hex',
         'font/weight'
     ]
