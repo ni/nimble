@@ -28,8 +28,8 @@ export class Table extends FoundationElement {
             });
             await this.viewer.load(table);
             const data = {
-                x: [0, 1, 2],
-                y: [0, 1, 2]
+                x: [0, 1, 2, 3],
+                y: [0, 1, 2, 3]
             };
             table.update(data);
             await this.viewer.toggleConfig(true);
