@@ -1,10 +1,11 @@
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import perspective from '@finos/perspective';
-import type { IPerspectiveViewerElement } from '@finos/perspective-viewer/dist/esm/viewer';
+import type { HTMLPerspectiveViewerElement } from '@finos/perspective-viewer';
 import { styles } from './styles';
 import { template } from './template';
 import '@finos/perspective-viewer';
 import '@finos/perspective-viewer-datagrid';
+import { tableFont } from './table-theme';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -12,11 +13,18 @@ declare global {
     }
 }
 
+// Install the google font
+document.head.insertAdjacentHTML('beforeend', `
+<style>
+    ${tableFont}
+</style>
+`);
+
 /**
  * A nimble-styled container for toolbar content next to tabs.
  */
 export class Table extends FoundationElement {
-    public readonly viewer!: IPerspectiveViewerElement;
+    public readonly viewer!: HTMLPerspectiveViewerElement;
     private readonly worker = perspective.worker();
 
     public override connectedCallback(): void {
@@ -33,6 +41,9 @@ export class Table extends FoundationElement {
             };
             table.update(data);
             await this.viewer.toggleConfig(true);
+            // theme needs to be manually reset as the autodetection
+            // of styles won't work
+            await this.viewer.resetThemes(['Material Light']);
         })();
     }
 }
