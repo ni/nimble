@@ -13,11 +13,6 @@ interface TableArgs {
 
 const metadata: Meta<TableArgs> = {
     title: 'Table',
-    parameters: {
-        actions: {
-            handles: ['change', 'input']
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <nimble-table style="max-height: 500px"

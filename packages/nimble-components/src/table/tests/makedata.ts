@@ -101,10 +101,8 @@ export function getColumns(): TableColumn[] {
         columnDataKey: 'progress',
         title: 'Progress',
         cellTemplate: html<TableCell, TableCell>`
-        <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
-        </nimble-text-field>
-        <!-- <nimble-number-field value=${x => x.cellData}>
-        </nimble-number-field> -->
+        <nimble-number-field value=${x => x.cellData}>
+        </nimble-number-field>
         `,
     }
     ];
