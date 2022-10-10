@@ -14,11 +14,14 @@ declare global {
 }
 
 // Install the google font
-document.head.insertAdjacentHTML('beforeend', `
+document.head.insertAdjacentHTML(
+    'beforeend',
+    `
 <style>
     ${tableFont}
 </style>
-`);
+`
+);
 
 /**
  * A nimble-styled container for toolbar content next to tabs.
