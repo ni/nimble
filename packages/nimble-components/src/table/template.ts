@@ -96,19 +96,37 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
                                 Expand/Collapse
                             </nimble-button>
                             <!-- TODO: 'subrows' doesn't correctly account for sub groups. -->
-                            ${(x, c) => (c.parent as Table).tableData[x.index].row.groupingValue} (${(x, c) => (c.parent as Table).tableData[x.index].row.subRows.length})
+                            <span class="group-text">
+                                ${(x, c) => (c.parent as Table).tableData[x.index].row.groupingValue} (${(x, c) => (c.parent as Table).tableData[x.index].row.subRows.length})
+                            </span>
                         </span>
                     `)}
                     ${when((x, c) => !(c.parent as Table).tableData[x.index].row.getIsGrouped(), html`
-                        <${context.tagFor(TableRow)}
-                            :rowData="${(x, c) => (c.parent as Table).tableData[x.index]}"
-                            style="
-                                height: ${x => x.size}px;
-                                position: absolute;
-                                width: 100%;
-                                transform: translateY(${x => x.start}px);
-                                ">
-                        </${context.tagFor(TableRow)}>
+                        <span class="group-row-content"
+                                style="
+                                    height: ${x => x.size}px;
+                                    position: absolute;
+                                    width: calc(100% - ${(x, c) => 16 * (c.parent as Table).tableData[x.index].row.depth}px);
+                                    transform: translateY(${x => x.start}px);
+                                    padding-left: ${(x, c) => 16 * (c.parent as Table).tableData[x.index].row.depth}px;
+                                    ">
+                            ${when((x, c) => (c.parent as Table).tableData[x.index].row.getCanExpand(), html`
+                                <nimble-button
+                                    appearance="ghost"
+                                    content-hidden
+                                    @click=${(x, c) => (c.parent as Table).tableData[x.index].row.toggleExpanded()}>
+                                    ${when((x, c) => (c.parent as Table).tableData[x.index].row.getIsExpanded(), html`
+                                        <nimble-icon-arrow-expander-down slot="start"></nimble-icon-arrow-expander-down>
+                                    `)}
+                                    ${when((x, c) => !(c.parent as Table).tableData[x.index].row.getIsExpanded(), html`
+                                        <nimble-icon-arrow-expander-right slot="start"></nimble-icon-arrow-expander-right>
+                                    `)}
+                                    Expand/Collapse
+                                </nimble-button>
+                            `)}
+                            <${context.tagFor(TableRow)} :rowData="${(x, c) => (c.parent as Table).tableData[x.index]}">
+                            </${context.tagFor(TableRow)}>
+                        </span>
                     `)}
                 `)}
             </div>

@@ -108,6 +108,7 @@ export class Table extends FoundationElement {
             getSortedRowModel: getSortedRowModel(),
             getGroupedRowModel: getGroupedRowModel(),
             getExpandedRowModel: getExpandedRowModel(),
+            getSubRows: r => r.children,
             onSortingChange: this.setSorting,
             onGroupingChange: this.setGrouping,
             onExpandedChange: this.setExpanded,

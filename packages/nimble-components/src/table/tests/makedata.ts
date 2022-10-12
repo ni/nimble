@@ -13,6 +13,7 @@ export interface Person {
     progress: number;
     status: 'relationship' | 'complicated' | 'single';
     createdAt: Date;
+    children: Person[];
 }
 
 const range = (len: number): number[] => {
@@ -37,15 +38,19 @@ const newPerson = (index: number): Person => {
             'complicated',
             'single',
         ])[0]!,
+        children: []
     };
 };
 
 export function makeData(...lens: number[]): Person[] {
+    let count = 0;
     const makeDataLevel = (depth = 0): Person[] => {
         const len = lens[depth]!;
-        return range(len).map((d): Person => {
+        return range(len).map((): Person => {
             return {
-                ...newPerson(d),
+                // eslint-disable-next-line no-plusplus
+                ...newPerson(count++),
+                children: lens[depth + 1] ? makeDataLevel(depth + 1) : []
             };
         });
     };

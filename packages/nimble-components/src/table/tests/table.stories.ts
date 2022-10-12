@@ -22,7 +22,7 @@ const metadata: Meta<TableArgs> = {
         </nimble-table>
     `),
     args: {
-        data: makeData(2000),
+        data: makeData(2000, 10, 4),
         columns: getColumns()
     }
 };

@@ -1,11 +1,16 @@
 import { css } from '@microsoft/fast-element';
+import {
+  bodyEmphasizedFont,
+  bodyEmphasizedFontColor,
+  groupHeaderFont,
+  groupHeaderFontColor
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
   :host {
     display: flex;
     width: 100%;
     height: 600px;
-    overflow-y: scroll;
   }
 
   .table-container {
@@ -40,7 +45,8 @@ export const styles = css`
 
   th * {
     display: block;
-    font: var(--ni-nimble-group-header-font);
+    font: ${groupHeaderFont};
+    color: ${groupHeaderFontColor};
     text-transform: uppercase;
   }
 
@@ -51,5 +57,10 @@ export const styles = css`
   .group-row-content {
     display: flex;
     align-items: center;
+  }
+
+  .group-text {
+    font: ${bodyEmphasizedFont};
+    color: ${bodyEmphasizedFontColor}
   }
 `;
