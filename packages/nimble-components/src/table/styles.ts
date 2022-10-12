@@ -47,4 +47,9 @@ export const styles = css`
   tr {
     vertical-align: top;
   }
+
+  .group-row-content {
+    display: flex;
+    align-items: center;
+  }
 `;
