@@ -1,4 +1,4 @@
-import { html, when, repeat, ViewTemplate, ref } from '@microsoft/fast-element';
+import { html, when, repeat, ViewTemplate, ref, slotted, elements } from '@microsoft/fast-element';
 import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { VirtualItem } from '@tanstack/virtual-core';
 import type { Table, TableHeader } from '.';
@@ -49,6 +49,11 @@ import { TableRow } from '../table-row';
 //     )}`;
 export const template: FoundationElementTemplate<ViewTemplate<Table>> = context => html<Table>`
 <template>
+    <span style="display: none;">
+        <slot name="menu" ${slotted({ property: 'slottedActionMenus', filter: elements('[role=menu]') })}></slot>
+        </slot>
+    </span>
+
     <div class="table-container" ${ref('tableContainer')}>
         <div class="table-header"> 
             ${repeat(x => x.tableHeaders, html<TableHeader>`
@@ -80,7 +85,7 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
                                 height: ${x => x.size}px;
                                 position: absolute;
                                 width: calc(100% - ${(x, c) => 16 * (c.parent as Table).tableData[x.index].row.depth}px);
-                                transform: translateY(${x => x.start}px);
+                                margin-top: ${x => x.start}px;
                                 padding-left: ${(x, c) => 16 * (c.parent as Table).tableData[x.index].row.depth}px;
                                 ">
                             <nimble-button
@@ -107,7 +112,7 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
                                     height: ${x => x.size}px;
                                     position: absolute;
                                     width: calc(100% - ${(x, c) => 16 * (c.parent as Table).tableData[x.index].row.depth}px);
-                                    transform: translateY(${x => x.start}px);
+                                    margin-top: ${x => x.start}px;
                                     padding-left: ${(x, c) => 16 * (c.parent as Table).tableData[x.index].row.depth}px;
                                     ">
                             ${when((x, c) => (c.parent as Table).tableData[x.index].row.getCanExpand(), html`

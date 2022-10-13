@@ -1,4 +1,4 @@
-import { Observable, observable } from '@microsoft/fast-element';
+import { html, Observable, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { Cell, Row } from '@tanstack/table-core';
 import type { Table } from '../table';
@@ -63,7 +63,17 @@ export class TableRow extends FoundationElement {
         if (this._cellViews.length === 0) {
             this.visibleCells?.forEach((cell, i) => {
                 const nimbleCellView = new TableCell();
-                nimbleCellView.cellItemTemplate = this._rowData.parent.getColumnTemplate(i);
+                let cellTemplate: ViewTemplate<any, any>;
+                if (cell.column.id === 'nimble-action-menu') {
+                    cellTemplate = html<TableCell>`
+                        <nimble-menu-button @open-change=${(_, c) => this._rowData.parent.onMenuOpenChange(this._rowData, c.event)} content-hidden appearance="ghost">
+                            <nimble-icon-three-dots-line slot="start"></nimble-icon-three-dots-line>
+                        </nimble-menu-button>
+                    `;
+                } else {
+                    cellTemplate = this._rowData.parent.getColumnTemplate(i);
+                }
+                nimbleCellView.cellItemTemplate = cellTemplate;
                 nimbleCellView.cellData = cell.getValue();
                 this.rowContainer.appendChild(nimbleCellView);
 

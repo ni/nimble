@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Observable, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DataGridCell, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
@@ -23,6 +24,8 @@ import { styles } from './styles';
 import type { TableCell } from '../table-cell';
 import type { TableRowData } from '../table-row';
 import type { ExpandedState } from '../utilities/tests/states';
+import type { MenuButton } from '../menu-button';
+import type { Menu } from '../menu';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -74,6 +77,27 @@ export class Table extends FoundationElement {
     public readonly tableContainer!: HTMLElement;
     public virtualizer?: Virtualizer;
 
+    private _actionMenuClone: Node | undefined;
+
+    /** @internal */
+    @observable
+    public readonly slottedActionMenus: HTMLElement[] | undefined;
+
+    public slottedActionMenusChanged(
+        _prev: HTMLElement[] | undefined,
+        _next: HTMLElement[] | undefined
+    ): void {
+        if (this.slottedActionMenus?.length) {
+            this._actionMenuClone = this.slottedActionMenus[0]?.cloneNode(true);
+        } else {
+            this._actionMenuClone = undefined;
+        }
+    }
+
+    // private get actionMenu(): HTMLElement | undefined {
+    //     return this.slottedActionMenus?.length ? this.slottedActionMenus[0] : undefined;
+    // }
+
     @observable
     public viewportReady = false;
 
@@ -100,7 +124,7 @@ export class Table extends FoundationElement {
         const tanstackColumns = this._tanstackcolumns;
         const sorting = this._sorting;
         const grouping = this._grouping;
-        const expanded = this._expanded
+        const expanded = this._expanded;
         this._options = {
             get data(): unknown[] {
                 return data ?? [];
@@ -285,6 +309,24 @@ export class Table extends FoundationElement {
     public getColumnTemplate(index: number): ViewTemplate {
         const column = this.columns[index]!;
         return column.cellTemplate!;
+    }
+
+    public onMenuOpenChange(_rowData: TableRowData, event: CustomEvent): void {
+        // debugger;
+        if (!this._actionMenuClone) {
+            return;
+        }
+
+        const menuButton = (event.target as MenuButton);
+        if (!menuButton) {
+            return;
+        }
+
+        if (menuButton.open) {
+            menuButton.appendChild(this._actionMenuClone);
+        } else {
+            menuButton.removeChild(this._actionMenuClone);
+        }
     }
 
     private readonly setSorting = (updater: unknown): void => {

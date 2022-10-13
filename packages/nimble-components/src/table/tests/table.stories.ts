@@ -13,6 +13,7 @@ interface TableArgs {
     generateNewData: (tableRef: Table) => void;
     logState: (tableRef: Table) => void;
     getRowChildren: (tableRef: Table, event: CustomEvent) => void;
+    showAlert: (message: string) => void;
 }
 
 const metadata: Meta<TableArgs> = {
@@ -30,6 +31,10 @@ const metadata: Meta<TableArgs> = {
             :columns="${x => x.columns}"
             @row-expand="${(x, c) => x.getRowChildren(x.tableRef, c.event)}"
         >
+            <nimble-menu slot="menu">
+                <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
+                <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 2</nimble-menu-item>
+            </nimble-menu>
         </nimble-table>
         <br>
         <nimble-button appearance="block" @click="${x => x.generateNewData(x.tableRef)}">Update data</nimble-button>
@@ -60,6 +65,9 @@ const metadata: Meta<TableArgs> = {
 
             person.children = makeData(3);
             setTimeout(() => tableRef.data = JSON.parse(JSON.stringify(tableRef.data)), 2000);
+        },
+        showAlert: (message: string) => {
+            alert(message);
         }
     }
 };
