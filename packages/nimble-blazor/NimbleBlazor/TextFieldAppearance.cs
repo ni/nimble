@@ -10,7 +10,7 @@ public enum TextFieldAppearance
 
 internal static class TextFieldAppearanceExtensions
 {
-    private static readonly Dictionary<TextFieldAppearance, string> _appearanceValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<TextFieldAppearance>();
+    private static readonly Dictionary<TextFieldAppearance, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<TextFieldAppearance>();
 
-    public static string? ToAttributeValue(this TextFieldAppearance? value) => value == null ? null : _appearanceValues[value.Value];
+    public static string? ToAttributeValue(this TextFieldAppearance? value) => value == null ? null : _enumValues[value.Value];
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import { Component, ViewChild } from '@angular/core';
-import { DrawerLocation, MenuItem, NimbleDialogDirective, OptionNotFound, OPTION_NOT_FOUND, USER_DISMISSED } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
@@ -13,8 +13,8 @@ interface ComboboxItem {
     styleUrls: ['./customapp.component.scss']
 })
 export class CustomAppComponent {
-    @ViewChild('dialog', { read: NimbleDialogDirective }) public dialog: NimbleDialogDirective<string>;
     public dialogCloseReason: string;
+    public drawerCloseReason: string;
     public drawerLocation: DrawerLocation = DrawerLocation.right;
     public isDrawerPinned = false;
     public drawerLocations = DrawerLocation;
@@ -26,14 +26,14 @@ export class CustomAppComponent {
 
     public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
+    public selectedRadio = 'mango';
+
+    @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
+    @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
 
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;
         alert(`${menuItemText} selected`);
-    }
-
-    public onDrawerLocationChanged(value: DrawerLocation): void {
-        alert(`drawerLocation: ${value}`);
     }
 
     public onComboboxChange(value: ComboboxItem | OptionNotFound): void {
@@ -46,10 +46,23 @@ export class CustomAppComponent {
 
     public async openDialog(): Promise<void> {
         const closeReason = await this.dialog.show();
-        this.dialogCloseReason = (closeReason === USER_DISMISSED) ? 'escape pressed' : closeReason;
+        this.dialogCloseReason = (closeReason === UserDismissed) ? 'escape pressed' : closeReason;
     }
 
     public closeDialog(reason: string): void {
         this.dialog.close(reason);
+    }
+
+    public async openDrawer(): Promise<void> {
+        const closeReason = await this.drawer.show();
+        this.drawerCloseReason = (closeReason === UserDismissed) ? 'escape pressed' : closeReason;
+    }
+
+    public closeDrawer(reason: string): void {
+        this.drawer.close(reason);
+    }
+
+    public onTabToolbarButtonClick(): void {
+        alert('Tab toolbar button clicked');
     }
 }

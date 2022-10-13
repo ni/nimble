@@ -1,7 +1,7 @@
 ﻿@namespace Demo.Shared
 
 <div class="header">
-    <NimbleDrawer @ref="_drawerReference" Location="DrawerLocation.Right">
+    <NimbleDrawer TCloseReason="string" @ref="_drawerReference" Location="DrawerLocation.Right">
         <div class="user-settings-drawer">
             <h1>User settings</h1>
             <NimbleSelect class="theme-select" Value="@ThemeAsString" ValueChanged="OnUserThemeChange">

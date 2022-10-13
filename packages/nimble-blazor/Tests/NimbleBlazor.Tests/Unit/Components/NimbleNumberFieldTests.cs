@@ -28,7 +28,7 @@ public class NimbleNumberFieldTests
     [InlineData(NumberFieldAppearance.Underline, "underline")]
     public void NumberFieldAppearance_AttributeIsSet(NumberFieldAppearance value, string expectedAttribute)
     {
-        var numberField = RenderNimbleNumberFieldWithPropertySet(x => x.Appearance, value);
+        var numberField = RenderWithPropertySet(x => x.Appearance, value);
 
         Assert.Contains(expectedAttribute, numberField.Markup);
     }
@@ -36,7 +36,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldStep_AttributeIsSet()
     {
-        var numberField = RenderNimbleNumberFieldWithPropertySet(x => x.Step, 2.3);
+        var numberField = RenderWithPropertySet(x => x.Step, 2.3);
 
         Assert.Contains("step=\"2.3\"", numberField.Markup);
     }
@@ -44,7 +44,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldMin_AttributeIsSet()
     {
-        var numberField = RenderNimbleNumberFieldWithPropertySet(x => x.Min, 2.3);
+        var numberField = RenderWithPropertySet(x => x.Min, 2.3);
 
         Assert.Contains("min=\"2.3\"", numberField.Markup);
     }
@@ -52,7 +52,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldMax_AttributeIsSet()
     {
-        var numberField = RenderNimbleNumberFieldWithPropertySet(x => x.Max, 2.3);
+        var numberField = RenderWithPropertySet(x => x.Max, 2.3);
 
         Assert.Contains("max=\"2.3\"", numberField.Markup);
     }
@@ -60,7 +60,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldPlaceholder_AttributeIsSet()
     {
-        var numberField = RenderNimbleNumberFieldWithPropertySet(x => x.Placeholder, "enter a value");
+        var numberField = RenderWithPropertySet(x => x.Placeholder, "enter a value");
 
         Assert.Contains("placeholder=\"enter a value\"", numberField.Markup);
     }
@@ -68,15 +68,23 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldErrorText_AttributeIsSet()
     {
-        var numberField = RenderNimbleNumberFieldWithPropertySet(x => x.ErrorText, "bad number");
+        var numberField = RenderWithPropertySet(x => x.ErrorText, "bad number");
 
         Assert.Contains("error-text=\"bad number\"", numberField.Markup);
     }
 
     [Fact]
+    public void NumberFieldErrorVisible_AttributeIsSet()
+    {
+        var numberField = RenderWithPropertySet(x => x.ErrorVisible, true);
+
+        Assert.Contains("error-visible", numberField.Markup);
+    }
+
+    [Fact]
     public void NumberFieldDisabled_AttributeIsSet()
     {
-        var numberField = RenderNimbleNumberFieldWithPropertySet(x => x.Disabled, true);
+        var numberField = RenderWithPropertySet(x => x.Disabled, true);
 
         Assert.Contains("disabled", numberField.Markup);
     }
@@ -84,12 +92,12 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldReadOnly_AttributeIsSet()
     {
-        var numberField = RenderNimbleNumberFieldWithPropertySet(x => x.ReadOnly, true);
+        var numberField = RenderWithPropertySet(x => x.ReadOnly, true);
 
         Assert.Contains("readonly", numberField.Markup);
     }
 
-    private IRenderedComponent<NimbleNumberField> RenderNimbleNumberFieldWithPropertySet<TProperty>(Expression<Func<NimbleNumberField, TProperty>> propertyGetter, TProperty propertyValue)
+    private IRenderedComponent<NimbleNumberField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleNumberField, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;

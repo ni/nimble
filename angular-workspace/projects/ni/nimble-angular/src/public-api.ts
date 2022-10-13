@@ -35,6 +35,11 @@ export * from './directives/menu-item/nimble-menu-item.module';
 export * from './directives/number-field/nimble-number-field-control-value-accessor.directive';
 export * from './directives/number-field/nimble-number-field.directive';
 export * from './directives/number-field/nimble-number-field.module';
+export * from './directives/radio/nimble-radio-control-value-accessor.directive';
+export * from './directives/radio/nimble-radio.directive';
+export * from './directives/radio/nimble-radio.module';
+export * from './directives/radio-group/nimble-radio-group.directive';
+export * from './directives/radio-group/nimble-radio-group.module';
 export * from './directives/select/nimble-select-control-value-accessor.directive';
 export * from './directives/select/nimble-select.directive';
 export * from './directives/select/nimble-select.module';
@@ -70,7 +75,10 @@ export * from './directives/tooltip/nimble-tooltip.directive';
 export * from './directives/tooltip/nimble-tooltip.module';
 export * from './testing/async-helpers';
 
-// Export enums that are used by multiple components here to avoid exporting them multiple times.
+// Export items that would otherwise be exported by multiple components just from here to avoid exporting them multiple times.
+// Can be cleaned up when switching to multiple entry points, see: https://github.com/ni/nimble/issues/172
 export { ButtonAppearance } from '@ni/nimble-components/dist/esm/patterns/button/types';
 export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
-export { IconStatus } from '@ni/nimble-components/dist/esm/icon-base/types';
+export { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
+export type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
+export { UserDismissed } from '@ni/nimble-components/dist/esm/dialog';

@@ -11,7 +11,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>Web Components, .NET, Nimble, FAST, Blazor, .NET 6.0</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,10 +24,6 @@
 
   <ItemGroup>
     <None Remove="CodeAnalysisDictionary.xml" />
-    <None Include="License.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

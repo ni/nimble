@@ -2,6 +2,11 @@
     background-color: var(--ni-nimble-application-background-color);
 }
 
+.content {
+    font: var(--ni-nimble-body-font);
+    overflow-y: auto;
+}
+
 .container-label {
     font: var(--ni-nimble-group-header-font);
     color: var(--ni-nimble-group-header-font-color);
@@ -49,4 +54,17 @@ example-header {
 .card-button-content {
     display: flex;
     margin: var(--ni-nimble-standard-padding);
+}
+
+.drawer-footer {
+    gap: var(--ni-nimble-standard-padding);
+}
+
+.dialog-header {
+    font: var(--ni-nimble-title-font);
+    color: var(--ni-nimble-title-font-color);
+}
+
+.dialog-content {
+    color: var(--ni-nimble-body-font-color);
 }

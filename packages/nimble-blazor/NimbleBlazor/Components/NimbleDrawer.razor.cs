@@ -1,34 +1,21 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
 
-public partial class NimbleDrawer : ComponentBase
+public partial class NimbleDrawer<TCloseReason> : ComponentBase
 {
+    private ElementReference _drawerElement;
+    private TCloseReason? _closeValue = default;
+
+    internal static string ShowDrawerMethodName = "NimbleBlazor.Drawer.show";
+    internal static string CloseDrawerMethodName = "NimbleBlazor.Drawer.close";
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
     public DrawerLocation? Location { get; set; }
-
-    /// <summary>
-    /// Drawer state (Opening/Opened/Closing/Closed).
-    /// </summary>
-    /// <remarks>
-    /// When setting State, 2-way binding (@bind-State) should always be used,
-    /// so this property correctly reflects the State from the web component
-    /// (which updates State as it animates between opening/opened and
-    /// closing/closed).
-    /// </remarks>
-    [Parameter]
-    public DrawerState? State { get; set; }
-
-    /// <summary>
-    /// Gets or sets a callback that's invoked when the State changes
-    /// </summary>
-    [Parameter] public EventCallback<DrawerState?> StateChanged { get; set; }
-
-    [Parameter]
-    public bool? Modal { get; set; }
 
     [Parameter]
     public bool? PreventDismiss { get; set; }
@@ -36,37 +23,30 @@ public partial class NimbleDrawer : ComponentBase
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
+    [Inject]
+    private IJSRuntime? JSRuntime { get; set; }
+
     /// <summary>
     /// Show/Open the drawer.
     /// </summary>
-    /// <remarks>
-    /// If using 2-way binding with the State property, update State via the
-    /// bound property instead of using this method.
-    /// </remarks>
-    public void Show()
+    public async ValueTask<DrawerResponse<TCloseReason>> ShowAsync()
     {
-        State = DrawerState.Opening;
+        // Pass cancellation token to disable default async timeout
+        CancellationTokenSource source = new CancellationTokenSource();
+        CancellationToken token = source.Token;
+        var userDismissed = await JSRuntime!.InvokeAsync<bool>(ShowDrawerMethodName, token, _drawerElement);
+        var value = _closeValue;
+        _closeValue = default;
+        return new DrawerResponse<TCloseReason>(userDismissed ? DrawerCloseReason.UserDismissed : DrawerCloseReason.Closed, value);
     }
 
     /// <summary>
     /// Hide/Close the drawer.
     /// </summary>
-    /// <remarks>
-    /// If using 2-way binding with the State property, update State via the
-    /// bound property instead of using this method.
-    /// </remarks>
-    public void Hide()
+    /// <param name="reason">Optional reason for closing the drawer</param>
+    public async Task CloseAsync(TCloseReason? reason = default)
     {
-        State = DrawerState.Closing;
-    }
-
-    /// <summary>
-    /// Called when state changes on the web component
-    /// </summary>
-    /// <param name="value">New value of drawer state</param>
-    protected async void UpdateDrawerState(DrawerState value)
-    {
-        State = value;
-        await StateChanged.InvokeAsync(value);
+        _closeValue = reason;
+        await JSRuntime!.InvokeVoidAsync(CloseDrawerMethodName, _drawerElement);
     }
 }

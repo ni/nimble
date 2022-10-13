@@ -77,10 +77,7 @@
             "styles": [
               "projects/example-client-app/src/styles.scss"
             ],
-            "scripts": [],
-            "allowedCommonJsDependencies": [
-              "@microsoft/fast-animation"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

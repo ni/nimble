@@ -1,6 +1,6 @@
 {
   "name": "@ni/xliff-to-json-converter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A utility to convert translation files from XLIFF to JSON for Angular localization",
   "main": "dist/commonjs/cli.js",
   "bin": {
@@ -23,7 +23,7 @@
     "directory": "packages/xliff-to-json-converter"
   },
   "author": "National Instruments",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "@ni/eslint-config-javascript": "^3.1.0",
     "@ni/eslint-config-typescript": "^3.0.5",

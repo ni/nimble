@@ -125,7 +125,7 @@ const nimbleButton = Button.compose({
 If you need to compose multiple elements into a new component, use previously built Nimble elements or basic HTML elements as your template building blocks.
 Extend `FoundationElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
 
-Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `context.tagFor(NimbleComponentClass)` where `context` is the `ElementDefinitionContext` instead of hard coding the nimble tag name in the template. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
+Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `DesignSystem.tagFor(NimbleComponentClass)` instead of hard coding the nimble tag name in templates. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
 
 ### Adhere to architectural philosophies
 
@@ -238,14 +238,6 @@ Nimble interprets this to mean the following types of animations are permitted w
 3. Animations which involved motion but the change in size, shape, or position is synchronized with a user interaction (e.g. a mouse drag to move or resize an object or scrolling through a list).
 
 All other motion animations should either be disabled or replaced with a fade animation when `prefers-reduced-motion` is enabled. [Search this repo for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) to find examples of how it's done.
-
-### Animations
-
-We're using the [fast-animation package](https://www.npmjs.com/package/@microsoft/fast-animation) for some animations (see the Drawer component as an example). That package allows us to create and start animations from JS/TS code, gives us ways to group/sequence multiple animations together, and lets us be notified when animations complete.
-
-For new component animations, using fast-animation is preferred for complex/sequenced animations, and animations which will have additional JS/TS logic when they finish. CSS animations can still be used for simple standalone animations with no start/end JS/TS logic.
-
-See the above accessibility section for implications related to animations.
 
 ### Leveraging icons
 

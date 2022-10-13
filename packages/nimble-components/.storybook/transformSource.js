@@ -44,6 +44,18 @@ const removeCommentNodes = node => {
     }
 };
 
+const removeClassAttributes = node => {
+    if (node.hasChildNodes()) {
+        const nodes = Array.from(node.childNodes);
+        nodes.forEach(child => removeClassAttributes(child));
+    }
+    // Assume that all class attributes added to nimble elements were added by FAST
+    // and are not part of the control api
+    if (node instanceof HTMLElement && node.tagName.toLowerCase().startsWith('nimble-')) {
+        node.removeAttribute('class');
+    }
+};
+
 const removeBlankLines = html => html
     .split('\n')
     .filter(line => line.trim() !== '')
@@ -61,6 +73,7 @@ export const transformSource = source => {
     removeCommentNodes(fragment);
     removeCodeHideNodes(fragment);
     removeCodeHideTopContainerNode(fragment);
+    removeClassAttributes(fragment);
     const html = createHTMLFromFragment(fragment);
 
     const trimmedHTML = removeBlankLines(html);
