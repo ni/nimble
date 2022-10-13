@@ -90,6 +90,8 @@ export class Table extends FoundationElement {
     private _visibleItems: VirtualItem<unknown>[] = [];
     private _rowContainerHeight = 0;
     private _ready = false;
+    private _rowIdProperty = '';
+    private _rowHierarchyProperty = '';
     private readonly resizeObserver: ResizeObserver;
 
     public constructor() {
@@ -108,7 +110,11 @@ export class Table extends FoundationElement {
             getSortedRowModel: getSortedRowModel(),
             getGroupedRowModel: getGroupedRowModel(),
             getExpandedRowModel: getExpandedRowModel(),
+            getRowCanExpand: r => {
+                return r.original.children?.length || r.original.age > 35;
+            },
             getSubRows: r => r.children,
+            getRowId: r => r.id,
             onSortingChange: this.setSorting,
             onGroupingChange: this.setGrouping,
             onExpandedChange: this.setExpanded,
@@ -121,7 +127,7 @@ export class Table extends FoundationElement {
             renderFallbackValue: null,
             enableGrouping: true,
             groupedColumnMode: false,
-            autoResetExpanded: false
+            autoResetAll: false
         };
         this.table = createTable(this._options);
         const nimbleTable = this;
@@ -157,6 +163,8 @@ export class Table extends FoundationElement {
         this._data = value;
         Observable.notify(this, 'data');
         this._options = { ...this._options, data: this.data };
+        this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
+        this.refreshRows();
     }
 
     public get columns(): TableColumn[] {
@@ -241,6 +249,39 @@ export class Table extends FoundationElement {
         Observable.notify(this, 'rowContainerHeight');
     }
 
+    public get rowIdProperty(): string {
+        Observable.track(this, 'rowIdProperty');
+        return this._rowIdProperty;
+    }
+
+    public set rowIdProperty(value: string) {
+        this._rowIdProperty = value;
+        this._options = {
+            ...this._options,
+            getRowId: value ? (r => r[value]) : undefined
+        };
+        this.update({ ...this.table.initialState, getRowId: this._options.getRowId, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
+        this.refreshRows();
+        Observable.notify(this, 'rowIdProperty');
+    }
+
+    public get rowHierarchyProperty(): string {
+        Observable.track(this, 'rowHierarchyProperty');
+        return this._rowHierarchyProperty;
+    }
+
+    public set rowHierarchyProperty(value: string) {
+        // TODO: setting this doesn't take affect until you set data again...why?
+        this._rowHierarchyProperty = value;
+        this._options = {
+            ...this._options,
+            getSubRows: value ? (r => r[value]) : undefined
+        };
+        this.update({ ...this.table.initialState, getSubRows: this._options.getSubRows, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
+        this.refreshRows();
+        Observable.notify(this, 'rowHierarchyProperty');
+    }
+
     public getColumnTemplate(index: number): ViewTemplate {
         const column = this.columns[index]!;
         return column.cellTemplate!;
@@ -273,16 +314,30 @@ export class Table extends FoundationElement {
     };
 
     private readonly setExpanded = (updater: unknown): void => {
+        // console.log(`before: ${Object.keys(this._expanded)}`);
+        const originalExpandedIds = Object.keys(this._expanded);
         if (updater instanceof Function) {
             this._expanded = updater(this._expanded) as ExpandedState;
         } else {
             this._expanded = (updater as ExpandedState);
         }
+        // console.log(`after: ${Object.keys(this._expanded)}`);
+        const updatedExpandedIds = Object.keys(this._expanded);
 
         this._options.state = { ...this._options.state, expanded: this._expanded };
         this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
         this.refreshRows();
         this.refreshHeaders();
+
+        const newlyCollapsedIds = originalExpandedIds.filter(x => !updatedExpandedIds.find(y => x === y));
+        const newlyExpandedIds = updatedExpandedIds.filter(x => !originalExpandedIds.find(y => x === y));
+
+        for (const newCollapsedId of newlyCollapsedIds) {
+            this.$emit('row-collapse', { id: newCollapsedId });
+        }
+        for (const newExpandedId of newlyExpandedIds) {
+            this.$emit('row-expand', { id: newExpandedId });
+        }
     };
 
     private initializeVirtualizer(): void {

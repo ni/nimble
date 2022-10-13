@@ -4,8 +4,10 @@ import { html } from '@microsoft/fast-element';
 import type { TableColumn } from '..';
 import type { TableCell } from '../../table-cell';
 
+let count = 0;
+
 export interface Person {
-    id: number;
+    id: string;
     firstName: string;
     lastName: string;
     age: number;
@@ -26,7 +28,7 @@ const range = (len: number): number[] => {
 
 const newPerson = (index: number): Person => {
     return {
-        id: index + 1,
+        id: `person-${index + 1}-id`,
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         age: faker.datatype.number(40),
@@ -43,15 +45,18 @@ const newPerson = (index: number): Person => {
 };
 
 export function makeData(...lens: number[]): Person[] {
-    let count = 0;
     const makeDataLevel = (depth = 0): Person[] => {
         const len = lens[depth]!;
         return range(len).map((): Person => {
-            return {
+            const person = {
                 // eslint-disable-next-line no-plusplus
                 ...newPerson(count++),
-                children: lens[depth + 1] ? makeDataLevel(depth + 1) : []
+                // children: lens[depth + 1] ? makeDataLevel(depth + 1) : []
             };
+            if (person.age < 5) {
+                person.children = makeData(1);
+            }
+            return person;
         });
     };
 
