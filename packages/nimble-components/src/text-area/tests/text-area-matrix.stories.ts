@@ -19,6 +19,8 @@ import {
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Text Area',
@@ -37,11 +39,7 @@ export default metadata;
 const valueStates = [
     ['Placeholder', null, 'placeholder'],
     ['Value', 'Hello', null],
-    [
-        'Long Value',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        null
-    ]
+    ['Long Value', loremIpsum, null]
 ] as const;
 type ValueState = typeof valueStates[number];
 
@@ -86,7 +84,7 @@ const widthSizingTestCase = (
         <nimble-text-area
             cols="${() => cols}"
             style="${widthStyle}"
-            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            value="${loremIpsum}"
         >
             ${widthLabel} ${colsLabel}
         </nimble-text-area>
@@ -101,7 +99,7 @@ const heightSizingTestCase = (
         <nimble-text-area
             rows="${() => rows}"
             style="${heightStyle}"
-            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            value="${loremIpsum}"
         >
             ${heightLabel} ${rowsLabel}
         </nimble-text-area>
@@ -136,5 +134,13 @@ export const textAreaSizing: Story = createStory(html`
 export const hiddenTextArea: Story = createStory(
     hiddenWrapper(
         html`<nimble-text-area hidden>Hidden text area</nimble-text-area>`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html` <nimble-text-area value="${loremIpsum}">
+            Text area
+        </nimble-text-area>`
     )
 );

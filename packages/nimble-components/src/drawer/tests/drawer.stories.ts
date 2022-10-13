@@ -14,19 +14,24 @@ import {
     drawerWidth,
     standardPadding
 } from '../../theme-provider/design-tokens';
-import { DrawerLocation, DrawerState } from '../types';
-import type { Drawer } from '..';
+import { DrawerLocation } from '../types';
+import { Drawer, UserDismissed } from '..';
 import '../../all-components';
+import type { TextField } from '../../text-field';
 
 interface DrawerArgs {
     location: DrawerLocation;
-    state: DrawerState;
-    modal: string;
     preventDismiss: boolean;
     content: ExampleContentType;
     width: DrawerWidthOptions;
-    drawerRef: Drawer;
-    toggleDrawer: (x: Drawer) => void;
+    show: undefined;
+    close: undefined;
+    drawerRef: Drawer<string>;
+    textFieldRef: TextField;
+    openAndHandleResult: (
+        drawerRef: Drawer<string>,
+        textFieldRef: TextField
+    ) => void;
 }
 
 const simpleContent = html<DrawerArgs>`
@@ -35,21 +40,39 @@ const simpleContent = html<DrawerArgs>`
             This is a drawer which can slide in from either side of the screen
             and display custom content.
         </p>
-        <nimble-button @click="${x => x.drawerRef.hide()}">Close</nimble-button>
+        <nimble-button @click="${x => x.drawerRef.close('Close pressed')}"
+            >Close</nimble-button
+        >
     </section>
 `;
 
 // prettier-ignore
 const headerFooterContent = html<DrawerArgs>`
     <style>
-        .cancel-button {
-            margin-right: var(${standardPadding.cssCustomProperty});
+        .example-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(${standardPadding.cssCustomProperty});
+        }
+
+        footer {
+            gap: var(${standardPadding.cssCustomProperty});
         }
     </style>
     <header>Header</header>
     <section>
         <p>This is a drawer with <code>header</code>, <code>section</code>, and <code>footer</code> elements.</p>
         <p>When placed in a <code>nimble-drawer</code> they will be automatically styled for you!</p>
+
+        <div class="example-content">
+            <nimble-number-field>I am not auto focused</nimble-number-field>
+            <nimble-number-field autofocus>I am auto focused</nimble-number-field>
+            <nimble-select>
+                <nimble-list-option value="1">option 1</nimble-list-option>
+                <nimble-list-option value="2">option 2</nimble-list-option>
+                <nimble-list-option value="3">option 3</nimble-list-option>
+            </nimble-select>
+        </div>
 
         <p style="height: 1000px;">
             This is a tall piece of content so you can see how scrolling behaves. Scroll down to see more 👇.
@@ -59,8 +82,8 @@ const headerFooterContent = html<DrawerArgs>`
         </p>
     </section>
     <footer>
-        <nimble-button @click="${x => x.drawerRef.hide()}" appearance="ghost" class="cancel-button">Cancel</nimble-button>
-        <nimble-button @click="${x => x.drawerRef.hide()}" appearance="outline">OK</nimble-button>
+        <nimble-button @click="${x => x.drawerRef.close('Cancel pressed')}" appearance="ghost">Cancel</nimble-button>
+        <nimble-button @click="${x => x.drawerRef.close('OK pressed')}" appearance="outline">OK</nimble-button>
     </footer>`;
 
 const content = {
@@ -94,7 +117,7 @@ const metadata: Meta<DrawerArgs> = {
         docs: {
             description: {
                 component:
-                    'Specialized dialog designed to slide in from either side of the page. Typically contains navigation or configuration panes.'
+                    'Specialized dialog designed to slide in from either side of the page. Typically used for a configuration pane.'
             }
         },
         design: {
@@ -102,52 +125,42 @@ const metadata: Meta<DrawerArgs> = {
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff/specs/'
         },
         actions: {
-            handles: [
-                // Actions addon does not support non-bubbling events like cancel:
-                // https://github.com/storybookjs/storybook/issues/17881
-                // 'cancel'
-            ]
+            handles: []
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <nimble-drawer
             ${ref('drawerRef')}
-            modal="${x => x.modal}"
             ?prevent-dismiss="${x => x.preventDismiss}"
             location="${x => x.location}"
-            state="${x => x.state}" 
             style="${x => `${drawerWidth.cssCustomProperty}:${widths[x.width]};`}"
         >
             ${x => content[x.content]}
         </nimble-drawer>
         <nimble-button
-            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-            @click="${x => x.toggleDrawer(x.drawerRef)}"
-            class="code-hide"
+            @click="${x => x.openAndHandleResult(x.drawerRef, x.textFieldRef)}"
         >
-            Show/Hide Drawer (animated)
+            Open
         </nimble-button>
+        <div>
+            <nimble-text-field
+                ${ref('textFieldRef')}
+                readonly
+            >
+                Close reason
+            </nimble-text-field>
+        </div>
     `),
     argTypes: {
         location: {
             options: [DrawerLocation.left, DrawerLocation.right],
             control: { type: 'radio' }
         },
-        state: {
-            options: [
-                DrawerState.opening,
-                DrawerState.opened,
-                DrawerState.closing,
-                DrawerState.closed
-            ],
-            control: { type: 'select' }
-        },
-        modal: {
-            options: ['true', 'false'],
-            control: { type: 'select' },
+        preventDismiss: {
+            name: 'prevent-dismiss',
             description:
-                'Note: The value is the string "true" or "false" unlike normal boolean attributes.'
+                'A boolean attribute to configure whether or not the drawer is dismissible via the `Esc` key, or any other dismiss action that is supported in the future'
         },
         content: {
             options: [
@@ -184,12 +197,27 @@ const metadata: Meta<DrawerArgs> = {
                 }
             }
         },
+        show: {
+            name: 'show()',
+            description:
+                'Call this member function to open the drawer. It returns a `Promise` that is resolved when the drawer is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the drawer was dismissed via the `Esc` key.'
+        },
+        close: {
+            name: 'close(reason)',
+            description:
+                'Call this member function to close the drawer. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`'
+        },
         drawerRef: {
             table: {
                 disable: true
             }
         },
-        toggleDrawer: {
+        textFieldRef: {
+            table: {
+                disable: true
+            }
+        },
+        openAndHandleResult: {
             table: {
                 disable: true
             }
@@ -197,14 +225,14 @@ const metadata: Meta<DrawerArgs> = {
     },
     args: {
         location: DrawerLocation.left,
-        state: DrawerState.opened,
-        modal: 'true',
         preventDismiss: false,
         content: ExampleContentType.simpleTextContent,
         width: DrawerWidthOptions.default,
         drawerRef: undefined,
-        toggleDrawer: (x: Drawer): void => {
-            x.state = x.hidden ? DrawerState.opening : DrawerState.closing;
+        textFieldRef: undefined,
+        openAndHandleResult: async (drawerRef, textFieldRef) => {
+            const reason = await drawerRef.show();
+            textFieldRef.value = reason === UserDismissed ? 'User dismissed' : reason;
         }
     }
 };

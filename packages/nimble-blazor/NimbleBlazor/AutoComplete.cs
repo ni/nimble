@@ -10,7 +10,7 @@ public enum AutoComplete
 
 internal static class AutoCompleteExtensions
 {
-    private static readonly Dictionary<AutoComplete, string> _autoCompleteValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<AutoComplete>();
+    private static readonly Dictionary<AutoComplete, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<AutoComplete>();
 
-    public static string? ToAttributeValue(this AutoComplete? value) => value == null ? null : _autoCompleteValues[value.Value];
+    public static string? ToAttributeValue(this AutoComplete? value) => value == null ? null : _enumValues[value.Value];
 }

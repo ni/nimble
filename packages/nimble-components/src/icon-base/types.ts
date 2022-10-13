@@ -1,12 +1,12 @@
 /**
- * Predefined icon status states
+ * Predefined icon appearance states
  * @public
  */
-export const IconStatus = {
-    fail: 'fail',
+export const IconSeverity = {
+    default: undefined,
+    error: 'error',
     warning: 'warning',
-    pass: 'pass',
-    regular: 'regular',
+    success: 'success',
     information: 'information'
 } as const;
-export type IconStatus = typeof IconStatus[keyof typeof IconStatus];
+export type IconSeverity = typeof IconSeverity[keyof typeof IconSeverity];

@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
@@ -28,7 +30,7 @@ public class NimbleTextFieldTests
     [InlineData(TextFieldType.Text, "text")]
     public void TextFieldTextFieldType_AttributeIsSet(TextFieldType value, string expectedAttribute)
     {
-        var textField = RenderNimbleTextField(value);
+        var textField = RenderWithPropertySet(x => x.TextFieldType, value);
 
         Assert.Contains(expectedAttribute, textField.Markup);
     }
@@ -40,22 +42,39 @@ public class NimbleTextFieldTests
     [InlineData(TextFieldAppearance.Frameless, "frameless")]
     public void TextFieldAppearance_AttributeIsSet(TextFieldAppearance value, string expectedAttribute)
     {
-        var textField = RenderNimbleTextField(value);
+        var textField = RenderWithPropertySet(x => x.Appearance, value);
 
         Assert.Contains(expectedAttribute, textField.Markup);
     }
 
-    private IRenderedComponent<NimbleTextField> RenderNimbleTextField(TextFieldType textFieldType)
+    [Fact]
+    public void ComboboxErrorText_AttributeIsSet()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTextField>(p => p.Add(x => x.TextFieldType, textFieldType));
+        var textField = RenderWithPropertySet(x => x.ErrorText, "bad number");
+
+        Assert.Contains("error-text=\"bad number\"", textField.Markup);
     }
 
-    private IRenderedComponent<NimbleTextField> RenderNimbleTextField(TextFieldAppearance appearance)
+    [Fact]
+    public void ComboboxErrorVisible_AttributeIsSet()
+    {
+        var textField = RenderWithPropertySet(x => x.ErrorVisible, true);
+
+        Assert.Contains("error-visible", textField.Markup);
+    }
+
+    [Fact]
+    public void ComboboxFullBleed_AttributeIsSet()
+    {
+        var textField = RenderWithPropertySet(x => x.FullBleed, true);
+
+        Assert.Contains("full-bleed", textField.Markup);
+    }
+
+    private IRenderedComponent<NimbleTextField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTextField, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTextField>(p => p.Add(x => x.Appearance, appearance));
+        return context.RenderComponent<NimbleTextField>(p => p.Add(propertyGetter, propertyValue));
     }
 }

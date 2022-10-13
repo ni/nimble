@@ -100,7 +100,7 @@ export const styles = css`
         padding: ${borderWidth};
     }
 
-    :host(.open:not(:hover)) .control {
+    :host([open]:not(:hover)) .control {
         border-bottom-color: ${borderHoverColor};
     }
 

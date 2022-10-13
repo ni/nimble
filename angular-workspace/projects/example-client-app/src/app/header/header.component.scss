@@ -27,11 +27,5 @@
 .menu-container {
     display: flex;
     align-items: center;
-}
-
-.menu {
-    position: absolute;
-    z-index: 1;
-    right: 1px;
-    top: var(--example-client-header-height);
+    padding-right: $ni-nimble-standard-padding;
 }

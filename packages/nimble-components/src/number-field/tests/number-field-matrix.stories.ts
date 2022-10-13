@@ -10,10 +10,16 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    errorStates,
+    ErrorState
+} from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { NumberFieldAppearance } from '../types';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Number Field',
@@ -34,14 +40,6 @@ const valueStates = [
 ] as const;
 type ValueState = typeof valueStates[number];
 
-/* array of state name, invalidClass, errorText */
-const invalidStates = [
-    ['', '', 'This is not valid.'],
-    ['Invalid', 'invalid', ''],
-    ['Invalid w/ Error', 'invalid', 'This is not valid.']
-] as const;
-type InvalidState = typeof invalidStates[number];
-
 const appearanceStates = Object.entries(NumberFieldAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
@@ -50,19 +48,20 @@ type AppearanceState = typeof appearanceStates[number];
 const component = (
     [disabledName, disabled]: DisabledState,
     [valueName, valueValue, placeholderValue]: ValueState,
-    [invalidName, invalidClass, errorText]: InvalidState,
+    [errorName, errorVisible, errorText]: ErrorState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <nimble-number-field
         style="width: 250px; padding: 8px;"
-        class="${() => invalidClass}"
+        class="${() => errorVisible}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         appearance="${() => appearance}"
         ?disabled="${() => disabled}"
         error-text="${() => errorText}"
+        ?error-visible="${() => errorVisible}"
     >
-        ${() => invalidName} ${() => appearanceName} ${() => valueName}
+        ${() => errorName} ${() => appearanceName} ${() => valueName}
         ${() => disabledName}
     </nimble-number-field>
 `;
@@ -71,15 +70,23 @@ export const numberFieldThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         valueStates,
-        invalidStates,
+        errorStates,
         appearanceStates
     ])
 );
 
 export const hiddenNumberField: Story = createStory(
     hiddenWrapper(
-        html`<nimble-number-field hidden
-            >Hidden number field</nimble-number-field
-        >`
+        html`
+            <nimble-number-field hidden>
+                Hidden number field
+            </nimble-number-field>
+        `
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<nimble-number-field value="42">Number field</nimble-number-field>`
     )
 );

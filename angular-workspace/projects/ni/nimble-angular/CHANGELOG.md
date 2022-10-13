@@ -1,8 +1,76 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 15 Sep 2022 18:33:47 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Oct 2022 21:13:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.0.0
+
+Fri, 07 Oct 2022 21:13:41 GMT
+
+### Major changes
+
+- Rename nimble "radio button" to "radio" ([ni/nimble@8f496f0](https://github.com/ni/nimble/commit/8f496f0aaca48e5765e942292c88e78094e81386))
+- Bump @ni/nimble-components to v15.0.0
+
+## 11.0.0
+
+Thu, 06 Oct 2022 17:54:42 GMT
+
+### Major changes
+
+- - Extend styling on nimble-dialog by implementing a slotted template.
+  - `aria-label` no longer correctly labels the dialog. Provide text content in the `title` and/or `subtitle` to give the dialog an accessible label.
+  - Styling has changed. Update dialogs in one of the two ways:
+      1. To lay out content using recommended patterns, use exposed slots of `title`, `subtitle`, and `footer` to lay out content using recommended patterns.
+      2. To keep (nearly) identical layout as before this change:
+          - set `header-hidden` and `footer-hidden` on the dialog
+          - wrap the entire contents of the dialog in a single element, such as a `<div>` to avoid having the default flex layout applied to content
+          - note: it is still recommended to provide a title/subtitle for accessibility purposes even when setting `header-hidden` ([ni/nimble@980a9da](https://github.com/ni/nimble/commit/980a9dac9961ef1487833281470f97c79f0f5197))
+- Bump @ni/nimble-components to v14.0.0
+
+## 10.0.0
+
+Tue, 04 Oct 2022 16:41:24 GMT
+
+### Major changes
+
+- Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog ([ni/nimble@e31785b](https://github.com/ni/nimble/commit/e31785bf51ac6d2e2d188ee3dceed3d862565d3e))
+- Bump @ni/nimble-components to v13.0.0
+
+## 9.0.2
+
+Mon, 03 Oct 2022 22:16:20 GMT
+
+### Patches
+
+- Updating licenses to MIT ([ni/nimble@31021de](https://github.com/ni/nimble/commit/31021de203162ed44452ab54425946b220cf9f0f))
+- Bump @ni/nimble-components to v12.0.2
+
+## 9.0.1
+
+Thu, 29 Sep 2022 20:33:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v12.0.1
+
+## 9.0.0
+
+Thu, 29 Sep 2022 20:03:25 GMT
+
+### Major changes
+
+- Migrated from CSS classes to element attributes for configuring components. For the list of specific elements and classes changed see: [#738](https://github.com/ni/nimble/pull/738). ([ni/nimble@9023d71](https://github.com/ni/nimble/commit/9023d71ddb4740a624e5b9eac0114a0c91fbca78))
+- Bump @ni/nimble-components to v12.0.0
+
+## 8.5.0
+
+Tue, 27 Sep 2022 21:39:15 GMT
+
+### Minor changes
+
+- Angular integration for radio button and group ([ni/nimble@6906246](https://github.com/ni/nimble/commit/6906246ea159f42edcd34b2cc881611afa32186d))
 
 ## 8.4.12
 

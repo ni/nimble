@@ -14,6 +14,12 @@ import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import {
+    controlLabelFont,
+    controlLabelFontColor,
+    standardPadding
+} from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -40,17 +46,23 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <div style="display: inline-flex; flex-direction: column; margin: 5px; font: var(--ni-nimble-control-label-font); color: var(--ni-nimble-control-label-font-color)">
-    <label>${() => disabledName} ${() => appearanceName}</label>
-    <nimble-select
-        ?disabled="${() => disabled}"
-        appearance="${() => appearance}"
+    <div style="
+        display: inline-flex;
+        flex-direction: column;
+        margin: var(${standardPadding.cssCustomProperty});
+        font: var(${controlLabelFont.cssCustomProperty});
+        color: var(${controlLabelFontColor.cssCustomProperty});"
     >
-        <nimble-list-option value="1">Option 1</nimble-list-option>
-        <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
-        <nimble-list-option value="3">Option 3</nimble-list-option>
-        <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
-    </nimble-select>
+        <label>${() => disabledName} ${() => appearanceName}</label>
+        <nimble-select
+            ?disabled="${() => disabled}"
+            appearance="${() => appearance}"
+        >
+            <nimble-list-option value="1">Option 1</nimble-list-option>
+            <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
+            <nimble-list-option value="3">Option 3</nimble-list-option>
+            <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
+        </nimble-select>
     </div>
 `;
 
@@ -71,4 +83,15 @@ export const blankListOption: Story = createStory(
         <nimble-list-option value="1">Option 1</nimble-list-option>
         <nimble-list-option></nimble-list-option>
     </nimble-select>`
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`
+            <nimble-select>
+                Inner text
+                <nimble-list-option> Nimble select item </nimble-list-option>
+            </nimble-select>
+        `
+    )
 );

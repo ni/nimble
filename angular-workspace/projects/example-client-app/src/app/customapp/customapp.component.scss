@@ -1,5 +1,11 @@
 @import '~@ni/nimble-angular/styles/tokens';
 
+.content {
+    width: 100%;
+    box-sizing: border-box;
+    font: $ni-nimble-body-font;
+}
+
 .container-label {
     font: $ni-nimble-group-header-font;
     color: $ni-nimble-group-header-font-color;
@@ -47,4 +53,25 @@ nimble-toolbar::part(positioning-region) {
 .card-button-content {
     display: flex;
     margin: $ni-nimble-standard-padding;
+}
+
+.drawer-footer {
+    gap: $ni-nimble-standard-padding;
+}
+
+nimble-dialog {
+    h2 {
+        font: $ni-nimble-title-font;
+        color: $ni-nimble-title-font-color;
+    }
+
+    p {
+        color: $ni-nimble-body-font-color;
+    }
+}
+
+nimble-drawer {
+    p {
+        color: $ni-nimble-body-font-color;
+    }
 }

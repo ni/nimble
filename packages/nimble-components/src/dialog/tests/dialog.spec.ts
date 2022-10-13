@@ -1,7 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { DOM, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Dialog, ExtendedDialog, USER_DISMISSED } from '..';
+import { Dialog, ExtendedDialog, UserDismissed } from '..';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
@@ -44,6 +44,16 @@ describe('Dialog', () => {
         await disconnect();
     });
 
+    it('should use flex display for items in the default slot', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        const section = nativeDialogElement(element).querySelector('section')!;
+        expect(getComputedStyle(section).display).toBe('flex');
+
+        await disconnect();
+    });
+
     it('should be displayed after calling show()', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
@@ -51,7 +61,7 @@ describe('Dialog', () => {
         await DOM.nextUpdate();
 
         expect(getComputedStyle(nativeDialogElement(element)).display).toBe(
-            'block'
+            'flex'
         );
 
         await disconnect();
@@ -145,7 +155,7 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('should resolve promise with USER_DISMISSED when cancel event fired', async () => {
+    it('should resolve promise with UserDismissed when cancel event fired', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const dialogPromise = element.show();
@@ -156,7 +166,7 @@ describe('Dialog', () => {
         nativeDialogElement(element).dispatchEvent(new Event('close'));
         await DOM.nextUpdate();
 
-        await expectAsync(dialogPromise).toBeResolvedTo(USER_DISMISSED);
+        await expectAsync(dialogPromise).toBeResolvedTo(UserDismissed);
         expect(cancelEvent.defaultPrevented).toBeFalse();
         expect(element.open).toBeFalse();
 
@@ -201,42 +211,13 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('has default role of alertdialog', async () => {
+    it('has default role of dialog', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
 
         expect(nativeDialogElement(element)?.getAttribute('role')).toBe(
-            'alertdialog'
+            'dialog'
         );
-
-        await disconnect();
-    });
-
-    it('forwards value of aria-label to dialog element', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        const expectedValue = 'doughnut';
-        element.ariaLabel = expectedValue;
-        await DOM.nextUpdate();
-
-        expect(
-            nativeDialogElement(element)?.getAttribute('aria-label')
-        ).toEqual(expectedValue);
-
-        await disconnect();
-    });
-
-    it('removes value of aria-label from dialog element when cleared from host', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        element.ariaLabel = 'not empty';
-        await DOM.nextUpdate();
-        element.ariaLabel = null;
-        await DOM.nextUpdate();
-
-        expect(
-            nativeDialogElement(element)?.getAttribute('aria-label')
-        ).toBeNull();
 
         await disconnect();
     });
