@@ -1,0 +1,240 @@
+/******************************************************************************
+ *
+ * Copyright (c) 2017, the Perspective Authors.
+ *
+ * This file is part of the Perspective library, distributed under the terms of
+ * the Apache License 2.0.  The full license can be found in the LICENSE file.
+ *
+ */
+
+@import (less) "./material.less";
+@import (less) "./mitered-headers.less";
+@import (less) "./row-hover.less";
+@import (less) "./column-plugin.less";
+
+@positive: #338dcd; // @blue300
+@negative: #ff5942; // @red300
+
+// Row Selection
+
+.psp-row-selected,
+:hover .psp-row-selected,
+:hover th.psp-tree-leaf.psp-row-selected,
+:hover th.psp-tree-label.psp-row-selected {
+    color: white !important;
+    background-color: #ea7319 !important;
+    border-color: #ea7319 !important;
+}
+
+.psp-row-selected.psp-tree-label:not(:hover):before {
+    color: white;
+}
+
+.psp-row-subselected,
+:hover .psp-row-subselected,
+:hover th.psp-tree-leaf.psp-row-subselected,
+:hover th.psp-tree-label.psp-row-subselected {
+    background: rgba(234, 115, 25, 0.2) !important;
+}
+
+.psp-error {
+    color: red;
+}
+
+td:focus {
+    outline: #666;
+    outline-style: dotted;
+    outline-width: 1px;
+}
+
+perspective-viewer.dragging regular-table {
+    pointer-events: none;
+}
+
+.psp-header-border:last-child {
+    border-right-width: 0px;
+}
+
+.psp-header-sort-desc:after {
+    font-family: var(--button--font-family, inherit);
+    font-size: 10px;
+    content: var(--sort-order-desc--content, "\2193");
+}
+
+.psp-header-sort-asc:after {
+    font-family: var(--button--font-family, inherit);
+    font-size: 10px;
+    content: var(--sort-order-asc--content, "\2191");
+}
+
+.psp-header-sort-col-desc:after {
+    font-family: var(--button--font-family, inherit);
+    font-size: 10px;
+    content: var(--sort-order-col-desc--content, "\2190");
+}
+
+.psp-header-sort-col-asc:after {
+    font-family: var(--button--font-family, inherit);
+    font-size: 10px;
+    content: var(--sort-order-col-asc--content, "\2192");
+}
+
+tbody th:last-of-type {
+    border-right: 1px solid #eaedef;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+tbody th:empty {
+    background-image: linear-gradient(
+        to right,
+        transparent 9px,
+        #eee 10px,
+        transparent 11px
+    );
+    background-repeat: no-repeat;
+    min-width: 20px;
+    max-width: 20px;
+    pointer-events: none;
+}
+.psp-tree-label {
+    max-width: 0px;
+    min-width: 0px;
+}
+.psp-tree-label:before {
+    color: #ccc;
+    font-family: var(--button--font-family, inherit);
+    padding-right: 11px;
+    vertical-align: -1px;
+}
+.psp-tree-label-expand:before {
+    content: var(--tree-label-expand--content, "+");
+}
+.psp-tree-label-collapse:before {
+    content: var(--tree-label-collapse--content, "-");
+}
+
+.psp-tree-label:hover:before {
+    color: @positive;
+    text-shadow: 0px 0px 5px @positive;
+}
+
+regular-table thead tr:last-child th {
+    border-bottom-width: 1px;
+    border-bottom-color: var(--inactive--color, #eaedef);
+}
+
+.psp-tree-leaf {
+    padding-left: 24px;
+}
+
+.psp-align-right {
+    text-align: right;
+}
+.psp-align-left {
+    text-align: left;
+}
+.psp-positive:not(:focus) {
+    color: var(--rt-pos-cell--color, @positive);
+}
+.psp-negative:not(:focus) {
+    color: var(--rt-neg-cell--color, @negative);
+}
+
+regular-table table tbody td {
+    min-width: 52px !important;
+}
+
+.psp-is-width-override .rt-column-resize,
+.rt-column-resize:hover {
+    border: 1px dashed #999;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+
+.psp-bool-type {
+    font-family: var(--button--font-family, "Material Icons");
+}
+
+.boolean-editable {
+    cursor: pointer;
+}
+
+regular-table table {
+    user-select: none;
+    color: #161616;
+    border-collapse: separate;
+
+    th {
+        font-weight: 400;
+    }
+
+    td,
+    th {
+        border-color: #eaedef;
+        height: 23px;
+    }
+
+    .psp-header-group {
+        text-overflow: ellipsis;
+    }
+
+    .psp-header-leaf {
+        border-bottom-width: 0px;
+    }
+
+    td,
+    th.psp-tree-label,
+    th.psp-tree-label,
+    th.psp-tree-leaf,
+    tbody tr:first-child th {
+        border-style: solid;
+        border-width: 0px;
+        border-top-width: 1px;
+    }
+
+    tbody th:empty {
+        background-position: 0px -10px;
+    }
+}
+
+@keyframes pulse_pos {
+    0% {
+        background-color: var(--pulse--background-color-start, rgba(0, 128, 255, 0.5));
+    }
+    100% {
+        background-color: var(--pulse--background-color-end, rgba(0, 128, 255, 0));
+    }
+}
+
+
+@keyframes pulse_pos2 {
+    0% {
+        background-color: var(--pulse--background-color-start, rgba(0, 128, 255, 0.5));
+    }
+    100% {
+        background-color: var(--pulse--background-color-end, rgba(0, 128, 255, 0));
+    }
+}
+
+
+@keyframes pulse_neg {
+    0% {
+        background-color: var(--pulse--background-color-start, rgba(255, 25, 0, 0.5));
+    }
+    100% {
+        background-color: var(--pulse--background-color-end,  rgba(255, 25, 0, 0));
+    }
+}
+
+
+@keyframes pulse_neg2 {
+    0% {
+        background-color: var(--pulse--background-color-start, rgba(255, 25, 0, 0.5));
+    }
+    100% {
+        background-color: var(--pulse--background-color-end, rgba(255, 25, 0, 0));
+    }
+}
+
+
+

@@ -1,0 +1,1 @@
+Forked from [finos/perspective@1.7.1](https://github.com/finos/perspective/tree/8007ad4f5e78c9d31d75ef8ca4672a6e08f9c1ba/packages/perspective-viewer-datagrid)
