@@ -43,7 +43,7 @@ export const template = html<MenuButton>`
                 ${ref('region')}
             >
                 <span part="menu">
-                    <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
+                    <slot name="menu" ${slotted({ property: 'slottedMenus' })}></slot>
                 </span>
             </${DesignSystem.tagFor(AnchoredRegion)}>
         `

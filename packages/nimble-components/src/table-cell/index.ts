@@ -2,6 +2,7 @@ import { attr, HTMLView, Observable, observable, ViewTemplate, defaultExecutionC
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from './template';
 import { styles } from './styles';
+import type { MenuButton } from '../menu-button';
 
 const spanTemplate = html<TableCell>`
     <span>${x => x.cellData}</span>
@@ -70,6 +71,12 @@ export class TableCell extends FoundationElement {
     //     this.customCellView?.remove();
     //     this.customCellView = undefined;
     // }
+
+    public onMenuOpenChange(event: CustomEvent): void {
+        if ((event.target as MenuButton).open) {
+            this.$emit('action-menu-open');
+        }
+    }
 }
 
 const nimbleTableCell = TableCell.compose({

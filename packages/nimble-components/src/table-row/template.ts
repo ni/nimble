@@ -14,6 +14,7 @@ export const template = html<TableRow>`
                     :cellItemTemplate=${(x, c) => (c.parent as TableRow).getColumnTemplate(x)}
                     :cellData=${x => x.getValue()}
                     :hasMenu=${(x, c) => (c.parent as TableRow).columnHasMenu(x)}
+                    @action-menu-open=${(x, c) => (c.parent as TableRow).onCellActionMenuOpen(x)}
                     >
                     <slot name="rowActionMenu" slot="cellActionMenu"></slot>
                 </nimble-table-cell>

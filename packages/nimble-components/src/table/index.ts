@@ -84,6 +84,8 @@ export class Table extends FoundationElement {
     @observable
     public readonly slottedActionMenus: HTMLElement[] | undefined;
 
+    private _activeActionMenuRowId = '';
+
     public slottedActionMenusChanged(
         _prev: HTMLElement[] | undefined,
         _next: HTMLElement[] | undefined
@@ -190,6 +192,20 @@ export class Table extends FoundationElement {
         this._options = { ...this._options, data: this.data };
         this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
         this.refreshRows();
+    }
+
+    public get activeActionMenuRowId(): string {
+        Observable.track(this, 'activeActionMenuRowId');
+        return this._activeActionMenuRowId;
+    }
+
+    public set activeActionMenuRowId(value: string) {
+        this._activeActionMenuRowId = value;
+        Observable.notify(this, 'activeActionMenuRowId');
+    }
+
+    public isActiveRow(rowIndex: number): boolean {
+        return this.tableData[rowIndex]?.row.id === this.activeActionMenuRowId;
     }
 
     public get columns(): TableColumn[] {

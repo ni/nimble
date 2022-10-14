@@ -67,6 +67,11 @@ export class TableRow extends FoundationElement {
         return this._rowData.parent.getColumnHasMenuById(columnId);
     }
 
+    public onCellActionMenuOpen(cell: Cell<unknown, unknown>): void {
+        const rowId = cell.row.id;
+        this._rowData.parent.activeActionMenuRowId = rowId;
+    }
+
     // private renderCells(): void {
     //     if (!this.isConnected) {
     //         return;

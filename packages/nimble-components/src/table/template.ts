@@ -53,14 +53,14 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
         <slot name="menu" ${slotted({ property: 'slottedActionMenus', filter: elements('[role=menu]') })}></slot>
         </slot>
     </span> -->
-    <nimble-menu-button content-hidden appearance="block">
+    <!-- <nimble-menu-button content-hidden appearance="block">
         <nimble-icon-key slot="start"></nimble-icon-key>
         <slot name="actionMenu" slot="menu"></slot>
-        <!-- <nimble-menu slot="menu">
+        <nimble-menu slot="menu">
             <slot name="actionMenu" slot="menu"></slot>
             <slot name="actionMenuItem"></slot>
-        </nimble-menu> -->
-    </nimble-menu-button>
+        </nimble-menu> 
+    </nimble-menu-button>-->
 
     <div class="table-container" ${ref('tableContainer')}>
         <div class="table-header"> 
@@ -138,7 +138,7 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
                                 </nimble-button>
                             `)}
                             <${context.tagFor(TableRow)} :rowData="${(x, c) => (c.parent as Table).tableData[x.index]}">
-                                <!-- <slot name="actionMenu" slot="rowActionMenu"></slot> -->
+                                <slot name="${(x, c) => ((c.parent as Table).isActiveRow(x.index) ? 'actionMenu' : 'zzz')}" slot="rowActionMenu"></slot>
                             </${context.tagFor(TableRow)}>
                         </span>
                     `)}

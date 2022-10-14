@@ -129,7 +129,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         }
 
         const focusTarget = e.relatedTarget as HTMLElement;
-        if (!this.contains(focusTarget)) {
+        if (!this.contains(focusTarget) && !this.menu?.contains(focusTarget)) {
             this.open = false;
             return false;
         }
@@ -170,9 +170,25 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         }
     }
 
-    private get menu(): HTMLElement | undefined | null {
-        return this.region?.querySelector('[role=menu]');
-        // return this.slottedMenus?.length ? this.slottedMenus[0] : undefined;
+    private get menu(): HTMLElement | undefined {
+        if (!this.slottedMenus?.length) {
+            return undefined;
+        }
+
+        let currentItem = this.slottedMenus[0];
+        while (currentItem) {
+            if (currentItem.getAttribute('role') === 'menu') {
+                return currentItem;
+            }
+
+            if (currentItem?.nodeName === 'SLOT') {
+                currentItem = (currentItem as HTMLSlotElement).assignedNodes()[0] as HTMLElement;
+            } else {
+                return undefined;
+            }
+        }
+
+        return undefined;
     }
 
     private focusMenu(): void {
