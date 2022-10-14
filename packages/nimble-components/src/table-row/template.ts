@@ -1,4 +1,5 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, repeat } from '@microsoft/fast-element';
+import type { Cell } from '@tanstack/table-core';
 import type { TableRow } from '.';
 
 export const template = html<TableRow>`
@@ -7,6 +8,14 @@ export const template = html<TableRow>`
                 display: flex; 
                 flex-direction: row;
                 ">
+
+            ${repeat(x => x.rowData.row.getVisibleCells(), html<Cell<unknown, unknown>>`
+                <nimble-table-cell 
+                    :cellItemTemplate=${(x, c) => (c.parent as TableRow).getColumnTemplate(x)}
+                    :cellData=${x => x.getValue()} 
+                    >
+                </nimble-table-cell>
+            `)}
         </div>
     </template>
 `;

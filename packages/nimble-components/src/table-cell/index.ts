@@ -31,44 +31,42 @@ export class TableCell extends FoundationElement {
     public set cellData(value: unknown) {
         this._cellData = value;
         Observable.notify(this, 'cellData');
-        this.updateCellView();
+        // this.updateCellView();
     }
 
     @observable
     public cellItemTemplate?: ViewTemplate;
 
+    // public customCellView: HTMLView | undefined = undefined;
+
     private _cellData: unknown = null;
-    private customCellView: HTMLView | undefined = undefined;
+    // private customCellView: HTMLView | undefined = undefined;
 
-    public constructor() {
-        super();
-    }
+    // public constructor() {
+    //     super();
+    // }
 
-    public override connectedCallback(): void {
-        this.updateCellView();
-    }
+    // public override connectedCallback(): void {
+    //     this.updateCellView();
+    // }
 
-    public override disconnectedCallback(): void {
-        this.disconnectCellView();
-    }
+    // public override disconnectedCallback(): void {
+    //     this.disconnectCellView();
+    // }
 
-    private updateCellView(): void {
-        // this.disconnectCellView();
-        const newCellView = this.customCellView === undefined;
-        if (newCellView) {
-            this.customCellView = this.cellItemTemplate!.create(this);
-            this.customCellView?.bind(this, defaultExecutionContext);
-        }
+    // private updateCellView(): void {
+    //     this.disconnectCellView();
 
-        if (newCellView) {
-            this.customCellView!.appendTo(this.shadowRoot!);
-        }
-    }
+    //     this.customCellView = this.cellItemTemplate!.create(this);
+    //     this.customCellView?.bind(this, defaultExecutionContext);
+    //     // this.customCellView?.appendTo(this.shadowRoot!);
+    //     this.customCellView?.appendTo(this);
+    // }
 
-    private disconnectCellView(): void {
-        this.customCellView?.remove();
-        this.customCellView = undefined;
-    }
+    // private disconnectCellView(): void {
+    //     this.customCellView?.remove();
+    //     this.customCellView = undefined;
+    // }
 }
 
 const nimbleTableCell = TableCell.compose({

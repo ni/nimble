@@ -80,14 +80,13 @@ export function getColumns(): TableColumn[] {
         </nimble-text-field>
         `,
     }, {
-        columnDataKey: 'nimble-action-menu',
-        title: '',
-        // cellTemplate: html<TableCell>`
-        //     <nimble-text-field appearance="frameless" readonly="true" value="hello">
-        //     </nimble-text-field>
-        // `,
-    },
-    {
+    //     columnDataKey: 'nimble-action-menu',
+    //     title: '',
+    //     // cellTemplate: html<TableCell>`
+    //     //     <nimble-text-field appearance="frameless" readonly="true" value="hello">
+    //     //     </nimble-text-field>
+    //     // `,
+    // }, {
         columnDataKey: 'age',
         title: 'Age',
         cellTemplate: html<TableCell, TableCell>`

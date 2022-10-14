@@ -311,6 +311,11 @@ export class Table extends FoundationElement {
         return column.cellTemplate!;
     }
 
+    public getColumnTemplateById(columnId: string): ViewTemplate | undefined {
+        const column = this.columns.find(x => x.columnDataKey === columnId);
+        return column?.cellTemplate;
+    }
+
     public onMenuOpenChange(_rowData: TableRowData, event: CustomEvent): void {
         // debugger;
         if (!this._actionMenuClone) {
