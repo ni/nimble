@@ -170,8 +170,9 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         }
     }
 
-    private get menu(): HTMLElement | undefined {
-        return this.slottedMenus?.length ? this.slottedMenus[0] : undefined;
+    private get menu(): HTMLElement | undefined | null {
+        return this.region?.querySelector('[role=menu]');
+        // return this.slottedMenus?.length ? this.slottedMenus[0] : undefined;
     }
 
     private focusMenu(): void {

@@ -31,14 +31,25 @@ const metadata: Meta<TableArgs> = {
             :columns="${x => x.columns}"
             @row-expand="${(x, c) => x.getRowChildren(x.tableRef, c.event)}"
         >
-            <nimble-menu slot="menu">
+            <nimble-menu slot="actionMenu" @open-change="${x => x.showAlert('open change')}">
                 <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
-                <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 2</nimble-menu-item>
+                <nimble-menu-item @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item>
             </nimble-menu>
+            
+            <!-- <nimble-menu-item slot="actionMenuItem" @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
+            <nimble-menu-item slot="actionMenuItem" @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item> -->
         </nimble-table>
         <br>
         <nimble-button appearance="block" @click="${x => x.generateNewData(x.tableRef)}">Update data</nimble-button>
         <nimble-button appearance="block" @click="${x => x.logState(x.tableRef)}">Log state</nimble-button>
+        
+        <nimble-menu-button content-hidden appearance="outline">
+            <nimble-icon-key slot="start"></nimble-icon-key>
+            <nimble-menu @open-change="${x => x.showAlert('open change')}" slot="menu">
+                <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
+                <nimble-menu-item @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item>
+            </nimble-menu>
+        </nimble-menu-button>
     `),
     args: {
         data: makeData(2000),

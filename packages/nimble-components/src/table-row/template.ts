@@ -12,8 +12,10 @@ export const template = html<TableRow>`
             ${repeat(x => x.rowData.row.getVisibleCells(), html<Cell<unknown, unknown>>`
                 <nimble-table-cell 
                     :cellItemTemplate=${(x, c) => (c.parent as TableRow).getColumnTemplate(x)}
-                    :cellData=${x => x.getValue()} 
+                    :cellData=${x => x.getValue()}
+                    :hasMenu=${(x, c) => (c.parent as TableRow).columnHasMenu(x)}
                     >
+                    <slot name="rowActionMenu" slot="cellActionMenu"></slot>
                 </nimble-table-cell>
             `)}
         </div>

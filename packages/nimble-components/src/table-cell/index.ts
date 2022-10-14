@@ -37,6 +37,9 @@ export class TableCell extends FoundationElement {
     @observable
     public cellItemTemplate?: ViewTemplate;
 
+    @observable
+    public hasMenu = false;
+
     // public customCellView: HTMLView | undefined = undefined;
 
     private _cellData: unknown = null;

@@ -41,7 +41,7 @@ export class TableRow extends FoundationElement {
     public visibleCells: Cell<unknown, unknown>[] = [];
 
     private _rowData!: TableRowData;
-    private readonly _cellViews: TableCell[] = [];
+    // private readonly _cellViews: TableCell[] = [];
 
     public constructor() {
         super();
@@ -60,6 +60,11 @@ export class TableRow extends FoundationElement {
     public getColumnTemplate(cell: Cell<unknown, unknown>): ViewTemplate | undefined {
         const columnId = cell.column.id;
         return this._rowData.parent.getColumnTemplateById(columnId);
+    }
+
+    public columnHasMenu(cell: Cell<unknown, unknown>): boolean {
+        const columnId = cell.column.id;
+        return this._rowData.parent.getColumnHasMenuById(columnId);
     }
 
     // private renderCells(): void {

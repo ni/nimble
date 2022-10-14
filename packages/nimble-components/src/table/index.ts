@@ -44,6 +44,7 @@ export interface TableColumn {
     cellInternalFocusQueue?: boolean;
     cellFocusTargetCallback?: (cell: DataGridCell) => HTMLElement;
     isRowHeader?: boolean;
+    showMenu?: boolean;
 }
 
 export interface TableHeader {
@@ -314,6 +315,11 @@ export class Table extends FoundationElement {
     public getColumnTemplateById(columnId: string): ViewTemplate | undefined {
         const column = this.columns.find(x => x.columnDataKey === columnId);
         return column?.cellTemplate;
+    }
+
+    public getColumnHasMenuById(columnId: string): boolean {
+        const column = this.columns.find(x => x.columnDataKey === columnId);
+        return column?.showMenu || false;
     }
 
     public onMenuOpenChange(_rowData: TableRowData, event: CustomEvent): void {

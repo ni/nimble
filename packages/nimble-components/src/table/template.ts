@@ -49,10 +49,18 @@ import { TableRow } from '../table-row';
 //     )}`;
 export const template: FoundationElementTemplate<ViewTemplate<Table>> = context => html<Table>`
 <template>
-    <span style="display: none;">
+    <!-- <span style="display: none;">
         <slot name="menu" ${slotted({ property: 'slottedActionMenus', filter: elements('[role=menu]') })}></slot>
         </slot>
-    </span>
+    </span> -->
+    <nimble-menu-button content-hidden appearance="block">
+        <nimble-icon-key slot="start"></nimble-icon-key>
+        <slot name="actionMenu" slot="menu"></slot>
+        <!-- <nimble-menu slot="menu">
+            <slot name="actionMenu" slot="menu"></slot>
+            <slot name="actionMenuItem"></slot>
+        </nimble-menu> -->
+    </nimble-menu-button>
 
     <div class="table-container" ${ref('tableContainer')}>
         <div class="table-header"> 
@@ -130,6 +138,7 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
                                 </nimble-button>
                             `)}
                             <${context.tagFor(TableRow)} :rowData="${(x, c) => (c.parent as Table).tableData[x.index]}">
+                                <!-- <slot name="actionMenu" slot="rowActionMenu"></slot> -->
                             </${context.tagFor(TableRow)}>
                         </span>
                     `)}

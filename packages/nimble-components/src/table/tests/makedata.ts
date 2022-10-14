@@ -71,6 +71,7 @@ export function getColumns(): TableColumn[] {
             <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
             </nimble-text-field>
         `,
+        showMenu: true
     },
     {
         columnDataKey: 'lastName',
