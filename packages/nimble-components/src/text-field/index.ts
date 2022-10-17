@@ -5,11 +5,11 @@ import {
     TextFieldOptions,
     textFieldTemplate as template
 } from '@microsoft/fast-foundation';
-import '../icons/exclamation-mark';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
-import type { IHasErrorText } from '../patterns/error/types';
+import type { ErrorPattern } from '../patterns/error/types';
+import { IconExclamationMark } from '../icons/exclamation-mark';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,7 +20,7 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
-export class TextField extends FoundationTextField implements IHasErrorText {
+export class TextField extends FoundationTextField implements ErrorPattern {
     /**
      * The appearance the text field should have.
      *
@@ -39,12 +39,13 @@ export class TextField extends FoundationTextField implements IHasErrorText {
      * HTML Attribute: error-text
      */
     @attr({ attribute: 'error-text' })
-    public errorText: string | undefined;
+    public errorText?: string;
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.control.setAttribute('aria-errormessage', 'errortext');
-    }
+    @attr({ attribute: 'error-visible', mode: 'boolean' })
+    public errorVisible = false;
+
+    @attr({ attribute: 'full-bleed', mode: 'boolean' })
+    public fullBleed = false;
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
@@ -56,9 +57,10 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
         delegatesFocus: true
     },
     end: html<TextField>`
-        <nimble-icon-exclamation-mark
-            class="error-icon fail"
-        ></nimble-icon-exclamation-mark>
+        <${DesignSystem.tagFor(IconExclamationMark)}
+            severity="error"
+            class="error-icon"
+        ></${DesignSystem.tagFor(IconExclamationMark)}>
         <span part="actions">
             <slot name="actions"></slot>
         </span>

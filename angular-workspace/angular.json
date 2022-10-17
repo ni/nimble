@@ -77,10 +77,7 @@
             "styles": [
               "projects/example-client-app/src/styles.scss"
             ],
-            "scripts": [],
-            "allowedCommonJsDependencies": [
-              "@microsoft/fast-animation"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -104,6 +101,7 @@
               ],
               "outputHashing": "all",
               "assets": [
+                "projects/example-client-app/src/favicon.ico",
                 {
                   "glob": "package.json",
                   "input": "./projects/example-client-app/build-assets",

@@ -30,15 +30,6 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    // Used by NimbleDrawer.razor
-    Blazor.registerCustomEventType('nimbledrawerstatechange', {
-        browserEventName: 'state-change',
-        createEventArgs: event => {
-            return {
-                state: event.target.state
-            };
-        }
-    });
     // Used by NimbleMenuButton.razor
     Blazor.registerCustomEventType('nimblemenubuttonopenchange', {
         browserEventName: 'open-change',
@@ -54,10 +45,19 @@ window.NimbleBlazor = {
     Dialog: {
         show: async function (dialogReference) {
             const reason = await dialogReference.show();
-            return reason === window.customElements.get('nimble-dialog').USER_DISMISSED;
+            return reason === window.customElements.get('nimble-dialog').UserDismissed;
         },
-        close: function (dialogReference, reason) {
-            dialogReference.close(reason);
+        close: function (dialogReference) {
+            dialogReference.close();
+        }
+    },
+    Drawer: {
+        show: async function (drawerReference) {
+            const reason = await drawerReference.show();
+            return reason === window.customElements.get('nimble-drawer').UserDismissed;
+        },
+        close: function (drawerReference) {
+            drawerReference.close();
         }
     }
 };

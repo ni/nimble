@@ -7,19 +7,15 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleTabModule, NimbleTabPanelModule, NimbleTabsModule, NimbleTabsToolbarModule, NimbleMenuModule,
     NimbleMenuItemModule, NimbleCheckboxModule, NimbleToggleButtonModule, NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
     NimbleIconAddModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
-    NimbleCardButtonModule, NimbleDialogModule } from '@ni/nimble-angular';
+    NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule } from '@ni/nimble-angular';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
-import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
-import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent,
         HeaderComponent,
-        NavDrawerComponent,
         CustomAppComponent
     ],
     imports: [
@@ -54,9 +50,10 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
         NimbleTooltipModule,
         NimbleCardButtonModule,
         NimbleDialogModule,
+        NimbleRadioGroupModule,
+        NimbleRadioModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: '/login', pathMatch: 'full' },
-            { path: 'login', component: LoginComponent },
+            { path: '', redirectTo: '/customapp', pathMatch: 'full' },
             { path: 'customapp', component: CustomAppComponent }
         ],
         { useHash: true })

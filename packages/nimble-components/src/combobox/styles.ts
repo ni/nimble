@@ -90,13 +90,13 @@ export const styles = css`
         display: none;
     }
 `.withBehaviors(
-        appearanceBehavior(
-            DropdownAppearance.block,
-            css`
-            :host(.invalid) .control {
+    appearanceBehavior(
+        DropdownAppearance.block,
+        css`
+            :host([error-visible]) .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
         `
-        )
-    );
+    )
+);

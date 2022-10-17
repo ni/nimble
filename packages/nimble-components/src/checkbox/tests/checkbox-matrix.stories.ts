@@ -12,6 +12,7 @@ import {
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Checkbox',
@@ -63,4 +64,8 @@ export const hiddenCheckbox: Story = createStory(
     hiddenWrapper(
         html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
     )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(html`<nimble-checkbox>Checkbox</nimble-checkbox>`)
 );

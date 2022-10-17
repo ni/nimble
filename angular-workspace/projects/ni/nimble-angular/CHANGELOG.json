@@ -2,6 +2,201 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 07 Oct 2022 21:13:41 GMT",
+      "tag": "@ni/nimble-angular_v12.0.0",
+      "version": "12.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "8f496f0aaca48e5765e942292c88e78094e81386",
+            "comment": "Rename nimble \"radio button\" to \"radio\""
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v15.0.0",
+            "commit": "8f496f0aaca48e5765e942292c88e78094e81386"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Oct 2022 17:54:42 GMT",
+      "tag": "@ni/nimble-angular_v11.0.0",
+      "version": "11.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "980a9dac9961ef1487833281470f97c79f0f5197",
+            "comment": "- Extend styling on nimble-dialog by implementing a slotted template.\n  - `aria-label` no longer correctly labels the dialog. Provide text content in the `title` and/or `subtitle` to give the dialog an accessible label.\n  - Styling has changed. Update dialogs in one of the two ways:\n      1. To lay out content using recommended patterns, use exposed slots of `title`, `subtitle`, and `footer` to lay out content using recommended patterns.\n      2. To keep (nearly) identical layout as before this change:\n          - set `header-hidden` and `footer-hidden` on the dialog\n          - wrap the entire contents of the dialog in a single element, such as a `<div>` to avoid having the default flex layout applied to content\n          - note: it is still recommended to provide a title/subtitle for accessibility purposes even when setting `header-hidden`"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v14.0.0",
+            "commit": "980a9dac9961ef1487833281470f97c79f0f5197"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Oct 2022 16:41:24 GMT",
+      "tag": "@ni/nimble-angular_v10.0.0",
+      "version": "10.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e31785bf51ac6d2e2d188ee3dceed3d862565d3e",
+            "comment": "Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v13.0.0",
+            "commit": "e31785bf51ac6d2e2d188ee3dceed3d862565d3e"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Oct 2022 22:16:20 GMT",
+      "tag": "@ni/nimble-angular_v9.0.2",
+      "version": "9.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "31021de203162ed44452ab54425946b220cf9f0f",
+            "comment": "Updating licenses to MIT"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v12.0.2",
+            "commit": "31021de203162ed44452ab54425946b220cf9f0f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 30 Sep 2022 21:06:13 GMT",
+      "tag": "@ni/nimble-angular_v9.0.1",
+      "version": "9.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ffdb3092ce59e6bf414b04285d3a1aaaa00301db",
+            "comment": "Modify console.error handling in unit tests"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 Sep 2022 20:33:02 GMT",
+      "tag": "@ni/nimble-angular_v9.0.1",
+      "version": "9.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v12.0.1",
+            "commit": "21569a7511ea37f1bab18a1edae89cd9fa2ce8f6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 Sep 2022 20:03:25 GMT",
+      "tag": "@ni/nimble-angular_v9.0.0",
+      "version": "9.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "9023d71ddb4740a624e5b9eac0114a0c91fbca78",
+            "comment": "Migrated from CSS classes to element attributes for configuring components. For the list of specific elements and classes changed see: [#738](https://github.com/ni/nimble/pull/738)."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v12.0.0",
+            "commit": "9023d71ddb4740a624e5b9eac0114a0c91fbca78"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 27 Sep 2022 21:39:15 GMT",
+      "tag": "@ni/nimble-angular_v8.5.0",
+      "version": "8.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "6906246ea159f42edcd34b2cc881611afa32186d",
+            "comment": "Angular integration for radio button and group"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 19 Sep 2022 19:10:55 GMT",
+      "tag": "@ni/nimble-angular_v8.4.12",
+      "version": "8.4.12",
+      "comments": {
+        "none": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.15.1",
+            "commit": "c7509f7321c3cf635ba9f346026c4e097079aa5c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Sep 2022 18:33:47 GMT",
+      "tag": "@ni/nimble-angular_v8.4.12",
+      "version": "8.4.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.15.0",
+            "commit": "a04abdb9c8f58af14565752920b09aa002e53173"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Sep 2022 20:18:53 GMT",
+      "tag": "@ni/nimble-angular_v8.4.11",
+      "version": "8.4.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v11.14.0",
+            "commit": "5a160efcf22098a21420834470a511878c81f387"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 10 Sep 2022 23:43:40 GMT",
       "tag": "@ni/nimble-angular_v8.4.10",
       "version": "8.4.10",

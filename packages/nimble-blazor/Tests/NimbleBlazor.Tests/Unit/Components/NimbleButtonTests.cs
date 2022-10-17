@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
@@ -26,15 +28,25 @@ public class NimbleButtonTests
     [InlineData(ButtonAppearance.Ghost, "ghost")]
     public void ButtonAppearance_AttributeIsSet(ButtonAppearance value, string expectedAttribute)
     {
-        var button = RenderNimbleButton(value);
+        var button = RenderWithPropertySet(x => x.Appearance, value);
 
         Assert.Contains(expectedAttribute, button.Markup);
     }
 
-    private IRenderedComponent<NimbleButton> RenderNimbleButton(ButtonAppearance appearance)
+    [Theory]
+    [InlineData(ButtonAppearanceVariant.Default, "<nimble-button>")]
+    [InlineData(ButtonAppearanceVariant.Primary, "appearance-variant=\"primary\"")]
+    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedAttribute)
+    {
+        var button = RenderWithPropertySet(x => x.AppearanceVariant, value);
+
+        Assert.Contains(expectedAttribute, button.Markup);
+    }
+
+    private IRenderedComponent<NimbleButton> RenderWithPropertySet<TProperty>(Expression<Func<NimbleButton, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleButton>(p => p.Add(x => x.Appearance, appearance));
+        return context.RenderComponent<NimbleButton>(p => p.Add(propertyGetter, propertyValue));
     }
 }

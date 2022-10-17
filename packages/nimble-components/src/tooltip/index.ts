@@ -1,9 +1,11 @@
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Tooltip as FoundationTooltip
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
+import type { TooltipSeverity } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -14,7 +16,18 @@ declare global {
 /**
  * A nimble-styled tooltip control.
  */
-export class Tooltip extends FoundationTooltip {}
+export class Tooltip extends FoundationTooltip {
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: severity
+     */
+    @attr
+    public severity: TooltipSeverity;
+
+    @attr({ attribute: 'icon-visible', mode: 'boolean' })
+    public iconVisible = false;
+}
 
 const nimbleTooltip = Tooltip.compose({
     baseName: 'tooltip',

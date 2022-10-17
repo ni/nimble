@@ -1,0 +1,10 @@
+@namespace NimbleBlazor
+@inherits NimbleInputBase<string>
+<nimble-radio-group disabled=@Disabled
+                    name="@Name"
+                    orientation="@Orientation.ToAttributeValue()"
+                    value="@Value"
+                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValue = __value, CurrentValue))"
+                    @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-radio-group>

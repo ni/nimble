@@ -28,7 +28,7 @@ export const styles = css`
         appearanceBehavior(
             DropdownAppearance.block,
             css`
-            :host(.invalid) .control {
+            :host([error-visible]) .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }

@@ -101,7 +101,7 @@ export const styles = css`
         padding: ${borderWidth};
     }
 
-    :host(.open:not(:hover)) .control {
+    :host([open]:not(:hover)) .control {
         border-bottom-color: ${borderHoverColor};
     }
 
@@ -111,11 +111,11 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host(.invalid) .control,
-    :host(.invalid.open) .control,
-    :host(.invalid[disabled]) .control,
-    :host(.invalid):before,
-    :host(.invalid):after {
+    :host([error-visible]) .control,
+    :host([error-visible][open]) .control,
+    :host([error-visible][disabled]) .control,
+    :host([error-visible]):before,
+    :host([error-visible]):after {
         border-bottom-color: ${failColor};
     }
 
@@ -215,9 +215,9 @@ export const styles = css`
         flex: none;
     }
 `.withBehaviors(
-        appearanceBehavior(
-            DropdownAppearance.underline,
-            css`
+    appearanceBehavior(
+        DropdownAppearance.underline,
+        css`
             .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
@@ -227,19 +227,19 @@ export const styles = css`
                 border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
-        ),
-        appearanceBehavior(
-            DropdownAppearance.outline,
-            css`
+    ),
+    appearanceBehavior(
+        DropdownAppearance.outline,
+        css`
             .control {
                 border-width: ${borderWidth};
                 padding: 0;
             }
         `
-        ),
-        appearanceBehavior(
-            DropdownAppearance.block,
-            css`
+    ),
+    appearanceBehavior(
+        DropdownAppearance.block,
+        css`
             .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
@@ -253,5 +253,5 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
         `
-        )
-    );
+    )
+);

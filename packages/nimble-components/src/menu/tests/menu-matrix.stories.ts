@@ -15,6 +15,7 @@ import {
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Menu',
@@ -76,6 +77,15 @@ export const hiddenMenu: Story = createStory(
     hiddenWrapper(
         html`<nimble-menu hidden>
             <nimble-menu-item>Item 1</nimble-menu-item>
+        </nimble-menu>`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html` <nimble-menu>
+            Inner text
+            <nimble-menu-item>Menu item</nimble-menu-item>
         </nimble-menu>`
     )
 );
