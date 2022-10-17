@@ -72,10 +72,8 @@ export class TableCell extends FoundationElement {
     //     this.customCellView = undefined;
     // }
 
-    public onMenuOpenChange(event: CustomEvent): void {
-        if ((event.target as MenuButton).open) {
-            this.$emit('action-menu-open');
-        }
+    public onMenuOpening(): void {
+        this.$emit('action-menu-open');
     }
 }
 

@@ -105,8 +105,10 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
             this.toggleButton.checked = this.open;
         }
 
-        if (!this.open) {
-            // Only fire an event here if the menu is changing to being closed. Otherwise,
+        if (this.open) {
+            this.$emit('opening');
+        } else {
+            // Only fire the 'open-change' event here if the menu is changing to being closed. Otherwise,
             // wait until the menu is actually opened before firing the event.
             this.$emit('open-change');
         }
