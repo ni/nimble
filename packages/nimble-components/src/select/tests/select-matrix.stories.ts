@@ -78,7 +78,11 @@ const component = (
 `;
 
 export const selectThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, appearanceStates, selectInvalidStates])
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        selectInvalidStates
+    ])
 );
 
 export const hiddenSelect: Story = createStory(
