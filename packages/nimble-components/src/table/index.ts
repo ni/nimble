@@ -66,5 +66,7 @@ customElements.define(
 );
 
 void customElements.whenDefined('perspective-viewer').then(async () => {
-    return customElements.get('perspective-viewer').registerPlugin('perspective-viewer-datagrid');
+    return customElements
+        .get('perspective-viewer')
+        .registerPlugin('perspective-viewer-datagrid');
 });
