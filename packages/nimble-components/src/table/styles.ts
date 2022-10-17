@@ -63,4 +63,9 @@ export const styles = css`
     font: ${bodyEmphasizedFont};
     color: ${bodyEmphasizedFontColor}
   }
+
+  .foo {
+    display: flex;
+    flex-direction: column;
+  }
 `;

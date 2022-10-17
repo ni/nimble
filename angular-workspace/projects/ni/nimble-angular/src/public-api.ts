@@ -50,6 +50,8 @@ export * from './directives/tab/nimble-tab.directive';
 export * from './directives/tab/nimble-tab.module';
 export * from './directives/tab-panel/nimble-tab-panel.directive';
 export * from './directives/tab-panel/nimble-tab-panel.module';
+export * from './directives/table/nimble-table.directive';
+export * from './directives/table/nimble-table.module';
 export * from './directives/tabs/nimble-tabs.directive';
 export * from './directives/tabs/nimble-tabs.module';
 export * from './directives/tabs-toolbar/nimble-tabs-toolbar.directive';

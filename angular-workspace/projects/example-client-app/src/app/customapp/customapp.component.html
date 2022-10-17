@@ -160,6 +160,15 @@
             </nimble-switch>
         </div>
         <div class="sub-container">
+            <div class="container-label">Table</div>
+            <nimble-table #table>
+                <nimble-menu slot="actionMenu" (change)="onMenuButtonMenuChange($event)">
+                    <nimble-menu-item>Item 1</nimble-menu-item>
+                    <nimble-menu-item>Item 2</nimble-menu-item>
+                </nimble-menu>
+            </nimble-table>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Tabs</div>
             <nimble-tabs>
                 <nimble-tab>Tab 1</nimble-tab>

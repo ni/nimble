@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Observable, observable, ViewTemplate } from '@microsoft/fast-element';
+import { html, Observable, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DataGridCell, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef,
@@ -17,15 +17,17 @@ import {
     GroupingState,
     Column,
     Row,
+    ExpandedState
 } from '@tanstack/table-core';
-import { Virtualizer, VirtualizerOptions, elementScroll, observeElementOffset, observeElementRect, windowScroll, VirtualItem } from '@tanstack/virtual-core';
+import { Virtualizer, VirtualizerOptions, elementScroll, observeElementOffset, observeElementRect, VirtualItem } from '@tanstack/virtual-core';
 import { template } from './template';
 import { styles } from './styles';
 import type { TableCell } from '../table-cell';
 import type { TableRowData } from '../table-row';
-import type { ExpandedState } from '../utilities/tests/states';
 import type { MenuButton } from '../menu-button';
-import type { Menu } from '../menu';
+
+import '../table-row';
+import '../table-cell';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -112,14 +114,18 @@ export class Table extends FoundationElement {
     private _options: TableOptionsResolved<unknown>;
     private _sorting: SortingState = [];
     private _grouping: GroupingState = [];
-    private _expanded: ExpandedState = [];
+    private _expanded: ExpandedState = {};
     private _tanstackcolumns: ColumnDef<unknown>[] = [];
     private _visibleItems: VirtualItem<unknown>[] = [];
     private _rowContainerHeight = 0;
     private _ready = false;
-    private _rowIdProperty = '';
-    private _rowHierarchyProperty = '';
+    // private _rowIdProperty = '';
+    // private _rowHierarchyProperty = '';
     private readonly resizeObserver: ResizeObserver;
+
+    public readonly rowTemplate = html`
+    <div style="width: 100px; height: 100px; background: red;"></div>
+    `;
 
     public constructor() {
         super();
@@ -138,10 +144,18 @@ export class Table extends FoundationElement {
             getGroupedRowModel: getGroupedRowModel(),
             getExpandedRowModel: getExpandedRowModel(),
             getRowCanExpand: r => {
-                return r.original.children?.length || r.original.age > 35;
+                // const castValue = r.original as { children: [], age: number };
+                // return castValue.children?.length || castValue.age > 35;
+                return true;
             },
-            getSubRows: r => r.children,
-            getRowId: r => r.id,
+            getSubRows: r => {
+                const castValue = r as { children: [] };
+                return castValue.children;
+            },
+            getRowId: r => {
+                const castValue = r as { id: string };
+                return castValue.id;
+            },
             onSortingChange: this.setSorting,
             onGroupingChange: this.setGrouping,
             onExpandedChange: this.setExpanded,
@@ -166,6 +180,58 @@ export class Table extends FoundationElement {
                 nimbleTable.rowContainerHeight = nimbleTable.virtualizer!.getTotalSize();
             }
         });
+
+        this.columns = [{
+            columnDataKey: 'firstName',
+            title: 'First Name',
+            cellTemplate: html<TableCell>`
+                <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+                </nimble-text-field>
+            `,
+            showMenu: true
+        },
+        {
+            columnDataKey: 'lastName',
+            title: 'Last Name',
+            cellTemplate: html<TableCell, TableCell>`
+            <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+            </nimble-text-field>
+            `,
+        }, {
+            columnDataKey: 'age',
+            title: 'Age',
+            cellTemplate: html<TableCell, TableCell>`
+            <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+            </nimble-text-field>
+        `,
+        },
+        {
+            columnDataKey: 'visits',
+            title: 'Visits',
+            cellTemplate: html<TableCell, TableCell>`
+            <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+            </nimble-text-field>
+        `,
+        },
+        {
+            columnDataKey: 'status',
+            title: 'Status',
+            cellTemplate: html<TableCell, TableCell>`
+            <nimble-select value=${x => x.cellData}>
+                <nimble-list-option value="relationship">In Relationship</nimble-list-option>
+                <nimble-list-option value="single">Single</nimble-list-option>
+                <nimble-list-option value="complicated">Complicated</nimble-list-option>
+            </nimble-select>
+        `,
+        },
+        {
+            columnDataKey: 'progress',
+            title: 'Progress',
+            cellTemplate: html<TableCell, TableCell>`
+            <nimble-number-field value=${x => x.cellData}>
+            </nimble-number-field>
+            `,
+        }];
     }
 
     private updateVirtualizer(): void {
@@ -174,6 +240,7 @@ export class Table extends FoundationElement {
         }
         this.virtualizer.options.count = this.table.getRowModel().rows.length;
         this.rowContainerHeight = this.virtualizer.getTotalSize();
+        this.virtualizer.measure();
     }
 
     public override connectedCallback(): void {
@@ -290,38 +357,38 @@ export class Table extends FoundationElement {
         Observable.notify(this, 'rowContainerHeight');
     }
 
-    public get rowIdProperty(): string {
-        Observable.track(this, 'rowIdProperty');
-        return this._rowIdProperty;
-    }
+    // public get rowIdProperty(): string {
+    //     Observable.track(this, 'rowIdProperty');
+    //     return this._rowIdProperty;
+    // }
 
-    public set rowIdProperty(value: string) {
-        this._rowIdProperty = value;
-        this._options = {
-            ...this._options,
-            getRowId: value ? (r => r[value]) : undefined
-        };
-        this.update({ ...this.table.initialState, getRowId: this._options.getRowId, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
-        this.refreshRows();
-        Observable.notify(this, 'rowIdProperty');
-    }
+    // public set rowIdProperty(value: string) {
+    //     this._rowIdProperty = value;
+    //     this._options = {
+    //         ...this._options,
+    //         getRowId: value ? (r => r[value]) : undefined
+    //     };
+    //     this.update({ ...this.table.initialState, getRowId: this._options.getRowId, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
+    //     this.refreshRows();
+    //     Observable.notify(this, 'rowIdProperty');
+    // }
 
-    public get rowHierarchyProperty(): string {
-        Observable.track(this, 'rowHierarchyProperty');
-        return this._rowHierarchyProperty;
-    }
+    // public get rowHierarchyProperty(): string {
+    //     Observable.track(this, 'rowHierarchyProperty');
+    //     return this._rowHierarchyProperty;
+    // }
 
-    public set rowHierarchyProperty(value: string) {
-        // TODO: setting this doesn't take affect until you set data again...why?
-        this._rowHierarchyProperty = value;
-        this._options = {
-            ...this._options,
-            getSubRows: value ? (r => r[value]) : undefined
-        };
-        this.update({ ...this.table.initialState, getSubRows: this._options.getSubRows, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
-        this.refreshRows();
-        Observable.notify(this, 'rowHierarchyProperty');
-    }
+    // public set rowHierarchyProperty(value: string) {
+    //     // TODO: setting this doesn't take affect until you set data again...why?
+    //     this._rowHierarchyProperty = value;
+    //     this._options = {
+    //         ...this._options,
+    //         getSubRows: value ? (r => r[value]) : undefined
+    //     };
+    //     this.update({ ...this.table.initialState, getSubRows: this._options.getSubRows, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
+    //     this.refreshRows();
+    //     Observable.notify(this, 'rowHierarchyProperty');
+    // }
 
     public getColumnTemplate(index: number): ViewTemplate {
         const column = this.columns[index]!;
@@ -415,7 +482,20 @@ export class Table extends FoundationElement {
             getScrollElement: () => {
                 return this.viewport;
             },
-            estimateSize: (_: number) => 32,
+            estimateSize: (index: number) => {
+                // if (index < 5) {
+                //     return 32;
+                // }
+                // return 100;
+                const rows = this.table.getRowModel().rows;
+                const row = rows[index];
+                if (row?.getIsExpanded() && !row?.getIsGrouped()) {
+                    console.log(132);
+                    return 132;
+                }
+                console.log(32);
+                return 32;
+            },
             enableSmoothScroll: true,
             scrollToFn: elementScroll,
             observeElementOffset,

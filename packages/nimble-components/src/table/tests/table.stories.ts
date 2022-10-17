@@ -3,7 +3,7 @@ import { withXD } from 'storybook-addon-xd-designs';
 import '../../all-components';
 import { html, ref } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { getColumns, makeData } from './makedata';
+import { getColumns, makeData, Person } from './makedata';
 import type { Table, TableColumn } from '../index';
 
 interface TableArgs {
@@ -28,8 +28,7 @@ const metadata: Meta<TableArgs> = {
         <nimble-table style="max-height: 500px"
             ${ref('tableRef')}
             :data="${x => x.data}"
-            :columns="${x => x.columns}"
-            @row-expand="${(x, c) => x.getRowChildren(x.tableRef, c.event)}"
+            @row-expand="${(x, c) => x.getRowChildren(x.tableRef, c.event as CustomEvent)}"
         >
             <nimble-menu slot="actionMenu" @open-change="${x => x.showAlert('open change')}">
                 <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
@@ -56,28 +55,31 @@ const metadata: Meta<TableArgs> = {
         columns: getColumns(),
         generateNewData: (tableRef: Table) => {
             // tableRef.data = makeData(2000, 9, 3);
-            var existingData = tableRef.data;
-            for (var p of existingData as Person[]) {
-                p.age = p.age + 1;
+            const existingData = tableRef.data as Person[];
+            for (const p of existingData) {
+                p.age += 1;
             }
 
-            tableRef.data = JSON.parse(JSON.stringify(existingData));
+            tableRef.data = JSON.parse(JSON.stringify(existingData)) as Person[];
         },
-        logState: (tableRef: Table) => {
-            var state = tableRef.table.getState();
-            debugger;
+        logState: (_tableRef: Table) => {
+            // var state = tableRef.table.getState();
+            // debugger;
         },
         getRowChildren: (tableRef: Table, event: CustomEvent) => {
-            const rowId = event.detail.id;
-            const person = tableRef.data.find(p => p.id === rowId);
-            if (!person || person.children.length) {
-                return;
-            }
+            // const rowId = (event.detail as { id: string }).id;
+            // const person = (tableRef.data as Person[]).find(p => p.id === rowId);
+            // if (!person || person.children.length) {
+            //     return;
+            // }
 
-            person.children = makeData(3);
-            setTimeout(() => tableRef.data = JSON.parse(JSON.stringify(tableRef.data)), 2000);
+            // person.children = makeData(3);
+            // setTimeout(() => {
+            //     tableRef.data = JSON.parse(JSON.stringify(tableRef.data)) as Person[];
+            // }, 2000);
         },
         showAlert: (message: string) => {
+            // eslint-disable-next-line no-alert
             alert(message);
         }
     }
