@@ -146,7 +146,7 @@ export async function createModel(regular, table, view, extend = {}) {
 
     // Re-use div factory
     model._div_factory = model._div_factory || new ElemFactory("div");
-    regular.setDataListener(createDataListener().bind(model, regular), {
+    regular.setDataListener(createDataListener().bind(undefined, model, regular), {
         virtual_mode:
             window
                 .getComputedStyle(regular)

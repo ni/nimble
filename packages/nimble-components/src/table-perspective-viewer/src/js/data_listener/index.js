@@ -24,15 +24,17 @@ export function createDataListener() {
     let last_ids;
     let last_reverse_ids;
     let last_reverse_columns;
-    return async function dataListener(regularTable, x0, y0, x1, y1) {
+    // TODO mraj switched from `this` references to adding a prameter based on
+    // the following comment https://github.com/microsoft/TypeScript/issues/37832#issuecomment-693990248
+    return async function dataListener(dataGrid, regularTable, x0, y0, x1, y1) {
         let columns = {};
         let new_window;
         if (x1 - x0 > 0 && y1 - y0 > 0) {
-            this._is_old_viewport =
-                this._last_window?.start_row === y0 &&
-                this._last_window?.end_row === y1 &&
-                this._last_window?.start_col === x0 &&
-                this._last_window?.end_col === x1;
+            dataGrid._is_old_viewport =
+                dataGrid._last_window?.start_row === y0 &&
+                dataGrid._last_window?.end_row === y1 &&
+                dataGrid._last_window?.start_col === x0 &&
+                dataGrid._last_window?.end_col === x1;
 
             new_window = {
                 start_row: y0,
@@ -42,22 +44,22 @@ export function createDataListener() {
                 id: true,
             };
 
-            columns = await this._view.to_columns(new_window);
-            this._last_window = new_window;
-            this._ids = columns.__ID__;
-            this._reverse_columns = this._column_paths
+            columns = await dataGrid._view.to_columns(new_window);
+            dataGrid._last_window = new_window;
+            dataGrid._ids = columns.__ID__;
+            dataGrid._reverse_columns = dataGrid._column_paths
                 .slice(x0, x1)
                 .reduce((acc, x, i) => {
                     acc.set(x, i);
                     return acc;
                 }, new Map());
 
-            this._reverse_ids = this._ids.reduce((acc, x, i) => {
+            dataGrid._reverse_ids = dataGrid._ids.reduce((acc, x, i) => {
                 acc.set(x?.join("|"), i);
                 return acc;
             }, new Map());
         } else {
-            this._div_factory.clear();
+            dataGrid._div_factory.clear();
         }
 
         const data = [],
@@ -65,19 +67,19 @@ export function createDataListener() {
             column_headers = [],
             column_paths = [];
 
-        // for (const path of this._column_paths.slice(x0, x1)) {
+        // for (const path of dataGrid._column_paths.slice(x0, x1)) {
         for (
             let ipath = x0;
-            ipath < Math.min(x1, this._column_paths.length);
+            ipath < Math.min(x1, dataGrid._column_paths.length);
             ++ipath
         ) {
-            const path = this._column_paths[ipath];
+            const path = dataGrid._column_paths[ipath];
             const path_parts = path.split("|");
             const column = columns[path] || new Array(y1 - y0).fill(null);
             data.push(
                 column.map((x) =>
                     format_cell.call(
-                        this,
+                        dataGrid,
                         path_parts,
                         x,
                         regularTable[PRIVATE_PLUGIN_SYMBOL]
@@ -89,29 +91,29 @@ export function createDataListener() {
             column_paths.push(path);
         }
 
-        // Only update the last state if this is not a "phantom" call.
+        // Only update the last state if dataGrid is not a "phantom" call.
         if (x1 - x0 > 0 && y1 - y0 > 0) {
-            this.last_column_paths = last_column_paths;
-            this.last_meta = last_meta;
-            this.last_ids = last_ids;
-            this.last_reverse_ids = last_reverse_ids;
-            this.last_reverse_columns = last_reverse_columns;
+            dataGrid.last_column_paths = last_column_paths;
+            dataGrid.last_meta = last_meta;
+            dataGrid.last_ids = last_ids;
+            dataGrid.last_reverse_ids = last_reverse_ids;
+            dataGrid.last_reverse_columns = last_reverse_columns;
 
             last_column_paths = column_paths;
             last_meta = metadata;
-            last_ids = this._ids;
-            last_reverse_ids = this._reverse_ids;
-            last_reverse_columns = this._reverse_columns;
+            last_ids = dataGrid._ids;
+            last_reverse_ids = dataGrid._reverse_ids;
+            last_reverse_columns = dataGrid._reverse_columns;
         }
 
         return {
-            num_rows: this._num_rows,
-            num_columns: this._column_paths.length,
+            num_rows: dataGrid._num_rows,
+            num_columns: dataGrid._column_paths.length,
             row_headers: Array.from(
                 format_tree_header.call(
-                    this,
+                    dataGrid,
                     columns.__ROW_PATH__,
-                    this._config.group_by,
+                    dataGrid._config.group_by,
                     regularTable
                 )
             ),

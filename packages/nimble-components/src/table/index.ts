@@ -4,8 +4,9 @@ import type { HTMLPerspectiveViewerElement } from '@finos/perspective-viewer';
 import { styles } from './styles';
 import { template } from './template';
 import '@finos/perspective-viewer';
-import '@finos/perspective-viewer-datagrid';
+import 'regular-table';
 import { tableFont } from './table-theme';
+import { HTMLPerspectiveViewerDatagridPluginElement } from '../table-perspective-viewer/src/js/custom_elements/datagrid';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -58,3 +59,12 @@ const nimbleTable = Table.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTable());
+
+customElements.define(
+    'perspective-viewer-datagrid',
+    HTMLPerspectiveViewerDatagridPluginElement
+);
+
+void customElements.whenDefined('perspective-viewer').then(async () => {
+    return customElements.get('perspective-viewer').registerPlugin('perspective-viewer-datagrid');
+});
