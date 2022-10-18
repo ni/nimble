@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 07 Oct 2022 21:13:41 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Oct 2022 16:53:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.1.0
+
+Tue, 18 Oct 2022 16:53:38 GMT
+
+### Minor changes
+
+- Implement error state for select ([ni/nimble@14c474e](https://github.com/ni/nimble/commit/14c474efc7dd3f27d26ef7d977d1885019d58a95))
 
 ## 15.0.0
 
