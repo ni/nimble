@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 18 Oct 2022 19:13:04 GMT",
+      "tag": "@ni/nimble-blazor_v9.1.0",
+      "version": "9.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "955560d77b66b6e143592d5c295b3a38dd1bf23a",
+            "comment": "Blazor support for select error state"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Oct 2022 21:13:41 GMT",
       "tag": "@ni/nimble-blazor_v9.0.0",
       "version": "9.0.0",

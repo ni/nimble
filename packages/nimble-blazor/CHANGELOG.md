@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 07 Oct 2022 21:13:41 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Oct 2022 19:13:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.1.0
+
+Tue, 18 Oct 2022 19:13:04 GMT
+
+### Minor changes
+
+- Blazor support for select error state ([ni/nimble@955560d](https://github.com/ni/nimble/commit/955560d77b66b6e143592d5c295b3a38dd1bf23a))
 
 ## 9.0.0
 
