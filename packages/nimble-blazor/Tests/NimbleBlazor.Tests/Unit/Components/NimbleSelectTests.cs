@@ -31,6 +31,22 @@ public class NimbleSelectTests
     }
 
     [Fact]
+    public void SelectErrorText_AttributeIsSet()
+    {
+        var select = RenderWithPropertySet(x => x.ErrorText, "bad number");
+
+        Assert.Contains("error-text=\"bad number\"", select.Markup);
+    }
+
+    [Fact]
+    public void SelectErrorVisible_AttributeIsSet()
+    {
+        var select = RenderWithPropertySet(x => x.ErrorVisible, true);
+
+        Assert.Contains("error-visible", select.Markup);
+    }
+
+    [Fact]
     public void SelectWithOption_HasListOptionMarkup()
     {
         var expectedMarkup = "nimble-list-option";
