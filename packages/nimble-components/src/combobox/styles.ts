@@ -1,7 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import {
     controlHeight,
-    failColor,
     bodyDisabledFontColor,
     borderRgbPartialColor,
     smallPadding,
@@ -33,29 +32,12 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
-    :host([error-visible])::after {
-        border-bottom-color: ${failColor};
-    }
-
     .control {
         bottom-border-width: var(--ni-private-bottom-border-width);
     }
 
     .control:focus-within {
         border-bottom-color: ${borderHoverColor};
-    }
-
-    :host([error-visible]) .control {
-        border-bottom: var(--ni-private-bottom-border-width) solid ${failColor};
-    }
-
-    :host([disabled]) .control {
-        border-color: rgba(${borderRgbPartialColor}, 0.1);
-    }
-
-    :host([error-visible][disabled]) .control,
-    :host([error-visible][open]) .control {
-        border-bottom-color: ${failColor};
     }
 
     .selected-value {
