@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Blazor support for select error state",
+  "packageName": "@ni/nimble-blazor",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
