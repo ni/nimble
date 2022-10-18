@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NimbleRadioControlValueAccessorDirective } from './nimble-radio-control-value-accessor.directive';
 import { NimbleRadioDirective } from './nimble-radio.directive';
+import { RadioControlRegistryModule } from './radio-control-value-accessor.directive';
 
 @NgModule({
     declarations: [NimbleRadioControlValueAccessorDirective, NimbleRadioDirective],
-    imports: [CommonModule],
+    imports: [CommonModule, RadioControlRegistryModule],
     exports: [NimbleRadioControlValueAccessorDirective, NimbleRadioDirective]
 })
 export class NimbleRadioModule { }

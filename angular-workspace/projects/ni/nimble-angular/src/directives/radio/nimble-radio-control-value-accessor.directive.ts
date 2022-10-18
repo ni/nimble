@@ -1,8 +1,9 @@
 import { Directive, ElementRef, forwardRef, Injector, OnInit, Renderer2 } from '@angular/core';
 // eslint-disable-next-line camelcase
-import { NG_VALUE_ACCESSOR, RadioControlValueAccessor, ɵangular_packages_forms_forms_r } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
 import type { Radio } from '@ni/nimble-components/dist/esm/radio';
+import { RadioControlValueAccessor, RadioControlRegistry } from './radio-control-value-accessor.directive';
 
 /**
  * Control Value Accessor implementation for the radio group.
@@ -23,9 +24,7 @@ export class NimbleRadioControlValueAccessorDirective extends RadioControlValueA
     private static _nextOpenId = 0;
     private _privateOnChange?: () => void;
 
-    // Type ɵangular_packages_forms_forms_r from base class isn't in camelcase
-    // eslint-disable-next-line camelcase
-    public constructor(renderer: Renderer2, private readonly elementRef: ElementRef, _registry: ɵangular_packages_forms_forms_r, _injector: Injector) {
+    public constructor(renderer: Renderer2, private readonly elementRef: ElementRef, _registry: RadioControlRegistry, _injector: Injector) {
         super(renderer, elementRef, _registry, _injector);
     }
 
