@@ -62,6 +62,10 @@ export const styles = css`
         width: calc(100% - 8px);
     }
 
+    :host([error-visible]):before {
+        border-bottom-color: ${failColor};
+    }
+
     :host::after {
         content: '';
         position: absolute;
@@ -83,6 +87,10 @@ export const styles = css`
     :host(:hover)::after,
     :host(${focusVisible})::after {
         width: 100%;
+    }
+
+    :host([error-visible]):after {
+        border-bottom-color: ${failColor};
     }
 
     :host([disabled]:hover)::after {
@@ -113,9 +121,7 @@ export const styles = css`
 
     :host([error-visible]) .control,
     :host([error-visible][open]) .control,
-    :host([error-visible][disabled]) .control,
-    :host([error-visible]):before,
-    :host([error-visible]):after {
+    :host([error-visible][disabled]) .control {
         border-bottom-color: ${failColor};
     }
 

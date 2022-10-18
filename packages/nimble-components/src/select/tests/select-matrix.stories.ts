@@ -10,7 +10,12 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    ErrorState,
+    errorStates
+} from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
@@ -20,14 +25,6 @@ import {
     controlLabelFontColor,
     standardPadding
 } from '../../theme-provider/design-tokens';
-
-/* array of state name, invalidClass, errorText */
-const selectInvalidStates = [
-    [false, ''],
-    [true, 'This is not valid.'],
-    [true, '']
-] as const;
-type SelectInvalidState = typeof selectInvalidStates[number];
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -53,7 +50,7 @@ type AppearanceState = typeof appearanceStates[number];
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
-    [invalid, errorText]: SelectInvalidState,
+    [errorName, errorVisible, errorText]: ErrorState,
 ): ViewTemplate => html`
     <div style="
         display: inline-flex;
@@ -62,9 +59,9 @@ const component = (
         font: var(${controlLabelFont.cssCustomProperty});
         color: var(${controlLabelFontColor.cssCustomProperty});"
     >
-        <label>${() => disabledName} ${() => appearanceName}</label>
+        <label>${() => errorName} ${() => disabledName} ${() => appearanceName}</label>
         <nimble-select
-            ?error-visible="${() => invalid}"
+            ?error-visible="${() => errorVisible}"
             error-text="${() => errorText}"
             ?disabled="${() => disabled}"
             appearance="${() => appearance}"
@@ -78,11 +75,7 @@ const component = (
 `;
 
 export const selectThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [
-        disabledStates,
-        appearanceStates,
-        selectInvalidStates
-    ])
+    createMatrix(component, [disabledStates, appearanceStates, errorStates])
 );
 
 export const hiddenSelect: Story = createStory(
