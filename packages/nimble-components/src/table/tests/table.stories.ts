@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../../all-components';
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { getColumns, makeData, Person } from './makedata';
-import type { Table, TableColumn } from '../index';
+import type { Table, TableColumn, TableRow } from '../index';
 
 interface TableArgs {
     data: unknown[];
@@ -14,6 +14,27 @@ interface TableArgs {
     logState: (tableRef: Table) => void;
     getRowChildren: (tableRef: Table, event: CustomEvent) => void;
     showAlert: (message: string) => void;
+}
+
+function customRowTemplate(id: string): ViewTemplate {
+    const data = getCurrentData();
+    const person = data.find(x => x.id === id);
+    return html`
+        <div style="width: 100%; height: ${_ => rowTemplateHeight(id)}px; background: lightgray;">
+            ${_ => person?.createdAt}
+            <nimble-text-field></nimble-text-field>
+        </div>
+    `;
+}
+
+function rowTemplateHeight(id: string): number {
+    const data = getCurrentData();
+    const person = data.find(x => x.id === id);
+    return (person?.age || 0) * 5 + 20;
+}
+
+function getCurrentData(): Person[] {
+    return (document.querySelector('nimble-table')!).data as Person[];
 }
 
 const metadata: Meta<TableArgs> = {
@@ -28,27 +49,18 @@ const metadata: Meta<TableArgs> = {
         <nimble-table style="max-height: 500px"
             ${ref('tableRef')}
             :data="${x => x.data}"
+            :rowTemplate="${_ => customRowTemplate}"
+            :rowTemplateHeight="${_ => rowTemplateHeight}"
             @row-expand="${(x, c) => x.getRowChildren(x.tableRef, c.event as CustomEvent)}"
         >
             <nimble-menu slot="actionMenu" @open-change="${x => x.showAlert('open change')}">
                 <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
                 <nimble-menu-item @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item>
             </nimble-menu>
-            
-            <!-- <nimble-menu-item slot="actionMenuItem" @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
-            <nimble-menu-item slot="actionMenuItem" @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item> -->
         </nimble-table>
         <br>
         <nimble-button appearance="block" @click="${x => x.generateNewData(x.tableRef)}">Update data</nimble-button>
         <nimble-button appearance="block" @click="${x => x.logState(x.tableRef)}">Log state</nimble-button>
-        
-        <nimble-menu-button content-hidden appearance="outline">
-            <nimble-icon-key slot="start"></nimble-icon-key>
-            <nimble-menu @open-change="${x => x.showAlert('open change')}" slot="menu">
-                <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
-                <nimble-menu-item @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item>
-            </nimble-menu>
-        </nimble-menu-button>
     `),
     args: {
         data: makeData(2000),

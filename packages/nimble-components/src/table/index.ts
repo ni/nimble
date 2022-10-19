@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { html, Observable, observable, ViewTemplate } from '@microsoft/fast-element';
+import { DOM, html, Observable, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DataGridCell, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef,
@@ -80,28 +80,11 @@ export class Table extends FoundationElement {
     public readonly tableContainer!: HTMLElement;
     public virtualizer?: Virtualizer;
 
-    private _actionMenuClone: Node | undefined;
-
     /** @internal */
     @observable
     public readonly slottedActionMenus: HTMLElement[] | undefined;
 
     private _activeActionMenuRowId = '';
-
-    public slottedActionMenusChanged(
-        _prev: HTMLElement[] | undefined,
-        _next: HTMLElement[] | undefined
-    ): void {
-        if (this.slottedActionMenus?.length) {
-            this._actionMenuClone = this.slottedActionMenus[0]?.cloneNode(true);
-        } else {
-            this._actionMenuClone = undefined;
-        }
-    }
-
-    // private get actionMenu(): HTMLElement | undefined {
-    //     return this.slottedActionMenus?.length ? this.slottedActionMenus[0] : undefined;
-    // }
 
     @observable
     public viewportReady = false;
@@ -123,9 +106,8 @@ export class Table extends FoundationElement {
     // private _rowHierarchyProperty = '';
     private readonly resizeObserver: ResizeObserver;
 
-    public readonly rowTemplate = html`
-    <div style="width: 100px; height: 100px; background: red;"></div>
-    `;
+    public rowTemplate?: (id: string) => ViewTemplate<unknown>;
+    public rowTemplateHeight?: (id: string) => number;
 
     public constructor() {
         super();
@@ -238,9 +220,14 @@ export class Table extends FoundationElement {
         if (!this.virtualizer) {
             return;
         }
+        this.virtualizer.getVirtualItems().forEach(x => {
+            const rows = this.table.getRowModel().rows;
+            const row = rows[x.index];
+            const rowEl = this.shadowRoot?.querySelector(`#row-${row?.id || ''}`);
+            x.measureElement(rowEl);
+        });
         this.virtualizer.options.count = this.table.getRowModel().rows.length;
         this.rowContainerHeight = this.virtualizer.getTotalSize();
-        this.virtualizer.measure();
     }
 
     public override connectedCallback(): void {
@@ -291,8 +278,7 @@ export class Table extends FoundationElement {
                     return Object.values(row as ObjectInterface)[valueIndex];
                 },
                 header: column.title,
-                footer: info => info.column.id,
-                // aggregatedCell: 'foo'
+                footer: info => info.column.id
             };
             this._tanstackcolumns.push(tanstackColumn);
         });
@@ -405,24 +391,6 @@ export class Table extends FoundationElement {
         return column?.showMenu || false;
     }
 
-    public onMenuOpenChange(_rowData: TableRowData, event: CustomEvent): void {
-        // debugger;
-        if (!this._actionMenuClone) {
-            return;
-        }
-
-        const menuButton = (event.target as MenuButton);
-        if (!menuButton) {
-            return;
-        }
-
-        if (menuButton.open) {
-            menuButton.appendChild(this._actionMenuClone);
-        } else {
-            menuButton.removeChild(this._actionMenuClone);
-        }
-    }
-
     private readonly setSorting = (updater: unknown): void => {
         if (updater instanceof Function) {
             this._sorting = updater(this._sorting) as SortingState;
@@ -482,20 +450,7 @@ export class Table extends FoundationElement {
             getScrollElement: () => {
                 return this.viewport;
             },
-            estimateSize: (index: number) => {
-                // if (index < 5) {
-                //     return 32;
-                // }
-                // return 100;
-                const rows = this.table.getRowModel().rows;
-                const row = rows[index];
-                if (row?.getIsExpanded() && !row?.getIsGrouped()) {
-                    console.log(132);
-                    return 132;
-                }
-                console.log(32);
-                return 32;
-            },
+            estimateSize: () => 32,
             enableSmoothScroll: true,
             scrollToFn: elementScroll,
             observeElementOffset,
@@ -513,6 +468,9 @@ export class Table extends FoundationElement {
         this.tableData = rows.map(row => {
             const tableRow = { row, parent: this } as TableRowData;
             return tableRow;
+        });
+        DOM.queueUpdate(() => {
+            this.updateVirtualizer();
         });
     }
 

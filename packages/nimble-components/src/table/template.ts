@@ -115,15 +115,14 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
                         </span>
                     `)}
                     ${when((x, c) => !(c.parent as Table).tableData[x.index]?.row.getIsGrouped(), html<VirtualItem<TableRow>>`
-                        <span class="foo"
+                        <span id=${(x, c) => `row-${(c.parent as Table).tableData[x.index]?.row.id || ''}`} class="foo"
                                 style="
-                                    height: ${x => x.size}px;
                                     position: absolute;
                                     width: calc(100% - ${(x, c) => 16 * ((c.parent as Table).tableData[x.index]?.row?.depth || 0)}px);
                                     margin-top: ${x => x.start}px;
                                     padding-left: ${(x, c) => 16 * ((c.parent as Table).tableData[x.index]?.row?.depth || 0)}px;
                                     ">
-                            <span class="group-row-content">
+                            <span class="group-row-content" style="height: 32px">
                                 ${when((x, c) => (c.parent as Table).tableData[x.index]?.row.getCanExpand(), html<VirtualItem<TableRow>>`
                                     <nimble-button
                                         appearance="ghost"
@@ -143,7 +142,7 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
                                 </${context.tagFor(TableRow)}>                                
                             </span>
                             ${when((x, c) => (c.parent as Table).tableData[x.index]?.row.getIsExpanded(), html<VirtualItem<TableRow>>`
-                                ${(_, c) => (c.parent as Table).rowTemplate}
+                                ${(x, c) => (c.parent as Table).rowTemplate((c.parent as Table).tableData[x.index]?.row.id || '')}
                             `)}
                         </span>
                     `)}
