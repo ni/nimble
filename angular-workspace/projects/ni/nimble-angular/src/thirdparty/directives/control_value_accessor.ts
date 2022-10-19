@@ -1,5 +1,6 @@
 /**
- * Copied from https://github.com/angular/angular/blob/e9b5dac9ecaa86914079a37176985c628c403aba/packages/forms/src/directives/control_value_accessor.ts
+ * [Nimble]
+ * Copied from https://github.com/angular/angular/blob/14.2.6/packages/forms/src/directives/control_value_accessor.ts
  */
 
 /**

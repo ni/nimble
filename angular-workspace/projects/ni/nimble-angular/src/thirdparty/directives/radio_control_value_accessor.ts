@@ -1,9 +1,11 @@
 /**
- * Copied from https://github.com/angular/angular/blob/e9b5dac9ecaa86914079a37176985c628c403aba/packages/forms/src/directives/radio_control_value_accessor.ts
+ * [Nimble]
+ * Copied from https://github.com/angular/angular/blob/14.2.6/packages/forms/src/directives/radio_control_value_accessor.ts
  * with the following modifications:
  * - Commented out part of RadioControlValueAccessor._checkName because ngDevMode is undefined
  * - Commented out now-unused throwNameError() function
- * - Removed now-unused import for RuntimeErrorCode
+ * - Removed now-unused import for RuntimeErrorCode and RuntimeError
+ * - Updated import of NgControl to pull from package export
  */
 
 /**
@@ -14,10 +16,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, forwardRef, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Renderer2, ɵRuntimeError as RuntimeError} from '@angular/core';
+import {Directive, ElementRef, forwardRef, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Renderer2} from '@angular/core';
 
 import {BuiltInControlValueAccessor, ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
-import {NgControl} from './ng_control';
+import {NgControl} from '@angular/forms';
 
 export const RADIO_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -25,7 +27,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
   multi: true
 };
 
-/* Nimble: Commenting because unused
+/* [Nimble] Commenting because unused
 function throwNameError() {
   throw new RuntimeError(RuntimeErrorCode.NAME_AND_FORM_CONTROL_NAME_MUST_MATCH, `
       If you define both a name and a formControlName attribute on your radio button, their values
@@ -89,6 +91,7 @@ export class RadioControlRegistry {
       controlPair: [NgControl, RadioControlValueAccessor],
       accessor: RadioControlValueAccessor): boolean {
     if (!controlPair[0].control) return false;
+    // @ts-ignore: Use of internal NgControl member _parent
     return controlPair[0]._parent === accessor._control._parent &&
         controlPair[1].name === accessor.name;
   }
@@ -211,7 +214,7 @@ export class RadioControlValueAccessor extends BuiltInControlValueAccessor imple
   }
 
   private _checkName(): void {
-    /* Nimble: Commenting because ngDevMode is not defined
+    /* [Nimble] Commenting because ngDevMode is not defined
     if (this.name && this.formControlName && this.name !== this.formControlName &&
         (typeof ngDevMode === 'undefined' || ngDevMode)) {
       throwNameError();
