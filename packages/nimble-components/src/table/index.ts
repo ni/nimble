@@ -23,7 +23,7 @@ import { Virtualizer, VirtualizerOptions, elementScroll, observeElementOffset, o
 import { template } from './template';
 import { styles } from './styles';
 import type { TableCell } from '../table-cell';
-import type { TableRowData } from '../table-row';
+import type { TableRowData, TableRow } from '../table-row';
 import type { MenuButton } from '../menu-button';
 
 import '../table-row';
@@ -55,13 +55,6 @@ export interface TableHeader {
     column: Column<unknown>;
 }
 
-export interface TableRow {
-    id?: string;
-    index: number;
-    visibleCells: TableCell[];
-    row: Row<unknown>;
-}
-
 export interface ColumnSortState {
     id: string;
     sortDirection: SortDirection | undefined;
@@ -74,7 +67,7 @@ interface ObjectInterface {
 /**
  * Table
  */
-export class Table extends FoundationElement {
+export class Table<TData = unknown> extends FoundationElement {
     public readonly rowContainer!: HTMLElement;
     public readonly viewport!: HTMLElement;
     public readonly tableContainer!: HTMLElement;
@@ -106,26 +99,26 @@ export class Table extends FoundationElement {
     @observable
     public viewportReady = false;
 
-    private readonly table: TanstackTable<unknown>;
-    private _data: unknown[] = [];
+    private readonly table: TanstackTable<TData>;
+    private _data: TData[] = [];
     private _columns: TableColumn[] = [];
-    private _rows: TableRowData[] = [];
+    private _rows: TableRowData<TData>[] = [];
     private _headers: TableHeader[] = [];
-    private _options: TableOptionsResolved<unknown>;
+    private _options: TableOptionsResolved<TData>;
     private _sorting: SortingState = [];
     private _grouping: GroupingState = [];
     private _expanded: ExpandedState = {};
-    private _tanstackcolumns: ColumnDef<unknown>[] = [];
-    private _visibleItems: VirtualItem<unknown>[] = [];
+    private _tanstackcolumns: ColumnDef<TData>[] = [];
+    private _visibleItems: VirtualItem<TableRow<TData>>[] = [];
     private _rowContainerHeight = 0;
     private _ready = false;
     // private _rowIdProperty = '';
     // private _rowHierarchyProperty = '';
     private readonly resizeObserver: ResizeObserver;
 
-    public readonly rowTemplate = html`
-    <div style="width: 100px; height: 100px; background: red;"></div>
-    `;
+    public rowTemplate?: (index: number) => ViewTemplate<unknown, Table<TData>>;
+
+    public expandedDataAccessor?: () => unknown[];
 
     public constructor() {
         super();
@@ -135,7 +128,7 @@ export class Table extends FoundationElement {
         const grouping = this._grouping;
         const expanded = this._expanded;
         this._options = {
-            get data(): unknown[] {
+            get data(): TData[] {
                 return data ?? [];
             },
             onStateChange: (_: Updater<TableState>) => { },
@@ -149,11 +142,11 @@ export class Table extends FoundationElement {
                 return true;
             },
             getSubRows: r => {
-                const castValue = r as { children: [] };
+                const castValue = (r as unknown) as { children: [] };
                 return castValue.children;
             },
             getRowId: r => {
-                const castValue = r as { id: string };
+                const castValue = (r as unknown) as { id: string };
                 return castValue.id;
             },
             onSortingChange: this.setSorting,
@@ -181,57 +174,57 @@ export class Table extends FoundationElement {
             }
         });
 
-        this.columns = [{
-            columnDataKey: 'firstName',
-            title: 'First Name',
-            cellTemplate: html<TableCell>`
-                <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
-                </nimble-text-field>
-            `,
-            showMenu: true
-        },
-        {
-            columnDataKey: 'lastName',
-            title: 'Last Name',
-            cellTemplate: html<TableCell, TableCell>`
-            <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
-            </nimble-text-field>
-            `,
-        }, {
-            columnDataKey: 'age',
-            title: 'Age',
-            cellTemplate: html<TableCell, TableCell>`
-            <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
-            </nimble-text-field>
-        `,
-        },
-        {
-            columnDataKey: 'visits',
-            title: 'Visits',
-            cellTemplate: html<TableCell, TableCell>`
-            <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
-            </nimble-text-field>
-        `,
-        },
-        {
-            columnDataKey: 'status',
-            title: 'Status',
-            cellTemplate: html<TableCell, TableCell>`
-            <nimble-select value=${x => x.cellData}>
-                <nimble-list-option value="relationship">In Relationship</nimble-list-option>
-                <nimble-list-option value="single">Single</nimble-list-option>
-                <nimble-list-option value="complicated">Complicated</nimble-list-option>
-            </nimble-select>
-        `,
-        },
-        {
-            columnDataKey: 'progress',
-            title: 'Progress',
-            cellTemplate: html<TableCell, TableCell>`
-            <nimble-number-field value=${x => x.cellData}>
-            </nimble-number-field>
-            `,
-        }];
+        // this.columns = [{
+        //     columnDataKey: 'firstName',
+        //     title: 'First Name',
+        //     cellTemplate: html<TableCell>`
+        //         <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+        //         </nimble-text-field>
+        //     `,
+        //     showMenu: true
+        // },
+        // {
+        //     columnDataKey: 'lastName',
+        //     title: 'Last Name',
+        //     cellTemplate: html<TableCell, TableCell>`
+        //     <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+        //     </nimble-text-field>
+        //     `,
+        // }, {
+        //     columnDataKey: 'age',
+        //     title: 'Age',
+        //     cellTemplate: html<TableCell, TableCell>`
+        //     <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+        //     </nimble-text-field>
+        // `,
+        // },
+        // {
+        //     columnDataKey: 'visits',
+        //     title: 'Visits',
+        //     cellTemplate: html<TableCell, TableCell>`
+        //     <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+        //     </nimble-text-field>
+        // `,
+        // },
+        // {
+        //     columnDataKey: 'status',
+        //     title: 'Status',
+        //     cellTemplate: html<TableCell, TableCell>`
+        //     <nimble-select value=${x => x.cellData}>
+        //         <nimble-list-option value="relationship">In Relationship</nimble-list-option>
+        //         <nimble-list-option value="single">Single</nimble-list-option>
+        //         <nimble-list-option value="complicated">Complicated</nimble-list-option>
+        //     </nimble-select>
+        // `,
+        // },
+        // {
+        //     columnDataKey: 'progress',
+        //     title: 'Progress',
+        //     cellTemplate: html<TableCell, TableCell>`
+        //     <nimble-number-field value=${x => x.cellData}>
+        //     </nimble-number-field>
+        //     `,
+        // }];
     }
 
     private updateVirtualizer(): void {
@@ -248,12 +241,12 @@ export class Table extends FoundationElement {
         this.resizeObserver.observe(this.viewport);
     }
 
-    public get data(): unknown[] {
+    public get data(): TData[] {
         Observable.track(this, 'data');
         return this._data;
     }
 
-    public set data(value: unknown[]) {
+    public set data(value: TData[]) {
         this._data = value;
         Observable.notify(this, 'data');
         this._options = { ...this._options, data: this.data };
@@ -283,12 +276,12 @@ export class Table extends FoundationElement {
         this._tanstackcolumns = [];
         this._columns = value;
         value.forEach(column => {
-            const tanstackColumn: ColumnDef<unknown> = {
+            const tanstackColumn: ColumnDef<TData> = {
                 id: column.columnDataKey,
-                accessorFn: (row: unknown) => {
-                    const keys = Object.keys(row as ObjectInterface);
+                accessorFn: (row: TData) => {
+                    const keys = Object.keys((row as unknown) as ObjectInterface);
                     const valueIndex = keys.indexOf(column.columnDataKey);
-                    return Object.values(row as ObjectInterface)[valueIndex];
+                    return Object.values((row as unknown) as ObjectInterface)[valueIndex];
                 },
                 header: column.title,
                 footer: info => info.column.id,
@@ -314,12 +307,12 @@ export class Table extends FoundationElement {
         Observable.notify(this, 'ready');
     }
 
-    public get tableData(): TableRowData[] {
+    public get tableData(): TableRowData<TData>[] {
         Observable.track(this, 'tableData');
         return this._rows;
     }
 
-    public set tableData(value: TableRowData[]) {
+    public set tableData(value: TableRowData<TData>[]) {
         this._rows = value;
         Observable.notify(this, 'tableData');
     }
@@ -337,12 +330,12 @@ export class Table extends FoundationElement {
     /**
      * @internal
      */
-    public get visibleItems(): VirtualItem<unknown>[] {
+    public get visibleItems(): VirtualItem<TableRow<TData>>[] {
         Observable.track(this, 'visibleItems');
         return this._visibleItems;
     }
 
-    public set visibleItems(value: VirtualItem<unknown>[]) {
+    public set visibleItems(value: VirtualItem<TableRow<TData>>[]) {
         this._visibleItems = value;
         Observable.notify(this, 'visibleItems');
     }
@@ -356,39 +349,6 @@ export class Table extends FoundationElement {
         this._rowContainerHeight = value;
         Observable.notify(this, 'rowContainerHeight');
     }
-
-    // public get rowIdProperty(): string {
-    //     Observable.track(this, 'rowIdProperty');
-    //     return this._rowIdProperty;
-    // }
-
-    // public set rowIdProperty(value: string) {
-    //     this._rowIdProperty = value;
-    //     this._options = {
-    //         ...this._options,
-    //         getRowId: value ? (r => r[value]) : undefined
-    //     };
-    //     this.update({ ...this.table.initialState, getRowId: this._options.getRowId, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
-    //     this.refreshRows();
-    //     Observable.notify(this, 'rowIdProperty');
-    // }
-
-    // public get rowHierarchyProperty(): string {
-    //     Observable.track(this, 'rowHierarchyProperty');
-    //     return this._rowHierarchyProperty;
-    // }
-
-    // public set rowHierarchyProperty(value: string) {
-    //     // TODO: setting this doesn't take affect until you set data again...why?
-    //     this._rowHierarchyProperty = value;
-    //     this._options = {
-    //         ...this._options,
-    //         getSubRows: value ? (r => r[value]) : undefined
-    //     };
-    //     this.update({ ...this.table.initialState, getSubRows: this._options.getSubRows, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
-    //     this.refreshRows();
-    //     Observable.notify(this, 'rowHierarchyProperty');
-    // }
 
     public getColumnTemplate(index: number): ViewTemplate {
         const column = this.columns[index]!;
@@ -405,7 +365,7 @@ export class Table extends FoundationElement {
         return column?.showMenu || false;
     }
 
-    public onMenuOpenChange(_rowData: TableRowData, event: CustomEvent): void {
+    public onMenuOpenChange(_rowData: TableRowData<TData>, event: CustomEvent): void {
         // debugger;
         if (!this._actionMenuClone) {
             return;
@@ -450,14 +410,12 @@ export class Table extends FoundationElement {
     };
 
     private readonly setExpanded = (updater: unknown): void => {
-        // console.log(`before: ${Object.keys(this._expanded)}`);
         const originalExpandedIds = Object.keys(this._expanded);
         if (updater instanceof Function) {
             this._expanded = updater(this._expanded) as ExpandedState;
         } else {
             this._expanded = (updater as ExpandedState);
         }
-        // console.log(`after: ${Object.keys(this._expanded)}`);
         const updatedExpandedIds = Object.keys(this._expanded);
 
         this._options.state = { ...this._options.state, expanded: this._expanded };
@@ -477,17 +435,18 @@ export class Table extends FoundationElement {
     };
 
     private initializeVirtualizer(): void {
+        const nimbleTable = this;
         const virtualizerOptions = {
             count: this.data.length,
             getScrollElement: () => {
-                return this.viewport;
+                return nimbleTable.viewport;
             },
             estimateSize: (index: number) => {
                 // if (index < 5) {
                 //     return 32;
                 // }
                 // return 100;
-                const rows = this.table.getRowModel().rows;
+                const rows = nimbleTable.table.getRowModel().rows;
                 const row = rows[index];
                 if (row?.getIsExpanded() && !row?.getIsGrouped()) {
                     console.log(132);
@@ -501,7 +460,7 @@ export class Table extends FoundationElement {
             observeElementOffset,
             observeElementRect,
             onChange: (virtualizer: Virtualizer) => {
-                this.visibleItems = virtualizer.getVirtualItems();
+                nimbleTable.visibleItems = virtualizer.getVirtualItems();
             }
         } as VirtualizerOptions;
         this.virtualizer = new Virtualizer(virtualizerOptions);
@@ -511,7 +470,7 @@ export class Table extends FoundationElement {
         this.updateVirtualizer();
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
-            const tableRow = { row, parent: this } as TableRowData;
+            const tableRow = { row, parent: this } as TableRowData<TData>;
             return tableRow;
         });
     }

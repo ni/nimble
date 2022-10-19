@@ -1,5 +1,5 @@
 import { html, when, repeat, ViewTemplate, ref, slotted, elements } from '@microsoft/fast-element';
-import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
+import type { ElementDefinitionContext, FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { VirtualItem } from '@tanstack/virtual-core';
 import type { Table, TableHeader } from '.';
 import { TableRow } from '../table-row';
@@ -47,6 +47,7 @@ import { TableRow } from '../table-row';
 //         </template>
 //     `
 //     )}`;
+
 export const template: FoundationElementTemplate<ViewTemplate<Table>> = context => html<Table>`
 <template>
     <!-- <span style="display: none;">
@@ -142,9 +143,11 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
                                     <slot name="${(x, c) => ((c.parent as Table).isActiveRow(x.index) ? 'actionMenu' : 'zzz')}" slot="rowActionMenu"></slot>
                                 </${context.tagFor(TableRow)}>                                
                             </span>
-                            ${when((x, c) => (c.parent as Table).tableData[x.index]?.row.getIsExpanded(), html<VirtualItem<TableRow>>`
-                                ${(_, c) => (c.parent as Table).rowTemplate}
-                            `)}
+                            <div style="margin-left: 40px">
+                                ${when((x, c) => (c.parent as Table).tableData[x.index]?.row.getIsExpanded() && (c.parent as Table).rowTemplate !== undefined, html<VirtualItem<TableRow>>`
+                                    ${(x, c) => (c.parent as Table).rowTemplate!(x.index)}
+                                `)}
+                            </div>
                         </span>
                     `)}
                 `)}

@@ -5,8 +5,8 @@ import type { Table } from '../table';
 import type { TableCell } from '../table-cell';
 import { template } from './template';
 
-export interface TableRowData {
-    row: Row<unknown>;
+export interface TableRowData<TData> {
+    row: Row<TData>;
     parent: Table;
     visibleCells?: Cell<unknown, unknown>[];
 }
@@ -19,16 +19,16 @@ declare global {
 /**
  *sdf
  */
-export class TableRow extends FoundationElement {
+export class TableRow<TData = unknown> extends FoundationElement {
     @observable
     public ready = false;
 
-    public get rowData(): TableRowData {
+    public get rowData(): TableRowData<TData> {
         Observable.track(this, 'rowData');
         return this._rowData;
     }
 
-    public set rowData(value: TableRowData) {
+    public set rowData(value: TableRowData<TData>) {
         this._rowData = value;
         this.visibleCells = this._rowData.row.getVisibleCells();
         Observable.notify(this, 'rowData');
@@ -38,9 +38,9 @@ export class TableRow extends FoundationElement {
     public readonly rowContainer!: HTMLElement;
 
     @observable
-    public visibleCells: Cell<unknown, unknown>[] = [];
+    public visibleCells: Cell<TData, unknown>[] = [];
 
-    private _rowData!: TableRowData;
+    private _rowData!: TableRowData<TData>;
     // private readonly _cellViews: TableCell[] = [];
 
     public constructor() {

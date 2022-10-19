@@ -16,6 +16,12 @@ export interface Person {
     status: 'relationship' | 'complicated' | 'single';
     createdAt: Date;
     children: Person[];
+    friends: Friend[];
+}
+
+export interface Friend extends Person {
+    phone: string;
+    address: string;
 }
 
 const range = (len: number): number[] => {
@@ -26,7 +32,7 @@ const range = (len: number): number[] => {
     return arr;
 };
 
-const newPerson = (index: number): Person => {
+const newFriend = (index: number): Friend => {
     return {
         id: `person-${index + 1}-id`,
         firstName: faker.name.firstName(),
@@ -40,7 +46,31 @@ const newPerson = (index: number): Person => {
             'complicated',
             'single',
         ])[0]!,
-        children: []
+        children: [],
+        friends: [],
+        phone: faker.phone.phoneNumber(),
+        address: faker.address.streetAddress()
+    };
+};
+
+const newPerson = (index: number, relativeCount: number): Person => {
+    return {
+        id: `person-${index + 1}-id`,
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        age: faker.datatype.number(40),
+        visits: faker.datatype.number(1000),
+        progress: faker.datatype.number(100),
+        createdAt: faker.datatype.datetime({ max: new Date().getTime() }),
+        status: faker.helpers.shuffle<Person['status']>([
+            'relationship',
+            'complicated',
+            'single',
+        ])[0]!,
+        children: [],
+        friends: range(relativeCount).map((d): Friend => {
+            return { ...newFriend(d) };
+        })
     };
 };
 
@@ -48,9 +78,10 @@ export function makeData(...lens: number[]): Person[] {
     const makeDataLevel = (depth = 0): Person[] => {
         const len = lens[depth]!;
         return range(len).map((): Person => {
+            const relativeCount = Math.random() * 10;
             const person = {
                 // eslint-disable-next-line no-plusplus
-                ...newPerson(count++),
+                ...newPerson(count++, relativeCount),
                 // children: lens[depth + 1] ? makeDataLevel(depth + 1) : []
             };
             if (person.age < 5) {
@@ -120,6 +151,41 @@ export function getColumns(): TableColumn[] {
         cellTemplate: html<TableCell, TableCell>`
         <nimble-number-field value=${x => x.cellData}>
         </nimble-number-field>
+        `,
+    }
+    ];
+}
+
+export function getFriendColumns(): TableColumn[] {
+    return [{
+        columnDataKey: 'firstName',
+        title: 'First Name',
+        cellTemplate: html<TableCell>`
+            <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+            </nimble-text-field>
+        `,
+        showMenu: true
+    },
+    {
+        columnDataKey: 'lastName',
+        title: 'Last Name',
+        cellTemplate: html<TableCell, TableCell>`
+        <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+        </nimble-text-field>
+        `,
+    }, {
+        columnDataKey: 'phone',
+        title: 'Phone Number',
+        cellTemplate: html<TableCell, TableCell>`
+        <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+        </nimble-text-field>
+        `,
+    }, {
+        columnDataKey: 'address',
+        title: 'Address',
+        cellTemplate: html<TableCell, TableCell>`
+        <nimble-text-field appearance="frameless" readonly="true" value=${x => x.cellData}>
+        </nimble-text-field>
         `,
     }
     ];

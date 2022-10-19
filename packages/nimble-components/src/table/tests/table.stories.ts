@@ -1,20 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../../all-components';
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { getColumns, makeData, Person } from './makedata';
+import { getColumns, getFriendColumns, makeData, Person } from './makedata';
 import type { Table, TableColumn } from '../index';
+import type { TableRow } from '../../table-row';
 
 interface TableArgs {
     data: unknown[];
     columns: TableColumn[];
+    rowTemplate: (index: number) => ViewTemplate<any, Table<Person>>;
     tableRef: Table;
     generateNewData: (tableRef: Table) => void;
     logState: (tableRef: Table) => void;
     getRowChildren: (tableRef: Table, event: CustomEvent) => void;
     showAlert: (message: string) => void;
 }
+
+const rowTemplate = (index: number): ViewTemplate<any, Table<Person>> => html<any, Table<Person>>`
+    <nimble-table style="max-height: 500px"
+        :data="${(_, c) => (c.parent.tableData[index]!.row.original.friends)}"
+        :columns="${_ => getFriendColumns()}"
+    >
+    </nimble-table>
+`;
 
 const metadata: Meta<TableArgs> = {
     title: 'Table',
@@ -28,6 +39,8 @@ const metadata: Meta<TableArgs> = {
         <nimble-table style="max-height: 500px"
             ${ref('tableRef')}
             :data="${x => x.data}"
+            :columns="${x => x.columns}"
+            :rowTemplate="${x => x.rowTemplate}"
             @row-expand="${(x, c) => x.getRowChildren(x.tableRef, c.event as CustomEvent)}"
         >
             <nimble-menu slot="actionMenu" @open-change="${x => x.showAlert('open change')}">
@@ -36,7 +49,7 @@ const metadata: Meta<TableArgs> = {
             </nimble-menu>
             
             <!-- <nimble-menu-item slot="actionMenuItem" @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
-            <nimble-menu-item slot="actionMenuItem" @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item> -->
+            <nimble-menu-item slot="actionMenuItem" @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item> -->\
         </nimble-table>
         <br>
         <nimble-button appearance="block" @click="${x => x.generateNewData(x.tableRef)}">Update data</nimble-button>
@@ -53,6 +66,7 @@ const metadata: Meta<TableArgs> = {
     args: {
         data: makeData(2000),
         columns: getColumns(),
+        rowTemplate,
         generateNewData: (tableRef: Table) => {
             // tableRef.data = makeData(2000, 9, 3);
             const existingData = tableRef.data as Person[];
