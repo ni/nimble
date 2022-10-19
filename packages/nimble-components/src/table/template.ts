@@ -142,7 +142,10 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
                                 </${context.tagFor(TableRow)}>                                
                             </span>
                             ${when((x, c) => (c.parent as Table).tableData[x.index]?.row.getIsExpanded(), html<VirtualItem<TableRow>>`
-                                ${(x, c) => (c.parent as Table).rowTemplate((c.parent as Table).tableData[x.index]?.row.id || '')}
+                                <slot
+                                    name="${(x, c) => `expandedRow-${(c.parent as Table).tableData[x.index]?.row.id || ''}`}" 
+                                    @slotchange=${(_, c) => (c.parent as Table).onExpandedRowSlotChange()}>
+                                </slot>
                             `)}
                         </span>
                     `)}

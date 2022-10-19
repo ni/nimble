@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../../all-components';
-import { html, ref, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, repeat, ViewTemplate } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { getColumns, makeData, Person } from './makedata';
 import type { Table, TableColumn, TableRow } from '../index';
@@ -37,6 +37,8 @@ function getCurrentData(): Person[] {
     return (document.querySelector('nimble-table')!).data as Person[];
 }
 
+const expandedRows: Person[] = [];
+
 const metadata: Meta<TableArgs> = {
     title: 'Table',
     parameters: {
@@ -49,14 +51,19 @@ const metadata: Meta<TableArgs> = {
         <nimble-table style="max-height: 500px"
             ${ref('tableRef')}
             :data="${x => x.data}"
-            :rowTemplate="${_ => customRowTemplate}"
-            :rowTemplateHeight="${_ => rowTemplateHeight}"
             @row-expand="${(x, c) => x.getRowChildren(x.tableRef, c.event as CustomEvent)}"
         >
             <nimble-menu slot="actionMenu" @open-change="${x => x.showAlert('open change')}">
                 <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
                 <nimble-menu-item @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item>
             </nimble-menu>
+
+            ${repeat(_ => expandedRows, html<Person>`
+                <div slot="${x => `expandedRow-${x.id}`}" style="width: 100%; height: ${x => (x.age || 0) * 5 + 20}px; background: lightgray;">
+                    ${x => x.createdAt}
+                    <nimble-text-field></nimble-text-field>
+                </div>
+            `)}
         </nimble-table>
         <br>
         <nimble-button appearance="block" @click="${x => x.generateNewData(x.tableRef)}">Update data</nimble-button>
@@ -79,6 +86,11 @@ const metadata: Meta<TableArgs> = {
             // debugger;
         },
         getRowChildren: (tableRef: Table, event: CustomEvent) => {
+            const rowId = (event.detail as { id: string }).id;
+            const person = (tableRef.data as Person[]).find(p => p.id === rowId);
+            if (person && !expandedRows.find(x => x.id === rowId)) {
+                expandedRows.push(person);
+            }
             // const rowId = (event.detail as { id: string }).id;
             // const person = (tableRef.data as Person[]).find(p => p.id === rowId);
             // if (!person || person.children.length) {

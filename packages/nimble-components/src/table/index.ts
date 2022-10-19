@@ -24,7 +24,6 @@ import { template } from './template';
 import { styles } from './styles';
 import type { TableCell } from '../table-cell';
 import type { TableRowData } from '../table-row';
-import type { MenuButton } from '../menu-button';
 
 import '../table-row';
 import '../table-cell';
@@ -85,6 +84,7 @@ export class Table extends FoundationElement {
     public readonly slottedActionMenus: HTMLElement[] | undefined;
 
     private _activeActionMenuRowId = '';
+    // private _expandedRowId = '';
 
     @observable
     public viewportReady = false;
@@ -258,6 +258,16 @@ export class Table extends FoundationElement {
         Observable.notify(this, 'activeActionMenuRowId');
     }
 
+    // public get expandedRowId(): string {
+    //     Observable.track(this, 'expandedRowId');
+    //     return this._expandedRowId;
+    // }
+
+    // public set expandedRowId(value: string) {
+    //     this._expandedRowId = value;
+    //     Observable.notify(this, 'expandedRowId');
+    // }
+
     public isActiveRow(rowIndex: number): boolean {
         return this.tableData[rowIndex]?.row.id === this.activeActionMenuRowId;
     }
@@ -376,6 +386,31 @@ export class Table extends FoundationElement {
     //     Observable.notify(this, 'rowHierarchyProperty');
     // }
 
+    public onExpandedRowSlotChange(): void {
+        this.updateVirtualizer();
+    }
+
+    // public toggleExpandedRow(index: number): void {
+    //     const row = this.tableData[index]?.row;
+    //     if (!row) {
+    //         return;
+    //     }
+
+    //     if (row.getIsExpanded()) {
+    //         // row is collapsing
+    //         this.expandedRowId = '';
+    //     } else {
+    //         // The row needs to expand, so make sure all other rows are collapsed
+    //         if (this.expandedRowId) {
+    //             this.tableData.find(x => x.row.id === this.expandedRowId)?.row.toggleExpanded();
+    //         }
+
+    //         this.expandedRowId = row.id;
+    //     }
+
+    //     row.toggleExpanded();
+    // }
+
     public getColumnTemplate(index: number): ViewTemplate {
         const column = this.columns[index]!;
         return column.cellTemplate!;
@@ -418,14 +453,12 @@ export class Table extends FoundationElement {
     };
 
     private readonly setExpanded = (updater: unknown): void => {
-        // console.log(`before: ${Object.keys(this._expanded)}`);
         const originalExpandedIds = Object.keys(this._expanded);
         if (updater instanceof Function) {
             this._expanded = updater(this._expanded) as ExpandedState;
         } else {
             this._expanded = (updater as ExpandedState);
         }
-        // console.log(`after: ${Object.keys(this._expanded)}`);
         const updatedExpandedIds = Object.keys(this._expanded);
 
         this._options.state = { ...this._options.state, expanded: this._expanded };
