@@ -3,7 +3,7 @@ import { Directive, ElementRef, forwardRef, Injector, OnInit, Renderer2 } from '
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
 import type { Radio } from '@ni/nimble-components/dist/esm/radio';
-import { RadioControlValueAccessor, RadioControlRegistry } from './radio-control-value-accessor.directive';
+import { RadioControlValueAccessor, RadioControlRegistry } from '../../thirdparty/directives/radio_control_value_accessor';
 
 /**
  * Control Value Accessor implementation for the radio group.
