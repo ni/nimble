@@ -34,7 +34,8 @@ export class NimbleRadioControlValueAccessorDirective extends RadioControlValueA
         return id;
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
+        super.ngOnInit();
         // We need each button element to have a unique string value, because the FAST radio group looks at
         // these values when trying to manage the checked state.
         (this.elementRef.nativeElement as Radio).value = NimbleRadioControlValueAccessorDirective.allocateId();
