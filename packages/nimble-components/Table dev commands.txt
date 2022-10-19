@@ -1,0 +1,7 @@
+npm run build-components:watch
+node startSandbox.js
+npm run build-sandbox:watch
+npm run bundle-components (needs to be run again after changing Nimble table source)
+Then open http://localhost:9090
+
+To disable sorting options entirely, change 'allowSorting' const in table index.ts to false

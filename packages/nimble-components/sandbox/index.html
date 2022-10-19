@@ -1,0 +1,11 @@
+<script type="module" src="../dist/esm/sandbox/main.js"></script>
+
+<script type="module" src="../dist/all-components-bundle.js"></script>
+<!--<script type="module" src="../dist/esm/all-components.js"></script>--> <!-- Doesn't work due to 2nd-level imports not being ./ ../ style relative paths -->
+
+<nimble-table style="max-height: 500px">
+</nimble-table>
+<br/><br/>
+<input type="button" value="Load data/columns into table" id="loadButton"><br/>
+<input type="button" value="Load/Update data" id="loadDataButton"><br/>
+Row Count: <input type="text" value="2000" id="rowCountTextBox">(Change before initializing table)<br/>

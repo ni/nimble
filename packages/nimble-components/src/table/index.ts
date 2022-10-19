@@ -61,6 +61,8 @@ interface ObjectInterface {
     [key: string]: unknown;
 }
 
+const allowSorting = true;
+
 /**
  * Table
  */
@@ -98,13 +100,15 @@ export class Table extends FoundationElement {
             onStateChange: (_: Updater<TableState>) => { },
             getCoreRowModel: getCoreRowModel(),
             getSortedRowModel: getSortedRowModel(),
-            onSortingChange: this.setSorting,
             columns: tanstackColumns,
             state: {
-                sorting
             },
             renderFallbackValue: null,
         };
+        if (allowSorting) {
+            this._options.onSortingChange = this.setSorting;
+            this._options.state = { sorting };
+        }
         this.table = createTable(this._options);
         const nimbleTable = this;
         this.resizeObserver = new ResizeObserver(entries => {
@@ -131,6 +135,15 @@ export class Table extends FoundationElement {
         this._data = value;
         Observable.notify(this, 'data');
         this._options = { ...this._options, data: this.data };
+
+        if (this._ready) {
+            this.table.setOptions(oldOptions => {
+                const result = { ...oldOptions };
+                result.data = value;
+                return result;
+            });
+            this.refreshRows();
+        }
     }
 
     public get columns(): TableColumn[] {
@@ -157,7 +170,9 @@ export class Table extends FoundationElement {
         this.update(this.table.initialState);
         this.refreshRows();
         this.refreshHeaders();
-        this.table.getColumn(this.columns[0]?.columnDataKey ?? '').toggleSorting();
+        if (allowSorting) {
+            this.table.getColumn(this.columns[0]?.columnDataKey ?? '').toggleSorting();
+        }
         this.ready = true;
     }
 
@@ -264,7 +279,7 @@ export class Table extends FoundationElement {
         this.tableHeaders = headers!.map(header => {
             return ({
                 title: this.columns.length > 0 ? this.columns[header.index]!.title : '',
-                sortingState: header.column.getIsSorted(),
+                sortingState: allowSorting ? header.column.getIsSorted() : false,
                 column: header.column
             }) as TableHeader;
         });
