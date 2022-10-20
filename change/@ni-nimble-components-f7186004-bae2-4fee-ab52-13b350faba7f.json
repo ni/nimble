@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Fix broken documentation link in storybook",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
