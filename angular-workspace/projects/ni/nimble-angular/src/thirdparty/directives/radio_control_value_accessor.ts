@@ -91,7 +91,7 @@ export class RadioControlRegistry {
       controlPair: [NgControl, RadioControlValueAccessor],
       accessor: RadioControlValueAccessor): boolean {
     if (!controlPair[0].control) return false;
-    // @ts-ignore: Use of internal NgControl member _parent
+    // @ts-expect-error: [Nimble] Use of internal NgControl member _parent
     return controlPair[0]._parent === accessor._control._parent &&
         controlPair[1].name === accessor.name;
   }
