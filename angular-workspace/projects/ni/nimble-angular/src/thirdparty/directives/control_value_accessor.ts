@@ -1,6 +1,9 @@
 /**
  * [Nimble]
  * Copied from https://github.com/angular/angular/blob/14.2.6/packages/forms/src/directives/control_value_accessor.ts
+ * with the following modifications:
+ * - Commented out ControlValueAccessor which is exported from @angular/forms
+ * - Commented out NG_VALUE_ACCESSOR which is exported from @angular/forms
  */
 
 /**
@@ -25,6 +28,7 @@ import {Directive, ElementRef, InjectionToken, Renderer2} from '@angular/core';
  *
  * @publicApi
  */
+/* [Nimble] Commenting out public interface
 export interface ControlValueAccessor {
   /**
    * @description
@@ -45,7 +49,7 @@ export interface ControlValueAccessor {
    * ```
    *
    * @param obj The new value for the element
-   */
+   *
   writeValue(obj: any): void;
 
   /**
@@ -80,7 +84,7 @@ export interface ControlValueAccessor {
    * ```
    *
    * @param fn The callback function to register
-   */
+   *
   registerOnChange(fn: any): void;
 
   /**
@@ -113,7 +117,7 @@ export interface ControlValueAccessor {
    * ```
    *
    * @param fn The callback function to register
-   */
+   *
   registerOnTouched(fn: any): void;
 
   /**
@@ -132,9 +136,10 @@ export interface ControlValueAccessor {
    * ```
    *
    * @param isDisabled The disabled status to set on the element
-   */
+   *
   setDisabledState?(isDisabled: boolean): void;
 }
+*/
 
 /**
  * Base class for all ControlValueAccessor classes defined in Forms package.
@@ -214,5 +219,7 @@ export class BuiltInControlValueAccessor extends BaseControlValueAccessor {
  *
  * @publicApi
  */
+/* [Nimble] Commenting out public injection token
 export const NG_VALUE_ACCESSOR =
     new InjectionToken<ReadonlyArray<ControlValueAccessor>>('NgValueAccessor');
+*/

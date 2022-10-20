@@ -2,10 +2,9 @@
  * [Nimble]
  * Copied from https://github.com/angular/angular/blob/14.2.6/packages/forms/src/directives/radio_control_value_accessor.ts
  * with the following modifications:
- * - Commented out part of RadioControlValueAccessor._checkName because ngDevMode is undefined
- * - Commented out now-unused throwNameError() function
+ * - Changed throwNameError() to throw Error instead of RuntimeError. This makes the file compile with Angular version 12.
  * - Removed now-unused import for RuntimeErrorCode and RuntimeError
- * - Updated import of NgControl to pull from package export
+ * - Updated import of ControlValueAccessor, NgControl, and NG_VALUE_ACCESSOR to pull from package export
  */
 
 /**
@@ -18,8 +17,8 @@
 
 import {Directive, ElementRef, forwardRef, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Renderer2} from '@angular/core';
 
-import {BuiltInControlValueAccessor, ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
-import {NgControl} from '@angular/forms';
+import {BuiltInControlValueAccessor} from './control_value_accessor';
+import {ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export const RADIO_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -27,14 +26,15 @@ export const RADIO_VALUE_ACCESSOR: any = {
   multi: true
 };
 
-/* [Nimble] Commenting because unused
 function throwNameError() {
+  /* [Nimble] RuntimeErrorCode is not exported from @angular/forms in version 12; falling back to version 12 behavior
   throw new RuntimeError(RuntimeErrorCode.NAME_AND_FORM_CONTROL_NAME_MUST_MATCH, `
+  */
+  throw new Error(`
       If you define both a name and a formControlName attribute on your radio button, their values
       must match. Ex: <input type="radio" formControlName="food" name="food">
     `);
 }
-*/
 
 /**
  * Internal-only NgModule that works as a host for the `RadioControlRegistry` tree-shakable
@@ -214,12 +214,11 @@ export class RadioControlValueAccessor extends BuiltInControlValueAccessor imple
   }
 
   private _checkName(): void {
-    /* [Nimble] Commenting because ngDevMode is not defined
     if (this.name && this.formControlName && this.name !== this.formControlName &&
+        // @ts-expect-error: [Nimble] ngDevMode is not defined
         (typeof ngDevMode === 'undefined' || ngDevMode)) {
       throwNameError();
     }
-    */
     if (!this.name && this.formControlName) this.name = this.formControlName;
   }
 }
