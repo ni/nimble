@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 20 Oct 2022 20:07:47 GMT",
+      "tag": "@ni/nimble-components_v15.1.0",
+      "version": "15.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ab2b99c28d8e3a70788c536f4eabe55be717c656",
+            "comment": "Fix broken documentation link in storybook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 18 Oct 2022 16:53:38 GMT",
       "tag": "@ni/nimble-components_v15.1.0",
       "version": "15.1.0",
