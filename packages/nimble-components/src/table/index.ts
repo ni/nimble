@@ -220,12 +220,22 @@ export class Table extends FoundationElement {
         if (!this.virtualizer) {
             return;
         }
+
+        const rows = this.table.getRowModel().rows;
         this.virtualizer.getVirtualItems().forEach(x => {
-            const rows = this.table.getRowModel().rows;
             const row = rows[x.index];
-            const rowEl = this.shadowRoot?.querySelector(`#row-${row?.id || ''}`);
-            x.measureElement(rowEl);
+            if (!row) {
+                return;
+            }
+
+            if (row.getIsGrouped() || !row.getIsExpanded()) {
+                x.measureElement(32);
+            } else {
+                const rowEl = this.shadowRoot?.querySelector(`#row-${row.id}`);
+                x.measureElement(rowEl);
+            }
         });
+
         this.virtualizer.options.count = this.table.getRowModel().rows.length;
         this.rowContainerHeight = this.virtualizer.getTotalSize();
     }
@@ -449,7 +459,6 @@ export class Table extends FoundationElement {
         this._options.state = { ...this._options.state, grouping: this._grouping };
         this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
         this.refreshRows();
-        this.refreshHeaders();
     };
 
     private readonly setExpanded = (updater: unknown): void => {
@@ -463,11 +472,10 @@ export class Table extends FoundationElement {
 
         this._options.state = { ...this._options.state, expanded: this._expanded };
         this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
-        this.refreshRows();
-        this.refreshHeaders();
 
         const newlyCollapsedIds = originalExpandedIds.filter(x => !updatedExpandedIds.find(y => x === y));
         const newlyExpandedIds = updatedExpandedIds.filter(x => !originalExpandedIds.find(y => x === y));
+        this.refreshRows();
 
         for (const newCollapsedId of newlyCollapsedIds) {
             this.$emit('row-collapse', { id: newCollapsedId });
@@ -488,8 +496,21 @@ export class Table extends FoundationElement {
             scrollToFn: elementScroll,
             observeElementOffset,
             observeElementRect,
+            overscan: 20,
             onChange: (virtualizer: Virtualizer) => {
                 this.visibleItems = virtualizer.getVirtualItems();
+            },
+            measureElement: (element: number | Element): number => {
+                if (typeof element === 'number') {
+                    return element;
+                }
+
+                if (element) {
+                    return element.getBoundingClientRect().height;
+                }
+
+                // This shouldn't be hit, but return something sane.
+                return 32;
             }
         } as VirtualizerOptions;
         this.virtualizer = new Virtualizer(virtualizerOptions);
@@ -501,9 +522,6 @@ export class Table extends FoundationElement {
         this.tableData = rows.map(row => {
             const tableRow = { row, parent: this } as TableRowData;
             return tableRow;
-        });
-        DOM.queueUpdate(() => {
-            this.updateVirtualizer();
         });
     }
 

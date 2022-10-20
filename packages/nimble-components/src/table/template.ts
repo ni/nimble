@@ -49,19 +49,6 @@ import { TableRow } from '../table-row';
 //     )}`;
 export const template: FoundationElementTemplate<ViewTemplate<Table>> = context => html<Table>`
 <template>
-    <!-- <span style="display: none;">
-        <slot name="menu" ${slotted({ property: 'slottedActionMenus', filter: elements('[role=menu]') })}></slot>
-        </slot>
-    </span> -->
-    <!-- <nimble-menu-button content-hidden appearance="block">
-        <nimble-icon-key slot="start"></nimble-icon-key>
-        <slot name="actionMenu" slot="menu"></slot>
-        <nimble-menu slot="menu">
-            <slot name="actionMenu" slot="menu"></slot>
-            <slot name="actionMenuItem"></slot>
-        </nimble-menu> 
-    </nimble-menu-button>-->
-
     <div class="table-container" ${ref('tableContainer')}>
         <div class="table-header"> 
             ${repeat(x => x.tableHeaders, html<TableHeader>`
@@ -71,9 +58,6 @@ export const template: FoundationElementTemplate<ViewTemplate<Table>> = context 
                     `)}
                     ${when(x => x.column.getIsSorted() === 'desc', html`
                         <nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>
-                    `)}
-                    ${when(x => x.column.getIsGrouped(), html`
-                        <nimble-icon-hashtag slot="start"></nimble-icon-hashtag>
                     `)}
                     <span>${x => x.title}</span>
 
