@@ -69,7 +69,7 @@ export const styles = css`
     :host(${focusVisible}) .control {
         border-color: ${borderHoverColor};
         outline: 2px solid ${borderHoverColor};
-        outline-offset: 2px;
+        outline-offset: 1px;
     }
 
     .label {

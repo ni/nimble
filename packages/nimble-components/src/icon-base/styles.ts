@@ -24,19 +24,19 @@ export const styles = css`
         height: 100%;
     }
 
-    :host(.fail) {
+    :host([severity='error']) {
         ${iconColor.cssCustomProperty}: ${failColor};
     }
 
-    :host(.warning) {
+    :host([severity='warning']) {
         ${iconColor.cssCustomProperty}: ${warningColor};
     }
 
-    :host(.pass) {
+    :host([severity='success']) {
         ${iconColor.cssCustomProperty}: ${passColor};
     }
 
-    :host(.information) {
+    :host([severity='information']) {
         ${iconColor.cssCustomProperty}: ${informationColor};
     }
 

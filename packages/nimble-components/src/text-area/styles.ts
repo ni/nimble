@@ -107,33 +107,31 @@ export const styles = css`
     :host([resize='vertical']) .control {
         resize: vertical;
     }
-`
-    // prettier-ignore
-    .withBehaviors(
-        appearanceBehavior(
-            TextAreaAppearance.outline,
-            css`
-                .control {
-                    border-color: rgba(${borderRgbPartialColor}, 0.3);
-                    background-color: transparent;
-                }
-            `
-        ),
-        appearanceBehavior(
-            TextAreaAppearance.block,
-            css`
-                .control {
-                    background-color: rgba(${borderRgbPartialColor}, 0.1);
-                }
+`.withBehaviors(
+    appearanceBehavior(
+        TextAreaAppearance.outline,
+        css`
+            .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.3);
+                background-color: transparent;
+            }
+        `
+    ),
+    appearanceBehavior(
+        TextAreaAppearance.block,
+        css`
+            .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
 
-                :host([readonly]) .control {
-                    background-color: transparent;
-                }
+            :host([readonly]) .control {
+                background-color: transparent;
+            }
 
-                :host([disabled]) .control {
-                    border-color: transparent;
-                    background-color: rgba(${borderRgbPartialColor}, 0.1);
-                }
-            `
-        )
-    );
+            :host([disabled]) .control {
+                border-color: transparent;
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+        `
+    )
+);

@@ -51,14 +51,38 @@ describe('Nimble select', () => {
             expect(directive.appearance).toBe(DropdownAppearance.underline);
             expect(nativeElement.appearance).toBe(DropdownAppearance.underline);
         });
+
+        it('has expected defaults for errorText', () => {
+            expect(directive.errorText).toBeUndefined();
+            expect(nativeElement.errorText).toBeUndefined();
+        });
+
+        it('can use the directive to set errorText', () => {
+            directive.errorText = 'new value';
+            expect(nativeElement.errorText).toBe('new value');
+        });
+
+        it('has expected defaults for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+        });
+
+        it('can use the directive to set errorVisible', () => {
+            directive.errorVisible = true;
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
         @Component({
             template: `
-                <nimble-select #select 
+                <nimble-select #select
                     disabled
-                    appearance="${DropdownAppearance.block}">
+                    appearance="${DropdownAppearance.block}"
+                    error-text="error text"
+                    error-visible
+                >
                 </nimble-select>
             `
         })
@@ -82,7 +106,7 @@ describe('Nimble select', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('has expected defaults for disabled', () => {
+        it('will use template string values for disabled', () => {
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
         });
@@ -91,6 +115,16 @@ describe('Nimble select', () => {
             expect(directive.appearance).toBe(DropdownAppearance.block);
             expect(nativeElement.appearance).toBe(DropdownAppearance.block);
         });
+
+        it('will use template string values for errorText', () => {
+            expect(directive.errorText).toBe('error text');
+            expect(nativeElement.errorText).toBe('error text');
+        });
+
+        it('will use template string values for errorVisible', () => {
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -98,7 +132,10 @@ describe('Nimble select', () => {
             template: `
                 <nimble-select #select
                     [disabled] = "disabled"
-                    [appearance]="appearance">
+                    [appearance]="appearance"
+                    [error-text]="errorText"
+                    [error-visible]="errorVisible"
+                >
                 </nimble-select>
             `
         })
@@ -107,6 +144,8 @@ describe('Nimble select', () => {
             @ViewChild('select', { read: ElementRef }) public elementRef: ElementRef<Select>;
             public disabled = false;
             public appearance: DropdownAppearance = DropdownAppearance.block;
+            public errorText = 'initial value';
+            public errorVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -145,6 +184,28 @@ describe('Nimble select', () => {
             expect(directive.appearance).toBe(DropdownAppearance.outline);
             expect(nativeElement.appearance).toBe(DropdownAppearance.outline);
         });
+
+        it('can be configured with property binding for errorText', () => {
+            expect(directive.errorText).toBe('initial value');
+            expect(nativeElement.errorText).toBe('initial value');
+
+            fixture.componentInstance.errorText = 'new value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('new value');
+            expect(nativeElement.errorText).toBe('new value');
+        });
+
+        it('can be configured with property binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -152,7 +213,10 @@ describe('Nimble select', () => {
             template: `
                 <nimble-select #select
                     [attr.disabled]="disabled"
-                    [attr.appearance]="appearance">
+                    [attr.appearance]="appearance"
+                    [attr.error-text]="errorText"
+                    [attr.error-visible]="errorVisible"
+                >
                 </nimble-select>
             `
         })
@@ -161,6 +225,8 @@ describe('Nimble select', () => {
             @ViewChild('select', { read: ElementRef }) public elementRef: ElementRef<Select>;
             public disabled: BooleanValueOrAttribute = null;
             public appearance: DropdownAppearance = DropdownAppearance.block;
+            public errorText = 'initial value';
+            public errorVisible: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -198,6 +264,28 @@ describe('Nimble select', () => {
 
             expect(directive.appearance).toBe(DropdownAppearance.outline);
             expect(nativeElement.appearance).toBe(DropdownAppearance.outline);
+        });
+
+        it('can be configured with attribute binding for errorText', () => {
+            expect(directive.errorText).toBe('initial value');
+            expect(nativeElement.errorText).toBe('initial value');
+
+            fixture.componentInstance.errorText = 'new value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('new value');
+            expect(nativeElement.errorText).toBe('new value');
+        });
+
+        it('can be configured with attribute binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
         });
     });
 });

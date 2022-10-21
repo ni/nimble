@@ -20,8 +20,7 @@
 /packages/xliff-to-json-converter @rajsite @TrevorKarjanis @jattasNI
 
 # Specs (placed after packages to have higher precedence for spec files contained in packages)
-/specs @rajsite @jattasNI @fredvisser @atmgrifter00
-*.spec.md @rajsite @jattasNI @fredvisser @atmgrifter00
+specs @rajsite @jattasNI @fredvisser @atmgrifter00
 
 # Change files don't need explicit reviewers
 /change

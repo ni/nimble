@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
@@ -25,9 +27,25 @@ public class NimbleSelectTests
     [InlineData(Position.Above, "above")]
     public void SelectPosition_AttributeIsSet(Position value, string expectedAttribute)
     {
-        var select = RenderNimbleSelect(value);
+        var select = RenderWithPropertySet(x => x.Position, value);
 
         Assert.Contains(expectedAttribute, select.Markup);
+    }
+
+    [Fact]
+    public void SelectErrorText_AttributeIsSet()
+    {
+        var select = RenderWithPropertySet(x => x.ErrorText, "bad number");
+
+        Assert.Contains("error-text=\"bad number\"", select.Markup);
+    }
+
+    [Fact]
+    public void SelectErrorVisible_AttributeIsSet()
+    {
+        var select = RenderWithPropertySet(x => x.ErrorVisible, true);
+
+        Assert.Contains("error-visible", select.Markup);
     }
 
     [Fact]
@@ -45,15 +63,16 @@ public class NimbleSelectTests
     [InlineData(DropdownAppearance.Underline, "underline")]
     public void DropdownAppearance_AttributeIsSet(DropdownAppearance value, string expectedAttribute)
     {
-        var select = RenderNimbleSelect(value);
+        var select = RenderWithPropertySet(x => x.Appearance, value);
 
         Assert.Contains(expectedAttribute, select.Markup);
     }
-    private IRenderedComponent<NimbleSelect> RenderNimbleSelect(DropdownAppearance appearance)
+
+    private IRenderedComponent<NimbleSelect> RenderWithPropertySet<TProperty>(Expression<Func<NimbleSelect, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleSelect>(p => p.Add(x => x.Appearance, appearance));
+        return context.RenderComponent<NimbleSelect>(p => p.Add(propertyGetter, propertyValue));
     }
 
     private IRenderedComponent<NimbleSelect> RenderNimbleSelectWithOption()
@@ -61,12 +80,5 @@ public class NimbleSelectTests
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         return context.RenderComponent<NimbleSelect>(p => p.AddChildContent<NimbleListOption>());
-    }
-
-    private IRenderedComponent<NimbleSelect> RenderNimbleSelect(Position position)
-    {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleSelect>(p => p.Add(x => x.Position, position));
     }
 }

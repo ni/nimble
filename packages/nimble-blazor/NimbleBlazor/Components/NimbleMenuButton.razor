@@ -1,13 +1,13 @@
 @namespace NimbleBlazor
 @inherits ComponentBase
 <nimble-menu-button
-        open="@BindConverter.FormatValue(Open)"
-        @onnimblemenubuttonopenchange="(__value) => UpdateOpen(__value.Open)"
-        appearance="@Appearance.ToAttributeValue()"
-        position="@Position.ToAttributeValue()"
-        disabled="@Disabled"
-        autofocus="@AutoFocus"
-        content-hidden="@ContentHidden"
-        @attributes="AdditionalAttributes">
+    open="@BindConverter.FormatValue(Open)"
+    @onnimblemenubuttonopenchange="(__value) => UpdateOpen(__value.Open)"
+    appearance="@Appearance.ToAttributeValue()"
+    position="@Position.ToAttributeValue()"
+    disabled="@Disabled"
+    autofocus="@AutoFocus"
+    content-hidden="@ContentHidden"
+    @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-menu-button>

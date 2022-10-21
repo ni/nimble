@@ -12,7 +12,7 @@ export const styles = css`
         display: none;
     }
 
-    :host(.invalid) .error-icon {
+    :host([error-visible]) .error-icon {
         display: inline-flex;
         width: ${iconSize};
         height: ${iconSize};
@@ -23,7 +23,7 @@ export const styles = css`
         display: none;
     }
 
-    :host(.invalid) .error-text {
+    :host([error-visible]) .error-text {
         display: block;
         font: ${errorTextFont};
         color: ${failColor};
@@ -36,11 +36,11 @@ export const styles = css`
         white-space: nowrap;
     }
 
-    :host(.invalid[readonly]:not([disabled])) .error-text {
+    :host([error-visible][readonly]:not([disabled])) .error-text {
         top: calc(${controlHeight} - ${borderWidth});
     }
 
-    :host(.invalid) .error-text:empty {
+    :host([error-visible]) .error-text:empty {
         display: none;
     }
 `;

@@ -14,7 +14,8 @@ import {
     smallDelay,
     smallPadding,
     borderRgbPartialColor,
-    standardPadding
+    standardPadding,
+    failColor
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { focusVisible } from '../../utilities/style/focus';
@@ -61,6 +62,10 @@ export const styles = css`
         width: calc(100% - 8px);
     }
 
+    :host([error-visible]):before {
+        border-bottom-color: ${failColor};
+    }
+
     :host::after {
         content: '';
         position: absolute;
@@ -84,6 +89,10 @@ export const styles = css`
         width: 100%;
     }
 
+    :host([error-visible]):after {
+        border-bottom-color: ${failColor};
+    }
+
     :host([disabled]:hover)::after {
         width: 0px;
     }
@@ -100,7 +109,7 @@ export const styles = css`
         padding: ${borderWidth};
     }
 
-    :host(.open:not(:hover)) .control {
+    :host([open]:not(:hover)) .control {
         border-bottom-color: ${borderHoverColor};
     }
 
@@ -108,6 +117,12 @@ export const styles = css`
         cursor: default;
         color: ${bodyDisabledFontColor};
         border-color: rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host([error-visible]) .control,
+    :host([error-visible][open]) .control,
+    :host([error-visible][disabled]) .control {
+        border-bottom-color: ${failColor};
     }
 
     .listbox {
@@ -206,9 +221,9 @@ export const styles = css`
         flex: none;
     }
 `.withBehaviors(
-        appearanceBehavior(
-            DropdownAppearance.underline,
-            css`
+    appearanceBehavior(
+        DropdownAppearance.underline,
+        css`
             .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
@@ -218,19 +233,19 @@ export const styles = css`
                 border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
-        ),
-        appearanceBehavior(
-            DropdownAppearance.outline,
-            css`
+    ),
+    appearanceBehavior(
+        DropdownAppearance.outline,
+        css`
             .control {
                 border-width: ${borderWidth};
                 padding: 0;
             }
         `
-        ),
-        appearanceBehavior(
-            DropdownAppearance.block,
-            css`
+    ),
+    appearanceBehavior(
+        DropdownAppearance.block,
+        css`
             .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
@@ -244,5 +259,5 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
         `
-        )
-    );
+    )
+);

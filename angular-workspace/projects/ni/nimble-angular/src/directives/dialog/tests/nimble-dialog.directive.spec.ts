@@ -47,9 +47,14 @@ describe('Nimble dialog', () => {
             expect(nativeElement.preventDismiss).toBeFalse();
         });
 
-        it('has expected defaults for ariaLabel', () => {
-            expect(directive.ariaLabel).toBeUndefined();
-            expect(nativeElement.ariaLabel).toBeUndefined();
+        it('has expected defaults for headerHidden', () => {
+            expect(directive.headerHidden).toBeFalse();
+            expect(nativeElement.headerHidden).toBeFalse();
+        });
+
+        it('has expected defaults for footerHidden', () => {
+            expect(directive.footerHidden).toBeFalse();
+            expect(nativeElement.footerHidden).toBeFalse();
         });
 
         it('has expected defaults for open', () => {
@@ -63,7 +68,8 @@ describe('Nimble dialog', () => {
             template: `
                 <nimble-dialog #dialog
                     prevent-dismiss
-                    aria-label="label">
+                    header-hidden
+                    footer-hidden>
                 </nimble-dialog>`
         })
         class TestHostComponent {
@@ -91,9 +97,14 @@ describe('Nimble dialog', () => {
             expect(nativeElement.preventDismiss).toBeTrue();
         });
 
-        it('will use template string values for ariaLabel', () => {
-            expect(directive.ariaLabel).toBe('label');
-            expect(nativeElement.ariaLabel).toBe('label');
+        it('will use template string values for headerHidden', () => {
+            expect(directive.headerHidden).toBeTrue();
+            expect(nativeElement.headerHidden).toBeTrue();
+        });
+
+        it('will use template string values for footerHidden', () => {
+            expect(directive.footerHidden).toBeTrue();
+            expect(nativeElement.footerHidden).toBeTrue();
         });
     });
 
@@ -102,14 +113,16 @@ describe('Nimble dialog', () => {
             template: `
                 <nimble-dialog #dialog
                     [preventDismiss]="preventDismiss"
-                    [ariaLabel]="ariaLabel">
+                    [headerHidden]="headerHidden"
+                    [footerHidden]="footerHidden">
                 </nimble-dialog>`
         })
         class TestHostComponent {
             @ViewChild('dialog', { read: NimbleDialogDirective }) public directive: NimbleDialogDirective;
             @ViewChild('dialog', { read: ElementRef }) public elementRef: ElementRef<Dialog>;
             public preventDismiss = false;
-            public ariaLabel = 'label';
+            public headerHidden = false;
+            public footerHidden = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -138,15 +151,26 @@ describe('Nimble dialog', () => {
             expect(nativeElement.preventDismiss).toBeTrue();
         });
 
-        it('can be configured with property binding for ariaLabel', () => {
-            expect(directive.ariaLabel).toBe('label');
-            expect(nativeElement.ariaLabel).toBe('label');
+        it('can be configured with property binding for headerHidden', () => {
+            expect(directive.headerHidden).toBeFalse();
+            expect(nativeElement.headerHidden).toBeFalse();
 
-            fixture.componentInstance.ariaLabel = 'new label';
+            fixture.componentInstance.headerHidden = true;
             fixture.detectChanges();
 
-            expect(directive.ariaLabel).toBe('new label');
-            expect(nativeElement.ariaLabel).toBe('new label');
+            expect(directive.headerHidden).toBeTrue();
+            expect(nativeElement.headerHidden).toBeTrue();
+        });
+
+        it('can be configured with property binding for footerHidden', () => {
+            expect(directive.footerHidden).toBeFalse();
+            expect(nativeElement.footerHidden).toBeFalse();
+
+            fixture.componentInstance.footerHidden = true;
+            fixture.detectChanges();
+
+            expect(directive.footerHidden).toBeTrue();
+            expect(nativeElement.footerHidden).toBeTrue();
         });
     });
 
@@ -155,14 +179,16 @@ describe('Nimble dialog', () => {
             template: `
                 <nimble-dialog #dialog
                     [attr.prevent-dismiss]="preventDismiss"
-                    [attr.aria-label]="ariaLabel">
+                    [attr.header-hidden]="headerHidden"
+                    [attr.footer-hidden]="footerHidden">
                 </nimble-dialog>`
         })
         class TestHostComponent {
             @ViewChild('dialog', { read: NimbleDialogDirective }) public directive: NimbleDialogDirective;
             @ViewChild('dialog', { read: ElementRef }) public elementRef: ElementRef<Dialog>;
             public preventDismiss = false;
-            public ariaLabel = 'label';
+            public headerHidden = false;
+            public footerHidden = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -191,15 +217,26 @@ describe('Nimble dialog', () => {
             expect(nativeElement.preventDismiss).toBeTrue();
         });
 
-        it('can be configured with attribute binding for ariaLabel', () => {
-            expect(directive.ariaLabel).toBe('label');
-            expect(nativeElement.ariaLabel).toBe('label');
+        it('can be configured with attribute binding for headerHidden', () => {
+            expect(directive.headerHidden).toBeFalse();
+            expect(nativeElement.headerHidden).toBeFalse();
 
-            fixture.componentInstance.ariaLabel = 'new label';
+            fixture.componentInstance.headerHidden = true;
             fixture.detectChanges();
 
-            expect(directive.ariaLabel).toBe('new label');
-            expect(nativeElement.ariaLabel).toBe('new label');
+            expect(directive.headerHidden).toBeTrue();
+            expect(nativeElement.headerHidden).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for footerHidden', () => {
+            expect(directive.footerHidden).toBeFalse();
+            expect(nativeElement.footerHidden).toBeFalse();
+
+            fixture.componentInstance.footerHidden = true;
+            fixture.detectChanges();
+
+            expect(directive.footerHidden).toBeTrue();
+            expect(nativeElement.footerHidden).toBeTrue();
         });
     });
 });

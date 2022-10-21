@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
@@ -30,5 +32,22 @@ public class NimbleBreadcrumbTests
         var breadcrumbItem = context.RenderComponent<NimbleBreadcrumbItem>();
 
         Assert.Contains(expectedMarkup, breadcrumbItem.Markup);
+    }
+
+    [Theory]
+    [InlineData(BreadcrumbAppearance.Default, "<nimble-breadcrumb>")]
+    [InlineData(BreadcrumbAppearance.Prominent, "appearance=\"prominent\"")]
+    public void BreadcrumbAppearance_AttributeIsSet(BreadcrumbAppearance value, string expectedAttribute)
+    {
+        var breadcrumb = RenderWithPropertySet(x => x.Appearance, value);
+
+        Assert.Contains(expectedAttribute, breadcrumb.Markup);
+    }
+
+    private IRenderedComponent<NimbleBreadcrumb> RenderWithPropertySet<TProperty>(Expression<Func<NimbleBreadcrumb, TProperty>> propertyGetter, TProperty propertyValue)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<NimbleBreadcrumb>(p => p.Add(propertyGetter, propertyValue));
     }
 }

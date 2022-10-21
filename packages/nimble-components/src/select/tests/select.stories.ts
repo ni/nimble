@@ -7,6 +7,8 @@ import { DropdownAppearance } from '../../patterns/dropdown/types';
 
 interface SelectArgs {
     disabled: boolean;
+    errorVisible: boolean;
+    errorText: string;
     dropDownPosition: string;
     options: OptionArgs[];
     appearance: string;
@@ -25,7 +27,7 @@ const metadata: Meta<SelectArgs> = {
         docs: {
             description: {
                 component:
-                    'Select is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user cannot manually enter values.'
+                    "Select is a control for selecting amongst a set of options. Its value comes from the `value` of the currently selected `nimble-list-option`, or, if no value exists for that option, the option's content. Upon clicking on the element, the other options are visible. The user cannot manually enter values, and thus the list cannot be filtered."
             }
         },
         design: {
@@ -38,10 +40,18 @@ const metadata: Meta<SelectArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-select ?disabled="${x => x.disabled}" position="${x => x.dropDownPosition}"
-        appearance="${x => x.appearance}">
+        <nimble-select
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+        >
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-list-option value="${x => x.value}" ?disabled="${x => x.disabled}">
+                <nimble-list-option
+                    value="${x => x.value}"
+                    ?disabled="${x => x.disabled}"
+                >
                     ${x => x.label}
                 </nimble-list-option>
             `)}
@@ -55,10 +65,18 @@ const metadata: Meta<SelectArgs> = {
         appearance: {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' }
+        },
+        errorText: {
+            name: 'error-text'
+        },
+        errorVisible: {
+            name: 'error-visible'
         }
     },
     args: {
         disabled: false,
+        errorVisible: false,
+        errorText: 'Value is invalid',
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         options: [

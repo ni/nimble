@@ -28,7 +28,7 @@ export const styles = css`
         flex-wrap: wrap;
     }
 
-    :host(.prominent-links) {
+    :host([appearance='prominent']) {
         --ni-private-breadcrumb-link-active-font-color: ${bodyFontColor};
     }
 
@@ -40,43 +40,43 @@ export const styles = css`
         font: ${bodyEmphasizedFont};
     }
 `.withBehaviors(
-        themeBehavior(
-            Theme.light,
-            css`
+    themeBehavior(
+        Theme.light,
+        css`
             :host {
                 --ni-private-breadcrumb-link-active-font-color: ${DigitalGreenDark};
             }
 
-            :host(.prominent-links) {
+            :host([appearance='prominent']) {
                 --ni-private-breadcrumb-link-font-color: ${DigitalGreenDark};
             }
         `
-        ),
-        themeBehavior(
-            Theme.dark,
-            css`
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
             :host {
                 --ni-private-breadcrumb-link-active-font-color: ${PowerGreen};
             }
 
-            :host(.prominent-links) {
+            :host([appearance='prominent']) {
                 --ni-private-breadcrumb-link-font-color: ${PowerGreen};
             }
         `
-        ),
-        themeBehavior(
-            Theme.color,
-            css`
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
             :host {
                 --ni-private-breadcrumb-link-active-font-color: ${hexToRgbaCssColor(
-                White,
-                0.6
-            )};
+                    White,
+                    0.6
+                )};
             }
 
-            :host(.prominent-links) {
+            :host([appearance='prominent']) {
                 --ni-private-breadcrumb-link-font-color: ${PowerGreen};
             }
         `
-        )
-    );
+    )
+);

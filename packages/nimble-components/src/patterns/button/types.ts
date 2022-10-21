@@ -2,7 +2,7 @@
  * The interface that buttons of various types implement. The properties in this interface
  * are leveraged by the shared button pattern css.
  */
-export interface IButton {
+export interface ButtonPattern {
     /**
      * The appearance the button should have.
      */

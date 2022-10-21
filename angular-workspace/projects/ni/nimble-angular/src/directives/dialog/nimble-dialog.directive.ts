@@ -1,10 +1,8 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { Dialog, UserDismissed } from '@ni/nimble-components/dist/esm/dialog';
-import { USER_DISMISSED } from '@ni/nimble-components/dist/esm/dialog';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { Dialog };
-export { USER_DISMISSED };
 
 /**
  * Directive to provide Angular integration for the dialog element.
@@ -30,14 +28,24 @@ export class NimbleDialogDirective<CloseReason = void> {
         this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
     }
 
-    public get ariaLabel(): string | null {
-        return this.elementRef.nativeElement.ariaLabel;
+    public get headerHidden(): boolean {
+        return this.elementRef.nativeElement.headerHidden;
     }
 
-    // ariaLabel property intentionally maps to the aria-label attribute
+    // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('aria-label') public set ariaLabel(value: string | null) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'ariaLabel', value);
+    @Input('header-hidden') public set headerHidden(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'headerHidden', toBooleanProperty(value));
+    }
+
+    public get footerHidden(): boolean {
+        return this.elementRef.nativeElement.footerHidden;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('footer-hidden') public set footerHidden(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'footerHidden', toBooleanProperty(value));
     }
 
     public get open(): boolean {

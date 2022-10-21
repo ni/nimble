@@ -8,24 +8,17 @@ import { NimbleDrawerDirective, Theme } from '@ni/nimble-angular';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-    @ViewChild('drawerReference', { read: NimbleDrawerDirective }) public userSettingsDrawer: NimbleDrawerDirective;
-
     @Input() public theme: Theme;
     @Output() public themeChange = new EventEmitter();
 
     public themes = Theme;
-    public hideMenu = true;
-    public disableUserSettings = true;
+
+    @ViewChild('drawerReference', { read: NimbleDrawerDirective }) private readonly userSettingsDrawer: NimbleDrawerDirective;
 
     public constructor(@Inject(Router) private readonly router: Router) { }
 
-    public onMenuButtonClick(): void {
-        this.toggleMenuHidden();
-    }
-
     public onUserSettingsSelected(): void {
-        this.userSettingsDrawer.show();
-        this.toggleMenuHidden();
+        void this.userSettingsDrawer.show();
     }
 
     public themeSelectionChange(value: Theme): void {
@@ -33,15 +26,6 @@ export class HeaderComponent {
     }
 
     public closeButtonClicked(): void {
-        this.userSettingsDrawer.hide();
-    }
-
-    public onLogoutSelected(): void {
-        this.toggleMenuHidden();
-        void this.router.navigate(['/login']);
-    }
-
-    private toggleMenuHidden(): void {
-        this.hideMenu = !this.hideMenu;
+        this.userSettingsDrawer.close();
     }
 }

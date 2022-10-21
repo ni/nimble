@@ -4,6 +4,7 @@
     display: flex;
     justify-content: flex-end;
     height: var(--example-client-header-height);
+    flex-shrink: 0;
 }
 
 ::deep .user-settings-drawer {

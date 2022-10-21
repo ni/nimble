@@ -1,6 +1,6 @@
 ﻿.root {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    grid-template-rows: auto 1fr;
     background-color: var(--ni-nimble-application-background-color);
 }

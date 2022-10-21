@@ -3,10 +3,11 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
+import { BreadcrumbAppearance } from '../types';
 
 interface BreadcrumbArgs {
     options: ItemArgs[];
-    useProminentLinksStyle: boolean;
+    appearance: keyof typeof BreadcrumbAppearance;
     allowNavigation: boolean;
 }
 
@@ -49,7 +50,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <nimble-breadcrumb
-            class="${x => (x.useProminentLinksStyle ? 'prominent-links' : '')}"
+            appearance="${x => BreadcrumbAppearance[x.appearance]}"
         >
             ${repeat(x => x.options, html<ItemArgs, BreadcrumbArgs>`
                 <nimble-breadcrumb-item
@@ -70,10 +71,9 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 + 'With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page (with no `href` specified, '
                 + 'rendering with a bold font).'
         },
-        useProminentLinksStyle: {
-            description:
-                'To use the alternate (Prominent Links) style (which swaps the default and active/mouseover link colors), add the CSS class `prominent-links` to the '
-                + '`<nimble-breadcrumb>` element.'
+        appearance: {
+            options: Object.keys(BreadcrumbAppearance),
+            control: { type: 'radio' }
         }
     },
     args: {
@@ -90,7 +90,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 label: 'Current (No Link)'
             }
         ],
-        useProminentLinksStyle: false,
+        appearance: 'default',
         allowNavigation: false
     }
 };
