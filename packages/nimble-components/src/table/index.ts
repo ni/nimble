@@ -225,8 +225,11 @@ export class Table extends FoundationElement {
             return;
         }
 
+        this.virtualizer.options.count = this.table.getRowModel().rows.length;
+
         const rows = this.table.getRowModel().rows;
-        this.virtualizer.getVirtualItems().forEach(x => {
+        this.visibleItems = this.virtualizer.getVirtualItems();
+        this.visibleItems.forEach(x => {
             const row = rows[x.index];
             if (!row) {
                 return;
@@ -240,7 +243,6 @@ export class Table extends FoundationElement {
             }
         });
 
-        this.virtualizer.options.count = this.table.getRowModel().rows.length;
         this.rowContainerHeight = this.virtualizer.getTotalSize();
     }
 
