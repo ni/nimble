@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { html, Observable, observable, ViewTemplate } from '@microsoft/fast-element';
+import { defaultExecutionContext, DOM, ExecutionContext, html, HTMLView, Observable, observable, ViewTemplate, when } from '@microsoft/fast-element';
 import { DataGridCell, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef,
@@ -73,28 +73,74 @@ export class Table<TData = unknown> extends FoundationElement {
     public readonly tableContainer!: HTMLElement;
     public virtualizer?: Virtualizer;
 
-    private _actionMenuClone: Node | undefined;
+    private readonly rowGroupTemplate = html<VirtualItem<Row<TData>>, Table>`
+    <span class="group-row-content"
+    style="
+        height: ${x => x.size}px;
+        position: absolute;
+        width: calc(100% - ${(x, c) => 16 * ((c.parent as Table).tableData[x.index]?.row.depth || 0)}px);
+        margin-top: ${x => x.start}px;
+        padding-left: ${(x, c) => 16 * ((c.parent as Table).tableData[x.index]?.row.depth || 0)}px;
+        ">
+        <nimble-button
+            appearance="ghost"
+            content-hidden
+            @click=${(x, c) => (c.parent as Table).tableData[x.index]?.row.toggleExpanded()}>
+            ${when((x, c) => (c.parent as Table).tableData[x.index]?.row.getIsExpanded(), html`
+                <nimble-icon-arrow-expander-down slot="start"></nimble-icon-arrow-expander-down>
+            `)}
+            ${when((x, c) => !(c.parent as Table).tableData[x.index]?.row.getIsExpanded(), html`
+                <nimble-icon-arrow-expander-right slot="start"></nimble-icon-arrow-expander-right>
+            `)}
+            Expand/Collapse
+        </nimble-button>
+        <!-- TODO: 'subrows' doesn't correctly account for sub groups. -->
+        <span class="group-text">
+            ${(x, c) => (c.parent as Table).tableData[x.index]?.row.groupingValue} (${(x, c) => (c.parent as Table).tableData[x.index]?.row.subRows.length})
+        </span>
+    </span>
+    `;
+
+    private readonly rowChildTemplate = html<VirtualItem<Row<TData>>, Table>`
+    <span id=${(x, c) => `row-${c.parent.tableData[x.index]?.row.id || ''}`} class="foo"
+    style="
+        position: absolute;
+        width: calc(100% - ${(x, c) => 16 * (c.parent.tableData[x.index]?.row?.depth || 0)}px);
+        margin-top: ${x => x.start}px;
+        padding-left: ${(x, c) => 16 * (c.parent.tableData[x.index]?.row?.depth || 0)}px;
+        ">
+        <span class="group-row-content" style="height: 32px">
+        ${when((x, c) => (c.parent as Table).tableData[x.index]?.row.getCanExpand(), html<VirtualItem<Row<TData>>>`
+            <nimble-button
+                appearance="ghost"
+                content-hidden
+                @click=${(x, c) => (c.parent as Table).tableData[x.index]?.row.toggleExpanded()}>
+                ${when((x, c) => (c.parent as Table).tableData[x.index]?.row.getIsExpanded(), html`
+                    <nimble-icon-arrow-expander-down slot="start"></nimble-icon-arrow-expander-down>
+                `)}
+                ${when((x, c) => !(c.parent as Table).tableData[x.index]?.row.getIsExpanded(), html`
+                    <nimble-icon-arrow-expander-right slot="start"></nimble-icon-arrow-expander-right>
+                `)}
+                Expand/Collapse
+            </nimble-button>
+        `)}
+        <nimble-table-row :rowData="${(x, c) => c.parent.tableData[x.index]}">
+            <slot name="${(x, c) => (c.parent.isActiveRow(x.index) ? 'actionMenu' : 'zzz')}" slot="rowActionMenu"></slot>
+        </nimble-table-row>                                
+        </span>
+        <div style="margin-left: 40px">
+        ${when((x, c) => (c.parent as Table).tableData[x.index]?.row.getIsExpanded() && (c.parent as Table).rowTemplate !== undefined, html<VirtualItem<Row<TData>>>`
+            ${(x, c) => (c.parent as Table).rowTemplate!(x.index)}
+        `)}
+        </div>
+    </span>
+    `;
 
     /** @internal */
     @observable
     public readonly slottedActionMenus: HTMLElement[] | undefined;
 
     private _activeActionMenuRowId = '';
-
-    public slottedActionMenusChanged(
-        _prev: HTMLElement[] | undefined,
-        _next: HTMLElement[] | undefined
-    ): void {
-        if (this.slottedActionMenus?.length) {
-            this._actionMenuClone = this.slottedActionMenus[0]?.cloneNode(true);
-        } else {
-            this._actionMenuClone = undefined;
-        }
-    }
-
-    // private get actionMenu(): HTMLElement | undefined {
-    //     return this.slottedActionMenus?.length ? this.slottedActionMenus[0] : undefined;
-    // }
 
     @observable
     public viewportReady = false;
@@ -109,12 +155,16 @@ export class Table<TData = unknown> extends FoundationElement {
     private _grouping: GroupingState = [];
     private _expanded: ExpandedState = {};
     private _tanstackcolumns: ColumnDef<TData>[] = [];
-    private _visibleItems: VirtualItem<TableRow<TData>>[] = [];
+    private _visibleItems: VirtualItem<Row<TData>>[] = [];
+    private readonly _renderedRows: { element: Element, view: HTMLView }[] = [];
     private _rowContainerHeight = 0;
     private _ready = false;
+    private readonly _tableExecutionContext;
+    private readonly _tableRowResizeCache = new Map<string, { top: number | undefined, height: number | undefined }>();
     // private _rowIdProperty = '';
     // private _rowHierarchyProperty = '';
     private readonly resizeObserver: ResizeObserver;
+    private readonly tableRowResizeObserver: ResizeObserver;
 
     public rowTemplate?: (index: number) => ViewTemplate<unknown, Table<TData>>;
 
@@ -163,15 +213,30 @@ export class Table<TData = unknown> extends FoundationElement {
             groupedColumnMode: false,
             autoResetAll: false
         };
+        this._tableExecutionContext = new ExecutionContext<Table<TData>>();
+        this._tableExecutionContext.parent = this;
         this.table = createTable(this._options);
         const nimbleTable = this;
         this.resizeObserver = new ResizeObserver(entries => {
             if (entries.map(entry => entry.target).includes(this.viewport)) {
                 nimbleTable.initializeVirtualizer();
                 nimbleTable.virtualizer!._willUpdate();
-                nimbleTable.visibleItems = nimbleTable.virtualizer!.getVirtualItems();
-                nimbleTable.rowContainerHeight = nimbleTable.virtualizer!.getTotalSize();
+                nimbleTable.renderRows();
+                this.resizeObserver.unobserve(this.viewport);
             }
+        });
+
+        this.tableRowResizeObserver = new ResizeObserver(entries => {
+            const cachedRect = nimbleTable._tableRowResizeCache.get(entries[0]!.target.id);
+            if (cachedRect && cachedRect.top === entries[0]?.contentRect.top && cachedRect.height === entries[0]?.contentRect.height) {
+                return;
+            }
+
+            nimbleTable._tableRowResizeCache.clear();
+            nimbleTable._tableRowResizeCache.set(entries[0]!.target.id, { top: entries[0]!.contentRect.top, height: entries[0]!.contentRect.height });
+            nimbleTable.updateVirtualizer();
+            // nimbleTable.tableRowResizeObserver.unobserve(entries[0]!.target);
+            // nimbleTable.renderRows();
         });
 
         // this.columns = [{
@@ -231,14 +296,23 @@ export class Table<TData = unknown> extends FoundationElement {
         if (!this.virtualizer) {
             return;
         }
+        this.virtualizer.getVirtualItems().forEach(x => {
+            const rows = this.table.getRowModel().rows;
+            const row = rows[x.index];
+            const rowEl = this.shadowRoot?.querySelector(`#row-${row?.id || ''}`);
+            x.measureElement(rowEl);
+        });
         this.virtualizer.options.count = this.table.getRowModel().rows.length;
         this.rowContainerHeight = this.virtualizer.getTotalSize();
-        this.virtualizer.measure();
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
         this.resizeObserver.observe(this.viewport);
+    }
+
+    public override disconnectedCallback(): void {
+        console.log('disconnected');
     }
 
     public get data(): TData[] {
@@ -284,8 +358,7 @@ export class Table<TData = unknown> extends FoundationElement {
                     return Object.values((row as unknown) as ObjectInterface)[valueIndex];
                 },
                 header: column.title,
-                footer: info => info.column.id,
-                // aggregatedCell: 'foo'
+                footer: info => info.column.id
             };
             this._tanstackcolumns.push(tanstackColumn);
         });
@@ -330,12 +403,12 @@ export class Table<TData = unknown> extends FoundationElement {
     /**
      * @internal
      */
-    public get visibleItems(): VirtualItem<TableRow<TData>>[] {
+    public get visibleItems(): VirtualItem<Row<TData>>[] {
         Observable.track(this, 'visibleItems');
         return this._visibleItems;
     }
 
-    public set visibleItems(value: VirtualItem<TableRow<TData>>[]) {
+    public set visibleItems(value: VirtualItem<Row<TData>>[]) {
         this._visibleItems = value;
         Observable.notify(this, 'visibleItems');
     }
@@ -363,24 +436,6 @@ export class Table<TData = unknown> extends FoundationElement {
     public getColumnHasMenuById(columnId: string): boolean {
         const column = this.columns.find(x => x.columnDataKey === columnId);
         return column?.showMenu || false;
-    }
-
-    public onMenuOpenChange(_rowData: TableRowData<TData>, event: CustomEvent): void {
-        // debugger;
-        if (!this._actionMenuClone) {
-            return;
-        }
-
-        const menuButton = (event.target as MenuButton);
-        if (!menuButton) {
-            return;
-        }
-
-        if (menuButton.open) {
-            menuButton.appendChild(this._actionMenuClone);
-        } else {
-            menuButton.removeChild(this._actionMenuClone);
-        }
     }
 
     private readonly setSorting = (updater: unknown): void => {
@@ -425,6 +480,9 @@ export class Table<TData = unknown> extends FoundationElement {
 
         const newlyCollapsedIds = originalExpandedIds.filter(x => !updatedExpandedIds.find(y => x === y));
         const newlyExpandedIds = updatedExpandedIds.filter(x => !originalExpandedIds.find(y => x === y));
+        // for (const row of this._renderedRows) {
+        //     this.tableRowResizeObserver.observe(row.element);
+        // }
 
         for (const newCollapsedId of newlyCollapsedIds) {
             this.$emit('row-collapse', { id: newCollapsedId });
@@ -441,29 +499,56 @@ export class Table<TData = unknown> extends FoundationElement {
             getScrollElement: () => {
                 return nimbleTable.viewport;
             },
-            estimateSize: (index: number) => {
-                // if (index < 5) {
-                //     return 32;
-                // }
-                // return 100;
-                const rows = nimbleTable.table.getRowModel().rows;
-                const row = rows[index];
-                if (row?.getIsExpanded() && !row?.getIsGrouped()) {
-                    console.log(132);
-                    return 132;
-                }
-                console.log(32);
-                return 32;
-            },
+            estimateSize: () => 32,
             enableSmoothScroll: true,
             scrollToFn: elementScroll,
             observeElementOffset,
             observeElementRect,
             onChange: (virtualizer: Virtualizer) => {
-                nimbleTable.visibleItems = virtualizer.getVirtualItems();
+                // nimbleTable.visibleItems = virtualizer.getVirtualItems();
+                nimbleTable.renderRows();
             }
         } as VirtualizerOptions;
         this.virtualizer = new Virtualizer(virtualizerOptions);
+    }
+
+    private renderRows(): void {
+        const currentVisibleItems = this.visibleItems;
+
+        this.visibleItems = this.virtualizer!.getVirtualItems();
+        const scrollDown = currentVisibleItems.length > 0 && currentVisibleItems[0]!.index < this.visibleItems[0]!.index;
+        const rowsToRecycleCount = currentVisibleItems?.map(item => item.index).filter(x => !this.visibleItems.map(item => item.index).includes(x)).length ?? 0;
+        const newRowsToRender = this.visibleItems.filter(item => !currentVisibleItems.map(currentItem => currentItem.index).includes(item.index));
+        const rowsToRecyle = this._renderedRows?.splice(0, rowsToRecycleCount) ?? [];
+        if (newRowsToRender.length > 0) {
+            for (let i = 0; i < newRowsToRender.length; i++) {
+                if (i < rowsToRecycleCount) {
+                    rowsToRecyle[i]!.view.bind(newRowsToRender[i], this._tableExecutionContext);
+                } else if (newRowsToRender.length > 0 && this.tableData[newRowsToRender[i]!.index]?.row.getIsGrouped()) {
+                    const groupElement = this.rowGroupTemplate.create(this);
+                    groupElement.bind(newRowsToRender[i], this._tableExecutionContext);
+                    groupElement.appendTo(this.rowContainer);
+                    this._renderedRows.push({ element: this.rowContainer.children.item(this.rowContainer.children.length - 1)!, view: groupElement });
+                } else {
+                    const rowChild = this.rowChildTemplate.create(this);
+                    rowChild.bind(newRowsToRender[i], this._tableExecutionContext);
+                    rowChild.appendTo(this.rowContainer);
+                    this._renderedRows.push({ element: this.rowContainer.children.item(this.rowContainer.children.length - 1)!, view: rowChild });
+                    this.tableRowResizeObserver.observe(this.rowContainer.children.item(this.rowContainer.children.length - 1)!);
+                }
+            }
+        } else {
+            for (let i = 0; i < this._renderedRows.length && i < this.visibleItems.length; i++) {
+                this.tableRowResizeObserver.unobserve(this._renderedRows[i]!.element);
+                this._renderedRows[i]?.view.bind(this.visibleItems[i], this._tableExecutionContext);
+            }
+
+            DOM.queueUpdate(() => {
+                for (const row of this._renderedRows) {
+                    this.tableRowResizeObserver.observe(row.element);
+                }
+            });
+        }
     }
 
     private refreshRows(): void {
@@ -472,6 +557,9 @@ export class Table<TData = unknown> extends FoundationElement {
         this.tableData = rows.map(row => {
             const tableRow = { row, parent: this } as TableRowData<TData>;
             return tableRow;
+        });
+        DOM.queueUpdate(() => {
+            this.updateVirtualizer();
         });
     }
 

@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import '../../all-components';
 import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { getColumns, getFriendColumns, makeData, Person } from './makedata';
-import type { Table, TableColumn } from '../index';
-import type { TableRow } from '../../table-row';
+import type { Table, TableColumn } from '..';
 
 interface TableArgs {
     data: unknown[];
@@ -20,7 +18,7 @@ interface TableArgs {
 }
 
 const rowTemplate = (index: number): ViewTemplate<any, Table<Person>> => html<any, Table<Person>>`
-    <nimble-table style="max-height: 500px"
+    <nimble-table style="max-height: 500px; height: fit-content;"
         :data="${(_, c) => (c.parent.tableData[index]!.row.original.friends)}"
         :columns="${_ => getFriendColumns()}"
     >
@@ -47,21 +45,10 @@ const metadata: Meta<TableArgs> = {
                 <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
                 <nimble-menu-item @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item>
             </nimble-menu>
-            
-            <!-- <nimble-menu-item slot="actionMenuItem" @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
-            <nimble-menu-item slot="actionMenuItem" @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item> -->\
         </nimble-table>
         <br>
         <nimble-button appearance="block" @click="${x => x.generateNewData(x.tableRef)}">Update data</nimble-button>
         <nimble-button appearance="block" @click="${x => x.logState(x.tableRef)}">Log state</nimble-button>
-        
-        <nimble-menu-button content-hidden appearance="outline">
-            <nimble-icon-key slot="start"></nimble-icon-key>
-            <nimble-menu @open-change="${x => x.showAlert('open change')}" slot="menu">
-                <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
-                <nimble-menu-item @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item>
-            </nimble-menu>
-        </nimble-menu-button>
     `),
     args: {
         data: makeData(2000),
