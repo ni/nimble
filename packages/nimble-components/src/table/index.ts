@@ -6,7 +6,7 @@ import { template } from './template';
 import '@finos/perspective-viewer';
 import 'regular-table';
 import { tableFont } from './table-theme';
-import { HTMLPerspectiveViewerDatagridPluginElement } from '../table-perspective-viewer/src/js/custom_elements/datagrid';
+import { HTMLPerspectiveViewerDatagridPluginElement } from '../perspective-viewer-datagrid/src/js/custom_elements/datagrid';
 
 declare global {
     interface HTMLElementTagNameMap {
