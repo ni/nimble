@@ -1,40 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import '../../all-components';
-import { html, ref, repeat, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { getColumns, makeData, Person } from './makedata';
-import type { Table, TableColumn, TableRow } from '../index';
+import type { Table, TableColumn } from '../index';
 
 interface TableArgs {
     data: unknown[];
     columns: TableColumn[];
     tableRef: Table;
-    generateNewData: (tableRef: Table) => void;
-    logState: (tableRef: Table) => void;
+    startPolling: (tableRef: Table) => void;
+    addRow: (tableRef: Table) => void;
     getRowChildren: (tableRef: Table, event: CustomEvent) => void;
     showAlert: (message: string) => void;
-}
-
-function customRowTemplate(id: string): ViewTemplate {
-    const data = getCurrentData();
-    const person = data.find(x => x.id === id);
-    return html`
-        <div style="width: 100%; height: ${_ => rowTemplateHeight(id)}px; background: lightgray;">
-            ${_ => person?.createdAt}
-            <nimble-text-field></nimble-text-field>
-        </div>
-    `;
-}
-
-function rowTemplateHeight(id: string): number {
-    const data = getCurrentData();
-    const person = data.find(x => x.id === id);
-    return (person?.age || 0) * 5 + 20;
-}
-
-function getCurrentData(): Person[] {
-    return (document.querySelector('nimble-table')!).data as Person[];
 }
 
 const expandedRows: Person[] = [];
@@ -66,24 +45,38 @@ const metadata: Meta<TableArgs> = {
             `)}
         </nimble-table>
         <br>
-        <nimble-button appearance="block" @click="${x => x.generateNewData(x.tableRef)}">Update data</nimble-button>
-        <nimble-button appearance="block" @click="${x => x.logState(x.tableRef)}">Log state</nimble-button>
+        <nimble-button appearance="block" @click="${x => x.startPolling(x.tableRef)}">Start polling (3 seconds)</nimble-button>
+        <nimble-button appearance="block" @click="${x => x.addRow(x.tableRef)}">Add row</nimble-button>
     `),
     args: {
-        data: makeData(2000),
+        data: makeData(5000),
         columns: getColumns(),
-        generateNewData: (tableRef: Table) => {
+        startPolling: (tableRef: Table) => {
             // tableRef.data = makeData(2000, 9, 3);
-            const existingData = tableRef.data as Person[];
-            for (const p of existingData) {
-                p.age += 1;
-            }
+            setInterval(() => {
+                const existingData = tableRef.data as Person[];
+                for (const p of existingData) {
+                    p.age += 1;
+                }
 
-            tableRef.data = JSON.parse(JSON.stringify(existingData)) as Person[];
+                tableRef.data = JSON.parse(JSON.stringify(existingData)) as Person[];
+            }, 3000);
         },
-        logState: (_tableRef: Table) => {
-            // var state = tableRef.table.getState();
-            // debugger;
+        addRow: (tableRef: Table) => {
+            const existingData = tableRef.data as Person[];
+            const newPerson: Person = {
+                age: 0.5,
+                children: [],
+                createdAt: new Date(),
+                firstName: 'John',
+                lastName: 'Doe',
+                id: '123',
+                progress: 0,
+                status: 'complicated',
+                visits: 0
+            };
+            existingData.push(newPerson);
+            tableRef.data = JSON.parse(JSON.stringify(existingData)) as Person[];
         },
         getRowChildren: (tableRef: Table, event: CustomEvent) => {
             const rowId = (event.detail as { id: string }).id;
