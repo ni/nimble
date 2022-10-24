@@ -17,7 +17,8 @@ import {
     GroupingState,
     Column,
     Row,
-    ExpandedState
+    ExpandedState,
+    RowSelectionState
 } from '@tanstack/table-core';
 import { Virtualizer, VirtualizerOptions, elementScroll, observeElementOffset, observeElementRect, VirtualItem } from '@tanstack/virtual-core';
 import { template } from './template';
@@ -97,6 +98,7 @@ export class Table extends FoundationElement {
     private _options: TableOptionsResolved<unknown>;
     private _sorting: SortingState = [];
     private _grouping: GroupingState = [];
+    private _selection: RowSelectionState = {};
     private _expanded: ExpandedState = {};
     private _tanstackcolumns: ColumnDef<unknown>[] = [];
     private _visibleItems: VirtualItem<unknown>[] = [];
@@ -141,6 +143,7 @@ export class Table extends FoundationElement {
             onSortingChange: this.setSorting,
             onGroupingChange: this.setGrouping,
             onExpandedChange: this.setExpanded,
+            onRowSelectionChange: this.setRowSelection,
             columns: tanstackColumns,
             state: {
                 sorting,
@@ -149,6 +152,7 @@ export class Table extends FoundationElement {
             },
             renderFallbackValue: null,
             enableGrouping: true,
+            enableRowSelection: true,
             groupedColumnMode: false,
             autoResetAll: false
         };
@@ -444,7 +448,7 @@ export class Table extends FoundationElement {
         }
 
         this._options.state = { ...this._options.state, sorting: this._sorting };
-        this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
+        this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded, rowSelection: this._selection });
         this.refreshRows();
         this.refreshHeaders();
     };
@@ -457,7 +461,19 @@ export class Table extends FoundationElement {
         }
 
         this._options.state = { ...this._options.state, grouping: this._grouping };
-        this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
+        this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded, rowSelection: this._selection });
+        this.refreshRows();
+    };
+
+    private readonly setRowSelection = (updater: unknown): void => {
+        if (updater instanceof Function) {
+            this._selection = updater(this._selection) as RowSelectionState;
+        } else {
+            this._selection = (updater as RowSelectionState);
+        }
+
+        this._options.state = { ...this._options.state, rowSelection: this._selection };
+        this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded, rowSelection: this._selection });
         this.refreshRows();
     };
 
@@ -471,7 +487,7 @@ export class Table extends FoundationElement {
         const updatedExpandedIds = Object.keys(this._expanded);
 
         this._options.state = { ...this._options.state, expanded: this._expanded };
-        this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded });
+        this.update({ ...this.table.initialState, sorting: this._sorting, grouping: this._grouping, expanded: this._expanded, rowSelection: this._selection });
 
         const newlyCollapsedIds = originalExpandedIds.filter(x => !updatedExpandedIds.find(y => x === y));
         const newlyExpandedIds = updatedExpandedIds.filter(x => !originalExpandedIds.find(y => x === y));
