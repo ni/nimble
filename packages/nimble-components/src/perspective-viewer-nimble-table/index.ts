@@ -15,7 +15,9 @@ declare global {
 /**
  * A nimble-based perspctive plugin for a table
  */
-export class PerspectiveViewerNimbleTable extends FoundationElement implements IPerspectiveViewerPlugin {
+export class PerspectiveViewerNimbleTable
+    extends FoundationElement
+    implements IPerspectiveViewerPlugin {
     public readonly name = 'NimbleTablePlugin';
 
     @observable
@@ -81,12 +83,16 @@ const perspectiveViewerNimbleTable = PerspectiveViewerNimbleTable.compose({
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(perspectiveViewerNimbleTable());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(perspectiveViewerNimbleTable());
 
 void (async () => {
     await customElements.whenDefined('perspective-viewer');
     const viewerClass = customElements.get('perspective-viewer');
-    const promise = viewerClass.registerPlugin('nimble-perspective-viewer-nimble-table');
+    const promise = viewerClass.registerPlugin(
+        'nimble-perspective-viewer-nimble-table'
+    );
     // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
     const result = await promise;
     return result;
