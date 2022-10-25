@@ -48,7 +48,6 @@
   "dependencies": {
     "@finos/perspective": "^1.7.1",
     "@finos/perspective-viewer": "^1.7.1",
-    "@microsoft/fast-animation": "^4.2.2",
     "@microsoft/fast-element": "^1.10.1",
     "@microsoft/fast-foundation": "^2.46.11",
     "@microsoft/fast-web-utilities": "^5.4.1",
