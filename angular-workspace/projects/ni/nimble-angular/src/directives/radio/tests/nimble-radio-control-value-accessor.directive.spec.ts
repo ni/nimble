@@ -85,6 +85,8 @@ describe('Nimble radio control value accessor', () => {
             tick();
             processUpdates();
 
+            expect((radioGroup.children[0] as Radio).checked).toBeFalse();
+            expect((radioGroup.children[1] as Radio).checked).toBeFalse();
             expect((radioGroup.children[2] as Radio).checked).toBeTrue();
         }));
 
@@ -156,6 +158,8 @@ describe('Nimble radio control value accessor', () => {
             tick();
             processUpdates();
 
+            expect((radioGroup.children[0] as Radio).checked).toBeFalse();
+            expect((radioGroup.children[1] as Radio).checked).toBeFalse();
             expect((radioGroup.children[2] as Radio).checked).toBeTrue();
         }));
 

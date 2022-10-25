@@ -4,7 +4,8 @@ module.exports = {
     extends: '../../../.eslintrc.js',
     ignorePatterns: [
         '!**/*',
-        '**/dist'
+        '**/dist',
+        '/src/thirdparty'
     ],
     plugins: ['jsdoc'],
     overrides: [
