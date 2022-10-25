@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 26 May 2022 18:20:05 GMT
+ * Generated on Thu, 20 Oct 2022 19:57:29 GMT
  */
 
 :root {
@@ -144,10 +144,10 @@
   --ni-nimble-base-control-label-1-chinese-mac-size: 11px;
   --ni-nimble-base-button-label-1-chinese-mac-size: 11px;
   --ni-nimble-base-body-chinese-mac-size: 13px;
-  --ni-nimble-base-error-color-ui-size: 9px;
+  --ni-nimble-base-error-color-ui-size: 11px;
   --ni-nimble-base-link-visited-light-ui-size: 14px;
-  --ni-nimble-base-error-light-ui-size: 9px;
-  --ni-nimble-base-error-dark-ui-size: 9px;
+  --ni-nimble-base-error-light-ui-size: 11px;
+  --ni-nimble-base-error-dark-ui-size: 11px;
   --ni-nimble-base-link-selection-100-light-ui-size: 14px;
   --ni-nimble-base-grid-header-size: 12.800000190734863px;
   --ni-nimble-base-group-label-expander-size: 14px;
