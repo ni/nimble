@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 26 Aug 2022 14:00:36 GMT and should not be manually modified.
+This log was last generated on Tue, 25 Oct 2022 13:53:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.1.3
+
+Tue, 25 Oct 2022 13:53:36 GMT
+
+### Patches
+
+- Update error text size ([ni/nimble@0084ab1](https://github.com/ni/nimble/commit/0084ab10c57914fc414d9652bd824eb3c7fa3572))
+
+## 4.1.2
+
+Mon, 03 Oct 2022 22:16:20 GMT
+
+### Patches
+
+- Updating licenses to MIT ([ni/nimble@31021de](https://github.com/ni/nimble/commit/31021de203162ed44452ab54425946b220cf9f0f))
+
+## 4.1.1
+
+Thu, 29 Sep 2022 20:33:02 GMT
+
+### Patches
+
+- Add font assets for Light & SemiBold SourceSansPro ([ni/nimble@21569a7](https://github.com/ni/nimble/commit/21569a7511ea37f1bab18a1edae89cd9fa2ce8f6))
 
 ## 4.1.0
 

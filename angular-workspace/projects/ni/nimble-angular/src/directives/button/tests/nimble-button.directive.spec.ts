@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ButtonAppearance } from '../../../public-api';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
-import { Button, NimbleButtonDirective } from '../nimble-button.directive';
+import { Button, NimbleButtonDirective, ButtonAppearanceVariant } from '../nimble-button.directive';
 import { NimbleButtonModule } from '../nimble-button.module';
 
 describe('Nimble button', () => {
@@ -54,6 +54,11 @@ describe('Nimble button', () => {
             expect(nativeElement.appearance).toBe(ButtonAppearance.outline);
         });
 
+        it('has expected defaults for appearanceVariant', () => {
+            expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.default);
+            expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.default);
+        });
+
         it('has expected defaults for contentHidden', () => {
             expect(directive.contentHidden).toBeFalse();
             expect(nativeElement.contentHidden).toBeFalse();
@@ -65,7 +70,8 @@ describe('Nimble button', () => {
             template: `
                 <nimble-button #button
                     disabled
-                    appearance="${ButtonAppearance.ghost}"
+                    appearance="ghost"
+                    appearance-variant="primary"
                     content-hidden>
                 </nimble-button>`
         })
@@ -99,6 +105,11 @@ describe('Nimble button', () => {
             expect(nativeElement.appearance).toBe(ButtonAppearance.ghost);
         });
 
+        it('will use template string values for appearanceVariant', () => {
+            expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.primary);
+            expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.primary);
+        });
+
         it('will use template string values for contentHidden', () => {
             expect(directive.contentHidden).toBeTrue();
             expect(nativeElement.contentHidden).toBeTrue();
@@ -111,6 +122,7 @@ describe('Nimble button', () => {
                 <nimble-button #button
                     [disabled]="disabled"
                     [appearance]="appearance"
+                    [appearance-variant]="appearanceVariant"
                     [content-hidden]="contentHidden">
                 </nimble-button>
             `
@@ -120,6 +132,7 @@ describe('Nimble button', () => {
             @ViewChild('button', { read: ElementRef }) public elementRef: ElementRef<Button>;
             public disabled = false;
             public appearance: ButtonAppearance = ButtonAppearance.outline;
+            public appearanceVariant: ButtonAppearanceVariant;
             public contentHidden = false;
         }
 
@@ -160,6 +173,17 @@ describe('Nimble button', () => {
             expect(nativeElement.appearance).toBe(ButtonAppearance.ghost);
         });
 
+        it('can be configured with property binding for appearanceVariant', () => {
+            expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.default);
+            expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.default);
+
+            fixture.componentInstance.appearanceVariant = ButtonAppearanceVariant.primary;
+            fixture.detectChanges();
+
+            expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.primary);
+            expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.primary);
+        });
+
         it('can be configured with property binding for contentHidden', () => {
             expect(directive.contentHidden).toBeFalse();
             expect(nativeElement.contentHidden).toBeFalse();
@@ -178,6 +202,7 @@ describe('Nimble button', () => {
                 <nimble-button #button
                     [attr.disabled]="disabled"
                     [attr.appearance]="appearance"
+                    [attr.appearance-variant]="appearanceVariant"
                     [attr.content-hidden]="contentHidden">
                 </nimble-button>
             `
@@ -187,6 +212,7 @@ describe('Nimble button', () => {
             @ViewChild('button', { read: ElementRef }) public elementRef: ElementRef<Button>;
             public disabled: BooleanValueOrAttribute = null;
             public appearance: ButtonAppearance = ButtonAppearance.outline;
+            public appearanceVariant: ButtonAppearanceVariant;
             public contentHidden: BooleanValueOrAttribute = null;
         }
 
@@ -225,6 +251,17 @@ describe('Nimble button', () => {
 
             expect(directive.appearance).toBe(ButtonAppearance.ghost);
             expect(nativeElement.appearance).toBe(ButtonAppearance.ghost);
+        });
+
+        it('can be configured with attribute binding for appearanceVariant', () => {
+            expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.default);
+            expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.default);
+
+            fixture.componentInstance.appearanceVariant = ButtonAppearanceVariant.primary;
+            fixture.detectChanges();
+
+            expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.primary);
+            expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.primary);
         });
 
         it('can be configured with attribute binding for contentHidden', () => {

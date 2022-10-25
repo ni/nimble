@@ -42,7 +42,9 @@ for (const key of Object.keys(icons)) {
     const directiveFileContents = `${generatedFilePrefix}
 @namespace NimbleBlazor
 @inherits NimbleIconBase
-<${elementName} @attributes="AdditionalAttributes">
+<${elementName}
+    severity="@Severity.ToAttributeValue()"
+    @attributes="AdditionalAttributes">
 </${elementName}>
  `;
     const componentFileName = `${componentName}.razor`;

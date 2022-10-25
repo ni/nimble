@@ -1,6 +1,7 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrixThemeStory,
     createStory
@@ -11,6 +12,8 @@ import {
 } from '../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { BreadcrumbAppearance } from '../types';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Breadcrumb',
@@ -26,25 +29,27 @@ const metadata: Meta = {
 
 export default metadata;
 
-const breadcrumbStyleStates = [
-    ['', ''],
-    [' (Prominent Links style)', 'prominent-links']
-] as const;
-type BreadcrumbStyleState = typeof breadcrumbStyleStates[number];
+const appearanceStates: [string, string | undefined][] = Object.entries(
+    BreadcrumbAppearance
+).map(([key, value]) => [pascalCase(key), value]);
+type AppearanceState = typeof appearanceStates[number];
 
 const component = ([
-    styleStateName,
-    style
-]: BreadcrumbStyleState): ViewTemplate => html`
-    <nimble-breadcrumb class="${() => style}" style="margin-right: 24px">
+    appearanceName,
+    appearance
+]: AppearanceState): ViewTemplate => html`
+    <nimble-breadcrumb
+        appearance="${() => appearance}"
+        style="margin-right: 24px"
+    >
         <nimble-breadcrumb-item href="${parent.location.href}">
-            ${() => `Breadcrumb${styleStateName} - Link`}
+            ${() => `Breadcrumb (${appearanceName}) - Link`}
         </nimble-breadcrumb-item>
         <nimble-breadcrumb-item>Current (No Link)</nimble-breadcrumb-item>
     </nimble-breadcrumb>
 `;
 export const breadcrumbThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [breadcrumbStyleStates])
+    createMatrix(component, [appearanceStates])
 );
 
 export const hiddenBreadcrumb: Story = createStory(
@@ -53,5 +58,11 @@ export const hiddenBreadcrumb: Story = createStory(
             <nimble-breadcrumb-item href="#">Item 1</nimble-breadcrumb-item>
             <nimble-breadcrumb-item>Current (No Link)</nimble-breadcrumb-item>
         </nimble-breadcrumb>`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<nimble-breadcrumb-item>Breadcrumb item</nimble-breadcrumb-item>`
     )
 );

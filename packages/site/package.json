@@ -4,18 +4,13 @@
     "description": "A meta package used for creating GitHub pages site contents",
     "private": true,
     "scripts": {
-        "build": "npm run build:clean && npm run build:root && npm run build:storybook && npm run build:angular && npm run build:blazor",
-        "build:clean": "rimraf dist && mkdirp dist",
-        "build:root": "cd root && copyfiles -E -a \"*\" ../dist",
-        "build:storybook": "cd ../../packages/nimble-components/dist && copyfiles -E \"storybook/**\" ../../../packages/site/dist",
-        "build:angular": "cd ../../angular-workspace/dist && copyfiles -E \"example-client-app/**\" ../../packages/site/dist/storybook",
-        "build:blazor": "cd ../../packages/nimble-blazor/dist && copyfiles -E \"blazor-client-app/**\" ../../../packages/site/dist/storybook",
-        "pack": "npm pack"
+        "build": "eleventy",
+        "pack": "npm pack",
+        "lint": "eslint .",
+        "start": "eleventy --serve"
     },
     "devDependencies": {
-        "copyfiles": "^2.4.1",
-        "mkdirp": "^1.0.4",
-        "rimraf": "^3.0.2"
+        "@11ty/eleventy": "^1.0.2"
     },
     "files": [
         "dist",

@@ -9,7 +9,7 @@ public enum ButtonAppearance
 
 internal static class ButtonAppearanceExtensions
 {
-    private static readonly Dictionary<ButtonAppearance, string> _appearanceValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<ButtonAppearance>();
+    private static readonly Dictionary<ButtonAppearance, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<ButtonAppearance>();
 
-    public static string? ToAttributeValue(this ButtonAppearance? value) => value == null ? null : _appearanceValues[value.Value];
+    public static string? ToAttributeValue(this ButtonAppearance? value) => value == null ? null : _enumValues[value.Value];
 }

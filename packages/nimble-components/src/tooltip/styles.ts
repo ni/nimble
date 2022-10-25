@@ -54,12 +54,12 @@ export const styles = css`
         padding-right: 8px;
     }
 
-    :host(.fail.icon-visible) .fail {
+    :host([severity='error'][icon-visible]) [severity='error'] {
         display: flex;
         flex: 0 0 auto;
     }
 
-    :host(.information.icon-visible) .information {
+    :host([severity='information'][icon-visible]) [severity='information'] {
         display: flex;
         flex: 0 0 auto;
     }
@@ -67,12 +67,12 @@ export const styles = css`
     themeBehavior(
         Theme.light,
         css`
-            :host(.fail) {
+            :host([severity='error']) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
                 --ni-private-tooltip-background-color: ${White};
             }
 
-            :host(.information) {
+            :host([severity='information']) {
                 --ni-private-tooltip-border-color: ${Information100LightUi};
                 --ni-private-tooltip-background-color: ${White};
             }
@@ -89,11 +89,11 @@ export const styles = css`
                 --ni-private-tooltip-background-color: ${Black85};
             }
 
-            :host(.information) {
+            :host([severity='information']) {
                 --ni-private-tooltip-border-color: ${Information100DarkUi};
             }
 
-            :host(.fail) {
+            :host([severity='error']) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
             }
         `
@@ -116,11 +116,11 @@ export const styles = css`
                 )};
             }
 
-            :host(.fail) {
+            :host([severity='error']) {
                 --ni-private-tooltip-border-color: ${White};
             }
 
-            :host(.information) {
+            :host([severity='information']) {
                 --ni-private-tooltip-border-color: ${White};
             }
 

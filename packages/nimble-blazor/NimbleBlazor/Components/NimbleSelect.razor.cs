@@ -24,6 +24,18 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     public DropdownAppearance? Appearance { get; set; }
 
     /// <summary>
+    /// Gets or sets the select error text
+    /// </summary>
+    [Parameter]
+    public string? ErrorText { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the select error is visible
+    /// </summary>
+    [Parameter]
+    public bool? ErrorVisible { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content to be rendering inside the <see cref="NimbleSelect"/>.
     /// </summary>
     [Parameter]

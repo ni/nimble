@@ -2,6 +2,111 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 18 Oct 2022 19:13:04 GMT",
+      "tag": "@ni/nimble-blazor_v9.1.0",
+      "version": "9.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "955560d77b66b6e143592d5c295b3a38dd1bf23a",
+            "comment": "Blazor support for select error state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Oct 2022 21:13:41 GMT",
+      "tag": "@ni/nimble-blazor_v9.0.0",
+      "version": "9.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "8f496f0aaca48e5765e942292c88e78094e81386",
+            "comment": "Rename nimble \"radio button\" to \"radio\""
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Oct 2022 17:54:42 GMT",
+      "tag": "@ni/nimble-blazor_v8.0.0",
+      "version": "8.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "980a9dac9961ef1487833281470f97c79f0f5197",
+            "comment": "- Extend styling on nimble-dialog by implementing a slotted template.\n  - `aria-label` no longer correctly labels the dialog. Provide text content in the `title` and/or `subtitle` to give the dialog an accessible label.\n  - Styling has changed. Update dialogs in one of the two ways:\n      1. To lay out content using recommended patterns, use exposed slots of `title`, `subtitle`, and `footer` to lay out content using recommended patterns.\n      2. To keep (nearly) identical layout as before this change:\n          - set `header-hidden` and `footer-hidden` on the dialog\n          - wrap the entire contents of the dialog in a single element, such as a `<div>` to avoid having the default flex layout applied to content\n          - note: it is still recommended to provide a title/subtitle for accessibility purposes even when setting `header-hidden`"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Oct 2022 16:41:24 GMT",
+      "tag": "@ni/nimble-blazor_v7.0.0",
+      "version": "7.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e31785bf51ac6d2e2d188ee3dceed3d862565d3e",
+            "comment": "Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Oct 2022 22:16:20 GMT",
+      "tag": "@ni/nimble-blazor_v6.0.2",
+      "version": "6.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "31021de203162ed44452ab54425946b220cf9f0f",
+            "comment": "Updating licenses to MIT"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 Sep 2022 20:03:25 GMT",
+      "tag": "@ni/nimble-blazor_v6.0.0",
+      "version": "6.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "9023d71ddb4740a624e5b9eac0114a0c91fbca78",
+            "comment": "Migrated from CSS classes to element attributes for configuring components. For the list of specific elements and classes changed see: [#738](https://github.com/ni/nimble/pull/738)."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 Sep 2022 19:39:31 GMT",
+      "tag": "@ni/nimble-blazor_v5.8.0",
+      "version": "5.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "eb8d708a8eda9e0772f9c3208c99926b12d7cb45",
+            "comment": "Blazor wrapper for radio button and group"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Sep 2022 22:11:39 GMT",
       "tag": "@ni/nimble-blazor_v5.7.0",
       "version": "5.7.0",

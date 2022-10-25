@@ -1,67 +1,102 @@
-<example-nav-drawer #navDrawer [location]="drawerLocation">
-    <div class="content container">
-        <p>Explore the components below to see the Nimble components in action. See the <a
-                href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page">Nimble
-                component docs</a> for additional usage details.</p>
-        <div class="container">
-            <div class="sub-container">
-                <div class="container-label">Breadcrumb</div>
-                <nimble-breadcrumb>
-                    <nimble-breadcrumb-item href="#">Page 1</nimble-breadcrumb-item>
-                    <nimble-breadcrumb-item nimbleRouterLink="/customapp">Page 2</nimble-breadcrumb-item>
-                    <nimble-breadcrumb-item>Current Page (No Link)</nimble-breadcrumb-item>
-                </nimble-breadcrumb>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Buttons</div>
-                <nimble-button appearance="outline">Outline Button</nimble-button>
-                <nimble-button appearance="block">Block Button</nimble-button>
-                <nimble-button appearance="ghost">Ghost Button</nimble-button>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Buttons - Toggle</div>
-                <nimble-toggle-button appearance="outline">Outline Toggle Button</nimble-toggle-button>
-                <nimble-toggle-button appearance="block">Block Toggle Button</nimble-toggle-button>
-                <nimble-toggle-button appearance="ghost">Ghost Toggle Button</nimble-toggle-button>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Card Button</div>
-                <nimble-card-button>
-                    <span class="card-button-content">Card Button</span>
-                </nimble-card-button>
-                <nimble-card-button selected>
-                    <span class="card-button-content">Selected Card Button</span>
-                </nimble-card-button>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Checkbox</div>
-                <nimble-checkbox>Checkbox label</nimble-checkbox>
-                <nimble-checkbox>Checkbox label</nimble-checkbox>
-                <nimble-checkbox>Checkbox label</nimble-checkbox>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Dialog</div>
-                <nimble-dialog #dialog>
-                    <h2>This is a dialog</h2>
-                    <p>It opened when you pushed the button</p>
-                    <nimble-button (click)="closeDialog('cancel pressed')">Cancel</nimble-button>
-                    <nimble-button (click)="closeDialog('OK pressed')">OK</nimble-button>
-                </nimble-dialog>
-                <nimble-button (click)="openDialog()">Open Dialog</nimble-button>
-                <nimble-text-field readonly [ngModel]="dialogCloseReason">Closed Reason</nimble-text-field>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Drawer/Sidenav:</div>
-                <nimble-button appearance="outline" (click)="navDrawer.open()">Open Drawer</nimble-button>
-                <nimble-button appearance="outline" (click)="navDrawer.togglePinned()">Pin/Unpin</nimble-button>
-                <nimble-select class="drawer-location-select" name="DrawerSelect" [(ngModel)]="drawerLocation" (ngModelChange)="onDrawerLocationChanged($event)">
-                    <nimble-list-option [value]="drawerLocations.left">Drawer: Left-side</nimble-list-option>
-                    <nimble-list-option [value]="drawerLocations.right">Drawer: Right-side</nimble-list-option>
-                </nimble-select>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Menu</div>
-                <nimble-menu>
+<div class="content container">
+    <p>Explore the components below to see the Nimble components in action. See the <a
+            href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page">Nimble
+            component docs</a> for additional usage details.</p>
+    <div class="container">
+        <div class="sub-container">
+            <div class="container-label">Breadcrumb</div>
+            <nimble-breadcrumb>
+                <nimble-breadcrumb-item href="#">Page 1</nimble-breadcrumb-item>
+                <nimble-breadcrumb-item nimbleRouterLink="/customapp">Page 2</nimble-breadcrumb-item>
+                <nimble-breadcrumb-item>Current Page (No Link)</nimble-breadcrumb-item>
+            </nimble-breadcrumb>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Buttons</div>
+            <nimble-button appearance="outline">Outline Button</nimble-button>
+            <nimble-button appearance="block">Block Button</nimble-button>
+            <nimble-button appearance="ghost">Ghost Button</nimble-button>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Buttons - Toggle</div>
+            <nimble-toggle-button appearance="outline">Outline Toggle Button</nimble-toggle-button>
+            <nimble-toggle-button appearance="block">Block Toggle Button</nimble-toggle-button>
+            <nimble-toggle-button appearance="ghost">Ghost Toggle Button</nimble-toggle-button>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Card Button</div>
+            <nimble-card-button>
+                <span class="card-button-content">Card Button</span>
+            </nimble-card-button>
+            <nimble-card-button selected>
+                <span class="card-button-content">Selected Card Button</span>
+            </nimble-card-button>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Checkbox</div>
+            <nimble-checkbox>Checkbox label</nimble-checkbox>
+            <nimble-checkbox>Checkbox label</nimble-checkbox>
+            <nimble-checkbox>Checkbox label</nimble-checkbox>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Radio Buttons</div>
+            <nimble-radio-group name="fruit">
+                <nimble-radio value="apple" [(ngModel)]="selectedRadio">Apple</nimble-radio>
+                <nimble-radio value="banana" [(ngModel)]="selectedRadio">Banana</nimble-radio>
+                <nimble-radio value="mango" [(ngModel)]="selectedRadio">Mango</nimble-radio>
+            </nimble-radio-group>
+            <nimble-text-field [(ngModel)]="selectedRadio">Selected value</nimble-text-field>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Dialog</div>
+            <nimble-dialog #dialog>
+                <span slot="title">This is a dialog</span>
+                <div>It opened when you pushed the button</div>
+                <nimble-button slot="footer" (click)="closeDialog('cancel pressed')">Cancel</nimble-button>
+                <nimble-button slot="footer" (click)="closeDialog('OK pressed')">OK</nimble-button>
+            </nimble-dialog>
+            <nimble-button (click)="openDialog()">Open Dialog</nimble-button>
+            <nimble-text-field readonly [ngModel]="dialogCloseReason">Closed Reason</nimble-text-field>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Drawer</div>
+            <nimble-drawer #drawer [location]="drawerLocation">
+                <header>This is a drawer</header>
+                <section>
+                    <p style="height: 1000px;">It opened when you pushed the button</p>
+                    <p>This is the bottom!</p>
+                </section>
+                <footer class="drawer-footer">
+                    <nimble-button appearance="ghost" (click)="closeDrawer('cancel pressed')">Cancel</nimble-button>
+                    <nimble-button (click)="closeDrawer('OK pressed')">OK</nimble-button>
+                </footer>
+            </nimble-drawer>
+            <nimble-button (click)="openDrawer()">Open Drawer</nimble-button>
+            <nimble-text-field readonly [ngModel]="drawerCloseReason">Closed Reason</nimble-text-field>
+            <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
+                <nimble-list-option [value]="drawerLocations.left">Drawer: Left-side</nimble-list-option>
+                <nimble-list-option [value]="drawerLocations.right">Drawer: Right-side</nimble-list-option>
+            </nimble-select>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Menu</div>
+            <nimble-menu>
+                <header>Header 1</header>
+                <nimble-menu-item>
+                    Item 1
+                    <nimble-icon-add slot="start"></nimble-icon-add>
+                </nimble-menu-item>
+                <nimble-menu-item>Item 2</nimble-menu-item>
+                <hr>
+                <header>Header 2</header>
+                <nimble-menu-item>Item 4</nimble-menu-item>
+            </nimble-menu>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Menu Button</div>
+            <nimble-menu-button>
+                Menu Button
+                <nimble-menu slot="menu" (change)="onMenuButtonMenuChange($event)">
                     <header>Header 1</header>
                     <nimble-menu-item>
                         Item 1
@@ -72,143 +107,126 @@
                     <header>Header 2</header>
                     <nimble-menu-item>Item 4</nimble-menu-item>
                 </nimble-menu>
+            </nimble-menu-button>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Number Field</div>
+            <nimble-number-field appearance="underline" placeholder="Number Field" value="42">Underline Number Field</nimble-number-field>
+            <nimble-number-field appearance="outline" placeholder="Number Field" value="42">Outline Number Field</nimble-number-field>
+            <nimble-number-field appearance="block" placeholder="Number Field" value="42">Block Number Field</nimble-number-field>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Select</div>
+            <nimble-select appearance="underline">
+                <nimble-list-option>Option 1</nimble-list-option>
+                <nimble-list-option>Option 2</nimble-list-option>
+                <nimble-list-option>Option 3</nimble-list-option>
+            </nimble-select>
+            <nimble-select appearance="outline">
+                <nimble-list-option>Option 1</nimble-list-option>
+                <nimble-list-option>Option 2</nimble-list-option>
+                <nimble-list-option>Option 3</nimble-list-option>
+            </nimble-select>
+            <nimble-select appearance="block">
+                <nimble-list-option>Option 1</nimble-list-option>
+                <nimble-list-option>Option 2</nimble-list-option>
+                <nimble-list-option>Option 3</nimble-list-option>
+            </nimble-select>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Combobox</div>
+            <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="underline" autocomplete="both" placeholder="Select value...">
+                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+            </nimble-combobox>
+            <div>
+                <span>
+                    Last name: {{ comboboxSelectedLastName }}
+                </span>
             </div>
-            <div class="sub-container">
-                <div class="container-label">Menu Button</div>
-                <nimble-menu-button>
-                    Menu Button
-                    <nimble-menu slot="menu" (change)="onMenuButtonMenuChange($event)">
-                        <header>Header 1</header>
-                        <nimble-menu-item>
-                            Item 1
-                            <nimble-icon-add slot="start"></nimble-icon-add>
-                        </nimble-menu-item>
-                        <nimble-menu-item>Item 2</nimble-menu-item>
-                        <hr>
-                        <header>Header 2</header>
-                        <nimble-menu-item>Item 4</nimble-menu-item>
-                    </nimble-menu>
-                </nimble-menu-button>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Number Field</div>
-                <nimble-number-field appearance="underline" placeholder="Number Field" value="42">Underline Number Field</nimble-number-field>
-                <nimble-number-field appearance="outline" placeholder="Number Field" value="42">Outline Number Field</nimble-number-field>
-                <nimble-number-field appearance="block" placeholder="Number Field" value="42">Block Number Field</nimble-number-field>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Select</div>
-                <nimble-select appearance="underline">
-                    <nimble-list-option>Option 1</nimble-list-option>
-                    <nimble-list-option>Option 2</nimble-list-option>
-                    <nimble-list-option>Option 3</nimble-list-option>
-                </nimble-select>
-                <nimble-select appearance="outline">
-                    <nimble-list-option>Option 1</nimble-list-option>
-                    <nimble-list-option>Option 2</nimble-list-option>
-                    <nimble-list-option>Option 3</nimble-list-option>
-                </nimble-select>
-                <nimble-select appearance="block">
-                    <nimble-list-option>Option 1</nimble-list-option>
-                    <nimble-list-option>Option 2</nimble-list-option>
-                    <nimble-list-option>Option 3</nimble-list-option>
-                </nimble-select>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Combobox</div>
-                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="underline" autocomplete="both" placeholder="Select value...">
-                    <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
-                </nimble-combobox>
-                <div>
-                    <span>
-                        Last name: {{ comboboxSelectedLastName }}
-                    </span>
-                </div>
-                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="outline" autocomplete="both" placeholder="Select value...">
-                    <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
-                </nimble-combobox>
-                <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="block" autocomplete="both" placeholder="Select value...">
-                    <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
-                </nimble-combobox>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Switch</div>
-                <nimble-switch>Switch</nimble-switch>
-                <nimble-switch checked>
-                    Switch with checked/unchecked messages
-                    <span slot="unchecked-message">Off</span>
-                    <span slot="checked-message">On</span>
-                </nimble-switch>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Tabs</div>
-                <nimble-tabs>
-                    <nimble-tab>Tab 1</nimble-tab>
-                    <nimble-tab>Tab 2</nimble-tab>
-                    <nimble-tab disabled>Tab 3 (Disabled)</nimble-tab>
-                    <nimble-tabs-toolbar>
-                        <nimble-button (click)="navDrawer.open()">Open Drawer</nimble-button>
-                    </nimble-tabs-toolbar>
-                    <nimble-tab-panel>
-                        <div class="container-label">Tab 1 content</div>
-                    </nimble-tab-panel>
-                    <nimble-tab-panel>
-                        <div class="container-label">Tab 2 content</div>
-                    </nimble-tab-panel>
-                    <nimble-tab-panel>
-                        <div class="container-label">Tab 3 content</div>
-                    </nimble-tab-panel>
-                </nimble-tabs>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Text Area</div>
-                <nimble-text-area placeholder="Text Area" cols="50" rows="5" resize="horizontal" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</nimble-text-area>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Text Field</div>
-                <nimble-text-field appearance="underline" placeholder="Text Field" value="Here is text!">Underline Text Field</nimble-text-field>
-                <nimble-text-field appearance="outline" placeholder="Text Field" value="Here is text!">Outline Text Field</nimble-text-field>
-                <nimble-text-field appearance="block" placeholder="Text Field" value="Here is text!">Block Text Field</nimble-text-field>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Toolbar</div>
-                <nimble-toolbar>
-                    <nimble-button slot="start" appearance="outline">First button</nimble-button>
-                    <nimble-button slot="start" appearance="outline">Second button</nimble-button>
-                    <nimble-button>Middle button</nimble-button>
-                    <nimble-button slot="end" appearance="outline">Last button</nimble-button>
-                </nimble-toolbar>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Tooltip</div>
-                <nimble-button id="anchor1">Default</nimble-button>
-                <nimble-tooltip anchor="anchor1">Tooltip label</nimble-tooltip>
-                <nimble-button id="anchor2">Fail</nimble-button>
-                <nimble-tooltip anchor="anchor2" class="fail">Tooltip label</nimble-tooltip>
-                <nimble-button id="anchor3">Information</nimble-button>
-                <nimble-tooltip anchor="anchor3" class="information">Tooltip label</nimble-tooltip>
-                <nimble-button id="anchor4">Fail Icon </nimble-button>
-                <nimble-tooltip anchor="anchor4" class="fail icon-visible">Tooltip label</nimble-tooltip>
-                <nimble-button id="anchor5">Information Icon</nimble-button>
-                <nimble-tooltip anchor="anchor5" class="information icon-visible">Tooltip label</nimble-tooltip>
-            </div>
-            <div class="sub-container">
-                <div class="container-label">Tree View</div>
-                <nimble-tree-view>
-                    <nimble-tree-item>
-                        Parent 1
-                        <nimble-tree-item>Child 1</nimble-tree-item>
-                        <nimble-tree-item>Child 2</nimble-tree-item>
-                        <nimble-tree-item disabled>Child 3</nimble-tree-item>
-                    </nimble-tree-item>
-                    <nimble-tree-item expanded>
-                        Parent 2
-                        <nimble-tree-item selected>Child 2-1</nimble-tree-item>
-                        <nimble-tree-item>Child 2-2</nimble-tree-item>
-                        <nimble-tree-item>Child 2-3</nimble-tree-item>
-                    </nimble-tree-item>
-                </nimble-tree-view>
-            </div>
+            <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="outline" autocomplete="both" placeholder="Select value...">
+                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+            </nimble-combobox>
+            <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="block" autocomplete="both" placeholder="Select value...">
+                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+            </nimble-combobox>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Switch</div>
+            <nimble-switch>Switch</nimble-switch>
+            <nimble-switch checked>
+                Switch with checked/unchecked messages
+                <span slot="unchecked-message">Off</span>
+                <span slot="checked-message">On</span>
+            </nimble-switch>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Tabs</div>
+            <nimble-tabs>
+                <nimble-tab>Tab 1</nimble-tab>
+                <nimble-tab>Tab 2</nimble-tab>
+                <nimble-tab disabled>Tab 3 (Disabled)</nimble-tab>
+                <nimble-tabs-toolbar>
+                    <nimble-button (click)="onTabToolbarButtonClick()">Toolbar button</nimble-button>
+                </nimble-tabs-toolbar>
+                <nimble-tab-panel>
+                    <div class="container-label">Tab 1 content</div>
+                </nimble-tab-panel>
+                <nimble-tab-panel>
+                    <div class="container-label">Tab 2 content</div>
+                </nimble-tab-panel>
+                <nimble-tab-panel>
+                    <div class="container-label">Tab 3 content</div>
+                </nimble-tab-panel>
+            </nimble-tabs>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Text Area</div>
+            <nimble-text-area placeholder="Text Area" cols="50" rows="5" resize="horizontal" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</nimble-text-area>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Text Field</div>
+            <nimble-text-field appearance="underline" placeholder="Text Field" value="Here is text!">Underline Text Field</nimble-text-field>
+            <nimble-text-field appearance="outline" placeholder="Text Field" value="Here is text!">Outline Text Field</nimble-text-field>
+            <nimble-text-field appearance="block" placeholder="Text Field" value="Here is text!">Block Text Field</nimble-text-field>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Toolbar</div>
+            <nimble-toolbar>
+                <nimble-button slot="start" appearance="outline">First button</nimble-button>
+                <nimble-button slot="start" appearance="outline">Second button</nimble-button>
+                <nimble-button>Middle button</nimble-button>
+                <nimble-button slot="end" appearance="outline">Last button</nimble-button>
+            </nimble-toolbar>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Tooltip</div>
+            <nimble-button id="anchor1">Default</nimble-button>
+            <nimble-tooltip anchor="anchor1">Tooltip label</nimble-tooltip>
+            <nimble-button id="anchor2">Fail</nimble-button>
+            <nimble-tooltip anchor="anchor2" severity="error">Tooltip label</nimble-tooltip>
+            <nimble-button id="anchor3">Information</nimble-button>
+            <nimble-tooltip anchor="anchor3" severity="information">Tooltip label</nimble-tooltip>
+            <nimble-button id="anchor4">Fail Icon </nimble-button>
+            <nimble-tooltip anchor="anchor4" severity="error" icon-visible>Tooltip label</nimble-tooltip>
+            <nimble-button id="anchor5">Information Icon</nimble-button>
+            <nimble-tooltip anchor="anchor5" severity="information" icon-visible>Tooltip label</nimble-tooltip>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Tree View</div>
+            <nimble-tree-view>
+                <nimble-tree-item>
+                    Parent 1
+                    <nimble-tree-item>Child 1</nimble-tree-item>
+                    <nimble-tree-item>Child 2</nimble-tree-item>
+                    <nimble-tree-item disabled>Child 3</nimble-tree-item>
+                </nimble-tree-item>
+                <nimble-tree-item expanded>
+                    Parent 2
+                    <nimble-tree-item selected>Child 2-1</nimble-tree-item>
+                    <nimble-tree-item>Child 2-2</nimble-tree-item>
+                    <nimble-tree-item>Child 2-3</nimble-tree-item>
+                </nimble-tree-item>
+            </nimble-tree-view>
         </div>
     </div>
-</example-nav-drawer>
+</div>

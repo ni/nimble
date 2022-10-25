@@ -2,6 +2,162 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 25 Oct 2022 13:53:36 GMT",
+      "tag": "@ni/nimble-components_v15.1.1",
+      "version": "15.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.1.3",
+            "commit": "0084ab10c57914fc414d9652bd824eb3c7fa3572"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Oct 2022 20:07:47 GMT",
+      "tag": "@ni/nimble-components_v15.1.0",
+      "version": "15.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ab2b99c28d8e3a70788c536f4eabe55be717c656",
+            "comment": "Fix broken documentation link in storybook"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 18 Oct 2022 16:53:38 GMT",
+      "tag": "@ni/nimble-components_v15.1.0",
+      "version": "15.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "14c474efc7dd3f27d26ef7d977d1885019d58a95",
+            "comment": "Implement error state for select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Oct 2022 21:13:41 GMT",
+      "tag": "@ni/nimble-components_v15.0.0",
+      "version": "15.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8f496f0aaca48e5765e942292c88e78094e81386",
+            "comment": "Rename nimble \"radio button\" to \"radio\""
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Oct 2022 17:54:42 GMT",
+      "tag": "@ni/nimble-components_v14.0.0",
+      "version": "14.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "980a9dac9961ef1487833281470f97c79f0f5197",
+            "comment": "- Extend styling on nimble-dialog by implementing a slotted template.\n  - `aria-label` no longer correctly labels the dialog. Provide text content in the `title` and/or `subtitle` to give the dialog an accessible label.\n  - Styling has changed. Update dialogs in one of the two ways:\n      1. To lay out content using recommended patterns, use exposed slots of `title`, `subtitle`, and `footer` to lay out content using recommended patterns.\n      2. To keep (nearly) identical layout as before this change:\n          - set `header-hidden` and `footer-hidden` on the dialog\n          - wrap the entire contents of the dialog in a single element, such as a `<div>` to avoid having the default flex layout applied to content\n          - note: it is still recommended to provide a title/subtitle for accessibility purposes even when setting `header-hidden`"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Oct 2022 16:41:24 GMT",
+      "tag": "@ni/nimble-components_v13.0.0",
+      "version": "13.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e31785bf51ac6d2e2d188ee3dceed3d862565d3e",
+            "comment": "Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Oct 2022 22:16:20 GMT",
+      "tag": "@ni/nimble-components_v12.0.2",
+      "version": "12.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "31021de203162ed44452ab54425946b220cf9f0f",
+            "comment": "Updating licenses to MIT"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.1.2",
+            "commit": "31021de203162ed44452ab54425946b220cf9f0f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 Sep 2022 20:33:02 GMT",
+      "tag": "@ni/nimble-components_v12.0.1",
+      "version": "12.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.1.1",
+            "commit": "21569a7511ea37f1bab18a1edae89cd9fa2ce8f6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 Sep 2022 20:03:25 GMT",
+      "tag": "@ni/nimble-components_v12.0.0",
+      "version": "12.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9023d71ddb4740a624e5b9eac0114a0c91fbca78",
+            "comment": "Migrated from CSS classes to element attributes for configuring components. For the list of specific elements and classes changed see: [#738](https://github.com/ni/nimble/pull/738)."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 28 Sep 2022 14:06:28 GMT",
+      "tag": "@ni/nimble-components_v11.15.1",
+      "version": "11.15.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "be52bb0145134c4882e20d3650eca580b4bd24c1",
+            "comment": "Update nimble-dialog Readme to include visual design spec and styling updates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Sep 2022 17:36:11 GMT",
       "tag": "@ni/nimble-components_v11.15.1",
       "version": "11.15.1",

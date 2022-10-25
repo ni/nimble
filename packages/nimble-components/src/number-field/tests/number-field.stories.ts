@@ -13,8 +13,8 @@ interface NumberFieldArgs {
     max: number;
     appearance: NumberFieldAppearance;
     disabled: boolean;
-    invalid: boolean;
-    'error-text': string;
+    errorVisible: boolean;
+    errorText: string;
 }
 
 const metadata: Meta<NumberFieldArgs> = {
@@ -44,8 +44,8 @@ const metadata: Meta<NumberFieldArgs> = {
             max="${x => x.max}"
             appearance="${x => x.appearance}"
             ?disabled="${x => x.disabled}"
-            class="${x => (x.invalid ? 'invalid' : '')}"
-            error-text="${x => x['error-text']}"
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
         >
             ${x => x.label}
         </nimble-number-field>
@@ -54,6 +54,12 @@ const metadata: Meta<NumberFieldArgs> = {
         appearance: {
             options: Object.values(NumberFieldAppearance),
             control: { type: 'radio' }
+        },
+        errorText: {
+            name: 'error-text'
+        },
+        errorVisible: {
+            name: 'error-visible'
         }
     },
     args: {
@@ -64,8 +70,8 @@ const metadata: Meta<NumberFieldArgs> = {
         max: 50,
         appearance: NumberFieldAppearance.underline,
         disabled: false,
-        invalid: false,
-        'error-text': 'Value is invalid'
+        errorVisible: false,
+        errorText: 'Value is invalid'
     }
 };
 

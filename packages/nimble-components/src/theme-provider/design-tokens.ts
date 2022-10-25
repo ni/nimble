@@ -87,9 +87,9 @@ import {
     Information100DarkUi
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
-    modalBackdropColorThemeColor,
-    modalBackdropColorThemeDark,
-    modalBackdropColorThemeLight
+    modalBackdropColorThemeColorStatic,
+    modalBackdropColorThemeDarkStatic,
+    modalBackdropColorThemeLightStatic
 } from './design-tokens-static';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -710,12 +710,12 @@ function getFillDownColorForTheme(element: HTMLElement): string {
 function getModalBackdropForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
         case Theme.light:
-            return modalBackdropColorThemeLight;
+            return modalBackdropColorThemeLightStatic;
         case Theme.dark:
-            return modalBackdropColorThemeDark;
+            return modalBackdropColorThemeDarkStatic;
         case Theme.color:
-            return modalBackdropColorThemeColor;
+            return modalBackdropColorThemeColorStatic;
         default:
-            return modalBackdropColorThemeLight;
+            return modalBackdropColorThemeLightStatic;
     }
 }

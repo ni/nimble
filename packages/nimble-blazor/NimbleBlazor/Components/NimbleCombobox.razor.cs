@@ -46,6 +46,18 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     public string? Placeholder { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the combobox error text
+    /// </summary>
+    [Parameter]
+    public string? ErrorText { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the combobox error is visible
+    /// </summary>
+    [Parameter]
+    public bool? ErrorVisible { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content to be rendered inside the combobox
     /// </summary>
     [Parameter]

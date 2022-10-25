@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "5.7.1",
+  "version": "9.1.1",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build:release && npm run build:client",
@@ -29,7 +29,7 @@
   "author": {
     "name": "National Instruments"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ni/nimble/issues"
   },
