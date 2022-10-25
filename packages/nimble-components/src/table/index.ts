@@ -7,6 +7,7 @@ import '@finos/perspective-viewer';
 import 'regular-table';
 import { tableFont } from './table-theme';
 import { HTMLPerspectiveViewerDatagridPluginElement } from '../perspective-viewer-datagrid/src/js/custom_elements/datagrid';
+import '../perspective-viewer-nimble-table';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -60,6 +61,7 @@ const nimbleTable = Table.compose({
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTable());
 
+// Inlined registration from perspective-viewer-datagrid\src\js\index.js
 customElements.define(
     'perspective-viewer-datagrid',
     HTMLPerspectiveViewerDatagridPluginElement
