@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 03 Oct 2022 22:16:20 GMT and should not be manually modified.
+This log was last generated on Tue, 25 Oct 2022 13:53:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.1.3
+
+Tue, 25 Oct 2022 13:53:36 GMT
+
+### Patches
+
+- Update error text size ([ni/nimble@0084ab1](https://github.com/ni/nimble/commit/0084ab10c57914fc414d9652bd824eb3c7fa3572))
 
 ## 4.1.2
 
