@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 25 Oct 2022 21:02:37 GMT",
+      "tag": "@ni/nimble-angular_v12.1.2",
+      "version": "12.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "be60be5dfc34d136a0f82cd079b168d3d208a160",
+            "comment": "Include copy of Angular RadioControlValueAccessor and dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Oct 2022 13:53:36 GMT",
       "tag": "@ni/nimble-angular_v12.1.1",
       "version": "12.1.1",

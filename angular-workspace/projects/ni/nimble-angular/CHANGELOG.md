@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 25 Oct 2022 13:53:36 GMT and should not be manually modified.
+This log was last generated on Tue, 25 Oct 2022 21:02:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.1.2
+
+Tue, 25 Oct 2022 21:02:37 GMT
+
+### Patches
+
+- Include copy of Angular RadioControlValueAccessor and dependencies ([ni/nimble@be60be5](https://github.com/ni/nimble/commit/be60be5dfc34d136a0f82cd079b168d3d208a160))
 
 ## 12.1.1
 

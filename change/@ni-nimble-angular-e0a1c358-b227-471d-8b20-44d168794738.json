@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Include copy of Angular RadioControlValueAccessor and dependencies",
-  "packageName": "@ni/nimble-angular",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
