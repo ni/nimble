@@ -7,7 +7,7 @@ This example project creates a simple counter application using Vanilla (no fram
 Use the Stackblitz link to launch the starting point of the example.
 Start Example:
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/ni/nimble/tree/typescript-example/examples/nimble-typescript/start?file=package.json)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/ni/nimble/tree/typescript-example/examples/nimble-typescript/start)
 
 ## Finish
 
@@ -26,6 +26,7 @@ Add the bundled distribution file to the head tag of `index.html`.
 ```
 
 Swap the `<button>` for `<nimble-button>`
+
 Before
 
 ```html
@@ -83,4 +84,4 @@ h1 {
 
 Finished Example:
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/ni/nimble/tree/typescript-example/examples/nimble-typescript/start?file=package.json)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/ni/nimble/tree/typescript-example/examples/nimble-typescript/finish)
