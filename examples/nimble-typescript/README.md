@@ -5,6 +5,7 @@ This example project creates a simple counter application using Vanilla (no fram
 ## Start
 
 Use the Stackblitz link to launch the starting point of the example.
+
 Start Example:
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/ni/nimble/tree/typescript-example/examples/nimble-typescript/start)
