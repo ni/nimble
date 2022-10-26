@@ -13,7 +13,7 @@ Start Example:
 
 Incorporate Nimble to use the components and style provided by Nimble.
 
-See the finished Example
+See the Finished Example
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/ni/nimble/tree/typescript-example/examples/nimble-typescript/finish)
 
@@ -22,9 +22,9 @@ Add the bundled distribution file to the head tag of `index.html`.
 ```html
 <html>
     <head>
-    ...
-     <script src="https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.min.js"></script>
-   ...
+        ...
+        <script src="https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.min.js"></script>
+        ...
     </head>
 </html>
 ```
@@ -83,6 +83,3 @@ h1 {
   filter: drop-shadow(0 0 2em #3178c6aa);
 }
 ```
-
-
-
