@@ -3,11 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" type="text/css" href="src/style.css" /> 
+    <script src="https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Nimble + TS</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div class="main-container">
+      <a href="https://nimble.ni.dev" target="_blank">
+        <img src="/nimble.svg" class="logo" alt="Nimble logo" />
+      </a>
+      <a href="https://www.typescriptlang.org/" target="_blank">
+        <img src="/typescript.svg" class="logo vanilla" alt="TypeScript logo" />
+      </a>
+      <h1>Nimble + TypeScript</h1>
+      <div class="card">
+        <nimble-button id="counter" type="button"></nimble-button>
+      </div>
+
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
