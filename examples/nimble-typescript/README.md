@@ -13,6 +13,10 @@ Start Example:
 
 Incorporate Nimble to use the components and style provided by Nimble.
 
+See the finished Example
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/ni/nimble/tree/typescript-example/examples/nimble-typescript/finish)
+
 Add the bundled distribution file to the head tag of `index.html`.
 
 ```html
@@ -27,13 +31,13 @@ Add the bundled distribution file to the head tag of `index.html`.
 
 Swap the `<button>` for `<nimble-button>`
 
-Before
+**Before**
 
 ```html
  <button id="counter" type="button"></button>
  ```
 
-After
+**After**
 
 ```html
  <nimble-button id="counter" type="button"></nimble-button>
@@ -82,6 +86,3 @@ h1 {
 
 
 
-Finished Example:
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/ni/nimble/tree/typescript-example/examples/nimble-typescript/finish)
