@@ -20,7 +20,7 @@ Start Example:
 
 Use the Stackblitz link to launch the starting point of the example. You can download the example as a zip file, extract it, and open it in your local editor.
 
-![Screenshot of Download project button in StackBlitz](download-project.png)
+![Screenshot of Download project button in StackBlitz](docs/download-project.png)
 
 Open the project folder in your editor and run `npm install` to install all the dependencies needed to run the project.
 

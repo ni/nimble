@@ -38,7 +38,9 @@
     "angular-workspace",
     "angular-workspace/projects/ni/nimble-angular",
     "packages/nimble-blazor",
-    "packages/site"
+    "packages/site",
+    "examples/vanilla/counter/start",
+    "examples/vanilla/counter/finish"
   ],
   "devDependencies": {
     "@lhci/cli": "^0.8.1",
