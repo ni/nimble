@@ -10,7 +10,7 @@ This example project creates a simple counter application using Vanilla (no fram
 
 2. Install Node.js - <https://nodejs.org/en/download/>  
 
-    Node.js is an open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside of a web browser.
+    Node.js is an open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside of a web browser. It includes npm, a widely-used JavaScript package manager.
 
 ## Start
 
