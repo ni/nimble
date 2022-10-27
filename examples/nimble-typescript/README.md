@@ -4,7 +4,7 @@ This example project creates a simple counter application using Vanilla (no fram
 
 ## Prerequisites
 
-1. Install VSCode  (or your editor of choice) - <https://code.visualstudio.com/>  
+1. [Install VSCode](https://code.visualstudio.com/)  (or your editor of choice) 
 
     VSCode is a free editor (borderline IDE) that is very popular in web development.
 
