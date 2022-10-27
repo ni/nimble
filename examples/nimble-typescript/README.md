@@ -8,7 +8,7 @@ This example project creates a simple counter application using Vanilla (no fram
 
     VSCode is a free editor (borderline IDE) that is very popular in web development.
 
-2. Install Node.js - <https://nodejs.org/en/download/>  
+2. [Install Node.js](https://nodejs.org/en/download/)  
 
     Node.js is an open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside of a web browser. It includes npm, a widely-used JavaScript package manager.
 
@@ -36,14 +36,15 @@ Run `npm run dev` to run the development version of the application and see it i
     import { Button } from '@ni/nimble-components/dist/esm/button';
 
     export function setupCounter(element: Button) {
-    let counter = 0;
+        let counter = 0;
 
-    const setCounter = (count: number) => {
-        counter = count;
-        element.innerHTML = `count is ${counter}`;
-    };
-    element.addEventListener('click', () => setCounter(counter + 1));
-    setCounter(0);
+        const setCounter = (count: number) => {
+            counter = count;
+            element.innerHTML = `count is ${counter}`;
+        };
+
+        element.addEventListener('click', () => setCounter(counter + 1));
+        setCounter(0);
     }
     ```
 
@@ -68,28 +69,28 @@ Run `npm run dev` to run the development version of the application and see it i
     @import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
 
     :root {
-    color: $ni-nimble-headline-font-color;
+        color: $ni-nimble-headline-font-color;
     }
 
     body {
-    margin: 0;
-    display: flex;
-    place-items: center;
-    min-width: 320px;
-    min-height: 100vh;
-    background-color: $ni-nimble-application-background-color;
+        margin: 0;
+        display: flex;
+        place-items: center;
+        min-width: 320px;
+        min-height: 100vh;
+        background-color: $ni-nimble-application-background-color;
     }
 
     h1 {
-    font: $ni-nimble-group-header-font;
-    font-size: 3.2em;
+        font: $ni-nimble-group-header-font;
+        font-size: 3.2em;
     }
 
     #app {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 2rem;
+        text-align: center;
     }
     ```
 
