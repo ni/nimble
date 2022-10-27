@@ -30,7 +30,7 @@ Run `npm run dev` to run the development version of the application and see it i
 
 1. Add the nimble components to your project dependencies.  
 `npm install @ni/nimble-components`
-1. In `counter.ts` import the nimble-button reference and update the parameter type to `Button` for the `setupCounter` function.  
+2. In `counter.ts` import the nimble-button reference and update the parameter type to `Button` for the `setupCounter` function.  
 
     ```ts
     import { Button } from '@ni/nimble-components/dist/esm/button';
