@@ -1,4 +1,4 @@
-# Nimble Typescript Getting Started
+# Nimble TypeScript Getting Started
 
 This example project creates a simple counter application using Vanilla (no framework) Typescript and the Nimble Design System.
 
