@@ -48,7 +48,7 @@ Run `npm run dev` to run the development version of the application and see it i
     }
     ```
 
-1. Add the appropriate imports to the beginning of `main.ts`.  
+3. Add the appropriate imports to the beginning of `main.ts`.  
 
     ```ts
     import '@ni/nimble-components/dist/esm/button';
@@ -56,13 +56,13 @@ Run `npm run dev` to run the development version of the application and see it i
     import { Button } from '@ni/nimble-components/dist/esm/button';
     ```
 
-1. Also in `main.ts`, update the Type for the querySelector to `Button`.  
+4. Also in `main.ts`, update the Type for the querySelector to `Button`.  
 
     ```ts
     setupCounter(document.querySelector<Button>('#counter')!)
     ```
 
-1. Update `style.scss` with the nimble tokens and fonts.  
+5. Update `style.scss` with the nimble tokens and fonts.  
 
     ```css
     @import '@ni/nimble-components/dist/tokens.scss';
@@ -94,7 +94,7 @@ Run `npm run dev` to run the development version of the application and see it i
     }
     ```
 
-1. Update `index.html` to use a `nimble-button` instead of a standard HTML `button`.  
+6. Update `index.html` to use a `nimble-button` instead of a standard HTML `button`.  
 
     ```html
     <body>
@@ -107,7 +107,7 @@ Run `npm run dev` to run the development version of the application and see it i
     </body>
     ```
 
-1. Re-run the application.
+7. Re-run the application.
 
     You can see now that the application is now using typography, styles and controls from the Nimble Design System.
 
