@@ -1,0 +1,27 @@
+@import '@ni/nimble-components/dist/tokens.scss';
+@import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
+
+:root {
+  color: $ni-nimble-headline-font-color;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: $ni-nimble-application-background-color;
+}
+
+h1 {
+  font: $ni-nimble-group-header-font;
+  font-size: 3.2em;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
