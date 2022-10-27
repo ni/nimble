@@ -19,7 +19,7 @@ If you are using one of the following frameworks see associated wrapper document
 
 ### Using in a Module Bundler Application
 
-If you have an existing application that incorporates a module bundler like [Webpack](https://webpack.js.org/) or [Rollup](https://rollupjs.org/guide/en/) but doesn't include one of the above frameworks, you can use `@ni/nimble-components` directly. Exact instructions will depend on your application, but you can find an example at [Nimble TypeScript example](/examples/nimble-typescript)
+If you have an existing application that incorporates a module bundler like [Webpack](https://webpack.js.org/) or [Rollup](https://rollupjs.org/guide/en/) but doesn't include one of the above frameworks, you can use `@ni/nimble-components` directly. Exact instructions will depend on your application, but you can find an example in the [Nimble TypeScript example](/examples/nimble-typescript)
 
 
 ### Prototyping in a static webpage
