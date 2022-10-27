@@ -2,9 +2,23 @@
 
 This example project creates a simple counter application using Vanilla (no framework) Typescript and the Nimble Design System.
 
+## Prerequisites
+
+1. Install VSCode  (or your editor of choice) - https://code.visualstudio.com/  
+
+VSCode is a free editor (borderline IDE) that is very popular in web development.
+
+2. Install nodejs - https://nodejs.org/en/download/  
+
+Node.js is an open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside of a web browser.
+
 ## Start
 
-Use the Stackblitz link to launch the starting point of the example.
+https://stackblitz.com/edit/typescript-2rzao1?file=index.ts
+
+Use the Stackblitz link to launch the starting point of the example. You can download the example as a zip file, extract it and open it in your local editor.
+
+![Screenshot of Download project button in StackBlitz](download-project.png)
 
 Start Example:
 
