@@ -45,6 +45,7 @@ Run `npm run dev` run the development version of the application.
     setCounter(0);
     }
     ```
+
 1. Add the appropriate imports to the beginning of `main.ts`
 
     ```ts
@@ -52,6 +53,13 @@ Run `npm run dev` run the development version of the application.
 
     import { Button } from '@ni/nimble-components/dist/esm/button';
     ```
+
+1. Also in `main.ts`, update the Type for the querySelector to `Button`
+
+    ```ts
+    setupCounter(document.querySelector<Button>('#counter')!)
+    ```
+
 1. Update `style.scss` with the nimble tokens and fonts.
 
     ```css
@@ -82,6 +90,19 @@ Run `npm run dev` run the development version of the application.
     padding: 2rem;
     text-align: center;
     }
+    ```
+
+1. Update `index.html` to use a `nimble-button` instead of a standard HTML `button`
+
+    ```html
+    <body>
+        <div id="app">
+        <h1>Nimble Counter</h1>
+        <div>
+            <nimble-button id="counter"></nimble-button>
+        </div>
+        </div>
+    </body>
     ```
 
 ## Finish
