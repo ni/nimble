@@ -4,11 +4,11 @@ This example project creates a simple counter application using Vanilla (no fram
 
 ## Prerequisites
 
-1. Install VSCode  (or your editor of choice) - https://code.visualstudio.com/  
+1. Install VSCode  (or your editor of choice) - <https://code.visualstudio.com/>  
 
     VSCode is a free editor (borderline IDE) that is very popular in web development.
 
-2. Install nodejs - https://nodejs.org/en/download/  
+2. Install Node.js - <https://nodejs.org/en/download/>  
 
     Node.js is an open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside of a web browser.
 
@@ -18,19 +18,20 @@ Start Example:
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/ni/nimble/tree/typescript-example/examples/nimble-typescript/start)
 
-Use the Stackblitz link to launch the starting point of the example. You can download the example as a zip file, extract it and open it in your local editor.
+Use the Stackblitz link to launch the starting point of the example. You can download the example as a zip file, extract it, and open it in your local editor.
 
 ![Screenshot of Download project button in StackBlitz](download-project.png)
 
 Open the project folder in your editor and run `npm install` to install all the dependencies needed to run the project.
 
-Run `npm run dev` run the development version of the application.
+Run `npm run dev` to run the development version of the application and see it in your web browser.
 
 ## Integrating Nimble
 
-1. Add the nimble components to your project dependencies  
+1. Add the nimble components to your project dependencies.  
 `npm install @ni/nimble-components`
-1. In `counter.ts` import the nimble-button reference and update the parameter type to `Button` for the `setupCounter` function
+1. In `counter.ts` import the nimble-button reference and update the parameter type to `Button` for the `setupCounter` function.  
+
     ```ts
     import { Button } from '@ni/nimble-components/dist/esm/button';
 
@@ -46,7 +47,7 @@ Run `npm run dev` run the development version of the application.
     }
     ```
 
-1. Add the appropriate imports to the beginning of `main.ts`
+1. Add the appropriate imports to the beginning of `main.ts`.  
 
     ```ts
     import '@ni/nimble-components/dist/esm/button';
@@ -54,13 +55,13 @@ Run `npm run dev` run the development version of the application.
     import { Button } from '@ni/nimble-components/dist/esm/button';
     ```
 
-1. Also in `main.ts`, update the Type for the querySelector to `Button`
+1. Also in `main.ts`, update the Type for the querySelector to `Button`.  
 
     ```ts
     setupCounter(document.querySelector<Button>('#counter')!)
     ```
 
-1. Update `style.scss` with the nimble tokens and fonts.
+1. Update `style.scss` with the nimble tokens and fonts.  
 
     ```css
     @import '@ni/nimble-components/dist/tokens.scss';
@@ -92,7 +93,7 @@ Run `npm run dev` run the development version of the application.
     }
     ```
 
-1. Update `index.html` to use a `nimble-button` instead of a standard HTML `button`
+1. Update `index.html` to use a `nimble-button` instead of a standard HTML `button`.  
 
     ```html
     <body>
@@ -104,6 +105,10 @@ Run `npm run dev` run the development version of the application.
         </div>
     </body>
     ```
+
+1. Re-run the application.
+
+    You can see now that the application is now using typography, styles and controls from the Nimble Design System.
 
 ## Finish
 
