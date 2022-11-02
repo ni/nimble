@@ -59,26 +59,10 @@ export class PerspectiveViewerNimbleTable
     private _numRows = 0;
     private _currentView?: View;
 
-    public constructor() {
-        super();
-        const viewer = this;
-        // this.resizeObserver = new ResizeObserver(entries => {
-        //     const viewport = entries.find(entry => entry.target === viewer.viewport);
-        //     if (viewport) {
-        //         const viewPortRect = viewport.contentRect;
-        //         if (viewer._viewPortRect !== undefined || viewPortRect.height !== viewer._viewPortRect) {
-        //             viewer.initializeVirtualizer();
-        //             viewer.virtualizer?._willUpdate();
-        //         }
-        //     }
-        // });
-    }
-
     public override connectedCallback(): void {
         super.connectedCallback();
-        // this.resizeObserver.observe(this.viewport);
         this.initializeVirtualizer();
-        const table = ((this.parentElement?.getRootNode()! as any).host) as Table;
+        const table = ((this.parentElement!.getRootNode()! as ShadowRoot).host) as Table;
         const columns: TableColumn[] = [];
         for (const columnProvider of table.slottedColumns) {
             if (this.isColumnProvider(columnProvider)) {
@@ -203,17 +187,6 @@ export class PerspectiveViewerNimbleTable
                 return nimbleTable.viewport;
             },
             estimateSize: (_: number) => {
-                // if (index < 5) {
-                //     return 32;
-                // }
-                // return 100;
-                // const rows = nimbleTable._rowData;
-                // const row = rows?;
-                // if (row?.getIsExpanded() && !row?.getIsGrouped()) {
-                //     console.log(132);
-                //     return 132;
-                // }
-                // console.log(32);
                 return 32;
             },
             enableSmoothScroll: true,
@@ -236,10 +209,6 @@ export class PerspectiveViewerNimbleTable
         } as VirtualizerOptions;
         this.virtualizer = new Virtualizer(virtualizerOptions);
         this.virtualizer._willUpdate();
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        this.visibleItems = this.virtualizer.getVirtualItems();
-        this.rowContainerHeight = nimbleTable.virtualizer!.getTotalSize();
-        this.setVisibleRowData();
     }
 
     private isColumnProvider(object: unknown): boolean {
@@ -253,7 +222,7 @@ export class PerspectiveViewerNimbleTable
         for (let i = 0; i < rowCount; i++) {
             const visibleItem = this.visibleItems[i];
             const rowData = Object.values(this._rowData![i] as any);
-            const rowCellData = rowData.map((v, i) => ({ value: v, columnId: columnIds[i] } as CellData));
+            const rowCellData = rowData.map((v, index) => ({ value: v, columnId: columnIds[index] } as CellData));
             const virtualRowData = { data: rowCellData, parent: this, start: visibleItem?.start, size: visibleItem?.size } as VirtualTableRowData;
             tableRowData.push(virtualRowData);
         }

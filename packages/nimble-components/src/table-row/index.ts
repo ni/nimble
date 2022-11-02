@@ -9,7 +9,6 @@ export interface VirtualTableRowData {
     parent: PerspectiveViewerNimbleTable;
     start: number;
     size: number;
-    // visibleCells?: Cell<unknown, unknown>[];
 }
 
 declare global {

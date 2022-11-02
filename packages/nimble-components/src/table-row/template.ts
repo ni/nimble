@@ -19,14 +19,3 @@ export const template = html<TableRow>`
         </div>
     </template>
 `;
-
-// ${repeat(x => x.rowData.row.getVisibleCells(), html<Cell<unknown, unknown>>`
-// <nimble-table-cell 
-//     :cellItemTemplate=${(x, c) => (c.parent as TableRow).getColumnTemplate(x)}
-//     :cellData=${x => x.getValue()}
-//     :hasMenu=${(x, c) => (c.parent as TableRow).columnHasMenu(x)}
-//     @action-menu-open=${(x, c) => (c.parent as TableRow).onCellActionMenuOpen(x)}
-//     >
-//     <slot name="rowActionMenu" slot="cellActionMenu"></slot>
-// </nimble-table-cell>
-// `)}
