@@ -8,7 +8,7 @@ export const styles = css`
     ${display('flex')}
 
     :host {
-        width: 600px;
+        width: 100%;
         height: 600px;
     }
 `;

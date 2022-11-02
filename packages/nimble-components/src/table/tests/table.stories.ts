@@ -20,7 +20,10 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-table></nimble-table>
+        <nimble-table>
+            <nimble-number-field-column columnId="x" columnTitle="X"></nimble-number-field-column>
+            <nimble-number-field-column columnId="y" columnTitle="Y"></nimble-number-field-column>
+        </nimble-table>
     `),
     args: {
         disabled: false,
@@ -31,3 +34,4 @@ const metadata: Meta<TableArgs> = {
 export default metadata;
 
 export const table: StoryObj<TableArgs> = {};
+

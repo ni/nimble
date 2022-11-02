@@ -5,7 +5,19 @@ export const styles = css`
     ${display('flex')}
 
     :host {
-        width: 600px;
-        height: 600px;
+        width: 100%;
+        height: auto;
+    }
+
+    .table-viewport {
+        overflow-y: scroll;
+        display: block;
+        height: 100%;
+        width: inherit;
+      }
+    
+    .table-body {
+        width: 100%;
+        position: relative;
     }
 `;
