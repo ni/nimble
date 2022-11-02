@@ -45,7 +45,6 @@ export class Table extends FoundationElement {
 
     private readonly worker = perspective.worker();
     private table?: PerspectiveTable;
-    private pluginTable?: PerspectiveViewerNimbleTable;
 
     public override connectedCallback(): void {
         super.connectedCallback();
