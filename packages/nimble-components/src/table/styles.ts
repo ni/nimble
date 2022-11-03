@@ -11,4 +11,8 @@ export const styles = css`
         width: 600px;
         height: 600px;
     }
+
+    perspective-viewer {
+        flex: 1;
+    }
 `;

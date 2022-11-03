@@ -53,10 +53,11 @@ export class Table extends FoundationElement {
                 parentId: ['', 'id-3', 'id-1', '', 'id-3', 'id-3', 'id-9', 'id-0', '', '']
             };
             this.table.update(data);
-            await this.viewer.toggleConfig(true);
             // theme needs to be manually reset as the autodetection
             // of styles won't work
             await this.viewer.resetThemes(['Material Light']);
+
+            this.viewer.shadowRoot.querySelector('#settings_button').style.display = 'none';
         })();
     }
 }

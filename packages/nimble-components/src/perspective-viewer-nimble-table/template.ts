@@ -10,36 +10,43 @@ function getRowTemplate(table: PerspectiveViewerNimbleTable, row: TableRow, recu
 
     return html`
         <div style="margin-left: ${_ => leftMargin}px">
-            ${when(_ => row.canExpand, html`
-                <nimble-button
-                    content-hidden
-                    @click=${_ => table.toggleRowExpansionState(row)}
-                >
-                    ${when(_ => row.isExpanded, html`
-                        <nimble-icon-arrow-expander-down slot="start">
-                    `)}
-                    ${when(_ => !row.isExpanded, html`
-                        <nimble-icon-arrow-expander-right slot="start">
-                    `)}
-                </nimble-button>
-            `)}
-            ${when(_ => row.isGroup, html`
-                <span>This is a group</span>
-            `)}
-            ${when(_ => !row.isGroup, html`
-                <span>${_ => row.data['x']}</span>
-                <span>${_ => row.data['y']}</span>
-                <span>${_ => row.data['age']}</span>
-                <nimble-menu-button
-                    content-hidden
-                    appearance="ghost"
-                    @opening="${_ => table.onMenuOpening(row)}"
-                >
-                    <nimble-icon-three-dots-line slot="start"></nimble-icon-three-dots-line>
-                    ${when(_ => table.menuRowId === row.id, html`
-                        <slot name="rowMenu" slot="menu"></slot>
-                    `)}
-                </nimble-menu-button>
+            <div>
+                ${when(_ => row.canExpand, html`
+                    <nimble-button
+                        content-hidden
+                        @click=${_ => table.toggleRowExpansionState(row)}
+                    >
+                        ${when(_ => row.isExpanded, html`
+                            <nimble-icon-arrow-expander-down slot="start">
+                        `)}
+                        ${when(_ => !row.isExpanded, html`
+                            <nimble-icon-arrow-expander-right slot="start">
+                        `)}
+                    </nimble-button>
+                `)}
+                ${when(_ => row.isGroup, html`
+                    <span>This is a group</span>
+                `)}
+                ${when(_ => !row.isGroup, html`
+                    <span>${_ => row.data['x']}</span>
+                    <span>${_ => row.data['y']}</span>
+                    <span>${_ => row.data['age']}</span>
+                    <nimble-menu-button
+                        content-hidden
+                        appearance="ghost"
+                        @opening="${_ => table.onMenuOpening(row)}"
+                    >
+                        <nimble-icon-three-dots-line slot="start"></nimble-icon-three-dots-line>
+                        ${when(_ => table.menuRowId === row.id, html`
+                            <slot name="rowMenu" slot="menu"></slot>
+                        `)}
+                    </nimble-menu-button>
+                `)}
+            </div>
+            ${when(_ => row.isExpanded, html`
+                <slot
+                    name="${_ => `expandedRow-${row.id}`}">
+                </slot>
             `)}
         </div>
         ${when(_ => row.isExpanded, html`

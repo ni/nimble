@@ -26,6 +26,11 @@ const metadata: Meta<TableArgs> = {
                 <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
                 <nimble-menu-item @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item>
             </nimble-menu>
+
+            <div slot="expandedRow-id-3" style="border: 1px solid red;">
+                <nimble-table style="height: 200px;">
+                </nimble-table>
+            </div>
         </nimble-table>
     `),
     args: {

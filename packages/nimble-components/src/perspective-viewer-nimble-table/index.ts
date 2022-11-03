@@ -49,6 +49,11 @@ export class PerspectiveViewerNimbleTable
         super.connectedCallback();
 
         this.addSlot('actionMenu', 'rowMenu');
+
+        const ids = ['id-0', 'id-1', 'id-2', 'id-3', 'id-4', 'id-5', 'id-6', 'id-7', 'id-8', 'id-9'];
+        for (const id of ids) {
+            this.addSlot(`expandedRow-${id}`, `expandedRow-${id}`);
+        }
     }
 
     private addSlot(name: string, slot: string): void {
