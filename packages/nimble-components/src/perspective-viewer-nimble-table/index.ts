@@ -183,6 +183,7 @@ export class PerspectiveViewerNimbleTable
         const nimbleTable = this;
         const virtualizerOptions = {
             count: this._numRows,
+            overscan: 15,
             getScrollElement: () => {
                 return nimbleTable.viewport;
             },

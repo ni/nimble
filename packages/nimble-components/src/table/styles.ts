@@ -11,4 +11,12 @@ export const styles = css`
         width: 100%;
         height: 600px;
     }
+
+    perspective-viewer {
+        flex: 1;
+    }
+
+    :host #settings_button {
+        display: none;
+    }
 `;

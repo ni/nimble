@@ -55,14 +55,15 @@ export class Table extends FoundationElement {
                 z: 'float'
             });
             await this.viewer.load(this.table);
-            const columnData = [...Array(2000).keys()];
+            const columnData = [...Array(100000).keys()];
             const data = {
                 x: columnData,
                 y: columnData,
                 z: columnData
             };
             this.table.update(data);
-            await this.viewer.toggleConfig(true);
+            const settingsButton = this.viewer.shadowRoot!.querySelector('#settings_button');
+            (settingsButton! as HTMLElement).style.display = 'none';
             // theme needs to be manually reset as the autodetection
             // of styles won't work
             await this.viewer.resetThemes(['Material Light']);

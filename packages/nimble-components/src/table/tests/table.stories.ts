@@ -23,6 +23,7 @@ const metadata: Meta<TableArgs> = {
         <nimble-table>
             <nimble-number-field-column columnId="x" columnTitle="X"></nimble-number-field-column>
             <nimble-number-field-column columnId="y" columnTitle="Y"></nimble-number-field-column>
+            <nimble-number-field-column columnId="z" columnTitle="Z"></nimble-number-field-column>
         </nimble-table>
     `),
     args: {
