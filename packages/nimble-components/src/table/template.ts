@@ -3,6 +3,7 @@ import type { Table } from '.';
 
 export const template = html<Table>`
     <template>
-        <perspective-viewer ${ref('viewer')}></perspective-viewer>
+        <perspective-viewer ${ref('viewer')}>
+        </perspective-viewer>
     </template>
 `;

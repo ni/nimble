@@ -7,6 +7,7 @@ import '../../all-components';
 interface TableArgs {
     disabled: boolean;
     selected: boolean;
+    showAlert: (message: string) => void;
 }
 
 const metadata: Meta<TableArgs> = {
@@ -20,11 +21,20 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-table></nimble-table>
+        <nimble-table>
+            <nimble-menu slot="actionMenu" @open-change="${x => x.showAlert('open change')}">
+                <nimble-menu-item @change="${x => x.showAlert('item1')}">Item 1</nimble-menu-item>
+                <nimble-menu-item @change="${x => x.showAlert('item2')}">Item 2</nimble-menu-item>
+            </nimble-menu>
+        </nimble-table>
     `),
     args: {
         disabled: false,
-        selected: false
+        selected: false,
+        showAlert: (message: string) => {
+            // eslint-disable-next-line no-alert
+            alert(message);
+        }
     }
 };
 
