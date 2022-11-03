@@ -1,0 +1,7 @@
+<svg id="Icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <g id="Rectangle_7" data-name="Rectangle 7" fill="#161617" stroke="#707070" stroke-width="1" opacity="0">
+    <rect width="64" height="64" stroke="none"/>
+    <rect x="0.5" y="0.5" width="63" height="63" fill="none"/>
+  </g>
+  <path id="Path_9617" data-name="Path 9617" d="M53.886,59H64.113L59,48.229ZM59,32,32,41.643l5.559,32.786L59,86,80.425,74.429,86,41.643ZM69.607,70.571,66.4,63.821H51.6l-3.2,6.75H43.571L59,36.821l15.429,33.75Z" transform="translate(-27 -27)" fill="#161617"/>
+</svg>

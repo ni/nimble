@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+}
+
+.banner {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    background-color: black;
+    height: 100vh;
+    max-height: 600px;
+    width: 100%;
+}
+
+.banner>.ni-logo {
+    text-align: right;
+    padding-right: 2rem;
+    padding-top: 2rem;
+}
+
+.banner-main {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column nowrap;
+    max-width: 768px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.banner-main>p {
+    color: white;
+    font-family: var(--ni-nimble-body-font-family);
+    font-size: var(--ni-nimble-headline-font-size);
+
+}
+
+h1 {
+    font-family: var(--ni-nimble-headline-font-family);
+    font-size: 6rem;
+    color: var(--ni-nimble-headline-font-color);
+    margin: 0;
+}
+
+.cards-container {
+    width:80%;
+    max-width: 960px;
+    background-color: #fff;
+    margin: 0 auto;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 270px 270px;
+    gap: 2rem;
+    transform: translateY(-8rem);
+}
+
+.card {
+    display: grid;
+    grid-template-areas: "icon name"
+        "icon description";
+    background-color: #F1F1F2;
+    border: solid 1px #AEB0B3;
+    text-decoration: none;
+    padding: 100px 10px 100px 80px;
+    grid-template-columns: 64px auto;
+    column-gap: 2rem;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, .16);
+}
+
+
+.card .name {
+    font-family: var(--ni-nimble-headline-font-family);
+    font-size: var(--ni-nimble-headline-plus-1-font-size);
+    font-weight: var(--ni-nimble-headline-plus-1-font-weight);
+    grid-area: name;
+    color: #006B46;
+}
+
+.card .icon {
+    grid-area: icon;
+}
+
+.card .description {
+    font-family: var(--ni-nimble-body-font-family);
+    grid-area: description;
+    font-size: var(--ni-nimble-subtitle-plus-1-font-size);
+    color: var(--ni-nimble-subtitle-plus-1-font-color);
+    font-weight: var(--ni-nimble-subtitle-plus-1-font-weight);
+}
+
+
+.card:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+.card:visited {
+    text-decoration: none;
+    color: inherit;
+    text-decoration-color: inherit;
+}
+
+@media screen and (max-width: 760px) {
+   .cards {
+        display: flex;
+        flex-direction: column;
+    }
+  }
