@@ -1,15 +1,8 @@
 import { Observable, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import type { PerspectiveViewerNimbleTable } from '../perspective-viewer-nimble-table';
-import type { CellData } from '../table-cell';
+import { TableCell } from '../table-cell';
+import type { TableRowData } from '../table-row-data/table-row-data';
 import { template } from './template';
-
-export interface VirtualTableRowData {
-    data?: CellData[];
-    parent: PerspectiveViewerNimbleTable;
-    start: number;
-    size: number;
-}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -24,19 +17,23 @@ export class TableRow extends FoundationElement {
     @observable
     public ready = false;
 
-    public get rowData(): VirtualTableRowData {
+    public get rowData(): TableRowData | undefined {
         Observable.track(this, 'rowData');
         return this._rowData;
     }
 
-    public set rowData(value: VirtualTableRowData) {
+    public set rowData(value: TableRowData | undefined) {
         this._rowData = value;
         Observable.notify(this, 'rowData');
+        if (this._rowData) {
+            this.renderCells();
+        }
     }
 
     public readonly rowContainer!: HTMLElement;
 
-    private _rowData!: VirtualTableRowData;
+    private _rowData?: TableRowData;
+    private readonly _cellViews: TableCell[] = [];
 
     public constructor() {
         super();
@@ -44,7 +41,42 @@ export class TableRow extends FoundationElement {
     }
 
     public getColumnTemplateById(columnId: string): ViewTemplate | undefined {
-        return this._rowData.parent.getColumnTemplateById(columnId);
+        return this._rowData?.parent?.getColumnTemplateById(columnId);
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        if (this._cellViews.length === 0) {
+            this.renderCells();
+        } else {
+            this.updateCellsData();
+        }
+    }
+
+    private renderCells(): void {
+        if (!this.isConnected) {
+            return;
+        }
+
+        if (this._cellViews.length === 0 && this.rowData) {
+            this.rowData.data?.forEach(cell => {
+                const nimbleCellView = new TableCell();
+                nimbleCellView.cellItemTemplate = this.getColumnTemplateById(cell.columnId);
+                nimbleCellView.cellData = cell.value;
+                this.rowContainer.appendChild(nimbleCellView);
+
+                this._cellViews.push(nimbleCellView);
+            });
+        } else {
+            this.updateCellsData();
+        }
+    }
+
+    private updateCellsData(): void {
+        this.rowData?.data?.forEach((cell, i) => {
+            const cellView = this._cellViews[i];
+            cellView!.cellData = cell.value;
+        });
     }
 
     // public columnHasMenu(cell: Cell<unknown, unknown>): boolean {

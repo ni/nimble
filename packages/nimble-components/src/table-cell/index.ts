@@ -1,4 +1,4 @@
-import { attr, Observable, observable, ViewTemplate } from '@microsoft/fast-element';
+import { attr, defaultExecutionContext, HTMLView, Observable, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from './template';
 
@@ -32,10 +32,35 @@ export class TableCell extends FoundationElement {
     @observable
     public hasMenu = false;
 
-    private _cellData: unknown = null;
- 
+    private customCellView: HTMLView | undefined = undefined;
+
+    public override connectedCallback(): void {
+        this.updateCellView();
+    }
+
+    public override disconnectedCallback(): void {
+        this.disconnectCellView();
+    }
+
     public onMenuOpening(): void {
         this.$emit('action-menu-open');
+    }
+
+    private updateCellView(): void {
+        const newCellView = this.customCellView === undefined;
+        if (newCellView) {
+            this.customCellView = this.cellItemTemplate!.create(this);
+            this.customCellView?.bind(this, defaultExecutionContext);
+        }
+
+        if (newCellView) {
+            this.customCellView!.appendTo(this.shadowRoot!);
+        }
+    }
+
+    private disconnectCellView(): void {
+        this.customCellView?.remove();
+        this.customCellView = undefined;
     }
 }
 

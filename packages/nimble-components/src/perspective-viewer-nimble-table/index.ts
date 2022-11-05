@@ -8,7 +8,9 @@ import type { MenuButton } from '../menu-button';
 import type { Table } from '../table';
 import type { CellData } from '../table-cell';
 import type { TableColumn } from '../table-column/table-column';
-import type { TableRow, VirtualTableRowData } from '../table-row';
+import type { TableRow } from '../table-row';
+import { TableRowData } from '../table-row-data/table-row-data';
+import { VirtualTableRowData } from '../table-row-data/virtual-table-row-data';
 
 import { styles } from './styles';
 import { template } from './template';
@@ -45,8 +47,9 @@ export class PerspectiveViewerNimbleTable
     @observable
     public visibleItems: VirtualItem<TableRow>[] = [];
 
+    // Why can't I call this "rowData"?!?!
     @observable
-    public rowData: VirtualTableRowData[] = [];
+    public rowData1: VirtualTableRowData[] = [];
 
     @observable
     public columns: TableColumn[] = [];
@@ -179,11 +182,14 @@ export class PerspectiveViewerNimbleTable
         }
     }
 
+    public getRowStart(row: VirtualTableRowData): number {
+        return (this.rowData?.indexOf(row) + 1) * 32 ?? 0;
+    }
+
     private initializeVirtualizer(): void {
         const nimbleTable = this;
         const virtualizerOptions = {
             count: this._numRows,
-            overscan: 15,
             getScrollElement: () => {
                 return nimbleTable.viewport;
             },
@@ -199,11 +205,15 @@ export class PerspectiveViewerNimbleTable
                 if (nimbleTable.visibleItems.length > 0) {
                     const startRow = nimbleTable.visibleItems[0]!.index;
                     const endRow = nimbleTable.visibleItems[nimbleTable.visibleItems.length - 1]!.index;
+                    this.setVisibleRowData();
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/naming-convention
                     const promise = nimbleTable._currentView!.to_json({ start_row: startRow, end_row: endRow });
                     void promise.then(result => {
                         nimbleTable._rowData = result;
-                        nimbleTable.setVisibleRowData();
+                        if (nimbleTable.rowData1.length !== result.length) {
+                            nimbleTable.setVisibleRowData();
+                        }
+                        nimbleTable.updateVisibleRowData();
                     });
                 }
             }
@@ -219,16 +229,28 @@ export class PerspectiveViewerNimbleTable
     private setVisibleRowData(): void {
         const tableRowData: VirtualTableRowData[] = [];
         const rowCount = Math.min(this.visibleItems.length, (this._rowData?.length ?? 0));
-        const columnIds = rowCount > 0 ? Object.keys(this._rowData![0] as any) : [];
         for (let i = 0; i < rowCount; i++) {
             const visibleItem = this.visibleItems[i];
-            const rowData = Object.values(this._rowData![i] as any);
-            const rowCellData = rowData.map((v, index) => ({ value: v, columnId: columnIds[index] } as CellData));
-            const virtualRowData = { data: rowCellData, parent: this, start: visibleItem?.start, size: visibleItem?.size } as VirtualTableRowData;
+            const virtualRowData = new VirtualTableRowData();
+            virtualRowData.start = visibleItem!.start;
+            virtualRowData.size = visibleItem!.size;
             tableRowData.push(virtualRowData);
         }
 
-        this.rowData = tableRowData;
+        this.rowData1 = tableRowData;
+    }
+
+    private updateVisibleRowData(): void {
+        const rowCount = Math.min(this.visibleItems.length, (this._rowData?.length ?? 0));
+        const columnIds = rowCount > 0 ? Object.keys(this._rowData![0] as any) : [];
+        for (let i = 0; i < rowCount; i++) {
+            const rowData = Object.values(this._rowData![i] as any);
+            const rowCellData = rowData.map((v, index) => ({ value: v, columnId: columnIds[index] } as CellData));
+            const tableRowData = new TableRowData();
+            tableRowData.parent = this;
+            tableRowData.data = rowCellData;
+            this.rowData1[i]!.rowData = tableRowData;
+        }
     }
 }
 

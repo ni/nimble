@@ -1,6 +1,6 @@
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { observable } from '@microsoft/fast-element';
-import perspective from '@finos/perspective';
+import perspective, { TableData } from '@finos/perspective';
 import type { Table as PerspectiveTable } from '@finos/perspective';
 import type { HTMLPerspectiveViewerElement } from '@finos/perspective-viewer';
 import { styles } from './styles';
@@ -43,6 +43,9 @@ export class Table extends FoundationElement {
     @observable
     public slottedColumns: IColumnProvider[] = [];
 
+    @observable
+    public data?: { [key: string]: (string | boolean | Date | number)[] } | ArrayBuffer;
+
     private readonly worker = perspective.worker();
     private table?: PerspectiveTable;
 
@@ -50,13 +53,25 @@ export class Table extends FoundationElement {
         super.connectedCallback();
         void (async () => {
             this.table = await this.worker.table({
+                a: 'float',
+                b: 'float',
+                c: 'float',
+                d: 'float',
+                e: 'float',
+                f: 'float',
                 x: 'float',
                 y: 'float',
                 z: 'float'
-            });
+            }, { limit: 100000 });
             await this.viewer.load(this.table);
             const columnData = [...Array(100000).keys()];
             const data = {
+                a: columnData,
+                b: columnData,
+                c: columnData,
+                d: columnData,
+                e: columnData,
+                f: columnData,
                 x: columnData,
                 y: columnData,
                 z: columnData
@@ -69,6 +84,10 @@ export class Table extends FoundationElement {
             await this.viewer.resetThemes(['Material Light']);
             this.initializeColumns();
         })();
+    }
+
+    private dataChanged(): void {
+        this.table?.update(this.data!);
     }
 
     private slottedColumnsChanged(): void {
