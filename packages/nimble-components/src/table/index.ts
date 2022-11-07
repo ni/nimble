@@ -1,6 +1,6 @@
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { observable } from '@microsoft/fast-element';
-import perspective, { TableData } from '@finos/perspective';
+import perspective from '@finos/perspective';
 import type { Table as PerspectiveTable } from '@finos/perspective';
 import type { HTMLPerspectiveViewerElement } from '@finos/perspective-viewer';
 import { styles } from './styles';
@@ -12,7 +12,6 @@ import { HTMLPerspectiveViewerDatagridPluginElement } from '../perspective-viewe
 import '../perspective-viewer-nimble-table';
 import type { IColumnProvider } from '../table-column-providers/column-provider';
 import type { TableColumn } from '../table-column/table-column';
-import type { PerspectiveViewerNimbleTable } from '../perspective-viewer-nimble-table';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -62,9 +61,9 @@ export class Table extends FoundationElement {
                 x: 'float',
                 y: 'float',
                 z: 'float'
-            }, { limit: 100000 });
+            }, { limit: 10000 });
             await this.viewer.load(this.table);
-            const columnData = [...Array(100000).keys()];
+            const columnData = [...Array(10000).keys()];
             const data = {
                 a: columnData,
                 b: columnData,
@@ -107,7 +106,7 @@ export class Table extends FoundationElement {
             }
             if (this.table) {
                 void (async () => {
-                    await this.viewer!.restore({ columns: columns.map(c => c.columnDataKey) });
+                    await this.viewer.restore({ columns: columns.map(c => c.columnDataKey) });
                 })();
             }
         }

@@ -9,12 +9,7 @@ export const template: FoundationElementTemplate<ViewTemplate<PerspectiveViewerN
     <div class="table-viewport" ${ref('viewport')}>
         <div class="table-body" ${ref('rowContainer')} style="height: ${x => x.rowContainerHeight}px">
         ${repeat(x => x.rowData1, html<VirtualTableRowData>`
-            <span class="foo"
-                    style="
-                        height: ${x => x.size}px;
-                        position: absolute;
-                        margin-top: ${x => x.start}px;
-                        ">
+            <span class="foo" style="height: ${x => x.size}px; position: absolute; margin-top: ${x => x.start}px;">
                 <span class="group-row-content">
                     <${context.tagFor(TableRow)} :rowData="${x => x.rowData}">
                     </${context.tagFor(TableRow)}>                                
