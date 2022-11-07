@@ -182,10 +182,6 @@ export class PerspectiveViewerNimbleTable
         }
     }
 
-    public getRowStart(row: VirtualTableRowData): number {
-        return (this.rowData?.indexOf(row) + 1) * 32 ?? 0;
-    }
-
     private initializeVirtualizer(): void {
         const nimbleTable = this;
         const virtualizerOptions = {
