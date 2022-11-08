@@ -41,7 +41,6 @@ We consider now that the most important features of the current component would 
 * Dynamic size adaptability
 * Scalable for very large number of data points
 
-
 ### Risks and Challenges
 
 The biggest risk and challenge are regarding the rendering of the component when large numbers of data points are present. 
@@ -54,8 +53,6 @@ We are planning to perform initial benchmarking on this aspect, but not planning
 Please see below a few screenshots regarding the current `wafer-map` component:
 
 ![WaferMap Example](file:///Resources/wafer_map_example.png)
-
----
 
 ## Design
 
@@ -91,8 +88,6 @@ Also, the visualisation widget has no active controls, so there is no way to alt
   
  Please note that all these attributes are only accessible through the constructor of the component. Once set, the only way to modify them is to re-render the component.
 
-
-
 Methods: (none)
 
 Events: in the initial implementation the following events should be handled: 
@@ -101,7 +96,6 @@ Events: in the initial implementation the following events should be handled:
   * Drag while zoomed - this event gets triggered whenever the `nimble-wafer-map` component is zoomed in (larger than 100%) and whilst the left mouse button is held the pointer moves to any direction within the wafer-map canvas
   * Mouse hover - this event gets triggered whenever the mouse pointer is hovering any of the die elements within the wafer map. We only must detect this in the nimble component, proper handling will be done in the MicroStrategy wrapper. (Tooltip triggering)
 ### Anatomy 
-
 
 Shadow DOM:
 ```html
@@ -126,7 +120,6 @@ Shadow DOM:
 	</div>
 </template>
 ```
-
 The first SVG element with the "zoomContainer" class attribute contains two circles and a rectangle.
 * The first circle represents the outline of the wafer map component.
 * The second circle, together with the rectangle is part of a solution which creates the illusion that there is a notch present on the wafer map frame.
@@ -147,7 +140,6 @@ The `nimble-wafer-map` component does not take user input directly from the webp
 
 Blazor support is out of scope for the current implementation.
 
-
 ### Visual Appearance
 
 For the initial component, we are going with the original wafer map appearance. 
@@ -167,7 +159,6 @@ In order to make the process of submitting the re-written wafer map component ea
 * As an initial step, we submit a skeleton of the `nimble-wafer-map` component into the main branch. This will serve as a starting point on which the complete functionality will be built on.
 * Once the skeleton is in place, we start to work on and submit individual pieces of the functionality so it's not very overwhelming to review the code.
 
-
 ### States
 
 We are not planning to allow the user to generate an “empty" wafer map, so we must ensure that data is provided when instantiating a new `nimble-wafer-map` component.
@@ -175,8 +166,7 @@ The only action which we could consider as a "state transition" is the zoom func
 We expect that the end user be able to zoom in on the dies withing the wafer map and be able to zoom out by using the mouse wheel.
 Also, the user must be allowed to pan the zoomed in wafer map into any direction of its XY axis by holding the left mouse button and moving the mouse cursor around.
 
-Another interaction, which must be part of the component is the ability to identify the location of the mouse pointer on the wafer map die area. 
-
+Another interaction, which must be part of the component is the ability to identify the location of the mouse pointer on the wafer map die area.
 
 ### Globalization
 
@@ -203,7 +193,7 @@ All tests written for this component should follow the standards of the nimble r
 ### Documentation
 We will write documentation on the `nimble-wafer-map` component, focusing on general usage, implementation and API. 
 
----
 ## Open Issues
 
 (none)
+
