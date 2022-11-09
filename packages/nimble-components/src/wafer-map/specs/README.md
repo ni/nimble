@@ -78,7 +78,7 @@ Also, the visualisation widget has no active controls, so there is no way to alt
 	* x: integer
 	* y: integer
 	* alue: float
-  * `quadrant` - represents the orientation for the dies on the wafer map (the layout of the values on the dies). It can be represented by an Enum with the following values: 
+  * `quadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by an Enum with the following values: 
 	* TopLeft - ![Top Left Quadrant](./Resources/top_left.png)
 	* BottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
 	* TopRight - ![Top Right Quadrant](./Resources/top_right.png)
@@ -99,7 +99,7 @@ Events: in the initial implementation the following events should be handled:
   * Zoom out while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll down) gets triggered 
   * Drag while zoomed - this event gets triggered whenever the `nimble-wafer-map` component is zoomed in (larger than 100%) and whilst the left mouse button is held the pointer moves to any direction within the wafer-map canvas
   * Mouse hover - this event gets triggered whenever the mouse pointer is hovering any of the die elements within the wafer map. We only must detect this in the nimble component, proper handling will be done in the MicroStrategy wrapper. (Tooltip triggering)
-  
+
 ### Anatomy 
 
 Shadow DOM:
@@ -172,6 +172,14 @@ We expect that the end user be able to zoom in on the dies withing the wafer map
 Also, the user must be allowed to pan the zoomed in wafer map into any direction of its XY axis by holding the left mouse button and moving the mouse cursor around.
 
 Another interaction, which must be part of the component is the ability to identify the location of the mouse pointer on the wafer map die area.
+
+### Accessibility
+
+Important: this is out of scope for the current implementation.\
+Since the `nimble-wafer-map` component was designed to display tens of thousands of data points, it's challenging to provide Accessibility functionality which can read out loud the values displayed in a meaningful manner.
+Based on the WAI documentation on [Complex Images](https://www.w3.org/WAI/tutorials/images/complex/), in the future we could provide a paragraph containing information about the name of the wafer that is displayed, the LOT where the wafer comes from and a general overview (e.g. % of the faulty dies on the wafer) of the status. This might give a pretty good description about what the displayed nimble component shows to the user.
+Please note that in the initial implementation we do not plan to gather and summarize any of this information so this will be part of future updates to this component. 
+Currently the only way to navigate and interact with the wafer map is only by using the mouse. Future updates might include functionality which allows the user to tab into the wafer map area and move around in the die area using the keyboard arrows.
 
 ### Globalization
 
