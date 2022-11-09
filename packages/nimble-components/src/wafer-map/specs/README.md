@@ -52,7 +52,7 @@ We are planning to perform initial benchmarking on this aspect, but not planning
 
 Please see below a few screenshots regarding the current `wafer-map` component:
 
-![WaferMap Example](file:///Resources/wafer_map_example.png)
+![WaferMap Example](./Resources/wafer_map_example.png)
 
 ## Design
 
@@ -78,10 +78,10 @@ Also, the visualisation widget has no active controls, so there is no way to alt
 	* YCoordinate: integer
 	* Value: float
   * `quadrant` - represents the orientation fo the dies on the wafer map (the layout of the values on the dies). It can be represented by an Enum with the following values: 
-	* TopLeft - ![Top Left Quadrant](file:///Resources/top_left.png)
-	* BottomLeft - ![Bottom Left Quadrant](file:///Resources/bottom_left.png)
-	* TopRight - ![Top Right Quadrant](file:///Resources/top_right.png)
-	* BottomRight - ![Bottom Right Quadrant](file:///Resources/bottom_right.png)
+	* TopLeft - ![Top Left Quadrant](./Resources/top_left.png)
+	* BottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
+	* TopRight - ![Top Right Quadrant](./Resources/top_right.png)
+	* BottomRight - ![Bottom Right Quadrant](./Resources/bottom_right.png)
   * `orientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
   * `color_scale` - represents the color spectrum which shows the status of the dies on the wafer.
   * `number_of_characters` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
@@ -143,7 +143,7 @@ Blazor support is out of scope for the current implementation.
 ### Visual Appearance
 
 For the initial component, we are going with the original wafer map appearance. 
-![WaferMap Example](file:///Resources/wafer_map_example.png)
+![WaferMap Example](./Resources/wafer_map_example.png)
 
 ## Implementation
 
