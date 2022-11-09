@@ -48,6 +48,7 @@ This widget can and will be used to represent the results of a single wafer and 
 A LOT contains data about multiple wafers, and one of the functionalities of our main feature is to split up a LOT (and display it) into individual wafers.
 This means that we might be displaying several `nimble-wafer-map` components on a single page each containing several hundred or thousands of data points, each having the individual functionality mentioned in the "Features" section of this spec document.
 We are planning to perform initial benchmarking on this aspect, but not planning to optimize it in the first release.
+
 ### Prior Art/Examples
 
 Please see below a few screenshots regarding the current `wafer-map` component:
@@ -74,17 +75,20 @@ Also, the visualisation widget has no active controls, so there is no way to alt
 * Props/Attrs: 
   * `die[]` - this represents the input data, which fills the wafer map with content.\
   The **die**  object contains the following attributes:
-	* XCoorrdianate: integer
-	* YCoordinate: integer
-	* Value: float
-  * `quadrant` - represents the orientation fo the dies on the wafer map (the layout of the values on the dies). It can be represented by an Enum with the following values: 
+	* x: integer
+	* y: integer
+	* alue: float
+  * `quadrant` - represents the orientation for the dies on the wafer map (the layout of the values on the dies). It can be represented by an Enum with the following values: 
 	* TopLeft - ![Top Left Quadrant](./Resources/top_left.png)
 	* BottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
 	* TopRight - ![Top Right Quadrant](./Resources/top_right.png)
 	* BottomRight - ![Bottom Right Quadrant](./Resources/bottom_right.png)
   * `orientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
-  * `color_scale` - represents the color spectrum which shows the status of the dies on the wafer.
-  * `number_of_characters` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
+  * `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
+	The object we use for the colorScale is [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal). Basically, what this does is it associates a specific string (or in our case a value with a specific color.). The values which are not equal with the values specified in the array, will become a darker/lighter shade of the colors.
+	In the following example the colorScale object is defined as  `WafermapColorsScale(['red', 'blue', 'green'], ['1', '2', '8']);`\
+	The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png) 
+  * `dieCharacterCount` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
   
  Please note that all these attributes are only accessible through the constructor of the component. Once set, the only way to modify them is to re-render the component.
 
@@ -95,6 +99,7 @@ Events: in the initial implementation the following events should be handled:
   * Zoom out while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll down) gets triggered 
   * Drag while zoomed - this event gets triggered whenever the `nimble-wafer-map` component is zoomed in (larger than 100%) and whilst the left mouse button is held the pointer moves to any direction within the wafer-map canvas
   * Mouse hover - this event gets triggered whenever the mouse pointer is hovering any of the die elements within the wafer map. We only must detect this in the nimble component, proper handling will be done in the MicroStrategy wrapper. (Tooltip triggering)
+  
 ### Anatomy 
 
 Shadow DOM:
@@ -179,7 +184,7 @@ N/A
 ### Performance
 
 As mentioned in the "Risks" section, the biggest challenge from the performance standpoint is the representation of large number of datapoints and interacting with these datapoints in the browser.
-Currently the only thing we would like to achieve is to measure (benchmark) the time it takes a `nimble-wafer-map` component to be loaded with various number of datapoints.
+Currently the only thing we would like to achieve is to measure (benchmark) the time it takes a `nimble-wafer-map` component to be loaded with various number of datapoints. Initially this could be a manual benchmark on a demo site hosted within the repository. Longer term we may automate and trend this by including benchmarking on the PR build.
 
 ### Dependencies
 
@@ -189,9 +194,10 @@ We use parts of this library in our zooming and rendering functionality.
 ### Test Plan
 
 The current test plan is that moving forward with the development, we write unit tests which validate the core functionality.
-All tests written for this component should follow the standards of the nimble repository. 
+All tests written for this component should follow the standards of the nimble repository: unit tests for component logic and Chromatic tests to exercise all the visual states of the component. 
+
 ### Documentation
-We will write documentation on the `nimble-wafer-map` component, focusing on general usage, implementation and API. 
+We will write Storybook documentation on the `nimble-wafer-map` component, focusing on general usage and API. 
 
 ## Open Issues
 
