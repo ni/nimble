@@ -48,7 +48,9 @@ export class NumberField extends FoundationNumberField implements ErrorPattern {
         this.control.setAttribute('role', 'spinbutton');
 
         if (this.textContent?.trim()) {
-            this.style.height = `calc(${labelHeight.getValueFor(this)} + ${controlHeight.getValueFor(this)})`;
+            this.style.height = `calc(${labelHeight.getValueFor(
+                this
+            )} + ${controlHeight.getValueFor(this)})`;
         }
     }
 }

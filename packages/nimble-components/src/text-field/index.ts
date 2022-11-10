@@ -51,7 +51,9 @@ export class TextField extends FoundationTextField implements ErrorPattern {
     public override connectedCallback(): void {
         super.connectedCallback();
         if (this.textContent?.trim()) {
-            this.style.height = `calc(${labelHeight.getValueFor(this)} + ${controlHeight.getValueFor(this)})`;
+            this.style.height = `calc(${labelHeight.getValueFor(
+                this
+            )} + ${controlHeight.getValueFor(this)})`;
         }
     }
 }
