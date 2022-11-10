@@ -61,11 +61,11 @@ From a user’s perspective one of the most important actions which this compone
 While zooming in on the component, the user should also be able to pan (drag) the wafer map by holding the left mouse button and moving the cursor on the XY axis.
 
 From a developer perspective, it's very important that the `nimble-wafer-map` component can be integrated with the MicroStrategy Custom plugin framework as this framework provides functionalities as follows:
-* Tooltip when hovering any if the datapoints withing the wafer map
+* Tooltip when hovering any of the datapoints within the wafer map
 * Wafer map legend
 * MicroStrategy specific context menus on right-click action
 
-Information regarding the basic MicrosStrategy **Custom Plugin Workflow** can be found [here](https://www2.microstrategy.com/producthelp/Current/VisSDK/Content/topics/HTML5/Understanding_the_workflow.htm)
+Information regarding the basic MicroStrategy **Custom Plugin Workflow** can be found [here](https://www2.microstrategy.com/producthelp/Current/VisSDK/Content/topics/HTML5/Understanding_the_workflow.htm)
 Also, the visualisation widget has no active controls, so there is no way to alter the visual aspect or data post rendering. Every input parameter must be provided through the constructor of the wafer map component.
 
 ### API
@@ -77,7 +77,7 @@ Also, the visualisation widget has no active controls, so there is no way to alt
   The **die**  object contains the following attributes:
 	* x: integer
 	* y: integer
-	* alue: float
+	* value: float
   * `quadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by an Enum with the following values: 
 	* TopLeft - ![Top Left Quadrant](./Resources/top_left.png)
 	* BottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
@@ -94,7 +94,7 @@ Also, the visualisation widget has no active controls, so there is no way to alt
 
 Methods: (none)
 
-Events: in the initial implementation the following events should be handled: 
+Events: The events mentioned below will all be handled internally by the nimble component and they will not be part of the public API. In the initial implementation the following events should be handled: 
   * Zoom in while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll up) gets triggered
   * Zoom out while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll down) gets triggered 
   * Drag while zoomed - this event gets triggered whenever the `nimble-wafer-map` component is zoomed in (larger than 100%) and whilst the left mouse button is held the pointer moves to any direction within the wafer-map canvas
@@ -168,7 +168,7 @@ In order to make the process of submitting the re-written wafer map component ea
 
 We are not planning to allow the user to generate an “empty" wafer map, so we must ensure that data is provided when instantiating a new `nimble-wafer-map` component.
 The only action which we could consider as a "state transition" is the zoom functionality which was specified in the sections above.
-We expect that the end user be able to zoom in on the dies withing the wafer map and be able to zoom out by using the mouse wheel.
+We expect that the end user be able to zoom in on the dies within the wafer map and be able to zoom out by using the mouse wheel.
 Also, the user must be allowed to pan the zoomed in wafer map into any direction of its XY axis by holding the left mouse button and moving the mouse cursor around.
 
 Another interaction, which must be part of the component is the ability to identify the location of the mouse pointer on the wafer map die area.
