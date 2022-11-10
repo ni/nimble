@@ -16,10 +16,11 @@ Moreover, the d3 libraries versions used are outdated, and support for more data
 
 In addition, the current component contains numerous flaky, hard to track functionalities that is offered by the MicroStrategy plugin wrapper, and until these exists in the core component, it will cause inconsistencies and faulty behavior.
 
-**Visual Design Spec**
+### Visual Design Spec
 
 Design changes of the existing wafer-map component are out of scope for the current release. We came to this decision, as implementing solutions for all the existing corner cases would be very time-consuming, and we can't afford that.
 The users are allowed to change the color of the dies within the wafer map, so having a non-default color scheme for the base canvas, rim and background of the wafer map could lead to incorrect behavior.
+The component however, should support automatic browser theme detection, in order to adapt the color of the wafer map chrome to the background. Without this option, when presented on dark theme, the `wafer-map-component`'s chrome will not be visible.
 A conversation with the design team will be started regarding this topic, but for the current release we will go with the default, existing design.
 [Wafer Map plugin for MicroStrategy Feature](https://dev.azure.com/ni/DevCentral/_workitems/edit/2001490)
 
@@ -96,7 +97,11 @@ _The key elements of the component's public API surface:_
 
 Please note that all these attributes are only accessible through the constructor of the component. Once set, the only way to modify them is to re-render the component.
 
-Methods: (none)
+Methods: The following methods will be exposed in the public API:
+- setWaferMapOrientation() - changes the position of the notch on the wafer map outline. - Calling this method should not re-render the wafer map 
+- setWaferMapQuadrant - changes the layout of the dies on the wafer map. - Calling this method should re-render the wafer map.
+- disable() - renders the component dimmed out and turns off interactivity
+- focus() - adds a green box around the component when it has tab focus
 
 Events: The events mentioned below will all be handled internally by the nimble component and they will not be part of the public API. In the initial implementation the following events should be handled:
 
