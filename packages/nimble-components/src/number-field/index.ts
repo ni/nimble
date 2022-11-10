@@ -13,7 +13,6 @@ import { Button } from '../button';
 import { IconMinusWide } from '../icons/minus-wide';
 import { IconAdd } from '../icons/add';
 import { IconExclamationMark } from '../icons/exclamation-mark';
-import { controlHeight, labelHeight } from '../theme-provider/design-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -46,12 +45,6 @@ export class NumberField extends FoundationNumberField implements ErrorPattern {
 
         // This is a workaround for FAST issue: https://github.com/microsoft/fast/issues/6148
         this.control.setAttribute('role', 'spinbutton');
-
-        if (this.textContent?.trim()) {
-            this.style.height = `calc(${labelHeight.getValueFor(
-                this
-            )} + ${controlHeight.getValueFor(this)})`;
-        }
     }
 }
 

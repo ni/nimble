@@ -10,7 +10,6 @@ import { TextFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { IconExclamationMark } from '../icons/exclamation-mark';
-import { controlHeight, labelHeight } from '../theme-provider/design-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -47,15 +46,6 @@ export class TextField extends FoundationTextField implements ErrorPattern {
 
     @attr({ attribute: 'full-bleed', mode: 'boolean' })
     public fullBleed = false;
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        if (this.textContent?.trim()) {
-            this.style.height = `calc(${labelHeight.getValueFor(
-                this
-            )} + ${controlHeight.getValueFor(this)})`;
-        }
-    }
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({

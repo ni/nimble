@@ -28,7 +28,6 @@ export const styles = css`
         outline: none;
         user-select: none;
         color: ${bodyFontColor};
-        height: ${controlHeight};
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-height-within-border: calc(
             ${controlHeight} - 2 * ${borderWidth}
