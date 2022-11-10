@@ -97,10 +97,6 @@ export const styles = css`
             ease-in;
     }
 
-    :host([location='left']) dialog.closing .dialog-contents {
-        animation-direction: reverse;
-    }
-
     @keyframes ni-private-drawer-slide-in-right-keyframes {
         0% {
             transform: translate(100%);
@@ -121,15 +117,19 @@ export const styles = css`
             ease-in;
     }
 
-    :host([location='right']) dialog.closing .dialog-contents {
-        animation-direction: reverse;
-    }
-
     @media (prefers-reduced-motion) {
         :host([location='left']) dialog.animating .dialog-contents,
         :host([location='right']) dialog.animating .dialog-contents {
-            animation-duration: 1ms;
+            animation: ni-private-drawer-fade-in-keyframes ${largeDelay} ease-in;
         }
+    }
+
+    :host([location='left']) dialog.closing .dialog-contents {
+        animation-direction: reverse;
+    }
+
+    :host([location='right']) dialog.closing .dialog-contents {
+        animation-direction: reverse;
     }
 
     ${
