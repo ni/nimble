@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 25 Oct 2022 21:02:37 GMT and should not be manually modified.
+This log was last generated on Thu, 10 Nov 2022 20:32:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 13.0.0
+
+Thu, 10 Nov 2022 20:32:58 GMT
+
+### Major changes
+
+- Upgrade to Angular 13. ([ni/nimble@ed7fb93](https://github.com/ni/nimble/commit/ed7fb93f9549a74cd8a16f36509aea388e085cb7))
 
 ## 12.1.2
 

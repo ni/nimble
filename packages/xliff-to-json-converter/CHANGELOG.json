@@ -2,6 +2,21 @@
   "name": "@ni/xliff-to-json-converter",
   "entries": [
     {
+      "date": "Thu, 10 Nov 2022 20:32:58 GMT",
+      "tag": "@ni/xliff-to-json-converter_v1.0.1",
+      "version": "1.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "2351292+TrevorKarjanis@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "ed7fb93f9549a74cd8a16f36509aea388e085cb7",
+            "comment": "Update `@ni/eslint-config-javascript` dependency version."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 03 Oct 2022 22:16:20 GMT",
       "tag": "@ni/xliff-to-json-converter_v1.0.1",
       "version": "1.0.1",

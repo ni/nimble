@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 10 Nov 2022 20:32:58 GMT",
+      "tag": "@ni/nimble-tokens_v4.1.3",
+      "version": "4.1.3",
+      "comments": {
+        "none": [
+          {
+            "author": "2351292+TrevorKarjanis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ed7fb93f9549a74cd8a16f36509aea388e085cb7",
+            "comment": "Update `@ni/eslint-config-javascript` dependency version."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Oct 2022 13:53:36 GMT",
       "tag": "@ni/nimble-tokens_v4.1.3",
       "version": "4.1.3",
