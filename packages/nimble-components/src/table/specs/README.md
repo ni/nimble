@@ -60,6 +60,7 @@ Cons
 - Not Typescript-based
 - Would need to fork such that we could make the necessary changes for it to meet our performance requirements
 - Zero tests
-- Styling could prove problematic (though it )
+- Styling could prove problematic
+- Lack of complete control over DOM introduces risk, or at the very least limits what the designers can ask for
 
 The cost and risk of changing Tabulator such that we could virtualize the rendering in an acceptable way was enough for us to remove it from consideration.
