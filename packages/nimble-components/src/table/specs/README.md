@@ -56,7 +56,15 @@ This allows us to provide the declarative API for column configuration such that
 
 ## Alternative Implementations / Designs
 
-*Describe any design alternatives and discuss why they were rejected.*
+### Perspective
+
+[Perspective](https://perspective.finos.org/) is a framework for working with and visualizing table data in a highly performant way. By moving all of the various processing tasks, such as sorting and filtering, into a separate web-worker thread, it allows the UI to remain responsive.
+
+This could ultimately allow the table to handle the visualization of a dataset that could number in the millions of rows, with essentially no loss of performance in the UI.
+
+Additionally, it provided a plugin component system that would allow clients to easily switch between different visualizations over the same data set (i.e. switch between a table and a chart).
+
+The main obstacle with the framework is that it wasn't really built to deal with hierarchical data, but Excel-like data instead, that could
 
 ## Open Issues
 
