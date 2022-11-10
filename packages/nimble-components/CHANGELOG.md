@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 25 Oct 2022 13:53:36 GMT and should not be manually modified.
+This log was last generated on Thu, 10 Nov 2022 23:25:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.2.0
+
+Thu, 10 Nov 2022 23:25:26 GMT
+
+### Minor changes
+
+- Update `typescript` version. ([ni/nimble@843d837](https://github.com/ni/nimble/commit/843d8373064ad8389b54fe72a1cedda4091a7b7f))
+- Bump @ni/nimble-tokens to v4.2.0
 
 ## 15.1.1
 
