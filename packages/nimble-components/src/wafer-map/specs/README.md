@@ -95,13 +95,14 @@ _The key elements of the component's public API surface:_
         The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
     -   `dieCharacterCount` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
 
-Please note that all these attributes are only accessible through the constructor of the component. Once set, the only way to modify them is to re-render the component.
+ Please note that all these properties are only settable through the constructor of the component, not via properties or attributes. Once set, the only way to modify them is to initialize a new component.
 
 Methods: The following methods will be exposed in the public API:
 - setWaferMapOrientation() - changes the position of the notch on the wafer map outline. - Calling this method should not re-render the wafer map 
 - setWaferMapQuadrant - changes the layout of the dies on the wafer map. - Calling this method should re-render the wafer map.
-- disable() - renders the component dimmed out and turns off interactivity
-- focus() - adds a green box around the component when it has tab focus
+- disable() - renders the component dimmed out and turns off interactivity.
+- focus() - adds a green box around the component when it has tab focus.
+- render() - renders a `nimble-wafer-map` component.
 
 Events: The events mentioned below will all be handled internally by the nimble component and they will not be part of the public API. In the initial implementation the following events should be handled:
 
