@@ -45,6 +45,8 @@ Cons
     - This results in the creation of a variety of state management in the table component itself, including grouping, sorting, and row selection. Some of which negates the performance benefits we would otherwise see for free.
 - Higher cost to implement a solution for, and more code to test/maintain.
 
+Ultimately we decided against using Perspective as one of its most appealing traits, its performance, would in many situations be neutralized by the implementation needed to support use cases like hierarchical data.
+
 ### Tabulator
 
 [Tabulator](https://tabulator.info/) is a full-fledged table web component, offering a wide range of features that are well aligned with our needs.
@@ -58,4 +60,6 @@ Cons
 - Not Typescript-based
 - Would need to fork such that we could make the necessary changes for it to meet our performance requirements
 - Zero tests
+- Styling could prove problematic (though it )
 
+The cost and risk of changing Tabulator such that we could virtualize the rendering in an acceptable way was enough for us to remove it from consideration.
