@@ -28,31 +28,6 @@ In order for the Nimble table to support numbers of rows in the thousands or hig
 
 TanStack offers another library that helps out with this in [TanStack Virtual](https://tanstack.com/virtual/v3). This library essentially provides a means for supplying a set of state (i.e., the scrollable element, number of total rows, size estimate for row, etc...), and returns a set of "virtual items" that provide the state needed to render the appropriate views. Many of our prototype branches demonstate how we leveraged this, such as [`tanstack-virtualized-nimble-table`](https://github.com/ni/nimble/tree/tanstack-virutalized-nimble-table) ([Storybook](https://60e89457a987cf003efc0a5b-haosfwmjoq.chromatic.com/iframe.html?args=&id=table--table-story&viewMode=story)).
 
-### Column Customization
-
-Clients require the need to customize the columns for their data. This includes showing values as text, date-time, icons, or hyperlinks (to name just a few), as well as type-specific column configuration like data formatters. Moreover, we want the components used for rendering cell data to be Nimble components when possible.
-
-A declarative API can allow for this, like the following:
-```
-<nimble-table>
-    <nimble-text-field-column columnId="firstName" columnTitle="First Name"></nimble-text-field-column>
-    <nimble-text-field-column columnId="lastName" columnTitle="Last Name"></nimble-text-field-column>
-    <nimble-number-field-column columnId="age" columnTitle="Age" step="1"></nimble-number-field-column>
-</nimble-table>
-```
-
-Here, each column element (i.e. `nimble-text-field-column`), is a custom element that gets slotted into a named slot on the `nimble-table`, and would implement a public interface. That interface would provide the method to return the custom content for a particular cell in that column. Something like the following:
-```
-export interface IColumnProvider {
-    getColumnTemplate: () => ViewTemplate<unknown, TableCell>;
-    columnId?: string;
-    columnTitle?: string;
-}
-```
-
-This allows us to provide the declarative API for column configuration such that it can be leveraged by any web framework that supports custom elements such as Angular or Blazor, as the column components are just standard web components.
-
-
 
 ## Alternative Implementations / Designs
 
@@ -60,13 +35,27 @@ This allows us to provide the declarative API for column configuration such that
 
 [Perspective](https://perspective.finos.org/) is a framework for working with and visualizing table data in a highly performant way. By moving all of the various processing tasks, such as sorting and filtering, into a separate web-worker thread, it allows the UI to remain responsive.
 
-This could ultimately allow the table to handle the visualization of a dataset that could number in the millions of rows, with essentially no loss of performance in the UI.
+Pros
+- Architecture allows visualization to work with a dataset in the millions of rows without performance impact.
+- Plugin system allowing for the creation of various views that can be swapped out to visualize the underlying data.
+- Well tested
 
-Additionally, it provided a plugin component system that would allow clients to easily switch between different visualizations over the same data set (i.e. switch between a table and a chart).
+Cons
+- Lack of support for hierarchical data
+    - This results in the creation of a variety of state management in the table component itself, including grouping, sorting, and row selection. Some of which negates the performance benefits we would otherwise see for free.
+- Higher cost to implement a solution for, and more code to test/maintain.
 
-The main obstacle with the framework is that it wasn't really built to deal with hierarchical data, but Excel-like data instead, that could
+### Tabulator
 
-## Open Issues
+[Tabulator](https://tabulator.info/) is a full-fledged table web component, offering a wide range of features that are well aligned with our needs.
 
-*Describe any open issues with the design that you need feedback on before proceeding.*
-*It is expected that these issues will be resolved during the review process and this section will be removed when this documented in pulled into source.*
+Pros
+- Extensive feature set
+- Good documentation/examples
+
+Cons
+- Virtualization doesn't meet our requirements
+- Not Typescript-based
+- Would need to fork such that we could make the necessary changes for it to meet our performance requirements
+- Zero tests
+
