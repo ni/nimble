@@ -6,6 +6,7 @@ import {
     FoundationElement
 } from '@microsoft/fast-foundation';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
+import type { ExtendedDialog } from '../dialog';
 import { UserDismissed } from '../patterns/dialog/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -35,7 +36,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
-    public dialog!: HTMLDialogElement;
+    public dialog!: ExtendedDialog;
     private closing = false;
 
     private resolveShow?: (reason: CloseReason | UserDismissed) => void;

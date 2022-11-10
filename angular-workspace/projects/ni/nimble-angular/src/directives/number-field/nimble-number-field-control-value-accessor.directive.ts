@@ -19,4 +19,4 @@ import { NG_VALUE_ACCESSOR, NumberValueAccessor } from '@angular/forms';
         multi: true
     }]
 })
-export class NimbleNumberFieldControlValueAccessorDirective extends NumberValueAccessor {}
+export class NimbleNumberFieldControlValueAccessorDirective extends NumberValueAccessor { }

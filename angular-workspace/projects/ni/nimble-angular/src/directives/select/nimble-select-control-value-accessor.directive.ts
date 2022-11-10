@@ -11,7 +11,7 @@ import { NG_VALUE_ACCESSOR, SelectControlValueAccessor } from '@angular/forms';
  */
 @Directive({
     selector:
-      'nimble-select:not([multiple])[formControlName],nimble-select:not([multiple])[formControl],nimble-select:not([multiple])[ngModel]',
+        'nimble-select:not([multiple])[formControlName],nimble-select:not([multiple])[formControl],nimble-select:not([multiple])[ngModel]',
     // The following host metadata is duplicated from SelectControlValueAccessor
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
     host: { '(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },

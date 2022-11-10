@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Update `typescript` version.",
+  "packageName": "@ni/nimble-tokens",
+  "email": "2351292+TrevorKarjanis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
