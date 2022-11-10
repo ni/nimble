@@ -32,8 +32,8 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     let router: Router;
     let location: Location;
     let anchor: HTMLAnchorElement;
-    let routerNavigateByUrlSpy: jasmine.Spy<jasmine.Func>;
-    let anchorClickHandlerSpy: jasmine.Spy<jasmine.Func>;
+    let routerNavigateByUrlSpy: jasmine.Spy;
+    let anchorClickHandlerSpy: jasmine.Spy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
