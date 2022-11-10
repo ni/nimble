@@ -17,11 +17,16 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
+  "exports": {
+    "./styles/*": {
+      "sass": "./styles/*.scss"
+    }
+  },
   "peerDependencies": {
-    "@angular/common": "^12.1.0",
-    "@angular/core": "^12.1.0",
-    "@angular/forms": "^12.1.0",
-    "@angular/router": "^12.1.0",
+    "@angular/common": "^13.3.11",
+    "@angular/core": "^13.3.11",
+    "@angular/forms": "^13.3.11",
+    "@angular/router": "^13.3.11",
     "@ni/nimble-components": "^15.1.1"
   },
   "dependencies": {

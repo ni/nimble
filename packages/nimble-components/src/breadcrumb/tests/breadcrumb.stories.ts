@@ -22,9 +22,9 @@ interface BreadcrumbItemArgs extends ItemArgs {
 }
 
 const overviewText = `A breadcrumb component is used as a navigational aid, allowing users
-to maintain awareness of their locations within a program, app, or a website.  
-Breadcrumb items, in addition to href and target, support all other [HTMLAnchorElement](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) attributes/properties.  
-See the [nimble-angular Readme](https://github.com/ni/nimble/blob/main/angular-workspace/projects/ni/nimble-angular/README.md#using-nimble-breadcrumb-with-angulars-routerlink) 
+to maintain awareness of their locations within a program, app, or a website.
+Breadcrumb items, in addition to href and target, support all other [HTMLAnchorElement](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) attributes/properties.
+See the [nimble-angular Readme](https://github.com/ni/nimble/blob/main/angular-workspace/projects/ni/nimble-angular/README.md#using-nimble-breadcrumb-with-angulars-routerlink)
 for information on using this component in Angular with RouterLink directives.`;
 
 const metadata: Meta<BreadcrumbArgs> = {
@@ -63,6 +63,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
             `)}
         </nimble-breadcrumb>
 `),
+    // eslint-disable-next-line storybook/no-redundant-story-name
     storyName: 'Standard Breadcrumb',
     argTypes: {
         options: {
