@@ -40,7 +40,7 @@ The tokens are available in several formats:
 
 Tokens like colors, font families, and spacing are available as CSS and SCSS variables.
 
-1. Assuming your application uses the [Webpack css-loader](https://webpack.js.org/loaders/css-loader/#url), in your application CSS, add `@import url('~@ni/nimble-tokens/dist/styledictionary/css/variables.css');` (replacing `css` with `scss` as needed).
+1. Assuming your application uses the [Webpack css-loader](https://webpack.js.org/loaders/css-loader/#url), in your application CSS, add `@import url('@ni/nimble-tokens/dist/styledictionary/css/variables.css');` (replacing `css` with `scss` as needed).
 2. Use the variables from that file to style your UI:
 ```css
 body { background-color: var(--ni-nimble-base-white); }
@@ -48,7 +48,7 @@ body { background-color: var(--ni-nimble-base-white); }
 
 #### JavaScript and TypeScript
 
-Tokens like colors, font families, and spacing are also available as JavaScript and TypeScript string constants. 
+Tokens like colors, font families, and spacing are also available as JavaScript and TypeScript string constants.
 - colors are represented as hex RGB strings like: `#ff8126`
 - font families and fallbacks are represented as comma separated strings like: `Roboto, Microsoft YaHei, Hiragino Kaku Gothic Pro, sans-serif`
 - spacing is represented in CSS units like: `12px`
