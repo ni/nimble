@@ -218,12 +218,13 @@ Currently the only thing we would like to achieve is to measure (benchmark) the 
 
 During these manual benchmark runs we would like to obtain more details on:
 "How much time it takes to render a `nimble-wafer-map` component with":
-- 100 data points
-- 1000 data points
-- 10000 data points
-- 100000 data points
 
-Based on this information we can plan how we would like to approach performance improvements in the future and probably detect major bottlenecks. 
+-   100 data points
+-   1000 data points
+-   10000 data points
+-   100000 data points
+
+Based on this information we can plan how we would like to approach performance improvements in the future and probably detect major bottlenecks.
 
 ### Dependencies
 
