@@ -1,8 +1,8 @@
 import { DOM, html } from '@microsoft/fast-element';
+import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Drawer, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
-import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
