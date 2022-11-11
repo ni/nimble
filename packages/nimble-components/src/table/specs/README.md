@@ -16,7 +16,7 @@ Tables are used widely throughout NI, and are a common component in design syste
 We have decided to build our table using [TanStack Table](https://tanstack.com/table/v8) as the data model, and create the UI ourselves using typical FAST-based templates. Using TanStack Table provides a lot of lift for the state management/API of the table, including:
 
 -   Row selection
--   Column sizing/sorting/orderin/pinning
+-   Column sizing/sorting/ordering/pinning
 -   Grouping
 -   Expand/collapse
 -   Hierarchical data
@@ -44,7 +44,7 @@ Pros
 Cons
 
 -   Lack of support for hierarchical data
-    -   This results in the creation of a variety of state management in the table component itself, including grouping, sorting, and row selection. Some of which negates the performance benefits we would otherwise see for free.
+    -   We could support hierarchical data by writing custom state management logic in the table component itself for features like grouping, sorting, and row selection. Some of which negates the performance benefits we would otherwise see for free.
 -   Higher cost to implement a solution for, and more code to test/maintain.
 
 Ultimately we decided against using Perspective as one of its most appealing traits, its performance, would in many situations be neutralized by the implementation needed to support use cases like row selection and hierarchical data.
@@ -61,7 +61,7 @@ Pros
 Cons
 
 -   Virtualization doesn't meet our requirements
--   Not Typescript-based
+-   Not TypeScript-based
 -   Would need to fork such that we could make the necessary changes for it to meet our performance requirements
 -   Zero tests
 -   Styling could prove problematic
