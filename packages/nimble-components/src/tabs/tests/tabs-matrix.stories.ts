@@ -12,6 +12,7 @@ import {
 import { DisabledState, disabledStates } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 
 const metadata: Meta = {
     title: 'Tests/Tabs',
@@ -62,5 +63,17 @@ export const hiddenTabs: Story = createStory(
             <nimble-tab>Tab One</nimble-tab>
             <nimble-tab-panel>Tab content one</nimble-tab-panel>
         </nimble-tabs>`
+    )
+);
+
+export const textCustomized: Story = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`
+            <nimble-tabs>
+                Inner text
+                <nimble-tabs-toolbar>Tabs toolbar</nimble-tabs-toolbar>
+                <nimble-tab>Tab</nimble-tab>
+            </nimble-tabs>
+        `
     )
 );

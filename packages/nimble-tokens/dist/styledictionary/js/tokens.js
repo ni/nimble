@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 26 May 2022 18:20:05 GMT
+ * Generated on Thu, 20 Oct 2022 19:57:29 GMT
  */
 
 export const SlLegacyBlue = "#009ff5";
@@ -143,10 +143,10 @@ export const Headline1Size = "25px";
 export const ControlLabel1ChineseMacSize = "11px";
 export const ButtonLabel1ChineseMacSize = "11px";
 export const BodyChineseMacSize = "13px";
-export const ErrorColorUiSize = "9px";
+export const ErrorColorUiSize = "11px";
 export const LinkVisitedLightUiSize = "14px";
-export const ErrorLightUiSize = "9px";
-export const ErrorDarkUiSize = "9px";
+export const ErrorLightUiSize = "11px";
+export const ErrorDarkUiSize = "11px";
 export const LinkSelection100LightUiSize = "14px";
 export const GridHeaderSize = "12.800000190734863px";
 export const GroupLabelExpanderSize = "14px";

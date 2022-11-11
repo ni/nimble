@@ -18,18 +18,14 @@ export default metadata;
 
 const component = html`
     <nimble-dialog>
-        <h2
-            style="font:var(--ni-nimble-title-font); color:var(--ni-nimble-title-font-color)"
-        >
-            Title
-        </h2>
-        <p
-            style="font:var(--ni-nimble-body-font); color:var(--ni-nimble-body-font-color)"
-        >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-        <nimble-button>Close</nimble-button>
+        <span slot="title">This is my dialog's title. It is pretty long.</span>
+        <span slot="subtitle">The dialog has a subtitle here.</span>
+        <div>Here is the first piece of content in the dialog</div>
+        <div>
+            Here is another piece of content in the dialog. It is a bit longer.
+        </div>
+        <nimble-button slot="footer">Cancel</nimble-button>
+        <nimble-button slot="footer">OK</nimble-button>
     </nimble-dialog>
 `;
 

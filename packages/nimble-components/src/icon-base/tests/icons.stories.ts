@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
-import { IconStatus } from '../types';
+import { IconSeverity } from '../types';
 import {
     createUserSelectedThemeStory,
     overrideWarning
@@ -16,7 +16,7 @@ import {
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
 
 interface IconArgs {
-    status: IconStatus;
+    severity: keyof typeof IconSeverity;
 }
 
 const metadata: Meta<IconArgs> = {
@@ -34,32 +34,34 @@ type IconClass = typeof Icon;
 const iconTemplate = html<IconClass, IconArgs>`
     ${(x, c) => html`
         <${DesignSystem.tagFor(x)}
-            class="${c.parent.status}"
+            severity=${() => IconSeverity[c.parent.severity]}
             title=${DesignSystem.tagFor(x)}
         >
         </${DesignSystem.tagFor(x)}>
     `}
 `;
 
-const statusDescriptionOverride = `
+const appearanceDescriptionOverride = `
 With SCSS properties, the icon color can be overriden. For example:
 ${scssInternalPropertySetterMarkdown(tokenNames.iconColor, 'purple')}
 `;
 
-const statusDescription = `
-Set the \`pass\`, \`fail\`, \`warning\`, or \`information\` CSS class on the element to switch between the theme-aware color options.
+const severityDescription = `
+Set severity on the element to switch between the theme-aware color options.
 
-${overrideWarning('Color', statusDescriptionOverride)}
+${overrideWarning('Color', appearanceDescriptionOverride)}
 `;
 
 // prettier-ignore
 export const icons: StoryObj<IconArgs> = {
-    args: { status: IconStatus.regular },
+    args: {
+        severity: 'default'
+    },
     argTypes: {
-        status: {
-            options: Object.values(IconStatus),
+        severity: {
+            options: Object.keys(IconSeverity),
             control: { type: 'radio' },
-            description: statusDescription
+            description: severityDescription
         }
     },
     render: createUserSelectedThemeStory(html`

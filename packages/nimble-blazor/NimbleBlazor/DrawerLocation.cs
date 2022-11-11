@@ -8,7 +8,7 @@ public enum DrawerLocation
 
 internal static class DrawerLocationExtensions
 {
-    private static readonly Dictionary<DrawerLocation, string> _drawerLocationValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<DrawerLocation>();
+    private static readonly Dictionary<DrawerLocation, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<DrawerLocation>();
 
-    public static string? ToAttributeValue(this DrawerLocation? value) => value == null ? null : _drawerLocationValues[value.Value];
+    public static string? ToAttributeValue(this DrawerLocation? value) => value == null ? null : _enumValues[value.Value];
 }

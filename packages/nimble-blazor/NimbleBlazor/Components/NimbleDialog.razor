@@ -1,7 +1,10 @@
 @typeparam TCloseReason
 @namespace NimbleBlazor
-<nimble-dialog @ref="_dialogElement"
-        prevent-dismiss="@PreventDismiss"
-        @attributes="AdditionalAttributes">
+<nimble-dialog
+    @ref="_dialogElement"
+    prevent-dismiss="@PreventDismiss"
+    header-hidden="@HeaderHidden"
+    footer-hidden="@FooterHidden"
+    @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-dialog>

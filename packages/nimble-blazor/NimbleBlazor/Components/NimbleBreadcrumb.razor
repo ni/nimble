@@ -1,2 +1,6 @@
 @namespace NimbleBlazor
-<nimble-breadcrumb @attributes="AdditionalAttributes">@ChildContent</nimble-breadcrumb>
+<nimble-breadcrumb
+    appearance="@Appearance.ToAttributeValue()"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-breadcrumb>

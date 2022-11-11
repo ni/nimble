@@ -44,13 +44,13 @@ The steps to use components from Nimble Angular are similar to using components 
 4. Each application should import the Nimble fonts once in the root `src/styles.scss`. Nimble recommends using SCSS for capabilities such as build time property checking.
 
     ```scss
-    @import '~@ni/nimble-angular/styles/fonts';
+    @import '@ni/nimble-angular/styles/fonts';
     ```
 
 5. As needed, import the theme-aware design tokens in each SCSS file that will leverage the tokens for other parts of your application (for colors, fonts, etc).
 
     ```scss
-    @import '~@ni/nimble-angular/styles/tokens';
+    @import '@ni/nimble-angular/styles/tokens';
 
     .my-element {
         font-family: $ni-nimble-body-font-family;
@@ -116,19 +116,6 @@ To avoid this, call `processUpdates()` after each `fakeAsync` test. This will sy
 If your application uses an older Angular version you can temporarily use an older version of `@ni/nimble-angular` (versions exist back to Angular 12) but it will not contain the latest features so it's preferable to update the application's Angular dependency.
 
 If your application uses a newer Angular version please contact the Nimble team by filing an issue to request support. We strive to offer support for each new major Angular release within a few months of its availability but will work with our clients to find the best time to upgrade.
-
-## Known Issues
-
-Currently the fast-animation library we depend on only exports CommonJS modules, which triggers an Angular project build warning (and potentially suboptimal bundle optimizations).
-
-Currently clients consuming the nimble Angular integration may need to make the following change in their `angular.json`, if they wish to suppress that build warning, in the `projects.[projectName].architect.build.options` section:
-```json
-"allowedCommonJsDependencies": [
-  "@microsoft/fast-animation"
-]
-```
-
-[nimble issue #189](https://github.com/ni/nimble/issues/189) tracks this issue.
 
 ## Contributing
 

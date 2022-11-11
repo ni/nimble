@@ -31,6 +31,10 @@ module.exports = {
             message: 'Use a const object instead of an enum. See other types.ts files for examples.'
         }],
 
+        // Remove this after resolving the following tech debt.
+        // https://github.com/ni/nimble/issues/807
+        '@typescript-eslint/naming-convention': 'off',
+
         // Rules enabled due to strictNullChecks
         '@typescript-eslint/no-non-null-assertion': 'off',
 
@@ -88,13 +92,8 @@ module.exports = {
         {
             files: ['styles.ts'],
             rules: {
-                // template literals are also used to comment on the css and
-                // the comments should be intended accordingly
-                '@typescript-eslint/indent': [
-                    'error',
-                    4,
-                    { ignoredNodes: ['TemplateLiteral'] }
-                ]
+                // Prettier and eslint conflict in how they format CSS in styles files and we prefer prettier's output
+                '@typescript-eslint/indent': 'off'
             }
         },
         {
@@ -125,8 +124,8 @@ module.exports = {
                         leadingUnderscore: 'allow',
                         trailingUnderscore: 'allow',
                     },
-                ],            
+                ],
             }
-        }        
+        }
     ]
 };

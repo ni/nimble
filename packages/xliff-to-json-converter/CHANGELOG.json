@@ -2,6 +2,51 @@
   "name": "@ni/xliff-to-json-converter",
   "entries": [
     {
+      "date": "Thu, 10 Nov 2022 23:25:27 GMT",
+      "tag": "@ni/xliff-to-json-converter_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "2351292+TrevorKarjanis@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "843d8373064ad8389b54fe72a1cedda4091a7b7f",
+            "comment": "Update `typescript` version."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 10 Nov 2022 20:32:58 GMT",
+      "tag": "@ni/xliff-to-json-converter_v1.0.1",
+      "version": "1.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "2351292+TrevorKarjanis@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "ed7fb93f9549a74cd8a16f36509aea388e085cb7",
+            "comment": "Update `@ni/eslint-config-javascript` dependency version."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Oct 2022 22:16:20 GMT",
+      "tag": "@ni/xliff-to-json-converter_v1.0.1",
+      "version": "1.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "109235103+nate-ni@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "31021de203162ed44452ab54425946b220cf9f0f",
+            "comment": "Updating licenses to MIT"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Jun 2022 19:22:07 GMT",
       "tag": "@ni/xliff-to-json-converter_v1.0.0",
       "version": "1.0.0",

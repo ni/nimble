@@ -1,10 +1,11 @@
 @namespace NimbleBlazor
 @inherits NimbleInputBase<bool>
-<nimble-switch disabled="@Disabled"
-                 current-checked="@BindConverter.FormatValue(CurrentValue)"
-                 @onnimblecheckedchange="(__value) => CurrentValue = __value.Checked"
-                 required="@Required"
-                 readonly="@ReadOnly"
-                 @attributes="AdditionalAttributes">
+<nimble-switch
+    disabled="@Disabled"
+    current-checked="@BindConverter.FormatValue(CurrentValue)"
+    @onnimblecheckedchange="(__value) => CurrentValue = __value.Checked"
+    required="@Required"
+    readonly="@ReadOnly"
+    @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-switch>

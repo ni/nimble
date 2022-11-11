@@ -15,7 +15,7 @@ interface ComboboxArgs {
     dropDownPosition: DropdownPosition;
     autocomplete: ComboboxAutocomplete;
     options: OptionArgs[];
-    invalid: boolean;
+    errorVisible: boolean;
     errorText: string;
     currentValue: string;
     appearance: string;
@@ -35,7 +35,7 @@ const metadata: Meta<ComboboxArgs> = {
             description: {
                 component: `Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user can enter aribtrary values in the input area. 
                      The combobox provides 'autocomplete' options that help finding and selecting a particular value. The value of the combobox comes from the text content of the selected list-option, or, if no matching
-                     list option is found, the user-entered text. Whereas with the nimble-select component, the value property of the list-option is always used for its value.`
+                     list option is found, the user-entered text. Whereas with the \`nimble-select\` component, the value property of the list-option is always used for its value.`
             }
         },
         design: {
@@ -53,8 +53,7 @@ const metadata: Meta<ComboboxArgs> = {
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
             error-text="${x => x.errorText}"
-            class="${x => (x.invalid ? 'invalid' : '')}"
-            aria-invalid="${x => x.invalid}"
+            ?error-visible="${x => x.errorVisible}"
             appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
@@ -90,7 +89,7 @@ const metadata: Meta<ComboboxArgs> = {
         disabled: false,
         dropDownPosition: 'below',
         autocomplete: ComboboxAutocomplete.both,
-        invalid: false,
+        errorVisible: false,
         errorText: 'Value is invalid',
         appearance: DropdownAppearance.underline,
         placeholder: 'Select value...',

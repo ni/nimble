@@ -8,10 +8,13 @@ import { NumberFieldAppearance } from '../types';
 interface NumberFieldArgs {
     label: string;
     value: number;
+    step: number;
+    min: number;
+    max: number;
     appearance: NumberFieldAppearance;
     disabled: boolean;
-    invalid: boolean;
-    'error-text': string;
+    errorVisible: boolean;
+    errorText: string;
 }
 
 const metadata: Meta<NumberFieldArgs> = {
@@ -36,10 +39,13 @@ const metadata: Meta<NumberFieldArgs> = {
         <nimble-number-field
             placeholder="${x => x.label}"
             value="${x => x.value}"
+            step="${x => x.step}"
+            min="${x => x.min}"
+            max="${x => x.max}"
             appearance="${x => x.appearance}"
             ?disabled="${x => x.disabled}"
-            class="${x => (x.invalid ? 'invalid' : '')}"
-            error-text="${x => x['error-text']}"
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
         >
             ${x => x.label}
         </nimble-number-field>
@@ -48,15 +54,24 @@ const metadata: Meta<NumberFieldArgs> = {
         appearance: {
             options: Object.values(NumberFieldAppearance),
             control: { type: 'radio' }
+        },
+        errorText: {
+            name: 'error-text'
+        },
+        errorVisible: {
+            name: 'error-visible'
         }
     },
     args: {
         label: 'default label',
         value: 42,
+        step: 1,
+        min: -10,
+        max: 50,
         appearance: NumberFieldAppearance.underline,
         disabled: false,
-        invalid: false,
-        'error-text': 'Value is invalid'
+        errorVisible: false,
+        errorText: 'Value is invalid'
     }
 };
 

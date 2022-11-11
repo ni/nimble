@@ -3,10 +3,11 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
+import { BreadcrumbAppearance } from '../types';
 
 interface BreadcrumbArgs {
     options: ItemArgs[];
-    useProminentLinksStyle: boolean;
+    appearance: keyof typeof BreadcrumbAppearance;
     allowNavigation: boolean;
 }
 
@@ -21,9 +22,9 @@ interface BreadcrumbItemArgs extends ItemArgs {
 }
 
 const overviewText = `A breadcrumb component is used as a navigational aid, allowing users
-to maintain awareness of their locations within a program, app, or a website.  
-Breadcrumb items, in addition to href and target, support all other [HTMLAnchorElement](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) attributes/properties.  
-See the [nimble-angular Readme](https://github.com/ni/nimble/blob/main/angular-workspace/projects/ni/nimble-angular/README.md#using-nimble-breadcrumb-with-angulars-routerlink) 
+to maintain awareness of their locations within a program, app, or a website.
+Breadcrumb items, in addition to href and target, support all other [HTMLAnchorElement](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) attributes/properties.
+See the [nimble-angular Readme](https://github.com/ni/nimble/blob/main/angular-workspace/projects/ni/nimble-angular/README.md#using-nimble-breadcrumb-with-angulars-routerlink)
 for information on using this component in Angular with RouterLink directives.`;
 
 const metadata: Meta<BreadcrumbArgs> = {
@@ -49,7 +50,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <nimble-breadcrumb
-            class="${x => (x.useProminentLinksStyle ? 'prominent-links' : '')}"
+            appearance="${x => BreadcrumbAppearance[x.appearance]}"
         >
             ${repeat(x => x.options, html<ItemArgs, BreadcrumbArgs>`
                 <nimble-breadcrumb-item
@@ -62,6 +63,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
             `)}
         </nimble-breadcrumb>
 `),
+    // eslint-disable-next-line storybook/no-redundant-story-name
     storyName: 'Standard Breadcrumb',
     argTypes: {
         options: {
@@ -70,10 +72,9 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 + 'With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page (with no `href` specified, '
                 + 'rendering with a bold font).'
         },
-        useProminentLinksStyle: {
-            description:
-                'To use the alternate (Prominent Links) style (which swaps the default and active/mouseover link colors), add the CSS class `prominent-links` to the '
-                + '`<nimble-breadcrumb>` element.'
+        appearance: {
+            options: Object.keys(BreadcrumbAppearance),
+            control: { type: 'radio' }
         }
     },
     args: {
@@ -90,7 +91,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 label: 'Current (No Link)'
             }
         ],
-        useProminentLinksStyle: false,
+        appearance: 'default',
         allowNavigation: false
     }
 };

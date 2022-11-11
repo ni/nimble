@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Nimble</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <script src="https://unpkg.com/@ni/nimble-components@15.0.0/dist/all-components-bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+</head>
+<body>
+    <nimble-theme-provider theme="color">
+        <div class="banner">
+            <div class="ni-logo">
+                <img src="./ni.svg" alt="NI Logo">
+            </div>
+            <div class="banner-main">
+                <img src="./nimble-logo.png" alt="Nimble Logo">
+                <p>The Nimble Design System is an easy to use collection of well-designed, styled components that can be used in any NI web application.</p>
+            </div>
+        </div>
+    </nimble-theme-provider>
+    <div class="cards-container">
+        <div class="cards">
+            <a class="card" href="https://github.com/ni/nimble">
+                <div class="icon"><img src="./gh.svg" alt="Nimble Logo"></div>
+                <div class="name">GitHub</div>
+                <div class="description">Open source access to code snippets</div>
+            </a>
+            <a class="card" href="https://nimble.ni.dev/storybook/">
+                <div class="icon"><img src="./sb.svg" alt="Nimble Logo"></div>
+                <div class="name">Storybook</div>
+                <div class="description">Live playground for component APIs</div>
+            </a>
+            <a class="card" href="https://nimble.ni.dev/storybook/example-client-app">
+                <div class="icon"><img src="./ng.svg" alt="Nimble Logo"></div>
+                <div class="name">Angular Demo</div>
+                <div class="description">View the Angular Demo Project</div>
+            </a>
+            <a class="card" href="https://nimble.ni.dev/storybook/blazor-client-app/wwwroot/">
+                <div class="icon"><img src="./blazor.svg" alt="Nimble Logo"></div>
+                <div class="name">Blazor Demo</div>
+                <div class="description">View the Blazor Demo Project</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

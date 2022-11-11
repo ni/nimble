@@ -77,7 +77,7 @@ Create a new folder named after your component with some core files:
 
 | File                                   | Description                                                                                                                                                                                                                                                                |
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| component-name.spec.md                 | Contains the original API and implementation specification for the component.                                                                                                                                                                                              |
+| specs/\*.md                            | Contains the original API and implementation specifications for the component.                                                                                                                                                                                             |
 | index.ts                               | Contains the component class definition and registration. All TypeScript logic contained in the component belongs here.                                                                                                                                                    |
 | styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts).                                             |
 | template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                                                 |
@@ -97,6 +97,8 @@ All components should have an import added to `src/all-components.ts` so they ar
 If Fast Foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble"; namespacing is accomplished through imports. Use `MyComponent.compose()` to add the component to Nimble.
 
 If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value. Make sure to include a test that shows the tag name for the element is found when using `DesignSystem.tagFor(FastFoundationBaseClass)`.
+
+Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template).
 
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
@@ -123,7 +125,7 @@ const nimbleButton = Button.compose({
 If you need to compose multiple elements into a new component, use previously built Nimble elements or basic HTML elements as your template building blocks.
 Extend `FoundationElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
 
-Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `context.tagFor(NimbleComponentClass)` where `context` is the `ElementDefinitionContext` instead of hard coding the nimble tag name in the template. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
+Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `DesignSystem.tagFor(NimbleComponentClass)` instead of hard coding the nimble tag name in templates. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
 
 ### Adhere to architectural philosophies
 
@@ -131,36 +133,90 @@ Use the `html` tagged template helper to define your custom template. See [Decla
 
 This package follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide) with some exceptions listed in [Coding Conventions](/packages/nimble-components/docs/coding-conventions.md).
 
-#### API naming
-
-Use lower-kebab-case for attributes and enum values that are part of a component's public API.
-
-```ts
-    @attr({ attribute: 'error-text' })
-    public errorText: string | undefined;
-```
-
 #### CSS
 
 Component CSS should follow the patterns described in [CSS Guidelines](/packages/nimble-components/docs/css-guidelines.md).
 
+#### Represent control states as attributes
+
+##### Why attributes over classes
+
+It is common in web development to represent variations of control states using css classes. While it is possible to apply custom styles to web components based on user-added CSS classes, i.e. `:host(.my-class)`, it is not allowed in nimble for the following reasons:
+
+-   The `class` attribute is a user-configured attribute. For native HTML elements it would be surprising if setting a class, i.e. `<div class="my-class">`, caused the element to have a new style that the user did not define in their stylesheet. However, other attributes are expected to have element defined behavior, i.e. `<div hidden>`.
+-   Classes set in the `class` attribute are not as well-typed across frameworks. Users have to contort a bit to use exported enums for CSS class strings while attributes and attribute values are well-typed in wrappers.
+-   Binding to updates in the `class` attribute is more difficult / not an expected pattern. This makes it difficult to forward configured properties to inner elements. Alternatively, binding to attributes and forwarding bound attribute values in templates is a well supported pattern.
+
+##### Attribute naming convention
+
+-   Do not use attribute names that conflict with native attribute names:
+    -   Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
+    -   Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
+-   Use lower-kebab-case for attributes and enum values that are part of a component's public API.
+
+    ```ts
+        @attr({ attribute: 'error-text' })
+        public errorText?: string;
+    ```
+
+##### Attribute common name patterns
+
+-   For attributes that control the visibility of a part, use either the boolean attribute `<part>-visible` or `<part>-hidden`, i.e. `icon-visible` or `icon-hidden`.
+
+    The default configuration should be the most common configuration and the boolean attribute should be added for the less common alternate configuration that differs from the default. An element should NOT implement both `-visible` and `-hidden` attributes for a given `<part>`, only one or the other.
+
+-   Use the `appearance` attribute to represent mutually exclusive visual modes of a component that represent large style changes. Likely implemented with an attribute behavior.
+
+    An `appearance-variant` attribute may also be used to represent smaller mutually exclusive variations of an appearance. Likely implemented with CSS attribute selectors.
+
+##### Attribute common value patterns
+
+-   When applicable, the default value for an attribute that is allowed to be unconfigured should have the enum name `default` and be the enum value `undefined`.
+-   States representing the following ideas should use those names: `success`, `error`, `warning`, `information`.
+
+    Avoid shorthands, i.e. `warn`, `info` and avoid alternatives, i.e. `pass`, `fail`, `invalid`.
+
+##### Responding to attribute values
+
+With an attribute defined there are several ways to react to updates. To minimize performance overhead, prefer in order (may utilize more that one):
+
+1. Respond to attribute values from css:
+
+    ```css
+    :host([my-attribute='some-value']) {
+        /* ... */
+    }
+    ```
+
+    Using attribute selectors in CSS is particularly useful if there are relatively few spots peppered throughout the file where style should be overridden based on a configured attribute.
+
+2. Respond to attribute values using a behavior:
+
+    <!-- prettier-ignore -->
+    ```ts
+    import { css } from '@microsoft/fast-element';
+    css`
+        /* ... */
+    `.withBehaviors(
+        // ...
+    );
+    ```
+
+    Behaviors are useful when a large block of styles is overridden based on the attibute configuration, i.e. on the order of replacing a large chunk of the stylesheet based on the configuration.
+
+    Behaviors should not be used for attributes that change rapidly on a page. Behaviors internally change the stylesheets that are on the page and can trigger expensive style recalculations when stylesheets are added and removed from the page based on the attribute value.
+
+    Behaviors are ideal for attributes that are set initially on an element and are not expected to change often / ever during the element lifetime. In these scenarios they actually provide an important performance advantage by eliminating large chunks of unnecessary styles from the page that the browser would need to evaluate.
+
+3. Respond to the value of an attribute programmatically. This may be done by binding to an attribute value or listening to an attribute value change.
+
+    This should NOT be done for style purposes and instead rely on CSS attribute selectors or behaviors as previously described.
+
+    Some valid use cases are reflecting correct aria values based on the updated attribute or forwarding updates to child components.
+
 #### Comments
 
 At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
-
-#### Behaviors
-
-When configuring different variants of a single element, use behaviors.
-
-<!-- prettier-ignore -->
-```ts
-import { css } from '@microsoft/fast-element';
-css`
-    /* ... */
-`.withBehaviors(
-    // ...
-);
-```
 
 ### Adhere to accessibility guidelines
 
@@ -168,17 +224,20 @@ Accessibility is a requirement for all new components. For the Nimble design sys
 
 -   Focus states are defined for every element and work on all browsers.
 -   Colors have sufficient contrast across all themes.
--   **TODO: UX to fill out requirements.**
 
 This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
 
-### Animations
+Animations can trigger users with vestibular disorders. [WCAG provides guidance](https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html) to disable certain kinds of animations when the [prefers-reduced-motion CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) is enabled:
 
-We're using the [fast-animation package](https://www.npmjs.com/package/@microsoft/fast-animation) for some animations (see the Drawer component as an example). That package allows us to create and start animations from JS/TS code, gives us ways to group/sequence multiple animations together, and lets us be notified when animations complete.
+> An element which moves into place or changes size while appearing is considered to be animated. An element which appears instantly without transitioning is not using animation. Motion animation does not include changes of color, blurring, or opacity which do not change the perceived size, shape, or position of the element.
 
-For new component animations, using fast-animation is preferred for complex/sequenced animations, and animations which will have additional JS/TS logic when they finish. CSS animations can still be used for simple standalone animations with no start/end JS/TS logic.
+Nimble interprets this to mean the following types of animations are permitted with `prefers-reduced-motion` is enabled:
 
-In either case, animations should honor the [prefers-reduced-motion CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). This repo has examples to support that in both TS code (for fast-animation) and in CSS, [search for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) for examples.
+1. Animations which don't involve motion (e.g. fades or color changes)
+2. Animations which involve motion but don't significantly affect the perceived size, shape, or position of the object. The only approved example of this is animating border thickness; other candidates can be proposed via PR (along with an update to these docs).
+3. Animations which involved motion but the change in size, shape, or position is synchronized with a user interaction (e.g. a mouse drag to move or resize an object or scrolling through a list).
+
+All other motion animations should either be disabled or replaced with a fade animation when `prefers-reduced-motion` is enabled. [Search this repo for `prefers-reduced-motion`](https://github.com/ni/nimble/search?q=prefers-reduced-motion) to find examples of how it's done.
 
 ### Leveraging icons
 

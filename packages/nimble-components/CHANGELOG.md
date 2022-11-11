@@ -1,8 +1,138 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 02 Sep 2022 17:48:33 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Nov 2022 15:34:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.3.1
+
+Fri, 11 Nov 2022 15:34:20 GMT
+
+### Patches
+
+- Add fade animation to drawer when prefers-reduced-motion is enabled ([ni/nimble@e6b385e](https://github.com/ni/nimble/commit/e6b385ef6ec2590ba101de4fa7ef54c5be0d569d))
+
+## 15.3.0
+
+Fri, 11 Nov 2022 14:59:30 GMT
+
+### Minor changes
+
+- Added triangle-filled, check-large, and dot-solid-dot-stroke-measurement icons ([ni/nimble@e752021](https://github.com/ni/nimble/commit/e75202147b35ee50f80cc37890ca397e35dc019e))
+- Bump @ni/nimble-tokens to v4.3.0
+
+## 15.2.0
+
+Thu, 10 Nov 2022 23:25:26 GMT
+
+### Minor changes
+
+- Update `typescript` version. ([ni/nimble@843d837](https://github.com/ni/nimble/commit/843d8373064ad8389b54fe72a1cedda4091a7b7f))
+- Bump @ni/nimble-tokens to v4.2.0
+
+## 15.1.1
+
+Tue, 25 Oct 2022 13:53:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v4.1.3
+
+## 15.1.0
+
+Tue, 18 Oct 2022 16:53:38 GMT
+
+### Minor changes
+
+- Implement error state for select ([ni/nimble@14c474e](https://github.com/ni/nimble/commit/14c474efc7dd3f27d26ef7d977d1885019d58a95))
+
+## 15.0.0
+
+Fri, 07 Oct 2022 21:13:41 GMT
+
+### Major changes
+
+- Rename nimble "radio button" to "radio" ([ni/nimble@8f496f0](https://github.com/ni/nimble/commit/8f496f0aaca48e5765e942292c88e78094e81386))
+
+## 14.0.0
+
+Thu, 06 Oct 2022 17:54:42 GMT
+
+### Major changes
+
+- - Extend styling on nimble-dialog by implementing a slotted template.
+  - `aria-label` no longer correctly labels the dialog. Provide text content in the `title` and/or `subtitle` to give the dialog an accessible label.
+  - Styling has changed. Update dialogs in one of the two ways:
+      1. To lay out content using recommended patterns, use exposed slots of `title`, `subtitle`, and `footer` to lay out content using recommended patterns.
+      2. To keep (nearly) identical layout as before this change:
+          - set `header-hidden` and `footer-hidden` on the dialog
+          - wrap the entire contents of the dialog in a single element, such as a `<div>` to avoid having the default flex layout applied to content
+          - note: it is still recommended to provide a title/subtitle for accessibility purposes even when setting `header-hidden` ([ni/nimble@980a9da](https://github.com/ni/nimble/commit/980a9dac9961ef1487833281470f97c79f0f5197))
+
+## 13.0.0
+
+Tue, 04 Oct 2022 16:41:24 GMT
+
+### Major changes
+
+- Fix issues related to nimble-drawer by rewriting the template to use the HTML dialog ([ni/nimble@e31785b](https://github.com/ni/nimble/commit/e31785bf51ac6d2e2d188ee3dceed3d862565d3e))
+
+## 12.0.2
+
+Mon, 03 Oct 2022 22:16:20 GMT
+
+### Patches
+
+- Updating licenses to MIT ([ni/nimble@31021de](https://github.com/ni/nimble/commit/31021de203162ed44452ab54425946b220cf9f0f))
+- Bump @ni/nimble-tokens to v4.1.2
+
+## 12.0.1
+
+Thu, 29 Sep 2022 20:33:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v4.1.1
+
+## 12.0.0
+
+Thu, 29 Sep 2022 20:03:25 GMT
+
+### Major changes
+
+- Migrated from CSS classes to element attributes for configuring components. For the list of specific elements and classes changed see: [#738](https://github.com/ni/nimble/pull/738). ([ni/nimble@9023d71](https://github.com/ni/nimble/commit/9023d71ddb4740a624e5b9eac0114a0c91fbca78))
+
+## 11.15.1
+
+Mon, 19 Sep 2022 19:10:55 GMT
+
+### Patches
+
+- Turn off @typescript-eslint/indent for styles.ts files ([ni/nimble@c7509f7](https://github.com/ni/nimble/commit/c7509f7321c3cf635ba9f346026c4e097079aa5c))
+
+## 11.15.0
+
+Thu, 15 Sep 2022 18:33:47 GMT
+
+### Minor changes
+
+- Export Orientation enum so it can be used as value ([ni/nimble@a04abdb](https://github.com/ni/nimble/commit/a04abdb9c8f58af14565752920b09aa002e53173))
+
+## 11.14.0
+
+Mon, 12 Sep 2022 20:18:53 GMT
+
+### Minor changes
+
+- Add nimble-radio-button and nimble-radio-group ([ni/nimble@5a160ef](https://github.com/ni/nimble/commit/5a160efcf22098a21420834470a511878c81f387))
+
+## 11.13.1
+
+Tue, 06 Sep 2022 20:09:58 GMT
+
+### Patches
+
+- Fix minor animation issues and add guidelines for prefers-reduce-motion ([ni/nimble@7b4a4f1](https://github.com/ni/nimble/commit/7b4a4f1b6b87bff5967ba9c7ce8dbabac9c2d33a))
 
 ## 11.13.0
 

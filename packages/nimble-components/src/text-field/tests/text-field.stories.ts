@@ -9,12 +9,12 @@ interface TextFieldArgs {
     label: string;
     type: string;
     appearance: string;
-    'clear-inline-padding': boolean;
+    fullBleed: boolean;
     value: string;
     readonly: boolean;
     disabled: boolean;
-    invalid: boolean;
-    'error-text': string;
+    errorVisible: boolean;
+    errorText: string;
     actionButton: boolean;
     leftIcon: boolean;
 }
@@ -52,11 +52,11 @@ const metadata: Meta<TextFieldArgs> = {
             type="${x => x.type}"
             appearance="${x => x.appearance}"
             value="${x => x.value}"
-            class="${x => (x.invalid ? 'invalid' : '')} ${x => (x['clear-inline-padding'] ? 'clear-inline-padding' : '')}"
-            aria-invalid="${x => x.invalid}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
-            error-text="${x => x['error-text']}"
+            error-text="${x => x.errorText}"
+            ?error-visible="${x => x.errorVisible}"
+            ?full-bleed="${x => x.fullBleed}"
         >
             ${when(x => x.leftIcon, html`
                 <nimble-icon-tag slot="start"></nimble-icon-tag>`)}
@@ -79,11 +79,11 @@ const metadata: Meta<TextFieldArgs> = {
             options: Object.values(TextFieldAppearance),
             control: { type: 'radio' }
         },
-        'clear-inline-padding': {
+        fullBleed: {
             description:
-                'Add the class `clear-inline-padding` to remove the start and end padding. Only affects the frameless appearance.'
+                'Remove the start and end margins causing the text to stretch across the full control width. Only applies to the frameless appearance.'
         },
-        'error-text': {
+        errorText: {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
         },
@@ -98,12 +98,12 @@ const metadata: Meta<TextFieldArgs> = {
         label: 'default label',
         type: 'text',
         appearance: 'underline',
-        'clear-inline-padding': false,
+        fullBleed: false,
         value: '',
         readonly: false,
         disabled: false,
-        invalid: false,
-        'error-text': 'Value is invalid',
+        errorVisible: false,
+        errorText: 'Value is invalid',
         actionButton: false,
         leftIcon: false
     }
