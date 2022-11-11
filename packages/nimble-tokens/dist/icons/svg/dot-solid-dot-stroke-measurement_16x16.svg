@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+    <rect class="cls-1" x="5" y="3" width="1" height="3"/>
+    <rect class="cls-1" x="6" y="4" width="4" height="1"/>
+    <rect class="cls-1" x="10" y="3" width="1" height="3"/>
+    <path class="cls-1" d="M7,10c0,1.65685-1.34315,3-3,3s-3-1.34315-3-3,1.34315-3,3-3,3,1.34315,3,3Zm5-2c-1.1028,0-2,.89719-2,2s.8972,2,2,2,2-.89719,2-2-.8972-2-2-2m0-1c1.6568,0,3,1.34314,3,3s-1.3432,3-3,3c-1.65688,0-3-1.3432-3-3s1.34312-3,3-3h0Z"/>
+</svg>

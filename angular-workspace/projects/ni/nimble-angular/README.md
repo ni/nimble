@@ -44,13 +44,13 @@ The steps to use components from Nimble Angular are similar to using components 
 4. Each application should import the Nimble fonts once in the root `src/styles.scss`. Nimble recommends using SCSS for capabilities such as build time property checking.
 
     ```scss
-    @import '~@ni/nimble-angular/styles/fonts';
+    @import '@ni/nimble-angular/styles/fonts';
     ```
 
 5. As needed, import the theme-aware design tokens in each SCSS file that will leverage the tokens for other parts of your application (for colors, fonts, etc).
 
     ```scss
-    @import '~@ni/nimble-angular/styles/tokens';
+    @import '@ni/nimble-angular/styles/tokens';
 
     .my-element {
         font-family: $ni-nimble-body-font-family;
@@ -94,7 +94,7 @@ For best results, always use `ngModel`, `formControl`, or `formControlName` bind
 
 ### Using Nimble breadcrumb with Angular's RouterLink
 
-`nimble-breadcrumb-item` supports the [Angular RouterLink directive](https://angular.io/api/router/RouterLink) for breadcrumb navigation in an Angular app using routing.  
+`nimble-breadcrumb-item` supports the [Angular RouterLink directive](https://angular.io/api/router/RouterLink) for breadcrumb navigation in an Angular app using routing.
 However, the attribute name `nimbleRouterLink` should be used instead of `routerLink` - for example:
 ```html
 <nimble-breadcrumb-item [nimbleRouterLink]="breadcrumb.url">

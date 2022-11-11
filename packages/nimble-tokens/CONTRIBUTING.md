@@ -64,7 +64,7 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
       <img src="docs/find-replace-5.png" width="1000">
 
-3. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
+3. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens` & `npm run build -w @ni/nimble-components`.
 4. Add metadata for the new icons to `nimble-components\src\icon-base\icon-metadata.ts`.
 5. Generate and build icon components by running `npm run build -w @ni/nimble-components`.
 6. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly.

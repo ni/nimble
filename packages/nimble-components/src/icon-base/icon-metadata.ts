@@ -94,6 +94,9 @@ export const iconMetadata: {
     IconCheckDot: {
         tags: ['status', 'done']
     },
+    IconCheckLarge: {
+        tags: ['status']
+    },
     IconCircle: {
         tags: ['status', 'connected']
     },
@@ -192,6 +195,9 @@ export const iconMetadata: {
     },
     IconDotSolidDotStroke: {
         tags: ['status', 'header']
+    },
+    IconDotSolidDotStrokeMeasurement: {
+        tags: ['status', 'measurement']
     },
     IconDownload: {
         tags: []
@@ -408,6 +414,9 @@ export const iconMetadata: {
     },
     IconTriangle: {
         tags: ['status', 'alarm-active']
+    },
+    IconTriangleFilled: {
+        tags: ['status']
     },
     IconTrueFalseRectangle: {
         tags: ['tdms-boolean-channel']

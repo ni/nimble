@@ -28,7 +28,6 @@ This repository contains the source for the following packages:
 - **[`@ni/nimble-tokens`](/packages/nimble-tokens/)** - design tokens used by the component packages
 
 And some additional utility packages:
-- [`@ni/beachball-lock-update`](/packages/beachball-lock-update/) - script to update `package-lock.json` files in npm workspace monorepos
 - [`@ni/xliff-to-json-converter`](/packages/xliff-to-json-converter/) - a utility to convert translation files from XLIFF to JSON for Angular localization
 
 Consult the `README.md` for each package to learn more, including how to use it in an application.

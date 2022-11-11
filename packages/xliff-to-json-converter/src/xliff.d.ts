@@ -6,6 +6,7 @@ declare module 'xliff' {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         readonly 'Standalone': {
             readonly 'id': string,
+            // eslint-disable-next-line @typescript-eslint/naming-convention
             readonly 'equiv-text': string
         };
     }
@@ -16,6 +17,7 @@ declare module 'xliff' {
         readonly sourceLanguage: string;
         readonly targetLanguage: string;
         readonly resources: {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
             readonly 'ng2.template': {
                 readonly [translationId: string]: {
                     readonly source: XliffTranslationString | XliffTranslationObject | XliffTranslationArray,

@@ -23,7 +23,7 @@ interface DialogArgs {
     openAndHandleResult: (
         dialogRef: Dialog<string>,
         textFieldRef: TextField
-    ) => void;
+    ) => Promise<void> | undefined;
 }
 
 const shortContent = html`

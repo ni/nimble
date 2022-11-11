@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { Radio } from '@ni/nimble-components/dist/esm/radio';
+import type { Radio } from '@ni/nimble-components/dist/esm/radio';
 import type { RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 

@@ -3,4 +3,4 @@
 // - Once per SCSS file that is leveraging the tokens (helpful for autocomplete features, etc)
 // - Once globally in the application styles.scss (less noise per file)
 
-@import '~@ni/nimble-components/dist/tokens';
+@import '@ni/nimble-components/dist/tokens';
