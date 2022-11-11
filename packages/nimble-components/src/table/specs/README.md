@@ -47,7 +47,7 @@ Cons
     -   This results in the creation of a variety of state management in the table component itself, including grouping, sorting, and row selection. Some of which negates the performance benefits we would otherwise see for free.
 -   Higher cost to implement a solution for, and more code to test/maintain.
 
-Ultimately we decided against using Perspective as one of its most appealing traits, its performance, would in many situations be neutralized by the implementation needed to support use cases like hierarchical data.
+Ultimately we decided against using Perspective as one of its most appealing traits, its performance, would in many situations be neutralized by the implementation needed to support use cases like row selection and hierarchical data.
 
 ### Tabulator
 
