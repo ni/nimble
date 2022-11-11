@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 10 Nov 2022 23:25:26 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Nov 2022 14:59:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.3.0
+
+Fri, 11 Nov 2022 14:59:30 GMT
+
+### Minor changes
+
+- Added triangle-filled, check-large, and dot-solid-dot-stroke-measurement icons ([ni/nimble@e752021](https://github.com/ni/nimble/commit/e75202147b35ee50f80cc37890ca397e35dc019e))
 
 ## 4.2.0
 
