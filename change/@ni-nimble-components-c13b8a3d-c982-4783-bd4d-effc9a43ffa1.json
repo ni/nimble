@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Ran the npm run format command to fix formatting issues",
+  "packageName": "@ni/nimble-components",
+  "email": "zoltan.szilagyi@ni.com",
+  "dependentChangeType": "none"
+}
