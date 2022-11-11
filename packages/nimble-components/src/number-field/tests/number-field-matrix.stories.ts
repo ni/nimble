@@ -90,3 +90,15 @@ export const textCustomized: Story = createMatrixThemeStory(
         html`<nimble-number-field value="42">Number field</nimble-number-field>`
     )
 );
+
+export const heightTest: Story = createStory(
+    html`
+        <div style="display: flex; flex-direction: column">
+            <nimble-number-field style="border: 1px dashed; width: 200px">
+                With Label
+            </nimble-number-field>
+            <nimble-number-field style="border: 1px dashed; width: 200px">
+            </nimble-number-field>
+        </div>
+    `
+);
