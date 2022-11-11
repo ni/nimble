@@ -29,7 +29,7 @@ describe('Nimble combobox control value accessor', () => {
     describe('when using option\'s [ngValue] binding on template-based form', () => {
         @Component({
             template: `
-                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="both">                    
+                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="both">
                     <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                     <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                 </nimble-combobox>
@@ -225,7 +225,7 @@ describe('Nimble combobox control value accessor', () => {
         @Component({
             template: `
                 <form [formGroup]="form">
-                    <nimble-combobox #combobox [formControl]="selectedOption" [compareWith]="compareWith" autocomplete="both">                    
+                    <nimble-combobox #combobox [formControl]="selectedOption" [compareWith]="compareWith" autocomplete="both">
                         <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                         <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                     </nimble-combobox>
@@ -243,7 +243,7 @@ describe('Nimble combobox control value accessor', () => {
             ];
 
             public defaultOption = this.selectOptions[1];
-            public selectedOption = new FormControl(this.defaultOption);
+            public selectedOption = new FormControl<TestModel | null | typeof OPTION_NOT_FOUND>(this.defaultOption);
             public form: FormGroup = new FormGroup({
                 selectOption: this.selectedOption
             });
@@ -346,7 +346,7 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('list-option with current combobox value is removed, combobox display value and model value is unchanged', fakeAsync(() => {
-            const currentModelValue: unknown = testHostComponent.selectedOption.value;
+            const currentModelValue = testHostComponent.selectedOption.value;
             testHostComponent.selectOptions.splice(1, 1); // removes currently selected option from set
             fixture.detectChanges();
             tick();

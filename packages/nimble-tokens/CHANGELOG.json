@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 11 Nov 2022 14:59:30 GMT",
+      "tag": "@ni/nimble-tokens_v4.3.0",
+      "version": "4.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "e75202147b35ee50f80cc37890ca397e35dc019e",
+            "comment": "Added triangle-filled, check-large, and dot-solid-dot-stroke-measurement icons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 10 Nov 2022 23:25:26 GMT",
+      "tag": "@ni/nimble-tokens_v4.2.0",
+      "version": "4.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "2351292+TrevorKarjanis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "843d8373064ad8389b54fe72a1cedda4091a7b7f",
+            "comment": "Update `typescript` version."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 10 Nov 2022 20:32:58 GMT",
       "tag": "@ni/nimble-tokens_v4.1.3",
       "version": "4.1.3",
