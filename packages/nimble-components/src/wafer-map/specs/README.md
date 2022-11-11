@@ -96,12 +96,13 @@ _The key elements of the component's public API surface:_
     -   `dieCharacterCount` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
     -   disabled - it's represented by a boolean value and reffers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
 
-The `quadrant`, `orientation`, `dieCharacterCount` and `disabled` properties will be configurable via properties and attributes. 
+The `quadrant`, `orientation`, `dieCharacterCount` and `disabled` properties will be configurable via properties and attributes.
 The `die` and `colorScale` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
-- disable() - renders the component dimmed out and turns off interactivity.
-- focus() - adds a green box around the component when it has tab focus.
+
+-   disable() - renders the component dimmed out and turns off interactivity.
+-   focus() - adds a green box around the component when it has tab focus.
 
 Events: The events mentioned below will all be handled internally by the nimble component and they will not be part of the public API. In the initial implementation the following events should be handled:
 
@@ -169,9 +170,10 @@ As a first step, we are working on the "bloat removal" which is basically the re
 
 Original component: [wafermap](https://dev.azure.com/ni/DevCentral/_git/op-web-portal?path=/libraries/wafermap&version=GBfeature/microServicesSplit)\
 
-Once the bloat removal is done, we split the component to smaller services as follows: 
-- data service - responsible for initializing, by parsing the input and populating metadata properties such as the width, height, axes ranges, color, and linear scales. The service will expose an interface for requesting data access to the die list, individual die data, color data, scales, rows, and columns.
-- rendering service - by using the relevant information from the data service and being given an empty canvas it will populate it with the existing die list.
+Once the bloat removal is done, we split the component to smaller services as follows:
+
+-   data service - responsible for initializing, by parsing the input and populating metadata properties such as the width, height, axes ranges, color, and linear scales. The service will expose an interface for requesting data access to the die list, individual die data, color data, scales, rows, and columns.
+-   rendering service - by using the relevant information from the data service and being given an empty canvas it will populate it with the existing die list.
 
 ### Code submission strategy
 
