@@ -61,7 +61,7 @@ Pros
 Cons
 
 -   Virtualization doesn't meet our requirements
--   Not Typescript-based
+-   Not TypeScript-based
 -   Would need to fork such that we could make the necessary changes for it to meet our performance requirements
 -   Zero tests
 -   Styling could prove problematic
