@@ -16,7 +16,7 @@ Tables are used widely throughout NI, and are a common component in design syste
 We have decided to build our table using [TanStack Table](https://tanstack.com/table/v8) as the data model, and create the UI ourselves using typical FAST-based templates. Using TanStack Table provides a lot of lift for the state management/API of the table, including:
 
 -   Row selection
--   Column sizing/sorting/orderin/pinning
+-   Column sizing/sorting/ordering/pinning
 -   Grouping
 -   Expand/collapse
 -   Hierarchical data
