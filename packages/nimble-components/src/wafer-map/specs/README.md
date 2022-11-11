@@ -214,6 +214,15 @@ N/A
 As mentioned in the "Risks" section, the biggest challenge from the performance standpoint is the representation of large number of datapoints and interacting with these datapoints in the browser.
 Currently the only thing we would like to achieve is to measure (benchmark) the time it takes a `nimble-wafer-map` component to be loaded with various number of datapoints. Initially this could be a manual benchmark on a demo site hosted within the repository. Longer term we may automate and trend this by including benchmarking on the PR build.
 
+During these manual benchmark runs we would like to obtain more details on:
+"How much time it takes to render a `nimble-wafer-map` component with":
+- 100 data points
+- 1000 data points
+- 10000 data points
+- 100000 data points
+
+Based on this information we can plan how we would like to approach performance improvements in the future and probably detect major bottlenecks. 
+
 ### Dependencies
 
 The only 3rd party dependency on which the current wafer map component depends on is the [D3(Data-Driven Documents)](https://d3js.org/) library.
