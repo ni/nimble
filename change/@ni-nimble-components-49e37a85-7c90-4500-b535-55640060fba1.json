@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Temporarily disable intermittent drawer test",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
