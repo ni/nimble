@@ -193,6 +193,8 @@ Another interaction, which must be part of the component is the ability to ident
 
 Furthermore `disabled` and `focused` state will also be supported by the component.
 
+Whenever the loading of the wafer data (can and will happen in case we have many dies to present) takes more time to load, we will add only the chrome of the wafer map into the DOM.
+
 ### Accessibility
 
 Important: this is out of scope for the current implementation.\
