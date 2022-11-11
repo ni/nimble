@@ -80,9 +80,9 @@ _The key elements of the component's public API surface:_
 -   Props/Attrs:
     -   `die[]` - this represents the input data, which fills the wafer map with content.\
         The **die** object contains the following attributes:
-    -   x: integer
-    -   y: integer
-    -   value: float
+        -   x: integer
+        -   y: integer
+        -   value: float
     -   `quadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by an Enum with the following values:
     -   TopLeft - ![Top Left Quadrant](./Resources/top_left.png)
     -   BottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
@@ -94,16 +94,14 @@ _The key elements of the component's public API surface:_
         In the following example the colorScale object is defined as `WafermapColorsScale(['red', 'blue', 'green'], ['1', '2', '8']);`\
         The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
     -   `dieCharacterCount` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
+    -   disabled - it's represented by a boolean value and reffers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
 
-Please note that all these properties are only settable through the constructor of the component, not via properties or attributes. Once set, the only way to modify them is to initialize a new component.
+The `quadrant`, `orientation`, `dieCharacterCount` and `disabled` properties will be configurable via properties and attributes. 
+The `die` and `colorScale` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
-
--   setWaferMapOrientation() - changes the position of the notch on the wafer map outline. - Calling this method should not re-render the wafer map
--   setWaferMapQuadrant - changes the layout of the dies on the wafer map. - Calling this method should re-render the wafer map.
--   disable() - renders the component dimmed out and turns off interactivity.
--   focus() - adds a green box around the component when it has tab focus.
--   render() - renders a `nimble-wafer-map` component.
+- disable() - renders the component dimmed out and turns off interactivity.
+- focus() - adds a green box around the component when it has tab focus.
 
 Events: The events mentioned below will all be handled internally by the nimble component and they will not be part of the public API. In the initial implementation the following events should be handled:
 
@@ -153,7 +151,7 @@ The rectangle present here is used as the "highlight" which allows us to identif
 
 ### Angular integration
 
-The `nimble-wafer-map` component does not take user input directly from the webpage where it's embedded. All the inputs must be provided through the constructor of the component so in the current case there is no point using ControlValueAccessors.
+The `nimble-wafer-map` component will not participate in Angular Forms and does not need a ControlValueAccessor. It will have a standard Angular Directive to expose typed properties to Angular.
 
 ### Blazor integration
 
@@ -167,17 +165,20 @@ For the initial component, we are going with the original wafer map appearance.
 ## Implementation
 
 As mentioned above, this is not a component that we start from scratch, but a visualization that already exists which is outdated and not futureproof.
-As a first step, we are working on the "bloat removal" which is basically the removal of unwanted but exiting features (legend, tooltip etc.) and dependencies.
+As a first step, we are working on the "bloat removal" which is basically the removal of unwanted but existing features (legend, tooltip etc.) and dependencies.
 
 Original component: [wafermap](https://dev.azure.com/ni/DevCentral/_git/op-web-portal?path=/libraries/wafermap&version=GBfeature/microServicesSplit)\
-Once the "bloat removal" is finished, the next step is to adapt the current
+
+Once the bloat removal is done, we split the component to smaller services as follows: 
+- data service - responsible for initializing, by parsing the input and populating metadata properties such as the width, height, axes ranges, color, and linear scales. The service will expose an interface for requesting data access to the die list, individual die data, color data, scales, rows, and columns.
+- rendering service - by using the relevant information from the data service and being given an empty canvas it will populate it with the existing die list.
 
 ### Code submission strategy
 
 In order to make the process of submitting the re-written wafer map component easier for us and for the code reviewers as well, we propose the following bottom-up approach:
 
 -   As an initial step, we submit a skeleton of the `nimble-wafer-map` component into the main branch. This will serve as a starting point on which the complete functionality will be built on.
--   Once the skeleton is in place, we start to work on and submit individual pieces of the functionality so it's not very overwhelming to review the code.
+-   As soon as the skeleton is in place, we start to work on and submit individual pieces of the functionality so it's not very overwhelming to review the code.
 
 ### States
 
@@ -194,7 +195,7 @@ Furthermore `disabled` and `focused` state will also be supported by the compone
 
 Important: this is out of scope for the current implementation.\
 Since the `nimble-wafer-map` component was designed to display tens of thousands of data points, it's challenging to provide Accessibility functionality which can read out loud the values displayed in a meaningful manner.
-Based on the WAI documentation on [Complex Images](https://www.w3.org/WAI/tutorials/images/complex/), in the future we could provide a paragraph containing information about the name of the wafer that is displayed, the LOT where the wafer comes from and a general overview (e.g. % of the faulty dies on the wafer) of the status. This might give a pretty good description about what the displayed nimble component shows to the user.
+Based on the WAI documentation on [Complex Images](https://www.w3.org/WAI/tutorials/images/complex/), in the future we could provide a paragraph containing information about the name of the wafer that is displayed, the LOT where the wafer comes from and a general overview (e.g. % of the faulty dies on the wafer) of the status. This might give a pretty good description about what the displayed nimble component shows to the user. In order to achieve this, the ["img"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role) role will be set for the `<div class="WaferMapContainer">` tag.
 Please note that in the initial implementation we do not plan to gather and summarize any of this information so this will be part of future updates to this component.
 Currently the only way to navigate and interact with the wafer map is only by using the mouse. Future updates might include functionality which allows the user to tab into the wafer map area and move around in the die area using the keyboard arrows.
 
