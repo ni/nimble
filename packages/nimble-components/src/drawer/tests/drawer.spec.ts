@@ -39,6 +39,8 @@ describe('Drawer', () => {
             // eslint-disable-next-line no-await-in-loop
             await DOM.nextUpdate();
         }
+        // Ensure everything is updated appropriately after the animation completes.
+        await DOM.nextUpdate();
     }
 
     describe('with default setup', () => {
