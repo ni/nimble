@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Add contributing docs when building component from scratch",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
