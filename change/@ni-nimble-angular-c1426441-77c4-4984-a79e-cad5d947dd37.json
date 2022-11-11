@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Add an Angular support policy to the nimble-angular README.",
-  "packageName": "@ni/nimble-angular",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
