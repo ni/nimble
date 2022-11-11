@@ -2,6 +2,42 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 10 Nov 2022 23:25:26 GMT",
+      "tag": "@ni/nimble-components_v15.2.0",
+      "version": "15.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "2351292+TrevorKarjanis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "843d8373064ad8389b54fe72a1cedda4091a7b7f",
+            "comment": "Update `typescript` version."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.2.0",
+            "commit": "843d8373064ad8389b54fe72a1cedda4091a7b7f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 10 Nov 2022 20:32:58 GMT",
+      "tag": "@ni/nimble-components_v15.1.1",
+      "version": "15.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "2351292+TrevorKarjanis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ed7fb93f9549a74cd8a16f36509aea388e085cb7",
+            "comment": "Update `@ni/eslint-config-javascript` dependency version."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Oct 2022 13:53:36 GMT",
       "tag": "@ni/nimble-components_v15.1.1",
       "version": "15.1.1",

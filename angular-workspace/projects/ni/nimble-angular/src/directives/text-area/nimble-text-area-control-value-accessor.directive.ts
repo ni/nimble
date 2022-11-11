@@ -9,7 +9,7 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
  */
 @Directive({
     selector:
-      'nimble-text-area[formControlName],nimble-text-area[formControl],nimble-text-area[ngModel]',
+        'nimble-text-area[formControlName],nimble-text-area[formControl],nimble-text-area[ngModel]',
     // The following host metadata is duplicated from DefaultValueAccessor
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property
     host: {
@@ -26,4 +26,4 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
         multi: true
     }]
 })
-export class NimbleTextAreaControlValueAccessorDirective extends DefaultValueAccessor {}
+export class NimbleTextAreaControlValueAccessorDirective extends DefaultValueAccessor { }
