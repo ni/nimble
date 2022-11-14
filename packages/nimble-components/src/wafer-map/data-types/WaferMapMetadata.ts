@@ -1,12 +1,12 @@
-import type { Orientation, Quadrant } from '../types';
+import { Orientation, Quadrant } from '../types';
 
 /**
  * WaferMapMetadata
  */
 export class WaferMapMetadata {
-    public axisLocation!: Quadrant;
-    public notchOrientation!: Orientation;
-    public cols!: number;
-    public rows!: number;
+    public axisLocation: Quadrant = Quadrant.topLeft;
+    public notchOrientation: Orientation = Orientation.top;
+    public cols = 0;
+    public rows = 0;
     public origin!: { x: number, y: number };
 }

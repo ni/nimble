@@ -8,7 +8,7 @@ import { WaferMapMetadata } from './WaferMapMetadata';
 export class WaferMapRenderingObject {
     public dice!: WaferMapDie[];
     public metadata: WaferMapMetadata = new WaferMapMetadata();
-    public maxCharacters!: number;
+    public maxCharacters = 2;
     public waferDataType!: WaferMapDataType;
     public colorsScale: string[] | null = null;
 
