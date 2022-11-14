@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 14 Nov 2022 18:56:28 GMT",
+      "tag": "@ni/nimble-components_v15.3.1",
+      "version": "15.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e4403727774821f80f0ccb2d0a35b99c9feeeeb5",
+            "comment": "Update @ni/eslint-config-* devDependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Nov 2022 16:52:24 GMT",
       "tag": "@ni/nimble-components_v15.3.1",
       "version": "15.3.1",
