@@ -129,8 +129,7 @@ describe('Drawer', () => {
             await expectAsync(promise).toBePending();
         });
 
-        // Temporarily disabled due to https://github.com/ni/nimble/issues/816
-        xit('should resolve promise if drawer completely opens before being closed', async () => {
+        it('should resolve promise if drawer completely opens before being closed', async () => {
             const promise = element.show();
             await completeAnimationAsync(element);
             element.close();
