@@ -47,7 +47,15 @@ Cons
     -   We could support hierarchical data by writing custom state management logic in the table component itself for features like grouping, sorting, and row selection. Some of which negates the performance benefits we would otherwise see for free.
 -   Higher cost to implement a solution for, and more code to test/maintain.
 
-Ultimately we decided against using Perspective as one of its most appealing traits, its performance, would in many situations be neutralized by the implementation needed to support use cases like row selection and hierarchical data.
+Ultimately we decided against using Perspective as the general purpose table as one of its most appealing traits, its performance, would in many situations be neutralized by the implementation needed to support use cases like row selection and hierarchical data.
+
+We do see future potential for leveraging Perspective for more targeted data analysis use-cases like:
+
+- as a parametric data analysis engine with multi-visualization cross-filtering
+- client side visualization and analysis of large data sets (100k - 10M)
+- interactive analysis of massive server-side data sets (10M - 1B+).
+
+There likely will be ways to leverage many of the general purpose table features (API, column configuration, styling, etc) in a theoretical future Perspective table if clients request that level of performance capability.
 
 ### Tabulator
 
