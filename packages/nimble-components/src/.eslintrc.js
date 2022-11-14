@@ -31,10 +31,6 @@ module.exports = {
             message: 'Use a const object instead of an enum. See other types.ts files for examples.'
         }],
 
-        // Remove this after resolving the following tech debt.
-        // https://github.com/ni/nimble/issues/807
-        '@typescript-eslint/naming-convention': 'off',
-
         // Rules enabled due to strictNullChecks
         '@typescript-eslint/no-non-null-assertion': 'off',
 
