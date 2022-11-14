@@ -226,8 +226,9 @@ During these manual benchmark runs we would like to obtain more details on:
 Based on this information we can plan how we would like to approach performance improvements in the future and probably detect major bottlenecks.
 
 For the moment we don't have a clear understanding how long it will take to load a `nimble-wafer-map` component but we desire the following behavior:
-- between 10 and 500ms for wafermaps under 10k data points
-- betweem 1000 and 5000ms for wafermaps between 10k and 100k datapoints
+
+-   between 10 and 500ms for wafermaps under 10k data points
+-   betweem 1000 and 5000ms for wafermaps between 10k and 100k datapoints
 
 ### Dependencies
 
