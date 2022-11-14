@@ -70,10 +70,12 @@ export const heightTest: Story = createStory(
         <div style="display: flex; flex-direction: column">
             <nimble-switch style="border: 1px dashed; width: 200px">
                 With Label
-                <span slot="checked-message">On</span><span slot="unchecked-message">Off</span>
+                <span slot="checked-message">On</span>
+                <span slot="unchecked-message">Off</span>
             </nimble-switch>
             <nimble-switch style="border: 1px dashed; width: 200px">
-                <span slot="checked-message">On</span><span slot="unchecked-message">Off</span>
+                <span slot="checked-message">On</span>
+                <span slot="unchecked-message">Off</span>
             </nimble-switch>
         </div>
     `
