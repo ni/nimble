@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Fixed lint",
+  "comment": "Create WaferMap component",
   "packageName": "@ni/nimble-components",
   "email": "eliza.olariu@ni.com",
   "dependentChangeType": "patch"
