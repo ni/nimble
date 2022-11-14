@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 14 Nov 2022 16:52:24 GMT",
+      "tag": "@ni/nimble-components_v15.3.1",
+      "version": "15.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8acebd8e7615a8314f6eac05ea5368f74c0bb85b",
+            "comment": "Fix intermittent drawer test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Nov 2022 16:24:00 GMT",
       "tag": "@ni/nimble-components_v15.3.1",
       "version": "15.3.1",
