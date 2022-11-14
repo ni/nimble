@@ -51,9 +51,9 @@ Ultimately we decided against using Perspective as the general purpose table as 
 
 We do see future potential for leveraging Perspective for more targeted data analysis use-cases like:
 
-- as a parametric data analysis engine with multi-visualization cross-filtering
-- client side visualization and analysis of large data sets (100k - 10M)
-- interactive analysis of massive server-side data sets (10M - 1B+).
+-   as a parametric data analysis engine with multi-visualization cross-filtering
+-   client side visualization and analysis of large data sets (100k - 10M)
+-   interactive analysis of massive server-side data sets (10M - 1B+).
 
 There likely will be ways to leverage many of the general purpose table features (API, column configuration, styling, etc) in a theoretical future Perspective table if clients request that level of performance capability.
 
