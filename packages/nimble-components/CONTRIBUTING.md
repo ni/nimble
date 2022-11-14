@@ -120,12 +120,18 @@ const nimbleButton = Button.compose({
 });
 ```
 
-#### Compose Elements into a new Component
+#### Compose elements into a new component
 
 If you need to compose multiple elements into a new component, use previously built Nimble elements or basic HTML elements as your template building blocks.
 Extend `FoundationElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
 
 Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `DesignSystem.tagFor(NimbleComponentClass)` instead of hard coding the nimble tag name in templates. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
+
+#### Build a new component without leveraging FAST Foundation or existing Nimble components
+
+If your new component is unique or complex enough that it can't leverage existing components, you will need to write both the template and the logic yourself.
+
+You should still use `fast-element` features to make it easier to build and maintain the component. See the FAST documentation on [Building Components](https://www.fast.design/docs/category/building-components) (particularly [Defining Elements](https://www.fast.design/docs/fast-element/defining-elements) and [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates)) to learn the features available to you. You can also look at existing components like the [dialog](/packages/nimble-components/src/dialog/) for examples. Feel free to reach out to the Design System team for guidance!
 
 ### Adhere to architectural philosophies
 
