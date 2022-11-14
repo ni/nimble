@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 14 Nov 2022 16:24:00 GMT",
+      "tag": "@ni/nimble-components_v15.3.1",
+      "version": "15.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bf479aee9b58a740386e3085cbb3c2e8768c61f4",
+            "comment": "Table HLD"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 11 Nov 2022 22:54:42 GMT",
       "tag": "@ni/nimble-components_v15.3.1",
       "version": "15.3.1",
