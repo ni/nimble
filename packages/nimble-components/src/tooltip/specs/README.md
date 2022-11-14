@@ -10,7 +10,7 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 [Nimble issue #309: Tooltip](https://github.com/ni/nimble/issues/309)
 
-[Visual desgin spec](https://xd.adobe.com/view/8ce280ab-1559-4961-945c-182955c7780b-d9b1/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/specs/)
+[Visual desgin spec](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/specs/)
 
 ---
 
