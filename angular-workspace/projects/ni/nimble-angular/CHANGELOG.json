@@ -2,6 +2,51 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 11 Nov 2022 21:55:20 GMT",
+      "tag": "@ni/nimble-angular_v14.0.2",
+      "version": "14.0.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "12a84ea7ad9103ab848aa2cd9f724e8853751a10",
+            "comment": "Add an Angular support policy to the nimble-angular README."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Nov 2022 15:34:20 GMT",
+      "tag": "@ni/nimble-angular_v14.0.2",
+      "version": "14.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v15.3.1",
+            "commit": "e6b385ef6ec2590ba101de4fa7ef54c5be0d569d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Nov 2022 14:59:30 GMT",
+      "tag": "@ni/nimble-angular_v14.0.1",
+      "version": "14.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v15.3.0",
+            "commit": "e75202147b35ee50f80cc37890ca397e35dc019e"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 10 Nov 2022 23:25:26 GMT",
       "tag": "@ni/nimble-angular_v14.0.0",
       "version": "14.0.0",

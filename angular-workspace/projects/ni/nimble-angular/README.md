@@ -109,11 +109,13 @@ Angular's `fakeAsync` utility is useful for writing quickly-executing tests, but
 
 To avoid this, call `processUpdates()` after each `fakeAsync` test. This will synchronously process the internal queue and put it in a good state for subsequent tests. The `processUpdates()` method can also be called mid-test to synchronously complete operations which would otherwise require waiting for an animation frame.
 
-## Client Requirements
+## Angular Support Policy
 
-The @ni/nimble-angular package is now compiled with Ivy. The consequence of this is that a client that wishes to use Nimble Angular must also be compiled with Ivy. See [Angular docs](https://angular.io/guide/update-to-latest-version) for more information (see 'Removal of View Engine' section).
+`@ni/nimble-angular` supports Angular 14. To see the exact version it's tested against, view the library's `package.json`.
 
-While Nimble Angular will strive to stay current on the most recent version of Angular, there will be some grace period to allow client applications time to make the migration before-hand (which is [required](https://angular.io/guide/creating-libraries#ensuring-library-version-compatibility) in order to use Nimble Angular).
+If your application uses an older Angular version you can temporarily use an older version of `@ni/nimble-angular` (versions exist back to Angular 12) but it will not contain the latest features so it's preferable to update the application's Angular dependency.
+
+If your application uses a newer Angular version please contact the Nimble team by filing an issue to request support. We strive to offer support for each new major Angular release within a few months of its availability but will work with our clients to find the best time to upgrade.
 
 ## Contributing
 
