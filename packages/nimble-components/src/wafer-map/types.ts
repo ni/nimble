@@ -15,18 +15,16 @@ export const Quadrant = {
     topRight: 3
 } as const;
 
-export type Quadrant =
-    typeof Quadrant[keyof typeof Quadrant];
+export type Quadrant = typeof Quadrant[keyof typeof Quadrant];
 
 export const Orientation = {
     top: 1,
     bottom: 2,
     left: 3,
-    right: 4,
+    right: 4
 } as const;
 
-export type Orientation =
-    typeof Orientation[keyof typeof Orientation];
+export type Orientation = typeof Orientation[keyof typeof Orientation];
 
 export const WaferMapDataType = {
     categorical: 0,

@@ -12,5 +12,7 @@ export class WaferMapRenderingObject {
     public waferDataType!: WaferMapDataType;
     public colorsScale: string[] | null = null;
 
-    public get isEmpty(): boolean { return !this.dice || !(this.dice.length > 0); }
+    public get isEmpty(): boolean {
+        return !this.dice || !(this.dice.length > 0);
+    }
 }

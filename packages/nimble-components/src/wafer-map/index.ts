@@ -1,8 +1,5 @@
 import { attr } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    FoundationElement
-} from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from '../theme-provider/template';
 import type { WaferMapColorsScale } from './data-types/WaferMapColorsScale';
 import type { WaferMapRenderingObject } from './data-types/WaferMapRenderingObject';
