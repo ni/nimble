@@ -144,3 +144,15 @@ export const textCustomized: Story = createMatrixThemeStory(
         </nimble-text-area>`
     )
 );
+
+export const heightTest: Story = createStory(
+    html`
+        <div style="display: flex; flex-direction: column">
+            <nimble-text-area style="border: 1px dashed; width: 200px">
+                With Label
+            </nimble-text-area>
+            <nimble-text-area style="border: 1px dashed; width: 200px">
+            </nimble-text-area>
+        </div>
+    `
+);
