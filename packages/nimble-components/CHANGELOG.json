@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 14 Nov 2022 23:02:04 GMT",
+      "tag": "@ni/nimble-components_v15.3.2",
+      "version": "15.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e9d9aeee9512e189e9219c7b57be04852b0b87f7",
+            "comment": "Adjust control height based on label presence"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Nov 2022 20:00:44 GMT",
       "tag": "@ni/nimble-components_v15.3.1",
       "version": "15.3.1",
