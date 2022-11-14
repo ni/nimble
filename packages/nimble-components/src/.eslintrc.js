@@ -120,8 +120,8 @@ module.exports = {
                         leadingUnderscore: 'allow',
                         trailingUnderscore: 'allow',
                     },
-                ],            
+                ],
             }
-        }        
+        }
     ]
 };

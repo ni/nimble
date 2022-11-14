@@ -1,8 +1,34 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 25 Oct 2022 13:53:36 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Nov 2022 15:34:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.3.1
+
+Fri, 11 Nov 2022 15:34:20 GMT
+
+### Patches
+
+- Add fade animation to drawer when prefers-reduced-motion is enabled ([ni/nimble@e6b385e](https://github.com/ni/nimble/commit/e6b385ef6ec2590ba101de4fa7ef54c5be0d569d))
+
+## 15.3.0
+
+Fri, 11 Nov 2022 14:59:30 GMT
+
+### Minor changes
+
+- Added triangle-filled, check-large, and dot-solid-dot-stroke-measurement icons ([ni/nimble@e752021](https://github.com/ni/nimble/commit/e75202147b35ee50f80cc37890ca397e35dc019e))
+- Bump @ni/nimble-tokens to v4.3.0
+
+## 15.2.0
+
+Thu, 10 Nov 2022 23:25:26 GMT
+
+### Minor changes
+
+- Update `typescript` version. ([ni/nimble@843d837](https://github.com/ni/nimble/commit/843d8373064ad8389b54fe72a1cedda4091a7b7f))
+- Bump @ni/nimble-tokens to v4.2.0
 
 ## 15.1.1
 

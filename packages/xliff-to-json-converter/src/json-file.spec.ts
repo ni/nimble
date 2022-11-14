@@ -5,9 +5,11 @@ describe('JsonFile', () => {
         const jsonFile = {
             locale: 'de',
             translations: {
+                /* eslint-disable @typescript-eslint/naming-convention */
                 123: 'foo',
                 321: 'bar',
                 211: 'baz'
+                /* eslint-enable @typescript-eslint/naming-convention */
             }
         } as JsonFile;
 

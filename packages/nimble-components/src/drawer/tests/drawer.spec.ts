@@ -1,4 +1,5 @@
 import { DOM, html } from '@microsoft/fast-element';
+import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Drawer, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
@@ -35,10 +36,14 @@ describe('Drawer', () => {
     async function completeAnimationAsync(
         nimbleDrawerElement: Drawer | Drawer<string>
     ): Promise<void> {
-        while (isDrawerAnimating(nimbleDrawerElement)) {
-            // eslint-disable-next-line no-await-in-loop
-            await DOM.nextUpdate();
-        }
+        return new Promise(resolve => {
+            const dialogElement = nativeDialogElement(nimbleDrawerElement);
+            const handler = (): void => {
+                dialogElement.removeEventListener(eventAnimationEnd, handler);
+                resolve();
+            };
+            dialogElement.addEventListener(eventAnimationEnd, handler);
+        });
     }
 
     describe('with default setup', () => {

@@ -2,6 +2,87 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 11 Nov 2022 21:55:20 GMT",
+      "tag": "@ni/nimble-angular_v14.0.2",
+      "version": "14.0.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "12a84ea7ad9103ab848aa2cd9f724e8853751a10",
+            "comment": "Add an Angular support policy to the nimble-angular README."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Nov 2022 15:34:20 GMT",
+      "tag": "@ni/nimble-angular_v14.0.2",
+      "version": "14.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v15.3.1",
+            "commit": "e6b385ef6ec2590ba101de4fa7ef54c5be0d569d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Nov 2022 14:59:30 GMT",
+      "tag": "@ni/nimble-angular_v14.0.1",
+      "version": "14.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v15.3.0",
+            "commit": "e75202147b35ee50f80cc37890ca397e35dc019e"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 10 Nov 2022 23:25:26 GMT",
+      "tag": "@ni/nimble-angular_v14.0.0",
+      "version": "14.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "2351292+TrevorKarjanis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "843d8373064ad8389b54fe72a1cedda4091a7b7f",
+            "comment": "Upgrade to Angular 14."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v15.2.0",
+            "commit": "843d8373064ad8389b54fe72a1cedda4091a7b7f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 10 Nov 2022 20:32:58 GMT",
+      "tag": "@ni/nimble-angular_v13.0.0",
+      "version": "13.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "2351292+TrevorKarjanis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ed7fb93f9549a74cd8a16f36509aea388e085cb7",
+            "comment": "Upgrade to Angular 13."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Oct 2022 21:02:37 GMT",
       "tag": "@ni/nimble-angular_v12.1.2",
       "version": "12.1.2",
