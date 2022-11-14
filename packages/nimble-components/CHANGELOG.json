@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 11 Nov 2022 22:54:42 GMT",
+      "tag": "@ni/nimble-components_v15.3.1",
+      "version": "15.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e84635ebfd03da77fa84e2d826bf186f497a8198",
+            "comment": "Add contributing docs when building component from scratch"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Nov 2022 22:28:10 GMT",
+      "tag": "@ni/nimble-components_v15.3.1",
+      "version": "15.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "32cee96b284cf676ff01f42aa8e975a66f07f394",
+            "comment": "Temporarily disable intermittent drawer test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 11 Nov 2022 15:34:20 GMT",
       "tag": "@ni/nimble-components_v15.3.1",
       "version": "15.3.1",
