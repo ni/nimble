@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Create WaferMap component",
+  "comment": "Create placeholder WaferMap component",
   "packageName": "@ni/nimble-components",
   "email": "eliza.olariu@ni.com",
   "dependentChangeType": "patch"
