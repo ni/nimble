@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Fixed lint",
+  "packageName": "@ni/nimble-components",
+  "email": "eliza.olariu@ni.com",
+  "dependentChangeType": "patch"
+}
