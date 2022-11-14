@@ -70,7 +70,7 @@ From a developer perspective, it's very important that the `nimble-wafer-map` co
 -   MicroStrategy specific context menus on right-click action
 
 Information regarding the basic MicroStrategy **Custom Plugin Workflow** can be found [here](https://www2.microstrategy.com/producthelp/Current/VisSDK/Content/topics/HTML5/Understanding_the_workflow.htm)
-Also, the visualisation widget has no active controls, so there is no way to alter the visual aspect or data post rendering. Every input parameter must be provided through the constructor of the wafer map component.
+Also, the visualisation widget has no active controls, so there is no way to alter the visual aspect or data post rendering.
 
 ### API
 
@@ -83,11 +83,11 @@ _The key elements of the component's public API surface:_
         -   x: integer
         -   y: integer
         -   value: float
-    -   `quadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by an Enum with the following values:
-    -   TopLeft - ![Top Left Quadrant](./Resources/top_left.png)
-    -   BottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
-    -   TopRight - ![Top Right Quadrant](./Resources/top_right.png)
-    -   BottomRight - ![Bottom Right Quadrant](./Resources/bottom_right.png)
+    -   `quadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by a const(as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
+    -   topLeft - ![Top Left Quadrant](./Resources/top_left.png)
+    -   bottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
+    -   topRight - ![Top Right Quadrant](./Resources/top_right.png)
+    -   bottomRight - ![Bottom Right Quadrant](./Resources/bottom_right.png)
     -   `orientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
     -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
         The object we use for the colorScale is [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal). Basically, what this does is it associates a specific string (or in our case a value with a specific color.). The values which are not equal with the values specified in the array, will become a darker/lighter shade of the colors.
@@ -101,7 +101,6 @@ The `die` and `colorScale` properties will be configurable only via properties a
 
 Methods: The following methods will be exposed in the public API:
 
--   disable() - renders the component dimmed out and turns off interactivity.
 -   focus() - adds a green box around the component when it has tab focus.
 
 Events: The events mentioned below will all be handled internally by the nimble component and they will not be part of the public API. In the initial implementation the following events should be handled:
@@ -116,7 +115,7 @@ Events: The events mentioned below will all be handled internally by the nimble 
 Shadow DOM:
 
 ```html
-<template id="WaferMapTemplate">
+<template>
     <div class="WaferMapContainer">
         <svg>
             <g class="zoomContainer">
@@ -225,6 +224,10 @@ During these manual benchmark runs we would like to obtain more details on:
 -   100000 data points
 
 Based on this information we can plan how we would like to approach performance improvements in the future and probably detect major bottlenecks.
+
+For the moment we don't have a clear understanding how long it will take to load a `nimble-wafer-map` component but we desire the following behavior:
+- between 10 and 500ms for wafermaps under 10k data points
+- betweem 1000 and 5000ms for wafermaps between 10k and 100k datapoints
 
 ### Dependencies
 
