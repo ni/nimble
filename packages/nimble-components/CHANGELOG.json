@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 14 Nov 2022 20:00:44 GMT",
+      "tag": "@ni/nimble-components_v15.3.1",
+      "version": "15.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8658ad8d97cb3e47494d9d89f797a620074d7ef9",
+            "comment": "Update XD link for tooltip"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Nov 2022 18:56:28 GMT",
       "tag": "@ni/nimble-components_v15.3.1",
       "version": "15.3.1",
