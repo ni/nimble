@@ -1,8 +1,8 @@
 {
-    "name": "@ni/site",
-    "version": "1.0.0-beta.0",
-    "description": "A meta package used for creating GitHub pages site contents",
+    "name": "@ni-private/site",
+    "version": "1.0.0",
     "private": true,
+    "description": "A meta package used for creating GitHub pages site contents",
     "scripts": {
         "build": "eleventy",
         "pack": "npm pack",
