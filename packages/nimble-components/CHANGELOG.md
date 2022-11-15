@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 11 Nov 2022 15:34:20 GMT and should not be manually modified.
+This log was last generated on Mon, 14 Nov 2022 23:02:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.3.2
+
+Mon, 14 Nov 2022 23:02:04 GMT
+
+### Patches
+
+- Adjust control height based on label presence ([ni/nimble@e9d9aee](https://github.com/ni/nimble/commit/e9d9aeee9512e189e9219c7b57be04852b0b87f7))
 
 ## 15.3.1
 

@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 14 Nov 2022 23:02:04 GMT",
+      "tag": "@ni/nimble-components_v15.3.2",
+      "version": "15.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e9d9aeee9512e189e9219c7b57be04852b0b87f7",
+            "comment": "Adjust control height based on label presence"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 14 Nov 2022 20:00:44 GMT",
+      "tag": "@ni/nimble-components_v15.3.1",
+      "version": "15.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8658ad8d97cb3e47494d9d89f797a620074d7ef9",
+            "comment": "Update XD link for tooltip"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 14 Nov 2022 18:56:28 GMT",
+      "tag": "@ni/nimble-components_v15.3.1",
+      "version": "15.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e4403727774821f80f0ccb2d0a35b99c9feeeeb5",
+            "comment": "Update @ni/eslint-config-* devDependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 14 Nov 2022 16:52:24 GMT",
+      "tag": "@ni/nimble-components_v15.3.1",
+      "version": "15.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8acebd8e7615a8314f6eac05ea5368f74c0bb85b",
+            "comment": "Fix intermittent drawer test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 14 Nov 2022 16:24:00 GMT",
+      "tag": "@ni/nimble-components_v15.3.1",
+      "version": "15.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bf479aee9b58a740386e3085cbb3c2e8768c61f4",
+            "comment": "Table HLD"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 11 Nov 2022 22:54:42 GMT",
       "tag": "@ni/nimble-components_v15.3.1",
       "version": "15.3.1",
