@@ -1,10 +1,9 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from '../theme-provider/template';
-import type { WaferMapColorsScale } from './data-types/WaferMapColorsScale';
-import type { WaferMapRenderingObject } from './data-types/WaferMapRenderingObject';
+import type { WaferMapRenderingObject } from './models/wafer-map-rendering-object';
 import { styles } from './styles';
-import type { WaferColorByOptions } from './types';
+import { WaferMapColorBy, WaferMapColorsScale } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -24,7 +23,7 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'colorBy'
     })
-    public colorBy: WaferColorByOptions = 0;
+    public colorBy: WaferMapColorBy = WaferMapColorBy.hardBin;
 
     @attr({
         attribute: 'highlightedValues'

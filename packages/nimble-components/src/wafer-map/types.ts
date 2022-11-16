@@ -1,35 +1,46 @@
-export const WaferColorByOptions = {
-    hardBin: 0,
-    softBin: 1,
-    binType: 2,
-    floatValue: 3
+export const WaferMapColorBy = {
+    hardBin: 'hard-bin',
+    softBin: 'soft-bin',
+    binType: 'bin-type',
+    floatValue: 'float-value'
 } as const;
 
-export type WaferColorByOptions =
-    typeof WaferColorByOptions[keyof typeof WaferColorByOptions];
+export type WaferMapColorBy =
+    typeof WaferMapColorBy[keyof typeof WaferMapColorBy];
 
-export const Quadrant = {
-    bottomLeft: 0,
-    bottomRight: 1,
-    topLeft: 2,
-    topRight: 3
+export const WaferMapQuadrant = {
+    bottomLeft: 'bottom-left',
+    bottomRight: 'bottom-right',
+    topLeft: 'top-left',
+    topRight: 'top-right'
 } as const;
 
-export type Quadrant = typeof Quadrant[keyof typeof Quadrant];
+export type WaferMapQuadrant = typeof WaferMapQuadrant[keyof typeof WaferMapQuadrant];
 
-export const Orientation = {
-    top: 1,
-    bottom: 2,
-    left: 3,
-    right: 4
+export const WaferMapOrientation = {
+    top: 'top',
+    bottom: 'bottom',
+    left: 'left',
+    right: 'right'
 } as const;
 
-export type Orientation = typeof Orientation[keyof typeof Orientation];
+export type WaferMapOrientation = typeof WaferMapOrientation[keyof typeof WaferMapOrientation];
 
 export const WaferMapDataType = {
-    categorical: 0,
-    accumulative: 1
+    categorical: 'categorical',
+    accumulative: 'accumulative'
 } as const;
 
 export type WaferMapDataType =
     typeof WaferMapDataType[keyof typeof WaferMapDataType];
+
+export interface WaferMapDie {
+    data: string | number;
+    x: number;
+    y: number;
+}
+
+export interface WaferMapColorsScale {
+    colors: string[];
+    values: string[];
+}
