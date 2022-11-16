@@ -171,6 +171,23 @@ The `nimble-table` will require various sub-components to exist in order to prop
 - Renders the data via a custom template
 - Manages the keyboard interactions to pass focus in/out of custom cells
 
+### Hooking into TanStack Table
+
+We will be using TanStack Table to manage all of the table state related to data, sorting, grouping, hierarchy, filtering, and selection. The TanStack APIs provide callback hooks for when certain aspects of the state are changed (e.g. `onSortingChange`), which allows us to update the UI as needed. A typical lifecycle of a user enacted table state change would be, for example:
+- User clicks header to change sort state
+- Nimble table callback updates sort state in TanStack Table
+- TanStack Table issues callback that sort state has changed
+- Nimble table handles callback and retrieves needed rows from TanStack Table model, and updates the UI
+
+### Hooking into TanStack Virtual
+
+TanStack Virtual provides various pieces of state to enable simple, efficient virtualization of table data. The Nimble Table will provide certain state/objects to the TanStack Virtual API for it to then provide the needed state that we can virtualize the table rows with. Namely:
+- The element that will serve as the scollable element
+- An estimated height for each row
+- The total count of rows in the data
+
+With this set of information, the Nimble Table will be able to register a callback to the TanStack Virtual `onChange` which will happen any time the scrollable element scrolls. In that handler the Nimble Table can retrieve the set of virtual items from TanStack Virtual (i.e. `getVirtualItems()`), which represent the total set of rows that should be displayed, and contain the state information that allows the Nimble Table to retrieve the appropriate data from the TanStack Table model to apply to each rendered row, as well as the position each row should be rendered.
+
 _Placeholder for other implementation details_
 
 ### Accessibility
@@ -188,7 +205,7 @@ We intend for the `nimble-table` to handle both the rendering and interactive op
 Clients, at least initially, will be expected to create mechanisms to restrict the amount of data coming to the client-side.
 
 There are a couple of mechanisms we will leverage to ensure we achieve the necessary performance goals:
-- Usage of the FAST `repeat` directive
+- Usage of the FAST `repeat` directive (avoiding using `positioning: true`)
 - The [TanStack Virtual](https://github.com/TanStack/virtual) library gives us a simple means of providing the proper state to render the right rows in response to scroll events.
 
 ### Dependencies
