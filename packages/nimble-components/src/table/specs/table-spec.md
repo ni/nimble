@@ -14,9 +14,11 @@ The `nimble-table` is a component that offers a way to render tabular data in a 
 
 ### Non-goals
 
-The `nimble-table` will not offer spreadsheet-like features such as infinite columns, or summary functions.
+- The `nimble-table` will not offer spreadsheet-like features such as infinite columns, or summary functions.
 
-Additionally, we do not intend for the `nimble-table` to handle data sets of 50K or more on the client-side. Visualizing such sizes of data sets are meant to be enabled through various "data virtualiazation" means, such as the server only sending over subsets of the data at a time, appropriately filtered down to a reasonable size.
+- We do not intend for the `nimble-table` to handle data sets of 50K or more on the client-side. Visualizing such sizes of data sets are meant to be enabled through various "data virtualiazation" means, such as the server only sending over subsets of the data at a time, appropriately filtered down to a reasonable size.
+
+- Non-virtualized static tables.
   
 ### Features
 
@@ -26,13 +28,10 @@ Additionally, we do not intend for the `nimble-table` to handle data sets of 50K
 - Pin columns
 - Provide column ordering (programmatically only at first possibly)
 - Group rows
-- Interactively and programmatically multi-select rows
+- Multi-select rows (interactively only at first possibly)
 - Provide hierarchy via the data
 - Provide custom column rendering
-
-#### *Action Menus*
-
-Users will be able to provide action menus that will be able to appear within any column.
+- Provide API for adding action menu
 
 #### *Performance*
 
@@ -52,6 +51,8 @@ The following are features that we intend to prioritize eventually after the ini
     - Allow for easy getting/setting of total configurable state, which is useful for maintaining state of the table as a user navigates to other pages in an app.
 - Filter on any text match across all cells
 - Selection configuration.
+- Custom header templates
+- Custom row templates
 
 ### Accessibility
 
@@ -66,6 +67,7 @@ The other primary risk is simply scope. This is a large, complex component, whic
 ### Prior Art/Examples
 
 SLE Table
+
 ![SLE table](./spec-images/sleTable.png)
 
 ---
@@ -73,26 +75,16 @@ SLE Table
 ## Design
 
 A user will be able to configure a `nimble-table` component fairly thoroughly through its markup. Including the columns to visualize, how to visualize a column, and in what order. A sketch of the markup should be similar to the following (in Angular):
+
 ```html
 <nimble-table data="data">
     <nimble-text-field-column slot="columns" columnId="firstName"></nimble-text-field-column>
     <nimble-text-field-column slot="columns" columnId="lastName"></nimble-text-field-column>
     <nimble-text-field-column slot="columns" columnId="profession"></nimble-text-field-column>
-    <nimble-menu slot="actionMenu">
-        <nimble-menu-item>Item 1</nimble-menu-item>
-        <nimble-menu-item>Item 2</nimble-menu-item>
-    </nimble-menu>
 </nimble-table>
 ```
 
-Here the `data` property might look something like this:
-
-```
-@Input() public data = [
-    { firstName: 'Bob', lastName: 'Smith', profession: 'Ostrich wrangler', age: '10'},
-    { firstName: 'Sally', lastName: 'Lu', profession: 'Mustache artist', age: '31'},
-    { firstName: 'Jim', lastName: 'Beam', profession: 'Beverage enthusiast', age: '21'} ];
-```
+_Placeholder for other design details as they are created_
 
 ### API
 
@@ -102,98 +94,114 @@ _Component Name_
 
 _Feature APIs_
 
-The various APIs of the `nimble-table` will be split up amongst several different HLD documents. This section will serve to list them out and link to them as they become available:
+The various APIs/features of the `nimble-table` will be split up amongst several different HLD documents. This section will serve to list them out and link to them as they become available:
 
-- [Data API](./table-data-api.md)
-- Row Selection API
-- Column Definition API
-- Grouping API
-- Accessibility
+- Data API :
+    - Define what the interface is for setting/getting data on the table
+    - Illustrate how the data is hooked up to the TanStack API
+    - How is data hierarchy provided and represented in the DOM
+- Column Definitions
+    - Define the interface we will provide for the column providers/components (i.e., width, sorting, allowSort, allowGrouping, etc...)
+    - Define the base implementation for the column providers that other column providers can extend.
+    - List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
+    - Define the table-level APIs for setting the columns
+        - Slot API on table?
+        - Alternative/accompanying programmatic API?
+- Headers
+    - Define the anatomy of headers in the table DOM
+        - Require specific component type?
+        - What is the component to use for interaction? Outline Button? Ghost button?
+        - What and where are the interactive mechanisms/indicators? Sort arrow, etc..
+- Row Selection
+    - Define the anatomy of row selection in the table DOM
+        - Indeterminate checkbox at the far left of each row?
+        - Selected row CSS
+    - Define events raised when row selection changes/occurs
+    - Define table-level row-selection API
+- Grouping
+    - Define any interactive mechanism, if any, to provide grouping
+    - Define table-level API for setting grouping
+    - Define events raised when grouping changes
+- Sorting
+    - Define the table-level API for setting sorting
+    - Define events raised when sorting changes
 - Action Menu
+    - Define how the action menu gets associated with a particular column
+    - Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
+
+*Properties*
+
+Placeholder
+
+*Events*
+
+Placeholder
 
 ### Anatomy 
 
-*Outline the component structure with a diagram of its visual tree (shadow dom). Enumerate key areas of visual customization, such as:*
-
-- *Slot Names*
-- *Host Classes*
-- *Slotted Content/Slotted Classes*
-- *CSS Parts*
-
-*Work closely with the visual design partner to co-develop the API and anatomy along side the visual design.*
+*Slots*
+- `slottedColumns` (Placeholder for column slots)
+- `actionMenu` (Placeholder for action menu)
 
 ### Angular integration 
 
-*Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration.*
+Angular support should be accomplished through the typical directive patterns.
 
 ### Blazor integration 
 
-*Describe the plan for Blazor support. See the [nimble-blazor CONTRIBUTING.md](/packages/nimble-blazor/CONTRIBUTING.md) for details.*
-
-### Visual Appearance
-
-*Work with Visual Design to create Adobe XD files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants. Focus primarily on the officially supported design system as well as known community scenarios as appropriate. Consider other popular design systems during this process and, where possible, ensure that common design features that may not be part of the officially supported design system can be accommodated. Work closely with engineering to co-develop the visual design along side the API and anatomy.*
+Blazor support should be accomplished through the typical integration patterns. It should be noted that if the Nimble `Table` component is generic, than the Blazor component will mirror that generic API.
 
 ---
 
 ## Implementation
 
-*Important aspects of the planned implementation with careful consideration of web standards and integration.*
+The `nimble-table` will require various sub-components to exist in order to properly/efficiently render the data. The web components and their respective responsibilities are as follows:
 
-*Highlight any alternative implementations you considered in each section.*
+`<nimble-table>`
+- Creates the row elements that will be used to render each row of data
+- Provides any necessary elements for proper virtualization
+- Manages keyboard navigation between rows
+- Supports slotting of column elements
 
-### States
+`<nimble-table-row>`
+- Creates the cell elements that will be used to render each value in the data
+- Manages keyboarding within the row
 
-*Key component states, valid state transitions, and how interactions trigger a state transition.*
+`<nimble-table-cell>`
+- Renders the data via a custom template
+- Manages the keyboard interactions to pass focus in/out of custom cells
+
+_Placeholder for other implementation details_
 
 ### Accessibility
 
-*Consider the accessibility of the component, including:*
-
-- *Keyboard Navigation and Focus*
-- *Form Input*
-- *Use with Assistive Technology*
-  - e.g. The implications shadow dom might have on how roles and attributes are presented to the AT. Components which delegate focus require all global aria-* attributes to be enumerated.
+The `nimble-table` should align to the grid interaction model provided by the [W3C](https://w3c.github.io/aria-practices/#grid).
 
 ### Globalization
 
-*Consider whether the component has any special globalization needs such as:*
-
-- *Special RTL handling*
-- *Swapping of internal icons/visuals*
-- *Localization*
-
-### Security
-
-*Are there any security implications surrounding the component?*
+The order of table columns is inverted in RTL layouts.
 
 ### Performance
 
-*Are there any performance pitfalls or challenges with implementing the component?*
+We intend for the `nimble-table` to handle both the rendering and interactive operations, such as sorting, in a near-instantaneous fashion on datasets of at least 10K rows. Between 10K and 100K rows of data on the client-side, however, we expect to see a notable drop in performance.
+
+Clients, at least initially, will be expected to create mechanisms to restrict the amount of data coming to the client-side.
+
+There are a couple of mechanisms we will leverage to ensure we achieve the necessary performance goals:
+- Usage of the FAST `repeat` directive
+- The [TanStack Virtual](https://github.com/TanStack/virtual) library gives us a simple means of providing the proper state to render the right rows in response to scroll events.
 
 ### Dependencies
 
-*Will implementing the component require taking on any dependencies?*
-
-- *3rd party libraries*
-- *Upcoming standards we need to polyfill*
-- *Dependencies on other fast components or utilities*
-
-*Do any of these dependencies bring along an associated timeline?*
+- [TanStack Table](https://github.com/tanstack/table)
+- [TanStack Virtual](https://github.com/TanStack/virtual)
 
 ### Test Plan
 
-*What is the plan for testing the component, if different from the normal path? Note that the normal plan includes unit tests for basic state/behavior as well as end-to-end tests to validate the specific user stories described above.*
-
-### Tooling
-
-*Are there any special considerations for tooling? Will tooling changes need to be made? Is there a special way to light up this component in our tooling that would be compelling for developers/designers?*
+Intend to test completely with unit tests.
 
 ### Documentation
 
-*What additions or changes are needed for user documentation and demos? Are there any architectural/engineering docs we should create as well, perhaps due to some interesting technical challenge or design decisions related to this component?*
+Storybooks will be added to document/showcase the various features and APIs.
 
 ---
-## Open Issues
-
-*Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.*
