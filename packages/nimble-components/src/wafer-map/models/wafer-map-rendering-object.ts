@@ -11,7 +11,7 @@ export class WaferMapRenderingObject {
         public maxCharacters: number,
         public waferDataType: WaferMapDataType,
         public colorsScale?: string[]
-    ) { }
+    ) {}
 
     public get isEmpty(): boolean {
         return !(this.dice.length > 0);

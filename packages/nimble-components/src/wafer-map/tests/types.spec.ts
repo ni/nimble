@@ -1,4 +1,9 @@
-import { WaferMapColorBy, WaferMapDataType, WaferMapOrientation, WaferMapQuadrant } from '../types';
+import {
+    WaferMapColorBy,
+    WaferMapDataType,
+    WaferMapOrientation,
+    WaferMapQuadrant
+} from '../types';
 
 describe('WaferMapColorBy', () => {
     it('set hard-bin value', () => {

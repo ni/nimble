@@ -10,5 +10,5 @@ export class WaferMapMetadata {
         public cols: number,
         public rows: number,
         public origin: { x: number, y: number }
-    ) { }
+    ) {}
 }

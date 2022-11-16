@@ -15,7 +15,8 @@ export const WaferMapQuadrant = {
     topRight: 'top-right'
 } as const;
 
-export type WaferMapQuadrant = typeof WaferMapQuadrant[keyof typeof WaferMapQuadrant];
+export type WaferMapQuadrant =
+    typeof WaferMapQuadrant[keyof typeof WaferMapQuadrant];
 
 export const WaferMapOrientation = {
     top: 'top',
@@ -24,7 +25,8 @@ export const WaferMapOrientation = {
     right: 'right'
 } as const;
 
-export type WaferMapOrientation = typeof WaferMapOrientation[keyof typeof WaferMapOrientation];
+export type WaferMapOrientation =
+    typeof WaferMapOrientation[keyof typeof WaferMapOrientation];
 
 export const WaferMapDataType = {
     categorical: 'categorical',
