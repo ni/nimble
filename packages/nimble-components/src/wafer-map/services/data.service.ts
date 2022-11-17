@@ -1,146 +1,180 @@
 import { ScaleLinear, scaleLinear, scaleBand, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import type { WaferMapColorsScale } from '../data-types/WaferMapColorsScale';
+import type { WaferMapDie } from '../data-types/WaferMapDie';
 import type { WaferMapMetadata } from '../data-types/WaferMapMetadata';
 import type { WaferMapRenderingObject } from '../data-types/WaferMapRenderingObject';
-import { Quadrant, WaferColorByOptions } from '../types';
+import { Orientation, Quadrant, WaferColorByOptions } from '../types';
 
-type MetaDie = {
-    'x': number,
-    'y': number,
-    'fillStyle': string,
-    'width': number,
-    'height': number,
-    'opacity': number,
-    'text': string
-};
+interface RenderDie {
+    x: number;
+    y: number;
+    fillStyle: string;
+    opacity: number;
+    text: string;
+}
+
+interface Point {
+    x: number;
+    y: number;
+}
+
+interface Dimensions {
+    origin: Point;
+    rows: number;
+    cols: number;
+}
 
 /**
  * Data
  */
 export class Data {
-    private readonly waferData: WaferMapRenderingObject;
+    public containerHeight = 0; // prev height
+    public containerWidth = 0; // prev width
+    public dieHeight = 0; // prev gridHeight
+    public dieWidth = 0; // prev gridWidth
+    public margin = { top: 20, right: 20, bottom: 20, left: 20 };
+    public radius = 0;
+
+    public labelsFontSize = 0;
+
+    public renderDies: RenderDie[];
+
+    public colorScale: ScaleOrdinal<string, string> | ScaleLinear<string, string>;
+    public horizontalScale: ScaleLinear<number, number>;
+    public verticalScale: ScaleLinear<number, number>;
+
     private readonly colorBy: WaferColorByOptions;
-    private readonly colorsScale: WaferMapColorsScale;
     private readonly highlightedValues!: string[];
 
-    private readonly dice: MetaDie[] = [];
+    private readonly canvasHeight;
+    private readonly canvasWidth;
 
-    private width = 0;
-    private height = 0;
-    private readonly canvasWidth = 0;
-    private readonly canvasHeight = 0;
-    private gridWidth = 0;
-    private gridHeight = 0;
+    private readonly maxCharacters;
+    private readonly fontSizeFactor = 0.8;
 
-    private colorScale!: ScaleOrdinal<string, string> | ScaleLinear<string, string>;
-    private xScale!: ScaleLinear<number, number>;
-    private yScale!: ScaleLinear<number, number>;
-
-    private radius = 0;
-    private labelsFontSize = 0;
-    private readonly maxCharacters = 0;
-    private readonly fontSizeFactor = 0;
     private readonly baseMargin = { top: 20, right: 20, bottom: 20, left: 20 };
-    private margin = { top: 20, right: 20, bottom: 20, left: 20 };
-    private dataLabelsSuffix = '';
 
     private readonly emptyDieColor = '#DADFEC';
     private readonly nanDieColor = '#7a7a7a';
+    private readonly isCategorical: boolean;
 
     public constructor(
         waferData: WaferMapRenderingObject,
         colorBy: WaferColorByOptions,
         colorsScale: WaferMapColorsScale,
-        highlightedValues: string[]
+        highlightedValues: string[],
+        isCategorical: boolean,
+        canvasHeight: number,
+        canvasWidth: number
     ) {
-        this.waferData = waferData;
         this.colorBy = colorBy;
-        this.colorsScale = colorsScale;
         this.highlightedValues = highlightedValues;
-        this.dataBind();
-    }
+        this.isCategorical = isCategorical;
+        this.canvasHeight = canvasHeight;
+        this.canvasWidth = canvasWidth;
 
-    private dieHasData(dieData: string | number): boolean {
-        return dieData !== null && dieData !== undefined && dieData !== '';
-    }
+        this.maxCharacters = Math.max(2, !this.isCategorical && this.colorBy !== WaferColorByOptions.floatValue
+            ? waferData.maxCharacters + 1 /* take the percentage in count */
+            : waferData.maxCharacters);
 
-    private buildLabelData(data: string | number): string {
-        if (!this.dieHasData(data) || (/* this.isCategorical && */ this.colorBy === WaferColorByOptions.binType)) {
-            return '';
+        this.colorScale = this.createColorScale(colorsScale);
+        const gridDimensions = this.calculateDimensions(waferData.dice);
+
+        this.containerWidth = this.canvasWidth - this.margin.left - this.margin.right;
+        this.containerHeight = this.canvasHeight - this.margin.top - this.margin.bottom;
+        this.horizontalScale = this.createHorizontalScale(waferData.metadata.axisLocation, gridDimensions);
+        this.dieWidth = this.calculateGridWidth(gridDimensions.cols);
+
+        this.radius = (this.containerWidth / 2) + this.dieWidth * 1.5;
+        if (this.radius > this.canvasWidth / 2) {
+            this.margin = this.getMarginWithAddition(this.radius - this.canvasWidth / 2);
+            this.containerWidth = this.canvasWidth - this.margin.left - this.margin.right;
+            this.containerHeight = this.canvasHeight - this.margin.top - this.margin.bottom;
+            this.horizontalScale = this.createHorizontalScale(waferData.metadata.axisLocation, gridDimensions);
+            this.dieWidth = this.calculateGridWidth(gridDimensions.cols);
         }
 
-        return `${data}${this.dataLabelsSuffix}`;
+        this.verticalScale = this.createVerticalScale(waferData.metadata.axisLocation, gridDimensions);
+        this.dieHeight = this.calculateGridHeight(gridDimensions.rows);
+
+        this.labelsFontSize = Math.min(this.dieHeight, this.dieWidth / (this.maxCharacters * 0.5) * this.fontSizeFactor);
+
+        this.renderDies = this.parseRenderDies(waferData.dice);
     }
 
-    private dieValueAndSelectedAreEqual(dieValue: string | number, selectedValue: string | number): boolean {
-        return dieValue.toString() === selectedValue.toString();
+    public getMainCircleLocation(): { x: number, y: number } {
+        return { x: (this.containerWidth / 2), y: (this.containerHeight / 2) };
     }
 
-    private getOpacityAccordingToSelectedValued(selectedValue: string | number): number {
-        return this.highlightedValues
-         && this.highlightedValues.length > 0
-         && !this.highlightedValues.some(dieValue => this.dieValueAndSelectedAreEqual(dieValue, selectedValue)) ? 0.3 : 0;
-    }
+    private calculateDimensions(dies: WaferMapDie[]): Dimensions {
+        if (dies === undefined || dies.length === 0 || dies[0] === undefined) return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
 
-    private createColorScale(): void {
-        if (this.waferData /* instanceof WafermapCategoricalRenderingObject */) {
-            this.colorScale = scaleOrdinal<string, string>()
-                .domain(this.colorsScale.values)
-                .range(this.colorsScale.colors);
-            this.dataLabelsSuffix = '';
-        } else {
-            this.colorScale = scaleLinear<string, string>()
-                .domain(this.colorsScale.values.map(item => parseInt(item, 10)))
-                .range(this.colorsScale.colors);
+        const minPoint = { x: dies[0].x, y: dies[0].y };
+        const maxPoint = { x: dies[0].x, y: dies[0].y };
 
-            if (this.colorBy !== WaferColorByOptions.floatValue) {
-                this.dataLabelsSuffix = '%';
-            }
+        for (const die of dies) {
+            if (die.x < minPoint.x) minPoint.x = die.x;
+            if (die.y < minPoint.y) minPoint.y = die.y;
+            if (die.x > maxPoint.x) maxPoint.x = die.x;
+            if (die.y > maxPoint.y) maxPoint.y = die.y;
         }
+
+        return { origin: minPoint, rows: maxPoint.y - minPoint.y + 1, cols: maxPoint.x - minPoint.x + 1 };
     }
 
-    private createXScale(metadata: WaferMapMetadata): ScaleLinear<number, number> {
-        if (metadata.axisLocation === Quadrant.bottomLeft || metadata.axisLocation === Quadrant.topLeft) {
+    private createColorScale(colorsScale: WaferMapColorsScale): ScaleOrdinal<string, string> | ScaleLinear<string, string> {
+        if (this.isCategorical) {
+            return scaleOrdinal<string, string>()
+                .domain(colorsScale.values)
+                .range(colorsScale.colors);
+        }
+        return scaleLinear<string, string>()
+            .domain(colorsScale.values.map(item => parseInt(item, 10)))
+            .range(colorsScale.colors);
+    }
+
+    private createHorizontalScale(axisLocation: Quadrant, grid: Dimensions): ScaleLinear<number, number> {
+        if (axisLocation === Quadrant.bottomLeft || axisLocation === Quadrant.topLeft) {
             return scaleLinear()
-                .domain([metadata.origin.x, metadata.origin.x + metadata.cols])
-                .range([0, this.width]);
+                .domain([grid.origin.x, grid.origin.x + grid.cols])
+                .range([0, this.containerWidth]);
         }
         return scaleLinear()
-            .domain([metadata.origin.x - 1, metadata.origin.x + metadata.cols - 1])
-            .range([this.width, 0]);
+            .domain([grid.origin.x - 1, grid.origin.x + grid.cols - 1])
+            .range([this.containerWidth, 0]);
     }
 
-    private createYScale(metadata: WaferMapMetadata): ScaleLinear<number, number> {
-        if (metadata.axisLocation === Quadrant.bottomLeft || metadata.axisLocation === Quadrant.bottomRight) {
+    private createVerticalScale(axisLocation: Quadrant, grid: Dimensions): ScaleLinear<number, number> {
+        if (axisLocation === Quadrant.bottomLeft || axisLocation === Quadrant.bottomRight) {
             return scaleLinear()
-                .domain([metadata.origin.y - 1, metadata.origin.y + metadata.rows - 1])
-                .range([this.height, 0]);
+                .domain([grid.origin.y - 1, grid.origin.y + grid.rows - 1])
+                .range([this.containerHeight, 0]);
         }
         return scaleLinear()
-            .domain([metadata.origin.y, metadata.origin.y + metadata.rows])
-            .range([0, this.height]);
+            .domain([grid.origin.y, grid.origin.y + grid.rows])
+            .range([0, this.containerHeight]);
     }
 
-    private calculateGridWidth(metadata: WaferMapMetadata): number {
+    private calculateGridWidth(cols: number): number {
         return scaleBand<number>()
             .align(0.5)
             .padding(0)
-            .domain(this.xScale.ticks(metadata.cols))
-            .range([0, this.width])
+            .domain(this.horizontalScale.ticks(cols))
+            .range([0, this.containerWidth])
             .bandwidth();
     }
 
-    private calculateGridHeight(metadata: WaferMapMetadata): number {
+    private calculateGridHeight(rows: number): number {
         return scaleBand<number>()
             .align(0.5)
             .padding(0)
-            .domain(this.yScale.ticks(metadata.rows))
-            .range([0, this.height])
+            .domain(this.verticalScale.ticks(rows))
+            .range([0, this.containerHeight])
             .bandwidth();
     }
 
-    private setMargins(baseAddition = 0): void {
-        this.margin = {
+    private getMarginWithAddition(baseAddition = 0): { top: number, right: number, bottom: number, left: number } {
+        return {
             top: this.baseMargin.top + baseAddition,
             right: this.baseMargin.right + baseAddition,
             bottom: this.baseMargin.bottom + baseAddition,
@@ -148,43 +182,40 @@ export class Data {
         };
     }
 
-    private adjustSize(diff: number): void {
-        this.setMargins(diff);
-        this.width = this.canvasWidth - this.margin.left - this.margin.right;
-        this.height = this.canvasHeight - this.margin.top - this.margin.bottom;
-        this.buildScales(this.waferData.metadata);
+    private dieHasData(dieData: string | number): boolean {
+        return dieData !== null && dieData !== undefined && dieData !== '';
     }
 
-    private buildScales(metadata: WaferMapMetadata): void {
-        this.xScale = this.createXScale(metadata);
-        this.gridWidth = this.calculateGridWidth(metadata);
-
-        this.radius = (this.width / 2) + this.gridWidth * 1.5;
-        if (this.radius > this.canvasWidth / 2) {
-            this.adjustSize(this.radius - this.canvasWidth / 2); // should be recursive????
+    private buildLabelData(data: string | number): string {
+        if (!this.dieHasData(data) || (this.isCategorical && this.colorBy === WaferColorByOptions.binType)) {
+            return '';
         }
-
-        this.yScale = this.createYScale(metadata);
-        this.gridHeight = this.calculateGridHeight(metadata);
-
-        this.labelsFontSize = Math.min(this.gridHeight, this.gridWidth / (this.maxCharacters * 0.5) * this.fontSizeFactor);
+        const dataLabelsSuffix = !this.isCategorical && this.colorBy !== WaferColorByOptions.floatValue ? '%' : '';
+        return `${data}${dataLabelsSuffix}`;
     }
 
-    private dataBind(): void {
-        this.createColorScale();
-        this.buildScales(this.waferData.metadata);
+    private dieValueAndSelectedAreEqual(dieValue: string | number, selectedValue: string | number): boolean {
+        return dieValue.toString() === selectedValue.toString();
+    }
 
-        for (const die of this.waferData.dice) {
+    private getOpacityAccordingToSelectedValue(selectedValue: string | number): number {
+        return this.highlightedValues
+         && this.highlightedValues.length > 0
+         && !this.highlightedValues.some(dieValue => this.dieValueAndSelectedAreEqual(dieValue, selectedValue)) ? 0.3 : 0;
+    }
+
+    private parseRenderDies(dies: WaferMapDie[]): RenderDie[] {
+        const renderDies: RenderDie[] = [];
+        for (const die of dies) {
             const defaultColor = isNaN(+die.data) ? this.nanDieColor : this.emptyDieColor;
-            this.dice.push({
-                x: this.xScale(die.x) + this.margin.right,
-                y: this.yScale(die.y) + this.margin.top,
+            renderDies.push({
+                x: this.horizontalScale(die.x) + this.margin.right,
+                y: this.verticalScale(die.y) + this.margin.top,
                 fillStyle: this.dieHasData(die.data) ? this.colorScale(die.data as string & { valueOf(): number }) : defaultColor,
-                width: this.gridWidth,
-                height: this.gridHeight,
-                opacity: this.getOpacityAccordingToSelectedValued(die.data),
+                opacity: this.getOpacityAccordingToSelectedValue(die.data),
                 text: this.buildLabelData(die.data)
             });
         }
+        return renderDies;
     }
 }
