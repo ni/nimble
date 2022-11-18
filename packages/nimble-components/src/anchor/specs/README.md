@@ -18,11 +18,23 @@ The Nimble Anchor is a component used to navigate to a web resource, similar to 
 [FAST's API documentation](https://github.com/microsoft/fast/blob/e576aa70c22780fffba03097277e2db9a2ec1cd8/packages/web-components/fast-foundation/src/anchor/README.md)
 
 -   _Component Name_: `nimble-anchor`
--   _Properties/Attributes_: We will have two new properties/attributes: `underline` and `emphasis`. When present, the `underline` attribute will cause an underline to always be visible (as opposed to only on hover). Setting `emphasis` on the anchor will cause it to be shown in an accent color (as opposed to the text color). Furthermore, there will be a `disabled` property/attribute to make the anchor inoperable.
+-   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
+    - `appearance`:
+        - `"text"`: (Default) the "standalone" version in the design doc. Looks like plain text, but gets and underline on hover.
+        - `"inline-text"`: like `"text"`, but always shows an underline.
+        - `"outline"`: same as button design
+        - `"ghost"`: same as button design
+        - `"block"`: same as button design
+    - `appearance-variant`:
+        - `"default"`: `undefined` (as per our common attribute guidelines)
+        - `"primary"`: applies only to button-based styles and has the same effect as on buttons
+        - `"prominent"`: applies only to `"text"` and `"inline-text"` appearances. It is the "loud" version from the design doc. Colors the link text green. The name of this attribute value comes from the Breadcrumb.
+    - `contentHidden`: when set, hides the label and end slot
+    - `disabled`: when set, makes the anchor inoperable and changes the styling
 -   _Methods_: Unchanged (none)
 -   _Events_: Unchanged (none)
 -   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
--   _Slots_: We will not expose the start or end slot, because there isn't currently any need to.
+-   _Slots_: Unchanged (start and end slots)
 
 ### Angular integration
 
