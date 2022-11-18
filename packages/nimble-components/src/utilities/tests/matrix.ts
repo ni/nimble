@@ -19,6 +19,7 @@ export const sharedMatrixParameters = () => ({
     },
     viewMode: 'story',
     previewTabs: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         'storybook/docs/panel': {
             hidden: true
         }

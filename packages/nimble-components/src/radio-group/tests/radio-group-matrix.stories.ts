@@ -73,3 +73,19 @@ export const textCustomized: Story = createMatrixThemeStory(
         `
     )
 );
+
+export const heightTest: Story = createStory(
+    html`
+        <div style="display: flex; flex-direction: column">
+            <nimble-radio-group style="border: 1px dashed; width: 200px">
+                <label slot="label">With Label</label>
+                <nimble-radio>Option 1</nimble-radio>
+                <nimble-radio>Option 2</nimble-radio>
+            </nimble-radio-group>
+            <nimble-radio-group style="border: 1px dashed; width: 200px">
+                <nimble-radio>Option 1</nimble-radio>
+                <nimble-radio>Option 2</nimble-radio>
+            </nimble-radio-group>
+        </div>
+    `
+);
