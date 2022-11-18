@@ -79,7 +79,7 @@ SLE Table
 A user will be able to configure a `nimble-table` component fairly thoroughly through its markup. Including the columns to visualize, how to visualize a column, and in what order. A sketch of the markup should be similar to the following (in Angular):
 
 ```html
-<nimble-table data="data">
+<nimble-table [data]="data">
     <nimble-text-field-column
         slot="columns"
         columnId="firstName"
