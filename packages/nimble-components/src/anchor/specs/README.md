@@ -19,18 +19,18 @@ The Nimble Anchor is a component used to navigate to a web resource, similar to 
 
 -   _Component Name_: `nimble-anchor`
 -   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
-    - `appearance`:
-        - `"text"`: (Default) the "standalone" version in the design doc. Looks like plain text, but gets and underline on hover.
-        - `"inline-text"`: like `"text"`, but always shows an underline.
-        - `"outline"`: same as button design
-        - `"ghost"`: same as button design
-        - `"block"`: same as button design
-    - `appearance-variant`:
-        - `"default"`: `undefined` (as per our common attribute guidelines)
-        - `"primary"`: applies only to button-based styles and has the same effect as on buttons
-        - `"prominent"`: applies only to `"text"` and `"inline-text"` appearances. It is the "loud" version from the design doc. Colors the link text green. The name of this attribute value comes from the Breadcrumb.
-    - `contentHidden`: when set, hides the label and end slot
-    - `disabled`: when set, makes the anchor inoperable and changes the styling
+    -   `appearance`:
+        -   `"text"`: (Default) the "standalone" version in the design doc. Looks like plain text, but gets and underline on hover.
+        -   `"inline-text"`: like `"text"`, but always shows an underline.
+        -   `"outline"`: same as button design
+        -   `"ghost"`: same as button design
+        -   `"block"`: same as button design
+    -   `appearance-variant`:
+        -   `"default"`: `undefined` (as per our common attribute guidelines)
+        -   `"primary"`: applies only to button-based styles and has the same effect as on buttons
+        -   `"prominent"`: applies only to `"text"` and `"inline-text"` appearances. It is the "loud" version from the design doc. Colors the link text green. The name of this attribute value comes from the Breadcrumb.
+    -   `contentHidden`: when set, hides the label and end slot
+    -   `disabled`: when set, makes the anchor inoperable and changes the styling
 -   _Methods_: Unchanged (none)
 -   _Events_: Unchanged (none)
 -   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
@@ -50,9 +50,9 @@ We will create a Blazor wrapper for the anchor.
 
 -   _User interaction:_ None
 -   _Styling:_
-    - When it has keyboard focus, the anchor will have a double underline.
-    - CSS for button styles will be shared as much as possible
-    - CSS for hyperlink styles will be shared as much as possible with the Breadcrumb
+    -   When it has keyboard focus, the anchor will have a double underline.
+    -   CSS for button styles will be shared as much as possible
+    -   CSS for hyperlink styles will be shared as much as possible with the Breadcrumb
 -   _Testing:_ None
 -   _Documentation:_ Should direct users to set the `underline` attribute when using the anchor inline with text.
 -   _Tooling:_ None
