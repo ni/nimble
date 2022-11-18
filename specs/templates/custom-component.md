@@ -41,7 +41,7 @@
 *The key elements of the component's public API surface:*
 
 - *Component Name*
-- *Props/Attrs*
+- *Props/Attrs: to match native element APIs, prefer primitive types rather than complex configuration objects and expose fields as both properties on the TypeScript class and attributes on the HTML element*
 - *Methods*
 - *Events*
 - *CSS Classes and CSS Custom Properties that affect the component*
@@ -61,11 +61,11 @@
 
 ### Angular integration 
 
-*Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration.*
+*Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Blazor integration 
 
-*Describe the plan for Blazor support. See the [nimble-blazor CONTRIBUTING.md](/packages/nimble-blazor/CONTRIBUTING.md) for details.*
+*Describe the plan for Blazor support. See the [nimble-blazor CONTRIBUTING.md](/packages/nimble-blazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Visual Appearance
 
@@ -79,6 +79,8 @@
 
 *Highlight any alternative implementations you considered in each section.*
 
+*If you think a section doesn't apply or don't know what to write, DO NOT delete it, just leave it blank and the Nimble team can help you fill it in.*
+
 ### States
 
 *Key component states, valid state transitions, and how interactions trigger a state transition.*
@@ -89,8 +91,10 @@
 
 - *Keyboard Navigation and Focus*
 - *Form Input*
-- *Use with Assistive Technology*
-  - e.g. The implications shadow dom might have on how roles and attributes are presented to the AT. Components which delegate focus require all global aria-* attributes to be enumerated.
+- *Use with Assistive Technology. For example:*
+  - *All components should define a role and label so that assistive technology can identify them*
+  - *The implications shadow dom might have on how roles and attributes are presented in the accessibility tree.*
+  - *Components which delegate focus require all global ARIA attributes to be enumerated.*
 
 ### Globalization
 
