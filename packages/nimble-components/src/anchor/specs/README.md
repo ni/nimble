@@ -36,6 +36,8 @@ The Nimble Anchor is a component used to navigate to a web resource, similar to 
 -   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
 -   _Slots_: Unchanged (start and end slots)
 
+We are not implementing navigation tabs as part of this effort. That might be implemented in the future by populating a `nimble-tabs` control with `nimble-anchor`s. It may require a new appearance mode.
+
 ### Angular integration
 
 A directive will be created for the anchor component. The anchor does not participate in forms, so there will be no ControlValueAccessor.
@@ -47,7 +49,10 @@ We will create a Blazor wrapper for the anchor.
 ### Additional requirements
 
 -   _User interaction:_ None
--   _Styling:_ When it has keyboard focus, the anchor will have a double underline.
+-   _Styling:_
+    - When it has keyboard focus, the anchor will have a double underline.
+    - CSS for button styles will be shared as much as possible
+    - CSS for hyperlink styles will be shared as much as possible with the Breadcrumb
 -   _Testing:_ None
 -   _Documentation:_ Should direct users to set the `underline` attribute when using the anchor inline with text.
 -   _Tooling:_ None
