@@ -32,15 +32,17 @@ export class WaferMap extends FoundationElement {
         super.connectedCallback();
         if (this.waferData === undefined) return;
         this.dataService = new Data(
-            this.waferData,
+            this.waferData.dice,
             this.colorBy,
             this.colorsScale,
             this.highlightedValues,
+            this.waferData.metadata.axisLocation,
             this.isCategorical,
+            this.waferData.maxCharacters,
             this.offsetHeight,
             this.offsetWidth
         );
-        debugger;
+        // debugger;
     }
 }
 

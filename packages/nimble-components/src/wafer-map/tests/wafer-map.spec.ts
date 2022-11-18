@@ -69,7 +69,7 @@ describe('WaferMap', () => {
         );
     });
 
-    fit('can send data to inputs', async () => {
+    it('can send data to inputs', async () => {
         element.waferData = getWafermapRenderingObject();
         element.colorsScale = new WaferMapColorsScale(['red', 'blue', 'green'], ['1', '2', '3']);
         await connect();

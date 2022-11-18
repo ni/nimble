@@ -59,11 +59,13 @@ export class Data {
     private readonly isCategorical: boolean;
 
     public constructor(
-        waferData: WaferMapRenderingObject,
+        dies: WaferMapDie[],
         colorBy: WaferColorByOptions,
         colorsScale: WaferMapColorsScale,
         highlightedValues: string[],
+        axisLocation: Quadrant,
         isCategorical: boolean,
+        maxCharacters: number,
         canvasHeight: number,
         canvasWidth: number
     ) {
@@ -74,15 +76,15 @@ export class Data {
         this.canvasWidth = canvasWidth;
 
         this.maxCharacters = Math.max(2, !this.isCategorical && this.colorBy !== WaferColorByOptions.floatValue
-            ? waferData.maxCharacters + 1 /* take the percentage in count */
-            : waferData.maxCharacters);
+            ? maxCharacters + 1 /* take the percentage in count */
+            : maxCharacters);
 
         this.colorScale = this.createColorScale(colorsScale);
-        const gridDimensions = this.calculateDimensions(waferData.dice);
+        const gridDimensions = this.calculateDimensions(dies);
 
         this.containerWidth = this.canvasWidth - this.margin.left - this.margin.right;
         this.containerHeight = this.canvasHeight - this.margin.top - this.margin.bottom;
-        this.horizontalScale = this.createHorizontalScale(waferData.metadata.axisLocation, gridDimensions);
+        this.horizontalScale = this.createHorizontalScale(axisLocation, gridDimensions);
         this.dieWidth = this.calculateGridWidth(gridDimensions.cols);
 
         this.radius = (this.containerWidth / 2) + this.dieWidth * 1.5;
@@ -90,16 +92,16 @@ export class Data {
             this.margin = this.getMarginWithAddition(this.radius - this.canvasWidth / 2);
             this.containerWidth = this.canvasWidth - this.margin.left - this.margin.right;
             this.containerHeight = this.canvasHeight - this.margin.top - this.margin.bottom;
-            this.horizontalScale = this.createHorizontalScale(waferData.metadata.axisLocation, gridDimensions);
+            this.horizontalScale = this.createHorizontalScale(axisLocation, gridDimensions);
             this.dieWidth = this.calculateGridWidth(gridDimensions.cols);
         }
 
-        this.verticalScale = this.createVerticalScale(waferData.metadata.axisLocation, gridDimensions);
+        this.verticalScale = this.createVerticalScale(axisLocation, gridDimensions);
         this.dieHeight = this.calculateGridHeight(gridDimensions.rows);
 
         this.labelsFontSize = Math.min(this.dieHeight, this.dieWidth / (this.maxCharacters * 0.5) * this.fontSizeFactor);
 
-        this.renderDies = this.parseRenderDies(waferData.dice);
+        this.renderDies = this.parseRenderDies(dies);
     }
 
     public getMainCircleLocation(): { x: number, y: number } {
