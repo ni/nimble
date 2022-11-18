@@ -2,7 +2,14 @@ import { attr } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from '../theme-provider/template';
 import { styles } from './styles';
-import { WaferMapColorBy, WaferMapColorsScale, WaferMapDataType, WaferMapDie, WaferMapOrientation, WaferMapQuadrant } from './types';
+import {
+    WaferMapColorBy,
+    WaferMapColorsScale,
+    WaferMapDataType,
+    WaferMapDie,
+    WaferMapOrientation,
+    WaferMapQuadrant
+} from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
