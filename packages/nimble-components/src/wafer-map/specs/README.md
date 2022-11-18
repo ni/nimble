@@ -78,25 +78,28 @@ _The key elements of the component's public API surface:_
 
 -   Component Name: `nimble-wafer-map`
 -   Props/Attrs:
-    -   `die[]` - this represents the input data, which fills the wafer map with content.\
+    -   `dice[]` - this represents the input data, which fills the wafer map with content.\
         The **die** object contains the following attributes:
         -   x: integer
         -   y: integer
         -   value: float
-    -   `quadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by a const(as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
+    -   `waferQuadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by a const(as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
     -   topLeft - ![Top Left Quadrant](./Resources/top_left.png)
     -   bottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
     -   topRight - ![Top Right Quadrant](./Resources/top_right.png)
     -   bottomRight - ![Bottom Right Quadrant](./Resources/bottom_right.png)
-    -   `orientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
+    -   `waferOrientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
     -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
         The object we use for the colorScale is [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal). Basically, what this does is it associates a specific string (or in our case a value with a specific color.). The values which are not equal with the values specified in the array, will become a darker/lighter shade of the colors.
         In the following example the colorScale object is defined as `WafermapColorsScale(['red', 'blue', 'green'], ['1', '2', '8']);`\
         The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
-    -   `dieCharacterCount` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
+    -   `maxCharacters` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
+    -   `waferDataType` - represent an Enum and it can have tow values: categorical or accumulative
+    -   `colorBy` - represent an Enum and it can have four values: hardBin or softBin or binType or floatValue
+    -   `highlightedValues` - represent a list of strings
     -   disabled - it's represented by a boolean value and reffers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
 
-The `quadrant`, `orientation`, `dieCharacterCount` and `disabled` properties will be configurable via properties and attributes.
+The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType`, `colorBy` and `highlightedValues` properties will be configurable via properties and attributes.
 The `die` and `colorScale` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
