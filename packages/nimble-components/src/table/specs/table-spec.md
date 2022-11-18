@@ -161,7 +161,7 @@ Angular support should be accomplished through the typical directive patterns.
 
 ### Blazor integration
 
-Blazor support should be accomplished through the typical integration patterns. It should be noted that if the Nimble `Table` component is generic, than the Blazor component will mirror that generic API.
+Blazor support should be accomplished through the typical integration patterns. It should be noted that if the Nimble `Table` component is generic, then the Blazor component will mirror that generic API.
 
 ---
 
