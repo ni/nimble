@@ -1,9 +1,8 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from '../theme-provider/template';
-import type { WaferMapRenderingObject } from './models/wafer-map-rendering-object';
 import { styles } from './styles';
-import { WaferMapColorBy, WaferMapColorsScale } from './types';
+import { WaferMapColorBy, WaferMapColorsScale, WaferMapDataType, WaferMapDie, WaferMapOrientation, WaferMapQuadrant } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,9 +15,24 @@ declare global {
  */
 export class WaferMap extends FoundationElement {
     @attr({
-        attribute: 'waferData'
+        attribute: 'wafer-quadrant'
     })
-    public waferData!: WaferMapRenderingObject;
+    public waferQuadrant!: WaferMapQuadrant;
+
+    @attr({
+        attribute: 'wafer-orientation'
+    })
+    public waferOrientation!: WaferMapOrientation;
+
+    @attr({
+        attribute: 'max-characters'
+    })
+    public maxCharacters!: number;
+
+    @attr({
+        attribute: 'wafer-datatype'
+    })
+    public waferDataType!: WaferMapDataType;
 
     @attr({
         attribute: 'colorBy'
@@ -26,13 +40,11 @@ export class WaferMap extends FoundationElement {
     public colorBy: WaferMapColorBy = WaferMapColorBy.hardBin;
 
     @attr({
-        attribute: 'highlightedValues'
+        attribute: 'highlighted-values'
     })
     public highlightedValues!: string[];
 
-    @attr({
-        attribute: 'colorsScale'
-    })
+    public dice!: WaferMapDie[];
     public colorsScale!: WaferMapColorsScale;
 }
 
