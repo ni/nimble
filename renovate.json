@@ -4,5 +4,26 @@
     "config:base"
   ],
   "enabledManagers": ["npm"],
-  "rangeStrategy": "update-lockfile"
+  "rangeStrategy": "update-lockfile",
+  "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "enabled": false
+    },
+    {
+      "groupName": "beachball",
+      "matchPackageNames": ["beachball"],
+      "enabled": true
+    },
+    {
+      "groupName": "FAST",
+      "matchPackagePatterns": ["^@microsoft/fast"],
+      "enabled": true
+    },
+    {
+      "groupName": "NI ESLint config",
+      "matchPackagePatterns": ["^@ni/eslint-config"],
+      "enabled": true
+    }
+  ]
 }
