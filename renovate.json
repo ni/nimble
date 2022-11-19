@@ -3,5 +3,6 @@
   "extends": [
     "config:base"
   ],
-  "enabledManagers": ["npm"]
+  "enabledManagers": ["npm"],
+  "rangeStrategy": "update-lockfile"
 }
