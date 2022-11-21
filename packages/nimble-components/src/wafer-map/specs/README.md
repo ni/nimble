@@ -94,7 +94,7 @@ _The key elements of the component's public API surface:_
         In the following example the colorScale object is defined as `WaferMapColorsScale(['red', 'blue', 'green'], [1, 2, 8]);`\
         The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
     -   `maxCharacters` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
-    -   `showDieLabels` - a boolean value that determines if the die labels in the wafer map view are shown or not 
+    -   `showDieLabels` - a boolean value that determines if the die labels in the wafer map view are shown or not
     -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value
     -   `isContinuous` - represent an boolean value that mark if the colorScale is represent a continues gradient values, or is set categorically.
     -   `highlightedValues` - represent a list of number of dies values that will be highlighted in the wafer map view
