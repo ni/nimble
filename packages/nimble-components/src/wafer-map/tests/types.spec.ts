@@ -1,7 +1,4 @@
-import type {
-    WaferMapOrientation,
-    WaferMapQuadrant
-} from '../types';
+import type { WaferMapOrientation, WaferMapQuadrant } from '../types';
 
 describe('WaferMap type', () => {
     it('WaferMapQuadrant fails compile if assigning arbitrary string values', () => {
