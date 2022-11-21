@@ -78,7 +78,7 @@ _The key elements of the component's public API surface:_
 
 -   Component Name: `nimble-wafer-map`
 -   Props/Attrs:
-    -   `dies` - this represents the input data, represents an array of WaferMapDie, which fills the wafer map with content.\
+    -   `dies` - this represents the input data, an array of `WaferMapDie`, which fills the wafer map with content.\
         The **WaferMapDie** object contains the following attributes:
         -   x: integer
         -   y: integer
