@@ -22,14 +22,14 @@ declare global {
  */
 export class WaferMap extends FoundationElement {
     @attr({
-        attribute: 'wafer-quadrant'
+        attribute: 'quadrant'
     })
-    public waferQuadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
+    public quadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
 
     @attr({
-        attribute: 'wafer-orientation'
+        attribute: 'orientation'
     })
-    public waferOrientation: WaferMapOrientation = WaferMapOrientation.top;
+    public orientation: WaferMapOrientation = WaferMapOrientation.top;
 
     @attr({
         attribute: 'max-characters'
@@ -37,9 +37,9 @@ export class WaferMap extends FoundationElement {
     public maxCharacters = 4;
 
     @attr({
-        attribute: 'wafer-data-type'
+        attribute: 'data-type'
     })
-    public waferDataType: WaferMapDataType = WaferMapDataType.accumulative;
+    public dataType: WaferMapDataType = WaferMapDataType.accumulative;
 
     @attr({
         attribute: 'colorBy'
