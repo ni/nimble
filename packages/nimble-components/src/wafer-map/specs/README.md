@@ -80,9 +80,9 @@ _The key elements of the component's public API surface:_
 -   Props/Attrs:
     -   `dies` - this represents the input data, represents an array of WaferMapDie, which fills the wafer map with content.\
         The **WaferMapDie** object contains the following attributes:
-        -   x: integer
-        -   y: integer
-        -   data: string | number
+        -   x: number
+        -   y: number
+        -   value: number
     -   `waferQuadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by a const(as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
     -   topLeft - ![Top Left Quadrant](./Resources/top_left.png)
     -   bottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
@@ -91,12 +91,13 @@ _The key elements of the component's public API surface:_
     -   `waferOrientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
     -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
         The object we use for the colorScale is [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal). Basically, what this does is it associates a specific string (or in our case a value with a specific color.). The values which are not equal with the values specified in the array, will become a darker/lighter shade of the colors.
-        In the following example the colorScale object is defined as `WafermapColorsScale(['red', 'blue', 'green'], ['1', '2', '8']);`\
+        In the following example the colorScale object is defined as `WaferMapColorsScale(['red', 'blue', 'green'], [1, 2, 8]);`\
         The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
     -   `maxCharacters` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
-    -   `waferDataType` - represent an Enum and it can have two values: categorical or accumulative
-    -   `colorBy` - represent an Enum and it can have four values: hardBin or softBin or binType or floatValue
-    -   `highlightedValues` - represent a list of strings
+    -   `showDieLabels` - a boolean value that determines if the die labels in the wafer map view are shown or not 
+    -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value
+    -   `isContinuous` - represent an boolean value that mark if the colorScale is represent a continues gradient values, or is set categorically.
+    -   `highlightedValues` - represent a list of number of dies values that will be highlighted in the wafer map view
     -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
 
 The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType`, `colorBy` and `highlightedValues` properties will be configurable via properties and attributes.

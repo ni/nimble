@@ -3,9 +3,7 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from '../theme-provider/template';
 import { styles } from './styles';
 import {
-    WaferMapColorBy,
     WaferMapColorsScale,
-    WaferMapDataType,
     WaferMapDie,
     WaferMapOrientation,
     WaferMapQuadrant
@@ -37,19 +35,24 @@ export class WaferMap extends FoundationElement {
     public maxCharacters = 4;
 
     @attr({
-        attribute: 'data-type'
+        attribute: 'show-die-labels'
     })
-    public dataType: WaferMapDataType = WaferMapDataType.accumulative;
+    public showDieLabels = true;
 
     @attr({
-        attribute: 'colorBy'
+        attribute: 'die-labels-suffix'
     })
-    public colorBy: WaferMapColorBy = WaferMapColorBy.hardBin;
+    public dieLabelsSuffix = '';
+
+    @attr({
+        attribute: 'is-continuous'
+    })
+    public isContinuous = true;
 
     @attr({
         attribute: 'highlighted-values'
     })
-    public highlightedValues: string[] = [];
+    public highlightedValues: number[] = [];
 
     @observable public dies: WaferMapDie[] = [];
     @observable public colorsScale: WaferMapColorsScale = {} as WaferMapColorsScale;

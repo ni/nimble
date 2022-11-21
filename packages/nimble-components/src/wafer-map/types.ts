@@ -1,13 +1,3 @@
-export const WaferMapColorBy = {
-    hardBin: 'hard-bin',
-    softBin: 'soft-bin',
-    binType: 'bin-type',
-    floatValue: 'float-value'
-} as const;
-
-export type WaferMapColorBy =
-    typeof WaferMapColorBy[keyof typeof WaferMapColorBy];
-
 export const WaferMapQuadrant = {
     bottomLeft: 'bottom-left',
     bottomRight: 'bottom-right',
@@ -28,21 +18,13 @@ export const WaferMapOrientation = {
 export type WaferMapOrientation =
     typeof WaferMapOrientation[keyof typeof WaferMapOrientation];
 
-export const WaferMapDataType = {
-    categorical: 'categorical',
-    accumulative: 'accumulative'
-} as const;
-
-export type WaferMapDataType =
-    typeof WaferMapDataType[keyof typeof WaferMapDataType];
-
 export interface WaferMapDie {
-    data: string | number;
+    value: number;
     x: number;
     y: number;
 }
 
 export interface WaferMapColorsScale {
     colors: string[];
-    values: string[];
+    values: number[];
 }
