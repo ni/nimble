@@ -83,12 +83,12 @@ _The key elements of the component's public API surface:_
         -   x: number
         -   y: number
         -   value: number
-    -   `waferQuadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by a const(as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
+    -   `quadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by a const(as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
     -   topLeft - ![Top Left Quadrant](./Resources/top_left.png)
     -   bottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
     -   topRight - ![Top Right Quadrant](./Resources/top_right.png)
     -   bottomRight - ![Bottom Right Quadrant](./Resources/bottom_right.png)
-    -   `waferOrientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
+    -   `orientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
     -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
         The object we use for the colorScale is [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal). Basically, what this does is it associates a specific string (or in our case a value with a specific color.). The values which are not equal with the values specified in the array, will become a darker/lighter shade of the colors.
         In the following example the colorScale object is defined as `WaferMapColorsScale(['red', 'blue', 'green'], [1, 2, 8]);`\
