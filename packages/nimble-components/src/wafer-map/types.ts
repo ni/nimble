@@ -33,3 +33,23 @@ export const WaferMapDataType = {
 
 export type WaferMapDataType =
     typeof WaferMapDataType[keyof typeof WaferMapDataType];
+
+export interface Dimensions {
+    width: number;
+    height: number;
+}
+
+export interface Margin {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+}
+
+export interface RenderDie {
+    x: number;
+    y: number;
+    fillStyle: string;
+    opacity: number;
+    text: string;
+}

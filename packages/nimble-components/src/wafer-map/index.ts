@@ -2,7 +2,7 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from '../theme-provider/template';
 import { WaferMapColorsScale } from './data-types/WaferMapColorsScale';
 import type { WaferMapRenderingObject } from './data-types/WaferMapRenderingObject';
-import { Data } from './services/data.service';
+import { Data } from './modules/data.module';
 import { styles } from './styles';
 import type { WaferColorByOptions } from './types';
 
@@ -39,8 +39,7 @@ export class WaferMap extends FoundationElement {
             this.waferData.metadata.axisLocation,
             this.isCategorical,
             this.waferData.maxCharacters,
-            this.offsetHeight,
-            this.offsetWidth
+            { width: this.offsetWidth, height: this.offsetHeight }
         );
         // debugger;
     }
