@@ -14,26 +14,24 @@ async function setup(): Promise<Fixture<WaferMap>> {
 function getWafermapRenderingObject(): WaferMapRenderingObject {
     return {
         dice: [
-            { data: '1', x: 2, y: 1 },
-            { data: '2', x: 2, y: 2 },
-            { data: '3', x: 2, y: 3 },
-            { data: '4', x: 2, y: 4 },
-            { data: '5', x: 3, y: 1 },
-            { data: '6', x: 3, y: 2 },
-            { data: '7', x: 3, y: 3 },
-            { data: '8', x: 3, y: 4 },
-            { data: '9', x: 3, y: 5 },
-            { data: '10', x: 4, y: 1 },
-            { data: '11', x: 4, y: 2 },
-            { data: '12', x: 4, y: 3 },
-            { data: '13', x: 4, y: 4 },
-            { data: '14', x: 4, y: 5 },
-            { data: '15', x: 5, y: 1 },
-            { data: '16', x: 5, y: 2 },
-            { data: '16', x: 5, y: 3 },
-            { data: '14', x: 5, y: 4 },
-            { data: '14', x: 5, y: 5 },
-            { data: '14', x: 5, y: 6 },
+            { value: 1, x: 2, y: 3 },
+            { value: 2, x: 2, y: 4 },
+            { value: 3, x: 3, y: 2 },
+            { value: 4, x: 3, y: 3 },
+            { value: 5, x: 3, y: 4 },
+            { value: 6, x: 3, y: 5 },
+            { value: 7, x: 4, y: 1 },
+            { value: 8, x: 4, y: 2 },
+            { value: 9, x: 4, y: 3 },
+            { value: 10, x: 4, y: 4 },
+            { value: 11, x: 4, y: 5 },
+            { value: 12, x: 4, y: 6 },
+            { value: 13, x: 5, y: 2 },
+            { value: 14, x: 5, y: 3 },
+            { value: 15, x: 5, y: 4 },
+            { value: 16, x: 5, y: 5 },
+            { value: 16, x: 6, y: 3 },
+            { value: 14, x: 6, y: 4 },
         ],
         metadata: {
             axisLocation: Quadrant.topLeft,
@@ -71,7 +69,7 @@ describe('WaferMap', () => {
 
     it('can send data to inputs', async () => {
         element.waferData = getWafermapRenderingObject();
-        element.colorsScale = new WaferMapColorsScale(['red', 'blue', 'green'], ['1', '2', '3']);
+        element.colorsScale = new WaferMapColorsScale(['red', 'blue', 'green'], [1, 2, 3]);
         await connect();
         // debugger;
     });

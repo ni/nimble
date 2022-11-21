@@ -3,7 +3,7 @@ import type { WaferMapColorsScale } from '../data-types/WaferMapColorsScale';
 import type { WaferMapDie } from '../data-types/WaferMapDie';
 import { Computations } from './computations.module';
 import { Prerendering } from './prerendering.module';
-import type { Dimensions, Margin, Quadrant, RenderDie, WaferColorByOptions } from '../types';
+import type { Dimensions, Margin, Quadrant, RenderDie } from '../types';
 
 /**
  * Data Module
@@ -50,11 +50,12 @@ export class Data {
 
     public constructor(
         dies: WaferMapDie[],
-        colorBy: WaferColorByOptions,
         colorsScale: WaferMapColorsScale,
-        highlightedValues: string[],
+        highlightedValues: number[],
         axisLocation: Quadrant,
-        isCategorical: boolean,
+        isContinuous: boolean,
+        showDieLabels: boolean,
+        dieLabelsSuffix: string,
         maxCharacters: number,
         canvasDimensions: Dimensions,
     ) {
@@ -62,12 +63,13 @@ export class Data {
 
         this.prerendering = new Prerendering(
             dies,
-            colorBy,
             colorsScale,
             highlightedValues,
             this.computations.horizontalScale,
             this.computations.verticalScale,
-            isCategorical,
+            isContinuous,
+            showDieLabels,
+            dieLabelsSuffix,
             maxCharacters,
             this.computations.dieDimensions,
             this.computations.margin

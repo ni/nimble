@@ -1,7 +1,7 @@
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import type { WaferMapColorsScale } from '../data-types/WaferMapColorsScale';
 import type { WaferMapDie } from '../data-types/WaferMapDie';
-import { Dimensions, Margin, RenderDie, WaferColorByOptions } from '../types';
+import type { Dimensions, Margin, RenderDie } from '../types';
 
 /**
 * Prerendering module
@@ -13,8 +13,7 @@ export class Prerendering {
 
     private readonly colorScale: ScaleOrdinal<string, string> | ScaleLinear<string, string>;
 
-    private readonly colorBy: WaferColorByOptions;
-    private readonly highlightedValues!: string[];
+    private readonly highlightedValues!: number[];
 
     private readonly fontSizeFactor = 0.8;
     private readonly emptyDieColor = '#DADFEC';
@@ -22,50 +21,48 @@ export class Prerendering {
 
     public constructor(
         dies: WaferMapDie[],
-        colorBy: WaferColorByOptions,
         colorsScale: WaferMapColorsScale,
-        highlightedValues: string[],
+        highlightedValues: number[],
         horizontalScale: ScaleLinear<number, number>,
         verticalScale: ScaleLinear<number, number>,
-        isCategorical: boolean,
+        isContinuous: boolean,
+        showDieLabels: boolean,
+        dieLabelsSuffix: string,
         maxCharacters: number,
         dieDimensions: Dimensions,
         margin: Margin,
     ) {
-        this.colorBy = colorBy;
         this.highlightedValues = highlightedValues;
 
-        this.colorScale = this.createColorScale(colorsScale, isCategorical);
+        this.colorScale = this.createColorScale(colorsScale, isContinuous);
 
         this.labelsFontSize = Math.min(dieDimensions.height,
-            dieDimensions.width / (this.calculateMaxCharacters(colorBy, isCategorical, maxCharacters) * 0.5) * this.fontSizeFactor);
+            dieDimensions.width / (this.calculateMaxCharacters(dieLabelsSuffix, maxCharacters) * 0.5) * this.fontSizeFactor);
 
         this.renderDies = [];
         for (const die of dies) {
             this.renderDies.push({
                 x: horizontalScale(die.x) + margin.right,
                 y: verticalScale(die.y) + margin.top,
-                fillStyle: this.getFillStyle(die, isCategorical),
-                opacity: this.getOpacityAccordingToSelectedValue(die.data),
-                text: this.buildLabelData(die.data, colorBy, isCategorical)
+                fillStyle: this.calculateFillStyle(die, isContinuous),
+                opacity: this.calculateOpacityAccordingToSelectedValue(die.value),
+                text: this.buildLabelData(die.value, showDieLabels, dieLabelsSuffix)
             });
         }
     }
 
-    private calculateMaxCharacters(colorBy: WaferColorByOptions, isCategorical: boolean, maxCharacters: number): number {
-        return Math.max(2, !isCategorical && colorBy !== WaferColorByOptions.floatValue
-            ? maxCharacters + 1 /* take the percentage in count */
-            : maxCharacters);
+    private calculateMaxCharacters(valueLabelsSuffix: string, maxCharacters: number): number {
+        return Math.max(2, maxCharacters + valueLabelsSuffix.length);
     }
 
-    private createColorScale(colorsScale: WaferMapColorsScale, isCategorical: boolean): ScaleOrdinal<string, string> | ScaleLinear<string, string> {
-        if (isCategorical) {
-            return scaleOrdinal<string, string>()
+    private createColorScale(colorsScale: WaferMapColorsScale, isContinuous: boolean): ScaleOrdinal<string, string> | ScaleLinear<string, string> {
+        if (isContinuous) {
+            return scaleLinear<string, string>()
                 .domain(colorsScale.values)
                 .range(colorsScale.colors);
         }
-        return scaleLinear<string, string>()
-            .domain(colorsScale.values.map(item => parseInt(item, 10)))
+        return scaleOrdinal<string, string>()
+            .domain(colorsScale.values.map(item => item.toString()))
             .range(colorsScale.colors);
     }
 
@@ -73,32 +70,31 @@ export class Prerendering {
         return dieData !== null && dieData !== undefined && dieData !== '';
     }
 
-    private buildLabelData(data: string | number, colorBy: WaferColorByOptions, isCategorical: boolean): string {
-        if (!this.dieHasData(data) || (isCategorical && colorBy === WaferColorByOptions.binType)) {
+    private buildLabelData(value: number, showDieLabels: boolean, dieLabelsSuffix: string): string {
+        if (showDieLabels || !this.dieHasData(value)) {
             return '';
         }
-        const dataLabelsSuffix = !isCategorical && colorBy !== WaferColorByOptions.floatValue ? '%' : '';
-        return `${data}${dataLabelsSuffix}`;
+        return `${value}${dieLabelsSuffix}`;
     }
 
-    private dieValueAndSelectedAreEqual(dieValue: string | number, selectedValue: string | number): boolean {
-        return dieValue.toString() === selectedValue.toString();
+    private dieValueAndSelectedAreEqual(dieValue: number, selectedValue: string | number): boolean {
+        return dieValue === selectedValue;
     }
 
-    private getOpacityAccordingToSelectedValue(selectedValue: string | number): number {
+    private calculateOpacityAccordingToSelectedValue(selectedValue: string | number): number {
         return this.highlightedValues
          && this.highlightedValues.length > 0
          && !this.highlightedValues.some(dieValue => this.dieValueAndSelectedAreEqual(dieValue, selectedValue)) ? 0.3 : 0;
     }
 
-    private getFillStyle(die: WaferMapDie, isCategorical: boolean): string {
-        if (isNaN(+die.data)) {
+    private calculateFillStyle(die: WaferMapDie, isContinuous: boolean): string {
+        if (isNaN(+die.value)) {
             return this.nanDieColor;
         }
-        if (!this.dieHasData(die.data)) {
+        if (!this.dieHasData(die.value)) {
             return this.emptyDieColor;
         }
-        return isCategorical ? (this.colorScale as ScaleOrdinal<string, string>)(die.data.toString())
-            : (this.colorScale as ScaleLinear<string, string>)(+die.data);
+        return !isContinuous ? (this.colorScale as ScaleOrdinal<string, string>)(die.value.toString())
+            : (this.colorScale as ScaleLinear<string, string>)(die.value);
     }
 }

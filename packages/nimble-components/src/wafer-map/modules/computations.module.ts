@@ -32,14 +32,14 @@ export class Computations {
     ) {
         const gridMapDimensions = this.calculateMapDimensions(dies);
 
-        this.containerDimensions = this.getContainerDimensions(canvasDimensions, this.margin);
+        this.containerDimensions = this.calculateContainerDimensions(canvasDimensions, this.margin);
         this.horizontalScale = this.createHorizontalScale(axisLocation, gridMapDimensions, this.containerDimensions.width);
         this.dieDimensions.width = this.calculateGridWidth(gridMapDimensions.cols, this.containerDimensions.width);
 
         this.radius = (this.containerDimensions.width / 2) + this.dieDimensions.width * 1.5;
         if (this.radius > canvasDimensions.width / 2) {
-            this.margin = this.getMarginWithAddition(this.radius - canvasDimensions.width / 2);
-            this.containerDimensions = this.getContainerDimensions(canvasDimensions, this.margin);
+            this.margin = this.calculateMarginWithAddition(this.radius - canvasDimensions.width / 2);
+            this.containerDimensions = this.calculateContainerDimensions(canvasDimensions, this.margin);
             this.horizontalScale = this.createHorizontalScale(axisLocation, gridMapDimensions, this.containerDimensions.width);
             this.dieDimensions.width = this.calculateGridWidth(gridMapDimensions.cols, this.containerDimensions.width);
             this.radius = (this.containerDimensions.width / 2) + this.dieDimensions.width * 1.5;
@@ -65,7 +65,7 @@ export class Computations {
         return { origin: minPoint, rows: maxPoint.y - minPoint.y + 1, cols: maxPoint.x - minPoint.x + 1 };
     }
 
-    private getContainerDimensions(canvasDimensions: Dimensions, margin: Margin): Dimensions {
+    private calculateContainerDimensions(canvasDimensions: Dimensions, margin: Margin): Dimensions {
         return {
             width: canvasDimensions.width - margin.left - margin.right,
             height: canvasDimensions.height - margin.top - margin.bottom
@@ -112,7 +112,7 @@ export class Computations {
             .bandwidth();
     }
 
-    private getMarginWithAddition(baseAddition = 0): { top: number, right: number, bottom: number, left: number } {
+    private calculateMarginWithAddition(baseAddition = 0): { top: number, right: number, bottom: number, left: number } {
         return {
             top: this.baseMargin.top + baseAddition,
             right: this.baseMargin.right + baseAddition,

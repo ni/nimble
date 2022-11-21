@@ -18,27 +18,32 @@ declare global {
 export class WaferMap extends FoundationElement {
     public waferData: WaferMapRenderingObject | undefined;
 
-    public colorBy: WaferColorByOptions = 0;
+    public highlightedValues: number[] = [];
 
-    public highlightedValues: string[] = [];
+    public colorsScale: WaferMapColorsScale = new WaferMapColorsScale(['green'], []);
 
-    public colorsScale: WaferMapColorsScale = new WaferMapColorsScale(['red', 'green'], ['0', '1']);
+    public isContinuous = true;
 
-    public isCategorical = true;
+    public showDieLabels = true;
 
-    private dataService: Data | undefined;
+    public dieLabelsSuffix = '';
+
+    public maxCharacters = 0;
+
+    private dataModule: Data | undefined;
 
     public override connectedCallback(): void {
         super.connectedCallback();
         if (this.waferData === undefined) return;
-        this.dataService = new Data(
+        this.dataModule = new Data(
             this.waferData.dice,
-            this.colorBy,
             this.colorsScale,
             this.highlightedValues,
             this.waferData.metadata.axisLocation,
-            this.isCategorical,
-            this.waferData.maxCharacters,
+            this.isContinuous,
+            this.showDieLabels,
+            this.dieLabelsSuffix,
+            this.maxCharacters,
             { width: this.offsetWidth, height: this.offsetHeight }
         );
         // debugger;
