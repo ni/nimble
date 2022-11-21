@@ -36,7 +36,36 @@ The Nimble Anchor is a component used to navigate to a web resource, similar to 
 -   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
 -   _Slots_: Unchanged (start and end slots)
 
-We are not implementing navigation tabs as part of this effort. That might be implemented in the future by populating a `nimble-tabs` control with `nimble-anchor`s. It may require a new appearance mode.
+**Anchors in other components**
+
+In the future, we expect to support links within other controls, e.g.
+-   tabs
+-   menu
+-   tree
+
+Unfortunately it's not as simple as dropping `nimble-anchor`s into the existing components. Each of these has its own considerations and challenges.
+
+-   **Tabs**
+
+    The `nimble-tabs` control has a `tabpanel` slot to host `nimble-tab-panel`s, but that will have to be replaced with an `iframe`. It probably does not make sense for a `nimble-tabs` to contain a mix of `nimble-tab`/`nimble-tab-panel` and `nimble-anchor`. We likely would either have a separate "hyperlink tabs" component, or two distinct modes on the existing `nimble-tabs`.
+
+    There is also a question of keyboard navigation behavior. The existing tabs control immediately switches the tab panel when you focus a different tab header. We probably want to avoid loading new pages as you arrow through the tab headers. Instead, the user would navigate to a tab header and hit space/enter to actually load that content. A downside is that we would have two different interaction patterns for tab controls that are visually the same.
+
+    ARIA roles are another question. Do we continue to use roles for the tab pattern, like `tab`, `tablist`, and `tabpanel` (but we have no `tabpanel`s)? Or do we let our link items have the `link` role, maybe within a `list`/`group` of items? I have seen examples of both approaches on sites like GitHub and AzDO.
+
+-   **Menu**
+
+    Should the ARIA role for a link in a menu be `link` or `menuitem`? The examples I have found go with the latter, and this is supported by the fact that the ARIA spec for the `menu` role doesn't include `link` among the roles that child items may have.
+
+    The FAST menu supports keyboard navigation to any child items that have the `menuitem` role. However, when I tried putting a `<a>` with role `menuitem` into a `nimble-menu`, I could navigate to the link, but I could not activate it with the enter key (or even by clicking).
+
+    The API for a menu item contains a number of things not provided by a plain `nimble-anchor`. This hints that a separate component (i.e. `nimble-anchor-menu-item`) may be cleaner and more maintainable than trying to reuse the `nimble-anchor`.
+
+-   **Tree**
+
+    The tree use case is very similar to the menu use case. I have not found examples of sites with trees (i.e. `role=tree`) with links, but based on the ARIA docs, I suspect the correct role for a link in a tree is `treeitem`. For the same reasons as the menu case, I suspect it would be cleaner and more maintainable to create a separate `nimble-anchor-tree-item`.
+
+If we are creating new components for anchors in menus and trees, then for consistency, we should probably create a separate one for the tabs use case as well. If that's the approach we take, then we are free to design the "plain" anchor (`nimble-anchor`) however we wish, without impacting our future efforts to implement the tabs, menu, or tree support.
 
 ### Angular integration
 
