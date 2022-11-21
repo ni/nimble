@@ -99,7 +99,7 @@ We will create a Blazor wrapper for the anchor. Judging by the BreadcrumbItem's 
     -   CSS for button styles will be shared as much as possible
     -   CSS for hyperlink styles will be shared as much as possible with the Breadcrumb
 -   _Testing:_ None
--   _Documentation:_ Should direct users to set the `underline` attribute when using the anchor inline with text.
+-   _Documentation:_ Should direct users to set the `inline-text` appearance when using the anchor inline with text.
 -   _Tooling:_ None
 -   _Accessibility:_ Need to `applyMixins` on the Nimble anchor type, from the `DelegatesARIALink` class.
 -   _Globalization:_ None
