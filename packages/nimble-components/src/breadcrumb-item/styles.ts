@@ -1,24 +1,17 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import {
-    bodyFont,
-    bodyFontColor,
     borderHoverColor,
     borderWidth,
-    controlHeight,
     iconSize,
     placeholderFontColor
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
+import { styles as linkStyles } from '../patterns/link/styles';
 
 export const styles = css`
-    ${display('inline-flex')}
+    ${linkStyles}
 
     :host {
-        height: ${controlHeight};
-        box-sizing: border-box;
-        font: ${bodyFont};
-        color: ${bodyFontColor};
         padding-left: calc(4px - ${borderWidth});
     }
 
@@ -28,27 +21,8 @@ export const styles = css`
     }
 
     .control {
-        color: var(--ni-private-breadcrumb-link-font-color);
-        cursor: default;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         border: ${borderWidth} solid transparent;
         padding-right: calc(4px - ${borderWidth});
-    }
-
-    .control:any-link {
-        cursor: pointer;
-        text-decoration: none;
-    }
-
-    .control:hover {
-        text-decoration: underline;
-    }
-
-    .control:active {
-        color: var(--ni-private-breadcrumb-link-active-font-color);
-        text-decoration: underline;
     }
 
     .control:any-link${focusVisible} {
