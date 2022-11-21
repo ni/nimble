@@ -78,11 +78,11 @@ _The key elements of the component's public API surface:_
 
 -   Component Name: `nimble-wafer-map`
 -   Props/Attrs:
-    -   `dice[]` - this represents the input data, which fills the wafer map with content.\
-        The **die** object contains the following attributes:
+    -   `dies` - this represents the input data, represents an array of WaferMapDie, which fills the wafer map with content.\
+        The **WaferMapDie** object contains the following attributes:
         -   x: integer
         -   y: integer
-        -   value: float
+        -   data: string | number
     -   `waferQuadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by a const(as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
     -   topLeft - ![Top Left Quadrant](./Resources/top_left.png)
     -   bottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
@@ -94,10 +94,10 @@ _The key elements of the component's public API surface:_
         In the following example the colorScale object is defined as `WafermapColorsScale(['red', 'blue', 'green'], ['1', '2', '8']);`\
         The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
     -   `maxCharacters` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
-    -   `waferDataType` - represent an Enum and it can have tow values: categorical or accumulative
+    -   `waferDataType` - represent an Enum and it can have two values: categorical or accumulative
     -   `colorBy` - represent an Enum and it can have four values: hardBin or softBin or binType or floatValue
     -   `highlightedValues` - represent a list of strings
-    -   disabled - it's represented by a boolean value and reffers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
+    -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
 
 The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType`, `colorBy` and `highlightedValues` properties will be configurable via properties and attributes.
 The `die` and `colorScale` properties will be configurable only via properties and will not have attributes.

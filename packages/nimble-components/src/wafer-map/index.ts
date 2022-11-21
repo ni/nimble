@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from '../theme-provider/template';
 import { styles } from './styles';
@@ -24,22 +24,22 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'wafer-quadrant'
     })
-    public waferQuadrant!: WaferMapQuadrant;
+    public waferQuadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
 
     @attr({
         attribute: 'wafer-orientation'
     })
-    public waferOrientation!: WaferMapOrientation;
+    public waferOrientation: WaferMapOrientation = WaferMapOrientation.top;
 
     @attr({
         attribute: 'max-characters'
     })
-    public maxCharacters!: number;
+    public maxCharacters = 4;
 
     @attr({
-        attribute: 'wafer-datatype'
+        attribute: 'wafer-data-type'
     })
-    public waferDataType!: WaferMapDataType;
+    public waferDataType: WaferMapDataType = WaferMapDataType.accumulative;
 
     @attr({
         attribute: 'colorBy'
@@ -49,10 +49,10 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'highlighted-values'
     })
-    public highlightedValues!: string[];
+    public highlightedValues: string[] = [];
 
-    public dice!: WaferMapDie[];
-    public colorsScale!: WaferMapColorsScale;
+    @observable public dies: WaferMapDie[] = [];
+    @observable public colorsScale: WaferMapColorsScale = {} as WaferMapColorsScale;
 }
 
 const nimbleWaferMap = WaferMap.compose({
