@@ -39,6 +39,7 @@ The Nimble Anchor is a component used to navigate to a web resource, similar to 
 **Anchors in other components**
 
 In the future, we expect to support links within other controls, e.g.
+
 -   tabs
 -   menu
 -   tree
