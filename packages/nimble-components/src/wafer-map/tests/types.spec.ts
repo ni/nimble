@@ -12,4 +12,10 @@ describe('WaferMap type', () => {
         const value: WaferMapOrientation = 'hello';
         expect(value).toEqual('hello');
     });
+
+    it('WaferMapColorsScaleMode fails compile if assigning arbitrary string values', () => {
+        // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
+        const value: WaferMapColorsScaleMode = 'hello';
+        expect(value).toEqual('hello');
+    });
 });

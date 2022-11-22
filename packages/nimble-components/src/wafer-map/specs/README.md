@@ -94,14 +94,14 @@ _The key elements of the component's public API surface:_
         In the following example the colorScale object is defined as `WaferMapColorsScale(['red', 'blue', 'green'], [1, 2, 8]);`\
         The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
     -   `maxCharacters` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
-    -   `showDieLabels` - a boolean value that determines if the die labels in the wafer map view are shown or not
+    -   `dieLabelsHidden` - a boolean value that determines if the die labels in the wafer map view are shown or not. Default value is false.
     -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value
-    -   `isContinuous` - represent an boolean value that mark if the colorScale is represent a continues gradient values, or is set categorically.
+    -   `colorsScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
     -   `highlightedValues` - represent a list of number of dies values that will be highlighted in the wafer map view
     -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
 
-The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType`, `colorBy` and `highlightedValues` properties will be configurable via properties and attributes.
-The `die` and `colorScale` properties will be configurable only via properties and will not have attributes.
+The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
+The `die`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
 
