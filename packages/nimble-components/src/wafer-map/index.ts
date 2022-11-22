@@ -31,9 +31,10 @@ export class WaferMap extends FoundationElement {
     public maxCharacters = 4;
 
     @attr({
-        attribute: 'show-die-labels'
+        attribute: 'die-labels-hidden',
+        mode: 'boolean'
     })
-    public showDieLabels = true;
+    public dieLabelsHidden = false;
 
     @attr({
         attribute: 'die-labels-suffix'
