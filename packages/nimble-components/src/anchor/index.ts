@@ -50,6 +50,14 @@ export class Anchor extends FoundationAnchor {
      */
     @attr({ mode: 'boolean' })
     public disabled = false;
+
+    public disabledChanged(_prev: boolean | undefined, next: boolean): void {
+        if (next) {
+            this.tabIndex = -1;
+        } else {
+            this.tabIndex = 0;
+        }
+    }
 }
 applyMixins(Anchor, DelegatesARIALink);
 
