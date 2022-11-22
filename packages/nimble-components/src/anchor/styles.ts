@@ -62,9 +62,17 @@ export const styles = css`
             cursor: default;
         }
 
+        .start {
+            display: contents;
+        }
+
         .control:any-link${focusVisible} {
             text-decoration: underline;
             box-shadow: inset 0px -1px var(--ni-private-link-font-color);
+        }
+
+        .end {
+            display: contents;
         }
 
         `.withBehaviors(
