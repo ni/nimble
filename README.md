@@ -105,3 +105,4 @@ NOTE: To update the component status:
 | Toolbar | |  [Issue](https://github.com/ni/nimble/issues/411) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/toolbar--toolbar) | :white_check_mark: | :white_check_mark: |
 | Tooltip | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/) |  [Issue](https://github.com/ni/nimble/issues/309) | [:warning: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tooltip--tooltip) | :warning: | :warning: |
 | Tree View | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/ec5a855a-4174-46ad-947c-3931bbf3e32d/) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tree-view--tree-view) | :white_check_mark: | :white_check_mark: |
+| Wafer Map | | | :warning: | :warning: | :warning: |
