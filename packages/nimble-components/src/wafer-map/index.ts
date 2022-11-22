@@ -19,9 +19,7 @@ declare global {
  * A nimble-styled WaferMap
  */
 export class WaferMap extends FoundationElement {
-    @attr({
-        attribute: 'quadrant'
-    })
+    @attr
     public quadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
 
     @attr({
