@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "created Computations module",
+  "packageName": "@ni/nimble-components",
+  "email": "natan.muntean@ni.com",
+  "dependentChangeType": "patch"
+}
