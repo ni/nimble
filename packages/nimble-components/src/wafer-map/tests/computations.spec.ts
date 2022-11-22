@@ -1,4 +1,4 @@
-import type { Computations } from '../modules/computations.module';
+import { Computations } from '../modules/computations.module';
 import { Margin, WaferMapQuadrant } from '../types';
 import { getWaferMapDies } from './utilities';
 
