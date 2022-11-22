@@ -69,7 +69,7 @@ If we are creating new components for anchors in menus and trees, then for consi
 
 ### Angular integration
 
-A directive will be created for the anchor component. It will extend the `NimbleBreadcrumbItemDirective` since it has all the same bindings for attributes common to the native anchor element (e.g. `href`, `rel`, `target`, etc.). It will additionally have bindings for attributes `appearance`, `appearance-variant`, `content-hidden`, and `disabled`.
+A directive will be created for the anchor component. The existing `NimbleBreadcrumbItemDirective` has all the needed bindings for attributes common to the native anchor element (e.g. `href`, `rel`, `target`, etc.). We will refactor that into a common, base class called something like `NimbleAnchorBase` that both the BreadcrumbItem directive and anchor directive can extend. The anchor directive will additionally have bindings for attributes `appearance`, `appearance-variant`, `content-hidden`, and `disabled`.
 
 The anchor does not participate in forms, so there will be no ControlValueAccessor.
 
