@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 14 Nov 2022 23:02:04 GMT and should not be manually modified.
+This log was last generated on Tue, 22 Nov 2022 09:29:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.4.0
+
+Tue, 22 Nov 2022 09:29:17 GMT
+
+### Minor changes
+
+- Create placeholder WaferMap component ([ni/nimble@ac82536](https://github.com/ni/nimble/commit/ac8253677461f3591b18f36ead547ec9d8562cb3))
 
 ## 15.3.2
 

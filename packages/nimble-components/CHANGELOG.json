@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 22 Nov 2022 09:29:17 GMT",
+      "tag": "@ni/nimble-components_v15.4.0",
+      "version": "15.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "32818934+elizaolariu@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ac8253677461f3591b18f36ead547ec9d8562cb3",
+            "comment": "Create placeholder WaferMap component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 15 Nov 2022 15:48:21 GMT",
       "tag": "@ni/nimble-components_v15.3.2",
       "version": "15.3.2",
