@@ -22,9 +22,7 @@ export class WaferMap extends FoundationElement {
     @attr
     public quadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
 
-    @attr({
-        attribute: 'orientation'
-    })
+    @attr
     public orientation: WaferMapOrientation = WaferMapOrientation.top;
 
     @attr({
