@@ -24,7 +24,7 @@ export const WaferMapColorsScaleMode = {
 } as const;
 
 export type WaferMapColorsScaleMode =
-    typeof WaferMapColorsScaleMode [keyof typeof WaferMapColorsScaleMode ];
+    typeof WaferMapColorsScaleMode[keyof typeof WaferMapColorsScaleMode];
 
 export interface WaferMapDie {
     value: number;

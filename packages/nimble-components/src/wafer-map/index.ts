@@ -1,4 +1,8 @@
-import { attr, nullableNumberConverter, observable } from '@microsoft/fast-element';
+import {
+    attr,
+    nullableNumberConverter,
+    observable
+} from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from '../theme-provider/template';
 import { styles } from './styles';
