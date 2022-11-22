@@ -71,11 +71,6 @@ export const styles = css`
         padding: 0px;
     }
 
-    :host([disabled]) .control {
-        box-shadow: none;
-        outline: none;
-    }
-
     @media (prefers-reduced-motion) {
         .control {
             transition-duration: 0s;
@@ -94,6 +89,11 @@ export const styles = css`
     }
 
     .control:active {
+        box-shadow: none;
+        outline: none;
+    }
+
+    .control[disabled] {
         box-shadow: none;
         outline: none;
     }
@@ -152,11 +152,6 @@ export const styles = css`
                 border-color: rgba(${actionRgbPartialColor}, 0.3);
             }
 
-            :host([disabled]) .control {
-                background-color: transparent;
-                border-color: rgba(${borderRgbPartialColor}, 0.2);
-            }
-
             .control:hover {
                 background-color: transparent;
                 border-color: ${borderHoverColor};
@@ -170,6 +165,11 @@ export const styles = css`
             .control:active {
                 background-color: ${fillSelectedColor};
                 border-color: ${fillSelectedColor};
+            }
+
+            .control[disabled] {
+                background-color: transparent;
+                border-color: rgba(${borderRgbPartialColor}, 0.2);
             }
         `
     ),
@@ -181,11 +181,6 @@ export const styles = css`
                 border-color: transparent;
             }
 
-            :host([disabled]) .control {
-                background-color: transparent;
-                border-color: transparent;
-            }
-
             .control:hover {
                 background-color: transparent;
                 border-color: ${borderHoverColor};
@@ -200,17 +195,17 @@ export const styles = css`
                 background-color: ${fillSelectedColor};
                 border-color: ${fillSelectedColor};
             }
+
+            .control[disabled] {
+                background-color: transparent;
+                border-color: transparent;
+            }
         `
     ),
     appearanceBehavior(
         ButtonAppearance.block,
         css`
             .control {
-                background-color: rgba(${borderRgbPartialColor}, 0.1);
-                border-color: transparent;
-            }
-
-            :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
                 border-color: transparent;
             }
@@ -232,6 +227,11 @@ export const styles = css`
             .control:active {
                 background-color: ${fillSelectedColor};
                 border-color: ${fillSelectedColor};
+            }
+
+            .control[disabled] {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                border-color: transparent;
             }
         `
     )
