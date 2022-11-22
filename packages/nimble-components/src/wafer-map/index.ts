@@ -46,10 +46,7 @@ export class WaferMap extends FoundationElement {
     })
     public isContinuous = true;
 
-    @attr({
-        attribute: 'highlighted-values'
-    })
-    public highlightedValues: number[] = [];
+    @observable public highlightedValues: number[] = [];
 
     @observable public dies: WaferMapDie[] = [];
     @observable public colorsScale: WaferMapColorsScale = {} as WaferMapColorsScale;
