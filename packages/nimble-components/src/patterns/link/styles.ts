@@ -3,7 +3,7 @@ import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
     bodyFontColor,
-    controlHeight,
+    controlHeight
 } from '../../theme-provider/design-tokens';
 
 export const styles = css`

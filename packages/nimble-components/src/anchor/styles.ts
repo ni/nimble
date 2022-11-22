@@ -7,7 +7,7 @@ import {
 import {
     bodyDisabledFontColor,
     bodyFont,
-    bodyFontColor,
+    bodyFontColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { appearanceBehavior } from '../utilities/style/appearance';
@@ -15,7 +15,10 @@ import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { focusVisible } from '../utilities/style/focus';
 import { themeBehavior } from '../utilities/style/theme';
 import { styles as linkStyles } from '../patterns/link/styles';
-import { primaryButtonStyles, styles as buttonStyles } from '../patterns/button/styles';
+import {
+    primaryButtonStyles,
+    styles as buttonStyles
+} from '../patterns/button/styles';
 import { AnchorAppearance } from './types';
 
 export const styles = css`
@@ -25,7 +28,8 @@ export const styles = css`
         cursor: default;
     }
 `.withBehaviors(
-    appearanceBehavior([
+    appearanceBehavior(
+        [
             AnchorAppearance.outline,
             AnchorAppearance.ghost,
             AnchorAppearance.block
@@ -37,44 +41,42 @@ export const styles = css`
             .control {
                 text-decoration: none;
             }
-        `),
-    appearanceBehavior([
-            AnchorAppearance.text,
-            AnchorAppearance.inlineText
-        ],
+        `
+    ),
+    appearanceBehavior(
+        [AnchorAppearance.text, AnchorAppearance.inlineText],
         css`
-        ${linkStyles}
+            ${linkStyles}
 
-        :host {
-            box-sizing: border-box;
-            font: ${bodyFont};
-            --ni-private-link-font-color: ${bodyFontColor};
-        }
+            :host {
+                box-sizing: border-box;
+                font: ${bodyFont};
+                --ni-private-link-font-color: ${bodyFontColor};
+            }
 
-        .control {
-            height: fit-content;
-            align-self: center;
-        }
+            .control {
+                height: fit-content;
+                align-self: center;
+            }
 
-        :host([disabled]) .control {
-            color: ${bodyDisabledFontColor};
-            pointer-events: none;
-            cursor: default;
-        }
+            :host([disabled]) .control {
+                color: ${bodyDisabledFontColor};
+                pointer-events: none;
+                cursor: default;
+            }
 
-        .start {
-            display: contents;
-        }
+            .start {
+                display: contents;
+            }
 
-        .control:any-link${focusVisible} {
-            text-decoration: underline;
-            box-shadow: inset 0px -1px var(--ni-private-link-font-color);
-        }
+            .control:any-link${focusVisible} {
+                text-decoration: underline;
+                box-shadow: inset 0px -1px var(--ni-private-link-font-color);
+            }
 
-        .end {
-            display: contents;
-        }
-
+            .end {
+                display: contents;
+            }
         `.withBehaviors(
             themeBehavior(
                 Theme.light,
@@ -84,7 +86,9 @@ export const styles = css`
                     }
 
                     :host([appearance-variant='prominent']) {
-                        --ni-private-link-font-color: var(--ni-private-link-active-font-color);
+                        --ni-private-link-font-color: var(
+                            --ni-private-link-active-font-color
+                        );
                     }
                 `
             ),
@@ -96,7 +100,9 @@ export const styles = css`
                     }
 
                     :host([appearance-variant='prominent']) {
-                        --ni-private-link-font-color: var(--ni-private-link-active-font-color);
+                        --ni-private-link-font-color: var(
+                            --ni-private-link-active-font-color
+                        );
                     }
                 `
             ),
@@ -111,26 +117,43 @@ export const styles = css`
                     }
 
                     :host([appearance-variant='prominent']) {
-                        --ni-private-link-font-color: var(--ni-private-link-active-font-color);
+                        --ni-private-link-font-color: var(
+                            --ni-private-link-active-font-color
+                        );
                     }
                 `
             )
-        )),
+        )
+    ),
+    appearanceBehavior(
+        AnchorAppearance.text,
+        css`
+            :host {
+                ${
+                    /*
+                    Not sure why but this is needed to get anchors with icons and anchors
+                    without icons to align on the same line when the anchor is inline-flex
+                    See: https://github.com/microsoft/fast/issues/5414
+                */ ''
+                }
+                vertical-align: middle;
+            }
+        `
+    ),
     appearanceBehavior(
         AnchorAppearance.inlineText,
         css`
+            :host {
+                height: auto;
+            }
 
-        :host {
-            height: auto
-        }
+            .control {
+                display: inline;
+            }
 
-        .control {
-            display: inline;
-        }
-
-        .control:any-link {
-            text-decoration: underline;
-        }
+            .control:any-link {
+                text-decoration: underline;
+            }
         `
     )
 );
