@@ -507,3 +507,15 @@ export const textCustomized: Story = createMatrixThemeStory(
         `
     )
 );
+
+export const heightTest: Story = createStory(
+    html`
+        <div style="display: flex; flex-direction: column">
+            <nimble-text-field style="border: 1px dashed; width: 200px">
+                With Label
+            </nimble-text-field>
+            <nimble-text-field style="border: 1px dashed; width: 200px">
+            </nimble-text-field>
+        </div>
+    `
+);
