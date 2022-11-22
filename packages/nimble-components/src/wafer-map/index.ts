@@ -4,7 +4,6 @@ import { WaferMapColorsScale } from './data-types/WaferMapColorsScale';
 import type { WaferMapRenderingObject } from './data-types/WaferMapRenderingObject';
 import { Data } from './modules/data.module';
 import { styles } from './styles';
-import type { WaferColorByOptions } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,7 +29,7 @@ export class WaferMap extends FoundationElement {
 
     public maxCharacters = 0;
 
-    private dataModule: Data | undefined;
+    public dataModule: Data | undefined;
 
     public override connectedCallback(): void {
         super.connectedCallback();
