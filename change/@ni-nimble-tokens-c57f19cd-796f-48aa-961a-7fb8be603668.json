@@ -1,7 +1,7 @@
 {
-  "type": "patch",
+  "type": "none",
   "comment": "Changes from updated require-await lint rule configuration",
   "packageName": "@ni/nimble-tokens",
   "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "none"
 }
