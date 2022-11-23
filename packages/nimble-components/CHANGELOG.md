@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 22 Nov 2022 09:29:17 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Nov 2022 16:47:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.5.0
+
+Wed, 23 Nov 2022 16:47:02 GMT
+
+### Minor changes
+
+- Computations functionality added to the WaferMap component ([ni/nimble@4676381](https://github.com/ni/nimble/commit/4676381ff77c04f47d23b2f2c315af17cd364fca))
 
 ## 15.4.0
 
