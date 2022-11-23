@@ -104,7 +104,7 @@ export class Computations {
         if (dies.length === 0 || dies[0] === undefined) return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
 
         const minPoint = { x: dies[0].x, y: dies[0].y };
-        const maxPoint = minPoint;
+        const maxPoint = { x: dies[0].x, y: dies[0].y };
 
         for (const die of dies) {
             if (die.x < minPoint.x) minPoint.x = die.x;
