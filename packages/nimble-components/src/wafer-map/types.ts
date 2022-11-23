@@ -38,13 +38,13 @@ export interface WaferMapColorsScale {
 }
 
 export interface Dimensions {
-    width: number;
-    height: number;
+    readonly width: number;
+    readonly height: number;
 }
 
 export interface Margin {
-    top: number;
-    right: number;
-    bottom: number;
-    left: number;
+    readonly top: number;
+    readonly right: number;
+    readonly bottom: number;
+    readonly left: number;
 }

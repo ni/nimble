@@ -12,31 +12,31 @@ interface MapDimensions {
 }
 
 /**
- * Computations module
+ * Computations calculates and stores different measures which are used in the Wafermap
  */
 export class Computations {
-    public containerDimensions: Dimensions;
-    public dieDimensions: Dimensions = { width: 0, height: 0 };
-    public radius: number;
-    public margin: Margin;
+    public readonly containerDimensions: Dimensions;
+    public readonly dieDimensions: Dimensions;
+    public readonly radius: number;
+    public readonly margin: Margin;
 
-    public horizontalScale: ScaleLinear<number, number>;
-    public verticalScale: ScaleLinear<number, number>;
+    public readonly horizontalScale: ScaleLinear<number, number>;
+    public readonly verticalScale: ScaleLinear<number, number>;
 
     private readonly baseMargin: Margin = {
         top: 20,
         right: 20,
         bottom: 20,
         left: 20
-    };
+    } as const;
 
     private readonly dieSizeFactor = 1.5;
     private readonly defaultAlign = 0.5;
 
     public constructor(
-        dies: WaferMapDie[],
-        axisLocation: WaferMapQuadrant,
-        canvasDimensions: Dimensions
+        dies: Readonly<Readonly<WaferMapDie>[]>,
+        axisLocation: Readonly<WaferMapQuadrant>,
+        canvasDimensions: Readonly<Dimensions>
     ) {
         this.margin = this.baseMargin;
         const gridMapDimensions = this.calculateMapDimensions(dies);
@@ -50,10 +50,13 @@ export class Computations {
             gridMapDimensions,
             this.containerDimensions.width
         );
-        this.dieDimensions.width = this.calculateGridWidth(
-            gridMapDimensions.cols,
-            this.containerDimensions.width
-        );
+        this.dieDimensions = {
+            width: this.calculateGridWidth(
+                gridMapDimensions.cols,
+                this.containerDimensions.width
+            ),
+            height: 0
+        };
 
         this.radius = this.containerDimensions.width / 2
             + this.dieDimensions.width * this.dieSizeFactor;
@@ -70,10 +73,13 @@ export class Computations {
                 gridMapDimensions,
                 this.containerDimensions.width
             );
-            this.dieDimensions.width = this.calculateGridWidth(
-                gridMapDimensions.cols,
-                this.containerDimensions.width
-            );
+            this.dieDimensions = {
+                width: this.calculateGridWidth(
+                    gridMapDimensions.cols,
+                    this.containerDimensions.width
+                ),
+                height: 0
+            };
             this.radius = this.containerDimensions.width / 2
                 + this.dieDimensions.width * this.dieSizeFactor;
         }
@@ -83,17 +89,22 @@ export class Computations {
             gridMapDimensions,
             this.containerDimensions.height
         );
-        this.dieDimensions.height = this.calculateGridHeight(
-            gridMapDimensions.rows,
-            this.containerDimensions.height
-        );
+        this.dieDimensions = {
+            width: this.dieDimensions.width,
+            height: this.calculateGridHeight(
+                gridMapDimensions.rows,
+                this.containerDimensions.height
+            )
+        };
     }
 
-    private calculateMapDimensions(dies: WaferMapDie[]): MapDimensions {
-        if (dies === undefined || dies.length === 0 || dies[0] === undefined) return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
+    private calculateMapDimensions(
+        dies: Readonly<Readonly<WaferMapDie>[]>
+    ): MapDimensions {
+        if (dies.length === 0 || dies[0] === undefined) return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
 
         const minPoint = { x: dies[0].x, y: dies[0].y };
-        const maxPoint = { x: dies[0].x, y: dies[0].y };
+        const maxPoint = minPoint;
 
         for (const die of dies) {
             if (die.x < minPoint.x) minPoint.x = die.x;

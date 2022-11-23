@@ -1,4 +1,4 @@
-import { Computations } from '../modules/computations.module';
+import { Computations } from '../modules/computations';
 import { Margin, WaferMapQuadrant } from '../types';
 import { getWaferMapDies } from './utilities';
 
@@ -12,7 +12,7 @@ describe('Computations module', () => {
             bottom: 20,
             left: 20
         };
-        beforeEach(async () => {
+        beforeEach(() => {
             computationsModule = new Computations(
                 getWaferMapDies(),
                 WaferMapQuadrant.topLeft,
@@ -44,7 +44,7 @@ describe('Computations module', () => {
     });
 
     describe('with 180 square canvas', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             computationsModule = new Computations(
                 getWaferMapDies(),
                 WaferMapQuadrant.topLeft,
@@ -81,7 +81,7 @@ describe('Computations module', () => {
     });
 
     describe('with top left origin quadrant', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             computationsModule = new Computations(
                 getWaferMapDies(),
                 WaferMapQuadrant.topLeft,
@@ -119,7 +119,7 @@ describe('Computations module', () => {
     });
 
     describe('with top right origin quadrant', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             computationsModule = new Computations(
                 getWaferMapDies(),
                 WaferMapQuadrant.topRight,
@@ -157,7 +157,7 @@ describe('Computations module', () => {
     });
 
     describe('with bottom left origin quadrant', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             computationsModule = new Computations(
                 getWaferMapDies(),
                 WaferMapQuadrant.bottomLeft,
@@ -195,7 +195,7 @@ describe('Computations module', () => {
     });
 
     describe('with bottom right origin quadrant', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             computationsModule = new Computations(
                 getWaferMapDies(),
                 WaferMapQuadrant.bottomRight,
