@@ -4,7 +4,7 @@ import {
     observable
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { template } from '../theme-provider/template';
+import { template } from './template';
 import { styles } from './styles';
 import {
     WaferMapColorsScale,
