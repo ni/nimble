@@ -166,7 +166,8 @@ describe('Prerendering module', () => {
                 const diesIterator = getWaferMapDies()[Symbol.iterator]();
                 for (const renderDie of prerenderingModule.renderDies) {
                     expect(renderDie.fillStyle).toEqual(
-                        +(diesIterator.next().value as WaferMapDie).value % 2
+                        +(diesIterator.next().value as WaferMapDie).value
+                            % 2
                             === 1
                             ? 'black'
                             : 'red'

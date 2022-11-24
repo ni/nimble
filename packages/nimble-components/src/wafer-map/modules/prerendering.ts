@@ -68,8 +68,7 @@ export class Prerendering {
     ): number {
         return Math.min(
             dieDimensions.height,
-            (dieDimensions.width
-                / (Math.max(2, maxCharacters) * 0.5))
+            (dieDimensions.width / (Math.max(2, maxCharacters) * 0.5))
                 * this.fontSizeFactor
         );
     }
@@ -131,8 +130,6 @@ export class Prerendering {
         if (colorsScaleMode === WaferMapColorsScaleMode.linear) {
             return (this.colorScale as ScaleLinear<string, string>)(+die.value);
         }
-        return (this.colorScale as ScaleOrdinal<string, string>)(
-            die.value
-        );
+        return (this.colorScale as ScaleOrdinal<string, string>)(die.value);
     }
 }
