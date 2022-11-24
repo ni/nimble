@@ -27,13 +27,13 @@ describe('Prerendering module', () => {
                     dieLabelsSuffix,
                     maxCharacters,
                     dieDimensions,
-                    { top: 20, right: 20, bottom: 20, left: 20 }
+                    { top: 0, right: 0, bottom: 0, left: 0 }
                 );
             });
 
-            it('should have the same fill style for all dies', () => {
+            it('should have undefined fill style for all dies', () => {
                 for (const renderDie of prerenderingModule.renderDies) {
-                    expect(renderDie.fillStyle).toEqual('rgb(255, 0, 0)');
+                    expect(renderDie.fillStyle).toBeUndefined();
                 }
             });
         });
@@ -57,7 +57,7 @@ describe('Prerendering module', () => {
                     dieLabelsSuffix,
                     maxCharacters,
                     dieDimensions,
-                    { top: 20, right: 20, bottom: 20, left: 20 }
+                    { top: 0, right: 0, bottom: 0, left: 0 }
                 );
             });
 
@@ -87,7 +87,7 @@ describe('Prerendering module', () => {
                     dieLabelsSuffix,
                     maxCharacters,
                     dieDimensions,
-                    { top: 20, right: 20, bottom: 20, left: 20 }
+                    { top: 0, right: 0, bottom: 0, left: 0 }
                 );
             });
 
@@ -128,7 +128,7 @@ describe('Prerendering module', () => {
                     dieLabelsSuffix,
                     maxCharacters,
                     dieDimensions,
-                    { top: 20, right: 20, bottom: 20, left: 20 }
+                    { top: 0, right: 0, bottom: 0, left: 0 }
                 );
             });
 
@@ -158,7 +158,7 @@ describe('Prerendering module', () => {
                     dieLabelsSuffix,
                     maxCharacters,
                     dieDimensions,
-                    { top: 20, right: 20, bottom: 20, left: 20 }
+                    { top: 0, right: 0, bottom: 0, left: 0 }
                 );
             });
 
@@ -196,7 +196,7 @@ describe('Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters,
                 dieDimensions,
-                { top: 20, right: 20, bottom: 20, left: 20 }
+                { top: 0, right: 0, bottom: 0, left: 0 }
             );
         });
 
@@ -227,7 +227,7 @@ describe('Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters,
                 dieDimensions,
-                { top: 20, right: 20, bottom: 20, left: 20 }
+                { top: 0, right: 0, bottom: 0, left: 0 }
             );
         });
 
@@ -257,7 +257,7 @@ describe('Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters,
                 dieDimensions,
-                { top: 20, right: 20, bottom: 20, left: 20 }
+                { top: 0, right: 0, bottom: 0, left: 0 }
             );
         });
 
@@ -293,7 +293,7 @@ describe('Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters,
                 dieDimensions,
-                { top: 20, right: 20, bottom: 20, left: 20 }
+                { top: 0, right: 0, bottom: 0, left: 0 }
             );
         });
 
