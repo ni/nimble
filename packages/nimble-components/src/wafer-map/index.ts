@@ -58,6 +58,20 @@ export class WaferMap extends FoundationElement {
         colors: [],
         values: []
     };
+    @observable public renderReady: boolean = false;
+
+    override connectedCallback() {
+        super.connectedCallback();
+        //The component has been attached to the DOM and the attributes, properties are available
+        //Use this for initialization/initial render
+
+        //Simulate the time required until render is complete, before displaying the wafermap
+        //User this for conditional rendering
+        setTimeout(()=>{
+            this.renderReady=true;
+        },2000);
+    }
+
 }
 
 const nimbleWaferMap = WaferMap.compose({
