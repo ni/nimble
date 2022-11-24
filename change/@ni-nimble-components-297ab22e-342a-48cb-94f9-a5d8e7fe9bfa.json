@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Finished first iteration of the wafermap component and its storybook",
+  "packageName": "@ni/nimble-components",
+  "email": "denis.stavila@ni.com",
+  "dependentChangeType": "patch"
+}
