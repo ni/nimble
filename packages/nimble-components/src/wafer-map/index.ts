@@ -13,6 +13,7 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
+import { DataManager } from './modules/data-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -52,12 +53,29 @@ export class WaferMap extends FoundationElement {
     })
     public colorsScaleMode: WaferMapColorsScaleMode = WaferMapColorsScaleMode.linear;
 
-    @observable public highlightedValues: number[] = [];
+    @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorsScale = {
         colors: [],
         values: []
     };
+
+    private dataManager: DataManager | undefined;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.dataManager = new DataManager(
+            this.dies,
+            this.quadrant,
+            { width: this.offsetWidth, height: this.offsetHeight },
+            this.colorScale,
+            this.highlightedValues,
+            this.colorsScaleMode,
+            this.dieLabelsHidden,
+            this.dieLabelsSuffix,
+            this.maxCharacters
+        );
+    }
 }
 
 const nimbleWaferMap = WaferMap.compose({

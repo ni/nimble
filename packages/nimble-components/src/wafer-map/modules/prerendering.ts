@@ -26,23 +26,22 @@ export class Prerendering {
     private readonly nanDieColor = '#7a7a7a';
 
     public constructor(
-        dies: WaferMapDie[],
-        colorsScale: WaferMapColorsScale,
-        highlightedValues: number[],
+        dies: Readonly<Readonly<WaferMapDie>[]>,
+        colorsScale: Readonly<WaferMapColorsScale>,
+        highlightedValues: Readonly<string[]>,
         horizontalScale: ScaleLinear<number, number>,
         verticalScale: ScaleLinear<number, number>,
-        colorsScaleMode: WaferMapColorsScaleMode,
-        dieLabelsHidden: boolean,
-        dieLabelsSuffix: string,
-        maxCharacters: number,
-        dieDimensions: Dimensions,
-        margin: Margin
+        colorsScaleMode: Readonly<WaferMapColorsScaleMode>,
+        dieLabelsHidden: Readonly<boolean>,
+        dieLabelsSuffix: Readonly<string>,
+        maxCharacters: Readonly<number>,
+        dieDimensions: Readonly<Dimensions>,
+        margin: Readonly<Margin>
     ) {
         this.colorScale = this.createColorScale(colorsScale, colorsScaleMode);
 
         this.labelsFontSize = this.calculateLabelsFontSize(
             dieDimensions,
-            dieLabelsSuffix,
             maxCharacters
         );
 
@@ -53,7 +52,7 @@ export class Prerendering {
                 y: verticalScale(die.y) + margin.top,
                 fillStyle: this.calculateFillStyle(die, colorsScaleMode),
                 opacity: this.calculateOpacity(die.value, highlightedValues),
-                text: this.buildLabelData(
+                text: this.buildLabel(
                     die.value,
                     maxCharacters,
                     dieLabelsHidden,
@@ -65,13 +64,12 @@ export class Prerendering {
 
     private calculateLabelsFontSize(
         dieDimensions: Dimensions,
-        dieLabelsSuffix: string,
         maxCharacters: number
     ): number {
         return Math.min(
             dieDimensions.height,
             (dieDimensions.width
-                / (Math.max(2, maxCharacters + dieLabelsSuffix.length) * 0.5))
+                / (Math.max(2, maxCharacters) * 0.5))
                 * this.fontSizeFactor
         );
     }
@@ -82,20 +80,20 @@ export class Prerendering {
     ): ScaleOrdinal<string, string> | ScaleLinear<string, string> {
         if (colorsScaleMode === WaferMapColorsScaleMode.linear) {
             return scaleLinear<string, string>()
-                .domain(colorsScale.values)
+                .domain(colorsScale.values.map(item => +item))
                 .range(colorsScale.colors);
         }
         return scaleOrdinal<string, string>()
-            .domain(colorsScale.values.map(item => item.toString()))
+            .domain(colorsScale.values)
             .range(colorsScale.colors);
     }
 
-    private dieHasData(dieData: number): boolean {
-        return dieData !== null && dieData !== undefined;
+    private dieHasData(dieData: string): boolean {
+        return dieData !== null && dieData !== undefined && dieData !== '';
     }
 
-    private buildLabelData(
-        value: number,
+    private buildLabel(
+        value: string,
         maxCharacters: number,
         dieLabelsHidden: boolean,
         dieLabelsSuffix: string
@@ -103,14 +101,16 @@ export class Prerendering {
         if (dieLabelsHidden || !this.dieHasData(value)) {
             return '';
         }
-        return `${value
-            .toString()
-            .substring(0, maxCharacters)}${dieLabelsSuffix}`;
+        const label = `${value}${dieLabelsSuffix}`;
+        if (label.length > maxCharacters) {
+            return `${label.substring(0, maxCharacters)}…`;
+        }
+        return label;
     }
 
     private calculateOpacity(
-        selectedValue: number,
-        highlightedValues: number[]
+        selectedValue: string,
+        highlightedValues: Readonly<string[]>
     ): number {
         return highlightedValues.length > 0
             && !highlightedValues.some(dieValue => dieValue === selectedValue)
@@ -125,14 +125,14 @@ export class Prerendering {
         if (!this.dieHasData(die.value)) {
             return this.emptyDieColor;
         }
-        if (isNaN(die.value)) {
+        if (isNaN(+die.value)) {
             return this.nanDieColor;
         }
         if (colorsScaleMode === WaferMapColorsScaleMode.linear) {
-            return (this.colorScale as ScaleLinear<string, string>)(die.value);
+            return (this.colorScale as ScaleLinear<string, string>)(+die.value);
         }
         return (this.colorScale as ScaleOrdinal<string, string>)(
-            die.value.toString()
+            die.value
         );
     }
 }

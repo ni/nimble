@@ -27,14 +27,14 @@ export type WaferMapColorsScaleMode =
     typeof WaferMapColorsScaleMode[keyof typeof WaferMapColorsScaleMode];
 
 export interface WaferMapDie {
-    value: number;
+    value: string;
     x: number;
     y: number;
 }
 
 export interface WaferMapColorsScale {
     colors: string[];
-    values: number[];
+    values: string[];
 }
 
 export interface Dimensions {

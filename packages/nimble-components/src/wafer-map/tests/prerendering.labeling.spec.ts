@@ -44,7 +44,7 @@ describe('Prerendering module', () => {
         });
     });
 
-    describe('with small width, no label suffix and 1 maximum characters', () => {
+    describe('with small width and 1 maximum characters', () => {
         const dieDimensions = { width: 1, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = false;
@@ -73,11 +73,11 @@ describe('Prerendering module', () => {
         });
     });
 
-    describe('with die input and labels suffix', () => {
+    describe('with die input, labels suffix and sufficient characters', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = 'suffix';
         const dieLabelsHidden = false;
-        const maxCharacters = 2;
+        const maxCharacters = 8;
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
@@ -98,6 +98,36 @@ describe('Prerendering module', () => {
         it('should have label suffix for each die', () => {
             for (const renderDie of prerenderingModule.renderDies) {
                 expect(renderDie.text).toContain(dieLabelsSuffix);
+            }
+        });
+    });
+
+    describe('with die input, labels suffix and insufficient characters', () => {
+        const dieDimensions = { width: 10, height: 10 };
+        const dieLabelsSuffix = 'suffix';
+        const dieLabelsHidden = false;
+        const maxCharacters = 3;
+
+        beforeEach(() => {
+            prerenderingModule = new Prerendering(
+                getWaferMapDies(),
+                { colors: [], values: [] },
+                [],
+                getLinearScale([], []),
+                getLinearScale([], []),
+                WaferMapColorsScaleMode.linear,
+                dieLabelsHidden,
+                dieLabelsSuffix,
+                maxCharacters,
+                dieDimensions,
+                { top: 0, right: 0, bottom: 0, left: 0 }
+            );
+        });
+
+        it('should not have full label suffix for each die and end in ellipsis', () => {
+            for (const renderDie of prerenderingModule.renderDies) {
+                expect(renderDie.text).not.toContain(dieLabelsSuffix);
+                expect(renderDie.text).toContain('…');
             }
         });
     });
@@ -158,14 +188,14 @@ describe('Prerendering module', () => {
 
         it(
             'should have labels equal with values for each die, '
-                + 'but limited by the maximum number of characters',
+                + 'but limited by the maximum number of characters and a ellipsis',
             () => {
                 const diesIterator = getWaferMapDiesAsFloats()[Symbol.iterator]();
                 for (const renderDie of prerenderingModule.renderDies) {
                     expect(renderDie.text).toEqual(
-                        (diesIterator.next().value as WaferMapDie).value
+                        `${(diesIterator.next().value as WaferMapDie).value
                             .toString()
-                            .substring(0, maxCharacters)
+                            .substring(0, maxCharacters)}…`
                     );
                 }
             }

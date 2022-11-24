@@ -13,12 +13,12 @@ describe('Prerendering module', () => {
             const dieLabelsSuffix = '';
             const dieLabelsHidden = true;
             const maxCharacters = 2;
-            const highlightedValues: number[] = [];
+            const highlightedValues: string[] = [];
 
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['red'], values: [1] },
+                    { colors: ['red'], values: ['1'] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -43,12 +43,12 @@ describe('Prerendering module', () => {
             const dieLabelsSuffix = '';
             const dieLabelsHidden = true;
             const maxCharacters = 2;
-            const highlightedValues: number[] = [];
+            const highlightedValues: string[] = [];
 
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['red', 'red'], values: [1, 1] },
+                    { colors: ['red', 'red'], values: ['1', '1'] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -73,12 +73,12 @@ describe('Prerendering module', () => {
             const dieLabelsSuffix = '';
             const dieLabelsHidden = true;
             const maxCharacters = 2;
-            const highlightedValues: number[] = [];
+            const highlightedValues: string[] = [];
 
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['black', 'red'], values: [1, 18] },
+                    { colors: ['black', 'red'], values: ['1', '18'] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -96,7 +96,7 @@ describe('Prerendering module', () => {
                 for (const renderDie of prerenderingModule.renderDies) {
                     expect(renderDie.fillStyle).toEqual(
                         `rgb(${
-                            ((diesIterator.next().value as WaferMapDie).value
+                            (+(diesIterator.next().value as WaferMapDie).value
                                 - 1)
                             * 15
                         }, 0, 0)`
@@ -114,12 +114,12 @@ describe('Prerendering module', () => {
             const dieLabelsSuffix = '';
             const dieLabelsHidden = true;
             const maxCharacters = 2;
-            const highlightedValues: number[] = [];
+            const highlightedValues: string[] = [];
 
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['red'], values: [1] },
+                    { colors: ['red'], values: ['1'] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -144,7 +144,7 @@ describe('Prerendering module', () => {
             const dieLabelsSuffix = '';
             const dieLabelsHidden = true;
             const maxCharacters = 2;
-            const highlightedValues: number[] = [];
+            const highlightedValues: string[] = [];
 
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
@@ -166,7 +166,7 @@ describe('Prerendering module', () => {
                 const diesIterator = getWaferMapDies()[Symbol.iterator]();
                 for (const renderDie of prerenderingModule.renderDies) {
                     expect(renderDie.fillStyle).toEqual(
-                        (diesIterator.next().value as WaferMapDie).value % 2
+                        +(diesIterator.next().value as WaferMapDie).value % 2
                             === 1
                             ? 'black'
                             : 'red'
@@ -181,12 +181,12 @@ describe('Prerendering module', () => {
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
         const maxCharacters = 2;
-        const highlightedValues: number[] = [];
+        const highlightedValues: string[] = [];
         const nanDieColor = '#7a7a7a';
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
-                [{ x: 0, y: 0, value: NaN }],
+                [{ x: 0, y: 0, value: 'NaN' }],
                 { colors: [], values: [] },
                 highlightedValues,
                 getLinearScale([], []),
@@ -212,12 +212,12 @@ describe('Prerendering module', () => {
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
         const maxCharacters = 2;
-        const highlightedValues: number[] = [];
+        const highlightedValues: string[] = [];
         const emptyDieColor = '#DADFEC';
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
-                [{ x: 0, y: 0, value: undefined as unknown as number }],
+                [{ x: 0, y: 0, value: undefined as unknown as string }],
                 { colors: [], values: [] },
                 highlightedValues,
                 getLinearScale([], []),
@@ -243,7 +243,7 @@ describe('Prerendering module', () => {
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
         const maxCharacters = 2;
-        const highlightedValue = 5;
+        const highlightedValue = '5';
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
@@ -279,7 +279,7 @@ describe('Prerendering module', () => {
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
         const maxCharacters = 2;
-        const highlightedValues: number[] = [];
+        const highlightedValues: string[] = [];
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
