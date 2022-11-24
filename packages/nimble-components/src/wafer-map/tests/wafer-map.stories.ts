@@ -15,7 +15,7 @@ import {
     WAFERMAPCOLORSCALESETS
 } from './sets';
 
-interface WafermapArgs {
+interface WaferMapArgs {
     quadrant: WaferMapQuadrant;
     orientation: WaferMapOrientation;
     maxCharacters: number;
@@ -27,7 +27,7 @@ interface WafermapArgs {
     colorScale: WaferMapColorsScale;
 }
 
-const metadata: Meta<WafermapArgs> = {
+const metadata: Meta<WaferMapArgs> = {
     title: 'Wafermap',
     parameters: {
         docs: {
@@ -175,4 +175,4 @@ const metadata: Meta<WafermapArgs> = {
 
 export default metadata;
 
-export const waferMap: StoryObj<WafermapArgs> = {};
+export const waferMap: StoryObj<WaferMapArgs> = {};
