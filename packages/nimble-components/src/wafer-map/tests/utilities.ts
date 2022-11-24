@@ -19,9 +19,16 @@ export function getWaferMapDies(): WaferMapDie[] {
         { value: 14, x: 5, y: 3 },
         { value: 15, x: 5, y: 4 },
         { value: 16, x: 5, y: 5 },
-        { value: 16, x: 6, y: 3 },
-        { value: 14, x: 6, y: 4 }
+        { value: 17, x: 6, y: 3 },
+        { value: 18, x: 6, y: 4 }
     ];
+}
+
+export function getWaferMapDiesAsFloats(): WaferMapDie[] {
+    return getWaferMapDies().map(die => {
+        die.value += 0.1111;
+        return die;
+    });
 }
 
 export function getColorsScale(): WaferMapColorsScale {

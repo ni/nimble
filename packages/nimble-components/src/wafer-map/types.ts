@@ -48,3 +48,11 @@ export interface Margin {
     readonly bottom: number;
     readonly left: number;
 }
+
+export interface RenderDie {
+    readonly x: number;
+    readonly y: number;
+    readonly fillStyle: string;
+    readonly opacity: number;
+    readonly text: string;
+}
