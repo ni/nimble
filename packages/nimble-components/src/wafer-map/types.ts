@@ -69,3 +69,15 @@ export interface WaferMapColorsScale {
     colors: string[];
     values: number[];
 }
+
+export interface Dimensions {
+    readonly width: number;
+    readonly height: number;
+}
+
+export interface Margin {
+    readonly top: number;
+    readonly right: number;
+    readonly bottom: number;
+    readonly left: number;
+}
