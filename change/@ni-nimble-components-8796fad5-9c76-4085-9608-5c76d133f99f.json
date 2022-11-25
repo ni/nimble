@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Created data manager module, prerendering functionality and modified some interface inputs",
+  "packageName": "@ni/nimble-components",
+  "email": "natan.muntean@ni.com",
+  "dependentChangeType": "patch"
+}
