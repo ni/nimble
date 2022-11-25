@@ -28,11 +28,11 @@ interface WaferMapArgs {
 }
 
 const metadata: Meta<WaferMapArgs> = {
-    title: 'Wafermap',
+    title: 'WaferMap',
     parameters: {
         docs: {
             description: {
-                component: 'A Wafermap description'
+                component: 'A WaferMap description'
             }
         },
         actions: {
@@ -41,7 +41,7 @@ const metadata: Meta<WaferMapArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <nimble-wafer-map
-            id="wafermapEl"
+            id="waferMapEl"
             quadrant="${x => x.quadrant}"
             orientation="${x => x.orientation}"
             maxCharacters="${x => x.maxCharacters}"
@@ -68,7 +68,7 @@ const metadata: Meta<WaferMapArgs> = {
     argTypes: {
         dies: {
             description:
-                'Represents the input data, an array of WaferMapDie, which will be renedered by the Wafermap',
+                'Represents the input data, an array of WaferMapDie, which will be renedered by the WaferMap',
             options: ['set1', 'set2'],
             control: {
                 type: 'select',

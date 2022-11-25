@@ -66,7 +66,7 @@ export class WaferMap extends FoundationElement {
         // The component has been attached to the DOM and the attributes, properties are available
         // Use this for initialization/initial render
 
-        // Simulate the time required until render is complete, before displaying the wafermap
+        // Simulate the time required until render is complete, before displaying the waferMap
         // User this for conditional rendering
         setTimeout((): void => {
             this.renderReady = true;
