@@ -31,6 +31,13 @@ export function getWaferMapDiesAsFloats(): WaferMapDie[] {
     });
 }
 
+export function getWaferMapDiesAsNaN(): WaferMapDie[] {
+    return getWaferMapDies().map(die => {
+        die.value = 'NaN';
+        return die;
+    });
+}
+
 export function getColorsScale(): WaferMapColorsScale {
     return { colors: ['red', 'blue', 'green'], values: ['1', '2', '3'] };
 }

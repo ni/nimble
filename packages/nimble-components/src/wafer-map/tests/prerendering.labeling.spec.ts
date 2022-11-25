@@ -3,7 +3,8 @@ import { WaferMapColorsScaleMode, WaferMapDie } from '../types';
 import {
     getLinearScale,
     getWaferMapDies,
-    getWaferMapDiesAsFloats
+    getWaferMapDiesAsFloats,
+    getWaferMapDiesAsNaN
 } from './utilities';
 
 describe('Prerendering module', () => {
@@ -156,6 +157,38 @@ describe('Prerendering module', () => {
 
         it('should have labels equal with values for each die', () => {
             const diesIterator = getWaferMapDies()[Symbol.iterator]();
+            for (const renderDie of prerenderingModule.renderDies) {
+                expect(renderDie.text).toEqual(
+                    (diesIterator.next().value as WaferMapDie).value.toString()
+                );
+            }
+        });
+    });
+
+    describe('with NaN die input values and no labels suffix', () => {
+        const dieDimensions = { width: 10, height: 10 };
+        const dieLabelsSuffix = '';
+        const dieLabelsHidden = false;
+        const maxCharacters = 3;
+
+        beforeEach(() => {
+            prerenderingModule = new Prerendering(
+                getWaferMapDiesAsNaN(),
+                { colors: [], values: [] },
+                [],
+                getLinearScale([], []),
+                getLinearScale([], []),
+                WaferMapColorsScaleMode.linear,
+                dieLabelsHidden,
+                dieLabelsSuffix,
+                maxCharacters,
+                dieDimensions,
+                { top: 0, right: 0, bottom: 0, left: 0 }
+            );
+        });
+
+        it('should have labels equal with values for each die', () => {
+            const diesIterator = getWaferMapDiesAsNaN()[Symbol.iterator]();
             for (const renderDie of prerenderingModule.renderDies) {
                 expect(renderDie.text).toEqual(
                     (diesIterator.next().value as WaferMapDie).value.toString()
