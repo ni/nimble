@@ -130,7 +130,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
     -   Define events raised when row selection changes/occurs
     -   Define table-level row-selection API
 -   Grouping
-    -   Define any interactive mechanism, if any, to provide grouping
+    -   Define interactive mechanism, if any, to provide grouping
     -   Define table-level API for setting grouping
     -   Define events raised when grouping changes
 -   Sorting
