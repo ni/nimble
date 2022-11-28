@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 11 Nov 2022 15:34:20 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Nov 2022 16:47:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.5.0
+
+Wed, 23 Nov 2022 16:47:02 GMT
+
+### Minor changes
+
+- Computations functionality added to the WaferMap component ([ni/nimble@4676381](https://github.com/ni/nimble/commit/4676381ff77c04f47d23b2f2c315af17cd364fca))
+
+## 15.4.0
+
+Tue, 22 Nov 2022 09:29:17 GMT
+
+### Minor changes
+
+- Create placeholder WaferMap component ([ni/nimble@ac82536](https://github.com/ni/nimble/commit/ac8253677461f3591b18f36ead547ec9d8562cb3))
+
+## 15.3.2
+
+Mon, 14 Nov 2022 23:02:04 GMT
+
+### Patches
+
+- Adjust control height based on label presence ([ni/nimble@e9d9aee](https://github.com/ni/nimble/commit/e9d9aeee9512e189e9219c7b57be04852b0b87f7))
 
 ## 15.3.1
 

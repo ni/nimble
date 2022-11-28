@@ -64,3 +64,19 @@ export const hiddenSwitch: Story = createStory(
         html`<nimble-switch hidden>Hidden Switch</nimble-switch>`
     )
 );
+
+export const heightTest: Story = createStory(
+    html`
+        <div style="display: flex; flex-direction: column">
+            <nimble-switch style="border: 1px dashed; width: 200px">
+                With Label
+                <span slot="checked-message">On</span>
+                <span slot="unchecked-message">Off</span>
+            </nimble-switch>
+            <nimble-switch style="border: 1px dashed; width: 200px">
+                <span slot="checked-message">On</span>
+                <span slot="unchecked-message">Off</span>
+            </nimble-switch>
+        </div>
+    `
+);
