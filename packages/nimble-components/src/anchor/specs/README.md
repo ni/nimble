@@ -126,7 +126,7 @@ The button-like anchor will also derive from the FAST anchor so that we use the 
 -   _Methods_: Unchanged (none)
 -   _Events_: Unchanged (none)
 -   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
--   _Slots_: We _will_ expose/document the start and end slots for the button-like anchor.
+-   _Slots_: We _will_ expose/document the start and end slots for the button-like anchor. For consistency with the button API, we will recommend the same method of slotting icons into these slots.
 
 ### Angular integration
 
