@@ -83,9 +83,15 @@ export const anchorThemeMatrix: Story = createMatrixThemeStory(
 );
 
 export const hiddenAnchor: Story = createStory(
-    hiddenWrapper(html`<nimble-anchor-button hidden>Hidden Anchor Button</nimble-anchor-button>`)
+    hiddenWrapper(
+        html`<nimble-anchor-button hidden
+            >Hidden Anchor Button</nimble-anchor-button
+        >`
+    )
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
-    textCustomizationWrapper(html`<nimble-anchor-button>Anchor Button</nimble-anchor-button>`)
+    textCustomizationWrapper(
+        html`<nimble-anchor-button>Anchor Button</nimble-anchor-button>`
+    )
 );

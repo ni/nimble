@@ -50,7 +50,8 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'colors-scale-mode'
     })
-    public colorsScaleMode: WaferMapColorsScaleMode = WaferMapColorsScaleMode.linear;
+    public colorsScaleMode: WaferMapColorsScaleMode =
+    WaferMapColorsScaleMode.linear;
 
     @observable public highlightedValues: number[] = [];
     @observable public dies: WaferMapDie[] = [];
