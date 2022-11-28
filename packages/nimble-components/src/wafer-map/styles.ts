@@ -1,8 +1,5 @@
 import { css } from '@microsoft/fast-element';
 
-export const styles = css``;
-import { css } from '@microsoft/fast-element';
-
 export const styles = css`
 
 .waferMapContainer {
