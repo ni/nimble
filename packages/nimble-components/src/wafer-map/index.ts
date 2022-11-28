@@ -1,9 +1,10 @@
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { template } from '../theme-provider/template';
+import { template } from './template';
 import { WaferMapColorsScale } from './data-types/WaferMapColorsScale';
 import type { WaferMapRenderingObject } from './data-types/WaferMapRenderingObject';
 import { Data } from './modules/data.module';
 import { styles } from './styles';
+import { RenderingModule } from './modules/rendering.module';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,6 +31,7 @@ export class WaferMap extends FoundationElement {
     public maxCharacters = 0;
 
     public dataModule: Data | undefined;
+    public canvas!: HTMLCanvasElement;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -45,6 +47,7 @@ export class WaferMap extends FoundationElement {
             this.maxCharacters,
             { width: this.offsetWidth, height: this.offsetHeight }
         );
+        RenderingModule.drawWafer(this.dataModule, this.canvas);
         // debugger;
     }
 }

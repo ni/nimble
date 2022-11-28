@@ -1,39 +1,64 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 
 export const styles = css`
-    ${display('inline-block')}
 
-    :host {
-        aspect-ratio: 1;
-        height: inherit;
-        width: inherit;
+.waferMapContainer {
+width: 245px;
+height: 245px;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+::ng-deep{
+canvas {
+    position: absolute;
+}
+svg {
+    overflow: hidden;
+    position: absolute;
+}
+
+.waferMapArea {
+    width: 245px;
+    height: 245px;
+    position: absolute;
+svg {
+    pointer-events: none;
+    overflow: hidden;
     }
 
-    svg {
-        filter: drop-shadow(2px 0 black) drop-shadow(-2px 0 black) drop-shadow(0 2px black) drop-shadow(0 -2px black)
-    }
+.hiddenCanvas {
+    display: none;
+}
+}
+}
+}
 
-    .circleBase {
-        width: inherit;
-        height: inherit;
-        position: absolute;
-        fill: white;
-    }
+.circleBase {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    fill: white;
+}
 
-    .right {
-        transform: rotate(0deg);
-    }
-    
-    .left {
-    transform: rotate(180deg);
-    }
-    
-    .top {
+.top {
     transform: rotate(-90deg);
-    }
-    
-    .bottom {
-    transform: rotate(90deg);
-    }
+}
+
+.right {
+    transform: rotate(0deg);
+}
+
+.left {
+transform: rotate(180deg);
+}
+
+.bottom {
+transform: rotate(90deg);
+}
+
+.waferCanvas, .svgRoot {
+  width: 245px;
+  height: 245px;
+}
 `;
