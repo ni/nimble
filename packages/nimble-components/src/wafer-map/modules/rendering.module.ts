@@ -1,12 +1,12 @@
 import type { Dimensions, RenderDie } from '../types';
-import type { Data } from './data.module';
+import type { DataManager } from './data-manager';
 
 // eslint-disable-next-line jsdoc/require-description
 /**
  *
  */
 export class RenderingModule {
-    public static drawWafer(waferData: Data, canvas: HTMLCanvasElement): void {
+    public static drawWafer(waferData: DataManager, canvas: HTMLCanvasElement): void {
         const context = canvas.getContext('2d');
         const dies: RenderDie[] = waferData.renderDies;
         const dimensions: Dimensions = waferData.dieDimensions;
