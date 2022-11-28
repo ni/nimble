@@ -13,32 +13,9 @@ The Nimble Anchor is a component used to navigate to a web resource, similar to 
 
 ## Design
 
-### API
-
-[FAST's API documentation](https://github.com/microsoft/fast/blob/e576aa70c22780fffba03097277e2db9a2ec1cd8/packages/web-components/fast-foundation/src/anchor/README.md)
-
--   _Component Name_: `nimble-anchor`
--   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
-    -   `appearance`:
-        -   `"text"`: (Default) the "standalone" version in the design doc. Looks like plain text, but gets and underline on hover.
-        -   `"inline-text"`: like `"text"`, but always shows an underline.
-        -   `"outline"`: same as button design
-        -   `"ghost"`: same as button design
-        -   `"block"`: same as button design
-    -   `appearance-variant`:
-        -   `"default"`: `undefined` (as per our common attribute guidelines)
-        -   `"primary"`: applies only to button-based styles and has the same effect as on buttons
-        -   `"prominent"`: applies only to `"text"` and `"inline-text"` appearances. It is the "loud" version from the design doc. Colors the link text green. The name of this attribute value comes from the Breadcrumb.
-    -   `content-hidden`: when set, hides the label and end slot
-    -   `disabled`: when set, makes the anchor inoperable and changes the styling
--   _Methods_: Unchanged (none)
--   _Events_: Unchanged (none)
--   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
--   _Slots_: Unchanged (start and end slots)
-
 **Anchors in other components**
 
-In the future, we expect to support links within other controls, e.g.
+Initially we will create two flavors of anchor: a standard anchor, and a button-like anchor. In the future, we expect to support anchors within other controls, e.g.
 
 -   tabs
 -   menu
@@ -48,31 +25,103 @@ Unfortunately it's not as simple as dropping `nimble-anchor`s into the existing 
 
 -   **Tabs**
 
-    The `nimble-tabs` control has a `tabpanel` slot to host `nimble-tab-panel`s, but that will have to be replaced with an `iframe`. It probably does not make sense for a `nimble-tabs` to contain a mix of `nimble-tab`/`nimble-tab-panel` and `nimble-anchor`. We likely would either have a separate "hyperlink tabs" component, or two distinct modes on the existing `nimble-tabs`.
+    The `nimble-tabs` component currently is structured with children having a 1-to-1 relationship between `nimble-tab` children and `nimble-tab-panel` children:
 
-    There is also a question of keyboard navigation behavior. The existing tabs control immediately switches the tab panel when you focus a different tab header. We probably want to avoid loading new pages as you arrow through the tab headers. Instead, the user would navigate to a tab header and hit space/enter to actually load that content. A downside is that we would have two different interaction patterns for tab controls that are visually the same.
+    ```html
+    <nimble-tabs>
+        <nimble-tab>Tab One</nimble-tab>
+        <nimble-tab>Tab Two</nimble-tab>
+        <nimble-tab-panel>Tab content one</nimble-tab-panel>
+        <nimble-tab-panel>Tab content two</nimble-tab-panel>
+    </nimble-tabs>
+    ```
 
-    ARIA roles are another question. Do we continue to use roles for the tab pattern, like `tab`, `tablist`, and `tabpanel` (but we have no `tabpanel`s)? Or do we let our link items have the `link` role, maybe within a `list`/`group` of items? I have seen examples of both approaches on sites like GitHub and AzDO.
+    A link-based tabs control would not have `nimble-tab-panel`s. Also, the tab component would have a very different API than `nimble-tab` and so should be a new, separate component.
+
+    ```html
+    <nimble-tabs>
+        <nimble-anchor-tab href="...">Tab One</nimble-anchor-tab>
+        <nimble-anchor-tab href="...">Tab Two</nimble-anchor-tab>
+    </nimble-tabs>
+    ```
+
+    The FAST tabs component (from which `nimble-tabs` is derived) contains logic for keyboard navigation through tabs and for connecting tabs to their associated tab panels. We won't need the logic for connecting tabs to tab panels, and keyboard navigation will work slightly different as well. The existing tabs control immediately switches the tab panel when you focus a different tab. We want to avoid navigating as you arrow through the tabs. Instead, the user would arrow over to a tab and hit space/enter to actually navigate to that URL.
+
+    We do not want to support tab controls that contain a mix of `nimble-tab`s/`nimble-tab-panel`s and `nimble-anchor-tab`s. Doing so would add significant complexity to the implementation of our tabs component, and it would result in unpredictable keyboard navigation behavior. I.e. arrowing to a different tab may cause the displayed content to change, or it might do nothing.
+
+    For those reasons we would probably have a new, separate `nimble-anchor-tabs` container component.
+
+    ```html
+    <nimble-anchor-tabs>
+        <nimble-anchor-tab href="...">Tab One</nimble-anchor-tab>
+        <nimble-anchor-tab href="...">Tab Two</nimble-anchor-tab>
+    </nimble-anchor-tabs>
+    ```
+
+    ARIA roles are another question. Would we follow the tab pattern which uses the roles `tab`, `tablist`, and `tabpanel`? It seems like we cannot because we do not have anything corresponding to `tabpanel`, and the [spec](https://w3c.github.io/aria/#tablist) does not indicate that the role is optional. Interestingly, the tabs at the top of [AzDO's pull request list](https://ni.visualstudio.com/DevCentral/_git/Skyline/pullrequests) _do_ use the `tab` role for the `<a>` element without having any `tabpanel` roles, as far as I can tell. Another approach I've seen (e.g. right under the repo name of a [GitHub repo](https://github.com/ni/nimble)) is to give the tabs the `link` role, within a `list`/`group` of items. This approach seems semantically appropriate without violating any rules of the ARIA spec.
+
+    Another thought might be to merge both approaches, having a `tablist` containing elements that are both `tab` and `link`. While the `role` attribute may be a list of multiple space-separated values, [only one value from the list is honored](https://stackoverflow.com/questions/27019753/can-i-use-multiple-aria-roles-on-a-parent-element).
 
 -   **Menu**
 
-    Should the ARIA role for a link in a menu be `link` or `menuitem`? The examples I have found go with the latter, and this is supported by the fact that the ARIA spec for the `menu` role doesn't include `link` among the roles that child items may have.
+    Should the ARIA role for a link in a menu be `link` or `menuitem`? The examples I have found go with the latter, and this is supported by the fact that the ARIA [spec](https://w3c.github.io/aria/#menu) for the `menu` role limits the roles of child items to `menuitem`, `menuitemcheckbox`, `menuitemradio`, or `group`s thereof. We can't give it both `link` and `menuitem` roles for the reason I gave in the preceeding section.
 
-    The FAST menu supports keyboard navigation to any child items that have the `menuitem` role. However, when I tried putting a `<a>` with role `menuitem` into a `nimble-menu`, I could navigate to the link, but I could not activate it with the enter key (or even by clicking).
+    The FAST menu only supports keyboard navigation to child items that have the `menuitem` role. This is another datapoint suggesting we can't give links the `link` role when in a menu.
 
-    The API for a menu item contains a number of things not provided by a plain `nimble-anchor`. This hints that a separate component (i.e. `nimble-anchor-menu-item`) may be cleaner and more maintainable than trying to reuse the `nimble-anchor`.
+    Aside from the difference in ARIA roles, a link in a menu would also need a menu-specific API (e.g. `expanded` and `checked` attributes) not provided by a plain `nimble-anchor`. These differences suggest that a separate component would be more practical than trying to reuse the `nimble-anchor`.
+
+    ```html
+    <nimble-menu>
+        <nimble-anchor-menu-item href="...">Item One</nimble-anchor-menu-item>
+        <nimble-anchor-menu-item href="...">Item Two</nimble-anchor-menu-item>
+    </nimble-menu>
+    ```
 
 -   **Tree**
 
     The tree use case is very similar to the menu use case. I have not found examples of sites with trees (i.e. `role=tree`) with links, but based on the ARIA docs, I suspect the correct role for a link in a tree is `treeitem`. For the same reasons as the menu case, I suspect it would be cleaner and more maintainable to create a separate `nimble-anchor-tree-item`.
 
-If we are creating new components for anchors in menus and trees, then for consistency, we should probably create a separate one for the tabs use case as well. If that's the approach we take, then we are free to design the "plain" anchor (`nimble-anchor`) however we wish, without impacting our future efforts to implement the tabs, menu, or tree support.
+If we are creating new components for anchors in tabs, menus, and trees, then for consistency, should we create a separate one for button-like links as well? Buttons and links are similar ARIA roles ([the](https://w3c.github.io/aria/#button) [spec](https://w3c.github.io/aria/#link) even links them to each other). We could model a button-link as just an appearance mode of the link. However, they are semantically distinct, and there are no obvious benefits to combining the two, except having one fewer component. We will create a second anchor button component as part of this effort.
+### API
+
+[FAST's API documentation](https://github.com/microsoft/fast/blob/e576aa70c22780fffba03097277e2db9a2ec1cd8/packages/web-components/fast-foundation/src/anchor/README.md)
+
+-   _Component Name_: `nimble-anchor`
+-   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
+    -   `inline`: specifies that the anchor will be used inline within a text block (as opposed to a standalone element in the UI). The anchor will always have an underline and will be formatted to align with surrounding text.
+    -   `prominent`: the "loud" version from the design doc. Colors the link text green. The name of this attribute comes from the Breadcrumb's `appearance` attribute value.
+    -   `disabled`: when set, makes the anchor inoperable and changes the styling
+-   _Methods_: Unchanged (none)
+-   _Events_: Unchanged (none)
+-   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
+-   _Slots_: We will not expose the start and end slots provided by the FAST anchor.
+
+The button-like anchor will also derive from the FAST anchor so that we use the same template and role.
+-   _Component Name_: `nimble-anchor-button`
+-   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the
+FAST anchor:
+    -   `appearance`:
+        -   `"outline"`: same as button design
+        -   `"ghost"`: same as button design
+        -   `"block"`: same as button design
+    -   `appearance-variant`:
+        -   `"default"`: `undefined` (as per our common attribute guidelines)
+        -   `"primary"`: applies only to button-based styles and has the same effect as on buttons
+    -   `content-hidden`: when set, hides the label and end slot
+    -   `disabled`: when set, makes the anchor inoperable and changes the styling
+-   _Methods_: Unchanged (none)
+-   _Events_: Unchanged (none)
+-   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
+-   _Slots_: We _will_ expose/document the start and end slots for the button-like anchor.
+
 
 ### Angular integration
 
-A directive will be created for the anchor component. The existing `NimbleBreadcrumbItemDirective` has all the needed bindings for attributes common to the native anchor element (e.g. `href`, `rel`, `target`, etc.). We will refactor that into a common, base class called something like `NimbleAnchorBase` that both the BreadcrumbItem directive and anchor directive can extend. The anchor directive will additionally have bindings for attributes `appearance`, `appearance-variant`, `content-hidden`, and `disabled`.
+A directive will be created for the anchor component. The existing `NimbleBreadcrumbItemDirective` has all the needed bindings for attributes common to the native anchor element (e.g. `href`, `rel`, `target`, etc.). We will refactor that into a common, base class called something like `NimbleAnchorBase` that both the BreadcrumbItem directive and anchor directive can extend. The anchor directive will additionally have bindings for attributes `inline`, `prominent`, and `disabled`.
 
-The anchor does not participate in forms, so there will be no ControlValueAccessor.
+A separate directive will be created for the button-like anchor. It will also extend the common base class mentioned above. The anchor directive will additionally have bindings for attributes `appearance`, `appearance-variant`, `content-hidden`, and `disabled`.
+
+Neither the anchor or button-like anchor participate in forms, so there will be no ControlValueAccessor.
 
 **[routerLink] and [routerLinkActive] Support**
 
@@ -119,7 +168,7 @@ Another option would be to try to reuse the two directives created for the Bread
 
 ### Blazor integration
 
-We will create a Blazor wrapper for the anchor. Judging by the BreadcrumbItem's wrapper, there are no special routing considerations/mechanisms for Blazor.
+We will create Blazor wrappers for the anchor and button-like anchor. Judging by the BreadcrumbItem's wrapper, there are no special routing considerations/mechanisms for Blazor.
 
 ### Additional requirements
 
@@ -129,7 +178,7 @@ We will create a Blazor wrapper for the anchor. Judging by the BreadcrumbItem's 
     -   CSS for button styles will be shared as much as possible
     -   CSS for hyperlink styles will be shared as much as possible with the Breadcrumb
 -   _Testing:_ None
--   _Documentation:_ Should direct users to set the `inline-text` appearance when using the anchor inline with text.
+-   _Documentation:_ Should direct users to set `inline` when using the anchor inline with text.
 -   _Tooling:_ None
 -   _Accessibility:_ Need to `applyMixins` on the Nimble anchor type, from the `DelegatesARIALink` class.
 -   _Globalization:_ None
