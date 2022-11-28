@@ -1,8 +1,6 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
-import { AnchorAppearance, AnchorAppearanceVariant } from '../types';
+import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -30,52 +28,39 @@ const metadata: Meta = {
 
 export default metadata;
 
-/* array of iconVisible, labelVisible, endIconVisible */
-const partVisibilityStates = [
-    [true, true, false],
-    [true, false, false],
-    [false, true, false],
-    [true, true, true],
-    [false, true, true]
+const inlineStates = [
+    ['', false],
+    ['Inline', true]
 ] as const;
-type PartVisibilityState = typeof partVisibilityStates[number];
+type InlineState = typeof inlineStates[number];
 
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    AnchorAppearance
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = typeof appearanceStates[number];
-
-const appearanceVariantStates: [string, string | undefined][] = Object.entries(
-    AnchorAppearanceVariant
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceVariantState = typeof appearanceVariantStates[number];
+const prominentStates = [
+    ['', false],
+    ['Prominent', true]
+] as const;
+type ProminentState = typeof prominentStates[number];
 
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
-    [appearanceName, appearance]: AppearanceState,
-    [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
-    [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
+    [inlineName, inline]: InlineState,
+    [prominentName, prominent]: ProminentState
 ): ViewTemplate => html`
     <nimble-anchor
         href="http://nimble.ni.dev"
-        appearance="${() => appearance}"
-        appearance-variant="${() => appearanceVariant}"
+        ?inline="${() => inline}"
+        ?prominent="${() => prominent}"
         ?disabled=${() => disabled}
-        ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-icon-link slot="start"></nimble-icon-link>`)}
-            ${() => `${appearanceVariantName} ${appearanceName} Link ${disabledName}`}
-            ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-right slot="end"></nimble-icon-arrow-expander-right>`)}
+            ${() => `${inlineName} ${prominentName} Link ${disabledName}`}
     </nimble-anchor>
 `;
 
 export const anchorThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
-        appearanceStates,
-        appearanceVariantStates,
-        partVisibilityStates
+        inlineStates,
+        prominentStates
     ])
 );
 

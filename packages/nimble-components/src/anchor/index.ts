@@ -7,7 +7,6 @@ import {
     DelegatesARIALink
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { AnchorAppearance, AnchorAppearanceVariant } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,26 +21,18 @@ export class Anchor extends FoundationAnchor {
     /**
      * @public
      * @remarks
-     * HTML Attribute: appearance
+     * HTML Attribute: inline
      */
-    @attr
-    public appearance: AnchorAppearance = AnchorAppearance.text;
+    @attr({ mode: 'boolean' })
+    public inline = false;
 
     /**
      * @public
      * @remarks
-     * HTML Attribute: appearance-variant
+     * HTML Attribute: prominent
      */
-    @attr({ attribute: 'appearance-variant' })
-    public appearanceVariant: AnchorAppearanceVariant;
-
-    /**
-     * @public
-     * @remarks
-     * HTML Attribute: content-hidden
-     */
-    @attr({ attribute: 'content-hidden', mode: 'boolean' })
-    public contentHidden = false;
+    @attr({ mode: 'boolean' })
+    public prominent = false;
 
     /**
      * @public
@@ -55,18 +46,13 @@ export class Anchor extends FoundationAnchor {
      * The <a> element (".control") in the shadow root is not automatically
      * disabled when the host is. It does not support the disabled attribute.
      * When the host is disabled, we must manually remove the <a> element from
-     * the tab order. We must also sync its disabled attribute with the host,
-     * because the shared button CSS expects the element with class "control"
-     * to get the disabled attribute when the host has it.
+     * the tab order.
      */
     public disabledChanged(_prev: boolean | undefined, next: boolean): void {
         if (next) {
             this.tabIndex = -1;
-            const control = this.shadowRoot!.querySelector('.control');
-            control?.setAttribute('disabled', '');
         } else {
             this.tabIndex = 0;
-            this.shadowRoot!.querySelector('.control')?.removeAttribute('disabled');
         }
     }
 

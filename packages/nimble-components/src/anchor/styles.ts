@@ -10,149 +10,98 @@ import {
     bodyFontColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
-import { appearanceBehavior } from '../utilities/style/appearance';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { focusVisible } from '../utilities/style/focus';
 import { themeBehavior } from '../utilities/style/theme';
 import { styles as linkStyles } from '../patterns/link/styles';
-import {
-    primaryButtonStyles,
-    styles as buttonStyles
-} from '../patterns/button/styles';
-import { AnchorAppearance } from './types';
 
 export const styles = css`
+    ${linkStyles}
+
+    :host {
+        box-sizing: border-box;
+        font: ${bodyFont};
+        --ni-private-link-font-color: ${bodyFontColor};
+    }
+
+    :host([inline]) {
+        height: auto;
+    }
+
+    .start {
+        display: none;
+    }
+
+    .control {
+        height: fit-content;
+        align-self: center;
+    }
+
+    .control:any-link${focusVisible} {
+        text-decoration: underline;
+        box-shadow: inset 0px -1px var(--ni-private-link-font-color);
+    }
+
+    :host([inline]) .control {
+        display: inline;
+    }
+
+    :host([inline]) .control:any-link {
+        text-decoration: underline;
+    }
+
     :host([disabled]) .control {
         --ni-private-link-font-color: ${bodyDisabledFontColor};
         pointer-events: none;
         cursor: default;
     }
+
+    .end {
+        display: none;
+    }
 `.withBehaviors(
-    appearanceBehavior(
-        [
-            AnchorAppearance.outline,
-            AnchorAppearance.ghost,
-            AnchorAppearance.block
-        ],
+    themeBehavior(
+        Theme.light,
         css`
-            ${buttonStyles}
-            ${primaryButtonStyles}
+            :host {
+                --ni-private-link-active-font-color: ${DigitalGreenDark};
+            }
 
-            .control {
-                text-decoration: none;
+            :host([prominent]) {
+                --ni-private-link-font-color: var(
+                    --ni-private-link-active-font-color
+                );
             }
         `
     ),
-    appearanceBehavior(
-        [AnchorAppearance.text, AnchorAppearance.inlineText],
-        css`
-            ${linkStyles}
-
-            :host {
-                box-sizing: border-box;
-                font: ${bodyFont};
-                --ni-private-link-font-color: ${bodyFontColor};
-            }
-
-            .control {
-                height: fit-content;
-                align-self: center;
-            }
-
-            :host([disabled]) .control {
-                color: ${bodyDisabledFontColor};
-                pointer-events: none;
-                cursor: default;
-            }
-
-            .start {
-                display: contents;
-            }
-
-            .control:any-link${focusVisible} {
-                text-decoration: underline;
-                box-shadow: inset 0px -1px var(--ni-private-link-font-color);
-            }
-
-            .end {
-                display: contents;
-            }
-        `.withBehaviors(
-            themeBehavior(
-                Theme.light,
-                css`
-                    :host {
-                        --ni-private-link-active-font-color: ${DigitalGreenDark};
-                    }
-
-                    :host([appearance-variant='prominent']) {
-                        --ni-private-link-font-color: var(
-                            --ni-private-link-active-font-color
-                        );
-                    }
-                `
-            ),
-            themeBehavior(
-                Theme.dark,
-                css`
-                    :host {
-                        --ni-private-link-active-font-color: ${PowerGreen};
-                    }
-
-                    :host([appearance-variant='prominent']) {
-                        --ni-private-link-font-color: var(
-                            --ni-private-link-active-font-color
-                        );
-                    }
-                `
-            ),
-            themeBehavior(
-                Theme.color,
-                css`
-                    :host {
-                        --ni-private-link-active-font-color: ${hexToRgbaCssColor(
-                            White,
-                            0.6
-                        )};
-                    }
-
-                    :host([appearance-variant='prominent']) {
-                        --ni-private-link-font-color: var(
-                            --ni-private-link-active-font-color
-                        );
-                    }
-                `
-            )
-        )
-    ),
-    appearanceBehavior(
-        AnchorAppearance.text,
+    themeBehavior(
+        Theme.dark,
         css`
             :host {
-                ${
-                    /*
-                    Not sure why but this is needed to get anchors with icons and anchors
-                    without icons to align on the same line when the anchor is inline-flex
-                    See: https://github.com/microsoft/fast/issues/5414
-                */ ''
-                }
-                vertical-align: middle;
+                --ni-private-link-active-font-color: ${PowerGreen};
+            }
+
+            :host([prominent]) {
+                --ni-private-link-font-color: var(
+                    --ni-private-link-active-font-color
+                );
             }
         `
     ),
-    appearanceBehavior(
-        AnchorAppearance.inlineText,
+    themeBehavior(
+        Theme.color,
         css`
             :host {
-                height: auto;
+                --ni-private-link-active-font-color: ${hexToRgbaCssColor(
+                    White,
+                    0.6
+                )};
             }
 
-            .control {
-                display: inline;
-            }
-
-            .control:any-link {
-                text-decoration: underline;
+            :host([prominent]) {
+                --ni-private-link-font-color: var(
+                    --ni-private-link-active-font-color
+                );
             }
         `
     )

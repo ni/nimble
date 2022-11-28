@@ -5,6 +5,7 @@
  */
 
 import './anchor';
+import './anchor-button';
 import './anchored-region';
 import './breadcrumb';
 import './breadcrumb-item';
