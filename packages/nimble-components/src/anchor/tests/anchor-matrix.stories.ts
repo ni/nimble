@@ -57,11 +57,7 @@ const component = (
 `;
 
 export const anchorThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [
-        disabledStates,
-        inlineStates,
-        prominentStates
-    ])
+    createMatrix(component, [disabledStates, inlineStates, prominentStates])
 );
 
 export const hiddenAnchor: Story = createStory(

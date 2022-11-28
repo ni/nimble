@@ -1,7 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import {
-    bodyDisabledFontColor,
-} from '../theme-provider/design-tokens';
+import { bodyDisabledFontColor } from '../theme-provider/design-tokens';
 import {
     primaryButtonStyles,
     styles as buttonStyles

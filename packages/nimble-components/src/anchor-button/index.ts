@@ -6,7 +6,12 @@ import {
     applyMixins,
     DelegatesARIALink
 } from '@microsoft/fast-foundation';
-import { ButtonAppearance, ButtonAppearanceVariant, ButtonPattern, ButtonWithAppearanceVariantPattern } from '../patterns/button/types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant,
+    ButtonPattern,
+    ButtonWithAppearanceVariantPattern
+} from '../patterns/button/types';
 import { styles } from './styles';
 
 declare global {
@@ -18,7 +23,9 @@ declare global {
 /**
  * A nimble-styled anchor button
  */
-export class AnchorButton extends FoundationAnchor implements ButtonPattern, ButtonWithAppearanceVariantPattern {
+export class AnchorButton
+    extends FoundationAnchor
+    implements ButtonPattern, ButtonWithAppearanceVariantPattern {
     /**
      * @public
      * @remarks
@@ -66,7 +73,9 @@ export class AnchorButton extends FoundationAnchor implements ButtonPattern, But
             control?.setAttribute('disabled', '');
         } else {
             this.tabIndex = 0;
-            this.shadowRoot!.querySelector('.control')?.removeAttribute('disabled');
+            this.shadowRoot!.querySelector('.control')?.removeAttribute(
+                'disabled'
+            );
         }
     }
 

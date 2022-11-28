@@ -2,7 +2,10 @@ import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
-import { ButtonAppearance, ButtonAppearanceVariant } from '../../patterns/button/types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant
+} from '../../patterns/button/types';
 import {
     createMatrix,
     sharedMatrixParameters

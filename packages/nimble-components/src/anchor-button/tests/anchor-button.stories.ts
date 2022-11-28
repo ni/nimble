@@ -3,7 +3,10 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import { ButtonAppearance, ButtonAppearanceVariant } from '../../patterns/button/types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant
+} from '../../patterns/button/types';
 
 interface AnchorButtonArgs {
     label: string;
@@ -91,7 +94,8 @@ const metadata: Meta<AnchorButtonArgs> = {
         },
         contentHidden: {
             name: 'content-hidden',
-            description: 'When set, this attribute hides the text and end icon, leaving only the start icon visible.'
+            description:
+                'When set, this attribute hides the text and end icon, leaving only the start icon visible.'
         }
     },
     args: {

@@ -5,7 +5,10 @@ import {
     buttonTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import type { ButtonPattern, ButtonWithAppearanceVariantPattern } from '../patterns/button/types';
+import type {
+    ButtonPattern,
+    ButtonWithAppearanceVariantPattern
+} from '../patterns/button/types';
 import { styles } from './styles';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
 
@@ -18,7 +21,9 @@ declare global {
 /**
  * A nimble-styled HTML button
  */
-export class Button extends FoundationButton implements ButtonPattern, ButtonWithAppearanceVariantPattern {
+export class Button
+    extends FoundationButton
+    implements ButtonPattern, ButtonWithAppearanceVariantPattern {
     /**
      * @public
      * @remarks
