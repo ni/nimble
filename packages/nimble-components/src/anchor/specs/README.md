@@ -81,7 +81,21 @@ Unfortunately it's not as simple as dropping `nimble-anchor`s into the existing 
 
     The tree use case is very similar to the menu use case. I have not found examples of sites with trees (i.e. `role=tree`) with links, but based on the ARIA docs, I suspect the correct role for a link in a tree is `treeitem`. For the same reasons as the menu case, I suspect it would be cleaner and more maintainable to create a separate `nimble-anchor-tree-item`.
 
-If we are creating new components for anchors in tabs, menus, and trees, then for consistency, should we create a separate one for button-like links as well? Buttons and links are similar ARIA roles ([the](https://w3c.github.io/aria/#button) [spec](https://w3c.github.io/aria/#link) even links them to each other). We could model a button-link as just an appearance mode of the link. However, they are semantically distinct, and there are no obvious benefits to combining the two, except having one fewer component. We will create a second anchor button component as part of this effort.
+If we are creating new components for anchors in tabs, menus, and trees, then for consistency, should we create a separate one for button-like links as well? Buttons and links are similar ARIA roles ([the](https://w3c.github.io/aria/#button) [spec](https://w3c.github.io/aria/#link) even links them to each other). We could model a button-link as just an appearance mode of the link. However, they are semantically distinct, and there are no obvious benefits to combining the two, except having one fewer component. Arguments for having a separate anchor button component include:
+
+-   consistent with existing button variations:
+    ```html
+    <nimble-button>
+        <nimble-menu-button>
+            <nimble-toggle-button>
+                <nimble-anchor-button></nimble-anchor-button></nimble-toggle-button></nimble-menu-button
+    ></nimble-button>
+    ```
+-   easily switching between standard anchor and button-like appearance (API-wise) is not a significant benefit
+-   allows us to have separate Angular directives, which gives us more freedom in case we need it
+
+For these reasons we will create a second anchor button component as part of this effort.
+
 ### API
 
 [FAST's API documentation](https://github.com/microsoft/fast/blob/e576aa70c22780fffba03097277e2db9a2ec1cd8/packages/web-components/fast-foundation/src/anchor/README.md)
@@ -97,9 +111,9 @@ If we are creating new components for anchors in tabs, menus, and trees, then fo
 -   _Slots_: We will not expose the start and end slots provided by the FAST anchor.
 
 The button-like anchor will also derive from the FAST anchor so that we use the same template and role.
+
 -   _Component Name_: `nimble-anchor-button`
--   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the
-FAST anchor:
+-   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
     -   `appearance`:
         -   `"outline"`: same as button design
         -   `"ghost"`: same as button design
@@ -113,7 +127,6 @@ FAST anchor:
 -   _Events_: Unchanged (none)
 -   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
 -   _Slots_: We _will_ expose/document the start and end slots for the button-like anchor.
-
 
 ### Angular integration
 
