@@ -37,3 +37,4 @@ import './toolbar';
 import './tooltip';
 import './tree-item';
 import './tree-view';
+import './wafer-map';
