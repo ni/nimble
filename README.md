@@ -68,6 +68,7 @@ NOTE: To update the component status:
 |------------------------|--------|--------|--------------------|---------------------|--------------------|
 | Accordion | |  [Issue](https://github.com/ni/nimble/issues/533) | :o: | :o: | :o: |
 | Anchor | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bfadf499-caf5-4ca0-9814-e777fbae0d46/) |  [Issue](https://github.com/ni/nimble/issues/324) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/anchor--text-anchor) | :o: | :o: |
+| Anchor Button | |  [Issue](https://github.com/ni/nimble/issues/324) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/anchor-button--outline-anchor-button) | :o: | :o: |
 | Banners | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/29c405f7-08ea-48b6-973f-546970b9dbab) |  [Issue](https://github.com/ni/nimble/issues/305) | :o: | :o: | :o: |
 | Breadcrumb | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/breadcrumb--standard-breadcrumb) | :white_check_mark: | :white_check_mark: |
 | Card | |  [Issue](https://github.com/ni/nimble/issues/296) | :o: | :o: | :o: |
@@ -106,3 +107,13 @@ NOTE: To update the component status:
 | Tooltip | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/) |  [Issue](https://github.com/ni/nimble/issues/309) | [:warning: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tooltip--tooltip) | :warning: | :warning: |
 | Tree View | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/ec5a855a-4174-46ad-947c-3931bbf3e32d/) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tree-view--tree-view) | :white_check_mark: | :white_check_mark: |
 | Wafer Map | | | :warning: | :warning: | :warning: |
+
+
+
+
+
+
+
+
+
+
