@@ -1,10 +1,19 @@
+import {
+    attr,
+    nullableNumberConverter,
+    observable
+} from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from './template';
-import { WaferMapColorsScale } from './data-types/WaferMapColorsScale';
-import type { WaferMapRenderingObject } from './data-types/WaferMapRenderingObject';
-import { Data } from './modules/data.module';
 import { styles } from './styles';
-import { RenderingModule } from './modules/rendering.module';
+import {
+    WaferMapColorsScale,
+    WaferMapColorsScaleMode,
+    WaferMapDie,
+    WaferMapOrientation,
+    WaferMapQuadrant
+} from './types';
+import { DataManager } from './modules/data-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,39 +25,56 @@ declare global {
  * A nimble-styled WaferMap
  */
 export class WaferMap extends FoundationElement {
-    public waferData: WaferMapRenderingObject | undefined;
+    @attr
+    public quadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
 
-    public highlightedValues: number[] = [];
+    @attr
+    public orientation: WaferMapOrientation = WaferMapOrientation.top;
 
-    public colorsScale: WaferMapColorsScale = new WaferMapColorsScale(['green'], []);
+    @attr({
+        attribute: 'max-characters',
+        converter: nullableNumberConverter
+    })
+    public maxCharacters = 4;
 
-    public isContinuous = true;
+    @attr({
+        attribute: 'die-labels-hidden',
+        mode: 'boolean'
+    })
+    public dieLabelsHidden = false;
 
-    public showDieLabels = true;
-
+    @attr({
+        attribute: 'die-labels-suffix'
+    })
     public dieLabelsSuffix = '';
 
-    public maxCharacters = 0;
+    @attr({
+        attribute: 'colors-scale-mode'
+    })
+    public colorsScaleMode: WaferMapColorsScaleMode = WaferMapColorsScaleMode.linear;
 
-    public dataModule: Data | undefined;
-    public canvas!: HTMLCanvasElement;
+    @observable public highlightedValues: string[] = [];
+    @observable public dies: WaferMapDie[] = [];
+    @observable public colorScale: WaferMapColorsScale = {
+        colors: [],
+        values: []
+    };
+
+    private dataManager: DataManager | undefined;
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        if (this.waferData === undefined) return;
-        this.dataModule = new Data(
-            this.waferData.dice,
-            this.colorsScale,
+        this.dataManager = new DataManager(
+            this.dies,
+            this.quadrant,
+            { width: this.offsetWidth, height: this.offsetHeight },
+            this.colorScale,
             this.highlightedValues,
-            this.waferData.metadata.axisLocation,
-            this.isContinuous,
-            this.showDieLabels,
+            this.colorsScaleMode,
+            this.dieLabelsHidden,
             this.dieLabelsSuffix,
-            this.maxCharacters,
-            { width: this.offsetWidth, height: this.offsetHeight }
+            this.maxCharacters
         );
-        RenderingModule.drawWafer(this.dataModule, this.canvas);
-        // debugger;
     }
 }
 

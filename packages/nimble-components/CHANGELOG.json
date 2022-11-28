@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 23 Nov 2022 16:47:02 GMT",
+      "tag": "@ni/nimble-components_v15.5.0",
+      "version": "15.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4676381ff77c04f47d23b2f2c315af17cd364fca",
+            "comment": "Computations functionality added to the WaferMap component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 22 Nov 2022 09:29:17 GMT",
+      "tag": "@ni/nimble-components_v15.4.0",
+      "version": "15.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "32818934+elizaolariu@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ac8253677461f3591b18f36ead547ec9d8562cb3",
+            "comment": "Create placeholder WaferMap component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 15 Nov 2022 15:48:21 GMT",
       "tag": "@ni/nimble-components_v15.3.2",
       "version": "15.3.2",
