@@ -20,7 +20,7 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import '../../all-components';
 
 const metadata: Meta = {
-    title: 'Tests/Anchor',
+    title: 'Tests/Anchor Button',
     decorators: [withXD],
     parameters: {
         ...sharedMatrixParameters(),
@@ -60,7 +60,7 @@ const component = (
     [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
-    <nimble-anchor
+    <nimble-anchor-button
         href="http://nimble.ni.dev"
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
@@ -70,7 +70,7 @@ const component = (
             ${when(() => iconVisible, html`<nimble-icon-link slot="start"></nimble-icon-link>`)}
             ${() => `${appearanceVariantName} ${appearanceName} Link ${disabledName}`}
             ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-right slot="end"></nimble-icon-arrow-expander-right>`)}
-    </nimble-anchor>
+    </nimble-anchor-button>
 `;
 
 export const anchorThemeMatrix: Story = createMatrixThemeStory(
@@ -83,9 +83,9 @@ export const anchorThemeMatrix: Story = createMatrixThemeStory(
 );
 
 export const hiddenAnchor: Story = createStory(
-    hiddenWrapper(html`<nimble-anchor hidden>Hidden Anchor</nimble-anchor>`)
+    hiddenWrapper(html`<nimble-anchor-button hidden>Hidden Anchor Button</nimble-anchor-button>`)
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
-    textCustomizationWrapper(html`<nimble-anchor>Link</nimble-anchor>`)
+    textCustomizationWrapper(html`<nimble-anchor-button>Anchor Button</nimble-anchor-button>`)
 );
