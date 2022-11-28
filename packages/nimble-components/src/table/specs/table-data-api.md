@@ -10,7 +10,6 @@ Table/Data-grid components can have a variety of ways to introduce data into it.
 
 [TanStack Table API](https://tanstack.com/table/v8/docs/api/core/table)
 
-
 ## Implementation / Design
 
 To use the TanStack Table library it expect its `data` to be provided as an array of some arbitrary type. Much of its API is generic to the type of the object that represents a single row of data.
@@ -18,6 +17,7 @@ To use the TanStack Table library it expect its `data` to be provided as an arra
 The `FASTDataGrid` has similar expectations for its [data API](https://github.com/microsoft/fast/blob/416dc9167e9d41e6ffe11d87ed79b2f455357923/packages/web-components/fast-foundation/src/data-grid/data-grid.ts#L193), provided via a `rowsData` property of type `object[]`. Columns are determined by looking at all of the property names of the first object in that array.
 
 It seems helpful to not only provide a similarly simplistic means of providing data to the `nimble-table`, but to also provide the type for the row data via a generic argument on the `Table` class itself, i.e.:
+
 ```ts
 export class Table<TData> extends FoundationElement {
     @observable
@@ -26,7 +26,8 @@ export class Table<TData> extends FoundationElement {
 ```
 
 This provides a couple of benefits:
-- Interfacing with the TanStack APIs is now more direct and avoids `unknown` typing, e.g.:
+
+-   Interfacing with the TanStack APIs is now more direct and avoids `unknown` typing, e.g.:
 
 ```ts
 public data: TData[] = [];
@@ -38,12 +39,16 @@ this._options = {
     },
 ```
 
-- View templating can access named columns in some scenarios. For instance, given a row type of `Person`, that has a field `friends` in it whose value was another table, a user could define FAST ViewTemplate in the following way:
+-   View templating can access named columns in some scenarios. For instance, given a row type of `Person`, that has a field `friends` in it whose value was another table, a user could define FAST ViewTemplate in the following way:
 
 ```ts
-const rowTemplate = (index: number): ViewTemplate<any, Table<Person>> => html<any, Table<Person>>`
-    <nimble-table style="max-height: 500px"
-        :data="${(_, c) => (c.parent.tableData[index]!.row.original.friends)}"
+const rowTemplate = (index: number): ViewTemplate<any, Table<Person>> => html<
+    any,
+    Table<Person>
+>`
+    <nimble-table
+        style="max-height: 500px"
+        :data="${(_, c) => c.parent.tableData[index]!.row.original.friends}"
     >
     </nimble-table>
 `;
@@ -62,6 +67,7 @@ _Placeholder_
 Despite the generic typing of `Table` making it more strict, users would not benefit from that in a scenario where they could provide declarative column definitions that could theoretically only visualize a specific datatype. Take the following markup:
 
 template (Angular)
+
 ```html
 <nimble-table data="data" #table>
     <nimble-text-field-column columnId="firstName"></nimble-text-field-column>
@@ -70,7 +76,9 @@ template (Angular)
     <nimble-number-field-column columnId="birthDate"></nimble-text-field-column>
 </nimble-table>
 ```
+
 component (Angular)
+
 ```ts
 @ViewChild('table') private table: Table<Person>;
 ```
@@ -89,5 +97,5 @@ _Placeholder_
 
 ## Open Issues
 
-*Describe any open issues with the design that you need feedback on before proceeding.*
-*It is expected that these issues will be resolved during the review process and this section will be removed when this documented in pulled into source.*
+_Describe any open issues with the design that you need feedback on before proceeding._
+_It is expected that these issues will be resolved during the review process and this section will be removed when this documented in pulled into source._
