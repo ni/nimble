@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Changes from updated require-await lint rule configuration",
-  "packageName": "@ni/nimble-blazor",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

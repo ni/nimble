@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 29 Nov 2022 23:51:38 GMT",
+      "tag": "@ni/nimble-components_v15.5.1",
+      "version": "15.5.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3ff74ec1486e824339f81b27729aa052b083cd5e",
+            "comment": "Changed from updated require-await lint rule configuration"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 29 Nov 2022 17:43:35 GMT",
       "tag": "@ni/nimble-components_v15.5.1",
       "version": "15.5.1",
