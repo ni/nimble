@@ -13,7 +13,7 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
-import { DataManager } from './modules/data-manager';
+import type { DataManager } from './modules/data-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
