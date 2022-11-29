@@ -10,21 +10,21 @@ import {
     WaferMapColorsScaleMode
 } from '../types';
 import {
-    HIGHLIGHTEDVALUESETS,
-    WAFERMAPDIESETS,
-    WAFERMAPCOLORSCALESETS
+    highLightedValueSets,
+    wafermapDieSets,
+    waferMapColorsScaleSets
 } from './sets';
 
 interface WaferMapArgs {
-    quadrant: WaferMapQuadrant;
-    orientation: WaferMapOrientation;
-    maxCharacters: number;
+    colorScale: WaferMapColorsScale;
+    colorsScaleMode: WaferMapColorsScaleMode;
     dieLabelsHidden: boolean;
     dieLabelsSuffix: string;
-    colorsScaleMode: WaferMapColorsScaleMode;
-    highlightedValues: number[];
     dies: WaferMapDie[];
-    colorScale: WaferMapColorsScale;
+    highlightedValues: number[];
+    maxCharacters: number;
+    orientation: WaferMapOrientation;
+    quadrant: WaferMapQuadrant;
 }
 
 const metadata: Meta<WaferMapArgs> = {
@@ -32,7 +32,7 @@ const metadata: Meta<WaferMapArgs> = {
     parameters: {
         docs: {
             description: {
-                component: 'A WaferMap description'
+                component: 'A wafer map is a component for visualizing data from the manufacture of semiconductor wafers. Each die on the wafer can show numerical information and be colored to indicate information about that die.'
             }
         },
         actions: {
@@ -40,8 +40,11 @@ const metadata: Meta<WaferMapArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
+        <div id="usage-warning">
+            WARNING - The tooltip is still in development and considered
+            experimental. It is not recommended for application use.
+        </div>
         <nimble-wafer-map
-            id="waferMapEl"
             quadrant="${x => x.quadrant}"
             orientation="${x => x.orientation}"
             maxCharacters="${x => x.maxCharacters}"
@@ -55,20 +58,20 @@ const metadata: Meta<WaferMapArgs> = {
         </nimble-wafer-map>
     `),
     args: {
-        dies: WAFERMAPDIESETS[0],
+        dies: wafermapDieSets[0],
         quadrant: WaferMapQuadrant.bottomLeft,
         orientation: WaferMapOrientation.left,
-        colorScale: WAFERMAPCOLORSCALESETS[0],
+        colorScale: waferMapColorsScaleSets[0],
         maxCharacters: 4,
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
         colorsScaleMode: WaferMapColorsScaleMode.linear,
-        highlightedValues: HIGHLIGHTEDVALUESETS[0]
+        highlightedValues: highLightedValueSets[0]
     },
     argTypes: {
         dies: {
             description:
-                'Represents the input data, an array of WaferMapDie, which will be renedered by the WaferMap',
+                'Represents the input data, an array of `WaferMapDie`, which will be renedered by the wafer map',
             options: ['set1', 'set2'],
             control: {
                 type: 'select',
@@ -78,8 +81,8 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             },
             mapping: {
-                set1: WAFERMAPDIESETS[0],
-                set2: WAFERMAPDIESETS[1]
+                set1: wafermapDieSets[0],
+                set2: wafermapDieSets[1]
             }
         },
         quadrant: {
@@ -126,7 +129,7 @@ const metadata: Meta<WaferMapArgs> = {
         },
         colorsScaleMode: {
             description:
-                'Enum value that determines if the colorScale represents continuous gradient values (linear), or is set categorically (ordinal).',
+                'Enum value that determines if the color scale represents continuous gradient values (linear), or is set categorically (ordinal).',
             options: Object.values(WaferMapColorsScaleMode),
             control: {
                 type: 'select',
@@ -150,10 +153,10 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             },
             mapping: {
-                set1: HIGHLIGHTEDVALUESETS[0],
-                set2: HIGHLIGHTEDVALUESETS[1],
-                set3: HIGHLIGHTEDVALUESETS[2],
-                set4: HIGHLIGHTEDVALUESETS[3]
+                set1: highLightedValueSets[0],
+                set2: highLightedValueSets[1],
+                set3: highLightedValueSets[2],
+                set4: highLightedValueSets[3]
             }
         },
         colorScale: {
@@ -167,7 +170,7 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             },
             mapping: {
-                set1: WAFERMAPCOLORSCALESETS[0]
+                set1: waferMapColorsScaleSets[0]
             }
         }
     }
