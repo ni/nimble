@@ -1,5 +1,5 @@
 import { Prerendering } from '../modules/prerendering';
-import { WaferMapColorsScaleMode, WaferMapDie } from '../types';
+import { WaferMapColorsScaleMode } from '../types';
 import {
     getLinearScale,
     getWaferMapDies,
@@ -33,7 +33,7 @@ describe('Prerendering module', () => {
         });
 
         it('should have as many dies as provided', () => {
-            expect(prerenderingModule.renderDies.length).toEqual(
+            expect(prerenderingModule.diesRenderInfo.length).toEqual(
                 getWaferMapDies().length
             );
         });
@@ -45,7 +45,7 @@ describe('Prerendering module', () => {
         });
     });
 
-    describe('with small width and 1 maximum characters', () => {
+    describe('with small width and one character at maximum', () => {
         const dieDimensions = { width: 1, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = false;
@@ -97,8 +97,8 @@ describe('Prerendering module', () => {
         });
 
         it('should have label suffix for each die', () => {
-            for (const renderDie of prerenderingModule.renderDies) {
-                expect(renderDie.text).toContain(dieLabelsSuffix);
+            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
+                expect(dieRenderInfo.text).toContain(dieLabelsSuffix);
             }
         });
     });
@@ -126,9 +126,9 @@ describe('Prerendering module', () => {
         });
 
         it('should not have full label suffix for each die and end in ellipsis', () => {
-            for (const renderDie of prerenderingModule.renderDies) {
-                expect(renderDie.text).not.toContain(dieLabelsSuffix);
-                expect(renderDie.text).toContain('…');
+            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
+                expect(dieRenderInfo.text).not.toContain(dieLabelsSuffix);
+                expect(dieRenderInfo.text).toContain('…');
             }
         });
     });
@@ -156,10 +156,10 @@ describe('Prerendering module', () => {
         });
 
         it('should have labels equal with values for each die', () => {
-            const diesIterator = getWaferMapDies()[Symbol.iterator]();
-            for (const renderDie of prerenderingModule.renderDies) {
-                expect(renderDie.text).toEqual(
-                    (diesIterator.next().value as WaferMapDie).value.toString()
+            const waferMapDies = getWaferMapDies();
+            for (let i = 0; i < waferMapDies.length; i += 1) {
+                expect(prerenderingModule.diesRenderInfo[i]!.text).toEqual(
+                    waferMapDies[i]!.value
                 );
             }
         });
@@ -188,10 +188,10 @@ describe('Prerendering module', () => {
         });
 
         it('should have labels equal with values for each die', () => {
-            const diesIterator = getWaferMapDiesAsNaN()[Symbol.iterator]();
-            for (const renderDie of prerenderingModule.renderDies) {
-                expect(renderDie.text).toEqual(
-                    (diesIterator.next().value as WaferMapDie).value.toString()
+            const waferMapNaNDies = getWaferMapDiesAsNaN();
+            for (let i = 0; i < waferMapNaNDies.length; i += 1) {
+                expect(prerenderingModule.diesRenderInfo[i]!.text).toEqual(
+                    waferMapNaNDies[i]!.value
                 );
             }
         });
@@ -223,12 +223,15 @@ describe('Prerendering module', () => {
             'should have labels equal with values for each die, '
                 + 'but limited by the maximum number of characters and a ellipsis',
             () => {
-                const diesIterator = getWaferMapDiesAsFloats()[Symbol.iterator]();
-                for (const renderDie of prerenderingModule.renderDies) {
-                    expect(renderDie.text).toEqual(
-                        `${(diesIterator.next().value as WaferMapDie).value
-                            .toString()
-                            .substring(0, maxCharacters)}…`
+                const waferMapFloatDies = getWaferMapDiesAsFloats();
+                const expectedValues = waferMapFloatDies.map(x => {
+                    return {
+                        text: `${x.value.substring(0, maxCharacters)}…`
+                    };
+                });
+                for (let i = 0; i < waferMapFloatDies.length; i += 1) {
+                    expect(prerenderingModule.diesRenderInfo[i]!.text).toEqual(
+                        expectedValues[i]!.text
                     );
                 }
             }
@@ -258,8 +261,8 @@ describe('Prerendering module', () => {
         });
 
         it('should have empty label for each die', () => {
-            for (const renderDie of prerenderingModule.renderDies) {
-                expect(renderDie.text).toEqual('');
+            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
+                expect(dieRenderInfo.text).toEqual('');
             }
         });
     });

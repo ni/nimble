@@ -60,22 +60,7 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private dataManager: DataManager | undefined;
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.dataManager = new DataManager(
-            this.dies,
-            this.quadrant,
-            { width: this.offsetWidth, height: this.offsetHeight },
-            this.colorScale,
-            this.highlightedValues,
-            this.colorsScaleMode,
-            this.dieLabelsHidden,
-            this.dieLabelsSuffix,
-            this.maxCharacters
-        );
-    }
+    private readonly dataManager: DataManager | undefined;
 }
 
 const nimbleWaferMap = WaferMap.compose({

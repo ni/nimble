@@ -3,20 +3,20 @@ import { WaferMapColorsScaleMode } from '../types';
 import type {
     Dimensions,
     Margin,
-    RenderDie,
+    DieRenderInfo,
     WaferMapDie,
     WaferMapColorsScale
 } from '../types';
 
 /**
- * Prerendering prepares render ready dies data  to be used by the rendering module
+ * Prerendering prepares render-ready dies data to be used by the rendering module
  */
 export class Prerendering {
     public readonly labelsFontSize: number;
 
-    public readonly renderDies: RenderDie[];
+    public readonly diesRenderInfo: DieRenderInfo[];
 
-    private readonly colorScale:
+    public readonly colorScale:
     | ScaleOrdinal<string, string>
     | ScaleLinear<string, string>;
 
@@ -45,9 +45,9 @@ export class Prerendering {
             maxCharacters
         );
 
-        this.renderDies = [];
+        this.diesRenderInfo = [];
         for (const die of dies) {
-            this.renderDies.push({
+            this.diesRenderInfo.push({
                 x: horizontalScale(die.x) + margin.right,
                 y: verticalScale(die.y) + margin.top,
                 fillStyle: this.calculateFillStyle(die, colorsScaleMode),
@@ -77,7 +77,7 @@ export class Prerendering {
         colorsScale: WaferMapColorsScale,
         colorsScaleMode: WaferMapColorsScaleMode
     ): ScaleOrdinal<string, string> | ScaleLinear<string, string> {
-        if (colorsScaleMode === WaferMapColorsScaleMode.linear) {
+        if (this.isColorScaleLinear(colorsScaleMode)) {
             return scaleLinear<string, string>()
                 .domain(colorsScale.values.map(item => +item))
                 .range(colorsScale.colors);
@@ -117,6 +117,18 @@ export class Prerendering {
             : 0;
     }
 
+    private isColorScaleLinear(
+        colorsScaleMode: WaferMapColorsScaleMode
+    ): this is { colorScale: ScaleLinear<string, string> } {
+        return colorsScaleMode === WaferMapColorsScaleMode.linear;
+    }
+
+    private isColorScaleOrdinal(
+        colorsScaleMode: WaferMapColorsScaleMode
+    ): this is { colorScale: ScaleOrdinal<string, string> } {
+        return colorsScaleMode === WaferMapColorsScaleMode.ordinal;
+    }
+
     private calculateFillStyle(
         die: WaferMapDie,
         colorsScaleMode: WaferMapColorsScaleMode
@@ -127,9 +139,12 @@ export class Prerendering {
         if (isNaN(+die.value)) {
             return this.nanDieColor;
         }
-        if (colorsScaleMode === WaferMapColorsScaleMode.linear) {
-            return (this.colorScale as ScaleLinear<string, string>)(+die.value);
+        if (this.isColorScaleLinear(colorsScaleMode)) {
+            return this.colorScale(+die.value);
         }
-        return (this.colorScale as ScaleOrdinal<string, string>)(die.value);
+        if (this.isColorScaleOrdinal(colorsScaleMode)) {
+            return this.colorScale(die.value);
+        }
+        return this.emptyDieColor;
     }
 }

@@ -5,7 +5,7 @@ import type {
     Dimensions,
     Margin,
     WaferMapQuadrant,
-    RenderDie,
+    DieRenderInfo,
     WaferMapColorsScale,
     WaferMapDie,
     WaferMapColorsScaleMode
@@ -43,8 +43,8 @@ export class DataManager {
         return this.prerendering.labelsFontSize;
     }
 
-    public get renderDies(): RenderDie[] {
-        return this.prerendering.renderDies;
+    public get diesRenderInfo(): DieRenderInfo[] {
+        return this.prerendering.diesRenderInfo;
     }
 
     public get mainCircleLocation(): { x: number, y: number } {

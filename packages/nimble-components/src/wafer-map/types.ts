@@ -49,7 +49,7 @@ export interface Margin {
     readonly left: number;
 }
 
-export interface RenderDie {
+export interface DieRenderInfo {
     readonly x: number;
     readonly y: number;
     readonly fillStyle: string;
