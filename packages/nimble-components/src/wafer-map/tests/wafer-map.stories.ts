@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import {bodyFont} from '../../theme-provider/design-tokens';
+import { bodyFont } from '../../theme-provider/design-tokens';
 
 import '../../all-components';
 import type { WaferMapDie, WaferMapColorsScale } from '../types';
@@ -56,11 +56,11 @@ const metadata: Meta<WaferMapArgs> = {
         >
         </nimble-wafer-map>
         <style class="code-hide">
-        #usage-warning {
-            color: red;
-            font: var(${bodyFont.cssCustomProperty});
-        }
-    </style>
+            #usage-warning {
+                color: red;
+                font: var(${bodyFont.cssCustomProperty});
+            }
+        </style>
     `),
     args: {
         dies: wafermapDieSets[0],
