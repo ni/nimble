@@ -121,7 +121,8 @@ None
 
 ### Test Plan
 
-Standard tests planned
+Standard tests planned.  
+[Chromatic is supposed to handle pausing CSS animations by default](https://www.chromatic.com/docs/animations), however we should verify that by ensuring the snapshots of the spinner show the same state across 2 Chromatic builds.
 
 ### Tooling
 
