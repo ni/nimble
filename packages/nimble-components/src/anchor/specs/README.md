@@ -13,88 +13,7 @@ The Nimble Anchor is a component used to navigate to a web resource, similar to 
 
 ## Design
 
-**Anchors in other components**
-
-Initially we will create two flavors of anchor: a standard anchor, and a button-like anchor. In the future, we expect to support anchors within other controls, e.g.
-
--   tabs
--   menu
--   tree
-
-Unfortunately it's not as simple as dropping `nimble-anchor`s into the existing components. Each of these has its own considerations and challenges.
-
--   **Tabs**
-
-    The `nimble-tabs` component currently is structured with children having a 1-to-1 relationship between `nimble-tab` children and `nimble-tab-panel` children:
-
-    ```html
-    <nimble-tabs>
-        <nimble-tab>Tab One</nimble-tab>
-        <nimble-tab>Tab Two</nimble-tab>
-        <nimble-tab-panel>Tab content one</nimble-tab-panel>
-        <nimble-tab-panel>Tab content two</nimble-tab-panel>
-    </nimble-tabs>
-    ```
-
-    A link-based tabs control would not have `nimble-tab-panel`s. Also, the tab component would have a very different API than `nimble-tab` and so should be a new, separate component.
-
-    ```html
-    <nimble-tabs>
-        <nimble-anchor-tab href="...">Tab One</nimble-anchor-tab>
-        <nimble-anchor-tab href="...">Tab Two</nimble-anchor-tab>
-    </nimble-tabs>
-    ```
-
-    The FAST tabs component (from which `nimble-tabs` is derived) contains logic for keyboard navigation through tabs and for connecting tabs to their associated tab panels. We won't need the logic for connecting tabs to tab panels, and keyboard navigation will work slightly different as well. The existing tabs control immediately switches the tab panel when you focus a different tab. We want to avoid navigating as you arrow through the tabs. Instead, the user would arrow over to a tab and hit space/enter to actually navigate to that URL.
-
-    We do not want to support tab controls that contain a mix of `nimble-tab`s/`nimble-tab-panel`s and `nimble-anchor-tab`s. Doing so would add significant complexity to the implementation of our tabs component, and it would result in unpredictable keyboard navigation behavior. I.e. arrowing to a different tab may cause the displayed content to change, or it might do nothing.
-
-    For those reasons we would probably have a new, separate `nimble-anchor-tabs` container component.
-
-    ```html
-    <nimble-anchor-tabs>
-        <nimble-anchor-tab href="...">Tab One</nimble-anchor-tab>
-        <nimble-anchor-tab href="...">Tab Two</nimble-anchor-tab>
-    </nimble-anchor-tabs>
-    ```
-
-    ARIA roles are another question. Would we follow the tab pattern which uses the roles `tab`, `tablist`, and `tabpanel`? It seems like we cannot because we do not have anything corresponding to `tabpanel`, and the [spec](https://w3c.github.io/aria/#tablist) does not indicate that the role is optional. Interestingly, the tabs at the top of [AzDO's pull request list](https://ni.visualstudio.com/DevCentral/_git/Skyline/pullrequests) _do_ use the `tab` role for the `<a>` element without having any `tabpanel` roles, as far as I can tell. Another approach I've seen (e.g. right under the repo name of a [GitHub repo](https://github.com/ni/nimble)) is to give the tabs the `link` role, within a `list`/`group` of items. This approach seems semantically appropriate without violating any rules of the ARIA spec.
-
-    Another thought might be to merge both approaches, having a `tablist` containing elements that are both `tab` and `link`. While the `role` attribute may be a list of multiple space-separated values, [only one value from the list is honored](https://stackoverflow.com/questions/27019753/can-i-use-multiple-aria-roles-on-a-parent-element).
-
--   **Menu**
-
-    Should the ARIA role for a link in a menu be `link` or `menuitem`? The examples I have found go with the latter, and this is supported by the fact that the ARIA [spec](https://w3c.github.io/aria/#menu) for the `menu` role limits the roles of child items to `menuitem`, `menuitemcheckbox`, `menuitemradio`, or `group`s thereof. We can't give it both `link` and `menuitem` roles for the reason I gave in the preceeding section.
-
-    The FAST menu only supports keyboard navigation to child items that have the `menuitem` role. This is another datapoint suggesting we can't give links the `link` role when in a menu.
-
-    Aside from the difference in ARIA roles, a link in a menu would also need a menu-specific API (e.g. `expanded` and `checked` attributes) not provided by a plain `nimble-anchor`. These differences suggest that a separate component would be more practical than trying to reuse the `nimble-anchor`.
-
-    ```html
-    <nimble-menu>
-        <nimble-anchor-menu-item href="...">Item One</nimble-anchor-menu-item>
-        <nimble-anchor-menu-item href="...">Item Two</nimble-anchor-menu-item>
-    </nimble-menu>
-    ```
-
--   **Tree**
-
-    The tree use case is very similar to the menu use case. I have not found examples of sites with trees (i.e. `role=tree`) with links, but based on the ARIA docs, I suspect the correct role for a link in a tree is `treeitem`. For the same reasons as the menu case, I suspect it would be cleaner and more maintainable to create a separate `nimble-anchor-tree-item`.
-
-If we are creating new components for anchors in tabs, menus, and trees, then for consistency, should we create a separate one for button-like links as well? Buttons and links are similar ARIA roles ([the](https://w3c.github.io/aria/#button) [spec](https://w3c.github.io/aria/#link) even links them to each other). We could model a button-link as just an appearance mode of the link. However, they are semantically distinct, and there are no obvious benefits to combining the two, except having one fewer component. Arguments for having a separate anchor button component include:
-
--   consistent with existing button variations:
-    ```html
-    <nimble-button>
-        <nimble-menu-button>
-            <nimble-toggle-button>
-                <nimble-anchor-button></nimble-anchor-button></nimble-toggle-button></nimble-menu-button
-    ></nimble-button>
-    ```
--   easily switching between standard anchor and button-like appearance (API-wise) is not a significant benefit
--   allows us to have separate Angular directives, which gives us more freedom in case we need it
-
-For these reasons we will create a second anchor button component as part of this effort.
+Initially we will create two flavors of anchor: a standard anchor, and a button-like anchor. These will be two separate components. For justification, see the Future Considerations section at the end of this document.
 
 ### API
 
@@ -110,7 +29,7 @@ For these reasons we will create a second anchor button component as part of thi
 -   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
 -   _Slots_: We will not expose the start and end slots provided by the FAST anchor.
 
-The button-like anchor will also derive from the FAST anchor so that we use the same template and role.
+The button-like anchor will also derive from the FAST anchor so that we use the same template and role. It will share most of its CSS with existing button components.
 
 -   _Component Name_: `nimble-anchor-button`
 -   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
@@ -193,10 +112,99 @@ We will create Blazor wrappers for the anchor and button-like anchor. Judging by
 -   _Testing:_ None
 -   _Documentation:_ Should direct users to set `inline` when using the anchor inline with text.
 -   _Tooling:_ None
--   _Accessibility:_ Need to `applyMixins` on the Nimble anchor type, from the `DelegatesARIALink` class.
+-   _Accessibility:_
+    -   Need to `applyMixins` on the Nimble anchor type, from the `DelegatesARIALink` class.
+    -   The anchor button is functionally closer to an anchor than to a button, so it will have the ARIA role of `link` (rather than `button`). This will be automatic, as the shadow root will contain a native HTML `<a>` element which naturally has the role `link`.
 -   _Globalization:_ None
 -   _Performance:_ None
 -   _Security:_ None
+
+---
+
+## Future Considerations
+
+**Note** - The following is justification for decisions in this spec and should not be considered final decisions for the future components discussed.
+
+**Anchors in other components**
+
+In the future, we expect to support anchors within other controls, e.g.
+
+-   tabs
+-   menu
+-   tree
+
+Unfortunately it's not as simple as dropping `nimble-anchor`s into the existing components. Each of these has its own considerations and challenges.
+
+-   **Tabs**
+
+    The `nimble-tabs` component currently is structured with children having a 1-to-1 relationship between `nimble-tab` children and `nimble-tab-panel` children:
+
+    ```html
+    <nimble-tabs>
+        <nimble-tab>Tab One</nimble-tab>
+        <nimble-tab>Tab Two</nimble-tab>
+        <nimble-tab-panel>Tab content one</nimble-tab-panel>
+        <nimble-tab-panel>Tab content two</nimble-tab-panel>
+    </nimble-tabs>
+    ```
+
+    A link-based tabs control would not have `nimble-tab-panel`s. Also, the tab component would have a very different API than `nimble-tab` and so should be a new, separate component.
+
+    ```html
+    <nimble-tabs>
+        <nimble-anchor-tab href="...">Tab One</nimble-anchor-tab>
+        <nimble-anchor-tab href="...">Tab Two</nimble-anchor-tab>
+    </nimble-tabs>
+    ```
+
+    The FAST tabs component (from which `nimble-tabs` is derived) contains logic for keyboard navigation through tabs and for connecting tabs to their associated tab panels. We won't need the logic for connecting tabs to tab panels, and keyboard navigation will work slightly different as well. The existing tabs control immediately switches the tab panel when you focus a different tab. We want to avoid navigating as you arrow through the tabs. Instead, the user would arrow over to a tab and hit space/enter to actually navigate to that URL.
+
+    We do not want to support tab controls that contain a mix of `nimble-tab`s/`nimble-tab-panel`s and `nimble-anchor-tab`s. Doing so would add significant complexity to the implementation of our tabs component, and it would result in unpredictable keyboard navigation behavior. I.e. arrowing to a different tab may cause the displayed content to change, or it might do nothing.
+
+    For those reasons we would probably have a new, separate `nimble-anchor-tabs` container component.
+
+    ```html
+    <nimble-anchor-tabs>
+        <nimble-anchor-tab href="...">Tab One</nimble-anchor-tab>
+        <nimble-anchor-tab href="...">Tab Two</nimble-anchor-tab>
+    </nimble-anchor-tabs>
+    ```
+
+    ARIA roles are another question. Would we follow the tab pattern which uses the roles `tab`, `tablist`, and `tabpanel`? It seems like we cannot because we do not have anything corresponding to `tabpanel`, and the [spec](https://w3c.github.io/aria/#tablist) does not indicate that the role is optional. Interestingly, the tabs at the top of [AzDO's pull request list](https://ni.visualstudio.com/DevCentral/_git/Skyline/pullrequests) _do_ use the `tab` role for the `<a>` element without having any `tabpanel` roles, as far as I can tell. Another approach I've seen (e.g. right under the repo name of a [GitHub repo](https://github.com/ni/nimble)) is to give the tabs the `link` role, within a `list`/`group` of items. This approach seems semantically appropriate without violating any rules of the ARIA spec.
+
+    Another thought might be to merge both approaches, having a `tablist` containing elements that are both `tab` and `link`. While the `role` attribute may be a list of multiple space-separated values, [only one value from the list is honored](https://stackoverflow.com/questions/27019753/can-i-use-multiple-aria-roles-on-a-parent-element).
+
+-   **Menu**
+
+    Should the ARIA role for a link in a menu be `link` or `menuitem`? The examples I have found go with the latter, and this is supported by the fact that the ARIA [spec](https://w3c.github.io/aria/#menu) for the `menu` role limits the roles of child items to `menuitem`, `menuitemcheckbox`, `menuitemradio`, or `group`s thereof. We can't give it both `link` and `menuitem` roles for the reason I gave in the preceeding section.
+
+    The FAST menu only supports keyboard navigation to child items that have the `menuitem` role. This is another datapoint suggesting we can't give links the `link` role when in a menu.
+
+    Aside from the difference in ARIA roles, a link in a menu would also need a menu-specific API (e.g. `expanded` and `checked` attributes) not provided by a plain `nimble-anchor`. These differences suggest that a separate component would be more practical than trying to reuse the `nimble-anchor`.
+
+    ```html
+    <nimble-menu>
+        <nimble-anchor-menu-item href="...">Item One</nimble-anchor-menu-item>
+        <nimble-anchor-menu-item href="...">Item Two</nimble-anchor-menu-item>
+    </nimble-menu>
+    ```
+
+-   **Tree**
+
+    The tree use case is very similar to the menu use case. I have not found examples of sites with trees (i.e. `role=tree`) with links, but based on the ARIA docs, I suspect the correct role for a link in a tree is `treeitem`. For the same reasons as the menu case, I suspect it would be cleaner and more maintainable to create a separate `nimble-anchor-tree-item`.
+
+If we are creating new components for anchors in tabs, menus, and trees, then for consistency, should we create a separate one for button-like links as well? Buttons and links are similar ARIA roles ([the](https://w3c.github.io/aria/#button) [spec](https://w3c.github.io/aria/#link) even links them to each other). We could model a button-link as just an appearance mode of the link. However, they are semantically distinct, and there are no obvious benefits to combining the two, except having one fewer component. Arguments for having a separate anchor button component include:
+
+-   consistent with existing button variations:
+    ```html
+    <nimble-button>
+        <nimble-menu-button>
+            <nimble-toggle-button>
+                <nimble-anchor-button></nimble-anchor-button></nimble-toggle-button></nimble-menu-button
+    ></nimble-button>
+    ```
+-   easily switching between standard anchor and button-like appearance (API-wise) is not a significant benefit
+-   allows us to have separate Angular directives, which gives us more freedom in case we need it
 
 ---
 
