@@ -39,7 +39,7 @@ const metadata: Meta<WaferMapArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <div id="usage-warning">
-            WARNING - The tooltip is still in development and considered
+            WARNING - The wafermap is still in development and considered
             experimental. It is not recommended for application use.
         </div>
         <nimble-wafer-map
