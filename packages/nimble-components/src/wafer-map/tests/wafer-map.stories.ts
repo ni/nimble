@@ -32,7 +32,8 @@ const metadata: Meta<WaferMapArgs> = {
     parameters: {
         docs: {
             description: {
-                component: 'A wafer map is a component for visualizing data from the manufacture of semiconductor wafers. Each die on the wafer can show numerical information and be colored to indicate information about that die.'
+                component:
+                    'A wafer map is a component for visualizing data from the manufacture of semiconductor wafers. Each die on the wafer can show numerical information and be colored to indicate information about that die.'
             }
         }
     },
@@ -77,11 +78,11 @@ const metadata: Meta<WaferMapArgs> = {
                     set2: 'Dies Set 2'
                 }
             },
-            defaultValue:'set1',
+            defaultValue: 'set1',
             mapping: {
                 set1: wafermapDieSets[0],
                 set2: wafermapDieSets[1]
-            },
+            }
         },
         quadrant: {
             description:
@@ -150,7 +151,7 @@ const metadata: Meta<WaferMapArgs> = {
                     set4: 'Highlighted Values Set 4'
                 }
             },
-            defaultValue:'set1',
+            defaultValue: 'set1',
             mapping: {
                 set1: highLightedValueSets[0],
                 set2: highLightedValueSets[1],
@@ -168,7 +169,7 @@ const metadata: Meta<WaferMapArgs> = {
                     set1: 'Color Scale 1'
                 }
             },
-            defaultValue:'set1',
+            defaultValue: 'set1',
             mapping: {
                 set1: waferMapColorsScaleSets[0]
             }
