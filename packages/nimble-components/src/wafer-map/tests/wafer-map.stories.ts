@@ -17,13 +17,13 @@ import {
 } from './sets';
 
 interface WaferMapArgs {
-    colorScale: WaferMapColorsScale;
-    colorsScaleMode: WaferMapColorsScaleMode;
-    dieLabelsHidden: boolean;
-    dieLabelsSuffix: string;
-    dies: WaferMapDie[];
-    highlightedValues: number[];
-    maxCharacters: number;
+    colorscale: WaferMapColorsScale;
+    colorscalemode: WaferMapColorsScaleMode;
+    dielabelshidden: boolean;
+    dielabelsuffix: string;
+    dies: string;
+    highlightedvalues: string;
+    maxcharacters: number;
     orientation: WaferMapOrientation;
     quadrant: WaferMapQuadrant;
 }
@@ -44,15 +44,49 @@ const metadata: Meta<WaferMapArgs> = {
             experimental. It is not recommended for application use.
         </div>
         <nimble-wafer-map
-            colorsScaleMode="${x => x.colorsScaleMode}"
-            dieLabelsHidden="${x => x.dieLabelsHidden}"
-            dieLabelsSuffix="${x => x.dieLabelsSuffix}"
-            maxCharacters="${x => x.maxCharacters}"
+            colorsScaleMode="${x => x.colorscalemode}"
+            dieLabelsHidden="${x => x.dielabelshidden}"
+            dieLabelsSuffix="${x => x.dielabelsuffix}"
+            maxCharacters="${x => x.maxcharacters}"
             orientation="${x => x.orientation}"
             quadrant="${x => x.quadrant}"
-            :colorScale="${x => x.colorScale}"
-            :dies=${x => x.dies}
-            :highlightedValues="${x => x.highlightedValues}"
+            :colorScale="${x => x.colorscale}"
+            :dies=${x => {
+        let returnedValue: WaferMapDie[] | undefined;
+        switch (x.dies) {
+            case 'set1':
+                returnedValue = wafermapDieSets[0];
+                break;
+            case 'set2':
+                returnedValue = wafermapDieSets[1];
+                break;
+            case 'set3':
+                returnedValue = wafermapDieSets[2];
+                break;
+            case 'set4':
+                returnedValue = wafermapDieSets[2];
+                break;
+            default:
+                returnedValue = undefined;
+                break;
+        }
+        return returnedValue;
+    }}
+            :highlightedValues="${x => {
+        let returnedValue: number[] | undefined;
+        switch (x.dies) {
+            case 'set1':
+                returnedValue = highLightedValueSets[0];
+                break;
+            case 'set2':
+                returnedValue = highLightedValueSets[0];
+                break;
+            default:
+                returnedValue = undefined;
+                break;
+        }
+        return returnedValue;
+    }}"
         >
         </nimble-wafer-map>
         <style class="code-hide">
@@ -63,15 +97,15 @@ const metadata: Meta<WaferMapArgs> = {
         </style>
     `),
     args: {
-        dies: wafermapDieSets[0],
+        dies: 'set1',
         quadrant: WaferMapQuadrant.bottomLeft,
         orientation: WaferMapOrientation.left,
-        colorScale: waferMapColorsScaleSets[0],
-        maxCharacters: 4,
-        dieLabelsHidden: false,
-        dieLabelsSuffix: '',
-        colorsScaleMode: WaferMapColorsScaleMode.linear,
-        highlightedValues: highLightedValueSets[0]
+        colorscale: waferMapColorsScaleSets[0],
+        maxcharacters: 4,
+        dielabelshidden: false,
+        dielabelsuffix: '',
+        colorscalemode: WaferMapColorsScaleMode.linear,
+        highlightedvalues: 'set1'
     },
     argTypes: {
         dies: {
@@ -81,15 +115,11 @@ const metadata: Meta<WaferMapArgs> = {
             control: {
                 type: 'radio',
                 labels: {
-                    set1: 'Dies Set 1',
-                    set2: 'Dies Set 2'
+                    set1: 'Set 1',
+                    set2: 'Set 2'
                 }
             },
-            defaultValue: 'set1',
-            mapping: {
-                set1: wafermapDieSets[0],
-                set2: wafermapDieSets[1]
-            }
+            defaultValue: 'set1'
         },
         quadrant: {
             description:
@@ -118,62 +148,56 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             }
         },
-        maxCharacters: {
+        maxcharacters: {
             description:
                 'Represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.',
             control: { type: 'number' }
         },
-        dieLabelsHidden: {
+        dielabelshidden: {
             description:
                 'Boolean value that determines if the dies labels in the wafer map view are shown or not. Default value is false.',
             control: { type: 'boolean' }
         },
-        dieLabelsSuffix: {
+        dielabelsuffix: {
             description:
                 'String that can be added as a label at the end of each wafer map die value',
             control: { type: 'string' }
         },
-        colorsScaleMode: {
+        colorscalemode: {
             description:
                 'Enum value that determines if the color scale represents continuous gradient values (linear), or is set categorically (ordinal).',
             options: Object.values(WaferMapColorsScaleMode),
             control: {
-                type: 'select',
+                type: 'radio',
                 labels: {
                     [WaferMapColorsScaleMode.linear]: 'Linear',
                     [WaferMapColorsScaleMode.ordinal]: 'Ordinal'
                 }
             }
         },
-        highlightedValues: {
+        highlightedvalues: {
             description:
                 'Represents an array of die indexes that will be highlighted in the wafer map view',
             options: ['set1', 'set2', 'set3', 'set4'],
             control: {
                 type: 'radio',
                 labels: {
-                    set1: 'Highlighted Values Set 1',
-                    set2: 'Highlighted Values Set 2',
-                    set3: 'Highlighted Values Set 3',
-                    set4: 'Highlighted Values Set 4'
+                    set1: 'Set 1',
+                    set2: 'Set 2',
+                    set3: 'Set 3',
+                    set4: 'Set 4'
                 }
             },
-            defaultValue: 'set1',
-            mapping: {
-                set1: highLightedValueSets[0],
-                set2: highLightedValueSets[1],
-                set3: highLightedValueSets[2],
-                set4: highLightedValueSets[3]
-            }
+            defaultValue: 'set1'
         },
-        colorScale: {
+        colorscale: {
             description:
                 'Represents the color spectrum which shows the status of the dies on the wafer.',
             options: ['set1'],
             control: {
                 type: 'radio',
                 labels: {
-                    set1: 'Color Scale 1'
+                    set1: 'Scale 1'
                 }
             },
             defaultValue: 'set1',
