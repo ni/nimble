@@ -6,9 +6,9 @@ export const template  = html<WaferMap>`
     <div>
         <ul>
             ${repeat(x => x.dies, html`
-                    <li>
-                        ${(x: WaferMapDie) => {return `dieX: ${x.x}, dieY: ${x.y}, value: ${x.value}%`;}}
-                    </li>`
+                <li>
+                    ${x => html<WaferMapDie> `dieX: ${x.x}, dieY: ${x.y}, value: ${x.value}%`}
+                </li>`
             )}
         </ul>
     </div>
