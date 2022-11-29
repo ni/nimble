@@ -6,7 +6,7 @@ Spinner component (`nimble-spinner`): Indeterminate progress indicator / loading
 
 ### Background
 
-[Nimble spinner: #345](https://github.com/ni/nimble/issues/346)  
+[Nimble spinner: #346](https://github.com/ni/nimble/issues/346)  
 [Nimble spinner design: #822](https://github.com/ni/nimble/issues/822)  
 [Visual Design spec - Adobe XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/)
 
