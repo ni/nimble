@@ -79,7 +79,7 @@ const metadata: Meta<WaferMapArgs> = {
                 'Represents the input data, an array of `WaferMapDie`, which will be renedered by the wafer map',
             options: ['set1', 'set2'],
             control: {
-                type: 'select',
+                type: 'radio',
                 labels: {
                     set1: 'Dies Set 1',
                     set2: 'Dies Set 2'
@@ -96,12 +96,12 @@ const metadata: Meta<WaferMapArgs> = {
                 'Represents the orientation of the dies on the wafer map',
             options: Object.values(WaferMapQuadrant),
             control: {
-                type: 'select',
+                type: 'radio',
                 labels: {
-                    [WaferMapQuadrant.bottomLeft]: 'BottomLeft',
-                    [WaferMapQuadrant.bottomRight]: 'BottomRight',
-                    [WaferMapQuadrant.topLeft]: 'TopLeft',
-                    [WaferMapQuadrant.topRight]: 'TopRight'
+                    [WaferMapQuadrant.bottomLeft]: 'bottom-left',
+                    [WaferMapQuadrant.bottomRight]: 'bottom-right',
+                    [WaferMapQuadrant.topLeft]: 'top-left',
+                    [WaferMapQuadrant.topRight]: 'top-right'
                 }
             }
         },
@@ -109,12 +109,12 @@ const metadata: Meta<WaferMapArgs> = {
             description: 'Notch orientation',
             options: Object.values(WaferMapOrientation),
             control: {
-                type: 'select',
+                type: 'radio',
                 labels: {
-                    [WaferMapOrientation.left]: 'Left',
-                    [WaferMapOrientation.top]: 'Top',
-                    [WaferMapOrientation.right]: 'Right',
-                    [WaferMapOrientation.bottom]: 'Bottom'
+                    [WaferMapOrientation.left]: 'left',
+                    [WaferMapOrientation.top]: 'top',
+                    [WaferMapOrientation.right]: 'right',
+                    [WaferMapOrientation.bottom]: 'bottom'
                 }
             }
         },
@@ -150,7 +150,7 @@ const metadata: Meta<WaferMapArgs> = {
                 'Represents an array of die indexes that will be highlighted in the wafer map view',
             options: ['set1', 'set2', 'set3', 'set4'],
             control: {
-                type: 'select',
+                type: 'radio',
                 labels: {
                     set1: 'Highlighted Values Set 1',
                     set2: 'Highlighted Values Set 2',
@@ -171,7 +171,7 @@ const metadata: Meta<WaferMapArgs> = {
                 'Represents the color spectrum which shows the status of the dies on the wafer.',
             options: ['set1'],
             control: {
-                type: 'select',
+                type: 'radio',
                 labels: {
                     set1: 'Color Scale 1'
                 }
