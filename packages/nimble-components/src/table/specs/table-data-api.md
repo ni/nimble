@@ -106,7 +106,7 @@ One idea was that we would still provide the `Table` generic typing, but it woul
 
 ### Provide additional restrictions on `TData`
 
-Some functionality, such as row selection, row expansion, and having an action menu, may require having a unique identifier associated with a row. To facilitate this, we could enforce that `TData` has a unique id field. For example, we could define the table as  `class Table<TData extends { id: string }>`. Because the core table functionality (i.e. displaying read-only data in a table with no interaction) does not require an id, placing this requirement on all clients of the table is too heavy handed.
+Some functionality, such as row selection, row expansion, and having an action menu, may require having a unique identifier associated with a row. To facilitate this, we could enforce that `TData` has a unique id field. For example, we could define the table as `class Table<TData extends { id: string }>`. Because the core table functionality (i.e. displaying read-only data in a table with no interaction) does not require an id, placing this requirement on all clients of the table is too heavy handed.
 
 If the requirement for having unique row IDs comes up as table features are being defined, we will determine how to enforce that requirement at that time. One possibility would be to have a string attribute on the table that is the key of the id field, and if that attribute is not set, the row index is treated as the unique row id.
 
@@ -115,11 +115,13 @@ If the requirement for having unique row IDs comes up as table features are bein
 Rather than having a property on the table for the data, we could expose the data through `setData` and `getData` functions.
 
 **Pros**
-- The API could be made async if desired. This could potentially be useful if we needed a way to inform the user that any asynchronous updates to the table had been completed.
-- The implementation of `setData` could ensure that the internal representation of the data had been updated in a way that the table would detect the changes. With `data` as a property, the client of the table needs to be aware of the appropriate ways to modify their data in order for the table to detect changes had been made.
+
+-   The API could be made async if desired. This could potentially be useful if we needed a way to inform the user that any asynchronous updates to the table had been completed.
+-   The implementation of `setData` could ensure that the internal representation of the data had been updated in a way that the table would detect the changes. With `data` as a property, the client of the table needs to be aware of the appropriate ways to modify their data in order for the table to detect changes had been made.
 
 **Cons**
-- Binding in supported frameworks, such as Angular, becomes more difficult. A property easily allows for simple array binding and for easily binding to an `Observable<TData[]>`.
+
+-   Binding in supported frameworks, such as Angular, becomes more difficult. A property easily allows for simple array binding and for easily binding to an `Observable<TData[]>`.
 
 ## Open Issues
 
