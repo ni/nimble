@@ -21,9 +21,9 @@ Initially we will create two flavors of anchor: a standard anchor, and a button-
 
 -   _Component Name_: `nimble-anchor`
 -   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
-    -   `standalone`: specifies that the anchor will be a standalone element in the UI (as opposed to within a block of text). Causes the anchor to not have an underline (except on hover) and to be the standard control height.
     -   `appearance`:
-        -   `prominent`: the "loud" version from the design doc. Colors the link text green. This matches the Breadcrumb's `appearance` attribute value.
+        -   `prominent`: the "loud" version from the design doc. Used to draw extra attention to the anchor. This matches the Breadcrumb's `appearance` attribute value.
+    -   `underline-visible`: causes the anchor to always have an underline (as opposed to only on hover). This should be used when an anchor is surrounded by other text, or any other time it needs help being indentified as a link. It may be used as an alternative to the `prominent` appearance to draw extra attention to it.
     -   `disabled`: when set, makes the anchor inoperable and changes the styling
 -   _Methods_: Unchanged (none)
 -   _Events_: Unchanged (none)
@@ -50,7 +50,7 @@ The button-like anchor will also derive from the FAST anchor so that we use the 
 
 ### Angular integration
 
-A directive will be created for the anchor component. The existing `NimbleBreadcrumbItemDirective` has all the needed bindings for attributes common to the native anchor element (e.g. `href`, `rel`, `target`, etc.). We will refactor that into a common, base class called something like `NimbleAnchorBase` that both the BreadcrumbItem directive and anchor directive can extend. The anchor directive will additionally have bindings for attributes `standalone`, `appearance`, and `disabled`.
+A directive will be created for the anchor component. The existing `NimbleBreadcrumbItemDirective` has all the needed bindings for attributes common to the native anchor element (e.g. `href`, `rel`, `target`, etc.). We will refactor that into a common, base class called something like `NimbleAnchorBase` that both the BreadcrumbItem directive and anchor directive can extend. The anchor directive will additionally have bindings for attributes `underline-visible`, `appearance`, and `disabled`.
 
 A separate directive will be created for the button-like anchor. It will also extend the common base class mentioned above. The anchor directive will additionally have bindings for attributes `appearance`, `appearance-variant`, `content-hidden`, and `disabled`.
 
