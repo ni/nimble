@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { bodyDisabledFontColor } from '../theme-provider/design-tokens';
 import {
     primaryButtonStyles,
     styles as buttonStyles
@@ -14,7 +13,6 @@ export const styles = css`
     }
 
     :host([disabled]) .control {
-        --ni-private-link-font-color: ${bodyDisabledFontColor};
         pointer-events: none;
         cursor: default;
     }

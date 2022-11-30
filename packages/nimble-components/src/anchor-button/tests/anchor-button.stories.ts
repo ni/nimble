@@ -35,7 +35,7 @@ const endIconDescription = `
 When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
 
 This icon will be hidden when \`content-hidden\` is set.
-.`;
+`;
 
 const metadata: Meta<AnchorButtonArgs> = {
     title: 'Anchor Button',

@@ -1,10 +1,11 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { DigitalGreenDark, PowerGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
-    bodyFont,
-    bodyFontColor
-} from '../../theme-provider/design-tokens';
+    DigitalGreenDark,
+    PowerGreen,
+    White
+} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
 import { Theme } from '../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../utilities/style/colors';
 import { themeBehavior } from '../../utilities/style/theme';
@@ -12,11 +13,13 @@ import { themeBehavior } from '../../utilities/style/theme';
 export const linkStyles = css`
     ${display('inline-flex')}
 
-    .control {
-        display: inline;
+    :host {
         box-sizing: border-box;
         font: ${bodyFont};
-        color: ${bodyFontColor};
+    }
+
+    .control {
+        display: inline;
         color: var(--ni-private-link-font-color);
         cursor: default;
     }
