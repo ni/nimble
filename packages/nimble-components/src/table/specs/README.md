@@ -244,4 +244,11 @@ Intend to test completely with unit tests and Chromatic visual tests. We also sh
 
 Storybooks will be added to document/showcase the various features and APIs.
 
+### Open Issues
+
+1. Should the `nimble-table` adopt the ARIA guidelines for a [table](https://w3c.github.io/aria-practices/#table) or a [data-grid](https://w3c.github.io/aria-practices/#grid)?
+    
+    A major distinguishing factor between the two is how we want keyboard interactions to work for the component and its cells. If we adopted the "data-grid" approach a user could tab to the `nimble-table` and then perform another keyboard interaction (e.g. `Ctl-down`) to enter into the scope of the cells. Users can then navigate between the cells using the arrow keys. This can allow for behaviors like moving to cells with the keyboard and copying their values by pressing `Ctl-c`.
+
+    The `table` behavior is different in that the `nimble-table` itself would no longer be a tab stop, but all focusable elements within the `nimble-table` would be. In addition, there is no notion of being able to move between cells of the table with arrow keys.
 ---
