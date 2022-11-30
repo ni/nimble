@@ -1,29 +1,24 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { DigitalGreenDark, PowerGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     bodyFont,
-    bodyFontColor,
-    controlHeight
+    bodyFontColor
 } from '../../theme-provider/design-tokens';
+import { Theme } from '../../theme-provider/types';
+import { hexToRgbaCssColor } from '../../utilities/style/colors';
+import { themeBehavior } from '../../utilities/style/theme';
 
-export const styles = css`
+export const linkStyles = css`
     ${display('inline-flex')}
 
-    :host {
-        height: ${controlHeight};
+    .control {
+        display: inline;
         box-sizing: border-box;
         font: ${bodyFont};
         color: ${bodyFontColor};
-        outline: none;
-    }
-
-    .control {
         color: var(--ni-private-link-font-color);
         cursor: default;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        outline: none;
     }
 
     .control:any-link {
@@ -40,3 +35,50 @@ export const styles = css`
         text-decoration: underline;
     }
 `;
+
+export const linkColors = css`
+    :host {
+        --ni-private-link-font-color: ${bodyFontColor};
+        --ni-private-link-active-font-color: ${bodyFontColor};
+    }
+`.withBehaviors(
+    themeBehavior(
+        Theme.light,
+        css`
+            :host {
+                --ni-private-link-active-font-color: ${DigitalGreenDark};
+            }
+
+            :host([appearance='prominent']) {
+                --ni-private-link-font-color: ${DigitalGreenDark};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
+            :host {
+                --ni-private-link-active-font-color: ${PowerGreen};
+            }
+
+            :host([appearance='prominent']) {
+                --ni-private-link-font-color: ${PowerGreen};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
+            :host {
+                --ni-private-link-active-font-color: ${hexToRgbaCssColor(
+                    White,
+                    0.6
+                )};
+            }
+
+            :host([appearance='prominent']) {
+                --ni-private-link-font-color: ${PowerGreen};
+            }
+        `
+    )
+);

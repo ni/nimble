@@ -3,12 +3,13 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
+import { AnchorAppearance } from '../types';
 
 interface AnchorArgs {
     label: string;
     href: string;
-    inline: boolean;
-    prominent: boolean;
+    underlineVisible: boolean;
+    appearance: keyof typeof AnchorAppearance;
     disabled: boolean;
 }
 
@@ -31,8 +32,8 @@ const metadata: Meta<AnchorArgs> = {
     render: createUserSelectedThemeStory(html`
         Click on the <nimble-anchor
             href=${x => x.href}
-            ?inline=${x => x.inline}
-            ?prominent=${x => x.prominent}
+            ?underline-visible=${x => x.underlineVisible}
+            appearance=${x => x.appearance}
             ?disabled=${x => x.disabled}
         >
             ${x => x.label}
@@ -43,16 +44,21 @@ const metadata: Meta<AnchorArgs> = {
             description:
                 'In addition to `href`, all other attributes of `<a>` are also supported, e.g. `ping`, `target`, `type`, etc.'
         },
-        inline: {
+        underlineVisible: {
+            name: 'underline-visible',
             description:
-                'Set `inline` for anchors that are embedded within a block of text.'
+                'Set for any anchor that is embedded within a run of text or any other time there is a need to distinguish it as a link.'
+        },
+        appearance: {
+            options: Object.keys(AnchorAppearance),
+            control: { type: 'radio' }
         }
     },
     args: {
         label: 'link',
         href: 'http://nimble.ni.dev',
-        inline: false,
-        prominent: false,
+        underlineVisible: false,
+        appearance: 'default',
         disabled: false
     }
 };

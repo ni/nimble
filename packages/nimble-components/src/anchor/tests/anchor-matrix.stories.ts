@@ -1,6 +1,7 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -13,6 +14,7 @@ import {
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 import '../../all-components';
+import { AnchorAppearance } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Anchor',
@@ -28,36 +30,35 @@ const metadata: Meta = {
 
 export default metadata;
 
-const inlineStates = [
+const underlineVisibleStates = [
     ['', false],
-    ['Inline', true]
+    ['Underline Visible', true]
 ] as const;
-type InlineState = typeof inlineStates[number];
+type UnderlineVisibleState = typeof underlineVisibleStates[number];
 
-const prominentStates = [
-    ['', false],
-    ['Prominent', true]
-] as const;
-type ProminentState = typeof prominentStates[number];
+const appearanceStates: [string, string | undefined][] = Object.entries(
+    AnchorAppearance
+).map(([key, value]) => [pascalCase(key), value]);
+type AppearanceState = typeof appearanceStates[number];
 
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
-    [inlineName, inline]: InlineState,
-    [prominentName, prominent]: ProminentState
+    [underlineVisibleName, underlineVisible]: UnderlineVisibleState,
+    [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <nimble-anchor
         href="http://nimble.ni.dev"
-        ?inline="${() => inline}"
-        ?prominent="${() => prominent}"
+        ?underline-visible="${() => underlineVisible}"
+        appearance="${() => appearance}"
         ?disabled=${() => disabled}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${() => `${inlineName} ${prominentName} Link ${disabledName}`}
+            ${() => `${underlineVisibleName} ${appearanceName} Link ${disabledName}`}
     </nimble-anchor>
 `;
 
 export const anchorThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, inlineStates, prominentStates])
+    createMatrix(component, [disabledStates, underlineVisibleStates, appearanceStates])
 );
 
 export const hiddenAnchor: Story = createStory(

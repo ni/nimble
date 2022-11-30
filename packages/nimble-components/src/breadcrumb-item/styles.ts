@@ -1,17 +1,24 @@
 import { css } from '@microsoft/fast-element';
 import {
+    bodyFont,
+    bodyFontColor,
     borderHoverColor,
     borderWidth,
+    controlHeight,
     iconSize,
     placeholderFontColor
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
-import { styles as linkStyles } from '../patterns/link/styles';
+import { linkStyles } from '../patterns/link/styles';
 
 export const styles = css`
     ${linkStyles}
 
     :host {
+        height: ${controlHeight};
+        box-sizing: border-box;
+        font: ${bodyFont};
+        color: ${bodyFontColor};
         padding-left: calc(4px - ${borderWidth});
     }
 
@@ -21,6 +28,9 @@ export const styles = css`
     }
 
     .control {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border: ${borderWidth} solid transparent;
         padding-right: calc(4px - ${borderWidth});
     }

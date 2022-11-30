@@ -8,6 +8,7 @@ import {
     AnchorOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
+import type { AnchorAppearance } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,18 +23,18 @@ export class Anchor extends FoundationAnchor {
     /**
      * @public
      * @remarks
-     * HTML Attribute: inline
+     * HTML Attribute: underline-visible
      */
-    @attr({ mode: 'boolean' })
-    public inline = false;
+    @attr({ attribute: 'underline-visible', mode: 'boolean' })
+    public underlineVisible = false;
 
     /**
      * @public
      * @remarks
-     * HTML Attribute: prominent
+     * HTML Attribute: appearance
      */
-    @attr({ mode: 'boolean' })
-    public prominent = false;
+    @attr
+    public appearance: AnchorAppearance;
 
     /**
      * @public
