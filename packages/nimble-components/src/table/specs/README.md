@@ -51,7 +51,8 @@ The following are features that we intend to prioritize eventually after the ini
 -   Selection configuration: Ability to specify single vs. multi-select
 -   Custom header templates: Provide clients the means to change the content used in the header (analogous to [FAST `headerTemplate`](https://github.com/microsoft/fast/blob/802443ffb2b19a078f9b48f62e6d1a35e3276fb5/packages/web-components/fast-foundation/src/data-grid/data-grid.ts#L55), and [TanStack `header.getContext()`](https://tanstack.com/table/v8/docs/api/core/header#getcontext)).
 -   Cell selection: Allow user to select a particular cell
--   
+    -   Copying cell values is accomplished by highlighting the value in the cell (and pressing `Ctl-c`) as opposed to clicking on a cell (it showing itself as selected) and pressing `Ctl-c`.
+-   Data exporting (e.g. export as CSV)
 
 ### Prior Art/Examples
 
