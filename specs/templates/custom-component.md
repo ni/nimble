@@ -79,7 +79,7 @@
 
 *Highlight any alternative implementations you considered in each section.*
 
-*If you think a section doesn't apply or don't know what to write, DO NOT delete it, just leave it blank and the Nimble team can help you fill it in.*
+*If you think a section doesn't apply or don't know what to write, please DO NOT delete it. Either mark it "N/A" or leave it blank and the Nimble team can help you fill it in.*
 
 ### States
 
