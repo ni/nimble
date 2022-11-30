@@ -57,7 +57,10 @@ module.exports = {
                     }
                 ]
             }
-        ]
+        ],
+
+        // Enabled to prevent accidental usage of async-await
+        '@typescript-eslint/require-await': 'error'
     },
     ignorePatterns: ['.eslintrc.js'],
     overrides: [
