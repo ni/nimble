@@ -95,6 +95,7 @@
   - *All components should define a role and label so that assistive technology can identify them*
   - *The implications shadow dom might have on how roles and attributes are presented in the accessibility tree.*
   - *Components which delegate focus require all global ARIA attributes to be enumerated.*
+- *Behavior with browser configurations like "Prefers reduced motion"*
 
 ### Globalization
 
