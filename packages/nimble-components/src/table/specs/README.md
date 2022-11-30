@@ -95,7 +95,7 @@ _Feature APIs_
 The various APIs/features of the `nimble-table` will be split up amongst several different HLD documents. This section will serve to list them out and link to them as they become available:
 
 -   Data API :
-    -   Define what the interface is for setting/getting data on the table
+    -   Define what the interface is for setting/getting data on the table, taking into account any framework-specific binding concerns
     -   Illustrate how the data is hooked up to the TanStack API
     -   How is data hierarchy provided and represented in the DOM
 -   Column Definitions
