@@ -70,7 +70,9 @@ template (Angular)
     <nimble-text-field-column columnId="firstName"></nimble-text-field-column>
     <nimble-text-field-column columnId="lastName"></nimble-text-field-column>
     <nimble-number-field-column columnId="age"></nimble-number-field-column>
-    <nimble-number-field-column columnId="birthDate"></nimble-number-field-column>
+    <nimble-number-field-column
+        columnId="birthDate"
+    ></nimble-number-field-column>
 </nimble-table>
 ```
 
