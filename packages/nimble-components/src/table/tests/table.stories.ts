@@ -28,7 +28,7 @@ const metadata: Meta<TableArgs> = {
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html`
+    render: createUserSelectedThemeStory(html<TableArgs>`
         <div id="usage-warning">
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
