@@ -48,7 +48,7 @@ The following are features that we intend to prioritize eventually after the ini
 -   High-level configuration APIs
     -   Allow for easy getting/setting of total configurable state, which is useful for maintaining state of the table as a user navigates to other pages in an app.
 -   Filter on any text match across all cells
--   Selection configuration: Ability to specify single vs. multi-select
+-   Selection configuration: Ability to specify single vs. multi-select vs. no-selection
 -   Custom header templates: Provide clients the means to change the content used in the header (analogous to [FAST `headerTemplate`](https://github.com/microsoft/fast/blob/802443ffb2b19a078f9b48f62e6d1a35e3276fb5/packages/web-components/fast-foundation/src/data-grid/data-grid.ts#L55), and [TanStack `header.getContext()`](https://tanstack.com/table/v8/docs/api/core/header#getcontext)).
 -   Cell selection: Allow user to select a particular cell
     -   Copying cell values is accomplished by highlighting the value in the cell (and pressing `Ctl-c`) as opposed to clicking on a cell (it showing itself as selected) and pressing `Ctl-c`.
@@ -165,8 +165,7 @@ There could be room for there to be Angular-centric implementations such as usin
 
 ### Blazor integration
 
-Blazor support should be accomplished through the typical integration patterns. It should be noted that if the Nimble `Table` component is generic, then the Blazor component will mirror that generic
-API.
+Blazor support should be accomplished through the typical integration patterns.
 
 _Placeholder for other Blazor considerations:_
 
