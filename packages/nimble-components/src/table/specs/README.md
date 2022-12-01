@@ -114,8 +114,9 @@ The various APIs/features of the `nimble-table` will be split up amongst several
     -   Define the anatomy of headers in the table DOM
         -   Require specific component type (i.e. do we need to create a `nimble-table-header`)
         -   What is the component to use for interaction? Outline Button? Ghost button?
-        -   Can clients customize header content?
         -   What and where are the interactive mechanisms/indicators? Sort arrow, etc..
+    -   Can clients customize header content?
+        -   How do we allow for icons to be used in the header (as shown in the visual design doc)
 -   Row Selection
     -   Define the anatomy of row selection in the table DOM
         -   Indeterminate checkbox at the far left of each row?
