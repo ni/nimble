@@ -42,7 +42,7 @@ The following are features that we intend to prioritize eventually after the ini
 
 -   Hierarchy and Grouping together (though this could happen in the initial release if simply enough to accomplish)
 -   Custom expanded row content
-    -   An example would be showing a sub-tree when you expand a row
+    -   An example would be showing a sub-table when you expand a row
 -   Editable cells
 -   APIs around pagination/infinite scrolling
 -   High-level configuration APIs
