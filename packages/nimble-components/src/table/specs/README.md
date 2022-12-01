@@ -53,6 +53,7 @@ The following are features that we intend to prioritize eventually after the ini
 -   Cell selection: Allow user to select a particular cell
     -   Copying cell values is accomplished by highlighting the value in the cell (and pressing `Ctl-c`) as opposed to clicking on a cell (it showing itself as selected) and pressing `Ctl-c`.
 -   Data exporting (e.g. export as CSV)
+-   Handling globalization concerns (i.e. 'rtl' display)
 
 ### Prior Art/Examples
 
@@ -159,7 +160,12 @@ There could be room for there to be Angular-centric implementations such as usin
 
 ### Blazor integration
 
-Blazor support should be accomplished through the typical integration patterns. It should be noted that if the Nimble `Table` component is generic, then the Blazor component will mirror that generic API.
+Blazor support should be accomplished through the typical integration patterns. It should be noted that if the Nimble `Table` component is generic, then the Blazor component will mirror that generic 
+API.
+
+_Placeholder for other Blazor considerations:_ 
+
+
 
 ---
 
@@ -214,6 +220,8 @@ The `nimble-table` should align to the grid interaction model provided by the [W
 
 The order of table columns is inverted in RTL layouts.
 
+_**Note**:_ This is flagged as "out of scope" for the initial release.
+
 ### Performance
 
 We intend for the `nimble-table` to handle both the rendering and interactive operations, such as sorting, in a near-instantaneous fashion on datasets of at least 10K rows. Between 10K and 100K rows of data on the client-side, however, we expect to see a notable drop in performance.
@@ -238,7 +246,7 @@ These dependencies are MIT licensed, and have no dependencies of their own, so s
 
 ### Test Plan
 
-Intend to test completely with unit tests and Chromatic visual tests. We also should attempt to create unit tests to cover the Tanstack capabilities we will be leveraging, ideally by submitting them to the TanStack repo.
+Intend to test completely with unit tests and Chromatic visual tests. We also should attempt to create unit tests to cover the TanStack capabilities we will be leveraging, ideally by submitting them to the TanStack repo. Note that TanStack has already implemented much of the needed tests, except that they are targeting a React environment. The work should largely be a porting effort.
 
 ### Documentation
 
@@ -251,4 +259,8 @@ Storybooks will be added to document/showcase the various features and APIs.
     A major distinguishing factor between the two is how we want keyboard interactions to work for the component and its cells. If we adopted the "data-grid" approach a user could tab to the `nimble-table` and then perform another keyboard interaction (e.g. `Ctl-down`) to enter into the scope of the cells. Users can then navigate between the cells using the arrow keys. This can allow for behaviors like moving to cells with the keyboard and copying their values by pressing `Ctl-c`.
 
     The `table` behavior is different in that the `nimble-table` itself would no longer be a tab stop, but all focusable elements within the `nimble-table` would be. In addition, there is no notion of being able to move between cells of the table with arrow keys.
+
+2. Should 'rtl' scenarios alter the way we render the `nimble-table` beyond the cell ordering?
+    - Put the row selection button the right side?
+    - How is grouping/hierarchy rendered?
 ---
