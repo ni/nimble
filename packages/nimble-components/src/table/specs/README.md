@@ -40,7 +40,7 @@ In addition to simply rendering data, the `nimble-table` will provide APIs/inter
 
 The following are features that we intend to prioritize eventually after the initial release:
 
--   Hierarchy and Grouping together (though this could happen in the initial release if simply enough to accomplish)
+-   Hierarchy and Grouping together (though this could happen in the initial release if simple enough to accomplish)
 -   Custom expanded row content
     -   An example would be showing a sub-tree when you expand a row
 -   Editable cells
