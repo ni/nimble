@@ -50,6 +50,7 @@
     "@microsoft/fast-foundation": "^2.46.11",
     "@microsoft/fast-web-utilities": "^5.4.1",
     "@ni/nimble-tokens": "^4.3.0",
+    "@tanstack/table-core": "^8.7.0",
     "@types/d3-scale": "^4.0.2",
     "d3-scale": "^4.0.2",
     "hex-rgb": "^5.0.0",

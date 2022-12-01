@@ -5,8 +5,9 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { bodyFont } from '../../theme-provider/design-tokens';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface TableArgs {}
+interface TableArgs {
+    data: { myStr: string, myNum: number, myBool: boolean }[];
+}
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
 
@@ -28,12 +29,12 @@ const metadata: Meta<TableArgs> = {
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html`
+    render: createUserSelectedThemeStory(html<TableArgs>`
         <div id="usage-warning">
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table>
+        <nimble-table :data=${x => x.data}>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {
@@ -42,7 +43,17 @@ const metadata: Meta<TableArgs> = {
             }
         </style>
     `),
-    args: {}
+    args: {
+        data: [{
+            myStr: 'my first row',
+            myNum: 5,
+            myBool: true
+        }, {
+            myStr: 'my second row',
+            myNum: 15,
+            myBool: false
+        }]
+    }
 };
 
 export default metadata;
