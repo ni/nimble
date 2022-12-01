@@ -246,7 +246,9 @@ These dependencies are MIT licensed, and have no dependencies of their own, so s
 
 ### Test Plan
 
-Intend to test completely with unit tests and Chromatic visual tests. We also should attempt to create unit tests to cover the TanStack capabilities we will be leveraging, ideally by submitting them to the TanStack repo. Note that TanStack has already implemented much of the needed tests, except that they are targeting a React environment. The work should largely be a porting effort.
+Intend to test completely with unit tests and Chromatic visual tests. 
+
+We also should attempt to create unit tests to cover the TanStack capabilities we will be leveraging, ideally by submitting them to the TanStack repo. Note that TanStack has already implemented much of the needed tests, except that they are targeting a React environment. The work should largely be a porting effort.
 
 ### Documentation
 
