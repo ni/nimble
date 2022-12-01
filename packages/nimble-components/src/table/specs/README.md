@@ -104,8 +104,8 @@ The various APIs/features of the `nimble-table` will be split up amongst several
     -   Define the interface we will provide for the column providers/components (i.e., width, sorting, allowSort, allowGrouping, etc...)
     -   Define the base implementation for the column providers that other column providers can extend.
     -   Define how we intend to support defining a column that uses information from multiple columns (e.g. a hyperlink column that uses data from one column for the URL and the data from another as the text to display)
-        - What column gets used for sorting?
-        - Does column API allow for user to supply custom sort function?
+        -   What column gets used for sorting?
+        -   Does column API allow for user to supply custom sort function?
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
     -   Define the table-level APIs for setting the columns
         -   Slot API on table?
@@ -154,18 +154,16 @@ _Slots_
 
 Angular support should be accomplished through the typical directive patterns.
 
-_Placeholder for other Angular considerations:_ 
+_Placeholder for other Angular considerations:_
 
 There could be room for there to be Angular-centric implementations such as using Angular components for things like the Action Menu, or possibly a custom column. This section should be updated as needed.
 
 ### Blazor integration
 
-Blazor support should be accomplished through the typical integration patterns. It should be noted that if the Nimble `Table` component is generic, then the Blazor component will mirror that generic 
+Blazor support should be accomplished through the typical integration patterns. It should be noted that if the Nimble `Table` component is generic, then the Blazor component will mirror that generic
 API.
 
-_Placeholder for other Blazor considerations:_ 
-
-
+_Placeholder for other Blazor considerations:_
 
 ---
 
@@ -246,7 +244,7 @@ These dependencies are MIT licensed, and have no dependencies of their own, so s
 
 ### Test Plan
 
-Intend to test completely with unit tests and Chromatic visual tests. 
+Intend to test completely with unit tests and Chromatic visual tests.
 
 We also should attempt to create unit tests to cover the TanStack capabilities we will be leveraging, ideally by submitting them to the TanStack repo. Note that TanStack has already implemented much of the needed tests, except that they are targeting a React environment. The work should largely be a porting effort.
 
@@ -257,7 +255,7 @@ Storybooks will be added to document/showcase the various features and APIs.
 ### Open Issues
 
 1. Should the `nimble-table` adopt the ARIA guidelines for a [table](https://w3c.github.io/aria-practices/#table) or a [data-grid](https://w3c.github.io/aria-practices/#grid)?
-    
+
     A major distinguishing factor between the two is how we want keyboard interactions to work for the component and its cells. If we adopted the "data-grid" approach a user could tab to the `nimble-table` and then perform another keyboard interaction (e.g. `Ctl-down`) to enter into the scope of the cells. Users can then navigate between the cells using the arrow keys. This can allow for behaviors like moving to cells with the keyboard and copying their values by pressing `Ctl-c`.
 
     The `table` behavior is different in that the `nimble-table` itself would no longer be a tab stop, but all focusable elements within the `nimble-table` would be. In addition, there is no notion of being able to move between cells of the table with arrow keys.
@@ -265,4 +263,5 @@ Storybooks will be added to document/showcase the various features and APIs.
 2. Should 'rtl' scenarios alter the way we render the `nimble-table` beyond the cell ordering?
     - Put the row selection button the right side?
     - How is grouping/hierarchy rendered?
+
 ---
