@@ -99,7 +99,6 @@ The various APIs/features of the `nimble-table` will be split up amongst several
 -   Data API :
     -   Define what the interface is for setting/getting data on the table, taking into account any framework-specific binding concerns
     -   Illustrate how the data is hooked up to the TanStack API
-    -   How is data hierarchy provided and represented in the DOM
 -   Column Definitions
     -   Define the interface we will provide for the column providers/components (i.e., width, sorting, allowSort, allowGrouping, etc...)
     -   Define the base implementation for the column providers that other column providers can extend.
@@ -131,7 +130,12 @@ The various APIs/features of the `nimble-table` will be split up amongst several
 -   Sorting
     -   Define the table-level API for setting sorting
     -   Define events raised when sorting changes
-    -   Describe how sorting should with with hierarchical data
+    -   Describe how sorting should with with hierarchical and/or grouped data
+-   Hierarchy
+    -   Define how hierarchy will be represented in the data
+        -   Attribute on table to represent parentId?
+    -   Define event/property APIs needed for dealing with lazily-loaded hierarchical data (possibly out of scope of initial release)
+    -   Describe the UI representation of hierarchical data (there should be a design doc to reference)
 -   Action Menu
     -   Define how the action menu gets associated with a particular column
     -   Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
