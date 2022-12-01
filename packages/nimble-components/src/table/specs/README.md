@@ -159,15 +159,13 @@ _Slots_
 
 Angular support should be accomplished through the typical directive patterns.
 
-_Placeholder for other Angular considerations:_
-
 There could be room for there to be Angular-centric implementations such as using Angular components for things like the Action Menu, or possibly a custom column. This section should be updated as needed.
 
 ### Blazor integration
 
 Blazor support should be accomplished through the typical integration patterns.
 
-_Placeholder for other Blazor considerations:_
+One aspect of note is that the data API for the `nimble-table` component will not be attribute-based, which means that the Blazor component will not be able to provide a binding-based association of its own data to that of the web component. Instead, we will need to leverage JSInterop to send the data to the web component, which is async by nature.
 
 ---
 
