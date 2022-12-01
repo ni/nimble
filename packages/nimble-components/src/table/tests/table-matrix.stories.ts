@@ -37,7 +37,5 @@ export const tableThemeMatrix: Story = createMatrixThemeStory(
 );
 
 export const hiddenTable: Story = createStory(
-    hiddenWrapper(
-        html`<nimble-table hidden></nimble-table>`
-    )
+    hiddenWrapper(html`<nimble-table hidden></nimble-table>`)
 );

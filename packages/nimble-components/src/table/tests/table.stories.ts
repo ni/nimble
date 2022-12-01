@@ -6,10 +6,9 @@ import '../../all-components';
 import { bodyFont } from '../../theme-provider/design-tokens';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface TableArgs {
-}
+interface TableArgs {}
 
-const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column.`;
+const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
 
 const metadata: Meta<TableArgs> = {
     title: 'Table',
@@ -43,8 +42,7 @@ const metadata: Meta<TableArgs> = {
             }
         </style>
     `),
-    args: {
-    }
+    args: {}
 };
 
 export default metadata;
