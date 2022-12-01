@@ -252,7 +252,7 @@ We also should attempt to create unit tests to cover the TanStack capabilities w
 
 ### Documentation
 
-Storybooks will be added to document/showcase the various features and APIs.
+Storybook stories will be added to document/showcase the various features and APIs.
 
 ### Open Issues
 
