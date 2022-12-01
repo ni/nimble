@@ -40,7 +40,7 @@ this._options = {
 }
 ```
 
--   View templating can access named columns in some scenarios. For instance, given a row type of `Person`, that has a field `friends` in it whose value was another table, a user could define FAST ViewTemplate in the following way:
+-   View templating can access named columns in some scenarios. For instance, given a row type of `Person`, that has a field `friends` in it whose value was another table, a user could define a FAST ViewTemplate in the following way:
 
 ```ts
 const rowTemplate = (index: number): ViewTemplate<any, Table<Person>> => html<
