@@ -69,8 +69,8 @@ template (Angular)
 <nimble-table [data]="data" #table>
     <nimble-text-field-column columnId="firstName"></nimble-text-field-column>
     <nimble-text-field-column columnId="lastName"></nimble-text-field-column>
-    <nimble-number-field-column columnId="age"></nimble-text-field-column>
-    <nimble-number-field-column columnId="birthDate"></nimble-text-field-column>
+    <nimble-number-field-column columnId="age"></nimble-number-field-column>
+    <nimble-number-field-column columnId="birthDate"></nimble-number-field-column>
 </nimble-table>
 ```
 
