@@ -25,7 +25,7 @@ Ability to show determinate progress:
 -   Show indeterminate progress with an animation
     -   Cannot be paused - assumption is that component will be added to/ removed from the page as needed
 -   Supports 3 sizes: `small` (16x16), `medium` (32x32) (default), `large` (64x64)
--   For the color theme only, supports an alternate appearance/color scheme via `appearance-variant="alternate"`
+-   For the color theme only, supports an alternate appearance/color scheme via `theme-variant="prominent"`
 
 ### Risks and Challenges
 
@@ -53,10 +53,11 @@ Properties/Attributes:
     -   String attribute controlling size of the component
     -   Backed by an enum `SpinnerSize` with values `small` (16x16), `medium` (32x32), `large` (64x64)
     -   If omitted, the default is `medium` (32x32)
--   `appearance-variant`
+    -   (Open Issue) If omitted, custom `width` and `height` can be set on the `nimble-spinner` and the animating elements will scale to that size
+-   `theme-variant`
     -   default (undefined): Standard appearance (light/dark/color themes)
-    -   `alternate`: Alternate appearance/color, for the color theme only
-    -   Backed by enum `SpinnerAppearanceVariant`
+    -   `prominent`: Alternate appearance/color, for the color theme only
+    -   Backed by enum `SpinnerThemeVariant`
 
 Methods, Events, CSS Classes, CSS Custom Properties: None
 
@@ -68,18 +69,18 @@ Slot Names, Host Classes, Slotted Content/ Slotted Classes, CSS Parts: None
 
 ### Angular integration
 
-Directive `NimbleSpinnerDirective` targeting selector `nimble-spinner`, with bindings for `size` and `appearance-variant`.
+Directive `NimbleSpinnerDirective` targeting selector `nimble-spinner`, with bindings for `size` and `theme-variant`.
 
 ### Blazor integration
 
-Standard Blazor implementation (`NimbleSpinner` deriving from `ComponentBase`), with bindings for `size` and `appearance-variant`.
+Standard Blazor implementation (`NimbleSpinner` deriving from `ComponentBase`), with bindings for `size` and `theme-variant`.
 
 ### Visual Appearance
 
 [Visual Design spec - Adobe XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/)
 
 Light / dark themes only have a single appearance variant.  
-The color theme has 2 appearance variants - the "Color UI Alt." one from XD can be accessed with `appearance-variant="alternate"`.
+The color theme has 2 appearance variants - the "Color UI Alt." one from XD can be accessed with `theme-variant="prominent"`.
 
 ![New spinner design](NewSpinnerDesign.gif)
 
@@ -134,5 +135,5 @@ N/A - Standard updates of the component table in the README, and in Storybook.
 
 ## Open Issues
 
--   How should we represent the 'color theme / alt version'? (Assuming `appearance-variant`, what variant name?)
 -   Finalize component name and ensure it makes sense in conjunction with potential future progress bar components
+-   Decide if we want to include the `size` attribute, if it's optional, and if the spinner should scale to custom/user-provided sizes
