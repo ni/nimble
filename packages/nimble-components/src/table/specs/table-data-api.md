@@ -16,16 +16,18 @@ To use the TanStack Table library it expects its `data` to be provided as an arr
 
 The `FASTDataGrid` has similar expectations for its [data API](https://github.com/microsoft/fast/blob/416dc9167e9d41e6ffe11d87ed79b2f455357923/packages/web-components/fast-foundation/src/data-grid/data-grid.ts#L193), provided via a `rowsData` property of type `object[]`. Columns are determined by looking at all of the property names of the first object in that array.
 
-It seems helpful to not only provide a similarly simplistic means of providing data to the `nimble-table`, but to also provide the type for the row data via a generic argument on the `Table` class itself, i.e.:
+In the nimble table, `data` will be exposed as a property that is an array. As it is a complex type, it will not be exposed as an attribute on the `nimble-table` element. As a result, the data must be provided to the table programatically rather than declaratively with HTML.
+
+To help enforce typing, the `Table` class will be generic on the type for the row data. The type for the row data must be a `Record` with string keys and any value. In some cases, it might be beneficial to allow `Table` class to be declared without a type, so a default value for the `TData` type will be provided. The typing of the table is shown below:
 
 ```ts
-export class Table<TData> extends FoundationElement {
+export class Table<TData extends { [key: string]: unknown} = { [key: string]: unknown}> extends FoundationElement {
     @observable
     public data: TData[];
 }
 ```
 
-This provides a couple of benefits:
+Making `Table` a generic class has a couple of benefits:
 
 -   Interfacing with the TanStack APIs is now more direct and avoids `unknown` typing, e.g.:
 
@@ -124,6 +126,14 @@ Rather than having a property on the table for the data, we could expose the dat
 **Cons**
 
 -   Binding in supported frameworks, such as Angular, becomes more difficult. A property easily allows for simple array binding and for easily binding to an `Observable<TData[]>`.
+
+### Support virtualized data
+
+APIs around virtualized data, such as automatically loading more data when the user scrolls to the bottom of the data set is out of scope for this spec. It will be a client's responsibility to implement any necessary data virtualization.
+
+### Support partial data updates
+
+The current API does not allow updating only a subset of the data, such as modifying a single row. It only supports a new array of data being assigned to `data`. While we could write an API to allow for this, TanStack does not support partial data updates, so it would provide no performance benefit over reassigning the entire set of data.
 
 ## Open Issues
 
