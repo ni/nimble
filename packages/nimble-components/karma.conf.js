@@ -25,7 +25,9 @@ const commonChromeFlags = [
     '--force-prefers-reduced-motion'
 ];
 
-const webpackEnvironmentPlugin = new webpack.EnvironmentPlugin({ NODE_ENV: 'production' });
+const webpackEnvironmentPlugin = new webpack.EnvironmentPlugin({
+    NODE_ENV: 'production'
+});
 
 module.exports = config => {
     const options = {
@@ -92,9 +94,7 @@ module.exports = config => {
                     }
                 ]
             },
-            plugins: [
-                webpackEnvironmentPlugin
-            ]
+            plugins: [webpackEnvironmentPlugin]
         },
         mime: {
             'text/x-typescript': ['ts']
