@@ -4,6 +4,7 @@ import { html } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { AnchorAppearance } from '../types';
+import { bodyFont } from '../../theme-provider/design-tokens';
 
 interface AnchorArgs {
     label: string;
@@ -19,17 +20,23 @@ const metadata: Meta<AnchorArgs> = {
     parameters: {
         docs: {
             description: {
-                component: ''
+                component:
+                    'Per [W3C](https://w3c.github.io/aria-practices/#link), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.'
             }
         },
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bfadf499-caf5-4ca0-9814-e777fbae0d46'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bfadf499-caf5-4ca0-9814-e777fbae0d46/specs/'
         },
         actions: {}
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+        <style class='code-hide'>
+            * {
+                font: var(${bodyFont.cssCustomProperty});
+            }
+        </style>
         Click on the <nimble-anchor
             href=${x => x.href}
             ?underline-visible=${x => x.underlineVisible}

@@ -4,6 +4,11 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ButtonAppearance } from '../types';
 import '../../all-components';
+import {
+    contentHiddenDescription,
+    endIconDescription,
+    iconDescription
+} from '../../patterns/button/doc-strings';
 
 interface ToggleButtonArgs {
     label: string;
@@ -20,11 +25,6 @@ that can be either off (not pressed) or on (pressed). For example, a button labe
 indicate that sound is muted by setting the pressed state true. Important: it is critical the label on a toggle does
 not change when its state changes. In this example, when the pressed state is true, the label remains "Mute" so a
 screen reader would say something like "Mute toggle button pressed".`;
-
-const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
-
-This icon will be hidden when \`contentHidden\` is set to \`true\`
-.`;
 
 const metadata: Meta<ToggleButtonArgs> = {
     title: 'Toggle Button',
@@ -48,9 +48,11 @@ const metadata: Meta<ToggleButtonArgs> = {
             options: Object.values(ButtonAppearance),
             control: { type: 'radio' }
         },
+        contentHidden: {
+            description: contentHiddenDescription
+        },
         icon: {
-            description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+            description: iconDescription
         },
         endIcon: {
             description: endIconDescription

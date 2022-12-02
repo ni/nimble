@@ -7,6 +7,12 @@ import {
     ButtonAppearance,
     ButtonAppearanceVariant
 } from '../../patterns/button/types';
+import {
+    appearanceVariantDescription,
+    contentHiddenDescription,
+    endIconDescription,
+    iconDescription
+} from '../../patterns/button/doc-strings';
 
 interface AnchorButtonArgs {
     label: string;
@@ -19,36 +25,19 @@ interface AnchorButtonArgs {
     disabled: boolean;
 }
 
-const appearanceVariantDescription = `
-This attribute has no effect on anchor buttons with a \`ghost\` appearance.
-
-<details>
-    <summary>Primary Usage</summary>
-    Make a button primary to distinguish it visibly for one of the following reasons:
-    <ul>
-        <li>to indicate the action that allows the user to accomplish their most common or important goal</li>
-        <li>to indicate the action that allows the user to complete their task</li>
-    </ul>
-</details>`;
-
-const endIconDescription = `
-When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
-
-This icon will be hidden when \`content-hidden\` is set.
-`;
-
 const metadata: Meta<AnchorButtonArgs> = {
     title: 'Anchor Button',
     decorators: [withXD],
     parameters: {
         docs: {
             description: {
-                component: ''
+                component:
+                    'An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.'
             }
         },
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bfadf499-caf5-4ca0-9814-e777fbae0d46'
+                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
         },
         actions: {}
     },
@@ -86,16 +75,14 @@ const metadata: Meta<AnchorButtonArgs> = {
             description: appearanceVariantDescription
         },
         icon: {
-            description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+            description: iconDescription
         },
         endIcon: {
             description: endIconDescription
         },
         contentHidden: {
             name: 'content-hidden',
-            description:
-                'When set, this attribute hides the text and end icon, leaving only the start icon visible.'
+            description: contentHiddenDescription
         }
     },
     args: {
