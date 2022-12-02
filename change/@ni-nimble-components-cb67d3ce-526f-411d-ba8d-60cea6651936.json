@@ -1,6 +1,6 @@
 {
-  "type": "none",
-  "comment": "Add spec document for nimble-spinner.",
+  "type": "minor",
+  "comment": "nimble-spinner spec, prototype implementation",
   "packageName": "@ni/nimble-components",
   "email": "20709258+msmithNI@users.noreply.github.com",
   "dependentChangeType": "none"
