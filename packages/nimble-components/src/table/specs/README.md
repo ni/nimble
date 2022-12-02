@@ -140,9 +140,6 @@ The various APIs/features of the `nimble-table` will be split up amongst several
 -   Action Menu
     -   Define how the action menu gets associated with a particular column
     -   Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
--   Accessibility
-    -   Define the accessibility expected for the `nimble-table`
-        -   Do we adopt the ARIA [table pattern](https://w3c.github.io/aria-practices/#table) or the [data-grid pattern](https://w3c.github.io/aria-practices/#grid)?
 
 _Properties_
 
@@ -230,7 +227,7 @@ Placeholder
 
 ### Accessibility
 
-The `nimble-table` should align to the grid interaction model provided by the [W3C](https://w3c.github.io/aria-practices/#grid).
+The `nimble-table` should align either to the W3C [grid interaction model](https://w3c.github.io/aria-practices/#grid) or the [table interaction model](https://w3c.github.io/aria-practices/#table) (TBD).
 
 ### Globalization
 
