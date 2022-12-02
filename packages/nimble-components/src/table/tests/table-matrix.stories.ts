@@ -26,10 +26,23 @@ const metadata: Meta = {
 
 export default metadata;
 
+const data = [
+    {
+        myStr: 'my first row',
+        myNum: 5,
+        myBool: true
+    },
+    {
+        myStr: 'my second row',
+        myNum: 15,
+        myBool: false
+    }
+];
+
 // prettier-ignore
 const component = (
 ): ViewTemplate => html`
-    <nimble-table></nimble-table>
+    <nimble-table :data=${_ => data}></nimble-table>
 `;
 
 export const tableThemeMatrix: Story = createMatrixThemeStory(
