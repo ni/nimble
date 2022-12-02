@@ -44,15 +44,18 @@ const metadata: Meta<TableArgs> = {
         </style>
     `),
     args: {
-        data: [{
-            myStr: 'my first row',
-            myNum: 5,
-            myBool: true
-        }, {
-            myStr: 'my second row',
-            myNum: 15,
-            myBool: false
-        }]
+        data: [
+            {
+                myStr: 'my first row',
+                myNum: 5,
+                myBool: true
+            },
+            {
+                myStr: 'my second row',
+                myNum: 15,
+                myBool: false
+            }
+        ]
     }
 };
 

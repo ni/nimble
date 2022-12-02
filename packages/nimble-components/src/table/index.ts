@@ -21,7 +21,9 @@ declare global {
 /**
  * A nimble-styled table.
  */
-export class Table<TData extends { [key: string]: unknown } = { [key: string]: unknown } > extends FoundationElement {
+export class Table<
+    TData extends { [key: string]: unknown } = { [key: string]: unknown }
+> extends FoundationElement {
     @observable
     public data: TData[] = [];
 
@@ -40,7 +42,7 @@ export class Table<TData extends { [key: string]: unknown } = { [key: string]: u
             get data(): TData[] {
                 return initialData;
             },
-            onStateChange: (_: Updater<TableState>) => { },
+            onStateChange: (_: Updater<TableState>) => {},
             getCoreRowModel: getCoreRowModel(),
             columns: [],
             state: {},
@@ -54,7 +56,7 @@ export class Table<TData extends { [key: string]: unknown } = { [key: string]: u
         prev: TData[] | undefined,
         next: TData[] | undefined
     ): void {
-        if ((!prev || prev.length === 0) && (next && next.length > 0)) {
+        if ((!prev || prev.length === 0) && next && next.length > 0) {
             this.generateColumns();
         }
 
@@ -84,8 +86,12 @@ export class Table<TData extends { [key: string]: unknown } = { [key: string]: u
 
     private refreshHeaders(): void {
         const headerGroups = this.table.getHeaderGroups();
-        const headers = (headerGroups.length > 0 && headerGroups[0]) ? headerGroups[0]?.headers : [];
-        this.columnHeaders = headers.map(header => this.columns[header.index]?.header as string || '');
+        const headers = headerGroups.length > 0 && headerGroups[0]
+            ? headerGroups[0]?.headers
+            : [];
+        this.columnHeaders = headers.map(
+            header => (this.columns[header.index]?.header as string) || ''
+        );
     }
 
     private readonly update = (state: TableState): void => {
@@ -94,7 +100,9 @@ export class Table<TData extends { [key: string]: unknown } = { [key: string]: u
             ...this.options,
             state,
             onStateChange: (updater: unknown) => {
-                const updatedState = typeof updater === 'function' ? updater(state) as TableState : updater as TableState;
+                const updatedState = typeof updater === 'function'
+                    ? (updater(state) as TableState)
+                    : (updater as TableState);
                 this.update(updatedState);
             }
         }));

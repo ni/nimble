@@ -1,6 +1,7 @@
 import { html, repeat } from '@microsoft/fast-element';
 import type { Table } from '.';
 
+// prettier-ignore
 export const template = html<Table>`
     <template>
         <div class="table-container">
