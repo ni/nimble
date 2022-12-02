@@ -5,6 +5,7 @@
 
 process.env.CHROME_BIN = require('puppeteer').executablePath();
 const path = require('path');
+const webpack = require('webpack');
 
 const basePath = path.resolve(__dirname);
 const commonChromeFlags = [
@@ -23,6 +24,8 @@ const commonChromeFlags = [
     '--disable-translate',
     '--force-prefers-reduced-motion'
 ];
+
+const webpackEnvironmentPlugin = new webpack.EnvironmentPlugin({ NODE_ENV: 'production' });
 
 module.exports = config => {
     const options = {
@@ -88,7 +91,10 @@ module.exports = config => {
                         ]
                     }
                 ]
-            }
+            },
+            plugins: [
+                webpackEnvironmentPlugin
+            ]
         },
         mime: {
             'text/x-typescript': ['ts']
