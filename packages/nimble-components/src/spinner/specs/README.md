@@ -53,7 +53,8 @@ Properties/Attributes:
     -   String attribute controlling size of the component
     -   Backed by an enum `SpinnerSize` with values `small` (16x16), `medium` (32x32), `large` (64x64)
     -   If omitted, the default is `medium` (32x32)
-    -   (Open Issue) If omitted, custom `width` and `height` can be set on the `nimble-spinner` and the animating elements will scale to that size
+    -   (Open Issue) If omitted, custom `width` and `height` styles can be set on the `nimble-spinner` and the animating elements will scale to that size.
+        -   Do we want to allow this? The padding and bit size ratios vary a little bit between the 16x16/32x32/64x64 variants. Designer may want to tweak padding/ bit sizes at particular sizes (like 16x16 is a little different right now, to have enough padding).
 -   `theme-variant`
     -   default (undefined): Standard appearance (light/dark/color themes)
     -   `prominent`: Alternate appearance/color, for the color theme only
@@ -84,6 +85,9 @@ The color theme has 2 appearance variants - the "Color UI Alt." one from XD can 
 
 ![New spinner design](NewSpinnerDesign.gif)
 
+When `prefers-reduced-motion` is enabled, a simplified version will be used:
+(TBD)
+
 ## Implementation
 
 Component implementation will derive from the FAST `FoundationElement`.
@@ -101,6 +105,8 @@ No keyboard states / form integration.
 
 ARIA: We plan to use the [`progressbar role`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role) without setting `aria-valuemin` / `aria-valuemax` / `aria-valuenow` (representing indeterminate).  
 This matches the behavior of an indeterminate FAST progress ring (in which case min/max/value are unset) - see the [FAST template here](https://github.com/microsoft/fast/blob/802443ffb2b19a078f9b48f62e6d1a35e3276fb5/packages/web-components/fast-foundation/src/progress-ring/progress-ring.template.ts#L17).
+
+`prefers-reduced-motion`: A simplified spinner indicator will be shown when this is enabled, see the Visual Appearance section.
 
 ### Globalization
 
@@ -135,5 +141,6 @@ N/A - Standard updates of the component table in the README, and in Storybook.
 
 ## Open Issues
 
--   Finalize component name and ensure it makes sense in conjunction with potential future progress bar components
--   Decide if we want to include the `size` attribute, if it's optional, and if the spinner should scale to custom/user-provided sizes
+-   Decide if we want to require the `size` attribute. (We could scale to user-provided sizes but they may end up with non-optimal bit sizes and padding/margins not picked by a designer)
+-   Decide if we need the `theme-variant` (PowerGreen variant for color theme). Brandon O'Keefe to follow up on this point.
+-   Decide on `prefers-reduced-motion` appearance
