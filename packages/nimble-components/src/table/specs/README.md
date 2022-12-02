@@ -37,9 +37,9 @@ In addition to simply rendering data, the `nimble-table` will provide APIs/inter
 -   Provide API for adding action menu
 -   Allow expected accessibility keyboard interactions for navigating (tbd)
 
-#### _Out of Scope of Initial Release_
+#### _Additional features out of scope of this spec_
 
-The following are features that we intend to prioritize eventually after the initial release:
+The following are features are out of the scope of the initial table spec and require additional research or HLDs for future implementation:
 
 -   Hierarchy and Grouping together (though this could happen in the initial release if simple enough to accomplish)
 -   Custom expanded row content
@@ -51,8 +51,8 @@ The following are features that we intend to prioritize eventually after the ini
 -   Filter on any text match across all cells
 -   Selection configuration: Ability to specify single vs. multi-select vs. no-selection
 -   Custom header templates: Provide clients the means to change the content used in the header (analogous to [FAST `headerTemplate`](https://github.com/microsoft/fast/blob/802443ffb2b19a078f9b48f62e6d1a35e3276fb5/packages/web-components/fast-foundation/src/data-grid/data-grid.ts#L55), and [TanStack `header.getContext()`](https://tanstack.com/table/v8/docs/api/core/header#getcontext)).
--   Cell selection: Allow user to select a particular cell
-    -   Copying cell values is accomplished by highlighting the value in the cell (and pressing `Ctl-c`) as opposed to clicking on a cell (it showing itself as selected) and pressing `Ctl-c`.
+-   Cell selection (_contingent on Accessibility decision_): Allow user to select a particular cell
+    -   Copying cell values is accomplished by clicking on a cell (it showing itself as selected) and pressing `Ctl-c` as opposed to highlighting the value in the cell (and pressing `Ctl-c`).
 -   Data exporting (e.g. export as CSV)
 -   Handling globalization concerns (i.e. 'rtl' display)
 
@@ -239,7 +239,7 @@ _**Note**:_ This is flagged as "out of scope" for the initial release.
 
 We intend for the `nimble-table` to handle both the rendering and interactive operations, such as sorting, in a near-instantaneous fashion on datasets of at least 10K rows. Between 10K and 100K rows of data on the client-side, however, we expect to see a notable drop in performance.
 
-Clients, at least initially, will be expected to create mechanisms to restrict the amount of data coming to the client-side.
+Thus, clients will be expected to limt the amount of data being sent to the table to ideally a maximum of 10K rows.
 
 There are a couple of mechanisms we will leverage to ensure we achieve the necessary performance goals:
 
