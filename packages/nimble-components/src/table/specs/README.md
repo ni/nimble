@@ -35,6 +35,7 @@ In addition to simply rendering data, the `nimble-table` will provide APIs/inter
 -   Provide hierarchy via the data
 -   Provide custom column rendering
 -   Provide API for adding action menu
+-   Allow expected accessibility keyboard interactions for navigating (tbd)
 
 #### _Out of Scope of Initial Release_
 
@@ -139,6 +140,9 @@ The various APIs/features of the `nimble-table` will be split up amongst several
 -   Action Menu
     -   Define how the action menu gets associated with a particular column
     -   Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
+-   Accessibility
+    -   Define the accessibility expected for the `nimble-table`
+        -   Do we adopt the ARIA [table pattern](https://w3c.github.io/aria-practices/#table) or the [data-grid pattern](https://w3c.github.io/aria-practices/#grid)?
 
 _Properties_
 
@@ -155,6 +159,10 @@ _Slots_
 -   `slottedColumns` (Placeholder for column slots)
 -   `actionMenu` (Placeholder for action menu)
 
+### Security
+
+N/A
+
 ### Angular integration
 
 Angular support should be accomplished through the typical directive patterns.
@@ -166,6 +174,10 @@ There could be room for there to be Angular-centric implementations such as usin
 Blazor support should be accomplished through the typical integration patterns.
 
 One aspect of note is that the data API for the `nimble-table` component will not be attribute-based, which means that the Blazor component will not be able to provide a binding-based association of its own data to that of the web component. Instead, we will need to leverage JSInterop to send the data to the web component, which is async by nature.
+
+### Visual Appearance
+
+Placeholder
 
 ---
 
@@ -212,6 +224,10 @@ With this set of information, the Nimble Table will be able to register a callba
 
 _Placeholder for other implementation details_
 
+### States
+
+Placeholder
+
 ### Accessibility
 
 The `nimble-table` should align to the grid interaction model provided by the [W3C](https://w3c.github.io/aria-practices/#grid).
@@ -250,20 +266,14 @@ Intend to test completely with unit tests and Chromatic visual tests.
 
 We also should attempt to create unit tests to cover the TanStack capabilities we will be leveraging, ideally by submitting them to the TanStack repo. Note that TanStack has already implemented much of the needed tests, except that they are targeting a React environment. The work should largely be a porting effort.
 
+### Tooling
+
+N/A
+
 ### Documentation
 
 Storybook stories will be added to document/showcase the various features and APIs.
 
 ### Open Issues
 
-1. Should the `nimble-table` adopt the ARIA guidelines for a [table](https://w3c.github.io/aria-practices/#table) or a [data-grid](https://w3c.github.io/aria-practices/#grid)?
-
-    A major distinguishing factor between the two is how we want keyboard interactions to work for the component and its cells. If we adopted the "data-grid" approach a user could tab to the `nimble-table` and then perform another keyboard interaction (e.g. `Ctl-down`) to enter into the scope of the cells. Users can then navigate between the cells using the arrow keys. This can allow for behaviors like moving to cells with the keyboard and copying their values by pressing `Ctl-c`.
-
-    The `table` behavior is different in that the `nimble-table` itself would no longer be a tab stop, but all focusable elements within the `nimble-table` would be. In addition, there is no notion of being able to move between cells of the table with arrow keys.
-
-2. Should 'rtl' scenarios alter the way we render the `nimble-table` beyond the cell ordering?
-    - Put the row selection button the right side?
-    - How is grouping/hierarchy rendered?
-
----
+None.
