@@ -22,6 +22,7 @@ import './number-field';
 import './radio';
 import './radio-group';
 import './select';
+import './spinner';
 import './switch';
 import './tab';
 import './tab-panel';
