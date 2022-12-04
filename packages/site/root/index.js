@@ -1,25 +1,22 @@
-let width = window.innerWidth;
-
-const initOffset = 50;
-const circles = document.getElementById('circles');
-const circleArray = document.getElementById('circles').children;
+const doc = document;
+const circleArray = doc.getElementById('circles').children;
 
 setupCircle();
 
 function randomIntFromInterval(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min)
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function addAnimation(animKeyFrames) {
-    animationStyle = document.createElement('style');
+    const animationStyle = doc.createElement('style');
     document.head.appendChild(animationStyle);
     const styleSheet = animationStyle.sheet;
     styleSheet.insertRule(animKeyFrames, animationStyle.length);
 }
 
-function getDirection(){
+function getDirection() {
     if (Math.random() < 0.5) {
-        return `alternate`;
+        return 'alternate';
     }else{
         return 'alternate-reverse';
     };
@@ -27,7 +24,7 @@ function getDirection(){
 
 function setupCircle() {
     [...circleArray].map(circle => {
-        const circleLength = circle.getTotalLength()
+        const circleLength = circle.getTotalLength();
         const circleID = circle.id;
 
         const initAngle = randomIntFromInterval(35, 330);
@@ -52,11 +49,10 @@ function setupCircle() {
         circle.style.strokeDasharray = `${circleLength}`;
         
         const time = randomIntFromInterval(30, 40);
-        const curve = 'ease-in-out'
+        const curve = 'ease-in-out';
         const startTime = randomIntFromInterval((time*-1), 0);
         const direction = getDirection();
 
         circle.style.animation = `${time}s ${curve} ${startTime}s infinite ${direction} move-${circleID}`;
-    }
-    )
+    })
 }
