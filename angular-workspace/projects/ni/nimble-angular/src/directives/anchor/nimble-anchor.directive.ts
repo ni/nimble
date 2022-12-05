@@ -5,6 +5,7 @@ import { NimbleLinkBase } from '../patterns/link/nimble-link-base';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { Anchor };
+export { AnchorAppearance };
 
 /**
  * Directive to provide Angular integration for the anchor.
