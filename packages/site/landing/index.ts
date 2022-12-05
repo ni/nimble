@@ -1,4 +1,4 @@
-import '@ni/nimble-components/dist/esm/theme-provider';
+import '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 
 const circleArray = Array.from(document.getElementById('circles')!.children) as SVGCircleElement[];
 
