@@ -12,7 +12,7 @@ A table/data-grid component can have a variety of ways to introduce data into it
 
 ## Implementation / Design
 
-In the `nimble-table`, the data to associated with rows will be exposed through a `data` property that is an array of key/value pairs. The key/value pairs within the data must have a key of type string and a value that is of a supported type. The supported value types are: `string`, `number`, `boolean`, `Date`, `null`, and `undefined`. As implied by the set of supported value types, complex value types such as arrays or objects are not supported.
+In the `nimble-table`, the data to associated with rows will be exposed through a `data` property that is an array of key/value pairs. The key/value pairs within the data must have a key of type string and a value that is of a supported type. The supported value types are: `string`, `number`, `boolean`, `Date`, `null`, and `undefined`. As implied by the set of supported value types, complex value types such as arrays or objects are not supported. The supported value types are limited to ensure data operations are fast and to eliminate the need to custom sort functions, which could hurt performance. While the types are limited, a rendered column in the table can use data from multiple keys in a row's data item. The details about the way column definitions use data from the `data` property are out of scope for this spec.
 
 Because `data` is a complex type, it will not be exposed as an attribute on the `nimble-table` element. As a result, the data must be provided to the table programatically rather than declaratively with HTML.
 
