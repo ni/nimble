@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 23 Nov 2022 16:47:02 GMT and should not be manually modified.
+This log was last generated on Tue, 29 Nov 2022 17:43:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.5.1
+
+Tue, 29 Nov 2022 17:43:35 GMT
+
+### Patches
+
+- Finished first iteration of the waferMap component and its storybook ([ni/nimble@001156d](https://github.com/ni/nimble/commit/001156d6c85f250a934ed8819b6a0650fe26eb84))
 
 ## 15.5.0
 

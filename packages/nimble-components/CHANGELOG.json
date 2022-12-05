@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 29 Nov 2022 23:51:38 GMT",
+      "tag": "@ni/nimble-components_v15.5.1",
+      "version": "15.5.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3ff74ec1486e824339f81b27729aa052b083cd5e",
+            "comment": "Changed from updated require-await lint rule configuration"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 29 Nov 2022 17:43:35 GMT",
+      "tag": "@ni/nimble-components_v15.5.1",
+      "version": "15.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "35329597+DStavilaNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "001156d6c85f250a934ed8819b6a0650fe26eb84",
+            "comment": "Finished first iteration of the waferMap component and its storybook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 23 Nov 2022 16:47:02 GMT",
       "tag": "@ni/nimble-components_v15.5.0",
       "version": "15.5.0",

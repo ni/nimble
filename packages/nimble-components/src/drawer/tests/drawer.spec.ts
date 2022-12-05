@@ -212,13 +212,13 @@ describe('Drawer', () => {
             expect(afterDrawerCloseActiveElement).toBe(button2);
         });
 
-        it('focuses the first button on the drawer when it opens', async () => {
+        it('focuses the first button on the drawer when it opens', () => {
             const okButton = document.getElementById('ok')!;
             void element.show();
             expect(document.activeElement).toBe(okButton);
         });
 
-        it('focuses the button with autofocus when the drawer opens', async () => {
+        it('focuses the button with autofocus when the drawer opens', () => {
             const cancelButton = document.getElementById('cancel')!;
             cancelButton.setAttribute('autofocus', '');
             DOM.processUpdates();
@@ -226,7 +226,7 @@ describe('Drawer', () => {
             expect(document.activeElement).toBe(cancelButton);
         });
 
-        it('supports opening multiple drawers on top of each other', async () => {
+        it('supports opening multiple drawers on top of each other', () => {
             const secondDrawer = document.createElement('nimble-drawer');
             const secondDrawerButton = document.createElement('nimble-button');
             secondDrawer.append(secondDrawerButton);
