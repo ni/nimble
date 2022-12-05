@@ -73,7 +73,7 @@ const component = (
     </nimble-anchor-button>
 `;
 
-export const anchorThemeMatrix: Story = createMatrixThemeStory(
+export const anchorButtonThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
