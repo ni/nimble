@@ -2,6 +2,14 @@
  * Public API Surface of nimble-angular
  */
 
+export * from './directives/anchor/nimble-anchor-router-link-with-href.directive';
+export * from './directives/anchor/nimble-anchor-router-link.directive';
+export * from './directives/anchor/nimble-anchor.directive';
+export * from './directives/anchor/nimble-anchor.module';
+export * from './directives/anchor-button/nimble-anchor-button-router-link-with-href.directive';
+export * from './directives/anchor-button/nimble-anchor-button-router-link.directive';
+export * from './directives/anchor-button/nimble-anchor-button.directive';
+export * from './directives/anchor-button/nimble-anchor-button.module';
 export * from './directives/breadcrumb/nimble-breadcrumb.directive';
 export * from './directives/breadcrumb/nimble-breadcrumb.module';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item-router-link-with-href.directive';
