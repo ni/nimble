@@ -3,6 +3,7 @@ import {
     primaryButtonStyles,
     styles as buttonStyles
 } from '../patterns/button/styles';
+import { buttonLabelDisabledFontColor } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${buttonStyles}
@@ -10,6 +11,11 @@ export const styles = css`
 
     .control {
         text-decoration: none;
+    }
+
+    :host(:not([href])) {
+        color: ${buttonLabelDisabledFontColor};
+        cursor: default;
     }
 
     :host([disabled]) .control {
