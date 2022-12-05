@@ -24,7 +24,9 @@ interface ButtonArgs {
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that
 enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an
 action, or performing a delete operation. A common convention for informing users that a button launches
-a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".`;
+a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".
+
+If you want a button that triggers navigation to a URL, use the \`nimble-anchor-button\` instead.`;
 
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',

@@ -1,14 +1,17 @@
 import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
-import { AnchorOptions, endSlotTemplate, FoundationElementTemplate, startSlotTemplate } from '@microsoft/fast-foundation';
+import {
+    AnchorOptions,
+    endSlotTemplate,
+    FoundationElementTemplate,
+    startSlotTemplate
+} from '@microsoft/fast-foundation';
 import type { AnchorButton } from '.';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<AnchorButton>,
 AnchorOptions
 > = (context, definition) => html<AnchorButton>`
-    <template
-        ?disabled="${x => x.disabled || !x.href}"
-    >
+    <template ?disabled="${x => !x.href}">
         <a
             class="control"
             part="control"
