@@ -170,7 +170,7 @@ There could be room for there to be Angular-centric implementations such as usin
 
 Blazor support should be accomplished through the typical integration patterns.
 
-One aspect of note is that the data API for the `nimble-table` component will not be attribute-based, which means that the Blazor component will not be able to provide a binding-based association of its own data to that of the web component. Instead, we will need to leverage JSInterop to send the data to the web component, which is async by nature.
+One aspect of note is that the Data property is not attribute based so the connection from the blazor component wrapper Data property to the web component will require additional JSInterop considerations.
 
 ### Visual Appearance
 
@@ -239,7 +239,7 @@ _**Note**:_ This is flagged as "out of scope" for the initial release.
 
 We intend for the `nimble-table` to handle both the rendering and interactive operations, such as sorting, in a near-instantaneous fashion on datasets of at least 10K rows. Between 10K and 100K rows of data on the client-side, however, we expect to see a notable drop in performance.
 
-Thus, clients will be expected to limt the amount of data being sent to the table to ideally a maximum of 10K rows.
+Thus, clients will be expected to limit the amount of data being sent to the table to ideally a maximum of 10K rows.
 
 There are a couple of mechanisms we will leverage to ensure we achieve the necessary performance goals:
 
