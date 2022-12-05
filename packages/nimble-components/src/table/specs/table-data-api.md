@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Table/Data-grid components can have a variety of ways to introduce data into it. We should make it clear how we expect users to introduce data into the `nimble-table` and address the implications that has on the API.
+A table/data-grid component can have a variety of ways to introduce data into it. We should make it clear how we expect users to introduce data into the `nimble-table` and address the implications that has on the API.
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -12,24 +12,68 @@ Table/Data-grid components can have a variety of ways to introduce data into it.
 
 ## Implementation / Design
 
-To use the TanStack Table library it expects its `data` to be provided as an array of some arbitrary type. Much of its API is generic to the type of the object that represents a single row of data.
+In the `nimble-table`, the data to associated with rows will be exposed through a `data` property that is an array of key/value pairs. The key/value pairs within the data must have a key of type string and a value that is of a supported type. The supported value types are: `string`, `number`, `boolean`, `Date`, `null`, and `undefined`. As implied by the set of supported value types, complex value types such as arrays or objects are not supported.
 
-The `FASTDataGrid` has similar expectations for its [data API](https://github.com/microsoft/fast/blob/416dc9167e9d41e6ffe11d87ed79b2f455357923/packages/web-components/fast-foundation/src/data-grid/data-grid.ts#L193), provided via a `rowsData` property of type `object[]`. Columns are determined by looking at all of the property names of the first object in that array.
+Because `data` is a complex type, it will not be exposed as an attribute on the `nimble-table` element. As a result, the data must be provided to the table programatically rather than declaratively with HTML.
 
-In the nimble table, `data` will be exposed as a property that is an array. As it is a complex type, it will not be exposed as an attribute on the `nimble-table` element. As a result, the data must be provided to the table programatically rather than declaratively with HTML.
+This API is similar to the `FASTDataGrid`. Its [data API](https://github.com/microsoft/fast/blob/416dc9167e9d41e6ffe11d87ed79b2f455357923/packages/web-components/fast-foundation/src/data-grid/data-grid.ts#L193), is provided via a `rowsData` property of type `object[]`.
 
-To help enforce typing, the `Table` class will be generic on the type for the row data. The type for the row data must be a `Record` with string keys and any value. In some cases, it might be beneficial to allow `Table` class to be declared without a type, so a default value for the `TData` type will be provided. The typing of the table is shown below:
+To help enforce typing, the `Table` class will be generic on the type for the row data. The typing of the table is shown below:
 
 ```ts
-export class Table<TData extends { [key: string]: unknown} = { [key: string]: unknown}> extends FoundationElement {
+export class Table<TData extends { [key: string]: string | number | boolean | Date | null | undefined }> extends FoundationElement {
     @observable
     public data: TData[];
 }
 ```
 
-Making `Table` a generic class has a couple of benefits:
+The typing described above does not fully enforce the type requirement on the table. Specifically, the type of `TData` above does not enforce that a given key only has one data type associated with it. For example, it allows the following, which is not considered valid:
 
--   Interfacing with the TanStack APIs is now more direct and avoids `unknown` typing, e.g.:
+```ts
+interface MyTableData {
+    myFirstKey: string | number;
+}
+```
+
+Therefore, types will be provided to allow clients to optionally provide more strict typing on their data. These types will look something like the following:
+
+```ts
+type StringData<ValueKey extends string> = {
+  [key in ValueKey]: string | null | undefined;
+};
+
+type NumberData<ValueKey extends string> = {
+  [k in ValueKey]: number | null | undefined;
+};
+
+type BooleanData<ValueKey extends string> = {
+  [k in ValueKey]: boolean | null | undefined;
+};
+
+type DateData<ValueKey extends string> = {
+  [k in ValueKey]: Date | null | undefined;
+};
+```
+
+### Data type usage within column definitions
+
+The types shown above can be used by column providers to enforce the data types they require. For example, if a numeric column required a numeric value, a unit string, and a placeholder string, it could export a type similar to the following:
+
+```ts
+type NumericColumnDefinitionData<
+    ValueKey extends string,
+    UnitsKey extends string,
+    PlaceholderKey extends string
+> = NumberData<ValueKey> & StringData<UnitsKey> & StringData<PlaceholderKey>;
+```
+
+Note that the above is only an example of what is possible. The details of a table's column definitions is out of scope of this spec.
+
+Ideally, this typing can also be used to provide compile-time checking of templates. But, the feasibility and details associated with that are out of scope of this spec.
+
+### Data interaction to the TanStack table
+
+The `data` property on the `nimble-table` will be passed directly into the TanStack Table library. TanStack expects its `data` property to be provided as an array of some arbitrary type. The generic typing of the table allows the `nimble-table` to interface with the TanStack APIs using `TData` rather than `unknown` as shown below:
 
 ```ts
 public data: TData[] = [];
@@ -42,55 +86,13 @@ this._options = {
 }
 ```
 
--   View templating can access named columns in some scenarios. For instance, given a row type of `Person`, that has a field `friends` in it whose value was another table, a user could define a FAST ViewTemplate in the following way:
-
-```ts
-const rowTemplate = (index: number): ViewTemplate<any, Table<Person>> => html<
-    any,
-    Table<Person>
->`
-    <nimble-table
-        style="max-height: 500px"
-        :data="${(_, c) => c.parent.tableData[index]!.row.original.friends}"
-    >
-    </nimble-table>
-`;
-```
-
-Both of these are demonstrated in the following prototype branch:
-
-[Table in a Table](https://github.com/ni/nimble/blob/tanstack-table-in-table) (see [Storybook](https://60e89457a987cf003efc0a5b-wzissaavew.chromatic.com/iframe.html?args=&id=table--table-story&viewMode=story))
-
-### Limitations
-
-Despite the generic typing of `Table` making it more strict, users would not benefit from that in a scenario where they could provide declarative column definitions that could theoretically only visualize a specific datatype. Take the following markup:
-
-template (Angular)
-
-```html
-<nimble-table [data]="data" #table>
-    <nimble-text-field-column columnId="firstName"></nimble-text-field-column>
-    <nimble-text-field-column columnId="lastName"></nimble-text-field-column>
-    <nimble-number-field-column columnId="age"></nimble-number-field-column>
-    <nimble-number-field-column
-        columnId="birthDate"
-    ></nimble-number-field-column>
-</nimble-table>
-```
-
-component (Angular)
-
-```ts
-@ViewChild('table') private table: Table<Person>;
-```
-
-Here, if the `birthDate` value was really a `DateTime`, but the provided column definition would try to render it as a `number`, the user would be unaware of the mistake by static type checking (in environments like Angular).
-
 ### Angular Integration
 
-The Angular directive for the table will be generic for the row data type, `TData`. The `data` property will be exposed through the directive and have type of `TData[]`.
+The Angular directive for the table will be generic for the row data type, `TData`. The `data` property will be exposed through the directive and have type of `TData[]`. The type requirements on `TData` in the Angular directive will be the same as in the web component.
 
 ### Blazor Integration
+
+The Blazor wrapper around the table will be generic for the row data type. The best way to reflect the same type requirements on `TData` in Blazor has not yet been determined.
 
 The Blazor wrapper around the table will require writing interop code to set the property on the underlying `nimble-table` component because Blazor does not allow binding to properties on an element. This can either be done through a getter and setter for a `Data` parameter where the interop Task is not awaited, or it can be done by exposing an async method on the Blazor component that allows setting the data.
 
@@ -104,13 +106,9 @@ The API for modifying the table's data by manipulating the table is out of scope
 
 ## Alternative Implementations / Designs
 
-### Genericize on column types
+### Add additional requirements on `TData`
 
-One idea was that we would still provide the `Table` generic typing, but it would be a generic argument for each expected column of data. While this might solve some of the static typing concerns mentioned above, I think it makes the API too verbose.
-
-### Provide additional restrictions on `TData`
-
-Some functionality, such as row selection, row expansion, and having an action menu, may require having a unique identifier associated with a row. To facilitate this, we could enforce that `TData` has a unique id field. For example, we could define the table as `class Table<TData extends { id: string }>`. Because the core table functionality (i.e. displaying read-only data in a table with no interaction) does not require an id, placing this requirement on all clients of the table is too heavy handed.
+Some functionality, such as row selection, row expansion, and having an action menu, may require having a unique identifier associated with a row. To facilitate this, we could enforce that `TData` has a unique id field named `id`. Because the core table functionality (i.e. displaying read-only data in a table with no interaction) does not require an id, placing this requirement on all clients of the table is too heavy handed.
 
 If the requirement for having unique row IDs comes up as table features are being defined, we will determine how to enforce that requirement at that time. One possibility would be to have a string attribute on the table that is the key of the id field, and if that attribute is not set, the row index is treated as the unique row id.
 
@@ -137,4 +135,4 @@ The current API does not allow updating only a subset of the data, such as modif
 
 ## Open Issues
 
-_None_
+- How will the type requirements of `TData` be reflected in Blazor?
