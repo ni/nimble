@@ -63,13 +63,23 @@ Before building a new component, create a spec document to get agreement on the 
 
     See [Unit tests](#unit-tests) for additional available commands.
 
-5. Create changelists for your work by running the following from the `nimble` directory:
+5. Create change files for your work by running the following from the `nimble` directory:
 
     `npm run change`
 
 6. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
 
 ## Develop new components
+
+### Marking a component as in development
+
+If a component will require multiple pull requests before having a complete and stable API, it should be marked as "in-development" to indicate to clients that they shouldn't start using it yet. To do this:
+
+1. In the component status table, set its status to ⚠️
+2. In the component Storybook documentation, add a red text banner to the page indicating that the component should not be used
+3. Consider placing the component implementation in a sub-folder named `experimental` so that it will be obvious when importing it that it is incomplete
+
+Be sure to remove these warnings when the component is complete!
 
 ### Folder structure
 
@@ -81,6 +91,8 @@ Create a new folder named after your component with some core files:
 | index.ts                               | Contains the component class definition and registration. All TypeScript logic contained in the component belongs here.                                                                                                                                                    |
 | styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts).                                             |
 | template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                                                 |
+| types.ts                               | Contains any enum-like types defined by the component                                                                                                                                                                                                                      |
+| models/                                | A folder containing any classes or interfaces that are part of the component API or implementation                                                                                                                                                                         |
 | tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
 | tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                                                      |
 | tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
