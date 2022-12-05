@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Source%20Sans%20Pro&family=Noto%20Serif&display=swap');
+@import "@ni/nimble-tokens/dist/fonts/css/fonts.css";
+@import "@ni/nimble-tokens/dist/styledictionary/scss/variables.scss";
+@import "@ni/nimble-components/dist/tokens";
 
 :root {
-    --powergreen: #32EB96;
     --rgb-ni-green: #03B585;
     --forestgreen: #074023;
     --rgb-ni-scarlet: #EF463F;
@@ -45,7 +46,7 @@ circle{
 }
 
 #circle-1 {
-    stroke: var(--powergreen);
+    stroke: $ni-nimble-base-power-green;
 }
 
 #circle-2 {
@@ -98,7 +99,7 @@ circle{
 .banner-main>p {
     max-width: 40rem;
     color: var(--black91);
-    font-family: var(--ni-nimble-body-font-family);
+    font-family: var($ni-nimble-body-font-family);
     font-size: var(--ni-nimble-title-font-size);
 }
 

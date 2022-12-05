@@ -1,28 +1,28 @@
-// eslint-disable-next-line no-undef
-const doc = document;
-const circleArray = doc.getElementById('circles').children;
+import '@ni/nimble-components/dist/esm/theme-provider';
+
+const circleArray = Array.from(document.getElementById('circles')!.children) as SVGCircleElement[];
 
 setupCircle();
 
-function randomIntFromInterval(min, max) {
+function randomIntFromInterval(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function addAnimation(animKeyFrames) {
-    const animationStyle = doc.createElement('style');
-    doc.head.appendChild(animationStyle);
-    const styleSheet = animationStyle.sheet;
-    styleSheet.insertRule(animKeyFrames, animationStyle.length);
+function addAnimation(animKeyFrames: string): void {
+    const animationStyle = document.createElement('style');
+    document.head.appendChild(animationStyle);
+    const styleSheet = animationStyle.sheet!;
+    styleSheet.insertRule(animKeyFrames, styleSheet.cssRules.length);
 }
 
-function getDirection() {
+function getDirection(): string {
     if (Math.random() < 0.5) {
         return 'alternate';
     }
     return 'alternate-reverse';
 }
 
-function setupCircle() {
+function setupCircle(): void {
     [...circleArray].map(circle => {
         const circleLength = circle.getTotalLength();
         const circleID = circle.id;
