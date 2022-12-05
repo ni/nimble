@@ -82,7 +82,7 @@ export const anchorButtonThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenAnchor: Story = createStory(
+export const hiddenAnchorButton: Story = createStory(
     hiddenWrapper(
         html`<nimble-anchor-button hidden
             >Hidden Anchor Button</nimble-anchor-button
