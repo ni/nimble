@@ -26,7 +26,9 @@ export interface ITableData {
  * A nimble-styled table.
  */
 export class Table<
-    TData extends ITableData = { [key: string]: string | number | boolean | Date | null | undefined }
+    TData extends ITableData = {
+        [key: string]: string | number | boolean | Date | null | undefined
+    }
 > extends FoundationElement {
     @observable
     public data: TData[] = [];
@@ -100,7 +102,9 @@ export class Table<
         );
     }
 
-    private updateTableOptions(updatedOptions: Partial<TableOptionsResolved<TData>>): void {
+    private updateTableOptions(
+        updatedOptions: Partial<TableOptionsResolved<TData>>
+    ): void {
         this.options = { ...this.options, ...updatedOptions };
         this.update(this.table.initialState);
     }
