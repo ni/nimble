@@ -5,13 +5,13 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
+import { hrefDescription } from '../../patterns/link/doc-strings';
 
 interface AnchorArgs {
     label: string;
     href: string;
     underlineVisible: boolean;
     appearance: keyof typeof AnchorAppearance;
-    disabled: boolean;
 }
 
 const metadata: Meta<AnchorArgs> = {
@@ -38,18 +38,16 @@ const metadata: Meta<AnchorArgs> = {
             }
         </style>
         Click on the <nimble-anchor
-            href=${x => x.href}
+            href=${x => (x.href !== '' ? x.href : null)}
             ?underline-visible=${x => x.underlineVisible}
             appearance=${x => x.appearance}
-            ?disabled=${x => x.disabled}
         >
             ${x => x.label}
         </nimble-anchor> to navigate.
     `),
     argTypes: {
         href: {
-            description:
-                'In addition to `href`, all other attributes of `<a>` are also supported, e.g. `ping`, `target`, `type`, etc.'
+            description: hrefDescription
         },
         underlineVisible: {
             name: 'underline-visible',
@@ -65,8 +63,7 @@ const metadata: Meta<AnchorArgs> = {
         label: 'link',
         href: 'http://nimble.ni.dev',
         underlineVisible: false,
-        appearance: 'default',
-        disabled: false
+        appearance: 'default'
     }
 };
 

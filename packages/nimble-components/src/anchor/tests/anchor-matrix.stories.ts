@@ -6,7 +6,6 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { disabledStates, DisabledState } from '../../utilities/tests/states';
 import {
     createMatrixThemeStory,
     createStory
@@ -30,6 +29,12 @@ const metadata: Meta = {
 
 export default metadata;
 
+const disabledStates = [
+    ['', 'http://nimble.ni.dev'],
+    ['Disabled', null]
+] as const;
+type DisabledState = typeof disabledStates[number];
+
 const underlineVisibleStates = [
     ['', false],
     ['Underline Visible', true]
@@ -43,15 +48,14 @@ type AppearanceState = typeof appearanceStates[number];
 
 // prettier-ignore
 const component = (
-    [disabledName, disabled]: DisabledState,
+    [disabledName, href]: DisabledState,
     [underlineVisibleName, underlineVisible]: UnderlineVisibleState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <nimble-anchor
-        href="http://nimble.ni.dev"
+        href=${() => href}
         ?underline-visible="${() => underlineVisible}"
         appearance="${() => appearance}"
-        ?disabled=${() => disabled}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${() => `${underlineVisibleName} ${appearanceName} Link ${disabledName}`}
     </nimble-anchor>

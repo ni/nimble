@@ -13,6 +13,7 @@ import {
     endIconDescription,
     iconDescription
 } from '../../patterns/button/doc-strings';
+import { hrefDescription } from '../../patterns/link/doc-strings';
 
 interface AnchorButtonArgs {
     label: string;
@@ -44,7 +45,7 @@ const metadata: Meta<AnchorButtonArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <nimble-anchor-button
-            href=${x => x.href}
+            href=${x => (x.href !== '' ? x.href : null)}
             appearance=${x => x.appearance}
             appearance-variant=${x => x.appearanceVariant}
             ?content-hidden=${x => x.contentHidden}
@@ -61,8 +62,7 @@ const metadata: Meta<AnchorButtonArgs> = {
     `),
     argTypes: {
         href: {
-            description:
-                'In addition to `href`, all other attributes of `<a>` are also supported, e.g. `ping`, `target`, `type`, etc.'
+            description: hrefDescription
         },
         appearance: {
             options: Object.values(ButtonAppearance),

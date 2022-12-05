@@ -25,7 +25,7 @@ export const styles = css`
         text-decoration: underline;
     }
 
-    :host([disabled]) .control {
+    .control:not(:any-link) {
         --ni-private-link-font-color: ${bodyDisabledFontColor};
         pointer-events: none;
         cursor: default;
