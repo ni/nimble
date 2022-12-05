@@ -239,7 +239,7 @@ _**Note**:_ This is flagged as "out of scope" for the initial release.
 
 We intend for the `nimble-table` to handle both the rendering and interactive operations, such as sorting, in a near-instantaneous fashion on datasets of at least 10K rows. Between 10K and 100K rows of data on the client-side, however, we expect to see a notable drop in performance.
 
-Thus, clients will be expected to limit the amount of data being sent to the table to ideally a maximum of 10K rows.
+Thus, clients will be expected to limit the amount of data being sent to the table to, ideally, a maximum of 10K rows.
 
 There are a couple of mechanisms we will leverage to ensure we achieve the necessary performance goals:
 
