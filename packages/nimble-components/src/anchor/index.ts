@@ -9,6 +9,8 @@ import { styles } from './styles';
 import { template } from './template';
 import type { AnchorAppearance } from './types';
 
+export type { FoundationAnchor };
+
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-anchor': Anchor;
