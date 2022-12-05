@@ -23,7 +23,7 @@ To help enforce typing, the `Table` class will be generic on the type for the ro
 ```ts
 export class Table<
     TData extends {
-        [key: string]: string | number | boolean | Date | null | undefined
+        [key: string]: string | number | boolean | Date | null | undefined;
     }
 > extends FoundationElement {
     @observable
