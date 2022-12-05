@@ -110,9 +110,8 @@ describe('Nimble anchor button', () => {
         });
 
         it('has expected defaults for disabled', () => {
-            // because href is unset, should be disabled
-            expect(directive.disabled).toBeTrue();
-            expect(nativeElement.disabled).toBeTrue();
+            expect(directive.disabled).toBeFalse();
+            expect(nativeElement.disabled).toBeFalse();
         });
     });
 
