@@ -21,7 +21,11 @@ This API is similar to the `FASTDataGrid`. Its [data API](https://github.com/mic
 To help enforce typing, the `Table` class will be generic on the type for the row data. The typing of the table is shown below:
 
 ```ts
-export class Table<TData extends { [key: string]: string | number | boolean | Date | null | undefined }> extends FoundationElement {
+export class Table<
+    TData extends {
+        [key: string]: string | number | boolean | Date | null | undefined;
+    }
+> extends FoundationElement {
     @observable
     public data: TData[];
 }
@@ -39,19 +43,19 @@ Therefore, types will be provided to allow clients to optionally provide more st
 
 ```ts
 type StringData<ValueKey extends string> = {
-  [key in ValueKey]: string | null | undefined;
+    [key in ValueKey]: string | null | undefined;
 };
 
 type NumberData<ValueKey extends string> = {
-  [k in ValueKey]: number | null | undefined;
+    [k in ValueKey]: number | null | undefined;
 };
 
 type BooleanData<ValueKey extends string> = {
-  [k in ValueKey]: boolean | null | undefined;
+    [k in ValueKey]: boolean | null | undefined;
 };
 
 type DateData<ValueKey extends string> = {
-  [k in ValueKey]: Date | null | undefined;
+    [k in ValueKey]: Date | null | undefined;
 };
 ```
 
@@ -135,4 +139,4 @@ The current API does not allow updating only a subset of the data, such as modif
 
 ## Open Issues
 
-- How will the type requirements of `TData` be reflected in Blazor?
+-   How will the type requirements of `TData` be reflected in Blazor?
