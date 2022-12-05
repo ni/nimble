@@ -18,15 +18,20 @@ declare global {
     }
 }
 
+export interface ITableData {
+    [key: string]: string | number | boolean | Date | null | undefined;
+}
+
 /**
  * A nimble-styled table.
  */
 export class Table<
-    TData extends { [key: string]: unknown } = { [key: string]: unknown }
+    TData extends ITableData = { [key: string]: string | number | boolean | Date | null | undefined }
 > extends FoundationElement {
     @observable
     public data: TData[] = [];
 
+    // TODO: Temporarily assume that the data in the table can be represented as strings.
     @observable
     public tableData: string[][] = [];
 
@@ -61,8 +66,7 @@ export class Table<
         }
 
         if (prev && next) {
-            this.options = { ...this.options, data: this.data };
-            this.update(this.table.initialState);
+            this.updateTableOptions({ data: this.data });
             this.refreshRows();
         }
     }
@@ -71,6 +75,8 @@ export class Table<
         return this.columnHeaders;
     }
 
+    // TODO: For now, assume all cells can be rendered as strings. Ultimately, the
+    // data should be passed to nimble-row elements and column definition renderers.
     private refreshRows(): void {
         const tableData: string[][] = [];
         const rows = this.table.getRowModel().rows;
@@ -94,6 +100,11 @@ export class Table<
         );
     }
 
+    private updateTableOptions(updatedOptions: Partial<TableOptionsResolved<TData>>): void {
+        this.options = { ...this.options, ...updatedOptions };
+        this.update(this.table.initialState);
+    }
+
     private readonly update = (state: TableState): void => {
         this.table.setOptions(prev => ({
             ...prev,
@@ -108,6 +119,8 @@ export class Table<
         }));
     };
 
+    // Temporarily auto-detect the keys in TData to make columns.
+    // TODO: Remove this logic when another way to specify columns is provided.
     private generateColumns(): void {
         if (this.data.length === 0) {
             return;
