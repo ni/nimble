@@ -18,7 +18,7 @@ The `nimble-table` is a component that offers a way to render tabular data in a 
 
 -   The `nimble-table` will not offer spreadsheet-like features such as infinite columns, or summary functions.
 
--   We do not intend for the `nimble-table` to handle data sets of 50K or more on the client-side. Visualizing such sizes of data sets are meant to be enabled through various "data virtualiazation" means, such as the server only sending over subsets of the data at a time, appropriately filtered down to a reasonable size.
+-   We do not intend for the `nimble-table` to handle data sets of 10K or more on the client-side. Visualizing such sizes of data sets are meant to be enabled through various "data virtualiazation" means, such as the server only sending over subsets of the data at a time, appropriately filtered down to a reasonable size.
 
 -   Non-virtualized static tables.
 
