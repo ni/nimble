@@ -8,7 +8,7 @@ import {
     contentHiddenDescription,
     endIconDescription,
     iconDescription
-} from '../../patterns/button/doc-strings';
+} from '../../patterns/button/tests/doc-strings';
 
 interface ToggleButtonArgs {
     label: string;

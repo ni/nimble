@@ -5,7 +5,7 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
-import { hrefDescription } from '../../patterns/link/doc-strings';
+import { hrefDescription } from '../../patterns/link/tests/doc-strings';
 
 interface AnchorArgs {
     label: string;

@@ -12,8 +12,8 @@ import {
     contentHiddenDescription,
     endIconDescription,
     iconDescription
-} from '../../patterns/button/doc-strings';
-import { hrefDescription } from '../../patterns/link/doc-strings';
+} from '../../patterns/button/tests/doc-strings';
+import { hrefDescription } from '../../patterns/link/tests/doc-strings';
 
 interface AnchorButtonArgs {
     label: string;
