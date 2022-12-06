@@ -1,18 +1,16 @@
 @import "@ni/nimble-tokens/dist/fonts/css/fonts.css";
 @import "@ni/nimble-tokens/dist/styledictionary/scss/variables.scss";
 @import "@ni/nimble-components/dist/tokens";
+// Importing Noto Serif as workaround until we include it with system
+// Issue for including Noto Serif captured at 
+// https://github.com/ni/nimble/issues/899
+@import url('https://fonts.googleapis.com/css2?family=Noto%20Serif&display=swap');
 
-:root {
-    --rgb-ni-green: #03B585;
-    --forestgreen: #074023;
-    --rgb-ni-scarlet: #EF463F;
-    --rgb-ni-sky-light: #A5DDED;
-    --rgb-ni-sky: #3CB4E7;
-    --rgb-labview: #FFC60B;
-    --black91: #161617;
-    --digitalgreendark: #006B46;
-    --card-height: 4.5rem;
-}
+// :root {
+    $rgb-ni-sky-light: #A5DDED;
+    $rgb-labview: #FFC60B;
+    $card-height: 4.5rem;
+// }
 
 body {
     margin: 0;
@@ -20,7 +18,7 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 9fr 10fr;
+    grid-template-columns: 8fr 12fr;
     grid-template-areas: 'circles main';
     min-height: 50px;
     width: 100%;
@@ -35,7 +33,7 @@ body {
     grid-area: circles;
     position: fixed;
     top: -5rem;
-    right: 50%;
+    right: 60%;
     z-index: -1;
     transition: right 500ms ease-in-out;
 }
@@ -50,27 +48,27 @@ circle{
 }
 
 #circle-2 {
-    stroke: var(--rgb-ni-green);
+    stroke: $ni-nimble-base-rgb-ni-green;
 }
 
 #circle-3 {
-    stroke: var(--forestgreen);
+    stroke: $ni-nimble-base-forest-green;
 }
 
 #circle-4 {
-    stroke: var(--rgb-ni-scarlet);
+    stroke: $ni-nimble-base-ni-scarlet;
 }
 
 #circle-5 {
-    stroke: var(--rgb-ni-sky-light);
+    stroke: $rgb-ni-sky-light;
 }
 
 #circle-6 {
-    stroke: var(--rgb-ni-sky);
+    stroke: $ni-nimble-base-ni-sky;
 }
 
 #circle-7 {
-    stroke: var(--rgb-labview);
+    stroke: $rgb-labview;
 }
 
 .banner {
@@ -98,15 +96,15 @@ circle{
 
 .banner-main>p {
     max-width: 40rem;
-    color: var(--black91);
+    color: $ni-nimble-base-black-91;
     font-family: $ni-nimble-body-font-family;
-    font-size: var(--ni-nimble-title-font-size);
+    font-size: $ni-nimble-title-font-size;
 }
 
 h1 {
-    font-family: var(--ni-nimble-headline-font-family);
+    font-family: $ni-nimble-headline-font-family;
     font-size: 6rem;
-    color: var(--ni-nimble-headline-font-color);
+    color: $ni-nimble-headline-font-color;
     margin: 0;
 }
 
@@ -118,7 +116,7 @@ h1 {
 .cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(2, var(--card-height));
+    grid-template-rows: repeat(2, $card-height);
     gap: 2rem;
     row-gap: 10rem;
     justify-items: center;
@@ -132,7 +130,7 @@ h1 {
 }
 
 .card {
-    height: var(--card-height);
+    height: $card-height;
     display: grid;
     grid-template-areas: "icon name"
         "icon description";
@@ -147,9 +145,9 @@ h1 {
 
 .card .name {
     grid-area: name;
-    font-family: var(--ni-nimble-headline-font-family);
-    font-size: var(--ni-nimble-headline-plus-1-font-size);
-    font-weight: var(--ni-nimble-headline-plus-1-font-weight);
+    font-family: $ni-nimble-headline-font-family;
+    font-size: $ni-nimble-headline-plus-1-font-size;
+    font-weight: $ni-nimble-headline-plus-1-font-weight;
 }
 
 .card .icon {
@@ -158,14 +156,14 @@ h1 {
 
 .card .description {
     grid-area: description;
-    font-family: var(--ni-nimble-body-font-family);
-    font-size: var(--ni-nimble-subtitle-plus-1-font-size);
-    font-weight: var(--ni-nimble-subtitle-plus-1-font-weight);
+    font-family: $ni-nimble-body-font-family;
+    font-size: $ni-nimble-subtitle-plus-1-font-size;
+    font-weight: $ni-nimble-subtitle-plus-1-font-weight;
     vertical-align: top;
 }
 
 .card:hover {
-    border-bottom-color: var(--digitalgreendark);
+    border-bottom-color: $ni-nimble-base-digital-green-dark;
     cursor: pointer;
 }
 
