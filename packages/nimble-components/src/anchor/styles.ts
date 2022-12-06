@@ -1,9 +1,8 @@
 import { css } from '@microsoft/fast-element';
 import { focusVisible } from '../utilities/style/focus';
-import { linkStyles, linkColors } from '../patterns/link/styles';
+import { linkStyles } from '../patterns/link/styles';
 
 export const styles = css`
-    ${linkColors}
     ${linkStyles}
 
     .control${focusVisible} {
