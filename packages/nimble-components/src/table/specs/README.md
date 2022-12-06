@@ -97,9 +97,7 @@ _Feature APIs_
 
 The various APIs/features of the `nimble-table` will be split up amongst several different HLD documents. This section will serve to list them out and link to them as they become available:
 
--   [Data API](table-data-api.md) :
-    -   Define what the interface is for setting/getting data on the table, taking into account any framework-specific binding concerns
-    -   Illustrate how the data is hooked up to the TanStack API
+-   [Data API](table-data-api.md)
 -   Column Definitions
     -   Define the interface we will provide for the column providers/components (i.e., width, sorting, allowSort, allowGrouping, etc...)
     -   Define the base implementation for the column providers that other column providers can extend.
