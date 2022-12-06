@@ -5,6 +5,9 @@
   ],
   "enabledManagers": ["npm"],
   "rangeStrategy": "update-lockfile",
+  "vulnerabilityAlerts": {
+      "enabled": false
+  },
   "packageRules": [
     {
       "matchManagers": ["npm"],
