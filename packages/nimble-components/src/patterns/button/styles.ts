@@ -316,7 +316,8 @@ export const primaryButtonStyles = css``.withBehaviors(
                 padding: 0 ${standardPadding};
             }
 
-            :host([appearance-variant='primary'][disabled][content-hidden]) .control {
+            :host([appearance-variant='primary'][disabled][content-hidden])
+                .control {
                 padding: 0px;
             }
         `
