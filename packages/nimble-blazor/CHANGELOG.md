@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 18 Oct 2022 19:13:04 GMT and should not be manually modified.
+This log was last generated on Tue, 06 Dec 2022 22:51:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.1.11
+
+Tue, 06 Dec 2022 22:51:26 GMT
+
+### Patches
+
+- Patch change to test pipeline, no changes to uptake. ([ni/nimble@5122243](https://github.com/ni/nimble/commit/51222434a77511d23ea7fcd624d4fca1b3a565d3))
 
 ## 9.1.0
 
