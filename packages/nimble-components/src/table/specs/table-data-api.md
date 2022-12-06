@@ -31,6 +31,12 @@ export class Table<
 }
 ```
 
+The user of the table can type a reference to the table as:
+```ts
+const tableRef: Table<TData>;
+tableRef.data = [{...}]; // The data property is bound by the above type
+```
+
 The typing described above does not fully enforce the type requirement on the table. Specifically, the type of `TData` above does not enforce that a given key only has one data type associated with it. For example, it allows the following, which is not considered valid:
 
 ```ts
@@ -69,6 +75,17 @@ type NumericColumnDefinitionData<
     UnitsKey extends string,
     PlaceholderKey extends string
 > = NumberData<ValueKey> & StringData<UnitsKey> & StringData<PlaceholderKey>;
+```
+
+Using the column definition, the user of a table can type a reference to the table as:
+```ts
+const tableRef: Table<NumericColumnDefinitionData<'value', 'units', 'placeholder'> & BooleanData<'awesome'>>;
+tableRef.data[{
+    value: 3,
+    units: 'a',
+    placeholder: 'b',
+    awesome: true
+}]; // The data property names and types are enforced by the type above.
 ```
 
 Note that the above is only an example of what is possible. The details of a table's column definitions is out of scope of this spec.
