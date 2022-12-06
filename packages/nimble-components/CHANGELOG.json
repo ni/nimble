@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 06 Dec 2022 22:31:12 GMT",
+      "tag": "@ni/nimble-components_v15.5.2",
+      "version": "15.5.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a27fc394e5792c7a3c559eae44ffb925a90ff8fc",
+            "comment": "Create spec for nimble-table data API"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 Dec 2022 21:49:48 GMT",
       "tag": "@ni/nimble-components_v15.5.2",
       "version": "15.5.2",
