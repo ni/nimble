@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { bodyDisabledFontColor } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 import { linkStyles, linkColors } from '../patterns/link/styles';
 
@@ -23,12 +22,6 @@ export const styles = css`
 
     :host([underline-visible]) .control {
         text-decoration: underline;
-    }
-
-    .control:not(:any-link) {
-        --ni-private-link-font-color: ${bodyDisabledFontColor};
-        pointer-events: none;
-        cursor: default;
     }
 
     .end {

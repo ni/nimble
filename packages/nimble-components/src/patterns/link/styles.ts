@@ -5,7 +5,7 @@ import {
     PowerGreen,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import { bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
+import { bodyDisabledFontColor, bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
 import { Theme } from '../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../utilities/style/colors';
 import { themeBehavior } from '../../utilities/style/theme';
@@ -36,6 +36,15 @@ export const linkStyles = css`
     .control:active {
         color: var(--ni-private-link-active-font-color);
         text-decoration: underline;
+    }
+
+    .control:not(:any-link) {
+        --ni-private-link-font-color: ${bodyDisabledFontColor};
+        text-decoration: none;
+    }
+
+    .control:not(:any-link):active {
+        --ni-private-link-active-font-color: ${bodyDisabledFontColor};
     }
 `;
 
