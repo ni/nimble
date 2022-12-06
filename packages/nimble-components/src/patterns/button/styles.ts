@@ -93,7 +93,7 @@ export const styles = css`
         outline: none;
     }
 
-    .control[disabled] {
+    :host([disabled]) .control {
         box-shadow: none;
         outline: none;
     }
@@ -167,7 +167,7 @@ export const styles = css`
                 border-color: ${fillSelectedColor};
             }
 
-            .control[disabled] {
+            :host([disabled]) .control {
                 background-color: transparent;
                 border-color: rgba(${borderRgbPartialColor}, 0.2);
             }
@@ -196,7 +196,7 @@ export const styles = css`
                 border-color: ${fillSelectedColor};
             }
 
-            .control[disabled] {
+            :host([disabled]) .control {
                 background-color: transparent;
                 border-color: transparent;
             }
@@ -229,7 +229,7 @@ export const styles = css`
                 border-color: ${fillSelectedColor};
             }
 
-            .control[disabled] {
+            :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
                 border-color: transparent;
             }
@@ -258,7 +258,7 @@ export const primaryButtonStyles = css``.withBehaviors(
                 box-shadow: none;
             }
 
-            :host([appearance-variant='primary']) .control[disabled] {
+            :host([appearance-variant='primary'][disabled]) .control {
                 box-shadow: none;
             }
         `
@@ -308,7 +308,7 @@ export const primaryButtonStyles = css``.withBehaviors(
                 padding: 0px;
             }
 
-            :host([appearance-variant='primary']) .control[disabled] {
+            :host([appearance-variant='primary'][disabled]) .control {
                 background-clip: border-box;
                 border-color: transparent;
                 border-width: ${borderWidth};
@@ -316,8 +316,7 @@ export const primaryButtonStyles = css``.withBehaviors(
                 padding: 0 ${standardPadding};
             }
 
-            :host([appearance-variant='primary'][content-hidden])
-                .control[disabled] {
+            :host([appearance-variant='primary'][disabled][content-hidden]) .control {
                 padding: 0px;
             }
         `

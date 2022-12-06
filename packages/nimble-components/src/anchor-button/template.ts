@@ -14,7 +14,6 @@ AnchorOptions
     <a
         class="control"
         part="control"
-        ?disabled="${x => x.disabled || !x.href}"
         download="${x => x.download}"
         href=${x => (x.disabled ? null : x.href)}
         hreflang="${x => x.hreflang}"
