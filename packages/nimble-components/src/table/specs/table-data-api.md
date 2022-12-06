@@ -98,7 +98,7 @@ The Angular directive for the table will be generic for the row data type, `TDat
 
 The Blazor wrapper around the table will be generic for the row data type. The best way to reflect the same type requirements on `TData` in Blazor has not yet been determined.
 
-The Blazor wrapper around the table will require writing interop code to set the property on the underlying `nimble-table` component because Blazor does not allow binding to properties on an element. This can either be done through a getter and setter for a `Data` parameter where the interop Task is not awaited, or it can be done by exposing an async method on the Blazor component that allows setting the data.
+The Blazor wrapper around the table will require writing interop code to set the property on the underlying `nimble-table` component because Blazor does not allow binding to properties on an element. This can either be done through a getter and setter for a `Data` parameter where the data is applied to the `nimble-table` web component in the `OnParametersSetAsync()` lifecycle method, or it can be done by exposing an async method on the Blazor component that allows setting the data.
 
 ### Hierarchical Data
 
