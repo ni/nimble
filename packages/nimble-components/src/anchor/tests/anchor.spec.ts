@@ -7,9 +7,7 @@ import { Anchor } from '..';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<Anchor>> {
-    return fixture<Anchor>(
-        html`<nimble-anchor></nimble-anchor>`
-    );
+    return fixture<Anchor>(html`<nimble-anchor></nimble-anchor>`);
 }
 
 describe('Anchor', () => {
@@ -30,9 +28,7 @@ describe('Anchor', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-anchor')).toBeInstanceOf(
-            Anchor
-        );
+        expect(document.createElement('nimble-anchor')).toBeInstanceOf(Anchor);
     });
 
     it('should set the "control" class on the internal control', async () => {

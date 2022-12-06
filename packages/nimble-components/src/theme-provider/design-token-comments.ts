@@ -119,37 +119,28 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Fallback font family for the "Subtitle_1" base token',
     linkFont: 'Font shorthand for links',
     linkFontColor: 'Font color for links',
-    linkDisabledFontColor:
-        'Disabled font color for links',
+    linkDisabledFontColor: 'Disabled font color for links',
     linkFontFamily: 'Font family for links',
     linkFontSize: 'Font size for links',
     linkFontWeight: 'Font weight for links',
-    linkFontLineHeight:
-        'Font line height for links',
-    linkFallbackFontFamily:
-        'Fallback font family for links',
+    linkFontLineHeight: 'Font line height for links',
+    linkFallbackFontFamily: 'Fallback font family for links',
     linkActiveFont: 'Font shorthand for active links',
     linkActiveFontColor: 'Font color for active links',
-    linkActiveDisabledFontColor:
-        'Disabled font color for active links',
+    linkActiveDisabledFontColor: 'Disabled font color for active links',
     linkActiveFontFamily: 'Font family for active links',
     linkActiveFontSize: 'Font size for active links',
     linkActiveFontWeight: 'Font weight for active links',
-    linkActiveFontLineHeight:
-        'Font line height for active links',
-    linkActiveFallbackFontFamily:
-        'Fallback font family for active links',
+    linkActiveFontLineHeight: 'Font line height for active links',
+    linkActiveFallbackFontFamily: 'Fallback font family for active links',
     linkProminentFont: 'Font shorthand for prominent links',
     linkProminentFontColor: 'Font color for prominent links',
-    linkProminentDisabledFontColor:
-        'Disabled font color for prominent links',
+    linkProminentDisabledFontColor: 'Disabled font color for prominent links',
     linkProminentFontFamily: 'Font family for prominent links',
     linkProminentFontSize: 'Font size for prominent links',
     linkProminentFontWeight: 'Font weight for prominent links',
-    linkProminentFontLineHeight:
-        'Font line height for prominent links',
-    linkProminentFallbackFontFamily:
-        'Fallback font family for prominent links',
+    linkProminentFontLineHeight: 'Font line height for prominent links',
+    linkProminentFallbackFontFamily: 'Fallback font family for prominent links',
     linkActiveProminentFont: 'Font shorthand for active prominent links',
     linkActiveProminentFontColor: 'Font color for active prominent links',
     linkActiveProminentDisabledFontColor:

@@ -43,5 +43,6 @@ AnchorOptions
         ${ref('control')}
     >
         <span class="content" part="content">
-            <slot ${slotted('defaultSlottedContent')}></slot></span></a>
+            <slot ${slotted('defaultSlottedContent')}></slot></span
+    ></a>
 `;

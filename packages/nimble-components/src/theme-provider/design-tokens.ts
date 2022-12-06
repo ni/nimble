@@ -383,7 +383,12 @@ export const [
     linkActiveFallbackFontFamily
 ] = createFontTokens(
     tokenNames.linkActiveFont,
-    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, hexToRgbaCssColor(White, 0.6)),
+    (element: HTMLElement) => getColorForTheme(
+        element,
+        DigitalGreenDark,
+        PowerGreen,
+        hexToRgbaCssColor(White, 0.6)
+    ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
     LinkLightUiWeight,
@@ -423,7 +428,12 @@ export const [
     linkActiveProminentFallbackFontFamily
 ] = createFontTokens(
     tokenNames.linkActiveProminentFont,
-    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, hexToRgbaCssColor(White, 0.6)),
+    (element: HTMLElement) => getColorForTheme(
+        element,
+        DigitalGreenDark,
+        PowerGreen,
+        hexToRgbaCssColor(White, 0.6)
+    ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
     LinkLightUiWeight,
