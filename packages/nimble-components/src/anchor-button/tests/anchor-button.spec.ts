@@ -27,28 +27,6 @@ describe('AnchorButton', () => {
         );
     });
 
-    it('should set `disabled` on the host when `href` is not present', async () => {
-        await connect();
-        expect(element.control.hasAttribute('disabled')).toBeTrue();
-
-        element.href = 'http://www.ni.com';
-        await DOM.nextUpdate();
-
-        expect(element.control.hasAttribute('disabled')).toBeFalse();
-    });
-
-    it('should be able to set `disabled` on the host even when `href` is present', async () => {
-        element.href = 'http://www.ni.com';
-        await connect();
-        expect(element.hasAttribute('disabled')).toBeFalse();
-
-        element.disabled = true;
-        await DOM.nextUpdate();
-
-        expect(element.hasAttribute('disabled')).toBeTrue();
-        expect(element.control.hasAttribute('disabled')).toBeTrue();
-    });
-
     it('should set the "control" class on the internal control', async () => {
         await connect();
         expect(element.control.classList.contains('control')).toBe(true);
@@ -57,28 +35,6 @@ describe('AnchorButton', () => {
     it('should set the `part` attribute to "control" on the internal control', async () => {
         await connect();
         expect(element.control.part.contains('control')).toBe(true);
-    });
-
-    it('should mirror `disabled` value to the internal control', async () => {
-        element.href = 'http://www.ni.com'; // need this or control will stay disabled
-        element.disabled = true;
-        await connect();
-        expect(element.control.hasAttribute('disabled')).toBeTrue();
-
-        element.disabled = false;
-        await DOM.nextUpdate();
-
-        expect(element.control.hasAttribute('disabled')).toBeFalse();
-    });
-
-    it('should set `disabled` on the internal control when `href` is null', async () => {
-        await connect();
-        expect(element.control.hasAttribute('disabled')).toBeTrue();
-
-        element.href = 'http://www.ni.com';
-        await DOM.nextUpdate();
-
-        expect(element.control.hasAttribute('disabled')).toBeFalse();
     });
 
     it('should clear `href` on the internal control when disabled', async () => {
