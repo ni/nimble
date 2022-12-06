@@ -10,6 +10,10 @@ module.exports = {
         'node_modules',
         'dist'
     ],
+    rules: {
+        // Enabled to prevent accidental usage of async-await
+        'require-await': 'error'
+    },
     overrides: [
         {
             files: ['.storybook/**'],

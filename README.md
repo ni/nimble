@@ -80,7 +80,7 @@ NOTE: To update the component status:
 | Drawer | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/drawer--drawer) | :white_check_mark: | :white_check_mark: |
 | Dropdown (Select) | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/select--select) | :white_check_mark: | :white_check_mark: |
 | Filter Builder | |  [Issue](https://github.com/ni/nimble/issues/310) | :o: | :o: | :o: |
-| Table | |  [Issue](https://github.com/ni/nimble/issues/283) | :o: | :o: | :o: |
+| Table | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b9cee5e2-49a4-425a-9ed4-38b23ba2e313/specs/) |  [Issue](https://github.com/ni/nimble/issues/283) | [:warning: - SB](https://ni.github.io/nimble/storybook/?path=/docs/table--table) | :o: | :o: |
 | Icon Button | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--icon-button) | :white_check_mark: | :white_check_mark: |
 | Icon Menu Button | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) |  [Issue](https://github.com/ni/nimble/issues/300) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/menu-button--icon-button) | :white_check_mark: | :white_check_mark: |
 | Icons | | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/icons--component-icons) | :white_check_mark: | :white_check_mark: |
@@ -105,3 +105,4 @@ NOTE: To update the component status:
 | Toolbar | |  [Issue](https://github.com/ni/nimble/issues/411) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/story/toolbar--toolbar) | :white_check_mark: | :white_check_mark: |
 | Tooltip | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/) |  [Issue](https://github.com/ni/nimble/issues/309) | [:warning: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tooltip--tooltip) | :warning: | :warning: |
 | Tree View | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/ec5a855a-4174-46ad-947c-3931bbf3e32d/) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tree-view--tree-view) | :white_check_mark: | :white_check_mark: |
+| Wafer Map | | | :warning: | :warning: | :warning: |
