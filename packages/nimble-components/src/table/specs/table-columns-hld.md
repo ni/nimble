@@ -34,7 +34,7 @@ public Table extends FoundationElement {
 
     @observable
     public slottedColumns: ITableColumn[] = [];
- 
+
     private slottedColumnsChanged(): void {
         if (this.slottedColumns.length > 0) {
             for (const tableColumn of this.slottedColumns) {
@@ -57,7 +57,7 @@ template:
 
 ### `ITableColumn`
 
-This interface is what a column web components (i.e. a slotted column) must implement.
+This interface is what a column web component (i.e. a slotted column) must implement.
 
 ```TS
 interface ITableColumn {
@@ -70,7 +70,7 @@ interface ITableColumn {
 
 The `ITableColumn` interface would be updated to support other features not covered in this HLD such as sorting and grouping.
 
-###  `ITableCellData` 
+### `ITableCellData`
 
 In order for the `cellTemplateFn` in the above interface to be able to act on the necessary table data, we should have a type that the template function can work with directly through.
 
@@ -89,7 +89,7 @@ class TableCellData<TData extends { [key: string]: tableData }> implements ITabl
 }
 ```
 
-`TData` here represents a subset of the overall data provided to the table. The `getDataKeys()` method on the `ITableColumn` interface will be used to retrieve the subset of data to provide to a particular `TableCellData` instance. 
+`TData` here represents a subset of the overall data provided to the table. The `getDataKeys()` method on the `ITableColumn` interface will be used to retrieve the subset of data to provide to a particular `TableCellData` instance.
 
 With these mechanisms in place we should be able to define a series of column providers to handle all of the basic use cases. For example, the `ITableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
@@ -157,12 +157,12 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
 
     public cellTemplateFn(): ViewTemplate<ITableCellData> {
         return html<ITableCellData>`
-            ${when(x => !this.isPositive(x.data[this.valueKey])), 
+            ${when(x => !this.isPositive(x.data[this.valueKey])),
             html`
                 <nimble-text-field readonly="true" value=${x => x.data[this.valueKey]} style="fontColor: red;">
                 </nimble-text-field>
             `}
-            ${when(x => this.isPositive(x.data[this.valueKey])), 
+            ${when(x => this.isPositive(x.data[this.valueKey])),
             html`
                 <nimble-text-field readonly="true" value=${x => x.data[this.valueKey]} style="fontColor: green;">
                 </nimble-text-field>
@@ -202,8 +202,8 @@ A programmatic API was also considered either in place of, or along side the pro
 
 ## Open Issues
 
-- The current design doesn't offer any strict templating feedback for a particular `ITableColumn` implementation. So, if a user provides a dataKey to a property of an `ITableColumn` that wants the value for that dataKey to be a `DateTime` (i.e. its `cellTemplateFn` implementation expects a `DateTime`), but the value in the actual table data for that key is a string, the user will be unaware of that mismatch at compile time.
+-   The current design doesn't offer any strict templating feedback for a particular `ITableColumn` implementation. So, if a user provides a dataKey to a property of an `ITableColumn` that wants the value for that dataKey to be a `DateTime` (i.e. its `cellTemplateFn` implementation expects a `DateTime`), but the value in the actual table data for that key is a string, the user will be unaware of that mismatch at compile time.
 
     It is unclear how we could provide such feedback, but it would be extremely nice if possible.
 
-- There is some concern with the lifecycle of these custom column components.
+-   There is some concern with the lifecycle of these custom column components.
