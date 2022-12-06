@@ -142,7 +142,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
 }
 ```
 
-Finally, here we have a column visualize in different ways based on custom logic:
+Here we have a column visualize in different ways based on custom logic:
 
 ```TS
 public TableColumnPositiveNegativeNumber extends FoundationElement implements ITableColumn {
@@ -176,6 +176,50 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
 }
 ```
 
+Finally, here is a column that allows a user to register a callback for a click event on a button inside the cell template:
+
+```TS
+public TableColumnButton extends FoundationElement implements ITableColumn {
+    ...
+
+    @attr
+    public idKey: string;
+
+    public getDataKeys(): string[] {
+        return [valueKey];
+    }
+
+    public callback: (id: string) => void;
+
+    public cellTemplateFn(): ViewTemplate<ITableCellData> {
+        return html<ITableCellData>`
+                <nimble-button readonly="true" @click="${x => this.callback(x.data[this.idKey])}>
+                    <span>Do Something</span>
+                </nimble-button>
+        `;
+    }
+}
+
+Angular template:
+
+<nimble-table>
+    <nimble-table-column-button #tableButton>Press Me</nimble-table-column-button>
+</nimble-table>
+
+Angular code:
+
+@ViewChild('tableButton', { read: NimbleTableColumnButton, static: true }) private readonly tableButton!: NimbleTableColumnButton;
+
+public ngOnInit(): void {
+    tableButton.callback = this.doSomething;
+}
+
+private doSomething(id: string): void {
+    ...
+}
+
+```
+
 Note the missing implementation in the above `ITableColumn` implementations are the necessary pieces to register them as FAST components.
 
 ### Initial Nimble-provided Columns
@@ -198,6 +242,8 @@ The API for this column type is also out of scope and should be covered in a sep
 
 ## Alternative Implementations / Designs
 
+### Programmatic API
+
 A programmatic API was also considered either in place of, or along side the proposed declarative API. Since declaring what columns to show is an aspect of view configuration, it makes sense to accomplish this declaratively when possible. Offering a programmatic API alongside the declarative one, while possible, does introduce complexity in the implementation that would be nice to avoid, at least initially, if possible.
 
 ## Open Issues
@@ -207,3 +253,4 @@ A programmatic API was also considered either in place of, or along side the pro
     It is unclear how we could provide such feedback, but it would be extremely nice if possible.
 
 -   There is some concern with the lifecycle of these custom column components.
+-   Should `ITableCellData` also require a data index? This could enable some scenarios that might otherwise require a user to have id fields in their data.
