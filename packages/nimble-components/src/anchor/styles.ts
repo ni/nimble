@@ -6,10 +6,6 @@ export const styles = css`
     ${linkColors}
     ${linkStyles}
 
-    [part='start'] {
-        display: none;
-    }
-
     .control${focusVisible} {
         outline: none;
         text-decoration: underline;
@@ -22,9 +18,5 @@ export const styles = css`
 
     :host([underline-visible]) .control {
         text-decoration: underline;
-    }
-
-    [part='end'] {
-        display: none;
     }
 `;

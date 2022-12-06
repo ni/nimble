@@ -14,6 +14,7 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 import '../../all-components';
 import { AnchorAppearance } from '../types';
+import { bodyFont } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Anchor',
@@ -75,4 +76,22 @@ export const hiddenAnchor: Story = createStory(
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(html`<nimble-anchor>Link</nimble-anchor>`)
+);
+
+export const textWrapping: Story = createStory(
+    // prettier-ignore
+    html`
+    <p style="width: 300px; border: 1px solid black">
+        <style>
+            * {
+                font: var(${bodyFont.cssCustomProperty});
+            }
+        </style>
+        Lorem ipsum dolor sit amet, <nimble-anchor
+            href='#'
+            underline-visible
+        >
+        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</nimble-anchor> ut aliquip ex ea commodo consequat.
+    </p>
+    `
 );
