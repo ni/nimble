@@ -237,7 +237,7 @@ export const styles = css`
     )
 );
 
-export const primaryButtonStyles = css``.withBehaviors(
+export const buttonAppearanceVariantStyles = css``.withBehaviors(
     appearanceBehavior(
         ButtonAppearance.outline,
         css`

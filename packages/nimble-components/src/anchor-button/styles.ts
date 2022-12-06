@@ -1,12 +1,12 @@
 import { css } from '@microsoft/fast-element';
 import {
-    primaryButtonStyles,
+    buttonAppearanceVariantStyles,
     styles as buttonStyles
 } from '../patterns/button/styles';
 
 export const styles = css`
     ${buttonStyles}
-    ${primaryButtonStyles}
+    ${buttonAppearanceVariantStyles}
 
     .control {
         text-decoration: none;
