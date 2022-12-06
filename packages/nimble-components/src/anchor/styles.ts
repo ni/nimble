@@ -6,7 +6,7 @@ export const styles = css`
     ${linkColors}
     ${linkStyles}
 
-    .start {
+    [part='start'] {
         display: none;
     }
 
@@ -24,7 +24,7 @@ export const styles = css`
         text-decoration: underline;
     }
 
-    .end {
+    [part='end'] {
         display: none;
     }
 `;
