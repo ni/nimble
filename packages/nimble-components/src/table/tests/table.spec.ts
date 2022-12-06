@@ -92,7 +92,6 @@ describe('Table', () => {
     it('can set data before the element is connected', async () => {
         const fakeData = makeFakeData(5);
         element.data = fakeData;
-
         await connect();
 
         verifyRenderedData(fakeData);
@@ -130,7 +129,7 @@ describe('Table', () => {
         verifyRenderedData(updatedData);
     });
 
-    it('updating data can remove an rows from the table', async () => {
+    it('updating data can remove rows from the table', async () => {
         await connect();
 
         const fakeData = makeFakeData(5);

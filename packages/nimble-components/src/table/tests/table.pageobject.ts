@@ -2,7 +2,7 @@ import type { Table } from '..';
 import type { TableData } from '../types';
 
 /**
- * Page Object for the `nimble-table` component to provide consistent ways
+ * Page object for the `nimble-table` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
 export class TablePageObject<T extends TableData> {

@@ -36,7 +36,7 @@ export class Table<
 
     private readonly table: TanstackTable<TData>;
     private options: TableOptionsResolved<TData>;
-    private columns: ColumnDef<TData>[] = [];
+    // private columns: ColumnDef<TData>[] = [];
     private columnHeaders: string[] = [];
 
     public constructor() {
@@ -64,18 +64,16 @@ export class Table<
             this.generateColumns();
         }
 
-        if (prev && next) {
-            this.updateTableOptions({ data: this.data });
-            this.refreshRows();
-        }
+        this.updateTableOptions({ data: this.data });
+        this.refreshRows();
     }
 
     public getColumnHeaders(): string[] {
         return this.columnHeaders;
     }
 
-    // TODO: For now, assume all cells can be rendered as strings. Ultimately, the
-    // data should be passed to nimble-row elements and column definition renderers.
+    // TODO: For now, assume all cells can be rendered as strings. Ultimately, the data
+    // should be passed to nimble-row elements to use the view template from a column definition.
     private refreshRows(): void {
         const tableData: string[][] = [];
         const rows = this.table.getRowModel().rows;
@@ -87,16 +85,6 @@ export class Table<
             tableData.push(rowArray);
         }
         this.tableData = tableData;
-    }
-
-    private refreshHeaders(): void {
-        const headerGroups = this.table.getHeaderGroups();
-        const headers = headerGroups.length > 0 && headerGroups[0]
-            ? headerGroups[0]?.headers
-            : [];
-        this.columnHeaders = headers.map(
-            header => (this.columns[header.index]?.header as string) || ''
-        );
     }
 
     private updateTableOptions(
@@ -129,7 +117,7 @@ export class Table<
 
         const firstItem = this.data[0]!;
         const keys = Object.keys(firstItem);
-        this.columns = keys.map(key => {
+        const generatedColumns = keys.map(key => {
             const columnDef: ColumnDef<TData> = {
                 id: key,
                 accessorKey: key,
@@ -138,9 +126,8 @@ export class Table<
             return columnDef;
         });
 
-        this.options = { ...this.options, columns: this.columns };
-        this.update(this.table.initialState);
-        this.refreshHeaders();
+        this.updateTableOptions({ columns: generatedColumns });
+        this.columnHeaders = generatedColumns.map(x => x.header as string);
     }
 }
 
