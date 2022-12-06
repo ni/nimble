@@ -78,8 +78,14 @@ describe('Table', () => {
         element.data = fakeData;
         await connect();
 
-        for (let columnIndex = 0; columnIndex < fakeTableDataKeys.length; columnIndex++) {
-            expect(pageObject.getHeaderContent(columnIndex)).toEqual(fakeTableDataKeys[columnIndex]!);
+        for (
+            let columnIndex = 0;
+            columnIndex < fakeTableDataKeys.length;
+            columnIndex++
+        ) {
+            expect(pageObject.getHeaderContent(columnIndex)).toEqual(
+                fakeTableDataKeys[columnIndex]!
+            );
         }
     });
 
