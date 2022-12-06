@@ -1,10 +1,11 @@
 import { html } from '@microsoft/fast-element';
-import { ITableData, Table } from '..';
+import { Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
+import type { TableData } from '../types';
 import { TablePageObject } from './table.pageobject';
 
-interface IFakeTableData extends ITableData {
+interface FakeTableData extends TableData {
     stringData: string;
     numericData: number;
     booleanData: boolean;
@@ -17,12 +18,12 @@ const fakeTableDataKeys = [
     'dateData'
 ];
 
-async function setup(): Promise<Fixture<Table<IFakeTableData>>> {
-    return fixture<Table<IFakeTableData>>(html`<nimble-table></nimble-table>`);
+async function setup(): Promise<Fixture<Table<FakeTableData>>> {
+    return fixture<Table<FakeTableData>>(html`<nimble-table></nimble-table>`);
 }
 
-function makeFakeData(count: number): IFakeTableData[] {
-    const data: IFakeTableData[] = [];
+function makeFakeData(count: number): FakeTableData[] {
+    const data: FakeTableData[] = [];
     for (let i = 0; i < count; i++) {
         data.push({
             stringData: `string #${i}`,
@@ -36,12 +37,12 @@ function makeFakeData(count: number): IFakeTableData[] {
 }
 
 describe('Table', () => {
-    let element: Table<IFakeTableData>;
+    let element: Table<FakeTableData>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
-    let pageObject: TablePageObject<IFakeTableData>;
+    let pageObject: TablePageObject<FakeTableData>;
 
-    function verifyRenderedData(expectedData: IFakeTableData[]): void {
+    function verifyRenderedData(expectedData: FakeTableData[]): void {
         const expectedRowCount = expectedData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
@@ -61,7 +62,7 @@ describe('Table', () => {
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
-        pageObject = new TablePageObject<IFakeTableData>(element);
+        pageObject = new TablePageObject<FakeTableData>(element);
     });
 
     afterEach(async () => {
@@ -70,6 +71,16 @@ describe('Table', () => {
 
     it('can construct an element instance', () => {
         expect(document.createElement('nimble-table')).toBeInstanceOf(Table);
+    });
+
+    it('should render column headers', async () => {
+        const fakeData = makeFakeData(1);
+        element.data = fakeData;
+        await connect();
+
+        for (let columnIndex = 0; columnIndex < fakeTableDataKeys.length; columnIndex++) {
+            expect(pageObject.getHeaderContent(columnIndex)).toEqual(fakeTableDataKeys[columnIndex]!);
+        }
     });
 
     it('can set data before the element is connected', async () => {
@@ -98,7 +109,7 @@ describe('Table', () => {
         element.data = fakeData;
         await waitForUpdatesAsync();
 
-        const updatedData: IFakeTableData[] = [
+        const updatedData: FakeTableData[] = [
             ...fakeData,
             {
                 stringData: 'a new string',
@@ -120,7 +131,7 @@ describe('Table', () => {
         element.data = fakeData;
         await waitForUpdatesAsync();
 
-        const updatedData: IFakeTableData[] = [
+        const updatedData: FakeTableData[] = [
             fakeData[0]!,
             fakeData[1]!,
             fakeData[4]!
@@ -138,7 +149,7 @@ describe('Table', () => {
         element.data = fakeData;
         await waitForUpdatesAsync();
 
-        const updatedData: IFakeTableData[] = [
+        const updatedData: FakeTableData[] = [
             fakeData[4]!,
             fakeData[1]!,
             fakeData[3]!,

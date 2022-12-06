@@ -1,11 +1,24 @@
-import type { ITableData, Table } from '..';
+import type { Table } from '..';
+import type { TableData } from '../types';
 
 /**
  * Page Object for the `nimble-table` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
-export class TablePageObject<T extends ITableData> {
+export class TablePageObject<T extends TableData> {
     public constructor(private readonly tableElement: Table<T>) {}
+
+    public getHeaderContent(columnIndex: number): string {
+        const header = this.tableElement.shadowRoot!.querySelector('.table-header')!;
+        const cells = header.querySelectorAll('.table-cell');
+        if (columnIndex >= cells.length) {
+            throw new Error(
+                'Attempting to index passed the totla number of rendered columns'
+            );
+        }
+
+        return cells.item(columnIndex).textContent || '';
+    }
 
     public getRenderedRowCount(): number {
         return (

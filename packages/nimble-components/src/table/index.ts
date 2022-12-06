@@ -11,6 +11,7 @@ import {
 } from '@tanstack/table-core';
 import { styles } from './styles';
 import { template } from './template';
+import type { TableData } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,15 +19,11 @@ declare global {
     }
 }
 
-export interface ITableData {
-    [key: string]: string | number | boolean | Date | null | undefined;
-}
-
 /**
  * A nimble-styled table.
  */
 export class Table<
-    TData extends ITableData = {
+    TData extends TableData = {
         [key: string]: string | number | boolean | Date | null | undefined
     }
 > extends FoundationElement {
