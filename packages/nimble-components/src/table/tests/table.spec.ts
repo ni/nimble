@@ -74,9 +74,11 @@ describe('Table', () => {
     });
 
     it('should render column headers', async () => {
+        await connect();
+
         const fakeData = makeFakeData(1);
         element.data = fakeData;
-        await connect();
+        await waitForUpdatesAsync();
 
         for (
             let columnIndex = 0;

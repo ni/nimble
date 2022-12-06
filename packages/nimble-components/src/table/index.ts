@@ -34,9 +34,12 @@ export class Table<
     @observable
     public tableData: string[][] = [];
 
+    @observable
+    public columnHeaders: string[] = [];
+
     private readonly table: TanstackTable<TData>;
     private options: TableOptionsResolved<TData>;
-    private columnHeaders: string[] = [];
+    private readonly tableInitialized: boolean = false;
 
     public constructor() {
         super();
@@ -53,6 +56,7 @@ export class Table<
             autoResetAll: false
         };
         this.table = createTable(this.options);
+        this.tableInitialized = true;
     }
 
     public dataChanged(
@@ -64,14 +68,10 @@ export class Table<
         }
 
         // Ignore any updates that occur prior to the TanStack table being initialized.
-        if (this.table) {
+        if (this.tableInitialized) {
             this.updateTableOptions({ data: this.data });
             this.refreshRows();
         }
-    }
-
-    public getColumnHeaders(): string[] {
-        return this.columnHeaders;
     }
 
     // TODO: For now, assume all cells can be rendered as strings. Ultimately, the data
