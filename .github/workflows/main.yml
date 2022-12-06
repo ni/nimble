@@ -6,8 +6,12 @@ on:
     branches:
       - '**'
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_SERVICE_USER: "rajsite"
   GITHUB_SERVICE_EMAIL: "rajsite@users.noreply.github.com"
 
@@ -18,7 +22,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # Required for changelog detection
-          token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
       # Install dependencies
       - uses: actions/setup-dotnet@v2
@@ -55,7 +58,6 @@ jobs:
         if: github.event_name == 'push'
         uses: chromaui/action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: ./packages/nimble-components
           storybookBuildDir: ../../packages/site/dist/storybook
