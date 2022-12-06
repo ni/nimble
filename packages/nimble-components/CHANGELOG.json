@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 06 Dec 2022 21:49:48 GMT",
+      "tag": "@ni/nimble-components_v15.5.2",
+      "version": "15.5.2",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "24ca39c4ee07f0bf3121717db98888846b13f1b1",
+            "comment": "Nimble Table spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 05 Dec 2022 19:44:44 GMT",
       "tag": "@ni/nimble-components_v15.5.2",
       "version": "15.5.2",
