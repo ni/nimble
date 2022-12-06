@@ -24,7 +24,7 @@ export interface ButtonPattern {
 /**
  * Interface for buttons that support appearance variants.
  */
-export interface ButtonWithAppearanceVariantPattern {
+export interface ButtonAppearanceVariantPattern {
     /**
      * The appearance variant the button should have.
      */

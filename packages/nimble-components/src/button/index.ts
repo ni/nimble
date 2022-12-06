@@ -7,7 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import type {
     ButtonPattern,
-    ButtonWithAppearanceVariantPattern
+    ButtonAppearanceVariantPattern
 } from '../patterns/button/types';
 import { styles } from './styles';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
@@ -23,7 +23,7 @@ declare global {
  */
 export class Button
     extends FoundationButton
-    implements ButtonPattern, ButtonWithAppearanceVariantPattern {
+    implements ButtonPattern, ButtonAppearanceVariantPattern {
     /**
      * @public
      * @remarks

@@ -10,7 +10,7 @@ import {
     ButtonAppearance,
     ButtonAppearanceVariant,
     ButtonPattern,
-    ButtonWithAppearanceVariantPattern
+    ButtonAppearanceVariantPattern
 } from '../patterns/button/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -26,7 +26,7 @@ declare global {
  */
 export class AnchorButton
     extends FoundationAnchor
-    implements ButtonPattern, ButtonWithAppearanceVariantPattern {
+    implements ButtonPattern, ButtonAppearanceVariantPattern {
     /**
      * @public
      * @remarks
