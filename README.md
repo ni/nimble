@@ -64,6 +64,8 @@ NOTE: To update the component status:
     2. Create a PR to update this README with the entire contents of the generated 'M' column in the spreadsheet
 -->
 
+<!-- TODO: update with nimble-table Angular support -->
+
 | Components             | Design | Issue | Web Components     | Angular Integration | Blazor Integration |
 |------------------------|--------|--------|--------------------|---------------------|--------------------|
 | Accordion | |  [Issue](https://github.com/ni/nimble/issues/533) | :o: | :o: | :o: |
