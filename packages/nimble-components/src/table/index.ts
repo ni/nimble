@@ -36,7 +36,6 @@ export class Table<
 
     private readonly table: TanstackTable<TData>;
     private options: TableOptionsResolved<TData>;
-    // private columns: ColumnDef<TData>[] = [];
     private columnHeaders: string[] = [];
 
     public constructor() {
@@ -64,8 +63,11 @@ export class Table<
             this.generateColumns();
         }
 
-        this.updateTableOptions({ data: this.data });
-        this.refreshRows();
+        // Ignore any updates that occur prior to the TanStack table being initialized.
+        if (this.table) {
+            this.updateTableOptions({ data: this.data });
+            this.refreshRows();
+        }
     }
 
     public getColumnHeaders(): string[] {
