@@ -6,11 +6,6 @@ on:
     branches:
       - '**'
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 env:
   GITHUB_SERVICE_USER: "rajsite"
   GITHUB_SERVICE_EMAIL: "rajsite@users.noreply.github.com"
@@ -21,7 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # Required for changelog detection
+          # Required for beachball changelog detection
+          fetch-depth: 0
+          # Must checkout with a token that can push to protected branches for beachball
+          # Cannot rely on GITHUB_TOKEN with workflow contents permission
+          # See: https://github.com/orgs/community/discussions/40971
+          token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
       # Install dependencies
       - uses: actions/setup-dotnet@v2
