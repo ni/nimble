@@ -5,6 +5,9 @@
   ],
   "enabledManagers": ["npm"],
   "rangeStrategy": "update-lockfile",
+  "schedule": [
+    "weekly"
+  ],
   "vulnerabilityAlerts": {
       "enabled": false
   },
