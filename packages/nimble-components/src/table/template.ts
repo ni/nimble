@@ -6,7 +6,7 @@ export const template = html<Table>`
     <template>
         <div class="table-container">
             <div class="table-header">
-                ${repeat(x => x.getColumnHeaders(), html<string>`
+                ${repeat(x => x.columnHeaders, html<string>`
                     <span class="table-cell">${x => x}</span>
                 `)}
             </div>
