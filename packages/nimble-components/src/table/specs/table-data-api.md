@@ -6,6 +6,8 @@ A table/data-grid component can have a variety of ways to introduce data into it
 
 ## Links To Relevant Work Items and Reference Material
 
+[nimble-table README](README.md)
+
 [FAST data-grid spec](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/data-grid/data-grid.spec.md) (see `rowsData` in _properties:_ section)
 
 [TanStack Table API](https://tanstack.com/table/v8/docs/api/core/table)

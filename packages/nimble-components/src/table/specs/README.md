@@ -97,7 +97,7 @@ _Feature APIs_
 
 The various APIs/features of the `nimble-table` will be split up amongst several different HLD documents. This section will serve to list them out and link to them as they become available:
 
--   Data API :
+-   [Data API](table-data-api.md) :
     -   Define what the interface is for setting/getting data on the table, taking into account any framework-specific binding concerns
     -   Illustrate how the data is hooked up to the TanStack API
 -   Column Definitions
@@ -147,7 +147,7 @@ Placeholder
 
 _Events_
 
-Placeholder
+-   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
 
 ### Anatomy
 
