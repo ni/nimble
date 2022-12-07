@@ -87,7 +87,7 @@ describe('TreeView', () => {
         );
     });
 
-    it('root1 should have "group-selected" attribute set after initialization', async () => {
+    it('root1 should have "group-selected" attribute set after initialization', () => {
         expect(model.root1.hasAttribute('group-selected')).toBe(true);
         expect(model.root2.hasAttribute('group-selected')).toBe(false);
     });

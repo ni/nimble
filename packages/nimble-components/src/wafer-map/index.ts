@@ -13,6 +13,7 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
+import type { DataManager } from './modules/data-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -52,12 +53,14 @@ export class WaferMap extends FoundationElement {
     })
     public colorsScaleMode: WaferMapColorsScaleMode = WaferMapColorsScaleMode.linear;
 
-    @observable public highlightedValues: number[] = [];
+    @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorsScale = {
         colors: [],
         values: []
     };
+
+    private readonly dataManager: DataManager | undefined;
 }
 
 const nimbleWaferMap = WaferMap.compose({
