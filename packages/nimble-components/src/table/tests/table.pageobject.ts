@@ -13,7 +13,7 @@ export class TablePageObject<T extends TableData> {
         const cells = header.querySelectorAll('.table-cell');
         if (columnIndex >= cells.length) {
             throw new Error(
-                'Attempting to index passed the totla number of rendered columns'
+                'Attempting to index passed the total number of rendered columns'
             );
         }
 
@@ -39,7 +39,7 @@ export class TablePageObject<T extends TableData> {
         const cells = row.querySelectorAll('.table-cell');
         if (columnIndex >= cells.length) {
             throw new Error(
-                'Attempting to index passed the totla number of rendered columns'
+                'Attempting to index passed the total number of rendered columns'
             );
         }
 

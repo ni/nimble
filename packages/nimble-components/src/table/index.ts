@@ -11,7 +11,7 @@ import {
 } from '@tanstack/table-core';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableData } from './types';
+import type { TableData, TableDataValue } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -82,7 +82,9 @@ export class Table<
         for (const row of rows) {
             const rowArray: string[] = [];
             for (const cell of row.getVisibleCells()) {
-                rowArray.push(cell.getValue() as string);
+                const cellValue = cell.getValue() as TableDataValue;
+                const stringValue = (cellValue == null) ? '' : cellValue.toString();
+                rowArray.push(stringValue);
             }
             tableData.push(rowArray);
         }

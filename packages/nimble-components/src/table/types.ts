@@ -1,3 +1,5 @@
+export type TableDataValue = string | number | boolean | Date | null | undefined;
+
 export interface TableData {
-    [key: string]: string | number | boolean | Date | null | undefined;
+    [key: string]: TableDataValue;
 }
