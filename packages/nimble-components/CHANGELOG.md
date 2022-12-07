@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 14 Nov 2022 23:02:04 GMT and should not be manually modified.
+This log was last generated on Mon, 05 Dec 2022 19:44:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.5.2
+
+Mon, 05 Dec 2022 19:44:44 GMT
+
+### Patches
+
+- Initial code scaffolding for nimble-table component ([ni/nimble@d77ed48](https://github.com/ni/nimble/commit/d77ed4830b75ecc68c3049e8f67f3d9bd07b5257))
+
+## 15.5.1
+
+Tue, 29 Nov 2022 17:43:35 GMT
+
+### Patches
+
+- Finished first iteration of the waferMap component and its storybook ([ni/nimble@001156d](https://github.com/ni/nimble/commit/001156d6c85f250a934ed8819b6a0650fe26eb84))
+
+## 15.5.0
+
+Wed, 23 Nov 2022 16:47:02 GMT
+
+### Minor changes
+
+- Computations functionality added to the WaferMap component ([ni/nimble@4676381](https://github.com/ni/nimble/commit/4676381ff77c04f47d23b2f2c315af17cd364fca))
+
+## 15.4.0
+
+Tue, 22 Nov 2022 09:29:17 GMT
+
+### Minor changes
+
+- Create placeholder WaferMap component ([ni/nimble@ac82536](https://github.com/ni/nimble/commit/ac8253677461f3591b18f36ead547ec9d8562cb3))
 
 ## 15.3.2
 

@@ -78,11 +78,11 @@ _The key elements of the component's public API surface:_
 
 -   Component Name: `nimble-wafer-map`
 -   Props/Attrs:
-    -   `die[]` - this represents the input data, which fills the wafer map with content.\
-        The **die** object contains the following attributes:
-        -   x: integer
-        -   y: integer
-        -   value: float
+    -   `dies` - this represents the input data, an array of `WaferMapDie`, which fills the wafer map with content.\
+        The **WaferMapDie** object contains the following attributes:
+        -   x: number
+        -   y: number
+        -   value: number
     -   `quadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by a const(as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
     -   topLeft - ![Top Left Quadrant](./Resources/top_left.png)
     -   bottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
@@ -91,13 +91,17 @@ _The key elements of the component's public API surface:_
     -   `orientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
     -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
         The object we use for the colorScale is [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal). Basically, what this does is it associates a specific string (or in our case a value with a specific color.). The values which are not equal with the values specified in the array, will become a darker/lighter shade of the colors.
-        In the following example the colorScale object is defined as `WafermapColorsScale(['red', 'blue', 'green'], ['1', '2', '8']);`\
+        In the following example the colorScale object is defined as `WaferMapColorsScale(['red', 'blue', 'green'], [1, 2, 8]);`\
         The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
-    -   `dieCharacterCount` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
-    -   disabled - it's represented by a boolean value and reffers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
+    -   `maxCharacters` - represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.
+    -   `dieLabelsHidden` - a boolean value that determines if the die labels in the wafer map view are shown or not. Default value is false.
+    -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value
+    -   `colorsScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
+    -   `highlightedValues` - represent a list of number of dies values that will be highlighted in the wafer map view
+    -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
 
-The `quadrant`, `orientation`, `dieCharacterCount` and `disabled` properties will be configurable via properties and attributes.
-The `die` and `colorScale` properties will be configurable only via properties and will not have attributes.
+The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
+The `die`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
 
