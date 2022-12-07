@@ -27,5 +27,7 @@ IBUTING](https://github.com/ni/nimble/blob/main/packages/nimble-components/CONTR
 - [ ] nimble-{name} Storybook tests
 - [ ] nimble-{name} Storybook docs
 - [ ] nimble-{name} Angular wrapper
+- [ ] nimble-{name} Blazor wrapper
 - [ ] Add to Angular example app
+- [ ] Add to Blazor example app
 - [ ] Update Component Status table in README

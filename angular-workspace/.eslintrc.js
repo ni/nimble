@@ -24,7 +24,10 @@ module.exports = {
                 allowNullableBoolean: true,
                 allowNullableString: true,
                 allowNullableNumber: false
-            }]
+            }],
+
+            // Enabled to prevent accidental usage of async-await
+            '@typescript-eslint/require-await': 'error'
         }
     }, {
         files: ['*.spec.ts'],
@@ -58,5 +61,9 @@ module.exports = {
         extends: [
             '@ni/eslint-config-javascript'
         ],
+        rules: {
+            // Enabled to prevent accidental usage of async-await
+            'require-await': 'error'
+        }
     }]
 };
