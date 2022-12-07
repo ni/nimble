@@ -3,34 +3,24 @@ import { css } from '@microsoft/fast-element';
 export const styles = css`
 .waferMapContainer {
   position: relative;
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.waferCanvas {
-    position: absolute;
-    svg {
-        overflow: hidden;
-        position: absolute;
-    }
-}
-
 .waferMapArea {
     position: absolute;
-svg {
-    pointer-events: none;
-    overflow: hidden;
-    }
-.hiddenCanvas {
-    display: none;
 }
+
+.waferCanvas{
+    position: absolute;
 }
 
 .circleBase {
     position: absolute;
     fill: white;
 }
+
 .top {
     transform: rotate(-90deg);
 }
@@ -43,7 +33,7 @@ transform: rotate(180deg);
 .bottom {
 transform: rotate(90deg);
 }
-.waferMapContainer, .waferCanvas, .svgRoot, .circleBase, .zoomContainer {
+.waferMapContainer, .svgRoot, .circleBase, .zoomContainer {
   width: 245px;
   height: 245px;
 }

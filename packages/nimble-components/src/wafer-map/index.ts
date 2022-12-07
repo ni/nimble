@@ -69,7 +69,6 @@ export class WaferMap extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        debugger;
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
@@ -81,10 +80,9 @@ export class WaferMap extends FoundationElement {
             this.dieLabelsSuffix,
             this.maxCharacters
         );
-        debugger;
-        RenderingModule.createTransform(this.dataManager, this.zoomContainer);
+        // RenderingModule.createTransform(this.dataManager, this.zoomContainer);
+        RenderingModule.clearCanvas(this.canvas);
         RenderingModule.drawWafer(this.dataManager, this.canvas);
-        debugger;
     }
 }
 

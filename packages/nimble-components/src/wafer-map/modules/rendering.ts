@@ -12,7 +12,6 @@ export class RenderingModule {
         const dimensions: Dimensions = waferData.dieDimensions;
 
         for (const die of dies) {
-            debugger;
             context!.fillStyle = die.fillStyle;
             context?.fillRect(die.x, die.y, dimensions.width, dimensions.height);
 
@@ -21,8 +20,9 @@ export class RenderingModule {
             context!.textAlign = 'center';
             const aproxTextHeight = (context!.measureText('M'));
 
-            context!.fillText('0%', die.x + (dimensions.width / 2), die.y + (dimensions.height / 2) + (aproxTextHeight.width / 2));
+            context!.fillText(die.text, die.x + (dimensions.width / 2), die.y + (dimensions.height / 2) + (aproxTextHeight.width / 2));
         }
+        debugger;
     }
 
     public static createTransform(waferData: DataManager, zoomContianer: HTMLElement): void {
@@ -31,5 +31,10 @@ export class RenderingModule {
         g[0]?.setAttribute('transform', `translate(${waferData.margin.left},${waferData.margin.top})`);
         g[0]?.setAttribute('width', waferData.containerDimensions.width.toString());
         g[0]?.setAttribute('heigth', waferData.containerDimensions.height.toString());
+    }
+
+    public static clearCanvas(canvas: HTMLCanvasElement): void {
+        const context = canvas.getContext('2d');
+        context!.clearRect(0, 0, 245, 245);
     }
 }
