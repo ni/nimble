@@ -83,7 +83,7 @@ export class Table<
             const rowArray: string[] = [];
             for (const cell of row.getVisibleCells()) {
                 const cellValue = cell.getValue() as TableDataValue;
-                const stringValue = (cellValue == null) ? '' : cellValue.toString();
+                const stringValue = cellValue == null ? '' : cellValue.toString();
                 rowArray.push(stringValue);
             }
             tableData.push(rowArray);
