@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 29 Nov 2022 17:43:35 GMT and should not be manually modified.
+This log was last generated on Mon, 05 Dec 2022 19:44:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.5.2
+
+Mon, 05 Dec 2022 19:44:44 GMT
+
+### Patches
+
+- Initial code scaffolding for nimble-table component ([ni/nimble@d77ed48](https://github.com/ni/nimble/commit/d77ed4830b75ecc68c3049e8f67f3d9bd07b5257))
 
 ## 15.5.1
 

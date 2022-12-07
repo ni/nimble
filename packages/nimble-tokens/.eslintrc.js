@@ -13,7 +13,10 @@ module.exports = {
                 'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 
                 // Okay to use console.log in build scripts
-                'no-console': 'off'
+                'no-console': 'off',
+
+                // Enabled to prevent accidental usage of async-await
+                'require-await': 'error'
             }
         }
     ]
