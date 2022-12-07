@@ -1,5 +1,5 @@
 import { Prerendering } from '../modules/prerendering';
-import { WaferMapColorsScaleMode, WaferMapDie } from '../types';
+import { WaferMapColorsScaleMode } from '../types';
 import { getLinearScale, getWaferMapDies } from './utilities';
 
 describe('Prerendering module', () => {
@@ -29,11 +29,20 @@ describe('Prerendering module', () => {
         });
 
         it('should have die positions offset from margins', () => {
-            const diesIterator = getWaferMapDies()[Symbol.iterator]();
-            for (const renderDie of prerenderingModule.renderDies) {
-                const waferDie = diesIterator.next().value as WaferMapDie;
-                expect(renderDie.x).toEqual(waferDie.x + margin.right);
-                expect(renderDie.y).toEqual(waferDie.y + margin.top);
+            const waferMapDies = getWaferMapDies();
+            const expectedValues = waferMapDies.map(x => {
+                return {
+                    x: x.x + margin.right,
+                    y: x.y + margin.top
+                };
+            });
+            for (let i = 0; i < waferMapDies.length; i += 1) {
+                expect(prerenderingModule.diesRenderInfo[i]!.x).toEqual(
+                    expectedValues[i]!.x
+                );
+                expect(prerenderingModule.diesRenderInfo[i]!.y).toEqual(
+                    expectedValues[i]!.y
+                );
             }
         });
     });
@@ -64,10 +73,16 @@ describe('Prerendering module', () => {
         });
 
         it('should have die horizontal position scaled', () => {
-            const diesIterator = getWaferMapDies()[Symbol.iterator]();
-            for (const renderDie of prerenderingModule.renderDies) {
-                const waferDie = diesIterator.next().value as WaferMapDie;
-                expect(renderDie.x).toEqual(waferDie.x * 10);
+            const waferMapDies = getWaferMapDies();
+            const expectedValues = waferMapDies.map(x => {
+                return {
+                    x: x.x * 10
+                };
+            });
+            for (let i = 0; i < waferMapDies.length; i += 1) {
+                expect(prerenderingModule.diesRenderInfo[i]!.x).toEqual(
+                    expectedValues[i]!.x
+                );
             }
         });
     });
@@ -98,10 +113,16 @@ describe('Prerendering module', () => {
         });
 
         it('should have die horizontal position scaled', () => {
-            const diesIterator = getWaferMapDies()[Symbol.iterator]();
-            for (const renderDie of prerenderingModule.renderDies) {
-                const waferDie = diesIterator.next().value as WaferMapDie;
-                expect(renderDie.y).toEqual(waferDie.y * 10);
+            const waferMapDies = getWaferMapDies();
+            const expectedValues = waferMapDies.map(x => {
+                return {
+                    y: x.y * 10
+                };
+            });
+            for (let i = 0; i < waferMapDies.length; i += 1) {
+                expect(prerenderingModule.diesRenderInfo[i]!.y).toEqual(
+                    expectedValues[i]!.y
+                );
             }
         });
     });

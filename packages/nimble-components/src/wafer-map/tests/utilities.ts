@@ -26,7 +26,7 @@ export function getWaferMapDies(): WaferMapDie[] {
 
 export function getWaferMapDiesAsFloats(): WaferMapDie[] {
     return getWaferMapDies().map(die => {
-        die.value += 0.1111;
+        die.value += '0.1111';
         return die;
     });
 }

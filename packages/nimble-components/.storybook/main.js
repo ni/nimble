@@ -19,7 +19,7 @@ module.exports = {
     features: {
         previewCsfV3: true
     },
-    webpackFinal: async config => {
+    webpackFinal: config => {
         config.module.rules.push({
             test: /\.ts$/,
             use: [

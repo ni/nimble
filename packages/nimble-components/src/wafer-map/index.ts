@@ -58,12 +58,14 @@ export class WaferMap extends FoundationElement {
 
     public colorsScaleMode: WaferMapColorsScaleMode = WaferMapColorsScaleMode.linear;
 
-    @observable public highlightedValues: string[] = [];
+    @observable public highlightedValues: number[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorsScale = {
         colors: [],
         values: []
     };
+
+    private readonly dataManager: DataManager | undefined;
 
     private dataManager: DataManager | undefined;
 

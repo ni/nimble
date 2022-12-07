@@ -1,5 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { WaferMap } from '.';
+import type { WaferMapDie } from './types';
 
 export const template = html<WaferMap>`
     <div class="waferMapContainer">

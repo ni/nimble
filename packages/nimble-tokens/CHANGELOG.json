@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 29 Nov 2022 23:51:38 GMT",
+      "tag": "@ni/nimble-tokens_v4.3.0",
+      "version": "4.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "3ff74ec1486e824339f81b27729aa052b083cd5e",
+            "comment": "Changes from updated require-await lint rule configuration"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 11 Nov 2022 14:59:30 GMT",
       "tag": "@ni/nimble-tokens_v4.3.0",
       "version": "4.3.0",

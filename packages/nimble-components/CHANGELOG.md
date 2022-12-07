@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 23 Nov 2022 16:47:02 GMT and should not be manually modified.
+This log was last generated on Wed, 07 Dec 2022 13:10:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.5.3
+
+Wed, 07 Dec 2022 13:10:43 GMT
+
+### Patches
+
+- Created data manager module, prerendering functionality and modified some interface inputs ([ni/nimble@b7e946b](https://github.com/ni/nimble/commit/b7e946be21b68e6b871096ec587defd543d6ce32))
+
+## 15.5.2
+
+Mon, 05 Dec 2022 19:44:44 GMT
+
+### Patches
+
+- Initial code scaffolding for nimble-table component ([ni/nimble@d77ed48](https://github.com/ni/nimble/commit/d77ed4830b75ecc68c3049e8f67f3d9bd07b5257))
+
+## 15.5.1
+
+Tue, 29 Nov 2022 17:43:35 GMT
+
+### Patches
+
+- Finished first iteration of the waferMap component and its storybook ([ni/nimble@001156d](https://github.com/ni/nimble/commit/001156d6c85f250a934ed8819b6a0650fe26eb84))
 
 ## 15.5.0
 

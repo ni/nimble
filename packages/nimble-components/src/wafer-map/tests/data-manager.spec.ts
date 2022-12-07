@@ -1,17 +1,12 @@
 import { DataManager } from '../modules/data-manager';
-import {
-    Margin,
-    WaferMapColorsScaleMode,
-    WaferMapDie,
-    WaferMapQuadrant
-} from '../types';
+import { Margin, WaferMapColorsScaleMode, WaferMapQuadrant } from '../types';
 import {
     getColorsScale,
     getHighlightedValues,
     getWaferMapDies
 } from './utilities';
 
-describe('Prerendering module', () => {
+describe('Data manager', () => {
     let dataManagerModule: DataManager;
     const axisLocation: WaferMapQuadrant = WaferMapQuadrant.topLeft;
     const canvasDimensions = { width: 100, height: 110 };
@@ -39,18 +34,18 @@ describe('Prerendering module', () => {
         );
     });
 
-    it('should have 60:70 container', () => {
+    it('computes the correct containerDimensions', () => {
         expect(dataManagerModule.containerDimensions).toEqual({
             width: 60,
             height: 70
         });
     });
 
-    it('should have 45 radius', () => {
+    it('computes the correct radius', () => {
         expect(dataManagerModule.radius).toEqual(45);
     });
 
-    it('should have 10:10 die', () => {
+    it('computes the correct dieDimensions', () => {
         expect(dataManagerModule.dieDimensions).toEqual({
             width: 10,
             height: 10
@@ -82,25 +77,27 @@ describe('Prerendering module', () => {
     });
 
     it('should have as many dies as provided', () => {
-        expect(dataManagerModule.renderDies.length).toEqual(
+        expect(dataManagerModule.diesRenderInfo.length).toEqual(
             getWaferMapDies().length
         );
     });
 
     it('should have label with suffix for each die', () => {
-        const diesIterator = getWaferMapDies()[Symbol.iterator]();
-        for (const renderDie of dataManagerModule.renderDies) {
-            expect(renderDie.text).toEqual(
-                (diesIterator.next().value as WaferMapDie).value
-                    + dieLabelsSuffix
+        const waferMapDies = getWaferMapDies();
+        const expectedValues = waferMapDies.map(x => {
+            return { text: `${x.value}${dieLabelsSuffix}` };
+        });
+        for (let i = 0; i < waferMapDies.length; i += 1) {
+            expect(dataManagerModule.diesRenderInfo[i]!.text).toEqual(
+                expectedValues[i]!.text
             );
         }
     });
 
     it('should have the fill style from the color scale colors', () => {
         const colors = getColorsScale().colors;
-        for (const renderDie of dataManagerModule.renderDies) {
-            expect(colors).toContain(renderDie.fillStyle);
+        for (const dieRenderInfo of dataManagerModule.diesRenderInfo) {
+            expect(colors).toContain(dieRenderInfo.fillStyle);
         }
     });
 
@@ -108,25 +105,36 @@ describe('Prerendering module', () => {
         const highlightedValues = getHighlightedValues().map(
             value => value + dieLabelsSuffix
         );
-        for (const renderDie of dataManagerModule.renderDies) {
-            if (renderDie.opacity === 0) {
-                expect(highlightedValues).toContain(renderDie.text);
-            } else {
-                expect(highlightedValues).not.toContain(renderDie.text);
-            }
+        const diesWithoutOpacity = dataManagerModule.diesRenderInfo.filter(
+            x => x.opacity === 0
+        );
+        for (const dieRenderInfo of diesWithoutOpacity) {
+            expect(highlightedValues).toContain(dieRenderInfo.text);
+        }
+    });
+
+    it('should not have any dies with opacity from the highlighted list', () => {
+        const highlightedValues = getHighlightedValues().map(
+            value => value + dieLabelsSuffix
+        );
+        const diesWithOpacity = dataManagerModule.diesRenderInfo.filter(
+            x => x.opacity !== 0
+        );
+        for (const dieRenderInfo of diesWithOpacity) {
+            expect(highlightedValues).not.toContain(dieRenderInfo.text);
         }
     });
 
     it('should have all dies inside the canvas with margins', () => {
-        for (const renderDie of dataManagerModule.renderDies) {
-            expect(renderDie.x).toBeGreaterThanOrEqual(0);
-            expect(renderDie.y).toBeGreaterThanOrEqual(0);
-            expect(renderDie.x).toBeLessThanOrEqual(
+        for (const dieRenderInfo of dataManagerModule.diesRenderInfo) {
+            expect(dieRenderInfo.x).toBeGreaterThanOrEqual(0);
+            expect(dieRenderInfo.y).toBeGreaterThanOrEqual(0);
+            expect(dieRenderInfo.x).toBeLessThanOrEqual(
                 canvasDimensions.width
                     - dataManagerModule.dieDimensions.width
                     - defaultMargin.left
             );
-            expect(renderDie.y).toBeLessThanOrEqual(
+            expect(dieRenderInfo.y).toBeLessThanOrEqual(
                 canvasDimensions.height
                     - dataManagerModule.dieDimensions.height
                     - defaultMargin.bottom
