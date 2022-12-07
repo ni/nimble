@@ -73,7 +73,7 @@ const metadata: Meta<WaferMapArgs> = {
         return returnedValue;
     }}
             :highlightedValues="${x => {
-        let returnedValue: number[] | undefined;
+        let returnedValue: string[] | undefined;
         switch (x.dies) {
             case 'set1':
                 returnedValue = highLightedValueSets[0];
