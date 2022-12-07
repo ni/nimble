@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 07 Dec 2022 13:10:43 GMT",
+      "tag": "@ni/nimble-components_v15.5.3",
+      "version": "15.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b7e946be21b68e6b871096ec587defd543d6ce32",
+            "comment": "Created data manager module, prerendering functionality and modified some interface inputs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 Dec 2022 22:31:12 GMT",
       "tag": "@ni/nimble-components_v15.5.2",
       "version": "15.5.2",
