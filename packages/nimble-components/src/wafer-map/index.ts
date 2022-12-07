@@ -13,7 +13,7 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
-import type { DataManager } from './modules/data-manager';
+import { DataManager } from './modules/data-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -60,7 +60,66 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private readonly dataManager: DataManager | undefined;
+    private renderQueued = false;
+
+    private dataManager: DataManager | undefined;
+
+    private quadrantChanged(): void {
+        this.queueRender();
+    }
+
+    private orientationChanged(): void {
+        this.queueRender();
+    }
+
+    private maxCharactersChanged(): void {
+        this.queueRender();
+    }
+
+    private dieLabelsSuffixChanged(): void {
+        this.queueRender();
+    }
+
+    private colorsScaleModeChanged(): void {
+        this.queueRender();
+    }
+
+    private highlightedValuesChanged(): void {
+        this.queueRender();
+    }
+
+    private diesChanged(): void {
+        this.queueRender();
+    }
+
+    private colorScaleChanged(): void {
+        this.queueRender();
+    }
+
+    private queueRender(): void {
+        if (!this.renderQueued) {
+            this.renderQueued = true;
+            window.requestAnimationFrame(() => {
+                this.render();
+            });
+        }
+    }
+
+    private render(): void {
+        this.renderQueued = false;
+
+        this.dataManager = new DataManager(
+            this.dies,
+            this.quadrant,
+            { width: this.offsetWidth, height: this.offsetHeight },
+            this.colorScale,
+            this.highlightedValues,
+            this.colorsScaleMode,
+            this.dieLabelsHidden,
+            this.dieLabelsSuffix,
+            this.maxCharacters
+        );
+    }
 }
 
 const nimbleWaferMap = WaferMap.compose({
