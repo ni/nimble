@@ -97,7 +97,7 @@ describe('Table', () => {
             columnIndex < simpleTableDataKeys.length;
             columnIndex++
         ) {
-            expect(pageObject.getHeaderContent(columnIndex)).toEqual(
+            expect(pageObject.getRenderedHeaderContent(columnIndex)).toEqual(
                 simpleTableDataKeys[columnIndex]!
             );
         }

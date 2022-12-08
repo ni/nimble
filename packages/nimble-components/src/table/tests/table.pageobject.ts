@@ -14,7 +14,7 @@ export class TablePageObject<T extends TableRowData> {
         return cells.length;
     }
 
-    public getHeaderContent(columnIndex: number): string {
+    public getRenderedHeaderContent(columnIndex: number): string {
         const header = this.tableElement.shadowRoot!.querySelector('.table-header')!;
         const cells = header.querySelectorAll('.table-cell');
         if (columnIndex >= cells.length) {
