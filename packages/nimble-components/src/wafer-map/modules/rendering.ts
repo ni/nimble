@@ -34,6 +34,10 @@ export class RenderingModule {
 
     public static clearCanvas(canvas: HTMLCanvasElement): void {
         const context = canvas.getContext('2d');
-        context!.clearRect(0, 0, 245, 245);
+        context!.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+    }
+
+    public static setWaferMapOrientation(orientation: string, svgRoot: HTMLElement): void {
+        svgRoot.classList.add(orientation);
     }
 }

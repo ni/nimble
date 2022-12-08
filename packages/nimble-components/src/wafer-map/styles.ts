@@ -34,7 +34,7 @@ transform: rotate(180deg);
 transform: rotate(90deg);
 }
 .waferMapContainer, .svgRoot, .circleBase, .zoomContainer {
-  width: 245px;
-  height: 245px;
+  width: 500px;
+  height: 500px;
 }
 `;

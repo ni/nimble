@@ -54,6 +54,8 @@ export class WaferMap extends FoundationElement {
     })
     public readonly canvas!: HTMLCanvasElement;
 
+    public readonly svgRoot!: HTMLElement;
+
     public readonly zoomContainer!: HTMLElement;
 
     public colorsScaleMode: WaferMapColorsScaleMode = WaferMapColorsScaleMode.linear;
@@ -68,11 +70,14 @@ export class WaferMap extends FoundationElement {
     private dataManager: DataManager | undefined;
 
     public override connectedCallback(): void {
+
         super.connectedCallback();
+        console.log(this.maxCharacters);
+        console.log(this.dieLabelsHidden);
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
-            { width: 245, height: 245 },
+            { width: 500, height: 500 },
             this.colorScale,
             this.highlightedValues,
             this.colorsScaleMode,
@@ -80,7 +85,9 @@ export class WaferMap extends FoundationElement {
             this.dieLabelsSuffix,
             this.maxCharacters
         );
-        RenderingModule.clearCanvas(this.canvas);
+        // debugger;
+
+        RenderingModule.setWaferMapOrientation(this.orientation, this.svgRoot);
         RenderingModule.drawWafer(this.dataManager, this.canvas);
     }
 }
