@@ -11,6 +11,9 @@ export function encircle(): void {
         circle.style.setProperty('--circle-direction', `${Math.random() < 0.5 ? 'alternate' : 'alternate-reverse'}`);
         circle.style.animationPlayState = 'running';
     }
+    // trigger a layout so firefox recognizes the animation
+    // See: https://gist.github.com/paulirish/5d52fb081b3570c81e3a#file-what-forces-layout-md
+    void circles[0].clientHeight;
 }
 
 function randomIntFromInterval(min: number, max: number): number {
