@@ -186,7 +186,7 @@ const metadata: Meta<WaferMapArgs> = {
             name: 'die-labels-suffix',
             description:
                 'String that can be added as a label at the end of each wafer map die value',
-            control: { type: 'string' }
+            control: { type: 'text' }
         },
         highlightedValues: {
             description: `Represents an array of die indexes that will be highlighted in the wafer map view
