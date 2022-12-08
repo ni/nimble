@@ -31,7 +31,7 @@ export class TablePageObject<T extends TableData> {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('.table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
-                'Attempting to index passed the total number of rendered rows'
+                'Attempting to index past the total number of rendered rows'
             );
         }
 
