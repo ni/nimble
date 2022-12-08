@@ -5,6 +5,7 @@ import type {
 } from '@microsoft/fast-foundation';
 import type { Anchor } from '.';
 
+// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Anchor>,
 AnchorOptions
@@ -42,7 +43,14 @@ AnchorOptions
         aria-roledescription="${x => x.ariaRoledescription}"
         ${ref('control')}
     >
-        <span class="content" part="content">
-            <slot ${slotted('defaultSlottedContent')}></slot></span
-    ></a>
+        <span part="start">
+            <slot name="start">
+            </slot>
+        </span>
+        ${/* Whitespace intentionally avoided between tags for inline styles */ ''}
+        <span class="content" part="content"><slot ${slotted('defaultSlottedContent')}></slot></span
+        ><span part="end">
+            <slot name="end">
+            </slot>
+        </span></a>
 `;
