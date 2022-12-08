@@ -1,12 +1,18 @@
 import type { Table } from '..';
-import type { TableData } from '../types';
+import type { TableRowData } from '../types';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
-export class TablePageObject<T extends TableData> {
+export class TablePageObject<T extends TableRowData> {
     public constructor(private readonly tableElement: Table<T>) {}
+
+    public getRenderedHeaderCount(): number {
+        const header = this.tableElement.shadowRoot!.querySelector('.table-header')!;
+        const cells = header.querySelectorAll('.table-cell');
+        return cells.length;
+    }
 
     public getHeaderContent(columnIndex: number): string {
         const header = this.tableElement.shadowRoot!.querySelector('.table-header')!;
@@ -21,13 +27,10 @@ export class TablePageObject<T extends TableData> {
     }
 
     public getRenderedRowCount(): number {
-        return (
-            this.tableElement.shadowRoot!.querySelectorAll('.table-row')
-                .length || 0
-        );
+        return this.tableElement.shadowRoot!.querySelectorAll('.table-row').length;
     }
 
-    public getCellContent(rowIndex: number, columnIndex: number): string {
+    public getRenderedCellContent(rowIndex: number, columnIndex: number): string {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('.table-row');
         if (rowIndex >= rows.length) {
             throw new Error(

@@ -11,6 +11,9 @@ interface TableArgs {
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
 
+const dataDescription = `An array of key/value pairs where each item in the array represents one row of data. The value in each pair
+must be of type \`string\`, \`number\`, \`boolean\`, \`Date\`, \`null\`, or \`undefined\`, which is defined by the type \`TableDataValue\`.`;
+
 const metadata: Meta<TableArgs> = {
     title: 'Table',
     decorators: [withXD],
@@ -43,6 +46,14 @@ const metadata: Meta<TableArgs> = {
             }
         </style>
     `),
+    argTypes: {
+        data: {
+            description: dataDescription,
+            table: {
+                defaultValue: { summary: '[]' }
+            }
+        }
+    },
     args: {
         data: [
             {

@@ -25,6 +25,9 @@ const commonChromeFlags = [
     '--force-prefers-reduced-motion'
 ];
 
+// Create a webpack environment plugin to use while running tests so that
+// functionality that accesses the environment, such as the TanStack table
+// within the nimble-table, work correctly.
 const webpackEnvironmentPlugin = new webpack.EnvironmentPlugin({
     NODE_ENV: 'production'
 });

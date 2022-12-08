@@ -2,59 +2,63 @@ import { html } from '@microsoft/fast-element';
 import { Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import type { TableData } from '../types';
+import type { TableRowData } from '../types';
 import { TablePageObject } from './table.pageobject';
 
-interface FakeTableData extends TableData {
+interface SimpleTableRowData extends TableRowData {
     stringData: string;
     numericData: number;
     booleanData: boolean;
     dateData: Date;
 }
-const fakeTableDataKeys = [
+
+const simpleTableDataKeys = [
     'stringData',
     'numericData',
     'booleanData',
     'dateData'
 ];
 
-async function setup(): Promise<Fixture<Table<FakeTableData>>> {
-    return fixture<Table<FakeTableData>>(html`<nimble-table></nimble-table>`);
-}
+const simpleTableData = [{
+    stringData: 'string 1',
+    numericData: 8,
+    booleanData: true,
+    dateData: new Date(2008, 12, 11)
+}, {
+    stringData: 'hello world',
+    numericData: 0,
+    booleanData: true,
+    dateData: new Date(2022, 5, 30)
+}, {
+    stringData: 'string 1',
+    numericData: -9,
+    booleanData: false,
+    dateData: new Date(2000, 1, 1)
+}] as const;
 
-function makeFakeData(count: number): FakeTableData[] {
-    const data: FakeTableData[] = [];
-    for (let i = 0; i < count; i++) {
-        data.push({
-            stringData: `string #${i}`,
-            numericData: i * 2,
-            booleanData: i % 2 === 0,
-            // Generate arbitrary dates that are 10 seconds apart
-            dateData: new Date(1670000000000 + i * 10000)
-        });
-    }
-    return data;
+async function setup(): Promise<Fixture<Table<SimpleTableRowData>>> {
+    return fixture<Table<SimpleTableRowData>>(html`<nimble-table></nimble-table>`);
 }
 
 describe('Table', () => {
-    let element: Table<FakeTableData>;
+    let element: Table<SimpleTableRowData>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
-    let pageObject: TablePageObject<FakeTableData>;
+    let pageObject: TablePageObject<SimpleTableRowData>;
 
-    function verifyRenderedData(expectedData: FakeTableData[]): void {
+    function verifyRenderedData(expectedData: SimpleTableRowData[]): void {
         const expectedRowCount = expectedData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
             for (
                 let columnIndex = 0;
-                columnIndex < fakeTableDataKeys.length;
+                columnIndex < simpleTableDataKeys.length;
                 columnIndex++
             ) {
-                const dataKey = fakeTableDataKeys[columnIndex]!;
+                const dataKey = simpleTableDataKeys[columnIndex]!;
                 const expectedCellData = expectedData[rowIndex]![dataKey]!;
                 expect(
-                    pageObject.getCellContent(rowIndex, columnIndex)
+                    pageObject.getRenderedCellContent(rowIndex, columnIndex)
                 ).toEqual(expectedCellData.toString());
             }
         }
@@ -62,7 +66,7 @@ describe('Table', () => {
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
-        pageObject = new TablePageObject<FakeTableData>(element);
+        pageObject = new TablePageObject<SimpleTableRowData>(element);
     });
 
     afterEach(async () => {
@@ -76,48 +80,47 @@ describe('Table', () => {
     it('should render column headers', async () => {
         await connect();
 
-        const fakeData = makeFakeData(1);
-        element.data = fakeData;
+        element.data = [...simpleTableData];
         await waitForUpdatesAsync();
 
+        expect(pageObject.getRenderedHeaderCount()).toEqual(simpleTableDataKeys.length);
         for (
             let columnIndex = 0;
-            columnIndex < fakeTableDataKeys.length;
+            columnIndex < simpleTableDataKeys.length;
             columnIndex++
         ) {
             expect(pageObject.getHeaderContent(columnIndex)).toEqual(
-                fakeTableDataKeys[columnIndex]!
+                simpleTableDataKeys[columnIndex]!
             );
         }
     });
 
     it('can set data before the element is connected', async () => {
-        const fakeData = makeFakeData(5);
-        element.data = fakeData;
+        const data = [...simpleTableData];
+        element.data = data;
         await connect();
 
-        verifyRenderedData(fakeData);
+        verifyRenderedData(data);
     });
 
     it('can set data after the element is connected', async () => {
         await connect();
 
-        const fakeData = makeFakeData(5);
-        element.data = fakeData;
+        const data = [...simpleTableData];
+        element.data = data;
         await waitForUpdatesAsync();
 
-        verifyRenderedData(fakeData);
+        verifyRenderedData(data);
     });
 
     it('updating data can add a new row to the table', async () => {
         await connect();
 
-        const fakeData = makeFakeData(5);
-        element.data = fakeData;
+        element.data = [...simpleTableData];
         await waitForUpdatesAsync();
 
-        const updatedData: FakeTableData[] = [
-            ...fakeData,
+        const updatedData: SimpleTableRowData[] = [
+            ...simpleTableData,
             {
                 stringData: 'a new string',
                 numericData: -9,
@@ -134,14 +137,12 @@ describe('Table', () => {
     it('updating data can remove rows from the table', async () => {
         await connect();
 
-        const fakeData = makeFakeData(5);
-        element.data = fakeData;
+        element.data = [...simpleTableData];
         await waitForUpdatesAsync();
 
-        const updatedData: FakeTableData[] = [
-            fakeData[0]!,
-            fakeData[1]!,
-            fakeData[4]!
+        const updatedData: SimpleTableRowData[] = [
+            simpleTableData[0],
+            simpleTableData[2],
         ];
         element.data = updatedData;
         await waitForUpdatesAsync();
@@ -152,16 +153,13 @@ describe('Table', () => {
     it('updating data can reorder rows from the table', async () => {
         await connect();
 
-        const fakeData = makeFakeData(5);
-        element.data = fakeData;
+        element.data = [...simpleTableData];
         await waitForUpdatesAsync();
 
-        const updatedData: FakeTableData[] = [
-            fakeData[4]!,
-            fakeData[1]!,
-            fakeData[3]!,
-            fakeData[2]!,
-            fakeData[0]!
+        const updatedData: SimpleTableRowData[] = [
+            simpleTableData[1],
+            simpleTableData[2],
+            simpleTableData[0]
         ];
         element.data = updatedData;
         await waitForUpdatesAsync();
