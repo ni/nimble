@@ -23,9 +23,7 @@ declare global {
  * A nimble-styled table.
  */
 export class Table<
-    TData extends TableData = {
-        [key: string]: string | number | boolean | Date | null | undefined
-    }
+    TData extends TableData = TableData
 > extends FoundationElement {
     @observable
     public data: TData[] = [];
