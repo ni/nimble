@@ -21,11 +21,13 @@ Initially we will create two flavors of anchor: a standard anchor, and a button-
 
 -   _Component Name_: `nimble-anchor`
 -   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
+
     -   `appearance`:
         -   `prominent`: the "loud" version from the design doc. Used to draw extra attention to the anchor. This matches the Breadcrumb's `appearance` attribute value.
     -   `underline-visible`: causes the anchor to always have an underline (as opposed to only on hover). This should be used when an anchor is surrounded by other text, or any other time it needs help being indentified as a link. It may be used as an alternative to the `prominent` appearance to draw extra attention to it.
 
     Instead of having a `disabled` property, users should remove the `href` in order to disable the anchor.
+
 -   _Methods_: Unchanged (none)
 -   _Events_: Unchanged (none)
 -   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
