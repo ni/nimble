@@ -29,7 +29,7 @@ const commonChromeFlags = [
 // functionality that accesses the environment, such as the TanStack table
 // within the nimble-table, work correctly.
 const webpackEnvironmentPlugin = new webpack.EnvironmentPlugin({
-    NODE_ENV: 'production'
+    NODE_ENV: 'development'
 });
 
 module.exports = config => {
