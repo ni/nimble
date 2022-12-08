@@ -28,10 +28,11 @@ export class Table<
     @observable
     public data: TData[] = [];
 
-    // TODO: Temporarily assume that the data in the table can be represented as strings.
+    // TODO: Temporarily expose the table data as arrays of strings.
     @observable
     public tableData: string[][] = [];
 
+    // TODO: Temporarily expose the column headers as a string array.
     @observable
     public columnHeaders: string[] = [];
 
