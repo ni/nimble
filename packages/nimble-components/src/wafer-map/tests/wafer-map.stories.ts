@@ -95,7 +95,7 @@ const metadata: Meta<WaferMapArgs> = {
         </div>
         <nimble-wafer-map
             colors-scale-mode="${x => x.colorsScaleMode}"
-            die-labels-hidden="${x => x.dielabelsHidden}"
+            ?die-labels-hidden="${x => x.dielabelsHidden}"
             die-labels-suffix="${x => x.dielabelsSuffix}"
             max-characters="${x => x.maxCharacters}"
             orientation="${x => x.orientation}"
