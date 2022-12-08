@@ -38,37 +38,48 @@ body {
     transition: right 500ms ease-in-out;
 }
 
-circle{
+@keyframes move-circle {
+    from {
+        stroke-dasharray: var(--circle-length);
+        transform: rotate(var(--circle-init-angle));
+    }
+    to {
+        stroke-dasharray: calc(var(--circle-length) / 2);
+        transform: rotate(var(--circle-end-angle));
+    }
+}
+
+circle {
     border-radius: 50%;
     transform-origin: center;
+
+    transform: rotate(var(--circle-init-angle));
+    stroke-dasharray: var(--circle-length);
+
+    stroke-dashoffset: var(--circle-dash-offset);
+
+    animation-name: move-circle;
+    animation-duration: var(--circle-time);
+    animation-timing-function: ease-in-out;
+    animation-delay: var(--circle-start-time);
+    animation-iteration-count: infinite;
+    animation-direction: var(--circle-direction);
+    animation-play-state: paused;
 }
 
-#circle-1 {
-    stroke: $ni-nimble-base-power-green;
-}
+$colors:
+    $ni-nimble-base-power-green,
+    $ni-nimble-base-rgb-ni-green,
+    $ni-nimble-base-forest-green,
+    $ni-nimble-base-ni-scarlet,
+    $rgb-ni-sky-light,
+    $ni-nimble-base-ni-sky,
+    $rgb-labview;
 
-#circle-2 {
-    stroke: $ni-nimble-base-rgb-ni-green;
-}
-
-#circle-3 {
-    stroke: $ni-nimble-base-forest-green;
-}
-
-#circle-4 {
-    stroke: $ni-nimble-base-ni-scarlet;
-}
-
-#circle-5 {
-    stroke: $rgb-ni-sky-light;
-}
-
-#circle-6 {
-    stroke: $ni-nimble-base-ni-sky;
-}
-
-#circle-7 {
-    stroke: $rgb-labview;
+@for $i from 1 through length($colors) {
+    circle:nth-of-type(#{length($colors)}n+#{$i}) {
+        stroke: nth($colors, $i);
+    }
 }
 
 .banner {
