@@ -67,18 +67,18 @@ circle {
     animation-play-state: paused;
 }
 
-$circles:
-    "1" $ni-nimble-base-power-green,
-    "2" $ni-nimble-base-rgb-ni-green,
-    "3" $ni-nimble-base-forest-green,
-    "4" $ni-nimble-base-ni-scarlet,
-    "5" $rgb-ni-sky-light,
-    "6" $ni-nimble-base-ni-sky,
-    "7" $rgb-labview;
+$colors:
+    $ni-nimble-base-power-green,
+    $ni-nimble-base-rgb-ni-green,
+    $ni-nimble-base-forest-green,
+    $ni-nimble-base-ni-scarlet,
+    $rgb-ni-sky-light,
+    $ni-nimble-base-ni-sky,
+    $rgb-labview;
 
-@each $name, $color in $circles {
-    circle:nth-of-type(7n+#{$name}) {
-        stroke: $color;
+@for $i from 1 through length($colors) {
+    circle:nth-of-type(#{length($colors)}n+#{$i}) {
+        stroke: nth($colors, $i);
     }
 }
 
