@@ -1,0 +1,221 @@
+@import "@ni/nimble-tokens/dist/fonts/css/fonts.css";
+@import "@ni/nimble-tokens/dist/styledictionary/scss/variables.scss";
+@import "@ni/nimble-components/dist/tokens";
+// Importing Noto Serif as workaround until we include it with system
+// Issue for including Noto Serif captured at 
+// https://github.com/ni/nimble/issues/899
+@import url('https://fonts.googleapis.com/css2?family=Noto%20Serif&display=swap');
+
+
+$rgb-ni-sky-light: #A5DDED;
+$rgb-labview: #FFC60B;
+$card-height: 4.5rem;
+
+
+body {
+    margin: 0;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 8fr 12fr;
+    grid-template-areas: 'circles main';
+    min-height: 50px;
+    width: 100%;
+}
+
+.main-content {
+    grid-area: main;
+    min-height: 50px;
+}
+
+.circle-wrapper {
+    grid-area: circles;
+    position: fixed;
+    top: -5rem;
+    right: 60%;
+    z-index: -1;
+    transition: right 500ms ease-in-out;
+}
+
+@keyframes move-circle {
+    from {
+        stroke-dasharray: var(--circle-length);
+        transform: rotate(var(--circle-init-angle));
+    }
+    to {
+        stroke-dasharray: calc(var(--circle-length) / 2);
+        transform: rotate(var(--circle-end-angle));
+    }
+}
+
+circle {
+    border-radius: 50%;
+    transform-origin: center;
+
+    transform: rotate(var(--circle-init-angle));
+    stroke-dasharray: var(--circle-length);
+
+    stroke-dashoffset: var(--circle-dash-offset);
+
+    animation-name: move-circle;
+    animation-duration: var(--circle-time);
+    animation-timing-function: ease-in-out;
+    animation-delay: var(--circle-start-time);
+    animation-iteration-count: infinite;
+    animation-direction: var(--circle-direction);
+    animation-play-state: paused;
+}
+
+$colors:
+    $ni-nimble-base-power-green,
+    $ni-nimble-base-rgb-ni-green,
+    $ni-nimble-base-forest-green,
+    $ni-nimble-base-ni-scarlet,
+    $rgb-ni-sky-light,
+    $ni-nimble-base-ni-sky,
+    $rgb-labview;
+
+@for $i from 1 through length($colors) {
+    circle:nth-of-type(#{length($colors)}n+#{$i}) {
+        stroke: nth($colors, $i);
+    }
+}
+
+.banner {
+    box-sizing: border-box;
+    margin: 10rem 0;
+    min-width: 0;
+    width: 100%;
+}
+
+.banner>.ni-logo {
+    text-align: right;
+    padding-right: 2rem;
+    padding-top: 2rem;
+}
+
+.banner-main {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column nowrap;
+    max-width: 48rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.banner-main>p {
+    max-width: 40rem;
+    color: $ni-nimble-base-black-91;
+    font-family: $ni-nimble-body-font-family;
+    font-size: $ni-nimble-title-font-size;
+}
+
+h1 {
+    font-family: $ni-nimble-headline-font-family;
+    font-size: 6rem;
+    color: $ni-nimble-headline-font-color;
+    margin: 0;
+}
+
+.cards-container {
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, $card-height);
+    gap: 2rem;
+    row-gap: 10rem;
+    justify-items: center;
+    align-items: center;
+}
+
+.card-wrapper {
+    width: 23rem;
+    justify-content: left;
+    display: flex;
+}
+
+.card {
+    height: $card-height;
+    display: grid;
+    grid-template-areas: "icon name"
+        "icon description";
+    text-decoration: none;
+    grid-template-columns: 4rem auto;
+    column-gap: 2rem;
+    box-sizing: border-box;
+    margin: .5rem;
+    border-bottom: 3px solid transparent;
+    color:$ni-nimble-base-black-91;
+}
+
+.card .name {
+    grid-area: name;
+    font-family: $ni-nimble-headline-font-family;
+    font-size: $ni-nimble-headline-plus-1-font-size;
+    font-weight: $ni-nimble-headline-plus-1-font-weight;
+}
+
+.card .icon {
+    grid-area: icon;
+}
+
+.card .description {
+    grid-area: description;
+    font-family: $ni-nimble-body-font-family;
+    font-size: $ni-nimble-subtitle-plus-1-font-size;
+    font-weight: $ni-nimble-subtitle-plus-1-font-weight;
+    vertical-align: top;
+}
+
+.card:hover {
+    border-bottom-color: $ni-nimble-base-digital-green-dark;
+    cursor: pointer;
+}
+
+.card:visited {
+    text-decoration: none;
+    color: inherit;
+    text-decoration-color: inherit;
+}
+
+@media screen and (max-width: 1600px) {
+    .circle-wrapper{
+        right: 60%;  
+    }
+}
+
+@media screen and (max-width: 1260px) {
+    .container {
+        grid-template-columns: 4fr 10fr;
+    }
+
+    .banner{
+        margin-bottom: 5rem;
+    }
+
+    .main-content{
+        padding-right: 4rem;;
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: column;
+        row-gap: 4rem;
+    }
+    .circle-wrapper{
+        right: 70%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition-duration: 0s !important;
+    }
+}
