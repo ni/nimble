@@ -19,25 +19,31 @@ const simpleTableDataKeys = [
     'dateData'
 ];
 
-const simpleTableData = [{
-    stringData: 'string 1',
-    numericData: 8,
-    booleanData: true,
-    dateData: new Date(2008, 12, 11)
-}, {
-    stringData: 'hello world',
-    numericData: 0,
-    booleanData: true,
-    dateData: new Date(2022, 5, 30)
-}, {
-    stringData: 'string 1',
-    numericData: -9,
-    booleanData: false,
-    dateData: new Date(2000, 1, 1)
-}] as const;
+const simpleTableData = [
+    {
+        stringData: 'string 1',
+        numericData: 8,
+        booleanData: true,
+        dateData: new Date(2008, 12, 11)
+    },
+    {
+        stringData: 'hello world',
+        numericData: 0,
+        booleanData: true,
+        dateData: new Date(2022, 5, 30)
+    },
+    {
+        stringData: 'string 1',
+        numericData: -9,
+        booleanData: false,
+        dateData: new Date(2000, 1, 1)
+    }
+] as const;
 
 async function setup(): Promise<Fixture<Table<SimpleTableRowData>>> {
-    return fixture<Table<SimpleTableRowData>>(html`<nimble-table></nimble-table>`);
+    return fixture<Table<SimpleTableRowData>>(
+        html`<nimble-table></nimble-table>`
+    );
 }
 
 describe('Table', () => {
@@ -83,7 +89,9 @@ describe('Table', () => {
         element.data = [...simpleTableData];
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedHeaderCount()).toEqual(simpleTableDataKeys.length);
+        expect(pageObject.getRenderedHeaderCount()).toEqual(
+            simpleTableDataKeys.length
+        );
         for (
             let columnIndex = 0;
             columnIndex < simpleTableDataKeys.length;
@@ -142,7 +150,7 @@ describe('Table', () => {
 
         const updatedData: SimpleTableRowData[] = [
             simpleTableData[0],
-            simpleTableData[2],
+            simpleTableData[2]
         ];
         element.data = updatedData;
         await waitForUpdatesAsync();

@@ -27,10 +27,14 @@ export class TablePageObject<T extends TableRowData> {
     }
 
     public getRenderedRowCount(): number {
-        return this.tableElement.shadowRoot!.querySelectorAll('.table-row').length;
+        return this.tableElement.shadowRoot!.querySelectorAll('.table-row')
+            .length;
     }
 
-    public getRenderedCellContent(rowIndex: number, columnIndex: number): string {
+    public getRenderedCellContent(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('.table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
