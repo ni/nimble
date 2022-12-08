@@ -1,13 +1,20 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyEmphasizedFont, bodyFont } from '../theme-provider/design-tokens';
+import { bodyEmphasizedFont, linkActiveFontColor, linkActiveProminentFontColor, linkFont, linkFontColor, linkProminentFontColor } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('inline-block')}
 
     :host {
         box-sizing: border-box;
-        font: ${bodyFont};
+        font: ${linkFont};
+        --ni-private-breadcrumb-link-font-color: ${linkFontColor};
+        --ni-private-breadcrumb-link-active-font-color: ${linkActiveFontColor};
+    }
+
+    :host([appearance='prominent']) {
+        --ni-private-breadcrumb-link-font-color: ${linkProminentFontColor};
+        --ni-private-breadcrumb-link-active-font-color: ${linkActiveProminentFontColor};
     }
 
     .list {

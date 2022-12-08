@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
     bodyFontColor,
@@ -13,6 +14,7 @@ import { linkStyles } from '../patterns/link/styles';
 
 export const styles = css`
     ${linkStyles}
+    ${display('inline-flex')}
 
     :host {
         height: ${controlHeight};
@@ -33,6 +35,14 @@ export const styles = css`
         justify-content: center;
         border: ${borderWidth} solid transparent;
         padding-right: calc(4px - ${borderWidth});
+    }
+
+    .control:any-link {
+        color: var(--ni-private-breadcrumb-link-font-color);
+    }
+
+    .control:active {
+        color: var(--ni-private-breadcrumb-link-active-font-color);
     }
 
     .control:any-link${focusVisible} {
