@@ -55,69 +55,87 @@ template:
 </template>
 ```
 
-### `ITableColumn`
+### `TableCellData` interface
+
+A table cell represents a single column for a single row. The data that a cell has access to will be a subset of the data for the entire row. An instance of a table cell will be generic to describe the subset of data it contains, where `TCellData` is a subset of the data represented by `TableRowData`:
+
+```TS
+interface TableCellData<TCellData extends TableRowData> {
+  data: TCellData;
+}
+```
+
+This interface could possibly be expanded in the future to communicate relevant table state to the cell template, such as whether or not the row is selected.
+
+### `ITableColumn` interface
 
 This interface is what a column web component (i.e. a slotted column) must implement.
 
 ```TS
-interface ITableColumn {
-    header?: string; // the string to use in the header for the column
-    headerTemplateFn?: () => ViewTemplate; // the template to use for the header (string if none provided)
-    cellTemplateFn: () => ViewTemplate<ITableCellData>; // the template to use to render the cell content for the column (required)
-    getDataKeys: () => string[]; // the set of keys the table needs to provide the cellTemplateFn with the proper subset of data
+interface ITableColumn<TCellData extends TableRowData> {
+    // The string to use in the header for the column
+    header?: string;
+
+    // The template to use for the header (string if none provided)
+    headerTemplateFn?: () => ViewTemplate;
+
+    // The template to use to render the cell content for the column
+    cellTemplate: ViewTemplate<TableCellData<TCellData>>;
+ 
+    // The keys that should be present in TCellData.
+    // This array is parallel with the keys returned from `getDataKeys()`.
+    readonly cellDataKeyNames: readonly string[];
+
+    // The keys from the row data that correlate to the data that will be in TCellData.
+    // This array is parallel with the keys specified by `dataKeyNames`.
+    getRowDataKeys: () => string[];
+
+    // Function that allows the table column to validate the type that gets created
+    // for the cell data. This should validate that the types in TCellData are correct
+    // for each key defined by `dataKeyNames`.
+    // Return `true` if the data is valid. Return `false` if the data is not valid.
+    validateCellData(cellData: TableRowData): boolean;
 }
 ```
 
 The `ITableColumn` interface would be updated to support other features not covered in this HLD such as sorting and grouping.
 
-### `ITableCellData`
-
-In order for the `cellTemplateFn` in the above interface to be able to act on the necessary table data, we should have a type that the template function can work with directly through.
+Given the above interface, a series of column providers to handle basic use cases can be written within nimble. For example, the `ITableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
 ```TS
-type tableData = string | number | boolean | Date | null | undefined;
-
-interface ITableCellData {
-    data: { [key: string]: tableData };
-}
-
-/**
- * @internal
- */
-class TableCellData<TData extends { [key: string]: tableData }> implements ITableCellData {
-    public constructor(public data: TData) { }
-}
-```
-
-`TData` here represents a subset of the overall data provided to the table. The `getDataKeys()` method on the `ITableColumn` interface will be used to retrieve the subset of data to provide to a particular `TableCellData` instance.
-
-With these mechanisms in place we should be able to define a series of column providers to handle all of the basic use cases. For example, the `ITableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
-
-```TS
-public TableColumnText extends FoundationElement implements ITableColumn {
+type TableColumnTextCellData = StringColumnData<'value'>;
+public TableColumnText extends FoundationElement implements ITableColumn<TableColumnTextCellData> {
     ...
+
+    public cellDataKeyNames = ['value'] as const;
 
     @attr
     public valueKey: string;
 
-    public getDataKeys(): string[] {
+    public getRowDataKeys(): string[] {
         return [valueKey];
     }
 
-    public cellTemplateFn(): ViewTemplate<ITableCellData> {
-        return html<ITableCellData>`
-            <nimble-text-field readonly="true" value=${x => x.data[this.valueKey]}>
+    public cellTemplate: ViewTemplate<ITableCellData<TableColumnTextCellData>> =
+        html<ITableCellData<TableColumnTextCellData>>`
+            <nimble-text-field readonly="true" value=${x => x.data.value}>
             </nimble-text-field>
         `;
+
+    public validateCellData(cellData: TableRowData): boolean {
+        return typeof cellData['value'] === 'string';
     }
 }
 ```
 
-Enabling a particular column to access multiple pieces of data to use in its rendering is equally trivial:
+This also enables columns to access multiple pieces of data to use in its rendering:
 
 ```TS
-public TableColumnNumberWithUnit extends FoundationElement implements ITableColumn {
+type TableColumnNumberWithUnitCellData = NumberColumnData<'value'> & StringColumnData<'units'>;
+public TableColumnNumberWithUnit extends FoundationElement implements ITableColumn<TableColumnNumberWithUnitCellData> {
     ...
+
+    public cellDataKeyNames = ['value', 'units'] as const;
 
     @attr
     public valueKey: string;
@@ -125,19 +143,25 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
     @attr
     public unitKey: string;
 
-    public getDataKeys(): string[] {
+    public getRowDataKeys(): string[] {
         return [valueKey, unitKey];
     }
 
-    public cellTemplateFn(): ViewTemplate<ITableCellData> {
-        return html<ITableCellData>`
-            <nimble-text-field readonly="true" value=${x => this.formatData(x.data[this.valueKey], x.data[this.unitKey])}>
+    public cellTemplate: ViewTemplate<ITableCellData<TableColumnTextCellData>> =
+        html<ITableCellData<TableColumnNumberWithUnitCellData>>`
+            <nimble-text-field
+                readonly="true"
+                value=${x => this.formatData(x.data.value, x.data.units)}
+            >
             </nimble-text-field>
         `;
+
+    public formatData(value: number, unit: string): string {
+        return `${value.toString()} ${units}`;
     }
 
-    public formatData(value: unknown, unit: unknown): string {
-        return `${(value as string)}, ${(unit as string)}`;
+    public validateCellData(cellData: TableRowData): boolean {
+        return typeof cellData['value'] === 'number' && typeof cellData['units'] === 'string';
     }
 }
 ```
@@ -145,33 +169,47 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
 Here we have a column visualize in different ways based on custom logic:
 
 ```TS
-public TableColumnPositiveNegativeNumber extends FoundationElement implements ITableColumn {
+type TableColumnPositiveNegativeNumberCellData = NumberColumnData<'value'>;
+public TableColumnPositiveNegativeNumber extends FoundationElement implements ITableColumn<TableColumnPositiveNegativeNumberCellData> {
     ...
+
+    public cellDataKeyNames = ['value'] as const;
 
     @attr
     public valueKey: string;
 
-    public getDataKeys(): string[] {
+    public getRowDataKeys(): string[] {
         return [valueKey];
     }
 
-    public cellTemplateFn(): ViewTemplate<ITableCellData> {
-        return html<ITableCellData>`
-            ${when(x => !this.isPositive(x.data[this.valueKey])),
+    public cellTemplate: ViewTemplate<ITableCellData<TableColumnPositiveNegativeNumberCellData>> =
+        html<ITableCellData<TableColumnPositiveNegativeNumberCellData>`
+            ${when(x => !this.isPositive(x.data.value)),
             html`
-                <nimble-text-field readonly="true" value=${x => x.data[this.valueKey]} style="fontColor: red;">
+                <nimble-text-field
+                    readonly="true"
+                    value=${x => x.data.value}
+                    style="fontColor: red;"
+                >
                 </nimble-text-field>
             `}
-            ${when(x => this.isPositive(x.data[this.valueKey])),
+            ${when(x => this.isPositive(x.data.value)),
             html`
-                <nimble-text-field readonly="true" value=${x => x.data[this.valueKey]} style="fontColor: green;">
+                <nimble-text-field
+                    readonly="true"
+                    value=${x => x.data.value}
+                    style="fontColor: green;"
+                >
                 </nimble-text-field>
             `}
         `;
+
+    public isPositive(value: number): bool {
+        return value >= 0;
     }
 
-    public isPositive(value: unknown): bool {
-        return (value as number) >= 0;
+    public validateCellData(cellData: TableRowData): boolean {
+        return typeof cellData['value'] === 'number';
     }
 }
 ```
@@ -179,35 +217,45 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
 Finally, here is a column that allows a user to register a callback for a click event on a button inside the cell template:
 
 ```TS
-public TableColumnButton extends FoundationElement implements ITableColumn {
+type TableColumnButtonCellData = StringColumnData<'id'>;
+public TableColumnButton extends FoundationElement implements ITableColumn<TableColumnButtonCellData> {
     ...
+
+    public cellDataKeyNames = ['id'] as const;
 
     @attr
     public idKey: string;
 
-    public getDataKeys(): string[] {
+    public getRowDataKeys(): string[] {
         return [valueKey];
     }
 
     public callback: (id: string) => void;
 
-    public cellTemplateFn(): ViewTemplate<ITableCellData> {
-        return html<ITableCellData>`
-                <nimble-button readonly="true" @click="${x => this.callback(x.data[this.idKey])}>
-                    <span>Do Something</span>
-                </nimble-button>
+    public cellTemplate: ViewTemplate<ITableCellData<TableColumnButtonCellData>> =
+        html<ITableCellData<TableColumnButtonCellData>>`
+            <nimble-button readonly="true" @click="${x => this.callback(x.data.id)}>
+                <span>Do Something</span>
+            </nimble-button>
         `;
+
+    public validateCellData(cellData: TableRowData): boolean {
+        return typeof cellData['id'] === 'string';
     }
 }
+```
 
 Angular template:
 
+```HTML
 <nimble-table>
     <nimble-table-column-button #tableButton>Press Me</nimble-table-column-button>
 </nimble-table>
+```
 
 Angular code:
 
+```TS
 @ViewChild('tableButton', { read: NimbleTableColumnButton, static: true }) private readonly tableButton!: NimbleTableColumnButton;
 
 public ngOnInit(): void {
