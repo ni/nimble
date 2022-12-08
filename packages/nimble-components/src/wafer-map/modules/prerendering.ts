@@ -83,7 +83,7 @@ export class Prerendering {
                 .range(colorsScale.colors);
         }
         return scaleOrdinal<string, string>()
-            .domain(colorsScale.values)
+            .domain(colorsScale.values.toString())
             .range(colorsScale.colors);
     }
 

@@ -49,6 +49,6 @@ export const wafermapDieSets: WaferMapDie[][] = [
 export const waferMapColorsScaleSets: WaferMapColorsScale[] = [
     {
         colors: ['red', 'orange', 'green'],
-        values: ['1', '50', '100']
+        values: [1, 50, 100]
     }
 ];

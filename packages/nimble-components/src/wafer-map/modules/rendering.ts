@@ -1,4 +1,4 @@
-import type { Dimensions, RenderDie } from '../types';
+import type { DieRenderInfo, Dimensions } from '../types';
 import type { DataManager } from './data-manager';
 
 // eslint-disable-next-line jsdoc/require-description
@@ -8,7 +8,7 @@ import type { DataManager } from './data-manager';
 export class RenderingModule {
     public static drawWafer(waferData: DataManager, canvas: HTMLCanvasElement): void {
         const context = canvas.getContext('2d');
-        const dies: RenderDie[] = waferData.renderDies;
+        const dies: DieRenderInfo[] = waferData.diesRenderInfo;
         const dimensions: Dimensions = waferData.dieDimensions;
 
         for (const die of dies) {
@@ -22,7 +22,6 @@ export class RenderingModule {
 
             context!.fillText(die.text, die.x + (dimensions.width / 2), die.y + (dimensions.height / 2) + (aproxTextHeight.width / 2));
         }
-        debugger;
     }
 
     public static createTransform(waferData: DataManager, zoomContianer: HTMLElement): void {

@@ -18,7 +18,7 @@ describe('Prerendering module', () => {
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['red'], values: ['1'] },
+                    { colors: ['red'], values: [1] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -48,7 +48,7 @@ describe('Prerendering module', () => {
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['red', 'red'], values: ['1', '1'] },
+                    { colors: ['red', 'red'], values: [1, 1] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -78,7 +78,7 @@ describe('Prerendering module', () => {
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['black', 'red'], values: ['1', '18'] },
+                    { colors: ['black', 'red'], values: [1, 18] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -120,7 +120,7 @@ describe('Prerendering module', () => {
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['red'], values: ['1'] },
+                    { colors: ['red'], values: [1] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
