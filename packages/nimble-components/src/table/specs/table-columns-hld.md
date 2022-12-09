@@ -2,13 +2,15 @@
 
 ## Problem Statement
 
-The `nimble-table` requires users to be able to configure which columns to display for a table. Additionally, a particular display column may require access to multiple fields in the data, and allow a user to either define the field to sort by, or provide a custom sort routine. We need to provide a means for a client to provide their own column visualization. Finally, columns must also provide the user to either specify the header text, or custom visuals to use for the header.
+The `nimble-table` requires users to be able to configure which columns to display for a table. Additionally, a particular display column may require access to multiple fields in the data, and allow a user to define the field to sort by. We need to provide a means for a client to provide their own column visualization. Finally, columns must also provide the user to either specify the header text, or custom visuals to use for the header.
 
 ### Out of scope of this HLD
 
 Programmatic API for state that could be considered column-centric: width, sort direction, grouped, etc. These concerns should be covered in separate designs covering those topics specifically, allowing for discussion on both the interactive side and the API design on an individual basis.
 
 ## Links To Relevant Work Items and Reference Material
+
+[Table Spec](./README.md)
 
 [Table Declarative Columns API prototype:](https://github.com/ni/nimble/blob/325983040e886e52a100664d8fb1129dee767c2f/packages/nimble-components/src/table/tests/table.stories.ts#L23) ([Storybook](https://60e89457a987cf003efc0a5b-twewjutggo.chromatic.com/iframe.html?args=&id=table--table-story&viewMode=story))
 
@@ -18,13 +20,13 @@ Columns will be provided to the table as slotted elements. The slot for the colu
 
 ```
 <nimble-table>
-    <nimble-table-column-text valueKey="name"></nimble-table-column-text>
-    <nimble-table-column-icon valueKey="ready"></nimble-table-column-icon>
+    <nimble-table-column-text data-key="name"></nimble-table-column-text>
+    <nimble-table-column-icon data-key="ready"></nimble-table-column-icon>
     ...
 </nimble-table>
 ```
 
-These columns will _not_ have templates/CSS associated with them, and instead be implementations of an interface that will require returning a FAST ViewTemplate for its visual representation.
+These columns will _not_ have templates/CSS associated with them, and instead be implementations of an interface that will require returning a FAST ViewTemplate for its visual representation. The ordering of the columns in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the columns elements in the DOM.
 
 The table API to support this could look like the following:
 
@@ -235,7 +237,7 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
     public cellTemplate: ViewTemplate<ITableCellData<TableColumnButtonCellData>> =
         html<ITableCellData<TableColumnButtonCellData>>`
             <nimble-button readonly="true" @click="${x => this.callback(x.data.id)}>
-                <span>Do Something</span>
+                <span>Press Me</span>
             </nimble-button>
         `;
 
@@ -249,7 +251,7 @@ Angular template:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-button #tableButton>Press Me</nimble-table-column-button>
+    <nimble-table-column-button #tableButton></nimble-table-column-button>
 </nimble-table>
 ```
 
@@ -270,24 +272,6 @@ private doSomething(id: string): void {
 
 Note the missing implementation in the above `ITableColumn` implementations are the necessary pieces to register them as FAST components.
 
-### Initial Nimble-provided Columns
-
-`TableColumnText`
-
-_Custom Properties:_
-
-```TS
-placeholder: string; // The string to display while no value is present
-```
-
-`TableColumnHyperlink`
-
-The API for this column type is out of scope for this spec and should be defined in a separate document. A specific concern for this column that must be addressed is how the hyperlinks that are placed in the shadow DOM of the table will work with the Angular Router (for instance).
-
-`TableColumnIcon`
-
-The API for this column type is also out of scope and should be covered in a separate document. Some unique concerns for this column is how a user can specify the set of icons to display, and then how a user can specify the logic to associate a particular value with one of the provided icons. Additionally, how do we allow a user to specify custom header content (won't be a static `headerTemplateFn` `ITableColumn` implementation).
-
 ## Alternative Implementations / Designs
 
 ### Programmatic API
@@ -296,9 +280,8 @@ A programmatic API was also considered either in place of, or along side the pro
 
 ## Open Issues
 
--   The current design doesn't offer any strict templating feedback for a particular `ITableColumn` implementation. So, if a user provides a dataKey to a property of an `ITableColumn` that wants the value for that dataKey to be a `DateTime` (i.e. its `cellTemplateFn` implementation expects a `DateTime`), but the value in the actual table data for that key is a string, the user will be unaware of that mismatch at compile time.
+-   The current design doesn't offer any strict templating feedback (in Angular) for a particular `ITableColumn` implementation. So, if a user provides a dataKey to a property of an `ITableColumn` that wants the value for that dataKey to be a `DateTime` (i.e. its `cellTemplateFn` implementation expects a `DateTime`), but the value in the actual table data for that key is a string, the user will be unaware of that mismatch at compile time.
 
     It is unclear how we could provide such feedback, but it would be extremely nice if possible.
 
--   There is some concern with the lifecycle of these custom column components.
--   Should `ITableCellData` also require a data index? This could enable some scenarios that might otherwise require a user to have id fields in their data.
+    (*RESOLVED*) - While we recognize that offering strict templating feedback in something like an Angular environment would be nice, it's not immediately obvious how we would accomplish this, and isn't critical, so, for now, we will not bother with this.
