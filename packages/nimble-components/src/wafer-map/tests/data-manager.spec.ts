@@ -94,20 +94,11 @@ describe('Data manager', () => {
         }
     });
 
-    it('should have the fill style from the color scale colors', () => {
-        const colors = getColorsScale().colors;
-        for (const dieRenderInfo of dataManagerModule.diesRenderInfo) {
-            expect(colors).toContain(dieRenderInfo.fillStyle);
-        }
-    });
-
     it('should have all dies with no opacity from the highlighted list', () => {
         const highlightedValues = getHighlightedValues().map(
             value => value + dieLabelsSuffix
         );
-        const diesWithoutOpacity = dataManagerModule.diesRenderInfo.filter(
-            x => x.opacity === 0
-        );
+        const diesWithoutOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(', 0)'));
         for (const dieRenderInfo of diesWithoutOpacity) {
             expect(highlightedValues).toContain(dieRenderInfo.text);
         }
@@ -118,7 +109,7 @@ describe('Data manager', () => {
             value => value + dieLabelsSuffix
         );
         const diesWithOpacity = dataManagerModule.diesRenderInfo.filter(
-            x => x.opacity !== 0
+            x => !x.fillStyle.endsWith(', 0)')
         );
         for (const dieRenderInfo of diesWithOpacity) {
             expect(highlightedValues).not.toContain(dieRenderInfo.text);

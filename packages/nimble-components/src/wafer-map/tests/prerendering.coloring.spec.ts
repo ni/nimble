@@ -31,9 +31,9 @@ describe('Prerendering module', () => {
                 );
             });
 
-            it('should have undefined fill style for all dies', () => {
+            it('should have black fill style for all dies', () => {
                 for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toBeUndefined();
+                    expect(dieRenderInfo.fillStyle).toEqual('rgba(0, 0, 0, 0)');
                 }
             });
         });
@@ -63,7 +63,9 @@ describe('Prerendering module', () => {
 
             it('should have the same fill style for all dies', () => {
                 for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual('rgb(255, 0, 0)');
+                    expect(dieRenderInfo.fillStyle).toEqual(
+                        'rgba(255, 0, 0, 0)'
+                    );
                 }
             });
         });
@@ -95,7 +97,7 @@ describe('Prerendering module', () => {
                 const waferMapDies = getWaferMapDies();
                 const expectedValues = waferMapDies.map(x => {
                     return {
-                        fillStyle: `rgb(${(+x.value - 1) * 15}, 0, 0)`
+                        fillStyle: `rgba(${(+x.value - 1) * 15}, 0, 0, 0)`
                     };
                 });
                 for (let i = 0; i < waferMapDies.length; i += 1) {
@@ -135,7 +137,9 @@ describe('Prerendering module', () => {
 
             it('should have the same fill style for all dies', () => {
                 for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual('red');
+                    expect(dieRenderInfo.fillStyle).toEqual(
+                        'rgba(255, 0, 0, 0)'
+                    );
                 }
             });
         });
@@ -166,7 +170,9 @@ describe('Prerendering module', () => {
             it('should have alternating fill style for the dies', () => {
                 const waferMapDies = getWaferMapDies();
                 const expectedValues = waferMapDies.map(x => {
-                    const fillStyle = +x.value % 2 === 1 ? 'black' : 'red';
+                    const fillStyle = +x.value % 2 === 1
+                        ? 'rgba(0, 0, 0, 0)'
+                        : 'rgba(255, 0, 0, 0)';
                     return {
                         fillStyle
                     };
@@ -186,7 +192,7 @@ describe('Prerendering module', () => {
         const dieLabelsHidden = true;
         const maxCharacters = 2;
         const highlightedValues: string[] = [];
-        const nanDieColor = '#7a7a7a';
+        const nanDieColor = 'rgba(122, 122, 122, 0)';
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
@@ -217,7 +223,7 @@ describe('Prerendering module', () => {
         const dieLabelsHidden = true;
         const maxCharacters = 2;
         const highlightedValues: string[] = [];
-        const emptyDieColor = '#DADFEC';
+        const emptyDieColor = 'rgba(218, 223, 236, 0)';
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
@@ -252,11 +258,11 @@ describe('Prerendering module', () => {
         beforeEach(() => {
             prerenderingModule = new Prerendering(
                 getWaferMapDies(),
-                { colors: [], values: [] },
+                { colors: ['red'], values: [] },
                 [highlightedValue],
                 getLinearScale([], []),
                 getLinearScale([], []),
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorsScaleMode.ordinal,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
@@ -270,12 +276,12 @@ describe('Prerendering module', () => {
             const expectedValues = waferMapDies.map(x => {
                 const opacity = x.value === highlightedValue ? 0 : 0.3;
                 return {
-                    opacity
+                    fillStyle: `rgba(255, 0, 0, ${opacity})`
                 };
             });
             for (let i = 0; i < waferMapDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.opacity).toEqual(
-                    expectedValues[i]!.opacity
+                expect(prerenderingModule.diesRenderInfo[i]!.fillStyle).toEqual(
+                    expectedValues[i]!.fillStyle
                 );
             }
         });
@@ -291,11 +297,11 @@ describe('Prerendering module', () => {
         beforeEach(() => {
             prerenderingModule = new Prerendering(
                 getWaferMapDies(),
-                { colors: [], values: [] },
+                { colors: ['red'], values: [] },
                 highlightedValues,
                 getLinearScale([], []),
                 getLinearScale([], []),
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorsScaleMode.ordinal,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
@@ -306,7 +312,7 @@ describe('Prerendering module', () => {
 
         it('should have all dies with no opacity', () => {
             for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.opacity).toEqual(0);
+                expect(dieRenderInfo.fillStyle).toEqual('rgba(255, 0, 0, 0)');
             }
         });
     });

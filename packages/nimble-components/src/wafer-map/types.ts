@@ -53,6 +53,5 @@ export interface DieRenderInfo {
     readonly x: number;
     readonly y: number;
     readonly fillStyle: string;
-    readonly opacity: number;
     readonly text: string;
 }

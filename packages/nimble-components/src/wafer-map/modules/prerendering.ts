@@ -1,4 +1,5 @@
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
+import { rgb } from 'd3-color';
 import { WaferMapColorsScaleMode } from '../types';
 import type {
     Dimensions,
@@ -50,8 +51,11 @@ export class Prerendering {
             this.diesRenderInfo.push({
                 x: horizontalScale(die.x) + margin.right,
                 y: verticalScale(die.y) + margin.top,
-                fillStyle: this.calculateFillStyle(die, colorsScaleMode),
-                opacity: this.calculateOpacity(die.value, highlightedValues),
+                fillStyle: this.calculateFillStyle(
+                    die.value,
+                    colorsScaleMode,
+                    highlightedValues
+                ),
                 text: this.buildLabel(
                     die.value,
                     maxCharacters,
@@ -130,21 +134,22 @@ export class Prerendering {
     }
 
     private calculateFillStyle(
-        die: WaferMapDie,
-        colorsScaleMode: WaferMapColorsScaleMode
+        value: string,
+        colorsScaleMode: WaferMapColorsScaleMode,
+        highlightedValues: Readonly<string[]>
     ): string {
-        if (!this.dieHasData(die.value)) {
-            return this.emptyDieColor;
+        let colorValue: string = this.emptyDieColor;
+        if (this.dieHasData(value)) {
+            if (isNaN(+value)) {
+                colorValue = this.nanDieColor;
+            } else if (this.isColorScaleLinear(colorsScaleMode)) {
+                colorValue = this.colorScale(+value);
+            } else if (this.isColorScaleOrdinal(colorsScaleMode)) {
+                colorValue = this.colorScale(value);
+            }
         }
-        if (isNaN(+die.value)) {
-            return this.nanDieColor;
-        }
-        if (this.isColorScaleLinear(colorsScaleMode)) {
-            return this.colorScale(+die.value);
-        }
-        if (this.isColorScaleOrdinal(colorsScaleMode)) {
-            return this.colorScale(die.value);
-        }
-        return this.emptyDieColor;
+        const rgbColor = rgb(colorValue);
+        rgbColor.opacity = this.calculateOpacity(value, highlightedValues);
+        return rgbColor.toString();
     }
 }
