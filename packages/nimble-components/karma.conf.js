@@ -28,8 +28,12 @@ const commonChromeFlags = [
 // Create a webpack environment plugin to use while running tests so that
 // functionality that accesses the environment, such as the TanStack table
 // within the nimble-table, work correctly.
+// Note: Unless we run the tests twice, we have to choose to either run them
+// against the 'production' configuration or the 'development' configuration.
+// Because we expect shipping apps to use the 'production' configuration, we
+// have chosen to run tests aginst that configuration.
 const webpackEnvironmentPlugin = new webpack.EnvironmentPlugin({
-    NODE_ENV: 'development'
+    NODE_ENV: 'production'
 });
 
 module.exports = config => {
