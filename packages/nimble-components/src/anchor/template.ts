@@ -43,14 +43,14 @@ AnchorOptions
         aria-roledescription="${x => x.ariaRoledescription}"
         ${ref('control')}
     >
-        <span part="start">
-            <slot name="start">
+        <span part="start" ${ref('startContainer')}>
+            <slot name="start" ${ref('start')}>
             </slot>
         </span>
         ${/* Whitespace intentionally avoided between tags for inline styles */ ''}
         <span class="content" part="content"><slot ${slotted('defaultSlottedContent')}></slot></span
-        ><span part="end">
-            <slot name="end">
+        ><span part="end" ${ref('endContainer')}>
+            <slot name="end" ${ref('end')}>
             </slot>
         </span></a>
 `;
