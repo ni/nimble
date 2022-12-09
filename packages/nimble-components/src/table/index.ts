@@ -42,11 +42,8 @@ export class Table<
 
     public constructor() {
         super();
-        const initialData = this.data;
         this.options = {
-            get data(): TData[] {
-                return initialData;
-            },
+            data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
             getCoreRowModel: tanStackGetCoreRowModel(),
             columns: [],

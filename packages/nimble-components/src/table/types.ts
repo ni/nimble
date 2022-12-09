@@ -1,5 +1,7 @@
-// TableDataValue describes the supported value types for values
-// within the data given to a table.
+/**
+ * TableDataValue describes the supported value types for values
+ * within the data given to a table.
+ */
 export type TableDataValue =
     | string
     | number
@@ -8,7 +10,9 @@ export type TableDataValue =
     | null
     | undefined;
 
-// TableRowData describes the data structure for a single row in a table.
+/**
+ * TableRowData describes the data structure for a single row in a table.
+ */
 export interface TableRowData {
     [key: string]: TableDataValue;
 }

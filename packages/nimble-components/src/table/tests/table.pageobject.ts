@@ -23,7 +23,7 @@ export class TablePageObject<T extends TableRowData> {
             );
         }
 
-        return cells.item(columnIndex).textContent || '';
+        return cells.item(columnIndex).textContent ?? '';
     }
 
     public getRenderedRowCount(): number {
@@ -50,6 +50,6 @@ export class TablePageObject<T extends TableRowData> {
             );
         }
 
-        return cells.item(columnIndex).textContent || '';
+        return cells.item(columnIndex).textContent ?? '';
     }
 }

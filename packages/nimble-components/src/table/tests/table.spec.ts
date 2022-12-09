@@ -17,7 +17,7 @@ const simpleTableDataKeys = [
     'numericData',
     'booleanData',
     'dateData'
-];
+] as const;
 
 const simpleTableData = [
     {
