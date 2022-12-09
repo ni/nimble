@@ -18,7 +18,7 @@ Programmatic API for state that could be considered column-centric: width, sort 
 
 Columns will be provided to the table as slotted elements. The slot for the columns will be the default slot for the table, and thus no slot needs to be expressly provided by the user for a column:
 
-```
+```HTML
 <nimble-table>
     <nimble-table-column-text data-key="name"></nimble-table-column-text>
     <nimble-table-column-icon data-key="ready"></nimble-table-column-icon>
