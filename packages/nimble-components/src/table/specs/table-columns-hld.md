@@ -284,4 +284,4 @@ A programmatic API was also considered either in place of, or along side the pro
 
     It is unclear how we could provide such feedback, but it would be extremely nice if possible.
 
-    (*RESOLVED*) - While we recognize that offering strict templating feedback in something like an Angular environment would be nice, it's not immediately obvious how we would accomplish this, and isn't critical, so, for now, we will not bother with this.
+    (_RESOLVED_) - While we recognize that offering strict templating feedback in something like an Angular environment would be nice, it's not immediately obvious how we would accomplish this, and isn't critical, so, for now, we will not bother with this.
