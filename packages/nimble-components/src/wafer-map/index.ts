@@ -70,10 +70,7 @@ export class WaferMap extends FoundationElement {
     private dataManager: DataManager | undefined;
 
     public override connectedCallback(): void {
-
         super.connectedCallback();
-        console.log(this.maxCharacters);
-        console.log(this.dieLabelsHidden);
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
@@ -85,7 +82,6 @@ export class WaferMap extends FoundationElement {
             this.dieLabelsSuffix,
             this.maxCharacters
         );
-        // debugger;
 
         RenderingModule.setWaferMapOrientation(this.orientation, this.svgRoot);
         RenderingModule.drawWafer(this.dataManager, this.canvas);
