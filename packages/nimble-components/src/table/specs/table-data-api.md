@@ -25,13 +25,7 @@ To help enforce typing, the `Table` class will be generic on the type for the re
 ```ts
 type TableFieldName = string;
 
-type TableFieldValue =
-    | string
-    | number
-    | boolean
-    | Date
-    | null
-    | undefined;
+type TableFieldValue = string | number | boolean | Date | null | undefined;
 
 interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
@@ -53,7 +47,7 @@ tableRef.data = [{...}]; // The data property is bound by the above type
 The typing described above does not fully enforce the type requirement on the table. Specifically, the type of `TData` above does not enforce that a given key only has one data type associated with it. For example, it allows the following, which is not considered valid:
 
 ```ts
-interface MyTableData implements TableRecord {
+interface MyTableData {
     myFirstKey: string | number;
 }
 ```
@@ -87,7 +81,9 @@ type NumericColumnRecord<
     ValueFieldName extends string,
     UnitsFieldName extends string,
     PlaceholderFieldName extends string
-> = NumberData<ValueFieldName> & StringData<UnitsFieldName> & StringData<PlaceholderFieldName>;
+> = NumberData<ValueFieldName> &
+    StringData<UnitsFieldName> &
+    StringData<PlaceholderFieldName>;
 ```
 
 Using the column definition, the user of a table can type a reference to the table as:
