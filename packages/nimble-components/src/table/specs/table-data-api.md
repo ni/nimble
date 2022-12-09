@@ -14,20 +14,30 @@ A table/data-grid component can have a variety of ways to introduce data into it
 
 ## Implementation / Design
 
-In the `nimble-table`, the data to associated with rows will be exposed through a `data` property that is an array of key/value pairs. The key/value pairs within the data must have a key of type string and a value that is of a supported type. The supported value types are: `string`, `number`, `boolean`, `Date`, `null`, and `undefined`. As implied by the set of supported value types, complex value types such as arrays or objects are not supported. The supported value types are limited to ensure data operations are fast and to eliminate the need to custom sort functions, which could hurt performance. While the types are limited, a rendered column in the table can use data from multiple keys in a row's data item. The details about the way column definitions use data from the `data` property are out of scope for this spec.
+In the `nimble-table`, the data to associated with rows will be exposed through a `data` property that is an array of key/value pairs. The collection of key/value pairs is called a record, and each key/value pair is called a field. The name of a field (i.e. the key of the key/value pair) must be a string, and the value of a field (i.e. the value of the key/value pair) must be a `string`, `number`, `boolean`, `Date`, `null`, or `undefined`. As implied by the set of supported field types, complex field types such as arrays or objects are not supported. The supported field types are limited to ensure data operations are fast and to eliminate the need to custom sort functions, which could hurt performance. While the types are limited, a rendered cell in the table can access multiple fields from the record. The details about the way column definitions use data from the `data` property are out of scope for this spec.
 
 Because `data` is a complex type, it will not be exposed as an attribute on the `nimble-table` element. As a result, the data must be provided to the table programatically rather than declaratively with HTML.
 
 This API is similar to the `FASTDataGrid`. Its [data API](https://github.com/microsoft/fast/blob/416dc9167e9d41e6ffe11d87ed79b2f455357923/packages/web-components/fast-foundation/src/data-grid/data-grid.ts#L193), is provided via a `rowsData` property of type `object[]`.
 
-To help enforce typing, the `Table` class will be generic on the type for the row data. The typing of the table is shown below:
+To help enforce typing, the `Table` class will be generic on the type for the record. The typing of the table is shown below:
 
 ```ts
-export class Table<
-    TData extends {
-        [key: string]: string | number | boolean | Date | null | undefined;
-    }
-> extends FoundationElement {
+type TableFieldName = string;
+
+type TableFieldValue =
+    | string
+    | number
+    | boolean
+    | Date
+    | null
+    | undefined;
+
+interface TableRecord {
+    [key: TableFieldName]: TableFieldValue;
+}
+
+export class Table<TData extends TableRecord> extends FoundationElement {
     @observable
     public data: TData[];
 }
@@ -43,7 +53,7 @@ tableRef.data = [{...}]; // The data property is bound by the above type
 The typing described above does not fully enforce the type requirement on the table. Specifically, the type of `TData` above does not enforce that a given key only has one data type associated with it. For example, it allows the following, which is not considered valid:
 
 ```ts
-interface MyTableData {
+interface MyTableData implements TableRecord {
     myFirstKey: string | number;
 }
 ```
@@ -51,20 +61,20 @@ interface MyTableData {
 Therefore, types will be provided to allow clients to optionally provide more strict typing on their data. These types will look something like the following:
 
 ```ts
-type StringData<ValueKey extends string> = {
-    [key in ValueKey]: string | null | undefined;
+type StringField<FieldName extends string> = {
+    [name in FieldName]: string | null | undefined;
 };
 
-type NumberData<ValueKey extends string> = {
-    [k in ValueKey]: number | null | undefined;
+type NumberField<FieldName extends string> = {
+    [name in FieldName]: number | null | undefined;
 };
 
-type BooleanData<ValueKey extends string> = {
-    [k in ValueKey]: boolean | null | undefined;
+type BooleanField<FieldName extends string> = {
+    [name in FieldName]: boolean | null | undefined;
 };
 
-type DateData<ValueKey extends string> = {
-    [k in ValueKey]: Date | null | undefined;
+type DateField<FieldName extends string> = {
+    [name in FieldName]: Date | null | undefined;
 };
 ```
 
@@ -73,19 +83,19 @@ type DateData<ValueKey extends string> = {
 The types shown above can be used by column providers to enforce the data types they require. For example, if a numeric column required a numeric value, a unit string, and a placeholder string, it could export a type similar to the following:
 
 ```ts
-type NumericColumnDefinitionData<
-    ValueKey extends string,
-    UnitsKey extends string,
-    PlaceholderKey extends string
-> = NumberData<ValueKey> & StringData<UnitsKey> & StringData<PlaceholderKey>;
+type NumericColumnRecord<
+    ValueFieldName extends string,
+    UnitsFieldName extends string,
+    PlaceholderFieldName extends string
+> = NumberData<ValueFieldName> & StringData<UnitsFieldName> & StringData<PlaceholderFieldName>;
 ```
 
 Using the column definition, the user of a table can type a reference to the table as:
 
 ```ts
 const tableRef: Table<
-    NumericColumnDefinitionData<'value', 'units', 'placeholder'> &
-        BooleanData<'awesome'>
+    NumericColumnRecord<'value', 'units', 'placeholder'> &
+        BooleanField<'awesome'>
 >;
 tableRef.data[
     {
@@ -97,7 +107,7 @@ tableRef.data[
 ]; // The data property names and types are enforced by the type above.
 ```
 
-Note that the above is only an example of what is possible. The details of a table's column definitions is out of scope of this spec.
+Note that the above is only an example of what is possible. The details of a table's column definitions are out of scope of this spec.
 
 Ideally, this typing can also be used to provide compile-time checking of templates. But, the feasibility and details associated with that are out of scope of this spec.
 
