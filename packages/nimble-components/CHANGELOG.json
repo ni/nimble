@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 09 Dec 2022 23:00:24 GMT",
+      "tag": "@ni/nimble-components_v15.5.5",
+      "version": "15.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a4ce35df8efd5b806cc0335b30a2c4764d470a8c",
+            "comment": "Basic TanStack integration with nimble-table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 09 Dec 2022 11:25:00 GMT",
       "tag": "@ni/nimble-components_v15.5.4",
       "version": "15.5.4",
