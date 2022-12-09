@@ -1,5 +1,5 @@
 import { DataManager } from '../modules/data-manager';
-import { Margin, WaferMapColorsScaleMode, WaferMapQuadrant } from '../types';
+import { Margin, WaferMapColorScaleMode, WaferMapQuadrant } from '../types';
 import {
     getColorsScale,
     getHighlightedValues,
@@ -27,7 +27,7 @@ describe('Data manager', () => {
             canvasDimensions,
             getColorsScale(),
             getHighlightedValues(),
-            WaferMapColorsScaleMode.ordinal,
+            WaferMapColorScaleMode.ordinal,
             dieLabelsHidden,
             dieLabelsSuffix,
             maxCharacters

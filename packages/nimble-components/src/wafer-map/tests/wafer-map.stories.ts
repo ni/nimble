@@ -4,21 +4,21 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { bodyFont } from '../../theme-provider/design-tokens';
 
 import '../../all-components';
-import type { WaferMapDie, WaferMapColorsScale } from '../types';
+import type { WaferMapDie, WaferMapColorScale } from '../types';
 import {
     WaferMapQuadrant,
     WaferMapOrientation,
-    WaferMapColorsScaleMode
+    WaferMapColorScaleMode
 } from '../types';
 import {
     highLightedValueSets,
     wafermapDieSets,
-    waferMapColorsScaleSets
+    waferMapColorScaleSets
 } from './sets';
 
 interface WaferMapArgs {
-    colorscale: WaferMapColorsScale;
-    colorscalemode: WaferMapColorsScaleMode;
+    colorscale: WaferMapColorScale;
+    colorscalemode: WaferMapColorScaleMode;
     dielabelshidden: boolean;
     dielabelsuffix: string;
     dies: string;
@@ -100,11 +100,11 @@ const metadata: Meta<WaferMapArgs> = {
         dies: 'set1',
         quadrant: WaferMapQuadrant.bottomLeft,
         orientation: WaferMapOrientation.left,
-        colorscale: waferMapColorsScaleSets[0],
+        colorscale: waferMapColorScaleSets[0],
         maxcharacters: 4,
         dielabelshidden: false,
         dielabelsuffix: '',
-        colorscalemode: WaferMapColorsScaleMode.linear,
+        colorscalemode: WaferMapColorScaleMode.linear,
         highlightedvalues: 'set1'
     },
     argTypes: {
@@ -166,12 +166,12 @@ const metadata: Meta<WaferMapArgs> = {
         colorscalemode: {
             description:
                 'Enum value that determines if the color scale represents continuous gradient values (linear), or is set categorically (ordinal).',
-            options: Object.values(WaferMapColorsScaleMode),
+            options: Object.values(WaferMapColorScaleMode),
             control: {
                 type: 'radio',
                 labels: {
-                    [WaferMapColorsScaleMode.linear]: 'Linear',
-                    [WaferMapColorsScaleMode.ordinal]: 'Ordinal'
+                    [WaferMapColorScaleMode.linear]: 'Linear',
+                    [WaferMapColorScaleMode.ordinal]: 'Ordinal'
                 }
             }
         },
@@ -202,7 +202,7 @@ const metadata: Meta<WaferMapArgs> = {
             },
             defaultValue: 'set1',
             mapping: {
-                set1: waferMapColorsScaleSets[0]
+                set1: waferMapColorScaleSets[0]
             }
         }
     }

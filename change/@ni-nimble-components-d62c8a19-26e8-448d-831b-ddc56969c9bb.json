@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Created render queue for component input changes",
+  "comment": "Created render queue for wafer map component input changes",
   "packageName": "@ni/nimble-components",
   "email": "33986780+munteannatan@users.noreply.github.com",
   "dependentChangeType": "patch"
