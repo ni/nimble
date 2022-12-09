@@ -59,5 +59,11 @@ window.NimbleBlazor = {
         close: function (drawerReference) {
             drawerReference.close();
         }
+    },
+    Table: {
+        setData: async function (data, tableReference) {
+            const dataObject = JSON.parse(data);
+            tableReference.data = dataObject;
+        }
     }
 };

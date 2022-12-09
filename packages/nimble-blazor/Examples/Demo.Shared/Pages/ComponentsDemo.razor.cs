@@ -1,4 +1,6 @@
-﻿using NimbleBlazor;
+﻿using Faker;
+using NimbleBlazor;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Shared.Pages
 {
@@ -14,6 +16,14 @@ namespace Demo.Shared.Pages
         private NimbleDrawer<DialogResult>? _drawer;
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
+
+        [NotNull]
+        public IEnumerable<Dictionary<string, object>> TableData { get; set; }
+
+        public ComponentsDemo()
+        {
+            UpdateTableData();
+        }
 
         private string DrawerLocationAsString
         {
@@ -43,6 +53,24 @@ namespace Demo.Shared.Pages
         public async Task CloseDrawerAsync(DialogResult reason)
         {
             await _drawer!.CloseAsync(reason);
+        }
+
+        public void UpdateTableData()
+        {
+            var tableData = new Dictionary<string, object>[]
+            {
+                new Dictionary<string, object>()
+                {
+                    { "firstName", Faker.Name.First() },
+                    { "lastName", Faker.Name.Last() }
+                },
+                new Dictionary<string, object>()
+                {
+                    { "firstName", Faker.Name.First() },
+                    { "lastName", Faker.Name.Last() }
+                }
+            };
+            TableData = tableData;
         }
     }
 
