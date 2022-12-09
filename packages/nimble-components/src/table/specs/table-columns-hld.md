@@ -81,7 +81,7 @@ interface ITableColumn<TCellData extends TableRowData> {
 
     // The template to use to render the cell content for the column
     cellTemplate: ViewTemplate<TableCellData<TCellData>>;
- 
+
     // The keys that should be present in TCellData.
     // This array is parallel with the keys returned from `getDataKeys()`.
     readonly cellDataKeyNames: readonly string[];
