@@ -168,7 +168,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
 }
 ```
 
-Here we have a column visualize in different ways based on custom logic:
+Here we have a column visualized in different ways based on custom logic:
 
 ```TS
 type TableColumnPositiveNegativeNumberCellData = NumberColumnData<'value'>;
