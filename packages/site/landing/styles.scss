@@ -40,11 +40,9 @@ body {
 
 @keyframes move-circle {
     from {
-        stroke-dasharray: var(--circle-length);
         transform: rotate(var(--circle-init-angle));
     }
     to {
-        stroke-dasharray: calc(var(--circle-length) / 2);
         transform: rotate(var(--circle-end-angle));
     }
 }
@@ -54,7 +52,7 @@ circle {
     transform-origin: center;
 
     transform: rotate(var(--circle-init-angle));
-    stroke-dasharray: var(--circle-length);
+    stroke-dasharray: calc(var(--circle-length) / 4);
 
     stroke-dashoffset: var(--circle-dash-offset);
 
