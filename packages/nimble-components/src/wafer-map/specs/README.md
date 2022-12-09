@@ -241,6 +241,7 @@ We use parts of this library in our zooming and rendering functionality.
 As we don't want to bloat the component with unused packages, only the following will be included in the package.json:
 
 -   d3-zoom
+-   d3-color
 -   d3-scale
 -   d3-selection
 
