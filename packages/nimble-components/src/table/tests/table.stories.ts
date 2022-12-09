@@ -3,12 +3,36 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
+import { ExampleDataType } from './types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface TableArgs {}
+interface TableArgs {
+    data: ExampleDataType;
+}
+
+const simpleData = [
+    {
+        myStr: 'my first row',
+        myNum: 5,
+        myBool: true
+    },
+    {
+        myStr: 'my second row',
+        myNum: 15,
+        myBool: false
+    }
+] as const;
+
+const dataSets = {
+    [ExampleDataType.simpleData]: simpleData
+} as const;
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
+
+const dataDescription = `\`data\` is a property that is an array of records. A record provides the data that backs a single row in the table.
+Each record is made up of fields, which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type
+\`TableFieldName\`. The value in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`Date\`, \`null\`, or \`undefined\`,
+which is defined by the type \`TableFieldValue\`.`;
 
 const metadata: Meta<TableArgs> = {
     title: 'Table',
@@ -33,7 +57,7 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table>
+        <nimble-table :data=${x => dataSets[x.data]}>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {
@@ -42,7 +66,24 @@ const metadata: Meta<TableArgs> = {
             }
         </style>
     `),
-    args: {}
+    argTypes: {
+        data: {
+            description: dataDescription,
+            table: {
+                defaultValue: { summary: '[]' }
+            },
+            options: [ExampleDataType.simpleData],
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleDataType.simpleData]: 'Simple data'
+                }
+            }
+        }
+    },
+    args: {
+        data: ExampleDataType.simpleData
+    }
 };
 
 export default metadata;
