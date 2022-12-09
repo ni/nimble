@@ -19,8 +19,8 @@ import {
 interface WaferMapArgs {
     colorsScale: WaferMapColorsScale;
     colorsScaleMode: WaferMapColorsScaleMode;
-    dielabelsHidden: boolean;
-    dielabelsSuffix: string;
+    dieLabelsHidden: boolean;
+    dieLabelsSuffix: string;
     dies: string;
     highlightedValues: string;
     maxCharacters: number;
@@ -95,8 +95,8 @@ const metadata: Meta<WaferMapArgs> = {
         </div>
         <nimble-wafer-map
             colors-scale-mode="${x => x.colorsScaleMode}"
-            ?die-labels-hidden="${x => x.dielabelsHidden}"
-            die-labels-suffix="${x => x.dielabelsSuffix}"
+            ?die-labels-hidden="${x => x.dieLabelsHidden}"
+            die-labels-suffix="${x => x.dieLabelsSuffix}"
             max-characters="${x => x.maxCharacters}"
             orientation="${x => x.orientation}"
             quadrant="${x => x.quadrant}"
@@ -119,8 +119,8 @@ const metadata: Meta<WaferMapArgs> = {
         colorsScale: waferMapColorsScaleSets[0],
         colorsScaleMode: WaferMapColorsScaleMode.linear,
         dies: 'set1',
-        dielabelsHidden: false,
-        dielabelsSuffix: '',
+        dieLabelsHidden: false,
+        dieLabelsSuffix: '',
         highlightedValues: 'set1',
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
@@ -176,13 +176,13 @@ const metadata: Meta<WaferMapArgs> = {
             },
             defaultValue: 'set1'
         },
-        dielabelsHidden: {
+        dieLabelsHidden: {
             name: 'die-labels-hidden',
             description:
                 'Boolean value that determines if the dies labels in the wafer map view are shown or not. Default value is false.',
             control: { type: 'boolean' }
         },
-        dielabelsSuffix: {
+        dieLabelsSuffix: {
             name: 'die-labels-suffix',
             description:
                 'String that can be added as a label at the end of each wafer map die value',
