@@ -236,7 +236,7 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
 
     public cellTemplate: ViewTemplate<ITableCellData<TableColumnButtonCellData>> =
         html<ITableCellData<TableColumnButtonCellData>>`
-            <nimble-button readonly="true" @click="${x => this.callback(x.data.id)}>
+            <nimble-button @click="${x => this.callback(x.data.id)}>
                 <span>Press Me</span>
             </nimble-button>
         `;
