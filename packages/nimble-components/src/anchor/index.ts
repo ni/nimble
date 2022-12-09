@@ -2,8 +2,6 @@ import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Anchor as FoundationAnchor,
-    applyMixins,
-    DelegatesARIALink,
     AnchorOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
@@ -38,7 +36,6 @@ export class Anchor extends FoundationAnchor {
     @attr
     public appearance: AnchorAppearance;
 }
-applyMixins(Anchor, DelegatesARIALink);
 
 const nimbleAnchor = Anchor.compose<AnchorOptions>({
     baseName: 'anchor',

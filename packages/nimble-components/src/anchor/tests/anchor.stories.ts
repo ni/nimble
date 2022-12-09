@@ -41,9 +41,7 @@ const metadata: Meta<AnchorArgs> = {
             href=${x => (x.href !== '' ? x.href : null)}
             ?underline-visible=${x => x.underlineVisible}
             appearance=${x => x.appearance}
-        >
-            ${x => x.label}
-        </nimble-anchor> to navigate.
+        >${x => x.label}</nimble-anchor> to navigate.
     `),
     argTypes: {
         href: {

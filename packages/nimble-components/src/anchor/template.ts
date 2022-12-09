@@ -1,7 +1,8 @@
 import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
-import type {
+import {
     AnchorOptions,
-    FoundationElementTemplate
+    FoundationElementTemplate,
+    startSlotTemplate
 } from '@microsoft/fast-foundation';
 import type { Anchor } from '.';
 
@@ -9,7 +10,7 @@ import type { Anchor } from '.';
 export const template: FoundationElementTemplate<
 ViewTemplate<Anchor>,
 AnchorOptions
-> = () => html<Anchor>`
+> = (context, definition) => html<Anchor>`
     <a
         class="control"
         part="control"
@@ -43,14 +44,18 @@ AnchorOptions
         aria-roledescription="${x => x.ariaRoledescription}"
         ${ref('control')}
     >
-        <span part="start" ${ref('startContainer')}>
-            <slot name="start" ${ref('start')}>
-            </slot>
-        </span>
+        ${startSlotTemplate(context, definition)}
+        ${/* End slot template inlined to avoid extra whitespace.
+             See https://github.com/microsoft/fast/issues/6557 */ ''}
         ${/* Whitespace intentionally avoided between tags for inline styles */ ''}
         <span class="content" part="content"><slot ${slotted('defaultSlottedContent')}></slot></span
-        ><span part="end" ${ref('endContainer')}>
-            <slot name="end" ${ref('end')}>
+        ><span
+            part="end"
+            ${ref('endContainer')}
+            class=${_x => (definition.end ? 'end' : null)}
+        >
+            <slot name="end" ${ref('end')} @slotchange="${x => x.handleEndContentChange()}">
+                ${definition.end || ''}
             </slot>
         </span></a>
 `;

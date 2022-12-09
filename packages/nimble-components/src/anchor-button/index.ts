@@ -2,8 +2,6 @@ import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Anchor as FoundationAnchor,
-    applyMixins,
-    DelegatesARIALink,
     AnchorOptions
 } from '@microsoft/fast-foundation';
 import {
@@ -59,7 +57,6 @@ export class AnchorButton
     @attr({ mode: 'boolean' })
     public disabled = false;
 }
-applyMixins(AnchorButton, DelegatesARIALink);
 
 const nimbleAnchorButton = AnchorButton.compose<AnchorOptions>({
     baseName: 'anchor-button',
