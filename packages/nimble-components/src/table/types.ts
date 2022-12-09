@@ -1,8 +1,14 @@
 /**
- * TableDataValue describes the supported value types for values
- * within the data given to a table.
+ * TableFieldName describes the type associated with keys within
+ * a table's records.
  */
-export type TableDataValue =
+export type TableFieldName = string;
+
+/**
+ * TableFieldValue describes the type associated with values within
+ * a table's records.
+ */
+export type TableFieldValue =
     | string
     | number
     | boolean
@@ -11,8 +17,10 @@ export type TableDataValue =
     | undefined;
 
 /**
- * TableRowData describes the data structure for a single row in a table.
+ * TableRecord describes the data structure that backs a single row in a table.
+ * It is made up of fields, which are key/value pairs that have a key of type
+ * TableFieldName and a value of type TableFieldValue.
  */
-export interface TableRowData {
-    [key: string]: TableDataValue;
+export interface TableRecord {
+    [key: TableFieldName]: TableFieldValue;
 }

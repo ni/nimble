@@ -2,10 +2,10 @@ import { html } from '@microsoft/fast-element';
 import { Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import type { TableRowData } from '../types';
+import type { TableRecord } from '../types';
 import { TablePageObject } from './table.pageobject';
 
-interface SimpleTableRowData extends TableRowData {
+interface SimpleTableRecord extends TableRecord {
     stringData: string;
     numericData: number;
     booleanData: boolean;
@@ -40,19 +40,19 @@ const simpleTableData = [
     }
 ] as const;
 
-async function setup(): Promise<Fixture<Table<SimpleTableRowData>>> {
-    return fixture<Table<SimpleTableRowData>>(
+async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
+    return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table></nimble-table>`
     );
 }
 
 describe('Table', () => {
-    let element: Table<SimpleTableRowData>;
+    let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
-    let pageObject: TablePageObject<SimpleTableRowData>;
+    let pageObject: TablePageObject<SimpleTableRecord>;
 
-    function verifyRenderedData(expectedData: SimpleTableRowData[]): void {
+    function verifyRenderedData(expectedData: SimpleTableRecord[]): void {
         const expectedRowCount = expectedData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
@@ -72,7 +72,7 @@ describe('Table', () => {
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
-        pageObject = new TablePageObject<SimpleTableRowData>(element);
+        pageObject = new TablePageObject<SimpleTableRecord>(element);
     });
 
     afterEach(async () => {
@@ -127,7 +127,7 @@ describe('Table', () => {
         element.data = [...simpleTableData];
         await waitForUpdatesAsync();
 
-        const updatedData: SimpleTableRowData[] = [
+        const updatedData: SimpleTableRecord[] = [
             ...simpleTableData,
             {
                 stringData: 'a new string',
@@ -148,7 +148,7 @@ describe('Table', () => {
         element.data = [...simpleTableData];
         await waitForUpdatesAsync();
 
-        const updatedData: SimpleTableRowData[] = [
+        const updatedData: SimpleTableRecord[] = [
             simpleTableData[0],
             simpleTableData[2]
         ];
@@ -164,7 +164,7 @@ describe('Table', () => {
         element.data = [...simpleTableData];
         await waitForUpdatesAsync();
 
-        const updatedData: SimpleTableRowData[] = [
+        const updatedData: SimpleTableRecord[] = [
             simpleTableData[1],
             simpleTableData[2],
             simpleTableData[0]

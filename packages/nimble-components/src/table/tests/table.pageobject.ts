@@ -1,11 +1,11 @@
 import type { Table } from '..';
-import type { TableRowData } from '../types';
+import type { TableRecord } from '../types';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
-export class TablePageObject<T extends TableRowData> {
+export class TablePageObject<T extends TableRecord> {
     public constructor(private readonly tableElement: Table<T>) {}
 
     public getRenderedHeaderCount(): number {

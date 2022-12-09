@@ -29,9 +29,10 @@ const dataSets = {
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
 
-const dataDescription = `\`data\` is a property on the table that is an array of key/value pairs where each item in the array represents
-one row of data. The value in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`Date\`, \`null\`, or \`undefined\`, which
-is defined by the type \`TableDataValue\`.`;
+const dataDescription = `\`data\` is a property on the table that is an array of records. A record provides the data that backs a single row
+in the table. Each record is made up of fields, which are key/value pairs. The key in each pair must be of type \`string\`, which is defined
+by the type \`TableFieldName\`. The value in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`Date\`, \`null\`, or \`undefined\`,
+which is defined by the type \`TableFieldValue\`.`;
 
 const metadata: Meta<TableArgs> = {
     title: 'Table',

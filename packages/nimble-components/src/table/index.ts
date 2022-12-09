@@ -11,7 +11,7 @@ import {
 } from '@tanstack/table-core';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableRowData, TableDataValue } from './types';
+import type { TableRecord, TableFieldValue } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -23,7 +23,7 @@ declare global {
  * A nimble-styled table.
  */
 export class Table<
-    TData extends TableRowData = TableRowData
+    TData extends TableRecord = TableRecord
 > extends FoundationElement {
     @observable
     public data: TData[] = [];
@@ -78,7 +78,7 @@ export class Table<
         for (const row of rows) {
             const rowArray: string[] = [];
             for (const cell of row.getVisibleCells()) {
-                const cellValue = cell.getValue() as TableDataValue;
+                const cellValue = cell.getValue() as TableFieldValue;
                 const stringValue = cellValue == null ? '' : cellValue.toString();
                 rowArray.push(stringValue);
             }
