@@ -71,9 +71,7 @@ const metadata: Meta<TableArgs> = {
             table: {
                 defaultValue: { summary: '[]' }
             },
-            options: [
-                ExampleDataType.simpleData
-            ],
+            options: [ExampleDataType.simpleData],
             control: {
                 type: 'radio',
                 labels: {
