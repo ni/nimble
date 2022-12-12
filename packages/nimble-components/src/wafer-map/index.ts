@@ -50,7 +50,7 @@ export class WaferMap extends FoundationElement {
     public dieLabelsSuffix = '';
 
     @attr({
-        attribute: 'colors-scale-mode'
+        attribute: 'color-scale-mode'
     })
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 

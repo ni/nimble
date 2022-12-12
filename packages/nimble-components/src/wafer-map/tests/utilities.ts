@@ -38,7 +38,7 @@ export function getWaferMapDiesAsNaN(): WaferMapDie[] {
     });
 }
 
-export function getColorsScale(): WaferMapColorScale {
+export function getColorScale(): WaferMapColorScale {
     return { colors: ['red', 'blue', 'green'], values: ['1', '2', '3'] };
 }
 

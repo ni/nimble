@@ -44,7 +44,7 @@ const metadata: Meta<WaferMapArgs> = {
             experimental. It is not recommended for application use.
         </div>
         <nimble-wafer-map
-            colorsScaleMode="${x => x.colorscalemode}"
+            colorScaleMode="${x => x.colorscalemode}"
             dieLabelsHidden="${x => x.dielabelshidden}"
             dieLabelsSuffix="${x => x.dielabelsuffix}"
             maxCharacters="${x => x.maxcharacters}"
