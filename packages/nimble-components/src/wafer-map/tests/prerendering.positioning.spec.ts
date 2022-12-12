@@ -1,5 +1,5 @@
 import { Prerendering } from '../modules/prerendering';
-import { WaferMapColorsScaleMode } from '../types';
+import { WaferMapColorScaleMode } from '../types';
 import { getLinearScale, getWaferMapDies } from './utilities';
 
 describe('Prerendering module', () => {
@@ -19,7 +19,7 @@ describe('Prerendering module', () => {
                 [],
                 getLinearScale([0, 1], [0, 1]),
                 getLinearScale([0, 1], [0, 1]),
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
@@ -63,7 +63,7 @@ describe('Prerendering module', () => {
                 [],
                 horizontalScale,
                 verticalScale,
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
@@ -103,7 +103,7 @@ describe('Prerendering module', () => {
                 [],
                 horizontalScale,
                 verticalScale,
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,

@@ -1,12 +1,12 @@
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
-import { WaferMapColorsScaleMode } from '../types';
+import { WaferMapColorScaleMode } from '../types';
 import type {
     Dimensions,
     Margin,
     DieRenderInfo,
     WaferMapDie,
-    WaferMapColorsScale
+    WaferMapColorScale
 } from '../types';
 
 /**
@@ -17,7 +17,7 @@ export class Prerendering {
 
     public readonly diesRenderInfo: DieRenderInfo[];
 
-    public readonly colorScale:
+    public readonly d3ColorScale:
     | ScaleOrdinal<string, string>
     | ScaleLinear<string, string>;
 
@@ -28,18 +28,18 @@ export class Prerendering {
 
     public constructor(
         dies: Readonly<Readonly<WaferMapDie>[]>,
-        colorsScale: Readonly<WaferMapColorsScale>,
+        colorScale: Readonly<WaferMapColorScale>,
         highlightedValues: Readonly<string[]>,
         horizontalScale: ScaleLinear<number, number>,
         verticalScale: ScaleLinear<number, number>,
-        colorsScaleMode: Readonly<WaferMapColorsScaleMode>,
+        colorScaleMode: Readonly<WaferMapColorScaleMode>,
         dieLabelsHidden: Readonly<boolean>,
         dieLabelsSuffix: Readonly<string>,
         maxCharacters: Readonly<number>,
         dieDimensions: Readonly<Dimensions>,
         margin: Readonly<Margin>
     ) {
-        this.colorScale = this.createColorScale(colorsScale, colorsScaleMode);
+        this.d3ColorScale = this.createD3ColorScale(colorScale, colorScaleMode);
 
         this.labelsFontSize = this.calculateLabelsFontSize(
             dieDimensions,
@@ -53,7 +53,7 @@ export class Prerendering {
                 y: verticalScale(die.y) + margin.top,
                 fillStyle: this.calculateFillStyle(
                     die.value,
-                    colorsScaleMode,
+                    colorScaleMode,
                     highlightedValues
                 ),
                 text: this.buildLabel(
@@ -77,18 +77,18 @@ export class Prerendering {
         );
     }
 
-    private createColorScale(
-        colorsScale: WaferMapColorsScale,
-        colorsScaleMode: WaferMapColorsScaleMode
+    private createD3ColorScale(
+        colorScale: WaferMapColorScale,
+        colorScaleMode: WaferMapColorScaleMode
     ): ScaleOrdinal<string, string> | ScaleLinear<string, string> {
-        if (this.isColorScaleLinear(colorsScaleMode)) {
+        if (this.isColorScaleLinear(colorScaleMode)) {
             return scaleLinear<string, string>()
-                .domain(colorsScale.values.map(item => +item))
-                .range(colorsScale.colors);
+                .domain(colorScale.values.map(item => +item))
+                .range(colorScale.colors);
         }
         return scaleOrdinal<string, string>()
-            .domain(colorsScale.values)
-            .range(colorsScale.colors);
+            .domain(colorScale.values)
+            .range(colorScale.colors);
     }
 
     private dieHasData(dieData: string): boolean {
@@ -122,30 +122,30 @@ export class Prerendering {
     }
 
     private isColorScaleLinear(
-        colorsScaleMode: WaferMapColorsScaleMode
-    ): this is { colorScale: ScaleLinear<string, string> } {
-        return colorsScaleMode === WaferMapColorsScaleMode.linear;
+        colorScaleMode: WaferMapColorScaleMode
+    ): this is { d3ColorScale: ScaleLinear<string, string> } {
+        return colorScaleMode === WaferMapColorScaleMode.linear;
     }
 
     private isColorScaleOrdinal(
-        colorsScaleMode: WaferMapColorsScaleMode
-    ): this is { colorScale: ScaleOrdinal<string, string> } {
-        return colorsScaleMode === WaferMapColorsScaleMode.ordinal;
+        colorScaleMode: WaferMapColorScaleMode
+    ): this is { d3ColorScale: ScaleOrdinal<string, string> } {
+        return colorScaleMode === WaferMapColorScaleMode.ordinal;
     }
 
     private calculateFillStyle(
         value: string,
-        colorsScaleMode: WaferMapColorsScaleMode,
+        colorScaleMode: WaferMapColorScaleMode,
         highlightedValues: Readonly<string[]>
     ): string {
         let colorValue: string = this.emptyDieColor;
         if (this.dieHasData(value)) {
             if (isNaN(+value)) {
                 colorValue = this.nanDieColor;
-            } else if (this.isColorScaleLinear(colorsScaleMode)) {
-                colorValue = this.colorScale(+value);
-            } else if (this.isColorScaleOrdinal(colorsScaleMode)) {
-                colorValue = this.colorScale(value);
+            } else if (this.isColorScaleLinear(colorScaleMode)) {
+                colorValue = this.d3ColorScale(+value);
+            } else if (this.isColorScaleOrdinal(colorScaleMode)) {
+                colorValue = this.d3ColorScale(value);
             }
         }
         if (colorValue === undefined) {

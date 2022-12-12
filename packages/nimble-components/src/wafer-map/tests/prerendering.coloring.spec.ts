@@ -1,5 +1,5 @@
 import { Prerendering } from '../modules/prerendering';
-import { WaferMapColorsScaleMode } from '../types';
+import { WaferMapColorScaleMode } from '../types';
 import { getLinearScale, getWaferMapDies } from './utilities';
 
 describe('Prerendering module', () => {
@@ -8,7 +8,7 @@ describe('Prerendering module', () => {
     const nanDieColor = 'rgba(122,122,122,1)';
 
     describe('with linear color scale', () => {
-        const colorScaleMode = WaferMapColorsScaleMode.linear;
+        const colorScaleMode = WaferMapColorScaleMode.linear;
 
         describe('and only one color value pair', () => {
             const dieDimensions = { width: 10, height: 10 };
@@ -110,7 +110,7 @@ describe('Prerendering module', () => {
     });
 
     describe('with ordinal color scale', () => {
-        const colorScaleMode = WaferMapColorsScaleMode.ordinal;
+        const colorScaleMode = WaferMapColorScaleMode.ordinal;
 
         describe('and only one color value pair', () => {
             const dieDimensions = { width: 10, height: 10 };
@@ -198,7 +198,7 @@ describe('Prerendering module', () => {
                 highlightedValues,
                 getLinearScale([], []),
                 getLinearScale([], []),
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
@@ -228,7 +228,7 @@ describe('Prerendering module', () => {
                 highlightedValues,
                 getLinearScale([], []),
                 getLinearScale([], []),
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
@@ -258,7 +258,7 @@ describe('Prerendering module', () => {
                 [highlightedValue],
                 getLinearScale([], []),
                 getLinearScale([], []),
-                WaferMapColorsScaleMode.ordinal,
+                WaferMapColorScaleMode.ordinal,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
@@ -297,7 +297,7 @@ describe('Prerendering module', () => {
                 highlightedValues,
                 getLinearScale([], []),
                 getLinearScale([], []),
-                WaferMapColorsScaleMode.ordinal,
+                WaferMapColorScaleMode.ordinal,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
