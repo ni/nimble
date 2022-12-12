@@ -1,14 +1,13 @@
 /* eslint-disable no-alert */
 import { Component, ViewChild } from '@angular/core';
-import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
-import type { TableData } from '@ni/nimble-components/dist/esm/table/types';
+import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, TableRecord, UserDismissed } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
     last: string;
 }
 
-interface TableDataItem extends TableData {
+interface SimpleTableRecord extends TableRecord {
     stringValue: string;
     numberValue: number;
     dateValue: Date;
@@ -36,7 +35,7 @@ export class CustomAppComponent {
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
     public selectedRadio = 'mango';
 
-    public tableData: TableDataItem[] = [
+    public tableData: SimpleTableRecord[] = [
         { stringValue: 'hello world', numberValue: 7, dateValue: new Date(2022, 12, 6), booleanValue: true },
         { stringValue: 'foo', numberValue: 0, dateValue: new Date(2014, 2, 2), booleanValue: true },
         { stringValue: 'bar', numberValue: 20, dateValue: new Date(2022, 7, 30), booleanValue: false },
@@ -81,5 +80,14 @@ export class CustomAppComponent {
 
     public onTabToolbarButtonClick(): void {
         alert('Tab toolbar button clicked');
+    }
+
+    public onAddTableRow(): void {
+        this.tableData = [...this.tableData, {
+            stringValue: `new string ${this.tableData.length}`,
+            numberValue: this.tableData.length,
+            booleanValue: true,
+            dateValue: new Date()
+        }];
     }
 }
