@@ -59,7 +59,7 @@ export class WaferMap extends FoundationElement {
 
     public readonly zoomContainer!: HTMLElement;
 
-    public colorsScaleMode: WaferMapColorsScaleMode = WaferMapColorsScaleMode.linear;
+    public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
@@ -77,7 +77,6 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
