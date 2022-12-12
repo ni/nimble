@@ -42,7 +42,7 @@ transform: rotate(90deg);
 }
 
 .circleDrawingPath{
-    shape-rendering: "optimizeQuality";    
+    shape-rendering: "crispEdges";    
     vector-effect: non-scaling-stroke;
     stroke-width: ${borderWidth};
     stroke: ${borderColor};

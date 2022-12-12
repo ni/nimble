@@ -24,14 +24,6 @@ export class RenderingModule {
         }
     }
 
-    public static createTransform(waferData: DataManager, zoomContianer: HTMLElement): void {
-        zoomContianer.appendChild(document.createElement('g'));
-        const g = zoomContianer.getElementsByTagName('g');
-        g[0]?.setAttribute('transform', `translate(${waferData.margin.left},${waferData.margin.top})`);
-        g[0]?.setAttribute('width', waferData.containerDimensions.width.toString());
-        g[0]?.setAttribute('heigth', waferData.containerDimensions.height.toString());
-    }
-
     public static clearCanvas(canvas: HTMLCanvasElement): void {
         const context = canvas.getContext('2d');
         context!.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);

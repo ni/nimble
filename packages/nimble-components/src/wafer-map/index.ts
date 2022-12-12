@@ -57,8 +57,6 @@ export class WaferMap extends FoundationElement {
 
     public readonly svgRoot!: HTMLElement;
 
-    public readonly zoomContainer!: HTMLElement;
-
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     @observable public highlightedValues: string[] = [];
