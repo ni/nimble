@@ -98,23 +98,16 @@ _Feature APIs_
 The various APIs/features of the `nimble-table` will be split up amongst several different HLD documents. This section will serve to list them out and link to them as they become available:
 
 -   [Data API](table-data-api.md)
--   Column Definitions
+-   [Column API](table-columns-hld.md)
     -   Define the interface we will provide for the column providers/components (i.e., width, sorting, allowSort, allowGrouping, etc...)
-    -   Define the base implementation for the column providers that other column providers can extend.
     -   Define how we intend to support defining a column that uses information from multiple columns (e.g. a hyperlink column that uses data from one column for the URL and the data from another as the text to display)
         -   What column gets used for sorting?
-        -   Does column API allow for user to supply custom sort function?
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
-    -   Define the table-level APIs for setting the columns
-        -   Slot API on table?
-        -   Alternative/accompanying programmatic API?
 -   Headers
     -   Define the anatomy of headers in the table DOM
         -   Require specific component type (i.e. do we need to create a `nimble-table-header`)
         -   What is the component to use for interaction? Outline Button? Ghost button?
         -   What and where are the interactive mechanisms/indicators? Sort arrow, etc..
-    -   Can clients customize header content?
-        -   How do we allow for icons to be used in the header (as shown in the visual design doc)
 -   Row Selection
     -   Define the anatomy of row selection in the table DOM
         -   Indeterminate checkbox at the far left of each row?
@@ -151,7 +144,7 @@ _Events_
 
 _Slots_
 
--   `slottedColumns` (Placeholder for column slots)
+-   `slottedColumns`
 -   `actionMenu` (Placeholder for action menu)
 
 ### Security
