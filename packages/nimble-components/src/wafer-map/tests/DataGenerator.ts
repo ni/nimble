@@ -12,7 +12,6 @@ export const  generateWaferData = (numDies:number, valueGenerator?: IValueGenera
 
         //calculate the equivalent radius of a circle that would contain the <<<<numDies>>>> number of dies
         const radius = Math.ceil(Math.sqrt(numDies/Math.PI));
-        // console.log("radius ---------->", radius);
         const centerX = radius;
         const centerY =radius;
 
