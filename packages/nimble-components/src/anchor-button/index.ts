@@ -1,8 +1,5 @@
 import { attr } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    AnchorOptions
-} from '@microsoft/fast-foundation';
+import { DesignSystem, AnchorOptions } from '@microsoft/fast-foundation';
 import { AnchorBase } from '../anchor-base';
 import {
     ButtonAppearance,
