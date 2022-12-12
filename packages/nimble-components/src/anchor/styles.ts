@@ -1,9 +1,11 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 import { linkStyles } from '../patterns/link/styles';
 
 export const styles = css`
     ${linkStyles}
+    ${display('inline')}
 
     [part="start"] {
         display: none;

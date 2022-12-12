@@ -15,8 +15,6 @@ import {
 } from '../../theme-provider/design-tokens';
 
 export const linkStyles = css`
-    ${display('inline')}
-
     :host {
         box-sizing: border-box;
         font: ${linkFont};
