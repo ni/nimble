@@ -5,6 +5,8 @@ import { bodyFont } from '../../theme-provider/design-tokens';
 
 import '../../all-components';
 import type { WaferMapDie, WaferMapColorsScale } from '../types';
+import { generateWaferData } from './DataGenerator';
+import { badValueGenerator, goodValueGenerator } from './ValueGenerator';
 import {
     WaferMapQuadrant,
     WaferMapOrientation,
@@ -40,11 +42,11 @@ const getDiesSet = (
         case 'set2':
             returnedValue = sets[1]!;
             break;
-        case 'set3':
-            returnedValue = sets[2]!;
+        case 'largeGoodSet':
+            returnedValue = generateWaferData(100, goodValueGenerator)!;
             break;
-        case 'set4':
-            returnedValue = sets[3]!;
+        case 'largeBadSet':
+            returnedValue = generateWaferData(100, badValueGenerator)!;
             break;
         default:
             returnedValue = [] as WaferMapDie[];
@@ -166,12 +168,14 @@ const metadata: Meta<WaferMapArgs> = {
                     The \`dies\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
                 </details>
                 `,
-            options: ['set1', 'set2'],
+            options: ['set1', 'set2', 'largeGoodSet', 'largeBadSet'],
             control: {
                 type: 'radio',
                 labels: {
                     set1: 'Set 1',
-                    set2: 'Set 2'
+                    set2: 'Set 2',
+                    largeGoodSet: 'Large random set of mostly good dies',
+                    largeBadSet: 'Large random set of mostly bad dies'
                 }
             },
             defaultValue: 'set1'
