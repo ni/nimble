@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Changed wafer map rendering die opacity to rgba color alpha channel ",
-  "packageName": "@ni/nimble-components",
-  "email": "33986780+munteannatan@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

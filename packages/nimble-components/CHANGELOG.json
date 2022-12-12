@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 12 Dec 2022 23:04:31 GMT",
+      "tag": "@ni/nimble-components_v15.5.7",
+      "version": "15.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8a8410dcbef2a54463b0d4b4a4bc79b8a2b6792a",
+            "comment": "Changed wafer map rendering die opacity to rgba color alpha channel "
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Dec 2022 18:13:52 GMT",
       "tag": "@ni/nimble-components_v15.5.6",
       "version": "15.5.6",
