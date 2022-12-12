@@ -1,9 +1,8 @@
 import type { DieRenderInfo, Dimensions } from '../types';
 import type { DataManager } from './data-manager';
 
-// eslint-disable-next-line jsdoc/require-description
 /**
- *
+ * Responsible for drawing the dies inside the wafer map
  */
 export class RenderingModule {
     public static drawWafer(waferData: DataManager, canvas: HTMLCanvasElement): void {

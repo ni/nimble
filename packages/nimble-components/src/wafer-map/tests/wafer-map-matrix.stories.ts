@@ -84,6 +84,13 @@ const waferMapDie = [
     { x: 3, y: 3, value: '30' }
 ];
 
+const simpleWaferWithDies = (
+): ViewTemplate => html`<nimble-wafer-map
+:dies="${() => waferMapDie}"
+:colorScale="${() => defaultColor}"
+>
+</nimble-wafer-map>`;
+
 const componentWaferWithDies = (
     [orientation]: OrientationState,
 ): ViewTemplate => html`<nimble-wafer-map
@@ -113,7 +120,7 @@ quadrant="${() => orientation}"
 </nimble-wafer-map>`;
 
 export const waferMapThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(componentWaferWithDies, [orientationStates])
+    createMatrix(simpleWaferWithDies)
 );
 
 export const waferMapDiesAndOrientationTest: Story = createStory(
