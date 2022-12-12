@@ -14,7 +14,7 @@ A table/data-grid component can have a variety of ways to introduce data into it
 
 ## Implementation / Design
 
-In the `nimble-table`, the data to associated with rows will be exposed through a `data` property that is an array of key/value pairs. The collection of key/value pairs is called a record, and each key/value pair is called a field. The name of a field (i.e. the key of the key/value pair) must be a string, and the value of a field (i.e. the value of the key/value pair) must be a `string`, `number`, `boolean`, `Date`, `null`, or `undefined`. As implied by the set of supported field types, complex field types such as arrays or objects are not supported. The supported field types are limited to ensure data operations are fast and to eliminate the need to custom sort functions, which could hurt performance. While the types are limited, a rendered cell in the table can access multiple fields from the record. The details about the way column definitions use data from the `data` property are out of scope for this spec.
+In the `nimble-table`, the data to associated with the table will be exposed through a `data` property that is an array of key/value pairs. The collection of key/value pairs is called a record, and each record is used to populate one row in the table. Each key/value pair within a record is called a field. The name of a field (i.e. the key of the key/value pair) must be a string, and the value of a field (i.e. the value of the key/value pair) must be a `string`, `number`, `boolean`, `Date`, `null`, or `undefined`. As implied by the set of supported field types, complex field types such as arrays or objects are not supported. The supported field types are limited to ensure data operations are fast and to eliminate the need to custom sort functions, which could hurt performance. While the types are limited, a rendered cell in the table can access multiple fields from the record. The details about the way column definitions use data from the `data` property are out of scope for this spec.
 
 Because `data` is a complex type, it will not be exposed as an attribute on the `nimble-table` element. As a result, the data must be provided to the table programatically rather than declaratively with HTML.
 
@@ -124,11 +124,11 @@ this._options = {
 
 ### Angular Integration
 
-The Angular directive for the table will be generic for the row data type, `TData`. The `data` property will be exposed through the directive and have type of `TData[]`. The type requirements on `TData` in the Angular directive will be the same as in the web component.
+The Angular directive for the table will be generic on the table's record type, `TData`. The `data` property will be exposed through the directive and have type of `TData[]`. The type requirements on `TData` in the Angular directive will be the same as in the web component.
 
 ### Blazor Integration
 
-The Blazor wrapper around the table will be generic for the row data type. The best way to reflect the same type requirements on `TData` in Blazor has not yet been determined.
+The Blazor wrapper around the table will be generic on the table's record type. The best way to reflect the same type requirements on `TData` in Blazor has not yet been determined.
 
 The Blazor wrapper around the table will require writing interop code to set the property on the underlying `nimble-table` component because Blazor does not allow binding to properties on an element. The interop code will likely be written within the `OnParametersSetAsync()` lifecycle method.
 
@@ -167,7 +167,7 @@ APIs around virtualized data, such as automatically loading more data when the u
 
 ### Support partial data updates
 
-The current API does not allow updating only a subset of the data, such as modifying a single row. It only supports a new array of data being assigned to `data`. While we could write an API to allow for this, TanStack does not support partial data updates, so it would provide no performance benefit over reassigning the entire set of data.
+The current API does not allow updating only a subset of the data, such as modifying a single record. It only supports a new array of data being assigned to `data`. While we could write an API to allow for partial updates, TanStack does not support partial data updates, so it would provide no performance benefit over reassigning the entire set of data.
 
 ## Open Issues
 
