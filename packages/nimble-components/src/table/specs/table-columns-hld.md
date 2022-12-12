@@ -34,8 +34,11 @@ The table API to support this could look like the following:
 public Table<TableRecord> extends FoundationElement {
     ...
 
+    /*
+     * @internal
+     */
     @observable
-    public slottedColumns: TableColumn[] = [];
+    public readonly slottedColumns: TableColumn[] = [];
 
     private slottedColumnsChanged(): void {
         if (this.slottedColumns.length > 0) {
