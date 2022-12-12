@@ -98,7 +98,7 @@ describe('Data manager', () => {
         const highlightedValues = getHighlightedValues().map(
             value => value + dieLabelsSuffix
         );
-        const diesWithoutOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(', 0)'));
+        const diesWithoutOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(', 1)'));
         for (const dieRenderInfo of diesWithoutOpacity) {
             expect(highlightedValues).toContain(dieRenderInfo.text);
         }
@@ -109,7 +109,7 @@ describe('Data manager', () => {
             value => value + dieLabelsSuffix
         );
         const diesWithOpacity = dataManagerModule.diesRenderInfo.filter(
-            x => !x.fillStyle.endsWith(', 0)')
+            x => !x.fillStyle.endsWith(', 1)')
         );
         for (const dieRenderInfo of diesWithOpacity) {
             expect(highlightedValues).not.toContain(dieRenderInfo.text);
