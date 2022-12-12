@@ -9,16 +9,20 @@ import {
     placeholderFontColor
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
-import { linkStyles } from '../patterns/link/styles';
 
 export const styles = css`
-    ${linkStyles}
     ${display('inline-flex')}
 
     :host {
         height: ${controlHeight};
-        color: ${bodyFontColor};
+        box-sizing: border-box;
         padding-left: calc(4px - ${borderWidth});
+
+        ${
+            /* When href removed the .control element is also removed
+             so this becomes the fallback color for the slot */ ''
+        }
+        color: ${bodyFontColor};
     }
 
     .listitem {
@@ -27,25 +31,28 @@ export const styles = css`
     }
 
     .control {
+        color: var(--ni-private-breadcrumb-link-font-color);
         display: flex;
         align-items: center;
         justify-content: center;
         border: ${borderWidth} solid transparent;
         padding-right: calc(4px - ${borderWidth});
+        text-decoration: none;
     }
 
-    .control:any-link {
-        color: var(--ni-private-breadcrumb-link-font-color);
+    .control:hover {
+        text-decoration: underline;
+    }
+
+    .control${focusVisible} {
+        border: ${borderWidth} solid ${borderHoverColor};
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: 1px;
     }
 
     .control:active {
         color: var(--ni-private-breadcrumb-link-active-font-color);
-    }
-
-    .control:any-link${focusVisible} {
-        border: ${borderWidth} solid ${borderHoverColor};
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: 1px;
+        text-decoration: underline;
     }
 
     .start,
