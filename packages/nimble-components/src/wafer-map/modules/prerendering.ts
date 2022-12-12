@@ -1,5 +1,5 @@
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
-import { rgb } from 'd3-color';
+import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorsScaleMode } from '../types';
 import type {
     Dimensions,
@@ -23,8 +23,8 @@ export class Prerendering {
 
     private readonly fontSizeFactor = 0.8;
     private readonly nonHighlightedOpacity = 0.3;
-    private readonly emptyDieColor = '#DADFEC';
-    private readonly nanDieColor = '#7a7a7a';
+    private readonly emptyDieColor = 'rgba(218,223,236,1)';
+    private readonly nanDieColor = 'rgba(122,122,122,1)';
 
     public constructor(
         dies: Readonly<Readonly<WaferMapDie>[]>,
@@ -118,7 +118,7 @@ export class Prerendering {
         return highlightedValues.length > 0
             && !highlightedValues.some(dieValue => dieValue === selectedValue)
             ? this.nonHighlightedOpacity
-            : 0;
+            : 1;
     }
 
     private isColorScaleLinear(
@@ -148,8 +148,19 @@ export class Prerendering {
                 colorValue = this.colorScale(value);
             }
         }
-        const rgbColor = rgb(colorValue);
-        rgbColor.opacity = this.calculateOpacity(value, highlightedValues);
-        return rgbColor.toString();
+        if (colorValue === undefined) {
+            return this.emptyDieColor;
+        }
+        let rgbColor: ColorRGBA64 | null = parseColor(colorValue);
+        if (rgbColor === null) {
+            return this.emptyDieColor;
+        }
+        rgbColor = new ColorRGBA64(
+            rgbColor.r,
+            rgbColor.g,
+            rgbColor.b,
+            this.calculateOpacity(value, highlightedValues)
+        );
+        return rgbColor.toStringWebRGBA();
     }
 }

@@ -4,6 +4,8 @@ import { getLinearScale, getWaferMapDies } from './utilities';
 
 describe('Prerendering module', () => {
     let prerenderingModule: Prerendering;
+    const emptyDieColor = 'rgba(218,223,236,1)';
+    const nanDieColor = 'rgba(122,122,122,1)';
 
     describe('with linear color scale', () => {
         const colorScaleMode = WaferMapColorsScaleMode.linear;
@@ -33,7 +35,7 @@ describe('Prerendering module', () => {
 
             it('should have black fill style for all dies', () => {
                 for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual('rgba(0, 0, 0, 0)');
+                    expect(dieRenderInfo.fillStyle).toEqual(emptyDieColor);
                 }
             });
         });
@@ -63,9 +65,7 @@ describe('Prerendering module', () => {
 
             it('should have the same fill style for all dies', () => {
                 for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual(
-                        'rgba(255, 0, 0, 0)'
-                    );
+                    expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
                 }
             });
         });
@@ -97,7 +97,7 @@ describe('Prerendering module', () => {
                 const waferMapDies = getWaferMapDies();
                 const expectedValues = waferMapDies.map(x => {
                     return {
-                        fillStyle: `rgba(${(+x.value - 1) * 15}, 0, 0, 0)`
+                        fillStyle: `rgba(${(+x.value - 1) * 15},0,0,1)`
                     };
                 });
                 for (let i = 0; i < waferMapDies.length; i += 1) {
@@ -137,9 +137,7 @@ describe('Prerendering module', () => {
 
             it('should have the same fill style for all dies', () => {
                 for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual(
-                        'rgba(255, 0, 0, 0)'
-                    );
+                    expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
                 }
             });
         });
@@ -171,8 +169,8 @@ describe('Prerendering module', () => {
                 const waferMapDies = getWaferMapDies();
                 const expectedValues = waferMapDies.map(x => {
                     const fillStyle = +x.value % 2 === 1
-                        ? 'rgba(0, 0, 0, 0)'
-                        : 'rgba(255, 0, 0, 0)';
+                        ? 'rgba(0,0,0,1)'
+                        : 'rgba(255,0,0,1)';
                     return {
                         fillStyle
                     };
@@ -192,7 +190,6 @@ describe('Prerendering module', () => {
         const dieLabelsHidden = true;
         const maxCharacters = 2;
         const highlightedValues: string[] = [];
-        const nanDieColor = 'rgba(122, 122, 122, 0)';
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
@@ -223,7 +220,6 @@ describe('Prerendering module', () => {
         const dieLabelsHidden = true;
         const maxCharacters = 2;
         const highlightedValues: string[] = [];
-        const emptyDieColor = 'rgba(218, 223, 236, 0)';
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
@@ -271,12 +267,12 @@ describe('Prerendering module', () => {
             );
         });
 
-        it('should have highlighted value with no opacity and the rest with expected opacity', () => {
+        it('should have highlighted value with full opacity and the rest with expected opacity', () => {
             const waferMapDies = getWaferMapDies();
             const expectedValues = waferMapDies.map(x => {
-                const opacity = x.value === highlightedValue ? 0 : 0.3;
+                const opacity = x.value === highlightedValue ? 1 : 0.3;
                 return {
-                    fillStyle: `rgba(255, 0, 0, ${opacity})`
+                    fillStyle: `rgba(255,0,0,${opacity})`
                 };
             });
             for (let i = 0; i < waferMapDies.length; i += 1) {
@@ -310,9 +306,9 @@ describe('Prerendering module', () => {
             );
         });
 
-        it('should have all dies with no opacity', () => {
+        it('should have all dies with full opacity', () => {
             for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.fillStyle).toEqual('rgba(255, 0, 0, 0)');
+                expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
             }
         });
     });
