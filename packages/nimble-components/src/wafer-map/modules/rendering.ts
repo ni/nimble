@@ -7,7 +7,6 @@ import type { DataManager } from './data-manager';
  */
 export class RenderingModule {
     public static drawWafer(waferData: DataManager, canvas: HTMLCanvasElement): void {
-        debugger;
         const context = canvas.getContext('2d');
         const dies: DieRenderInfo[] = waferData.diesRenderInfo;
         const dimensions: Dimensions = waferData.dieDimensions;

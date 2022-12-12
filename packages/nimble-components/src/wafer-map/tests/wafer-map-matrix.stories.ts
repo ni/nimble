@@ -7,6 +7,7 @@ import {
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import {
+    createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
 import '../../all-components';
@@ -40,7 +41,6 @@ const dieOrientation = [
     [WaferMapQuadrant.bottomRight]
 ] as const;
 type DieOrientation = typeof dieOrientation[number];
-
 
 const colorsScales = [
     [{
@@ -111,6 +111,10 @@ quadrant="${() => orientation}"
 :colorScale="${() => defaultColor}"
 >
 </nimble-wafer-map>`;
+
+export const waferMapThemeMatrix: Story = createMatrixThemeStory(
+    createMatrix(componentWaferWithDies, [orientationStates])
+);
 
 export const waferMapDiesAndOrientationTest: Story = createStory(
     createMatrix(componentWaferWithDies, [orientationStates])

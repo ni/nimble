@@ -1,4 +1,7 @@
 import { css } from '@microsoft/fast-element';
+import {
+    borderColor, borderWidth
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
 .waferMapContainer {
@@ -36,5 +39,12 @@ transform: rotate(90deg);
 .waferMapContainer, .svgRoot, .circleBase, .zoomContainer {
   width: 500px;
   height: 500px;
+}
+
+.circleDrawingPath{
+    shape-rendering: "optimizeQuality";    
+    vector-effect: non-scaling-stroke;
+    stroke-width: ${borderWidth};
+    stroke: ${borderColor};
 }
 `;
