@@ -6,6 +6,7 @@ import {
     borderWidth,
     controlHeight,
     iconSize,
+    linkFont,
     placeholderFontColor
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
@@ -23,6 +24,7 @@ export const styles = css`
              so this becomes the fallback color for the slot */ ''
         }
         color: ${bodyFontColor};
+        font: ${linkFont};
     }
 
     .listitem {
