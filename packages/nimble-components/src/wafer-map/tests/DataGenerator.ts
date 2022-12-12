@@ -1,9 +1,14 @@
 import type { WaferMapDie } from '../types';
 import type { IValueGenerator } from './ValueGenerator';
 
-const valueToString = (value: number): string => { return value % 1 ? value.toFixed(2) : Math.trunc(value).toString(); };
+const valueToString = (value: number): string => {
+    return value % 1 ? value.toFixed(2) : Math.trunc(value).toString();
+};
 
-export const generateWaferData = (numDies: number, valueGenerator?: IValueGenerator): WaferMapDie[] => {
+export const generateWaferData = (
+    numDies: number,
+    valueGenerator?: IValueGenerator
+): WaferMapDie[] => {
     const diesSet: WaferMapDie[] = [];
 
     if (numDies > 0) {
@@ -17,19 +22,29 @@ export const generateWaferData = (numDies: number, valueGenerator?: IValueGenera
             let value: number;
             let stringValue: string;
 
-            for (let j = centerX; (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY) <= radius * radius; j--) {
+            for (
+                let j = centerX;
+                (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
+                <= radius * radius;
+                j--
+            ) {
                 if (valueGenerator !== undefined) {
                     value = valueGenerator(i, j);
-                } else value = (Math.random() * 100);
+                } else value = Math.random() * 100;
 
                 stringValue = valueToString(value);
 
                 diesSet.push({ x: i, y: j, value: stringValue });
             }
-            for (let j = centerX + 1; (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY) <= radius * radius; j++) {
+            for (
+                let j = centerX + 1;
+                (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
+                <= radius * radius;
+                j++
+            ) {
                 if (valueGenerator !== undefined) {
                     value = valueGenerator(i, j);
-                } else value = (Math.random() * 100);
+                } else value = Math.random() * 100;
 
                 stringValue = valueToString(value);
 
