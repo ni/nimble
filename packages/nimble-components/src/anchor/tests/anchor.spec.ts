@@ -75,7 +75,11 @@ describe('Anchor', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
         for (const attribute of attributeNames) {
-            const specType = getSpecTypeByNamedList(attribute, focused, disabled);
+            const specType = getSpecTypeByNamedList(
+                attribute,
+                focused,
+                disabled
+            );
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`for attribute ${attribute.name}`, async () => {
                 await connect();
@@ -83,7 +87,9 @@ describe('Anchor', () => {
                 element.setAttribute(attribute.name, 'foo');
                 await DOM.nextUpdate();
 
-                expect(element.control.getAttribute(attribute.name)).toBe('foo');
+                expect(element.control.getAttribute(attribute.name)).toBe(
+                    'foo'
+                );
             });
         }
     });
