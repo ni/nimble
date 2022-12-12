@@ -13,7 +13,10 @@ import {
     endIconDescription,
     iconDescription
 } from '../../patterns/button/tests/doc-strings';
-import { hrefDescription } from '../../patterns/link/tests/doc-strings';
+
+const hrefDescription = `
+In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g. \`ping\`, \`target\`, \`type\`, etc.
+`;
 
 interface AnchorButtonArgs {
     label: string;

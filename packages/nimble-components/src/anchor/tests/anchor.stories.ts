@@ -5,7 +5,12 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
-import { hrefDescription } from '../../patterns/link/tests/doc-strings';
+
+const hrefDescription = `
+To disable the control, remove the \`href\` attribute.
+
+In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g. \`ping\`, \`target\`, \`type\`, etc.
+`;
 
 interface AnchorArgs {
     label: string;
