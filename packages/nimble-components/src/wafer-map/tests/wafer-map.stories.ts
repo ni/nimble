@@ -19,8 +19,8 @@ import {
 interface WaferMapArgs {
     colorsScale: WaferMapColorsScale;
     colorsScaleMode: WaferMapColorsScaleMode;
-    dielabelsHidden: boolean;
-    dielabelsSuffix: string;
+    dieLabelsHidden: boolean;
+    dieLabelsSuffix: string;
     dies: string;
     highlightedValues: string;
     maxCharacters: number;
@@ -95,8 +95,8 @@ const metadata: Meta<WaferMapArgs> = {
         </div>
         <nimble-wafer-map
             colors-scale-mode="${x => x.colorsScaleMode}"
-            ?die-labels-hidden="${x => x.dielabelsHidden}"
-            die-labels-suffix="${x => x.dielabelsSuffix}"
+            ?die-labels-hidden="${x => x.dieLabelsHidden}"
+            die-labels-suffix="${x => x.dieLabelsSuffix}"
             max-characters="${x => x.maxCharacters}"
             orientation="${x => x.orientation}"
             quadrant="${x => x.quadrant}"
@@ -119,8 +119,8 @@ const metadata: Meta<WaferMapArgs> = {
         colorsScale: waferMapColorsScaleSets[0],
         colorsScaleMode: WaferMapColorsScaleMode.linear,
         dies: 'set1',
-        dielabelsHidden: false,
-        dielabelsSuffix: '',
+        dieLabelsHidden: false,
+        dieLabelsSuffix: '',
         highlightedValues: 'set1',
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
@@ -134,18 +134,16 @@ const metadata: Meta<WaferMapArgs> = {
                     The \`colorsScale\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
                 </details>
                 `,
-            options: ['set1', 'set2'],
+            options: ['set1'],
             control: {
                 type: 'radio',
                 labels: {
-                    set1: 'Scale 1',
-                    set2: 'Scale 2'
+                    set1: 'Scale 1'
                 }
             },
             defaultValue: 'set1',
             mapping: {
-                set1: waferMapColorsScaleSets[0],
-                set2: waferMapColorsScaleSets[1]
+                set1: waferMapColorsScaleSets[0]
             }
         },
         colorsScaleMode: {
@@ -178,13 +176,13 @@ const metadata: Meta<WaferMapArgs> = {
             },
             defaultValue: 'set1'
         },
-        dielabelsHidden: {
+        dieLabelsHidden: {
             name: 'die-labels-hidden',
             description:
                 'Boolean value that determines if the dies labels in the wafer map view are shown or not. Default value is false.',
             control: { type: 'boolean' }
         },
-        dielabelsSuffix: {
+        dieLabelsSuffix: {
             name: 'die-labels-suffix',
             description:
                 'String that can be added as a label at the end of each wafer map die value',
@@ -204,10 +202,10 @@ const metadata: Meta<WaferMapArgs> = {
                     set1: 'Set 1',
                     set2: 'Set 2',
                     set3: 'Set 3',
-                    set4: 'Set 4',
+                    set4: 'Set 4'
                 }
             },
-            defaultValue: 'set1',
+            defaultValue: 'set1'
         },
         maxCharacters: {
             name: 'max-characters',
