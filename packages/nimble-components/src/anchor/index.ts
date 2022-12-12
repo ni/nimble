@@ -4,11 +4,10 @@ import {
     Anchor as FoundationAnchor,
     AnchorOptions
 } from '@microsoft/fast-foundation';
+import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
 import type { AnchorAppearance } from './types';
-
-export { FoundationAnchor };
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,7 +18,7 @@ declare global {
 /**
  * A nimble-styled anchor
  */
-export class Anchor extends FoundationAnchor {
+export class Anchor extends AnchorBase {
     /**
      * @public
      * @remarks

@@ -1,9 +1,9 @@
 import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
-    Anchor as FoundationAnchor,
     AnchorOptions
 } from '@microsoft/fast-foundation';
+import { AnchorBase } from '../anchor-base';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant,
@@ -23,7 +23,7 @@ declare global {
  * A nimble-styled anchor button
  */
 export class AnchorButton
-    extends FoundationAnchor
+    extends AnchorBase
     implements ButtonPattern, ButtonAppearanceVariantPattern {
     /**
      * @public
