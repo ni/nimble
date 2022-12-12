@@ -1,9 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { Table } from '@ni/nimble-components/dist/esm/table';
-import type { TableData } from '@ni/nimble-components/dist/esm/table/types';
+import type { TableRecord, TableFieldName, TableFieldValue } from '@ni/nimble-components/dist/esm/table/types';
 
 export type { Table };
-export { TableData };
+export { TableRecord, TableFieldName, TableFieldValue };
 
 /**
  * Directive to provide Angular integration for the table element.
@@ -11,7 +11,7 @@ export { TableData };
 @Directive({
     selector: 'nimble-table'
 })
-export class NimbleTableDirective<TData extends TableData> {
+export class NimbleTableDirective<TData extends TableRecord = TableRecord> {
     public get data(): TData[] {
         return this.elementRef.nativeElement.data;
     }
