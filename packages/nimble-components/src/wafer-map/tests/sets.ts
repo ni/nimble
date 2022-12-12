@@ -1,4 +1,4 @@
-import type { WaferMapDie, WaferMapColorsScale } from '../types';
+import type { WaferMapDie, WaferMapColorScale } from '../types';
 
 export const highLightedValueSets = [
     ['65', '13', '15', '60'],
@@ -46,7 +46,7 @@ export const wafermapDieSets: WaferMapDie[][] = [
     ]
 ];
 
-export const waferMapColorsScaleSets: WaferMapColorsScale[] = [
+export const waferMapColorScaleSets: WaferMapColorScale[] = [
     {
         colors: ['red', 'orange', 'green'],
         values: [1, 50, 100]

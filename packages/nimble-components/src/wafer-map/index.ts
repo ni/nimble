@@ -1,5 +1,6 @@
 import {
     attr,
+    DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
@@ -7,8 +8,8 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from './template';
 import { styles } from './styles';
 import {
-    WaferMapColorsScale,
-    WaferMapColorsScaleMode,
+    WaferMapColorScale,
+    WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
     WaferMapQuadrant
@@ -50,7 +51,7 @@ export class WaferMap extends FoundationElement {
     public dieLabelsSuffix = '';
 
     @attr({
-        attribute: 'colors-scale-mode'
+        attribute: 'color-scale-mode'
     })
     public readonly canvas!: HTMLCanvasElement;
 
@@ -62,22 +63,28 @@ export class WaferMap extends FoundationElement {
 
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public colorScale: WaferMapColorsScale = {
+    @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
     };
 
+    private renderQueued = false;
+
     private dataManager: DataManager | undefined;
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
+    /**
+     * @internal
+     */
+    public render(): void {
+        this.renderQueued = false;
+
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
-            { width: 500, height: 500 },
+            { width: this.offsetWidth, height: this.offsetHeight },
             this.colorScale,
             this.highlightedValues,
-            this.colorsScaleMode,
+            this.colorScaleMode,
             this.dieLabelsHidden,
             this.dieLabelsSuffix,
             this.maxCharacters
@@ -85,6 +92,49 @@ export class WaferMap extends FoundationElement {
 
         RenderingModule.setWaferMapOrientation(this.orientation, this.svgRoot);
         RenderingModule.drawWafer(this.dataManager, this.canvas);
+    }
+
+    private quadrantChanged(): void {
+        this.queueRender();
+    }
+
+    private orientationChanged(): void {
+        this.queueRender();
+    }
+
+    private maxCharactersChanged(): void {
+        this.queueRender();
+    }
+
+    private dieLabelsHiddenChanged(): void {
+        this.queueRender();
+    }
+
+    private dieLabelsSuffixChanged(): void {
+        this.queueRender();
+    }
+
+    private colorScaleModeChanged(): void {
+        this.queueRender();
+    }
+
+    private highlightedValuesChanged(): void {
+        this.queueRender();
+    }
+
+    private diesChanged(): void {
+        this.queueRender();
+    }
+
+    private colorScaleChanged(): void {
+        this.queueRender();
+    }
+
+    private queueRender(): void {
+        if (!this.renderQueued) {
+            this.renderQueued = true;
+            DOM.queueUpdate(() => this.render());
+        }
     }
 }
 

@@ -6,9 +6,9 @@ import type {
     Margin,
     WaferMapQuadrant,
     DieRenderInfo,
-    WaferMapColorsScale,
+    WaferMapColorScale,
     WaferMapDie,
-    WaferMapColorsScaleMode
+    WaferMapColorScaleMode
 } from '../types';
 
 /**
@@ -61,9 +61,9 @@ export class DataManager {
         dies: Readonly<Readonly<WaferMapDie>[]>,
         axisLocation: Readonly<WaferMapQuadrant>,
         canvasDimensions: Readonly<Dimensions>,
-        colorsScale: Readonly<WaferMapColorsScale>,
+        colorScale: Readonly<WaferMapColorScale>,
         highlightedValues: Readonly<string[]>,
-        colorsScaleMode: Readonly<WaferMapColorsScaleMode>,
+        colorScaleMode: Readonly<WaferMapColorScaleMode>,
         dieLabelsHidden: Readonly<boolean>,
         dieLabelsSuffix: Readonly<string>,
         maxCharacters: Readonly<number>
@@ -76,11 +76,11 @@ export class DataManager {
 
         this.prerendering = new Prerendering(
             dies,
-            colorsScale,
+            colorScale,
             highlightedValues,
             this.computations.horizontalScale,
             this.computations.verticalScale,
-            colorsScaleMode,
+            colorScaleMode,
             dieLabelsHidden,
             dieLabelsSuffix,
             maxCharacters,

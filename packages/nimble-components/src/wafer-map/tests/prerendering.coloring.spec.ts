@@ -1,12 +1,12 @@
 import { Prerendering } from '../modules/prerendering';
-import { WaferMapColorsScaleMode } from '../types';
+import { WaferMapColorScaleMode } from '../types';
 import { getLinearScale, getWaferMapDies } from './utilities';
 
 describe('Prerendering module', () => {
     let prerenderingModule: Prerendering;
 
     describe('with linear color scale', () => {
-        const colorScaleMode = WaferMapColorsScaleMode.linear;
+        const colorScaleMode = WaferMapColorScaleMode.linear;
 
         describe('and only one color value pair', () => {
             const dieDimensions = { width: 10, height: 10 };
@@ -18,7 +18,7 @@ describe('Prerendering module', () => {
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['red'], values: [1] },
+                    { colors: ['red'], values: ['1'] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -48,7 +48,7 @@ describe('Prerendering module', () => {
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['red', 'red'], values: [1, 1] },
+                    { colors: ['red', 'red'], values: ['1', '1'] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -78,7 +78,7 @@ describe('Prerendering module', () => {
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['black', 'red'], values: [1, 18] },
+                    { colors: ['black', 'red'], values: ['1', '18'] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -108,7 +108,7 @@ describe('Prerendering module', () => {
     });
 
     describe('with ordinal color scale', () => {
-        const colorScaleMode = WaferMapColorsScaleMode.ordinal;
+        const colorScaleMode = WaferMapColorScaleMode.ordinal;
 
         describe('and only one color value pair', () => {
             const dieDimensions = { width: 10, height: 10 };
@@ -120,7 +120,7 @@ describe('Prerendering module', () => {
             beforeEach(() => {
                 prerenderingModule = new Prerendering(
                     getWaferMapDies(),
-                    { colors: ['red'], values: [1] },
+                    { colors: ['red'], values: ['1'] },
                     highlightedValues,
                     getLinearScale([], []),
                     getLinearScale([], []),
@@ -195,7 +195,7 @@ describe('Prerendering module', () => {
                 highlightedValues,
                 getLinearScale([], []),
                 getLinearScale([], []),
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
@@ -226,7 +226,7 @@ describe('Prerendering module', () => {
                 highlightedValues,
                 getLinearScale([], []),
                 getLinearScale([], []),
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
@@ -256,7 +256,7 @@ describe('Prerendering module', () => {
                 [highlightedValue],
                 getLinearScale([], []),
                 getLinearScale([], []),
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
@@ -295,7 +295,7 @@ describe('Prerendering module', () => {
                 highlightedValues,
                 getLinearScale([], []),
                 getLinearScale([], []),
-                WaferMapColorsScaleMode.linear,
+                WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,

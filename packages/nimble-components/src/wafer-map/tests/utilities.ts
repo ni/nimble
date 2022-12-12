@@ -1,5 +1,5 @@
 import { ScaleLinear, scaleLinear } from 'd3-scale';
-import type { WaferMapColorsScale, WaferMapDie } from '../types';
+import type { WaferMapColorScale, WaferMapDie } from '../types';
 
 export function getWaferMapDies(): WaferMapDie[] {
     return [
@@ -38,8 +38,8 @@ export function getWaferMapDiesAsNaN(): WaferMapDie[] {
     });
 }
 
-export function getColorsScale(): WaferMapColorsScale {
-    return { colors: ['red', 'blue', 'green'], values: [1, 2, 3] };
+export function getColorScale(): WaferMapColorScale {
+    return { colors: ['red', 'blue', 'green'], values: ['1', '2', '3'] };
 }
 
 export function getHighlightedValues(): string[] {

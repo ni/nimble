@@ -18,13 +18,13 @@ export const WaferMapOrientation = {
 export type WaferMapOrientation =
     typeof WaferMapOrientation[keyof typeof WaferMapOrientation];
 
-export const WaferMapColorsScaleMode = {
+export const WaferMapColorScaleMode = {
     linear: 'linear',
     ordinal: 'ordinal'
 } as const;
 
-export type WaferMapColorsScaleMode =
-    typeof WaferMapColorsScaleMode[keyof typeof WaferMapColorsScaleMode];
+export type WaferMapColorScaleMode =
+    typeof WaferMapColorScaleMode[keyof typeof WaferMapColorScaleMode];
 
 export interface WaferMapDie {
     value: string;
@@ -32,7 +32,7 @@ export interface WaferMapDie {
     y: number;
 }
 
-export interface WaferMapColorsScale {
+export interface WaferMapColorScale {
     colors: string[];
     values: number[];
 }
