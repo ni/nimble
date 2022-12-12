@@ -15,6 +15,7 @@ import {
     WaferMapQuadrant
 } from './types';
 import { DataManager } from './modules/data-manager';
+import { RenderingModule } from './modules/rendering';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -52,6 +53,12 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'color-scale-mode'
     })
+    public readonly canvas!: HTMLCanvasElement;
+
+    public readonly svgRoot!: HTMLElement;
+
+    public readonly zoomContainer!: HTMLElement;
+
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     @observable public highlightedValues: string[] = [];
@@ -70,11 +77,10 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
-            { width: this.offsetWidth, height: this.offsetHeight },
+            { width: 500, height: 500 },
             this.colorScale,
             this.highlightedValues,
             this.colorScaleMode,
@@ -82,6 +88,9 @@ export class WaferMap extends FoundationElement {
             this.dieLabelsSuffix,
             this.maxCharacters
         );
+
+        RenderingModule.setWaferMapOrientation(this.orientation, this.svgRoot);
+        RenderingModule.drawWafer(this.dataManager, this.canvas);
     }
 
     private quadrantChanged(): void {
