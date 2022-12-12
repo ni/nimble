@@ -2,6 +2,96 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 12 Dec 2022 18:13:52 GMT",
+      "tag": "@ni/nimble-components_v15.5.6",
+      "version": "15.5.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e70046b7a09cd85253303ba5ec4bf2ab314c9c6d",
+            "comment": "Created render queue for wafer map component input changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Dec 2022 23:00:24 GMT",
+      "tag": "@ni/nimble-components_v15.5.5",
+      "version": "15.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a4ce35df8efd5b806cc0335b30a2c4764d470a8c",
+            "comment": "Basic TanStack integration with nimble-table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Dec 2022 11:25:00 GMT",
+      "tag": "@ni/nimble-components_v15.5.4",
+      "version": "15.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "35329597+DStavilaNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "001156d6c85f250a934ed8819b6a0650fe26eb84",
+            "comment": "Finished first iteration of the waferMap component and its storybook"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 07 Dec 2022 13:10:43 GMT",
+      "tag": "@ni/nimble-components_v15.5.3",
+      "version": "15.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b7e946be21b68e6b871096ec587defd543d6ce32",
+            "comment": "Created data manager module, prerendering functionality and modified some interface inputs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Dec 2022 22:31:12 GMT",
+      "tag": "@ni/nimble-components_v15.5.2",
+      "version": "15.5.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a27fc394e5792c7a3c559eae44ffb925a90ff8fc",
+            "comment": "Create spec for nimble-table data API"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Dec 2022 21:49:48 GMT",
+      "tag": "@ni/nimble-components_v15.5.2",
+      "version": "15.5.2",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "24ca39c4ee07f0bf3121717db98888846b13f1b1",
+            "comment": "Nimble Table spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 05 Dec 2022 19:44:44 GMT",
       "tag": "@ni/nimble-components_v15.5.2",
       "version": "15.5.2",

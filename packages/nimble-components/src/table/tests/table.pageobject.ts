@@ -1,37 +1,44 @@
 import type { Table } from '..';
-import type { TableData } from '../types';
+import type { TableRecord } from '../types';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
-export class TablePageObject<T extends TableData> {
+export class TablePageObject<T extends TableRecord> {
     public constructor(private readonly tableElement: Table<T>) {}
 
-    public getHeaderContent(columnIndex: number): string {
+    public getRenderedHeaderCount(): number {
+        const header = this.tableElement.shadowRoot!.querySelector('.table-header')!;
+        const cells = header.querySelectorAll('.table-cell');
+        return cells.length;
+    }
+
+    public getRenderedHeaderContent(columnIndex: number): string {
         const header = this.tableElement.shadowRoot!.querySelector('.table-header')!;
         const cells = header.querySelectorAll('.table-cell');
         if (columnIndex >= cells.length) {
             throw new Error(
-                'Attempting to index passed the totla number of rendered columns'
+                'Attempting to index past the total number of rendered columns'
             );
         }
 
-        return cells.item(columnIndex).textContent || '';
+        return cells.item(columnIndex).textContent ?? '';
     }
 
     public getRenderedRowCount(): number {
-        return (
-            this.tableElement.shadowRoot!.querySelectorAll('.table-row')
-                .length || 0
-        );
+        return this.tableElement.shadowRoot!.querySelectorAll('.table-row')
+            .length;
     }
 
-    public getCellContent(rowIndex: number, columnIndex: number): string {
+    public getRenderedCellContent(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('.table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
-                'Attempting to index passed the total number of rendered rows'
+                'Attempting to index past the total number of rendered rows'
             );
         }
 
@@ -39,10 +46,10 @@ export class TablePageObject<T extends TableData> {
         const cells = row.querySelectorAll('.table-cell');
         if (columnIndex >= cells.length) {
             throw new Error(
-                'Attempting to index passed the totla number of rendered columns'
+                'Attempting to index past the total number of rendered columns'
             );
         }
 
-        return cells.item(columnIndex).textContent || '';
+        return cells.item(columnIndex).textContent ?? '';
     }
 }
