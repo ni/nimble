@@ -103,7 +103,7 @@ abstract class TableColumn<TCellData extends TableRowData = unknown> {
 }
 ```
 
-The `TableColumn` class would be updated to support other features not covered in this HLD such as sorting and grouping.
+_Note: The `TableColumn` class may be updated to support other features not covered in this HLD such as sorting and grouping._
 
 Given the above class, a series of column providers to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
