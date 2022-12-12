@@ -3,14 +3,9 @@ import {
     linkActiveDisabledFontColor,
     linkActiveFont,
     linkActiveFontColor,
-    linkActiveProminentFont,
-    linkActiveProminentFontColor,
     linkDisabledFontColor,
     linkFont,
-    linkFontColor,
-    linkProminentFont,
-    linkProminentFontColor,
-    linkProminentDisabledFontColor
+    linkFontColor
 } from '../../theme-provider/design-tokens';
 
 export const linkStyles = css`
@@ -20,7 +15,6 @@ export const linkStyles = css`
     }
 
     .control {
-        display: inline;
         color: ${linkFontColor};
         cursor: default;
     }
@@ -38,21 +32,6 @@ export const linkStyles = css`
         font: ${linkActiveFont};
         color: ${linkActiveFontColor};
         text-decoration: underline;
-    }
-
-    :host([appearance='prominent']) .control {
-        font: ${linkProminentFont};
-        color: ${linkProminentFontColor};
-    }
-
-    :host([appearance='prominent']) .control:active {
-        font: ${linkActiveProminentFont};
-        color: ${linkActiveProminentFontColor};
-    }
-
-    :host([appearance='prominent']) .control:not(:any-link) {
-        font: ${linkProminentFont};
-        color: ${linkProminentDisabledFontColor};
     }
 
     .control:not(:any-link) {
