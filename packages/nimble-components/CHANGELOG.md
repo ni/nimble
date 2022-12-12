@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 09 Dec 2022 23:00:24 GMT and should not be manually modified.
+This log was last generated on Mon, 12 Dec 2022 18:13:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.5.6
+
+Mon, 12 Dec 2022 18:13:52 GMT
+
+### Patches
+
+- Created render queue for wafer map component input changes ([ni/nimble@e70046b](https://github.com/ni/nimble/commit/e70046b7a09cd85253303ba5ec4bf2ab314c9c6d))
 
 ## 15.5.5
 
