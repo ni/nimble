@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 12 Dec 2022 18:13:52 GMT",
+      "tag": "@ni/nimble-components_v15.5.6",
+      "version": "15.5.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e70046b7a09cd85253303ba5ec4bf2ab314c9c6d",
+            "comment": "Created render queue for wafer map component input changes"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 09 Dec 2022 23:00:24 GMT",
       "tag": "@ni/nimble-components_v15.5.5",
       "version": "15.5.5",
