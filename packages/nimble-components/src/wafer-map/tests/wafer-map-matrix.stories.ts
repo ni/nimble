@@ -16,7 +16,7 @@ const metadata: Meta = {
     title: 'Tests/WaferMap',
     decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
+        ...sharedMatrixParameters()
     }
 };
 
