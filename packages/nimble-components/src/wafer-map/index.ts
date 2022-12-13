@@ -1,5 +1,6 @@
 import {
     attr,
+    DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
@@ -7,12 +8,13 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from './template';
 import { styles } from './styles';
 import {
-    WaferMapColorsScale,
-    WaferMapColorsScaleMode,
+    WaferMapColorScale,
+    WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
+import { DataManager } from './modules/data-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -48,16 +50,82 @@ export class WaferMap extends FoundationElement {
     public dieLabelsSuffix = '';
 
     @attr({
-        attribute: 'colors-scale-mode'
+        attribute: 'color-scale-mode'
     })
-    public colorsScaleMode: WaferMapColorsScaleMode = WaferMapColorsScaleMode.linear;
+    public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
-    @observable public highlightedValues: number[] = [];
+    @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public colorScale: WaferMapColorsScale = {
+    @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
     };
+
+    private renderQueued = false;
+
+    private dataManager: DataManager | undefined;
+
+    /**
+     * @internal
+     */
+    public render(): void {
+        this.renderQueued = false;
+
+        this.dataManager = new DataManager(
+            this.dies,
+            this.quadrant,
+            { width: this.offsetWidth, height: this.offsetHeight },
+            this.colorScale,
+            this.highlightedValues,
+            this.colorScaleMode,
+            this.dieLabelsHidden,
+            this.dieLabelsSuffix,
+            this.maxCharacters
+        );
+    }
+
+    private quadrantChanged(): void {
+        this.queueRender();
+    }
+
+    private orientationChanged(): void {
+        this.queueRender();
+    }
+
+    private maxCharactersChanged(): void {
+        this.queueRender();
+    }
+
+    private dieLabelsHiddenChanged(): void {
+        this.queueRender();
+    }
+
+    private dieLabelsSuffixChanged(): void {
+        this.queueRender();
+    }
+
+    private colorScaleModeChanged(): void {
+        this.queueRender();
+    }
+
+    private highlightedValuesChanged(): void {
+        this.queueRender();
+    }
+
+    private diesChanged(): void {
+        this.queueRender();
+    }
+
+    private colorScaleChanged(): void {
+        this.queueRender();
+    }
+
+    private queueRender(): void {
+        if (!this.renderQueued) {
+            this.renderQueued = true;
+            DOM.queueUpdate(() => this.render());
+        }
+    }
 }
 
 const nimbleWaferMap = WaferMap.compose({
