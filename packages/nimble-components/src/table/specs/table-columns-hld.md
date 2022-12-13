@@ -85,6 +85,9 @@ abstract class TableColumn<TCellData extends TableRowData = unknown> {
     // The template to use to render the cell content for the column
     cellTemplate: ViewTemplate<TableCellState<TCellData>>;
 
+    // The style to apply to the cellTemplate
+    cellStyles?: ElementStyles;
+
     // The keys that should be present in TCellData.
     // This array is parallel with the keys returned from `getDataKeys()`.
     readonly cellDataKeyNames: readonly string[];
@@ -209,23 +212,25 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
         return [valueKey];
     }
 
-    public cellTemplate: ViewTemplate<TableCellState<TableColumnPositiveNegativeNumberCellData>> =
+    public readonly cellStyles: ElementStyles = 
+        css`
+            .good {
+                color: green;
+            }
+
+            .bad {
+                color: red;
+            }
+        `;
+
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnPositiveNegativeNumberCellData>> =
         html<TableCellState<TableColumnPositiveNegativeNumberCellData>`
-            ${when(x => !isPositive(x.data.value)),
             html`
                 <nimble-text-field
+                    class=${_ => isPositive(x.data.value) ? "good" : "bad"}
                     readonly="true"
                     value=${x => x.data.value}
-                    style="fontColor: red;"
-                >
-                </nimble-text-field>
-            `}
-            ${when(x => isPositive(x.data.value)),
-            html`
-                <nimble-text-field
-                    readonly="true"
-                    value=${x => x.data.value}
-                    style="fontColor: green;"
+                    style="color: red;"
                 >
                 </nimble-text-field>
             `}
