@@ -8,10 +8,12 @@ import { TableRow } from './row';
 export const template = html<Table>`
     <template role="table">
         <div class="table-container">
-            <div class="table-header" role="row">
-                ${repeat(x => x.columnHeaders, html<string>`
-                    <span class="table-cell" role="columnheader">${x => x}</span>
-                `)}
+            <div role="rowgroup">
+                <div class="table-header" role="row">
+                    ${repeat(x => x.columnHeaders, html<string>`
+                        <span class="table-cell" role="columnheader">${x => x}</span>
+                    `)}
+                </div>
             </div>
             <div class="table-viewport" role="rowgroup">
                 ${repeat(x => x.data, html<TableRecord>`
