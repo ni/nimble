@@ -8,9 +8,9 @@ Spinner component (`nimble-spinner`): Indeterminate progress indicator / loading
 
 [Nimble spinner: #346](https://github.com/ni/nimble/issues/346)  
 [Nimble spinner design: #822](https://github.com/ni/nimble/issues/822)  
-[Visual Design spec - Adobe XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/)  
+[Visual Design spec - Adobe XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/)
 
-[Follow-up issue about PowerGreen/custom color variants: #916](https://github.com/ni/nimble/issues/916)  
+[Follow-up issue about PowerGreen/custom color variants: #916](https://github.com/ni/nimble/issues/916)
 
 ### Non-goals
 
@@ -78,7 +78,7 @@ Standard Blazor implementation (`NimbleSpinner` deriving from `ComponentBase`), 
 [Visual Design spec - Adobe XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/)
 
 ![New spinner design](NewSpinnerDesign.gif)  
-**Note:** 'Color UI Alt.' appearance is unsupported for the initial implementation, see the *Potential Future Enhancements* section.
+**Note:** 'Color UI Alt.' appearance is unsupported for the initial implementation, see the _Potential Future Enhancements_ section.
 
 When `prefers-reduced-motion` is enabled, a simplified version will be used:  
 ![Spinner, Prefers Reduced Motion](SpinnerPrefersReducedMotion.gif)
@@ -136,12 +136,10 @@ N/A - Standard updates of the component table in the README, and in Storybook.
 
 ## Potential Future Enhancements
 
-- Do we need to support the "Color UI Alt" (PowerGreen) spinner appearance, and do apps/consumers need a way to override the spinner color?
-    - Original plan for supporting that appearance: adding a `theme-variant` attribute:
-      -   default (undefined): Standard appearance (light/dark/color themes)
-      -   `prominent`: Alternate appearance/color, for the color theme only ('Color UI Alt.' from XD design)
-      -   Backed by enum `SpinnerThemeVariant`
-    - We could also follow the patterns from our icons (create a token `spinner-color` that can be overridden)
-    - **Decision**: We will omit the Color UI Alt appearance for our initial implementation. Followup questions that need to be answered are captured in [Issue #916](https://github.com/ni/nimble/issues/916).
-
-
+-   Do we need to support the "Color UI Alt" (PowerGreen) spinner appearance, and do apps/consumers need a way to override the spinner color?
+    -   Original plan for supporting that appearance: adding a `theme-variant` attribute:
+        -   default (undefined): Standard appearance (light/dark/color themes)
+        -   `prominent`: Alternate appearance/color, for the color theme only ('Color UI Alt.' from XD design)
+        -   Backed by enum `SpinnerThemeVariant`
+    -   We could also follow the patterns from our icons (create a token `spinner-color` that can be overridden)
+    -   **Decision**: We will omit the Color UI Alt appearance for our initial implementation. Followup questions that need to be answered are captured in [Issue #916](https://github.com/ni/nimble/issues/916).
