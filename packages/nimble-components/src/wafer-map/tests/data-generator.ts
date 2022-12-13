@@ -24,15 +24,17 @@ export const generateWaferData = (
         const centerX = radius;
         const centerY = radius;
 
-        // Generate dies values
+        // Generate dies values - start from the bottom and go up
         for (let i = centerY - radius; i < centerY + radius; i++) {
             let stringValue: string;
 
+            // generate points left of centerX
             for (let j = centerX; (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)<= radius * radius; j--) {
 
                 stringValue = generateStringValue(i,j, valueGenerator);
                 diesSet.push({ x: i, y: j, value: stringValue });
             }
+            // generate points right of centerX
             for (let j = centerX + 1; (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)<= radius * radius; j++) {
                 stringValue = generateStringValue(i,j, valueGenerator);
                 diesSet.push({ x: i, y: j, value: stringValue });
