@@ -29,6 +29,11 @@ p, a {
     margin: var(--ni-nimble-standard-padding);
 }
 
+.table-container { 
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
 .sub-container > * {
     padding-right: var(--ni-nimble-standard-padding);
 }

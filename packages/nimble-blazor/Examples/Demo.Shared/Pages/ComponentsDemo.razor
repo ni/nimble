@@ -173,10 +173,10 @@
                 <span slot="checked-message">On</span>
             </NimbleSwitch>
         </div>
-        <div class="sub-container">
+        <div class="sub-container table-container">
             <div class="container-label">Table</div>
             <NimbleTable @bind-Data="TableData"></NimbleTable>
-            <NimbleButton @onclick="UpdateTableData">Update Data</NimbleButton>
+            <NimbleButton @onclick=@(_ => UpdateTableData(10000))>Update Data</NimbleButton>
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs</div>

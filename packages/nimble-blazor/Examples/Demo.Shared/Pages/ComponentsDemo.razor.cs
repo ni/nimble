@@ -17,12 +17,18 @@ namespace Demo.Shared.Pages
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
 
+        private Person[] _persons = new Person[10000];
+
         [NotNull]
-        public IEnumerable<Dictionary<string, object>> TableData { get; set; }
+        public IEnumerable<object> TableData { get; set; }
 
         public ComponentsDemo()
         {
-            UpdateTableData();
+            UpdateTableData(10);
+            for (int i = 0; i < 10000; i++)
+            {
+                _persons[i] = new Person(Faker.Name.First(), Faker.Name.Last());
+            }
         }
 
         private string DrawerLocationAsString
@@ -55,22 +61,34 @@ namespace Demo.Shared.Pages
             await _drawer!.CloseAsync(reason);
         }
 
-        public void UpdateTableData()
+        public void UpdateTableData(int numRows)
         {
-            var tableData = new Dictionary<string, object>[]
+            var tableData = new Person[numRows];
+            if (numRows != 10000)
             {
-                new Dictionary<string, object>()
+                for (int i = 0; i < numRows; i++)
                 {
-                    { "firstName", Faker.Name.First() },
-                    { "lastName", Faker.Name.Last() }
-                },
-                new Dictionary<string, object>()
-                {
-                    { "firstName", Faker.Name.First() },
-                    { "lastName", Faker.Name.Last() }
+                    tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last());
                 }
-            };
+            }
+            else
+            {
+                tableData = _persons;
+            }
+
             TableData = tableData;
+        }
+
+        private class Person
+        {
+            public Person(string firstName, string lastName)
+            {
+                FirstName = firstName;
+                LastName = lastName;
+            }
+
+            public string FirstName { get; }
+            public string LastName { get; }
         }
     }
 

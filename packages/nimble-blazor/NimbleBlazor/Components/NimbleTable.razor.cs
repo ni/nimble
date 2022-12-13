@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -13,10 +14,10 @@ public partial class NimbleTable : ComponentBase
     private IJSRuntime? JSRuntime { get; set; }
 
     [Parameter]
-    public IEnumerable<Dictionary<string, object>>? Data { get; set; }
+    public IEnumerable<object>? Data { get; set; }
 
     [Parameter]
-    public EventCallback<IEnumerable<Dictionary<string, object>>?> DataChanged { get; set; }
+    public EventCallback<IEnumerable<object>?> DataChanged { get; set; }
 
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
