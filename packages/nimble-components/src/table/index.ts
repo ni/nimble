@@ -11,7 +11,7 @@ import {
 } from '@tanstack/table-core';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableRecord, TableFieldValue } from './types';
+import type { TableRecord } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {

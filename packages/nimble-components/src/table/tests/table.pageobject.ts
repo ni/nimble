@@ -27,8 +27,9 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getRenderedRowCount(): number {
-        return this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row')
-            .length;
+        return this.tableElement.shadowRoot!.querySelectorAll(
+            'nimble-table-row'
+        ).length;
     }
 
     public getRenderedCellContent(
