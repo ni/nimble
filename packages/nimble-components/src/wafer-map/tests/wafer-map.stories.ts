@@ -43,7 +43,7 @@ const getDiesSet = (
         case 'set2':
             returnedValue = sets[1]!;
             break;
-        case 'largeGoodSet':        
+        case 'largeGoodSet':
             returnedValue = generateWaferData(100, goodValueGenerator(seed))!;
             break;
         case 'largeBadSet':
