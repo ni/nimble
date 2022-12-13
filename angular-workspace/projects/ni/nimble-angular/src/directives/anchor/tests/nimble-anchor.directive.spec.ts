@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
-import { Anchor, NimbleAnchorDirective } from '../nimble-anchor.directive';
+import { Anchor, AnchorAppearance, NimbleAnchorDirective } from '../nimble-anchor.directive';
 import { NimbleAnchorModule } from '../nimble-anchor.module';
 
 describe('Nimble anchor', () => {
