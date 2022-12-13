@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 12 Dec 2022 18:13:52 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Dec 2022 19:56:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.5.8
+
+Tue, 13 Dec 2022 19:56:22 GMT
+
+### Patches
+
+- - Implemented a seeded value generator for the dies (PR feedback) ([ni/nimble@4826bcb](https://github.com/ni/nimble/commit/4826bcb3e4264b76df212dc7757b568a07aa6218))
+
+## 15.5.7
+
+Mon, 12 Dec 2022 23:04:31 GMT
+
+### Patches
+
+- Changed wafer map rendering die opacity to rgba color alpha channel  ([ni/nimble@8a8410d](https://github.com/ni/nimble/commit/8a8410dcbef2a54463b0d4b4a4bc79b8a2b6792a))
 
 ## 15.5.6
 

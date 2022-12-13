@@ -1,4 +1,5 @@
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
+import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
 import type {
     Dimensions,
@@ -22,8 +23,8 @@ export class Prerendering {
 
     private readonly fontSizeFactor = 0.8;
     private readonly nonHighlightedOpacity = 0.3;
-    private readonly emptyDieColor = '#DADFEC';
-    private readonly nanDieColor = '#7a7a7a';
+    private readonly emptyDieColor = 'rgba(218,223,236,1)';
+    private readonly nanDieColor = 'rgba(122,122,122,1)';
 
     public constructor(
         dies: Readonly<Readonly<WaferMapDie>[]>,
@@ -50,8 +51,11 @@ export class Prerendering {
             this.diesRenderInfo.push({
                 x: horizontalScale(die.x) + margin.right,
                 y: verticalScale(die.y) + margin.top,
-                fillStyle: this.calculateFillStyle(die, colorScaleMode),
-                opacity: this.calculateOpacity(die.value, highlightedValues),
+                fillStyle: this.calculateFillStyle(
+                    die.value,
+                    colorScaleMode,
+                    highlightedValues
+                ),
                 text: this.buildLabel(
                     die.value,
                     maxCharacters,
@@ -114,7 +118,7 @@ export class Prerendering {
         return highlightedValues.length > 0
             && !highlightedValues.some(dieValue => dieValue === selectedValue)
             ? this.nonHighlightedOpacity
-            : 0;
+            : 1;
     }
 
     private isColorScaleLinear(
@@ -130,21 +134,33 @@ export class Prerendering {
     }
 
     private calculateFillStyle(
-        die: WaferMapDie,
-        colorScaleMode: WaferMapColorScaleMode
+        value: string,
+        colorScaleMode: WaferMapColorScaleMode,
+        highlightedValues: Readonly<string[]>
     ): string {
-        if (!this.dieHasData(die.value)) {
+        let colorValue: string = this.emptyDieColor;
+        if (this.dieHasData(value)) {
+            if (isNaN(+value)) {
+                colorValue = this.nanDieColor;
+            } else if (this.isColorScaleLinear(colorScaleMode)) {
+                colorValue = this.d3ColorScale(+value);
+            } else if (this.isColorScaleOrdinal(colorScaleMode)) {
+                colorValue = this.d3ColorScale(value);
+            }
+        }
+        if (colorValue === undefined) {
             return this.emptyDieColor;
         }
-        if (isNaN(+die.value)) {
-            return this.nanDieColor;
+        let rgbColor: ColorRGBA64 | null = parseColor(colorValue);
+        if (rgbColor === null) {
+            return this.emptyDieColor;
         }
-        if (this.isColorScaleLinear(colorScaleMode)) {
-            return this.d3ColorScale(+die.value);
-        }
-        if (this.isColorScaleOrdinal(colorScaleMode)) {
-            return this.d3ColorScale(die.value);
-        }
-        return this.emptyDieColor;
+        rgbColor = new ColorRGBA64(
+            rgbColor.r,
+            rgbColor.g,
+            rgbColor.b,
+            this.calculateOpacity(value, highlightedValues)
+        );
+        return rgbColor.toStringWebRGBA();
     }
 }
