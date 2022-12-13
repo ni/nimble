@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Finished first iteration of the waferMap component and its storybook",
-  "packageName": "@ni/nimble-components",
-  "email": "35329597+DStavilaNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

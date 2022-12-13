@@ -1,11 +1,12 @@
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
-import { WaferMapColorsScaleMode } from '../types';
+import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
+import { WaferMapColorScaleMode } from '../types';
 import type {
     Dimensions,
     Margin,
     DieRenderInfo,
     WaferMapDie,
-    WaferMapColorsScale
+    WaferMapColorScale
 } from '../types';
 
 /**
@@ -16,29 +17,29 @@ export class Prerendering {
 
     public readonly diesRenderInfo: DieRenderInfo[];
 
-    public readonly colorScale:
+    public readonly d3ColorScale:
     | ScaleOrdinal<string, string>
     | ScaleLinear<string, string>;
 
     private readonly fontSizeFactor = 0.8;
     private readonly nonHighlightedOpacity = 0.3;
-    private readonly emptyDieColor = '#DADFEC';
-    private readonly nanDieColor = '#7a7a7a';
+    private readonly emptyDieColor = 'rgba(218,223,236,1)';
+    private readonly nanDieColor = 'rgba(122,122,122,1)';
 
     public constructor(
         dies: Readonly<Readonly<WaferMapDie>[]>,
-        colorsScale: Readonly<WaferMapColorsScale>,
+        colorScale: Readonly<WaferMapColorScale>,
         highlightedValues: Readonly<string[]>,
         horizontalScale: ScaleLinear<number, number>,
         verticalScale: ScaleLinear<number, number>,
-        colorsScaleMode: Readonly<WaferMapColorsScaleMode>,
+        colorScaleMode: Readonly<WaferMapColorScaleMode>,
         dieLabelsHidden: Readonly<boolean>,
         dieLabelsSuffix: Readonly<string>,
         maxCharacters: Readonly<number>,
         dieDimensions: Readonly<Dimensions>,
         margin: Readonly<Margin>
     ) {
-        this.colorScale = this.createColorScale(colorsScale, colorsScaleMode);
+        this.d3ColorScale = this.createD3ColorScale(colorScale, colorScaleMode);
 
         this.labelsFontSize = this.calculateLabelsFontSize(
             dieDimensions,
@@ -50,8 +51,11 @@ export class Prerendering {
             this.diesRenderInfo.push({
                 x: horizontalScale(die.x) + margin.right,
                 y: verticalScale(die.y) + margin.top,
-                fillStyle: this.calculateFillStyle(die, colorsScaleMode),
-                opacity: this.calculateOpacity(die.value, highlightedValues),
+                fillStyle: this.calculateFillStyle(
+                    die.value,
+                    colorScaleMode,
+                    highlightedValues
+                ),
                 text: this.buildLabel(
                     die.value,
                     maxCharacters,
@@ -73,18 +77,18 @@ export class Prerendering {
         );
     }
 
-    private createColorScale(
-        colorsScale: WaferMapColorsScale,
-        colorsScaleMode: WaferMapColorsScaleMode
+    private createD3ColorScale(
+        colorScale: WaferMapColorScale,
+        colorScaleMode: WaferMapColorScaleMode
     ): ScaleOrdinal<string, string> | ScaleLinear<string, string> {
-        if (this.isColorScaleLinear(colorsScaleMode)) {
+        if (this.isColorScaleLinear(colorScaleMode)) {
             return scaleLinear<string, string>()
-                .domain(colorsScale.values.map(item => +item))
-                .range(colorsScale.colors);
+                .domain(colorScale.values.map(item => +item))
+                .range(colorScale.colors);
         }
         return scaleOrdinal<string, string>()
-            .domain(colorsScale.values)
-            .range(colorsScale.colors);
+            .domain(colorScale.values)
+            .range(colorScale.colors);
     }
 
     private dieHasData(dieData: string): boolean {
@@ -114,37 +118,49 @@ export class Prerendering {
         return highlightedValues.length > 0
             && !highlightedValues.some(dieValue => dieValue === selectedValue)
             ? this.nonHighlightedOpacity
-            : 0;
+            : 1;
     }
 
     private isColorScaleLinear(
-        colorsScaleMode: WaferMapColorsScaleMode
-    ): this is { colorScale: ScaleLinear<string, string> } {
-        return colorsScaleMode === WaferMapColorsScaleMode.linear;
+        colorScaleMode: WaferMapColorScaleMode
+    ): this is { d3ColorScale: ScaleLinear<string, string> } {
+        return colorScaleMode === WaferMapColorScaleMode.linear;
     }
 
     private isColorScaleOrdinal(
-        colorsScaleMode: WaferMapColorsScaleMode
-    ): this is { colorScale: ScaleOrdinal<string, string> } {
-        return colorsScaleMode === WaferMapColorsScaleMode.ordinal;
+        colorScaleMode: WaferMapColorScaleMode
+    ): this is { d3ColorScale: ScaleOrdinal<string, string> } {
+        return colorScaleMode === WaferMapColorScaleMode.ordinal;
     }
 
     private calculateFillStyle(
-        die: WaferMapDie,
-        colorsScaleMode: WaferMapColorsScaleMode
+        value: string,
+        colorScaleMode: WaferMapColorScaleMode,
+        highlightedValues: Readonly<string[]>
     ): string {
-        if (!this.dieHasData(die.value)) {
+        let colorValue: string = this.emptyDieColor;
+        if (this.dieHasData(value)) {
+            if (isNaN(+value)) {
+                colorValue = this.nanDieColor;
+            } else if (this.isColorScaleLinear(colorScaleMode)) {
+                colorValue = this.d3ColorScale(+value);
+            } else if (this.isColorScaleOrdinal(colorScaleMode)) {
+                colorValue = this.d3ColorScale(value);
+            }
+        }
+        if (colorValue === undefined) {
             return this.emptyDieColor;
         }
-        if (isNaN(+die.value)) {
-            return this.nanDieColor;
+        let rgbColor: ColorRGBA64 | null = parseColor(colorValue);
+        if (rgbColor === null) {
+            return this.emptyDieColor;
         }
-        if (this.isColorScaleLinear(colorsScaleMode)) {
-            return this.colorScale(+die.value);
-        }
-        if (this.isColorScaleOrdinal(colorsScaleMode)) {
-            return this.colorScale(die.value);
-        }
-        return this.emptyDieColor;
+        rgbColor = new ColorRGBA64(
+            rgbColor.r,
+            rgbColor.g,
+            rgbColor.b,
+            this.calculateOpacity(value, highlightedValues)
+        );
+        return rgbColor.toStringWebRGBA();
     }
 }

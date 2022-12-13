@@ -4,23 +4,21 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { bodyFont } from '../../theme-provider/design-tokens';
 
 import '../../all-components';
-import type { WaferMapDie, WaferMapColorsScale } from '../types';
-import { generateWaferData } from './data-generator';
-import { badValueGenerator, goodValueGenerator } from './value-generator';
+import type { WaferMapDie, WaferMapColorScale } from '../types';
 import {
     WaferMapQuadrant,
     WaferMapOrientation,
-    WaferMapColorsScaleMode
+    WaferMapColorScaleMode
 } from '../types';
 import {
     highLightedValueSets,
     wafermapDieSets,
-    waferMapColorsScaleSets
+    waferMapColorScaleSets
 } from './sets';
 
 interface WaferMapArgs {
-    colorsScale: WaferMapColorsScale;
-    colorsScaleMode: WaferMapColorsScaleMode;
+    colorScale: WaferMapColorScale;
+    colorScaleMode: WaferMapColorScaleMode;
     dieLabelsHidden: boolean;
     dieLabelsSuffix: string;
     dies: string;
@@ -34,9 +32,7 @@ const getDiesSet = (
     setName: string,
     sets: WaferMapDie[][]
 ): WaferMapDie[] | undefined => {
-    const seed = 0.5; // a number in [0,1)
     let returnedValue: WaferMapDie[];
-
     switch (setName) {
         case 'set1':
             returnedValue = sets[0]!;
@@ -44,11 +40,11 @@ const getDiesSet = (
         case 'set2':
             returnedValue = sets[1]!;
             break;
-        case 'largeGoodSet':
-            returnedValue = generateWaferData(100, goodValueGenerator(seed))!;
+        case 'set3':
+            returnedValue = sets[2]!;
             break;
-        case 'largeBadSet':
-            returnedValue = generateWaferData(100, badValueGenerator(seed))!;
+        case 'set4':
+            returnedValue = sets[3]!;
             break;
         default:
             returnedValue = [] as WaferMapDie[];
@@ -98,13 +94,13 @@ const metadata: Meta<WaferMapArgs> = {
             experimental. It is not recommended for application use.
         </div>
         <nimble-wafer-map
-            colors-scale-mode="${x => x.colorsScaleMode}"
+            colors-scale-mode="${x => x.colorScaleMode}"
             ?die-labels-hidden="${x => x.dieLabelsHidden}"
             die-labels-suffix="${x => x.dieLabelsSuffix}"
             max-characters="${x => x.maxCharacters}"
             orientation="${x => x.orientation}"
             quadrant="${x => x.quadrant}"
-            :colorScale="${x => x.colorsScale}"
+            :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
             :highlightedValues="${x => getHighLightedValueSets(
         x.highlightedValues,
@@ -120,8 +116,8 @@ const metadata: Meta<WaferMapArgs> = {
         </style>
     `),
     args: {
-        colorsScale: waferMapColorsScaleSets[0],
-        colorsScaleMode: WaferMapColorsScaleMode.linear,
+        colorScale: waferMapColorScaleSets[0],
+        colorScaleMode: WaferMapColorScaleMode.linear,
         dies: 'set1',
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
@@ -131,11 +127,11 @@ const metadata: Meta<WaferMapArgs> = {
         quadrant: WaferMapQuadrant.bottomLeft
     },
     argTypes: {
-        colorsScale: {
+        colorScale: {
             description: `Represents the color spectrum which shows the status of the dies on the wafer.
                 <details>
                     <summary>Usage details</summary>
-                    The \`colorsScale\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
+                    The \`colorScale\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
                 </details>
                 `,
             options: ['set1'],
@@ -147,19 +143,19 @@ const metadata: Meta<WaferMapArgs> = {
             },
             defaultValue: 'set1',
             mapping: {
-                set1: waferMapColorsScaleSets[0]
+                set1: waferMapColorScaleSets[0]
             }
         },
-        colorsScaleMode: {
+        colorScaleMode: {
             name: 'color-scale-mode',
             description:
                 'Enum value that determines if the color scale represents continuous gradient values (linear), or is set categorically (ordinal).',
-            options: Object.values(WaferMapColorsScaleMode),
+            options: Object.values(WaferMapColorScaleMode),
             control: {
                 type: 'radio',
                 labels: {
-                    [WaferMapColorsScaleMode.linear]: 'Linear',
-                    [WaferMapColorsScaleMode.ordinal]: 'Ordinal'
+                    [WaferMapColorScaleMode.linear]: 'Linear',
+                    [WaferMapColorScaleMode.ordinal]: 'Ordinal'
                 }
             }
         },
@@ -170,14 +166,12 @@ const metadata: Meta<WaferMapArgs> = {
                     The \`dies\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
                 </details>
                 `,
-            options: ['set1', 'set2', 'largeGoodSet', 'largeBadSet'],
+            options: ['set1', 'set2'],
             control: {
                 type: 'radio',
                 labels: {
                     set1: 'Set 1',
-                    set2: 'Set 2',
-                    largeGoodSet: 'Large random set of mostly good dies',
-                    largeBadSet: 'Large random set of mostly bad dies'
+                    set2: 'Set 2'
                 }
             },
             defaultValue: 'set1'

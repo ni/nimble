@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 13 Dec 2022 04:46:18 GMT",
+      "tag": "@ni/nimble-components_v15.5.7",
+      "version": "15.5.7",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d80556a60935123f06b13a923290c177aa34e362",
+            "comment": "Add spec document for nimble-spinner."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Dec 2022 23:04:31 GMT",
+      "tag": "@ni/nimble-components_v15.5.7",
+      "version": "15.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8a8410dcbef2a54463b0d4b4a4bc79b8a2b6792a",
+            "comment": "Changed wafer map rendering die opacity to rgba color alpha channel "
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Dec 2022 18:13:52 GMT",
+      "tag": "@ni/nimble-components_v15.5.6",
+      "version": "15.5.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e70046b7a09cd85253303ba5ec4bf2ab314c9c6d",
+            "comment": "Created render queue for wafer map component input changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Dec 2022 23:00:24 GMT",
+      "tag": "@ni/nimble-components_v15.5.5",
+      "version": "15.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a4ce35df8efd5b806cc0335b30a2c4764d470a8c",
+            "comment": "Basic TanStack integration with nimble-table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Dec 2022 11:25:00 GMT",
+      "tag": "@ni/nimble-components_v15.5.4",
+      "version": "15.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "35329597+DStavilaNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "001156d6c85f250a934ed8819b6a0650fe26eb84",
+            "comment": "Finished first iteration of the waferMap component and its storybook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 07 Dec 2022 13:10:43 GMT",
       "tag": "@ni/nimble-components_v15.5.3",
       "version": "15.5.3",
