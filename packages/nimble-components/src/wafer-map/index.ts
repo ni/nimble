@@ -59,7 +59,7 @@ export class WaferMap extends FoundationElement {
      */
     public readonly canvas!: HTMLCanvasElement;
 
-    public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
+    @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];

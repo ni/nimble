@@ -12,12 +12,19 @@ async function setup(): Promise<Fixture<WaferMap>> {
 }
 describe('WaferMap', () => {
     let element: WaferMap;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
     let spy: jasmine.Spy;
 
     beforeEach(async () => {
-        ({ element } = await setup());
+        ({ element, connect, disconnect } = await setup());
+        await connect();
         DOM.processUpdates();
         spy = spyOn(element, 'render');
+    });
+
+    afterEach(async () => {
+        await disconnect();
     });
 
     it('can construct an element instance', () => {
