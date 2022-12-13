@@ -98,9 +98,9 @@ describe('Nimble anchor', () => {
             expect(nativeElement.appearance).toBeUndefined();
         });
 
-        it('has expected defaults for underlineVisible', () => {
-            expect(directive.underlineVisible).toBeFalse();
-            expect(nativeElement.underlineVisible).toBeFalse();
+        it('has expected defaults for underlineHidden', () => {
+            expect(directive.underlineHidden).toBeFalse();
+            expect(nativeElement.underlineHidden).toBeFalse();
         });
     });
 
@@ -116,7 +116,7 @@ describe('Nimble anchor', () => {
                     target="${target1}"
                     type="${type1}"
                     appearance="prominent"
-                    underline-visible
+                    underline-hidden
                     >
                 </nimble-anchor>
             `
@@ -181,9 +181,9 @@ describe('Nimble anchor', () => {
             expect(nativeElement.appearance).toBe('prominent');
         });
 
-        it('will use template string values for underlineVisible', () => {
-            expect(directive.underlineVisible).toBeTrue();
-            expect(nativeElement.underlineVisible).toBeTrue();
+        it('will use template string values for underlineHidden', () => {
+            expect(directive.underlineHidden).toBeTrue();
+            expect(nativeElement.underlineHidden).toBeTrue();
         });
     });
 
@@ -199,7 +199,7 @@ describe('Nimble anchor', () => {
                     [target]="target"
                     [type]="type"
                     [appearance]="appearance"
-                    [underlineVisible]="underlineVisible"
+                    [underlineHidden]="underlineHidden"
                     >
                 </nimble-anchor>
             `
@@ -215,7 +215,7 @@ describe('Nimble anchor', () => {
             public target = target1;
             public type = type1;
             public appearance: AnchorAppearance = appearance1;
-            public underlineVisible = true;
+            public underlineHidden = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -321,15 +321,15 @@ describe('Nimble anchor', () => {
             expect(nativeElement.appearance).toBe(appearance2);
         });
 
-        it('can be configured with property binding for underlineVisible', () => {
-            expect(directive.underlineVisible).toBeTrue();
-            expect(nativeElement.underlineVisible).toBeTrue();
+        it('can be configured with property binding for underlineHidden', () => {
+            expect(directive.underlineHidden).toBeTrue();
+            expect(nativeElement.underlineHidden).toBeTrue();
 
-            fixture.componentInstance.underlineVisible = false;
+            fixture.componentInstance.underlineHidden = false;
             fixture.detectChanges();
 
-            expect(directive.underlineVisible).toBeFalse();
-            expect(nativeElement.underlineVisible).toBeFalse();
+            expect(directive.underlineHidden).toBeFalse();
+            expect(nativeElement.underlineHidden).toBeFalse();
         });
     });
 
@@ -345,7 +345,7 @@ describe('Nimble anchor', () => {
                     [attr.target]="target"
                     [attr.type]="type"
                     [attr.appearance]="appearance"
-                    [attr.underline-visible]="underlineVisible"
+                    [attr.underline-hidden]="underlineHidden"
                     >
                 </nimble-anchor>
             `
@@ -361,7 +361,7 @@ describe('Nimble anchor', () => {
             public target = target1;
             public type = type1;
             public appearance: AnchorAppearance = appearance1;
-            public underlineVisible = true;
+            public underlineHidden = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -467,15 +467,15 @@ describe('Nimble anchor', () => {
             expect(nativeElement.appearance).toBe(appearance2);
         });
 
-        it('can be configured with attribute binding for underlineVisible', () => {
-            expect(directive.underlineVisible).toBeTrue();
-            expect(nativeElement.underlineVisible).toBeTrue();
+        it('can be configured with attribute binding for underlineHidden', () => {
+            expect(directive.underlineHidden).toBeTrue();
+            expect(nativeElement.underlineHidden).toBeTrue();
 
-            fixture.componentInstance.underlineVisible = false;
+            fixture.componentInstance.underlineHidden = false;
             fixture.detectChanges();
 
-            expect(directive.underlineVisible).toBeFalse();
-            expect(nativeElement.underlineVisible).toBeFalse();
+            expect(directive.underlineHidden).toBeFalse();
+            expect(nativeElement.underlineHidden).toBeFalse();
         });
     });
 });
