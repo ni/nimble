@@ -6,33 +6,32 @@ import type { DataManager } from './data-manager';
  */
 export class RenderingModule {
     private readonly waferData: DataManager;
-    private readonly canvas: HTMLCanvasElement;
+    private readonly context: CanvasRenderingContext2D;
 
     public constructor(waferData: DataManager, canvas: HTMLCanvasElement) {
         this.waferData = waferData;
-        this.canvas = canvas;
+        this.context = canvas.getContext('2d')!;
     }
 
     public drawWafer(): void {
-        const context = this.canvas.getContext('2d')!;
         const dies: DieRenderInfo[] = this.waferData.diesRenderInfo;
         const dimensions: Dimensions = this.waferData.dieDimensions;
 
         for (const die of dies) {
-            context.fillStyle = die.fillStyle;
-            context?.fillRect(
+            this.context.fillStyle = die.fillStyle;
+            this.context?.fillRect(
                 die.x,
                 die.y,
                 dimensions.width,
                 dimensions.height
             );
 
-            context.font = this.waferData.labelsFontSize.toString();
-            context.fillStyle = '#ffffff';
-            context.textAlign = 'center';
-            const aproxTextHeight = context.measureText('M');
+            this.context.font = this.waferData.labelsFontSize.toString();
+            this.context.fillStyle = '#ffffff';
+            this.context.textAlign = 'center';
+            const aproxTextHeight = this.context.measureText('M');
 
-            context.fillText(
+            this.context.fillText(
                 die.text,
                 die.x + dimensions.width / 2,
                 die.y + dimensions.height / 2 + aproxTextHeight.width / 2
@@ -41,8 +40,7 @@ export class RenderingModule {
     }
 
     public clearCanvas(): void {
-        const context = this.canvas.getContext('2d')!;
-        context.clearRect(
+        this.context.clearRect(
             0,
             0,
             this.waferData.containerDimensions.width,
