@@ -27,7 +27,7 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getRenderedRowCount(): number {
-        return this.tableElement.shadowRoot!.querySelectorAll('.table-row')
+        return this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row')
             .length;
     }
 
@@ -35,7 +35,7 @@ export class TablePageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): string {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('.table-row');
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered rows'
@@ -43,13 +43,13 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         const row = rows.item(rowIndex);
-        const cells = row.querySelectorAll('.table-cell');
+        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
         if (columnIndex >= cells.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
             );
         }
 
-        return cells.item(columnIndex).textContent ?? '';
+        return cells.item(columnIndex).shadowRoot!.textContent?.trim() ?? '';
     }
 }
