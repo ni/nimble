@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-The `nimble-table` requires users to be able to configure which columns to display for a table. Additionally, a particular display column may require access to multiple fields in the data, and allow a user to define the field to sort by. We need to provide a means for a client to provide their own column visualization. Finally, columns must also provide the user to either specify the header text, or custom visuals to use for the header.
+The `nimble-table` requires users to be able to configure which columns to display for a table. Additionally, a particular display column may require access to multiple fields in the data, and allow a user to define the field to sort by. We need to provide a means for a client to provide their own column visualization. Finally, columns must also specify the content to render in its header.
 
 ### Out of scope of this HLD
 
@@ -26,7 +26,7 @@ Columns will be provided to the table as slotted elements. The slot for the colu
 </nimble-table>
 ```
 
-These columns will _not_ have templates/CSS associated with them, and instead be implementations of an interface that will require returning a FAST ViewTemplate for its visual representation. The ordering of the columns in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the columns elements in the DOM.
+These columns will _not_ have templates/CSS associated with them. Instead, each column element will provide a FAST ViewTemplate for the visual representation of each cell in the column. The ordering of the columns in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the column elements in the DOM.
 
 The table API to support this could look like the following:
 
@@ -77,7 +77,7 @@ This interface could possibly be expanded in the future to communicate relevant 
 This abstract class is what a column web component (i.e. a slotted column) must extend.
 
 ```TS
-abstract class TableColumn<TCellData extends TableRowData = unknown> {
+abstract class TableColumn<TCellData extends TableRecord = TableRecord> {
     // This method will produce the expected TableCellState that the cellTemplate expects as
     // its source
     generateCellState: (cellData: TCellData) => TableCellState<TCellData>;
