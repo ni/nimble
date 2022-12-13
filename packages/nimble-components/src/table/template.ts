@@ -1,22 +1,25 @@
 import { html, repeat } from '@microsoft/fast-element';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import type { Table } from '.';
+import type { TableRecord } from './types';
+import { TableRow } from './components/row';
 
 // prettier-ignore
 export const template = html<Table>`
-    <template>
+    <template role="table">
         <div class="table-container">
-            <div class="table-header">
+            <div class="table-header" role="row">
                 ${repeat(x => x.columnHeaders, html<string>`
-                    <span class="table-cell">${x => x}</span>
+                    <span class="table-cell" role="columnheader">${x => x}</span>
                 `)}
             </div>
-            <div class="table-viewport">
-                ${repeat(x => x.tableData, html<string[]>`
-                    <div class="table-row">
-                        ${repeat(x => x, html<string>`
-                            <span class="table-cell">${x => x}</span>
-                        `)}
-                    </div>
+            <div class="table-viewport" role="rowgroup">
+                ${repeat(x => x.data, html<TableRecord>`
+                    <${DesignSystem.tagFor(TableRow)}
+                        :data="${x => x}"
+                        :columns="${(_, c) => (c.parent as Table).columns}"
+                    >
+                    </${DesignSystem.tagFor(TableRow)}>
                 `)}
             </div>
         </div>
