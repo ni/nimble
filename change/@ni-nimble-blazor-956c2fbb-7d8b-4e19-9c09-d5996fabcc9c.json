@@ -1,5 +1,5 @@
 {
-  "type": "patch",
+  "type": "none",
   "comment": "Remove unused styling of dialog from example apps",
   "packageName": "@ni/nimble-blazor",
   "email": "20542556+mollykreis@users.noreply.github.com",
