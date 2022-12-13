@@ -1,15 +1,19 @@
 import type { WaferMapDie } from '../types';
 import type { IValueGenerator } from './value-generator';
 
-const generateStringValue = (x:number, y:number, valueGenerator?: IValueGenerator):string =>{
-    let value:number;
-    if (valueGenerator !== undefined) value =  valueGenerator(x,y);
-    else value = Math.random() * 100;
-    return valueToString(value);
-}
-
 const valueToString = (value: number): string => {
     return value % 1 ? value.toFixed(2) : Math.trunc(value).toString();
+};
+
+const generateStringValue = (
+    x: number,
+    y: number,
+    valueGenerator?: IValueGenerator
+): string => {
+    let value: number;
+    if (valueGenerator !== undefined) value = valueGenerator(x, y);
+    else value = Math.random() * 100;
+    return valueToString(value);
 };
 
 export const generateWaferData = (
@@ -29,14 +33,21 @@ export const generateWaferData = (
             let stringValue: string;
 
             // generate points left of centerX
-            for (let j = centerX; (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)<= radius * radius; j--) {
-
-                stringValue = generateStringValue(i,j, valueGenerator);
+            for (
+                let j = centerX;
+                (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY) <= radius * radius;
+                j--
+            ) {
+                stringValue = generateStringValue(i, j, valueGenerator);
                 diesSet.push({ x: i, y: j, value: stringValue });
             }
             // generate points right of centerX
-            for (let j = centerX + 1; (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)<= radius * radius; j++) {
-                stringValue = generateStringValue(i,j, valueGenerator);
+            for (
+                let j = centerX + 1;
+                (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)<= radius * radius;
+                j++
+            ) {
+                stringValue = generateStringValue(i, j, valueGenerator);
                 diesSet.push({ x: i, y: j, value: stringValue });
             }
         }

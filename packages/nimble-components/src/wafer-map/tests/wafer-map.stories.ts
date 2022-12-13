@@ -34,7 +34,6 @@ const getDiesSet = (
     setName: string,
     sets: WaferMapDie[][]
 ): WaferMapDie[] | undefined => {
-
     const seed = 0.5; // a number in [0,1)
     let returnedValue: WaferMapDie[];
 
@@ -45,7 +44,7 @@ const getDiesSet = (
         case 'set2':
             returnedValue = sets[1]!;
             break;
-        case 'largeGoodSet':        
+        case 'largeGoodSet':
             returnedValue = generateWaferData(100, goodValueGenerator(seed))!;
             break;
         case 'largeBadSet':
