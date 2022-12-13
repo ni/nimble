@@ -4,47 +4,57 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-.waferMapContainer {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.wafer-map-container {
+    width: 500px;
+    height: 500px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.waferMapArea {
-    position: absolute;
-}
-
-.waferCanvas{
-    position: absolute;
-}
-
-.circleBase {
-    position: absolute;
-    fill: white;
+.svg-root {
+    width: inherit;
+    height: inherit;
 }
 
 .top {
     transform: rotate(-90deg);
 }
+
 .right {
     transform: rotate(0deg);
 }
+
 .left {
-transform: rotate(180deg);
-}
-.bottom {
-transform: rotate(90deg);
-}
-.waferMapContainer, .svgRoot, .circleBase, .zoomContainer {
-  width: 500px;
-  height: 500px;
+    transform: rotate(180deg);
 }
 
-.circleDrawingPath{
+.bottom {
+    transform: rotate(90deg);
+}
+
+.zoom-container {
+    width: inherit;
+    height: inherit;
+}
+
+.circle-base {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    fill: white;
+}
+
+.circle-drawing-path{
     shape-rendering: "crispEdges";    
     vector-effect: non-scaling-stroke;
     stroke-width: ${borderWidth};
     stroke: ${borderColor};
+}
+
+.wafer-map-area {
+    position: absolute;
 }
 `;

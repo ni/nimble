@@ -86,17 +86,17 @@ const waferMapDie = [
 
 const simpleWaferWithDies = (
 ): ViewTemplate => html`<nimble-wafer-map
-:dies="${() => waferMapDie}"
-:colorScale="${() => defaultColor}"
+    :dies="${() => waferMapDie}"
+    :colorScale="${() => defaultColor}"
 >
 </nimble-wafer-map>`;
 
 const componentWaferWithDies = (
     [orientation]: OrientationState,
 ): ViewTemplate => html`<nimble-wafer-map
-orientation="${() => orientation}"
-:dies="${() => waferMapDie}"
-:colorScale="${() => defaultColor}"
+    orientation="${() => orientation}"
+    :dies="${() => waferMapDie}"
+    :colorScale="${() => defaultColor}"
 >
 </nimble-wafer-map>`;
 
@@ -104,18 +104,18 @@ const componentWaferWithHiddenDieLabel = (
     [color]: ColorScales,
     [dieLabelHidde]: DieLabelHidden
 ): ViewTemplate => html`<nimble-wafer-map
-?die-labels-hidden=${() => dieLabelHidde}
-:dies="${() => waferMapDie}"
-:colorScale="${() => color}"
+    ?die-labels-hidden=${() => dieLabelHidde}
+    :dies="${() => waferMapDie}"
+    :colorScale="${() => color}"
 >
 </nimble-wafer-map>`;
 
 const componentWaferWithDieOrientation = (
     [orientation]: DieOrientation
 ): ViewTemplate => html`<nimble-wafer-map
-quadrant="${() => orientation}"
-:dies="${() => waferMapDie}"
-:colorScale="${() => defaultColor}"
+    quadrant="${() => orientation}"
+    :dies="${() => waferMapDie}"
+    :colorScale="${() => defaultColor}"
 >
 </nimble-wafer-map>`;
 

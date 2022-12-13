@@ -53,9 +53,11 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'color-scale-mode'
     })
-    public readonly canvas!: HTMLCanvasElement;
 
-    public readonly svgRoot!: HTMLElement;
+    /**
+     * @internal
+    */
+    public readonly canvas!: HTMLCanvasElement;
 
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
@@ -67,7 +69,7 @@ export class WaferMap extends FoundationElement {
     };
 
     private renderQueued = false;
-
+    private readonly renderer: RenderingModule = new RenderingModule();
     private dataManager: DataManager | undefined;
 
     /**
@@ -86,9 +88,7 @@ export class WaferMap extends FoundationElement {
             this.dieLabelsSuffix,
             this.maxCharacters
         );
-
-        RenderingModule.setWaferMapOrientation(this.orientation, this.svgRoot);
-        RenderingModule.drawWafer(this.dataManager, this.canvas);
+        this.renderer.drawWafer(this.dataManager, this.canvas);
     }
 
     private quadrantChanged(): void {
