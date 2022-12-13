@@ -8,7 +8,9 @@ Spinner component (`nimble-spinner`): Indeterminate progress indicator / loading
 
 [Nimble spinner: #346](https://github.com/ni/nimble/issues/346)  
 [Nimble spinner design: #822](https://github.com/ni/nimble/issues/822)  
-[Visual Design spec - Adobe XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/)
+[Visual Design spec - Adobe XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/)  
+
+[Follow-up issue about PowerGreen/custom color variants: #916](https://github.com/ni/nimble/issues/916)  
 
 ### Non-goals
 
@@ -25,7 +27,7 @@ Ability to show determinate progress:
 -   Show indeterminate progress with an animation
     -   Cannot be paused - assumption is that component will be added to/ removed from the page as needed
 -   Supports 3 sizes: `small` (16x16), `medium` (32x32) (default), `large` (64x64)
--   For the color theme only, supports an alternate appearance/color scheme via `theme-variant="prominent"`
+    -   Component will scale to other sizes if needed (if width/height styles are set on it directly), for advanced use cases
 
 ### Risks and Challenges
 
@@ -53,12 +55,7 @@ Properties/Attributes:
     -   String attribute controlling size of the component
     -   Backed by an enum `SpinnerSize` with values `small` (16x16), `medium` (32x32), `large` (64x64)
     -   If omitted, the default is `medium` (32x32)
-    -   (Open Issue) If omitted, custom `width` and `height` styles can be set on the `nimble-spinner` and the animating elements will scale to that size.
-        -   Do we want to allow this? The padding and bit size ratios vary a little bit between the 16x16/32x32/64x64 variants. Designer may want to tweak padding/ bit sizes at particular sizes (like 16x16 is a little different right now, to have enough padding).
--   `theme-variant`
-    -   default (undefined): Standard appearance (light/dark/color themes)
-    -   `prominent`: Alternate appearance/color, for the color theme only
-    -   Backed by enum `SpinnerThemeVariant`
+    -   If omitted, custom `width` and `height` styles can be set on the `nimble-spinner` and the animating elements will scale to that size. In this case, consumer should follow up with Design to doublecheck the padding needed.
 
 Methods, Events, CSS Classes, CSS Custom Properties: None
 
@@ -70,23 +67,21 @@ Slot Names, Host Classes, Slotted Content/ Slotted Classes, CSS Parts: None
 
 ### Angular integration
 
-Directive `NimbleSpinnerDirective` targeting selector `nimble-spinner`, with bindings for `size` and `theme-variant`.
+Directive `NimbleSpinnerDirective` targeting selector `nimble-spinner`, with bindings for `size`.
 
 ### Blazor integration
 
-Standard Blazor implementation (`NimbleSpinner` deriving from `ComponentBase`), with bindings for `size` and `theme-variant`.
+Standard Blazor implementation (`NimbleSpinner` deriving from `ComponentBase`), with bindings for `size`.
 
 ### Visual Appearance
 
 [Visual Design spec - Adobe XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/)
 
-Light / dark themes only have a single appearance variant.  
-The color theme has 2 appearance variants - the "Color UI Alt." one from XD can be accessed with `theme-variant="prominent"`.
+![New spinner design](NewSpinnerDesign.gif)  
+**Note:** 'Color UI Alt.' appearance is unsupported for the initial implementation, see the *Potential Future Enhancements* section.
 
-![New spinner design](NewSpinnerDesign.gif)
-
-When `prefers-reduced-motion` is enabled, a simplified version will be used:
-(TBD)
+When `prefers-reduced-motion` is enabled, a simplified version will be used:  
+![Spinner, Prefers Reduced Motion](SpinnerPrefersReducedMotion.gif)
 
 ## Implementation
 
@@ -139,8 +134,14 @@ N/A
 
 N/A - Standard updates of the component table in the README, and in Storybook.
 
-## Open Issues
+## Potential Future Enhancements
 
--   Decide if we want to require the `size` attribute. (We could scale to user-provided sizes but they may end up with non-optimal bit sizes and padding/margins not picked by a designer)
--   Decide if we need the `theme-variant` (PowerGreen variant for color theme). Brandon O'Keefe to follow up on this point.
--   Decide on `prefers-reduced-motion` appearance
+- Do we need to support the "Color UI Alt" (PowerGreen) spinner appearance, and do apps/consumers need a way to override the spinner color?
+    - Original plan for supporting that appearance: adding a `theme-variant` attribute:
+      -   default (undefined): Standard appearance (light/dark/color themes)
+      -   `prominent`: Alternate appearance/color, for the color theme only ('Color UI Alt.' from XD design)
+      -   Backed by enum `SpinnerThemeVariant`
+    - We could also follow the patterns from our icons (create a token `spinner-color` that can be overridden)
+    - **Decision**: We will omit the Color UI Alt appearance for our initial implementation. Followup questions that need to be answered are captured in [Issue #916](https://github.com/ni/nimble/issues/916).
+
+
