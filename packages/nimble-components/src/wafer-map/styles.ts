@@ -12,34 +12,34 @@ export const styles = css`
     }
 
     .svg-root {
-        width: inherit;
-        height: inherit;
+        width: 100%;
+        height: 100%;
     }
 
-    .top {
+    .svg-root.top {
         transform: rotate(-90deg);
     }
 
-    .right {
+    .svg-root.right {
         transform: rotate(0deg);
     }
 
-    .left {
+    .svg-root.left {
         transform: rotate(180deg);
     }
 
-    .bottom {
+    .svg-root.bottom {
         transform: rotate(90deg);
     }
 
     .zoom-container {
-        width: inherit;
-        height: inherit;
+        width: 100%;
+        height: 100%;
     }
 
     .circle-base {
-        width: inherit;
-        height: inherit;
+        width: 100%;
+        height: 100%;
         position: absolute;
         fill: white;
     }
