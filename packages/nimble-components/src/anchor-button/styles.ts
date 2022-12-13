@@ -7,4 +7,8 @@ import {
 export const styles = css`
     ${buttonStyles}
     ${buttonAppearanceVariantStyles}
+
+    .control {
+        text-decoration: none;
+    }
 `;

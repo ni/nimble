@@ -1,28 +1,26 @@
 import { attr } from '@microsoft/fast-element';
+import { DesignSystem, AnchorOptions } from '@microsoft/fast-foundation';
+import { AnchorBase } from '../anchor-base';
 import {
-    Button as FoundationButton,
-    ButtonOptions,
-    buttonTemplate as template,
-    DesignSystem
-} from '@microsoft/fast-foundation';
-import type {
+    ButtonAppearance,
+    ButtonAppearanceVariant,
     ButtonPattern,
     ButtonAppearanceVariantPattern
 } from '../patterns/button/types';
 import { styles } from './styles';
-import { ButtonAppearance, ButtonAppearanceVariant } from './types';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-button': Button;
+        'nimble-anchor-button': AnchorButton;
     }
 }
 
 /**
- * A nimble-styled HTML button
+ * A nimble-styled anchor button
  */
-export class Button
-    extends FoundationButton
+export class AnchorButton
+    extends AnchorBase
     implements ButtonPattern, ButtonAppearanceVariantPattern {
     /**
      * @public
@@ -47,20 +45,18 @@ export class Button
      */
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
+
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: disabled
+     */
+    @attr({ mode: 'boolean' })
+    public disabled = false;
 }
 
-/**
- * A function that returns a nimble-button registration for configuring the component with a DesignSystem.
- * Implements {@link @microsoft/fast-foundation#buttonTemplate}
- *
- * @public
- * @remarks
- * Generates HTML Element: \<nimble-button\>
- *
- */
-const nimbleButton = Button.compose<ButtonOptions>({
-    baseName: 'button',
-    baseClass: FoundationButton,
+const nimbleAnchorButton = AnchorButton.compose<AnchorOptions>({
+    baseName: 'anchor-button',
     template,
     styles,
     shadowOptions: {
@@ -68,4 +64,4 @@ const nimbleButton = Button.compose<ButtonOptions>({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorButton());
