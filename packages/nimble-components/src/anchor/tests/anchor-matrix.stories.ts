@@ -36,11 +36,11 @@ const disabledStates = [
 ] as const;
 type DisabledState = typeof disabledStates[number];
 
-const underlineVisibleStates = [
+const underlineHiddenStates = [
     ['', false],
-    ['Underline Visible', true]
+    ['Underline Hidden', true]
 ] as const;
-type UnderlineVisibleState = typeof underlineVisibleStates[number];
+type UnderlineHiddenState = typeof underlineHiddenStates[number];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     AnchorAppearance
@@ -50,22 +50,21 @@ type AppearanceState = typeof appearanceStates[number];
 // prettier-ignore
 const component = (
     [disabledName, href]: DisabledState,
-    [underlineVisibleName, underlineVisible]: UnderlineVisibleState,
+    [underlineHiddenName, underlineHidden]: UnderlineHiddenState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <nimble-anchor
         href=${() => href}
-        ?underline-visible="${() => underlineVisible}"
+        ?underline-hidden="${() => underlineHidden}"
         appearance="${() => appearance}"
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${() => `${underlineVisibleName} ${appearanceName} Link ${disabledName}`}
-    </nimble-anchor>
+            ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</nimble-anchor>
 `;
 
 export const anchorThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
-        underlineVisibleStates,
+        underlineHiddenStates,
         appearanceStates
     ])
 );
@@ -87,10 +86,7 @@ export const textWrapping: Story = createStory(
                 font: var(${bodyFont.cssCustomProperty});
             }
         </style>
-        Lorem ipsum dolor sit amet, <nimble-anchor
-            href='#'
-            underline-visible
-        >
+        Lorem ipsum dolor sit amet, <nimble-anchor href='#'>
         consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</nimble-anchor> ut aliquip ex ea commodo consequat.
     </p>
     `

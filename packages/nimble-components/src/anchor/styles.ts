@@ -26,17 +26,12 @@ export const styles = css`
 
     .control {
         color: ${linkFontColor};
-        text-decoration: none;
-    }
-
-    .control:hover {
         text-decoration: underline;
     }
 
     .control${focusVisible} {
         display: inline;
         outline: none;
-        text-decoration: underline;
         box-shadow: inset 0px -1px ${linkFontColor};
     }
 
@@ -49,10 +44,6 @@ export const styles = css`
         box-shadow: inset 0px -1px ${linkActiveFontColor};
     }
 
-    :host([underline-visible]) .control {
-        text-decoration: underline;
-    }
-
     .control:not(:any-link) {
         color: ${linkDisabledFontColor};
         text-decoration: none;
@@ -60,6 +51,22 @@ export const styles = css`
 
     .control:not(:any-link):active {
         color: ${linkActiveDisabledFontColor};
+    }
+
+    :host([underline-hidden]) .control {
+        text-decoration: none;
+    }
+
+    :host([underline-hidden]) .control:hover {
+        text-decoration: underline;
+    }
+
+    :host([underline-hidden]) .control${focusVisible} {
+        text-decoration: underline;
+    }
+
+    :host([underline-hidden]) .control:not(:any-link) {
+        text-decoration: none;
     }
 
     :host([appearance='prominent']) .control {

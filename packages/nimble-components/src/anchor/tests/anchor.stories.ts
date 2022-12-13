@@ -15,7 +15,7 @@ In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g
 interface AnchorArgs {
     label: string;
     href: string;
-    underlineVisible: boolean;
+    underlineHidden: boolean;
     appearance: keyof typeof AnchorAppearance;
 }
 
@@ -44,7 +44,7 @@ const metadata: Meta<AnchorArgs> = {
         </style>
         Click on the <nimble-anchor
             href=${x => (x.href !== '' ? x.href : null)}
-            ?underline-visible=${x => x.underlineVisible}
+            ?underline-hidden=${x => x.underlineHidden}
             appearance=${x => x.appearance}
         >${x => x.label}</nimble-anchor> to navigate.
     `),
@@ -52,10 +52,10 @@ const metadata: Meta<AnchorArgs> = {
         href: {
             description: hrefDescription
         },
-        underlineVisible: {
-            name: 'underline-visible',
+        underlineHidden: {
+            name: 'underline-hidden',
             description:
-                'Set for any anchor that is embedded within a run of text or any other time there is a need to distinguish it as a link.'
+                'Causes the underline to be hidden except on hover. Set this for anchors that are not part of blocks of text.'
         },
         appearance: {
             options: Object.keys(AnchorAppearance),
@@ -65,7 +65,7 @@ const metadata: Meta<AnchorArgs> = {
     args: {
         label: 'link',
         href: 'http://nimble.ni.dev',
-        underlineVisible: false,
+        underlineHidden: false,
         appearance: 'default'
     }
 };

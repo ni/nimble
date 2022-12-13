@@ -24,7 +24,7 @@ Initially we will create two flavors of anchor: a standard anchor, and a button-
 
     -   `appearance`:
         -   `prominent`: the "loud" version from the design doc. Used to draw extra attention to the anchor. This matches the Breadcrumb's `appearance` attribute value.
-    -   `underline-visible`: causes the anchor to always have an underline (as opposed to only on hover). This should be used when an anchor is surrounded by other text, or any other time it needs help being indentified as a link. It may be used as an alternative to the `prominent` appearance to draw extra attention to it.
+    -   `underline-hidden`: hides the anchor's underline except on hover or activation. This should be used except when an anchor is surrounded by other text or needs help being indentified as a link.
 
     Instead of having a `disabled` property, users should remove the `href` in order to disable the anchor.
 

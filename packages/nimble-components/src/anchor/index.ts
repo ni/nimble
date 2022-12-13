@@ -22,10 +22,10 @@ export class Anchor extends AnchorBase {
     /**
      * @public
      * @remarks
-     * HTML Attribute: underline-visible
+     * HTML Attribute: underline-hidden
      */
-    @attr({ attribute: 'underline-visible', mode: 'boolean' })
-    public underlineVisible = false;
+    @attr({ attribute: 'underline-hidden', mode: 'boolean' })
+    public underlineHidden = false;
 
     /**
      * @public
