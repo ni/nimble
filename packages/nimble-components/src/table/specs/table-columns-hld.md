@@ -26,7 +26,7 @@ Columns will be provided to the table as slotted elements. The slot for the colu
 </nimble-table>
 ```
 
-These columns will _not_ have templates/CSS associated with them, and instead be implementations of an interface that will require returning a FAST ViewTemplate for its visual representation. The ordering of the columns in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the columns elements in the DOM.
+These columns will _not_ have templates/CSS associated with them. Instead, each column element will provide a FAST ViewTemplate for the visual representation of each cell in the column. The ordering of the columns in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the column elements in the DOM.
 
 The table API to support this could look like the following:
 
