@@ -77,7 +77,7 @@ This interface could possibly be expanded in the future to communicate relevant 
 This abstract class is what a column web component (i.e. a slotted column) must extend.
 
 ```TS
-abstract class TableColumn<TCellData extends TableRowData = unknown> {
+abstract class TableColumn<TCellData extends TableRecord = TableRecord> {
     // This method will produce the expected TableCellState that the cellTemplate expects as
     // its source
     generateCellState: (cellData: TCellData) => TableCellState<TCellData>;
