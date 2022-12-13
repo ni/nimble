@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Implemented rendering module",
-  "packageName": "@ni/nimble-components",
-  "email": "62277788+zszilagy@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

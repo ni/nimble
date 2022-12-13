@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Wafermap ensure rendering only happens after template construction",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
