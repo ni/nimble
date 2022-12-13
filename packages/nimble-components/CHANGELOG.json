@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 13 Dec 2022 04:46:18 GMT",
+      "tag": "@ni/nimble-components_v15.5.7",
+      "version": "15.5.7",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d80556a60935123f06b13a923290c177aa34e362",
+            "comment": "Add spec document for nimble-spinner."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Dec 2022 23:04:31 GMT",
       "tag": "@ni/nimble-components_v15.5.7",
       "version": "15.5.7",
