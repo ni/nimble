@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 13 Dec 2022 19:56:22 GMT",
+      "tag": "@ni/nimble-components_v15.5.8",
+      "version": "15.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "denis.stavila@ni.com",
+            "package": "@ni/nimble-components",
+            "commit": "4826bcb3e4264b76df212dc7757b568a07aa6218",
+            "comment": "- Implemented a seeded value generator for the dies (PR feedback)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Dec 2022 04:46:18 GMT",
       "tag": "@ni/nimble-components_v15.5.7",
       "version": "15.5.7",

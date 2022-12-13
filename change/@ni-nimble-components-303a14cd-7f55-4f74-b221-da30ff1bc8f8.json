@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "- Implemented a seeded value generator for the dies (PR feedback)",
-  "packageName": "@ni/nimble-components",
-  "email": "denis.stavila@ni.com",
-  "dependentChangeType": "patch"
-}
