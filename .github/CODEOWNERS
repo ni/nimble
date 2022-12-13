@@ -4,7 +4,7 @@
 # More info: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/about-code-owners
 
 # These owners will be the default owners for everything in the repo.
-* @rajsite @jattasNI @fredvisser
+* @rajsite @jattasNI
 
 # Owners of specific locations or file patterns in the repo. Locations are relative to the root of the repo.
 # Order is important. The last matching pattern has the most precedence.
@@ -14,12 +14,13 @@
 /angular-workspace/projects/ni/nimble-angular @rajsite @atmgrifter00
 /packages/nimble-blazor @atmgrifter00 @msmithNI
 /packages/nimble-components @rajsite @jattasNI
+/packages/nimble-components/.storybook @rajsite @jattasNI @fredvisser
 /packages/nimble-tokens @rajsite @jattasNI @fredvisser
 /packages/site @rajsite @jattasNI
 /packages/xliff-to-json-converter @rajsite @TrevorKarjanis @jattasNI
 
 # Specs (placed after packages to have higher precedence for spec files contained in packages)
-specs @rajsite @jattasNI @fredvisser @atmgrifter00
+specs @rajsite @jattasNI @fredvisser @atmgrifter00 @mollykreis
 
 # Change files don't need explicit reviewers
 /change
