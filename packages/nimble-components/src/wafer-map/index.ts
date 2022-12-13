@@ -69,7 +69,6 @@ export class WaferMap extends FoundationElement {
     };
 
     private renderQueued = false;
-    private readonly renderer: RenderingModule = new RenderingModule();
     private dataManager: DataManager | undefined;
 
     /**
@@ -88,7 +87,9 @@ export class WaferMap extends FoundationElement {
             this.dieLabelsSuffix,
             this.maxCharacters
         );
-        this.renderer.drawWafer(this.dataManager, this.canvas);
+
+        const renderer = new RenderingModule(this.dataManager, this.canvas);
+        renderer.drawWafer();
     }
 
     private quadrantChanged(): void {
