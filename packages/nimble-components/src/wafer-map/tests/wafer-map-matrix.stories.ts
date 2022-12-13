@@ -43,14 +43,18 @@ const dieOrientation = [
 type DieOrientation = typeof dieOrientation[number];
 
 const colorsScales = [
-    [{
-        colors: ['red', 'orange', 'green'],
-        values: [1, 50, 100]
-    }],
-    [{
-        colors: ['red', 'purple', 'blue'],
-        values: [1, 50, 100]
-    }]
+    [
+        {
+            colors: ['red', 'orange', 'green'],
+            values: [1, 50, 100]
+        }
+    ],
+    [
+        {
+            colors: ['red', 'purple', 'blue'],
+            values: [1, 50, 100]
+        }
+    ]
 ] as const;
 type ColorScales = typeof colorsScales[number];
 
@@ -59,10 +63,7 @@ const defaultColor = {
     values: [1, 50, 100]
 };
 
-const dieLabelHidden = [
-    [true],
-    [false]
-] as const;
+const dieLabelHidden = [[true], [false]] as const;
 type DieLabelHidden = typeof dieLabelHidden[number];
 
 const waferMapDie = [
@@ -84,16 +85,15 @@ const waferMapDie = [
     { x: 3, y: 3, value: '30' }
 ];
 
-const simpleWaferWithDies = (
-): ViewTemplate => html`<nimble-wafer-map
+const simpleWaferWithDies = (): ViewTemplate => html`<nimble-wafer-map
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
 </nimble-wafer-map>`;
 
-const componentWaferWithDies = (
-    [orientation]: OrientationState,
-): ViewTemplate => html`<nimble-wafer-map
+const componentWaferWithDies = ([
+    orientation
+]: OrientationState): ViewTemplate => html`<nimble-wafer-map
     orientation="${() => orientation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
@@ -110,9 +110,9 @@ const componentWaferWithHiddenDieLabel = (
 >
 </nimble-wafer-map>`;
 
-const componentWaferWithDieOrientation = (
-    [orientation]: DieOrientation
-): ViewTemplate => html`<nimble-wafer-map
+const componentWaferWithDieOrientation = ([
+    orientation
+]: DieOrientation): ViewTemplate => html`<nimble-wafer-map
     quadrant="${() => orientation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
@@ -128,7 +128,10 @@ export const waferMapDiesAndOrientationTest: Story = createStory(
 );
 
 export const waferMapDieLabelAndColorScaleTest: Story = createStory(
-    createMatrix(componentWaferWithHiddenDieLabel, [colorsScales, dieLabelHidden])
+    createMatrix(componentWaferWithHiddenDieLabel, [
+        colorsScales,
+        dieLabelHidden
+    ])
 );
 
 export const waferMapDieOrientationTest: Story = createStory(

@@ -56,7 +56,7 @@ export class WaferMap extends FoundationElement {
 
     /**
      * @internal
-    */
+     */
     public readonly canvas!: HTMLCanvasElement;
 
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;

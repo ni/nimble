@@ -12,19 +12,36 @@ export class RenderingModule {
 
         for (const die of dies) {
             context.fillStyle = die.fillStyle;
-            context?.fillRect(die.x, die.y, dimensions.width, dimensions.height);
+            context?.fillRect(
+                die.x,
+                die.y,
+                dimensions.width,
+                dimensions.height
+            );
 
             context.font = waferData.labelsFontSize.toString();
             context.fillStyle = '#ffffff';
             context.textAlign = 'center';
-            const aproxTextHeight = (context.measureText('M'));
+            const aproxTextHeight = context.measureText('M');
 
-            context.fillText(die.text, die.x + (dimensions.width / 2), die.y + (dimensions.height / 2) + (aproxTextHeight.width / 2));
+            context.fillText(
+                die.text,
+                die.x + dimensions.width / 2,
+                die.y + dimensions.height / 2 + aproxTextHeight.width / 2
+            );
         }
     }
 
-    public clearCanvas(waferData: DataManager, canvas: HTMLCanvasElement): void {
+    public clearCanvas(
+        waferData: DataManager,
+        canvas: HTMLCanvasElement
+    ): void {
         const context = canvas.getContext('2d')!;
-        context.clearRect(0, 0, waferData.containerDimensions.width, waferData.containerDimensions.height);
+        context.clearRect(
+            0,
+            0,
+            waferData.containerDimensions.width,
+            waferData.containerDimensions.height
+        );
     }
 }
