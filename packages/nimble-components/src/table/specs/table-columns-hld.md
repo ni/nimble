@@ -80,10 +80,10 @@ This abstract class is what a column web component (i.e. a slotted column) must 
 abstract class TableColumn<TCellData extends TableRecord = TableRecord> {
     // This method will produce the expected TableCellState that the cellTemplate expects as
     // its source
-    generateCellState: (cellData: TCellData) => TableCellState<TCellData>;
+    abstract generateCellState(cellData: TCellData): TableCellState<TCellData>;
 
     // The template to use to render the cell content for the column
-    cellTemplate: ViewTemplate<TableCellState<TCellData>>;
+    abstract cellTemplate: ViewTemplate<TableCellState<TCellData>>;
 
     // The style to apply to the cellTemplate
     cellStyles?: ElementStyles;
@@ -94,18 +94,13 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord> {
 
     // The keys from the row data that correlate to the data that will be in TCellData.
     // This array is parallel with the keys specified by `dataKeyNames`.
-    getRowDataKeys: () => string[];
+    abstract getRowDataKeys(): string[];
 
     // Function that allows the table column to validate the type that gets created
     // for the cell data. This should validate that the types in TCellData are correct
     // for each key defined by `dataKeyNames`.
     // Return `true` if the data is valid. Return `false` if the data is not valid.
-    validateCellData(cellData: TableRowData): boolean;
-
-    // The content to use for this particular table column. The 'header' slot is the
-    // default slot for a TableColumn.
-    @observable
-    readonly slottedHeader: HTMLElement;
+    abstract validateCellData(cellData: TCellData): boolean;
 }
 ```
 
@@ -121,10 +116,10 @@ interface TableColumnTextCellState<TCellData extends TableRecord> extends TableC
     placeholder: string;
 }
 
-public TableColumnText extends TableColumn<TableColumnTextCellData> {
+public class TableColumnText extends TableColumn<TableColumnTextCellData> {
     ...
 
-    public generateCellState = (cellData: TextColumnCellData): TableColumnTextCellState<TextColumnCellData> => {
+    public generateCellState(cellData: TextColumnCellData): TableColumnTextCellState<TextColumnCellData> {
         return { data: cellData, placeholder: this.placeholder };
     }
 
@@ -140,13 +135,13 @@ public TableColumnText extends TableColumn<TableColumnTextCellData> {
         return [valueKey];
     }
 
-    public cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData>> =
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData>> =
         html<TableCellState<TableColumnTextCellData>>`
             <nimble-text-field readonly="true" value=${x => x.data.value} placeholder=${x => x.placeholder}>
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TableRowData): boolean {
+    public validateCellData(cellData: TCellData): boolean {
         return typeof cellData['value'] === 'string';
     }
 }
@@ -176,7 +171,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
         return [valueKey, unitKey];
     }
 
-    public cellTemplate: ViewTemplate<TableCellState<TableColumnNumberWithUnitCellData>> =
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnNumberWithUnitCellData>> =
         html<TableCellState<TableColumnNumberWithUnitCellData>>`
             <nimble-text-field
                 readonly="true"
@@ -185,7 +180,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TableRowData): boolean {
+    public validateCellData(cellData: TCellData): boolean {
         return typeof cellData['value'] === 'number' && typeof cellData['units'] === 'string';
     }
 }
@@ -236,7 +231,7 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
             `}
         `;
 
-    public validateCellData(cellData: TableRowData): boolean {
+    public validateCellData(cellData: TCellData): boolean {
         return typeof cellData['value'] === 'number';
     }
 }
@@ -266,14 +261,14 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
 
     public callback: (id: string) => void;
 
-    public cellTemplate: ViewTemplate<TableCellState<TableColumnButtonCellData>> =
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnButtonCellData>> =
         html<TableCellState<TableColumnButtonCellData>>`
             <nimble-button @click="${(x, c) => fireEvent(c.event.currentTarget, {data: x.data.id})}>
                 <span>Press Me</span>
             </nimble-button>
         `;
 
-    public validateCellData(cellData: TableRowData): boolean {
+    public validateCellData(cellData: TCellData): boolean {
         return typeof cellData['id'] === 'string';
     }
 }
