@@ -5,8 +5,8 @@ import { bodyFont } from '../../theme-provider/design-tokens';
 
 import '../../all-components';
 import type { WaferMapDie, WaferMapColorsScale } from '../types';
-import { generateWaferData } from './DataGenerator';
-import { badValueGenerator, goodValueGenerator } from './ValueGenerator';
+import { generateWaferData } from './data-generator';
+import { badValueGenerator, goodValueGenerator } from './value-generator';
 import {
     WaferMapQuadrant,
     WaferMapOrientation,
@@ -34,7 +34,10 @@ const getDiesSet = (
     setName: string,
     sets: WaferMapDie[][]
 ): WaferMapDie[] | undefined => {
+
+    const seed = 0.5; // a number in [0,1)
     let returnedValue: WaferMapDie[];
+
     switch (setName) {
         case 'set1':
             returnedValue = sets[0]!;
@@ -42,11 +45,11 @@ const getDiesSet = (
         case 'set2':
             returnedValue = sets[1]!;
             break;
-        case 'largeGoodSet':
-            returnedValue = generateWaferData(100, goodValueGenerator)!;
+        case 'largeGoodSet':        
+            returnedValue = generateWaferData(100, goodValueGenerator(seed))!;
             break;
         case 'largeBadSet':
-            returnedValue = generateWaferData(100, badValueGenerator)!;
+            returnedValue = generateWaferData(100, badValueGenerator(seed))!;
             break;
         default:
             returnedValue = [] as WaferMapDie[];

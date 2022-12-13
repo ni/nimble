@@ -1,5 +1,7 @@
 import type { WaferMapDie } from '../types';
-import type { IValueGenerator } from './ValueGenerator';
+import {randomLcg, randomUniform} from "d3-random"
+import type { IValueGenerator } from './value-generator';
+
 
 const valueToString = (value: number): string => {
     return value % 1 ? value.toFixed(2) : Math.trunc(value).toString();
@@ -22,14 +24,9 @@ export const generateWaferData = (
             let value: number;
             let stringValue: string;
 
-            for (
-                let j = centerX;
-                (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
-                <= radius * radius;
-                j--
-            ) {
+            for (let j = centerX; (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)<= radius * radius; j--) {
                 if (valueGenerator !== undefined) {
-                    value = valueGenerator(i, j);
+                    value = valueGenerator(i,j);
                 } else value = Math.random() * 100;
 
                 stringValue = valueToString(value);
@@ -43,7 +40,7 @@ export const generateWaferData = (
                 j++
             ) {
                 if (valueGenerator !== undefined) {
-                    value = valueGenerator(i, j);
+                    value = valueGenerator(i,j);
                 } else value = Math.random() * 100;
 
                 stringValue = valueToString(value);
