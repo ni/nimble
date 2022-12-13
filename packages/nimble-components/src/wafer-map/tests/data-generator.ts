@@ -1,7 +1,12 @@
 import type { WaferMapDie } from '../types';
-import {randomLcg, randomUniform} from "d3-random"
 import type { IValueGenerator } from './value-generator';
 
+const generateStringValue = (x:number, y:number, valueGenerator?: IValueGenerator):string =>{
+    let value:number;
+    if (valueGenerator !== undefined) value =  valueGenerator(x,y);
+    else value = Math.random() * 100;
+    return valueToString(value);
+}
 
 const valueToString = (value: number): string => {
     return value % 1 ? value.toFixed(2) : Math.trunc(value).toString();
@@ -21,30 +26,15 @@ export const generateWaferData = (
 
         // Generate dies values
         for (let i = centerY - radius; i < centerY + radius; i++) {
-            let value: number;
             let stringValue: string;
 
             for (let j = centerX; (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)<= radius * radius; j--) {
-                if (valueGenerator !== undefined) {
-                    value = valueGenerator(i,j);
-                } else value = Math.random() * 100;
 
-                stringValue = valueToString(value);
-
+                stringValue = generateStringValue(i,j, valueGenerator);
                 diesSet.push({ x: i, y: j, value: stringValue });
             }
-            for (
-                let j = centerX + 1;
-                (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
-                <= radius * radius;
-                j++
-            ) {
-                if (valueGenerator !== undefined) {
-                    value = valueGenerator(i,j);
-                } else value = Math.random() * 100;
-
-                stringValue = valueToString(value);
-
+            for (let j = centerX + 1; (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)<= radius * radius; j++) {
+                stringValue = generateStringValue(i,j, valueGenerator);
                 diesSet.push({ x: i, y: j, value: stringValue });
             }
         }
