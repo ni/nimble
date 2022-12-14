@@ -4,6 +4,12 @@ import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
+import {
+    appearanceVariantDescription,
+    contentHiddenDescription,
+    endIconDescription,
+    iconDescription
+} from '../../patterns/button/tests/doc-strings';
 
 interface ButtonArgs {
     label: string;
@@ -18,24 +24,9 @@ interface ButtonArgs {
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that
 enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an
 action, or performing a delete operation. A common convention for informing users that a button launches
-a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".`;
+a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".
 
-const appearanceVariantDescription = `This attribute has no effect on buttons with a \`ghost\` appearance.
-
-<details>
-    <summary>Primary Button Usage</summary>
-    Make a button primary to distinguish it visibly for one of the following reasons: 
-    <ul>
-        <li>to indicate the action that allows the user to accomplish their most common or important goal</li>
-        <li>to indicate the action that allows the user to complete their task</li>
-    </ul>
-</details>
-`;
-
-const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
-
-This icon will be hidden when \`contentHidden\` is set to \`true\`
-.`;
+If you want a button that triggers navigation to a URL, use the \`nimble-anchor-button\` instead.`;
 
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',
@@ -65,9 +56,11 @@ const metadata: Meta<ButtonArgs> = {
             control: { type: 'radio' },
             description: appearanceVariantDescription
         },
+        contentHidden: {
+            description: contentHiddenDescription
+        },
         icon: {
-            description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+            description: iconDescription
         },
         endIcon: {
             description: endIconDescription

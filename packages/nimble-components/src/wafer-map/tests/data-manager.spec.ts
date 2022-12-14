@@ -94,33 +94,24 @@ describe('Data manager', () => {
         }
     });
 
-    it('should have the fill style from the color scale colors', () => {
-        const colors = getColorScale().colors;
-        for (const dieRenderInfo of dataManagerModule.diesRenderInfo) {
-            expect(colors).toContain(dieRenderInfo.fillStyle);
-        }
-    });
-
-    it('should have all dies with no opacity from the highlighted list', () => {
+    it('should have all dies with full opacity from the highlighted list', () => {
         const highlightedValues = getHighlightedValues().map(
             value => value + dieLabelsSuffix
         );
-        const diesWithoutOpacity = dataManagerModule.diesRenderInfo.filter(
-            x => x.opacity === 0
-        );
-        for (const dieRenderInfo of diesWithoutOpacity) {
+        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
+        for (const dieRenderInfo of diesWithFullOpacity) {
             expect(highlightedValues).toContain(dieRenderInfo.text);
         }
     });
 
-    it('should not have any dies with opacity from the highlighted list', () => {
+    it('should not have any dies with partial opacity from the highlighted list', () => {
         const highlightedValues = getHighlightedValues().map(
             value => value + dieLabelsSuffix
         );
-        const diesWithOpacity = dataManagerModule.diesRenderInfo.filter(
-            x => x.opacity !== 0
+        const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
+            x => !x.fillStyle.endsWith(',1)')
         );
-        for (const dieRenderInfo of diesWithOpacity) {
+        for (const dieRenderInfo of diesWithPartialOpacity) {
             expect(highlightedValues).not.toContain(dieRenderInfo.text);
         }
     });

@@ -84,7 +84,9 @@ import {
     ButtonLabel1LineHeight,
     TooltipCaptionLineHeight,
     Information100LightUi,
-    Information100DarkUi
+    Information100DarkUi,
+    DigitalGreenDark,
+    PowerGreen
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -351,16 +353,81 @@ export const [
 );
 
 export const [
-    linkStandardFont,
-    linkStandardFontColor,
-    linkStandardDisabledFontColor,
-    linkStandardFontFamily,
-    linkStandardFontWeight,
-    linkStandardFontSize,
-    linkStandardFontLineHeight,
-    linkStandardFallbackFontFamily
+    linkFont,
+    linkFontColor,
+    linkDisabledFontColor,
+    linkFontFamily,
+    linkFontWeight,
+    linkFontSize,
+    linkFontLineHeight,
+    linkFallbackFontFamily
 ] = createFontTokens(
-    tokenNames.linkStandardFont,
+    tokenNames.linkFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    LinkLightUiFamily,
+    LinkLightUiWeight,
+    LinkLightUiSize,
+    LinkLineHeight,
+    'sans-serif'
+);
+
+export const [
+    linkActiveFont,
+    linkActiveFontColor,
+    linkActiveDisabledFontColor,
+    linkActiveFontFamily,
+    linkActiveFontWeight,
+    linkActiveFontSize,
+    linkActiveFontLineHeight,
+    linkActiveFallbackFontFamily
+] = createFontTokens(
+    tokenNames.linkActiveFont,
+    (element: HTMLElement) => getColorForTheme(
+        element,
+        DigitalGreenDark,
+        PowerGreen,
+        hexToRgbaCssColor(White, 0.6)
+    ),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    LinkLightUiFamily,
+    LinkLightUiWeight,
+    LinkLightUiSize,
+    LinkLineHeight,
+    'sans-serif'
+);
+
+export const [
+    linkProminentFont,
+    linkProminentFontColor,
+    linkProminentDisabledFontColor,
+    linkProminentFontFamily,
+    linkProminentFontWeight,
+    linkProminentFontSize,
+    linkProminentFontLineHeight,
+    linkProminentFallbackFontFamily
+] = createFontTokens(
+    tokenNames.linkProminentFont,
+    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    LinkLightUiFamily,
+    LinkLightUiWeight,
+    LinkLightUiSize,
+    LinkLineHeight,
+    'sans-serif'
+);
+
+export const [
+    linkActiveProminentFont,
+    linkActiveProminentFontColor,
+    linkActiveProminentDisabledFontColor,
+    linkActiveProminentFontFamily,
+    linkActiveProminentFontWeight,
+    linkActiveProminentFontSize,
+    linkActiveProminentFontLineHeight,
+    linkActiveProminentFallbackFontFamily
+] = createFontTokens(
+    tokenNames.linkActiveProminentFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
