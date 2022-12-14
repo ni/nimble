@@ -3,8 +3,8 @@ import { borderColor, borderWidth } from '../theme-provider/design-tokens';
 
 export const styles = css`
     .wafer-map-container {
-        width: 500px;
-        height: 500px;
+        width: 100%;
+        height: 100%;
         position: relative;
         display: flex;
         justify-content: center;
@@ -35,6 +35,7 @@ export const styles = css`
     .zoom-container {
         width: 100%;
         height: 100%;
+        position: absolute;
     }
 
     .circle-base {
@@ -51,7 +52,9 @@ export const styles = css`
         stroke: ${borderColor};
     }
 
-    .wafer-map-area {
+    .wafer-map-canvas {
+        width: 100%;
+        height: 100%;
         position: absolute;
     }
 `;

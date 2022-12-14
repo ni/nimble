@@ -68,12 +68,28 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
+    @observable private observedWidth = this.offsetWidth;
+    @observable private observedHeight = this.offsetHeight;
+
     private renderQueued = false;
     private dataManager: DataManager | undefined;
-
+    private resizeObserver: ResizeObserver | undefined;
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.resizeObserver = new ResizeObserver(entries => {
+            const entry = entries[0];
+            if (entry === undefined) return;
+            const { height, width } = entry.contentRect;
+            console.log(width, height);
+            this.observedWidth = width;
+            this.observedHeight = height;
+        });
+        this.resizeObserver.observe(this);
         this.queueRender();
+    }
+
+    public override disconnectedCallback(): void {
+        this.resizeObserver?.unobserve(this);
     }
 
     /**
@@ -81,10 +97,11 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
+        console.log('render', this.observedHeight, this.observedWidth);
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
-            { width: 500, height: 500 },
+            { width: this.observedWidth, height: this.observedHeight },
             this.colorScale,
             this.highlightedValues,
             this.colorScaleMode,
@@ -130,6 +147,17 @@ export class WaferMap extends FoundationElement {
     }
 
     private colorScaleChanged(): void {
+        this.queueRender();
+    }
+
+    private observedWidthChanged(): void {
+        debugger;
+        console.log('width', this.observedWidth);
+        this.queueRender();
+    }
+
+    private observedHeightChanged(): void {
+        console.log('height', this.observedHeight);
         this.queueRender();
     }
 

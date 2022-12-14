@@ -10,8 +10,6 @@ export const template = html<WaferMap>`
                 </svg>
             </g>
         </svg>
-        <div class="wafer-map-area" style="left: 0px; top: 0px">
-            <canvas width=500 height="500" ${ref('canvas')}>
-        </div>
+        <canvas class="wafer-map-canvas" ${ref('canvas')}></canvas>
     </div>
 `;
