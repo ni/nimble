@@ -153,7 +153,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData, TableC
 }
 ```
 
-In the above example, notifications for when the `placeholder` property changed would be handled by the base class, and it would be responsible for any further action. This aciton could be a combination of things like causing a re-render, and issuing an event that may be publically visibile (such as `column-configuration-changed`). These details will be ironed out outside of this spec.
+In the above example, notifications for when the `placeholder` property changed would be handled by the base class, and it would be responsible for any further action. This action could be a combination of things like causing a re-render, and issuing an event that may be publicly visible (such as `column-configuration-changed`). These details will be ironed out outside of this spec.
 
 Below demonstrates how column elements can access multiple fields from the row's record to use in its rendering:
 
