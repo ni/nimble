@@ -12,12 +12,12 @@ export const styles = css`
         color: ${bodyFontColor};
     }
 
-    .table-header {
+    .table-header-row {
         display: flex;
         flex-direction: row;
     }
 
-    .table-cell {
+    .table-header {
         flex: 1;
     }
 `;

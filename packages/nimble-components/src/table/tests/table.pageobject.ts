@@ -9,21 +9,19 @@ export class TablePageObject<T extends TableRecord> {
     public constructor(private readonly tableElement: Table<T>) {}
 
     public getRenderedHeaderCount(): number {
-        const header = this.tableElement.shadowRoot!.querySelector('.table-header')!;
-        const cells = header.querySelectorAll('.table-cell');
-        return cells.length;
+        const headers = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-header')!;
+        return headers.length;
     }
 
     public getRenderedHeaderContent(columnIndex: number): string {
-        const header = this.tableElement.shadowRoot!.querySelector('.table-header')!;
-        const cells = header.querySelectorAll('.table-cell');
-        if (columnIndex >= cells.length) {
+        const headers = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-header')!;
+        if (columnIndex >= headers.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
             );
         }
 
-        return cells.item(columnIndex).textContent ?? '';
+        return headers.item(columnIndex).textContent?.trim() ?? '';
     }
 
     public getRenderedRowCount(): number {
