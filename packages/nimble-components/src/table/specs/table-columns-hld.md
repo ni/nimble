@@ -8,6 +8,8 @@ The `nimble-table` requires users to be able to configure which columns to displ
 
 Programmatic API for state that could be considered column-centric: width, sort direction, grouped, etc. These concerns should be covered in separate designs covering those topics specifically, allowing for discussion on both the interactive side and the API design on an individual basis.
 
+Defining the API for how a column will specify which data field will be used for sorting (when it uses multiple fields) is also out of scope for this HLD.
+
 ## Links To Relevant Work Items and Reference Material
 
 [Table Spec](./README.md)
@@ -116,9 +118,6 @@ Given the above class, a series of column elements to handle basic use cases can
 ```TS
 type TableColumnTextCellData = StringField<'value'>;
 type TableColumnTextColumnConfig = { placeholder: string };
-
-// this interface is used to pass auxiliary configuration to access within the cellTemplate
-interface TableColumnTextCellState<TCellData extends TableRecord, TableColumnTextColumnConfig> extends TableCellState<TCellData, TableColumnTextColumnConfig> { }
 
 public class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
     ...
