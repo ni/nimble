@@ -63,7 +63,7 @@
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.13.15",
-    "@mdx-js/react": "*",
+    "@mdx-js/react": "^1.6.22",
     "@ni/eslint-config-javascript": "^4.0.0",
     "@ni/eslint-config-typescript": "^4.1.0",
     "@rollup/plugin-commonjs": "^21.0.2",
