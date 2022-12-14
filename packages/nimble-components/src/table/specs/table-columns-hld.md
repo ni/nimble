@@ -273,7 +273,7 @@ public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
         `;
 
     public validateCellData(cellData: TCellData): void {
-        if (typeof(cellData['id']) ~== 'string') {
+        if (typeof(cellData['id']) !== 'string') {
             throw new Error('Type for cellData is incorrect!');
         }
     }
