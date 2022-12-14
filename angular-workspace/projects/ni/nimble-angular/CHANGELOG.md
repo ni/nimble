@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 13 Dec 2022 19:56:22 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Dec 2022 22:11:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.0.15
+
+Tue, 13 Dec 2022 22:11:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.0.0
 
 ## 14.0.14
 

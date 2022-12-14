@@ -71,6 +71,11 @@ export class WaferMap extends FoundationElement {
     private renderQueued = false;
     private dataManager: DataManager | undefined;
 
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.queueRender();
+    }
+
     /**
      * @internal
      */
@@ -129,6 +134,9 @@ export class WaferMap extends FoundationElement {
     }
 
     private queueRender(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
         if (!this.renderQueued) {
             this.renderQueued = true;
             DOM.queueUpdate(() => this.render());

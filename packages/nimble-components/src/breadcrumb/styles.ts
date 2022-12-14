@@ -1,35 +1,32 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    DigitalGreenDark,
-    PowerGreen,
-    White
-} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import {
     bodyEmphasizedFont,
-    bodyFont,
-    bodyFontColor
+    linkActiveFontColor,
+    linkActiveProminentFontColor,
+    linkFont,
+    linkFontColor,
+    linkProminentFontColor
 } from '../theme-provider/design-tokens';
-import { Theme } from '../theme-provider/types';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
-import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
     ${display('inline-block')}
 
     :host {
         box-sizing: border-box;
-        font: ${bodyFont};
-        --ni-private-breadcrumb-link-font-color: ${bodyFontColor};
+        font: ${linkFont};
+        --ni-private-breadcrumb-link-font-color: ${linkFontColor};
+        --ni-private-breadcrumb-link-active-font-color: ${linkActiveFontColor};
+    }
+
+    :host([appearance='prominent']) {
+        --ni-private-breadcrumb-link-font-color: ${linkProminentFontColor};
+        --ni-private-breadcrumb-link-active-font-color: ${linkActiveProminentFontColor};
     }
 
     .list {
         display: flex;
         flex-wrap: wrap;
-    }
-
-    :host([appearance='prominent']) {
-        --ni-private-breadcrumb-link-active-font-color: ${bodyFontColor};
     }
 
     ::slotted(*:first-child) {
@@ -39,44 +36,4 @@ export const styles = css`
     ::slotted(*:not([href]):last-child) {
         font: ${bodyEmphasizedFont};
     }
-`.withBehaviors(
-    themeBehavior(
-        Theme.light,
-        css`
-            :host {
-                --ni-private-breadcrumb-link-active-font-color: ${DigitalGreenDark};
-            }
-
-            :host([appearance='prominent']) {
-                --ni-private-breadcrumb-link-font-color: ${DigitalGreenDark};
-            }
-        `
-    ),
-    themeBehavior(
-        Theme.dark,
-        css`
-            :host {
-                --ni-private-breadcrumb-link-active-font-color: ${PowerGreen};
-            }
-
-            :host([appearance='prominent']) {
-                --ni-private-breadcrumb-link-font-color: ${PowerGreen};
-            }
-        `
-    ),
-    themeBehavior(
-        Theme.color,
-        css`
-            :host {
-                --ni-private-breadcrumb-link-active-font-color: ${hexToRgbaCssColor(
-                    White,
-                    0.6
-                )};
-            }
-
-            :host([appearance='prominent']) {
-                --ni-private-breadcrumb-link-font-color: ${PowerGreen};
-            }
-        `
-    )
-);
+`;
