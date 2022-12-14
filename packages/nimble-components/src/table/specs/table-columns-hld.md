@@ -69,8 +69,9 @@ Column elements will always be FAST-based custom elements. Framework-specific co
 A table cell represents a single column for a single row. The data that a cell has access to will be a subset of the data for the entire row. An instance of a table cell will be generic to describe the subset of data it contains, where the `TCellData` type is a superset of the type represented by [`TableRecord`](https://github.com/ni/nimble/blob/3e4b8d3dd59431d1671e381aa66052db57bc475c/packages/nimble-components/src/table/types.ts#L24):
 
 ```TS
-interface TableCellState<TCellData extends TableRecord> {
+interface TableCellState<TCellData extends TableRecord, TColumnConfig> {
   data: TCellData;
+  columnConfig: TColumnConfig;
 }
 ```
 
@@ -81,28 +82,28 @@ This interface could possibly be expanded in the future to communicate relevant 
 This abstract class is what a column web component (i.e. a slotted column element) must extend.
 
 ```TS
-abstract class TableColumn<TCellData extends TableRecord = TableRecord> {
-    // This method will produce the expected TableCellState that the cellTemplate expects as
-    // its source
-    abstract generateCellState(cellData: TCellData): TableCellState<TCellData>;
+abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnConfig = {}> {
+    // This method returns the relevant, static configuration a column rquires its cellTemplate
+    // to have access to
+    getColumnConfig(): TColumnConfig {}
 
     // The template to use to render the cell content for the column
-    abstract cellTemplate: ViewTemplate<TableCellState<TCellData>>;
+    abstract cellTemplate: ViewTemplate<TableCellState<TCellData, TColumnConfig>>;
 
     // The style to apply to the cellTemplate
     cellStyles?: ElementStyles;
 
     // The keys that should be present in TCellData.
-    // This array is parallel with the keys returned from `getDataKeys()`.
-    readonly cellDataKeyNames: readonly string[];
+    // This array is parallel with the keys returned from `getRecordFieldNames()`.
+    readonly cellStateDataFieldNames: readonly string[];
 
     // The keys from the row data that correlate to the data that will be in TCellData.
-    // This array is parallel with the keys specified by `dataKeyNames`.
-    abstract getRowDataKeyNames(): string[];
+    // This array is parallel with the keys specified by `cellStateDataFieldNames`.
+    abstract getRecordFieldNames(): string[];
 
     // Function that allows the table column to validate the type that gets created
     // for the cell data. This should validate that the types in TCellData are correct
-    // for each key defined by `dataKeyNames`.
+    // for each key defined by `cellStateDataFieldNames`.
     // This function should throw if validation fails.
     abstract validateCellData(cellData: TCellData): void;
 }
@@ -114,20 +115,19 @@ Given the above class, a series of column elements to handle basic use cases can
 
 ```TS
 type TableColumnTextCellData = StringField<'value'>;
+type TableColumnTextColumnConfig = { placeholder: string };
 
 // this interface is used to pass auxiliary configuration to access within the cellTemplate
-interface TableColumnTextCellState<TCellData extends TableRecord> extends TableCellState<TCellData> {
-    placeholder: string;
-}
+interface TableColumnTextCellState<TCellData extends TableRecord, TableColumnTextColumnConfig> extends TableCellState<TCellData, TableColumnTextColumnConfig> { }
 
-public class TableColumnText extends TableColumn<TableColumnTextCellData> {
+public class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
     ...
 
-    public generateCellState(cellData: TextColumnCellData): TableColumnTextCellState<TextColumnCellData> {
-        return { data: cellData, placeholder: this.placeholder };
+    public getColumnConfig(): TableColumnTextColumnConfig {
+        return { placeholder: this.placeholder };
     }
 
-    public cellDataKeyNames = ['value'] as const;
+    public cellStateDataFieldNames = ['value'] as const;
 
     @attr
     public valueKey: string;
@@ -135,37 +135,39 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData> {
     @attr
     public placeholder: string; // Column auxiliary configuration
 
-    public getRowDataKeyNames(): string[] {
+    public getRecordFieldNames(): string[] {
         return [valueKey];
     }
 
-    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData>> =
-        html<TableCellState<TableColumnTextCellData>>`
-            <nimble-text-field readonly="true" value="${x => x.data.value}" placeholder="${x => x.placeholder}">
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>> =
+        html<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>>`
+            <nimble-text-field readonly="true" value="${x => x.data.value}" placeholder="${x => x.columnConfig.placeholder}">
             </nimble-text-field>
         `;
 
     public validateCellData(cellData: TCellData): void {
-        if(cellData['value'] !== 'string') {
+        if(typeof(cellData['value']) !== 'string') {
             throw new Error('Type for cellData is incorrect!');
         }
     }
 }
 ```
 
-This also enables column elements to access multiple fields from the row's record to use in its rendering:
+In the above example, notifications for when the `placeholder` property changed would be handled by the base class, and it would be responsible for any further action. This aciton could be a combination of things like causing a re-render, and issuing an event that may be publically visibile (such as `column-configuration-changed`). These details will be ironed out outside of this spec.
+
+Below demonstrates how column elements can access multiple fields from the row's record to use in its rendering:
 
 ```TS
 type TableColumnNumberWithUnitCellData = NumberField<'value'> & StringField<'units'>;
 
 const formatData = (value: number, unit: string): string => {
     return `${value.toString()} ${units}`;
-}
+};
 
 public TableColumnNumberWithUnit extends FoundationElement implements ITableColumn<TableColumnNumberWithUnitCellData> {
     ...
 
-    public cellDataKeyNames = ['value', 'units'] as const;
+    public cellStateDataFieldNames = ['value', 'units'] as const;
 
     @attr
     public valueKey: string;
@@ -173,7 +175,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
     @attr
     public unitKey: string;
 
-    public getRowDataKeyNames(): string[] {
+    public getRecordFieldNames(): string[] {
         return [valueKey, unitKey];
     }
 
@@ -187,7 +189,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
         `;
 
     public validateCellData(cellData: TCellData): void {
-        if(!(cellData['value'] === 'number' && typeof cellData['units'] === 'string')) {
+        if(!(typeof(cellData['value']) === 'number' && typeof typeof(cellData['units']) === 'string')) {
             throw new Error('Type for cellData is incorrect!');            
         }
     }
@@ -206,12 +208,12 @@ const isPositive = (value: number): bool => {
 public TableColumnPositiveNegativeNumber extends FoundationElement implements ITableColumn<TableColumnPositiveNegativeNumberCellData> {
     ...
 
-    public cellDataKeyNames = ['value'] as const;
+    public cellStateDataFieldNames = ['value'] as const;
 
     @attr
     public valueKey: string;
 
-    public getRowDataKeyNames(): string[] {
+    public getRecordFieldNames(): string[] {
         return [valueKey];
     }
 
@@ -236,8 +238,8 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TCellData): boolean {
-        if (cellData['value'] !== 'number') {
+    public validateCellData(cellData: TCellData): void {
+        if (typeof(cellData['value']) !== 'number') {
             throw new Error('Type for cellData is incorrect!');            
         }
     }
@@ -252,12 +254,12 @@ type TableColumnButtonCellData = StringField<'id'>;
 public TableColumnButton extends FoundationElement implements ITableColumn<TableColumnButtonCellData> {
     ...
 
-    public cellDataKeyNames = ['id'] as const;
+    public cellStateDataFieldNames = ['id'] as const;
 
     @attr
     public idKey: string;
 
-    public getRowDataKeyNames(): string[] {
+    public getRecordFieldNames(): string[] {
         return [valueKey];
     }
 
@@ -270,8 +272,8 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
             </nimble-button>
         `;
 
-    public validateCellData(cellData: TCellData): boolean {
-        if (cellData['id'] ~== 'string') {
+    public validateCellData(cellData: TCellData): void {
+        if (typeof(cellData['id']) ~== 'string') {
             throw new Error('Type for cellData is incorrect!');            
         }
     }
@@ -297,7 +299,7 @@ private doSomething(CustomEvent e): void {
 
 The exact pattern for how we expect event APIs to be implemented is TBD. The above is simply illustrative of one approach, but it's safe to say that the goal will be to provide frameworks like Angular the expected event binding APIs.
 
-_Note: the missing implementation in the above `TableColumn` implementations are the necessary pieces to register them as FAST components._
+_Note: The implementation necessary to register the column elements as FAST components is missing, and has been omitted for brevity's sake._
 
 ### Header Content
 
