@@ -2,6 +2,52 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 13 Dec 2022 22:11:51 GMT",
+      "tag": "@ni/nimble-components_v16.0.0",
+      "version": "16.0.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bb4bc33dcd84cf3b50f21e47e4183eb80e4061e1",
+            "comment": "Wafermap ensure rendering only happens after template construction"
+          }
+        ],
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ef1a9c554ad63d12a523436be7782b7d133dc19c",
+            "comment": "Anchor and Anchor Button components"
+          }
+        ],
+        "major": [
+          {
+            "author": "62277788+zszilagy@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8d11dc1ff22a2b6d3c458359a419a4b930d738fd",
+            "comment": "Implemented rendering module"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Dec 2022 19:56:22 GMT",
+      "tag": "@ni/nimble-components_v15.5.8",
+      "version": "15.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "denis.stavila@ni.com",
+            "package": "@ni/nimble-components",
+            "commit": "4826bcb3e4264b76df212dc7757b568a07aa6218",
+            "comment": "- Implemented a seeded value generator for the dies (PR feedback)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Dec 2022 04:46:18 GMT",
       "tag": "@ni/nimble-components_v15.5.7",
       "version": "15.5.7",
