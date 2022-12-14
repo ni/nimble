@@ -152,7 +152,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData> {
 This also enables columns to access multiple fields from the row's record to use in its rendering:
 
 ```TS
-type TableColumnNumberWithUnitCellData = NumberColumnData<'value'> & StringColumnData<'units'>;
+type TableColumnNumberWithUnitCellData = NumberField<'value'> & StringField<'units'>;
 
 const format = (value: number, unit: string): string => {
     return `${value.toString()} ${units}`;
