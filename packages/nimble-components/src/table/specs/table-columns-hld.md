@@ -228,7 +228,7 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
                 <nimble-text-field
                     class="${x => isPositive(x.data.value) ? "good" : "bad"}"
                     readonly="true"
-                    value=${x => x.data.value}
+                    value="${x => x.data.value}"
                     style="color: red;"
                 >
                 </nimble-text-field>
