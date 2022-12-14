@@ -164,7 +164,7 @@ const formatData = (value: number, unit: string): string => {
     return `${value.toString()} ${units}`;
 };
 
-public TableColumnNumberWithUnit extends FoundationElement implements ITableColumn<TableColumnNumberWithUnitCellData> {
+public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWithUnitCellData> {
     ...
 
     public cellStateDataFieldNames = ['value', 'units'] as const;
@@ -205,7 +205,7 @@ const isPositive = (value: number): bool => {
     return value >= 0;
 }
 
-public TableColumnPositiveNegativeNumber extends FoundationElement implements ITableColumn<TableColumnPositiveNegativeNumberCellData> {
+public class TableColumnPositiveNegativeNumber extends TableColumn<TableColumnPositiveNegativeNumberCellData> {
     ...
 
     public cellStateDataFieldNames = ['value'] as const;
@@ -251,7 +251,7 @@ Finally, here is a column element that allows a user to register a callback for 
 ```TS
 type TableColumnButtonCellData = StringField<'id'>;
 
-public TableColumnButton extends FoundationElement implements ITableColumn<TableColumnButtonCellData> {
+public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
     ...
 
     public cellStateDataFieldNames = ['id'] as const;
