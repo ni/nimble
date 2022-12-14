@@ -285,7 +285,7 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
 Angular template:
 
 ```HTML
-<nimble-table #table>
+<nimble-table (button-click)="doSomething($event)">
     <nimble-table-column-button></nimble-table-column-button>
 </nimble-table>
 ```
@@ -293,19 +293,15 @@ Angular template:
 Angular code:
 
 ```TS
-@ViewChild('table', { read: NimbleTable, static: true }) private readonly table!: NimbleTable;
-
-public ngOnInit(): void {
-    table.addEventListener('button-click', doSomething)
-}
-
 private doSomething(CustomEvent e): void {
     ...
 }
 
 ```
 
-Note the missing implementation in the above `TableColumn` implementations are the necessary pieces to register them as FAST components.
+The exact pattern for how we expect event APIs to be implemented is TBD. The above is simply illustrative of one approach, but it's safe to say that the goal will be to provide frameworks like Angular the expected event binding APIs.
+
+_Note: the missing implementation in the above `TableColumn` implementations are the necessary pieces to register them as FAST components._
 
 ### Header Content
 
