@@ -146,7 +146,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData, TableC
         `;
 
     public validateCellData(cellData: TCellData): void {
-        if(typeof(cellData['value']) !== 'string') {
+        if (typeof(cellData['value']) !== 'string') {
             throw new Error('Type for cellData is incorrect!');
         }
     }
