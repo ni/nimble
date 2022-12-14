@@ -188,6 +188,14 @@ export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
 
+export const tableColumnHeaderSeparatorColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tableColumnHeaderSeparatorColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, White, White), 0.3));
+
+export const tableRowBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tableRowBorderColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black88, ForestGreen));
+
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlHeight)

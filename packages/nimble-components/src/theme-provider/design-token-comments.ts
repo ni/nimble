@@ -241,5 +241,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     errorTextFontLineHeight:
         'Font line height for the "Error_LightUi" base token',
     errorTextFallbackFontFamily:
-        'Fallback font family for the "Error_LightUi" base token'
+        'Fallback font family for the "Error_LightUi" base token',
+    tableColumnHeaderSeparatorColor: 'Color for the separator between column headers in the table',
+    tableRowBorderColor: 'Color for the border of rows in the table'
 };
