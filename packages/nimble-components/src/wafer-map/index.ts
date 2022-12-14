@@ -98,7 +98,8 @@ export class WaferMap extends FoundationElement {
         );
 
         const renderer = new RenderingModule(this.dataManager, this.canvas);
-        ZoomHandler.createZoomBehavior(this.canvas, this.zoomContainer, this.dataManager, renderer)(select(this.canvas as Element));
+        const zoomHandler = new ZoomHandler(this.canvas, this.zoomContainer, this.dataManager, renderer);
+        zoomHandler.createZoomBehavior()(select(this.canvas as Element));
         renderer.drawWafer();
     }
 
