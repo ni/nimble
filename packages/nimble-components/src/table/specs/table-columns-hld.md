@@ -149,7 +149,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData> {
 }
 ```
 
-This also enables columns to access multiple pieces of data to use in its rendering:
+This also enables columns to access multiple fields from the row's record to use in its rendering:
 
 ```TS
 type TableColumnNumberWithUnitCellData = NumberColumnData<'value'> & StringColumnData<'units'>;
