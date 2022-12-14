@@ -11,8 +11,7 @@ declare global {
 /**
  * A styled header that is used within the nimble-table.
  */
-export class TableHeader extends FoundationElement {
-}
+export class TableHeader extends FoundationElement {}
 
 const nimbleTableHeader = TableHeader.compose({
     baseName: 'table-header',
