@@ -177,7 +177,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
         html<TableCellState<TableColumnNumberWithUnitCellData>>`
             <nimble-text-field
                 readonly="true"
-                value=${x => formatData(x.data.value, x.data.units)}
+                value="${x => formatData(x.data.value, x.data.units)}"
             >
             </nimble-text-field>
         `;
