@@ -190,7 +190,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
 
     public validateCellData(cellData: TCellData): void {
         if(!(typeof(cellData['value']) === 'number' && typeof typeof(cellData['units']) === 'string')) {
-            throw new Error('Type for cellData is incorrect!');            
+            throw new Error('Type for cellData is incorrect!');
         }
     }
 }
@@ -217,7 +217,7 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
         return [valueKey];
     }
 
-    public readonly cellStyles: ElementStyles = 
+    public readonly cellStyles: ElementStyles =
         css`
             .good {
                 color: green;
@@ -240,7 +240,7 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
 
     public validateCellData(cellData: TCellData): void {
         if (typeof(cellData['value']) !== 'number') {
-            throw new Error('Type for cellData is incorrect!');            
+            throw new Error('Type for cellData is incorrect!');
         }
     }
 }
@@ -274,7 +274,7 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
 
     public validateCellData(cellData: TCellData): void {
         if (typeof(cellData['id']) ~== 'string') {
-            throw new Error('Type for cellData is incorrect!');            
+            throw new Error('Type for cellData is incorrect!');
         }
     }
 }
