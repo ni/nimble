@@ -311,7 +311,8 @@ Clients should be allowed to use arbitrary content for the display part of a hea
 ```HTML
 <nimble-table>
     <nimble-table-column-text>
-        <nimble-icon-x> // uses icon for column header
+        <!-- uses icon for column header -->
+        <nimble-icon-x></nimble-icon-x>
     <nimble-table-column-text>
 </nimble-table>
 ```
