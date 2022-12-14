@@ -137,7 +137,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData> {
 
     public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData>> =
         html<TableCellState<TableColumnTextCellData>>`
-            <nimble-text-field readonly="true" value=${x => x.data.value} placeholder=${x => x.placeholder}>
+            <nimble-text-field readonly="true" value="${x => x.data.value}" placeholder="${x => x.placeholder}">
             </nimble-text-field>
         `;
 
