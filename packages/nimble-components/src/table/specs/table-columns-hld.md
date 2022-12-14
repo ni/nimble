@@ -109,7 +109,7 @@ _Note: The `TableColumn` class may be updated to support other features not cove
 Given the above class, a series of column providers to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
 ```TS
-type TableColumnTextCellData = StringColumnData<'value'>;
+type TableColumnTextCellData = StringField<'value'>;
 
 // this interface is used to pass auxiliary configuration to access within the cellTemplate
 interface TableColumnTextCellState<TCellData extends TableRecord> extends TableCellState<TCellData> {
@@ -137,7 +137,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData> {
 
     public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData>> =
         html<TableCellState<TableColumnTextCellData>>`
-            <nimble-text-field readonly="true" value=${x => x.data.value} placeholder=${x => x.placeholder}>
+            <nimble-text-field readonly="true" value="${x => x.data.value}" placeholder="${x => x.placeholder}">
             </nimble-text-field>
         `;
 
@@ -149,12 +149,12 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData> {
 }
 ```
 
-This also enables columns to access multiple pieces of data to use in its rendering:
+This also enables columns to access multiple fields from the row's record to use in its rendering:
 
 ```TS
-type TableColumnNumberWithUnitCellData = NumberColumnData<'value'> & StringColumnData<'units'>;
+type TableColumnNumberWithUnitCellData = NumberField<'value'> & StringField<'units'>;
 
-const format = (value: number, unit: string): string => {
+const formatData = (value: number, unit: string): string => {
     return `${value.toString()} ${units}`;
 }
 
@@ -177,7 +177,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
         html<TableCellState<TableColumnNumberWithUnitCellData>>`
             <nimble-text-field
                 readonly="true"
-                value=${x => formatData(x.data.value, x.data.units)}
+                value="${x => formatData(x.data.value, x.data.units)}"
             >
             </nimble-text-field>
         `;
@@ -193,7 +193,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
 Here we have a column visualized in different ways based on custom logic:
 
 ```TS
-type TableColumnPositiveNegativeNumberCellData = NumberColumnData<'value'>;
+type TableColumnPositiveNegativeNumberCellData = NumberField<'value'>;
 
 const isPositive = (value: number): bool => {
     return value >= 0;
@@ -226,9 +226,9 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
         html<TableCellState<TableColumnPositiveNegativeNumberCellData>`
             html`
                 <nimble-text-field
-                    class=${_ => isPositive(x.data.value) ? "good" : "bad"}
+                    class="${x => isPositive(x.data.value) ? "good" : "bad"}"
                     readonly="true"
-                    value=${x => x.data.value}
+                    value="${x => x.data.value}"
                     style="color: red;"
                 >
                 </nimble-text-field>
@@ -246,7 +246,7 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
 Finally, here is a column that allows a user to register a callback for a click event on a button inside the cell template:
 
 ```TS
-type TableColumnButtonCellData = StringColumnData<'id'>;
+type TableColumnButtonCellData = StringField<'id'>;
 
 const fireEvent = (buttonElement: HTMLElement, clickData: { data: string}): void => {
     const event = new CustomEvent('button-click', { detail: data });
@@ -269,7 +269,7 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
 
     public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnButtonCellData>> =
         html<TableCellState<TableColumnButtonCellData>>`
-            <nimble-button @click="${(x, c) => fireEvent(c.event.currentTarget, {data: x.data.id})}>
+            <nimble-button @click="${(x, c) => c.event.currentTarget.$emit('button-click'), {data: x.data.id})}">
                 <span>Press Me</span>
             </nimble-button>
         `;
