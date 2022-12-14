@@ -189,7 +189,7 @@ public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWith
         `;
 
     public validateCellData(cellData: TCellData): void {
-        if(!(typeof(cellData['value']) === 'number' && typeof typeof(cellData['units']) === 'string')) {
+        if (!(typeof(cellData['value']) === 'number' && typeof typeof(cellData['units']) === 'string')) {
             throw new Error('Type for cellData is incorrect!');
         }
     }
