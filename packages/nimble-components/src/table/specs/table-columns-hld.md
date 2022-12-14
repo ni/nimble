@@ -246,7 +246,7 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
 Finally, here is a column that allows a user to register a callback for a click event on a button inside the cell template:
 
 ```TS
-type TableColumnButtonCellData = StringColumnData<'id'>;
+type TableColumnButtonCellData = StringField<'id'>;
 
 const fireEvent = (buttonElement: HTMLElement, clickData: { data: string}): void => {
     const event = new CustomEvent('button-click', { detail: data });
