@@ -5,6 +5,7 @@ import {
     observable
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { select } from 'd3-selection';
 import { template } from './template';
 import { styles } from './styles';
 import {
@@ -16,6 +17,7 @@ import {
 } from './types';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
+import { ZoomHandler } from './modules/zoom-handler';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -59,6 +61,8 @@ export class WaferMap extends FoundationElement {
      */
     public readonly canvas!: HTMLCanvasElement;
 
+    public readonly zoomContainer!: HTMLElement;
+
     @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     @observable public highlightedValues: string[] = [];
@@ -94,6 +98,7 @@ export class WaferMap extends FoundationElement {
         );
 
         const renderer = new RenderingModule(this.dataManager, this.canvas);
+        ZoomHandler.createZoomBehavior(this.canvas, this.zoomContainer, this.dataManager, renderer)(select(this.canvas as Element));
         renderer.drawWafer();
     }
 
