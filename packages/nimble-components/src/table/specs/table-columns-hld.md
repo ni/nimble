@@ -269,7 +269,7 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
 
     public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnButtonCellData>> =
         html<TableCellState<TableColumnButtonCellData>>`
-            <nimble-button @click="${(x, c) => fireEvent(c.event.currentTarget, {data: x.data.id})}>
+            <nimble-button @click="${(x, c) => c.event.currentTarget.$emit('button-click'), {data: x.data.id})}">
                 <span>Press Me</span>
             </nimble-button>
         `;
