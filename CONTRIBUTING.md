@@ -127,7 +127,7 @@ You can also configure this task to execute via a keyboard shortcut by [configur
 
 ### Code owners
 
-Pull Requests require the approval of at least one code owner. Owners are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
+Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
 
 ### Completing pull requests
 

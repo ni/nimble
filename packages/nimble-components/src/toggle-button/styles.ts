@@ -20,12 +20,12 @@ export const styles = css`
         background-color: ${fillSelectedColor};
     }
 
-    .control[aria-pressed='true'][disabled] {
+    :host([disabled]) .control[aria-pressed='true'] {
         background-color: ${fillSelectedColor};
         border-color: ${fillSelectedColor};
     }
 
-    .control[aria-pressed='true'][disabled]:hover {
+    :host([disabled]) .control[aria-pressed='true']:hover {
         background-color: ${fillSelectedColor};
         border-color: ${fillSelectedColor};
     }
