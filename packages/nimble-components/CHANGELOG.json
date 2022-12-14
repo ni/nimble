@@ -2,6 +2,97 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 14 Dec 2022 14:40:50 GMT",
+      "tag": "@ni/nimble-components_v16.0.0",
+      "version": "16.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "274bb9d4558c6fc414d23c35b286d70c339e4d90",
+            "comment": "Update table data API HLD with new terminology for records and fields"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Dec 2022 22:11:51 GMT",
+      "tag": "@ni/nimble-components_v16.0.0",
+      "version": "16.0.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bb4bc33dcd84cf3b50f21e47e4183eb80e4061e1",
+            "comment": "Wafermap ensure rendering only happens after template construction"
+          }
+        ],
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ef1a9c554ad63d12a523436be7782b7d133dc19c",
+            "comment": "Anchor and Anchor Button components"
+          }
+        ],
+        "major": [
+          {
+            "author": "62277788+zszilagy@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8d11dc1ff22a2b6d3c458359a419a4b930d738fd",
+            "comment": "Implemented rendering module"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Dec 2022 19:56:22 GMT",
+      "tag": "@ni/nimble-components_v15.5.8",
+      "version": "15.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "denis.stavila@ni.com",
+            "package": "@ni/nimble-components",
+            "commit": "4826bcb3e4264b76df212dc7757b568a07aa6218",
+            "comment": "- Implemented a seeded value generator for the dies (PR feedback)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Dec 2022 04:46:18 GMT",
+      "tag": "@ni/nimble-components_v15.5.7",
+      "version": "15.5.7",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d80556a60935123f06b13a923290c177aa34e362",
+            "comment": "Add spec document for nimble-spinner."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Dec 2022 23:04:31 GMT",
+      "tag": "@ni/nimble-components_v15.5.7",
+      "version": "15.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8a8410dcbef2a54463b0d4b4a4bc79b8a2b6792a",
+            "comment": "Changed wafer map rendering die opacity to rgba color alpha channel "
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Dec 2022 18:13:52 GMT",
       "tag": "@ni/nimble-components_v15.5.6",
       "version": "15.5.6",

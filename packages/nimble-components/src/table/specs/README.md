@@ -144,8 +144,8 @@ _Events_
 
 _Slots_
 
--   `slottedColumns`
--   `actionMenu` (Placeholder for action menu)
+-   default - the column elements
+-   `action-menu` (Placeholder for action menu)
 
 ### Security
 

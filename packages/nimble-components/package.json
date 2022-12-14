@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "15.5.6",
+  "version": "16.0.0",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
@@ -46,12 +46,15 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
+    "@microsoft/fast-colors": "^5.3.1",
     "@microsoft/fast-element": "^1.10.1",
     "@microsoft/fast-foundation": "^2.46.11",
     "@microsoft/fast-web-utilities": "^5.4.1",
     "@ni/nimble-tokens": "^4.3.0",
     "@tanstack/table-core": "^8.7.0",
+    "@types/d3": "^7.4.0",
     "@types/d3-scale": "^4.0.2",
+    "d3-random": "^3.0.1",
     "d3-scale": "^4.0.2",
     "hex-rgb": "^5.0.0",
     "tslib": "^2.2.0"

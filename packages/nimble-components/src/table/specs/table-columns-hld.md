@@ -2,11 +2,13 @@
 
 ## Problem Statement
 
-The `nimble-table` requires users to be able to configure which columns to display for a table. Additionally, a particular display column may require access to multiple fields in the data, and allow a user to define the field to sort by. We need to provide a means for a client to provide their own column visualization. Finally, columns must also provide the user to either specify the header text, or custom visuals to use for the header.
+The `nimble-table` requires users to be able to configure which columns to display for a table. Additionally, a particular display column may require access to multiple fields in the data, and allow a user to define the field to sort by. We need to provide a means for a client to provide their own column visualization. Finally, columns must also specify the content to render in its header.
 
 ### Out of scope of this HLD
 
 Programmatic API for state that could be considered column-centric: width, sort direction, grouped, etc. These concerns should be covered in separate designs covering those topics specifically, allowing for discussion on both the interactive side and the API design on an individual basis.
+
+Defining the API for how a column will specify which data field will be used for sorting (when it uses multiple fields) is also out of scope for this HLD.
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -16,7 +18,7 @@ Programmatic API for state that could be considered column-centric: width, sort 
 
 ## Implementation / Design
 
-Columns will be provided to the table as slotted elements. The slot for the columns will be the default slot for the table, and thus no slot needs to be expressly provided by the user for a column:
+Column custom elements will be provided to the table as slotted elements. The slot for the column elements will be the default slot for the table, and thus no slot needs to be expressly provided by the user for a column element:
 
 ```HTML
 <nimble-table>
@@ -26,7 +28,7 @@ Columns will be provided to the table as slotted elements. The slot for the colu
 </nimble-table>
 ```
 
-These columns will _not_ have templates/CSS associated with them, and instead be implementations of an interface that will require returning a FAST ViewTemplate for its visual representation. The ordering of the columns in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the columns elements in the DOM.
+These column elements will _not_ have templates/CSS associated with them. Instead, each column element will provide a FAST ViewTemplate for the visual representation of each cell in the column. The ordering of the column elements in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the column elements in the DOM.
 
 The table API to support this could look like the following:
 
@@ -60,13 +62,18 @@ template:
 </template>
 ```
 
-### `TableCellData` interface
+### Framework Integration
+
+Column elements will always be FAST-based custom elements. Framework-specific constructs/content are not supported. Standard column types (e.g. text-field, link, icon, etc) will be provided by Nimble. For non-standard column types, clients will be expected to implement a custom column element, which the rest of this document desribes in detail.
+
+### `TableCellState` interface
 
 A table cell represents a single column for a single row. The data that a cell has access to will be a subset of the data for the entire row. An instance of a table cell will be generic to describe the subset of data it contains, where the `TCellData` type is a superset of the type represented by [`TableRecord`](https://github.com/ni/nimble/blob/3e4b8d3dd59431d1671e381aa66052db57bc475c/packages/nimble-components/src/table/types.ts#L24):
 
 ```TS
-interface TableCellState<TCellData extends TableRecord> {
+interface TableCellState<TCellData extends TableRecord, TColumnConfig> {
   data: TCellData;
+  columnConfig: TColumnConfig;
 }
 ```
 
@@ -74,58 +81,52 @@ This interface could possibly be expanded in the future to communicate relevant 
 
 ### `TableColumn<>`
 
-This abstract class is what a column web component (i.e. a slotted column) must extend.
+This abstract class is what a column web component (i.e. a slotted column element) must extend.
 
 ```TS
-abstract class TableColumn<TCellData extends TableRowData = unknown> {
-    // This method will produce the expected TableCellState that the cellTemplate expects as
-    // its source
-    generateCellState: (cellData: TCellData) => TableCellState<TCellData>;
+abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnConfig = {}> {
+    // This method returns the relevant, static configuration a column requires its cellTemplate
+    // to have access to
+    getColumnConfig(): TColumnConfig {}
 
     // The template to use to render the cell content for the column
-    cellTemplate: ViewTemplate<TableCellState<TCellData>>;
+    abstract cellTemplate: ViewTemplate<TableCellState<TCellData, TColumnConfig>>;
+
+    // The style to apply to the cellTemplate
+    cellStyles?: ElementStyles;
 
     // The keys that should be present in TCellData.
-    // This array is parallel with the keys returned from `getDataKeys()`.
-    readonly cellDataKeyNames: readonly string[];
+    // This array is parallel with the keys returned from `getRecordFieldNames()`.
+    readonly cellStateDataFieldNames: readonly string[];
 
     // The keys from the row data that correlate to the data that will be in TCellData.
-    // This array is parallel with the keys specified by `dataKeyNames`.
-    getRowDataKeys: () => string[];
+    // This array is parallel with the keys specified by `cellStateDataFieldNames`.
+    abstract getRecordFieldNames(): string[];
 
     // Function that allows the table column to validate the type that gets created
     // for the cell data. This should validate that the types in TCellData are correct
-    // for each key defined by `dataKeyNames`.
-    // Return `true` if the data is valid. Return `false` if the data is not valid.
-    validateCellData(cellData: TableRowData): boolean;
-
-    // The content to use for this particular table column. The 'header' slot is the
-    // default slot for a TableColumn.
-    @observable
-    readonly slottedHeader: HTMLElement;
+    // for each key defined by `cellStateDataFieldNames`.
+    // This function should throw if validation fails.
+    abstract validateCellData(cellData: TCellData): void;
 }
 ```
 
 _Note: The `TableColumn` class may be updated to support other features not covered in this HLD such as sorting and grouping._
 
-Given the above class, a series of column providers to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
+Given the above class, a series of column elements to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
 ```TS
-type TableColumnTextCellData = StringColumnData<'value'>;
+type TableColumnTextCellData = StringField<'value'>;
+type TableColumnTextColumnConfig = { placeholder: string };
 
-// this interface is used to pass auxiliary configuration to access within the cellTemplate
-interface TableColumnTextCellState<TCellData extends TableRecord> extends TableCellState<TCellData> {
-    placeholder: string;
-}
-
-public TableColumnText extends TableColumn<TableColumnTextCellData> {
+public class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
     ...
 
-    public generateCellState = (cellData: TextColumnCellData): TableColumnTextCellState<TextColumnCellData> => {
-        return { data: cellData, placeholder: this.placeholder };
+    public getColumnConfig(): TableColumnTextColumnConfig {
+        return { placeholder: this.placeholder };
     }
 
-    public cellDataKeyNames = ['value'] as const;
+    public cellStateDataFieldNames = ['value'] as const;
 
     @attr
     public valueKey: string;
@@ -133,35 +134,39 @@ public TableColumnText extends TableColumn<TableColumnTextCellData> {
     @attr
     public placeholder: string; // Column auxiliary configuration
 
-    public getRowDataKeys(): string[] {
+    public getRecordFieldNames(): string[] {
         return [valueKey];
     }
 
-    public cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData>> =
-        html<TableCellState<TableColumnTextCellData>>`
-            <nimble-text-field readonly="true" value=${x => x.data.value} placeholder=${x => x.placeholder}>
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>> =
+        html<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>>`
+            <nimble-text-field readonly="true" value="${x => x.data.value}" placeholder="${x => x.columnConfig.placeholder}">
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TableRowData): boolean {
-        return typeof cellData['value'] === 'string';
+    public validateCellData(cellData: TCellData): void {
+        if (typeof(cellData['value']) !== 'string') {
+            throw new Error('Type for cellData is incorrect!');
+        }
     }
 }
 ```
 
-This also enables columns to access multiple pieces of data to use in its rendering:
+In the above example, notifications for when the `placeholder` property changed would be handled by the base class, and it would be responsible for any further action. This action could be a combination of things like causing a re-render, and issuing an event that may be publicly visible (such as `column-configuration-changed`). These details will be ironed out outside of this spec.
+
+Below demonstrates how column elements can access multiple fields from the row's record to use in its rendering:
 
 ```TS
-type TableColumnNumberWithUnitCellData = NumberColumnData<'value'> & StringColumnData<'units'>;
+type TableColumnNumberWithUnitCellData = NumberField<'value'> & StringField<'units'>;
 
-const format = (value: number, unit: string): string => {
+const formatData = (value: number, unit: string): string => {
     return `${value.toString()} ${units}`;
-}
+};
 
-public TableColumnNumberWithUnit extends FoundationElement implements ITableColumn<TableColumnNumberWithUnitCellData> {
+public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWithUnitCellData> {
     ...
 
-    public cellDataKeyNames = ['value', 'units'] as const;
+    public cellStateDataFieldNames = ['value', 'units'] as const;
 
     @attr
     public valueKey: string;
@@ -169,107 +174,107 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
     @attr
     public unitKey: string;
 
-    public getRowDataKeys(): string[] {
+    public getRecordFieldNames(): string[] {
         return [valueKey, unitKey];
     }
 
-    public cellTemplate: ViewTemplate<TableCellState<TableColumnNumberWithUnitCellData>> =
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnNumberWithUnitCellData>> =
         html<TableCellState<TableColumnNumberWithUnitCellData>>`
             <nimble-text-field
                 readonly="true"
-                value=${x => formatData(x.data.value, x.data.units)}
+                value="${x => formatData(x.data.value, x.data.units)}"
             >
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TableRowData): boolean {
-        return typeof cellData['value'] === 'number' && typeof cellData['units'] === 'string';
+    public validateCellData(cellData: TCellData): void {
+        if (!(typeof(cellData['value']) === 'number' && typeof typeof(cellData['units']) === 'string')) {
+            throw new Error('Type for cellData is incorrect!');
+        }
     }
 }
 ```
 
-Here we have a column visualized in different ways based on custom logic:
+Here we have a cell visualized in different ways based on custom logic:
 
 ```TS
-type TableColumnPositiveNegativeNumberCellData = NumberColumnData<'value'>;
+type TableColumnPositiveNegativeNumberCellData = NumberField<'value'>;
 
 const isPositive = (value: number): bool => {
     return value >= 0;
 }
 
-public TableColumnPositiveNegativeNumber extends FoundationElement implements ITableColumn<TableColumnPositiveNegativeNumberCellData> {
+public class TableColumnPositiveNegativeNumber extends TableColumn<TableColumnPositiveNegativeNumberCellData> {
     ...
 
-    public cellDataKeyNames = ['value'] as const;
+    public cellStateDataFieldNames = ['value'] as const;
 
     @attr
     public valueKey: string;
 
-    public getRowDataKeys(): string[] {
+    public getRecordFieldNames(): string[] {
         return [valueKey];
     }
 
-    public cellTemplate: ViewTemplate<TableCellState<TableColumnPositiveNegativeNumberCellData>> =
-        html<TableCellState<TableColumnPositiveNegativeNumberCellData>`
-            ${when(x => !isPositive(x.data.value)),
-            html`
-                <nimble-text-field
-                    readonly="true"
-                    value=${x => x.data.value}
-                    style="fontColor: red;"
-                >
-                </nimble-text-field>
-            `}
-            ${when(x => isPositive(x.data.value)),
-            html`
-                <nimble-text-field
-                    readonly="true"
-                    value=${x => x.data.value}
-                    style="fontColor: green;"
-                >
-                </nimble-text-field>
-            `}
+    public readonly cellStyles: ElementStyles =
+        css`
+            .good {
+                color: green;
+            }
+
+            .bad {
+                color: red;
+            }
         `;
 
-    public validateCellData(cellData: TableRowData): boolean {
-        return typeof cellData['value'] === 'number';
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnPositiveNegativeNumberCellData>> =
+        html<TableCellState<TableColumnPositiveNegativeNumberCellData>`
+            <nimble-text-field
+                class="${x => isPositive(x.data.value) ? "good" : "bad"}"
+                readonly="true"
+                value="${x => x.data.value}"
+            >
+            </nimble-text-field>
+        `;
+
+    public validateCellData(cellData: TCellData): void {
+        if (typeof(cellData['value']) !== 'number') {
+            throw new Error('Type for cellData is incorrect!');
+        }
     }
 }
 ```
 
-Finally, here is a column that allows a user to register a callback for a click event on a button inside the cell template:
+Finally, here is a column element that allows a user to register a callback for a click event on a button inside the cell template:
 
 ```TS
-type TableColumnButtonCellData = StringColumnData<'id'>;
+type TableColumnButtonCellData = StringField<'id'>;
 
-const fireEvent = (buttonElement: HTMLElement, clickData: { data: string}): void => {
-    const event = new CustomEvent('button-click', { detail: data });
-    buttonElement.dispatchEvent(event);
-}
-
-public TableColumnButton extends FoundationElement implements ITableColumn<TableColumnButtonCellData> {
+public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
     ...
 
-    public cellDataKeyNames = ['id'] as const;
+    public cellStateDataFieldNames = ['id'] as const;
 
     @attr
     public idKey: string;
 
-    public getRowDataKeys(): string[] {
+    public getRecordFieldNames(): string[] {
         return [valueKey];
     }
 
     public callback: (id: string) => void;
 
-    public cellTemplate: ViewTemplate<TableCellState<TableColumnButtonCellData>> =
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnButtonCellData>> =
         html<TableCellState<TableColumnButtonCellData>>`
-            <nimble-button @click="${(x, c) => fireEvent(c.event.currentTarget, {data: x.data.id})}>
+            <nimble-button @click="${(x, c) => c.event.currentTarget.$emit('button-click', {data: x.data.id})}">
                 <span>Press Me</span>
             </nimble-button>
         `;
 
-    public validateCellData(cellData: TableRowData): boolean {
-        return typeof cellData['id'] === 'string';
+    public validateCellData(cellData: TCellData): void {
+        if (typeof(cellData['id']) !== 'string') {
+            throw new Error('Type for cellData is incorrect!');
+        }
     }
 }
 ```
@@ -277,7 +282,7 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
 Angular template:
 
 ```HTML
-<nimble-table #table>
+<nimble-table (button-click)="doSomething($event)">
     <nimble-table-column-button></nimble-table-column-button>
 </nimble-table>
 ```
@@ -285,19 +290,15 @@ Angular template:
 Angular code:
 
 ```TS
-@ViewChild('table', { read: NimbleTable, static: true }) private readonly table!: NimbleTable;
-
-public ngOnInit(): void {
-    table.addEventListener('button-click', doSomething)
-}
-
 private doSomething(CustomEvent e): void {
     ...
 }
 
 ```
 
-Note the missing implementation in the above `TableColumn` implementations are the necessary pieces to register them as FAST components.
+The exact pattern for how we expect event APIs to be implemented is TBD. The above is simply illustrative of one approach, but it's safe to say that the goal will be to provide frameworks like Angular the expected event binding APIs.
+
+_Note: The implementation necessary to register the column elements as FAST components is missing, and has been omitted for brevity's sake._
 
 ### Header Content
 
@@ -306,7 +307,8 @@ Clients should be allowed to use arbitrary content for the display part of a hea
 ```HTML
 <nimble-table>
     <nimble-table-column-text>
-        <nimble-icon-x> // uses icon for column header
+        <!-- uses icon for column header -->
+        <nimble-icon-x></nimble-icon-x>
     <nimble-table-column-text>
 </nimble-table>
 ```
