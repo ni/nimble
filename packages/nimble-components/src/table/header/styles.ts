@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { applicationBackgroundColor, borderWidth, tableColumnHeaderSeparatorColor, controlHeight } from '../../theme-provider/design-tokens';
+import { applicationBackgroundColor, borderWidth, tableColumnHeaderSeparatorColor, controlHeight, bodyEmphasizedFont, bodyEmphasizedFontColor } from '../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
@@ -30,5 +30,8 @@ export const styles = css`
     .content {
         flex: 1;
         padding: 0px 8px;
+        font: ${bodyEmphasizedFont};
+        color: ${bodyEmphasizedFontColor};
+        opacity: 0.6;
     }
 `;
