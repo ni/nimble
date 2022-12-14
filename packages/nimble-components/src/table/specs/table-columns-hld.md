@@ -60,6 +60,10 @@ template:
 </template>
 ```
 
+### Framework Integration
+
+Column elements will always be FAST-based custom elements. Framework-specific constructs/content are not supported. Standard column types (e.g. text-field, link, icon, etc) will be provided by Nimble. For non-standard column types, clients will be expected to implement a custom column element, which the rest of this document desribes in detail.
+
 ### `TableCellState` interface
 
 A table cell represents a single column for a single row. The data that a cell has access to will be a subset of the data for the entire row. An instance of a table cell will be generic to describe the subset of data it contains, where the `TCellData` type is a superset of the type represented by [`TableRecord`](https://github.com/ni/nimble/blob/3e4b8d3dd59431d1671e381aa66052db57bc475c/packages/nimble-components/src/table/types.ts#L24):
@@ -224,15 +228,12 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
 
     public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnPositiveNegativeNumberCellData>> =
         html<TableCellState<TableColumnPositiveNegativeNumberCellData>`
-            html`
-                <nimble-text-field
-                    class="${x => isPositive(x.data.value) ? "good" : "bad"}"
-                    readonly="true"
-                    value="${x => x.data.value}"
-                    style="color: red;"
-                >
-                </nimble-text-field>
-            `}
+            <nimble-text-field
+                class="${x => isPositive(x.data.value) ? "good" : "bad"}"
+                readonly="true"
+                value="${x => x.data.value}"
+            >
+            </nimble-text-field>
         `;
 
     public validateCellData(cellData: TCellData): boolean {
