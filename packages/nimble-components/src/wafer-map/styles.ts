@@ -16,19 +16,23 @@ export const styles = css`
         height: 100%;
     }
 
-    .svg-root.top {
+    .circle-base {
+        transform-origin: center;
+    }
+
+    .circle-base.top {
         transform: rotate(-90deg);
     }
 
-    .svg-root.right {
+    .circle-base.right {
         transform: rotate(0deg);
     }
 
-    .svg-root.left {
+    .circle-base.left {
         transform: rotate(180deg);
     }
 
-    .svg-root.bottom {
+    .circle-base.bottom {
         transform: rotate(90deg);
     }
 
