@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 12 Dec 2022 23:04:31 GMT and should not be manually modified.
+This log was last generated on Wed, 14 Dec 2022 15:19:49 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.0.16
+
+Wed, 14 Dec 2022 15:19:49 GMT
+
+### Patches
+
+- Angular support for nimble-table ([ni/nimble@c1b0926](https://github.com/ni/nimble/commit/c1b09266350e8fddfa76f9672e858a9319f3a784))
+
+## 14.0.15
+
+Tue, 13 Dec 2022 22:11:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.0.0
+
+## 14.0.14
+
+Tue, 13 Dec 2022 19:56:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v15.5.8
 
 ## 14.0.13
 

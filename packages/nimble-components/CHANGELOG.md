@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 12 Dec 2022 23:04:31 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Dec 2022 22:11:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.0.0
+
+Tue, 13 Dec 2022 22:11:51 GMT
+
+### Major changes
+
+- Implemented rendering module ([ni/nimble@8d11dc1](https://github.com/ni/nimble/commit/8d11dc1ff22a2b6d3c458359a419a4b930d738fd))
+
+### Minor changes
+
+- Anchor and Anchor Button components ([ni/nimble@ef1a9c5](https://github.com/ni/nimble/commit/ef1a9c554ad63d12a523436be7782b7d133dc19c))
+
+### Patches
+
+- Wafermap ensure rendering only happens after template construction ([ni/nimble@bb4bc33](https://github.com/ni/nimble/commit/bb4bc33dcd84cf3b50f21e47e4183eb80e4061e1))
+
+## 15.5.8
+
+Tue, 13 Dec 2022 19:56:22 GMT
+
+### Patches
+
+- - Implemented a seeded value generator for the dies (PR feedback) ([ni/nimble@4826bcb](https://github.com/ni/nimble/commit/4826bcb3e4264b76df212dc7757b568a07aa6218))
 
 ## 15.5.7
 
