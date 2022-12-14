@@ -1,6 +1,12 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { applicationBackgroundColor, borderWidth, controlHeight, fillHoverColor, tableRowBorderColor } from '../../theme-provider/design-tokens';
+import {
+    applicationBackgroundColor,
+    borderWidth,
+    controlHeight,
+    fillHoverColor,
+    tableRowBorderColor
+} from '../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}

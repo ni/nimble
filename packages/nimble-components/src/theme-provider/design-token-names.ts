@@ -122,12 +122,14 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     linkProminentFallbackFontFamily: 'link-prominent-fallback-font-family',
     linkActiveProminentFont: 'link-active-prominent-font',
     linkActiveProminentFontColor: 'link-active-prominent-font-color',
-    linkActiveProminentDisabledFontColor: 'link-active-prominent-disabled-font-color',
+    linkActiveProminentDisabledFontColor:
+        'link-active-prominent-disabled-font-color',
     linkActiveProminentFontFamily: 'link-active-prominent-font-family',
     linkActiveProminentFontSize: 'link-active-prominent-font-size',
     linkActiveProminentFontWeight: 'link-active-prominent-font-weight',
     linkActiveProminentFontLineHeight: 'link-active-prominent-font-line-height',
-    linkActiveProminentFallbackFontFamily: 'link-active-prominent-fallback-font-family',
+    linkActiveProminentFallbackFontFamily:
+        'link-active-prominent-fallback-font-family',
     placeholderFont: 'placeholder-font',
     placeholderFontColor: 'placeholder-font-color',
     placeholderDisabledFontColor: 'placeholder-disabled-font-color',

@@ -1,6 +1,10 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyFont, bodyFontColor, borderWidth } from '../theme-provider/design-tokens';
+import {
+    bodyFont,
+    bodyFontColor,
+    borderWidth
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
