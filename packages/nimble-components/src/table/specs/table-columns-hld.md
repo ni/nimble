@@ -109,7 +109,7 @@ _Note: The `TableColumn` class may be updated to support other features not cove
 Given the above class, a series of column providers to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
 ```TS
-type TableColumnTextCellData = StringColumnData<'value'>;
+type TableColumnTextCellData = StringField<'value'>;
 
 // this interface is used to pass auxiliary configuration to access within the cellTemplate
 interface TableColumnTextCellState<TCellData extends TableRecord> extends TableCellState<TCellData> {
