@@ -193,7 +193,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
 Here we have a column visualized in different ways based on custom logic:
 
 ```TS
-type TableColumnPositiveNegativeNumberCellData = NumberColumnData<'value'>;
+type TableColumnPositiveNegativeNumberCellData = NumberField<'value'>;
 
 const isPositive = (value: number): bool => {
     return value >= 0;
