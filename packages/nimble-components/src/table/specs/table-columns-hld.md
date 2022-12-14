@@ -226,7 +226,7 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
         html<TableCellState<TableColumnPositiveNegativeNumberCellData>`
             html`
                 <nimble-text-field
-                    class=${_ => isPositive(x.data.value) ? "good" : "bad"}
+                    class="${x => isPositive(x.data.value) ? "good" : "bad"}"
                     readonly="true"
                     value=${x => x.data.value}
                     style="color: red;"
