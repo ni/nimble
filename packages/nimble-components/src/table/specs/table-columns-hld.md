@@ -154,7 +154,7 @@ This also enables columns to access multiple fields from the row's record to use
 ```TS
 type TableColumnNumberWithUnitCellData = NumberField<'value'> & StringField<'units'>;
 
-const format = (value: number, unit: string): string => {
+const formatData = (value: number, unit: string): string => {
     return `${value.toString()} ${units}`;
 }
 
