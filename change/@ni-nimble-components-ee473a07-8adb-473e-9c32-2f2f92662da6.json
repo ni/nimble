@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update table data API HLD with new terminology for records and fields",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
