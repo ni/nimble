@@ -94,13 +94,13 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord> {
 
     // The keys from the row data that correlate to the data that will be in TCellData.
     // This array is parallel with the keys specified by `dataKeyNames`.
-    abstract getRowDataKeys(): string[];
+    abstract getRowDataKeyNames(): string[];
 
     // Function that allows the table column to validate the type that gets created
     // for the cell data. This should validate that the types in TCellData are correct
     // for each key defined by `dataKeyNames`.
-    // Return `true` if the data is valid. Return `false` if the data is not valid.
-    abstract validateCellData(cellData: TCellData): boolean;
+    // This function should throw if validation fails.
+    abstract validateCellData(cellData: TCellData): void;
 }
 ```
 
@@ -131,7 +131,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData> {
     @attr
     public placeholder: string; // Column auxiliary configuration
 
-    public getRowDataKeys(): string[] {
+    public getRowDataKeyNames(): string[] {
         return [valueKey];
     }
 
@@ -141,8 +141,10 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData> {
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TCellData): boolean {
-        return typeof cellData['value'] === 'string';
+    public validateCellData(cellData: TCellData): void {
+        if(cellData['value'] !== 'string') {
+            throw new Error('Type for cellData is incorrect!');
+        }
     }
 }
 ```
@@ -167,7 +169,7 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
     @attr
     public unitKey: string;
 
-    public getRowDataKeys(): string[] {
+    public getRowDataKeyNames(): string[] {
         return [valueKey, unitKey];
     }
 
@@ -180,8 +182,10 @@ public TableColumnNumberWithUnit extends FoundationElement implements ITableColu
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TCellData): boolean {
-        return typeof cellData['value'] === 'number' && typeof cellData['units'] === 'string';
+    public validateCellData(cellData: TCellData): void {
+        if(!(cellData['value'] === 'number' && typeof cellData['units'] === 'string')) {
+            throw new Error('Type for cellData is incorrect!');            
+        }
     }
 }
 ```
@@ -203,7 +207,7 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
     @attr
     public valueKey: string;
 
-    public getRowDataKeys(): string[] {
+    public getRowDataKeyNames(): string[] {
         return [valueKey];
     }
 
@@ -232,7 +236,9 @@ public TableColumnPositiveNegativeNumber extends FoundationElement implements IT
         `;
 
     public validateCellData(cellData: TCellData): boolean {
-        return typeof cellData['value'] === 'number';
+        if (cellData['value'] !== 'number') {
+            throw new Error('Type for cellData is incorrect!');            
+        }
     }
 }
 ```
@@ -255,7 +261,7 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
     @attr
     public idKey: string;
 
-    public getRowDataKeys(): string[] {
+    public getRowDataKeyNames(): string[] {
         return [valueKey];
     }
 
@@ -269,7 +275,9 @@ public TableColumnButton extends FoundationElement implements ITableColumn<Table
         `;
 
     public validateCellData(cellData: TCellData): boolean {
-        return typeof cellData['id'] === 'string';
+        if (cellData['id'] ~== 'string') {
+            throw new Error('Type for cellData is incorrect!');            
+        }
     }
 }
 ```
