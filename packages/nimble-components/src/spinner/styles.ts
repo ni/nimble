@@ -13,55 +13,13 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        width: 32px;
-        height: 32px;
-        place-content: center;
-        flex-wrap: wrap;
-    }
-
-    :host([size='x-small']) {
         width: 16px;
         height: 16px;
     }
 
-    :host([size='medium']) {
-        width: 48px;
-        height: 48px;
-    }
-
-    :host([size='large']) {
-        width: 64px;
-        height: 64px;
-    }
-
-    :host([size='x-large']) {
-        width: 96px;
-        height: 96px;
-    }
-
-    :host([size='xx-large']) {
-        width: 128px;
-        height: 128px;
-    }
-
     div.container {
-        width: 87.5%;
-        height: 87.5%;
-    }
-
-    :host([size='small']) div.container {
-        width: 12px;
-        height: 12px;
-    }
-
-    :host([size='medium']) div.container {
-        width: 40px;
-        height: 40px;
-    }
-
-    :host([size='x-large']) div.container {
-        width: 80px;
-        height: 80px;
+        margin: max(2px, 6.25%);
+        flex: 1;
     }
 
     div.bit1,

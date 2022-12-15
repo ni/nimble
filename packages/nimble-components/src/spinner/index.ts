@@ -1,13 +1,6 @@
-import { attr } from '@microsoft/fast-element';
-import {
-    applyMixins,
-    ARIAGlobalStatesAndProperties,
-    DesignSystem,
-    FoundationElement
-} from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import type { SpinnerSize } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,25 +9,10 @@ declare global {
 }
 
 /**
- * Spinner
+ * A Nimble-styled spinner component.
+ * A spinner is an animating indicator that can be placed in a particular region of a page to represent loading progress, or an ongoing operation, of an indeterminate / unknown duration.
  */
-export class Spinner extends FoundationElement {
-    /**
-     * The size of the spinner (preset size options chosen by designers).
-     * If unset, the spinner will scale based on its width/height styles,
-     * or will be size 32x32 if not specified.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: size
-     */
-    @attr
-    public size: SpinnerSize;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Spinner extends ARIAGlobalStatesAndProperties {}
-applyMixins(Spinner, ARIAGlobalStatesAndProperties);
+export class Spinner extends FoundationElement {}
 
 const nimbleSpinner = Spinner.compose({
     baseName: 'spinner',

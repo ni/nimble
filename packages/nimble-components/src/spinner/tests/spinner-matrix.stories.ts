@@ -1,6 +1,5 @@
 import type { Story, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import { withXD } from 'storybook-addon-xd-designs';
 import {
     createMatrix,
@@ -10,7 +9,6 @@ import {
     createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
-import { SpinnerSize } from '../types';
 import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
@@ -29,16 +27,17 @@ const metadata: Meta = {
 
 export default metadata;
 
-const sizeStates: [string, string | undefined][] = Object.entries(
-    SpinnerSize
-).map(([key, value]) => [pascalCase(key), value]);
+const sizeStates = [
+    ['16x16', 'width: 16px; height: 16px'],
+    ['32x32', 'width: 32px; height: 32px']
+];
 type SizeState = typeof sizeStates[number];
 
 const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
         ${() => stateName}
     </span>
-    <nimble-spinner size="${() => state}"></nimble-spinner>
+    <nimble-spinner style="${() => state}"></nimble-spinner>
 `;
 
 export const spinnerThemeMatrix: Story = createMatrixThemeStory(

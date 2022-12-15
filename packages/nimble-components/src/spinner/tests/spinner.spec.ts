@@ -38,10 +38,10 @@ describe('Spinner', () => {
             );
         });
 
-        it('should have size 32x32 if the size attribute is unset', () => {
+        it('should have size 16x16 by default', () => {
             const spinnerStyle = getComputedStyle(element);
-            expect(spinnerStyle.width).toEqual('32px');
-            expect(spinnerStyle.height).toEqual('32px');
+            expect(spinnerStyle.width).toEqual('16px');
+            expect(spinnerStyle.height).toEqual('16px');
         });
 
         it('should initially be animating forever', () => {
