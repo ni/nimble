@@ -7,8 +7,6 @@ export const styles = css`
         height: 100%;
         position: relative;
         display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .svg-root {
@@ -33,16 +31,10 @@ export const styles = css`
     }
 
     .zoom-container {
-        width: 100%;
-        height: 100%;
-        position: absolute;
     }
 
     .circle-base {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        fill: white;
+        fill: transparent;
     }
 
     .circle-drawing-path {

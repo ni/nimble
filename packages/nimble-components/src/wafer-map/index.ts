@@ -73,6 +73,7 @@ export class WaferMap extends FoundationElement {
 
     private renderQueued = false;
     private dataManager: DataManager | undefined;
+    private renderer: RenderingModule | undefined;
     private resizeObserver: ResizeObserver | undefined;
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -97,6 +98,8 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
+        if (this.observedHeight === 0 || this.observedWidth === 0) return;
+        this.renderer?.clearCanvas(this.observedWidth, this.observedHeight);
         console.log('render', this.observedHeight, this.observedWidth);
         this.dataManager = new DataManager(
             this.dies,
@@ -109,9 +112,8 @@ export class WaferMap extends FoundationElement {
             this.dieLabelsSuffix,
             this.maxCharacters
         );
-
-        const renderer = new RenderingModule(this.dataManager, this.canvas);
-        renderer.drawWafer();
+        this.renderer = new RenderingModule(this.dataManager, this.canvas);
+        this.renderer.drawWafer();
     }
 
     private quadrantChanged(): void {
@@ -151,7 +153,7 @@ export class WaferMap extends FoundationElement {
     }
 
     private observedWidthChanged(): void {
-        debugger;
+        // debugger;
         console.log('width', this.observedWidth);
         this.queueRender();
     }

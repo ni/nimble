@@ -39,12 +39,12 @@ export class RenderingModule {
         }
     }
 
-    public clearCanvas(): void {
+    public clearCanvas(width: number, height: number): void {
         this.context.clearRect(
             0,
             0,
-            this.waferData.containerDimensions.width,
-            this.waferData.containerDimensions.height
+            width,
+            height
         );
     }
 }

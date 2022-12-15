@@ -110,7 +110,7 @@ const metadata: Meta<WaferMapArgs> = {
                 :highlightedValues="${x => getHighLightedValueSets(
         x.highlightedValues,
         highLightedValueSets
-        )}"
+    )}"
             >
             </nimble-wafer-map>
         </div>
