@@ -101,7 +101,7 @@ describe('WaferMap', () => {
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('will zoom in the wafer-map', async () => {
+    it('will zoom in the wafer-map', () => {
         const initialValue = element.zoomContainer
             .getAttribute('transform')
             ?.toString();
@@ -109,14 +109,14 @@ describe('WaferMap', () => {
         element.canvas.dispatchEvent(
             new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
         );
-        await DOM.nextUpdate();
-        const newValue = element.zoomContainer
+
+        const zoomedValue = element.zoomContainer
             .getAttribute('transform')
             ?.toString();
-        expect(newValue).toBeDefined();
+        expect(zoomedValue).not.toBe(initialValue);
     });
 
-    it('will zoom out to identity', async () => {
+    it('will zoom out to identity', () => {
         const initialValue = element.zoomContainer
             .getAttribute('transform')
             ?.toString();
@@ -124,7 +124,7 @@ describe('WaferMap', () => {
         element.canvas.dispatchEvent(
             new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
         );
-        await DOM.nextUpdate();
+
         const zoomedValue = element.zoomContainer
             .getAttribute('transform')
             ?.toString();
@@ -132,14 +132,14 @@ describe('WaferMap', () => {
         element.canvas.dispatchEvent(
             new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
         );
-        await DOM.nextUpdate();
+
         const zoomedOut = element.zoomContainer
             .getAttribute('transform')
             ?.toString();
         expect(zoomedOut).toBe('translate(0,0) scale(1)');
     });
 
-    it('will not zoom out when at identity', async () => {
+    it('will not zoom out when at identity', () => {
         const initialValue = element.zoomContainer
             .getAttribute('transform')
             ?.toString();
@@ -147,7 +147,7 @@ describe('WaferMap', () => {
         element.canvas.dispatchEvent(
             new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
         );
-        await DOM.nextUpdate();
+
         const zoomedOut = element.zoomContainer
             .getAttribute('transform')
             ?.toString();
