@@ -29,7 +29,7 @@ export class Spinner extends FoundationElement {
      * HTML Attribute: size
      */
     @attr
-    public size: SpinnerSize | undefined;
+    public size: SpinnerSize;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
