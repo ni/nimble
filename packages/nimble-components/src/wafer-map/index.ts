@@ -59,6 +59,11 @@ export class WaferMap extends FoundationElement {
      */
     public readonly canvas!: HTMLCanvasElement;
 
+    /**
+     * @internal
+     */
+    @observable public canvasSide: number | undefined;
+
     @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     @observable public highlightedValues: string[] = [];
@@ -67,9 +72,6 @@ export class WaferMap extends FoundationElement {
         colors: [],
         values: []
     };
-
-    @observable private observedWidth = this.offsetWidth;
-    @observable private observedHeight = this.offsetHeight;
 
     private renderQueued = false;
     private dataManager: DataManager | undefined;
@@ -81,9 +83,7 @@ export class WaferMap extends FoundationElement {
             const entry = entries[0];
             if (entry === undefined) return;
             const { height, width } = entry.contentRect;
-            console.log(width, height);
-            this.observedWidth = width;
-            this.observedHeight = height;
+            this.canvasSide = Math.min(height, width);
         });
         this.resizeObserver.observe(this);
         this.queueRender();
@@ -98,13 +98,12 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        if (this.observedHeight === 0 || this.observedWidth === 0) return;
-        this.renderer?.clearCanvas(this.observedWidth, this.observedHeight);
-        console.log('render', this.observedHeight, this.observedWidth);
+        if (this.canvasSide === undefined || this.canvasSide === 0) return;
+        // this.renderer?.clearCanvas(this.canvasSide, this.canvasSide);
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
-            { width: this.observedWidth, height: this.observedHeight },
+            { width: this.canvasSide, height: this.canvasSide },
             this.colorScale,
             this.highlightedValues,
             this.colorScaleMode,
@@ -152,14 +151,8 @@ export class WaferMap extends FoundationElement {
         this.queueRender();
     }
 
-    private observedWidthChanged(): void {
-        // debugger;
-        console.log('width', this.observedWidth);
-        this.queueRender();
-    }
-
-    private observedHeightChanged(): void {
-        console.log('height', this.observedHeight);
+    private canvasSideChanged(): void {
+        console.log('side', this.canvasSide);
         this.queueRender();
     }
 

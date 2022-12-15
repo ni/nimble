@@ -6,12 +6,15 @@ export const styles = css`
         width: 100%;
         height: 100%;
         position: relative;
-        display: flex;
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
     }
 
     .svg-root {
         width: 100%;
         height: 100%;
+        position: absolute;
     }
 
     .svg-root.top {
@@ -31,9 +34,15 @@ export const styles = css`
     }
 
     .zoom-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
     }
 
     .circle-base {
+        width: 100%;
+        height: 100%;
+        position: absolute;
         fill: transparent;
     }
 
@@ -44,9 +53,13 @@ export const styles = css`
         stroke: ${borderColor};
     }
 
-    .wafer-map-canvas {
-        width: 100%;
-        height: 100%;
+    .wafer-map-area {
         position: absolute;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .wafer-map-canvas {
+        display: inline-block;
     }
 `;
