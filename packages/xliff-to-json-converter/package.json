@@ -25,8 +25,8 @@
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
-    "@ni/eslint-config-javascript": "^4.0.0",
-    "@ni/eslint-config-typescript": "^4.1.0",
+    "@ni/eslint-config-javascript": "file:ni-eslint-config-javascript-4.0.0.tgz",
+    "@ni/eslint-config-typescript": "file:ni-eslint-config-typescript-4.1.0.tgz",
     "@types/jasmine": "^4.0.2",
     "@types/yargs": "^17.0.10",
     "jasmine": "^4.2.0",
