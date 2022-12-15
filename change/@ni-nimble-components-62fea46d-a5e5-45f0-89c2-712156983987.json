@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Adopt latest NI ESLint styleguides",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

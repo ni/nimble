@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Adopt latest NI ESLint styleguides",
+  "packageName": "@ni/xliff-to-json-converter",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
