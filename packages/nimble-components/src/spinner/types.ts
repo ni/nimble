@@ -1,9 +1,9 @@
 export const SpinnerSize = {
-    small: 'small',
-    medium: 'medium',
-    mediumLarge: 'medium-large',
-    large: 'large',
-    xLarge: 'x-large',
-    xxLarge: 'xx-large'
+    xSmall: 'x-small', // 16px
+    small: undefined, // 32px
+    medium: 'medium', // 48px
+    large: 'large', // 64px
+    xLarge: 'x-large', // 96px
+    xxLarge: 'xx-large' // 128px
 } as const;
 export type SpinnerSize = typeof SpinnerSize[keyof typeof SpinnerSize];

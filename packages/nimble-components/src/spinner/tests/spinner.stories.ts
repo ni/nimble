@@ -6,7 +6,7 @@ import { SpinnerSize } from '../types';
 import '../../all-components';
 
 interface SpinnerArgs {
-    size: string;
+    size: SpinnerSize;
 }
 
 const overviewText = 'The `nimble-spinner` is an animating indicator that can be placed in a particular region of a page to represent loading progress, or an ongoing operation, of an indeterminate / unknown duration.';
@@ -31,15 +31,15 @@ const metadata: Meta<SpinnerArgs> = {
             control: {
                 type: 'radio',
                 labels: {
-                    [SpinnerSize.small]: 'Small (16x16)',
-                    [SpinnerSize.medium]: 'Medium (32x32)',
-                    [SpinnerSize.mediumLarge]: 'Medium-Large (48x48)',
-                    [SpinnerSize.large]: 'Large (64x64)',
-                    [SpinnerSize.xLarge]: 'X-Large (96x96)',
-                    [SpinnerSize.xxLarge]: 'XX-Large (128x128)'
+                    [SpinnerSize.xSmall]: '"x-small" (16x16)',
+                    undefined: 'small (default) (32x32)',
+                    [SpinnerSize.medium]: '"medium" (48x48)',
+                    [SpinnerSize.large]: '"large" (64x64)',
+                    [SpinnerSize.xLarge]: '"x-large" (96x96)',
+                    [SpinnerSize.xxLarge]: '"xx-large" (128x128)'
                 }
             },
-            table: { defaultValue: { summary: '32x32' } },
+            table: { defaultValue: { summary: 'small (32x32)' } },
             description:
                 'If omitted, `width` and `height` can be set on the `nimble-spinner` and the animating indicator will scale based on that size.'
         }
@@ -52,7 +52,7 @@ const metadata: Meta<SpinnerArgs> = {
         </nimble-spinner>
     `),
     args: {
-        size: SpinnerSize.medium
+        size: SpinnerSize.small
     }
 };
 

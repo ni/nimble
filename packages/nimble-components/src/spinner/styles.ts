@@ -10,19 +10,21 @@ import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
-    ${display('inline-block')}
+    ${display('inline-flex')}
 
     :host {
         width: 32px;
         height: 32px;
+        place-content: center;
+        flex-wrap: wrap;
     }
 
-    :host([size='small']) {
+    :host([size='x-small']) {
         width: 16px;
         height: 16px;
     }
 
-    :host([size='medium-large']) {
+    :host([size='medium']) {
         width: 48px;
         height: 48px;
     }
@@ -45,30 +47,21 @@ export const styles = css`
     div.container {
         width: 87.5%;
         height: 87.5%;
-        top: 6.25%;
-        left: 6.25%;
-        position: relative;
     }
 
     :host([size='small']) div.container {
         width: 12px;
         height: 12px;
-        top: 2px;
-        left: 2px;
     }
 
-    :host([size='medium-large']) div.container {
+    :host([size='medium']) div.container {
         width: 40px;
         height: 40px;
-        top: 4px;
-        left: 4px;
     }
 
     :host([size='x-large']) div.container {
         width: 80px;
         height: 80px;
-        top: 8px;
-        left: 8px;
     }
 
     div.bit1,
