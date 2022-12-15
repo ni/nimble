@@ -62,11 +62,15 @@ export const comboboxAboveOpenLightThemeWhiteBackground: Story = createFixedThem
     lightThemeWhiteBackground
 );
 
-// prettier-ignore
-export const comboboxBelowOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(component(positionStates[0]), colorThemeDarkGreenBackground);
+export const comboboxBelowOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(
+    component(positionStates[0]),
+    colorThemeDarkGreenBackground
+);
 
-// prettier-ignore
-export const comboboxAboveOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(component(positionStates[1]), colorThemeDarkGreenBackground);
+export const comboboxAboveOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(
+    component(positionStates[1]),
+    colorThemeDarkGreenBackground
+);
 
 export const comboboxBelowOpenDarkThemeBlackBackground: Story = createFixedThemeStory(
     component(positionStates[0]),
