@@ -100,4 +100,57 @@ describe('WaferMap', () => {
         DOM.processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
+
+    it('will zoom in the wafer-map', async () => {
+        const initialValue = element.zoomContainer
+            .getAttribute('transform')
+            ?.toString();
+        expect(initialValue).toBe('translate(0,0) scale(1)');
+        element.canvas.dispatchEvent(
+            new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+        );
+        await DOM.nextUpdate();
+        const newValue = element.zoomContainer
+            .getAttribute('transform')
+            ?.toString();
+        expect(newValue).toBeDefined();
+    });
+
+    it('will zoom out to identity', async () => {
+        const initialValue = element.zoomContainer
+            .getAttribute('transform')
+            ?.toString();
+        expect(initialValue).toBe('translate(0,0) scale(1)');
+        element.canvas.dispatchEvent(
+            new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+        );
+        await DOM.nextUpdate();
+        const zoomedValue = element.zoomContainer
+            .getAttribute('transform')
+            ?.toString();
+        expect(zoomedValue).not.toEqual(initialValue);
+        element.canvas.dispatchEvent(
+            new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
+        );
+        await DOM.nextUpdate();
+        const zoomedOut = element.zoomContainer
+            .getAttribute('transform')
+            ?.toString();
+        expect(zoomedOut).toBe('translate(0,0) scale(1)');
+    });
+
+    it('will not zoom out when at identity', async () => {
+        const initialValue = element.zoomContainer
+            .getAttribute('transform')
+            ?.toString();
+        expect(initialValue).toBe('translate(0,0) scale(1)');
+        element.canvas.dispatchEvent(
+            new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
+        );
+        await DOM.nextUpdate();
+        const zoomedOut = element.zoomContainer
+            .getAttribute('transform')
+            ?.toString();
+        expect(zoomedOut).toBe('translate(0,0) scale(1)');
+    });
 });

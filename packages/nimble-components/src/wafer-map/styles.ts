@@ -17,23 +17,30 @@ export const styles = css`
     }
 
     .circle-base {
-        transform-origin: center;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        fill: white;
     }
 
-    .circle-base.top {
+    .top {
         transform: rotate(-90deg);
+        transform-origin: center center;
     }
 
-    .circle-base.right {
+    .right {
         transform: rotate(0deg);
+        transform-origin: center center;
     }
 
-    .circle-base.left {
+    .left {
         transform: rotate(180deg);
+        transform-origin: center center;
     }
 
-    .circle-base.bottom {
+    .bottom {
         transform: rotate(90deg);
+        transform-origin: center center;
     }
 
     .zoom-container {
