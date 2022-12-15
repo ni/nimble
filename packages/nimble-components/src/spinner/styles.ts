@@ -6,7 +6,6 @@ import {
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from '../theme-provider/types';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
@@ -20,6 +19,17 @@ export const styles = css`
     div.container {
         margin: max(2px, 6.25%);
         flex: 1;
+        ${
+            /**
+             * At some spinner sizes / browser zoom levels, the spinner bits/squares appear to slightly overlap visually.
+             * If we set a color with transparency on each bit, it'll look wrong in the overlapping region (since the opacity
+             * combines and affects the color at the overlapping spot).
+             * Currently all 3 themes use a color with opacity = 0.6, so that's applied here on the parent element instead,
+             * which avoids that issue.
+             */
+            ''
+        }
+        opacity: 0.6;
     }
 
     div.bit1,
@@ -135,21 +145,14 @@ export const styles = css`
         Theme.light,
         css`
             :host {
-                --ni-private-spinner-bits-background-color: ${hexToRgbaCssColor(
-                    Black91,
-                    0.6
-                )};
-            }
+                --ni-private-spinner-bits-background-color: ${Black91}
         `
     ),
     themeBehavior(
         Theme.dark,
         css`
             :host {
-                --ni-private-spinner-bits-background-color: ${hexToRgbaCssColor(
-                    Black15,
-                    0.6
-                )};
+                --ni-private-spinner-bits-background-color: ${Black15};
             }
         `
     ),
@@ -157,10 +160,7 @@ export const styles = css`
         Theme.color,
         css`
             :host {
-                --ni-private-spinner-bits-background-color: ${hexToRgbaCssColor(
-                    White,
-                    0.6
-                )};
+                --ni-private-spinner-bits-background-color: ${White};
             }
         `
     )
