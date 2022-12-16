@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Fixed the resizing issues",
+  "comment": "Fixed the wafermap resizing issues",
   "packageName": "@ni/nimble-components",
   "email": "denis.stavila@ni.com",
   "dependentChangeType": "patch"
