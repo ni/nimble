@@ -86,7 +86,10 @@ import {
     Information100LightUi,
     Information100DarkUi,
     DigitalGreenDark,
-    PowerGreen
+    PowerGreen,
+    GridHeaderFamily,
+    GridHeaderWeight,
+    GridHeaderSize
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -187,6 +190,10 @@ export const popupBorderColor = DesignToken.create<string>(
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
+
+export const tableRowBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tableRowBorderColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black88, ForestGreen));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
@@ -593,6 +600,26 @@ export const [
     ErrorLightUiFamily,
     ErrorLightUiWeight,
     ErrorLightUiSize,
+    TooltipCaptionLineHeight,
+    'sans-serif'
+);
+
+export const [
+    tableHeaderFont,
+    tableHeaderFontColor,
+    tableHeaderDisabledFontColor,
+    tableHeaderFontFamily,
+    tableHeaderFontWeight,
+    tableHeaderFontSize,
+    tableHeaderFontLineHeight,
+    tableHeaderFallbackFontFamily
+] = createFontTokens(
+    tokenNames.tableHeaderFont,
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    GridHeaderFamily,
+    GridHeaderWeight,
+    GridHeaderSize,
     TooltipCaptionLineHeight,
     'sans-serif'
 );
