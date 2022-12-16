@@ -25,7 +25,7 @@ export class ZoomHandler {
         private readonly renderingModule: RenderingModule
     ) {}
 
-    public attachZoomBehaviour(): void {
+    public attachZoomBehavior(): void {
         const zoomBehavior = this.createZoomBehavior();
         zoomBehavior(select(this.canvas as Element));
     }
