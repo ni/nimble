@@ -67,7 +67,7 @@ public class TableColumnTextField extends TableColumn<TableColumnTextCellData, T
         if(typeof(cellData['value']) !== 'string') {
             throw new Error('Expected cellData value type of string.');
         }
-    }  
+    }
 }
 ```
 
@@ -78,10 +78,12 @@ Other `NimbleTextField` attributes don't seem necessary to expose (beyond `place
 Instead of using a `span` in the `cellTemplate` we could use the `NimbleTextField`.
 
 Pros:
-- Ligther-weight than a FAST component, which can lead to better initialization performance, particularly with tables that use this column type for many of their columns, which is likely common.
-- Possibly a more straightforward padding behavior in that it will just use the padding provided by the cell itself to have the text of the cell properly aligned with the header content.
+
+-   Ligther-weight than a FAST component, which can lead to better initialization performance, particularly with tables that use this column type for many of their columns, which is likely common.
+-   Possibly a more straightforward padding behavior in that it will just use the padding provided by the cell itself to have the text of the cell properly aligned with the header content.
 
 Cons:
-- Once we support editable cells it's possible we would just want to use this column type to support that which would require us to use the `NimbleTextField` anyway.
-- Some of amount of duplicate styling is necessary to get the visual to look like the `NimbleTextField`
-- Some interactions that the `NimbleTextField` has, even in `read-only` mode will not be possible. Notably, the interactions that allow a user to drag-select from any part of the text to the end, even when the end is beyond the cell extents.
+
+-   Once we support editable cells it's possible we would just want to use this column type to support that which would require us to use the `NimbleTextField` anyway.
+-   Some of amount of duplicate styling is necessary to get the visual to look like the `NimbleTextField`
+-   Some interactions that the `NimbleTextField` has, even in `read-only` mode will not be possible. Notably, the interactions that allow a user to drag-select from any part of the text to the end, even when the end is beyond the cell extents.
