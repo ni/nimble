@@ -152,7 +152,6 @@ export class WaferMap extends FoundationElement {
     }
 
     private canvasSideChanged(): void {
-        console.log('side', this.canvasSide);
         if (this.canvasSide !== undefined && this.canvasSide !== 0) {
             this.canvas.width = this.canvasSide;
             this.canvas.height = this.canvasSide;
