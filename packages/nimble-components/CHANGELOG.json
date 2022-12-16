@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 16 Dec 2022 15:11:41 GMT",
+      "tag": "@ni/nimble-components_v16.1.1",
+      "version": "16.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1700ba38c27d96d123d92084664ba5e7568232fe",
+            "comment": "- Update table template to include nimble-table-row and nimble-table-cell\n - Set the appropriate ARIA roles on nimble-table and sub elements"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 16 Dec 2022 01:12:53 GMT",
       "tag": "@ni/nimble-components_v16.1.0",
       "version": "16.1.0",
