@@ -101,56 +101,50 @@ describe('WaferMap', () => {
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('will zoom in the wafer-map', () => {
-        const initialValue = element.zoomContainer
-            .getAttribute('transform')
-            ?.toString();
-        expect(initialValue).toBe('translate(0,0) scale(1)');
-        element.canvas.dispatchEvent(
-            new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
-        );
+    describe('ZoomHandler', () => {
+        let initialValue: string | undefined;
 
-        const zoomedValue = element.zoomContainer
-            .getAttribute('transform')
-            ?.toString();
-        expect(zoomedValue).not.toBe(initialValue);
+        beforeEach(() => {
+            initialValue = getTransform();
+            expect(initialValue).toBe('translate(0,0) scale(1)');
+        });
+
+        it('will zoom in the wafer-map', () => {
+            element.canvas.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+            );
+
+            const zoomedValue = getTransform();
+            expect(zoomedValue).not.toBe(initialValue);
+        });
+
+        it('will zoom out to identity', () => {
+            element.canvas.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+            );
+
+            const zoomedValue = getTransform();
+            expect(zoomedValue).not.toEqual(initialValue);
+
+            element.canvas.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
+            );
+
+            const zoomedOut = getTransform();
+            expect(zoomedOut).toBe('translate(0,0) scale(1)');
+        });
+
+        it('will not zoom out when at identity', () => {
+            element.canvas.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
+            );
+
+            const zoomedOut = getTransform();
+            expect(zoomedOut).toBe('translate(0,0) scale(1)');
+        });
     });
 
-    it('will zoom out to identity', () => {
-        const initialValue = element.zoomContainer
-            .getAttribute('transform')
-            ?.toString();
-        expect(initialValue).toBe('translate(0,0) scale(1)');
-        element.canvas.dispatchEvent(
-            new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
-        );
-
-        const zoomedValue = element.zoomContainer
-            .getAttribute('transform')
-            ?.toString();
-        expect(zoomedValue).not.toEqual(initialValue);
-        element.canvas.dispatchEvent(
-            new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
-        );
-
-        const zoomedOut = element.zoomContainer
-            .getAttribute('transform')
-            ?.toString();
-        expect(zoomedOut).toBe('translate(0,0) scale(1)');
-    });
-
-    it('will not zoom out when at identity', () => {
-        const initialValue = element.zoomContainer
-            .getAttribute('transform')
-            ?.toString();
-        expect(initialValue).toBe('translate(0,0) scale(1)');
-        element.canvas.dispatchEvent(
-            new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
-        );
-
-        const zoomedOut = element.zoomContainer
-            .getAttribute('transform')
-            ?.toString();
-        expect(zoomedOut).toBe('translate(0,0) scale(1)');
-    });
+    function getTransform(): string | undefined {
+        return element.zoomContainer.getAttribute('transform')?.toString();
+    }
 });

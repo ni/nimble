@@ -10,28 +10,27 @@ import type { DataManager } from './data-manager';
 import type { RenderingModule } from './rendering';
 
 /**
- * InteractionHandler deals with user interactions and events like zooming
+ * ZoomHandler deals with user interactions and events like zooming
  */
 export class ZoomHandler {
     private zoomTransform: ZoomTransform = zoomIdentity;
-    private readonly canvas: HTMLCanvasElement;
-    private readonly zoomContainer: HTMLElement;
-    private readonly dataManager: DataManager;
-    private readonly renderingModule: RenderingModule;
+    private readonly minScale = 1.1;
+    private readonly minExtentPoint: [number, number] = [-100, -100];
+    private readonly extentPadding = 100;
 
     public constructor(
-        canvas: HTMLCanvasElement,
-        zoomContainer: HTMLElement,
-        dataManager: DataManager,
-        renderingModule: RenderingModule
-    ) {
-        this.zoomContainer = zoomContainer;
-        this.canvas = canvas;
-        this.dataManager = dataManager;
-        this.renderingModule = renderingModule;
+        private readonly canvas: HTMLCanvasElement,
+        private readonly zoomContainer: HTMLElement,
+        private readonly dataManager: DataManager,
+        private readonly renderingModule: RenderingModule
+    ) {}
+
+    public attachZoomBehaviour(): void {
+        const zoomBehavior = this.createZoomBehavior();
+        zoomBehavior(select(this.canvas as Element));
     }
 
-    public createZoomBehavior(): ZoomBehavior<Element, unknown> {
+    private createZoomBehavior(): ZoomBehavior<Element, unknown> {
         this.canvas.addEventListener('wheel', event => event.preventDefault());
         if (this.dataManager === undefined) return zoom();
         const zoomBehavior = zoom()
@@ -43,12 +42,12 @@ export class ZoomHandler {
                 )
             ])
             .translateExtent([
-                [-100, -100],
-                [this.canvas.width + 100, this.canvas.height + 100]
+                this.minExtentPoint,
+                [this.canvas.width + this.extentPadding, this.canvas.height + this.extentPadding]
             ])
             .filter((event: Event) => {
                 const transform = zoomTransform(this.canvas);
-                return transform.k >= 1.1 || event.type === 'wheel';
+                return transform.k >= this.minScale || event.type === 'wheel';
             })
             .on('zoom', (event: { transform: ZoomTransform }) => {
                 if (this.dataManager === undefined) return;
@@ -56,7 +55,7 @@ export class ZoomHandler {
                 const canvasContext = this.canvas.getContext('2d');
                 if (canvasContext === null) return;
                 canvasContext.save();
-                if (transform.k === 1.1) {
+                if (transform.k === this.minScale) {
                     this.zoomTransform = zoomIdentity;
                     this.clearCanvas(
                         canvasContext,
