@@ -12,6 +12,7 @@ declare global {
 
 /**
  * A styled cell that is used within the nimble-table-row.
+ * @internal
  */
 export class TableCell extends FoundationElement {
     // TODO: This should be replaced with an instance of TableCellState<TCellData>

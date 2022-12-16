@@ -12,6 +12,7 @@ declare global {
 
 /**
  * A styled row that is used within the nimble-table.
+ * @internal
  */
 export class TableRow<
     TData extends TableRecord = TableRecord
