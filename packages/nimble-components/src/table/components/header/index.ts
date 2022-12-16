@@ -10,6 +10,7 @@ declare global {
 
 /**
  * A styled header that is used within the nimble-table.
+ * @internal
  */
 export class TableHeader extends FoundationElement {}
 
