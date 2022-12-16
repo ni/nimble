@@ -4,7 +4,7 @@ import { borderColor, borderWidth } from '../theme-provider/design-tokens';
 export const styles = css`
     .wafer-map-container {
         width: 100%;
-        height: 100%;
+        padding-bottom: 100%;
         position: relative;
         display: inline-block;
         justify-content: center;
