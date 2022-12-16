@@ -4,6 +4,10 @@ import type { TableHeader } from '.';
 // prettier-ignore
 export const template = html<TableHeader>`
     <template role="columnheader">
-        <slot></slot>
+        <div class="separator"></div>
+        <div class="content">
+            <slot></slot>
+        </div>
+        <div class="separator"></div>
     </template>
 `;
