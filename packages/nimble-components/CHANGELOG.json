@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 16 Dec 2022 01:12:53 GMT",
+      "tag": "@ni/nimble-components_v16.1.0",
+      "version": "16.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c50d9a2e1934141b3a5dde98ceb84c8b992f1396",
+            "comment": "Spinner component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Dec 2022 16:23:31 GMT",
+      "tag": "@ni/nimble-components_v16.0.0",
+      "version": "16.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2309a5286fadffcb97f0201c59cae8ff5c7f234c",
+            "comment": "Update storybook devDependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 15 Dec 2022 15:29:38 GMT",
       "tag": "@ni/nimble-components_v16.0.0",
       "version": "16.0.0",
