@@ -71,7 +71,7 @@ public class TableColumnTextField extends TableColumn<TableColumnTextCellData, T
 }
 ```
 
-Other `NimbleTextField` attributes don't seem necessary to expose (beyond `placeholder`) as they either relate to editable text (such as `readonly`, `disabled`, or `error-text`), or influence the width of the component (such as `size`) which should primarily be dictated through the general column API.
+Other `NimbleTextField` attributes (recognizing that the proposal isn't to use the `NimbleTextField`) don't seem necessary to expose (beyond `placeholder`) as they either relate to editable text (such as `readonly`, `disabled`, or `error-text`), or influence the width of the component (such as `size`) which should primarily be dictated through the general column API.
 
 ## Alternative Implementations / Designs
 
