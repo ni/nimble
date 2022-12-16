@@ -57,9 +57,13 @@ export const styles = css`
         position: absolute;
         justify-content: center;
         align-items: center;
+        width: 100%;
+        height: 100%
     }
     
     .wafer-map-canvas {
         display: inline-block;
+        width: inherit;
+        height: inherit;
     }
 `;
