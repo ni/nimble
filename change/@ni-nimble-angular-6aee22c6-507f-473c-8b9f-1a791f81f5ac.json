@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Angular integration for spinner",
+  "packageName": "@ni/nimble-angular",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
