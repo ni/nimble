@@ -10,9 +10,9 @@ export const template = html<Table>`
     <template role="table">
         <div class="table-container">
             <div role="rowgroup">
-                <div class="table-header-row" role="row">
+                <div class="header-row" role="row">
                     ${repeat(x => x.columnHeaders, html<string>`
-                        <${DesignSystem.tagFor(TableHeader)} class="table-header">
+                        <${DesignSystem.tagFor(TableHeader)} class="header">
                             ${x => x}
                         </${DesignSystem.tagFor(TableHeader)}>
                     `)}
