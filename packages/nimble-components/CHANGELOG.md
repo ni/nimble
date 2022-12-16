@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 16 Dec 2022 01:12:53 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Dec 2022 18:41:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.2
+
+Fri, 16 Dec 2022 18:41:04 GMT
+
+### Patches
+
+- create element for nimble-table-header ([ni/nimble@1328e1e](https://github.com/ni/nimble/commit/1328e1ed6c146b0537b4c5c46386d5c97a17052e))
+
+## 16.1.1
+
+Fri, 16 Dec 2022 15:11:41 GMT
+
+### Patches
+
+- - Update table template to include nimble-table-row and nimble-table-cell
+ - Set the appropriate ARIA roles on nimble-table and sub elements ([ni/nimble@1700ba3](https://github.com/ni/nimble/commit/1700ba38c27d96d123d92084664ba5e7568232fe))
 
 ## 16.1.0
 
