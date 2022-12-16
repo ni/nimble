@@ -16,13 +16,13 @@ export const styles = css`
         color: ${bodyFontColor};
     }
 
-    .table-header-row {
+    .header-row {
         display: flex;
         flex-direction: row;
         margin-left: calc(2 * ${borderWidth});
     }
 
-    .table-header {
+    .header {
         flex: 1;
     }
 `;
