@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "16.1.0",
+  "version": "16.1.1",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
