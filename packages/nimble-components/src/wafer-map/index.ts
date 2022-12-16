@@ -62,7 +62,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public canvasSide: number | undefined;
+    @observable public canvasSideLength: number | undefined;
 
     @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
@@ -83,7 +83,7 @@ export class WaferMap extends FoundationElement {
             const entry = entries[0];
             if (entry === undefined) return;
             const { height, width } = entry.contentRect;
-            this.canvasSide = Math.min(height, width);
+            this.canvasSideLength = Math.min(height, width);
         });
         this.resizeObserver.observe(this);
         this.queueRender();
@@ -98,12 +98,12 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        if (this.canvasSide === undefined || this.canvasSide === 0) return;
-        this.renderer?.clearCanvas(this.canvasSide, this.canvasSide);
+        if (this.canvasSideLength === undefined || this.canvasSideLength === 0) return;
+        this.renderer?.clearCanvas(this.canvasSideLength, this.canvasSideLength);
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
-            { width: this.canvasSide, height: this.canvasSide },
+            { width: this.canvasSideLength, height: this.canvasSideLength },
             this.colorScale,
             this.highlightedValues,
             this.colorScaleMode,
@@ -151,10 +151,10 @@ export class WaferMap extends FoundationElement {
         this.queueRender();
     }
 
-    private canvasSideChanged(): void {
-        if (this.canvasSide !== undefined && this.canvasSide !== 0) {
-            this.canvas.width = this.canvasSide;
-            this.canvas.height = this.canvasSide;
+    private canvasSideLengthChanged(): void {
+        if (this.canvasSideLength !== undefined && this.canvasSideLength !== 0) {
+            this.canvas.width = this.canvasSideLength;
+            this.canvas.height = this.canvasSideLength;
         }
         this.queueRender();
     }
