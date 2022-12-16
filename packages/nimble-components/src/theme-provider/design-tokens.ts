@@ -605,16 +605,16 @@ export const [
 );
 
 export const [
-    tableColumnHeaderFont,
-    tableColumnHeaderFontColor,
-    tableColumnHeaderDisabledFontColor,
-    tableColumnHeaderFontFamily,
-    tableColumnHeaderFontWeight,
-    tableColumnHeaderFontSize,
-    tableColumnHeaderFontLineHeight,
-    tableColumnHeaderFallbackFontFamily
+    tableHeaderFont,
+    tableHeaderFontColor,
+    tableHeaderDisabledFontColor,
+    tableHeaderFontFamily,
+    tableHeaderFontWeight,
+    tableHeaderFontSize,
+    tableHeaderFontLineHeight,
+    tableHeaderFallbackFontFamily
 ] = createFontTokens(
-    tokenNames.tableColumnHeaderFont,
+    tokenNames.tableHeaderFont,
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     GridHeaderFamily,

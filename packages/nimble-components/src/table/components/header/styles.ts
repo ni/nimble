@@ -3,8 +3,8 @@ import { display } from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
     controlHeight,
-    tableColumnHeaderFont,
-    tableColumnHeaderFontColor
+    tableHeaderFont,
+    tableHeaderFontColor
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -15,7 +15,7 @@ export const styles = css`
         align-items: center;
         background: ${applicationBackgroundColor};
         padding: 0px 8px;
-        font: ${tableColumnHeaderFont};
-        color: ${tableColumnHeaderFontColor};
+        font: ${tableHeaderFont};
+        color: ${tableHeaderFontColor};
     }
 `;
