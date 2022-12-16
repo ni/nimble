@@ -103,7 +103,7 @@ export class WaferMap extends FoundationElement {
             this.dataManager,
             renderer
         );
-        zoomHandler.attachZoomBehaviour();
+        zoomHandler.attachZoomBehavior();
         renderer.drawWafer();
     }
 
