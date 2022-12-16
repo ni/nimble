@@ -40,11 +40,6 @@ export class RenderingModule {
     }
 
     public clearCanvas(width: number, height: number): void {
-        this.context.clearRect(
-            0,
-            0,
-            width,
-            height
-        );
+        this.context.clearRect(0, 0, width, height);
     }
 }
