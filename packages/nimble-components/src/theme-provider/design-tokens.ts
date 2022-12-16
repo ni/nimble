@@ -86,7 +86,10 @@ import {
     Information100LightUi,
     Information100DarkUi,
     DigitalGreenDark,
-    PowerGreen
+    PowerGreen,
+    GridHeaderFamily,
+    GridHeaderWeight,
+    GridHeaderSize
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -602,6 +605,26 @@ export const [
     ErrorLightUiWeight,
     ErrorLightUiSize,
     TooltipCaptionLineHeight,
+    'sans-serif'
+);
+
+export const [
+    tableColumnHeaderFont,
+    tableColumnHeaderFontColor,
+    tableColumnHeaderDisabledFontColor,
+    tableColumnHeaderFontFamily,
+    tableColumnHeaderFontWeight,
+    tableColumnHeaderFontSize,
+    tableColumnHeaderFontLineHeight,
+    tableColumnHeaderFallbackFontFamily
+] = createFontTokens(
+    tokenNames.tableColumnHeaderFont,
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    GridHeaderFamily,
+    GridHeaderWeight,
+    GridHeaderSize,
+    Subtitle1LineHeight,
     'sans-serif'
 );
 

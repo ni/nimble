@@ -67,6 +67,14 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     headlineFontLineHeight: 'Font line height for the "Headline_1" base token',
     headlineFallbackFontFamily:
         'Fallback font family for the "Headline_1" base token',
+    tableColumnHeaderFont: 'Font shorthand for the "Grid_Header" base token',
+    tableColumnHeaderFontColor: 'Font color for the "Grid_Header" base token',
+    tableColumnHeaderDisabledFontColor: 'Disabled font color for the "Grid_Header" base token',
+    tableColumnHeaderFontFamily: 'Font family for the "Grid_Header" base token',
+    tableColumnHeaderFontSize: 'Font size for the "Grid_Header" base token',
+    tableColumnHeaderFontWeight: 'Font weight for the "Grid_Header" base token',
+    tableColumnHeaderFontLineHeight: 'Font line height for the "Grid_Header" base token',
+    tableColumnHeaderFallbackFontFamily: 'Fallback font family for the "Grid_Header" base token',
     titlePlus2Font: 'Font shorthand for the "Title_3" base token',
     titlePlus2FontColor: 'Font color for the "Title_3" base token',
     titlePlus2DisabledFontColor:

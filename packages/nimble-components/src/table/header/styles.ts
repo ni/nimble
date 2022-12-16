@@ -5,8 +5,8 @@ import {
     borderWidth,
     tableColumnHeaderSeparatorColor,
     controlHeight,
-    bodyEmphasizedFont,
-    bodyEmphasizedFontColor
+    tableColumnHeaderFont,
+    tableColumnHeaderFontColor
 } from '../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -37,8 +37,7 @@ export const styles = css`
     .content {
         flex: 1;
         padding: 0px 8px;
-        font: ${bodyEmphasizedFont};
-        color: ${bodyEmphasizedFontColor};
-        opacity: 0.6;
+        font: ${tableColumnHeaderFont};
+        color: ${tableColumnHeaderFontColor};
     }
 `;
