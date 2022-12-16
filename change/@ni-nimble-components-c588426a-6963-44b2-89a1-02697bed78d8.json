@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "- Update table template to include nimble-table-row and nimble-table-cell\n - Set the appropriate ARIA roles on nimble-table and sub elements",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
