@@ -203,7 +203,6 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     errorTextFontWeight: 'error-text-font-weight',
     errorTextFontLineHeight: 'error-text-font-line-height',
     errorTextFallbackFontFamily: 'error-text-fallback-font-family',
-    tableColumnHeaderSeparatorColor: 'table-column-header-separator-color',
     tableRowBorderColor: 'table-row-border-color'
 };
 

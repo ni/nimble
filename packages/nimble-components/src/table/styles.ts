@@ -2,8 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
-    bodyFontColor,
-    borderWidth
+    bodyFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -19,7 +18,6 @@ export const styles = css`
     .header-row {
         display: flex;
         flex-direction: row;
-        margin-left: calc(2 * ${borderWidth});
     }
 
     .header {
