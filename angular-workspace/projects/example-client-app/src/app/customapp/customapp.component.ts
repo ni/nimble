@@ -1,10 +1,17 @@
 /* eslint-disable no-alert */
 import { Component, ViewChild } from '@angular/core';
-import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, TableRecord, UserDismissed } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
     last: string;
+}
+
+interface SimpleTableRecord extends TableRecord {
+    stringValue: string;
+    numberValue: number;
+    dateValue: Date;
+    booleanValue: boolean;
 }
 
 @Component({
@@ -27,6 +34,15 @@ export class CustomAppComponent {
     public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
     public selectedRadio = 'mango';
+
+    public tableData: SimpleTableRecord[] = [
+        { stringValue: 'hello world', numberValue: 7, dateValue: new Date(2022, 12, 6), booleanValue: true },
+        { stringValue: 'foo', numberValue: 0, dateValue: new Date(2014, 2, 2), booleanValue: true },
+        { stringValue: 'bar', numberValue: 20, dateValue: new Date(2022, 7, 30), booleanValue: false },
+        { stringValue: 'baz', numberValue: -3, dateValue: new Date(2001, 5, 16), booleanValue: true },
+        { stringValue: 'abc 123 456', numberValue: 16, dateValue: new Date(2019, 1, 31), booleanValue: false },
+        { stringValue: 'last row', numberValue: 999, dateValue: new Date(2021, 12, 31), booleanValue: true }
+    ];
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
@@ -64,5 +80,14 @@ export class CustomAppComponent {
 
     public onTabToolbarButtonClick(): void {
         alert('Tab toolbar button clicked');
+    }
+
+    public onAddTableRow(): void {
+        this.tableData = [...this.tableData, {
+            stringValue: `new string ${this.tableData.length}`,
+            numberValue: this.tableData.length,
+            booleanValue: true,
+            dateValue: new Date()
+        }];
     }
 }

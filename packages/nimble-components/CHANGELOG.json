@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 16 Dec 2022 15:11:41 GMT",
+      "tag": "@ni/nimble-components_v16.1.1",
+      "version": "16.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1700ba38c27d96d123d92084664ba5e7568232fe",
+            "comment": "- Update table template to include nimble-table-row and nimble-table-cell\n - Set the appropriate ARIA roles on nimble-table and sub elements"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Dec 2022 01:12:53 GMT",
+      "tag": "@ni/nimble-components_v16.1.0",
+      "version": "16.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c50d9a2e1934141b3a5dde98ceb84c8b992f1396",
+            "comment": "Spinner component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Dec 2022 16:23:31 GMT",
+      "tag": "@ni/nimble-components_v16.0.0",
+      "version": "16.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2309a5286fadffcb97f0201c59cae8ff5c7f234c",
+            "comment": "Update storybook devDependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Dec 2022 15:29:38 GMT",
+      "tag": "@ni/nimble-components_v16.0.0",
+      "version": "16.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8696c6a91c611c6845df3d4166900c08aa30e6be",
+            "comment": "Table Column HLD"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 14 Dec 2022 14:40:50 GMT",
+      "tag": "@ni/nimble-components_v16.0.0",
+      "version": "16.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "274bb9d4558c6fc414d23c35b286d70c339e4d90",
+            "comment": "Update table data API HLD with new terminology for records and fields"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Dec 2022 22:11:51 GMT",
       "tag": "@ni/nimble-components_v16.0.0",
       "version": "16.0.0",
