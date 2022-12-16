@@ -624,7 +624,7 @@ export const [
     GridHeaderFamily,
     GridHeaderWeight,
     GridHeaderSize,
-    Subtitle1LineHeight,
+    TooltipCaptionLineHeight,
     'sans-serif'
 );
 
