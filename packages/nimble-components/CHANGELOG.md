@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 13 Dec 2022 22:11:51 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Dec 2022 01:12:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.0
+
+Fri, 16 Dec 2022 01:12:53 GMT
+
+### Minor changes
+
+- Spinner component ([ni/nimble@c50d9a2](https://github.com/ni/nimble/commit/c50d9a2e1934141b3a5dde98ceb84c8b992f1396))
 
 ## 16.0.0
 
