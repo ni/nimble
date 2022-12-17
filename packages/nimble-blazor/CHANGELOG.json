@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Sat, 17 Dec 2022 01:10:46 GMT",
+      "tag": "@ni/nimble-blazor_v9.2.0",
+      "version": "9.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "d415c78ce868a56367e0c77df766be2fbceb4750",
+            "comment": "Blazor integration for spinner"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Dec 2022 15:17:52 GMT",
       "tag": "@ni/nimble-blazor_v9.1.17",
       "version": "9.1.17",

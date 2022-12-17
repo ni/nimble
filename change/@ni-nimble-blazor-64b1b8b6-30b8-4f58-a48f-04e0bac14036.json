@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Blazor integration for spinner",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
