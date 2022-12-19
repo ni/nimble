@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Text.Json;
 using Bunit;
 using Xunit;
-
+#nullable enable
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
