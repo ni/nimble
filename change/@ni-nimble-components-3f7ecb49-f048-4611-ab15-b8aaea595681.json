@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Basic TanStack integration with nimble-table",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
