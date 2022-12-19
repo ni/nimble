@@ -54,10 +54,10 @@ namespace Demo.Shared.Pages
             await _drawer!.CloseAsync(reason);
         }
 
-        public void UpdateTableData(int numRows)
+        public void UpdateTableData(int numberOfRows)
         {
-            var tableData = new Person[numRows];
-            for (int i = 0; i < numRows; i++)
+            var tableData = new Person[numberOfRows];
+            for (int i = 0; i < numberOfRows; i++)
             {
                 var birthDay = Faker.DateOfBirth.Next();
                 tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last(), birthDay);
@@ -74,7 +74,6 @@ namespace Demo.Shared.Pages
             FirstName = firstName;
             LastName = lastName;
             BirthDay = birthday.ToShortDateString();
-
         }
 
         public string FirstName { get; }

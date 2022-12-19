@@ -1,8 +1,8 @@
-﻿using Bunit;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text.Json;
+using Bunit;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
@@ -31,7 +31,7 @@ public class NimbleTableTests
             LastName = lastName;
             Parent = parent;
         }
-        public string FirstName {  get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public BadTableRecord? Parent { get; set; }
     }
