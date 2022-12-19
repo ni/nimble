@@ -17,6 +17,7 @@ export class ZoomHandler {
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
+    private zoomBehavior: ZoomBehavior<Element, unknown> | undefined;
 
     public constructor(
         private readonly canvas: HTMLCanvasElement,
@@ -26,8 +27,30 @@ export class ZoomHandler {
     ) {}
 
     public attachZoomBehavior(): void {
-        const zoomBehavior = this.createZoomBehavior();
-        zoomBehavior(select(this.canvas as Element));
+        this.zoomBehavior = this.createZoomBehavior();
+        this.zoomBehavior(select(this.canvas as Element));
+    }
+
+    public resetTransform(): void {
+        const canvasContext = this.canvas.getContext('2d');
+        if (canvasContext === null) return;
+        this.zoomTransform = zoomIdentity;
+        this.clearCanvas(
+            canvasContext,
+            this.canvas.width,
+            this.canvas.height
+        );
+        this.scaleCanvas(
+            canvasContext,
+            zoomIdentity.x,
+            zoomIdentity.y,
+            zoomIdentity.k
+        );
+        this.renderingModule.drawWafer();
+        this.zoomBehavior?.transform(
+            select(this.canvas as Element),
+            zoomIdentity
+        );
     }
 
     private createZoomBehavior(): ZoomBehavior<Element, unknown> {
@@ -60,23 +83,7 @@ export class ZoomHandler {
                 if (canvasContext === null) return;
                 canvasContext.save();
                 if (transform.k === this.minScale) {
-                    this.zoomTransform = zoomIdentity;
-                    this.clearCanvas(
-                        canvasContext,
-                        this.canvas.width,
-                        this.canvas.height
-                    );
-                    this.scaleCanvas(
-                        canvasContext,
-                        zoomIdentity.x,
-                        zoomIdentity.y,
-                        zoomIdentity.k
-                    );
-                    this.renderingModule.drawWafer();
-                    zoomBehavior.transform(
-                        select(this.canvas as Element),
-                        zoomIdentity
-                    );
+                    this.resetTransform();
                 } else {
                     this.zoomTransform = transform;
                     this.clearCanvas(

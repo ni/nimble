@@ -3,7 +3,7 @@ import type { WaferMap } from '.';
 
 export const template = html<WaferMap>`
     <div class="wafer-map-container">
-        <svg class="svg-root ${x => x.orientation}">
+        <svg class="svg-root">
             <g class="zoom-container"  ${ref('zoomContainer')}>   
                 <g class="${x => x.orientation}">            
                     <svg
