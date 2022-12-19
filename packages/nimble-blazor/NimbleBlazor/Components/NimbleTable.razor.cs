@@ -25,7 +25,7 @@ public partial class NimbleTable<TData> : ComponentBase
     /// Gets or sets the data for the table.
     /// </summary>
     [Parameter]
-    public IEnumerable<TData>? Data { get; set; }
+    public IEnumerable<TData> Data { get; set; } = Enumerable.Empty<TData>();
 
     /// <summary>
     /// Gets or sets a callback that's invoked when the data changes
