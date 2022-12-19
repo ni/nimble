@@ -7,13 +7,13 @@ import replace from '@rollup/plugin-replace';
 const umdDevelopmentPlugin = () => replace({
     'process.env.NODE_ENV': `"${'development'}"`,
     delimiters: ['', ''],
-    preventAssignment: true,
+    preventAssignment: true
 });
 
 const umdProductionPlugin = () => replace({
     'process.env.NODE_ENV': `'${'production'}'`,
     delimiters: ['', ''],
-    preventAssignment: true,
+    preventAssignment: true
 });
 
 // eslint-disable-next-line import/no-default-export
