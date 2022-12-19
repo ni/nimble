@@ -1,11 +1,14 @@
-﻿using System.Diagnostics;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTable : ComponentBase
+/// <summary>
+/// A table component
+/// </summary>
+/// <typeparam name="TData">Represents the type for a row of data in the table (an element of the <see cref="Data"/>).</typeparam>
+public partial class NimbleTable<TData> : ComponentBase
 {
     private ElementReference _table;
     internal static string SetTableDataMethodName = "NimbleBlazor.Table.setData";
@@ -14,13 +17,26 @@ public partial class NimbleTable : ComponentBase
     private IJSRuntime? JSRuntime { get; set; }
 
     [Parameter]
-    public IEnumerable<object>? Data { get; set; }
+    public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the data for the table.
+    /// </summary>
     [Parameter]
-    public EventCallback<IEnumerable<object>?> DataChanged { get; set; }
+    public IEnumerable<TData>? Data { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that's invoked when the data changes
+    /// </summary>
+    [Parameter]
+    public EventCallback<IEnumerable<TData>?> DataChanged { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        return JSRuntime!.InvokeVoidAsync(SetTableDataMethodName, JsonSerializer.Serialize(Data), _table).AsTask();
+        var options = new JsonSerializerOptions { MaxDepth = 3 };
+        return JSRuntime!.InvokeVoidAsync(SetTableDataMethodName, JsonSerializer.Serialize(Data, options), _table).AsTask();
     }
 }

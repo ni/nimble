@@ -1,6 +1,5 @@
-﻿using Faker;
+﻿using System.Diagnostics.CodeAnalysis;
 using NimbleBlazor;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Shared.Pages
 {
@@ -17,18 +16,12 @@ namespace Demo.Shared.Pages
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
 
-        private Person[] _persons = new Person[10000];
-
         [NotNull]
-        public IEnumerable<object> TableData { get; set; }
+        public IEnumerable<Person> TableData { get; set; } = Enumerable.Empty<Person>();
 
         public ComponentsDemo()
         {
             UpdateTableData(10);
-            for (int i = 0; i < 10000; i++)
-            {
-                _persons[i] = new Person(Faker.Name.First(), Faker.Name.Last());
-            }
         }
 
         private string DrawerLocationAsString
@@ -64,32 +57,29 @@ namespace Demo.Shared.Pages
         public void UpdateTableData(int numRows)
         {
             var tableData = new Person[numRows];
-            if (numRows != 10000)
+            for (int i = 0; i < numRows; i++)
             {
-                for (int i = 0; i < numRows; i++)
-                {
-                    tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last());
-                }
-            }
-            else
-            {
-                tableData = _persons;
+                var birthDay = Faker.DateOfBirth.Next();
+                tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last(), birthDay);
             }
 
             TableData = tableData;
         }
+    }
 
-        private class Person
+    public class Person
+    {
+        public Person(string firstName, string lastName, DateTime birthday)
         {
-            public Person(string firstName, string lastName)
-            {
-                FirstName = firstName;
-                LastName = lastName;
-            }
+            FirstName = firstName;
+            LastName = lastName;
+            BirthDay = birthday.ToShortDateString();
 
-            public string FirstName { get; }
-            public string LastName { get; }
         }
+
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string BirthDay { get; }
     }
 
     public enum DialogResult
