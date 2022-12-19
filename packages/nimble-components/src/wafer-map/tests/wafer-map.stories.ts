@@ -96,9 +96,8 @@ const metadata: Meta<WaferMapArgs> = {
             WARNING - The wafermap is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <div style="width: 500px; height: 500px; overflow: auto; resize:both;">
+        <div class="wrapper">
             <nimble-wafer-map
-                style="display: inline-block; width: 100%; height: 100%"
                 colors-scale-mode="${x => x.colorScaleMode}"
                 ?die-labels-hidden="${x => x.dieLabelsHidden}"
                 die-labels-suffix="${x => x.dieLabelsSuffix}"
@@ -115,6 +114,10 @@ const metadata: Meta<WaferMapArgs> = {
             </nimble-wafer-map>
         </div>
         <style class="code-hide">
+            .wrapper{
+                width: 50vw ;
+                height: 50vh;
+            }
             #usage-warning {
                 color: red;
                 font: var(${bodyFont.cssCustomProperty});

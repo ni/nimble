@@ -2,6 +2,13 @@ import { css } from '@microsoft/fast-element';
 import { borderColor, borderWidth } from '../theme-provider/design-tokens';
 
 export const styles = css`
+
+    :host {
+        display: inline-block; 
+        width: 100%; 
+        height: 100%
+    }
+
     .wafer-map-container {
         width: 100%;
         padding-bottom: 100%;
