@@ -36,7 +36,8 @@ public partial class NimbleTable<TData> : ComponentBase
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
-    /// <exception cref="JsonException">Provided Data is unsupported</exception>
+    /// <inheritdoc/>
+    /// <exception cref="JsonException"></exception>
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
         var options = new JsonSerializerOptions { MaxDepth = 3 };
