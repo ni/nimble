@@ -8,8 +8,8 @@ export const template = html<WaferMap>`
                 <!-- <svg class="circle-base" version="1.1" x="0px" y="0px" viewbox="0 0 22.07 22.05">
                     <path class="circle-drawing-path" d="m 22 11.55 a 11 11 330 1 1 0 -1 a 0.5 0.5 0 0 0 0 1"/>
                 </svg> -->
-                <svg class="circle-base" version="1.1" x="0px" y="0px" viewbox="0 0 40 40">
-                    <path class="circle-drawing-path" d="m 40 20.5 a 20 20 330 1 1 0 -1 a 0.5 0.5 0 0 0 0 1"/>
+                <svg class="circle-base" version="1.1" x="0px" y="0px" viewbox="0 0 41 41">
+                    <path class="circle-drawing-path" d="m 40.5 21 a 20 20 1 1 1 0 -1 a 0.5 0.5 0 0 0 0 1"/>
                 </svg>
             </g>
         </svg>
