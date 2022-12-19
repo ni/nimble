@@ -31,7 +31,7 @@ public partial class NimbleTable<TData> : ComponentBase
     /// Gets or sets a callback that's invoked when the data changes
     /// </summary>
     [Parameter]
-    public EventCallback<IEnumerable<TData>?> DataChanged { get; set; }
+    public EventCallback<IEnumerable<TData>> DataChanged { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
