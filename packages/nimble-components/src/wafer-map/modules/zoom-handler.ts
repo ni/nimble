@@ -38,12 +38,16 @@ export class ZoomHandler {
                 1.1,
                 this.getZoomMax(
                     this.canvas.width * this.canvas.height,
-                    this.dataManager.containerDimensions.width * this.dataManager.containerDimensions.height
+                    this.dataManager.containerDimensions.width
+                        * this.dataManager.containerDimensions.height
                 )
             ])
             .translateExtent([
                 this.minExtentPoint,
-                [this.canvas.width + this.extentPadding, this.canvas.height + this.extentPadding]
+                [
+                    this.canvas.width + this.extentPadding,
+                    this.canvas.height + this.extentPadding
+                ]
             ])
             .filter((event: Event) => {
                 const transform = zoomTransform(this.canvas);

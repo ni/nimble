@@ -106,7 +106,7 @@ describe('WaferMap', () => {
 
         beforeEach(() => {
             initialValue = getTransform();
-            expect(initialValue).toBe('translate(0,0) scale(1)');
+            expect(initialValue).not.toBeDefined();
         });
 
         it('will zoom in the wafer-map', () => {
@@ -124,7 +124,7 @@ describe('WaferMap', () => {
             );
 
             const zoomedValue = getTransform();
-            expect(zoomedValue).not.toEqual(initialValue);
+            expect(zoomedValue).not.toEqual('translate(0,0) scale(1)');
 
             element.canvas.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
