@@ -8,6 +8,8 @@ namespace NimbleBlazor;
 /// A table component
 /// </summary>
 /// <typeparam name="TData">Represents the type for a row of data in the table (an element of the <see cref="Data"/>).</typeparam>
+/// <remarks>The type represented by <see cref="TData"/> should not have any hierarchy. All aspects that can be serialized
+/// should be at the top-level.</remarks>
 public partial class NimbleTable<TData> : ComponentBase
 {
     private ElementReference _table;
@@ -34,6 +36,7 @@ public partial class NimbleTable<TData> : ComponentBase
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
+    /// <exception cref="JsonException">Provided Data is unsupported</exception>
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
         var options = new JsonSerializerOptions { MaxDepth = 3 };
