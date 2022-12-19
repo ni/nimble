@@ -17,11 +17,6 @@ export const styles = css`
         flex-direction: row;
     }
 
-    .table-row {
-        display: flex;
-        flex-direction: row;
-    }
-
     .table-cell {
         flex: 1;
     }

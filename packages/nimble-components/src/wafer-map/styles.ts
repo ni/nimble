@@ -3,10 +3,10 @@ import { borderColor, borderWidth } from '../theme-provider/design-tokens';
 
 export const styles = css`
     .wafer-map-container {
-        width: 500px;
-        height: 500px;
+        width: 100%;
+        padding-bottom: 100%;
         position: relative;
-        display: flex;
+        display: inline-block;
         justify-content: center;
         align-items: center;
     }
@@ -14,6 +14,7 @@ export const styles = css`
     .svg-root {
         width: 100%;
         height: 100%;
+        position: absolute;
     }
 
     .circle-base {
@@ -46,13 +47,14 @@ export const styles = css`
     .zoom-container {
         width: 100%;
         height: 100%;
+        position: absolute;
     }
 
     .circle-base {
         width: 100%;
         height: 100%;
         position: absolute;
-        fill: white;
+        fill: transparent;
     }
 
     .circle-drawing-path {
@@ -64,5 +66,15 @@ export const styles = css`
 
     .wafer-map-area {
         position: absolute;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .wafer-map-canvas {
+        display: inline-block;
+        width: inherit;
+        height: inherit;
     }
 `;

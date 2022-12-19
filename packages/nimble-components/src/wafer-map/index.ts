@@ -62,6 +62,11 @@ export class WaferMap extends FoundationElement {
 
     public readonly zoomContainer!: HTMLElement;
 
+    /**
+     * @internal
+     */
+    @observable public canvasSideLength: number | undefined;
+
     @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     @observable public highlightedValues: string[] = [];
@@ -73,10 +78,22 @@ export class WaferMap extends FoundationElement {
 
     private renderQueued = false;
     private dataManager: DataManager | undefined;
-
+    private renderer: RenderingModule | undefined;
+    private resizeObserver: ResizeObserver | undefined;
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.resizeObserver = new ResizeObserver(entries => {
+            const entry = entries[0];
+            if (entry === undefined) return;
+            const { height, width } = entry.contentRect;
+            this.canvasSideLength = Math.min(height, width);
+        });
+        this.resizeObserver.observe(this);
         this.queueRender();
+    }
+
+    public override disconnectedCallback(): void {
+        this.resizeObserver?.unobserve(this);
     }
 
     /**
@@ -84,10 +101,12 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
+        if (this.canvasSideLength === undefined || this.canvasSideLength === 0) return;
+        this.renderer?.clearCanvas(this.canvasSideLength, this.canvasSideLength);
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
-            { width: 500, height: 500 },
+            { width: this.canvasSideLength, height: this.canvasSideLength },
             this.colorScale,
             this.highlightedValues,
             this.colorScaleMode,
@@ -96,15 +115,15 @@ export class WaferMap extends FoundationElement {
             this.maxCharacters
         );
 
-        const renderer = new RenderingModule(this.dataManager, this.canvas);
+        this.renderer = new RenderingModule(this.dataManager, this.canvas);
         const zoomHandler = new ZoomHandler(
             this.canvas,
             this.zoomContainer,
             this.dataManager,
-            renderer
+            this.renderer
         );
         zoomHandler.attachZoomBehavior();
-        renderer.drawWafer();
+        this.renderer.drawWafer();
     }
 
     private quadrantChanged(): void {
@@ -140,6 +159,14 @@ export class WaferMap extends FoundationElement {
     }
 
     private colorScaleChanged(): void {
+        this.queueRender();
+    }
+
+    private canvasSideLengthChanged(): void {
+        if (this.canvasSideLength !== undefined && this.canvasSideLength !== 0) {
+            this.canvas.width = this.canvasSideLength;
+            this.canvas.height = this.canvasSideLength;
+        }
         this.queueRender();
     }
 
