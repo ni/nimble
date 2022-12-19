@@ -5,7 +5,6 @@ import {
     observable
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { select } from 'd3-selection';
 import { template } from './template';
 import { styles } from './styles';
 import {
@@ -98,8 +97,13 @@ export class WaferMap extends FoundationElement {
         );
 
         const renderer = new RenderingModule(this.dataManager, this.canvas);
-        const zoomHandler = new ZoomHandler(this.canvas, this.zoomContainer, this.dataManager, renderer);
-        zoomHandler.createZoomBehavior()(select(this.canvas as Element));
+        const zoomHandler = new ZoomHandler(
+            this.canvas,
+            this.zoomContainer,
+            this.dataManager,
+            renderer
+        );
+        zoomHandler.attachZoomBehavior();
         renderer.drawWafer();
     }
 

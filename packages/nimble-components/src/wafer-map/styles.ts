@@ -16,20 +16,31 @@ export const styles = css`
         height: 100%;
     }
 
-    .svg-root.top {
+    .circle-base {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        fill: white;
+    }
+
+    .top {
         transform: rotate(-90deg);
+        transform-origin: center center;
     }
 
-    .svg-root.right {
+    .right {
         transform: rotate(0deg);
+        transform-origin: center center;
     }
 
-    .svg-root.left {
+    .left {
         transform: rotate(180deg);
+        transform-origin: center center;
     }
 
-    .svg-root.bottom {
+    .bottom {
         transform: rotate(90deg);
+        transform-origin: center center;
     }
 
     .zoom-container {
