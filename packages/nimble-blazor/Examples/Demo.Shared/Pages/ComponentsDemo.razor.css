@@ -64,12 +64,3 @@ example-header {
 .drawer-footer {
     gap: var(--ni-nimble-standard-padding);
 }
-
-.dialog-header {
-    font: var(--ni-nimble-title-font);
-    color: var(--ni-nimble-title-font-color);
-}
-
-.dialog-content {
-    color: var(--ni-nimble-body-font-color);
-}

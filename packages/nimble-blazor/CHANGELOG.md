@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 18 Oct 2022 19:13:04 GMT and should not be manually modified.
+This log was last generated on Sat, 17 Dec 2022 01:10:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.2.0
+
+Sat, 17 Dec 2022 01:10:46 GMT
+
+### Minor changes
+
+- Blazor integration for spinner ([ni/nimble@d415c78](https://github.com/ni/nimble/commit/d415c78ce868a56367e0c77df766be2fbceb4750))
+
+## 9.1.12
+
+Tue, 06 Dec 2022 23:46:10 GMT
+
+### Patches
+
+- Patch change to test pipeline, no changes to uptake. ([ni/nimble@5122243](https://github.com/ni/nimble/commit/51222434a77511d23ea7fcd624d4fca1b3a565d3))
 
 ## 9.1.0
 

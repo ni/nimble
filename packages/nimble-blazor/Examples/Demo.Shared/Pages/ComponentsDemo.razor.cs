@@ -59,8 +59,7 @@ namespace Demo.Shared.Pages
             var tableData = new Person[numberOfRows];
             for (int i = 0; i < numberOfRows; i++)
             {
-                var birthDay = Faker.DateOfBirth.Next();
-                tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last(), birthDay);
+                tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last());
             }
 
             TableData = tableData;
@@ -69,16 +68,14 @@ namespace Demo.Shared.Pages
 
     public class Person
     {
-        public Person(string firstName, string lastName, DateTime birthday)
+        public Person(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
-            BirthDay = birthday.ToShortDateString();
         }
 
         public string FirstName { get; }
         public string LastName { get; }
-        public string BirthDay { get; }
     }
 
     public enum DialogResult

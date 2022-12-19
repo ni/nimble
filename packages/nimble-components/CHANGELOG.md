@@ -1,8 +1,105 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 05 Dec 2022 19:44:44 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Dec 2022 21:11:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.3
+
+Fri, 16 Dec 2022 21:11:13 GMT
+
+### Patches
+
+- Implement basic styling for nimble-table ([ni/nimble@48a9d51](https://github.com/ni/nimble/commit/48a9d514b129b37e1e3faa057c024e46e358fa3a))
+
+## 16.1.2
+
+Fri, 16 Dec 2022 18:41:04 GMT
+
+### Patches
+
+- create element for nimble-table-header ([ni/nimble@1328e1e](https://github.com/ni/nimble/commit/1328e1ed6c146b0537b4c5c46386d5c97a17052e))
+
+## 16.1.1
+
+Fri, 16 Dec 2022 15:11:41 GMT
+
+### Patches
+
+- - Update table template to include nimble-table-row and nimble-table-cell
+ - Set the appropriate ARIA roles on nimble-table and sub elements ([ni/nimble@1700ba3](https://github.com/ni/nimble/commit/1700ba38c27d96d123d92084664ba5e7568232fe))
+
+## 16.1.0
+
+Fri, 16 Dec 2022 01:12:53 GMT
+
+### Minor changes
+
+- Spinner component ([ni/nimble@c50d9a2](https://github.com/ni/nimble/commit/c50d9a2e1934141b3a5dde98ceb84c8b992f1396))
+
+## 16.0.0
+
+Tue, 13 Dec 2022 22:11:51 GMT
+
+### Major changes
+
+- Implemented rendering module ([ni/nimble@8d11dc1](https://github.com/ni/nimble/commit/8d11dc1ff22a2b6d3c458359a419a4b930d738fd))
+
+### Minor changes
+
+- Anchor and Anchor Button components ([ni/nimble@ef1a9c5](https://github.com/ni/nimble/commit/ef1a9c554ad63d12a523436be7782b7d133dc19c))
+
+### Patches
+
+- Wafermap ensure rendering only happens after template construction ([ni/nimble@bb4bc33](https://github.com/ni/nimble/commit/bb4bc33dcd84cf3b50f21e47e4183eb80e4061e1))
+
+## 15.5.8
+
+Tue, 13 Dec 2022 19:56:22 GMT
+
+### Patches
+
+- - Implemented a seeded value generator for the dies (PR feedback) ([ni/nimble@4826bcb](https://github.com/ni/nimble/commit/4826bcb3e4264b76df212dc7757b568a07aa6218))
+
+## 15.5.7
+
+Mon, 12 Dec 2022 23:04:31 GMT
+
+### Patches
+
+- Changed wafer map rendering die opacity to rgba color alpha channel  ([ni/nimble@8a8410d](https://github.com/ni/nimble/commit/8a8410dcbef2a54463b0d4b4a4bc79b8a2b6792a))
+
+## 15.5.6
+
+Mon, 12 Dec 2022 18:13:52 GMT
+
+### Patches
+
+- Created render queue for wafer map component input changes ([ni/nimble@e70046b](https://github.com/ni/nimble/commit/e70046b7a09cd85253303ba5ec4bf2ab314c9c6d))
+
+## 15.5.5
+
+Fri, 09 Dec 2022 23:00:24 GMT
+
+### Patches
+
+- Basic TanStack integration with nimble-table ([ni/nimble@a4ce35d](https://github.com/ni/nimble/commit/a4ce35df8efd5b806cc0335b30a2c4764d470a8c))
+
+## 15.5.4
+
+Fri, 09 Dec 2022 11:25:00 GMT
+
+### Patches
+
+- Finished first iteration of the waferMap component and its storybook ([ni/nimble@001156d](https://github.com/ni/nimble/commit/001156d6c85f250a934ed8819b6a0650fe26eb84))
+
+## 15.5.3
+
+Wed, 07 Dec 2022 13:10:43 GMT
+
+### Patches
+
+- Created data manager module, prerendering functionality and modified some interface inputs ([ni/nimble@b7e946b](https://github.com/ni/nimble/commit/b7e946be21b68e6b871096ec587defd543d6ce32))
 
 ## 15.5.2
 

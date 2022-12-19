@@ -37,7 +37,7 @@ const data = [
         myNum: 15,
         myBool: false
     }
-];
+] as const;
 
 // prettier-ignore
 const component = (
