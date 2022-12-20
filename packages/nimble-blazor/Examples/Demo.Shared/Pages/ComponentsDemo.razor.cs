@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using NimbleBlazor;
 
 namespace Demo.Shared.Pages
@@ -16,18 +17,12 @@ namespace Demo.Shared.Pages
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
 
-        private Person[] _persons = new Person[10000];
-
         [NotNull]
         public IEnumerable<Person> TableData { get; set; } = Enumerable.Empty<Person>();
 
         public ComponentsDemo()
         {
             UpdateTableData(10);
-            for (int i = 0; i < 10000; i++)
-            {
-                _persons[i] = new Person(Faker.Name.First(), Faker.Name.Last());
-            }
         }
 
         private string DrawerLocationAsString
@@ -62,18 +57,10 @@ namespace Demo.Shared.Pages
 
         public void UpdateTableData(int numberOfRows)
         {
-            Person[] tableData;
-            if (numberOfRows < 10000)
+            var tableData = new Person[numberOfRows];
+            for (int i = 0; i < numberOfRows; i++)
             {
-                tableData = new Person[numberOfRows];
-                for (int i = 0; i < numberOfRows; i++)
-                {
-                    tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last());
-                }
-            }
-            else
-            {
-                tableData = this._persons;
+                tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last());
             }
 
             TableData = tableData;
