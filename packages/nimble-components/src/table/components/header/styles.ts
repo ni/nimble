@@ -2,10 +2,10 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     applicationBackgroundColor,
-    borderWidth,
     controlHeight,
-    fillHoverColor,
-    tableRowBorderColor
+    standardPadding,
+    tableHeaderFont,
+    tableHeaderFontColor
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -13,15 +13,10 @@ export const styles = css`
 
     :host {
         height: ${controlHeight};
+        align-items: center;
         background: ${applicationBackgroundColor};
-        border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
-    }
-
-    .cell {
-        flex: 1;
-    }
-
-    :host(:hover) .cell {
-        background: ${fillHoverColor};
+        padding: 0px calc(${standardPadding} / 2);
+        font: ${tableHeaderFont};
+        color: ${tableHeaderFontColor};
     }
 `;

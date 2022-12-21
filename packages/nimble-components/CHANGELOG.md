@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 16 Dec 2022 15:11:41 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Dec 2022 21:11:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.3
+
+Fri, 16 Dec 2022 21:11:13 GMT
+
+### Patches
+
+- Implement basic styling for nimble-table ([ni/nimble@48a9d51](https://github.com/ni/nimble/commit/48a9d514b129b37e1e3faa057c024e46e358fa3a))
+
+## 16.1.2
+
+Fri, 16 Dec 2022 18:41:04 GMT
+
+### Patches
+
+- create element for nimble-table-header ([ni/nimble@1328e1e](https://github.com/ni/nimble/commit/1328e1ed6c146b0537b4c5c46386d5c97a17052e))
 
 ## 16.1.1
 
