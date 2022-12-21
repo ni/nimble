@@ -114,8 +114,8 @@ const metadata: Meta<WaferMapArgs> = {
             </nimble-wafer-map>
         </div>
         <style class="code-hide">
-            .wrapper{
-                width: 50vw ;
+            .wrapper {
+                width: 50vw;
                 height: 50vh;
             }
             #usage-warning {

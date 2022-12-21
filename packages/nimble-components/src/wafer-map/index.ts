@@ -99,7 +99,10 @@ export class WaferMap extends FoundationElement {
     public render(): void {
         this.renderQueued = false;
         if (this.canvasSideLength === undefined || this.canvasSideLength === 0) return;
-        this.renderer?.clearCanvas(this.canvasSideLength, this.canvasSideLength);
+        this.renderer?.clearCanvas(
+            this.canvasSideLength,
+            this.canvasSideLength
+        );
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
@@ -152,7 +155,10 @@ export class WaferMap extends FoundationElement {
     }
 
     private canvasSideLengthChanged(): void {
-        if (this.canvasSideLength !== undefined && this.canvasSideLength !== 0) {
+        if (
+            this.canvasSideLength !== undefined
+            && this.canvasSideLength !== 0
+        ) {
             this.canvas.width = this.canvasSideLength;
             this.canvas.height = this.canvasSideLength;
         }
