@@ -6,7 +6,7 @@ import {
     ZoomTransform,
     zoomTransform
 } from 'd3-zoom';
-import { WaferMapQuadrant } from '../types';
+import { DieRenderInfo, WaferMapQuadrant } from '../types';
 import type { DataManager } from './data-manager';
 import type { RenderingModule } from './rendering';
 
@@ -15,8 +15,8 @@ import type { RenderingModule } from './rendering';
  */
 export class ZoomHandler {
     public transform: ZoomTransform | undefined;
-
     public zoomTransform: ZoomTransform = zoomIdentity;
+
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
@@ -29,7 +29,7 @@ export class ZoomHandler {
         private readonly dataManager: DataManager,
         private readonly quadrant: WaferMapQuadrant,
         private readonly renderingModule: RenderingModule
-    ) { }
+    ) {}
 
     public attachZoomBehavior(): void {
         const zoomBehavior = this.createZoomBehavior();
@@ -53,14 +53,14 @@ export class ZoomHandler {
         this.rect.setAttribute('opacity', '0');
         this.rect.setAttribute('pointer-events', 'none');
 
-        let tr = 0;
+        let zoomTransformK = 0;
         if (this.zoomTransform) {
-            tr = this.zoomTransform.k;
+            zoomTransformK = this.zoomTransform.k;
         }
 
         if (this.dataManager) {
-            this.rect.setAttribute('width', (this.dataManager.dieDimensions.width * tr).toString());
-            this.rect.setAttribute('height', (this.dataManager.dieDimensions.height * tr).toString());
+            this.rect.setAttribute('width', (this.dataManager.dieDimensions.width * zoomTransformK).toString());
+            this.rect.setAttribute('height', (this.dataManager.dieDimensions.height * zoomTransformK).toString());
         }
     }
 
@@ -93,10 +93,10 @@ export class ZoomHandler {
 
         // get original mouse position in case we are in zoom.
         const invertedPoint = this.zoomTransform.invert([mouseX, mouseY]);
-        const { x, y } = this.calculateDieNumber(invertedPoint[0], invertedPoint[1]);
+        const { x, y } = this.calculateDiePositionNumbers(invertedPoint[0], invertedPoint[1]);
 
         // find die by x and y.
-        const nodeData = this.dataManager.diesRenderInfo.find(die => this.calculateDieNumber(die.x, die.y).x === x && this.calculateDieNumber(die.x, die.y).y === y);
+        const nodeData = this.dataManager.diesRenderInfo.find(die => this.compareDiePosition(die, x, y));
         const nodeDataSerialized = JSON.stringify(nodeData);
         if (this.lastNodeData === nodeDataSerialized) {
             return;
@@ -110,7 +110,12 @@ export class ZoomHandler {
         }
     }
 
-    private calculateDieNumber(mouseX: number, mouseY: number): { x: number, y: number } {
+    private compareDiePosition(die: DieRenderInfo, x: number, y: number): boolean {
+        const diePositionNumbers = this.calculateDiePositionNumbers(die.x, die.y);
+        return diePositionNumbers.x === x && diePositionNumbers.y === y;
+    }
+
+    private calculateDiePositionNumbers(mouseX: number, mouseY: number): { x: number, y: number } {
         const axisLocation = this.quadrant;
         const xRoundfunction = (axisLocation === WaferMapQuadrant.bottomLeft || axisLocation === WaferMapQuadrant.topLeft) ? Math.floor : Math.ceil;
         const yRoundfunction = (axisLocation === WaferMapQuadrant.topLeft || axisLocation === WaferMapQuadrant.topRight) ? Math.floor : Math.ceil;
