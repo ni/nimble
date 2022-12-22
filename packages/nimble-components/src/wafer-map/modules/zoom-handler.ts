@@ -37,13 +37,7 @@ export class ZoomHandler {
     }
 
     public toggleHoverDie(show: boolean, x = 0, y = 0): void {
-        this.createHoverDie();
-        let tr;
-        if (this.transform) {
-            tr = this.zoomTransform;
-        }
-
-        if (show && tr) {
+        if (show) {
             this.rect.setAttribute('transform', `translate(${x},${y})`);
             this.rect.setAttribute('opacity', '0.7');
         } else {
@@ -115,7 +109,7 @@ export class ZoomHandler {
         }
     }
 
-    private calculateDieNumber(mouseX: number, mouseY: number) {
+    private calculateDieNumber(mouseX: number, mouseY: number): { x: number, y: number } {
         const axisLocation = this.quadrant;
         const xRoundfunction = (axisLocation === WaferMapQuadrant.bottomLeft || axisLocation === WaferMapQuadrant.topLeft) ? Math.floor : Math.ceil;
         const yRoundfunction = (axisLocation === WaferMapQuadrant.topLeft || axisLocation === WaferMapQuadrant.topRight) ? Math.floor : Math.ceil;
