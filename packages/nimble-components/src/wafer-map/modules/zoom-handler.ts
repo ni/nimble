@@ -6,6 +6,7 @@ import {
     ZoomTransform,
     zoomTransform
 } from 'd3-zoom';
+import { WaferMapQuadrant } from '../types';
 import type { DataManager } from './data-manager';
 import type { RenderingModule } from './rendering';
 
@@ -13,21 +14,107 @@ import type { RenderingModule } from './rendering';
  * ZoomHandler deals with user interactions and events like zooming
  */
 export class ZoomHandler {
-    private zoomTransform: ZoomTransform = zoomIdentity;
+    public transform: ZoomTransform | undefined;
+
+    public zoomTransform: ZoomTransform = zoomIdentity;
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
+    private lastNodeData = '';
 
     public constructor(
         private readonly canvas: HTMLCanvasElement,
+        private readonly rect: HTMLCanvasElement,
         private readonly zoomContainer: HTMLElement,
         private readonly dataManager: DataManager,
+        private readonly quadrant: WaferMapQuadrant,
         private readonly renderingModule: RenderingModule
-    ) {}
+    ) { }
 
     public attachZoomBehavior(): void {
         const zoomBehavior = this.createZoomBehavior();
         zoomBehavior(select(this.canvas as Element));
+    }
+
+    public toggleHoverDie(show: boolean, x = 0, y = 0): void {
+        this.createHoverDie();
+        let tr;
+        if (this.transform) {
+            tr = this.zoomTransform;
+        }
+
+        if (show && tr) {
+            this.rect.setAttribute('transform', `translate(${x},${y})`);
+            this.rect.setAttribute('opacity', '0.7');
+        } else {
+            this.rect.setAttribute('opacity', '0');
+        }
+    }
+
+    public createHoverDie(): void {
+        this.rect.setAttribute('x', '0');
+        this.rect.setAttribute('y', '0');
+        this.rect.setAttribute('fill', 'black');
+        this.rect.setAttribute('opacity', '0');
+        this.rect.setAttribute('pointer-events', 'none');
+
+        let tr = 0;
+        if (this.zoomTransform) {
+            tr = this.zoomTransform.k;
+        }
+
+        if (this.dataManager) {
+            this.rect.setAttribute('width', (this.dataManager.dieDimensions.width * tr).toString());
+            this.rect.setAttribute('height', (this.dataManager.dieDimensions.height * tr).toString());
+        }
+    }
+
+    public mousemove(event: MouseEvent): void {
+        // Get mouse position
+        const mouseX = event.offsetX;
+        const mouseY = event.offsetY;
+
+        // get color for current mouse position to verify that mouse is hovering over a die.
+        const canvasContext = this.canvas.getContext('2d');
+        if (canvasContext === null) {
+            return;
+        }
+        const col = canvasContext.getImageData(mouseX, mouseY, 1, 1).data;
+        // if sum of rgb==0 then not hovering on die
+        let rgbSum = 0;
+        if (col[0] && col[1] && col[2]) {
+            rgbSum = col[0] + col[1] + col[2];
+        }
+
+        if (rgbSum <= 0) {
+           // return;
+        }
+
+        // get original mouse position in case we are in zoom.
+        const invertedPoint = this.zoomTransform.invert([mouseX, mouseY]);
+
+        const axisLocation = this.quadrant;
+        const xRoundfunction = (axisLocation === WaferMapQuadrant.bottomLeft || axisLocation === WaferMapQuadrant.topLeft) ? Math.floor : Math.ceil;
+        const yRoundfunction = (axisLocation === WaferMapQuadrant.topLeft || axisLocation === WaferMapQuadrant.topRight) ? Math.floor : Math.ceil;
+        // go to x and y scale to get the x,y values of the die.
+        const x = xRoundfunction(this.dataManager.horizontalScale.invert(invertedPoint[0] - this.dataManager.margin.left));
+        const y = yRoundfunction(this.dataManager.verticalScale.invert(invertedPoint[1] - this.dataManager.margin.top));
+
+        // find die by x and y.
+        const nodeData = this.dataManager.diesRenderInfo.find(die => die.x === x && die.y === y);
+        const nodeDataSerialized = JSON.stringify(nodeData);
+        if (this.lastNodeData === nodeDataSerialized) {
+           // return;
+        }
+        this.lastNodeData = nodeDataSerialized;
+        if (nodeData) {
+            const transformedPoint = this.zoomTransform.apply([this.dataManager.horizontalScale(x) + this.dataManager.margin.left, this.dataManager.verticalScale(y) + this.dataManager.margin.top]);
+            this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
+        } else {
+            const transformedPoint = this.zoomTransform.apply([this.dataManager.horizontalScale(x) + this.dataManager.margin.left, this.dataManager.verticalScale(y) + this.dataManager.margin.top]);
+            this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
+            //this.toggleHoverDie(false);
+        }
     }
 
     private createZoomBehavior(): ZoomBehavior<Element, unknown> {
@@ -39,7 +126,7 @@ export class ZoomHandler {
                 this.getZoomMax(
                     this.canvas.width * this.canvas.height,
                     this.dataManager.containerDimensions.width
-                        * this.dataManager.containerDimensions.height
+                    * this.dataManager.containerDimensions.height
                 )
             ])
             .translateExtent([
@@ -50,16 +137,17 @@ export class ZoomHandler {
                 ]
             ])
             .filter((event: Event) => {
-                const transform = zoomTransform(this.canvas);
-                return transform.k >= this.minScale || event.type === 'wheel';
+                this.transform = zoomTransform(this.canvas);
+                return this.transform.k >= this.minScale || event.type === 'wheel';
             })
             .on('zoom', (event: { transform: ZoomTransform }) => {
+                this.toggleHoverDie(false);
                 if (this.dataManager === undefined) return;
-                const transform = event.transform;
+                this.transform = event.transform;
                 const canvasContext = this.canvas.getContext('2d');
                 if (canvasContext === null) return;
                 canvasContext.save();
-                if (transform.k === this.minScale) {
+                if (this.transform.k === this.minScale) {
                     this.zoomTransform = zoomIdentity;
                     this.clearCanvas(
                         canvasContext,
@@ -72,13 +160,14 @@ export class ZoomHandler {
                         zoomIdentity.y,
                         zoomIdentity.k
                     );
+                    this.createHoverDie();
                     this.renderingModule.drawWafer();
                     zoomBehavior.transform(
                         select(this.canvas as Element),
                         zoomIdentity
                     );
                 } else {
-                    this.zoomTransform = transform;
+                    this.zoomTransform = this.transform;
                     this.clearCanvas(
                         canvasContext,
                         this.canvas.width * this.zoomTransform.k,
@@ -86,10 +175,11 @@ export class ZoomHandler {
                     );
                     this.scaleCanvas(
                         canvasContext,
-                        transform.x,
-                        transform.y,
-                        transform.k
+                        this.transform.x,
+                        this.transform.y,
+                        this.transform.k
                     );
+                    this.createHoverDie();
                     this.renderingModule.drawWafer();
                 }
                 canvasContext.restore();
