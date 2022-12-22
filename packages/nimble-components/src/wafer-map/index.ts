@@ -107,9 +107,6 @@ export class WaferMap extends FoundationElement {
         this.rect.setAttribute('width', this.dataManager.dieDimensions.width.toString());
         this.rect.setAttribute('height', this.dataManager.dieDimensions.height.toString());
 
-        // this.rect.height = 22.44897959183673;
-        // this.rect.width = 22.44897959183673;
-
         const renderer = new RenderingModule(this.dataManager, this.canvas);
         const zoomHandler = new ZoomHandler(
             this.canvas,

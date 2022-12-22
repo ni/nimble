@@ -87,34 +87,42 @@ export class ZoomHandler {
         }
 
         if (rgbSum <= 0) {
+            console.log("suma 0");
            // return;
         }
 
         // get original mouse position in case we are in zoom.
         const invertedPoint = this.zoomTransform.invert([mouseX, mouseY]);
+        const { x, y } = this.calculateDieNumber(invertedPoint[0], invertedPoint[1]);
 
+        // find die by x and y.
+        const nodeData = this.dataManager.diesRenderInfo.find(die => this.calculateDieNumber(die.x, die.y).x === x && this.calculateDieNumber(die.x, die.y).y === y);
+        const nodeDataSerialized = JSON.stringify(nodeData);
+        if (this.lastNodeData === nodeDataSerialized) {
+            console.log("lastNodeData");
+            return;
+        }
+        this.lastNodeData = nodeDataSerialized;
+        if (nodeData) {
+            console.log("nodeData bun");
+            const transformedPoint = this.zoomTransform.apply([this.dataManager.horizontalScale(x) + this.dataManager.margin.left, this.dataManager.verticalScale(y) + this.dataManager.margin.top]);
+            this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
+        } else {
+            console.log("nodeData nuuuuu");
+            // const transformedPoint = this.zoomTransform.apply([this.dataManager.horizontalScale(x) + this.dataManager.margin.left, this.dataManager.verticalScale(y) + this.dataManager.margin.top]);
+            // this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
+            this.toggleHoverDie(false);
+        }
+    }
+
+    private calculateDieNumber(mouseX: number, mouseY: number) {
         const axisLocation = this.quadrant;
         const xRoundfunction = (axisLocation === WaferMapQuadrant.bottomLeft || axisLocation === WaferMapQuadrant.topLeft) ? Math.floor : Math.ceil;
         const yRoundfunction = (axisLocation === WaferMapQuadrant.topLeft || axisLocation === WaferMapQuadrant.topRight) ? Math.floor : Math.ceil;
         // go to x and y scale to get the x,y values of the die.
-        const x = xRoundfunction(this.dataManager.horizontalScale.invert(invertedPoint[0] - this.dataManager.margin.left));
-        const y = yRoundfunction(this.dataManager.verticalScale.invert(invertedPoint[1] - this.dataManager.margin.top));
-
-        // find die by x and y.
-        const nodeData = this.dataManager.diesRenderInfo.find(die => die.x === x && die.y === y);
-        const nodeDataSerialized = JSON.stringify(nodeData);
-        if (this.lastNodeData === nodeDataSerialized) {
-           // return;
-        }
-        this.lastNodeData = nodeDataSerialized;
-        if (nodeData) {
-            const transformedPoint = this.zoomTransform.apply([this.dataManager.horizontalScale(x) + this.dataManager.margin.left, this.dataManager.verticalScale(y) + this.dataManager.margin.top]);
-            this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
-        } else {
-            const transformedPoint = this.zoomTransform.apply([this.dataManager.horizontalScale(x) + this.dataManager.margin.left, this.dataManager.verticalScale(y) + this.dataManager.margin.top]);
-            this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
-            //this.toggleHoverDie(false);
-        }
+        const x = xRoundfunction(this.dataManager.horizontalScale.invert(mouseX - this.dataManager.margin.left));
+        const y = yRoundfunction(this.dataManager.verticalScale.invert(mouseY - this.dataManager.margin.top));
+        return { x, y };
     }
 
     private createZoomBehavior(): ZoomBehavior<Element, unknown> {
