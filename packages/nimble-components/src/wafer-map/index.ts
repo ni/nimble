@@ -157,7 +157,8 @@ export class WaferMap extends FoundationElement {
 const nimbleWaferMap = WaferMap.compose({
     baseName: 'wafer-map',
     template,
-    styles
+    styles,
+    mousemove: true
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleWaferMap());
