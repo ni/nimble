@@ -42,6 +42,7 @@ export class ZoomHandler {
             this.rect.setAttribute('opacity', '0.7');
         } else {
             this.rect.setAttribute('opacity', '0');
+            this.lastNodeData = '';
         }
     }
 

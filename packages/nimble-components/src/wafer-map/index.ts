@@ -120,6 +120,10 @@ export class WaferMap extends FoundationElement {
             zoomHandler.mousemove(e);
         };
 
+        this.onmouseout = () => {
+            zoomHandler.toggleHoverDie(false);
+        };
+
         zoomHandler.attachZoomBehavior();
         renderer.drawWafer();
     }
