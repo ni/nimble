@@ -76,13 +76,18 @@ export class ZoomHandler {
         const col = canvasContext.getImageData(mouseX, mouseY, 1, 1).data;
         // if sum of rgb==0 then not hovering on die
         let rgbSum = 0;
-        if (col[0] && col[1] && col[2]) {
-            rgbSum = col[0] + col[1] + col[2];
+        if (col[0]) {
+            rgbSum += col[0];
+        }
+        if (col[1]) {
+            rgbSum += col[1];
+        }
+        if (col[2]) {
+            rgbSum += col[2];
         }
 
         if (rgbSum <= 0) {
-            console.log("suma 0");
-           // return;
+            return;
         }
 
         // get original mouse position in case we are in zoom.
@@ -93,18 +98,13 @@ export class ZoomHandler {
         const nodeData = this.dataManager.diesRenderInfo.find(die => this.calculateDieNumber(die.x, die.y).x === x && this.calculateDieNumber(die.x, die.y).y === y);
         const nodeDataSerialized = JSON.stringify(nodeData);
         if (this.lastNodeData === nodeDataSerialized) {
-            console.log("lastNodeData");
             return;
         }
         this.lastNodeData = nodeDataSerialized;
         if (nodeData) {
-            console.log("nodeData bun");
             const transformedPoint = this.zoomTransform.apply([this.dataManager.horizontalScale(x) + this.dataManager.margin.left, this.dataManager.verticalScale(y) + this.dataManager.margin.top]);
             this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
         } else {
-            console.log("nodeData nuuuuu");
-            // const transformedPoint = this.zoomTransform.apply([this.dataManager.horizontalScale(x) + this.dataManager.margin.left, this.dataManager.verticalScale(y) + this.dataManager.margin.top]);
-            // this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
             this.toggleHoverDie(false);
         }
     }

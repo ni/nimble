@@ -104,9 +104,6 @@ export class WaferMap extends FoundationElement {
             this.maxCharacters
         );
 
-        this.rect.setAttribute('width', this.dataManager.dieDimensions.width.toString());
-        this.rect.setAttribute('height', this.dataManager.dieDimensions.height.toString());
-
         const renderer = new RenderingModule(this.dataManager, this.canvas);
         const zoomHandler = new ZoomHandler(
             this.canvas,
@@ -120,9 +117,7 @@ export class WaferMap extends FoundationElement {
         zoomHandler.createHoverDie();
 
         this.onmousemove = (e: MouseEvent) => {
-            console.log(e.x+ " " + e.clientX);
             zoomHandler.mousemove(e);
-            // zoomHandler.toggleHoverDie(true, e.offsetX, e.offsetY);
         };
 
         zoomHandler.attachZoomBehavior();
