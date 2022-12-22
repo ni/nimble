@@ -12,18 +12,7 @@ export const template = html<WaferMap>`
                 </g>
             </g>
             <svg width=500 height="500">
-                <rect 
-                    x="0"  
-                    y="0" 
-                    fill="black" 
-                    opacity="0.7" 
-                    width="22.44897959183673" 
-                    height="22.44897959183673" 
-                    style="pointer-events: none;" 
-                    transform="translate(148.69047619047618,70.11904761904762)"
-                    ${ref('rect')}
-                >
-                </rect>
+                <rect ${ref('rect')}/>
             </svg>
         </svg>
         <div class="wafer-map-area" style="left: 0px; top: 0px">
