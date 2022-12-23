@@ -88,19 +88,8 @@ export class ZoomHandler {
         if (canvasContext === null) {
             return;
         }
-        const col = canvasContext.getImageData(mouseX, mouseY, 1, 1).data;
-        // if sum of rgb==0 then not hovering on die
-        let rgbSum = 0;
-        if (col[0]) {
-            rgbSum += col[0];
-        }
-        if (col[1]) {
-            rgbSum += col[1];
-        }
-        if (col[2]) {
-            rgbSum += col[2];
-        }
 
+        const rgbSum = this.getRGBSum(canvasContext, mouseX, mouseY);
         if (rgbSum <= 0) {
             return;
         }
@@ -138,6 +127,22 @@ export class ZoomHandler {
         this.toggleHoverDie(false);
     }
 
+    private getRGBSum(canvasContext: CanvasRenderingContext2D, mouseX: number, mouseY: number): number {
+        const col = canvasContext.getImageData(mouseX, mouseY, 1, 1).data;
+        // if sum of rgb==0 then not hovering on die
+        let rgbSum = 0;
+        if (col[0]) {
+            rgbSum += col[0];
+        }
+        if (col[1]) {
+            rgbSum += col[1];
+        }
+        if (col[2]) {
+            rgbSum += col[2];
+        }
+        return rgbSum;
+    }
+
     private removeMouseEvents(): boolean {
         const dieSize = this.dataManager.containerDimensions.width
             * this.dataManager.containerDimensions.height
@@ -154,6 +159,7 @@ export class ZoomHandler {
             die.x,
             die.y
         );
+
         return diePositionNumbers.x === x && diePositionNumbers.y === y;
     }
 
