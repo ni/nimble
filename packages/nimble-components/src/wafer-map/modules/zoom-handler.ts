@@ -127,7 +127,11 @@ export class ZoomHandler {
         this.toggleHoverDie(false);
     }
 
-    private getRGBSum(canvasContext: CanvasRenderingContext2D, mouseX: number, mouseY: number): number {
+    private getRGBSum(
+        canvasContext: CanvasRenderingContext2D,
+        mouseX: number,
+        mouseY: number
+    ): number {
         const col = canvasContext.getImageData(mouseX, mouseY, 1, 1).data;
         // if sum of rgb==0 then not hovering on die
         let rgbSum = 0;
