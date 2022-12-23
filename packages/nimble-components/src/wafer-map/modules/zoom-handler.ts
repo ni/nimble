@@ -75,6 +75,10 @@ export class ZoomHandler {
     }
 
     public mousemove(event: MouseEvent): void {
+        if (this.removeMouseEvents()) {
+            return;
+        }
+
         // Get mouse position
         const mouseX = event.offsetX;
         const mouseY = event.offsetY;
@@ -127,6 +131,18 @@ export class ZoomHandler {
         }
     }
 
+    public mouseout(): void {
+        if (this.removeMouseEvents()) {
+            return;
+        }
+        this.toggleHoverDie(false);
+    }
+
+    private removeMouseEvents(): boolean {
+        const dieSize = this.dataManager.containerDimensions.width * this.dataManager.containerDimensions.height * (this.zoomTransform.k || 1);
+        return (dieSize < 15);
+    }
+
     private compareDiePosition(
         die: DieRenderInfo,
         x: number,
@@ -140,8 +156,8 @@ export class ZoomHandler {
     }
 
     private calculateDiePositionNumbers(
-        mouseX: number,
-        mouseY: number
+        xPosition: number,
+        yPosition: number
     ): { x: number, y: number } {
         const axisLocation = this.quadrant;
         const xRoundfunction = axisLocation === WaferMapQuadrant.bottomLeft
@@ -155,12 +171,12 @@ export class ZoomHandler {
         // go to x and y scale to get the x,y values of the die.
         const x = xRoundfunction(
             this.dataManager.horizontalScale.invert(
-                mouseX - this.dataManager.margin.left
+                xPosition - this.dataManager.margin.left
             )
         );
         const y = yRoundfunction(
             this.dataManager.verticalScale.invert(
-                mouseY - this.dataManager.margin.top
+                yPosition - this.dataManager.margin.top
             )
         );
         return { x, y };
@@ -211,8 +227,7 @@ export class ZoomHandler {
                         zoomIdentity.y,
                         zoomIdentity.k
                     );
-                    this.createHoverDie();
-                    this.renderingModule.drawWafer();
+                    this.rerender();
                     zoomBehavior.transform(
                         select(this.canvas as Element),
                         zoomIdentity
@@ -230,8 +245,7 @@ export class ZoomHandler {
                         this.transform.y,
                         this.transform.k
                     );
-                    this.createHoverDie();
-                    this.renderingModule.drawWafer();
+                    this.rerender();
                 }
                 canvasContext.restore();
                 this.zoomContainer.setAttribute(
@@ -241,6 +255,11 @@ export class ZoomHandler {
             });
 
         return zoomBehavior;
+    }
+
+    private rerender(): void {
+        this.createHoverDie();
+        this.renderingModule.drawWafer();
     }
 
     private getZoomMax(canvasArea: number, dataArea: number): number {

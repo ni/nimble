@@ -121,7 +121,7 @@ export class WaferMap extends FoundationElement {
         };
 
         this.onmouseout = () => {
-            zoomHandler.toggleHoverDie(false);
+            zoomHandler.mouseout();
         };
 
         zoomHandler.attachZoomBehavior();
