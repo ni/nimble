@@ -59,8 +59,18 @@ export class ZoomHandler {
         }
 
         if (this.dataManager) {
-            this.rect.setAttribute('width', (this.dataManager.dieDimensions.width * zoomTransformK).toString());
-            this.rect.setAttribute('height', (this.dataManager.dieDimensions.height * zoomTransformK).toString());
+            this.rect.setAttribute(
+                'width',
+                (
+                    this.dataManager.dieDimensions.width * zoomTransformK
+                ).toString()
+            );
+            this.rect.setAttribute(
+                'height',
+                (
+                    this.dataManager.dieDimensions.height * zoomTransformK
+                ).toString()
+            );
         }
     }
 
@@ -93,7 +103,10 @@ export class ZoomHandler {
 
         // get original mouse position in case we are in zoom.
         const invertedPoint = this.zoomTransform.invert([mouseX, mouseY]);
-        const { x, y } = this.calculateDiePositionNumbers(invertedPoint[0], invertedPoint[1]);
+        const { x, y } = this.calculateDiePositionNumbers(
+            invertedPoint[0],
+            invertedPoint[1]
+        );
 
         // find die by x and y.
         const nodeData = this.dataManager.diesRenderInfo.find(die => this.compareDiePosition(die, x, y));
@@ -103,25 +116,53 @@ export class ZoomHandler {
         }
         this.lastNodeData = nodeDataSerialized;
         if (nodeData) {
-            const transformedPoint = this.zoomTransform.apply([this.dataManager.horizontalScale(x) + this.dataManager.margin.left, this.dataManager.verticalScale(y) + this.dataManager.margin.top]);
+            const transformedPoint = this.zoomTransform.apply([
+                this.dataManager.horizontalScale(x)
+                    + this.dataManager.margin.left,
+                this.dataManager.verticalScale(y) + this.dataManager.margin.top
+            ]);
             this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
         } else {
             this.toggleHoverDie(false);
         }
     }
 
-    private compareDiePosition(die: DieRenderInfo, x: number, y: number): boolean {
-        const diePositionNumbers = this.calculateDiePositionNumbers(die.x, die.y);
+    private compareDiePosition(
+        die: DieRenderInfo,
+        x: number,
+        y: number
+    ): boolean {
+        const diePositionNumbers = this.calculateDiePositionNumbers(
+            die.x,
+            die.y
+        );
         return diePositionNumbers.x === x && diePositionNumbers.y === y;
     }
 
-    private calculateDiePositionNumbers(mouseX: number, mouseY: number): { x: number, y: number } {
+    private calculateDiePositionNumbers(
+        mouseX: number,
+        mouseY: number
+    ): { x: number, y: number } {
         const axisLocation = this.quadrant;
-        const xRoundfunction = (axisLocation === WaferMapQuadrant.bottomLeft || axisLocation === WaferMapQuadrant.topLeft) ? Math.floor : Math.ceil;
-        const yRoundfunction = (axisLocation === WaferMapQuadrant.topLeft || axisLocation === WaferMapQuadrant.topRight) ? Math.floor : Math.ceil;
+        const xRoundfunction = axisLocation === WaferMapQuadrant.bottomLeft
+            || axisLocation === WaferMapQuadrant.topLeft
+            ? Math.floor
+            : Math.ceil;
+        const yRoundfunction = axisLocation === WaferMapQuadrant.topLeft
+            || axisLocation === WaferMapQuadrant.topRight
+            ? Math.floor
+            : Math.ceil;
         // go to x and y scale to get the x,y values of the die.
-        const x = xRoundfunction(this.dataManager.horizontalScale.invert(mouseX - this.dataManager.margin.left));
-        const y = yRoundfunction(this.dataManager.verticalScale.invert(mouseY - this.dataManager.margin.top));
+        const x = xRoundfunction(
+            this.dataManager.horizontalScale.invert(
+                mouseX - this.dataManager.margin.left
+            )
+        );
+        const y = yRoundfunction(
+            this.dataManager.verticalScale.invert(
+                mouseY - this.dataManager.margin.top
+            )
+        );
         return { x, y };
     }
 
@@ -134,7 +175,7 @@ export class ZoomHandler {
                 this.getZoomMax(
                     this.canvas.width * this.canvas.height,
                     this.dataManager.containerDimensions.width
-                    * this.dataManager.containerDimensions.height
+                        * this.dataManager.containerDimensions.height
                 )
             ])
             .translateExtent([
@@ -146,7 +187,9 @@ export class ZoomHandler {
             ])
             .filter((event: Event) => {
                 this.transform = zoomTransform(this.canvas);
-                return this.transform.k >= this.minScale || event.type === 'wheel';
+                return (
+                    this.transform.k >= this.minScale || event.type === 'wheel'
+                );
             })
             .on('zoom', (event: { transform: ZoomTransform }) => {
                 this.toggleHoverDie(false);
