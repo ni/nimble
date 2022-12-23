@@ -139,8 +139,10 @@ export class ZoomHandler {
     }
 
     private removeMouseEvents(): boolean {
-        const dieSize = this.dataManager.containerDimensions.width * this.dataManager.containerDimensions.height * (this.zoomTransform.k || 1);
-        return (dieSize < 15);
+        const dieSize = this.dataManager.containerDimensions.width
+            * this.dataManager.containerDimensions.height
+            * (this.zoomTransform.k || 1);
+        return dieSize < 15;
     }
 
     private compareDiePosition(
