@@ -60,12 +60,20 @@ export class WaferMap extends FoundationElement {
      */
     public readonly canvas!: HTMLCanvasElement;
 
+    /**
+     * @internal
+     */
     public readonly zoomContainer!: HTMLElement;
 
     /**
      * @internal
      */
     @observable public canvasSideLength: number | undefined;
+
+    /**
+     * @internal
+     */
+    public readonly rect!: HTMLCanvasElement;
 
     @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
@@ -120,10 +128,23 @@ export class WaferMap extends FoundationElement {
         this.renderer = new RenderingModule(this.dataManager, this.canvas);
         const zoomHandler = new ZoomHandler(
             this.canvas,
+            this.rect,
             this.zoomContainer,
             this.dataManager,
+            this.quadrant,
             this.renderer
         );
+
+        zoomHandler.createHoverDie();
+
+        this.onmousemove = (e: MouseEvent) => {
+            zoomHandler.mousemove(e);
+        };
+
+        this.onmouseout = () => {
+            zoomHandler.mouseout();
+        };
+
         zoomHandler.attachZoomBehavior();
         this.renderer.drawWafer();
     }

@@ -85,4 +85,9 @@ export const styles = css`
         width: 100%;
         height: 100%;
     }
+
+    .hover-die {
+        width: 100%;
+        height: 100%;
+    }
 `;

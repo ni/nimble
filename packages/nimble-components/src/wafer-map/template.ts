@@ -10,7 +10,11 @@ export const template = html<WaferMap>`
                         <path class="circle-drawing-path" d="m 40.5 21 a 20 20 1 1 1 0 -1 a 0.5 0.5 0 0 0 0 1" />
                     </svg>
                 </g>
+
             </g>
+            <svg class="hover-die">
+                <rect ${ref('rect')}/>
+            </svg>
         </svg>
         <div class="wafer-map-area">
             <canvas class="wafer-map-canvas" ${ref('canvas')}></canvas>
