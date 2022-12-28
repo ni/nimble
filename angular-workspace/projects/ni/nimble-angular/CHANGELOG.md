@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 13 Dec 2022 22:11:51 GMT and should not be manually modified.
+This log was last generated on Sat, 17 Dec 2022 01:10:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.1.0
+
+Sat, 17 Dec 2022 01:10:46 GMT
+
+### Minor changes
+
+- Angular integration for spinner ([ni/nimble@d415c78](https://github.com/ni/nimble/commit/d415c78ce868a56367e0c77df766be2fbceb4750))
+
+## 14.0.20
+
+Fri, 16 Dec 2022 21:11:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.3
+
+## 14.0.19
+
+Fri, 16 Dec 2022 18:41:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.2
+
+## 14.0.18
+
+Fri, 16 Dec 2022 15:11:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.1
+
+## 14.0.17
+
+Fri, 16 Dec 2022 01:12:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.0
+
+## 14.0.16
+
+Wed, 14 Dec 2022 15:19:49 GMT
+
+### Patches
+
+- Angular support for nimble-table ([ni/nimble@c1b0926](https://github.com/ni/nimble/commit/c1b09266350e8fddfa76f9672e858a9319f3a784))
 
 ## 14.0.15
 

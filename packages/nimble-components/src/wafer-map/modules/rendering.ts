@@ -22,7 +22,7 @@ export class RenderingModule {
     }
 
     public drawWafer(transform?: number): void {
-        this.clearCanvas();
+        // this.clearCanvas();
         const dies: DieRenderInfo[] = this.waferData.diesRenderInfo;
         const dimensions: Dimensions = this.waferData.dieDimensions;
         this.dieSize = dimensions.width * dimensions.height * (transform || 1);
@@ -97,12 +97,38 @@ export class RenderingModule {
 
     // }
 
-    public clearCanvas(): void {
-        this.context.clearRect(
-            0,
-            0,
-            this.waferData.containerDimensions.width,
-            this.waferData.containerDimensions.height
-        );
+    // public drawWaferss(): void {
+    //     const dies: DieRenderInfo[] = this.waferData.diesRenderInfo;
+    //     const dimensions: Dimensions = this.waferData.dieDimensions;
+    //     const off: OffscreenCanvas = this.canvas.transferControlToOffscreen();
+    //     let offScreenCanvas = document.createElement('canvas');
+    //     offScreenCanvas.width = this.width;
+    //     offScreenCanvas.height = this.heigth;
+    //     const context = offScreenCanvas.getContext('2d')!;
+
+    //     // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    //     for (let i = 0; i < dies.length; i++) {
+    //         context.fillStyle = dies[i]!.fillStyle;
+    //         context?.fillRect(
+    //             dies[i]!.x,
+    //             dies[i]!.y,
+    //             dimensions.width,
+    //             dimensions.height
+    //         );
+    //     }
+    //     for (const die of dies) {
+    //         context.fillStyle = die.fillStyle;
+    //         context?.fillRect(
+    //             die.x,
+    //             die.y,
+    //             dimensions.width,
+    //             dimensions.height
+    //         );
+    //     }
+
+    // }
+
+    public clearCanvas(width: number, height: number): void {
+        this.context.clearRect(0, 0, width, height);
     }
 }

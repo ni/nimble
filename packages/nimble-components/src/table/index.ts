@@ -11,7 +11,7 @@ import {
 } from '@tanstack/table-core';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableRecord, TableFieldValue } from './types';
+import type { TableRecord } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -28,9 +28,10 @@ export class Table<
     @observable
     public data: TData[] = [];
 
-    // TODO: Temporarily expose the table data as arrays of strings.
+    // TODO: Temporarily expose the columns as a string array. This will ultimately be
+    // column definitions provided by slotted elements.
     @observable
-    public tableData: string[][] = [];
+    public columns: string[] = [];
 
     // TODO: Temporarily expose the column headers as a string array.
     @observable
@@ -66,25 +67,7 @@ export class Table<
         // Ignore any updates that occur prior to the TanStack table being initialized.
         if (this.tableInitialized) {
             this.updateTableOptions({ data: this.data });
-            this.refreshRows();
         }
-    }
-
-    // TODO: For now, assume all cells can be rendered as strings. Ultimately, the data
-    // should be passed to nimble-row elements to use the view template from a column definition.
-    private refreshRows(): void {
-        const tableData: string[][] = [];
-        const rows = this.table.getRowModel().rows;
-        for (const row of rows) {
-            const rowArray: string[] = [];
-            for (const cell of row.getVisibleCells()) {
-                const cellValue = cell.getValue() as TableFieldValue;
-                const stringValue = cellValue == null ? '' : cellValue.toString();
-                rowArray.push(stringValue);
-            }
-            tableData.push(rowArray);
-        }
-        this.tableData = tableData;
     }
 
     private updateTableOptions(
@@ -128,6 +111,7 @@ export class Table<
 
         this.updateTableOptions({ columns: generatedColumns });
         this.columnHeaders = generatedColumns.map(x => x.header as string);
+        this.columns = this.columnHeaders;
     }
 }
 
