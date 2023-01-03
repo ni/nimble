@@ -23,8 +23,14 @@ const simpleData = [
     }
 ] as const;
 
+const simpleDataIdFieldName = 'myStr';
+
 const dataSets = {
     [ExampleDataType.simpleData]: simpleData
+} as const;
+
+const dataSetIdFieldNames = {
+    [ExampleDataType.simpleData]: simpleDataIdFieldName
 } as const;
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
@@ -57,7 +63,7 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table :data=${x => dataSets[x.data]}>
+        <nimble-table :data=${x => dataSets[x.data]} id-field-name=${x => dataSetIdFieldNames[x.data]}>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {
