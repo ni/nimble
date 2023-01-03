@@ -1,4 +1,4 @@
-import { observable } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
@@ -25,6 +25,9 @@ declare global {
 export class Table<
     TData extends TableRecord = TableRecord
 > extends FoundationElement {
+    @attr({ attribute: 'id-field-name' })
+    public idFieldName?: string;
+
     @observable
     public data: TData[] = [];
 
@@ -47,6 +50,13 @@ export class Table<
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
             getCoreRowModel: tanStackGetCoreRowModel(),
+            getRowId: rowData => {
+                if (this.idFieldName) {
+                    return rowData[this.idFieldName] as string;
+                }
+                // Return a falsey value to use the default ID from TanStack.
+                return '';
+            },
             columns: [],
             state: {},
             renderFallbackValue: null,
@@ -54,6 +64,15 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.tableInitialized = true;
+    }
+
+    public idFieldNameChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
+        // Force TanStack to detect a data update because a row's ID is only
+        // generated when creating a new row model.
+        this.updateTableOptions({ data: [...this.data] });
     }
 
     public dataChanged(
