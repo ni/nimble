@@ -24,3 +24,16 @@ export type TableFieldValue =
 export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
 }
+
+export type StringField<FieldName extends string> = {
+    [name in FieldName]: string | null | undefined;
+};
+
+export interface TableCellState<TCellData extends TableRecord, TColumnConfig = unknown> {
+    data: TCellData;
+    columnConfig: TColumnConfig;
+}
+
+export interface TableRowData {
+    cellData: TableCellState<TableRecord>[];
+}

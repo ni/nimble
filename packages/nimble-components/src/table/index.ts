@@ -9,6 +9,7 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
+import type { TableColumn } from './components/column/table-column';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord } from './types';
@@ -28,14 +29,11 @@ export class Table<
     @observable
     public data: TData[] = [];
 
-    // TODO: Temporarily expose the columns as a string array. This will ultimately be
-    // column definitions provided by slotted elements.
     @observable
-    public columns: string[] = [];
+    public readonly slottedColumns: TableColumn[] = [];
 
-    // TODO: Temporarily expose the column headers as a string array.
     @observable
-    public columnHeaders: string[] = [];
+    public columns: TableColumn[] = [];
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
@@ -70,6 +68,29 @@ export class Table<
         }
     }
 
+    private slottedColumnsChanged(): void {
+        if (this.$fastController.isConnected) {
+            this.initializeColumns();
+        }
+    }
+
+    private initializeColumns(): void {
+        if (this.slottedColumns.length > 0) {
+            const columns: TableColumn[] = [];
+            for (const column of this.slottedColumns) {
+                if (this.isTableColumn(column)) {
+                    columns.push(column);
+                }
+            }
+
+            this.columns = columns;
+        }
+    }
+
+    private isTableColumn(object: unknown): boolean {
+        return 'cellTemplate' in (object as { [key: string]: object });
+    }
+
     private updateTableOptions(
         updatedOptions: Partial<TanStackTableOptionsResolved<TData>>
     ): void {
@@ -92,7 +113,6 @@ export class Table<
     };
 
     // Temporarily auto-detect the keys in TData to make columns.
-    // TODO: Remove this logic when another way to specify columns is provided.
     private generateColumns(): void {
         if (this.data.length === 0) {
             return;
@@ -110,8 +130,6 @@ export class Table<
         });
 
         this.updateTableOptions({ columns: generatedColumns });
-        this.columnHeaders = generatedColumns.map(x => x.header as string);
-        this.columns = this.columnHeaders;
     }
 }
 

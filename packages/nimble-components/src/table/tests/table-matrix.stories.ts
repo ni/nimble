@@ -36,13 +36,20 @@ const data = [
         myStr: 'my second row',
         myNum: 15,
         myBool: false
+    },
+    {
+        myStr: null,
+        myNum: 15,
+        myBool: false
     }
 ] as const;
 
 // prettier-ignore
 const component = (
 ): ViewTemplate => html`
-    <nimble-table :data=${_ => data}></nimble-table>
+    <nimble-table :data=${_ => data}>
+        <nimble-table-column-text value-key="myStr" placeholder="foo">Text data</nimble-table-column-text>
+    </nimble-table>
 `;
 
 export const tableThemeMatrix: Story = createMatrixThemeStory(

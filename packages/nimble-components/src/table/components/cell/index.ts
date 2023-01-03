@@ -1,6 +1,6 @@
-import { observable } from '@microsoft/fast-element';
+import { defaultExecutionContext, ElementStyles, HTMLView, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import type { TableFieldValue } from '../../types';
+import type { TableCellState, TableRecord } from '../../types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -14,10 +14,38 @@ declare global {
  * A styled cell that is used within the nimble-table-row.
  * @internal
  */
-export class TableCell extends FoundationElement {
+export class TableCell<TCellData extends TableRecord = TableRecord> extends FoundationElement {
     // TODO: This should be replaced with an instance of TableCellState<TCellData>
     @observable
-    public data: TableFieldValue;
+    public data?: TableCellState<TCellData>;
+
+    @observable
+    public cellTemplate?: ViewTemplate;
+
+    @observable
+    public cellStyles?: ElementStyles;
+
+    private customCellView: HTMLView | undefined = undefined;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.updateView();
+    }
+
+    private updateView(): void {
+        const newCellView = this.customCellView === undefined;
+        if (newCellView) {
+            this.customCellView = this.cellTemplate!.create(this);
+            this.customCellView?.bind(this.data, defaultExecutionContext);
+            if (this.cellStyles) {
+                this.$fastController.addStyles(this.cellStyles);
+            }
+        }
+
+        if (newCellView) {
+            this.customCellView!.appendTo(this.shadowRoot!);
+        }
+    }
 }
 
 const nimbleTableCell = TableCell.compose({

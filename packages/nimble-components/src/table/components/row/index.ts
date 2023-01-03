@@ -2,7 +2,8 @@ import { observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableFieldValue, TableRecord } from '../../types';
+import type { TableCellState, TableRecord } from '../../types';
+import type { TableColumn } from '../column/table-column';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,13 +21,16 @@ export class TableRow<
     @observable
     public data?: TData;
 
-    // TODO: Temporarily assume the set of columns will be an array of strings.
-    // Eventually, this will be an array of column definitions.
     @observable
-    public columns: string[] = [];
+    public columns: TableColumn[] = [];
 
-    public getCellValue(column: string): TableFieldValue {
-        return this.data ? this.data[column] : undefined;
+    public getCellValue(column: TableColumn): TableCellState<TData> {
+        const dataKeys = column.getRecordFieldNames();
+        const cellDataValues = dataKeys.map(key => this.data![key]);
+        const cellData = Object.fromEntries(column.cellStateDataFieldNames.map((k, i) => [k, cellDataValues[i]]));
+        const columnConfig = column.getColumnConfig?.() ?? {};
+        const cellState = { data: cellData, columnConfig } as TableCellState<TData>;
+        return cellState;
     }
 }
 
