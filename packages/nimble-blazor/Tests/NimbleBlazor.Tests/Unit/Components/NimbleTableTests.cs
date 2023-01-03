@@ -48,6 +48,17 @@ public class NimbleTableTests
     }
 
     [Fact]
+    public void NimbleTable_WithClassAttribute_HasTableMarkup()
+    {
+        IDictionary<string, object> classAttribute = new Dictionary<string, object>();
+        classAttribute.Add("class", "table");
+        var table = RenderWithPropertySet<IDictionary<string, object>, TableRecord>(x => x.AdditionalAttributes!, classAttribute);
+
+        var expectedMarkup = @"class=""table""";
+        Assert.Contains(expectedMarkup, table.Markup);
+    }
+
+    [Fact]
     public void NimbleTable_GivenSupportedData_ThrowsNoException()
     {
         var parentRecord = new TableRecord("Bob", "Smith");
