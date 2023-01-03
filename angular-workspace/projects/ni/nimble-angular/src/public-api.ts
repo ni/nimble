@@ -43,6 +43,8 @@ export * from './directives/radio-group/nimble-radio-group.module';
 export * from './directives/select/nimble-select-control-value-accessor.directive';
 export * from './directives/select/nimble-select.directive';
 export * from './directives/select/nimble-select.module';
+export * from './directives/spinner/nimble-spinner.directive';
+export * from './directives/spinner/nimble-spinner.module';
 export * from './directives/switch/nimble-switch-control-value-accessor.directive';
 export * from './directives/switch/nimble-switch.directive';
 export * from './directives/switch/nimble-switch.module';

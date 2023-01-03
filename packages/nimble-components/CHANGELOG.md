@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 16 Dec 2022 18:41:04 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Dec 2022 21:11:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.3
+
+Fri, 16 Dec 2022 21:11:13 GMT
+
+### Patches
+
+- Implement basic styling for nimble-table ([ni/nimble@48a9d51](https://github.com/ni/nimble/commit/48a9d514b129b37e1e3faa057c024e46e358fa3a))
 
 ## 16.1.2
 

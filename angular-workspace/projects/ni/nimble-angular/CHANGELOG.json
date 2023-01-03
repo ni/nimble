@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Sat, 17 Dec 2022 01:10:46 GMT",
+      "tag": "@ni/nimble-angular_v14.1.0",
+      "version": "14.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "d415c78ce868a56367e0c77df766be2fbceb4750",
+            "comment": "Angular integration for spinner"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Dec 2022 21:11:14 GMT",
+      "tag": "@ni/nimble-angular_v14.0.20",
+      "version": "14.0.20",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v16.1.3",
+            "commit": "48a9d514b129b37e1e3faa057c024e46e358fa3a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 16 Dec 2022 18:41:04 GMT",
       "tag": "@ni/nimble-angular_v14.0.19",
       "version": "14.0.19",
