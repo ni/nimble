@@ -2,8 +2,29 @@
 
 namespace NimbleBlazor;
 
-public partial class NimbleButton : ComponentBase
+public partial class NimbleAnchorButton : ComponentBase
 {
+    [Parameter]
+    public string? Href { get; set; }
+
+    [Parameter]
+    public string? HrefLang { get; set; }
+
+    [Parameter]
+    public string? Ping { get; set; }
+
+    [Parameter]
+    public string? ReferrerPolicy { get; set; }
+
+    [Parameter]
+    public string? Rel { get; set; }
+
+    [Parameter]
+    public string? Target { get; set; }
+
+    [Parameter]
+    public string? Type { get; set; }
+
     [Parameter]
     public ButtonAppearance? Appearance { get; set; }
 
