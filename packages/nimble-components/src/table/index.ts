@@ -50,11 +50,12 @@ export class Table<
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
             getCoreRowModel: tanStackGetCoreRowModel(),
-            getRowId: rowData => {
+            getRowId: record => {
                 if (this.idFieldName) {
-                    return rowData[this.idFieldName] as string;
+                    return record[this.idFieldName] as string;
                 }
-                // Return a falsey value to use the default ID from TanStack.
+                // Return a falsey value to use the default ID from TanStack,
+                // which is the index of the record within the data.
                 return '';
             },
             columns: [],

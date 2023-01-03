@@ -1,16 +1,13 @@
-/* eslint-disable no-return-assign */
-import { html, ref } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { ExampleDataType } from './types';
 import { bodyFont } from '../../theme-provider/design-tokens';
-import type { Table } from '..';
 
 interface TableArgs {
     data: ExampleDataType;
-    tableRef: Table;
 }
 
 const simpleData = [
@@ -60,12 +57,8 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table
-            ${ref('tableRef')} :data=${x => dataSets[x.data]}>
+        <nimble-table :data=${x => dataSets[x.data]}>
         </nimble-table>
-        <nimble-button
-            @click="${x => x.tableRef.data = [{ myStr: 'foo', myNum: 5, myBool: false }]}"
-        >Add more data</nimble-button>
         <style class="code-hide">
             #usage-warning {
                 color: red;
