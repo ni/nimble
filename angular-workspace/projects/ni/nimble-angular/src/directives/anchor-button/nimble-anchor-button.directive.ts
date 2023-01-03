@@ -1,18 +1,18 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Button } from '@ni/nimble-components/dist/esm/button';
-import type { ButtonType, ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
+import type { AnchorButton } from '@ni/nimble-components/dist/esm/anchor-button';
+import type { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/anchor-button/types';
+import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
-export type { Button };
-export { ButtonType };
+export type { AnchorButton };
 
 /**
- * Directive to provide Angular integration for the button.
+ * Directive to provide Angular integration for the anchor button.
  */
 @Directive({
-    selector: 'nimble-button'
+    selector: 'nimble-anchor-button'
 })
-export class NimbleButtonDirective {
+export class NimbleAnchorButtonDirective extends NimbleAnchorBaseDirective<AnchorButton> {
     public get appearance(): ButtonAppearance {
         return this.elementRef.nativeElement.appearance;
     }
@@ -31,22 +31,6 @@ export class NimbleButtonDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearanceVariant', value);
     }
 
-    public get disabled(): boolean {
-        return this.elementRef.nativeElement.disabled;
-    }
-
-    @Input() public set disabled(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
-    }
-
-    public get type(): ButtonType {
-        return this.elementRef.nativeElement.type;
-    }
-
-    @Input() public set type(value: ButtonType) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'type', value);
-    }
-
     public get contentHidden(): boolean {
         return this.elementRef.nativeElement.contentHidden;
     }
@@ -57,5 +41,15 @@ export class NimbleButtonDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
     }
 
-    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Button>) {}
+    public get disabled(): boolean {
+        return this.elementRef.nativeElement.disabled;
+    }
+
+    @Input() public set disabled(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
+    }
+
+    public constructor(renderer: Renderer2, elementRef: ElementRef<AnchorButton>) {
+        super(renderer, elementRef);
+    }
 }

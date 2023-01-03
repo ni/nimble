@@ -2,6 +2,14 @@
  * Public API Surface of nimble-angular
  */
 
+export * from './directives/anchor/nimble-anchor-router-link-with-href.directive';
+export * from './directives/anchor/nimble-anchor-router-link.directive';
+export * from './directives/anchor/nimble-anchor.directive';
+export * from './directives/anchor/nimble-anchor.module';
+export * from './directives/anchor-button/nimble-anchor-button-router-link-with-href.directive';
+export * from './directives/anchor-button/nimble-anchor-button-router-link.directive';
+export * from './directives/anchor-button/nimble-anchor-button.directive';
+export * from './directives/anchor-button/nimble-anchor-button.module';
 export * from './directives/breadcrumb/nimble-breadcrumb.directive';
 export * from './directives/breadcrumb/nimble-breadcrumb.module';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item-router-link-with-href.directive';
@@ -81,7 +89,7 @@ export * from './testing/async-helpers';
 
 // Export items that would otherwise be exported by multiple components just from here to avoid exporting them multiple times.
 // Can be cleaned up when switching to multiple entry points, see: https://github.com/ni/nimble/issues/172
-export { ButtonAppearance } from '@ni/nimble-components/dist/esm/patterns/button/types';
+export { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/patterns/button/types';
 export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 export { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
 export type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
