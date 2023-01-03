@@ -1,7 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
-import { AnchorButton, ButtonAppearance, ButtonAppearanceVariant, NimbleAnchorButtonDirective } from '../nimble-anchor-button.directive';
+import { ButtonAppearance, ButtonAppearanceVariant } from '../../../public-api';
+import { AnchorButton, NimbleAnchorButtonDirective } from '../nimble-anchor-button.directive';
 import { NimbleAnchorButtonModule } from '../nimble-anchor-button.module';
 
 describe('Nimble anchor button', () => {
