@@ -38,9 +38,6 @@ public partial class NimbleAnchorButton : ComponentBase
     public bool? Disabled { get; set; }
 
     [Parameter]
-    public bool? AutoFocus { get; set; }
-
-    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]

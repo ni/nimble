@@ -17,7 +17,7 @@ public class NimbleAnchorButtonTests
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-anchor-button";
 
-        var button = context.RenderComponent<NimbleButton>();
+        var button = context.RenderComponent<NimbleAnchorButton>();
 
         Assert.Contains(expectedMarkup, button.Markup);
     }
