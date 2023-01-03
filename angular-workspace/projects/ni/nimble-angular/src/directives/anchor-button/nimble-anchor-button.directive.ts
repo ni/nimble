@@ -1,11 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { AnchorButton } from '@ni/nimble-components/dist/esm/anchor-button';
-import { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/anchor-button/types';
-import { NimbleLinkBase } from '../patterns/link/nimble-link-base';
+import type { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/anchor-button/types';
+import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { AnchorButton };
-export { ButtonAppearance, ButtonAppearanceVariant };
 
 /**
  * Directive to provide Angular integration for the anchor button.
@@ -13,7 +12,7 @@ export { ButtonAppearance, ButtonAppearanceVariant };
 @Directive({
     selector: 'nimble-anchor-button'
 })
-export class NimbleAnchorButtonDirective extends NimbleLinkBase<AnchorButton> {
+export class NimbleAnchorButtonDirective extends NimbleAnchorBaseDirective<AnchorButton> {
     public get appearance(): ButtonAppearance {
         return this.elementRef.nativeElement.appearance;
     }

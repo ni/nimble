@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Renderer2 } from '@angular/core';
 import type { BreadcrumbItem } from '@ni/nimble-components/dist/esm/breadcrumb-item';
-import { NimbleLinkBase } from '../patterns/link/nimble-link-base';
+import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
 
 export type { BreadcrumbItem };
 
@@ -10,7 +10,7 @@ export type { BreadcrumbItem };
 @Directive({
     selector: 'nimble-breadcrumb-item'
 })
-export class NimbleBreadcrumbItemDirective extends NimbleLinkBase<BreadcrumbItem> {
+export class NimbleBreadcrumbItemDirective extends NimbleAnchorBaseDirective<BreadcrumbItem> {
     public constructor(renderer: Renderer2, elementRef: ElementRef<BreadcrumbItem>) {
         super(renderer, elementRef);
     }

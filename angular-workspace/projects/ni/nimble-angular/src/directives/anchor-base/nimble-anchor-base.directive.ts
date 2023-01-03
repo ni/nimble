@@ -1,11 +1,11 @@
-import { ElementRef, Injectable, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { AnchorBase } from '@ni/nimble-components/dist/esm/anchor-base';
 
 /**
  * Base class for directives providing link attributes.
  */
-@Injectable()
-export class NimbleLinkBase<T extends AnchorBase> {
+@Directive()
+export class NimbleAnchorBaseDirective<T extends AnchorBase> {
     public get href(): string {
         return this.elementRef.nativeElement.href;
     }

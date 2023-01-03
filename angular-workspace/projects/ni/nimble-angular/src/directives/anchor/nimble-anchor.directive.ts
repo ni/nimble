@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { Anchor } from '@ni/nimble-components/dist/esm/anchor';
 import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
-import { NimbleLinkBase } from '../patterns/link/nimble-link-base';
+import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { Anchor };
@@ -13,7 +13,7 @@ export { AnchorAppearance };
 @Directive({
     selector: 'nimble-anchor'
 })
-export class NimbleAnchorDirective extends NimbleLinkBase<Anchor> {
+export class NimbleAnchorDirective extends NimbleAnchorBaseDirective<Anchor> {
     public get appearance(): AnchorAppearance {
         return this.elementRef.nativeElement.appearance;
     }
