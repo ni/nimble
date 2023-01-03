@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Sat, 17 Dec 2022 01:10:46 GMT and should not be manually modified.
+This log was last generated on Tue, 03 Jan 2023 19:23:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.2.0
+
+Tue, 03 Jan 2023 19:23:10 GMT
+
+### Minor changes
+
+- Anchor and Anchor Button Angular integration ([ni/nimble@9df42db](https://github.com/ni/nimble/commit/9df42db416ee54834f5d5eb7ddc781bcc1fefff1))
 
 ## 14.1.0
 
