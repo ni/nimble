@@ -132,13 +132,17 @@ The various APIs/features of the `nimble-table` will be split up amongst several
     -   Define how the action menu gets associated with a particular column
     -   Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
 
+_Attributes_
+
+-   `id-field-name` - An optional string attribute that specifies the field name within a row's record to use as a row's ID. If the attribute is not defined or a field with the specified name does not exist in a row's record, a default ID will be created. The default ID is the index of the row's record within the table's `data` property. The value associated with the field name must be unique across all records in the table's data.
+
 _Properties_
 
-Placeholder
+-   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
 
 _Events_
 
--   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
+Placeholder
 
 ### Anatomy
 
