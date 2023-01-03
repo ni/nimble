@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 03 Jan 2023 19:23:10 GMT",
+      "tag": "@ni/nimble-angular_v14.2.0",
+      "version": "14.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "9df42db416ee54834f5d5eb7ddc781bcc1fefff1",
+            "comment": "Anchor and Anchor Button Angular integration"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 17 Dec 2022 01:10:46 GMT",
       "tag": "@ni/nimble-angular_v14.1.0",
       "version": "14.1.0",
