@@ -12,9 +12,9 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// </summary>
 public class NimbleTableTests
 {
-    internal class TableRecord
+    internal class TableRowData
     {
-        public TableRecord(string firstName, string lastName)
+        public TableRowData(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -23,9 +23,9 @@ public class NimbleTableTests
         public string LastName { get; set; }
     }
 
-    internal class BadTableRecord
+    internal class BadTableRowData
     {
-        public BadTableRecord(string firstName, string lastName, BadTableRecord? parent = null)
+        public BadTableRowData(string firstName, string lastName, BadTableRowData? parent = null)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -33,7 +33,7 @@ public class NimbleTableTests
         }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public BadTableRecord? Parent { get; set; }
+        public BadTableRowData? Parent { get; set; }
     }
 
     [Fact]
@@ -42,7 +42,7 @@ public class NimbleTableTests
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-table";
-        var table = context.RenderComponent<NimbleTable<TableRecord>>();
+        var table = context.RenderComponent<NimbleTable<TableRowData>>();
 
         Assert.Contains(expectedMarkup, table.Markup);
     }
@@ -52,7 +52,7 @@ public class NimbleTableTests
     {
         IDictionary<string, object> classAttribute = new Dictionary<string, object>();
         classAttribute.Add("class", "table");
-        var table = RenderWithPropertySet<IDictionary<string, object>, TableRecord>(x => x.AdditionalAttributes!, classAttribute);
+        var table = RenderWithPropertySet<IDictionary<string, object>, TableRowData>(x => x.AdditionalAttributes!, classAttribute);
 
         var expectedMarkup = @"class=""table""";
         Assert.Contains(expectedMarkup, table.Markup);
@@ -61,11 +61,11 @@ public class NimbleTableTests
     [Fact]
     public void NimbleTable_GivenSupportedData_ThrowsNoException()
     {
-        var parentRecord = new TableRecord("Bob", "Smith");
-        var childRecord = new TableRecord("Sally", "Smith");
-        var tableData = new TableRecord[] { parentRecord, childRecord };
+        var parentRowData = new TableRowData("Bob", "Smith");
+        var childRowData = new TableRowData("Sally", "Smith");
+        var tableData = new TableRowData[] { parentRowData, childRowData };
 
-        var ex = Record.Exception(() => { RenderWithPropertySet<IEnumerable<TableRecord>, TableRecord>(x => x.Data, tableData); });
+        var ex = Record.Exception(() => { RenderWithPropertySet<IEnumerable<TableRowData>, TableRowData>(x => x.Data, tableData); });
 
         Assert.Null(ex);
     }
@@ -73,11 +73,11 @@ public class NimbleTableTests
     [Fact]
     public void NimbleTable_GivenUnsupportedData_ThrowsJsonException()
     {
-        var parentRecord = new BadTableRecord("Bob", "Smith");
-        var childRecord = new BadTableRecord("Sally", "Smith", parentRecord);
-        var tableData = new BadTableRecord[] { parentRecord, childRecord };
+        var parentRowData = new BadTableRowData("Bob", "Smith");
+        var childRowData = new BadTableRowData("Sally", "Smith", parentRowData);
+        var tableData = new BadTableRowData[] { parentRowData, childRowData };
 
-        var ex = Record.Exception(() => { RenderWithPropertySet<IEnumerable<BadTableRecord>, BadTableRecord>(x => x.Data, tableData); });
+        var ex = Record.Exception(() => { RenderWithPropertySet<IEnumerable<BadTableRowData>, BadTableRowData>(x => x.Data, tableData); });
 
         Assert.IsType<JsonException>(ex);
     }
