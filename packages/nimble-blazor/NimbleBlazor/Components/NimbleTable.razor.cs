@@ -13,7 +13,7 @@ namespace NimbleBlazor;
 public partial class NimbleTable<TData> : ComponentBase
 {
     private ElementReference _table;
-    private bool _shouldRender = false;
+    private bool _dataUpdated = false;
     private IEnumerable<TData> _data = Enumerable.Empty<TData>();
     internal static string SetTableDataMethodName = "NimbleBlazor.Table.setData";
 
@@ -36,7 +36,7 @@ public partial class NimbleTable<TData> : ComponentBase
         set
         {
             _data = value;
-            _shouldRender = true;
+            _dataUpdated = true;
         }
     }
 
@@ -51,15 +51,13 @@ public partial class NimbleTable<TData> : ComponentBase
 
     /// <inheritdoc/>
     /// <exception cref="JsonException"></exception>
-    protected override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         var options = new JsonSerializerOptions { MaxDepth = 3 };
-        _shouldRender = false;
-        return JSRuntime!.InvokeVoidAsync(SetTableDataMethodName, JsonSerializer.Serialize(Data, options), _table).AsTask();
-    }
-
-    protected override bool ShouldRender()
-    {
-        return _shouldRender;
+        if (_dataUpdated)
+        {
+            await JSRuntime!.InvokeVoidAsync(SetTableDataMethodName, _table, JsonSerializer.Serialize(Data, options));
+        }
+        _dataUpdated = false;
     }
 }

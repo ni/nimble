@@ -61,7 +61,7 @@ window.NimbleBlazor = {
         }
     },
     Table: {
-        setData: async function (data, tableReference) {
+        setData: async function (tableReference, data) {
             const dataObject = JSON.parse(data);
             tableReference.data = dataObject;
         }
