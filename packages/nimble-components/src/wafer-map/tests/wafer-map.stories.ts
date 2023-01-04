@@ -96,21 +96,21 @@ const metadata: Meta<WaferMapArgs> = {
             WARNING - The wafermap is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-            <nimble-wafer-map
-                colors-scale-mode="${x => x.colorScaleMode}"
-                ?die-labels-hidden="${x => x.dieLabelsHidden}"
-                die-labels-suffix="${x => x.dieLabelsSuffix}"
-                max-characters="${x => x.maxCharacters}"
-                orientation="${x => x.orientation}"
-                quadrant="${x => x.quadrant}"
-                :colorScale="${x => x.colorScale}"
-                :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
-                :highlightedValues="${x => getHighLightedValueSets(
+        <nimble-wafer-map
+            colors-scale-mode="${x => x.colorScaleMode}"
+            ?die-labels-hidden="${x => x.dieLabelsHidden}"
+            die-labels-suffix="${x => x.dieLabelsSuffix}"
+            max-characters="${x => x.maxCharacters}"
+            orientation="${x => x.orientation}"
+            quadrant="${x => x.quadrant}"
+            :colorScale="${x => x.colorScale}"
+            :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
+            :highlightedValues="${x => getHighLightedValueSets(
         x.highlightedValues,
         highLightedValueSets
     )}"
-            >
-            </nimble-wafer-map>
+        >
+        </nimble-wafer-map>
         <style class="code-hide">
             #usage-warning {
                 color: red;
