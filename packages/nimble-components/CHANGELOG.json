@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 04 Jan 2023 22:32:42 GMT",
+      "tag": "@ni/nimble-components_v16.1.4",
+      "version": "16.1.4",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2ed917240f757f75247bba7fa6cfab28f1e4106a",
+            "comment": "Change some urls in Storybook from http to https"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Jan 2023 21:51:15 GMT",
       "tag": "@ni/nimble-components_v16.1.4",
       "version": "16.1.4",
