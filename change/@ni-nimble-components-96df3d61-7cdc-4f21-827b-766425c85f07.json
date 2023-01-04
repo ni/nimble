@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Change some urls in Storybook from http to https",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
