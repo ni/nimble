@@ -6,12 +6,7 @@ export const styles = css`
     ${display('flex')}
 
     :host {
-        display: flex;
         padding: 0px calc(${standardPadding} / 2);
         align-items: center;
-    }
-
-    .cell-content-container {
-        flex: 1;
     }
 `;

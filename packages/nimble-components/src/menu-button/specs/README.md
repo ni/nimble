@@ -84,7 +84,6 @@ _Methods_
 
 _Events_
 
--   `opening` (event) - event fired immediately before the menu opens
 -   `open-change` (event) - event for when the opened state has changed
 
 _CSS Classes and CSS Custom Properties that affect the component_

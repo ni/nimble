@@ -1,4 +1,4 @@
-import { attr, ElementStyles, ViewTemplate } from '@microsoft/fast-element';
+import type { ElementStyles, ViewTemplate } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type { TableCellState, TableRecord } from '../../types';
 
@@ -6,11 +6,8 @@ import type { TableCellState, TableRecord } from '../../types';
  * The base class for table columns
  */
 export abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnConfig = void> extends FoundationElement {
-    @attr({ attribute: 'column-id' })
-    public columnId?: string;
-
-    @attr({ attribute: 'show-action-menu', mode: 'boolean' })
-    public showActionMenu = false;
+    // The unique id for this column.
+    public abstract columnId?: string;
 
     // The template to use to render the cell content for the column
     public abstract cellTemplate: ViewTemplate<TableCellState<TCellData, TColumnConfig>>;
