@@ -4,8 +4,8 @@ import { borderColor, borderWidth } from '../theme-provider/design-tokens';
 export const styles = css`
     :host {
         display: inline-block;
-        width: 300px;
-        height: 300px;
+        width: 500px;
+        height: 500px;
     }
 
     .wafer-map-container {
