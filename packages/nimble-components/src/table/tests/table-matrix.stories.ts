@@ -26,7 +26,7 @@ const metadata: Meta = {
 
 export default metadata;
 
-const data = [
+const shortData = [
     {
         myStr: 'my first row',
         myNum: 5,
@@ -39,14 +39,59 @@ const data = [
     }
 ] as const;
 
+const largeData = [
+    {
+        myStr: 'my first row',
+        myNum: 5,
+        myBool: true
+    },
+    {
+        myStr: 'my second row',
+        myNum: 15,
+        myBool: false
+    },
+    {
+        myStr: 'my third row',
+        myNum: 0,
+        myBool: false
+    },
+    {
+        myStr: 'my fourth row',
+        myNum: -9,
+        myBool: false
+    },
+    {
+        myStr: 'my fifth row',
+        myNum: 1,
+        myBool: true
+    },
+    {
+        myStr: 'my sixth row',
+        myNum: 11,
+        myBool: false
+    }
+] as const;
+
+const dataStates = [
+    ['Short data', shortData],
+    ['Large data', largeData]
+];
+type DataStates = typeof dataStates[number];
+
 // prettier-ignore
 const component = (
+    [_dataName, data]: DataStates
 ): ViewTemplate => html`
-    <nimble-table :data=${_ => data}></nimble-table>
+    <nimble-table
+        style="max-height: 200px; padding-bottom: 24px;"
+        :data=${_ => data}
+    ></nimble-table>
 `;
 
 export const tableThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component)
+    createMatrix(component, [
+        dataStates
+    ])
 );
 
 export const hiddenTable: Story = createStory(

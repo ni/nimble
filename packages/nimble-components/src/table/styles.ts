@@ -6,8 +6,9 @@ export const styles = css`
     ${display('flex')}
 
     .table-container {
+        display: flex;
+        flex-direction: column;
         width: 100%;
-        height: 100%;
         font: ${bodyFont};
         color: ${bodyFontColor};
     }
@@ -19,5 +20,9 @@ export const styles = css`
 
     .header {
         flex: 1;
+    }
+
+    .table-viewport {
+        overflow: auto;
     }
 `;
