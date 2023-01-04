@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 04 Jan 2023 19:22:07 GMT",
+      "tag": "@ni/nimble-blazor_v9.3.0",
+      "version": "9.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "882539ab732f9dba3851f971cff75a394ffe0a3d",
+            "comment": "Blazor wrappers for anchor and anchor button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 17 Dec 2022 01:10:46 GMT",
       "tag": "@ni/nimble-blazor_v9.2.0",
       "version": "9.2.0",
