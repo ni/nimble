@@ -89,9 +89,7 @@ const component = (
 `;
 
 export const tableThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [
-        dataStates
-    ])
+    createMatrix(component, [dataStates])
 );
 
 export const hiddenTable: Story = createStory(
