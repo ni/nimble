@@ -3,7 +3,7 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState, TableRecord } from '../../types';
-import type { TableColumn } from '../column/table-column';
+import type { TableColumn } from '../../../table-column/table-column';
 
 declare global {
     interface HTMLElementTagNameMap {

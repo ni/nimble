@@ -2,7 +2,7 @@ import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableRow } from '.';
 import { TableCell } from '../cell';
-import type { TableColumn } from '../column/table-column';
+import type { TableColumn } from '../../../table-column/table-column';
 
 // prettier-ignore
 export const template = html<TableRow>`

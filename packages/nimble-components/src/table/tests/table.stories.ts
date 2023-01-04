@@ -63,7 +63,7 @@ const metadata: Meta<TableArgs> = {
             experimental. It is not recommended for application use.
         </div>
         <nimble-table :data=${x => dataSets[x.data]}>
-            <nimble-table-column-text value-key="myStr" placeholder="foo">Text data</nimble-table-column-text>
+            <nimble-table-column-text value-key="myStr" placeholder="foo">Header</nimble-table-column-text>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {

@@ -9,7 +9,7 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
-import type { TableColumn } from './components/column/table-column';
+import type { TableColumn } from '../table-column/table-column';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord } from './types';

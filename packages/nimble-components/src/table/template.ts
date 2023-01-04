@@ -4,18 +4,13 @@ import type { Table } from '.';
 import type { TableRecord } from './types';
 import { TableHeader } from './components/header';
 import { TableRow } from './components/row';
-import { TableColumn } from './components/column/table-column';
+import { TableColumn } from '../table-column/table-column';
 
 const isTableColumn = (): ElementsFilter => {
     const filter: ElementsFilter = (value: Node, _: number, __: Node[]): boolean => {
         return (value instanceof TableColumn);
     };
     return filter;
-};
-
-const getColumnHeader = (column: TableColumn): string | undefined => {
-    const textContent = column.textContent;
-    return (textContent !== '' && textContent ? textContent : column.getRecordFieldNames()[0]);
 };
 
 // prettier-ignore
@@ -26,7 +21,7 @@ export const template = html<Table>`
                 <div class="header-row" role="row">
                     ${repeat(x => x.columns, html<TableColumn>`
                         <${DesignSystem.tagFor(TableHeader)} class="header">
-                            ${x => getColumnHeader(x)}
+                            ${x => x.textContent}
                         </${DesignSystem.tagFor(TableHeader)}>
                     `)}
                 </div>
