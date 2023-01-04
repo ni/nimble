@@ -90,7 +90,8 @@ export class WaferMap extends FoundationElement {
     }
 
     public override disconnectedCallback(): void {
-        this.resizeObserver?.unobserve(this);
+        super.disconnectedCallback();
+        this.resizeObserver!.unobserve(this);
     }
 
     /**
