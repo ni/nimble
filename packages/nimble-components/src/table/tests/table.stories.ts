@@ -53,7 +53,7 @@ const metadata: Meta<TableArgs> = {
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b9cee5e2-49a4-425a-9ed4-38b23ba2e313/specs/'
         },
         actions: {
-            handles: []
+            handles: ['action-menu-opening']
         }
     },
     // prettier-ignore
@@ -64,6 +64,15 @@ const metadata: Meta<TableArgs> = {
         </div>
         <nimble-table :data=${x => dataSets[x.data]}>
             <nimble-table-column-text value-key="myStr" placeholder="foo">Text data</nimble-table-column-text>
+            <nimble-table-column-text value-key="myStr" placeholder="foo" show-action-menu>Text data</nimble-table-column-text>
+            <nimble-table-column-text value-key="myStr" placeholder="foo" show-action-menu>Text data</nimble-table-column-text>
+
+            <nimble-menu slot="actionMenu">
+                <nimble-menu-item>Hello</nimble-menu-item>
+                <nimble-menu-item>World</nimble-menu-item>
+                <nimble-menu-item>Foo</nimble-menu-item>
+                <nimble-menu-item>Bar</nimble-menu-item>
+            </nimble-menu>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {

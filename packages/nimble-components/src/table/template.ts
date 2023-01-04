@@ -1,7 +1,6 @@
 import { ElementsFilter, html, repeat, slotted, when } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { Table } from '.';
-import type { TableRecord } from './types';
+import type { RowXYZ, Table } from '.';
 import { TableHeader } from './components/header';
 import { TableRow } from './components/row';
 import { TableColumn } from './components/column/table-column';
@@ -33,11 +32,14 @@ export const template = html<Table>`
             </div>
             <div class="table-viewport" role="rowgroup">
                ${when(x => x.columns.length > 0, html<Table>`
-                    ${repeat(x => x.data, html<TableRecord>`
+                    ${repeat(x => x.tableData, html<RowXYZ>`
                         <${DesignSystem.tagFor(TableRow)}
-                            :data="${x => x}"
+                            row-id="${x => x.id}"
+                            :data="${x => x.data}"
                             :columns="${(_, c) => (c.parent as Table).columns}"
+                            @row-action-menu-opening="${(_, c) => (c.parent as Table).onRowActionMenuOpening(c.event as CustomEvent)}"
                         >
+                        <slot name="${(x, c) => (((c.parent as Table).openActionMenuRowId === x.id) ? 'actionMenu' : 'unused_actionMenu')}" slot="rowActionMenu"></slot>
                         </${DesignSystem.tagFor(TableRow)}>
                     `)}
                 `)}

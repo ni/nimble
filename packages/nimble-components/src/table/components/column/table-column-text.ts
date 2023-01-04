@@ -14,9 +14,6 @@ interface TableColumnTextColumnConfig {
 export class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
     public cellStateDataFieldNames = ['value'] as const;
 
-    @attr({ attribute: 'column-id' })
-    public columnId?: string;
-
     @attr({ attribute: 'value-key' })
     public valueKey!: string;
 

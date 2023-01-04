@@ -13,11 +13,19 @@ import type { TableColumn } from './components/column/table-column';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord } from './types';
+import type { ActionMenuOpeningEventDetail } from './components/row';
+
+export { ActionMenuOpeningEventDetail };
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-table': Table;
     }
+}
+
+export interface RowXYZ<TData extends TableRecord = TableRecord> {
+    data: TData;
+    id: string;
 }
 
 /**
@@ -37,6 +45,12 @@ export class Table<
      */
     @observable
     public columns: TableColumn[] = [];
+
+    @observable
+    public tableData: RowXYZ<TData>[] = [];
+
+    @observable
+    public openActionMenuRowId?: string;
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
@@ -68,7 +82,14 @@ export class Table<
         // Ignore any updates that occur prior to the TanStack table being initialized.
         if (this.tableInitialized) {
             this.updateTableOptions({ data: this.data });
+            this.refreshRows();
         }
+    }
+
+    public onRowActionMenuOpening(event: CustomEvent): void {
+        const eventDetail = event.detail as ActionMenuOpeningEventDetail;
+        this.openActionMenuRowId = eventDetail.rowId;
+        this.$emit('action-menu-opening', eventDetail);
     }
 
     private slottedColumnsChanged(): void {
@@ -86,6 +107,13 @@ export class Table<
 
             this.columns = columns;
         }
+    }
+
+    private refreshRows(): void {
+        const rows = this.table.getRowModel().rows;
+        this.tableData = rows.map(row => {
+            return { data: row.original, id: row.id } as RowXYZ<TData>;
+        });
     }
 
     private updateTableOptions(
