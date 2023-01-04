@@ -24,12 +24,12 @@ The `nimble-table-column-text-field` is a component that defines how to render a
 
 ## Design
 
-Below is an example of how the `nimble-table-column-text-field` would be used within a `nimble-table`:
+Below is an example of how the `nimble-table-column-text` would be used within a `nimble-table`:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-text-field value-key="firstName" placeholder="No data">First Name</nimble-table-column-text-field>
-    <nimble-table-column-text-field value-key="lastName" placeholder="No data">Last Name</nimble-table-column-text-field>
+    <nimble-table-column-text value-key="firstName" placeholder="No data">First Name</nimble-table-column-text-field>
+    <nimble-table-column-text value-key="lastName" placeholder="No data">Last Name</nimble-table-column-text-field>
 </nimble-table>
 ```
 
@@ -37,7 +37,7 @@ Below is an example of how the `nimble-table-column-text-field` would be used wi
 
 _Component Name_
 
--   `nimble-table-column-text-field`
+-   `nimble-table-column-text`
 
 _*Props/Attrs*_
 
@@ -50,13 +50,13 @@ _Type Reference_
 -   [`StringField`](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table/specs/table-data-api.md#implementation--design) (section showing example types)
 -   [`TableCellState`](../table-columns-hld.md#tablecellstate-interface)
 
-The `TableColumnTextField` will extend the `TableColumn` in a manner similar to the following:
+The `TableColumnText` will extend the `TableColumn` in a manner similar to the following:
 
 ```TS
 type TableColumnTextCellData = StringField<'value'>;
 type TableColumnTextColumnConfig = { placeholder: string };
 
-public class TableColumnTextField extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
+public class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
     ...
 
     @attr({ attribute: 'value-key'})
@@ -96,7 +96,7 @@ The visual appearance of the text content will match that of a frameless `nimble
 For the `cellTemplate` implementation required for a `TableColumn<>` implementation we will provide something similar to the following:
 
 ```TS
-public class TableColumnTextField ...
+public class TableColumnText ...
 {
     ...
 
