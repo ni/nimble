@@ -1,10 +1,16 @@
 @namespace NimbleBlazor
-<nimble-button
+<nimble-anchor-button
+    href="@Href"
+    hreflang="@HrefLang"
+    ping="@Ping"
+    referrerpolicy="@ReferrerPolicy"
+    rel="@Rel"
+    target="@Target"
+    type="@Type"
     appearance="@Appearance.ToAttributeValue()"
     appearance-variant="@AppearanceVariant.ToAttributeValue()"
     content-hidden="@ContentHidden"
     disabled="@Disabled"
-    autofocus="@AutoFocus"
     @attributes="AdditionalAttributes">
     @ChildContent
-</nimble-button>
+</nimble-anchor-button>

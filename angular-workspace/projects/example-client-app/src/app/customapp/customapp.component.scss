@@ -59,6 +59,10 @@ nimble-toolbar::part(positioning-region) {
     gap: $ni-nimble-standard-padding;
 }
 
+.sub-container > nimble-anchor {
+    margin-right: 0;
+}
+
 nimble-drawer {
     p {
         color: $ni-nimble-body-font-color;
