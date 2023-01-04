@@ -36,11 +36,11 @@ public class NimbleAnchorButtonTests
     [Theory]
     [InlineData(ButtonAppearanceVariant.Default, "<nimble-anchor-button>")]
     [InlineData(ButtonAppearanceVariant.Primary, "appearance-variant=\"primary\"")]
-    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedAttribute)
+    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedMarkup)
     {
         var button = RenderWithPropertySet(x => x.AppearanceVariant, value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        Assert.Contains(expectedMarkup, button.Markup);
     }
 
     private IRenderedComponent<NimbleAnchorButton> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchorButton, TProperty>> propertyGetter, TProperty propertyValue)

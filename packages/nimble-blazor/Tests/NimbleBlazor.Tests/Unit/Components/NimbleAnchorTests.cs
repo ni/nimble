@@ -25,11 +25,11 @@ public class NimbleAnchorTests
     [Theory]
     [InlineData(AnchorAppearance.Default, "<nimble-anchor>")]
     [InlineData(AnchorAppearance.Prominent, "appearance=\"prominent\"")]
-    public void AnchorAppearance_AttributeIsSet(AnchorAppearance value, string expectedAttribute)
+    public void AnchorAppearance_AttributeIsSet(AnchorAppearance value, string expectedMarkup)
     {
         var anchor = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Contains(expectedAttribute, anchor.Markup);
+        Assert.Contains(expectedMarkup, anchor.Markup);
     }
 
     private IRenderedComponent<NimbleAnchor> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchor, TProperty>> propertyGetter, TProperty propertyValue)
