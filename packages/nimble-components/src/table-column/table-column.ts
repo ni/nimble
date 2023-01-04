@@ -6,9 +6,6 @@ import type { TableCellState, TableRecord } from '../../types';
  * The base class for table columns
  */
 export abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnConfig = void> extends FoundationElement {
-    // The unique id for this column.
-    public abstract columnId?: string;
-
     // The template to use to render the cell content for the column
     public abstract cellTemplate: ViewTemplate<TableCellState<TCellData, TColumnConfig>>;
 

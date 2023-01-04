@@ -29,7 +29,7 @@ import './switch';
 import './tab';
 import './tab-panel';
 import './table';
-import './table/components/column/table-column-text';
+import './table-column/table-column-text';
 import './tabs';
 import './tabs-toolbar';
 import './text-area';
