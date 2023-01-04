@@ -1,8 +1,8 @@
-# TableColumnTextField
+# TableColumnText
 
 ## Overview
 
-The `nimble-table-column-text-field` is a component that defines how to render a cell for that column in a `nimble-table` as text.
+The `nimble-table-column-text` is a component that defines how to render a cell for that column in a `nimble-table` as text.
 
 ### Background
 
@@ -144,7 +144,7 @@ N/A
 
 ### Accessibility
 
-Accessibility of the cells rendered using the `nimble-table-column-text-field` are handled via the [`nimble-table-cell`](https://github.com/ni/nimble/blob/f663c38741e731bef91aa58e8fb2d1cec653b679/packages/nimble-components/src/table/components/cell/template.ts#L6) which has a `role` of [`cell`](https://w3c.github.io/aria/#cell).
+Accessibility of the cells rendered using the `nimble-table-column-text` are handled via the [`nimble-table-cell`](https://github.com/ni/nimble/blob/f663c38741e731bef91aa58e8fb2d1cec653b679/packages/nimble-components/src/table/components/cell/template.ts#L6) which has a `role` of [`cell`](https://w3c.github.io/aria/#cell).
 
 ### Globalization
 
