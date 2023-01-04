@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 04 Jan 2023 21:51:15 GMT",
+      "tag": "@ni/nimble-blazor_v9.4.0",
+      "version": "9.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "5a509a200990916575422b9c1e05d7cd1825331f",
+            "comment": "Add NimbleTable to Blazor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Jan 2023 19:22:07 GMT",
       "tag": "@ni/nimble-blazor_v9.3.0",
       "version": "9.3.0",
