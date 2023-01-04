@@ -28,8 +28,8 @@ Below is an example of how the `nimble-table-column-text` would be used within a
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-text value-key="firstName" placeholder="No data">First Name</nimble-table-column-text-field>
-    <nimble-table-column-text value-key="lastName" placeholder="No data">Last Name</nimble-table-column-text-field>
+    <nimble-table-column-text field-name="firstName" placeholder="No data">First Name</nimble-table-column-text-field>
+    <nimble-table-column-text field-name="lastName" placeholder="No data">Last Name</nimble-table-column-text-field>
 </nimble-table>
 ```
 
@@ -41,7 +41,7 @@ _Component Name_
 
 _*Props/Attrs*_
 
--   `value-key`: string
+-   `field-name`: string
 -   `placeholder`: string
 
 _Type Reference_
@@ -59,14 +59,16 @@ type TableColumnTextColumnConfig = { placeholder: string };
 public class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
     ...
 
-    @attr({ attribute: 'value-key'})
-    public valueKey: string;
+    @attr({ attribute: 'field-name'})
+    public fieldName: string;
 
     @attr
     public placeholder: string; // Column auxiliary configuration
 
-    public getRowDataKeys(): string[] {
-        return [valueKey];
+    public cellStateDataFieldNames = ['value'] as const;
+
+    public getRecordFieldNames(): string[] {
+        return [fieldName];
     }
 
     ...
@@ -100,9 +102,7 @@ public class TableColumnText ...
 {
     ...
 
-    public cellDataKeyNames = ['value'] as const;
-
-    public readonly cellStyles: ElementStyles => css`
+    public readonly cellStyles = css`
         .text-value {
             // set necessary text-value styles
         }
@@ -112,14 +112,10 @@ public class TableColumnText ...
         }
     `;
 
-    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>> =>
-        html<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>>`
-            ${when(x => x.data.value, html`
-                <span class="text-value">{x => x.data.value}</span>
-            `)}
-            ${when(x => !x.data.value, html`
-                <span class="placeholder">{x => x.columnConfig.placeholder}</span>
-            `)}
+    public readonly cellTemplate = html<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>>`
+            <span class="${x => x.data.value ? 'text-value' : 'placeholder'}">
+                ${x => x.data.value? x.data.value : x.columnConfig.plaeholder}
+            </span>
         `;
 
     ...
@@ -127,10 +123,11 @@ public class TableColumnText ...
 ```
 
 Note that as we are using a `span` element for the visual we will not support many of the features native to the `nimble-text-field` component as they have little value. This includes:
-- No alternate appearance modes (always frameless)
-- No support for disabled state
-- No support for error states
-- No password display support
+
+-   No alternate appearance modes (always frameless)
+-   No support for disabled state
+-   No support for error states
+-   No password display support
 
 ### Alternatives considered
 
@@ -164,11 +161,11 @@ None.
 
 ### Test Plan
 
-- Unit tests will be written to test the component.
-    - Test for cases where rendered value is HTML content (i.e. `"<button>Should not be a button</button>"`)
-    - Test for case where rendered value is a non-standard charater (e.g. emoji, Asian character, etc...)
-- Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
-- Have a Chromatic test in place for this column
+-   Unit tests will be written to test the component.
+    -   Test for cases where rendered value is HTML content (i.e. `"<button>Should not be a button</button>"`)
+    -   Test for case where rendered value is a non-standard charater (e.g. emoji, Asian character, etc...)
+-   Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
+-   Have a Chromatic test in place for this column
 
 ### Tooling
 
@@ -182,4 +179,4 @@ This component will be documented via its usage in the storybook for the `nimble
 
 ## Open Issues
 
-- Are there specific configurarable styling requirements we need for both the rendered data value and the placeholder (e.g. italics for placeholder)
+-   Are there specific configurarable styling requirements we need for both the rendered data value and the placeholder (e.g. italics for placeholder)
