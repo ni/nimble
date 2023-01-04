@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 04 Jan 2023 19:22:07 GMT and should not be manually modified.
+This log was last generated on Wed, 04 Jan 2023 21:51:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.4.0
+
+Wed, 04 Jan 2023 21:51:15 GMT
+
+### Minor changes
+
+- Add NimbleTable to Blazor ([ni/nimble@5a509a2](https://github.com/ni/nimble/commit/5a509a200990916575422b9c1e05d7cd1825331f))
 
 ## 9.3.0
 

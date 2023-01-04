@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 16 Dec 2022 21:11:13 GMT and should not be manually modified.
+This log was last generated on Wed, 04 Jan 2023 21:51:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.4
+
+Wed, 04 Jan 2023 21:51:15 GMT
+
+### Patches
+
+- Add rollup configuration to remove process.env.NODE_ENV ([ni/nimble@5a509a2](https://github.com/ni/nimble/commit/5a509a200990916575422b9c1e05d7cd1825331f))
 
 ## 16.1.3
 
