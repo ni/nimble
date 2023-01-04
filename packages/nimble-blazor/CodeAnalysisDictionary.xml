@@ -5,17 +5,18 @@
             <Word>args</Word>
             <Word>blazor</Word>
             <Word>combobox</Word>
+            <Word>dropdown</Word>
             <Word>enum</Word>
+            <Word>frameless</Word>
+            <Word>getter</Word>
+            <Word>href</Word>
+            <Word>json</Word>
+            <Word>lang</Word>
+            <Word>ltr</Word>
             <Word>nullable</Word>
             <Word>runtime</Word>
-            <Word>ltr</Word>
             <Word>rtl</Word>
-            <Word>href</Word>
-            <Word>lang</Word>
-            <Word>frameless</Word>
-            <Word>Dropdown</Word>
-            <Word>Tooltip</Word>
-	    <Word>Getter</Word>
+            <Word>tooltip</Word>
         </Recognized>
         <DiscreteExceptions>
         </DiscreteExceptions>
