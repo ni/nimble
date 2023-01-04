@@ -11,6 +11,12 @@ export const styles = css`
         width: 100%;
         font: ${bodyFont};
         color: ${bodyFontColor};
+        overflow: auto;
+    }
+
+    .header-container {
+        position: sticky;
+        top: 0;
     }
 
     .header-row {
@@ -20,9 +26,5 @@ export const styles = css`
 
     .header {
         flex: 1;
-    }
-
-    .table-viewport {
-        overflow: auto;
     }
 `;
