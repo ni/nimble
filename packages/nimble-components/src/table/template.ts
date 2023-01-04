@@ -13,15 +13,20 @@ const isTableColumn = (): ElementsFilter => {
     return filter;
 };
 
+const getColumnHeader = (column: TableColumn): string | undefined => {
+    const textContent = column.textContent;
+    return (textContent !== '' && textContent ? textContent : column.getRecordFieldNames()[0]);
+};
+
 // prettier-ignore
 export const template = html<Table>`
     <template role="table">
         <div class="table-container">
             <div role="rowgroup">
                 <div class="header-row" role="row">
-                    ${repeat(x => x.slottedColumns, html<TableColumn>`
+                    ${repeat(x => x.columns, html<TableColumn>`
                         <${DesignSystem.tagFor(TableHeader)} class="header">
-                            ${x => x.textContent}
+                            ${x => getColumnHeader(x)}
                         </${DesignSystem.tagFor(TableHeader)}>
                     `)}
                 </div>
@@ -38,6 +43,6 @@ export const template = html<Table>`
                 `)}
             </div>
         </div>
-        <slot ${slotted({ property: 'slottedColumns' })}></slot>
+        <slot ${slotted({ property: 'slottedColumns', filter: isTableColumn() })}></slot>
     </template>
 `;

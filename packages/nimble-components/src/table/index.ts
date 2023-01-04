@@ -32,6 +32,9 @@ export class Table<
     @observable
     public readonly slottedColumns: TableColumn[] = [];
 
+    /**
+     * @internal
+     */
     @observable
     public columns: TableColumn[] = [];
 
@@ -78,17 +81,11 @@ export class Table<
         if (this.slottedColumns.length > 0) {
             const columns: TableColumn[] = [];
             for (const column of this.slottedColumns) {
-                if (this.isTableColumn(column)) {
-                    columns.push(column);
-                }
+                columns.push(column);
             }
 
             this.columns = columns;
         }
-    }
-
-    private isTableColumn(object: unknown): boolean {
-        return 'cellTemplate' in (object as { [key: string]: object });
     }
 
     private updateTableOptions(
