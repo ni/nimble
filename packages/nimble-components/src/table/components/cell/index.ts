@@ -25,8 +25,6 @@ export class TableCell<TCellData extends TableRecord = TableRecord> extends Foun
     @observable
     public cellStyles?: ElementStyles;
 
-    public cellContentContainer!: HTMLSpanElement;
-
     private customCellView: HTMLView | undefined = undefined;
 
     public override connectedCallback(): void {
@@ -45,7 +43,7 @@ export class TableCell<TCellData extends TableRecord = TableRecord> extends Foun
         }
 
         if (newCellView) {
-            this.customCellView!.appendTo(this.cellContentContainer);
+            this.customCellView!.appendTo(this.shadowRoot!);
         }
     }
 }

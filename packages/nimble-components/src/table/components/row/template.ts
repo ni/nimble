@@ -14,7 +14,6 @@ export const template = html<TableRow>`
                 :cellStyles="${x => x.cellStyles}"
                 :data="${(x, c) => (c.parent as TableRow).getCellValue(x)}"
             >
-                <slot name="rowActionMenu" slot="cellActionMenu"></slot>
             </${DesignSystem.tagFor(TableCell)}>
         `)}
     </template>
