@@ -22,9 +22,14 @@ const simpleData = [
         myBool: false
     },
     {
-        myStr: null,
+        myStr: 'This is an absurd amount of text to illustrate column behavior with so much text',
         myNum: 15,
         myBool: false
+    },
+    {
+        myStr: null,
+        myNum: null,
+        myBool: null
     }
 ] as const;
 
@@ -64,6 +69,8 @@ const metadata: Meta<TableArgs> = {
         </div>
         <nimble-table :data=${x => dataSets[x.data]}>
             <nimble-table-column-text value-key="myStr" placeholder="foo">Header</nimble-table-column-text>
+            <nimble-table-column-text value-key="myNum" placeholder="where value?">Number</nimble-table-column-text>
+            <nimble-table-column-text value-key="myBool" placeholder="where value?">Boolean</nimble-table-column-text>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {
