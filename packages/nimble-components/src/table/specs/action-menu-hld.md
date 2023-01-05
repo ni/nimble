@@ -18,14 +18,17 @@ Example action menu in SLE
 ## Implementation / Design
 
 ### Client-facing API
+
 There are two pieces of configuration that must be provided by a client in order to use the action menu:
+
 1. Specifying which column, or columns, the action menu will be visible within
 2. Specifying the menu and its items to show when the menu button is open
 
 The nimble design system will be opinionated about many details of the menu button within a table. Therefore, a client will not be able to configure the exact details of the menu button itself, such as:
-- The appearance mode of the button
-- The icon shown within the button
-- When the button becomes visible (e.g. always visible, visible on hover/selection only, etc.)
+
+-   The appearance mode of the button
+-   The icon shown within the button
+-   When the button becomes visible (e.g. always visible, visible on hover/selection only, etc.)
 
 If the need arises to have configuration for the items listed above, or other details that are not listed, that can be evaluated and the API can be extended.
 
@@ -58,6 +61,7 @@ Because only one menu can be open on the page at a time, the client can provide 
 ```
 
 If an application requires different menu items for different rows, the client is responsible for ensuring that the items in the menu are correct for the item(s) that the menu is associated. This can be done by handling the `action-menu-opening` event on the table and updating the menu items as appropriate. The `action-menu-opening` event will include the following in its details:
+
 -   `rowIds` - string array - The IDs of the rows that the menu is associated with.
 -   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be undefined in the event details.
 
@@ -68,6 +72,7 @@ If an application requires different menu items for different rows, the client i
 In order for the menu slotted within the table to be slotted within a cell's `nimble-menu-button`, the menu needs to be "forwarded" from the table to a row and then to a cell. Every row will have a slot for an menu, but only the row with the open menu will have something slotted within it. Similarly, every cell in a column with a menu will have a slot for a menu, but only the cell with an open menu will have something slotted within it. Events will be used to know when the row and cell the menu is associated with needs to change, and the templates will dynamically rename their slots to ensure the menu is slotted in the correct elements.
 
 For example, the table's template will look something like this:
+
 ```HTML
 <template>
     ...
@@ -81,6 +86,7 @@ For example, the table's template will look something like this:
 #### Updates to `nimble-menu-button`
 
 To implement the design described above, a few small changes need to be made to the existing `nimble-menu-button`:
+
 -   Add an `opening` event that gets fired immediately before the menu is opened. This new event will allow the table to slot the menu into the correct row and cell prior to the menu actually opening. This is important to ensure that the menu items can be focused correctly upon the menu opening.
 -   Update the code that gets the slotted menu. Currently, the code only looks for the first element in the `menu` slot. With the design above, the menu element will be nested within a few `slot` elements, so the code will be updated to handle both DOM structures.
 
@@ -93,10 +99,12 @@ There is no framework-specific integration work necessary with this design. One 
 ### Provide column IDs to the table to specify columns with menus
 
 Rather than configuring a column to have a menu by adding an attribute to the column definition, a column could be configured to have a menu by adding a property to the table that is the array of column IDs that should have a menu. This is not ideal for a few different reasons:
+
 -   It requires columns to have IDs when this may not otherwise be necessary.
 -   It is more error prone because mistakes could be made keeping the configuration of column IDs in sync between the column definitions and table configuration.
 
 ## Open Issues
+
 -   Can the action menu be opened for multiple rows at the same time? This doesn't become possible until the table supports row selection, but it can impact the API. To be the most future-proof, the API is designed such that the `action-menu-opening` event includes an array of row IDs rather than a single row ID string.
 -   The details of the visual/interaction design still need to be finalized by the designers, but these details should have minimal impact on the implementation. Some items that need to be finalized are:
     -   What icon will be used for the menu? Will it still be the three dots in a horizontal line?
