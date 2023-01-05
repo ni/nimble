@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 05 Jan 2023 17:46:06 GMT",
+      "tag": "@ni/nimble-components_v16.1.5",
+      "version": "16.1.5",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7df60e891a3e6275f9d162fb7a2e83b153708819",
+            "comment": "TableColumnTextField API spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 05 Jan 2023 16:41:38 GMT",
       "tag": "@ni/nimble-components_v16.1.5",
       "version": "16.1.5",
