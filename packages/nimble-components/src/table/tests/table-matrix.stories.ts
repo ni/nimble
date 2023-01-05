@@ -19,7 +19,7 @@ const metadata: Meta = {
         ...sharedMatrixParameters(),
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b9cee5e2-49a4-425a-9ed4-38b23ba2e313/specs/'
+                'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/specs/'
         }
     }
 };
