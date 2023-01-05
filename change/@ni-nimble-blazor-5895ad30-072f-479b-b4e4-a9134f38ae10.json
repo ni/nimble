@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Update the Blazor example app to remove explict table scroll styling",
+  "packageName": "@ni/nimble-blazor",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "none"
+}

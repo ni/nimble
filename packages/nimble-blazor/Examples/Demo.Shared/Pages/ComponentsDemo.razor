@@ -195,9 +195,9 @@
                 <span slot="checked-message">On</span>
             </NimbleSwitch>
         </div>
-        <div class="sub-container table-container">
+        <div class="sub-container">
             <div class="container-label">Table</div>
-            <NimbleTable @bind-Data="TableData"></NimbleTable>
+            <NimbleTable @bind-Data="TableData" class="table"></NimbleTable>
         </div>
         <NimbleButton class="table-update-button" @onclick=@(_ => UpdateTableData(100))>Update Data</NimbleButton>
         <div class="sub-container">
