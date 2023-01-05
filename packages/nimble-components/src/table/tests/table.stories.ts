@@ -45,8 +45,7 @@ const metadata: Meta<TableArgs> = {
         },
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/specs'
-                // 'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/9340753e-43c5-462b-9b15-a181188be274/specs/'
+                'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
         },
         actions: {
             handles: []
