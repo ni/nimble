@@ -128,24 +128,24 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   Attribute on table to represent parentId?
     -   Define event/property APIs needed for dealing with lazily-loaded hierarchical data (possibly out of scope of initial release)
     -   Describe the UI representation of hierarchical data (there should be a design doc to reference)
--   Action Menu
-    -   Define how the action menu gets associated with a particular column
-    -   Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
+-   [Action Menu](action-menu-hld.md)
 
 _Properties_
 
-Placeholder
+-   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
 
 _Events_
 
--   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
+-   `action-menu-opening` - An event that is emitted immediately prior to the action menu opening. This can be used to update the items in the menu so that they are in the correct state for the row(s) the menu is assoociated with. The event details include the following:
+    -   `rowIds` - string array - the IDs of the rows that the menu is associated with
+    -   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be undefined in the event details.
 
 ### Anatomy
 
 _Slots_
 
 -   default - the column elements
--   `action-menu` (Placeholder for action menu)
+-   `action-menu` - A menu element that is associated with row action menus. For more information about the action menu, refer to the [action menu HLD](action-menu-hld.md).
 
 ### Security
 

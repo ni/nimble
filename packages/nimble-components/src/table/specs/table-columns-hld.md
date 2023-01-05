@@ -85,6 +85,12 @@ This abstract class is what a column web component (i.e. a slotted column elemen
 
 ```TS
 abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnConfig = {}> {
+    @attr({ attribute: 'column-id' })
+    columnId?: string;
+
+    @attr({ attribute: 'show-menu', mode: 'boolean' })
+    showMenu: boolean;
+
     // This method returns the relevant, static configuration a column requires its cellTemplate
     // to have access to
     getColumnConfig(): TColumnConfig {}
