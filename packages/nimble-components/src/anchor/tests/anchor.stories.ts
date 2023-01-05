@@ -64,7 +64,7 @@ const metadata: Meta<AnchorArgs> = {
     },
     args: {
         label: 'link',
-        href: 'http://nimble.ni.dev',
+        href: 'https://nimble.ni.dev',
         underlineHidden: false,
         appearance: 'default'
     }
