@@ -90,7 +90,7 @@ const metadata: Meta<AnchorButtonArgs> = {
     },
     args: {
         label: 'Anchor Button',
-        href: 'http://nimble.ni.dev',
+        href: 'https://nimble.ni.dev',
         appearance: ButtonAppearance.outline,
         appearanceVariant: undefined,
         icon: false,

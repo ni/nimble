@@ -29,7 +29,7 @@ export const generateWaferData = (
         const centerY = radius;
 
         // Generate dies values - start from the bottom and go up
-        for (let i = centerY - radius; i < centerY + radius; i++) {
+        for (let i = centerY - radius; i <= centerY + radius; i++) {
             let stringValue: string;
 
             // generate points left of centerX

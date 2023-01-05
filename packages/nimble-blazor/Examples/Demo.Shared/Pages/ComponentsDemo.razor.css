@@ -29,6 +29,14 @@ p, a {
     margin: var(--ni-nimble-standard-padding);
 }
 
+::deep .table {
+    max-height: 500px;
+}
+
+::deep .table-update-button {
+    width: 150px;
+}
+
 .sub-container > * {
     padding-right: var(--ni-nimble-standard-padding);
 }
