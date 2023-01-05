@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 05 Jan 2023 18:31:08 GMT",
+      "tag": "@ni/nimble-components_v16.1.6",
+      "version": "16.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ac9e6c938436ccafae57842cc549c8c1ff183470",
+            "comment": "Fix scrolling in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Jan 2023 17:46:06 GMT",
+      "tag": "@ni/nimble-components_v16.1.5",
+      "version": "16.1.5",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7df60e891a3e6275f9d162fb7a2e83b153708819",
+            "comment": "TableColumnTextField API spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Jan 2023 16:41:38 GMT",
+      "tag": "@ni/nimble-components_v16.1.5",
+      "version": "16.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "35329597+DStavilaNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "01b31f49d75b8cc7ad3d8794fed4c9fd6d46ebb0",
+            "comment": "Fixed the wafer-map resizing issues"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Jan 2023 22:32:42 GMT",
       "tag": "@ni/nimble-components_v16.1.4",
       "version": "16.1.4",

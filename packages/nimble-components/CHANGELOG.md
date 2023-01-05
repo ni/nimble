@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 04 Jan 2023 21:51:15 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Jan 2023 18:31:08 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.6
+
+Thu, 05 Jan 2023 18:31:08 GMT
+
+### Patches
+
+- Fix scrolling in the table ([ni/nimble@ac9e6c9](https://github.com/ni/nimble/commit/ac9e6c938436ccafae57842cc549c8c1ff183470))
+
+## 16.1.5
+
+Thu, 05 Jan 2023 16:41:38 GMT
+
+### Patches
+
+- Fixed the wafer-map resizing issues ([ni/nimble@01b31f4](https://github.com/ni/nimble/commit/01b31f49d75b8cc7ad3d8794fed4c9fd6d46ebb0))
 
 ## 16.1.4
 
