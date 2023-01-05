@@ -15,6 +15,7 @@ The `nimble-table-column-text` is a component that defines how to render a cell 
 ### Non-goals
 
 -   Defining an API that supports editable text. Once we need editable text we will determine if it makes sense to modify this component or introduce a new column type.
+-   Provide API to customize styling of the column content. Styles will be defined statically in the implementation via the abstract `cssStyles` property.
 
 ### Features
 
