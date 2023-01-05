@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 05 Jan 2023 18:31:08 GMT",
+      "tag": "@ni/nimble-components_v16.1.6",
+      "version": "16.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ac9e6c938436ccafae57842cc549c8c1ff183470",
+            "comment": "Fix scrolling in the table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 05 Jan 2023 17:46:06 GMT",
       "tag": "@ni/nimble-components_v16.1.5",
       "version": "16.1.5",
