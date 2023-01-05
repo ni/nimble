@@ -5,9 +5,14 @@ import type { TableCellState, TableRecord } from '../table/types';
 /**
  * The base class for table columns
  */
-export abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnConfig = void> extends FoundationElement {
+export abstract class TableColumn<
+    TCellData extends TableRecord = TableRecord,
+    TColumnConfig = void
+> extends FoundationElement {
     // The template to use to render the cell content for the column
-    public abstract cellTemplate: ViewTemplate<TableCellState<TCellData, TColumnConfig>>;
+    public abstract cellTemplate: ViewTemplate<
+    TableCellState<TCellData, TColumnConfig>
+    >;
 
     // The style to apply to the cellTemplate
     public cellStyles?: ElementStyles;

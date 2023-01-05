@@ -14,13 +14,6 @@ interface SimpleTableRecord extends TableRecord {
     dateData: Date;
 }
 
-const simpleTableDataKeys = [
-    'stringData',
-    'numericData',
-    'booleanData',
-    'dateData'
-] as const;
-
 const simpleTableData = [
     {
         stringData: 'string 1',
@@ -45,20 +38,34 @@ const simpleTableData = [
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="stringData">stringData</${DesignSystem.tagFor(TableColumnText)}>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="numericData">numericData</${DesignSystem.tagFor(TableColumnText)}>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="booleanData">booleanData</${DesignSystem.tagFor(TableColumnText)}>
+                <${DesignSystem.tagFor(
+        TableColumnText
+    )} field-name="stringData">stringData</${DesignSystem.tagFor(
+    TableColumnText
+)}>
+                <${DesignSystem.tagFor(
+        TableColumnText
+    )} field-name="numericData">numericData</${DesignSystem.tagFor(
+    TableColumnText
+)}>
+                <${DesignSystem.tagFor(
+        TableColumnText
+    )} field-name="booleanData">booleanData</${DesignSystem.tagFor(
+    TableColumnText
+)}>
             </nimble-table>`
     );
 }
 
-fdescribe('Table', () => {
+describe('Table', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
 
-    function retrieveVisibleData(tableData: SimpleTableRecord[]): TableRecord[] {
+    function retrieveVisibleData(
+        tableData: SimpleTableRecord[]
+    ): TableRecord[] {
         const visibleData: TableRecord[] = [];
         for (const rowData of tableData) {
             const record: TableRecord = {};

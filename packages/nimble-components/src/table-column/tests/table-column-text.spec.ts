@@ -38,10 +38,26 @@ const simpleTableData = [
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="stringData" placeholder="no value">stringData</${DesignSystem.tagFor(TableColumnText)}>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="numericData">numericData</${DesignSystem.tagFor(TableColumnText)}>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="booleanData">booleanData</${DesignSystem.tagFor(TableColumnText)}>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="dateData">dateData</${DesignSystem.tagFor(TableColumnText)}>
+                <${DesignSystem.tagFor(
+        TableColumnText
+    )} field-name="stringData" placeholder="no value">stringData</${DesignSystem.tagFor(
+    TableColumnText
+)}>
+                <${DesignSystem.tagFor(
+        TableColumnText
+    )} field-name="numericData">numericData</${DesignSystem.tagFor(
+    TableColumnText
+)}>
+                <${DesignSystem.tagFor(
+        TableColumnText
+    )} field-name="booleanData">booleanData</${DesignSystem.tagFor(
+    TableColumnText
+)}>
+                <${DesignSystem.tagFor(
+        TableColumnText
+    )} field-name="dateData">dateData</${DesignSystem.tagFor(
+    TableColumnText
+)}>
                 <button>Ignore Me</button>
             </nimble-table>`
     );
@@ -84,6 +100,8 @@ describe('TableColumnText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(1, 0)).toBe('<button></button>');
+        expect(pageObject.getRenderedCellContent(1, 0)).toBe(
+            '<button></button>'
+        );
     });
 });

@@ -1,4 +1,10 @@
-import { defaultExecutionContext, ElementStyles, HTMLView, observable, ViewTemplate } from '@microsoft/fast-element';
+import {
+    defaultExecutionContext,
+    ElementStyles,
+    HTMLView,
+    observable,
+    ViewTemplate
+} from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { TableCellState, TableRecord } from '../../types';
 import { styles } from './styles';
@@ -14,7 +20,9 @@ declare global {
  * A styled cell that is used within the nimble-table-row.
  * @internal
  */
-export class TableCell<TCellData extends TableRecord = TableRecord> extends FoundationElement {
+export class TableCell<
+    TCellData extends TableRecord = TableRecord
+> extends FoundationElement {
     // TODO: This should be replaced with an instance of TableCellState<TCellData>
     @observable
     public data?: TableCellState<TCellData>;

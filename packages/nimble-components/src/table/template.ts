@@ -1,4 +1,10 @@
-import { ElementsFilter, html, repeat, slotted, when } from '@microsoft/fast-element';
+import {
+    ElementsFilter,
+    html,
+    repeat,
+    slotted,
+    when
+} from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { Table } from '.';
 import type { TableRecord } from './types';
@@ -7,8 +13,12 @@ import { TableRow } from './components/row';
 import { TableColumn } from '../table-column/table-column';
 
 const isTableColumn = (): ElementsFilter => {
-    const filter: ElementsFilter = (value: Node, _: number, __: Node[]): boolean => {
-        return (value instanceof TableColumn);
+    const filter: ElementsFilter = (
+        value: Node,
+        _: number,
+        __: Node[]
+    ): boolean => {
+        return value instanceof TableColumn;
     };
     return filter;
 };

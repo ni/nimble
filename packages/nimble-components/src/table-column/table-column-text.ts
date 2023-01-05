@@ -5,7 +5,7 @@ import { TableColumn } from './table-column';
 import {
     bodyFontColor,
     bodyFont,
-    controlLabelFontColor,
+    controlLabelFontColor
 } from '../theme-provider/design-tokens';
 
 type TableColumnTextCellData = StringField<'value'>;
@@ -16,7 +16,10 @@ interface TableColumnTextColumnConfig {
 /**
  * The table column for displaying strings.
  */
-export class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
+export class TableColumnText extends TableColumn<
+TableColumnTextCellData,
+TableColumnTextColumnConfig
+> {
     public cellStateDataFieldNames = ['value'] as const;
 
     @attr({ attribute: 'field-name' })
@@ -39,9 +42,19 @@ export class TableColumnText extends TableColumn<TableColumnTextCellData, TableC
         }
     `;
 
-    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>> = html<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>>`
-        <span class="${x => ((x.data.value !== null && x.data.value !== undefined) ? 'text-value' : 'placeholder')}">
-            ${x => ((x.data.value !== null && x.data.value !== undefined) ? x.data.value : x.columnConfig.placeholder)}
+    public readonly cellTemplate: ViewTemplate<
+    TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>
+    > = html<
+        TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>
+        >`
+        <span
+            class="${x => (x.data.value !== null && x.data.value !== undefined
+        ? 'text-value'
+        : 'placeholder')}"
+        >
+            ${x => (x.data.value !== null && x.data.value !== undefined
+        ? x.data.value
+        : x.columnConfig.placeholder)}
         </span>
     `;
 
@@ -57,7 +70,7 @@ export class TableColumnText extends TableColumn<TableColumnTextCellData, TableC
     }
 
     public validateCellData(cellData: TableColumnTextCellData): void {
-        if (typeof (cellData.value) !== 'string') {
+        if (typeof cellData.value !== 'string') {
             throw new Error('Type for cellData is incorrect!');
         }
     }
@@ -67,4 +80,6 @@ const nimbleTableColumnText = TableColumnText.compose({
     baseName: 'table-column-text'
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableColumnText());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleTableColumnText());
