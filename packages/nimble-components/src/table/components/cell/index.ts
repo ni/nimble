@@ -36,15 +36,20 @@ export class TableCell<TCellData extends TableRecord = TableRecord> extends Foun
         const newCellView = this.customCellView === undefined;
         if (newCellView) {
             this.customCellView = this.cellTemplate!.create(this);
-            this.customCellView?.bind(this.data, defaultExecutionContext);
             if (this.cellStyles) {
                 this.$fastController.addStyles(this.cellStyles);
             }
         }
 
+        this.customCellView?.bind(this.data, defaultExecutionContext);
+
         if (newCellView) {
             this.customCellView!.appendTo(this.shadowRoot!);
         }
+    }
+
+    private dataChanged(): void {
+        this.updateView();
     }
 }
 

@@ -19,8 +19,8 @@ interface TableColumnTextColumnConfig {
 export class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
     public cellStateDataFieldNames = ['value'] as const;
 
-    @attr({ attribute: 'value-key' })
-    public valueKey!: string;
+    @attr({ attribute: 'field-name' })
+    public fieldName!: string;
 
     @attr
     public placeholder?: string;
@@ -50,10 +50,10 @@ export class TableColumnText extends TableColumn<TableColumnTextCellData, TableC
     }
 
     public getRecordFieldNames(): string[] {
-        if (!this.valueKey) {
+        if (!this.fieldName) {
             throw new Error('valueKey must be provided.');
         }
-        return [this.valueKey];
+        return [this.fieldName];
     }
 
     public validateCellData(cellData: TableColumnTextCellData): void {
