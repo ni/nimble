@@ -39,8 +39,8 @@ const data = [
     },
     {
         myStr: null,
-        myNum: 15,
-        myBool: false
+        myNum: null,
+        myBool: null
     }
 ] as const;
 
@@ -48,7 +48,9 @@ const data = [
 const component = (
 ): ViewTemplate => html`
     <nimble-table :data=${_ => data}>
-        <nimble-table-column-text value-key="myStr" placeholder="foo">Text data</nimble-table-column-text>
+        <nimble-table-column-text field-name="myStr" placeholder="no value">Text data</nimble-table-column-text>
+        <nimble-table-column-text field-name="myNum" placeholder="no value">Number data</nimble-table-column-text>
+        <nimble-table-column-text field-name="myBool" placeholder="no value">Boolean data</nimble-table-column-text>
     </nimble-table>
 `;
 
