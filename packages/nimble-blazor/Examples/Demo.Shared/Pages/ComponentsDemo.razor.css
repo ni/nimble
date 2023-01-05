@@ -29,6 +29,15 @@ p, a {
     margin: var(--ni-nimble-standard-padding);
 }
 
+.table-container { 
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+::deep .table-update-button {
+    width: 150px;
+}
+
 .sub-container > * {
     padding-right: var(--ni-nimble-standard-padding);
 }
