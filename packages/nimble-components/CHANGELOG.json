@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 05 Jan 2023 16:41:38 GMT",
+      "tag": "@ni/nimble-components_v16.1.5",
+      "version": "16.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "35329597+DStavilaNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "01b31f49d75b8cc7ad3d8794fed4c9fd6d46ebb0",
+            "comment": "Fixed the wafer-map resizing issues"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Jan 2023 22:32:42 GMT",
+      "tag": "@ni/nimble-components_v16.1.4",
+      "version": "16.1.4",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2ed917240f757f75247bba7fa6cfab28f1e4106a",
+            "comment": "Change some urls in Storybook from http to https"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Jan 2023 21:51:15 GMT",
       "tag": "@ni/nimble-components_v16.1.4",
       "version": "16.1.4",
