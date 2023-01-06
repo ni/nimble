@@ -135,11 +135,19 @@ The various APIs/features of the `nimble-table` will be split up amongst several
 
 _Attributes_
 
--   `id-field-name` - An optional string attribute that specifies the field name within a row's record to use as a row's ID. If the attribute is not defined or a field with the specified name does not exist in a row's record, a default ID will be created. The default ID is the index of the row's record within the table's `data` property. The value associated with the field name must be unique across all records in the table's data.
+-   `id-field-name` - An optional string attribute that specifies the field name within a row's record to use as a row's ID. If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered, and the table will enter an invalid state according to the `validity` property and `checkValidity()` function. The attribute is invalid in the following conditions:
+    -   Multiple records were found with the same ID
+    -   A record was found that did not have a field with the name specified by `id-field-name`
+    -   A record was found where `id-field-name` did not refer to a value of type `string`
 
 _Properties_
 
 -   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
+-   `validity` - Readonly object that represents the validity states that the table's configuration can be in.
+
+_Functions_
+
+-   `checkValidity(): boolean` - Function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.
 
 _Events_
 
