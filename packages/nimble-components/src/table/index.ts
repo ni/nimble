@@ -73,12 +73,6 @@ export class Table<
 
     private slottedColumnsChanged(): void {
         if (this.$fastController.isConnected) {
-            this.initializeColumns();
-        }
-    }
-
-    private initializeColumns(): void {
-        if (this.slottedColumns.length > 0) {
             const columns: TableColumn[] = [];
             for (const column of this.slottedColumns) {
                 columns.push(column);
