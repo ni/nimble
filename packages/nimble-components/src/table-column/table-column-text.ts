@@ -69,11 +69,7 @@ TableColumnTextColumnConfig
         return [this.fieldName];
     }
 
-    public validateCellData(cellData: TableColumnTextCellData): void {
-        if (typeof cellData.value !== 'string') {
-            throw new Error('Type for cellData is incorrect!');
-        }
-    }
+    public validateCellData(_: TableColumnTextCellData): void {}
 }
 
 const nimbleTableColumnText = TableColumnText.compose({
