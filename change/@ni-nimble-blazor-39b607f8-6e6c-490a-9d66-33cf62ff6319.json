@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add size property to spinner",
+  "packageName": "@ni/nimble-blazor",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
