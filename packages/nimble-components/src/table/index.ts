@@ -130,7 +130,9 @@ export class Table<
 
         const ids = new Set<string>();
         for (const record of this.data) {
-            if (!Object.prototype.hasOwnProperty.call(record, this.idFieldName)) {
+            if (
+                !Object.prototype.hasOwnProperty.call(record, this.idFieldName)
+            ) {
                 this.missingRowId = true;
                 return false;
             }
