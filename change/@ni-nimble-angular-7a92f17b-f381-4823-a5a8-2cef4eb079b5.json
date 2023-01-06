@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add size attribute to spinner",
+  "packageName": "@ni/nimble-angular",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
