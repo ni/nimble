@@ -26,9 +26,9 @@ export interface TableRecord {
 }
 
 export interface TableValidity {
-    duplicateRowId: boolean;
-    missingRowId: boolean;
-    invalidRowId: boolean;
+    readonly duplicateRowId: boolean;
+    readonly missingRowId: boolean;
+    readonly invalidRowId: boolean;
 }
 
 export interface TableRowState<TData extends TableRecord = TableRecord> {

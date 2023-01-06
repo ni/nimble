@@ -43,15 +43,21 @@ export class Table<
     @observable
     public columnHeaders: string[] = [];
 
-    public validity: TableValidity = {
-        duplicateRowId: false,
-        missingRowId: false,
-        invalidRowId: false
-    };
+    public get validity(): TableValidity {
+        return {
+            duplicateRowId: this.duplicateRowId,
+            missingRowId: this.missingRowId,
+            invalidRowId: this.invalidRowId
+        };
+    }
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableInitialized: boolean = false;
+
+    private duplicateRowId = false;
+    private missingRowId = false;
+    private invalidRowId = false;
 
     public constructor() {
         super();
@@ -114,9 +120,9 @@ export class Table<
 
     private validateRecordIds(): boolean {
         // Start off by assuming everything is valid.
-        this.validity.duplicateRowId = false;
-        this.validity.missingRowId = false;
-        this.validity.invalidRowId = false;
+        this.duplicateRowId = false;
+        this.missingRowId = false;
+        this.invalidRowId = false;
 
         if (!this.idFieldName) {
             return true;
@@ -125,18 +131,18 @@ export class Table<
         const ids = new Set<string>();
         for (const record of this.data) {
             if (!Object.prototype.hasOwnProperty.call(record, this.idFieldName)) {
-                this.validity.missingRowId = true;
+                this.missingRowId = true;
                 return false;
             }
 
             const id = record[this.idFieldName];
             if (!id || typeof id !== 'string') {
-                this.validity.invalidRowId = true;
+                this.invalidRowId = true;
                 return false;
             }
 
             if (ids.has(id)) {
-                this.validity.duplicateRowId = true;
+                this.duplicateRowId = true;
                 return false;
             }
             ids.add(id);
