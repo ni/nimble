@@ -74,7 +74,7 @@ A table cell represents a single column for a single row. The data that a cell h
 interface TableCellState<TCellData extends TableRecord, TColumnConfig> {
   data: TCellData;
   columnConfig: TColumnConfig;
-  rowId: string;
+  recordId: string;
 }
 ```
 
