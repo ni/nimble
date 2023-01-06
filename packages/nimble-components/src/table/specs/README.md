@@ -143,7 +143,7 @@ _Attributes_
 _Properties_
 
 -   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
--   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidityState` to mirror the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property.
+-   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidityState`, analogous to the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property used for HTML 5 control validation.
 
 _Functions_
 
