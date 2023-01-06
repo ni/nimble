@@ -53,11 +53,12 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 - *Props/Attrs*
     -   `activeid` - id of active tab. Defaults to the first tab.
 - *Methods* - None
-- *Events* - None
+- *Events*
+    - `change` - fired when the active tab changes
 - *CSS Classes and CSS Custom Properties that affect the component* - None
 - *Slots*
     -   `start` - content placed to the left of tab list
-    -   `anchortabs` - slot for anchor tab elements
+    -   `anchortab` - slot for anchor tab elements
     -   `end` - content placed to the right of tab list
 
 #### Anchor Tab
@@ -65,18 +66,17 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 - *Component Name* - `nimble-anchor-tab`
 - *Props/Attrs*
     -   `download` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `href` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes). Remove to disable the tab.
+    -   `href` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes).
     -   `hreflang` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
     -   `ping` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
     -   `referrerpolicy` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
     -   `rel` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
     -   `target` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
     -   `type` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    -   `disabled` - disables the tab (this matches the API of the existing `nimble-tab`)
 - *Methods* - None
 - *Events* - None
-- *CSS Classes and CSS Custom Properties that affect the component*
-    -   `active` - class indicating that the tab is active within the containing tabs group
-    -   `focused` - class indicating that the tab is focused within the containing tabs group (the containing tabs element will have the real focus)
+- *CSS Classes and CSS Custom Properties that affect the component* - None
 - *Slots*
     - *default*
 
@@ -89,7 +89,7 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
     <slot name="start"></slot>
     <nav class="tablist">
         <ul>
-            <slot name="anchortabs"></slot>
+            <slot name="anchortab"></slot>
         </ul>
     </nav>
     <slot name="end"></slot>
@@ -99,7 +99,7 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 #### Anchor Tab
 
 ```html
-<template slot="anchortabs">
+<template slot="anchortab">
     <li>
         <a>
             <slot></slot>
@@ -140,7 +140,7 @@ Blazor wrappers will be created for both `nimble-anchor-tabs` and `nimble-anchor
 
 The design for navigation tabs will be the same as for standard tabs. The standard Nimble tabs do not (yet) have specific support for icons or alert indicators, so we will (initially) not implement those for navigation tabs either.
 
-In addition to indicating which tab is active, navigation tabs must also separately indicate which tab has keyboard focus. I.e. you can arrow through tabs without activating those tabs, and there must be a visual indication of which tab has keyboard focus. This is not specified in the linked design document. TODO
+In addition to indicating which tab is active, navigation tabs must also separately indicate which tab has keyboard focus. I.e. you can arrow through tabs without activating those tabs, and there must be a visual indication of which tab has keyboard focus. We will indicate the focused tab with a double underline similar to what the existing tab control shows when keyboard focused, but it will be two thin lines when focusing a non-selected tab. When focusing the selected tab, the two thin underlines will overlap the thicker underline indicating selection, so we end up with a visual that is consistent with our existing tab control.
 
 ---
 
@@ -157,7 +157,7 @@ When the tabs group gains or loses focus we must set or remove the `focused` cla
 
 ### States
 
-#### Keyboard focused state:
+#### Keyboard focused state
 When tabbing to the `nimble-navigation-tabs`, it gets keyboard focus. To indicate this, the active tab (which is already underlined) gets a second, thinner underline.
 
 ### Accessibility
@@ -166,7 +166,9 @@ When tabbing to the `nimble-navigation-tabs`, it gets keyboard focus. To indicat
     -   The tabs control will have a visual indication of which tab is active (green underline).
     -   Once focused, the tabs control will show a visual indication of which tab has focus, starting with the active tab.
     -   Arrowing left or right will change the focused tab. Arrowing left on the first tab will wrap around to the last, and vice versa.
-    -   The Enter key will activate the focused tab, moving the active indicator and loading the tab's associated URL.
+    -   `Home` will move focus to the first (non-disabled) tab.
+    -   `End` will move focus to the last (non-disabled) tab.
+    -   The `Enter` or `Space` key will activate the focused tab, moving the active indicator and loading the tab's associated URL.
 - *Form Input*
     - N/A
 - *Use with Assistive Technology*
