@@ -84,7 +84,7 @@ export const styles = css`
     }
 
     :host(${focusVisible})::before {
-        width: 100%;
+        width: calc(100% - 6px);
     }
 
     :host::after {
