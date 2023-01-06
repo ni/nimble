@@ -69,8 +69,7 @@ export class Table<
                 if (this.idFieldName) {
                     return record[this.idFieldName] as string;
                 }
-                // Return a falsey value to use the default ID from TanStack,
-                // which is the index of the record within the data.
+                // Return a falsey value to use the default ID from TanStack.
                 return '';
             },
             columns: [],
@@ -138,7 +137,7 @@ export class Table<
             }
 
             const id = record[this.idFieldName];
-            if (!id || typeof id !== 'string') {
+            if (typeof id !== 'string') {
                 this.invalidRowId = true;
                 return false;
             }
