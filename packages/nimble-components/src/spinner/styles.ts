@@ -16,6 +16,16 @@ export const styles = css`
         height: 16px;
     }
 
+    :host([size='medium']) {
+        width: 32px;
+        height: 32px;
+    }
+
+    :host([size='large']) {
+        width: 64px;
+        height: 64px;
+    }
+
     div.container {
         margin: max(2px, 6.25%);
         flex: 1;

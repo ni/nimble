@@ -12,6 +12,7 @@ import {
 import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { SpinnerSize } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Spinner',
@@ -27,17 +28,16 @@ const metadata: Meta = {
 
 export default metadata;
 
-const sizeStates = [
-    ['16x16', 'width: 16px; height: 16px'],
-    ['32x32', 'width: 32px; height: 32px']
-];
+const sizeStates: [string, string | undefined][] = Object.entries(
+    SpinnerSize
+).map(([key, value]) => [key, value]);
 type SizeState = typeof sizeStates[number];
 
 const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
         ${() => stateName}
     </span>
-    <nimble-spinner style="${() => state}"></nimble-spinner>
+    <nimble-spinner size="${() => state}"></nimble-spinner>
 `;
 
 export const spinnerThemeMatrix: Story = createMatrixThemeStory(
