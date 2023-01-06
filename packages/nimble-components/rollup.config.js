@@ -2,6 +2,15 @@ import commonJS from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
+import replace from '@rollup/plugin-replace';
+
+const umdDevelopmentPlugin = () => replace({
+    'process.env.NODE_ENV': JSON.stringify('development')
+});
+
+const umdProductionPlugin = () => replace({
+    'process.env.NODE_ENV': JSON.stringify('production')
+});
 
 // eslint-disable-next-line import/no-default-export
 export default [
@@ -12,7 +21,7 @@ export default [
             format: 'iife',
             sourcemap: true
         },
-        plugins: [sourcemaps(), resolve(), commonJS()]
+        plugins: [umdDevelopmentPlugin(), sourcemaps(), resolve(), commonJS()]
     },
     {
         input: 'dist/esm/all-components.js',
@@ -28,6 +37,6 @@ export default [
                 })
             ]
         },
-        plugins: [sourcemaps(), resolve(), commonJS()]
+        plugins: [umdProductionPlugin(), sourcemaps(), resolve(), commonJS()]
     }
 ];
