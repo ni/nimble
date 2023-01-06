@@ -11,7 +11,7 @@ import {
 } from '@tanstack/table-core';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableRecord } from './types';
+import type { TableRecord, TableRowState, TableValidity } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -31,6 +31,9 @@ export class Table<
     @observable
     public data: TData[] = [];
 
+    @observable
+    public tableData: TableRowState<TData>[] = [];
+
     // TODO: Temporarily expose the columns as a string array. This will ultimately be
     // column definitions provided by slotted elements.
     @observable
@@ -39,6 +42,12 @@ export class Table<
     // TODO: Temporarily expose the column headers as a string array.
     @observable
     public columnHeaders: string[] = [];
+
+    public validity: TableValidity = {
+        duplicateRowId: false,
+        missingRowId: false,
+        invalidRowId: false
+    };
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
@@ -73,7 +82,7 @@ export class Table<
     ): void {
         // Force TanStack to detect a data update because a row's ID is only
         // generated when creating a new row model.
-        this.updateTableOptions({ data: [...this.data] });
+        this.trySetData();
     }
 
     public dataChanged(
@@ -86,8 +95,61 @@ export class Table<
 
         // Ignore any updates that occur prior to the TanStack table being initialized.
         if (this.tableInitialized) {
-            this.updateTableOptions({ data: this.data });
+            this.trySetData();
         }
+    }
+
+    public checkValidity(): boolean {
+        return Object.values(this.validity).every(x => x === false);
+    }
+
+    private trySetData(): void {
+        const areIdsValid = this.validateRecordIds();
+        if (areIdsValid) {
+            this.updateTableOptions({ data: this.data });
+        } else {
+            this.updateTableOptions({ data: [] });
+        }
+    }
+
+    private validateRecordIds(): boolean {
+        // Start off by assuming everything is valid.
+        this.validity.duplicateRowId = false;
+        this.validity.missingRowId = false;
+        this.validity.invalidRowId = false;
+
+        if (!this.idFieldName) {
+            return true;
+        }
+
+        const ids = new Set<string>();
+        for (const record of this.data) {
+            if (!Object.prototype.hasOwnProperty.call(record, this.idFieldName)) {
+                this.validity.missingRowId = true;
+                return false;
+            }
+
+            const id = record[this.idFieldName];
+            if (!id || typeof id !== 'string') {
+                this.validity.invalidRowId = true;
+                return false;
+            }
+
+            if (ids.has(id)) {
+                this.validity.duplicateRowId = true;
+                return false;
+            }
+            ids.add(id);
+        }
+
+        return true;
+    }
+
+    private refreshRows(): void {
+        const rows = this.table.getRowModel().rows;
+        this.tableData = rows.map(row => {
+            return { data: row.original, id: row.id } as TableRowState<TData>;
+        });
     }
 
     private updateTableOptions(
@@ -95,6 +157,7 @@ export class Table<
     ): void {
         this.options = { ...this.options, ...updatedOptions };
         this.update(this.table.initialState);
+        this.refreshRows();
     }
 
     private readonly update = (state: TanStackTableState): void => {

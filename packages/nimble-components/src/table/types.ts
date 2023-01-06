@@ -24,3 +24,14 @@ export type TableFieldValue =
 export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
 }
+
+export interface TableValidity {
+    duplicateRowId: boolean;
+    missingRowId: boolean;
+    invalidRowId: boolean;
+}
+
+export interface TableRowState<TData extends TableRecord = TableRecord> {
+    data: TData;
+    id: string;
+}
