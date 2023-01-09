@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Adding Angular support for TableColumnText",
+  "packageName": "@ni/nimble-angular",
+  "email": "26874831+atmgrifter00@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
