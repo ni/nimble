@@ -11,24 +11,27 @@ interface SimpleTableRecord extends TableRecord {
     stringData: string;
     numericData: string;
     booleanData: string;
-    moreStringData?: string;
+    moreStringData: string;
 }
 
 const simpleTableData = [
     {
         stringData: 'string 1',
         numericData: '8',
-        booleanData: 'true'
+        booleanData: 'true',
+        moreStringData: 'foo'
     },
     {
         stringData: 'hello world',
         numericData: '0',
-        booleanData: 'true'
+        booleanData: 'true',
+        moreStringData: 'foo'
     },
     {
         stringData: 'string 1',
         numericData: '-9',
-        booleanData: 'false'
+        booleanData: 'false',
+        moreStringData: 'foo'
     }
 ] as const;
 
@@ -36,15 +39,9 @@ const simpleTableData = [
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="stringData">
-                    stringData
-                </${DesignSystem.tagFor(TableColumnText)}>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="numericData">
-                    numericData
-                </${DesignSystem.tagFor(TableColumnText)}>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="booleanData">
-                    booleanData
-                </${DesignSystem.tagFor(TableColumnText)}>
+                <${DesignSystem.tagFor(TableColumnText)} field-name="stringData">stringData</${DesignSystem.tagFor(TableColumnText)}>
+                <${DesignSystem.tagFor(TableColumnText)} field-name="numericData">numericData</${DesignSystem.tagFor(TableColumnText)}>
+                <${DesignSystem.tagFor(TableColumnText)} field-name="booleanData">booleanData</${DesignSystem.tagFor(TableColumnText)}>
             </nimble-table>`
     );
 }
