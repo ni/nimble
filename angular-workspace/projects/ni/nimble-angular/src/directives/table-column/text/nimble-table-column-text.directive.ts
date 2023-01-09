@@ -4,7 +4,7 @@ import type { TableColumnText } from '@ni/nimble-components/dist/esm/table-colum
 export type { TableColumnText };
 
 /**
- * Directive to provide Angular integration for the table element.
+ * Directive to provide Angular integration for the table column element for text.
  */
 @Directive({
     selector: 'nimble-table-column-text'
