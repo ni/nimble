@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "4.3.0",
+  "version": "4.3.1",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico",

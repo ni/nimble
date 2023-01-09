@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 11 Nov 2022 14:59:30 GMT and should not be manually modified.
+This log was last generated on Mon, 09 Jan 2023 20:12:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.3.1
+
+Mon, 09 Jan 2023 20:12:13 GMT
+
+### Patches
+
+- Update assembly to .net 6 ([ni/nimble@2d84f9c](https://github.com/ni/nimble/commit/2d84f9cf515f7bfd25f89e9b84ebf60dc5f217e8))
 
 ## 4.3.0
 
