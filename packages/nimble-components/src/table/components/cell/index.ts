@@ -44,9 +44,9 @@ export class TableCell<
         this.customCellView = this.cellTemplate?.render(this.data, this.cellContainer!);
     }
 
-    // private dataChanged(): void {
-    //     this.customCellView?.bind(this.data, defaultExecutionContext);
-    // }
+    private dataChanged(): void {
+        this.customCellView?.bind(this.data, defaultExecutionContext);
+    }
 
     private cellStylesChanged(): void {
         if (this.cellStyles) {
