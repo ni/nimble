@@ -96,7 +96,6 @@ const fontTemplate = html<TokenName>`
 const tokenTemplates: {
     readonly [key in TokenSuffix]: ViewTemplate<TokenName>;
 } = {
-    Color: colorTemplate,
     RgbPartialColor: rgbColorTemplate,
     FontColor: colorTemplate,
     FontLineHeight: stringValueTemplate,
@@ -104,12 +103,17 @@ const tokenTemplates: {
     FontSize: stringValueTemplate,
     TextTransform: stringValueTemplate,
     FontFamily: stringValueTemplate,
+    BoxShadow: stringValueTemplate,
+    OffsetX: stringValueTemplate,
+    OffsetY: stringValueTemplate,
     Font: fontTemplate,
     Size: stringValueTemplate,
     Width: stringValueTemplate,
     Height: stringValueTemplate,
     Delay: stringValueTemplate,
-    Padding: stringValueTemplate
+    Padding: stringValueTemplate,
+    Blur: stringValueTemplate,
+    ShadowColor: colorTemplate
 };
 /* eslint-enable @typescript-eslint/naming-convention */
 

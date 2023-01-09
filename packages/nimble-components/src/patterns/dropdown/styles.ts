@@ -10,12 +10,12 @@ import {
     controlHeight,
     iconSize,
     popupBorderColor,
-    popupBoxShadowColor,
     smallDelay,
     smallPadding,
     borderRgbPartialColor,
     standardPadding,
-    failColor
+    failColor,
+    elevation2BoxShadow
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { focusVisible } from '../../utilities/style/focus';
@@ -140,7 +140,7 @@ export const styles = css`
         );
         z-index: 1;
         padding: var(--ni-private-listbox-padding);
-        box-shadow: 0px 3px 3px ${popupBoxShadowColor};
+        box-shadow: ${elevation2BoxShadow};
         border: 1px solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
         background-clip: padding-box;

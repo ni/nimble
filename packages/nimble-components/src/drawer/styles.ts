@@ -6,11 +6,14 @@ import {
     bodyFontColor,
     borderWidth,
     popupBorderColor,
-    popupBoxShadowColor,
     standardPadding,
     titlePlus1Font,
     drawerWidth,
-    largeDelay
+    largeDelay,
+    elevation3BoxShadowColor,
+    elevation3BoxShadowBlur,
+    elevation3BoxShadowOffsetY,
+    drawerBoxShadowOffsetX
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -88,8 +91,8 @@ export const styles = css`
     }
 
     :host([location='left']) .dialog-contents {
-        border-right: ${borderWidth} solid ${popupBoxShadowColor};
-        box-shadow: 3px 0px 8px ${popupBoxShadowColor};
+        border-right: ${borderWidth} solid ${elevation3BoxShadowColor};
+        box-shadow: ${drawerBoxShadowOffsetX} ${elevation3BoxShadowOffsetY} ${elevation3BoxShadowBlur} ${elevation3BoxShadowColor};
     }
 
     :host([location='left']) dialog.animating .dialog-contents {
@@ -108,8 +111,8 @@ export const styles = css`
 
     :host([location='right']) .dialog-contents {
         right: 0px;
-        border-left: ${borderWidth} solid ${popupBoxShadowColor};
-        box-shadow: -3px 0px 8px ${popupBoxShadowColor};
+        border-left: ${borderWidth} solid ${elevation3BoxShadowColor};
+        box-shadow: calc(-1*${drawerBoxShadowOffsetX}) ${elevation3BoxShadowOffsetY} ${elevation3BoxShadowBlur} ${elevation3BoxShadowColor};
     }
 
     :host([location='right']) dialog.animating .dialog-contents {

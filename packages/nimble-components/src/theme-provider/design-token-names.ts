@@ -27,7 +27,6 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     borderHoverColor: 'border-hover-color',
     iconColor: 'icon-color',
     modalBackdropColor: 'modal-backdrop-color',
-    popupBoxShadowColor: 'popup-box-shadow-color',
     popupBorderColor: 'popup-border-color',
     controlHeight: 'control-height',
     smallPadding: 'small-padding',
@@ -203,7 +202,24 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     errorTextFontWeight: 'error-text-font-weight',
     errorTextFontLineHeight: 'error-text-font-line-height',
     errorTextFallbackFontFamily: 'error-text-fallback-font-family',
-    tableRowBorderColor: 'table-row-border-color'
+    tableRowBorderColor: 'table-row-border-color',
+    elevation1BoxShadow: 'elevation-1-box-shadow',
+    elevation1BoxShadowColor: 'elevation-1-box-shadow-color',
+    elevation1BoxShadowOffsetY: 'elevation-1-box-shadow-offset-y',
+    elevation1BoxShadowBlur: 'elevation-1-box-shadow-blur',
+    elevation2BoxShadow: 'elevation-2-box-shadow',
+    elevation2BoxShadowColor: 'elevation-2-box-shadow-color',
+    elevation2BoxShadowOffsetY: 'elevation-2-box-shadow-offset-y',
+    elevation2BoxShadowBlur: 'elevation-2-box-shadow-blur',
+    elevation3BoxShadow: 'elevation-3-box-shadow',
+    elevation3BoxShadowColor: 'elevation-3-box-shadow-color',
+    elevation3BoxShadowOffsetY: 'elevation-3-box-shadow-offset-y',
+    elevation3BoxShadowBlur: 'elevation-3-box-shadow-blur',
+    elevation4BoxShadow: 'elevation-4-box-shadow',
+    elevation4BoxShadowColor: 'elevation-4-box-shadow-color',
+    elevation4BoxShadowOffsetY: 'elevation-4-box-shadow-offset-y',
+    elevation4BoxShadowBlur: 'elevation-4-box-shadow-blur',
+    drawerBoxShadowOffsetX: 'drawer-box-shadow-offset-x'
 };
 
 const prefix = 'ni-nimble';
@@ -226,13 +242,17 @@ const tokenSuffixes = [
     'FontSize',
     'TextTransform',
     'FontFamily',
+    'BoxShadow',
+    'OffsetX',
+    'OffsetY',
     'Font',
     'Size',
     'Width',
     'Height',
     'Delay',
     'Padding',
-    'Color'
+    'ShadowColor',
+    'Blur'
 ] as const;
 export type TokenSuffix = typeof tokenSuffixes[number];
 export const suffixFromTokenName = (

@@ -13,10 +13,10 @@ import {
 import {
     tooltipCaptionFont,
     tooltipCaptionFontColor,
-    popupBoxShadowColor,
     borderWidth,
     standardPadding,
-    smallPadding
+    smallPadding,
+    elevation2BoxShadow
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -37,7 +37,7 @@ export const styles = css`
         box-sizing: border-box;
         flex-shrink: 0;
         max-width: 440px;
-        box-shadow: 0px 3px 4px ${popupBoxShadowColor};
+        box-shadow: ${elevation2BoxShadow}
         display: inline-flex;
         border: ${borderWidth} solid var(--ni-private-tooltip-border-color);
         background-color: var(--ni-private-tooltip-background-color);
