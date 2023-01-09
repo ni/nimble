@@ -4,6 +4,6 @@ import type { TableCell } from '.';
 // prettier-ignore
 export const template = html<TableCell>`
     <template role="cell">
-        <div ${ref('cellContainer')}></div>
+        <div ${ref('cellContainer')} class="cell-container"></div>
     </template>
 `;

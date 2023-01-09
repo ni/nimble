@@ -63,7 +63,7 @@ export * from './directives/tab-panel/nimble-tab-panel.module';
 export * from './directives/table/nimble-table.directive';
 export * from './directives/table/nimble-table.module';
 export * from './directives/table-column/text/nimble-table-column-text.directive';
-export * from './directives/table-column/nimble-table-column.module';
+export * from './directives/table-column/text/nimble-table-column-text.module';
 export * from './directives/tabs/nimble-tabs.directive';
 export * from './directives/tabs/nimble-tabs.module';
 export * from './directives/tabs-toolbar/nimble-tabs-toolbar.directive';

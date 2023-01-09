@@ -5,6 +5,10 @@ export const styles = css`
     :host {
         padding: 0px calc(${standardPadding} / 2);
         align-self: center;
+        display: inherit;
+    }
+
+    .cell-container {
         overflow: hidden;
         text-overflow: ellipsis;
     }

@@ -35,22 +35,24 @@ const simpleTableData = [
     }
 ] as const;
 
+const tableColumnText = DesignSystem.tagFor(TableColumnText);
+
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="stringData" placeholder="no value">
+                <${tableColumnText} field-name="stringData" placeholder="no value">
                     stringData
-                </${DesignSystem.tagFor(TableColumnText)}>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="numericData">
+                </${tableColumnText}>
+                <${tableColumnText} field-name="numericData">
                     numericData
-                </${DesignSystem.tagFor(TableColumnText)}>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="booleanData">
+                </${tableColumnText}>
+                <${tableColumnText} field-name="booleanData">
                     booleanData
-                </${DesignSystem.tagFor(TableColumnText)}>
-                <${DesignSystem.tagFor(TableColumnText)} field-name="dateData">
+                </${tableColumnText}>
+                <${tableColumnText} field-name="dateData">
                     dateData
-                </${DesignSystem.tagFor(TableColumnText)}>
+                </${tableColumnText}>
             </nimble-table>`
     );
 }

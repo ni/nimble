@@ -51,9 +51,16 @@ export class TableCell<
         this.customCellView?.bind(this.data, defaultExecutionContext);
     }
 
-    private cellStylesChanged(): void {
-        if (this.cellStyles) {
-            this.$fastController.addStyles(this.cellStyles);
+    private cellStylesChanged(
+        prev?: ElementStyles,
+        next?: ElementStyles
+    ): void {
+        if (prev) {
+            this.$fastController.removeStyles(prev);
+        }
+
+        if (next) {
+            this.$fastController.addStyles(next);
         }
     }
 }

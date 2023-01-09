@@ -28,19 +28,19 @@ export default metadata;
 
 const data = [
     {
-        myStr: 'my first row',
-        myNum: '5',
-        myBool: 'true'
+        firstName: 'Ralph',
+        lastName: 'Wiggum',
+        favoriteColor: 'Rainbow'
     },
     {
-        myStr: 'my second row',
-        myNum: '15',
-        myBool: 'false'
+        firstName: 'Milhouse',
+        lastName: 'Van Houten',
+        favoriteColor: 'Crimson'
     },
     {
-        myStr: null,
-        myNum: null,
-        myBool: null
+        firstName: null,
+        lastName: null,
+        favoriteColor: null
     }
 ] as const;
 
@@ -48,9 +48,9 @@ const data = [
 const component = (
 ): ViewTemplate => html`
     <nimble-table :data=${_ => data}>
-        <nimble-table-column-text field-name="myStr" placeholder="no value">Text data</nimble-table-column-text>
-        <nimble-table-column-text field-name="myNum" placeholder="no value">Number data</nimble-table-column-text>
-        <nimble-table-column-text field-name="myBool" placeholder="no value">Boolean data</nimble-table-column-text>
+        <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
+        <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
+        <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
     </nimble-table>
 `;
 

@@ -12,24 +12,27 @@ interface TableArgs {
 
 const simpleData = [
     {
-        myStr: 'my first row',
-        myNum: '5',
-        myBool: 'true'
+        firstName: 'Ralph',
+        lastName: 'Wiggum',
+        favoriteColor: 'Rainbow',
+        quote: "I'm in danger!"
     },
     {
-        myStr: 'my second row',
-        myNum: '15',
-        myBool: 'false'
+        firstName: 'Milhouse',
+        lastName: 'Van Houten',
+        favoriteColor: 'Crimson',
+        quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
     },
     {
-        myStr: 'This is an absurd amount of text to illustrate column behavior with so much text. Here is even more text for monitors that may be excessively wide.',
-        myNum: '15',
-        myBool: 'false'
+        firstName: 'Ned',
+        lastName: 'Flanders',
+        favoriteColor: 'Taupe',
+        quote: 'Hi diddly-do neighbor!'
     },
     {
-        myStr: null,
-        myNum: null,
-        myBool: null
+        firstName: null,
+        lastName: null,
+        favoriteColor: null
     }
 ] as const;
 
@@ -68,9 +71,10 @@ const metadata: Meta<TableArgs> = {
             experimental. It is not recommended for application use.
         </div>
         <nimble-table :data=${x => dataSets[x.data]}>
-            <nimble-table-column-text field-name="myStr" placeholder="no value">Header</nimble-table-column-text>
-            <nimble-table-column-text field-name="myNum" placeholder="no value">Number</nimble-table-column-text>
-            <nimble-table-column-text field-name="myBool" placeholder="no value">Boolean</nimble-table-column-text>
+            <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
+            <nimble-table-column-text field-name="quote" placeholder="no value">Quote</nimble-table-column-text>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {

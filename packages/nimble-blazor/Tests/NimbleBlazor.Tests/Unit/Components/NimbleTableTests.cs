@@ -86,7 +86,6 @@ public class NimbleTableTests
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var table = context.RenderComponent<NimbleTable<TTable>>(p => p.Add(propertyGetter, propertyValue));
         return context.RenderComponent<NimbleTable<TTable>>(p => p.Add(propertyGetter, propertyValue));
     }
 }
