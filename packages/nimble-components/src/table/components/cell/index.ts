@@ -41,7 +41,10 @@ export class TableCell<
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.customCellView = this.cellTemplate?.render(this.data, this.cellContainer!);
+        this.customCellView = this.cellTemplate?.render(
+            this.data,
+            this.cellContainer!
+        );
     }
 
     private dataChanged(): void {
