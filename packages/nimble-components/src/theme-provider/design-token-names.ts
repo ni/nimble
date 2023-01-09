@@ -251,6 +251,7 @@ const tokenSuffixes = [
     'Height',
     'Delay',
     'Padding',
+    'Color',
     'ShadowColor',
     'Blur'
 ] as const;

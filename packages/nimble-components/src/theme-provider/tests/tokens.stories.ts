@@ -96,6 +96,7 @@ const fontTemplate = html<TokenName>`
 const tokenTemplates: {
     readonly [key in TokenSuffix]: ViewTemplate<TokenName>;
 } = {
+    Color: colorTemplate,
     RgbPartialColor: rgbColorTemplate,
     FontColor: colorTemplate,
     FontLineHeight: stringValueTemplate,
