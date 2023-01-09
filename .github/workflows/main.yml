@@ -52,6 +52,10 @@ jobs:
             packages/**/*.nupkg
             angular-workspace/**/*.tgz
           if-no-files-found: error
+      # The actions/upload-pages-artifact@v1 results in unexpected warning messages, workaround for:
+      # https://github.com/actions/upload-pages-artifact/issues/45
+      - name: Pages file permission workaround
+        run: chmod -c -R +rX packages/site/dist
       - uses: actions/upload-pages-artifact@v1
         with:
           path: 'packages/site/dist'
