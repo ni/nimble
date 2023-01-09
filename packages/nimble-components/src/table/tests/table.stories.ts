@@ -22,7 +22,7 @@ const simpleData = [
         myBool: 'false'
     },
     {
-        myStr: 'This is an absurd amount of text to illustrate column behavior with so much text',
+        myStr: 'This is an absurd amount of text to illustrate column behavior with so much text. Here is even more text for monitors that may be excessively wide.',
         myNum: '15',
         myBool: 'false'
     },

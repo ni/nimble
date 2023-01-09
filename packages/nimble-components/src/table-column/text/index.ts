@@ -22,7 +22,7 @@ TableColumnTextColumnConfig
     public cellStateDataFieldNames = ['value'] as const;
 
     @attr({ attribute: 'field-name' })
-    public fieldName!: string;
+    public fieldName?: string;
 
     @attr
     public placeholder?: string;
@@ -37,7 +37,7 @@ TableColumnTextColumnConfig
 
     public getRecordFieldNames(): string[] {
         if (!this.fieldName) {
-            throw new Error('valueKey must be provided.');
+            throw new Error('fieldName must be provided.');
         }
         return [this.fieldName];
     }

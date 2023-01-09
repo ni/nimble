@@ -11,48 +11,40 @@ interface SimpleTableRecord extends TableRecord {
     stringData: string;
     numericData: string;
     booleanData: string;
-    moreStringData: string;
+    moreStringData?: string;
 }
 
 const simpleTableData = [
     {
         stringData: 'string 1',
         numericData: '8',
-        booleanData: 'true',
-        moreStringData: 'foo'
+        booleanData: 'true'
     },
     {
         stringData: 'hello world',
         numericData: '0',
-        booleanData: 'true',
-        moreStringData: 'foo'
+        booleanData: 'true'
     },
     {
         stringData: 'string 1',
         numericData: '-9',
-        booleanData: 'false',
-        moreStringData: 'foo'
+        booleanData: 'false'
     }
 ] as const;
 
+// prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-                <${DesignSystem.tagFor(
-        TableColumnText
-    )} field-name="stringData">stringData</${DesignSystem.tagFor(
-    TableColumnText
-)}>
-                <${DesignSystem.tagFor(
-        TableColumnText
-    )} field-name="numericData">numericData</${DesignSystem.tagFor(
-    TableColumnText
-)}>
-                <${DesignSystem.tagFor(
-        TableColumnText
-    )} field-name="booleanData">booleanData</${DesignSystem.tagFor(
-    TableColumnText
-)}>
+                <${DesignSystem.tagFor(TableColumnText)} field-name="stringData">
+                    stringData
+                </${DesignSystem.tagFor(TableColumnText)}>
+                <${DesignSystem.tagFor(TableColumnText)} field-name="numericData">
+                    numericData
+                </${DesignSystem.tagFor(TableColumnText)}>
+                <${DesignSystem.tagFor(TableColumnText)} field-name="booleanData">
+                    booleanData
+                </${DesignSystem.tagFor(TableColumnText)}>
             </nimble-table>`
     );
 }
@@ -63,6 +55,8 @@ describe('Table', () => {
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
 
+    // The assumption being made here is that the values in the data are equal to their
+    // rendered representation (no formatting).
     function retrieveVisibleData(
         tableData: SimpleTableRecord[]
     ): TableRecord[] {
@@ -211,7 +205,7 @@ describe('Table', () => {
         await waitForUpdatesAsync();
 
         const dateColumn = new TableColumnText();
-        dateColumn.fieldName = 'dateData';
+        dateColumn.fieldName = 'moreStringData';
 
         element.appendChild(dateColumn);
         await waitForUpdatesAsync();
@@ -226,7 +220,7 @@ describe('Table', () => {
         await waitForUpdatesAsync();
 
         const dateColumn = new TableColumnText();
-        dateColumn.fieldName = 'dateData';
+        dateColumn.fieldName = 'moreStringData';
 
         element.insertBefore(dateColumn, element.columns[0]!);
         await waitForUpdatesAsync();

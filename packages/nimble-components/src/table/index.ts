@@ -103,7 +103,8 @@ export class Table<
         }));
     };
 
-    // Temporarily auto-detect the keys in TData to make columns.
+    // Generate columns for TanStack that correspond to all the keys in TData because all operations,
+    // such as grouping and sorting, will be performed on the data's records, not the values rendered within a cell.
     private generateColumns(): void {
         if (this.data.length === 0) {
             return;

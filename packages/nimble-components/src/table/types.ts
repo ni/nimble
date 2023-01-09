@@ -36,7 +36,3 @@ export interface TableCellState<
     data: TCellData;
     columnConfig: TColumnConfig;
 }
-
-export interface TableRowData {
-    cellData: TableCellState<TableRecord>[];
-}
