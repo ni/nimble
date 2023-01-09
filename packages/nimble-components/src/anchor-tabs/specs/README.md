@@ -43,7 +43,7 @@ Anchor tabs have the same appearance as a standard tabs control, i.e. a sequence
 
 The design consists of an "Anchor tabs" container component which contains one or more "Anchor tab" components. This mirrors the existing design of the `nimble-tabs` and `nimble-tab` components, however there is no analog for the `nimble-tab-panel` component. Instead, the content loaded from the configured URL(s) loads into the containing page, an `iframe`, a new window, etc.
 
-We cannot extend FAST's tabs control because it has baked into it the idea that tabs activate tab panels. Instead we will create new components from scratch, but we can likely borrow logic from FAST e.g. for handling keyboard navigation.
+We cannot extend FAST's tabs control because it has baked into it the idea that tabs activate tab panels. However, we can take the FAST implementation as a starting point and remove the parts related to tab panels.
 
 ### API
 
@@ -73,7 +73,7 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
     -   `rel` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
     -   `target` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
     -   `type` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `disabled` - disables the tab (this matches the API of the existing `nimble-tab`)
+    -   `disabled` - disables the tab (this matches the API of the existing `nimble-tab`). Setting it causes `aria-disabled` to be set as well.
 - *Methods* - None
 - *Events* - None
 - *CSS Classes and CSS Custom Properties that affect the component* - None
@@ -87,11 +87,9 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 ```html
 <template>
     <slot name="start"></slot>
-    <nav class="tablist">
-        <ul>
-            <slot name="anchortab"></slot>
-        </ul>
-    </nav>
+    <div role="tablist">
+        <slot name="anchortab"></slot>
+    </div>
     <slot name="end"></slot>
 </template>
 ```
@@ -100,11 +98,11 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 
 ```html
 <template slot="anchortab">
-    <li>
+    <div role="tab">
         <a>
             <slot></slot>
         </a>
-    </li>
+    </div>
 </template>
 ```
 
@@ -146,13 +144,13 @@ In addition to indicating which tab is active, navigation tabs must also separat
 
 ## Implementation
 
-As long as there is at least one non-disabled tab in the tabs group, we will have an active tab. Upon connecting `nimble-navigation-tabs` to the DOM, we will activate (i.e. navigate to) the tab specified as initially active. If no tab was specified as initially active, we will default to the first non-disabled tab.
+We will start with the [FAST tabs implementation](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/tabs/tabs.ts) as a starting point.
 
-Each `nimble-navigation-tab` must have an id so that `nimble-navigation-tabs`'s `activeid` has a valid value. If the user does not specify an id for a tab, we will generate one using FAST's `uniqueId()` utility function.
-
-If the active tab becomes disabled, it will remain active. We will not automatically activate a different tab.
-
-When the tabs group gains or loses focus we must set or remove the `focused` class from one of the child tabs. To do this, we will add `onfocus` and `onblur` event handlers to the tabs group.
+We will modify the FAST implementation in the following ways:
+-   Remove support for vertical orientation
+-   Remove support for disabling the active indicator (`hide-active-indicator`)
+-   Replace active indicator style/animation with our own version
+-   Replace logic related to tab panel activation with URL navigation
 
 
 ### States
@@ -162,17 +160,20 @@ When tabbing to the `nimble-navigation-tabs`, it gets keyboard focus. To indicat
 
 ### Accessibility
 
+We want the keyboard interactions to match those of the standard tabs control as much as possible. This means conforming to the keyboard interactions of the `tablist` and `tab` ARIA roles. Though we don't have any elements with the `tabpanel` role, we still follow the rest of the ARIA guidelines for the roles we do have. An alternative would be to use a `nav` container element (which has role `navigation`) and `link` roles on each of our tabs. However, this would imply a different keyboard navigation scheme (`tab` key moves to next tab), and that is not what we want.
+
 - *Keyboard Navigation and Focus*
     -   The tabs control will have a visual indication of which tab is active (green underline).
     -   Once focused, the tabs control will show a visual indication of which tab has focus, starting with the active tab.
     -   Arrowing left or right will change the focused tab. Arrowing left on the first tab will wrap around to the last, and vice versa.
     -   `Home` will move focus to the first (non-disabled) tab.
     -   `End` will move focus to the last (non-disabled) tab.
-    -   The `Enter` or `Space` key will activate the focused tab, moving the active indicator and loading the tab's associated URL.
+    -   The `Enter` or `Space` key will activate the focused tab, setting `aria-selected`, moving the active indicator, and loading the tab's associated URL.
 - *Form Input*
     - N/A
 - *Use with Assistive Technology*
-    - We cannot use the `tablist`, `tab`, and `tabpanel` roles because we have no `tabpanel`s. Instead we use a `nav` container element (which has role `navigation`) and `link` roles on each of our tabs. An element with role `navigation` should have a label that describes the navigation group. The user will have to provide this, so we will propagate the `aria-label` attribute value to the `nav` element in the shadow DOM.
+    -   We set the roles `tablist` and `tab` on divs we create.
+    -   `aria-selected`'s value matches the selected state of the tab
 
 ### Globalization
 
