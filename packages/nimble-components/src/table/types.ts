@@ -33,5 +33,4 @@ export interface TableValidity {
 
 export interface TableRowState<TData extends TableRecord = TableRecord> {
     data: TData;
-    id: string;
 }
