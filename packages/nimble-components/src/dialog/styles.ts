@@ -11,7 +11,8 @@ import {
     titlePlus1FontColor,
     smallPadding,
     subtitleFont,
-    subtitleFontColor
+    subtitleFontColor,
+    elevation4BoxShadow
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -28,7 +29,7 @@ export const styles = css`
         flex-direction: column;
         background-color: ${applicationBackgroundColor};
         border: none;
-        box-shadow: 0px 4px 8px #0000004d;
+        box-shadow: ${elevation4BoxShadow};
         padding: 0px;
         width: 400px;
         max-height: 600px;
