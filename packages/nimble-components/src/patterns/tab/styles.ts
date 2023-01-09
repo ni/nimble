@@ -11,8 +11,8 @@ import {
     fillHoverSelectedColor,
     standardPadding,
     smallDelay
-} from '../theme-provider/design-tokens';
-import { focusVisible } from '../utilities/style/focus';
+} from '../../theme-provider/design-tokens';
+import { focusVisible } from '../../utilities/style/focus';
 
 export const styles = css`
     ${display('inline-flex')}
