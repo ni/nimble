@@ -37,7 +37,7 @@ export const styles = css`
         box-sizing: border-box;
         flex-shrink: 0;
         max-width: 440px;
-        box-shadow: ${elevation2BoxShadow}
+        box-shadow: ${elevation2BoxShadow};
         display: inline-flex;
         border: ${borderWidth} solid var(--ni-private-tooltip-border-color);
         background-color: var(--ni-private-tooltip-background-color);
