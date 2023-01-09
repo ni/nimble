@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix tab keyboard focus style",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

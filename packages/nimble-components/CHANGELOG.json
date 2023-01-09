@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 09 Jan 2023 23:44:20 GMT",
+      "tag": "@ni/nimble-components_v16.1.7",
+      "version": "16.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0d8fb2cd0ffe5d15254bba17b59d733ca11493c4",
+            "comment": "Fix tab keyboard focus style"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 09 Jan 2023 20:12:13 GMT",
       "tag": "@ni/nimble-components_v16.1.6",
       "version": "16.1.6",

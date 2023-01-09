@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 09 Jan 2023 23:44:21 GMT",
+      "tag": "@ni/nimble-angular_v14.2.3",
+      "version": "14.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v16.1.7",
+            "commit": "0d8fb2cd0ffe5d15254bba17b59d733ca11493c4"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 05 Jan 2023 18:31:08 GMT",
       "tag": "@ni/nimble-angular_v14.2.2",
       "version": "14.2.2",

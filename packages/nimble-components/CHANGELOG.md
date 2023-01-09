@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 05 Jan 2023 18:31:08 GMT and should not be manually modified.
+This log was last generated on Mon, 09 Jan 2023 23:44:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.7
+
+Mon, 09 Jan 2023 23:44:20 GMT
+
+### Patches
+
+- Fix tab keyboard focus style ([ni/nimble@0d8fb2c](https://github.com/ni/nimble/commit/0d8fb2cd0ffe5d15254bba17b59d733ca11493c4))
 
 ## 16.1.6
 
