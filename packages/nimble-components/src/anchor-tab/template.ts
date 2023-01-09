@@ -20,7 +20,8 @@ TabOptions
             referrerpolicy="${x => x.referrerpolicy}"
             rel="${x => x.rel}"
             target="${x => x.target}"
-            type="${x => x.type}">
+            type="${x => x.type}"
+            tabindex="-1">
             <slot></slot>
         </a>
         ${endSlotTemplate(context, definition)}

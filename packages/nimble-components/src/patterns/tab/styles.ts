@@ -105,7 +105,13 @@ export const styles = css`
         }
     }
 
+    :host(${focusVisible})::after {
+        width: 100%;
+        border-bottom-width: var(--ni-private-focus-indicator-width);
+    }
+
     :host([aria-selected='true'])::after {
         width: 100%;
+        border-bottom-width: var(--ni-private-active-indicator-width);
     }
 `;

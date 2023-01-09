@@ -310,12 +310,18 @@ export class AnchorTabs extends FoundationElement {
         }
     };
 
-    private readonly focusTabByIndex = (group: HTMLElement[], index: number): void => {
-        const tab: HTMLElement = group[index]!;
+    private readonly focusTabByIndex = (group: HTMLElement[], activeIndex: number): void => {
+        const activeTab: HTMLElement = group[activeIndex]!;
         // this.activetab = tab;
         // this.prevActiveTabIndex = this.activeTabIndex;
         // this.activeTabIndex = index;
-        tab.focus();
+        activeTab.focus();
+
+        this.tabs.forEach((tab: HTMLElement) => {
+            if (tab.slot === 'anchortab') {
+                tab.setAttribute('tabindex', tab === activeTab ? '0' : '-1');
+            }
+        });
         // this.setComponent();
     };
 
