@@ -26,11 +26,14 @@ export class Table<
     TData extends TableRecord = TableRecord
 > extends FoundationElement {
     @attr({ attribute: 'id-field-name' })
-    public idFieldName?: string;
+    public idFieldName?: string | null;
 
     @observable
     public data: TData[] = [];
 
+    /**
+     * @internal
+     */
     @observable
     public tableData: TableRowState<TData>[] = [];
 
@@ -87,7 +90,7 @@ export class Table<
     ): void {
         // Force TanStack to detect a data update because a row's ID is only
         // generated when creating a new row model.
-        this.trySetData();
+        this.trySetData([...this.data]);
     }
 
     public dataChanged(
@@ -100,7 +103,7 @@ export class Table<
 
         // Ignore any updates that occur prior to the TanStack table being initialized.
         if (this.tableInitialized) {
-            this.trySetData();
+            this.trySetData(this.data);
         }
     }
 
@@ -108,10 +111,10 @@ export class Table<
         return Object.values(this.validity).every(x => x === false);
     }
 
-    private trySetData(): void {
+    private trySetData(newData: TData[]): void {
         const areIdsValid = this.validateRecordIds();
         if (areIdsValid) {
-            this.updateTableOptions({ data: this.data });
+            this.updateTableOptions({ data: newData });
         } else {
             this.updateTableOptions({ data: [] });
         }
@@ -123,7 +126,7 @@ export class Table<
         this.missingRowId = false;
         this.invalidRowId = false;
 
-        if (!this.idFieldName) {
+        if (this.idFieldName == null) {
             return true;
         }
 

@@ -250,7 +250,7 @@ describe('Table', () => {
             expect(element.validity.missingRowId).toBeTrue();
         });
 
-        it('setting ID field name to undefined should make invalid table valid', async () => {
+        it('setting ID field name to undefined should make an invalid table valid', async () => {
             const data = [...simpleTableData];
             element.data = data;
             element.idFieldName = 'missingFieldName';
@@ -260,6 +260,22 @@ describe('Table', () => {
             expect(element.checkValidity()).toBeFalse();
 
             element.idFieldName = undefined;
+            await waitForUpdatesAsync();
+
+            verifyRenderedData(data);
+            expect(element.checkValidity()).toBeTrue();
+        });
+
+        it('setting a valid ID field name should make an invalid table valid', async () => {
+            const data = [...simpleTableData];
+            element.data = data;
+            element.idFieldName = 'missingFieldName';
+            await connect();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+
+            element.idFieldName = 'stringData';
             await waitForUpdatesAsync();
 
             verifyRenderedData(data);
