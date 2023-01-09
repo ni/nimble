@@ -277,9 +277,7 @@ Storybook stories will be added to document/showcase the various features and AP
 
 ### Open Issues
 
--   How do different invalid configurations on the table get reflected to the client & end user?
-    -   Do all invalid configurations get treated the same way?
-    -   Should we render no rows, show some invalid text, stop updates to the table's state? Some things to keep in mind related to this:
-        -   We should be mindful of UI flickers when the client passes temporarily through an invalid state.
-        -   Stopping updates to the table's state could cause two tables with the same property values assigned to have different rendered outputs, which is not ideal.
+-   Should all invalid configurations get reflected to the client & end user the same way? Currently, invalid row ID configuration will cause no rows to be rendered in the table and the `validity` object to reflect why the table is invalid. Other options include: showing invalid text in the table or stopping updates to the table's state. Some things to keep in mind related to this:
+    -   We should be mindful of UI flickers when the client passes temporarily through an invalid state.
+    -   Stopping updates to the table's state could cause two tables with the same property values assigned to have different rendered outputs, which is not ideal.
 -   Should we implement our own algorithm for creating a default row ID rather than relying on TanStack? This would allow us to ensure backwards compatibility and would also allows us to make guarantees about it, such that it is always the index of the record within the `data` property (which isn't true in TanStack when dealing with hierarchical data).
