@@ -1,11 +1,11 @@
 import { html } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { Table } from '../../table';
-import { TableColumnText } from '../table-column-text';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import type { TableRecord } from '../../table/types';
-import { TablePageObject } from '../../table/tests/table.pageobject';
+import type { Table } from '../../../table';
+import { TableColumnText } from '..';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
+import { type Fixture, fixture } from '../../../utilities/tests/fixture';
+import type { TableRecord } from '../../../table/types';
+import { TablePageObject } from '../../../table/tests/table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string | null;

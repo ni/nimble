@@ -10,7 +10,7 @@ import type { Table } from '.';
 import type { TableRecord } from './types';
 import { TableHeader } from './components/header';
 import { TableRow } from './components/row';
-import { TableColumn } from '../table-column/table-column';
+import { TableColumn } from '../table-column/base';
 
 const isTableColumn = (): ElementsFilter => {
     const filter: ElementsFilter = (

@@ -13,18 +13,18 @@ interface TableArgs {
 const simpleData = [
     {
         myStr: 'my first row',
-        myNum: 5,
-        myBool: true
+        myNum: '5',
+        myBool: 'true'
     },
     {
         myStr: 'my second row',
-        myNum: 15,
-        myBool: false
+        myNum: '15',
+        myBool: 'false'
     },
     {
         myStr: 'This is an absurd amount of text to illustrate column behavior with so much text',
-        myNum: 15,
-        myBool: false
+        myNum: '15',
+        myBool: 'false'
     },
     {
         myStr: null,

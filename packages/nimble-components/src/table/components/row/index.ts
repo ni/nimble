@@ -3,7 +3,7 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState, TableRecord } from '../../types';
-import type { TableColumn } from '../../../table-column/table-column';
+import type { TableColumn } from '../../../table-column/base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -24,17 +24,17 @@ export class TableRow<
     @observable
     public columns: TableColumn[] = [];
 
-    public getCellValue(column: TableColumn): TableCellState<TData> {
+    public getCellValue(column: TableColumn): TableCellState<TableRecord> {
         const dataKeys = column.getRecordFieldNames();
         const cellDataValues = dataKeys.map(key => this.data![key]);
         const cellData = Object.fromEntries(
             column.cellStateDataFieldNames.map((k, i) => [k, cellDataValues[i]])
         );
         const columnConfig = column.getColumnConfig?.() ?? {};
-        const cellState = {
+        const cellState: TableCellState<TableRecord> = {
             data: cellData,
             columnConfig
-        } as TableCellState<TData>;
+        };
         return cellState;
     }
 }

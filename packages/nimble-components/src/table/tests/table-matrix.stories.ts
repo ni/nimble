@@ -29,13 +29,13 @@ export default metadata;
 const data = [
     {
         myStr: 'my first row',
-        myNum: 5,
-        myBool: true
+        myNum: '5',
+        myBool: 'true'
     },
     {
         myStr: 'my second row',
-        myNum: 15,
-        myBool: false
+        myNum: '15',
+        myBool: 'false'
     },
     {
         myStr: null,

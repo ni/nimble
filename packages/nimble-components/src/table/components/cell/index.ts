@@ -23,7 +23,6 @@ declare global {
 export class TableCell<
     TCellData extends TableRecord = TableRecord
 > extends FoundationElement {
-    // TODO: This should be replaced with an instance of TableCellState<TCellData>
     @observable
     public data?: TableCellState<TCellData>;
 
@@ -33,31 +32,26 @@ export class TableCell<
     @observable
     public cellStyles?: ElementStyles;
 
+    /**
+     * @internal
+     */
+    public readonly cellContainer: HTMLElement | undefined = undefined;
+
     private customCellView: HTMLView | undefined = undefined;
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.updateView();
+        this.customCellView = this.cellTemplate?.render(this.data, this.cellContainer!);
     }
 
-    private updateView(): void {
-        const newCellView = this.customCellView === undefined;
-        if (newCellView) {
-            this.customCellView = this.cellTemplate!.create(this);
-            if (this.cellStyles) {
-                this.$fastController.addStyles(this.cellStyles);
-            }
+    // private dataChanged(): void {
+    //     this.customCellView?.bind(this.data, defaultExecutionContext);
+    // }
+
+    private cellStylesChanged(): void {
+        if (this.cellStyles) {
+            this.$fastController.addStyles(this.cellStyles);
         }
-
-        this.customCellView?.bind(this.data, defaultExecutionContext);
-
-        if (newCellView) {
-            this.customCellView!.appendTo(this.shadowRoot!);
-        }
-    }
-
-    private dataChanged(): void {
-        this.updateView();
     }
 }
 

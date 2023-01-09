@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Table } from '..';
-import { TableColumnText } from '../../table-column/table-column-text';
+import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
@@ -9,29 +9,29 @@ import { TablePageObject } from './table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
-    numericData: number;
-    booleanData: boolean;
-    dateData: Date;
+    numericData: string;
+    booleanData: string;
+    moreStringData: string;
 }
 
 const simpleTableData = [
     {
         stringData: 'string 1',
-        numericData: 8,
-        booleanData: true,
-        dateData: new Date(2008, 12, 11)
+        numericData: '8',
+        booleanData: 'true',
+        moreStringData: 'foo'
     },
     {
         stringData: 'hello world',
-        numericData: 0,
-        booleanData: true,
-        dateData: new Date(2022, 5, 30)
+        numericData: '0',
+        booleanData: 'true',
+        moreStringData: 'foo'
     },
     {
         stringData: 'string 1',
-        numericData: -9,
-        booleanData: false,
-        dateData: new Date(2000, 1, 1)
+        numericData: '-9',
+        booleanData: 'false',
+        moreStringData: 'foo'
     }
 ] as const;
 
@@ -161,9 +161,9 @@ describe('Table', () => {
             ...simpleTableData,
             {
                 stringData: 'a new string',
-                numericData: -9,
-                booleanData: false,
-                dateData: new Date()
+                numericData: '-9',
+                booleanData: 'false',
+                moreStringData: 'foo'
             }
         ];
         element.data = updatedData;
