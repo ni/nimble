@@ -12,14 +12,14 @@ Anchor tabs are a sequence of tabs that navigate to URLs when activated.
 
 ### Non-goals
 
-- Mixing regular tabs and anchor tabs together
-- Vertical tabs orientation
+-   Mixing regular tabs and anchor tabs together
+-   Vertical tabs orientation
 
 ### Features
 
-- Functions like an anchor (i.e. navigates) upon activation
-- Supports keyboard navigation within group of tabs without automatically activating each focused tab
-- Disable individual tabs
+-   Functions like an anchor (i.e. navigates) upon activation
+-   Supports keyboard navigation within group of tabs without automatically activating each focused tab
+-   Disable individual tabs
 
 ### Risks and Challenges
 
@@ -49,22 +49,22 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 
 #### Anchor Tabs
 
-- *Component Name* - `nimble-anchor-tabs`
-- *Props/Attrs*
+-   _Component Name_ - `nimble-anchor-tabs`
+-   _Props/Attrs_
     -   `activeid` - id of active tab. Defaults to the first tab.
-- *Methods* - None
-- *Events*
-    - `change` - fired when the active tab changes
-- *CSS Classes and CSS Custom Properties that affect the component* - None
-- *Slots*
+-   _Methods_ - None
+-   _Events_
+    -   `change` - fired when the active tab changes
+-   _CSS Classes and CSS Custom Properties that affect the component_ - None
+-   _Slots_
     -   `start` - content placed to the left of tab list
     -   `anchortab` - slot for anchor tab elements
     -   `end` - content placed to the right of tab list
 
 #### Anchor Tab
 
-- *Component Name* - `nimble-anchor-tab`
-- *Props/Attrs*
+-   _Component Name_ - `nimble-anchor-tab`
+-   _Props/Attrs_
     -   `download` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
     -   `href` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes).
     -   `hreflang` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
@@ -74,11 +74,11 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
     -   `target` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
     -   `type` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
     -   `disabled` - disables the tab (this matches the API of the existing `nimble-tab`). Setting it causes `aria-disabled` to be set as well.
-- *Methods* - None
-- *Events* - None
-- *CSS Classes and CSS Custom Properties that affect the component* - None
-- *Slots*
-    - *default*
+-   _Methods_ - None
+-   _Events_ - None
+-   _CSS Classes and CSS Custom Properties that affect the component_ - None
+-   _Slots_
+    -   _default_
 
 ### Anatomy
 
@@ -140,6 +140,8 @@ The design for navigation tabs will be the same as for standard tabs. The standa
 
 In addition to indicating which tab is active, navigation tabs must also separately indicate which tab has keyboard focus. I.e. you can arrow through tabs without activating those tabs, and there must be a visual indication of which tab has keyboard focus. We will indicate the focused tab with a double underline similar to what the existing tab control shows when keyboard focused, but it will be two thin lines when focusing a non-selected tab. When focusing the selected tab, the two thin underlines will overlap the thicker underline indicating selection, so we end up with a visual that is consistent with our existing tab control.
 
+I expect we will be able to share most of the same CSS with the standard tab/tabs controls, but it is difficult to know for sure without actually attempting the implementation.
+
 ---
 
 ## Implementation
@@ -147,31 +149,32 @@ In addition to indicating which tab is active, navigation tabs must also separat
 We will start with the [FAST tabs implementation](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/tabs/tabs.ts) as a starting point.
 
 We will modify the FAST implementation in the following ways:
+
 -   Remove support for vertical orientation
 -   Remove support for disabling the active indicator (`hide-active-indicator`)
 -   Replace active indicator style/animation with our own version
 -   Replace logic related to tab panel activation with URL navigation
 
-
 ### States
 
 #### Keyboard focused state
+
 When tabbing to the `nimble-navigation-tabs`, it gets keyboard focus. To indicate this, the active tab (which is already underlined) gets a second, thinner underline.
 
 ### Accessibility
 
 We want the keyboard interactions to match those of the standard tabs control as much as possible. This means conforming to the keyboard interactions of the `tablist` and `tab` ARIA roles. Though we don't have any elements with the `tabpanel` role, we still follow the rest of the ARIA guidelines for the roles we do have. An alternative would be to use a `nav` container element (which has role `navigation`) and `link` roles on each of our tabs. However, this would imply a different keyboard navigation scheme (`tab` key moves to next tab), and that is not what we want.
 
-- *Keyboard Navigation and Focus*
+-   _Keyboard Navigation and Focus_
     -   The tabs control will have a visual indication of which tab is active (green underline).
     -   Once focused, the tabs control will show a visual indication of which tab has focus, starting with the active tab.
     -   Arrowing left or right will change the focused tab. Arrowing left on the first tab will wrap around to the last, and vice versa.
     -   `Home` will move focus to the first (non-disabled) tab.
     -   `End` will move focus to the last (non-disabled) tab.
     -   The `Enter` or `Space` key will activate the focused tab, setting `aria-selected`, moving the active indicator, and loading the tab's associated URL.
-- *Form Input*
-    - N/A
-- *Use with Assistive Technology*
+-   _Form Input_
+    -   N/A
+-   _Use with Assistive Technology_
     -   We set the roles `tablist` and `tab` on divs we create.
     -   `aria-selected`'s value matches the selected state of the tab
 
@@ -193,7 +196,7 @@ None
 
 ### Test Plan
 
-Unit tests will be created that exercise the API.
+Unit tests will be created that exercise the API and Chromatic tests will be created that exercise styling.
 
 ### Tooling
 
@@ -201,7 +204,8 @@ N/A
 
 ### Documentation
 
-We will create a new Storybook entry for navigation tabs that documents the API.
+We will create a new Storybook entry for navigation tabs that documents the API. Both the navigation tabs and the standard tabs Storybook entries will indicate when it is appropriate to use each.
 
 ---
+
 ## Open Issues
