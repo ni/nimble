@@ -3,5 +3,5 @@
   "comment": "Update assembly to .net 6",
   "packageName": "@ni/nimble-tokens",
   "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "none"
 }
