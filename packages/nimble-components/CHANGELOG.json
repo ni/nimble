@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 09 Jan 2023 18:31:01 GMT",
+      "tag": "@ni/nimble-components_v16.1.6",
+      "version": "16.1.6",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ea3693a6cf7bfdaee21960bc8cc527e3e2554f74",
+            "comment": "Include table row ID determination in spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 05 Jan 2023 21:27:03 GMT",
       "tag": "@ni/nimble-components_v16.1.6",
       "version": "16.1.6",
