@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { NimbleTableColumnModule } from '../nimble-table-column-text.module';
+import { NimbleTableColumnTextModule } from '../nimble-table-column-text.module';
 
 describe('Nimble table column text', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NimbleTableColumnModule]
+            imports: [NimbleTableColumnTextModule]
         });
     });
 
