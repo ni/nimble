@@ -150,4 +150,16 @@ describe('TableColumnText', () => {
 
         expect(pageObject.getRenderedCellContent(3, 0)).toBe('new value');
     });
+
+    it('when no fieldName provided, nothing is displayed', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        const firstColumn = element.columns[0] as TableColumnText;
+        firstColumn.fieldName = undefined;
+        element.data = [...simpleTableData];
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+    });
 });
