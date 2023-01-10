@@ -20,10 +20,10 @@ describe('Nimble anchor button RouterLinkDirective', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent],
-            imports: [NimbleAnchorButtonModule,
+            imports: [
+                NimbleAnchorButtonModule,
                 CommonModule,
-                RouterTestingModule.withRoutes([{ path: '', component: TestHostComponent, pathMatch: 'full' }
-                ], { useHash: true })
+                RouterTestingModule.withRoutes([{ path: '', component: TestHostComponent, pathMatch: 'full' }], { useHash: true })
             ]
         });
     });
