@@ -122,7 +122,8 @@ const metadata: Meta<TableArgs> = {
         },
         checkValidity: {
             name: 'checkValidity()',
-            description: 'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
+            description:
+                'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
             control: false
         }
     },
