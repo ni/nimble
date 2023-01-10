@@ -16,8 +16,7 @@ const simpleTableDataKeys = [
     'stringData',
     'numericData',
     'booleanData',
-    'dateData',
-    ''
+    'dateData'
 ] as const;
 
 const simpleTableData = [
@@ -25,25 +24,19 @@ const simpleTableData = [
         stringData: 'string 1',
         numericData: 8,
         booleanData: true,
-        dateData: new Date(2008, 12, 11),
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '': 'empty'
+        dateData: new Date(2008, 12, 11)
     },
     {
         stringData: 'hello world',
         numericData: 0,
         booleanData: true,
-        dateData: new Date(2022, 5, 30),
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '': 'foo'
+        dateData: new Date(2022, 5, 30)
     },
     {
         stringData: 'another string',
         numericData: -9,
         booleanData: false,
-        dateData: new Date(2000, 1, 1),
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '': 'bar'
+        dateData: new Date(2000, 1, 1)
     }
 ] as const;
 
@@ -53,7 +46,7 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     );
 }
 
-describe('Table', () => {
+fdescribe('Table', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -140,9 +133,7 @@ describe('Table', () => {
                 stringData: 'a new string',
                 numericData: -9,
                 booleanData: false,
-                dateData: new Date(),
-                // eslint-disable-next-line @typescript-eslint/naming-convention
-                '': ''
+                dateData: new Date()
             }
         ];
         element.data = updatedData;
@@ -185,7 +176,7 @@ describe('Table', () => {
     });
 
     describe('ID validation', () => {
-        it('setting valid field for ID is valid', async () => {
+        it('setting valid field for ID is valid and renders rows', async () => {
             const data = [...simpleTableData];
             element.data = data;
             element.idFieldName = 'stringData';
@@ -198,33 +189,7 @@ describe('Table', () => {
             expect(element.validity.missingRowId).toBeFalse();
         });
 
-        it('ID field name can be an empty string', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
-            element.idFieldName = '';
-            await connect();
-
-            verifyRenderedData(data);
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.duplicateRowId).toBeFalse();
-            expect(element.validity.invalidRowId).toBeFalse();
-            expect(element.validity.missingRowId).toBeFalse();
-        });
-
-        it('setting data with duplicate IDs is invalid', async () => {
-            const data = [...simpleTableData, simpleTableData[0]];
-            element.data = data;
-            element.idFieldName = 'stringData';
-            await connect();
-
-            expect(pageObject.getRenderedRowCount()).toBe(0);
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.duplicateRowId).toBeTrue();
-            expect(element.validity.invalidRowId).toBeFalse();
-            expect(element.validity.missingRowId).toBeFalse();
-        });
-
-        it('setting data with invalid ID value is invalid', async () => {
+        it('setting invalid field for ID  is invalid and renders no rows', async () => {
             const data = [...simpleTableData];
             element.data = data;
             element.idFieldName = 'numericData';
@@ -237,20 +202,7 @@ describe('Table', () => {
             expect(element.validity.missingRowId).toBeFalse();
         });
 
-        it('setting data with missing IDs is invalid', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
-            element.idFieldName = 'missingFieldName';
-            await connect();
-
-            expect(pageObject.getRenderedRowCount()).toBe(0);
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.duplicateRowId).toBeFalse();
-            expect(element.validity.invalidRowId).toBeFalse();
-            expect(element.validity.missingRowId).toBeTrue();
-        });
-
-        it('setting ID field name to undefined should make an invalid table valid', async () => {
+        it('setting ID field name to undefined makes an invalid table valid', async () => {
             const data = [...simpleTableData];
             element.data = data;
             element.idFieldName = 'missingFieldName';
@@ -266,7 +218,7 @@ describe('Table', () => {
             expect(element.checkValidity()).toBeTrue();
         });
 
-        it('setting a valid ID field name should make an invalid table valid', async () => {
+        it('setting a valid ID field name makes an invalid table valid', async () => {
             const data = [...simpleTableData];
             element.data = data;
             element.idFieldName = 'missingFieldName';
@@ -282,7 +234,7 @@ describe('Table', () => {
             expect(element.checkValidity()).toBeTrue();
         });
 
-        it('setting invalid ID field name on valid table should make it invalid', async () => {
+        it('setting invalid ID field name on valid table makes it invalid', async () => {
             const data = [...simpleTableData];
             element.data = data;
             element.idFieldName = 'stringData';

@@ -9,6 +9,7 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
+import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord, TableRowState, TableValidity } from './types';
@@ -47,20 +48,13 @@ export class Table<
     public columnHeaders: string[] = [];
 
     public get validity(): TableValidity {
-        return {
-            duplicateRowId: this.duplicateRowId,
-            missingRowId: this.missingRowId,
-            invalidRowId: this.invalidRowId
-        };
+        return this.tableValidator.getValidity();
     }
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableInitialized: boolean = false;
-
-    private duplicateRowId = false;
-    private missingRowId = false;
-    private invalidRowId = false;
+    private readonly tableValidator = new TableValidator();
 
     public constructor() {
         super();
@@ -108,51 +102,16 @@ export class Table<
     }
 
     public checkValidity(): boolean {
-        return Object.values(this.validity).every(x => x === false);
+        return this.tableValidator.isValid();
     }
 
     private trySetData(newData: TData[]): void {
-        const areIdsValid = this.validateRecordIds();
+        const areIdsValid = this.tableValidator.validateDataIds(newData, this.idFieldName);
         if (areIdsValid) {
             this.updateTableOptions({ data: newData });
         } else {
             this.updateTableOptions({ data: [] });
         }
-    }
-
-    private validateRecordIds(): boolean {
-        // Start off by assuming everything is valid.
-        this.duplicateRowId = false;
-        this.missingRowId = false;
-        this.invalidRowId = false;
-
-        if (this.idFieldName == null) {
-            return true;
-        }
-
-        const ids = new Set<string>();
-        for (const record of this.data) {
-            if (
-                !Object.prototype.hasOwnProperty.call(record, this.idFieldName)
-            ) {
-                this.missingRowId = true;
-                return false;
-            }
-
-            const id = record[this.idFieldName];
-            if (typeof id !== 'string') {
-                this.invalidRowId = true;
-                return false;
-            }
-
-            if (ids.has(id)) {
-                this.duplicateRowId = true;
-                return false;
-            }
-            ids.add(id);
-        }
-
-        return true;
     }
 
     private refreshRows(): void {
