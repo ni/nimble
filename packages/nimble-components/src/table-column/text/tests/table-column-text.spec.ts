@@ -6,7 +6,6 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/tests/table.pageobject';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     field?: string | null;
@@ -170,7 +169,7 @@ describe('TableColumnText', () => {
         { dataValue: null, renderedValue: 'no value' },
         { dataValue: 'null', renderedValue: 'null' },
         { dataValue: undefined, renderedValue: 'no value' },
-        { dataValue: 'undefined', renderedValue: 'undefined' },
+        { dataValue: 'undefined', renderedValue: 'undefined' }
     ];
     for (const fieldValue of fieldValues) {
         let testDataTitleValue: string;
@@ -190,7 +189,9 @@ describe('TableColumnText', () => {
             element.data = updatedData;
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe(fieldValue.renderedValue);
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                fieldValue.renderedValue
+            );
         });
     }
 });
