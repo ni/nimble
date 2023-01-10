@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 09 Jan 2023 23:44:20 GMT",
+      "tag": "@ni/nimble-components_v16.1.7",
+      "version": "16.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0d8fb2cd0ffe5d15254bba17b59d733ca11493c4",
+            "comment": "Fix tab keyboard focus style"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 09 Jan 2023 20:12:13 GMT",
+      "tag": "@ni/nimble-components_v16.1.6",
+      "version": "16.1.6",
+      "comments": {
+        "none": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.3.1",
+            "commit": "2d84f9cf515f7bfd25f89e9b84ebf60dc5f217e8"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 09 Jan 2023 18:31:01 GMT",
       "tag": "@ni/nimble-components_v16.1.6",
       "version": "16.1.6",
