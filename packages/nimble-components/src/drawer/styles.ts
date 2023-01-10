@@ -92,8 +92,9 @@ export const styles = css`
 
     :host([location='left']) .dialog-contents {
         border-right: ${borderWidth} solid ${elevation3BoxShadowColor};
-        box-shadow: ${elevation3FullHeightBoxShadowXOffset} ${elevation3BoxShadowYOffset}
-            ${elevation3BoxShadowBlurSize} ${elevation3BoxShadowColor};
+        box-shadow: ${elevation3FullHeightBoxShadowXOffset}
+            ${elevation3BoxShadowYOffset} ${elevation3BoxShadowBlurSize}
+            ${elevation3BoxShadowColor};
     }
 
     :host([location='left']) dialog.animating .dialog-contents {

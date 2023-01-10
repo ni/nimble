@@ -216,7 +216,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     elevation3BoxShadow: 'elevation-3-box-shadow',
     elevation3BoxShadowColor: 'elevation-3-box-shadow-color',
     elevation3BoxShadowXOffset: 'elevation-3-box-shadow-x-offset',
-    elevation3FullHeightBoxShadowXOffset: 'elevation-3-full-height-box-shadow-x-offset',
+    elevation3FullHeightBoxShadowXOffset:
+        'elevation-3-full-height-box-shadow-x-offset',
     elevation3BoxShadowYOffset: 'elevation-3-box-shadow-y-offset',
     elevation3BoxShadowBlurSize: 'elevation-3-box-shadow-blur-size',
     elevation4BoxShadow: 'elevation-4-box-shadow',

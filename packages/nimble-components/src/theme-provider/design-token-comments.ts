@@ -294,5 +294,5 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     elevation4BoxShadowYOffset:
         'The Y offset of the box shadow for elevation 4. Used for components such as dialogs, overlays, and pop-ups.',
     elevation4BoxShadowBlurSize:
-        'The blur of the box shadow for elevation 4. Used for components such as dialogs, overlays, and pop-ups.',
+        'The blur of the box shadow for elevation 4. Used for components such as dialogs, overlays, and pop-ups.'
 };
