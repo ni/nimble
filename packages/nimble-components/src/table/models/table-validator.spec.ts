@@ -1,6 +1,6 @@
 import { TableValidator } from './table-validator';
 
-fdescribe('TableValidator', () => {
+describe('TableValidator', () => {
     it('setting valid field for ID is valid', () => {
         const data = [
             { stringField: 'value-1', numberField: 10 },
