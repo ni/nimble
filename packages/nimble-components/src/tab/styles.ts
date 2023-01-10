@@ -29,6 +29,7 @@ export const styles = css`
         --ni-private-active-indicator-width: 2px;
         --ni-private-focus-indicator-width: 1px;
         --ni-private-indicator-lines-gap: 1px;
+        --ni-private-focus-indicator-inset-width: 3px;
     }
 
     :host(:hover) {
@@ -84,7 +85,7 @@ export const styles = css`
     }
 
     :host(${focusVisible})::before {
-        width: 100%;
+        width: calc(100% - 2 * var(--ni-private-focus-indicator-inset-width));
     }
 
     :host::after {
