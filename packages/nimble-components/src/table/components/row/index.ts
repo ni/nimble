@@ -29,7 +29,10 @@ export class TableRow<
             const dataKeys = column.getRecordFieldNames();
             const cellDataValues = dataKeys.map(key => this.data![key]);
             const cellData = Object.fromEntries(
-                column.cellStateDataFieldNames.map((k, i) => [k, cellDataValues[i]])
+                column.cellStateDataFieldNames.map((k, i) => [
+                    k,
+                    cellDataValues[i]
+                ])
             );
             const columnConfig = column.getColumnConfig?.() ?? {};
             const cellState: TableCellState<TableRecord> = {

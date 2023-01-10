@@ -89,7 +89,9 @@ describe('TableColumnText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('string 1');
-        expect(pageObject.getRenderedCellContent(1, 0)).toBe('<button></button>');
+        expect(pageObject.getRenderedCellContent(1, 0)).toBe(
+            '<button></button>'
+        );
         expect(pageObject.getRenderedCellContent(2, 0)).toBe('');
     });
 
