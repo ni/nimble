@@ -2,7 +2,7 @@
 
 ## Overview
 
-Anchor tabs are a sequence of tabs that navigate to URLs when activated.
+Anchor tabs are a sequence of links that are styled to look like tab elements, where one link can be distinguished as the currently active item.
 
 ### Background
 
