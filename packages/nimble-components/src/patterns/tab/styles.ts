@@ -36,12 +36,12 @@ export const styles = css`
         background-color: ${fillHoverColor};
     }
 
-    :host(:focus) {
-        outline: none;
+    :host(:hover[aria-selected='true']) {
+        background-color: ${fillHoverSelectedColor};
     }
 
-    :host(:focus:hover) {
-        background-color: ${fillHoverSelectedColor};
+    :host(:focus) {
+        outline: none;
     }
 
     :host(${focusVisible}) {

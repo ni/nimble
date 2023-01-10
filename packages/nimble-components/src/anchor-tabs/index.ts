@@ -6,7 +6,6 @@ import {
     keyEnter,
     keyHome,
     keySpace,
-    limit,
     uniqueId,
 } from '@microsoft/fast-web-utilities';
 import { DesignSystem, StartEnd, applyMixins, StartEndOptions, FoundationElementDefinition, FoundationElement } from '@microsoft/fast-foundation';
@@ -54,22 +53,19 @@ export class AnchorTabs extends FoundationElement {
      */
     public tablist: HTMLElement | undefined;
 
-    private prevActiveTabIndex = -1;
+    //private prevActiveTabIndex = -1;
     private activeTabIndex = 0;
     private tabIds: string[] = [];
 
     /**
      * @internal
      */
-    public activeidChanged(oldValue: string, newValue: string): void {
+    public activeidChanged(_oldValue: string, _newValue: string): void {
         if (this.$fastController.isConnected) {
-            this.prevActiveTabIndex = this.tabs.findIndex(
-                (item: HTMLElement) => item.id === oldValue
-            );
+            //this.prevActiveTabIndex = this.tabs.findIndex(
+            //    (item: HTMLElement) => item.id === oldValue
+            //);
             this.setTabs();
-            this.activateTab(this.tabs.findIndex(
-                (item: HTMLElement) => item.id === newValue
-            ));
         }
     }
 
@@ -81,31 +77,7 @@ export class AnchorTabs extends FoundationElement {
             this.tabIds = this.getTabIds();
 
             this.setTabs();
-            this.setComponent();
-        }
-    }
-
-    /**
-     * The adjust method for FASTTabs
-     * @public
-     * @remarks
-     * This method allows the active index to be adjusted by numerical increments
-     */
-    public adjust(adjustment: number): void {
-        const focusableTabs = this.tabs.filter(t => !this.isDisabledElement(t));
-        const currentActiveTabIndex = focusableTabs.indexOf(this.activetab!);
-
-        const nextTabIndex = limit(
-            0,
-            focusableTabs.length - 1,
-            currentActiveTabIndex + adjustment
-        );
-
-        // the index of the next focusable tab within the context of all available tabs
-        const nextIndex = this.tabs.indexOf(focusableTabs[nextTabIndex]!);
-
-        if (nextIndex > -1) {
-            this.focusTabByIndex(this.tabs, nextIndex);
+            //this.setComponent();
         }
     }
 
@@ -118,10 +90,6 @@ export class AnchorTabs extends FoundationElement {
         this.tabIds = this.getTabIds();
         this.activeTabIndex = this.getActiveIndex();
     }
-
-    private readonly change = (): void => {
-        this.$emit('change', this.activetab);
-    };
 
     private readonly isDisabledElement = (el: Element): el is HTMLElement => {
         return el.getAttribute('aria-disabled') === 'true';
@@ -160,8 +128,6 @@ export class AnchorTabs extends FoundationElement {
                 }
             }
 
-            // If the original property isn't emptied out,
-            // the next set will morph into a grid-area style setting that is not what we want
             tab.style[gridVerticalProperty] = '';
             tab.style[gridHorizontalProperty] = `${index + 1}`;
         });
@@ -173,20 +139,25 @@ export class AnchorTabs extends FoundationElement {
         });
     }
 
+    /*
     private setComponent(): void {
         if (this.activeTabIndex !== this.prevActiveTabIndex) {
             this.activeid = this.tabIds[this.activeTabIndex]!;
             this.focusTab();
-            this.change();
         }
     }
+    */
 
     private readonly handleTabClick = (event: MouseEvent): void => {
         const selectedTab = event.currentTarget as HTMLElement;
         if (selectedTab.nodeType === 1 && this.isFocusableElement(selectedTab)) {
-            this.prevActiveTabIndex = this.activeTabIndex;
-            this.activeTabIndex = this.tabs.indexOf(selectedTab);
-            this.setComponent();
+            //this.prevActiveTabIndex = this.activeTabIndex;
+            //this.activeTabIndex = this.tabs.indexOf(selectedTab);
+            //this.setComponent();
+
+            this.navigateToTab(this.tabs.findIndex(
+                (item: HTMLElement) => item === selectedTab
+            ));
         }
     };
 
@@ -202,11 +173,11 @@ export class AnchorTabs extends FoundationElement {
                 break;
             case keyHome:
                 event.preventDefault();
-                this.adjust(-this.activeTabIndex);
+                this.focusFirstOrLast(false);
                 break;
             case keyEnd:
                 event.preventDefault();
-                this.adjust(this.tabs.length - this.activeTabIndex - 1);
+                this.focusFirstOrLast(true);
                 break;
             case keySpace:
             case keyEnter:
@@ -217,6 +188,15 @@ export class AnchorTabs extends FoundationElement {
                 // do nothing
         }
     };
+
+    private focusFirstOrLast(focusLast: boolean): void {
+        const focusableTabs = this.tabs.filter(t => !this.isDisabledElement(t));
+        const focusableIndex = focusLast ? focusableTabs.length - 1 : 0;
+        const index = this.tabs.indexOf(focusableTabs[focusableIndex]!);
+        if (index > -1) {
+            this.focusTabByIndex(this.tabs, index);
+        }
+    }
 
     private readonly adjustForward = (): void => {
         const group: HTMLElement[] = this.tabs;
@@ -262,22 +242,24 @@ export class AnchorTabs extends FoundationElement {
         }
     };
 
-    private readonly focusTabByIndex = (group: HTMLElement[], activeIndex: number): void => {
-        const activeTab: HTMLElement = group[activeIndex]!;
-        activeTab.focus();
+    private readonly focusTabByIndex = (group: HTMLElement[], index: number): void => {
+        const focusedTab: HTMLElement = group[index]!;
+        focusedTab.focus();
 
         this.tabs.forEach((tab: HTMLElement) => {
             if (tab.slot === 'anchortab') {
-                tab.setAttribute('tabindex', tab === activeTab ? '0' : '-1');
+                tab.setAttribute('tabindex', tab === focusedTab ? '0' : '-1');
             }
         });
     };
 
+    /*
     private focusTab(): void {
         this.tabs[this.activeTabIndex]!.focus();
     }
+    */
 
-    private activateTab(index: number): void {
+    private navigateToTab(index: number): void {
         const tab = this.tabs[index] as AnchorTab;
         tab.shadowRoot?.querySelector('a')!.click();
     }
