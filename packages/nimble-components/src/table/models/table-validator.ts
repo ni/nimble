@@ -21,7 +21,10 @@ export class TableValidator<TData extends TableRecord> {
         return Object.values(this.getValidity()).every(x => x === false);
     }
 
-    public validateDataIds(data: TData[], idFieldName: string | null | undefined): boolean {
+    public validateDataIds(
+        data: TData[],
+        idFieldName: string | null | undefined
+    ): boolean {
         // Start off by assuming all IDs are valid.
         this.duplicateRowId = false;
         this.missingRowId = false;
@@ -33,15 +36,13 @@ export class TableValidator<TData extends TableRecord> {
 
         const ids = new Set<string>();
         for (const record of data) {
-            if (
-                !Object.prototype.hasOwnProperty.call(record, idFieldName)
-            ) {
+            if (!Object.prototype.hasOwnProperty.call(record, idFieldName)) {
                 this.missingRowId = true;
                 continue;
             }
 
             const id = record[idFieldName];
-            if (typeof id !== 'string') {
+            if (typeof id !== 'string' || id === '') {
                 this.invalidRowId = true;
                 continue;
             }

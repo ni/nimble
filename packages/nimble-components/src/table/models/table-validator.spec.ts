@@ -65,7 +65,7 @@ describe('TableValidator', () => {
         expect(validity.missingRowId).toBeFalse();
     });
 
-    it('setting data with invalid ID value is invalid', () => {
+    it('setting data with invalid ID value type is invalid', () => {
         const data = [
             { stringField: 'value-1', numberField: 10 },
             { stringField: 'value-2', numberField: 11 }
@@ -73,6 +73,54 @@ describe('TableValidator', () => {
         const validator = new TableValidator();
 
         const isValid = validator.validateDataIds(data, 'numberField');
+        expect(isValid).toBeFalse();
+        expect(validator.isValid()).toBeFalse();
+        const validity = validator.getValidity();
+        expect(validity.duplicateRowId).toBeFalse();
+        expect(validity.invalidRowId).toBeTrue();
+        expect(validity.missingRowId).toBeFalse();
+    });
+
+    it('setting data with empty ID value is invalid', () => {
+        const data = [
+            { stringField: 'value-1', numberField: 10 },
+            { stringField: '', numberField: 11 }
+        ];
+        const validator = new TableValidator();
+
+        const isValid = validator.validateDataIds(data, 'stringField');
+        expect(isValid).toBeFalse();
+        expect(validator.isValid()).toBeFalse();
+        const validity = validator.getValidity();
+        expect(validity.duplicateRowId).toBeFalse();
+        expect(validity.invalidRowId).toBeTrue();
+        expect(validity.missingRowId).toBeFalse();
+    });
+
+    it('setting data with undefined ID value is invalid', () => {
+        const data = [
+            { stringField: 'value-1', numberField: 10 },
+            { stringField: undefined, numberField: 11 }
+        ];
+        const validator = new TableValidator();
+
+        const isValid = validator.validateDataIds(data, 'stringField');
+        expect(isValid).toBeFalse();
+        expect(validator.isValid()).toBeFalse();
+        const validity = validator.getValidity();
+        expect(validity.duplicateRowId).toBeFalse();
+        expect(validity.invalidRowId).toBeTrue();
+        expect(validity.missingRowId).toBeFalse();
+    });
+
+    it('setting data with null ID value is invalid', () => {
+        const data = [
+            { stringField: 'value-1', numberField: 10 },
+            { stringField: undefined, numberField: 11 }
+        ];
+        const validator = new TableValidator();
+
+        const isValid = validator.validateDataIds(data, 'stringField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
