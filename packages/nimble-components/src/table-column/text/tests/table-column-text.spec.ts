@@ -6,6 +6,7 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/tests/table.pageobject';
+import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     field?: string | null;
@@ -162,4 +163,34 @@ describe('TableColumnText', () => {
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
     });
+
+    const fieldValues = [
+        { dataValue: 'foo', renderedValue: 'foo' },
+        { dataValue: '<button></button>', renderedValue: '<button></button>' },
+        { dataValue: null, renderedValue: 'no value' },
+        { dataValue: 'null', renderedValue: 'null' },
+        { dataValue: undefined, renderedValue: 'no value' },
+        { dataValue: 'undefined', renderedValue: 'undefined' },
+    ];
+    for (const fieldValue of fieldValues) {
+        let testDataTitleValue: string;
+        if (fieldValue.dataValue) {
+            testDataTitleValue = `"${fieldValue.dataValue}"`;
+        } else if (fieldValue.dataValue === null) {
+            testDataTitleValue = 'null';
+        } else {
+            testDataTitleValue = 'undefined';
+        }
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
+        it(`data ${testDataTitleValue} renders as ${fieldValue.renderedValue}`, async () => {
+            await connect();
+
+            const updatedValue = { field: fieldValue.dataValue };
+            const updatedData = [updatedValue];
+            element.data = updatedData;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe(fieldValue.renderedValue);
+        });
+    }
 });
