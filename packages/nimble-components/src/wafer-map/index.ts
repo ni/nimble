@@ -102,7 +102,8 @@ export class WaferMap extends FoundationElement {
     public render(): void {
         this.renderQueued = false;
         if (
-            this.canvasSideLength === undefined || this.canvasSideLength === 0
+            this.canvasSideLength === undefined
+            || this.canvasSideLength === 0
         ) {
             return;
         }
