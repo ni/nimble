@@ -10,11 +10,15 @@ export const cellStyles = css`
         font: ${bodyFont};
         color: ${controlLabelFontColor};
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .text-value {
         font: ${bodyFont};
         color: ${bodyFontColor};
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 `;

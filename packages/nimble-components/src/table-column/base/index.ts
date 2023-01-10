@@ -7,25 +7,35 @@ import type { TableCellState, TableRecord } from '../../table/types';
  */
 export abstract class TableColumn<
     TCellData extends TableRecord = TableRecord,
-    TColumnConfig = void
+    TColumnConfig = unknown
 > extends FoundationElement {
-    // The template to use to render the cell content for the column
+    /**
+     * The template to use to render the cell content for the column
+     */
     public abstract cellTemplate: ViewTemplate<
     TableCellState<TCellData, TColumnConfig>
     >;
 
-    // The style to apply to the cellTemplate
+    /**
+     * The style to apply to the cellTemplate
+     */
     public cellStyles?: ElementStyles;
 
-    // The keys that should be present in TCellData.
-    // This array is parallel with the keys returned from `getRecordFieldNames()`.
+    /**
+     * The keys that should be present in TCellData.
+     * This array is parallel with the keys returned from `getRecordFieldNames()`.
+     */
     public abstract readonly cellStateDataFieldNames: readonly string[];
 
-    // This method returns the relevant, static configuration a column requires its cellTemplate
-    // to have access to
+    /**
+     * This method returns the relevant, static configuration a column requires its cellTemplate
+     * to have access to.
+     */
     public abstract getColumnConfig?(): TColumnConfig;
 
-    // The keys from the row data that correlate to the data that will be in TCellData.
-    // This array is parallel with the keys specified by `cellStateDataFieldNames`.
+    /**
+     * The keys from the row data that correlate to the data that will be in TCellData.
+     * This array is parallel with the keys specified by `cellStateDataFieldNames`.
+     */
     public abstract getRecordFieldNames(): string[];
 }

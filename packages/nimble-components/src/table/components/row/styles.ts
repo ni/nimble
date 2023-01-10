@@ -19,7 +19,7 @@ export const styles = css`
         grid-auto-columns: 1fr;
     }
 
-    :host(:hover) {
+    :host(:hover) .cell {
         background: ${fillHoverColor};
     }
 `;

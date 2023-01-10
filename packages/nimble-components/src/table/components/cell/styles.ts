@@ -6,10 +6,12 @@ export const styles = css`
         padding: 0px calc(${standardPadding} / 2);
         align-self: center;
         display: inherit;
+        height: 100%;
     }
 
     .cell-container {
         overflow: hidden;
-        text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
     }
 `;

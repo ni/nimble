@@ -8,30 +8,36 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/tests/table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
-    stringData: string | null;
-    numericData: number | null;
-    booleanData: boolean | null;
-    dateData: Date | null;
+    field?: string | null;
+    noPlaceholder?: string | null;
+    anotherField?: string | null;
 }
 
 const simpleTableData = [
     {
-        stringData: 'string 1',
-        numericData: 8,
-        booleanData: true,
-        dateData: new Date(2008, 12, 11)
+        field: 'string 1',
+        noPlaceholder: 'string 2',
+        anotherField: 'foo'
     },
     {
-        stringData: '<button></button>',
-        numericData: 0,
-        booleanData: true,
-        dateData: new Date(2022, 5, 30)
+        field: '<button></button>',
+        noPlaceholder: 'string 2',
+        anotherField: 'foo'
     },
     {
-        stringData: null,
-        numericData: null,
-        booleanData: null,
-        dateData: null
+        field: '',
+        noPlaceholder: 'string 2',
+        anotherField: 'foo'
+    },
+    {
+        field: null,
+        noPlaceholder: null,
+        anotherField: 'foo'
+    },
+    {
+        field: undefined,
+        noPlaceholder: undefined,
+        anotherField: 'foo'
     }
 ] as const;
 
@@ -41,17 +47,11 @@ const tableColumnText = DesignSystem.tagFor(TableColumnText);
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-                <${tableColumnText} field-name="stringData" placeholder="no value">
-                    stringData
+                <${tableColumnText} field-name="field" placeholder="no value">
+                    Column 1
                 </${tableColumnText}>
-                <${tableColumnText} field-name="numericData">
-                    numericData
-                </${tableColumnText}>
-                <${tableColumnText} field-name="booleanData">
-                    booleanData
-                </${tableColumnText}>
-                <${tableColumnText} field-name="dateData">
-                    dateData
+                <${tableColumnText} field-name="noPlaceholder">
+                    Column 2
                 </${tableColumnText}>
             </nimble-table>`
     );
@@ -77,8 +77,10 @@ describe('TableColumnText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(2, 0)).toBe('no value');
-        expect(pageObject.getRenderedCellContent(2, 1)).toBe('');
+        expect(pageObject.getRenderedCellContent(3, 0)).toBe('no value'); // test for when value is null
+        expect(pageObject.getRenderedCellContent(3, 1)).toBe(''); // test for when value is null
+        expect(pageObject.getRenderedCellContent(4, 0)).toBe('no value'); // test for when value is undefined
+        expect(pageObject.getRenderedCellContent(4, 1)).toBe(''); // test for when value is undefined
     });
 
     it('displays data value and not placeholder when value present', async () => {
@@ -87,15 +89,63 @@ describe('TableColumnText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('string 1');
+        expect(pageObject.getRenderedCellContent(1, 0)).toBe('<button></button>');
+        expect(pageObject.getRenderedCellContent(2, 0)).toBe('');
     });
 
-    it('displays value formatted as HTML as its string value', async () => {
+    it('changing fieldName updates display', async () => {
         element.data = [...simpleTableData];
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(1, 0)).toBe(
-            '<button></button>'
-        );
+        const firstColumn = element.columns[0] as TableColumnText;
+        firstColumn.fieldName = 'anotherField';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
+    });
+
+    it('changing placeholder updates display', async () => {
+        element.data = [...simpleTableData];
+        await connect();
+        await waitForUpdatesAsync();
+
+        const firstColumn = element.columns[0] as TableColumnText;
+        firstColumn.placeholder = 'different value';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellContent(3, 0)).toBe('different value');
+    });
+
+    it('changing data from value to null displays placeholder', async () => {
+        element.data = [...simpleTableData];
+        await connect();
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('string 1');
+
+        const updatedValue = { field: null };
+        const updatedData = [updatedValue];
+        element.data = updatedData;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
+    });
+
+    it('changing data from null to value displays value', async () => {
+        element.data = [...simpleTableData];
+        await connect();
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(3, 0)).toBe('no value');
+
+        const updatedData: SimpleTableRecord[] = [
+            simpleTableData[0],
+            simpleTableData[1],
+            simpleTableData[2],
+            { field: 'new value' }
+        ];
+        element.data = updatedData;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellContent(3, 0)).toBe('new value');
     });
 });
