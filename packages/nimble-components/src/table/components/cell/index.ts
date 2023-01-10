@@ -37,7 +37,7 @@ export class TableCell<
      */
     public readonly cellContainer: HTMLElement | undefined = undefined;
 
-    private customCellView: HTMLView | undefined = undefined;
+    private customCellView?: HTMLView = undefined;
 
     public override connectedCallback(): void {
         super.connectedCallback();
