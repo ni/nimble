@@ -48,6 +48,12 @@ export class AnchorTabs extends FoundationElement {
      */
     public activetab: HTMLElement | undefined;
 
+    /**
+     * A reference to the tablist div
+     * @internal
+     */
+    public tablist: HTMLElement | undefined;
+
     private prevActiveTabIndex = -1;
     private activeTabIndex = 0;
     private tabIds: string[] = [];
@@ -56,9 +62,7 @@ export class AnchorTabs extends FoundationElement {
      * @internal
      */
     public activeidChanged(oldValue: string, newValue: string): void {
-        if (
-            this.$fastController.isConnected
-        ) {
+        if (this.$fastController.isConnected) {
             this.prevActiveTabIndex = this.tabs.findIndex(
                 (item: HTMLElement) => item.id === oldValue
             );
@@ -66,8 +70,6 @@ export class AnchorTabs extends FoundationElement {
             this.activateTab(this.tabs.findIndex(
                 (item: HTMLElement) => item.id === newValue
             ));
-            // this.setTabPanels();
-            // this.handleActiveIndicatorPosition();
         }
     }
 
@@ -75,15 +77,11 @@ export class AnchorTabs extends FoundationElement {
      * @internal
      */
     public tabsChanged(): void {
-        if (
-            this.$fastController.isConnected
-        ) {
+        if (this.$fastController.isConnected) {
             this.tabIds = this.getTabIds();
 
             this.setTabs();
             this.setComponent();
-            // this.setTabPanels();
-            // this.handleActiveIndicatorPosition();
         }
     }
 
@@ -148,13 +146,9 @@ export class AnchorTabs extends FoundationElement {
         const gridVerticalProperty = 'gridRow';
 
         this.activeTabIndex = this.getActiveIndex();
-        // this.showActiveIndicator = false;
         this.tabs.forEach((tab: HTMLElement, index: number) => {
             if (tab.slot === 'anchortab') {
                 const isActiveTab = this.activeTabIndex === index && this.isFocusableElement(tab);
-                // if (!this.hideActiveIndicator && this.isFocusableElement(tab)) {
-                //    this.showActiveIndicator = true;
-                // }
                 const tabId: string = this.tabIds[index]!;
                 tab.setAttribute('id', tabId);
                 tab.setAttribute('aria-selected', isActiveTab ? 'true' : 'false');
@@ -224,50 +218,9 @@ export class AnchorTabs extends FoundationElement {
         }
     };
 
-    /*
-    private handleActiveIndicatorPosition(): void {
-        // Ignore if we click twice on the same tab
-        if (
-            this.showActiveIndicator &&
-            !this.hideActiveIndicator &&
-            this.activeTabIndex !== this.prevActiveTabIndex
-        ) {
-            if (this.ticking) {
-                this.ticking = false;
-            } else {
-                this.ticking = true;
-                this.animateActiveIndicator();
-            }
-        }
-    }
-
-    private animateActiveIndicator(): void {
-        this.ticking = true;
-        const gridProperty: string = this.isHorizontal() ? 'gridColumn' : 'gridRow';
-        const translateProperty: string = this.isHorizontal()
-            ? 'translateX'
-            : 'translateY';
-        const offsetProperty: string = this.isHorizontal() ? 'offsetLeft' : 'offsetTop';
-        const prev: number = this.activeIndicatorRef[offsetProperty];
-        this.activeIndicatorRef.style[gridProperty] = `${this.activeTabIndex + 1}`;
-        const next: number = this.activeIndicatorRef[offsetProperty];
-        this.activeIndicatorRef.style[gridProperty] = `${this.prevActiveTabIndex + 1}`;
-        const dif: number = next - prev;
-        this.activeIndicatorRef.style.transform = `${translateProperty}(${dif}px)`;
-        this.activeIndicatorRef.classList.add('activeIndicatorTransition');
-        this.activeIndicatorRef.addEventListener('transitionend', () => {
-            this.ticking = false;
-            this.activeIndicatorRef.style[gridProperty] = `${this.activeTabIndex + 1}`;
-            this.activeIndicatorRef.style.transform = `${translateProperty}(0px)`;
-            this.activeIndicatorRef.classList.remove('activeIndicatorTransition');
-        });
-    }
-    */
-
     private readonly adjustForward = (): void => {
         const group: HTMLElement[] = this.tabs;
         let index = 0;
-
         const focusedTab = group.find(x => x === document.activeElement);
 
         index = focusedTab ? group.indexOf(focusedTab) + 1 : 1;
@@ -292,7 +245,6 @@ export class AnchorTabs extends FoundationElement {
     private readonly adjustBackward = (): void => {
         const group: HTMLElement[] = this.tabs;
         let index = 0;
-
         const focusedTab = group.find(x => x === document.activeElement);
 
         index = focusedTab ? group.indexOf(focusedTab) - 1 : 0;
@@ -312,9 +264,6 @@ export class AnchorTabs extends FoundationElement {
 
     private readonly focusTabByIndex = (group: HTMLElement[], activeIndex: number): void => {
         const activeTab: HTMLElement = group[activeIndex]!;
-        // this.activetab = tab;
-        // this.prevActiveTabIndex = this.activeTabIndex;
-        // this.activeTabIndex = index;
         activeTab.focus();
 
         this.tabs.forEach((tab: HTMLElement) => {
@@ -322,7 +271,6 @@ export class AnchorTabs extends FoundationElement {
                 tab.setAttribute('tabindex', tab === activeTab ? '0' : '-1');
             }
         });
-        // this.setComponent();
     };
 
     private focusTab(): void {

@@ -1,4 +1,4 @@
-import { html, slotted, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
 import {
     endSlotTemplate,
     FoundationElementTemplate,
@@ -11,7 +11,7 @@ ViewTemplate<AnchorTabs>,
 TabsOptions
 > = (context, definition) => html<AnchorTabs>`
     ${startSlotTemplate(context, definition)}
-    <div class="tablist" part="tablist" role="tablist">
+    <div ${ref('tablist')} class="tablist" part="tablist" role="tablist">
         <slot name="anchortab" ${slotted('tabs')}></slot>
     </div>
     ${endSlotTemplate(context, definition)}
