@@ -257,34 +257,42 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'The box shadow for elevation 1. Used for component hover states.',
     elevation1BoxShadowColor:
         'The color of the box shadow for elevation 1. Used for component hover states.',
-    elevation1BoxShadowOffsetY:
+    elevation1BoxShadowXOffset:
+        'The X offset of the box shadow for elevation 1. Used for component hover states.',
+    elevation1BoxShadowYOffset:
         'The Y offset of the box shadow for elevation 1. Used for component hover states.',
-    elevation1BoxShadowBlur:
+    elevation1BoxShadowBlurSize:
         'The blur of the box shadow for elevation 1. Used for component hover states.',
     elevation2BoxShadow:
         'The box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
     elevation2BoxShadowColor:
         'The color of the box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
-    elevation2BoxShadowOffsetY:
+    elevation2BoxShadowXOffset:
+        'The X offset of the box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
+    elevation2BoxShadowYOffset:
         'The Y offset of the box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
-    elevation2BoxShadowBlur:
+    elevation2BoxShadowBlurSize:
         'The blur of the box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
     elevation3BoxShadow:
         'The box shadow for elevation 3. Used for slide-outs, such as the drawer. An appropriate X offset must be applied for slide-outs.',
     elevation3BoxShadowColor:
         'The color of the box shadow for elevation 3. Used for slide-outs, such as the drawer.',
-    elevation3BoxShadowOffsetY:
+    elevation3BoxShadowXOffset:
+        'The X offset of the box shadow for elevation 3. Used for slide-outs, such as the drawer.',
+    elevation3FullHeightBoxShadowXOffset:
+        'The X offset of the box shadow for elevation 3 when the component is the full-height of the page.',
+    elevation3BoxShadowYOffset:
         'The Y offset of the box shadow for elevation 3. Used for slide-outs, such as the drawer.',
-    elevation3BoxShadowBlur:
+    elevation3BoxShadowBlurSize:
         'The blur of the box shadow for elevation 3. Used for slide-outs, such as the drawer.',
     elevation4BoxShadow:
         'The box shadow for elevation 4. Used for components such as dialogs, overlays, and pop-ups.',
     elevation4BoxShadowColor:
         'The color of the box shadow for elevation 4. Used for components such as dialogs, overlays, and pop-ups.',
-    elevation4BoxShadowOffsetY:
+    elevation4BoxShadowXOffset:
+        'The X offset of the box shadow for elevation 4. Used for components such as dialogs, overlays, and pop-ups.',
+    elevation4BoxShadowYOffset:
         'The Y offset of the box shadow for elevation 4. Used for components such as dialogs, overlays, and pop-ups.',
-    elevation4BoxShadowBlur:
+    elevation4BoxShadowBlurSize:
         'The blur of the box shadow for elevation 4. Used for components such as dialogs, overlays, and pop-ups.',
-    drawerBoxShadowOffsetX:
-        'The X offset for the box shadow on slide-outs, such as the drawer.'
 };

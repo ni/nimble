@@ -105,16 +105,13 @@ const tokenTemplates: {
     TextTransform: stringValueTemplate,
     FontFamily: stringValueTemplate,
     BoxShadow: stringValueTemplate,
-    OffsetX: stringValueTemplate,
-    OffsetY: stringValueTemplate,
+    Offset: stringValueTemplate,
     Font: fontTemplate,
     Size: stringValueTemplate,
     Width: stringValueTemplate,
     Height: stringValueTemplate,
     Delay: stringValueTemplate,
-    Padding: stringValueTemplate,
-    Blur: stringValueTemplate,
-    ShadowColor: colorTemplate
+    Padding: stringValueTemplate
 };
 /* eslint-enable @typescript-eslint/naming-convention */
 

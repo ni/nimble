@@ -11,9 +11,9 @@ import {
     drawerWidth,
     largeDelay,
     elevation3BoxShadowColor,
-    elevation3BoxShadowBlur,
-    elevation3BoxShadowOffsetY,
-    drawerBoxShadowOffsetX
+    elevation3BoxShadowBlurSize,
+    elevation3BoxShadowYOffset,
+    elevation3FullHeightBoxShadowXOffset
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -92,8 +92,8 @@ export const styles = css`
 
     :host([location='left']) .dialog-contents {
         border-right: ${borderWidth} solid ${elevation3BoxShadowColor};
-        box-shadow: ${drawerBoxShadowOffsetX} ${elevation3BoxShadowOffsetY}
-            ${elevation3BoxShadowBlur} ${elevation3BoxShadowColor};
+        box-shadow: ${elevation3FullHeightBoxShadowXOffset} ${elevation3BoxShadowYOffset}
+            ${elevation3BoxShadowBlurSize} ${elevation3BoxShadowColor};
     }
 
     :host([location='left']) dialog.animating .dialog-contents {
@@ -113,8 +113,8 @@ export const styles = css`
     :host([location='right']) .dialog-contents {
         right: 0px;
         border-left: ${borderWidth} solid ${elevation3BoxShadowColor};
-        box-shadow: calc(-1 * ${drawerBoxShadowOffsetX})
-            ${elevation3BoxShadowOffsetY} ${elevation3BoxShadowBlur}
+        box-shadow: calc(-1 * ${elevation3FullHeightBoxShadowXOffset})
+            ${elevation3BoxShadowYOffset} ${elevation3BoxShadowBlurSize}
             ${elevation3BoxShadowColor};
     }
 
