@@ -14,7 +14,7 @@ TabOptions
         ${startSlotTemplate(context, definition)}
         <a
             download="${x => x.download}"
-            href=${x => x.href}
+            href=${x => (x.disabled ? null : x.href)}
             hreflang="${x => x.hreflang}"
             ping="${x => x.ping}"
             referrerpolicy="${x => x.referrerpolicy}"
