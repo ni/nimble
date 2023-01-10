@@ -2,6 +2,111 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 09 Jan 2023 23:44:20 GMT",
+      "tag": "@ni/nimble-components_v16.1.7",
+      "version": "16.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0d8fb2cd0ffe5d15254bba17b59d733ca11493c4",
+            "comment": "Fix tab keyboard focus style"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 09 Jan 2023 20:12:13 GMT",
+      "tag": "@ni/nimble-components_v16.1.6",
+      "version": "16.1.6",
+      "comments": {
+        "none": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.3.1",
+            "commit": "2d84f9cf515f7bfd25f89e9b84ebf60dc5f217e8"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 09 Jan 2023 18:31:01 GMT",
+      "tag": "@ni/nimble-components_v16.1.6",
+      "version": "16.1.6",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ea3693a6cf7bfdaee21960bc8cc527e3e2554f74",
+            "comment": "Include table row ID determination in spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Jan 2023 21:27:03 GMT",
+      "tag": "@ni/nimble-components_v16.1.6",
+      "version": "16.1.6",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f73edd8c9828d68556471c6e3d588620578f7922",
+            "comment": "Update XD links for table visual designs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Jan 2023 18:31:08 GMT",
+      "tag": "@ni/nimble-components_v16.1.6",
+      "version": "16.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ac9e6c938436ccafae57842cc549c8c1ff183470",
+            "comment": "Fix scrolling in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Jan 2023 17:46:06 GMT",
+      "tag": "@ni/nimble-components_v16.1.5",
+      "version": "16.1.5",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7df60e891a3e6275f9d162fb7a2e83b153708819",
+            "comment": "TableColumnTextField API spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Jan 2023 16:41:38 GMT",
+      "tag": "@ni/nimble-components_v16.1.5",
+      "version": "16.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "35329597+DStavilaNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "01b31f49d75b8cc7ad3d8794fed4c9fd6d46ebb0",
+            "comment": "Fixed the wafer-map resizing issues"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Jan 2023 22:32:42 GMT",
       "tag": "@ni/nimble-components_v16.1.4",
       "version": "16.1.4",
