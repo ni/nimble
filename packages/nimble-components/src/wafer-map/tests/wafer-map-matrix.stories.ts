@@ -118,19 +118,19 @@ const componentWaferWithDieOrientation = ([
 </nimble-wafer-map>`;
 
 const componentWaferResize = (
-    size
-: number): ViewTemplate => html`<nimble-wafer-map class="size${size}"
-    :dies="${() => waferMapDie}"
-    :colorScale="${() => defaultColor}"
->
-</nimble-wafer-map>
-<style>
-    nimble-wafer-map.size${size} {
-        width:${size}px;
-        height:${size}px;
-    }
-</style>
-`;
+    size: number
+): ViewTemplate => html`<nimble-wafer-map
+        class="size${size}"
+        :dies="${() => waferMapDie}"
+        :colorScale="${() => defaultColor}"
+    >
+    </nimble-wafer-map>
+    <style>
+        nimble-wafer-map.size${size} {
+            width: ${size}px;
+            height: ${size}px;
+        }
+    </style> `;
 
 export const waferMapThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)
