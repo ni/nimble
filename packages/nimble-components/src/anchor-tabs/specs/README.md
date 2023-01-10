@@ -53,8 +53,7 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 -   _Props/Attrs_
     -   `activeid` - id of active tab. Defaults to the first tab.
 -   _Methods_ - None
--   _Events_
-    -   `change` - fired when the active tab changes
+-   _Events_ - None
 -   _CSS Classes and CSS Custom Properties that affect the component_ - None
 -   _Slots_
     -   `start` - content placed to the left of tab list
@@ -154,6 +153,8 @@ We will modify the FAST implementation in the following ways:
 -   Remove support for disabling the active indicator (`hide-active-indicator`)
 -   Replace active indicator style/animation with our own version
 -   Replace logic related to tab panel activation with URL navigation
+-   Changing the focused tab does not activate that tab
+-   We will not set the active tab when activating a tab. I.e. the visuals and state related to being the "active" tab will be independent of a client actually activating/navigating via a tab. The reason is that an application's router may alter the navigation in a way that makes it inconsistent with the tab that is marked active. Therefore, we leave it up to the application developer to manage the active tab state based on the loaded URL.
 
 ### States
 
@@ -163,7 +164,7 @@ When tabbing to the `nimble-navigation-tabs`, it gets keyboard focus. To indicat
 
 ### Accessibility
 
-We want the keyboard interactions to match those of the standard tabs control as much as possible. This means conforming to the keyboard interactions of the `tablist` and `tab` ARIA roles. Though we don't have any elements with the `tabpanel` role, we still follow the rest of the ARIA guidelines for the roles we do have. An alternative would be to use a `nav` container element (which has role `navigation`) and `link` roles on each of our tabs. However, this would imply a different keyboard navigation scheme (`tab` key moves to next tab), and that is not what we want.
+We want the keyboard interactions to match those of the standard tabs control as much as possible. This means conforming to the keyboard interactions of the `tablist` and `tab` ARIA roles. Though we don't have any elements with the `tabpanel` role, we still follow the rest of the ARIA guidelines for the roles we do have. An alternative would be to use a `nav` container element (which has role `navigation`) and `link` roles on each of our tabs. However, this would imply a different keyboard navigation scheme (`tab` key moves to next tab), and that is not what we want. The application developer could still wrap a `nimble-anchor-tabs` in a `nav` element to indicate that the tabs represent a landmark navigation element.
 
 -   _Keyboard Navigation and Focus_
     -   The tabs control will have a visual indication of which tab is active (green underline).
