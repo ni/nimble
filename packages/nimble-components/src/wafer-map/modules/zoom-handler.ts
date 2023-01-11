@@ -23,7 +23,8 @@ export class ZoomHandler {
         private readonly canvas: HTMLCanvasElement,
         private readonly zoomContainer: HTMLElement,
         private readonly dataManager: DataManager,
-        private readonly renderingModule: RenderingModule
+        private readonly renderingModule: RenderingModule,
+        private readonly canvasLength: number
     ) {}
 
     public attachZoomBehavior(): void {
@@ -37,8 +38,8 @@ export class ZoomHandler {
         this.zoomTransform = zoomIdentity;
         this.clearCanvas(
             canvasContext,
-            this.canvas.width,
-            this.canvas.height
+            this.canvasLength,
+            this.canvasLength
         );
         this.scaleCanvas(
             canvasContext,
@@ -54,12 +55,11 @@ export class ZoomHandler {
     }
 
     private createZoomBehavior(): ZoomBehavior<Element, unknown> {
-        this.canvas.addEventListener('wheel', event => event.preventDefault(), { passive: false });
         const zoomBehavior = zoom()
             .scaleExtent([
                 1.1,
                 this.getZoomMax(
-                    this.canvas.width * this.canvas.height,
+                    this.canvasLength * this.canvasLength,
                     this.dataManager.containerDimensions.width
                         * this.dataManager.containerDimensions.height
                 )
@@ -67,8 +67,8 @@ export class ZoomHandler {
             .translateExtent([
                 this.minExtentPoint,
                 [
-                    this.canvas.width + this.extentPadding,
-                    this.canvas.height + this.extentPadding
+                    this.canvasLength + this.extentPadding,
+                    this.canvasLength + this.extentPadding
                 ]
             ])
             .filter((event: Event) => {
@@ -84,8 +84,8 @@ export class ZoomHandler {
                     this.zoomTransform = zoomIdentity;
                     this.clearCanvas(
                         canvasContext,
-                        this.canvas.width,
-                        this.canvas.height
+                        this.canvasLength,
+                        this.canvasLength
                     );
                     this.scaleCanvas(
                         canvasContext,
@@ -102,8 +102,8 @@ export class ZoomHandler {
                     this.zoomTransform = transform;
                     this.clearCanvas(
                         canvasContext,
-                        this.canvas.width * this.zoomTransform.k,
-                        this.canvas.height * this.zoomTransform.k
+                        this.canvasLength * this.zoomTransform.k,
+                        this.canvasLength * this.zoomTransform.k
                     );
                     this.scaleCanvas(
                         canvasContext,

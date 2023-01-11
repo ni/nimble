@@ -93,6 +93,7 @@ export class WaferMap extends FoundationElement {
             this.canvasSideLength = Math.min(height, width);
         });
         this.resizeObserver.observe(this);
+        this.canvas.addEventListener('wheel', event => event.preventDefault(), { passive: false });
         this.queueRender();
     }
 
@@ -127,7 +128,8 @@ export class WaferMap extends FoundationElement {
             this.canvas,
             this.zoomContainer,
             this.dataManager,
-            this.renderer
+            this.renderer,
+            this.canvasSideLength
         );
         this.zoomHandler.attachZoomBehavior();
         this.renderer.drawWafer();
