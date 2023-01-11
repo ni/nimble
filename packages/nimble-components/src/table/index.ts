@@ -120,7 +120,8 @@ export class Table<
     private refreshRows(): void {
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
-            return { data: row.original, id: row.id } as TableRowState<TData>;
+            const rowState: TableRowState<TData> = { data: row.original };
+            return rowState;
         });
     }
 
