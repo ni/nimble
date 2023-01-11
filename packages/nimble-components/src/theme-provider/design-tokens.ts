@@ -217,15 +217,30 @@ export const drawerWidth = DesignToken.create<string>(
 // Drop Shadow Tokens
 export const elevation1BoxShadow = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.elevation1BoxShadow)
-).withDefault((element: HTMLElement) => `0px 1px 4px ${hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.16)}`);
+).withDefault(
+    (element: HTMLElement) => `0px 1px 4px ${hexToRgbaCssColor(
+        getColorForTheme(element, Black, Black, Black),
+        0.16
+    )}`
+);
 
 export const elevation2BoxShadow = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.elevation2BoxShadow)
-).withDefault((element: HTMLElement) => `0px 2px 4px ${hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.16)}`);
+).withDefault(
+    (element: HTMLElement) => `0px 2px 4px ${hexToRgbaCssColor(
+        getColorForTheme(element, Black, Black, Black),
+        0.16
+    )}`
+);
 
 export const elevation3BoxShadow = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.elevation3BoxShadow)
-).withDefault((element: HTMLElement) => `0px 4px 8px ${hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.3)}`);
+).withDefault(
+    (element: HTMLElement) => `0px 4px 8px ${hexToRgbaCssColor(
+        getColorForTheme(element, Black, Black, Black),
+        0.3
+    )}`
+);
 
 // Font Tokens
 export const [
