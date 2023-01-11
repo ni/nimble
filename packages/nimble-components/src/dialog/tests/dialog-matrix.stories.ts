@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
@@ -8,7 +7,7 @@ import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Dialog',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -44,21 +43,18 @@ const playFunction = (): void => {
     void document.querySelector('nimble-dialog')!.show();
 };
 
-export const dialogLightThemeWhiteBackground: Story = createFixedThemeStory(
+export const dialogLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component,
     lightThemeWhiteBackground
 );
 
 dialogLightThemeWhiteBackground.play = playFunction;
 
-export const dialogColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    component,
-    colorThemeDarkGreenBackground
-);
+export const dialogColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
 
 dialogColorThemeDarkGreenBackground.play = playFunction;
 
-export const dialogDarkThemeBlackBackground: Story = createFixedThemeStory(
+export const dialogDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component,
     darkThemeBlackBackground
 );

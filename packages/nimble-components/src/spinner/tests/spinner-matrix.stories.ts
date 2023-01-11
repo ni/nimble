@@ -1,6 +1,6 @@
-import type { Story, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import {
     createMatrix,
     sharedMatrixParameters
@@ -15,7 +15,7 @@ import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Spinner',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -31,7 +31,7 @@ const sizeStates = [
     ['16x16', 'width: 16px; height: 16px'],
     ['32x32', 'width: 32px; height: 32px']
 ];
-type SizeState = typeof sizeStates[number];
+type SizeState = (typeof sizeStates)[number];
 
 const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
@@ -40,10 +40,10 @@ const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <nimble-spinner style="${() => state}"></nimble-spinner>
 `;
 
-export const spinnerThemeMatrix: Story = createMatrixThemeStory(
+export const spinnerThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [sizeStates])
 );
 
-export const hiddenSpinner: Story = createStory(
+export const hiddenSpinner: StoryFn = createStory(
     hiddenWrapper(html`<nimble-spinner hidden></nimble-spinner>`)
 );

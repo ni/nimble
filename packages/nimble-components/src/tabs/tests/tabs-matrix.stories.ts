@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -16,7 +15,7 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 
 const metadata: Meta = {
     title: 'Tests/Tabs',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -29,7 +28,7 @@ const metadata: Meta = {
 export default metadata;
 
 const tabsToolbarState = [false, true] as const;
-type TabsToolbarState = typeof tabsToolbarState[number];
+type TabsToolbarState = (typeof tabsToolbarState)[number];
 
 // prettier-ignore
 const component = (
@@ -53,11 +52,11 @@ const component = (
     </nimble-tabs>
 `;
 
-export const tabsThemeMatrix: Story = createMatrixThemeStory(
+export const tabsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [tabsToolbarState, disabledStates])
 );
 
-export const hiddenTabs: Story = createStory(
+export const hiddenTabs: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-tabs hidden>
             <nimble-tab>Tab One</nimble-tab>
@@ -66,7 +65,7 @@ export const hiddenTabs: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
             <nimble-tabs>

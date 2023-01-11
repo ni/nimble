@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -14,7 +13,7 @@ import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Table',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -40,15 +39,14 @@ const data = [
 ] as const;
 
 // prettier-ignore
-const component = (
-): ViewTemplate => html`
+const component = (): ViewTemplate => html`
     <nimble-table :data=${_ => data}></nimble-table>
 `;
 
-export const tableThemeMatrix: Story = createMatrixThemeStory(
+export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
-export const hiddenTable: Story = createStory(
+export const hiddenTable: StoryFn = createStory(
     hiddenWrapper(html`<nimble-table hidden></nimble-table>`)
 );

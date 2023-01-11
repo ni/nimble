@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { html, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
@@ -31,7 +31,7 @@ interface AnchorButtonArgs {
 
 const metadata: Meta<AnchorButtonArgs> = {
     title: 'Anchor Button',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

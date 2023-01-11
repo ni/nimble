@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -21,7 +20,7 @@ import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Anchor Button',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -41,17 +40,17 @@ const partVisibilityStates = [
     [true, true, true],
     [false, true, true]
 ] as const;
-type PartVisibilityState = typeof partVisibilityStates[number];
+type PartVisibilityState = (typeof partVisibilityStates)[number];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     ButtonAppearance
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 const appearanceVariantStates: [string, string | undefined][] = Object.entries(
     ButtonAppearanceVariant
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceVariantState = typeof appearanceVariantStates[number];
+type AppearanceVariantState = (typeof appearanceVariantStates)[number];
 
 // prettier-ignore
 const component = (
@@ -73,7 +72,7 @@ const component = (
     </nimble-anchor-button>
 `;
 
-export const anchorButtonThemeMatrix: Story = createMatrixThemeStory(
+export const anchorButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
@@ -82,7 +81,7 @@ export const anchorButtonThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenAnchorButton: Story = createStory(
+export const hiddenAnchorButton: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-anchor-button hidden
             >Hidden Anchor Button</nimble-anchor-button
@@ -90,7 +89,7 @@ export const hiddenAnchorButton: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<nimble-anchor-button>Anchor Button</nimble-anchor-button>`
     )

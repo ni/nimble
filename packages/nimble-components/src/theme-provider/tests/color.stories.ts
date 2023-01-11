@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { html, repeat } from '@microsoft/fast-element';
 import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
@@ -54,7 +54,7 @@ Most client applications shouldn't use these tokens directly. See the <a href="h
 
 const metadata: Meta = {
     title: 'Tokens/Base Colors',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

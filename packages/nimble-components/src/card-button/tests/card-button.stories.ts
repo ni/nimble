@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { html } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
@@ -17,7 +17,7 @@ Note: The styling for the "Color" theme is not complete.`;
 
 const metadata: Meta<CardButtonArgs> = {
     title: 'Card Button',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

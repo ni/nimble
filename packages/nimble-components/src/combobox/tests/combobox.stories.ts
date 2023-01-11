@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import '../../all-components';
 import '../../list-option';
@@ -29,7 +29,7 @@ interface OptionArgs {
 
 const metadata: Meta<ComboboxArgs> = {
     title: 'Combobox',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

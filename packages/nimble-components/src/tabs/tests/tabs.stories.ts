@@ -1,6 +1,6 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
@@ -22,7 +22,7 @@ one edge of the currently displayed panel, most commonly the top edge.`;
 
 const metadata: Meta<TabsArgs> = {
     title: 'Tabs',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

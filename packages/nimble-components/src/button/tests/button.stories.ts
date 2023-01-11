@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
@@ -30,7 +30,7 @@ If you want a button that triggers navigation to a URL, use the \`nimble-anchor-
 
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

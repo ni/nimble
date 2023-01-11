@@ -1,6 +1,6 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ButtonAppearance } from '../types';
 import '../../all-components';
@@ -28,7 +28,7 @@ screen reader would say something like "Mute toggle button pressed".`;
 
 const metadata: Meta<ToggleButtonArgs> = {
     title: 'Toggle Button',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

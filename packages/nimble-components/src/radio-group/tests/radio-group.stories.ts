@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
@@ -15,7 +15,7 @@ interface RadioGroupArgs {
 
 const metadata: Meta<RadioGroupArgs> = {
     title: 'Radio Group',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

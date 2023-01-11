@@ -1,6 +1,6 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { Story } from '@storybook/html';
+import type { StoryFn } from '@storybook/html';
 import { ThemeProvider } from '../../theme-provider';
 import type { Theme } from '../../theme-provider/types';
 import { createMatrix } from './matrix';
@@ -29,7 +29,7 @@ const renderViewTemplate = <TSource>(
  */
 export const createStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): Story<TSource> => {
+): StoryFn<TSource> => {
     return (source: TSource, _context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
             <div class="code-hide-top-container">${viewTemplate}</div>
@@ -56,7 +56,7 @@ const getGlobalTheme = (context: unknown): Theme => {
  */
 export const createUserSelectedThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): Story<TSource> => {
+): StoryFn<TSource> => {
     return (source: TSource, context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
             <${DesignSystem.tagFor(ThemeProvider)}
@@ -80,7 +80,7 @@ export const createUserSelectedThemeStory = <TSource>(
 export const createFixedThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
     backgroundState: BackgroundState
-): Story<TSource> => {
+): StoryFn<TSource> => {
     return (source: TSource, _context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
             <${DesignSystem.tagFor(ThemeProvider)}
@@ -112,7 +112,7 @@ export const createFixedThemeStory = <TSource>(
  */
 export const createMatrixThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): Story<TSource> => {
+): StoryFn<TSource> => {
     return (source: TSource, _context: unknown): Element => {
         const matrixTemplate = createMatrix(
             ({ theme, value }: BackgroundState) => html`

@@ -1,6 +1,6 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { Dialog, UserDismissed } from '..';
@@ -51,7 +51,7 @@ const content = {
 
 const metadata: Meta<DialogArgs> = {
     title: 'Dialog',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

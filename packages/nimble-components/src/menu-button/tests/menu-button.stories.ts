@@ -1,6 +1,6 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '..';
 import { ButtonAppearance, MenuButtonPosition } from '../types';
@@ -26,7 +26,7 @@ This icon will be hidden when \`contentHidden\` is set to \`true\`
 
 const metadata: Meta<MenuButtonArgs> = {
     title: 'Menu Button',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

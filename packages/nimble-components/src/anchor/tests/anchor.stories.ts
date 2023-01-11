@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { html } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
@@ -21,7 +21,7 @@ interface AnchorArgs {
 
 const metadata: Meta<AnchorArgs> = {
     title: 'Anchor',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

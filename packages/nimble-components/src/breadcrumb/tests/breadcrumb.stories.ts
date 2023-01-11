@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
@@ -29,7 +29,7 @@ for information on using this component in Angular with RouterLink directives.`;
 
 const metadata: Meta<BreadcrumbArgs> = {
     title: 'Breadcrumb',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {
@@ -64,7 +64,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
         </nimble-breadcrumb>
 `),
     // eslint-disable-next-line storybook/no-redundant-story-name
-    storyName: 'Standard Breadcrumb',
+    name: 'Standard Breadcrumb',
     argTypes: {
         options: {
             description:

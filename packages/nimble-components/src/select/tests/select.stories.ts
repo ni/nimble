@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
@@ -22,7 +22,7 @@ interface OptionArgs {
 
 const metadata: Meta<SelectArgs> = {
     title: 'Select',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

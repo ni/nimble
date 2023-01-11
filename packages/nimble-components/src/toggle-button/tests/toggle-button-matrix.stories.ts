@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance } from '../types';
@@ -18,7 +17,7 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 
 const metadata: Meta = {
     title: 'Tests/Toggle Button',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -38,18 +37,18 @@ const partVisibilityStates = [
     [true, true, true],
     [false, true, true]
 ] as const;
-type PartVisibilityState = typeof partVisibilityStates[number];
+type PartVisibilityState = (typeof partVisibilityStates)[number];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     ButtonAppearance
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
 ] as const;
-type CheckedState = typeof checkedStates[number];
+type CheckedState = (typeof checkedStates)[number];
 
 // prettier-ignore
 const component = (
@@ -70,7 +69,7 @@ const component = (
     </nimble-toggle-button>
 `;
 
-export const toggleButtonThemeMatrix: Story = createMatrixThemeStory(
+export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         partVisibilityStates,
         checkedStates,
@@ -79,7 +78,7 @@ export const toggleButtonThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenButton: Story = createStory(
+export const hiddenButton: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-toggle-button hidden
             >Hidden Toggle Button</nimble-toggle-button
@@ -87,7 +86,7 @@ export const hiddenButton: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<nimble-toggle-button>Toggle button</nimble-toggle-button>`
     )

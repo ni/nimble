@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
@@ -18,7 +17,7 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 
 const metadata: Meta = {
     title: 'Tests/Button',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -38,17 +37,17 @@ const partVisibilityStates = [
     [true, true, true],
     [false, true, true]
 ] as const;
-type PartVisibilityState = typeof partVisibilityStates[number];
+type PartVisibilityState = (typeof partVisibilityStates)[number];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     ButtonAppearance
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 const appearanceVariantStates: [string, string | undefined][] = Object.entries(
     ButtonAppearanceVariant
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceVariantState = typeof appearanceVariantStates[number];
+type AppearanceVariantState = (typeof appearanceVariantStates)[number];
 
 // prettier-ignore
 const component = (
@@ -69,7 +68,7 @@ const component = (
     </nimble-button>
 `;
 
-export const buttonThemeMatrix: Story = createMatrixThemeStory(
+export const buttonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
@@ -78,10 +77,10 @@ export const buttonThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenButton: Story = createStory(
+export const hiddenButton: StoryFn = createStory(
     hiddenWrapper(html`<nimble-button hidden>Hidden Button</nimble-button>`)
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(html`<nimble-button>Button</nimble-button>`)
 );

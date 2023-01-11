@@ -1,4 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
@@ -30,14 +30,14 @@ const horizontalPositionStates = [
     ['Right', 'right'],
     ['Center', 'center']
 ] as const;
-type HorizontalPositionState = typeof horizontalPositionStates[number];
+type HorizontalPositionState = (typeof horizontalPositionStates)[number];
 
 const verticalPositionStates = [
     ['Top', 'top'],
     ['Bottom', 'bottom'],
     ['Center', 'center']
 ] as const;
-type VerticalPositionState = typeof verticalPositionStates[number];
+type VerticalPositionState = (typeof verticalPositionStates)[number];
 
 const component = (
     [horizontalPositionName, horizontalPosition]: HorizontalPositionState,
@@ -93,11 +93,11 @@ const component = (
         <div></div>
     </div>`;
 
-export const anchoredRegionThemeMatrix: Story = createStory(
+export const anchoredRegionThemeMatrix: StoryFn = createStory(
     createMatrix(component, [horizontalPositionStates, verticalPositionStates])
 );
 
-export const hiddenAnchoredRegion: Story = createStory(
+export const hiddenAnchoredRegion: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-anchored-region hidden>Hidden Anchored Region</nimble-anchored-regionx>`
     )

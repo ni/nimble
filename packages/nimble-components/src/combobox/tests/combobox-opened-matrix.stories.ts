@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
@@ -8,7 +7,7 @@ import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Combobox',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -26,7 +25,7 @@ const positionStates = [
     ['below', 'margin-bottom: 120px;'],
     ['above', 'margin-top: 120px;']
 ] as const;
-type PositionState = typeof positionStates[number];
+type PositionState = (typeof positionStates)[number];
 
 // prettier-ignore
 const component = ([
@@ -52,32 +51,28 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const comboboxBelowOpenLightThemeWhiteBackground: Story = createFixedThemeStory(
+export const comboboxBelowOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component(positionStates[0]),
     lightThemeWhiteBackground
 );
 
-export const comboboxAboveOpenLightThemeWhiteBackground: Story = createFixedThemeStory(
+export const comboboxAboveOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component(positionStates[1]),
     lightThemeWhiteBackground
 );
 
 // prettier-ignore
-export const comboboxBelowOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    component(positionStates[0]), colorThemeDarkGreenBackground
-);
+export const comboboxBelowOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component(positionStates[0]), colorThemeDarkGreenBackground);
 
 // prettier-ignore
-export const comboboxAboveOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    component(positionStates[1]), colorThemeDarkGreenBackground
-);
+export const comboboxAboveOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component(positionStates[1]), colorThemeDarkGreenBackground);
 
-export const comboboxBelowOpenDarkThemeBlackBackground: Story = createFixedThemeStory(
+export const comboboxBelowOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component(positionStates[0]),
     darkThemeBlackBackground
 );
 
-export const comboboxAboveOpenDarkThemeBlackBackground: Story = createFixedThemeStory(
+export const comboboxAboveOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component(positionStates[1]),
     darkThemeBlackBackground
 );

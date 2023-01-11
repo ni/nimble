@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrix,
@@ -15,7 +14,7 @@ import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Switch',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -31,13 +30,13 @@ const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
 ] as const;
-type CheckedState = typeof checkedStates[number];
+type CheckedState = (typeof checkedStates)[number];
 
 const messagesStates = [
     ['With Messages', true],
     ['Without Messages', false]
 ] as const;
-type MessagesState = typeof messagesStates[number];
+type MessagesState = (typeof messagesStates)[number];
 
 // prettier-ignore
 const component = (
@@ -54,18 +53,18 @@ const component = (
     </nimble-switch>
 `;
 
-export const switchThemeMatrix: Story = createMatrixThemeStory(
+export const switchThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [checkedStates, disabledStates, messagesStates])
 );
 
 // prettier-ignore
-export const hiddenSwitch: Story = createStory(
+export const hiddenSwitch: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-switch hidden>Hidden Switch</nimble-switch>`
     )
 );
 
-export const heightTest: Story = createStory(
+export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
             <nimble-switch style="border: 1px dashed; width: 200px">

@@ -1,6 +1,6 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextFieldAppearance } from '../types';
 import '../../all-components';
@@ -30,7 +30,7 @@ consuming application must implement that functionality.
 
 const metadata: Meta<TextFieldArgs> = {
     title: 'Text Field',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

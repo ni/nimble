@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
@@ -16,7 +15,7 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 
 const metadata: Meta = {
     title: 'Tests/Checkbox',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -32,13 +31,13 @@ const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
 ] as const;
-type CheckedState = typeof checkedStates[number];
+type CheckedState = (typeof checkedStates)[number];
 
 const indeterminateStates = [
     ['Indeterminate', true],
     ['', false]
 ] as const;
-type IndeterminateState = typeof indeterminateStates[number];
+type IndeterminateState = (typeof indeterminateStates)[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,
@@ -52,7 +51,7 @@ const component = (
     ${checkedName} ${indeterminateName} ${disabledName}
 </nimble-checkbox>`;
 
-export const checkboxThemeMatrix: Story = createMatrixThemeStory(
+export const checkboxThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         checkedStates,
@@ -60,12 +59,12 @@ export const checkboxThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenCheckbox: Story = createStory(
+export const hiddenCheckbox: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(html`<nimble-checkbox>Checkbox</nimble-checkbox>`)
 );

@@ -1,6 +1,6 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
@@ -21,7 +21,7 @@ pressed or not pressed and can optionally allow for a partially pressed state.`;
 
 const metadata: Meta<SwitchArgs> = {
     title: 'Switch',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

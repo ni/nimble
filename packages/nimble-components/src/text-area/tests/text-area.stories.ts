@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextAreaAppearance, TextAreaResize } from '../types';
 import '../../all-components';
@@ -22,7 +22,7 @@ interface TextAreaArgs {
 
 const metadata: Meta<TextAreaArgs> = {
     title: 'Text Area',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

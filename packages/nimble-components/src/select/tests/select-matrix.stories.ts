@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -28,7 +27,7 @@ import {
 
 const metadata: Meta = {
     title: 'Tests/Select',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -44,7 +43,7 @@ const appearanceStates = Object.entries(DropdownAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
 
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
@@ -74,11 +73,11 @@ const component = (
     </div>
 `;
 
-export const selectThemeMatrix: Story = createMatrixThemeStory(
+export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [disabledStates, appearanceStates, errorStates])
 );
 
-export const hiddenSelect: Story = createStory(
+export const hiddenSelect: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-select hidden>
             <nimble-list-option value="1">Option 1</nimble-list-option>
@@ -86,14 +85,14 @@ export const hiddenSelect: Story = createStory(
     )
 );
 
-export const blankListOption: Story = createStory(
+export const blankListOption: StoryFn = createStory(
     html`<nimble-select open>
         <nimble-list-option value="1">Option 1</nimble-list-option>
         <nimble-list-option></nimble-list-option>
     </nimble-select>`
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
             <nimble-select>

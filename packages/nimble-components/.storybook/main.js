@@ -1,10 +1,8 @@
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 module.exports = {
-    core: {
-        builder: 'webpack5'
-    },
-    stories: ['../src/**/*.stories.@(ts|mdx)', '../docs/**/*.stories.mdx'],
+    stories: ['../src/button/tests/button.stories.@(ts|mdx)'],
+    // stories: ['../src/**/*.stories.@(ts|mdx)', '../docs/**/*.stories.mdx'],
     addons: [
         {
             name: '@storybook/addon-essentials',
@@ -12,13 +10,9 @@ module.exports = {
                 outline: false
             }
         },
-        'storybook-addon-xd-designs',
         '@storybook/addon-a11y',
         '@storybook/addon-interactions'
     ],
-    features: {
-        previewCsfV3: true
-    },
     webpackFinal: config => {
         config.module.rules.push({
             test: /\.ts$/,
@@ -37,8 +31,14 @@ module.exports = {
         config.performance = {
             hints: false
         };
-
         return config;
     },
-    staticDirs: ['public']
+    staticDirs: ['public'],
+    framework: {
+        name: '@storybook/html-webpack5',
+        options: {}
+    },
+    docs: {
+        autodocs: false
+    }
 };

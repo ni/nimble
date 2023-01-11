@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -23,7 +22,7 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 
 const metadata: Meta = {
     title: 'Tests/Number Field',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -38,12 +37,12 @@ const valueStates = [
     ['Placeholder', null, 'placeholder'],
     ['Value', '1234', null]
 ] as const;
-type ValueState = typeof valueStates[number];
+type ValueState = (typeof valueStates)[number];
 
 const appearanceStates = Object.entries(NumberFieldAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,
@@ -66,7 +65,7 @@ const component = (
     </nimble-number-field>
 `;
 
-export const numberFieldThemeMatrix: Story = createMatrixThemeStory(
+export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         valueStates,
@@ -75,7 +74,7 @@ export const numberFieldThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenNumberField: Story = createStory(
+export const hiddenNumberField: StoryFn = createStory(
     hiddenWrapper(
         html`
             <nimble-number-field hidden>
@@ -85,13 +84,13 @@ export const hiddenNumberField: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<nimble-number-field value="42">Number field</nimble-number-field>`
     )
 );
 
-export const heightTest: Story = createStory(
+export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
             <nimble-number-field style="border: 1px dashed; width: 200px">

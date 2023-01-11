@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -18,7 +17,7 @@ import { bodyFont } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Anchor',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -34,18 +33,18 @@ const disabledStates = [
     ['', 'https://nimble.ni.dev'],
     ['Disabled', null]
 ] as const;
-type DisabledState = typeof disabledStates[number];
+type DisabledState = (typeof disabledStates)[number];
 
 const underlineHiddenStates = [
     ['', false],
     ['Underline Hidden', true]
 ] as const;
-type UnderlineHiddenState = typeof underlineHiddenStates[number];
+type UnderlineHiddenState = (typeof underlineHiddenStates)[number];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     AnchorAppearance
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
@@ -61,7 +60,7 @@ const component = (
             ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</nimble-anchor>
 `;
 
-export const anchorThemeMatrix: Story = createMatrixThemeStory(
+export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         underlineHiddenStates,
@@ -69,15 +68,15 @@ export const anchorThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenAnchor: Story = createStory(
+export const hiddenAnchor: StoryFn = createStory(
     hiddenWrapper(html`<nimble-anchor hidden>Hidden Anchor</nimble-anchor>`)
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(html`<nimble-anchor>Link</nimble-anchor>`)
 );
 
-export const textWrapping: Story = createStory(
+export const textWrapping: StoryFn = createStory(
     // prettier-ignore
     html`
     <p style="width: 300px; border: 1px solid black">

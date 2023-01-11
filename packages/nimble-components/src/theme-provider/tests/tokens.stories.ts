@@ -183,4 +183,4 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
     `)
 };
 
-themeAwareTokens.storyName = 'Theme-aware Tokens';
+themeAwareTokens.name = 'Theme-aware Tokens';

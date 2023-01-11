@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
@@ -26,7 +26,7 @@ When a user activates a choice in a menu, the menu usually closes unless the cho
 
 const metadata: Meta<MenuArgs> = {
     title: 'Menu',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

@@ -1,6 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { DrawerWidthOptions, ExampleContentType } from './types';
 import {
     createUserSelectedThemeStory,
@@ -112,7 +112,7 @@ ${overrideWarning('Drawer Width', widthDescriptionOverride)}
 
 const metadata: Meta<DrawerArgs> = {
     title: 'Drawer',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

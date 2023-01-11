@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -29,13 +29,13 @@ const expandedStates = [
     ['Collapsed', false],
     ['Expanded', true]
 ] as const;
-type ExpandedState = typeof expandedStates[number];
+type ExpandedState = (typeof expandedStates)[number];
 
 const selectedStates = [
     ['Unselected', false],
     ['Selected', true]
 ] as const;
-type SelectedState = typeof selectedStates[number];
+type SelectedState = (typeof selectedStates)[number];
 
 // prettier-ignore
 const component = (
@@ -75,7 +75,7 @@ const component = (
 
 export default metadata;
 
-export const treeViewThemeMatrix: Story = createMatrixThemeStory(
+export const treeViewThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         expandedStates,
@@ -84,7 +84,7 @@ export const treeViewThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenTreeView: Story = createStory(
+export const hiddenTreeView: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-tree-view hidden>
             <nimble-tree-item>Item 1</nimble-tree-item>
@@ -92,7 +92,7 @@ export const hiddenTreeView: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
             <nimble-tree-view>

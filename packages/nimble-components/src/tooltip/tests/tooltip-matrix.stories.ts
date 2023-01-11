@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -23,7 +22,7 @@ import { TooltipSeverity } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Tooltip',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -39,18 +38,18 @@ const textStates = [
     ['Short_Text', 'Hello'],
     ['Long_Text', loremIpsum]
 ] as const;
-type TextState = typeof textStates[number];
+type TextState = (typeof textStates)[number];
 
 const severityStates: [string, string | undefined][] = Object.entries(
     TooltipSeverity
 ).map(([key, value]) => [pascalCase(key), value]);
-type SeverityState = typeof severityStates[number];
+type SeverityState = (typeof severityStates)[number];
 
 const iconVisibleStates = [
     ['No_Icon', false],
     ['Icon_Visible', true]
 ] as const;
-type IconVisibleState = typeof iconVisibleStates[number];
+type IconVisibleState = (typeof iconVisibleStates)[number];
 
 const component = (
     [textName, text]: TextState,
@@ -103,12 +102,12 @@ const [
     darkThemeBlackBackground
 ] = backgroundStates;
 
-export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
+export const tooltipLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     lightThemeWhiteBackground
 );
 
-export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
+export const tooltipColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         textStates,
         severityStates,
@@ -117,11 +116,11 @@ export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory
     colorThemeDarkGreenBackground
 );
 
-export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
+export const tooltipDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     darkThemeBlackBackground
 );
 
-export const hiddenTooltip: Story = createStory(
+export const hiddenTooltip: StoryFn = createStory(
     hiddenWrapper(html`<nimble-tooltip hidden>Hidden Tooltip</nimble-tooltip>`)
 );

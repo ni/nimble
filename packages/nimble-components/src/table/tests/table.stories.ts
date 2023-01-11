@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { ExampleDataType } from './types';
@@ -36,7 +36,7 @@ which is defined by the type \`TableFieldValue\`.`;
 
 const metadata: Meta<TableArgs> = {
     title: 'Table',
-    decorators: [withXD],
+
     parameters: {
         docs: {
             description: {

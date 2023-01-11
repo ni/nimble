@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { WaferMapOrientation, WaferMapQuadrant } from '../types';
 import {
@@ -14,7 +13,7 @@ import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/WaferMap',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -28,7 +27,7 @@ const orientationStates = [
     [WaferMapOrientation.left],
     [WaferMapOrientation.right]
 ] as const;
-type OrientationState = typeof orientationStates[number];
+type OrientationState = (typeof orientationStates)[number];
 
 const dieOrientation = [
     [WaferMapQuadrant.topLeft],
@@ -36,7 +35,7 @@ const dieOrientation = [
     [WaferMapQuadrant.topRight],
     [WaferMapQuadrant.bottomRight]
 ] as const;
-type DieOrientation = typeof dieOrientation[number];
+type DieOrientation = (typeof dieOrientation)[number];
 
 const colorsScales = [
     [
@@ -52,7 +51,7 @@ const colorsScales = [
         }
     ]
 ] as const;
-type ColorScales = typeof colorsScales[number];
+type ColorScales = (typeof colorsScales)[number];
 
 const defaultColor = {
     colors: ['red', 'blue', 'green'],
@@ -60,7 +59,7 @@ const defaultColor = {
 };
 
 const dieLabelHidden = [[true], [false]] as const;
-type DieLabelHidden = typeof dieLabelHidden[number];
+type DieLabelHidden = (typeof dieLabelHidden)[number];
 
 const waferMapDie = [
     { x: 0, y: 0, value: '100' },
@@ -115,21 +114,21 @@ const componentWaferWithDieOrientation = ([
 >
 </nimble-wafer-map>`;
 
-export const waferMapThemeMatrix: Story = createMatrixThemeStory(
+export const waferMapThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)
 );
 
-export const waferMapDiesAndOrientationTest: Story = createStory(
+export const waferMapDiesAndOrientationTest: StoryFn = createStory(
     createMatrix(componentWaferWithDies, [orientationStates])
 );
 
-export const waferMapDieLabelAndColorScaleTest: Story = createStory(
+export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
     createMatrix(componentWaferWithHiddenDieLabel, [
         colorsScales,
         dieLabelHidden
     ])
 );
 
-export const waferMapDieOrientationTest: Story = createStory(
+export const waferMapDieOrientationTest: StoryFn = createStory(
     createMatrix(componentWaferWithDieOrientation, [dieOrientation])
 );

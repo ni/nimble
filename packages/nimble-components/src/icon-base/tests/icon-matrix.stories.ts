@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -26,7 +26,7 @@ export default metadata;
 const severityStates: [string, string | undefined][] = Object.entries(
     IconSeverity
 ).map(([key, value]) => [pascalCase(key), value]);
-type SeverityState = typeof severityStates[number];
+type SeverityState = (typeof severityStates)[number];
 
 const component = ([stateName, state]: SeverityState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
@@ -35,10 +35,10 @@ const component = ([stateName, state]: SeverityState): ViewTemplate => html`
     <nimble-icon-check severity="${() => state}"></nimble-icon-check>
 `;
 
-export const iconThemeMatrix: Story = createMatrixThemeStory(
+export const iconThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [severityStates])
 );
 
-export const hiddenIcon: Story = createStory(
+export const hiddenIcon: StoryFn = createStory(
     hiddenWrapper(html`<nimble-icon-check hidden></nimble-icon-check>`)
 );

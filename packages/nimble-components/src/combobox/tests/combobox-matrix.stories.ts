@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -29,11 +28,11 @@ const valueStates = [
     ['No Value', undefined, 'placeholder'],
     ['Value', 'Hello', 'placeholder']
 ] as const;
-type ValueState = typeof valueStates[number];
+type ValueState = (typeof valueStates)[number];
 
 const metadata: Meta = {
     title: 'Tests/Combobox',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -51,7 +50,7 @@ const appearanceStates = Object.entries(DropdownAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
 
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
@@ -89,7 +88,7 @@ const component = (
     </div>
 `;
 
-export const comboboxThemeMatrix: Story = createMatrixThemeStory(
+export const comboboxThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
@@ -98,7 +97,7 @@ export const comboboxThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenCombobox: Story = createStory(
+export const hiddenCombobox: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-combobox hidden>
             <nimble-list-option value="1">Option 1</nimble-list-option>
@@ -106,7 +105,7 @@ export const hiddenCombobox: Story = createStory(
     )
 );
 
-export const blankListOption: Story = createStory(
+export const blankListOption: StoryFn = createStory(
     html`<nimble-combobox open>
         <nimble-list-option value="1">Option 1</nimble-list-option>
         <nimble-list-option></nimble-list-option>

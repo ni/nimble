@@ -1,6 +1,5 @@
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import {
     createMatrixThemeStory,
     createStory
@@ -19,7 +18,7 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 
 const metadata: Meta = {
     title: 'Tests/Menu',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -39,7 +38,7 @@ const subMenuStates = [
     [true, true, false],
     [true, true, true]
 ] as const;
-type SubMenuState = typeof subMenuStates[number];
+type SubMenuState = (typeof subMenuStates)[number];
 
 // prettier-ignore
 const component = (
@@ -69,11 +68,11 @@ const component = (
     </span>
 `;
 
-export const menuThemeMatrix: Story = createMatrixThemeStory(
+export const menuThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [iconVisibleStates, subMenuStates])
 );
 
-export const hiddenMenu: Story = createStory(
+export const hiddenMenu: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-menu hidden>
             <nimble-menu-item>Item 1</nimble-menu-item>
@@ -81,7 +80,7 @@ export const hiddenMenu: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html` <nimble-menu>
             Inner text

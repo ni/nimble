@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance } from '../types';
@@ -17,7 +16,7 @@ import '../../all-components';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -37,12 +36,12 @@ const partVisibilityStates = [
     [true, true, true],
     [false, true, true]
 ] as const;
-type PartVisibilityState = typeof partVisibilityStates[number];
+type PartVisibilityState = (typeof partVisibilityStates)[number];
 
 const appearanceStates = Object.entries(ButtonAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
@@ -66,7 +65,7 @@ const component = (
     </nimble-menu-button>
 `;
 
-export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
+export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         partVisibilityStates,
         disabledStates,
@@ -74,7 +73,7 @@ export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenMenuButton: Story = createStory(
+export const hiddenMenuButton: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-menu-button hidden>Hidden Menu Button</nimble-menu-button>`
     )

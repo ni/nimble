@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -17,7 +16,7 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 
 const metadata: Meta = {
     title: 'Tests/Breadcrumb',
-    decorators: [withXD],
+
     parameters: {
         ...sharedMatrixParameters(),
         design: {
@@ -32,7 +31,7 @@ export default metadata;
 const appearanceStates: [string, string | undefined][] = Object.entries(
     BreadcrumbAppearance
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 const component = ([
     appearanceName,
@@ -48,11 +47,11 @@ const component = ([
         <nimble-breadcrumb-item>Current (No Link)</nimble-breadcrumb-item>
     </nimble-breadcrumb>
 `;
-export const breadcrumbThemeMatrix: Story = createMatrixThemeStory(
+export const breadcrumbThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [appearanceStates])
 );
 
-export const hiddenBreadcrumb: Story = createStory(
+export const hiddenBreadcrumb: StoryFn = createStory(
     hiddenWrapper(
         html`<nimble-breadcrumb hidden>
             <nimble-breadcrumb-item href="#">Item 1</nimble-breadcrumb-item>
@@ -61,7 +60,7 @@ export const hiddenBreadcrumb: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<nimble-breadcrumb-item>Breadcrumb item</nimble-breadcrumb-item>`
     )
