@@ -39,6 +39,7 @@ jobs:
           echo GITHUB_EVENT_NAME $GITHUB_EVENT_NAME
           echo GITHUB_REF $GITHUB_REF
           echo GITHUB_BASE_REF $GITHUB_BASE_REF
+          echo GITHUB_HEAD_REF $GITHUB_HEAD_REF
           echo GITHUB_EVENT_REF $GITHUB_EVENT_REF
       
       - name: Log IF event_name pull_request
@@ -53,7 +54,11 @@ jobs:
         if: startsWith(github.base_ref, 'refs/heads/renovate/')
         run: echo baseref is a Renovate branch
 
-      - name: Log IF renovate branch 
+      - name: Log IF headref renovate branch 
+        if: startsWith(github.head_ref, 'refs/heads/renovate/')
+        run: echo head is a Renovate branch
+
+      - name: Log IF event ref renovate branch 
         if: startsWith(github.event.ref, 'refs/heads/renovate/')
         run: echo event ref is a Renovate branch
 
