@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-In some tables, such as many tables within SLE, there is a need to put a menu within a row of the table. The `nimble-table` should provide a way for clients to accomplish this to avoid code duplication and promote consistency.
+In some tables, such as many tables within SLE, there is a need to put a menu button within a row of the table. The `nimble-table` should provide a way for clients to accomplish this to avoid code duplication and promote consistency.
 
 ### Out of scope of this HLD
 
@@ -30,7 +30,7 @@ The nimble design system will be opinionated about many details of the menu butt
 -   The icon shown within the button
 -   When the button becomes visible (e.g. always visible, visible on hover/selection only, etc.)
 
-If the need arises to have configuration for the items listed above, or other details that are not listed, that can be evaluated and the API can be extended.
+If the need arises for a client to have more control of the menu button's configuration, the API can be extended at a later time.
 
 #### Specifying a column to include a menu button
 
@@ -45,7 +45,7 @@ A client can specify that a column should have an action menu within it by addin
 
 ### Providing a menu
 
-Because only one menu can be open on the page at a time, the client can provide a single menu that will be associated with the correct button when it is open. The menu is provided by the client by slotting a `nimble-menu` in the `action-menu` slot as show below:
+Because only one menu can be open on the page at a time, the client can provide a single menu that will be associated with the correct menu button when it is open. The menu is provided by the client by slotting a menu in the `action-menu` slot as shown below:
 
 ```HTML
 <nimble-table>
@@ -60,10 +60,10 @@ Because only one menu can be open on the page at a time, the client can provide 
 </nimble-table>
 ```
 
-If an application requires different menu items for different rows, the client is responsible for ensuring that the items in the menu are correct for the item(s) that the menu is associated. This can be done by handling the `action-menu-opening` event on the table and updating the menu items as appropriate. The `action-menu-opening` event will include the following in its details:
+If an application requires different menu items for different rows, the client is responsible for ensuring that the items in the menu are correct for the row(s) that the menu is associated. This can be done by handling the `action-menu-opening` event on the table and updating the menu items as appropriate. The `action-menu-opening` event will include the following in its details:
 
 -   `rowIds` - string array - The IDs of the rows that the menu is associated with.
--   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be undefined in the event details.
+-   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be `undefined` in the event details.
 
 ### Implementation
 
@@ -77,7 +77,7 @@ For example, the table's template will look something like this:
 <template>
     ...
     <nimble-table-row>
-        <slot slot="row-action-menu" name="${(x, c) => (((c.parent as Table).openActionMenuRowId === x.id) ? 'action-menu' : 'unused-action-menu')}"></slot>
+        <slot slot="row-action-menu" name="${(x, c) => ((c.parent.openActionMenuRowId === x.id) ? 'action-menu' : 'unused-action-menu')}"></slot>
     </nimble-table-row>
     ...
 </template>
@@ -92,7 +92,7 @@ To implement the design described above, a few small changes need to be made to 
 
 ### Framework Integration
 
-There is no framework-specific integration work necessary with this design. One large benefit of the approach to slot a menu within the table is that applications written within frameworks can use framework-specific mechanisms to build the menu/menu-items and handle events associated with the menu.
+There is no framework-specific integration work necessary with this design. One large benefit of the approach to slot a menu within the table is that applications written using frameworks can use framework-specific mechanisms to build the menu/menu-items and handle events associated with the menu.
 
 ## Alternative Implementations / Designs
 
