@@ -6,11 +6,11 @@ import {
     borderWidth,
     borderColor,
     popupBorderColor,
-    popupBoxShadowColor,
     groupHeaderFont,
     groupHeaderTextTransform,
     groupHeaderFontColor,
-    smallPadding
+    smallPadding,
+    elevation2BoxShadow
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -23,7 +23,7 @@ export const styles = css`
         padding: 4px;
         min-width: 168px;
         width: max-content;
-        box-shadow: 0px 2px 3px ${popupBoxShadowColor};
+        box-shadow: ${elevation2BoxShadow};
     }
     :host([slot='submenu']) {
         margin: 0 calc(${smallPadding} * 2);

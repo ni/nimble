@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Update box shadow tokens, including removing the 'popupBoxShadowColor' token. The 'popupBoxShadowColor' token has been replaced by elevation tokens.",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "major"
+}
