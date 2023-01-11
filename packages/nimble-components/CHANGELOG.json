@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 11 Jan 2023 15:57:33 GMT",
+      "tag": "@ni/nimble-components_v16.1.7",
+      "version": "16.1.7",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fa3d337af03cafe317da92efbfaf4cceabdb921f",
+            "comment": "Anchor tabs spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 09 Jan 2023 23:44:20 GMT",
       "tag": "@ni/nimble-components_v16.1.7",
       "version": "16.1.7",
