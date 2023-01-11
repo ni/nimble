@@ -47,19 +47,19 @@ jobs:
         run: echo It is a PR
 
       - name: Log IF ref renovate branch 
-        if: startsWith(github.ref, 'refs/heads/renovate/')
+        if: ${{ startsWith(github.ref, 'refs/heads/renovate/') }}
         run: echo ref is a Renovate branch
 
       - name: Log IF baseref renovate branch 
-        if: startsWith(github.base_ref, 'refs/heads/renovate/')
+        if: ${{ startsWith(github.base_ref, 'refs/heads/renovate/') }}
         run: echo baseref is a Renovate branch
 
       - name: Log IF headref renovate branch 
-        if: startsWith(github.head_ref, 'renovate/')
+        if: ${{ startsWith(github.head_ref, 'renovate/') }}
         run: echo head is a Renovate branch
 
       - name: Log IF event ref renovate branch 
-        if: startsWith(github.event.ref, 'refs/heads/renovate/')
+        if: ${{ startsWith(github.event.ref, 'refs/heads/renovate/') }}
         run: echo event ref is a Renovate branch
 
       - name: Log IF both 
