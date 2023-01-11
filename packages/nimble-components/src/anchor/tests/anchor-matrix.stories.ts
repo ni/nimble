@@ -31,7 +31,7 @@ const metadata: Meta = {
 export default metadata;
 
 const disabledStates = [
-    ['', 'http://nimble.ni.dev'],
+    ['', 'https://nimble.ni.dev'],
     ['Disabled', null]
 ] as const;
 type DisabledState = typeof disabledStates[number];
