@@ -84,7 +84,17 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
-      # Check Changelog
+      # Generate change file for Renovate PRs
+      - name: Generate change file if Renovate PRs
+        if: github.event_name == 'pull_request' && startsWith(github.ref, 'refs/heads/renovate/')
+        run: |
+          echo Creating change file for Renovate PR in branch "${{ env.REF }}"
+          npm run change:deps
+          git status
+          git push
+          git status
+
+      # Check for change file
       - run: npm run check
 
       - name: Validate no changes to tracked files

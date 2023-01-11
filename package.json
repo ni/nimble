@@ -11,6 +11,7 @@
     "test": "npm test --workspaces --if-present",
     "pack": "npm run pack --workspaces --if-present",
     "change": "beachball change",
+    "change:deps": "beachball change --type patch --message \"Automatic dependency updates\"",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
     "validate": "npm run build && npm run lint && npm run test",
