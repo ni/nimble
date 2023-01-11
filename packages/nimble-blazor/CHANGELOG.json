@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 11 Jan 2023 20:34:04 GMT",
+      "tag": "@ni/nimble-blazor_v9.4.4",
+      "version": "9.4.4",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627",
+            "comment": "Update styleguide versions"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 05 Jan 2023 18:31:08 GMT",
       "tag": "@ni/nimble-blazor_v9.4.2",
       "version": "9.4.2",

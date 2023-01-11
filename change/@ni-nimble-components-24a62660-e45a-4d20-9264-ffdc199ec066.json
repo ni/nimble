@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update styleguide versions",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
