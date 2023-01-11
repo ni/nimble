@@ -53,7 +53,6 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'color-scale-mode'
     })
-
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**

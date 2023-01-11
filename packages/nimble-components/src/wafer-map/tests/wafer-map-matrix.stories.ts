@@ -120,13 +120,12 @@ const componentWaferWithDieOrientation = ([
 const componentWaferResize = (
     size: number
 ): ViewTemplate => html`<nimble-wafer-map
-        style="width: ${size}px; height: ${size}px"
-        class="size${size}"
-        :dies="${() => waferMapDie}"
-        :colorScale="${() => defaultColor}"
-    >
-    </nimble-wafer-map>
-    `;
+    style="width: ${size}px; height: ${size}px"
+    class="size${size}"
+    :dies="${() => waferMapDie}"
+    :colorScale="${() => defaultColor}"
+>
+</nimble-wafer-map> `;
 
 export const waferMapThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)
