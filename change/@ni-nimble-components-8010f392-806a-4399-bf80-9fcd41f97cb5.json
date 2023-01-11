@@ -1,7 +1,7 @@
 {
-  "type": "patch",
+  "type": "none",
   "comment": "Fixed the wafer-map resizing issues",
   "packageName": "@ni/nimble-components",
   "email": "35329597+DStavilaNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "none"
 }
