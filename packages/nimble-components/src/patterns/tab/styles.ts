@@ -58,7 +58,7 @@ export const styles = css`
         background: none;
     }
 
-    slot {
+    slot:not([name]) {
         display: block;
         padding: calc(${standardPadding} / 2) ${standardPadding}
             calc(${standardPadding} / 2 - ${borderWidth});
