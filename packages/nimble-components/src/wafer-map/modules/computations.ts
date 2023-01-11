@@ -101,16 +101,26 @@ export class Computations {
     private calculateMapDimensions(
         dies: Readonly<Readonly<WaferMapDie>[]>
     ): MapDimensions {
-        if (dies.length === 0 || dies[0] === undefined) return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
+        if (dies.length === 0 || dies[0] === undefined) {
+            return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
+        }
 
         const minPoint = { x: dies[0].x, y: dies[0].y };
         const maxPoint = { x: dies[0].x, y: dies[0].y };
 
         for (const die of dies) {
-            if (die.x < minPoint.x) minPoint.x = die.x;
-            if (die.y < minPoint.y) minPoint.y = die.y;
-            if (die.x > maxPoint.x) maxPoint.x = die.x;
-            if (die.y > maxPoint.y) maxPoint.y = die.y;
+            if (die.x < minPoint.x) {
+                minPoint.x = die.x;
+            }
+            if (die.y < minPoint.y) {
+                minPoint.y = die.y;
+            }
+            if (die.x > maxPoint.x) {
+                maxPoint.x = die.x;
+            }
+            if (die.y > maxPoint.y) {
+                maxPoint.y = die.y;
+            }
         }
 
         return {
