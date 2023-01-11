@@ -29,9 +29,8 @@ p, a {
     margin: var(--ni-nimble-standard-padding);
 }
 
-.table-container { 
+::deep .table {
     max-height: 500px;
-    overflow-y: auto;
 }
 
 ::deep .table-update-button {

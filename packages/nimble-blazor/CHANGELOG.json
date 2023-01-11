@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 05 Jan 2023 18:31:08 GMT",
+      "tag": "@ni/nimble-blazor_v9.4.2",
+      "version": "9.4.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "ac9e6c938436ccafae57842cc549c8c1ff183470",
+            "comment": "Update the Blazor example app to remove explict table scroll styling"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Jan 2023 21:51:15 GMT",
       "tag": "@ni/nimble-blazor_v9.4.0",
       "version": "9.4.0",
