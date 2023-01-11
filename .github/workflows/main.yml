@@ -36,9 +36,12 @@ jobs:
 
       - name: Log
         run: |
-          echo GITHUB_EVENT_NAME "${{ env.GITHUB_EVENT_NAME }}"
-          echo GITHUB_REF "${{ env.GITHUB_REF }}"
+          echo GITHUB_EVENT_NAME $GITHUB_EVENT_NAME
+          echo GITHUB_REF $GITHUB_REF
 
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
       
       - name: Log IF event_name pull_request
         if: github.event_name == 'pull_request'
