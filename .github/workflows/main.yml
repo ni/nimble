@@ -38,25 +38,19 @@ jobs:
         run: |
           echo GITHUB_EVENT_NAME $GITHUB_EVENT_NAME
           echo GITHUB_REF $GITHUB_REF
-
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
+          echo GITHUB_BASE_REF $GITHUB_BASE_REF
       
       - name: Log IF event_name pull_request
         if: github.event_name == 'pull_request'
-        run: |
-          echo It is a PR
+        run: echo It is a PR
 
       - name: Log IF renovate branch 
-        if: startsWith(github.ref, 'refs/heads/renovate/')
-        run: |
-          echo It is a Renovate branch
+        if: startsWith(github.base_ref, 'refs/heads/renovate/')
+        run: echo It is a Renovate branch
 
       - name: Log IF both 
-        if: github.event_name == 'pull_request' && startsWith(github.ref, 'refs/heads/renovate/')
-        run: |
-          echo It is both          
+        if: github.event_name == 'pull_request' && startsWith(github.base_ref, 'refs/heads/renovate/')
+        run: echo It is both          
 
 
       # Audit
