@@ -27,10 +27,15 @@ StyleDictionary.registerTransform({
     name: 'font/weight',
     matcher: token => token.attributes.category === 'font',
     transformer: token => {
-        if (token.value === 'Light') token.value = '300';
-        else if (token.value === 'Regular') token.value = '400';
-        else if (token.value === 'Semibold') token.value = '600';
-        else if (token.value === 'Bold') token.value = '700';
+        if (token.value === 'Light') {
+            token.value = '300';
+        } else if (token.value === 'Regular') {
+            token.value = '400';
+        } else if (token.value === 'Semibold') {
+            token.value = '600';
+        } else if (token.value === 'Bold') {
+            token.value = '700';
+        }
         return token.value;
     }
 });
