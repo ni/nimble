@@ -204,27 +204,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     errorTextFallbackFontFamily: 'error-text-fallback-font-family',
     tableRowBorderColor: 'table-row-border-color',
     elevation1BoxShadow: 'elevation-1-box-shadow',
-    elevation1BoxShadowColor: 'elevation-1-box-shadow-color',
-    elevation1BoxShadowXOffset: 'elevation-1-box-shadow-x-offset',
-    elevation1BoxShadowYOffset: 'elevation-1-box-shadow-y-offset',
-    elevation1BoxShadowBlurSize: 'elevation-1-box-shadow-blur-size',
     elevation2BoxShadow: 'elevation-2-box-shadow',
-    elevation2BoxShadowColor: 'elevation-2-box-shadow-color',
-    elevation2BoxShadowXOffset: 'elevation-2-box-shadow-x-offset',
-    elevation2BoxShadowYOffset: 'elevation-2-box-shadow-y-offset',
-    elevation2BoxShadowBlurSize: 'elevation-2-box-shadow-blur-size',
-    elevation3BoxShadow: 'elevation-3-box-shadow',
-    elevation3BoxShadowColor: 'elevation-3-box-shadow-color',
-    elevation3BoxShadowXOffset: 'elevation-3-box-shadow-x-offset',
-    elevation3FullHeightBoxShadowXOffset:
-        'elevation-3-full-height-box-shadow-x-offset',
-    elevation3BoxShadowYOffset: 'elevation-3-box-shadow-y-offset',
-    elevation3BoxShadowBlurSize: 'elevation-3-box-shadow-blur-size',
-    elevation4BoxShadow: 'elevation-4-box-shadow',
-    elevation4BoxShadowColor: 'elevation-4-box-shadow-color',
-    elevation4BoxShadowXOffset: 'elevation-4-box-shadow-x-offset',
-    elevation4BoxShadowYOffset: 'elevation-4-box-shadow-y-offset',
-    elevation4BoxShadowBlurSize: 'elevation-4-box-shadow-blur-size'
+    elevation3BoxShadow: 'elevation-3-box-shadow'
 };
 
 const prefix = 'ni-nimble';
@@ -248,7 +229,6 @@ const tokenSuffixes = [
     'TextTransform',
     'FontFamily',
     'BoxShadow',
-    'Offset',
     'Font',
     'Size',
     'Width',

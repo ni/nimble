@@ -9,11 +9,7 @@ import {
     standardPadding,
     titlePlus1Font,
     drawerWidth,
-    largeDelay,
-    elevation3BoxShadowColor,
-    elevation3BoxShadowBlurSize,
-    elevation3BoxShadowYOffset,
-    elevation3FullHeightBoxShadowXOffset
+    largeDelay
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -91,10 +87,7 @@ export const styles = css`
     }
 
     :host([location='left']) .dialog-contents {
-        border-right: ${borderWidth} solid ${elevation3BoxShadowColor};
-        box-shadow: ${elevation3FullHeightBoxShadowXOffset}
-            ${elevation3BoxShadowYOffset} ${elevation3BoxShadowBlurSize}
-            ${elevation3BoxShadowColor};
+        box-shadow: 3px 0px 8px #00000033;
     }
 
     :host([location='left']) dialog.animating .dialog-contents {
@@ -113,10 +106,7 @@ export const styles = css`
 
     :host([location='right']) .dialog-contents {
         right: 0px;
-        border-left: ${borderWidth} solid ${elevation3BoxShadowColor};
-        box-shadow: calc(-1 * ${elevation3FullHeightBoxShadowXOffset})
-            ${elevation3BoxShadowYOffset} ${elevation3BoxShadowBlurSize}
-            ${elevation3BoxShadowColor};
+        box-shadow: -3px 0px 8px #00000033;
     }
 
     :host([location='right']) dialog.animating .dialog-contents {

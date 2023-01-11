@@ -215,65 +215,17 @@ export const drawerWidth = DesignToken.create<string>(
 ).withDefault('784px');
 
 // Drop Shadow Tokens
-export const [
-    elevation1BoxShadow,
-    elevation1BoxShadowColor,
-    elevation1BoxShadowXOffset,
-    elevation1BoxShadowYOffset,
-    elevation1BoxShadowBlurSize
-] = createDropShadowTokens(
-    tokenNames.elevation1BoxShadow,
-    (element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.16),
-    '0px',
-    '1px',
-    '4px'
-);
+export const elevation1BoxShadow = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.elevation1BoxShadow)
+).withDefault((element: HTMLElement) => `0px 1px 4px ${hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.16)}`);
 
-export const [
-    elevation2BoxShadow,
-    elevation2BoxShadowColor,
-    elevation2BoxShadowXOffset,
-    elevation2BoxShadowYOffset,
-    elevation2BoxShadowBlurSize
-] = createDropShadowTokens(
-    tokenNames.elevation2BoxShadow,
-    (element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.16),
-    '0px',
-    '2px',
-    '4px'
-);
+export const elevation2BoxShadow = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.elevation2BoxShadow)
+).withDefault((element: HTMLElement) => `0px 2px 4px ${hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.16)}`);
 
-export const [
-    elevation3BoxShadow,
-    elevation3BoxShadowColor,
-    elevation3BoxShadowXOffset,
-    elevation3BoxShadowYOffset,
-    elevation3BoxShadowBlurSize
-] = createDropShadowTokens(
-    tokenNames.elevation3BoxShadow,
-    (element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.2),
-    '0px',
-    '3px',
-    '8px'
-);
-
-export const [
-    elevation4BoxShadow,
-    elevation4BoxShadowColor,
-    elevation4BoxShadowXOffset,
-    elevation4BoxShadowYOffset,
-    elevation4BoxShadowBlurSize
-] = createDropShadowTokens(
-    tokenNames.elevation4BoxShadow,
-    (element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.3),
-    '0px',
-    '4px',
-    '8px'
-);
-
-export const elevation3FullHeightBoxShadowXOffset = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.elevation3FullHeightBoxShadowXOffset)
-).withDefault('3px');
+export const elevation3BoxShadow = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.elevation3BoxShadow)
+).withDefault((element: HTMLElement) => `0px 4px 8px ${hexToRgbaCssColor(getColorForTheme(element, Black, Black, Black), 0.3)}`);
 
 // Font Tokens
 export const [
@@ -701,61 +653,6 @@ export const largeDelay = DesignToken.create<string>(
 function hexToRgbPartial(hexValue: string): string {
     const { red, green, blue } = hexRgb(hexValue);
     return `${red}, ${green}, ${blue}`;
-}
-
-function createDropShadowTokens(
-    dropShadowTokenName: string,
-    colorFunction: (element: HTMLElement) => string,
-    xOffset: string,
-    yOffset: string,
-    blurSize: string
-): readonly [
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>
-    ] {
-    if (
-        dropShadowTokenName === ''
-        || xOffset === ''
-        || yOffset === ''
-        || blurSize === ''
-    ) {
-        throw new Error(
-            'createDropShadowTokens parameter unexpectedly set to empty string'
-        );
-    }
-
-    const dropShadowToken = DesignToken.create<string>(
-        styleNameFromTokenName(dropShadowTokenName)
-    ).withDefault(
-        (element: HTMLElement) => `${xOffset} ${yOffset} ${blurSize} ${colorFunction(element)}`
-    );
-
-    const dropShadowColorToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${dropShadowTokenName}-color`)
-    ).withDefault((element: HTMLElement) => colorFunction(element));
-
-    const dropShadowXOffsetToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${dropShadowTokenName}-x-offset`)
-    ).withDefault(`${xOffset}`);
-
-    const dropShadowYOffsetToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${dropShadowTokenName}-y-offset`)
-    ).withDefault(`${yOffset}`);
-
-    const dropShadowBlurSizeToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${dropShadowTokenName}-blur-size`)
-    ).withDefault(`${blurSize}`);
-
-    return [
-        dropShadowToken,
-        dropShadowColorToken,
-        dropShadowXOffsetToken,
-        dropShadowYOffsetToken,
-        dropShadowBlurSizeToken
-    ] as const;
 }
 
 function createFontTokens(
