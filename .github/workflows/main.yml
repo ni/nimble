@@ -34,6 +34,28 @@ jobs:
           cache: 'npm'
       - run: npm ci
 
+      - name: Log
+        run: |
+          echo GITHUB_EVENT_NAME "${{ env.GITHUB_EVENT_NAME }}"
+          echo GITHUB_REF "${{ env.GITHUB_REF }}"
+
+      
+      - name: Log IF event_name pull_request
+        if: github.event_name == 'pull_request'
+        run: |
+          echo It is a PR
+
+      - name: Log IF renovate branch 
+        if: startsWith(github.ref, 'refs/heads/renovate/')
+        run: |
+          echo It is a Renovate branch
+
+      - name: Log IF both 
+        if: github.event_name == 'pull_request' && startsWith(github.ref, 'refs/heads/renovate/')
+        run: |
+          echo It is both          
+
+
       # Audit
       - run: npm audit --only=prod
       # https://github.com/ni/nimble/issues/801
@@ -85,10 +107,10 @@ jobs:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       # Generate change file for Renovate PRs
-      - name: Generate change file if Renovate PRs
+      - name: Generate change file for Renovate PRs
         if: github.event_name == 'pull_request' && startsWith(github.ref, 'refs/heads/renovate/')
         run: |
-          echo Creating change file for Renovate PR in branch "${{ env.REF }}"
+          echo Creating change file for Renovate PR in branch "${{ env.GITHUB_REF }}"
           npm run change:deps
           git status
           git push
