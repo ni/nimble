@@ -40,8 +40,7 @@ const data = [
 ] as const;
 
 // prettier-ignore
-const component = (
-): ViewTemplate => html`
+const component = (): ViewTemplate => html`
     <nimble-table :data=${_ => data}></nimble-table>
 `;
 
