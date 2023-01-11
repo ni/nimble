@@ -30,13 +30,7 @@ export class Table<
     public data: TData[] = [];
 
     @observable
-    public readonly slottedColumns: TableColumn[] = [];
-
-    /**
-     * @internal
-     */
-    @observable
-    public columns: TableColumn[] = [];
+    public readonly columns: TableColumn[] = [];
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
@@ -68,17 +62,6 @@ export class Table<
         // Ignore any updates that occur prior to the TanStack table being initialized.
         if (this.tableInitialized) {
             this.updateTableOptions({ data: this.data });
-        }
-    }
-
-    private slottedColumnsChanged(): void {
-        if (this.$fastController.isConnected) {
-            const columns: TableColumn[] = [];
-            for (const column of this.slottedColumns) {
-                columns.push(column);
-            }
-
-            this.columns = columns;
         }
     }
 

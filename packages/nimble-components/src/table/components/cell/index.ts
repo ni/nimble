@@ -43,15 +43,24 @@ export class TableCell<
         super.connectedCallback();
         this.customCellView = this.cellTemplate?.render(
             this.data,
-            this.cellContainer!
+            this.cellContainer
         );
     }
 
-    private dataChanged(): void {
+    protected dataChanged(): void {
         this.customCellView?.bind(this.data, defaultExecutionContext);
     }
 
-    private cellStylesChanged(
+    protected cellTemplateChanged(): void {
+        if (this.isConnected) {
+            this.customCellView = this.cellTemplate?.render(
+                this.data,
+                this.cellContainer
+            );
+        }
+    }
+
+    protected cellStylesChanged(
         prev?: ElementStyles,
         next?: ElementStyles
     ): void {

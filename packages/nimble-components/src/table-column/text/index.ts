@@ -27,7 +27,7 @@ TableColumnTextColumnConfig
     @attr
     public placeholder?: string;
 
-    public override readonly cellStyles = cellStyles;
+    public readonly cellStyles = cellStyles;
 
     public readonly cellTemplate = cellTemplate;
 
@@ -35,10 +35,7 @@ TableColumnTextColumnConfig
         return { placeholder: this.placeholder ?? '' };
     }
 
-    public getRecordFieldNames(): string[] {
-        if (!this.fieldName) {
-            throw new Error('fieldName must be provided.');
-        }
+    public getRecordFieldNames(): (string | undefined)[] {
         return [this.fieldName];
     }
 }

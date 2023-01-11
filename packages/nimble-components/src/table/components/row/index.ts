@@ -25,9 +25,9 @@ export class TableRow<
     public columns: TableColumn[] = [];
 
     public getCellValue(column: TableColumn): TableCellState<TableRecord> {
-        try {
-            const dataKeys = column.getRecordFieldNames();
-            const cellDataValues = dataKeys.map(key => this.data![key]);
+        const fieldNames = column.getRecordFieldNames();
+        if (this.hasValidFieldNames(fieldNames)) {
+            const cellDataValues = fieldNames.map(field => this.data![field]);
             const cellData = Object.fromEntries(
                 column.cellStateDataFieldNames.map((k, i) => [
                     k,
@@ -40,9 +40,13 @@ export class TableRow<
                 columnConfig
             };
             return cellState;
-        } catch {
-            return { data: {}, columnConfig: {} };
         }
+
+        return { data: {}, columnConfig: {} };
+    }
+
+    private hasValidFieldNames(keys: (string | undefined)[]): keys is string[] {
+        return keys.every(key => key !== undefined);
     }
 }
 

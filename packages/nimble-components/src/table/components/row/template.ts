@@ -12,7 +12,7 @@ export const template = html<TableRow>`
                 class="cell"
                 :cellTemplate="${x => x.cellTemplate}"
                 :cellStyles="${x => x.cellStyles}"
-                :data="${(x, c) => (c.parent as TableRow).getCellValue(x)}"
+                :data="${(x, c) => c.parent.getCellValue(x)}"
             >
             </${DesignSystem.tagFor(TableCell)}>
         `)}

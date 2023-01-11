@@ -12,14 +12,13 @@ export abstract class TableColumn<
     /**
      * The template to use to render the cell content for the column
      */
-    public abstract cellTemplate: ViewTemplate<
-    TableCellState<TCellData, TColumnConfig>
-    >;
+    // prettier-ignore
+    public abstract cellTemplate: ViewTemplate<TableCellState<TCellData, TColumnConfig>>;
 
     /**
      * The style to apply to the cellTemplate
      */
-    public cellStyles?: ElementStyles;
+    public abstract cellStyles?: ElementStyles;
 
     /**
      * The keys that should be present in TCellData.
@@ -37,5 +36,5 @@ export abstract class TableColumn<
      * The keys from the row data that correlate to the data that will be in TCellData.
      * This array is parallel with the keys specified by `cellStateDataFieldNames`.
      */
-    public abstract getRecordFieldNames(): string[];
+    public abstract getRecordFieldNames(): (string | undefined)[];
 }

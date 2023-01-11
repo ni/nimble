@@ -1,5 +1,5 @@
 {
-  "type": "minor",
+  "type": "patch",
   "comment": "Adding Blazor support for TableColumnText",
   "packageName": "@ni/nimble-blazor",
   "email": "26874831+atmgrifter00@users.noreply.github.com",

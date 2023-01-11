@@ -38,16 +38,16 @@ export const template = html<Table>`
             </div>
             <div class="table-viewport" role="rowgroup">
                ${when(x => x.columns.length > 0, html<Table>`
-                    ${repeat(x => x.data, html<TableRecord>`
+                    ${repeat(x => x.data, html<TableRecord, Table>`
                         <${DesignSystem.tagFor(TableRow)}
                             :data="${x => x}"
-                            :columns="${(_, c) => (c.parent as Table).columns}"
+                            :columns="${(_, c) => c.parent.columns}"
                         >
                         </${DesignSystem.tagFor(TableRow)}>
                     `)}
                 `)}
             </div>
         </div>
-        <slot ${slotted({ property: 'slottedColumns', filter: isTableColumn() })}></slot>
+        <slot ${slotted({ property: 'columns', filter: isTableColumn() })}></slot>
     </template>
 `;
