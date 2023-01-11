@@ -63,7 +63,7 @@ jobs:
         run: echo event ref is a Renovate branch
 
       - name: Log IF both 
-        if: github.event_name == 'pull_request' startsWith(github.head_ref, 'renovate/')
+        if: ${{ github.event_name == 'pull_request' startsWith(github.head_ref, 'renovate/') }}
         run: echo It is both          
 
 
