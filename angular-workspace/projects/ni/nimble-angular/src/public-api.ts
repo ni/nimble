@@ -2,6 +2,14 @@
  * Public API Surface of nimble-angular
  */
 
+export * from './directives/anchor/nimble-anchor-router-link-with-href.directive';
+export * from './directives/anchor/nimble-anchor-router-link.directive';
+export * from './directives/anchor/nimble-anchor.directive';
+export * from './directives/anchor/nimble-anchor.module';
+export * from './directives/anchor-button/nimble-anchor-button-router-link-with-href.directive';
+export * from './directives/anchor-button/nimble-anchor-button-router-link.directive';
+export * from './directives/anchor-button/nimble-anchor-button.directive';
+export * from './directives/anchor-button/nimble-anchor-button.module';
 export * from './directives/breadcrumb/nimble-breadcrumb.directive';
 export * from './directives/breadcrumb/nimble-breadcrumb.module';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item-router-link-with-href.directive';
@@ -43,6 +51,8 @@ export * from './directives/radio-group/nimble-radio-group.module';
 export * from './directives/select/nimble-select-control-value-accessor.directive';
 export * from './directives/select/nimble-select.directive';
 export * from './directives/select/nimble-select.module';
+export * from './directives/spinner/nimble-spinner.directive';
+export * from './directives/spinner/nimble-spinner.module';
 export * from './directives/switch/nimble-switch-control-value-accessor.directive';
 export * from './directives/switch/nimble-switch.directive';
 export * from './directives/switch/nimble-switch.module';
@@ -50,6 +60,8 @@ export * from './directives/tab/nimble-tab.directive';
 export * from './directives/tab/nimble-tab.module';
 export * from './directives/tab-panel/nimble-tab-panel.directive';
 export * from './directives/tab-panel/nimble-tab-panel.module';
+export * from './directives/table/nimble-table.directive';
+export * from './directives/table/nimble-table.module';
 export * from './directives/tabs/nimble-tabs.directive';
 export * from './directives/tabs/nimble-tabs.module';
 export * from './directives/tabs-toolbar/nimble-tabs-toolbar.directive';
@@ -77,7 +89,7 @@ export * from './testing/async-helpers';
 
 // Export items that would otherwise be exported by multiple components just from here to avoid exporting them multiple times.
 // Can be cleaned up when switching to multiple entry points, see: https://github.com/ni/nimble/issues/172
-export { ButtonAppearance } from '@ni/nimble-components/dist/esm/patterns/button/types';
+export { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/patterns/button/types';
 export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 export { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
 export type { ListOption } from '@ni/nimble-components/dist/esm/list-option';

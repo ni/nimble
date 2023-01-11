@@ -12,7 +12,7 @@ The `nimble-table` is a component that offers a way to render tabular data in a 
 
 [Nimble Table Research Document](https://lucid.app/lucidspark/31f2314d-dd8e-46fd-8fc1-6e9f66700bb3/edit?viewport_loc=-1060%2C-25492%2C20822%2C12325%2CloaYwcZLRray4&invitationId=inv_38839ad5-72b2-4975-ab7a-6d8be33c960c)
 
-[Table visual design](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b9cee5e2-49a4-425a-9ed4-38b23ba2e313/)
+[Table visual design](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
 
 ### Non-goals
 
@@ -98,23 +98,17 @@ _Feature APIs_
 The various APIs/features of the `nimble-table` will be split up amongst several different HLD documents. This section will serve to list them out and link to them as they become available:
 
 -   [Data API](table-data-api.md)
--   Column Definitions
+-   [Column API](table-columns-hld.md)
     -   Define the interface we will provide for the column providers/components (i.e., width, sorting, allowSort, allowGrouping, etc...)
-    -   Define the base implementation for the column providers that other column providers can extend.
     -   Define how we intend to support defining a column that uses information from multiple columns (e.g. a hyperlink column that uses data from one column for the URL and the data from another as the text to display)
         -   What column gets used for sorting?
-        -   Does column API allow for user to supply custom sort function?
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
-    -   Define the table-level APIs for setting the columns
-        -   Slot API on table?
-        -   Alternative/accompanying programmatic API?
+        -   [TableColumnText](table-column-specs/table-column-text-field.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
         -   Require specific component type (i.e. do we need to create a `nimble-table-header`)
         -   What is the component to use for interaction? Outline Button? Ghost button?
         -   What and where are the interactive mechanisms/indicators? Sort arrow, etc..
-    -   Can clients customize header content?
-        -   How do we allow for icons to be used in the header (as shown in the visual design doc)
 -   Row Selection
     -   Define the anatomy of row selection in the table DOM
         -   Indeterminate checkbox at the far left of each row?
@@ -139,20 +133,32 @@ The various APIs/features of the `nimble-table` will be split up amongst several
     -   Define how the action menu gets associated with a particular column
     -   Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
 
+_Attributes_
+
+-   `id-field-name` - An optional string attribute that specifies the field name within a row's record to use as a row's ID. If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered, and the table will enter an invalid state according to the `validity` property and `checkValidity()` function. The attribute is invalid in the following conditions:
+    -   Multiple records were found with the same ID
+    -   A record was found that did not have a field with the name specified by `id-field-name`
+    -   A record was found where `id-field-name` did not refer to a value of type `string`
+
 _Properties_
 
-Placeholder
+-   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
+-   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidityState`, analogous to the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property used for HTML 5 control validation.
+
+_Functions_
+
+-   `checkValidity(): boolean` - Function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.
 
 _Events_
 
--   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
+Placeholder
 
 ### Anatomy
 
 _Slots_
 
--   `slottedColumns` (Placeholder for column slots)
--   `actionMenu` (Placeholder for action menu)
+-   default - the column elements
+-   `action-menu` (Placeholder for action menu)
 
 ### Security
 
@@ -271,4 +277,7 @@ Storybook stories will be added to document/showcase the various features and AP
 
 ### Open Issues
 
-None.
+-   Should all invalid configurations get reflected to the client & end user the same way? Currently, invalid row ID configuration will cause no rows to be rendered in the table and the `validity` object to reflect why the table is invalid. Other options include: showing invalid text in the table or stopping updates to the table's state. Some things to keep in mind related to this:
+    -   We should be mindful of UI flickers when the client passes temporarily through an invalid state.
+    -   Stopping updates to the table's state could cause two tables with the same property values assigned to have different rendered outputs, which is not ideal.
+-   Should we implement our own algorithm for creating a default row ID rather than relying on TanStack? This would allow us to ensure backwards compatibility and would also allows us to make guarantees about it, such that it is always the index of the record within the `data` property (which isn't true in TanStack when dealing with hierarchical data).

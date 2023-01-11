@@ -1,11 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { Button } from '@ni/nimble-components/dist/esm/button';
-import type { ButtonAppearance } from '@ni/nimble-components/dist/esm/button/types';
-import { ButtonType, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
+import type { ButtonType, ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { Button };
-export { ButtonType, ButtonAppearanceVariant };
+export { ButtonType };
 
 /**
  * Directive to provide Angular integration for the button.

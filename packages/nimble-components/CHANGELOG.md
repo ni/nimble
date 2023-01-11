@@ -1,8 +1,73 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 13 Dec 2022 22:11:51 GMT and should not be manually modified.
+This log was last generated on Mon, 09 Jan 2023 23:44:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.7
+
+Mon, 09 Jan 2023 23:44:20 GMT
+
+### Patches
+
+- Fix tab keyboard focus style ([ni/nimble@0d8fb2c](https://github.com/ni/nimble/commit/0d8fb2cd0ffe5d15254bba17b59d733ca11493c4))
+
+## 16.1.6
+
+Thu, 05 Jan 2023 18:31:08 GMT
+
+### Patches
+
+- Fix scrolling in the table ([ni/nimble@ac9e6c9](https://github.com/ni/nimble/commit/ac9e6c938436ccafae57842cc549c8c1ff183470))
+
+## 16.1.5
+
+Thu, 05 Jan 2023 16:41:38 GMT
+
+### Patches
+
+- Fixed the wafer-map resizing issues ([ni/nimble@01b31f4](https://github.com/ni/nimble/commit/01b31f49d75b8cc7ad3d8794fed4c9fd6d46ebb0))
+
+## 16.1.4
+
+Wed, 04 Jan 2023 21:51:15 GMT
+
+### Patches
+
+- Add rollup configuration to remove process.env.NODE_ENV ([ni/nimble@5a509a2](https://github.com/ni/nimble/commit/5a509a200990916575422b9c1e05d7cd1825331f))
+
+## 16.1.3
+
+Fri, 16 Dec 2022 21:11:13 GMT
+
+### Patches
+
+- Implement basic styling for nimble-table ([ni/nimble@48a9d51](https://github.com/ni/nimble/commit/48a9d514b129b37e1e3faa057c024e46e358fa3a))
+
+## 16.1.2
+
+Fri, 16 Dec 2022 18:41:04 GMT
+
+### Patches
+
+- create element for nimble-table-header ([ni/nimble@1328e1e](https://github.com/ni/nimble/commit/1328e1ed6c146b0537b4c5c46386d5c97a17052e))
+
+## 16.1.1
+
+Fri, 16 Dec 2022 15:11:41 GMT
+
+### Patches
+
+- - Update table template to include nimble-table-row and nimble-table-cell
+ - Set the appropriate ARIA roles on nimble-table and sub elements ([ni/nimble@1700ba3](https://github.com/ni/nimble/commit/1700ba38c27d96d123d92084664ba5e7568232fe))
+
+## 16.1.0
+
+Fri, 16 Dec 2022 01:12:53 GMT
+
+### Minor changes
+
+- Spinner component ([ni/nimble@c50d9a2](https://github.com/ni/nimble/commit/c50d9a2e1934141b3a5dde98ceb84c8b992f1396))
 
 ## 16.0.0
 
