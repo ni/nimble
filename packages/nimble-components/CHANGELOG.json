@@ -2,6 +2,57 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 11 Jan 2023 21:08:14 GMT",
+      "tag": "@ni/nimble-components_v17.0.0",
+      "version": "17.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "14d2e7ce92455bfca0e61c2956f50a32ef1f253d",
+            "comment": "Update box shadow tokens, including removing the 'popupBoxShadowColor' token. The 'popupBoxShadowColor' token has been replaced by elevation tokens."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Jan 2023 20:34:04 GMT",
+      "tag": "@ni/nimble-components_v16.1.8",
+      "version": "16.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627",
+            "comment": "Update styleguide versions"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.3.2",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Jan 2023 15:57:33 GMT",
+      "tag": "@ni/nimble-components_v16.1.7",
+      "version": "16.1.7",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fa3d337af03cafe317da92efbfaf4cceabdb921f",
+            "comment": "Anchor tabs spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 09 Jan 2023 23:44:20 GMT",
       "tag": "@ni/nimble-components_v16.1.7",
       "version": "16.1.7",

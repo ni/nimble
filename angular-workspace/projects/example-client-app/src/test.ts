@@ -17,7 +17,8 @@ declare const require: {
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
     BrowserDynamicTestingModule,
-    platformBrowserDynamicTesting(), {
+    platformBrowserDynamicTesting(),
+    {
         teardown: { destroyAfterEach: false }
     }
 );
