@@ -51,8 +51,8 @@ describe('Nimble table', () => {
 
     describe('with property bound values', () => {
         interface SimpleRecord extends TableRecord {
-            myStr: string;
-            myNum: number;
+            field1: string;
+            field2: string;
         }
 
         @Component({
@@ -64,8 +64,8 @@ describe('Nimble table', () => {
             @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;
             @ViewChild('table', { read: ElementRef }) public elementRef: ElementRef<Table<SimpleRecord>>;
             public readonly originalData = [{
-                myStr: 'hello world',
-                myNum: 5
+                field1: 'hello world',
+                field2: 'foo'
             }] as const;
 
             public data: SimpleRecord[] = [...this.originalData];
@@ -91,14 +91,14 @@ describe('Nimble table', () => {
             expect(nativeElement.data).toEqual(fixture.componentInstance.originalData);
 
             const newData = [{
-                myStr: 'abc',
-                myNum: -6
+                field1: 'abc',
+                field2: 'xyz'
             }, {
-                myStr: 'hello world',
-                myNum: 7
+                field1: 'hello world',
+                field2: 'hola world'
             }, {
-                myStr: 'foo bar baz',
-                myNum: 999
+                field1: 'foo bar baz',
+                field2: 'fim fam foo'
             }] as const;
             fixture.componentInstance.data = [...newData];
             fixture.detectChanges();
