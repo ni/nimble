@@ -11,7 +11,7 @@ export const styles = css`
         height: 100%;
     }
 
-    .cell-container {
+    .cell-content-container {
         overflow: hidden;
         display: flex;
         align-items: center;

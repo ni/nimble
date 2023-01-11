@@ -30,9 +30,9 @@ export type StringField<FieldName extends string> = {
 };
 
 export interface TableCellState<
-    TCellData extends TableRecord,
+    TCellRecord extends TableRecord,
     TColumnConfig = unknown
 > {
-    data: TCellData;
+    data: TCellRecord;
     columnConfig: TColumnConfig;
 }

@@ -13,34 +13,6 @@ interface SimpleTableRecord extends TableRecord {
     anotherField?: string | null;
 }
 
-const simpleTableData = [
-    {
-        field: 'string 1',
-        noPlaceholder: 'string 2',
-        anotherField: 'foo'
-    },
-    {
-        field: '<button></button>',
-        noPlaceholder: 'string 2',
-        anotherField: 'foo'
-    },
-    {
-        field: '',
-        noPlaceholder: 'string 2',
-        anotherField: 'foo'
-    },
-    {
-        field: null,
-        noPlaceholder: null,
-        anotherField: 'foo'
-    },
-    {
-        field: undefined,
-        noPlaceholder: undefined,
-        anotherField: 'foo'
-    }
-] as const;
-
 const tableColumnText = DesignSystem.tagFor(TableColumnText);
 
 // prettier-ignore
@@ -72,31 +44,24 @@ describe('TableColumnText', () => {
         await disconnect();
     });
 
-    it('displays placeholder string when no value present', async () => {
-        element.data = [...simpleTableData];
-        await connect();
-        await waitForUpdatesAsync();
+    const noValueData = [
+        { description: 'field not present', data: [{ unused: 'foo' }] },
+        { description: 'value is null', data: [{ field: null }] },
+        { description: 'value is undefined', data: [{ field: undefined }] }
+    ];
+    for (const testData of noValueData) {
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
+        it(`displays placeholder string when ${testData.description}`, async () => {
+            element.data = testData.data;
+            await connect();
+            await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(3, 0)).toBe('no value'); // test for when value is null
-        expect(pageObject.getRenderedCellContent(3, 1)).toBe(''); // test for when value is null
-        expect(pageObject.getRenderedCellContent(4, 0)).toBe('no value'); // test for when value is undefined
-        expect(pageObject.getRenderedCellContent(4, 1)).toBe(''); // test for when value is undefined
-    });
-
-    it('displays data value and not placeholder when value present', async () => {
-        element.data = [...simpleTableData];
-        await connect();
-        await waitForUpdatesAsync();
-
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('string 1');
-        expect(pageObject.getRenderedCellContent(1, 0)).toBe(
-            '<button></button>'
-        );
-        expect(pageObject.getRenderedCellContent(2, 0)).toBe('');
-    });
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value'); // test for when value is null
+        });
+    }
 
     it('changing fieldName updates display', async () => {
-        element.data = [...simpleTableData];
+        element.data = [{ field: 'foo', anotherField: 'bar' }];
         await connect();
         await waitForUpdatesAsync();
 
@@ -104,11 +69,11 @@ describe('TableColumnText', () => {
         firstColumn.fieldName = 'anotherField';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('bar');
     });
 
     it('changing placeholder updates display', async () => {
-        element.data = [...simpleTableData];
+        element.data = [{ field: null }];
         await connect();
         await waitForUpdatesAsync();
 
@@ -116,14 +81,14 @@ describe('TableColumnText', () => {
         firstColumn.placeholder = 'different value';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(3, 0)).toBe('different value');
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('different value');
     });
 
     it('changing data from value to null displays placeholder', async () => {
-        element.data = [...simpleTableData];
+        element.data = [{ field: 'foo' }];
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('string 1');
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
 
         const updatedValue = { field: null };
         const updatedData = [updatedValue];
@@ -134,21 +99,15 @@ describe('TableColumnText', () => {
     });
 
     it('changing data from null to value displays value', async () => {
-        element.data = [...simpleTableData];
+        element.data = [{ field: null }];
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellContent(3, 0)).toBe('no value');
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
 
-        const updatedData: SimpleTableRecord[] = [
-            simpleTableData[0],
-            simpleTableData[1],
-            simpleTableData[2],
-            { field: 'new value' }
-        ];
-        element.data = updatedData;
+        element.data = [{ field: 'foo' }];
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(3, 0)).toBe('new value');
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
     });
 
     it('when no fieldName provided, nothing is displayed', async () => {
@@ -157,7 +116,7 @@ describe('TableColumnText', () => {
 
         const firstColumn = element.columns[0] as TableColumnText;
         firstColumn.fieldName = undefined;
-        element.data = [...simpleTableData];
+        element.data = [{ field: 'foo' }];
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
@@ -184,9 +143,7 @@ describe('TableColumnText', () => {
         it(`data ${testDataTitleValue} renders as ${fieldValue.renderedValue}`, async () => {
             await connect();
 
-            const updatedValue = { field: fieldValue.dataValue };
-            const updatedData = [updatedValue];
-            element.data = updatedData;
+            element.data = [{ field: fieldValue.dataValue }];
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(

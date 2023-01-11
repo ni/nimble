@@ -68,11 +68,11 @@ Column elements will always be FAST-based custom elements. Framework-specific co
 
 ### `TableCellState` interface
 
-A table cell represents a single column for a single row. The data that a cell has access to will be a subset of the data for the entire row. An instance of a table cell will be generic to describe the subset of data it contains, where the `TCellData` type is a superset of the type represented by [`TableRecord`](https://github.com/ni/nimble/blob/3e4b8d3dd59431d1671e381aa66052db57bc475c/packages/nimble-components/src/table/types.ts#L24):
+A table cell represents a single column for a single row. The data that a cell has access to will be a subset of the data for the entire row. An instance of a table cell will be generic to describe the subset of data it contains, where the `TCellRecord` type is a superset of the type represented by [`TableRecord`](https://github.com/ni/nimble/blob/3e4b8d3dd59431d1671e381aa66052db57bc475c/packages/nimble-components/src/table/types.ts#L24):
 
 ```TS
-interface TableCellState<TCellData extends TableRecord, TColumnConfig> {
-  data: TCellData;
+interface TableCellState<TCellRecord extends TableRecord, TColumnConfig> {
+  data: TCellRecord;
   columnConfig: TColumnConfig;
   recordId: string;
 }
@@ -85,30 +85,30 @@ This interface could possibly be expanded in the future to communicate relevant 
 This abstract class is what a column web component (i.e. a slotted column element) must extend.
 
 ```TS
-abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnConfig = {}> {
+abstract class TableColumn<TCellRecord extends TableRecord = TableRecord, TColumnConfig = {}> {
     // This method returns the relevant, static configuration a column requires its cellTemplate
     // to have access to
     getColumnConfig(): TColumnConfig {}
 
     // The template to use to render the cell content for the column
-    abstract cellTemplate: ViewTemplate<TableCellState<TCellData, TColumnConfig>>;
+    abstract cellTemplate: ViewTemplate<TableCellState<TCellRecord, TColumnConfig>>;
 
     // The style to apply to the cellTemplate
     cellStyles?: ElementStyles;
 
-    // The keys that should be present in TCellData.
+    // The keys that should be present in TCellRecord.
     // This array is parallel with the keys returned from `getRecordFieldNames()`.
     readonly cellStateDataFieldNames: readonly string[];
 
-    // The keys from the row data that correlate to the data that will be in TCellData.
+    // The keys from the row data that correlate to the data that will be in TCellRecord.
     // This array is parallel with the keys specified by `cellStateDataFieldNames`.
     abstract getRecordFieldNames(): string[];
 
     // Function that allows the table column to validate the type that gets created
-    // for the cell data. This should validate that the types in TCellData are correct
+    // for the cell data. This should validate that the types in TCellRecord are correct
     // for each key defined by `cellStateDataFieldNames`.
     // This function should throw if validation fails.
-    abstract validateCellData(cellData: TCellData): void;
+    abstract validateCellData(cellData: TCellRecord): void;
 }
 ```
 
@@ -117,10 +117,10 @@ _Note: The `TableColumn` class may be updated to support other features not cove
 Given the above class, a series of column elements to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
 ```TS
-type TableColumnTextCellData = StringField<'value'>;
+type TableColumnTextCellRecord = StringField<'value'>;
 type TableColumnTextColumnConfig = { placeholder: string };
 
-public class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
+public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
     ...
 
     public getColumnConfig(): TableColumnTextColumnConfig {
@@ -139,13 +139,13 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData, TableC
         return [valueKey];
     }
 
-    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>> =
-        html<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>>`
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>> =
+        html<TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>>`
             <nimble-text-field readonly="true" value="${x => x.data.value}" placeholder="${x => x.columnConfig.placeholder}">
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['value']) !== 'string') {
             throw new Error('Type for cellData is incorrect!');
         }
@@ -188,7 +188,7 @@ public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWith
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (!(typeof(cellData['value']) === 'number' && typeof typeof(cellData['units']) === 'string')) {
             throw new Error('Type for cellData is incorrect!');
         }
@@ -238,7 +238,7 @@ public class TableColumnPositiveNegativeNumber extends TableColumn<TableColumnPo
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['value']) !== 'number') {
             throw new Error('Type for cellData is incorrect!');
         }
@@ -272,7 +272,7 @@ public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
             </nimble-button>
         `;
 
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['id']) !== 'string') {
             throw new Error('Type for cellData is incorrect!');
         }

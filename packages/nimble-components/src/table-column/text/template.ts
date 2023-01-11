@@ -1,9 +1,9 @@
 import { html } from '@microsoft/fast-element';
-import type { TableColumnTextCellData, TableColumnTextColumnConfig } from '.';
+import type { TableColumnTextCellRecord, TableColumnTextColumnConfig } from '.';
 import type { TableCellState } from '../../table/types';
 
 export const cellTemplate = html<
-TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>
+TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
 >`
     <span
         class="${x => (typeof x.data.value === 'string' ? 'text-value' : 'placeholder')}"

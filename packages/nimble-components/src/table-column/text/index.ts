@@ -7,7 +7,7 @@ import { template } from '../base/template';
 import { cellStyles } from './styles';
 import { cellTemplate } from './template';
 
-export type TableColumnTextCellData = StringField<'value'>;
+export type TableColumnTextCellRecord = StringField<'value'>;
 export interface TableColumnTextColumnConfig {
     placeholder: string;
 }
@@ -16,7 +16,7 @@ export interface TableColumnTextColumnConfig {
  * The table column for displaying strings.
  */
 export class TableColumnText extends TableColumn<
-TableColumnTextCellData,
+TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
     public cellStateDataFieldNames = ['value'] as const;

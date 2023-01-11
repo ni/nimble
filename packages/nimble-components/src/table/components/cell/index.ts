@@ -21,10 +21,10 @@ declare global {
  * @internal
  */
 export class TableCell<
-    TCellData extends TableRecord = TableRecord
+    TCellRecord extends TableRecord = TableRecord
 > extends FoundationElement {
     @observable
-    public data?: TableCellState<TCellData>;
+    public data?: TableCellState<TCellRecord>;
 
     @observable
     public cellTemplate?: ViewTemplate;
@@ -35,7 +35,7 @@ export class TableCell<
     /**
      * @internal
      */
-    public readonly cellContainer!: HTMLElement;
+    public readonly cellContentContainer!: HTMLElement;
 
     private customCellView?: HTMLView = undefined;
 
@@ -43,7 +43,7 @@ export class TableCell<
         super.connectedCallback();
         this.customCellView = this.cellTemplate?.render(
             this.data,
-            this.cellContainer
+            this.cellContentContainer
         );
     }
 
@@ -55,7 +55,7 @@ export class TableCell<
         if (this.isConnected) {
             this.customCellView = this.cellTemplate?.render(
                 this.data,
-                this.cellContainer
+                this.cellContentContainer
             );
         }
     }
