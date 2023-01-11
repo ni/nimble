@@ -53,7 +53,6 @@ export class AnchorTabs extends FoundationElement {
      */
     public tablist: HTMLElement | undefined;
 
-    //private prevActiveTabIndex = -1;
     private activeTabIndex = 0;
     private tabIds: string[] = [];
 
@@ -62,9 +61,6 @@ export class AnchorTabs extends FoundationElement {
      */
     public activeidChanged(_oldValue: string, _newValue: string): void {
         if (this.$fastController.isConnected) {
-            //this.prevActiveTabIndex = this.tabs.findIndex(
-            //    (item: HTMLElement) => item.id === oldValue
-            //);
             this.setTabs();
         }
     }
@@ -77,7 +73,6 @@ export class AnchorTabs extends FoundationElement {
             this.tabIds = this.getTabIds();
 
             this.setTabs();
-            //this.setComponent();
         }
     }
 
@@ -114,6 +109,7 @@ export class AnchorTabs extends FoundationElement {
         const gridVerticalProperty = 'gridRow';
 
         this.activeTabIndex = this.getActiveIndex();
+        this.activetab = undefined;
         this.tabs.forEach((tab: HTMLElement, index: number) => {
             if (tab.slot === 'anchortab') {
                 const isActiveTab = this.activeTabIndex === index && this.isFocusableElement(tab);
@@ -139,22 +135,9 @@ export class AnchorTabs extends FoundationElement {
         });
     }
 
-    /*
-    private setComponent(): void {
-        if (this.activeTabIndex !== this.prevActiveTabIndex) {
-            this.activeid = this.tabIds[this.activeTabIndex]!;
-            this.focusTab();
-        }
-    }
-    */
-
     private readonly handleTabClick = (event: MouseEvent): void => {
         const selectedTab = event.currentTarget as HTMLElement;
         if (selectedTab.nodeType === 1 && this.isFocusableElement(selectedTab)) {
-            //this.prevActiveTabIndex = this.activeTabIndex;
-            //this.activeTabIndex = this.tabs.indexOf(selectedTab);
-            //this.setComponent();
-
             this.navigateToTab(this.tabs.findIndex(
                 (item: HTMLElement) => item === selectedTab
             ));
@@ -252,12 +235,6 @@ export class AnchorTabs extends FoundationElement {
             }
         });
     };
-
-    /*
-    private focusTab(): void {
-        this.tabs[this.activeTabIndex]!.focus();
-    }
-    */
 
     private navigateToTab(index: number): void {
         const tab = this.tabs[index] as AnchorTab;
