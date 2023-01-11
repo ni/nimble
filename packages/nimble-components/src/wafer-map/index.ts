@@ -83,6 +83,7 @@ export class WaferMap extends FoundationElement {
     private dataManager: DataManager | undefined;
     private renderer: RenderingModule | undefined;
     private resizeObserver: ResizeObserver | undefined;
+    private zoomHandler: ZoomHandler | undefined;
     public override connectedCallback(): void {
         super.connectedCallback();
         this.resizeObserver = new ResizeObserver(entries => {
@@ -122,13 +123,13 @@ export class WaferMap extends FoundationElement {
             this.maxCharacters
         );
         this.renderer = new RenderingModule(this.dataManager, this.canvas);
-        const zoomHandler = new ZoomHandler(
+        this.zoomHandler = new ZoomHandler(
             this.canvas,
             this.zoomContainer,
             this.dataManager,
             this.renderer
         );
-        zoomHandler.attachZoomBehavior();
+        this.zoomHandler.attachZoomBehavior();
         this.renderer.drawWafer();
     }
 
@@ -176,6 +177,7 @@ export class WaferMap extends FoundationElement {
             this.canvas.width = this.canvasSideLength;
             this.canvas.height = this.canvasSideLength;
         }
+        this.zoomHandler?.resetTransform();
         this.queueRender();
     }
 

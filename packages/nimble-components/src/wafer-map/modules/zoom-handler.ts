@@ -17,6 +17,7 @@ export class ZoomHandler {
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
+    private zoomBehavior: ZoomBehavior<Element, unknown> | undefined;
 
     public constructor(
         private readonly canvas: HTMLCanvasElement,
@@ -26,13 +27,34 @@ export class ZoomHandler {
     ) {}
 
     public attachZoomBehavior(): void {
-        const zoomBehavior = this.createZoomBehavior();
-        zoomBehavior(select(this.canvas as Element));
+        this.zoomBehavior = this.createZoomBehavior();
+        this.zoomBehavior(select(this.canvas as Element));
+    }
+
+    public resetTransform(): void {
+        const canvasContext = this.canvas.getContext('2d');
+        if (canvasContext === null) return;
+        this.zoomTransform = zoomIdentity;
+        this.clearCanvas(
+            canvasContext,
+            this.canvas.width,
+            this.canvas.height
+        );
+        this.scaleCanvas(
+            canvasContext,
+            zoomIdentity.x,
+            zoomIdentity.y,
+            zoomIdentity.k
+        );
+        this.renderingModule.drawWafer();
+        this.zoomBehavior?.transform(
+            select(this.canvas as Element),
+            zoomIdentity
+        );
     }
 
     private createZoomBehavior(): ZoomBehavior<Element, unknown> {
-        this.canvas.addEventListener('wheel', event => event.preventDefault());
-        if (this.dataManager === undefined) return zoom();
+        this.canvas.addEventListener('wheel', event => event.preventDefault(), { passive: false });
         const zoomBehavior = zoom()
             .scaleExtent([
                 1.1,
@@ -54,7 +76,6 @@ export class ZoomHandler {
                 return transform.k >= this.minScale || event.type === 'wheel';
             })
             .on('zoom', (event: { transform: ZoomTransform }) => {
-                if (this.dataManager === undefined) return;
                 const transform = event.transform;
                 const canvasContext = this.canvas.getContext('2d');
                 if (canvasContext === null) return;
