@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 11 Jan 2023 20:34:04 GMT and should not be manually modified.
+This log was last generated on Wed, 11 Jan 2023 21:08:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.0
+
+Wed, 11 Jan 2023 21:08:14 GMT
+
+### Major changes
+
+- Update box shadow tokens, including removing the 'popupBoxShadowColor' token. The 'popupBoxShadowColor' token has been replaced by elevation tokens. ([ni/nimble@14d2e7c](https://github.com/ni/nimble/commit/14d2e7ce92455bfca0e61c2956f50a32ef1f253d))
 
 ## 16.1.8
 
