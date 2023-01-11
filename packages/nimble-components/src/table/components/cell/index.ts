@@ -35,7 +35,7 @@ export class TableCell<
     /**
      * @internal
      */
-    public readonly cellContainer: HTMLElement | undefined = undefined;
+    public readonly cellContainer!: HTMLElement;
 
     private customCellView?: HTMLView = undefined;
 
