@@ -7,7 +7,7 @@ import type { TableColumn } from '../../../table-column/base';
 // prettier-ignore
 export const template = html<TableRow>`
     <template role="row">
-        ${repeat(x => x.columns, html<TableColumn>`
+        ${repeat(x => x.columns, html<TableColumn, TableRow>`
             <${DesignSystem.tagFor(TableCell)}
                 class="cell"
                 :cellTemplate="${x => x.cellTemplate}"
