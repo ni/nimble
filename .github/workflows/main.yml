@@ -55,7 +55,7 @@ jobs:
         run: echo baseref is a Renovate branch
 
       - name: Log IF headref renovate branch 
-        if: startsWith(github.head_ref, 'refs/heads/renovate/')
+        if: startsWith(github.head_ref, 'renovate/')
         run: echo head is a Renovate branch
 
       - name: Log IF event ref renovate branch 
@@ -63,7 +63,7 @@ jobs:
         run: echo event ref is a Renovate branch
 
       - name: Log IF both 
-        if: github.event_name == 'pull_request' && startsWith(github.base_ref, 'refs/heads/renovate/')
+        if: github.event_name == 'pull_request' startsWith(github.head_ref, 'renovate/')
         run: echo It is both          
 
 
@@ -119,9 +119,9 @@ jobs:
 
       # Generate change file for Renovate PRs
       - name: Generate change file for Renovate PRs
-        if: github.event_name == 'pull_request' && startsWith(github.ref, 'refs/heads/renovate/')
+        if: github.event_name == 'pull_request' startsWith(github.head_ref, 'renovate/')
         run: |
-          echo Creating change file for Renovate PR in branch "${{ env.GITHUB_REF }}"
+          echo Creating change file for Renovate PR in branch "${{ env.GITHUB_HEAD_REF }}"
           npm run change:deps
           git status
           git push
