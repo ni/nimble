@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 11 Jan 2023 20:34:04 GMT",
+      "tag": "@ni/nimble-components_v16.1.8",
+      "version": "16.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627",
+            "comment": "Update styleguide versions"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.3.2",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Jan 2023 15:57:33 GMT",
       "tag": "@ni/nimble-components_v16.1.7",
       "version": "16.1.7",
