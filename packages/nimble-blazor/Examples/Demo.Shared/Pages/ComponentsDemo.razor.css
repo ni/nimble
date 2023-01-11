@@ -29,6 +29,14 @@ p, a {
     margin: var(--ni-nimble-standard-padding);
 }
 
+::deep .table {
+    max-height: 500px;
+}
+
+::deep .table-update-button {
+    width: 150px;
+}
+
 .sub-container > * {
     padding-right: var(--ni-nimble-standard-padding);
 }
@@ -58,13 +66,4 @@ example-header {
 
 .drawer-footer {
     gap: var(--ni-nimble-standard-padding);
-}
-
-.dialog-header {
-    font: var(--ni-nimble-title-font);
-    color: var(--ni-nimble-title-font-color);
-}
-
-.dialog-content {
-    color: var(--ni-nimble-body-font-color);
 }

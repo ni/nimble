@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "4.3.0",
+  "version": "4.3.2",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico",
@@ -8,13 +8,14 @@
     "build:svg-to-ico": "node build/svg-to-ico.js",
     "build:ts": "tsc -p ./tsconfig.json",
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
+    "format": "eslint . --fix",
+    "lint": "eslint .",
     "pack": "npm run pack:npm && npm run pack:nuget",
     "pack:npm": "npm pack",
     "pack:nuget": "cross-env-shell dotnet pack ./NimbleTokens --configuration Release -p:PackageVersion=$npm_package_version",
     "invoke-publish": "npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"NimbleTokens/bin/Release/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
-    "invoke-publish:npm": "npm publish",
-    "lint": "eslint ."
+    "invoke-publish:npm": "npm publish"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,7 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "devDependencies": {
-    "@ni/eslint-config-javascript": "^4.0.0",
+    "@ni/eslint-config-javascript": "^4.2.0",
     "cross-env": "^7.0.3",
     "glob": "^8.0.1",
     "hex-rgb": "4.3.0",

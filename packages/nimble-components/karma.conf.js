@@ -5,6 +5,7 @@
 
 process.env.CHROME_BIN = require('puppeteer').executablePath();
 const path = require('path');
+const webpack = require('webpack');
 
 const basePath = path.resolve(__dirname);
 const commonChromeFlags = [
@@ -23,6 +24,17 @@ const commonChromeFlags = [
     '--disable-translate',
     '--force-prefers-reduced-motion'
 ];
+
+// Create a webpack environment plugin to use while running tests so that
+// functionality that accesses the environment, such as the TanStack table
+// within the nimble-table, work correctly.
+// Note: Unless we run the tests twice, we have to choose to either run them
+// against the 'production' configuration or the 'development' configuration.
+// Because we expect shipping apps to use the 'production' configuration, we
+// have chosen to run tests aginst that configuration.
+const webpackEnvironmentPlugin = new webpack.EnvironmentPlugin({
+    NODE_ENV: 'production'
+});
 
 module.exports = config => {
     const options = {
@@ -88,7 +100,8 @@ module.exports = config => {
                         ]
                     }
                 ]
-            }
+            },
+            plugins: [webpackEnvironmentPlugin]
         },
         mime: {
             'text/x-typescript': ['ts']

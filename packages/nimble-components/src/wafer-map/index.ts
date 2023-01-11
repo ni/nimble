@@ -1,5 +1,6 @@
 import {
     attr,
+    DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
@@ -7,12 +8,14 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from './template';
 import { styles } from './styles';
 import {
-    WaferMapColorsScale,
-    WaferMapColorsScaleMode,
+    WaferMapColorScale,
+    WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
+import { DataManager } from './modules/data-manager';
+import { RenderingModule } from './modules/rendering';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -48,16 +51,137 @@ export class WaferMap extends FoundationElement {
     public dieLabelsSuffix = '';
 
     @attr({
-        attribute: 'colors-scale-mode'
+        attribute: 'color-scale-mode'
     })
-    public colorsScaleMode: WaferMapColorsScaleMode = WaferMapColorsScaleMode.linear;
 
-    @observable public highlightedValues: number[] = [];
+    /**
+     * @internal
+     */
+    public readonly canvas!: HTMLCanvasElement;
+
+    /**
+     * @internal
+     */
+    @observable public canvasSideLength: number | undefined;
+
+    @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
+
+    @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public colorScale: WaferMapColorsScale = {
+    @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
     };
+
+    private renderQueued = false;
+    private dataManager: DataManager | undefined;
+    private renderer: RenderingModule | undefined;
+    private resizeObserver: ResizeObserver | undefined;
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.resizeObserver = new ResizeObserver(entries => {
+            const entry = entries[0];
+            if (entry === undefined) {
+                return;
+            }
+            const { height, width } = entry.contentRect;
+            this.canvasSideLength = Math.min(height, width);
+        });
+        this.resizeObserver.observe(this);
+        this.queueRender();
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.resizeObserver!.unobserve(this);
+    }
+
+    /**
+     * @internal
+     */
+    public render(): void {
+        this.renderQueued = false;
+        if (
+            this.canvasSideLength === undefined
+            || this.canvasSideLength === 0
+        ) {
+            return;
+        }
+        this.renderer?.clearCanvas(
+            this.canvasSideLength,
+            this.canvasSideLength
+        );
+        this.dataManager = new DataManager(
+            this.dies,
+            this.quadrant,
+            { width: this.canvasSideLength, height: this.canvasSideLength },
+            this.colorScale,
+            this.highlightedValues,
+            this.colorScaleMode,
+            this.dieLabelsHidden,
+            this.dieLabelsSuffix,
+            this.maxCharacters
+        );
+        this.renderer = new RenderingModule(this.dataManager, this.canvas);
+        this.renderer.drawWafer();
+    }
+
+    private quadrantChanged(): void {
+        this.queueRender();
+    }
+
+    private orientationChanged(): void {
+        this.queueRender();
+    }
+
+    private maxCharactersChanged(): void {
+        this.queueRender();
+    }
+
+    private dieLabelsHiddenChanged(): void {
+        this.queueRender();
+    }
+
+    private dieLabelsSuffixChanged(): void {
+        this.queueRender();
+    }
+
+    private colorScaleModeChanged(): void {
+        this.queueRender();
+    }
+
+    private highlightedValuesChanged(): void {
+        this.queueRender();
+    }
+
+    private diesChanged(): void {
+        this.queueRender();
+    }
+
+    private colorScaleChanged(): void {
+        this.queueRender();
+    }
+
+    private canvasSideLengthChanged(): void {
+        if (
+            this.canvasSideLength !== undefined
+            && this.canvasSideLength !== 0
+        ) {
+            this.canvas.width = this.canvasSideLength;
+            this.canvas.height = this.canvasSideLength;
+        }
+        this.queueRender();
+    }
+
+    private queueRender(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.renderQueued) {
+            this.renderQueued = true;
+            DOM.queueUpdate(() => this.render());
+        }
+    }
 }
 
 const nimbleWaferMap = WaferMap.compose({

@@ -5,7 +5,6 @@ import {
     Black91,
     Black85,
     Black15,
-    Black75,
     Black80,
     Black88,
     White,
@@ -84,7 +83,13 @@ import {
     ButtonLabel1LineHeight,
     TooltipCaptionLineHeight,
     Information100LightUi,
-    Information100DarkUi
+    Information100DarkUi,
+    DigitalGreenDark,
+    PowerGreen,
+    GridHeaderFamily,
+    GridHeaderWeight,
+    GridHeaderSize,
+    Black
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -174,10 +179,6 @@ export const modalBackdropColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.modalBackdropColor)
 ).withDefault((element: HTMLElement) => getModalBackdropForTheme(element));
 
-export const popupBoxShadowColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.popupBoxShadowColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black75, Black85, Black85), 0.3));
-
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
@@ -185,6 +186,10 @@ export const popupBorderColor = DesignToken.create<string>(
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
+
+export const tableRowBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tableRowBorderColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black88, ForestGreen));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
@@ -208,6 +213,34 @@ export const iconSize = DesignToken.create<string>(
 export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
+
+// Drop Shadow Tokens
+export const elevation1BoxShadow = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.elevation1BoxShadow)
+).withDefault(
+    (element: HTMLElement) => `0px 1px 4px ${hexToRgbaCssColor(
+        getColorForTheme(element, Black, Black, Black),
+        0.16
+    )}`
+);
+
+export const elevation2BoxShadow = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.elevation2BoxShadow)
+).withDefault(
+    (element: HTMLElement) => `0px 2px 4px ${hexToRgbaCssColor(
+        getColorForTheme(element, Black, Black, Black),
+        0.16
+    )}`
+);
+
+export const elevation3BoxShadow = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.elevation3BoxShadow)
+).withDefault(
+    (element: HTMLElement) => `0px 4px 8px ${hexToRgbaCssColor(
+        getColorForTheme(element, Black, Black, Black),
+        0.3
+    )}`
+);
 
 // Font Tokens
 export const [
@@ -351,16 +384,81 @@ export const [
 );
 
 export const [
-    linkStandardFont,
-    linkStandardFontColor,
-    linkStandardDisabledFontColor,
-    linkStandardFontFamily,
-    linkStandardFontWeight,
-    linkStandardFontSize,
-    linkStandardFontLineHeight,
-    linkStandardFallbackFontFamily
+    linkFont,
+    linkFontColor,
+    linkDisabledFontColor,
+    linkFontFamily,
+    linkFontWeight,
+    linkFontSize,
+    linkFontLineHeight,
+    linkFallbackFontFamily
 ] = createFontTokens(
-    tokenNames.linkStandardFont,
+    tokenNames.linkFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    LinkLightUiFamily,
+    LinkLightUiWeight,
+    LinkLightUiSize,
+    LinkLineHeight,
+    'sans-serif'
+);
+
+export const [
+    linkActiveFont,
+    linkActiveFontColor,
+    linkActiveDisabledFontColor,
+    linkActiveFontFamily,
+    linkActiveFontWeight,
+    linkActiveFontSize,
+    linkActiveFontLineHeight,
+    linkActiveFallbackFontFamily
+] = createFontTokens(
+    tokenNames.linkActiveFont,
+    (element: HTMLElement) => getColorForTheme(
+        element,
+        DigitalGreenDark,
+        PowerGreen,
+        hexToRgbaCssColor(White, 0.6)
+    ),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    LinkLightUiFamily,
+    LinkLightUiWeight,
+    LinkLightUiSize,
+    LinkLineHeight,
+    'sans-serif'
+);
+
+export const [
+    linkProminentFont,
+    linkProminentFontColor,
+    linkProminentDisabledFontColor,
+    linkProminentFontFamily,
+    linkProminentFontWeight,
+    linkProminentFontSize,
+    linkProminentFontLineHeight,
+    linkProminentFallbackFontFamily
+] = createFontTokens(
+    tokenNames.linkProminentFont,
+    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    LinkLightUiFamily,
+    LinkLightUiWeight,
+    LinkLightUiSize,
+    LinkLineHeight,
+    'sans-serif'
+);
+
+export const [
+    linkActiveProminentFont,
+    linkActiveProminentFontColor,
+    linkActiveProminentDisabledFontColor,
+    linkActiveProminentFontFamily,
+    linkActiveProminentFontWeight,
+    linkActiveProminentFontSize,
+    linkActiveProminentFontLineHeight,
+    linkActiveProminentFallbackFontFamily
+] = createFontTokens(
+    tokenNames.linkActiveProminentFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
@@ -526,6 +624,26 @@ export const [
     ErrorLightUiFamily,
     ErrorLightUiWeight,
     ErrorLightUiSize,
+    TooltipCaptionLineHeight,
+    'sans-serif'
+);
+
+export const [
+    tableHeaderFont,
+    tableHeaderFontColor,
+    tableHeaderDisabledFontColor,
+    tableHeaderFontFamily,
+    tableHeaderFontWeight,
+    tableHeaderFontSize,
+    tableHeaderFontLineHeight,
+    tableHeaderFallbackFontFamily
+] = createFontTokens(
+    tokenNames.tableHeaderFont,
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    GridHeaderFamily,
+    GridHeaderWeight,
+    GridHeaderSize,
     TooltipCaptionLineHeight,
     'sans-serif'
 );

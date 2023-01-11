@@ -2,6 +2,111 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 11 Jan 2023 20:34:04 GMT",
+      "tag": "@ni/nimble-blazor_v9.4.4",
+      "version": "9.4.4",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627",
+            "comment": "Update styleguide versions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Jan 2023 18:31:08 GMT",
+      "tag": "@ni/nimble-blazor_v9.4.2",
+      "version": "9.4.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "ac9e6c938436ccafae57842cc549c8c1ff183470",
+            "comment": "Update the Blazor example app to remove explict table scroll styling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Jan 2023 21:51:15 GMT",
+      "tag": "@ni/nimble-blazor_v9.4.0",
+      "version": "9.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "5a509a200990916575422b9c1e05d7cd1825331f",
+            "comment": "Add NimbleTable to Blazor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Jan 2023 19:22:07 GMT",
+      "tag": "@ni/nimble-blazor_v9.3.0",
+      "version": "9.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "882539ab732f9dba3851f971cff75a394ffe0a3d",
+            "comment": "Blazor wrappers for anchor and anchor button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 17 Dec 2022 01:10:46 GMT",
+      "tag": "@ni/nimble-blazor_v9.2.0",
+      "version": "9.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "d415c78ce868a56367e0c77df766be2fbceb4750",
+            "comment": "Blazor integration for spinner"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Dec 2022 15:17:52 GMT",
+      "tag": "@ni/nimble-blazor_v9.1.17",
+      "version": "9.1.17",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "ae5dc64c3896137aeffb3772f6aa350a915450b7",
+            "comment": "Remove unused styling of dialog from example apps"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Dec 2022 23:46:10 GMT",
+      "tag": "@ni/nimble-blazor_v9.1.12",
+      "version": "9.1.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "51222434a77511d23ea7fcd624d4fca1b3a565d3",
+            "comment": "Patch change to test pipeline, no changes to uptake."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 29 Nov 2022 23:51:38 GMT",
       "tag": "@ni/nimble-blazor_v9.1.9",
       "version": "9.1.9",

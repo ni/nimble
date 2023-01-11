@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 18 Oct 2022 19:13:04 GMT and should not be manually modified.
+This log was last generated on Wed, 04 Jan 2023 21:51:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.4.0
+
+Wed, 04 Jan 2023 21:51:15 GMT
+
+### Minor changes
+
+- Add NimbleTable to Blazor ([ni/nimble@5a509a2](https://github.com/ni/nimble/commit/5a509a200990916575422b9c1e05d7cd1825331f))
+
+## 9.3.0
+
+Wed, 04 Jan 2023 19:22:07 GMT
+
+### Minor changes
+
+- Blazor wrappers for anchor and anchor button ([ni/nimble@882539a](https://github.com/ni/nimble/commit/882539ab732f9dba3851f971cff75a394ffe0a3d))
+
+## 9.2.0
+
+Sat, 17 Dec 2022 01:10:46 GMT
+
+### Minor changes
+
+- Blazor integration for spinner ([ni/nimble@d415c78](https://github.com/ni/nimble/commit/d415c78ce868a56367e0c77df766be2fbceb4750))
+
+## 9.1.12
+
+Tue, 06 Dec 2022 23:46:10 GMT
+
+### Patches
+
+- Patch change to test pipeline, no changes to uptake. ([ni/nimble@5122243](https://github.com/ni/nimble/commit/51222434a77511d23ea7fcd624d4fca1b3a565d3))
 
 ## 9.1.0
 

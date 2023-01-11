@@ -1,18 +1,26 @@
-import { html, repeat } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { WaferMap } from '.';
-import type { WaferMapDie } from './types';
 
-// prettier-ignore
 export const template = html<WaferMap>`
-    <div>
-        <ul>
-            ${repeat(
-        x => x.dies,
-        html<WaferMapDie>` <li>
-                    ${x => html<WaferMapDie>`dieX: ${x.x}, dieY: ${x.y}, value:
-                        ${x.value}%`}
-                </li>`
-    )}
-        </ul>
+    <div class="wafer-map-container">
+        <svg class="svg-root ${x => x.orientation}">
+            <g class="zoom-container">
+                <svg
+                    class="circle-base"
+                    version="1.1"
+                    x="0px"
+                    y="0px"
+                    viewBox="1 .45 20 21"
+                >
+                    <path
+                        class="circle-drawing-path"
+                        d="m 21 12 a 10 10 330 1 1 0 -1.98 a 1 1 0 0 0 0 2"
+                    />
+                </svg>
+            </g>
+        </svg>
+        <div class="wafer-map-area">
+            <canvas class="wafer-map-canvas" ${ref('canvas')}></canvas>
+        </div>
     </div>
 `;

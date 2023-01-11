@@ -4,6 +4,8 @@
  * that are required instead of leveraging this file.
  */
 
+import './anchor';
+import './anchor-button';
 import './anchored-region';
 import './breadcrumb';
 import './breadcrumb-item';
@@ -22,6 +24,7 @@ import './number-field';
 import './radio';
 import './radio-group';
 import './select';
+import './spinner';
 import './switch';
 import './tab';
 import './tab-panel';
