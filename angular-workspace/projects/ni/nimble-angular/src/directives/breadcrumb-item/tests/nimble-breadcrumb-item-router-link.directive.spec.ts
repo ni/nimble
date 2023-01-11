@@ -25,10 +25,8 @@ describe('Nimble breadcrumb item RouterLinkDirective', () => {
             declarations: [TestHostComponent],
             imports: [NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
                 CommonModule,
-                RouterTestingModule.withRoutes(
-                    [{ path: '', component: TestHostComponent, pathMatch: 'full' }
-                    ], { useHash: true }
-                )
+                RouterTestingModule.withRoutes([{ path: '', component: TestHostComponent, pathMatch: 'full' }
+                ], { useHash: true })
             ]
         });
     });

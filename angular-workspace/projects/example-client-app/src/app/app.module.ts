@@ -59,11 +59,13 @@ import { HeaderComponent } from './header/header.component';
         NimbleAnchorButtonModule,
         NimbleTableModule,
         NimbleTableColumnTextModule,
-        RouterModule.forRoot([
-            { path: '', redirectTo: '/customapp', pathMatch: 'full' },
-            { path: 'customapp', component: CustomAppComponent }
-        ],
-        { useHash: true })
+        RouterModule.forRoot(
+            [
+                { path: '', redirectTo: '/customapp', pathMatch: 'full' },
+                { path: 'customapp', component: CustomAppComponent }
+            ],
+            { useHash: true }
+        )
     ],
     providers: [FormBuilder],
     bootstrap: [AppComponent]
