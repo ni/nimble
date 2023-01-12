@@ -207,7 +207,7 @@ describe('Table', () => {
 
         element.appendChild(dateColumn);
         await waitForUpdatesAsync();
-        expect(element.columns[3]).toBe(dateColumn);
+        expect(element.columns[element.columns.length - 1]).toBe(dateColumn);
 
         verifyRenderedData();
     });
