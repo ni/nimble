@@ -80,10 +80,10 @@ export class WaferMap extends FoundationElement {
     };
 
     private renderQueued = false;
-    private dataManager: DataManager | undefined;
-    private renderer: RenderingModule | undefined;
-    private resizeObserver: ResizeObserver | undefined;
-    private zoomHandler: ZoomHandler | undefined;
+    private dataManager?: DataManager;
+    private renderer?: RenderingModule;
+    private resizeObserver?: ResizeObserver;
+    private zoomHandler?: ZoomHandler;
     public override connectedCallback(): void {
         super.connectedCallback();
         this.resizeObserver = new ResizeObserver(entries => {
