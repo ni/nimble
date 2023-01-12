@@ -53,6 +53,7 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'color-scale-mode'
     })
+    public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
      * @internal
@@ -63,9 +64,6 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     @observable public canvasSideLength: number | undefined;
-
-    @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
-
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorScale = {

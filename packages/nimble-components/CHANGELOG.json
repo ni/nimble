@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 12 Jan 2023 11:17:56 GMT",
+      "tag": "@ni/nimble-components_v17.0.0",
+      "version": "17.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "35329597+DStavilaNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "01b31f49d75b8cc7ad3d8794fed4c9fd6d46ebb0",
+            "comment": "Fixed the wafer-map resizing issues"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Jan 2023 21:08:14 GMT",
       "tag": "@ni/nimble-components_v17.0.0",
       "version": "17.0.0",
