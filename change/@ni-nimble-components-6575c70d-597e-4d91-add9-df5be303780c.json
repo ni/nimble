@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add ability to specify a field within the table's data to use as a row's ID",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

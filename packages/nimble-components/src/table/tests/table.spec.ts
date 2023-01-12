@@ -33,7 +33,7 @@ const simpleTableData = [
         dateData: new Date(2022, 5, 30)
     },
     {
-        stringData: 'string 1',
+        stringData: 'another string',
         numericData: -9,
         booleanData: false,
         dateData: new Date(2000, 1, 1)
@@ -173,5 +173,81 @@ describe('Table', () => {
         await waitForUpdatesAsync();
 
         verifyRenderedData(updatedData);
+    });
+
+    describe('ID validation', () => {
+        it('setting valid field for ID is valid and renders rows', async () => {
+            const data = [...simpleTableData];
+            element.data = data;
+            element.idFieldName = 'stringData';
+            await connect();
+
+            verifyRenderedData(data);
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.duplicateRowId).toBeFalse();
+            expect(element.validity.invalidRowId).toBeFalse();
+            expect(element.validity.missingRowId).toBeFalse();
+        });
+
+        it('setting invalid field for ID  is invalid and renders no rows', async () => {
+            const data = [...simpleTableData];
+            element.data = data;
+            element.idFieldName = 'numericData';
+            await connect();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.duplicateRowId).toBeFalse();
+            expect(element.validity.invalidRowId).toBeTrue();
+            expect(element.validity.missingRowId).toBeFalse();
+        });
+
+        it('setting ID field name to undefined makes an invalid table valid', async () => {
+            const data = [...simpleTableData];
+            element.data = data;
+            element.idFieldName = 'missingFieldName';
+            await connect();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+
+            element.idFieldName = undefined;
+            await waitForUpdatesAsync();
+
+            verifyRenderedData(data);
+            expect(element.checkValidity()).toBeTrue();
+        });
+
+        it('setting a valid ID field name makes an invalid table valid', async () => {
+            const data = [...simpleTableData];
+            element.data = data;
+            element.idFieldName = 'missingFieldName';
+            await connect();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+
+            element.idFieldName = 'stringData';
+            await waitForUpdatesAsync();
+
+            verifyRenderedData(data);
+            expect(element.checkValidity()).toBeTrue();
+        });
+
+        it('setting invalid ID field name on valid table makes it invalid', async () => {
+            const data = [...simpleTableData];
+            element.data = data;
+            element.idFieldName = 'stringData';
+            await connect();
+
+            verifyRenderedData(data);
+            expect(element.checkValidity()).toBeTrue();
+
+            element.idFieldName = 'missingFieldName';
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+        });
     });
 });
