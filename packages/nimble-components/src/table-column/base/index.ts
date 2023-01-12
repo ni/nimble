@@ -22,7 +22,7 @@ export abstract class TableColumn<
 
     /**
      * The names of the fields that should be present in TCellRecord.
-     * This array is parallel with the keys returned from `getRecordFieldNames()`.
+     * This array is parallel with the field names returned from `getRecordFieldNames()`.
      */
     public abstract readonly cellStateDataFieldNames: readonly string[];
 
