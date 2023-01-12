@@ -34,7 +34,7 @@ export abstract class TableColumn<
 
     /**
      * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
-     * This array is parallel with the keys specified by `cellStateDataFieldNames`.
+     * This array is parallel with the field names specified by `cellStateDataFieldNames`.
      */
     public abstract getRecordFieldNames(): (string | undefined)[];
 }
