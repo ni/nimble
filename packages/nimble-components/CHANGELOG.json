@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 12 Jan 2023 15:29:47 GMT",
+      "tag": "@ni/nimble-components_v17.0.1",
+      "version": "17.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "92c0e3f70282e055d3d1742265567bb6e53b7b8d",
+            "comment": "Add ability to specify a field within the table's data to use as a row's ID"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 12 Jan 2023 11:17:56 GMT",
       "tag": "@ni/nimble-components_v17.0.0",
       "version": "17.0.0",

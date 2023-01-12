@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 11 Jan 2023 21:08:14 GMT and should not be manually modified.
+This log was last generated on Thu, 12 Jan 2023 15:29:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.1
+
+Thu, 12 Jan 2023 15:29:47 GMT
+
+### Patches
+
+- Add ability to specify a field within the table's data to use as a row's ID ([ni/nimble@92c0e3f](https://github.com/ni/nimble/commit/92c0e3f70282e055d3d1742265567bb6e53b7b8d))
 
 ## 17.0.0
 
