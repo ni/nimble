@@ -79,7 +79,9 @@ export class WaferMap extends FoundationElement {
         super.connectedCallback();
         this.resizeObserver = new ResizeObserver(entries => {
             const entry = entries[0];
-            if (entry === undefined) return;
+            if (entry === undefined) {
+                return;
+            }
             const { height, width } = entry.contentRect;
             this.canvasSideLength = Math.min(height, width);
         });
@@ -97,7 +99,12 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        if (this.canvasSideLength === undefined || this.canvasSideLength === 0) return;
+        if (
+            this.canvasSideLength === undefined
+            || this.canvasSideLength === 0
+        ) {
+            return;
+        }
         this.renderer?.clearCanvas(
             this.canvasSideLength,
             this.canvasSideLength

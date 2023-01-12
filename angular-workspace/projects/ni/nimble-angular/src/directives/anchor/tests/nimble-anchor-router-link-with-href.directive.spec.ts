@@ -37,13 +37,11 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
             declarations: [TestHostComponent, BlankComponent],
             imports: [NimbleAnchorModule,
                 CommonModule,
-                RouterTestingModule.withRoutes(
-                    [
-                        { path: '', redirectTo: '/start', pathMatch: 'full' },
-                        { path: 'page1', component: BlankComponent },
-                        { path: 'start', component: TestHostComponent }
-                    ], { useHash: true }
-                )
+                RouterTestingModule.withRoutes([
+                    { path: '', redirectTo: '/start', pathMatch: 'full' },
+                    { path: 'page1', component: BlankComponent },
+                    { path: 'start', component: TestHostComponent }
+                ], { useHash: true })
             ]
         });
     });

@@ -5,7 +5,6 @@ import {
     Black91,
     Black85,
     Black15,
-    Black75,
     Black80,
     Black88,
     White,
@@ -89,7 +88,8 @@ import {
     PowerGreen,
     GridHeaderFamily,
     GridHeaderWeight,
-    GridHeaderSize
+    GridHeaderSize,
+    Black
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -179,10 +179,6 @@ export const modalBackdropColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.modalBackdropColor)
 ).withDefault((element: HTMLElement) => getModalBackdropForTheme(element));
 
-export const popupBoxShadowColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.popupBoxShadowColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black75, Black85, Black85), 0.3));
-
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
@@ -217,6 +213,34 @@ export const iconSize = DesignToken.create<string>(
 export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
+
+// Drop Shadow Tokens
+export const elevation1BoxShadow = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.elevation1BoxShadow)
+).withDefault(
+    (element: HTMLElement) => `0px 1px 4px ${hexToRgbaCssColor(
+        getColorForTheme(element, Black, Black, Black),
+        0.16
+    )}`
+);
+
+export const elevation2BoxShadow = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.elevation2BoxShadow)
+).withDefault(
+    (element: HTMLElement) => `0px 2px 4px ${hexToRgbaCssColor(
+        getColorForTheme(element, Black, Black, Black),
+        0.16
+    )}`
+);
+
+export const elevation3BoxShadow = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.elevation3BoxShadow)
+).withDefault(
+    (element: HTMLElement) => `0px 4px 8px ${hexToRgbaCssColor(
+        getColorForTheme(element, Black, Black, Black),
+        0.3
+    )}`
+);
 
 // Font Tokens
 export const [
