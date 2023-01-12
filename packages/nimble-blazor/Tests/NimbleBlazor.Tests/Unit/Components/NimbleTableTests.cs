@@ -48,6 +48,15 @@ public class NimbleTableTests
     }
 
     [Fact]
+    public void NimbleTable_WithIdFieldNameAttribute_HasTableMarkup()
+    {
+        var table = RenderWithPropertySet<string, TableRowData>(x => x.IdFieldName!, "FirstName");
+
+        var expectedMarkup = @"id-field-name=""FirstName""";
+        Assert.Contains(expectedMarkup, table.Markup);
+    }
+
+    [Fact]
     public void NimbleTable_WithClassAttribute_HasTableMarkup()
     {
         IDictionary<string, object> classAttribute = new Dictionary<string, object>();
