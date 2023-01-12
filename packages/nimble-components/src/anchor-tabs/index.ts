@@ -51,10 +51,17 @@ export class AnchorTabs extends FoundationElement {
      * A reference to the tablist div
      * @internal
      */
-    public tablist: HTMLElement | undefined;
+    public tablist!: HTMLElement;
 
-    private activeTabIndex = 0;
     private tabIds: string[] = [];
+    private readonly tabAttributeMutationObserver = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            if (mutation.type === 'attributes'
+                && mutation.attributeName === 'aria-disabled') {
+                this.setTabs();
+            }
+        });
+    });
 
     /**
      * @internal
@@ -71,7 +78,6 @@ export class AnchorTabs extends FoundationElement {
     public tabsChanged(): void {
         if (this.$fastController.isConnected) {
             this.tabIds = this.getTabIds();
-
             this.setTabs();
         }
     }
@@ -83,7 +89,10 @@ export class AnchorTabs extends FoundationElement {
         super.connectedCallback();
 
         this.tabIds = this.getTabIds();
-        this.activeTabIndex = this.getActiveIndex();
+        this.tabAttributeMutationObserver.observe(this, {
+            subtree: true,
+            attributeFilter: ['aria-disabled']
+        });
     }
 
     private readonly isDisabledElement = (el: Element): el is HTMLElement => {
@@ -94,34 +103,21 @@ export class AnchorTabs extends FoundationElement {
         return !this.isDisabledElement(el);
     };
 
-    private getActiveIndex(): number {
-        const id: string = this.activeid;
-        if (id !== undefined) {
-            return !this.tabIds.includes(this.activeid)
-                ? 0
-                : this.tabIds.indexOf(this.activeid);
-        }
-        return 0;
-    }
-
     private readonly setTabs = (): void => {
         const gridHorizontalProperty = 'gridColumn';
         const gridVerticalProperty = 'gridRow';
 
-        this.activeTabIndex = this.getActiveIndex();
         this.activetab = undefined;
         this.tabs.forEach((tab: HTMLElement, index: number) => {
-            if (tab.slot === 'anchortab') {
-                const isActiveTab = this.activeTabIndex === index && this.isFocusableElement(tab);
-                const tabId: string = this.tabIds[index]!;
-                tab.setAttribute('id', tabId);
-                tab.setAttribute('aria-selected', isActiveTab ? 'true' : 'false');
-                tab.addEventListener('click', this.handleTabClick);
-                tab.addEventListener('keydown', this.handleTabKeyDown);
-                tab.setAttribute('tabindex', isActiveTab ? '0' : '-1');
-                if (isActiveTab) {
-                    this.activetab = tab;
-                }
+            const tabId: string = this.tabIds[index]!;
+            const isActiveTab = this.activeid === tabId && this.isFocusableElement(tab);
+            tab.setAttribute('id', tabId);
+            tab.setAttribute('aria-selected', isActiveTab ? 'true' : 'false');
+            tab.addEventListener('click', this.handleTabClick);
+            tab.addEventListener('keydown', this.handleTabKeyDown);
+            tab.setAttribute('tabindex', isActiveTab ? '0' : '-1');
+            if (isActiveTab) {
+                this.activetab = tab;
             }
 
             tab.style[gridVerticalProperty] = '';
@@ -138,6 +134,9 @@ export class AnchorTabs extends FoundationElement {
     private readonly handleTabClick = (event: MouseEvent): void => {
         const selectedTab = event.currentTarget as HTMLElement;
         if (selectedTab.nodeType === 1 && this.isFocusableElement(selectedTab)) {
+            this.tabs.forEach((tab: HTMLElement) => {
+                tab.setAttribute('tabindex', tab === selectedTab ? '0' : '-1');
+            });
             this.navigateToTab(this.tabs.findIndex(
                 (item: HTMLElement) => item === selectedTab
             ));
@@ -230,9 +229,7 @@ export class AnchorTabs extends FoundationElement {
         focusedTab.focus();
 
         this.tabs.forEach((tab: HTMLElement) => {
-            if (tab.slot === 'anchortab') {
-                tab.setAttribute('tabindex', tab === focusedTab ? '0' : '-1');
-            }
+            tab.setAttribute('tabindex', tab === focusedTab ? '0' : '-1');
         });
     };
 
