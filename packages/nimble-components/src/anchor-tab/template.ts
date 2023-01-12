@@ -21,7 +21,8 @@ TabOptions
             rel="${x => x.rel}"
             target="${x => x.target}"
             type="${x => x.type}"
-            tabindex="-1">
+            tabindex="-1"
+        >
             <slot></slot>
         </a>
         ${endSlotTemplate(context, definition)}

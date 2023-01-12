@@ -6,9 +6,16 @@ import {
     keyEnter,
     keyHome,
     keySpace,
-    uniqueId,
+    uniqueId
 } from '@microsoft/fast-web-utilities';
-import { DesignSystem, StartEnd, applyMixins, StartEndOptions, FoundationElementDefinition, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    DesignSystem,
+    StartEnd,
+    applyMixins,
+    StartEndOptions,
+    FoundationElementDefinition,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { AnchorTab } from '../anchor-tab';
@@ -54,14 +61,18 @@ export class AnchorTabs extends FoundationElement {
     public tablist!: HTMLElement;
 
     private tabIds: string[] = [];
-    private readonly tabAttributeMutationObserver = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-            if (mutation.type === 'attributes'
-                && mutation.attributeName === 'aria-disabled') {
-                this.setTabs();
-            }
-        });
-    });
+    private readonly tabAttributeMutationObserver = new MutationObserver(
+        mutations => {
+            mutations.forEach(mutation => {
+                if (
+                    mutation.type === 'attributes'
+                    && mutation.attributeName === 'aria-disabled'
+                ) {
+                    this.setTabs();
+                }
+            });
+        }
+    );
 
     /**
      * @internal
@@ -133,13 +144,16 @@ export class AnchorTabs extends FoundationElement {
 
     private readonly handleTabClick = (event: MouseEvent): void => {
         const selectedTab = event.currentTarget as HTMLElement;
-        if (selectedTab.nodeType === 1 && this.isFocusableElement(selectedTab)) {
+        if (
+            selectedTab.nodeType === 1
+            && this.isFocusableElement(selectedTab)
+        ) {
             this.tabs.forEach((tab: HTMLElement) => {
                 tab.setAttribute('tabindex', tab === selectedTab ? '0' : '-1');
             });
-            this.navigateToTab(this.tabs.findIndex(
-                (item: HTMLElement) => item === selectedTab
-            ));
+            this.navigateToTab(
+                this.tabs.findIndex((item: HTMLElement) => item === selectedTab)
+            );
         }
     };
 
@@ -171,10 +185,15 @@ export class AnchorTabs extends FoundationElement {
                 event.preventDefault();
                 anchor = this.getTabAnchor(event.target as AnchorTab);
                 anchor.focus();
-                anchor.dispatchEvent(new KeyboardEvent('keydown', { key: event.key, bubbles: false }));
+                anchor.dispatchEvent(
+                    new KeyboardEvent('keydown', {
+                        key: event.key,
+                        bubbles: false
+                    })
+                );
                 break;
             default:
-                // do nothing
+            // do nothing
         }
     };
 
@@ -231,7 +250,10 @@ export class AnchorTabs extends FoundationElement {
         }
     };
 
-    private readonly focusTabByIndex = (group: HTMLElement[], index: number): void => {
+    private readonly focusTabByIndex = (
+        group: HTMLElement[],
+        index: number
+    ): void => {
         const focusedTab: HTMLElement = group[index]!;
         focusedTab.focus();
 
