@@ -23,8 +23,18 @@ const simpleData = [
     }
 ] as const;
 
+const largeData = [];
+for (let i = 0; i < 10000; i++) {
+    largeData.push({
+        myStr: `Row ${i.toString()}`,
+        myNum: i,
+        myBool: i % 2 !== 0
+    });
+}
+
 const dataSets = {
-    [ExampleDataType.simpleData]: simpleData
+    [ExampleDataType.simpleData]: simpleData,
+    [ExampleDataType.largeDataSet]: largeData
 } as const;
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
@@ -57,7 +67,9 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table :data=${x => dataSets[x.data]}>
+        <nimble-table
+            style="height: 600px;"
+            :data=${x => dataSets[x.data]}>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {
@@ -72,11 +84,12 @@ const metadata: Meta<TableArgs> = {
             table: {
                 defaultValue: { summary: '[]' }
             },
-            options: [ExampleDataType.simpleData],
+            options: Object.values(ExampleDataType),
             control: {
                 type: 'radio',
                 labels: {
-                    [ExampleDataType.simpleData]: 'Simple data'
+                    [ExampleDataType.simpleData]: 'Simple data',
+                    [ExampleDataType.largeDataSet]: 'Large data set (10k rows)'
                 }
             }
         }

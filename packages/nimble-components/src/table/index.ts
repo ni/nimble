@@ -9,6 +9,15 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
+import {
+    Virtualizer,
+    VirtualizerOptions,
+    elementScroll,
+    observeElementOffset,
+    observeElementRect,
+    VirtualItem
+} from '@tanstack/virtual-core';
+import { controlHeight } from '../theme-provider/design-tokens';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord } from './types';
@@ -37,9 +46,43 @@ export class Table<
     @observable
     public columnHeaders: string[] = [];
 
+    /**
+     * @internal
+     */
+    public readonly headerContainer!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    public readonly rowContainer!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    public readonly viewport!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    public virtualizer?: Virtualizer<HTMLElement, HTMLElement>;
+
+    /**
+     * @internal
+     */
+    @observable
+    public visibleItems: VirtualItem[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public rowContainerHeight = 0;
+
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableInitialized: boolean = false;
+
+    private readonly viewportResizeObserver: ResizeObserver;
 
     public constructor() {
         super();
@@ -54,6 +97,19 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.tableInitialized = true;
+        this.viewportResizeObserver = new ResizeObserver(
+            this.updateVirtualizer.bind(this)
+        );
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.viewportResizeObserver.observe(this.viewport);
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.viewportResizeObserver.disconnect();
     }
 
     public dataChanged(
@@ -67,6 +123,7 @@ export class Table<
         // Ignore any updates that occur prior to the TanStack table being initialized.
         if (this.tableInitialized) {
             this.updateTableOptions({ data: this.data });
+            this.updateVirtualizer();
         }
     }
 
@@ -112,6 +169,52 @@ export class Table<
         this.updateTableOptions({ columns: generatedColumns });
         this.columnHeaders = generatedColumns.map(x => x.header as string);
         this.columns = this.columnHeaders;
+    }
+
+    private createVirtualizerOptions(): VirtualizerOptions<
+    HTMLElement,
+    HTMLElement
+    > {
+        return {
+            count: this.data.length,
+            getScrollElement: () => {
+                return this.viewport;
+            },
+            estimateSize: (_: number) => parseFloat(controlHeight.getValueFor(this)),
+            enableSmoothScroll: true,
+            scrollToFn: elementScroll,
+            observeElementOffset,
+            observeElementRect,
+            onChange: (virtualizer: Virtualizer<HTMLElement, HTMLElement>) => {
+                this.visibleItems = virtualizer.getVirtualItems();
+                if (this.visibleItems.length > 0) {
+                    const firstItem = this.visibleItems[0]!;
+                    const lastItem = this.visibleItems[this.visibleItems.length - 1]!;
+                    if (lastItem.end >= this.rowContainerHeight) {
+                        this.rowContainer.style.transform = '';
+                    } else {
+                        const offsetY = firstItem.start - this.viewport.scrollTop;
+                        this.rowContainer.style.transform = `translateY(${offsetY}px)`;
+                    }
+                } else {
+                    this.rowContainer.style.transform = '';
+                }
+                const horizontalScrollBarWidth = this.viewport.getBoundingClientRect().width
+                    - this.viewport.scrollWidth;
+                this.headerContainer.style.marginRight = `${horizontalScrollBarWidth}px`;
+            }
+        } as VirtualizerOptions<HTMLElement, HTMLElement>;
+    }
+
+    private updateVirtualizer(): void {
+        if (this.virtualizer) {
+            this.virtualizer.setOptions(this.createVirtualizerOptions());
+        } else {
+            this.virtualizer = new Virtualizer(this.createVirtualizerOptions());
+        }
+        this.virtualizer._willUpdate();
+        this.visibleItems = this.virtualizer.getVirtualItems();
+        this.rowContainerHeight = this.virtualizer.getTotalSize();
     }
 }
 
