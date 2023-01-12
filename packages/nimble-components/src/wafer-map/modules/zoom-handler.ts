@@ -34,7 +34,9 @@ export class ZoomHandler {
 
     public resetTransform(): void {
         const canvasContext = this.canvas.getContext('2d');
-        if (canvasContext === null) return;
+        if (canvasContext === null) {
+            return;
+        }
         this.zoomTransform = zoomIdentity;
         this.clearCanvas(canvasContext, this.canvasLength, this.canvasLength);
         this.scaleCanvas(
@@ -74,7 +76,9 @@ export class ZoomHandler {
             .on('zoom', (event: { transform: ZoomTransform }) => {
                 const transform = event.transform;
                 const canvasContext = this.canvas.getContext('2d');
-                if (canvasContext === null) return;
+                if (canvasContext === null) {
+                    return;
+                }
                 canvasContext.save();
                 if (transform.k === this.minScale) {
                     this.zoomTransform = zoomIdentity;
