@@ -21,7 +21,7 @@ export abstract class TableColumn<
     public abstract cellStyles?: ElementStyles;
 
     /**
-     * The keys that should be present in TCellRecord.
+     * The names of the fields that should be present in TCellRecord.
      * This array is parallel with the keys returned from `getRecordFieldNames()`.
      */
     public abstract readonly cellStateDataFieldNames: readonly string[];
