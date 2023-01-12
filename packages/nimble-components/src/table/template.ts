@@ -7,7 +7,7 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { Table } from '.';
-import type { TableRecord } from './types';
+import type { TableRowState } from './types';
 import { TableHeader } from './components/header';
 import { TableRow } from './components/row';
 import { TableColumn } from '../table-column/base';
@@ -37,15 +37,15 @@ export const template = html<Table>`
                 </div>
             </div>
             <div class="table-viewport" role="rowgroup">
-               ${when(x => x.columns.length > 0, html<Table>`
-                    ${repeat(x => x.data, html<TableRecord, Table>`
-                        <${DesignSystem.tagFor(TableRow)}
-                            :data="${x => x}"
-                            :columns="${(_, c) => c.parent.columns}"
-                        >
-                        </${DesignSystem.tagFor(TableRow)}>
-                    `)}
+            ${when(x => x.columns.length > 0, html<Table>`
+                ${repeat(x => x.tableData, html<TableRowState>`
+                    <${DesignSystem.tagFor(TableRow)}
+                        :data="${x => x.data}"
+                        :columns="${(_, c) => (c.parent as Table).columns}"
+                    >
+                    </${DesignSystem.tagFor(TableRow)}>
                 `)}
+            `)}
             </div>
         </div>
         <slot ${slotted({ property: 'columns', filter: isTableColumn() })}></slot>

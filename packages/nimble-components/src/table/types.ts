@@ -36,3 +36,13 @@ export interface TableCellState<
     data: TCellRecord;
     columnConfig: TColumnConfig;
 }
+
+export interface TableValidity {
+    readonly duplicateRowId: boolean;
+    readonly missingRowId: boolean;
+    readonly invalidRowId: boolean;
+}
+
+export interface TableRowState<TData extends TableRecord = TableRecord> {
+    data: TData;
+}

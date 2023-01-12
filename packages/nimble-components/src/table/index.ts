@@ -1,4 +1,4 @@
-import { observable } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
@@ -10,9 +10,10 @@ import {
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
 import type { TableColumn } from '../table-column/base';
+import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableRecord } from './types';
+import type { TableRecord, TableRowState, TableValidity } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,15 +27,31 @@ declare global {
 export class Table<
     TData extends TableRecord = TableRecord
 > extends FoundationElement {
+    @attr({ attribute: 'id-field-name' })
+    public idFieldName?: string | null;
+
     @observable
     public data: TData[] = [];
 
+    /**
+     * @internal
+     */
+    @observable
+    public tableData: TableRowState<TData>[] = [];
+
+    // TODO: Temporarily expose the columns as a string array. This will ultimately be
+    // column definitions provided by slotted elements.
     @observable
     public readonly columns: TableColumn[] = [];
+
+    public get validity(): TableValidity {
+        return this.tableValidator.getValidity();
+    }
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableInitialized: boolean = false;
+    private readonly tableValidator = new TableValidator();
 
     public constructor() {
         super();
@@ -42,6 +59,13 @@ export class Table<
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
             getCoreRowModel: tanStackGetCoreRowModel(),
+            getRowId: record => {
+                if (this.idFieldName) {
+                    return record[this.idFieldName] as string;
+                }
+                // Return a falsey value to use the default ID from TanStack.
+                return '';
+            },
             columns: [],
             state: {},
             renderFallbackValue: null,
@@ -49,6 +73,15 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.tableInitialized = true;
+    }
+
+    public idFieldNameChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
+        // Force TanStack to detect a data update because a row's ID is only
+        // generated when creating a new row model.
+        this.trySetData([...this.data]);
     }
 
     public dataChanged(
@@ -61,8 +94,32 @@ export class Table<
 
         // Ignore any updates that occur prior to the TanStack table being initialized.
         if (this.tableInitialized) {
-            this.updateTableOptions({ data: this.data });
+            this.trySetData(this.data);
         }
+    }
+
+    public checkValidity(): boolean {
+        return this.tableValidator.isValid();
+    }
+
+    private trySetData(newData: TData[]): void {
+        const areIdsValid = this.tableValidator.validateDataIds(
+            newData,
+            this.idFieldName
+        );
+        if (areIdsValid) {
+            this.updateTableOptions({ data: newData });
+        } else {
+            this.updateTableOptions({ data: [] });
+        }
+    }
+
+    private refreshRows(): void {
+        const rows = this.table.getRowModel().rows;
+        this.tableData = rows.map(row => {
+            const rowState: TableRowState<TData> = { data: row.original };
+            return rowState;
+        });
     }
 
     private updateTableOptions(
@@ -70,6 +127,7 @@ export class Table<
     ): void {
         this.options = { ...this.options, ...updatedOptions };
         this.update(this.table.initialState);
+        this.refreshRows();
     }
 
     private readonly update = (state: TanStackTableState): void => {
