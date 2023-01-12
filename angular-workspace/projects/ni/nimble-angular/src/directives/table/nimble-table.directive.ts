@@ -26,7 +26,7 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> {
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('id-field-name') public set idFieldName(value: string | null | undefined ) {
+    @Input('id-field-name') public set idFieldName(value: string | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'idFieldName', value);
     }
 
