@@ -9,7 +9,7 @@ import { TablePageObject } from './table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
-    numericData: string;
+    numericData: number;
     booleanData: string;
     moreStringData: string;
 }
@@ -17,19 +17,19 @@ interface SimpleTableRecord extends TableRecord {
 const simpleTableData = [
     {
         stringData: 'string 1',
-        numericData: '8',
+        numericData: 8,
         booleanData: 'true',
         moreStringData: 'foo'
     },
     {
         stringData: 'hello world',
-        numericData: '0',
+        numericData: 0,
         booleanData: 'true',
         moreStringData: 'foo'
     },
     {
         stringData: 'another string',
-        numericData: '-9',
+        numericData: -9,
         booleanData: 'false',
         moreStringData: 'foo'
     }
@@ -42,7 +42,6 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
                 <${tableColumnText} field-name="stringData">stringData</${tableColumnText}>
-                <${tableColumnText} field-name="numericData">numericData</${tableColumnText}>
                 <${tableColumnText} field-name="booleanData">booleanData</${tableColumnText}>
             </nimble-table>`
     );
@@ -154,7 +153,7 @@ describe('Table', () => {
             ...simpleTableData,
             {
                 stringData: 'a new string',
-                numericData: '-9',
+                numericData: -9,
                 booleanData: 'false',
                 moreStringData: 'foo'
             }
@@ -234,8 +233,9 @@ describe('Table', () => {
             element.data = data;
             element.idFieldName = 'stringData';
             await connect();
+            await waitForUpdatesAsync();
 
-            verifyRenderedData(data);
+            verifyRenderedData();
             expect(element.checkValidity()).toBeTrue();
             expect(element.validity.duplicateRowId).toBeFalse();
             expect(element.validity.invalidRowId).toBeFalse();
@@ -247,6 +247,7 @@ describe('Table', () => {
             element.data = data;
             element.idFieldName = 'numericData';
             await connect();
+            await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedRowCount()).toBe(0);
             expect(element.checkValidity()).toBeFalse();
@@ -267,7 +268,7 @@ describe('Table', () => {
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
 
-            verifyRenderedData(data);
+            verifyRenderedData();
             expect(element.checkValidity()).toBeTrue();
         });
 
@@ -283,7 +284,7 @@ describe('Table', () => {
             element.idFieldName = 'stringData';
             await waitForUpdatesAsync();
 
-            verifyRenderedData(data);
+            verifyRenderedData();
             expect(element.checkValidity()).toBeTrue();
         });
 
@@ -292,8 +293,9 @@ describe('Table', () => {
             element.data = data;
             element.idFieldName = 'stringData';
             await connect();
+            await waitForUpdatesAsync();
 
-            verifyRenderedData(data);
+            verifyRenderedData();
             expect(element.checkValidity()).toBeTrue();
 
             element.idFieldName = 'missingFieldName';
