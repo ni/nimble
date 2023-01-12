@@ -144,6 +144,7 @@ export class AnchorTabs extends FoundationElement {
     };
 
     private readonly handleTabKeyDown = (event: KeyboardEvent): void => {
+        let anchor;
         switch (event.key) {
             case keyArrowLeft:
                 event.preventDefault();
@@ -165,6 +166,12 @@ export class AnchorTabs extends FoundationElement {
             case keyEnter:
                 event.preventDefault();
                 event.target?.dispatchEvent(new Event('click'));
+                break;
+            case 'ContextMenu':
+                event.preventDefault();
+                anchor = this.getTabAnchor(event.target as AnchorTab);
+                anchor.focus();
+                anchor.dispatchEvent(new KeyboardEvent('keydown', { key: event.key, bubbles: false }));
                 break;
             default:
                 // do nothing
@@ -235,7 +242,12 @@ export class AnchorTabs extends FoundationElement {
 
     private navigateToTab(index: number): void {
         const tab = this.tabs[index] as AnchorTab;
-        tab.shadowRoot?.querySelector('a')!.click();
+        this.getTabAnchor(tab).click();
+    }
+
+    private getTabAnchor(tab: AnchorTab): HTMLAnchorElement {
+        // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
+        return tab.shadowRoot?.querySelector('a') as HTMLAnchorElement;
     }
 }
 applyMixins(AnchorTabs, StartEnd);

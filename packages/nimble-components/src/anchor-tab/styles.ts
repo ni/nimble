@@ -8,5 +8,6 @@ export const styles = css`
         text-decoration: none;
         color: inherit;
         cursor: inherit;
+        outline: none;
     }
 `;
