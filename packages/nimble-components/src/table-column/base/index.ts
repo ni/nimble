@@ -33,7 +33,7 @@ export abstract class TableColumn<
     public abstract getColumnConfig?(): TColumnConfig;
 
     /**
-     * The keys from the row data that correlate to the data that will be in TCellRecord.
+     * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
      * This array is parallel with the keys specified by `cellStateDataFieldNames`.
      */
     public abstract getRecordFieldNames(): (string | undefined)[];
