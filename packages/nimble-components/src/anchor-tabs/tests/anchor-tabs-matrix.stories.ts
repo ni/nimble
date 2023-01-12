@@ -36,13 +36,13 @@ const component = (
     toolbar: TabsToolbarState,
     [disabledName, disabled]: DisabledState
 ): ViewTemplate => html`
-    <nimble-anchor-tabs style="padding: 15px;">
+    <nimble-anchor-tabs activeid="tab1" style="padding: 15px;">
         ${when(() => toolbar, html`
             <nimble-tabs-toolbar>
                 <nimble-button appearance="ghost">Toolbar Button</nimble-button>
             </nimble-tabs-toolbar>
         `)}
-        <nimble-anchor-tab>Tab One</nimble-anchor-tab>
+        <nimble-anchor-tab id="tab1">Tab One</nimble-anchor-tab>
         <nimble-anchor-tab ?disabled="${() => disabled}">
             Tab Two ${() => disabledName}
         </nimble-anchor-tab>
