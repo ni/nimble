@@ -33,15 +33,10 @@ const simpleData = [
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
         quote: 'Hi diddly-do neighbor!'
-    },
-    {
-        firstName: null,
-        lastName: null,
-        favoriteColor: null
     }
 ] as const;
 
-const simpleDataIdFieldName = 'myStr';
+const simpleDataIdFieldName = 'firstName';
 
 const dataSets = {
     [ExampleDataType.simpleData]: simpleData
