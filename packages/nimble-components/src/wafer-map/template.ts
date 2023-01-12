@@ -5,7 +5,7 @@ export const template = html<WaferMap>`
     <div class="wafer-map-container">
         <svg class="svg-root">
             <g class="zoom-container" ${ref('zoomContainer')}>
-                <g class="${x => x.orientation}">
+                <g class="notch ${x => x.orientation}">
                     <svg
                         class="circle-base"
                         version="1.1"

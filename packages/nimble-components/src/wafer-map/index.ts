@@ -68,7 +68,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public canvasSideLength: number | undefined;
+    @observable public canvasSideLength?: number;
 
     @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 

@@ -30,24 +30,24 @@ export const styles = css`
         fill: white;
     }
 
-    .top {
+    .notch {
+        transform-origin: center center;
+    }
+
+    .notch.top {
         transform: rotate(-90deg);
-        transform-origin: center center;
     }
 
-    .right {
+    .notch.right {
         transform: rotate(0deg);
-        transform-origin: center center;
     }
 
-    .left {
+    .notch.left {
         transform: rotate(180deg);
-        transform-origin: center center;
     }
 
-    .bottom {
+    .notch.bottom {
         transform: rotate(90deg);
-        transform-origin: center center;
     }
 
     .zoom-container {
