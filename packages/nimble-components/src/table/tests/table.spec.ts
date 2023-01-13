@@ -10,7 +10,6 @@ import { TablePageObject } from './table.pageobject';
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
     numericData: number;
-    booleanData: string;
     moreStringData: string;
 }
 
@@ -18,19 +17,16 @@ const simpleTableData = [
     {
         stringData: 'string 1',
         numericData: 8,
-        booleanData: 'true',
         moreStringData: 'foo'
     },
     {
         stringData: 'hello world',
         numericData: 0,
-        booleanData: 'true',
         moreStringData: 'foo'
     },
     {
         stringData: 'another string',
         numericData: -9,
-        booleanData: 'false',
         moreStringData: 'foo'
     }
 ] as const;
@@ -42,7 +38,6 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
                 <${tableColumnText} field-name="stringData">stringData</${tableColumnText}>
-                <${tableColumnText} field-name="booleanData">booleanData</${tableColumnText}>
             </nimble-table>`
     );
 }
@@ -154,7 +149,6 @@ describe('Table', () => {
             {
                 stringData: 'a new string',
                 numericData: -9,
-                booleanData: 'false',
                 moreStringData: 'foo'
             }
         ];

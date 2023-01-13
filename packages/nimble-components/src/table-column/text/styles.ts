@@ -6,19 +6,15 @@ import {
 } from '../../theme-provider/design-tokens';
 
 export const cellStyles = css`
-    .placeholder {
-        font: ${bodyFont};
-        color: ${controlLabelFontColor};
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .text-value {
+    span {
         font: ${bodyFont};
         color: ${bodyFontColor};
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .placeholder {
+        color: ${controlLabelFontColor};
     }
 `;

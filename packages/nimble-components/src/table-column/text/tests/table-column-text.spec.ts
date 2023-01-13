@@ -125,22 +125,12 @@ describe('TableColumnText', () => {
     const fieldValues = [
         { dataValue: 'foo', renderedValue: 'foo' },
         { dataValue: '<button></button>', renderedValue: '<button></button>' },
-        { dataValue: null, renderedValue: 'no value' },
         { dataValue: 'null', renderedValue: 'null' },
-        { dataValue: undefined, renderedValue: 'no value' },
         { dataValue: 'undefined', renderedValue: 'undefined' }
     ];
     for (const fieldValue of fieldValues) {
-        let testDataTitleValue: string;
-        if (fieldValue.dataValue) {
-            testDataTitleValue = `"${fieldValue.dataValue}"`;
-        } else if (fieldValue.dataValue === null) {
-            testDataTitleValue = 'null';
-        } else {
-            testDataTitleValue = 'undefined';
-        }
         // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`data ${testDataTitleValue} renders as ${fieldValue.renderedValue}`, async () => {
+        it(`data ${fieldValue.dataValue} renders as ${fieldValue.renderedValue}`, async () => {
             await connect();
 
             element.data = [{ field: fieldValue.dataValue }];

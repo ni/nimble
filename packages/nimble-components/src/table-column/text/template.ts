@@ -6,7 +6,7 @@ export const cellTemplate = html<
 TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
 >`
     <span
-        class="${x => (typeof x.data.value === 'string' ? 'text-value' : 'placeholder')}"
+        class="${x => (typeof x.data.value !== 'string' ? 'placeholder' : '')}"
     >
         ${x => (typeof x.data.value === 'string'
         ? x.data.value

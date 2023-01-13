@@ -26,7 +26,7 @@ export class TableRow<
 
     public getCellValue(column: TableColumn): TableCellState<TableRecord> {
         const fieldNames = column.getRecordFieldNames();
-        if (this.hasValidFieldNames(fieldNames)) {
+        if (this.hasValidFieldNames(fieldNames) && this.data) {
             const cellDataValues = fieldNames.map(field => this.data![field]);
             const cellData = Object.fromEntries(
                 column.cellStateDataFieldNames.map((k, i) => [
