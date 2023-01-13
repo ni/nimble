@@ -24,7 +24,7 @@ export class TableRow<
     @observable
     public columns: TableColumn[] = [];
 
-    public getCellValue(column: TableColumn): TableCellState<TableRecord> {
+    public getCellState(column: TableColumn): TableCellState<TableRecord> {
         const fieldNames = column.getRecordFieldNames();
         if (this.hasValidFieldNames(fieldNames) && this.data) {
             const cellDataValues = fieldNames.map(field => this.data![field]);
