@@ -60,7 +60,7 @@ Because only one menu can be open on the page at a time, the client can provide 
 </nimble-table>
 ```
 
-If an application requires different menu items for different rows, the client is responsible for ensuring that the items in the menu are correct for the row(s) that the menu is associated. This can be done by handling the `action-menu-opening` event on the table and updating the menu items as appropriate. The `action-menu-opening` event will include the following in its details:
+If an application requires different menu items for different rows or columns, the client is responsible for ensuring that the items in the menu are correct for the row(s)/column that the menu is associated with. This can be done by handling the `action-menu-opening` event on the table and updating the menu items as appropriate. The `action-menu-opening` event will include the following in its details:
 
 -   `rowIds` - string array - The IDs of the rows that the menu is associated with.
 -   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be `undefined` in the event details.
