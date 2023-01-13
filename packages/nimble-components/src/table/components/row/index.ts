@@ -2,7 +2,11 @@ import { observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableCellRecord, TableCellState, TableDataRecord, TableFieldName, TableRecord } from '../../types';
+import type {
+    TableCellState,
+    TableDataRecord,
+    TableFieldName
+} from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 
 declare global {
@@ -27,7 +31,9 @@ export class TableRow<
     public getCellState(column: TableColumn): TableCellState {
         const fieldNames = column.getDataRecordFieldNames();
         if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
-            const cellDataValues = fieldNames.map(field => this.dataRecord![field]);
+            const cellDataValues = fieldNames.map(
+                field => this.dataRecord![field]
+            );
             const cellRecord = Object.fromEntries(
                 column.cellRecordFieldNames.map((k, i) => [
                     k,
@@ -45,7 +51,9 @@ export class TableRow<
         return { cellRecord: {}, columnConfig: {} };
     }
 
-    private hasValidFieldNames(keys: (TableFieldName | undefined)[]): keys is TableFieldName[] {
+    private hasValidFieldNames(
+        keys: (TableFieldName | undefined)[]
+    ): keys is TableFieldName[] {
         return keys.every(key => key !== undefined);
     }
 }

@@ -1,6 +1,10 @@
 import type { ElementStyles, ViewTemplate } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import type { TableCellRecord, TableCellState, TableFieldName } from '../../table/types';
+import type {
+    TableCellRecord,
+    TableCellState,
+    TableFieldName
+} from '../../table/types';
 
 /**
  * The base class for table columns
