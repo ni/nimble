@@ -2,7 +2,7 @@ import { observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableCellState, TableRecord } from '../../types';
+import type { TableCellRecord, TableCellState, TableDataRecord, TableFieldName, TableRecord } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 
 declare global {
@@ -16,36 +16,36 @@ declare global {
  * @internal
  */
 export class TableRow<
-    TData extends TableRecord = TableRecord
+    TDataRecord extends TableDataRecord = TableDataRecord
 > extends FoundationElement {
     @observable
-    public data?: TData;
+    public dataRecord?: TDataRecord;
 
     @observable
     public columns: TableColumn[] = [];
 
-    public getCellState(column: TableColumn): TableCellState<TableRecord> {
-        const fieldNames = column.getRecordFieldNames();
-        if (this.hasValidFieldNames(fieldNames) && this.data) {
-            const cellDataValues = fieldNames.map(field => this.data![field]);
-            const cellData = Object.fromEntries(
-                column.cellStateDataFieldNames.map((k, i) => [
+    public getCellState(column: TableColumn): TableCellState {
+        const fieldNames = column.getDataRecordFieldNames();
+        if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
+            const cellDataValues = fieldNames.map(field => this.dataRecord![field]);
+            const cellRecord = Object.fromEntries(
+                column.cellRecordFieldNames.map((k, i) => [
                     k,
                     cellDataValues[i]
                 ])
             );
             const columnConfig = column.getColumnConfig?.() ?? {};
-            const cellState: TableCellState<TableRecord> = {
-                data: cellData,
+            const cellState: TableCellState = {
+                cellRecord,
                 columnConfig
             };
             return cellState;
         }
 
-        return { data: {}, columnConfig: {} };
+        return { cellRecord: {}, columnConfig: {} };
     }
 
-    private hasValidFieldNames(keys: (string | undefined)[]): keys is string[] {
+    private hasValidFieldNames(keys: (TableFieldName | undefined)[]): keys is TableFieldName[] {
         return keys.every(key => key !== undefined);
     }
 }

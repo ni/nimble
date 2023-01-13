@@ -115,7 +115,7 @@ export class Table<
     private refreshRows(): void {
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
-            const rowState: TableRowState<TData> = { data: row.original };
+            const rowState: TableRowState<TData> = { record: row.original };
             return rowState;
         });
     }

@@ -6,7 +6,7 @@ import {
     ViewTemplate
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import type { TableCellState, TableRecord } from '../../types';
+import type { TableCellRecord, TableCellState } from '../../types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -21,10 +21,10 @@ declare global {
  * @internal
  */
 export class TableCell<
-    TCellRecord extends TableRecord = TableRecord
+    TCellRecord extends TableCellRecord = TableCellRecord
 > extends FoundationElement {
     @observable
-    public data?: TableCellState<TCellRecord>;
+    public cellState?: TableCellState<TCellRecord>;
 
     @observable
     public cellTemplate?: ViewTemplate;
@@ -42,19 +42,19 @@ export class TableCell<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.customCellView = this.cellTemplate?.render(
-            this.data,
+            this.cellState,
             this.cellContentContainer
         );
     }
 
-    protected dataChanged(): void {
-        this.customCellView?.bind(this.data, defaultExecutionContext);
+    protected cellStateChanged(): void {
+        this.customCellView?.bind(this.cellState, defaultExecutionContext);
     }
 
     protected cellTemplateChanged(): void {
         if (this.isConnected) {
             this.customCellView = this.cellTemplate?.render(
-                this.data,
+                this.cellState,
                 this.cellContentContainer
             );
         }

@@ -25,15 +25,26 @@ export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
 }
 
-export type StringField<FieldName extends string> = {
+/** Represents a single row (element) in the Table's data  */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableDataRecord extends TableRecord {}
+
+/**
+ * An object whose fields are defined by a particular TableColumn, which is used by the column's
+ * cellTemplate implementation.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableCellRecord extends TableRecord {}
+
+export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: string | null | undefined;
 };
 
 export interface TableCellState<
-    TCellRecord extends TableRecord,
+    TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > {
-    data: TCellRecord;
+    cellRecord: TCellRecord;
     columnConfig: TColumnConfig;
 }
 
@@ -44,5 +55,5 @@ export interface TableValidity {
 }
 
 export interface TableRowState<TData extends TableRecord = TableRecord> {
-    data: TData;
+    record: TData;
 }

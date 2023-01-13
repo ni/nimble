@@ -57,7 +57,7 @@ describe('Table', () => {
         for (const rowData of tableData) {
             const record: TableRecord = {};
             for (const column of element.columns) {
-                const dataKey = column.getRecordFieldNames()[0]!;
+                const dataKey = column.getDataRecordFieldNames()[0]!;
                 const expectedCellData = rowData[dataKey]!;
                 record[dataKey] = expectedCellData;
             }
@@ -76,7 +76,7 @@ describe('Table', () => {
                 columnIndex < element.columns.length;
                 columnIndex++
             ) {
-                const dataKey = element.columns[columnIndex]!.getRecordFieldNames()[0]!;
+                const dataKey = element.columns[columnIndex]!.getDataRecordFieldNames()[0]!;
                 const expectedCellData = visibleData[rowIndex]![dataKey]!;
                 expect(
                     pageObject.getRenderedCellContent(rowIndex, columnIndex)

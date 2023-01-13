@@ -97,16 +97,16 @@ abstract class TableColumn<TCellRecord extends TableRecord = TableRecord, TColum
     cellStyles?: ElementStyles;
 
     // The keys that should be present in TCellRecord.
-    // This array is parallel with the keys returned from `getRecordFieldNames()`.
-    readonly cellStateDataFieldNames: readonly string[];
+    // This array is parallel with the keys returned from `getDataRecordFieldNames()`.
+    readonly cellRecordFieldNames: readonly string[];
 
     // The keys from the row data that correlate to the data that will be in TCellRecord.
-    // This array is parallel with the keys specified by `cellStateDataFieldNames`.
-    abstract getRecordFieldNames(): string[];
+    // This array is parallel with the keys specified by `cellRecordFieldNames`.
+    abstract getDataRecordFieldNames(): string[];
 
     // Function that allows the table column to validate the type that gets created
     // for the cell data. This should validate that the types in TCellRecord are correct
-    // for each key defined by `cellStateDataFieldNames`.
+    // for each key defined by `cellRecordFieldNames`.
     // This function should throw if validation fails.
     abstract validateCellData(cellData: TCellRecord): void;
 }
@@ -117,7 +117,7 @@ _Note: The `TableColumn` class may be updated to support other features not cove
 Given the above class, a series of column elements to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
 ```TS
-type TableColumnTextCellRecord = StringField<'value'>;
+type TableColumnTextCellRecord = TableStringField<'value'>;
 type TableColumnTextColumnConfig = { placeholder: string };
 
 public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
@@ -127,7 +127,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
         return { placeholder: this.placeholder };
     }
 
-    public cellStateDataFieldNames = ['value'] as const;
+    public cellRecordFieldNames = ['value'] as const;
 
     @attr
     public valueKey: string;
@@ -135,7 +135,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
     @attr
     public placeholder: string; // Column auxiliary configuration
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [valueKey];
     }
 
@@ -158,7 +158,7 @@ In the above example, notifications for when the `placeholder` property changed 
 Below demonstrates how column elements can access multiple fields from the row's record to use in its rendering:
 
 ```TS
-type TableColumnNumberWithUnitCellData = NumberField<'value'> & StringField<'units'>;
+type TableColumnNumberWithUnitCellData = NumberField<'value'> & TableStringField<'units'>;
 
 const formatData = (value: number, unit: string): string => {
     return `${value.toString()} ${units}`;
@@ -167,7 +167,7 @@ const formatData = (value: number, unit: string): string => {
 public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWithUnitCellData> {
     ...
 
-    public cellStateDataFieldNames = ['value', 'units'] as const;
+    public cellRecordFieldNames = ['value', 'units'] as const;
 
     @attr
     public valueKey: string;
@@ -175,7 +175,7 @@ public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWith
     @attr
     public unitKey: string;
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [valueKey, unitKey];
     }
 
@@ -208,12 +208,12 @@ const isPositive = (value: number): bool => {
 public class TableColumnPositiveNegativeNumber extends TableColumn<TableColumnPositiveNegativeNumberCellData> {
     ...
 
-    public cellStateDataFieldNames = ['value'] as const;
+    public cellRecordFieldNames = ['value'] as const;
 
     @attr
     public valueKey: string;
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [valueKey];
     }
 
@@ -249,17 +249,17 @@ public class TableColumnPositiveNegativeNumber extends TableColumn<TableColumnPo
 Finally, here is a column element that allows a user to register a callback for a click event on a button inside the cell template:
 
 ```TS
-type TableColumnButtonCellData = StringField<'id'>;
+type TableColumnButtonCellData = TableStringField<'id'>;
 
 public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
     ...
 
-    public cellStateDataFieldNames = ['id'] as const;
+    public cellRecordFieldNames = ['id'] as const;
 
     @attr
     public idKey: string;
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [valueKey];
     }
 

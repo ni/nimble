@@ -1,12 +1,12 @@
 import type { ElementStyles, ViewTemplate } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import type { TableCellState, TableRecord } from '../../table/types';
+import type { TableCellRecord, TableCellState, TableFieldName } from '../../table/types';
 
 /**
  * The base class for table columns
  */
 export abstract class TableColumn<
-    TCellRecord extends TableRecord = TableRecord,
+    TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > extends FoundationElement {
     /**
@@ -22,9 +22,9 @@ export abstract class TableColumn<
 
     /**
      * The names of the fields that should be present in TCellRecord.
-     * This array is parallel with the field names returned from `getRecordFieldNames()`.
+     * This array is parallel with the field names returned from `getDataRecordFieldNames()`.
      */
-    public abstract readonly cellStateDataFieldNames: readonly string[];
+    public abstract readonly cellRecordFieldNames: readonly TableFieldName[];
 
     /**
      * This method returns the relevant, static configuration a column requires its cellTemplate
@@ -34,7 +34,7 @@ export abstract class TableColumn<
 
     /**
      * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
-     * This array is parallel with the field names specified by `cellStateDataFieldNames`.
+     * This array is parallel with the field names specified by `cellRecordFieldNames`.
      */
-    public abstract getRecordFieldNames(): (string | undefined)[];
+    public abstract getDataRecordFieldNames(): (TableFieldName | undefined)[];
 }

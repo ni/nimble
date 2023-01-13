@@ -48,13 +48,13 @@ _*Props/Attrs*_
 _Type Reference_
 
 -   [`TableColumn`](../table-columns-hld.md#tablecolumn)
--   [`StringField`](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table/specs/table-data-api.md#implementation--design) (section showing example types)
+-   [`TableStringField`](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table/specs/table-data-api.md#implementation--design) (section showing example types)
 -   [`TableCellState`](../table-columns-hld.md#tablecellstate-interface)
 
 The `TableColumnText` will extend the `TableColumn` in a manner similar to the following:
 
 ```TS
-type TableColumnTextCellRecord = StringField<'value'>;
+type TableColumnTextCellRecord = TableStringField<'value'>;
 type TableColumnTextColumnConfig = { placeholder: string };
 
 public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
@@ -66,9 +66,9 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
     @attr
     public placeholder: string; // Column auxiliary configuration
 
-    public cellStateDataFieldNames = ['value'] as const;
+    public cellRecordFieldNames = ['value'] as const;
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [fieldName];
     }
 

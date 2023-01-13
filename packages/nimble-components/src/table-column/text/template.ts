@@ -6,10 +6,10 @@ export const cellTemplate = html<
 TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
 >`
     <span
-        class="${x => (typeof x.data.value !== 'string' ? 'placeholder' : '')}"
+        class="${x => (typeof x.cellRecord.value === 'string' ? '' : 'placeholder')}"
     >
-        ${x => (typeof x.data.value === 'string'
-        ? x.data.value
+        ${x => (typeof x.cellRecord.value === 'string'
+        ? x.cellRecord.value
         : x.columnConfig.placeholder)}
     </span>
 `;

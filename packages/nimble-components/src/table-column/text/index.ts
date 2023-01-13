@@ -1,13 +1,13 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { StringField } from '../../table/types';
+import type { TableStringField, TableFieldName } from '../../table/types';
 import { TableColumn } from '../base';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import { cellStyles } from './styles';
 import { cellTemplate } from './template';
 
-export type TableColumnTextCellRecord = StringField<'value'>;
+export type TableColumnTextCellRecord = TableStringField<'value'>;
 export interface TableColumnTextColumnConfig {
     placeholder: string;
 }
@@ -19,7 +19,7 @@ export class TableColumnText extends TableColumn<
 TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
-    public cellStateDataFieldNames = ['value'] as const;
+    public cellRecordFieldNames = ['value'] as const;
 
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
@@ -35,7 +35,7 @@ TableColumnTextColumnConfig
         return { placeholder: this.placeholder ?? '' };
     }
 
-    public getRecordFieldNames(): (string | undefined)[] {
+    public getDataRecordFieldNames(): (TableFieldName | undefined)[] {
         return [this.fieldName];
     }
 }
