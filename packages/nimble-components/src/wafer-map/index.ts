@@ -101,6 +101,7 @@ export class WaferMap extends FoundationElement {
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
+        this.canvas.removeEventListener('wheel', event => event.preventDefault());
         this.resizeObserver!.unobserve(this);
     }
 
