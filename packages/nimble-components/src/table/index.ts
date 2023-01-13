@@ -39,8 +39,6 @@ export class Table<
     @observable
     public tableData: TableRowState<TData>[] = [];
 
-    // TODO: Temporarily expose the columns as a string array. This will ultimately be
-    // column definitions provided by slotted elements.
     @observable
     public readonly columns: TableColumn[] = [];
 
