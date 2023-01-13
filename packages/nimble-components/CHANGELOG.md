@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 12 Jan 2023 15:29:47 GMT and should not be manually modified.
+This log was last generated on Fri, 13 Jan 2023 07:16:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.2
+
+Fri, 13 Jan 2023 07:16:01 GMT
+
+### Patches
+
+- Add zoom functionality to wafer map ([ni/nimble@61ae65c](https://github.com/ni/nimble/commit/61ae65cf7c5ce57cd17a1deb03bed1186a04a871))
 
 ## 17.0.1
 
