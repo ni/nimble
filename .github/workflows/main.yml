@@ -123,7 +123,7 @@ jobs:
 
       # Generate change file for Renovate PRs
       - name: Generate change file for Renovate PRs
-        if: ${{ github.event_name }} == 'pull_request' && startsWith(${{ github.head_ref }}, 'renovate/')
+        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'renovate/')
         run: |
           echo Creating change file for Renovate PR in branch "${{ env.GITHUB_HEAD_REF }}"
           npm run change:deps
