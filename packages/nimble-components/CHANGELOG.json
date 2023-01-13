@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 13 Jan 2023 07:16:01 GMT",
+      "tag": "@ni/nimble-components_v17.0.2",
+      "version": "17.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "49208904+arinluca333@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "61ae65cf7c5ce57cd17a1deb03bed1186a04a871",
+            "comment": "Add zoom functionality to wafer map"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 12 Jan 2023 15:29:47 GMT",
       "tag": "@ni/nimble-components_v17.0.1",
       "version": "17.0.1",
