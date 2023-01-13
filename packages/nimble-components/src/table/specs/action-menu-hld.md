@@ -69,7 +69,7 @@ If an application requires different menu items for different rows, the client i
 
 #### Slot Forwarding
 
-In order for the menu slotted within the table to be slotted within a cell's `nimble-menu-button`, the menu needs to be "forwarded" from the table to a row and then to a cell. Every row will have a slot for an menu, but only the row with the open menu will have something slotted within it. Similarly, every cell in a column with a menu will have a slot for a menu, but only the cell with an open menu will have something slotted within it. Events will be used to know when the row and cell the menu is associated with needs to change, and the templates will dynamically rename their slots to ensure the menu is slotted in the correct elements.
+In order for the menu slotted within the table to be slotted within a cell's `nimble-menu-button`, the menu needs to be "forwarded" from the table to a row and then to a cell. Every row will have a slot for a menu, but only the row with the open menu will have something slotted within it. Similarly, every cell in a column with a menu will have a slot for a menu, but only the cell with an open menu will have something slotted within it. Events will be used to know when the row and cell the menu is associated with needs to change, and the templates will dynamically rename their slots to ensure the menu is slotted in the correct elements.
 
 For example, the table's template will look something like this:
 
