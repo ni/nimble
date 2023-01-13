@@ -27,7 +27,6 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     borderHoverColor: 'border-hover-color',
     iconColor: 'icon-color',
     modalBackdropColor: 'modal-backdrop-color',
-    popupBoxShadowColor: 'popup-box-shadow-color',
     popupBorderColor: 'popup-border-color',
     controlHeight: 'control-height',
     smallPadding: 'small-padding',
@@ -203,7 +202,10 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     errorTextFontWeight: 'error-text-font-weight',
     errorTextFontLineHeight: 'error-text-font-line-height',
     errorTextFallbackFontFamily: 'error-text-fallback-font-family',
-    tableRowBorderColor: 'table-row-border-color'
+    tableRowBorderColor: 'table-row-border-color',
+    elevation1BoxShadow: 'elevation-1-box-shadow',
+    elevation2BoxShadow: 'elevation-2-box-shadow',
+    elevation3BoxShadow: 'elevation-3-box-shadow'
 };
 
 const prefix = 'ni-nimble';
@@ -226,6 +228,7 @@ const tokenSuffixes = [
     'FontSize',
     'TextTransform',
     'FontFamily',
+    'BoxShadow',
     'Font',
     'Size',
     'Width',

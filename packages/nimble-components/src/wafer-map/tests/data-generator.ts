@@ -11,8 +11,11 @@ const generateStringValue = (
     valueGenerator?: IValueGenerator
 ): string => {
     let value: number;
-    if (valueGenerator !== undefined) value = valueGenerator(x, y);
-    else value = Math.random() * 100;
+    if (valueGenerator !== undefined) {
+        value = valueGenerator(x, y);
+    } else {
+        value = Math.random() * 100;
+    }
     return valueToString(value);
 };
 

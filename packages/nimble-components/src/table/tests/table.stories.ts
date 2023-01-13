@@ -8,6 +8,11 @@ import { bodyFont } from '../../theme-provider/design-tokens';
 
 interface TableArgs {
     data: ExampleDataType;
+
+    // Used for documentation purposes only
+    idFieldName: undefined;
+    validity: undefined;
+    checkValidity: undefined;
 }
 
 const simpleData = [
@@ -23,8 +28,14 @@ const simpleData = [
     }
 ] as const;
 
+const simpleDataIdFieldName = 'myStr';
+
 const dataSets = {
     [ExampleDataType.simpleData]: simpleData
+} as const;
+
+const dataSetIdFieldNames = {
+    [ExampleDataType.simpleData]: simpleDataIdFieldName
 } as const;
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
@@ -33,6 +44,23 @@ const dataDescription = `\`data\` is a property that is an array of records. A r
 Each record is made up of fields, which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type
 \`TableFieldName\`. The value in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`Date\`, \`null\`, or \`undefined\`,
 which is defined by the type \`TableFieldValue\`.`;
+
+const idFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's ID.
+If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered,
+and the table will enter an invalid state according to the \`validity\` property and \`checkValidity()\` function.
+
+The attribute is invalid in the following conditions:
+-   Multiple records were found with the same ID. This will cause \`validity.duplicateRowId\` to be \`true\`.
+-   A record was found that did not have a field with the name specified by \`id-field-name\`. This will cause \`validity.missingRowId\` to be \`true\`.
+-   A record was found where \`id-field-name\` did not refer to a value of type \`string\` with a non-empty value. This will cause \`validity.invalidRowId\` to be \`true\`.`;
+
+const validityDescription = `Readonly object of boolean values that represents the validity states that the table's configuration can be in.
+The object's type is \`TableValidityState\`, and it contains the following boolean properties:
+
+-   \`duplicateRowId\`: \`true\` when multiple records were found with the same ID
+-   \`missingRowId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
+-   \`invalidRowId\`: \`true\` when record was found where \`id-field-name\` did not refer to a value of type \`string\` with a non-empty value
+`;
 
 const metadata: Meta<TableArgs> = {
     title: 'Table',
@@ -57,7 +85,7 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table :data=${x => dataSets[x.data]}>
+        <nimble-table :data=${x => dataSets[x.data]} id-field-name=${x => dataSetIdFieldNames[x.data]}>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {
@@ -79,10 +107,31 @@ const metadata: Meta<TableArgs> = {
                     [ExampleDataType.simpleData]: 'Simple data'
                 }
             }
+        },
+        idFieldName: {
+            name: 'id-field-name',
+            table: {
+                defaultValue: { summary: 'undefined' }
+            },
+            description: idFieldNameDescription,
+            control: false
+        },
+        validity: {
+            description: validityDescription,
+            control: false
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description:
+                'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
+            control: false
         }
     },
     args: {
-        data: ExampleDataType.simpleData
+        data: ExampleDataType.simpleData,
+        idFieldName: undefined,
+        validity: undefined,
+        checkValidity: undefined
     }
 };
 

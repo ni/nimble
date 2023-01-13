@@ -54,6 +54,7 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'color-scale-mode'
     })
+    public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
      * @internal
@@ -69,9 +70,6 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     @observable public canvasSideLength?: number;
-
-    @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
-
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorScale = {
@@ -88,7 +86,9 @@ export class WaferMap extends FoundationElement {
         super.connectedCallback();
         this.resizeObserver = new ResizeObserver(entries => {
             const entry = entries[0];
-            if (entry === undefined) return;
+            if (entry === undefined) {
+                return;
+            }
             const { height, width } = entry.contentRect;
             this.canvasSideLength = Math.min(height, width);
         });
@@ -110,7 +110,12 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        if (this.canvasSideLength === undefined || this.canvasSideLength === 0) return;
+        if (
+            this.canvasSideLength === undefined
+            || this.canvasSideLength === 0
+        ) {
+            return;
+        }
         this.renderer?.clearCanvas(
             this.canvasSideLength,
             this.canvasSideLength
