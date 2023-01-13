@@ -21,8 +21,8 @@ export abstract class TableColumn<
     public abstract cellStyles?: ElementStyles;
 
     /**
-     * The keys that should be present in TCellRecord.
-     * This array is parallel with the keys returned from `getRecordFieldNames()`.
+     * The names of the fields that should be present in TCellRecord.
+     * This array is parallel with the field names returned from `getRecordFieldNames()`.
      */
     public abstract readonly cellStateDataFieldNames: readonly string[];
 
@@ -33,8 +33,8 @@ export abstract class TableColumn<
     public abstract getColumnConfig?(): TColumnConfig;
 
     /**
-     * The keys from the row data that correlate to the data that will be in TCellRecord.
-     * This array is parallel with the keys specified by `cellStateDataFieldNames`.
+     * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
+     * This array is parallel with the field names specified by `cellStateDataFieldNames`.
      */
     public abstract getRecordFieldNames(): (string | undefined)[];
 }

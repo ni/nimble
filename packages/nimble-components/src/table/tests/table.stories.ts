@@ -32,7 +32,7 @@ const simpleData = [
         firstName: 'Ned',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Hi diddly-do neighbor!'
+        quote: 'Hi diddly-ho neighbor!'
     }
 ] as const;
 
