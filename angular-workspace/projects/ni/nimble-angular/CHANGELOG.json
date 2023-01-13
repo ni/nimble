@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 13 Jan 2023 07:16:01 GMT",
+      "tag": "@ni/nimble-angular_v15.0.3",
+      "version": "15.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v17.0.2",
+            "commit": "61ae65cf7c5ce57cd17a1deb03bed1186a04a871"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 13 Jan 2023 03:10:37 GMT",
+      "tag": "@ni/nimble-angular_v15.0.2",
+      "version": "15.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "159910bf7d56124ae5491a396ec6a2b01c3ecb3a",
+            "comment": "Add Angular support for table row IDs and table validity"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 12 Jan 2023 15:29:47 GMT",
       "tag": "@ni/nimble-angular_v15.0.1",
       "version": "15.0.1",
