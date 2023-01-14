@@ -40,9 +40,18 @@ const simpleTableData = [
     }
 ] as const;
 
+const largeTableData = Array.from(Array(500), (_, i) => {
+    return {
+        stringData: `string ${i}`,
+        numericData: i,
+        booleanData: false,
+        dateData: new Date(2000, 1, 1)
+    };
+});
+
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table></nimble-table>`
+        html`<nimble-table style="height: 400px"></nimble-table>`
     );
 }
 
@@ -107,6 +116,7 @@ describe('Table', () => {
         const data = [...simpleTableData];
         element.data = data;
         await connect();
+        await waitForUpdatesAsync();
 
         verifyRenderedData(data);
     });
@@ -173,5 +183,55 @@ describe('Table', () => {
         await waitForUpdatesAsync();
 
         verifyRenderedData(updatedData);
+    });
+
+    describe('uses virtualization', () => {
+        it('to render fewer rows (based on viewport size)', async () => {
+            await connect();
+
+            const data = [...largeTableData];
+            element.data = data;
+            await waitForUpdatesAsync();
+
+            const actualRowCount = pageObject.getRenderedRowCount();
+            const approximateRowHeight = 32;
+            const expectedRowCountUpperBound = (element.offsetHeight / approximateRowHeight) * 3;
+            expect(actualRowCount).toBeLessThan(data.length);
+            expect(actualRowCount).toBeLessThan(expectedRowCountUpperBound);
+            const dataSubset = data.slice(0, actualRowCount);
+            verifyRenderedData(dataSubset);
+        });
+
+        it('and allows viewing the last rows in the data after scrolling to the bottom', async () => {
+            await connect();
+
+            const data = [...largeTableData];
+            element.data = data;
+            await waitForUpdatesAsync();
+            await pageObject.scrollToLastRowAsync();
+
+            const actualRowCount = pageObject.getRenderedRowCount();
+            expect(actualRowCount).toBeLessThan(data.length);
+            const dataSubsetAtEnd = data.slice(-actualRowCount);
+            verifyRenderedData(dataSubsetAtEnd);
+        });
+
+        it('and shows additional rows when the table height increases', async () => {
+            await connect();
+
+            const data = [...largeTableData];
+            element.data = data;
+            await waitForUpdatesAsync();
+
+            const originalRenderedRowCount = pageObject.getRenderedRowCount();
+
+            element.style.height = '700px';
+            await waitForUpdatesAsync();
+
+            const newRenderedRowCount = pageObject.getRenderedRowCount();
+            expect(newRenderedRowCount).toBeGreaterThan(
+                originalRenderedRowCount
+            );
+        });
     });
 });

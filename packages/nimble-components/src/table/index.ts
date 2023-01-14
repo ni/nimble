@@ -78,11 +78,15 @@ export class Table<
     @observable
     public rowContainerHeight = 0;
 
+    /**
+     * @internal
+     */
+    @observable
+    public headerContainerMarginRight = 0;
+
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableInitialized: boolean = false;
-
-    private readonly viewportResizeObserver: ResizeObserver;
 
     public constructor() {
         super();
@@ -97,19 +101,11 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.tableInitialized = true;
-        this.viewportResizeObserver = new ResizeObserver(
-            this.updateVirtualizer.bind(this)
-        );
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.viewportResizeObserver.observe(this.viewport);
-    }
-
-    public override disconnectedCallback(): void {
-        super.disconnectedCallback();
-        this.viewportResizeObserver.disconnect();
+        this.updateVirtualizer();
     }
 
     public dataChanged(
@@ -123,7 +119,9 @@ export class Table<
         // Ignore any updates that occur prior to the TanStack table being initialized.
         if (this.tableInitialized) {
             this.updateTableOptions({ data: this.data });
-            this.updateVirtualizer();
+            if (this.isConnected) {
+                this.updateVirtualizer();
+            }
         }
     }
 
@@ -187,7 +185,10 @@ export class Table<
             observeElementRect,
             onChange: (virtualizer: Virtualizer<HTMLElement, HTMLElement>) => {
                 this.visibleItems = virtualizer.getVirtualItems();
+                this.rowContainerHeight = virtualizer.getTotalSize();
                 if (this.visibleItems.length > 0) {
+                    // Instead of using the TanStackVirtual-provided 'start' offset to translate every
+                    // individual row, we just translate the row container that contains those rows
                     const firstItem = this.visibleItems[0]!;
                     const lastItem = this.visibleItems[this.visibleItems.length - 1]!;
                     if (lastItem.end >= this.rowContainerHeight) {
@@ -199,9 +200,10 @@ export class Table<
                 } else {
                     this.rowContainer.style.transform = '';
                 }
-                const horizontalScrollBarWidth = this.viewport.getBoundingClientRect().width
+                // If we have enough rows that a vertical scrollbar is shown, we need to offset the headers
+                // by the same margin so the column headers align with the corresponding rendered cells
+                this.headerContainerMarginRight = this.viewport.getBoundingClientRect().width
                     - this.viewport.scrollWidth;
-                this.headerContainer.style.marginRight = `${horizontalScrollBarWidth}px`;
             }
         } as VirtualizerOptions<HTMLElement, HTMLElement>;
     }
@@ -213,8 +215,6 @@ export class Table<
             this.virtualizer = new Virtualizer(this.createVirtualizerOptions());
         }
         this.virtualizer._willUpdate();
-        this.visibleItems = this.virtualizer.getVirtualItems();
-        this.rowContainerHeight = this.virtualizer.getTotalSize();
     }
 }
 

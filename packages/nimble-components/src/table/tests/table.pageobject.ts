@@ -1,5 +1,6 @@
 import type { Table } from '..';
 import type { TableRecord } from '../types';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -54,5 +55,11 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return cells.item(columnIndex).shadowRoot!.textContent?.trim() ?? '';
+    }
+
+    public async scrollToLastRowAsync(): Promise<void> {
+        const scrollElement = this.tableElement.viewport;
+        scrollElement.scrollTop = scrollElement.scrollHeight;
+        await waitForUpdatesAsync();
     }
 }
