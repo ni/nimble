@@ -39,6 +39,8 @@ const largeTableData = Array.from(Array(500), (_, i) => {
     };
 });
 
+const tableColumnText = DesignSystem.tagFor(TableColumnText);
+
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
@@ -56,10 +58,10 @@ describe('Table', () => {
 
     // The assumption being made here is that the values in the data are equal to their
     // rendered representation (no formatting).
-    function retrieveVisibleData(
+    function retrieveExpectedData(
         tableData: SimpleTableRecord[]
     ): TableRecord[] {
-        const visibleData: TableRecord[] = [];
+        const expectedData: TableRecord[] = [];
         for (const rowData of tableData) {
             const record: TableRecord = {};
             for (const column of element.columns) {
@@ -67,13 +69,13 @@ describe('Table', () => {
                 const expectedCellData = rowData[dataKey]!;
                 record[dataKey] = expectedCellData;
             }
-            visibleData.push(record);
+            expectedData.push(record);
         }
-        return visibleData;
+        return expectedData;
     }
 
-    function verifyRenderedData(): void {
-        const visibleData = retrieveVisibleData(element.data);
+    function verifyRenderedData(visibleElementDataSubset = element.data): void {
+        const visibleData = retrieveExpectedData(visibleElementDataSubset);
         const expectedRowCount = visibleData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {

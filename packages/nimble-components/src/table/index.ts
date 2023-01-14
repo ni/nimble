@@ -9,8 +9,6 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
-import type { TableColumn } from '../table-column/base';
-import { TableValidator } from './models/table-validator';
 import {
     Virtualizer,
     VirtualizerOptions,
@@ -19,6 +17,8 @@ import {
     observeElementRect,
     VirtualItem
 } from '@tanstack/virtual-core';
+import type { TableColumn } from '../table-column/base';
+import { TableValidator } from './models/table-validator';
 import { controlHeight } from '../theme-provider/design-tokens';
 import { styles } from './styles';
 import { template } from './template';
@@ -145,9 +145,6 @@ export class Table<
         // Ignore any updates that occur prior to the TanStack table being initialized.
         if (this.tableInitialized) {
             this.trySetData(this.data);
-            if (this.isConnected) {
-                this.updateVirtualizer();
-            }
         }
     }
 
@@ -164,6 +161,9 @@ export class Table<
             this.updateTableOptions({ data: newData });
         } else {
             this.updateTableOptions({ data: [] });
+        }
+        if (this.isConnected) {
+            this.updateVirtualizer();
         }
     }
 
@@ -218,45 +218,6 @@ export class Table<
         this.updateTableOptions({ columns: generatedColumns });
     }
 
-    private createVirtualizerOptions(): VirtualizerOptions<
-    HTMLElement,
-    HTMLElement
-    > {
-        return {
-            count: this.data.length,
-            getScrollElement: () => {
-                return this.viewport;
-            },
-            estimateSize: (_: number) => parseFloat(controlHeight.getValueFor(this)),
-            enableSmoothScroll: true,
-            scrollToFn: elementScroll,
-            observeElementOffset,
-            observeElementRect,
-            onChange: (virtualizer: Virtualizer<HTMLElement, HTMLElement>) => {
-                this.visibleItems = virtualizer.getVirtualItems();
-                this.rowContainerHeight = virtualizer.getTotalSize();
-                if (this.visibleItems.length > 0) {
-                    // Instead of using the TanStackVirtual-provided 'start' offset to translate every
-                    // individual row, we just translate the row container that contains those rows
-                    const firstItem = this.visibleItems[0]!;
-                    const lastItem = this.visibleItems[this.visibleItems.length - 1]!;
-                    if (lastItem.end >= this.rowContainerHeight) {
-                        this.rowContainer.style.transform = '';
-                    } else {
-                        const offsetY = firstItem.start - this.viewport.scrollTop;
-                        this.rowContainer.style.transform = `translateY(${offsetY}px)`;
-                    }
-                } else {
-                    this.rowContainer.style.transform = '';
-                }
-                // If we have enough rows that a vertical scrollbar is shown, we need to offset the headers
-                // by the same margin so the column headers align with the corresponding rendered cells
-                this.headerContainerMarginRight = this.viewport.getBoundingClientRect().width
-                    - this.viewport.scrollWidth;
-            }
-        } as VirtualizerOptions<HTMLElement, HTMLElement>;
-    }
-
     private updateVirtualizer(): void {
         if (this.virtualizer) {
             this.virtualizer.setOptions(this.createVirtualizerOptions());
@@ -264,6 +225,46 @@ export class Table<
             this.virtualizer = new Virtualizer(this.createVirtualizerOptions());
         }
         this.virtualizer._willUpdate();
+    }
+
+    private createVirtualizerOptions(): VirtualizerOptions<
+    HTMLElement,
+    HTMLElement
+    > {
+        const rowHeight = parseFloat(controlHeight.getValueFor(this));
+        return {
+            count: this.tableData.length,
+            getScrollElement: () => {
+                return this.viewport;
+            },
+            estimateSize: (_: number) => rowHeight,
+            enableSmoothScroll: true,
+            scrollToFn: elementScroll,
+            observeElementOffset,
+            observeElementRect,
+            onChange: (virtualizer: Virtualizer<HTMLElement, HTMLElement>) => {
+                this.visibleItems = virtualizer.getVirtualItems();
+                this.rowContainerHeight = virtualizer.getTotalSize();
+                // We're using a separate div ('table-scroll') to represent the full height of all rows, and
+                // the row container's height is only big enough to hold the virtualized rows. So we don't
+                // use the TanStackVirtual-provided 'start' offset (which is in terms of the full height)
+                // to translate every individual row, we just translate the row container.
+                let rowContainerTransform = '';
+                if (this.visibleItems.length > 0) {
+                    const firstItem = this.visibleItems[0]!;
+                    const lastItem = this.visibleItems[this.visibleItems.length - 1]!;
+                    if (lastItem.end < this.rowContainerHeight) {
+                        const offsetY = firstItem.start - this.viewport.scrollTop;
+                        rowContainerTransform = `translateY(${offsetY}px)`;
+                    }
+                }
+                this.rowContainer.style.transform = rowContainerTransform;
+                // If we have enough rows that a vertical scrollbar is shown, we need to offset the header widths
+                // by the same margin so the column headers align with the corresponding rendered cells
+                this.headerContainerMarginRight = this.viewport.getBoundingClientRect().width
+                    - this.viewport.scrollWidth;
+            }
+        } as VirtualizerOptions<HTMLElement, HTMLElement>;
     }
 }
 

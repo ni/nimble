@@ -9,7 +9,6 @@ import {
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { VirtualItem } from '@tanstack/virtual-core';
 import type { Table } from '.';
-import type { TableRowState } from './types';
 import { TableHeader } from './components/header';
 import { TableRow } from './components/row';
 import { TableColumn } from '../table-column/base';
@@ -39,19 +38,19 @@ export const template = html<Table>`
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
-            ${when(x => x.columns.length > 0, html<Table>`
                 <div class="table-scroll" style="height: ${x => x.rowContainerHeight}px;"></div>
                 <div class="table-row-container" role="rowgroup" ${ref('rowContainer')}>
-                    ${repeat(x => x.tableData, html<TableRowState>`
-                        <${DesignSystem.tagFor(TableRow)}
-                            :dataRecord="${x => x.record}"
-                            :columns="${(_, c) => (c.parent as Table).columns}"
-                            style="height: ${x => x.size}px;"
-                        >
-                        </${DesignSystem.tagFor(TableRow)}>
+                    ${when(x => x.columns.length > 0, html<Table>`
+                        ${repeat(x => x.visibleItems, html<VirtualItem>`
+                            <${DesignSystem.tagFor(TableRow)}
+                                :dataRecord="${(x, c) => (c.parent as Table).tableData[x.index]?.record}"
+                                :columns="${(_, c) => (c.parent as Table).columns}"
+                                style="height: ${x => x.size}px;"
+                            >
+                            </${DesignSystem.tagFor(TableRow)}>
+                        `)}
                     `)}
                 </div>
-            `)}
             </div>
         </div>
         <slot ${slotted({ property: 'columns', filter: isTableColumn() })}></slot>

@@ -41,7 +41,7 @@ const simpleDataIdFieldName = 'firstName';
 const largeData = [];
 for (let i = 0; i < 10000; i++) {
     largeData.push({
-        firstName: 'Ralph',
+        firstName: `Ralph-${i + 1}`,
         lastName: 'Wiggum',
         favoriteColor: 'Rainbow',
         quote: "I'm in danger!"
