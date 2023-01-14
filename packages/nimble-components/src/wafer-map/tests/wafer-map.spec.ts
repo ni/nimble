@@ -19,6 +19,7 @@ describe('WaferMap', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
+        element.canvasSideLength = 500;
         DOM.processUpdates();
         spy = spyOn(element, 'render');
     });
@@ -100,4 +101,51 @@ describe('WaferMap', () => {
         DOM.processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
+
+    describe('ZoomHandler', () => {
+        let initialValue: string | undefined;
+
+        beforeEach(() => {
+            initialValue = getTransform();
+            expect(initialValue).not.toBeDefined();
+        });
+
+        it('will zoom in the wafer-map', () => {
+            element.canvas.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+            );
+
+            const zoomedValue = getTransform();
+            expect(zoomedValue).not.toBe(initialValue);
+        });
+
+        it('will zoom out to identity', () => {
+            element.canvas.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+            );
+
+            const zoomedValue = getTransform();
+            expect(zoomedValue).not.toEqual('translate(0,0) scale(1)');
+
+            element.canvas.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
+            );
+
+            const zoomedOut = getTransform();
+            expect(zoomedOut).toBe('translate(0,0) scale(1)');
+        });
+
+        it('will not zoom out when at identity', () => {
+            element.canvas.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
+            );
+
+            const zoomedOut = getTransform();
+            expect(zoomedOut).toBe('translate(0,0) scale(1)');
+        });
+    });
+
+    function getTransform(): string | undefined {
+        return element.zoomContainer.getAttribute('transform')?.toString();
+    }
 });

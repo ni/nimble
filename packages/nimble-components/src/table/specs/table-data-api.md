@@ -55,7 +55,7 @@ interface MyTableData {
 Therefore, types will be provided to allow clients to optionally provide more strict typing on their data. These types will look something like the following:
 
 ```ts
-type StringField<FieldName extends string> = {
+type TableStringField<FieldName extends string> = {
     [name in FieldName]: string | null | undefined;
 };
 

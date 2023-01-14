@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 11 Jan 2023 21:08:14 GMT and should not be manually modified.
+This log was last generated on Fri, 13 Jan 2023 07:16:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.0.3
+
+Fri, 13 Jan 2023 07:16:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.2
+
+## 15.0.2
+
+Fri, 13 Jan 2023 03:10:37 GMT
+
+### Patches
+
+- Add Angular support for table row IDs and table validity ([ni/nimble@159910b](https://github.com/ni/nimble/commit/159910bf7d56124ae5491a396ec6a2b01c3ecb3a))
+
+## 15.0.1
+
+Thu, 12 Jan 2023 15:29:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.1
 
 ## 15.0.0
 
