@@ -3,10 +3,17 @@ import { display } from '@microsoft/fast-foundation';
 import { standardPadding } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('flex')}
+    ${display('grid')}
 
     :host {
         padding: 0px calc(${standardPadding} / 2);
+        align-self: center;
+        height: 100%;
+    }
+
+    .cell-content-container {
+        overflow: hidden;
+        display: flex;
         align-items: center;
     }
 `;

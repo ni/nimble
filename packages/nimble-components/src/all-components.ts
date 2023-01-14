@@ -29,6 +29,7 @@ import './switch';
 import './tab';
 import './tab-panel';
 import './table';
+import './table-column/text';
 import './tabs';
 import './tabs-toolbar';
 import './text-area';
