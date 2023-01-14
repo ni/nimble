@@ -219,12 +219,14 @@ export class Table<
     }
 
     private updateVirtualizer(): void {
+        const options = this.createVirtualizerOptions();
         if (this.virtualizer) {
-            this.virtualizer.setOptions(this.createVirtualizerOptions());
+            this.virtualizer.setOptions(options);
         } else {
-            this.virtualizer = new Virtualizer(this.createVirtualizerOptions());
+            this.virtualizer = new Virtualizer(options);
         }
         this.virtualizer._willUpdate();
+        this.handleVirtualizerChange();
     }
 
     private createVirtualizerOptions(): VirtualizerOptions<
@@ -242,29 +244,32 @@ export class Table<
             scrollToFn: elementScroll,
             observeElementOffset,
             observeElementRect,
-            onChange: (virtualizer: Virtualizer<HTMLElement, HTMLElement>) => {
-                this.visibleItems = virtualizer.getVirtualItems();
-                this.rowContainerHeight = virtualizer.getTotalSize();
-                // We're using a separate div ('table-scroll') to represent the full height of all rows, and
-                // the row container's height is only big enough to hold the virtualized rows. So we don't
-                // use the TanStackVirtual-provided 'start' offset (which is in terms of the full height)
-                // to translate every individual row, we just translate the row container.
-                let rowContainerTransform = '';
-                if (this.visibleItems.length > 0) {
-                    const firstItem = this.visibleItems[0]!;
-                    const lastItem = this.visibleItems[this.visibleItems.length - 1]!;
-                    if (lastItem.end < this.rowContainerHeight) {
-                        const offsetY = firstItem.start - this.viewport.scrollTop;
-                        rowContainerTransform = `translateY(${offsetY}px)`;
-                    }
-                }
-                this.rowContainer.style.transform = rowContainerTransform;
-                // If we have enough rows that a vertical scrollbar is shown, we need to offset the header widths
-                // by the same margin so the column headers align with the corresponding rendered cells
-                this.headerContainerMarginRight = this.viewport.getBoundingClientRect().width
-                    - this.viewport.scrollWidth;
-            }
+            onChange: () => this.handleVirtualizerChange()
         } as VirtualizerOptions<HTMLElement, HTMLElement>;
+    }
+
+    private handleVirtualizerChange(): void {
+        const virtualizer = this.virtualizer!;
+        this.visibleItems = virtualizer.getVirtualItems();
+        this.rowContainerHeight = virtualizer.getTotalSize();
+        // We're using a separate div ('table-scroll') to represent the full height of all rows, and
+        // the row container's height is only big enough to hold the virtualized rows. So we don't
+        // use the TanStackVirtual-provided 'start' offset (which is in terms of the full height)
+        // to translate every individual row, we just translate the row container.
+        let rowContainerTransform = '';
+        if (this.visibleItems.length > 0) {
+            const firstItem = this.visibleItems[0]!;
+            const lastItem = this.visibleItems[this.visibleItems.length - 1]!;
+            if (lastItem.end < this.rowContainerHeight) {
+                const offsetY = firstItem.start - this.viewport.scrollTop;
+                rowContainerTransform = `translateY(${offsetY}px)`;
+            }
+        }
+        this.rowContainer.style.transform = rowContainerTransform;
+        // If we have enough rows that a vertical scrollbar is shown, we need to offset the header widths
+        // by the same margin so the column headers align with the corresponding rendered cells
+        this.headerContainerMarginRight = this.viewport.getBoundingClientRect().width
+            - this.viewport.scrollWidth;
     }
 }
 
