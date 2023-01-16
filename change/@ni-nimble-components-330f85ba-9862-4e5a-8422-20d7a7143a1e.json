@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fixed issues with rendering",
+  "packageName": "@ni/nimble-components",
+  "email": "62277788+zszilagy@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
