@@ -40,7 +40,12 @@ export class RenderingModule {
                 this.context.fillStyle = die.fillStyle;
             }
             this.context?.beginPath();
-            this.context?.rect(die.x, die.y, this.dimensions.width, this.dimensions.height);
+            this.context?.rect(
+                die.x,
+                die.y,
+                this.dimensions.width,
+                this.dimensions.height
+            );
             this.context?.fill();
             prev = die;
         }
@@ -60,7 +65,9 @@ export class RenderingModule {
                 this.context.fillText(
                     die.text,
                     die.x + this.dimensions.width / 2,
-                    die.y + this.dimensions.height / 2 + aproxTextHeight.width / 2,
+                    die.y
+                        + this.dimensions.height / 2
+                        + aproxTextHeight.width / 2,
                     this.dimensions.width - (this.dimensions.width / 100) * 20
                 );
             }
