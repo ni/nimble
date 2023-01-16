@@ -5,13 +5,17 @@ import type { DataManager } from './data-manager';
  * Responsible for drawing the dies inside the wafer map
  */
 export class RenderingModule {
-    private readonly waferData: DataManager;
     private readonly context: CanvasRenderingContext2D;
     private dieSize: number | undefined;
+    private readonly dies: DieRenderInfo[];
+    private readonly dimensions: Dimensions;
+    private readonly labelFontSize: number;
 
     public constructor(waferData: DataManager, canvas: HTMLCanvasElement) {
-        this.waferData = waferData;
         this.context = canvas.getContext('2d')!;
+        this.dies = waferData.diesRenderInfo;
+        this.dimensions = waferData.dieDimensions;
+        this.labelFontSize = waferData.labelsFontSize;
     }
 
     public drawWafer(transform?: number): void {
@@ -24,13 +28,11 @@ export class RenderingModule {
     }
 
     private renderDies(transform?: number): void {
-        const dies: DieRenderInfo[] = this.waferData.diesRenderInfo;
-        const dimensions: Dimensions = this.waferData.dieDimensions;
-        this.dieSize = dimensions.width * dimensions.height * (transform || 1);
-        dies.sort((a, b) => a.fillStyle.localeCompare(b.fillStyle));
+        this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
+        this.dies.sort((a, b) => a.fillStyle.localeCompare(b.fillStyle));
         let prev!: DieRenderInfo;
 
-        for (const die of dies) {
+        for (const die of this.dies) {
             if (!prev) {
                 this.context.fillStyle = die.fillStyle;
             }
@@ -38,30 +40,30 @@ export class RenderingModule {
                 this.context.fillStyle = die.fillStyle;
             }
             this.context?.beginPath();
-            this.context?.rect(die.x, die.y, dimensions.width, dimensions.height);
+            this.context?.rect(die.x, die.y, this.dimensions.width, this.dimensions.height);
             this.context?.fill();
             prev = die;
         }
     }
 
     private renderText(transform?: number): void {
-        debugger;
-        const dies: DieRenderInfo[] = this.waferData.diesRenderInfo;
-        const dimensions: Dimensions = this.waferData.dieDimensions;
-        this.dieSize = dimensions.width * dimensions.height * (transform || 1);
-        this.context.font = this.waferData.labelsFontSize.toString();
+        this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
+        const fontsize = this.labelFontSize;
+        this.context.font = `${fontsize.toString()}px sans-serif`;
         this.context.fillStyle = '#ffffff';
         this.context.textAlign = 'center';
+        this.context.lineCap = 'butt';
         const aproxTextHeight = this.context.measureText('M');
 
-        // if (this.dieSize >= 50) {
-        for (const die of dies) {
-            this.context.fillText(
-                die.text,
-                die.x + dimensions.width / 2,
-                die.y + dimensions.height / 2 + aproxTextHeight.width / 2
-            );
+        if (this.dieSize >= 50) {
+            for (const die of this.dies) {
+                this.context.fillText(
+                    die.text,
+                    die.x + this.dimensions.width / 2,
+                    die.y + this.dimensions.height / 2 + aproxTextHeight.width / 2,
+                    this.dimensions.width - (this.dimensions.width / 100) * 20
+                );
+            }
         }
-        // }
     }
 }
