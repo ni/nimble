@@ -68,11 +68,11 @@ Column elements will always be FAST-based custom elements. Framework-specific co
 
 ### `TableCellState` interface
 
-A table cell represents a single column for a single row. The data that a cell has access to will be a subset of the data for the entire row. An instance of a table cell will be generic to describe the subset of data it contains, where the `TCellData` type is a superset of the type represented by [`TableRecord`](https://github.com/ni/nimble/blob/3e4b8d3dd59431d1671e381aa66052db57bc475c/packages/nimble-components/src/table/types.ts#L24):
+A table cell represents a single column for a single row. The data that a cell has access to will be a subset of the data for the entire row. An instance of a table cell will be generic to describe the subset of data it contains, where the `TCellRecord` type is a superset of the type represented by [`TableRecord`](https://github.com/ni/nimble/blob/3e4b8d3dd59431d1671e381aa66052db57bc475c/packages/nimble-components/src/table/types.ts#L24):
 
 ```TS
-interface TableCellState<TCellData extends TableRecord, TColumnConfig> {
-  data: TCellData;
+interface TableCellState<TCellRecord extends TableRecord, TColumnConfig> {
+  data: TCellRecord;
   columnConfig: TColumnConfig;
   recordId: string;
 }
@@ -97,24 +97,24 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnC
     getColumnConfig(): TColumnConfig {}
 
     // The template to use to render the cell content for the column
-    abstract cellTemplate: ViewTemplate<TableCellState<TCellData, TColumnConfig>>;
+    abstract cellTemplate: ViewTemplate<TableCellState<TCellRecord, TColumnConfig>>;
 
     // The style to apply to the cellTemplate
     cellStyles?: ElementStyles;
 
-    // The keys that should be present in TCellData.
-    // This array is parallel with the keys returned from `getRecordFieldNames()`.
-    readonly cellStateDataFieldNames: readonly string[];
+    // The keys that should be present in TCellRecord.
+    // This array is parallel with the keys returned from `getDataRecordFieldNames()`.
+    readonly cellRecordFieldNames: readonly string[];
 
-    // The keys from the row data that correlate to the data that will be in TCellData.
-    // This array is parallel with the keys specified by `cellStateDataFieldNames`.
-    abstract getRecordFieldNames(): string[];
+    // The keys from the row data that correlate to the data that will be in TCellRecord.
+    // This array is parallel with the keys specified by `cellRecordFieldNames`.
+    abstract getDataRecordFieldNames(): string[];
 
     // Function that allows the table column to validate the type that gets created
-    // for the cell data. This should validate that the types in TCellData are correct
-    // for each key defined by `cellStateDataFieldNames`.
+    // for the cell data. This should validate that the types in TCellRecord are correct
+    // for each key defined by `cellRecordFieldNames`.
     // This function should throw if validation fails.
-    abstract validateCellData(cellData: TCellData): void;
+    abstract validateCellData(cellData: TCellRecord): void;
 }
 ```
 
@@ -123,17 +123,17 @@ _Note: The `TableColumn` class may be updated to support other features not cove
 Given the above class, a series of column elements to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
 ```TS
-type TableColumnTextCellData = StringField<'value'>;
+type TableColumnTextCellRecord = TableStringField<'value'>;
 type TableColumnTextColumnConfig = { placeholder: string };
 
-public class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
+public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
     ...
 
     public getColumnConfig(): TableColumnTextColumnConfig {
         return { placeholder: this.placeholder };
     }
 
-    public cellStateDataFieldNames = ['value'] as const;
+    public cellRecordFieldNames = ['value'] as const;
 
     @attr
     public valueKey: string;
@@ -141,17 +141,17 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData, TableC
     @attr
     public placeholder: string; // Column auxiliary configuration
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [valueKey];
     }
 
-    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>> =
-        html<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>>`
+    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>> =
+        html<TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>>`
             <nimble-text-field readonly="true" value="${x => x.data.value}" placeholder="${x => x.columnConfig.placeholder}">
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['value']) !== 'string') {
             throw new Error('Type for cellData is incorrect!');
         }
@@ -164,7 +164,7 @@ In the above example, notifications for when the `placeholder` property changed 
 Below demonstrates how column elements can access multiple fields from the row's record to use in its rendering:
 
 ```TS
-type TableColumnNumberWithUnitCellData = NumberField<'value'> & StringField<'units'>;
+type TableColumnNumberWithUnitCellData = NumberField<'value'> & TableStringField<'units'>;
 
 const formatData = (value: number, unit: string): string => {
     return `${value.toString()} ${units}`;
@@ -173,7 +173,7 @@ const formatData = (value: number, unit: string): string => {
 public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWithUnitCellData> {
     ...
 
-    public cellStateDataFieldNames = ['value', 'units'] as const;
+    public cellRecordFieldNames = ['value', 'units'] as const;
 
     @attr
     public valueKey: string;
@@ -181,7 +181,7 @@ public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWith
     @attr
     public unitKey: string;
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [valueKey, unitKey];
     }
 
@@ -194,7 +194,7 @@ public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWith
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (!(typeof(cellData['value']) === 'number' && typeof typeof(cellData['units']) === 'string')) {
             throw new Error('Type for cellData is incorrect!');
         }
@@ -214,12 +214,12 @@ const isPositive = (value: number): bool => {
 public class TableColumnPositiveNegativeNumber extends TableColumn<TableColumnPositiveNegativeNumberCellData> {
     ...
 
-    public cellStateDataFieldNames = ['value'] as const;
+    public cellRecordFieldNames = ['value'] as const;
 
     @attr
     public valueKey: string;
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [valueKey];
     }
 
@@ -244,7 +244,7 @@ public class TableColumnPositiveNegativeNumber extends TableColumn<TableColumnPo
             </nimble-text-field>
         `;
 
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['value']) !== 'number') {
             throw new Error('Type for cellData is incorrect!');
         }
@@ -255,17 +255,17 @@ public class TableColumnPositiveNegativeNumber extends TableColumn<TableColumnPo
 Finally, here is a column element that allows a user to register a callback for a click event on a button inside the cell template:
 
 ```TS
-type TableColumnButtonCellData = StringField<'id'>;
+type TableColumnButtonCellData = TableStringField<'id'>;
 
 public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
     ...
 
-    public cellStateDataFieldNames = ['id'] as const;
+    public cellRecordFieldNames = ['id'] as const;
 
     @attr
     public idKey: string;
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [valueKey];
     }
 
@@ -278,7 +278,7 @@ public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
             </nimble-button>
         `;
 
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['id']) !== 'string') {
             throw new Error('Type for cellData is incorrect!');
         }

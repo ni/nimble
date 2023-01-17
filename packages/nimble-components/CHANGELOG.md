@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 09 Jan 2023 23:44:20 GMT and should not be manually modified.
+This log was last generated on Sat, 14 Jan 2023 00:16:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.3
+
+Sat, 14 Jan 2023 00:16:05 GMT
+
+### Patches
+
+- Introduce TableColumn and TableColumnText ([ni/nimble@86ea30b](https://github.com/ni/nimble/commit/86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5))
+
+## 17.0.2
+
+Fri, 13 Jan 2023 07:16:01 GMT
+
+### Patches
+
+- Add zoom functionality to wafer map ([ni/nimble@61ae65c](https://github.com/ni/nimble/commit/61ae65cf7c5ce57cd17a1deb03bed1186a04a871))
+
+## 17.0.1
+
+Thu, 12 Jan 2023 15:29:47 GMT
+
+### Patches
+
+- Add ability to specify a field within the table's data to use as a row's ID ([ni/nimble@92c0e3f](https://github.com/ni/nimble/commit/92c0e3f70282e055d3d1742265567bb6e53b7b8d))
+
+## 17.0.0
+
+Wed, 11 Jan 2023 21:08:14 GMT
+
+### Major changes
+
+- Update box shadow tokens, including removing the 'popupBoxShadowColor' token. The 'popupBoxShadowColor' token has been replaced by elevation tokens. ([ni/nimble@14d2e7c](https://github.com/ni/nimble/commit/14d2e7ce92455bfca0e61c2956f50a32ef1f253d))
+
+## 16.1.8
+
+Wed, 11 Jan 2023 20:34:04 GMT
+
+### Patches
+
+- Update styleguide versions ([ni/nimble@d36bef4](https://github.com/ni/nimble/commit/d36bef4533df1908c92f4cb0e795ffb647bda627))
+- Bump @ni/nimble-tokens to v4.3.2
 
 ## 16.1.7
 

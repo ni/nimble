@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 04 Jan 2023 21:51:15 GMT and should not be manually modified.
+This log was last generated on Sat, 14 Jan 2023 00:16:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 10.0.3
+
+Sat, 14 Jan 2023 00:16:05 GMT
+
+### Patches
+
+- Adding Blazor support for TableColumnText ([ni/nimble@86ea30b](https://github.com/ni/nimble/commit/86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5))
 
 ## 9.4.0
 

@@ -9,16 +9,14 @@ import {
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('flex')}
+    ${display('grid')}
 
     :host {
         height: ${controlHeight};
         background: ${applicationBackgroundColor};
         border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
-    }
-
-    .cell {
-        flex: 1;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
     }
 
     :host(:hover) .cell {
