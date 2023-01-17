@@ -57,13 +57,6 @@ export class Table<
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
             getCoreRowModel: tanStackGetCoreRowModel(),
-            getRowId: record => {
-                if (this.idFieldName) {
-                    return record[this.idFieldName] as string;
-                }
-                // Return a falsey value to use the default ID from TanStack.
-                return '';
-            },
             columns: [],
             state: {},
             renderFallbackValue: null,
@@ -77,6 +70,11 @@ export class Table<
         _prev: string | undefined,
         _next: string | undefined
     ): void {
+        if (this.idFieldName == null) {
+            this.updateTableOptions({ getRowId: undefined });
+        } else {
+            this.updateTableOptions({ getRowId: (record: TData) => record[this.idFieldName!] as string });
+        }
         // Force TanStack to detect a data update because a row's ID is only
         // generated when creating a new row model.
         this.trySetData([...this.data]);
@@ -115,7 +113,7 @@ export class Table<
     private refreshRows(): void {
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
-            const rowState: TableRowState<TData> = { record: row.original };
+            const rowState: TableRowState<TData> = { record: row.original, id: row.id };
             return rowState;
         });
     }
