@@ -126,7 +126,15 @@ describe('TableColumnText', () => {
         { dataValue: 'foo', renderedValue: 'foo' },
         { dataValue: '<button></button>', renderedValue: '<button></button>' },
         { dataValue: 'null', renderedValue: 'null' },
-        { dataValue: 'undefined', renderedValue: 'undefined' }
+        { dataValue: 'undefined', renderedValue: 'undefined' },
+        { dataValue: 'null', renderedValue: 'null' },
+        { dataValue: '-2147483648/-1', renderedValue: '-2147483648/-1' },
+        { dataValue: '田', renderedValue: '田' },
+        { dataValue: 'Ω', renderedValue: 'Ω' },
+        { dataValue: '( ͡° ͜ʖ ͡°)', renderedValue: '( ͡° ͜ʖ ͡°)' },
+        { dataValue: '😍', renderedValue: '😍' },
+        { dataValue: 'Iñtërnâtiônàlizætiøn☃💩', renderedValue: 'Iñtërnâtiônàlizætiøn☃💩' },
+        { dataValue: '１', renderedValue: '１' }
     ];
     for (const fieldValue of fieldValues) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
