@@ -21,7 +21,7 @@ export class TableValidator<TData extends TableRecord> {
         return Object.values(this.getValidity()).every(x => x === false);
     }
 
-    public validateDataIds(
+    public validateRecordIds(
         data: TData[],
         idFieldName: string | null | undefined
     ): boolean {

@@ -8,7 +8,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
         const validity = validator.getValidity();
@@ -24,7 +24,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, undefined);
+        const isValid = validator.validateRecordIds(data, undefined);
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
         const validity = validator.getValidity();
@@ -40,7 +40,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, null);
+        const isValid = validator.validateRecordIds(data, null);
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
         const validity = validator.getValidity();
@@ -56,7 +56,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
@@ -72,7 +72,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'numberField');
+        const isValid = validator.validateRecordIds(data, 'numberField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
@@ -88,7 +88,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
         const validity = validator.getValidity();
@@ -104,7 +104,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
@@ -120,7 +120,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
@@ -136,7 +136,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'missingField');
+        const isValid = validator.validateRecordIds(data, 'missingField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
@@ -155,7 +155,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
@@ -171,11 +171,11 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        let isValid = validator.validateDataIds(data, 'missingField');
+        let isValid = validator.validateRecordIds(data, 'missingField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
 
-        isValid = validator.validateDataIds(data, undefined);
+        isValid = validator.validateRecordIds(data, undefined);
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
     });
@@ -187,11 +187,11 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        let isValid = validator.validateDataIds(data, 'missingField');
+        let isValid = validator.validateRecordIds(data, 'missingField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
 
-        isValid = validator.validateDataIds(data, 'stringField');
+        isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
     });
@@ -203,11 +203,11 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        let isValid = validator.validateDataIds(data, 'stringField');
+        let isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
 
-        isValid = validator.validateDataIds(data, 'missingField');
+        isValid = validator.validateRecordIds(data, 'missingField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
     });
@@ -221,7 +221,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, '');
+        const isValid = validator.validateRecordIds(data, '');
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
         const validity = validator.getValidity();
@@ -239,7 +239,7 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, '');
+        const isValid = validator.validateRecordIds(data, '');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();

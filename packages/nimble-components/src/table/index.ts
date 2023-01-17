@@ -101,7 +101,7 @@ export class Table<
     }
 
     private trySetData(newData: TData[]): void {
-        const areIdsValid = this.tableValidator.validateDataIds(
+        const areIdsValid = this.tableValidator.validateRecordIds(
             newData,
             this.idFieldName
         );

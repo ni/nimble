@@ -230,7 +230,7 @@ describe('Table', () => {
         verifyRenderedData();
     });
 
-    describe('Row ID', () => {
+    describe('record IDs', () => {
         it('setting ID field uses field value for ID', async () => {
             const data = [...simpleTableData];
             element.data = data;
