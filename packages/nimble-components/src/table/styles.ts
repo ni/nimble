@@ -1,7 +1,12 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import { applicationBackgroundColor, bodyFont, bodyFontColor, fillHoverColor } from '../theme-provider/design-tokens';
+import {
+    applicationBackgroundColor,
+    bodyFont,
+    bodyFontColor,
+    fillHoverColor
+} from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
@@ -58,7 +63,7 @@ export const styles = css`
                 width: 100%;
                 height: 100%;
                 position: absolute;
-                background: ${fillHoverColor};                    
+                background: ${fillHoverColor};
             }
 
             .row::before {
