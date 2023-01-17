@@ -34,8 +34,7 @@ describe('AnchorTabs', () => {
     }
 
     function anchor(index: number): HTMLAnchorElement {
-        // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
-        return tab(index).shadowRoot?.querySelector('a') as HTMLAnchorElement;
+        return tab(index).shadowRoot!.querySelector('a')!;
     }
 
     beforeEach(async () => {

@@ -1,3 +1,13 @@
+// Based on:
+// https://github.com/microsoft/fast/blob/6bce27d0b2d654650b8751bf055f5e3b5a4f9250/packages/web-components/fast-foundation/src/tabs/tabs.ts
+// The code is heavily modified such that a diff against the original is useless.
+// Primary differences are:
+// - Reimplemented active tab indicator and removed attribute to disable it
+// - Separated tab focus and tab selection, i.e. can focus a different tab than the selected one
+// - Removed everything related to tab panels
+// - Removed support for vertical tab orientation
+// - Removed change event
+// - Conforms to our linter rules
 import { attr, observable } from '@microsoft/fast-element';
 import {
     keyArrowLeft,
@@ -268,8 +278,7 @@ export class AnchorTabs extends FoundationElement {
     }
 
     private getTabAnchor(tab: AnchorTab): HTMLAnchorElement {
-        // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
-        return tab.shadowRoot?.querySelector('a') as HTMLAnchorElement;
+        return tab.shadowRoot!.querySelector('a')!;
     }
 }
 applyMixins(AnchorTabs, StartEnd);

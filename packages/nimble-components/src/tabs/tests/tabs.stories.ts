@@ -15,10 +15,12 @@ interface TabArgs {
     disabled: boolean;
 }
 
-const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#tabpanel) - Tabs are a set of layered 
-sections of content, known as tab panels, that display one panel of content at a time. Each tab panel has an 
-associated tab element, that when activated, displays the panel. The list of tab elements is arranged along 
-one edge of the currently displayed panel, most commonly the top edge.`;
+const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#tabpanel) - Tabs are a set of layered
+sections of content, known as tab panels, that display one panel of content at a time. Each tab panel has an
+associated tab element, that when activated, displays the panel. The list of tab elements is arranged along
+one edge of the currently displayed panel, most commonly the top edge.
+
+If you want a sequence of tabs that navigate to different URLs, use the Anchor Tabs component instead.`;
 
 const metadata: Meta<TabsArgs> = {
     title: 'Tabs',
