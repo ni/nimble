@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 13 Jan 2023 07:16:01 GMT and should not be manually modified.
+This log was last generated on Sat, 14 Jan 2023 00:16:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.0.4
+
+Sat, 14 Jan 2023 00:16:05 GMT
+
+### Patches
+
+- Adding Angular support for TableColumnText ([ni/nimble@86ea30b](https://github.com/ni/nimble/commit/86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5))
+- Bump @ni/nimble-components to v17.0.3
 
 ## 15.0.3
 

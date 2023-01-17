@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 13 Jan 2023 07:16:01 GMT and should not be manually modified.
+This log was last generated on Sat, 14 Jan 2023 00:16:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.3
+
+Sat, 14 Jan 2023 00:16:05 GMT
+
+### Patches
+
+- Introduce TableColumn and TableColumnText ([ni/nimble@86ea30b](https://github.com/ni/nimble/commit/86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5))
 
 ## 17.0.2
 
