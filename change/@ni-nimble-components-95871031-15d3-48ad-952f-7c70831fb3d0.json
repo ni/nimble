@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Updated the WaferDie Interface to add an extra \"tooltip\" field",
+  "packageName": "@ni/nimble-components",
+  "email": "denis.stavila@ni.com",
+  "dependentChangeType": "patch"
+}
