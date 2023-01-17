@@ -149,8 +149,8 @@ _Functions_
 
 _Events_
 
--   `action-menu-opening` - An event that is emitted immediately prior to the action menu opening. This can be used to update the items in the menu so that they are in the correct state for the row(s) the menu is associated with. The event details include the following:
-    -   `rowIds` - string array - The IDs of the rows that the menu is associated with.
+-   `action-menu-opening` - An event that is emitted immediately prior to the action menu opening. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. The event details include the following:
+    -   `recordIds` - string array - The IDs of the records that the menu is associated with.
     -   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be `undefined` in the event details.
 
 ### Anatomy
@@ -158,7 +158,7 @@ _Events_
 _Slots_
 
 -   default - the column elements
--   `action-menu` - A menu element that is associated with the action menus. For more information about the action menu, refer to the [action menu HLD](action-menu-hld.md).
+-   _user specified_ - Slots dynamically created based on the values specified for `action-menu` on the slotted column elements. A menu element should be provided in each slot that is associated with the action menu for any column that has `action-menu` set. For more information about the action menu, refer to the [action menu HLD](action-menu-hld.md).
 
 ### Security
 

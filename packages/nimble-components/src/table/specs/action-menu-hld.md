@@ -19,10 +19,11 @@ Example action menu in SLE
 
 ### Client-facing API
 
-There are two pieces of configuration that must be provided by a client in order to use the action menu:
+There are three pieces of configuration that must be provided by a client in order to use the action menu:
 
 1. Specifying which column, or columns, the action menu will be visible within
 2. Specifying the menu and its items to show when the menu button is open
+3. Specifying a label to associate with the menu for accessibility purposes, localized as necessary based on an application's requirements
 
 The nimble design system will be opinionated about many details of the menu button within a table. Therefore, a client will not be able to configure the exact details of the menu button itself, such as:
 
@@ -32,27 +33,14 @@ The nimble design system will be opinionated about many details of the menu butt
 
 If the need arises for a client to have more control of the menu button's configuration, the API can be extended at a later time.
 
-#### Specifying a column to include a menu button
-
-A client can specify that a column should have an action menu within it by adding the `show-menu` attribute on the column definition. In the example below, the menu will be added to the _First name_ column only. The `show-menu` attribute can be added to multiple columns if multiple action menus are desired within a row.
+A client can specify that a column has an action menu within it by adding the `action-menu` attribute on the column definition that has a value of the slot name that contains the menu that will be associated with the column. Columns with an action menu should also specify a `menu-label` that provides a string to use as the accessible label for the button. In the example below, the menu will be added to the _First name_ column only:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-text field-name="firstName" show-menu>First name</nimble-table-column-text>
-    <nimble-table-column-text field-name="lastName">Last name</nimble-table-column-text>
-</nimble-table>
-```
-
-### Providing a menu
-
-Because only one menu can be open on the page at a time, the client can provide a single menu that will be associated with the correct menu button when it is open. The menu is provided by the client by slotting a menu in the `action-menu` slot as shown below:
-
-```HTML
-<nimble-table>
-    <nimble-table-column-text field-name="firstName" show-menu>First name</nimble-table-column-text>
+    <nimble-table-column-text field-name="firstName" action-menu="action-menu-1" menu-label="Configure user">First name</nimble-table-column-text>
     <nimble-table-column-text field-name="lastName">Last name</nimble-table-column-text>
 
-    <nimble-menu slot="action-menu">
+    <nimble-menu slot="action-menu-1">
         <nimble-menu-item>My first action</nimble-menu-item>
         <nimble-menu-item>My second action</nimble-menu-item>
         <nimble-menu-item>My last action</nimble-menu-item>
@@ -60,16 +48,52 @@ Because only one menu can be open on the page at a time, the client can provide 
 </nimble-table>
 ```
 
-If an application requires different menu items for different rows or columns, the client is responsible for ensuring that the items in the menu are correct for the row(s)/column that the menu is associated with. This can be done by handling the `action-menu-opening` event on the table and updating the menu items as appropriate. The `action-menu-opening` event will include the following in its details:
+Menus can be added to multiple columns:
 
--   `rowIds` - string array - The IDs of the rows that the menu is associated with.
+```HTML
+<nimble-table>
+    <nimble-table-column-text field-name="firstName" action-menu="action-menu-1" menu-label="Configure first name">First name</nimble-table-column-text>
+    <nimble-table-column-text field-name="lastName" action-menu="action-menu-2" menu-label="Configure last name">Last name</nimble-table-column-text>
+
+    <nimble-menu slot="action-menu-1">
+        <nimble-menu-item>My first action</nimble-menu-item>
+        <nimble-menu-item>My second action</nimble-menu-item>
+        <nimble-menu-item>My last action</nimble-menu-item>
+    </nimble-menu>
+
+    <nimble-menu slot="action-menu-2">
+        <nimble-menu-item>My first action</nimble-menu-item>
+        <nimble-menu-item>My second action</nimble-menu-item>
+        <nimble-menu-item>My last action</nimble-menu-item>
+    </nimble-menu>
+</nimble-table>
+```
+
+A menu can be shared between columns by specifying the same slot name for multiple columns:
+
+```HTML
+<nimble-table>
+    <nimble-table-column-text field-name="firstName" action-menu="action-menu-1" menu-label="Configure first name">First name</nimble-table-column-text>
+    <nimble-table-column-text field-name="lastName" action-menu="action-menu-1" menu-label="Configure last name">Last name</nimble-table-column-text>
+
+    <nimble-menu slot="action-menu-1">
+        <nimble-menu-item>My first action</nimble-menu-item>
+        <nimble-menu-item>My second action</nimble-menu-item>
+        <nimble-menu-item>My last action</nimble-menu-item>
+    </nimble-menu>
+</nimble-table>
+```
+
+If an application requires different menu items or different menu item states for different records, the client is responsible for ensuring that the items in the menu are correct for the records(s) and column that the menu is associated with. This can be done by handling the `action-menu-opening` event on the table and updating the menu items as appropriate. The `action-menu-opening` event will include the following in its details:
+
+-   `recordIds` - string array - The IDs of the records that the menu is associated with.
 -   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be `undefined` in the event details.
 
 ### Implementation
 
 #### Slot Forwarding
 
-In order for the menu slotted within the table to be slotted within a cell's `nimble-menu-button`, the menu needs to be "forwarded" from the table to a row and then to a cell. Every row will have a slot for a menu, but only the row with the open menu will have something slotted within it. Similarly, every cell in a column with a menu will have a slot for a menu, but only the cell with an open menu will have something slotted within it. Events will be used to know when the row and cell the menu is associated with needs to change, and the templates will dynamically rename their slots to ensure the menu is slotted in the correct elements.
+In order for a menu slotted within the table to be slotted within a cell's `nimble-menu-button`, the menu needs to be "forwarded" from the table to a row and then to a cell. The table will first determine the set of slots that need to exist based on every column that is configured with a `action-menu` attribute. Those slots will be created within the table, and the set of slots will be passed to the `nimble-table-row` so that it can also create appropriate slots. While there could be a number of slots within the table and a table's row, the slotted menus will be assigned to the correct row and cell based on events when the menu is opend. The templates will dyanamically rename their slots to esnsure the menus are slotted in the correct row and cell.
 
 For example, the table's template will look something like this:
 
@@ -77,6 +101,7 @@ For example, the table's template will look something like this:
 <template>
     ...
     <nimble-table-row>
+        ${repeat } --- TODO, finish this
         <slot slot="row-action-menu" name="${(x, c) => ((c.parent.openActionMenuRowId === x.id) ? 'action-menu' : 'unused-action-menu')}"></slot>
     </nimble-table-row>
     ...
