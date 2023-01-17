@@ -19,6 +19,19 @@ const generateStringValue = (
     return valueToString(value);
 };
 
+export const generateDieContent = (
+    x: number,
+    y: number,
+    value: string
+): WaferMapDie => {
+    return {
+        x,
+        y,
+        value,
+        tooltip: `Placeholder tooltip value for Die x: ${x} y: ${y}`
+    };
+};
+
 export const generateWaferData = (
     numDies: number,
     valueGenerator?: IValueGenerator
@@ -43,7 +56,7 @@ export const generateWaferData = (
                 j--
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                diesSet.push({ x: i, y: j, value: stringValue });
+                diesSet.push(generateDieContent(i, j, stringValue));
             }
             // generate points right of centerX
             for (
@@ -53,7 +66,7 @@ export const generateWaferData = (
                 j++
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                diesSet.push({ x: i, y: j, value: stringValue });
+                diesSet.push(generateDieContent(i, j, stringValue));
             }
         }
     }
