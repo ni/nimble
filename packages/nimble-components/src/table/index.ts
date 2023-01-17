@@ -73,7 +73,9 @@ export class Table<
         if (this.idFieldName == null) {
             this.updateTableOptions({ getRowId: undefined });
         } else {
-            this.updateTableOptions({ getRowId: (record: TData) => record[this.idFieldName!] as string });
+            this.updateTableOptions({
+                getRowId: (record: TData) => record[this.idFieldName!] as string
+            });
         }
         // Force TanStack to detect a data update because a row's ID is only
         // generated when creating a new row model.
@@ -113,7 +115,10 @@ export class Table<
     private refreshRows(): void {
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
-            const rowState: TableRowState<TData> = { record: row.original, id: row.id };
+            const rowState: TableRowState<TData> = {
+                record: row.original,
+                id: row.id
+            };
             return rowState;
         });
     }

@@ -88,7 +88,9 @@ describe('Table', () => {
     function verifyRowIDs(expectedRowIds: string[]): void {
         const expectedRowCount = expectedRowIds.length;
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
-            expect(pageObject.getRowId(rowIndex)).toEqual(expectedRowIds[rowIndex]);
+            expect(pageObject.getRowId(rowIndex)).toEqual(
+                expectedRowIds[rowIndex]
+            );
         }
     }
 

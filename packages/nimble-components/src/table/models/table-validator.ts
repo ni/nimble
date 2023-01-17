@@ -53,6 +53,10 @@ export class TableValidator<TData extends TableRecord> {
             ids.add(id);
         }
 
-        return !this.missingRecordId && !this.invalidRecordId && !this.duplicateRecordId;
+        return (
+            !this.missingRecordId
+            && !this.invalidRecordId
+            && !this.duplicateRecordId
+        );
     }
 }
