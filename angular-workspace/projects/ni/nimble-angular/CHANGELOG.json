@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Sat, 14 Jan 2023 00:16:05 GMT",
+      "tag": "@ni/nimble-angular_v15.0.4",
+      "version": "15.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5",
+            "comment": "Adding Angular support for TableColumnText"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v17.0.3",
+            "commit": "86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 13 Jan 2023 07:16:01 GMT",
       "tag": "@ni/nimble-angular_v15.0.3",
       "version": "15.0.3",

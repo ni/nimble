@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Sat, 14 Jan 2023 00:16:05 GMT",
+      "tag": "@ni/nimble-components_v17.0.3",
+      "version": "17.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5",
+            "comment": "Introduce TableColumn and TableColumnText"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 13 Jan 2023 07:16:01 GMT",
       "tag": "@ni/nimble-components_v17.0.2",
       "version": "17.0.2",

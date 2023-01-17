@@ -17,18 +17,26 @@ interface TableArgs {
 
 const simpleData = [
     {
-        myStr: 'my first row',
-        myNum: 5,
-        myBool: true
+        firstName: 'Ralph',
+        lastName: 'Wiggum',
+        favoriteColor: 'Rainbow',
+        quote: "I'm in danger!"
     },
     {
-        myStr: 'my second row',
-        myNum: 15,
-        myBool: false
+        firstName: 'Milhouse',
+        lastName: 'Van Houten',
+        favoriteColor: 'Crimson',
+        quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
+    },
+    {
+        firstName: 'Ned',
+        lastName: 'Flanders',
+        favoriteColor: 'Taupe',
+        quote: 'Hi diddly-ho neighbor!'
     }
 ] as const;
 
-const simpleDataIdFieldName = 'myStr';
+const simpleDataIdFieldName = 'firstName';
 
 const dataSets = {
     [ExampleDataType.simpleData]: simpleData
@@ -86,6 +94,10 @@ const metadata: Meta<TableArgs> = {
             experimental. It is not recommended for application use.
         </div>
         <nimble-table :data=${x => dataSets[x.data]} id-field-name=${x => dataSetIdFieldNames[x.data]}>
+            <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
+            <nimble-table-column-text field-name="quote" placeholder="no value">Quote</nimble-table-column-text>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {

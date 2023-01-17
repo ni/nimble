@@ -28,20 +28,29 @@ export default metadata;
 
 const data = [
     {
-        myStr: 'my first row',
-        myNum: 5,
-        myBool: true
+        firstName: 'Ralph',
+        lastName: 'Wiggum',
+        favoriteColor: 'Rainbow'
     },
     {
-        myStr: 'my second row',
-        myNum: 15,
-        myBool: false
+        firstName: 'Milhouse',
+        lastName: 'Van Houten',
+        favoriteColor: 'Crimson'
+    },
+    {
+        firstName: null,
+        lastName: null,
+        favoriteColor: null
     }
 ] as const;
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <nimble-table :data=${_ => data}></nimble-table>
+    <nimble-table :data=${_ => data}>
+        <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
+        <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
+        <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
+    </nimble-table>
 `;
 
 export const tableThemeMatrix: Story = createMatrixThemeStory(
