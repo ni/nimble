@@ -36,7 +36,7 @@ describe('AnchorTab', () => {
         { name: 'target' },
         { name: 'type' }
     ];
-    describe('should reflect value to the internal control', () => {
+    describe('should reflect value to the internal anchor element', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
         for (const attribute of attributeNames) {
@@ -52,7 +52,7 @@ describe('AnchorTab', () => {
                 element.setAttribute(attribute.name, 'foo');
                 await DOM.nextUpdate();
 
-                expect(element.control.getAttribute(attribute.name)).toBe(
+                expect(element.shadowRoot!.querySelector('a')!.getAttribute(attribute.name)).toBe(
                     'foo'
                 );
             });
