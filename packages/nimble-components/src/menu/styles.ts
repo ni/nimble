@@ -24,11 +24,14 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
-        padding: 4px;
         min-width: 168px;
         width: max-content;
         box-shadow: ${elevation2BoxShadow};
-        position: relative;
+    }
+
+    slot {
+        padding: 4px;
+        display: block;
     }
 
     :host([slot='submenu']) {
@@ -61,11 +64,7 @@ export const styles = css`
     themeBehavior(
         Theme.color,
         css`
-            :host::before {
-                content: '';
-                width: 100%;
-                height: 100%;
-                position: absolute;
+            slot {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `
