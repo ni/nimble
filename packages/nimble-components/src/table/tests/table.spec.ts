@@ -85,11 +85,11 @@ describe('Table', () => {
         }
     }
 
-    function verifyRowIDs(expectedRowIds: string[]): void {
-        const expectedRowCount = expectedRowIds.length;
+    function verifyRecordIDs(expectedRecordIds: string[]): void {
+        const expectedRowCount = expectedRecordIds.length;
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
-            expect(pageObject.getRowId(rowIndex)).toEqual(
-                expectedRowIds[rowIndex]
+            expect(pageObject.getRecordId(rowIndex)).toEqual(
+                expectedRecordIds[rowIndex]
             );
         }
     }
@@ -238,7 +238,7 @@ describe('Table', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRowIDs(data.map(x => x.stringData));
+            verifyRecordIDs(data.map(x => x.stringData));
         });
 
         it('not setting ID field uses generated ID', async () => {
@@ -247,7 +247,7 @@ describe('Table', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRowIDs(data.map((_, index: number) => index.toString()));
+            verifyRecordIDs(data.map((_, index: number) => index.toString()));
         });
 
         it('row IDs update when id-field-name attribute is updated', async () => {
@@ -258,11 +258,11 @@ describe('Table', () => {
 
             element.idFieldName = 'stringData';
             await waitForUpdatesAsync();
-            verifyRowIDs(data.map(x => x.stringData));
+            verifyRecordIDs(data.map(x => x.stringData));
 
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
-            verifyRowIDs(data.map((_, index: number) => index.toString()));
+            verifyRecordIDs(data.map((_, index: number) => index.toString()));
         });
     });
 

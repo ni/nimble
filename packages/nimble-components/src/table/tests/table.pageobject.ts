@@ -56,7 +56,7 @@ export class TablePageObject<T extends TableRecord> {
         return cells.item(columnIndex).shadowRoot!.textContent?.trim() ?? '';
     }
 
-    public getRowId(rowIndex: number): string | undefined {
+    public getRecordId(rowIndex: number): string | undefined {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
