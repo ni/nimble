@@ -129,11 +129,13 @@ jobs:
 
           echo Switching from PR merge branch "${{ env.GITHUB_REF }}" to Renovate branch "${{ env.GITHUB_HEAD_REF }}"
           # GitHub CLI docs: https://cli.github.com/manual/gh_pr_checkout
-          gh pr checkout ${{ github.event.pull_request.number }}
+          git checkout ${{ (github.head_ref }}
 
           npm run change:deps
           git status
           git push
+          git status
+          git checkout ${{ (github.ref }}
           git status
 
       # Check for change file
