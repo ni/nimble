@@ -30,7 +30,7 @@ export class TableValidator<TData extends TableRecord> {
         this.missingRecordId = false;
         this.invalidRecordId = false;
 
-        if (idFieldName == null) {
+        if (idFieldName === undefined || idFieldName === null) {
             return true;
         }
 
