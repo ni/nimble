@@ -69,7 +69,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly rect!: HTMLCanvasElement;
+    public readonly rect!: HTMLElement;
 
     /**
      * @internal

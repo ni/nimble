@@ -10,7 +10,7 @@ export class HoverHandler {
 
     public constructor(
         private readonly canvas: HTMLCanvasElement,
-        private readonly rect: HTMLCanvasElement,
+        private readonly rect: HTMLElement,
         private readonly zoomHandler: ZoomHandler,
         private readonly dataManager: DataManager,
         private readonly quadrant: WaferMapQuadrant

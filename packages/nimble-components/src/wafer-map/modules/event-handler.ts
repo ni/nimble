@@ -19,7 +19,7 @@ export class EventHandler {
         private readonly dataManager: DataManager,
         private readonly canvasLength: number,
         private readonly renderer: RenderingModule,
-        private readonly rect: HTMLCanvasElement,
+        private readonly rect: HTMLElement,
         private readonly quadrant: WaferMapQuadrant
     ) {
         this.zoomHandler = new ZoomHandler(

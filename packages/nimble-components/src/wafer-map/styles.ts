@@ -64,7 +64,7 @@ export const styles = css`
         width: 100%;
         height: 100%;
         position: absolute;
-        fill: transparent;
+        fill: white;
     }
 
     .circle-drawing-path {
@@ -88,7 +88,10 @@ export const styles = css`
         height: 100%;
     }
 
-    .hover-rect {
+    .hover-layer {
         position: absolute;
+        pointer-events:none;
+        width: 100%;
+        height: 100%;
     }
 `;
