@@ -77,14 +77,7 @@ describe('WaferMap', () => {
     });
 
     it('will render once after dies change', () => {
-        element.dies = [
-            {
-                x: 1,
-                y: 1,
-                value: '1',
-                tooltip: 'Placeholder tooltip value for Die x: 1 y: 1'
-            }
-        ];
+        element.dies = [{ x: 1, y: 1, value: '1' }];
         DOM.processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -103,14 +96,7 @@ describe('WaferMap', () => {
         element.dieLabelsSuffix = '%';
         element.colorScaleMode = WaferMapColorScaleMode.ordinal;
         element.highlightedValues = ['1'];
-        element.dies = [
-            {
-                x: 1,
-                y: 1,
-                value: '1',
-                tooltip: 'Placeholder tooltip value for Die x: 1 y: 1'
-            }
-        ];
+        element.dies = [{ x: 1, y: 1, value: '1' }];
         element.colorScale = { colors: ['red'], values: ['1'] };
         DOM.processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);

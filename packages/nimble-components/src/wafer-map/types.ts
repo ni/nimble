@@ -30,7 +30,7 @@ export interface WaferMapDie {
     value: string;
     x: number;
     y: number;
-    tooltip: string;
+    tooltip?: string;
 }
 
 export interface WaferMapColorScale {

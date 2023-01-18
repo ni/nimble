@@ -197,8 +197,7 @@ describe('Wafermap Prerendering module', () => {
                     {
                         x: 0,
                         y: 0,
-                        value: 'NaN',
-                        tooltip: 'Placeholder tooltip value'
+                        value: 'NaN'
                     }
                 ],
                 { colors: [], values: [] },
@@ -234,8 +233,7 @@ describe('Wafermap Prerendering module', () => {
                     {
                         x: 0,
                         y: 0,
-                        value: undefined as unknown as string,
-                        tooltip: 'Placeholder tooltip value'
+                        value: undefined as unknown as string
                     }
                 ],
                 { colors: [], values: [] },
