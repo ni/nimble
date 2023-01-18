@@ -6,7 +6,7 @@ import type { DataManager } from './data-manager';
  */
 export class RenderingModule {
     private readonly context: CanvasRenderingContext2D;
-    private dieSize: number | undefined;
+    private dieSize?: number;
     private readonly dies: DieRenderInfo[];
     private readonly dimensions: Dimensions;
     private readonly labelFontSize: number;
@@ -29,7 +29,17 @@ export class RenderingModule {
 
     private renderDies(transform?: number): void {
         this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
-        this.dies.sort((a, b) => a.fillStyle.localeCompare(b.fillStyle));
+        this.dies.sort((a, b) => {
+            if (a.fillStyle > b.fillStyle) {
+                return 1;
+            }
+            if (b.fillStyle > a.fillStyle) {
+                return -1;
+            }
+
+            return 0;
+        });
+
         let prev!: DieRenderInfo;
 
         for (const die of this.dies) {
@@ -39,7 +49,7 @@ export class RenderingModule {
             if (prev && die.fillStyle !== prev.fillStyle && die.fillStyle) {
                 this.context.fillStyle = die.fillStyle;
             }
-            this.context?.fillRect(
+            this.context.fillRect(
                 die.x,
                 die.y,
                 this.dimensions.width,
