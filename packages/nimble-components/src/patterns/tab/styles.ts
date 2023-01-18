@@ -114,4 +114,8 @@ export const styles = css`
         width: 100%;
         border-bottom-width: var(--ni-private-active-indicator-width);
     }
+
+    :host([aria-selected='true'][disabled])::after {
+        border-bottom-color: rgba(${borderHoverColor}, 0.3);
+    }
 `;

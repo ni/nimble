@@ -122,11 +122,11 @@ describe('AnchorTabs', () => {
         expect(element.activetab).toBeUndefined();
     });
 
-    it('should clear activetab when active tab is disabled', async () => {
+    it('should keep activetab when active tab is disabled', async () => {
         await connect();
         tab(1).disabled = true;
         await DOM.nextUpdate();
-        expect(element.activetab).toBeUndefined();
+        expect(element.activetab).toBe(tab(1));
     });
 
     const navigationTests: {
