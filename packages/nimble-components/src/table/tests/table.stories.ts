@@ -36,14 +36,13 @@ const simpleData = [
     }
 ] as const;
 
-const simpleDataIdFieldName = 'firstName';
-
 const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
 const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
 const colors = ['Red', 'Blue', 'Green', 'Yellow'];
 const largeData = [];
 for (let i = 0; i < 10000; i++) {
     largeData.push({
+        id: i.toString(),
         firstName: firstNames[i % firstNames.length],
         lastName: lastNames[i % lastNames.length],
         favoriteColor: colors[i % colors.length],
@@ -57,8 +56,8 @@ const dataSets = {
 } as const;
 
 const dataSetIdFieldNames = {
-    [ExampleDataType.simpleData]: simpleDataIdFieldName,
-    [ExampleDataType.largeDataSet]: null
+    [ExampleDataType.simpleData]: 'firstName',
+    [ExampleDataType.largeDataSet]: 'id'
 } as const;
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
