@@ -2,7 +2,7 @@ import type { TableCell } from '..';
 import type { TableCellRecord } from '../../../types';
 
 /**
- * Page object for the `nimble-table` component to provide consistent ways
+ * Page object for the `nimble-table-cell` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
 export class TableCellPageObject<T extends TableCellRecord = TableCellRecord> {

@@ -4,7 +4,7 @@ import type { TableRecord } from '../../../types';
 import { TableCell } from '../../cell';
 
 /**
- * Page object for the `nimble-table` component to provide consistent ways
+ * Page object for the `nimble-table-row` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
 export class TableRowPageObject<T extends TableRecord = TableRecord> {
