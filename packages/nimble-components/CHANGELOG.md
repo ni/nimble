@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Sat, 14 Jan 2023 00:16:05 GMT and should not be manually modified.
+This log was last generated on Wed, 18 Jan 2023 21:20:08 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.6
+
+Wed, 18 Jan 2023 21:20:08 GMT
+
+### Patches
+
+- Fix bug in table record ID logic ([ni/nimble@fa6aff9](https://github.com/ni/nimble/commit/fa6aff9024add0e848792001f85da2d4067054dd))
+
+## 17.0.5
+
+Wed, 18 Jan 2023 15:32:21 GMT
+
+### Patches
+
+- Fix menu background color on Color theme ([ni/nimble@5d2d985](https://github.com/ni/nimble/commit/5d2d985c73ccf41f7123593e41099569e619bab8))
+
+## 17.0.4
+
+Wed, 18 Jan 2023 14:55:24 GMT
+
+### Patches
+
+- Update table row styles ([ni/nimble@eaa3e67](https://github.com/ni/nimble/commit/eaa3e675766b5792343cf78f835cc8bc6a7d3986))
 
 ## 17.0.3
 
