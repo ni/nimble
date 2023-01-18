@@ -134,7 +134,9 @@ export class AnchorTabs extends FoundationElement {
             const isActiveTab = this.activeid === tabId && this.isFocusableElement(tab);
             tab.setAttribute('id', tabId);
             tab.setAttribute('aria-selected', isActiveTab ? 'true' : 'false');
+            tab.removeEventListener('click', this.handleTabClick);
             tab.addEventListener('click', this.handleTabClick);
+            tab.removeEventListener('keydown', this.handleTabKeyDown);
             tab.addEventListener('keydown', this.handleTabKeyDown);
             tab.setAttribute('tabindex', isActiveTab ? '0' : '-1');
             if (isActiveTab) {

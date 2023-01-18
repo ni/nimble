@@ -52,9 +52,11 @@ describe('AnchorTab', () => {
                 element.setAttribute(attribute.name, 'foo');
                 await DOM.nextUpdate();
 
-                expect(element.shadowRoot!.querySelector('a')!.getAttribute(attribute.name)).toBe(
-                    'foo'
-                );
+                expect(
+                    element
+                        .shadowRoot!.querySelector('a')!
+                        .getAttribute(attribute.name)
+                ).toBe('foo');
             });
         }
     });
