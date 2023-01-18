@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 18 Jan 2023 21:20:08 GMT",
+      "tag": "@ni/nimble-components_v17.0.6",
+      "version": "17.0.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fa6aff9024add0e848792001f85da2d4067054dd",
+            "comment": "Fix bug in table record ID logic"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Jan 2023 15:32:21 GMT",
       "tag": "@ni/nimble-components_v17.0.5",
       "version": "17.0.5",
