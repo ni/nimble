@@ -50,7 +50,6 @@ export class Table<
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableInitialized: boolean = false;
     private readonly tableValidator = new TableValidator();
-    private getRowIdFunction?: (originalRow: TData) => string;
 
     public constructor() {
         super();
@@ -71,11 +70,6 @@ export class Table<
         _prev: string | undefined,
         _next: string | undefined
     ): void {
-        if (this.idFieldName == null) {
-            this.getRowIdFunction = undefined;
-        } else {
-            this.getRowIdFunction = (record: TData) => record[this.idFieldName!] as string;
-        }
         // Force TanStack to detect a data update because a row's ID is only
         // generated when creating a new row model.
         this.trySetData([...this.data]);
@@ -104,15 +98,19 @@ export class Table<
             newData,
             this.idFieldName
         );
+        const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
+            ? undefined
+            : (record: TData) => record[this.idFieldName!] as string;
+
         if (areIdsValid) {
             this.updateTableOptions({
                 data: newData,
-                getRowId: this.getRowIdFunction
+                getRowId: getRowIdFunction
             });
         } else {
             this.updateTableOptions({
                 data: [],
-                getRowId: this.getRowIdFunction
+                getRowId: getRowIdFunction
             });
         }
     }
