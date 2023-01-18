@@ -133,7 +133,10 @@ describe('TableColumnText', () => {
         { dataValue: 'Ω', renderedValue: 'Ω' },
         { dataValue: '( ͡° ͜ʖ ͡°)', renderedValue: '( ͡° ͜ʖ ͡°)' },
         { dataValue: '😍', renderedValue: '😍' },
-        { dataValue: 'Iñtërnâtiônàlizætiøn☃💩', renderedValue: 'Iñtërnâtiônàlizætiøn☃💩' },
+        {
+            dataValue: 'Iñtërnâtiônàlizætiøn☃💩',
+            renderedValue: 'Iñtërnâtiônàlizætiøn☃💩'
+        },
         { dataValue: '１', renderedValue: '１' }
     ];
     for (const fieldValue of fieldValues) {
