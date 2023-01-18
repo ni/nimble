@@ -4,21 +4,21 @@ namespace NimbleBlazor;
 
 public interface ITableValidity
 {
-    public bool DuplicateRowId { get; }
+    public bool DuplicateRecordId { get; }
 
-    public bool MissingRowId { get; }
+    public bool MissingRecordId { get; }
 
-    public bool InvalidRowId { get; }
+    public bool InvalidRecordId { get; }
 }
 
 internal class TableValidity : ITableValidity
 {
-    [JsonPropertyName("duplicateRowId")]
-    public bool DuplicateRowId { get; set; }
+    [JsonPropertyName("duplicateRecordId")]
+    public bool DuplicateRecordId { get; set; }
 
-    [JsonPropertyName("missingRowId")]
-    public bool MissingRowId { get; set; }
+    [JsonPropertyName("missingRecordId")]
+    public bool MissingRecordId { get; set; }
 
-    [JsonPropertyName("invalidRowId")]
-    public bool InvalidRowId { get; set; }
+    [JsonPropertyName("invalidRecordId")]
+    public bool InvalidRecordId { get; set; }
 }
