@@ -123,32 +123,29 @@ describe('TableColumnText', () => {
     });
 
     const fieldValues = [
-        { dataValue: 'foo', renderedValue: 'foo' },
-        { dataValue: '<button></button>', renderedValue: '<button></button>' },
-        { dataValue: 'null', renderedValue: 'null' },
-        { dataValue: 'undefined', renderedValue: 'undefined' },
-        { dataValue: 'null', renderedValue: 'null' },
-        { dataValue: '-2147483648/-1', renderedValue: '-2147483648/-1' },
-        { dataValue: '田', renderedValue: '田' },
-        { dataValue: 'Ω', renderedValue: 'Ω' },
-        { dataValue: '( ͡° ͜ʖ ͡°)', renderedValue: '( ͡° ͜ʖ ͡°)' },
-        { dataValue: '😍', renderedValue: '😍' },
-        {
-            dataValue: 'Iñtërnâtiônàlizætiøn☃💩',
-            renderedValue: 'Iñtërnâtiônàlizætiøn☃💩'
-        },
-        { dataValue: '１', renderedValue: '１' }
+        { value: 'foo' },
+        { value: '<button></button>' },
+        { value: 'null' },
+        { value: 'undefined' },
+        { value: 'null' },
+        { value: '-2147483648/-1' },
+        { value: '田' },
+        { value: 'Ω' },
+        { value: '( ͡° ͜ʖ ͡°)' },
+        { value: '😍' },
+        { value: 'Iñtërnâtiônàlizætiøn☃💩' },
+        { value: '１' }
     ];
     for (const fieldValue of fieldValues) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`data ${fieldValue.dataValue} renders as ${fieldValue.renderedValue}`, async () => {
+        it(`data ${fieldValue.value} renders as ${fieldValue.value}`, async () => {
             await connect();
 
-            element.data = [{ field: fieldValue.dataValue }];
+            element.data = [{ field: fieldValue.value }];
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                fieldValue.renderedValue
+                fieldValue.value
             );
         });
     }
