@@ -89,6 +89,8 @@ If an application requires different menu items or different menu item states fo
 -   `recordIds` - string array - The IDs of the records that the menu is associated with.
 -   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be `undefined` in the event details.
 
+When an item in the menu is activated, it will emit the standard events associated with the menu and menu items. The event details will not contain any information about the table, its records, or its columns. Therefore, clients should use the `action-menu-opening` event to cache any necessary context about which records and column the menu is associated with in order to handle menu events appropriately.
+
 ### Implementation
 
 #### Slot Forwarding
