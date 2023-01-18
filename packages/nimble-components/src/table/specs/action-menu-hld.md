@@ -114,7 +114,7 @@ For example, the table's template will look something like this:
 </template>
 ```
 
-Note: The template above has been simplified and uses references to `table` and `row` to represent accessing information from the `Table` class and the `TableRowState` interface. 
+Note: The template above has been simplified and uses references to `table` and `row` to represent accessing information from the `Table` class and the `TableRowState` interface.
 
 #### Updates to `nimble-menu-button`
 
