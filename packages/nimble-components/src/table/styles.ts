@@ -9,6 +9,7 @@ export const styles = css`
         display: flex;
         flex-direction: column;
         width: 100%;
+        max-height: 100vh;
         font: ${bodyFont};
         color: ${bodyFontColor};
     }
@@ -17,7 +18,6 @@ export const styles = css`
         overflow-y: auto;
         display: block;
         height: 100%;
-        max-height: 100vh;
         position: relative;
     }
 

@@ -241,6 +241,7 @@ export class Table<
             },
             estimateSize: (_: number) => rowHeight,
             enableSmoothScroll: true,
+            overscan: 3,
             scrollToFn: elementScroll,
             observeElementOffset,
             observeElementRect,

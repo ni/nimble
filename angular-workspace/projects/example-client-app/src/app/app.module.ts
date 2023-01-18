@@ -13,12 +13,14 @@ import { NimbleTableModule } from 'projects/ni/nimble-angular/src/public-api';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
+import { TableDemoComponent } from './tabledemo/tabledemo.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        CustomAppComponent
+        CustomAppComponent,
+        TableDemoComponent
     ],
     imports: [
         BrowserModule,
@@ -62,7 +64,8 @@ import { HeaderComponent } from './header/header.component';
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
-                { path: 'customapp', component: CustomAppComponent }
+                { path: 'customapp', component: CustomAppComponent },
+                { path: 'tabledemo', component: TableDemoComponent }
             ],
             { useHash: true }
         )

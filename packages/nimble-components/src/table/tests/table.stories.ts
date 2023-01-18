@@ -38,13 +38,16 @@ const simpleData = [
 
 const simpleDataIdFieldName = 'firstName';
 
+const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
+const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
+const colors = ['Red', 'Blue', 'Green', 'Yellow'];
 const largeData = [];
 for (let i = 0; i < 10000; i++) {
     largeData.push({
-        firstName: `Ralph-${i + 1}`,
-        lastName: 'Wiggum',
-        favoriteColor: 'Rainbow',
-        quote: "I'm in danger!"
+        firstName: firstNames[i % firstNames.length],
+        lastName: lastNames[i % lastNames.length],
+        favoriteColor: colors[i % colors.length],
+        quote: null
     });
 }
 
@@ -55,7 +58,7 @@ const dataSets = {
 
 const dataSetIdFieldNames = {
     [ExampleDataType.simpleData]: simpleDataIdFieldName,
-    [ExampleDataType.largeDataSet]: simpleDataIdFieldName
+    [ExampleDataType.largeDataSet]: null
 } as const;
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
@@ -105,7 +108,7 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table style="height: 600px;" :data=${x => dataSets[x.data]} id-field-name=${x => dataSetIdFieldNames[x.data]}>
+        <nimble-table style="height: 500px;" :data=${x => dataSets[x.data]} id-field-name=${x => dataSetIdFieldNames[x.data]}>
             <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
             <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
             <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
