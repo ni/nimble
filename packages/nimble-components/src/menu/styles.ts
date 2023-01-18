@@ -24,7 +24,7 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
-        min-width: 168px;
+        min-width: 176px;
         width: max-content;
         box-shadow: ${elevation2BoxShadow};
     }
