@@ -127,15 +127,18 @@ jobs:
         run: |
           echo Creating change file for Renovate PR
 
+          # PR merge branch is detached HEAD so can't be committed to
           echo Switching from PR merge branch "${{ env.GITHUB_REF }}" to Renovate branch "${{ env.GITHUB_HEAD_REF }}"
-          # GitHub CLI docs: https://cli.github.com/manual/gh_pr_checkout
-          git checkout ${{ (github.head_ref }}
+          git checkout ${{ github.head_ref }}
 
+          # Generate change file
           npm run change:deps
           git status
           git push
           git status
-          git checkout ${{ (github.ref }}
+
+          # Restoring PR merge branch 
+          git checkout ${{ github.ref }}
           git status
 
       # Check for change file
