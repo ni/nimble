@@ -1,18 +1,13 @@
-import { html, repeat, when } from '@microsoft/fast-element';
+import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 
 interface TabsArgs {
-    tabs: TabArgs[];
-    toolbar: string;
-}
-
-interface TabArgs {
-    label: string;
-    content: string;
-    disabled: boolean;
+    activeId: string;
+    toolbar: boolean;
+    tabDisabled: boolean;
 }
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#tabpanel) - Tabs are a set of layered
@@ -41,44 +36,32 @@ const metadata: Meta<TabsArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-tabs>
-            ${when(x => x.toolbar, html<TabsArgs>`<nimble-tabs-toolbar :innerHTML="${x => x.toolbar}"></nimble-tabs-toolbar>`)}
-            ${repeat(x => x.tabs, html<TabArgs>`
-                <nimble-tab ?disabled="${x => x.disabled}">${x => x.label}</nimble-tab>
-            `)}
-            ${repeat(x => x.tabs, html<TabArgs>`
-                <nimble-tab-panel>${x => x.content}</nimble-tab-panel>
-            `)}
+        <nimble-tabs activeid="${x => x.activeId}">
+            ${when(x => x.toolbar, html<TabsArgs>`<nimble-tabs-toolbar><nimble-button appearance="ghost">Toolbar Button</nimble-button></nimble-tabs-toolbar>`)}
+            <nimble-tab id="1" ?disabled="${x => x.tabDisabled}">Tab One</nimble-tab>
+            <nimble-tab id="2">Tab Two</nimble-tab>
+            <nimble-tab id="3">Tab Three</nimble-tab>
+            <nimble-tab-panel>Content of the first tab</nimble-tab-panel>
+            <nimble-tab-panel>Content of the second tab</nimble-tab-panel>
+            <nimble-tab-panel>Content of the third tab</nimble-tab-panel>
         </nimble-tabs>
     `),
+    argTypes: {
+        activeId: {
+            options: ['1', '2', '3'],
+            control: { type: 'radio' },
+        },
+        tabDisabled: {
+            name: 'tab 1 disabled'
+        }
+    },
     args: {
-        tabs: [
-            {
-                label: 'Tab One',
-                content: 'Content of the first tab',
-                disabled: false
-            },
-            {
-                label: 'Tab Two',
-                content: 'Content of the second tab',
-                disabled: false
-            },
-            {
-                label: 'Tab Three',
-                content: 'Content of the third tab',
-                disabled: false
-            }
-        ]
+        activeId: '1',
+        toolbar: false,
+        tabDisabled: false
     }
 };
 
 export default metadata;
 
 export const tabs: StoryObj<TabsArgs> = {};
-
-export const toolbar: StoryObj<TabsArgs> = {
-    args: {
-        toolbar:
-            '<nimble-button appearance="ghost">Toolbar Button</nimble-button>'
-    }
-};
