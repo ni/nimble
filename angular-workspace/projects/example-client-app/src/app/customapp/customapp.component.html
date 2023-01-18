@@ -203,6 +203,17 @@
             </nimble-tabs>
         </div>
         <div class="sub-container">
+            <div class="container-label">Tabs - Anchor</div>
+            <nimble-anchor-tabs #anchorTabs activeid="1">
+                <nimble-anchor-tab id="1" href="#" (click)="onAnchorTabClick('1')">Tab 1</nimble-anchor-tab>
+                <nimble-anchor-tab id="2" href="#" (click)="onAnchorTabClick('2')">Tab 2</nimble-anchor-tab>
+                <nimble-anchor-tab disabled id="3" href="#" (click)="onAnchorTabClick('3')">Tab 3 (Disabled)</nimble-anchor-tab>
+                <nimble-tabs-toolbar>
+                    <nimble-button (click)="onTabToolbarButtonClick()">Toolbar button</nimble-button>
+                </nimble-tabs-toolbar>
+            </nimble-anchor-tabs>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Text Area</div>
             <nimble-text-area placeholder="Text Area" cols="50" rows="5" resize="horizontal" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</nimble-text-area>
         </div>

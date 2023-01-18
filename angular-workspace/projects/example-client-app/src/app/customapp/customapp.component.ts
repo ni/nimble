@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import { Component, ViewChild } from '@angular/core';
-import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, TableRecord, UserDismissed } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, NimbleAnchorTabsDirective, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, TableRecord, UserDismissed } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
@@ -44,6 +44,7 @@ export class CustomAppComponent {
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
+    @ViewChild('anchorTabs', { read: NimbleAnchorTabsDirective }) private readonly anchorTabs: NimbleAnchorTabsDirective;
 
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;
@@ -78,6 +79,10 @@ export class CustomAppComponent {
 
     public onTabToolbarButtonClick(): void {
         alert('Tab toolbar button clicked');
+    }
+
+    public onAnchorTabClick(tabId: string): void {
+        this.anchorTabs.activeid = tabId;
     }
 
     public onAddTableRow(): void {
