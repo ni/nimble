@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 18 Jan 2023 15:32:21 GMT",
+      "tag": "@ni/nimble-components_v17.0.5",
+      "version": "17.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5d2d985c73ccf41f7123593e41099569e619bab8",
+            "comment": "Fix menu background color on Color theme"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Jan 2023 14:55:24 GMT",
+      "tag": "@ni/nimble-components_v17.0.4",
+      "version": "17.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "eaa3e675766b5792343cf78f835cc8bc6a7d3986",
+            "comment": "Update table row styles"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Jan 2023 00:16:05 GMT",
       "tag": "@ni/nimble-components_v17.0.3",
       "version": "17.0.3",
