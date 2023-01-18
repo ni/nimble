@@ -86,7 +86,6 @@ A menu can be shared between columns by specifying the same slot name for multip
 
 If an application requires different menu items or different menu item states for different records in the table, the client is responsible for ensuring that the items in the menu are correct for the records(s) and column that the menu is associated with. This can be done by handling the `action-menu-beforetoggle` event on the table and updating the menu items as appropriate. The `action-menu-beforetoggle` event will include the following in its details:
 
-
 -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
 -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
 -   `recordIds` - string array - The IDs of the records that the menu is associated with.
