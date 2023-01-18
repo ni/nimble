@@ -17,6 +17,8 @@ import {
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
 import { ZoomHandler } from './modules/zoom-handler';
+import { HoverHandler } from './modules/hover-handler';
+import { EventHandler } from './modules/event-handler';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -105,26 +107,17 @@ export class WaferMap extends FoundationElement {
         );
 
         const renderer = new RenderingModule(this.dataManager, this.canvas);
-        const zoomHandler = new ZoomHandler(
+        const eventHandler = new EventHandler(
             this.canvas,
-            this.rect,
             this.zoomContainer,
             this.dataManager,
-            this.quadrant,
-            renderer
+            renderer,
+            this.rect,
+            this.quadrant
         );
 
-        zoomHandler.createHoverDie();
+        eventHandler.attachEvents(this);
 
-        this.onmousemove = (e: MouseEvent) => {
-            zoomHandler.mousemove(e);
-        };
-
-        this.onmouseout = () => {
-            zoomHandler.mouseout();
-        };
-
-        zoomHandler.attachZoomBehavior();
         renderer.drawWafer();
     }
 

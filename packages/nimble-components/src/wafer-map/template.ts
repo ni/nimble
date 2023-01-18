@@ -11,7 +11,7 @@ export const template = html<WaferMap>`
                     </svg>
                 </g>
             </g>
-            <svg width=500 height="500">
+            <svg width=500 height="500" fill="black">
                 <rect ${ref('rect')}/>
             </svg>
         </svg>

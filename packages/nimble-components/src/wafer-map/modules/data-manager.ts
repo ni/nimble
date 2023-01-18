@@ -56,6 +56,7 @@ export class DataManager {
 
     private readonly computations: Computations;
     private readonly prerendering: Prerendering;
+    private readonly dataMap: Map<string, WaferMapDie>;
 
     public constructor(
         dies: Readonly<Readonly<WaferMapDie>[]>,
@@ -87,5 +88,11 @@ export class DataManager {
             this.computations.dieDimensions,
             this.computations.margin
         );
+
+        this.dataMap = new Map(dies.map(die => [`${die.x}_${die.y}`, die]));
+    }
+
+    public getWaferMapDie(x: number, y: number): WaferMapDie | undefined {
+        return this.dataMap.get(`${x}_${y}`);
     }
 }

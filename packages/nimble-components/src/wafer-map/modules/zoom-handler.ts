@@ -6,9 +6,7 @@ import {
     ZoomTransform,
     zoomTransform
 } from 'd3-zoom';
-import { DieRenderInfo, WaferMapQuadrant } from '../types';
 import type { DataManager } from './data-manager';
-import type { RenderingModule } from './rendering';
 
 /**
  * ZoomHandler deals with user interactions and events like zooming
@@ -20,178 +18,26 @@ export class ZoomHandler {
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
-    private lastNodeData = '';
+    private _renderingFunction: VoidFunction | undefined;
+    private _hideHoverDieFunction: VoidFunction | undefined;
 
     public constructor(
         private readonly canvas: HTMLCanvasElement,
-        private readonly rect: HTMLCanvasElement,
         private readonly zoomContainer: HTMLElement,
         private readonly dataManager: DataManager,
-        private readonly quadrant: WaferMapQuadrant,
-        private readonly renderingModule: RenderingModule
     ) {}
+
+    public set renderingFunction(renderingFunction: VoidFunction) {
+        this._renderingFunction = renderingFunction;
+    }
+
+    public set hideHoverDieFunction(hideHoverDieFunction: VoidFunction) {
+        this._hideHoverDieFunction = hideHoverDieFunction;
+    }
 
     public attachZoomBehavior(): void {
         const zoomBehavior = this.createZoomBehavior();
         zoomBehavior(select(this.canvas as Element));
-    }
-
-    public toggleHoverDie(show: boolean, x = 0, y = 0): void {
-        if (show) {
-            this.rect.setAttribute('transform', `translate(${x},${y})`);
-            this.rect.setAttribute('opacity', '0.7');
-        } else {
-            this.rect.setAttribute('opacity', '0');
-            this.lastNodeData = '';
-        }
-    }
-
-    public createHoverDie(): void {
-        this.rect.setAttribute('x', '0');
-        this.rect.setAttribute('y', '0');
-        this.rect.setAttribute('fill', 'black');
-        this.rect.setAttribute('opacity', '0');
-        this.rect.setAttribute('pointer-events', 'none');
-
-        let zoomTransformK = 0;
-        if (this.zoomTransform) {
-            zoomTransformK = this.zoomTransform.k;
-        }
-
-        if (this.dataManager) {
-            this.rect.setAttribute(
-                'width',
-                (
-                    this.dataManager.dieDimensions.width * zoomTransformK
-                ).toString()
-            );
-            this.rect.setAttribute(
-                'height',
-                (
-                    this.dataManager.dieDimensions.height * zoomTransformK
-                ).toString()
-            );
-        }
-    }
-
-    public mousemove(event: MouseEvent): void {
-        if (this.removeMouseEvents()) {
-            return;
-        }
-
-        // Get mouse position
-        const mouseX = event.offsetX;
-        const mouseY = event.offsetY;
-
-        // get color for current mouse position to verify that mouse is hovering over a die.
-        const canvasContext = this.canvas.getContext('2d');
-        if (canvasContext === null) {
-            return;
-        }
-
-        const rgbSum = this.getRGBSum(canvasContext, mouseX, mouseY);
-        if (rgbSum <= 0) {
-            return;
-        }
-
-        // get original mouse position in case we are in zoom.
-        const invertedPoint = this.zoomTransform.invert([mouseX, mouseY]);
-        const { x, y } = this.calculateDiePositionNumbers(
-            invertedPoint[0],
-            invertedPoint[1]
-        );
-
-        // find die by x and y.
-        const nodeData = this.dataManager.diesRenderInfo.find(die => this.compareDiePosition(die, x, y));
-        const nodeDataSerialized = JSON.stringify(nodeData);
-        if (this.lastNodeData === nodeDataSerialized) {
-            return;
-        }
-        this.lastNodeData = nodeDataSerialized;
-        if (nodeData) {
-            const transformedPoint = this.zoomTransform.apply([
-                this.dataManager.horizontalScale(x)
-                    + this.dataManager.margin.left,
-                this.dataManager.verticalScale(y) + this.dataManager.margin.top
-            ]);
-            this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
-        } else {
-            this.toggleHoverDie(false);
-        }
-    }
-
-    public mouseout(): void {
-        if (this.removeMouseEvents()) {
-            return;
-        }
-        this.toggleHoverDie(false);
-    }
-
-    private getRGBSum(
-        canvasContext: CanvasRenderingContext2D,
-        mouseX: number,
-        mouseY: number
-    ): number {
-        const col = canvasContext.getImageData(mouseX, mouseY, 1, 1).data;
-        // if sum of rgb==0 then not hovering on die
-        let rgbSum = 0;
-        if (col[0]) {
-            rgbSum += col[0];
-        }
-        if (col[1]) {
-            rgbSum += col[1];
-        }
-        if (col[2]) {
-            rgbSum += col[2];
-        }
-        return rgbSum;
-    }
-
-    private removeMouseEvents(): boolean {
-        const dieSize = this.dataManager.containerDimensions.width
-            * this.dataManager.containerDimensions.height
-            * (this.zoomTransform.k || 1);
-        return dieSize < 15;
-    }
-
-    private compareDiePosition(
-        die: DieRenderInfo,
-        x: number,
-        y: number
-    ): boolean {
-        const diePositionNumbers = this.calculateDiePositionNumbers(
-            die.x,
-            die.y
-        );
-
-        return diePositionNumbers.x === x && diePositionNumbers.y === y;
-    }
-
-    private calculateDiePositionNumbers(
-        xPosition: number,
-        yPosition: number
-    ): { x: number, y: number } {
-        const axisLocation = this.quadrant;
-        const xRoundfunction = axisLocation === WaferMapQuadrant.bottomLeft
-            || axisLocation === WaferMapQuadrant.topLeft
-            ? Math.floor
-            : Math.ceil;
-        const yRoundfunction = axisLocation === WaferMapQuadrant.topLeft
-            || axisLocation === WaferMapQuadrant.topRight
-            ? Math.floor
-            : Math.ceil;
-        // go to x and y scale to get the x,y values of the die.
-        const x = xRoundfunction(
-            this.dataManager.horizontalScale.invert(
-                xPosition - this.dataManager.margin.left
-            )
-        );
-        const y = yRoundfunction(
-            this.dataManager.verticalScale.invert(
-                yPosition - this.dataManager.margin.top
-            )
-        );
-        return { x, y };
     }
 
     private createZoomBehavior(): ZoomBehavior<Element, unknown> {
@@ -220,8 +66,9 @@ export class ZoomHandler {
                 );
             })
             .on('zoom', (event: { transform: ZoomTransform }) => {
-                this.toggleHoverDie(false);
+                if (this._hideHoverDieFunction) this._hideHoverDieFunction();
                 if (this.dataManager === undefined) return;
+                if (this._renderingFunction === undefined) return;
                 this.transform = event.transform;
                 const canvasContext = this.canvas.getContext('2d');
                 if (canvasContext === null) return;
@@ -239,7 +86,7 @@ export class ZoomHandler {
                         zoomIdentity.y,
                         zoomIdentity.k
                     );
-                    this.rerender();
+                    this._renderingFunction();
                     zoomBehavior.transform(
                         select(this.canvas as Element),
                         zoomIdentity
@@ -257,7 +104,7 @@ export class ZoomHandler {
                         this.transform.y,
                         this.transform.k
                     );
-                    this.rerender();
+                    this._renderingFunction();
                 }
                 canvasContext.restore();
                 this.zoomContainer.setAttribute(
@@ -267,11 +114,6 @@ export class ZoomHandler {
             });
 
         return zoomBehavior;
-    }
-
-    private rerender(): void {
-        this.createHoverDie();
-        this.renderingModule.drawWafer();
     }
 
     private getZoomMax(canvasArea: number, dataArea: number): number {
