@@ -98,21 +98,14 @@ export class Table<
             newData,
             this.idFieldName
         );
+
         const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
             ? undefined
             : (record: TData) => record[this.idFieldName!] as string;
-
-        if (areIdsValid) {
-            this.updateTableOptions({
-                data: newData,
-                getRowId: getRowIdFunction
-            });
-        } else {
-            this.updateTableOptions({
-                data: [],
-                getRowId: getRowIdFunction
-            });
-        }
+        this.updateTableOptions({
+            data: areIdsValid ? newData : [],
+            getRowId: getRowIdFunction
+        });
     }
 
     private refreshRows(): void {
