@@ -81,7 +81,7 @@ const waferMapDie = [
     { x: 3, y: 3, value: '30' }
 ];
 
-const waferMapSizes = [200, 300, 500];
+const waferMapSizes = [70, 200, 300, 400];
 
 const simpleWaferWithDies = (): ViewTemplate => html`<nimble-wafer-map
     :dies="${() => waferMapDie}"
