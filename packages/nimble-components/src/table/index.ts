@@ -105,9 +105,15 @@ export class Table<
             this.idFieldName
         );
         if (areIdsValid) {
-            this.updateTableOptions({ data: newData, getRowId: this.getRowIdFunction });
+            this.updateTableOptions({
+                data: newData,
+                getRowId: this.getRowIdFunction
+            });
         } else {
-            this.updateTableOptions({ data: [], getRowId: this.getRowIdFunction });
+            this.updateTableOptions({
+                data: [],
+                getRowId: this.getRowIdFunction
+            });
         }
     }
 
