@@ -84,12 +84,15 @@ A menu can be shared between columns by specifying the same slot name for multip
 </nimble-table>
 ```
 
-If an application requires different menu items or different menu item states for different records in the table, the client is responsible for ensuring that the items in the menu are correct for the records(s) and column that the menu is associated with. This can be done by handling the `action-menu-opening` event on the table and updating the menu items as appropriate. The `action-menu-opening` event will include the following in its details:
+If an application requires different menu items or different menu item states for different records in the table, the client is responsible for ensuring that the items in the menu are correct for the records(s) and column that the menu is associated with. This can be done by handling the `action-menu-beforetoggle` event on the table and updating the menu items as appropriate. The `action-menu-beforetoggle` event will include the following in its details:
 
+
+-   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
+-   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
 -   `recordIds` - string array - The IDs of the records that the menu is associated with.
 -   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be `undefined` in the event details.
 
-When an item in the menu is activated, it will emit the standard events associated with the menu and menu items. The event details will not contain any information about the table, its records, or its columns. Therefore, clients should use the `action-menu-opening` event to cache any necessary context about which records and column the menu is associated with in order to handle menu events appropriately.
+When an item in the menu is activated, the standard events associated with the menu and menu items will be emitted. The event details will not contain any information about the table, its records, or its columns. Therefore, clients should use the `action-menu-beforetoggle` event to cache any necessary context about which records and column the menu is associated with in order to handle menu events appropriately.
 
 ### Implementation
 
@@ -120,7 +123,7 @@ Note: The template above has been simplified and uses references to `table` and 
 
 To implement the design described above, a few changes need to be made to the existing `nimble-menu-button`:
 
--   Add an `opening` event that gets fired immediately before the menu is opened. This new event will allow the table to slot the menu into the correct row and cell prior to the menu actually opening. This is important to ensure that the menu items can be focused correctly upon the menu opening.
+-   Add a `beforetoggle` event that gets fired immediately before the menu is opened or closed. This new event will allow the table to slot the menu into the correct row and cell prior to the menu actually opening. This is important to ensure that the menu items can be focused correctly upon the menu opening.
 -   Update the code that gets the slotted menu. Currently, the code only looks for the first element in the `menu` slot. With the design above, the menu element will be nested within a few `slot` elements, so the code will be updated to handle both DOM structures.
 
 ### Framework Integration
@@ -138,7 +141,7 @@ Rather than configuring a column to have a menu by adding an attribute to the co
 
 ## Open Issues
 
--   Can the action menu be opened for multiple rows at the same time? This doesn't become possible until the table supports row selection, but it can impact the API. To be the most future-proof, the API is designed such that the `action-menu-opening` event includes an array of row IDs rather than a single row ID string.
+-   Can the action menu be opened for multiple rows at the same time? This doesn't become possible until the table supports row selection, but it can impact the API. To be the most future-proof, the API is designed such that the `action-menu-beforetoggle` event includes an array of row IDs rather than a single row ID string.
 -   The details of the visual/interaction design still need to be finalized by the designers, but these details should have minimal impact on the implementation. Some items that need to be finalized are:
     -   What icon will be used for the menu? Will it still be the three dots in a horizontal line?
     -   What is the exact interaction with the menu being visible on hover?
