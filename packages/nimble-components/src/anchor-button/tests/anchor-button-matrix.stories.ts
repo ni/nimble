@@ -61,7 +61,7 @@ const component = (
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
     <nimble-anchor-button
-        href="http://nimble.ni.dev"
+        href="https://nimble.ni.dev"
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
         ?disabled=${() => disabled}

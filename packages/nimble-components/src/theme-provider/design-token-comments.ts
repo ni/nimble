@@ -29,7 +29,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     borderHoverColor: 'Border color when hovering component',
     iconColor: 'Equivalent to the font color for icons',
     modalBackdropColor: 'Color of background overlay behind modal dialog boxes',
-    popupBoxShadowColor: 'Shadow color for menus and dialog boxes',
     popupBorderColor: 'Border color for menus and dialog boxes',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
@@ -67,6 +66,17 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     headlineFontLineHeight: 'Font line height for the "Headline_1" base token',
     headlineFallbackFontFamily:
         'Fallback font family for the "Headline_1" base token',
+    tableHeaderFont: 'Font shorthand for the "Grid_Header" base token',
+    tableHeaderFontColor: 'Font color for the "Grid_Header" base token',
+    tableHeaderDisabledFontColor:
+        'Disabled font color for the "Grid_Header" base token',
+    tableHeaderFontFamily: 'Font family for the "Grid_Header" base token',
+    tableHeaderFontSize: 'Font size for the "Grid_Header" base token',
+    tableHeaderFontWeight: 'Font weight for the "Grid_Header" base token',
+    tableHeaderFontLineHeight:
+        'Font line height for the "Grid_Header" base token',
+    tableHeaderFallbackFontFamily:
+        'Fallback font family for the "Grid_Header" base token',
     titlePlus2Font: 'Font shorthand for the "Title_3" base token',
     titlePlus2FontColor: 'Font color for the "Title_3" base token',
     titlePlus2DisabledFontColor:
@@ -241,5 +251,12 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     errorTextFontLineHeight:
         'Font line height for the "Error_LightUi" base token',
     errorTextFallbackFontFamily:
-        'Fallback font family for the "Error_LightUi" base token'
+        'Fallback font family for the "Error_LightUi" base token',
+    tableRowBorderColor: 'Color for the border of rows in the table',
+    elevation1BoxShadow:
+        'The box shadow for elevation 1. Used for component hover states.',
+    elevation2BoxShadow:
+        'The box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
+    elevation3BoxShadow:
+        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.'
 };

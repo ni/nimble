@@ -2,11 +2,17 @@ import { css } from '@microsoft/fast-element';
 import { borderColor, borderWidth } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    .wafer-map-container {
+    :host {
+        display: inline-block;
         width: 500px;
         height: 500px;
+    }
+
+    .wafer-map-container {
+        width: 100%;
+        padding-bottom: 100%;
         position: relative;
-        display: flex;
+        display: inline-block;
         justify-content: center;
         align-items: center;
     }
@@ -14,6 +20,7 @@ export const styles = css`
     .svg-root {
         width: 100%;
         height: 100%;
+        position: absolute;
     }
 
     .circle-base {
@@ -23,22 +30,26 @@ export const styles = css`
         fill: white;
     }
 
-    .top {
+    .notch {
+        transform-origin: center center;
+    }
+
+    .notch.top {
         transform: rotate(-90deg);
         transform-origin: center center;
     }
 
-    .right {
+    .notch.right {
         transform: rotate(0deg);
         transform-origin: center center;
     }
 
-    .left {
+    .notch.left {
         transform: rotate(180deg);
         transform-origin: center center;
     }
 
-    .bottom {
+    .notch.bottom {
         transform: rotate(90deg);
         transform-origin: center center;
     }
@@ -46,13 +57,14 @@ export const styles = css`
     .zoom-container {
         width: 100%;
         height: 100%;
+        position: absolute;
     }
 
     .circle-base {
         width: 100%;
         height: 100%;
         position: absolute;
-        fill: white;
+        fill: transparent;
     }
 
     .circle-drawing-path {
@@ -63,6 +75,20 @@ export const styles = css`
     }
 
     .wafer-map-area {
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .wafer-map-canvas {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .hover-rect {
         position: absolute;
     }
 `;

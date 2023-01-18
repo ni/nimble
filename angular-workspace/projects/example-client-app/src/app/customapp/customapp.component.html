@@ -4,6 +4,11 @@
             component docs</a> for additional usage details.</p>
     <div class="container">
         <div class="sub-container">
+            <div class="container-label">Anchor</div>
+            <div><nimble-anchor href="#" appearance="prominent">Site root</nimble-anchor></div>
+            Let's try it <nimble-anchor nimbleRouterLink="/customapp" underline-visible>using nimbleRouterLink</nimble-anchor>.
+        </div>
+        <div class="sub-container">
             <div class="container-label">Breadcrumb</div>
             <nimble-breadcrumb>
                 <nimble-breadcrumb-item href="#">Page 1</nimble-breadcrumb-item>
@@ -22,6 +27,12 @@
             <nimble-toggle-button appearance="outline">Outline Toggle Button</nimble-toggle-button>
             <nimble-toggle-button appearance="block">Block Toggle Button</nimble-toggle-button>
             <nimble-toggle-button appearance="ghost">Ghost Toggle Button</nimble-toggle-button>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Buttons - Anchor</div>
+            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="outline">Outline Anchor Button</nimble-anchor-button>
+            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="block">Block Anchor Button</nimble-anchor-button>
+            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="ghost">Ghost Anchor Button</nimble-anchor-button>
         </div>
         <div class="sub-container">
             <div class="container-label">Card Button</div>
@@ -151,6 +162,10 @@
             </nimble-combobox>
         </div>
         <div class="sub-container">
+            <div class="container-label">Spinner</div>
+            <nimble-spinner aria-label="Loading example content"></nimble-spinner>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Switch</div>
             <nimble-switch>Switch</nimble-switch>
             <nimble-switch checked>
@@ -158,6 +173,14 @@
                 <span slot="unchecked-message">Off</span>
                 <span slot="checked-message">On</span>
             </nimble-switch>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Table</div>
+            <nimble-table [data]="tableData">
+                <nimble-table-column-text field-name="stringValue1">String 1</nimble-table-column-text>
+                <nimble-table-column-text field-name="stringValue2">String 2</nimble-table-column-text>
+            </nimble-table>
+            <nimble-button class="add-table-row-button" (click)="onAddTableRow()">Add row</nimble-button>
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs</div>

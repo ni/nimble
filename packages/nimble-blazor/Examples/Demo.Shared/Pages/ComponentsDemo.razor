@@ -10,6 +10,10 @@
     </p>
     <div class="container">
         <div class="sub-container">
+            <div class="container-label">Anchor</div>
+            <NimbleAnchor Href="#">Site root</NimbleAnchor>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Breadcrumb</div>
             <NimbleBreadcrumb>
                 <NimbleBreadcrumbItem Href="#">Page 1</NimbleBreadcrumbItem>
@@ -22,6 +26,20 @@
             <NimbleButton Appearance="ButtonAppearance.Outline">Outline Button</NimbleButton>
             <NimbleButton Appearance="ButtonAppearance.Block">Block Button</NimbleButton>
             <NimbleButton Appearance="ButtonAppearance.Ghost">Ghost Button</NimbleButton>
+            <NimbleButton ContentHidden="true" Appearance="ButtonAppearance.Outline">
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                Icon Button
+            </NimbleButton>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Buttons - Anchor</div>
+            <NimbleAnchorButton Href="#" Appearance="ButtonAppearance.Outline">Outline Anchor Button</NimbleAnchorButton>
+            <NimbleAnchorButton Href="#" Appearance="ButtonAppearance.Block">Block Anchor Button</NimbleAnchorButton>
+            <NimbleAnchorButton Href="#" Appearance="ButtonAppearance.Ghost">Ghost Anchor Button</NimbleAnchorButton>
+            <NimbleAnchorButton Href="#" ContentHidden="true" Appearance="ButtonAppearance.Outline">
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                Icon Button
+            </NimbleAnchorButton>
         </div>
         <div class="sub-container">
             <div class="container-label">Buttons - Toggle</div>
@@ -165,6 +183,10 @@
             </NimbleCombobox>
         </div>
         <div class="sub-container">
+            <div class="container-label">Spinner</div>
+            <NimbleSpinner></NimbleSpinner>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Switch</div>
             <NimbleSwitch>Switch</NimbleSwitch>
             <NimbleSwitch Value="true">
@@ -173,6 +195,14 @@
                 <span slot="checked-message">On</span>
             </NimbleSwitch>
         </div>
+        <div class="sub-container">
+            <div class="container-label">Table</div>
+            <NimbleTable @bind-Data="TableData" class="table">
+                <NimbleTableColumnText FieldName="FirstName" Placeholder="no value">First Name</NimbleTableColumnText>
+                <NimbleTableColumnText FieldName="LastName" Placeholder="no value">Last Name</NimbleTableColumnText>
+            </NimbleTable>
+        </div>
+        <NimbleButton class="table-update-button" @onclick=@(_ => UpdateTableData(100))>Update Data</NimbleButton>
         <div class="sub-container">
             <div class="container-label">Tabs</div>
             <NimbleTabs @bind-ActiveId="@ActiveTabId">

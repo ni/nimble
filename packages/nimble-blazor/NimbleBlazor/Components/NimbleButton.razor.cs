@@ -11,6 +11,9 @@ public partial class NimbleButton : ComponentBase
     public ButtonAppearanceVariant? AppearanceVariant { get; set; }
 
     [Parameter]
+    public bool? ContentHidden { get; set; }
+
+    [Parameter]
     public bool? Disabled { get; set; }
 
     [Parameter]

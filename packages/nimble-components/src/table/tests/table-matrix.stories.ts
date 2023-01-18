@@ -19,7 +19,7 @@ const metadata: Meta = {
         ...sharedMatrixParameters(),
         design: {
             artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b9cee5e2-49a4-425a-9ed4-38b23ba2e313/specs/'
+                'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
         }
     }
 };
@@ -28,21 +28,29 @@ export default metadata;
 
 const data = [
     {
-        myStr: 'my first row',
-        myNum: 5,
-        myBool: true
+        firstName: 'Ralph',
+        lastName: 'Wiggum',
+        favoriteColor: 'Rainbow'
     },
     {
-        myStr: 'my second row',
-        myNum: 15,
-        myBool: false
+        firstName: 'Milhouse',
+        lastName: 'Van Houten',
+        favoriteColor: 'Crimson'
+    },
+    {
+        firstName: null,
+        lastName: null,
+        favoriteColor: null
     }
 ] as const;
 
 // prettier-ignore
-const component = (
-): ViewTemplate => html`
-    <nimble-table :data=${_ => data}></nimble-table>
+const component = (): ViewTemplate => html`
+    <nimble-table :data=${_ => data}>
+        <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
+        <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
+        <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
+    </nimble-table>
 `;
 
 export const tableThemeMatrix: Story = createMatrixThemeStory(

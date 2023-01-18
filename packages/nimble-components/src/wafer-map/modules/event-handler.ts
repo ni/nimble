@@ -1,5 +1,5 @@
 import type { WaferMap } from '..';
-import type { WaferMapQuadrant } from '../types';
+import type { Dimensions, WaferMapQuadrant } from '../types';
 import type { DataManager } from './data-manager';
 import { HoverHandler } from './hover-handler';
 import type { RenderingModule } from './rendering';
@@ -15,7 +15,9 @@ export class EventHandler {
     public constructor(
         private readonly canvas: HTMLCanvasElement,
         private readonly zoomContainer: HTMLElement,
+        private readonly containerDimensions: Dimensions,
         private readonly dataManager: DataManager,
+        private readonly canvasLength: number,
         private readonly renderer: RenderingModule,
         private readonly rect: HTMLCanvasElement,
         private readonly quadrant: WaferMapQuadrant
@@ -23,7 +25,8 @@ export class EventHandler {
         this.zoomHandler = new ZoomHandler(
             canvas,
             zoomContainer,
-            dataManager,
+            containerDimensions,
+            canvasLength
         );
 
         this.hoverHandler = new HoverHandler(
@@ -53,5 +56,9 @@ export class EventHandler {
             this.hoverHandler.mouseout();
         };
         this.zoomHandler.attachZoomBehavior();
+    }
+
+    public resetZoomTransform(): void {
+        this.zoomHandler.resetTransform();
     }
 }

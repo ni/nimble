@@ -1,8 +1,138 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 13 Dec 2022 22:11:51 GMT and should not be manually modified.
+This log was last generated on Sat, 14 Jan 2023 00:16:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.0.4
+
+Sat, 14 Jan 2023 00:16:05 GMT
+
+### Patches
+
+- Adding Angular support for TableColumnText ([ni/nimble@86ea30b](https://github.com/ni/nimble/commit/86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5))
+- Bump @ni/nimble-components to v17.0.3
+
+## 15.0.3
+
+Fri, 13 Jan 2023 07:16:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.2
+
+## 15.0.2
+
+Fri, 13 Jan 2023 03:10:37 GMT
+
+### Patches
+
+- Add Angular support for table row IDs and table validity ([ni/nimble@159910b](https://github.com/ni/nimble/commit/159910bf7d56124ae5491a396ec6a2b01c3ecb3a))
+
+## 15.0.1
+
+Thu, 12 Jan 2023 15:29:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.1
+
+## 15.0.0
+
+Wed, 11 Jan 2023 21:08:14 GMT
+
+### Major changes
+
+- Bump @ni/nimble-components to v17.0.0
+
+## 14.2.4
+
+Wed, 11 Jan 2023 20:34:04 GMT
+
+### Patches
+
+- Update styleguide versions ([ni/nimble@d36bef4](https://github.com/ni/nimble/commit/d36bef4533df1908c92f4cb0e795ffb647bda627))
+- Bump @ni/nimble-components to v16.1.8
+
+## 14.2.3
+
+Mon, 09 Jan 2023 23:44:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.7
+
+## 14.2.2
+
+Thu, 05 Jan 2023 18:31:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.6
+
+## 14.2.1
+
+Thu, 05 Jan 2023 16:41:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.5
+
+## 14.2.0
+
+Tue, 03 Jan 2023 19:23:10 GMT
+
+### Minor changes
+
+- Anchor and Anchor Button Angular integration ([ni/nimble@9df42db](https://github.com/ni/nimble/commit/9df42db416ee54834f5d5eb7ddc781bcc1fefff1))
+
+## 14.1.0
+
+Sat, 17 Dec 2022 01:10:46 GMT
+
+### Minor changes
+
+- Angular integration for spinner ([ni/nimble@d415c78](https://github.com/ni/nimble/commit/d415c78ce868a56367e0c77df766be2fbceb4750))
+
+## 14.0.20
+
+Fri, 16 Dec 2022 21:11:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.3
+
+## 14.0.19
+
+Fri, 16 Dec 2022 18:41:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.2
+
+## 14.0.18
+
+Fri, 16 Dec 2022 15:11:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.1
+
+## 14.0.17
+
+Fri, 16 Dec 2022 01:12:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.0
+
+## 14.0.16
+
+Wed, 14 Dec 2022 15:19:49 GMT
+
+### Patches
+
+- Angular support for nimble-table ([ni/nimble@c1b0926](https://github.com/ni/nimble/commit/c1b09266350e8fddfa76f9672e858a9319f3a784))
 
 ## 14.0.15
 

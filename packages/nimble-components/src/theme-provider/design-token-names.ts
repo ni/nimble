@@ -27,7 +27,6 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     borderHoverColor: 'border-hover-color',
     iconColor: 'icon-color',
     modalBackdropColor: 'modal-backdrop-color',
-    popupBoxShadowColor: 'popup-box-shadow-color',
     popupBorderColor: 'popup-border-color',
     controlHeight: 'control-height',
     smallPadding: 'small-padding',
@@ -56,6 +55,14 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     headlineFontWeight: 'headline-font-weight',
     headlineFontLineHeight: 'headline-font-line-height',
     headlineFallbackFontFamily: 'headline-fallback-font-family',
+    tableHeaderFont: 'table-header-font',
+    tableHeaderFontColor: 'table-header-font-color',
+    tableHeaderDisabledFontColor: 'table-header-disabled-font-color',
+    tableHeaderFontFamily: 'table-header-font-family',
+    tableHeaderFontSize: 'table-header-font-size',
+    tableHeaderFontWeight: 'table-header-font-weight',
+    tableHeaderFontLineHeight: 'table-header-font-line-height',
+    tableHeaderFallbackFontFamily: 'table-header-fallback-font-family',
     titlePlus2Font: 'title-plus-2-font',
     titlePlus2FontColor: 'title-plus-2-font-color',
     titlePlus2DisabledFontColor: 'title-plus-2-disabled-font-color',
@@ -194,7 +201,11 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     errorTextFontSize: 'error-text-font-size',
     errorTextFontWeight: 'error-text-font-weight',
     errorTextFontLineHeight: 'error-text-font-line-height',
-    errorTextFallbackFontFamily: 'error-text-fallback-font-family'
+    errorTextFallbackFontFamily: 'error-text-fallback-font-family',
+    tableRowBorderColor: 'table-row-border-color',
+    elevation1BoxShadow: 'elevation-1-box-shadow',
+    elevation2BoxShadow: 'elevation-2-box-shadow',
+    elevation3BoxShadow: 'elevation-3-box-shadow'
 };
 
 const prefix = 'ni-nimble';
@@ -217,6 +228,7 @@ const tokenSuffixes = [
     'FontSize',
     'TextTransform',
     'FontFamily',
+    'BoxShadow',
     'Font',
     'Size',
     'Width',

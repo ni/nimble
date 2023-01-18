@@ -11,8 +11,11 @@ const generateStringValue = (
     valueGenerator?: IValueGenerator
 ): string => {
     let value: number;
-    if (valueGenerator !== undefined) value = valueGenerator(x, y);
-    else value = Math.random() * 100;
+    if (valueGenerator !== undefined) {
+        value = valueGenerator(x, y);
+    } else {
+        value = Math.random() * 100;
+    }
     return valueToString(value);
 };
 
@@ -29,7 +32,7 @@ export const generateWaferData = (
         const centerY = radius;
 
         // Generate dies values - start from the bottom and go up
-        for (let i = centerY - radius; i < centerY + radius; i++) {
+        for (let i = centerY - radius; i <= centerY + radius; i++) {
             let stringValue: string;
 
             // generate points left of centerX

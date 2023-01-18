@@ -16,8 +16,6 @@ import {
 } from './types';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
-import { ZoomHandler } from './modules/zoom-handler';
-import { HoverHandler } from './modules/hover-handler';
 import { EventHandler } from './modules/event-handler';
 
 declare global {
@@ -56,6 +54,7 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'color-scale-mode'
     })
+    public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
      * @internal
@@ -72,8 +71,10 @@ export class WaferMap extends FoundationElement {
      */
     public readonly rect!: HTMLCanvasElement;
 
-    @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
-
+    /**
+     * @internal
+     */
+    @observable public canvasSideLength?: number;
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorScale = {
@@ -82,11 +83,31 @@ export class WaferMap extends FoundationElement {
     };
 
     private renderQueued = false;
-    private dataManager: DataManager | undefined;
-
+    private dataManager?: DataManager;
+    private renderer?: RenderingModule;
+    private eventHandler?: EventHandler;
+    private resizeObserver?: ResizeObserver;
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.resizeObserver = new ResizeObserver(entries => {
+            const entry = entries[0];
+            if (entry === undefined) {
+                return;
+            }
+            const { height, width } = entry.contentRect;
+            this.canvasSideLength = Math.min(height, width);
+        });
+        this.resizeObserver.observe(this);
+        this.canvas.addEventListener('wheel', event => event.preventDefault(), {
+            passive: false
+        });
         this.queueRender();
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.canvas.removeEventListener('wheel', event => event.preventDefault());
+        this.resizeObserver!.unobserve(this);
     }
 
     /**
@@ -94,10 +115,20 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
+        if (
+            this.canvasSideLength === undefined
+            || this.canvasSideLength === 0
+        ) {
+            return;
+        }
+        this.renderer?.clearCanvas(
+            this.canvasSideLength,
+            this.canvasSideLength
+        );
         this.dataManager = new DataManager(
             this.dies,
             this.quadrant,
-            { width: 500, height: 500 },
+            { width: this.canvasSideLength, height: this.canvasSideLength },
             this.colorScale,
             this.highlightedValues,
             this.colorScaleMode,
@@ -106,19 +137,20 @@ export class WaferMap extends FoundationElement {
             this.maxCharacters
         );
 
-        const renderer = new RenderingModule(this.dataManager, this.canvas);
-        const eventHandler = new EventHandler(
+        this.renderer = new RenderingModule(this.dataManager, this.canvas);
+        this.eventHandler = new EventHandler(
             this.canvas,
             this.zoomContainer,
+            this.dataManager.containerDimensions,
             this.dataManager,
-            renderer,
+            this.canvasSideLength,
+            this.renderer,
             this.rect,
             this.quadrant
         );
 
-        eventHandler.attachEvents(this);
-
-        renderer.drawWafer();
+        this.eventHandler.attachEvents(this);
+        this.renderer.drawWafer();
     }
 
     private quadrantChanged(): void {
@@ -154,6 +186,18 @@ export class WaferMap extends FoundationElement {
     }
 
     private colorScaleChanged(): void {
+        this.queueRender();
+    }
+
+    private canvasSideLengthChanged(): void {
+        if (
+            this.canvasSideLength !== undefined
+            && this.canvasSideLength !== 0
+        ) {
+            this.canvas.width = this.canvasSideLength;
+            this.canvas.height = this.canvasSideLength;
+        }
+        this.eventHandler?.resetZoomTransform();
         this.queueRender();
     }
 

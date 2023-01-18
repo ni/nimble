@@ -1,4 +1,6 @@
-﻿using NimbleBlazor;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using NimbleBlazor;
 
 namespace Demo.Shared.Pages
 {
@@ -14,6 +16,14 @@ namespace Demo.Shared.Pages
         private NimbleDrawer<DialogResult>? _drawer;
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
+
+        [NotNull]
+        public IEnumerable<Person> TableData { get; set; } = Enumerable.Empty<Person>();
+
+        public ComponentsDemo()
+        {
+            UpdateTableData(10);
+        }
 
         private string DrawerLocationAsString
         {
@@ -44,6 +54,30 @@ namespace Demo.Shared.Pages
         {
             await _drawer!.CloseAsync(reason);
         }
+
+        public void UpdateTableData(int numberOfRows)
+        {
+            var tableData = new Person[numberOfRows + 1];
+            for (int i = 0; i < numberOfRows; i++)
+            {
+                tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last());
+            }
+            tableData[numberOfRows] = new Person(null, null);
+
+            TableData = tableData;
+        }
+    }
+
+    public class Person
+    {
+        public Person(string? firstName, string? lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
+        public string? FirstName { get; }
+        public string? LastName { get; }
     }
 
     public enum DialogResult

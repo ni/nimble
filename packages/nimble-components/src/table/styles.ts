@@ -6,23 +6,25 @@ export const styles = css`
     ${display('flex')}
 
     .table-container {
+        display: flex;
+        flex-direction: column;
         width: 100%;
-        height: 100%;
         font: ${bodyFont};
         color: ${bodyFontColor};
+        overflow: auto;
     }
 
-    .table-header {
+    .header-container {
+        position: sticky;
+        top: 0;
+    }
+
+    .header-row {
         display: flex;
         flex-direction: row;
     }
 
-    .table-row {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .table-cell {
+    .header {
         flex: 1;
     }
 `;

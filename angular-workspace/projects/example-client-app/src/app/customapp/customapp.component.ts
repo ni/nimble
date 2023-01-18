@@ -1,10 +1,15 @@
 /* eslint-disable no-alert */
 import { Component, ViewChild } from '@angular/core';
-import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, TableRecord, UserDismissed } from '@ni/nimble-angular';
 
 interface ComboboxItem {
     first: string;
     last: string;
+}
+
+interface SimpleTableRecord extends TableRecord {
+    stringValue1: string;
+    stringValue2: string;
 }
 
 @Component({
@@ -27,6 +32,15 @@ export class CustomAppComponent {
     public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
     public selectedRadio = 'mango';
+
+    public tableData: SimpleTableRecord[] = [
+        { stringValue1: 'hello world', stringValue2: 'more text' },
+        { stringValue1: 'foo', stringValue2: 'bar' },
+        { stringValue1: 'candy', stringValue2: 'bar' },
+        { stringValue1: 'dive', stringValue2: 'bar' },
+        { stringValue1: 're', stringValue2: 'bar' },
+        { stringValue1: 'last row', stringValue2: 'yay!' }
+    ];
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
@@ -64,5 +78,12 @@ export class CustomAppComponent {
 
     public onTabToolbarButtonClick(): void {
         alert('Tab toolbar button clicked');
+    }
+
+    public onAddTableRow(): void {
+        this.tableData = [...this.tableData, {
+            stringValue1: `new string ${this.tableData.length}`,
+            stringValue2: `bar ${this.tableData.length}`
+        }];
     }
 }

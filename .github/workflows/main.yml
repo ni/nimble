@@ -12,9 +12,9 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           # Required for beachball changelog detection
           fetch-depth: 0
@@ -24,10 +24,10 @@ jobs:
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
       # Install dependencies
-      - uses: actions/setup-dotnet@v2
+      - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
           registry-url: 'https://registry.npmjs.org'
@@ -44,7 +44,7 @@ jobs:
 
       # Pack
       - run: npm run pack
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: packages
           path: |
@@ -52,6 +52,13 @@ jobs:
             packages/**/*.nupkg
             angular-workspace/**/*.tgz
           if-no-files-found: error
+      # The actions/upload-pages-artifact@v1 results in unexpected warning messages, workaround for:
+      # https://github.com/actions/upload-pages-artifact/issues/45
+      - name: Pages file permission workaround
+        run: chmod -c -R +rX packages/site/dist
+      - uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'packages/site/dist'
 
       # Publish to Chromatic (from any push)
       - name: Publish to Chromatic
@@ -94,19 +101,6 @@ jobs:
           git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
           git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
 
-      # Publish site to GitHub Pages (only from main)
-      - name: Install ruby
-        if: startsWith(github.ref, 'refs/heads/main')
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6'
-      - name: Install dependencies
-        if: startsWith(github.ref, 'refs/heads/main')
-        run: gem install dpl
-      - name: Deploy to GitHub Pages
-        if: startsWith(github.ref, 'refs/heads/main')
-        run: dpl --provider=pages --repo=ni/nimble --local_dir=packages/site/dist --skip_cleanup --name="${{ env.GITHUB_SERVICE_USER }}" --email="${{ env.GITHUB_SERVICE_EMAIL }}" --github-token=${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
-
       # Update package versions, tag, and publish to npm (only from main)
       - name: Beachball publish
         if: startsWith(github.ref, 'refs/heads/main')
@@ -114,3 +108,18 @@ jobs:
           NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
           NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}
         run: npm run invoke-publish
+
+  pages:
+    needs: build
+    if: startsWith(github.ref, 'refs/heads/main')
+    runs-on: ubuntu-22.04
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
