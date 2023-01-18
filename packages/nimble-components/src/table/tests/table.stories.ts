@@ -17,18 +17,26 @@ interface TableArgs {
 
 const simpleData = [
     {
-        myStr: 'my first row',
-        myNum: 5,
-        myBool: true
+        firstName: 'Ralph',
+        lastName: 'Wiggum',
+        favoriteColor: 'Rainbow',
+        quote: "I'm in danger!"
     },
     {
-        myStr: 'my second row',
-        myNum: 15,
-        myBool: false
+        firstName: 'Milhouse',
+        lastName: 'Van Houten',
+        favoriteColor: 'Crimson',
+        quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
+    },
+    {
+        firstName: 'Ned',
+        lastName: 'Flanders',
+        favoriteColor: 'Taupe',
+        quote: 'Hi diddly-ho neighbor!'
     }
 ] as const;
 
-const simpleDataIdFieldName = 'myStr';
+const simpleDataIdFieldName = 'firstName';
 
 const dataSets = {
     [ExampleDataType.simpleData]: simpleData
@@ -50,16 +58,16 @@ If the attribute is not specified, a default ID will be generated. If the attrib
 and the table will enter an invalid state according to the \`validity\` property and \`checkValidity()\` function.
 
 The attribute is invalid in the following conditions:
--   Multiple records were found with the same ID. This will cause \`validity.duplicateRowId\` to be \`true\`.
--   A record was found that did not have a field with the name specified by \`id-field-name\`. This will cause \`validity.missingRowId\` to be \`true\`.
--   A record was found where \`id-field-name\` did not refer to a value of type \`string\` with a non-empty value. This will cause \`validity.invalidRowId\` to be \`true\`.`;
+-   Multiple records were found with the same ID. This will cause \`validity.duplicateRecordId\` to be \`true\`.
+-   A record was found that did not have a field with the name specified by \`id-field-name\`. This will cause \`validity.missingRecordId\` to be \`true\`.
+-   A record was found where \`id-field-name\` did not refer to a value of type \`string\`. This will cause \`validity.invalidRecordId\` to be \`true\`.`;
 
 const validityDescription = `Readonly object of boolean values that represents the validity states that the table's configuration can be in.
 The object's type is \`TableValidityState\`, and it contains the following boolean properties:
 
--   \`duplicateRowId\`: \`true\` when multiple records were found with the same ID
--   \`missingRowId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
--   \`invalidRowId\`: \`true\` when record was found where \`id-field-name\` did not refer to a value of type \`string\` with a non-empty value
+-   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
+-   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
+-   \`invalidRecordId\`: \`true\` when record was found where \`id-field-name\` did not refer to a value of type \`string\`
 `;
 
 const metadata: Meta<TableArgs> = {
@@ -86,6 +94,10 @@ const metadata: Meta<TableArgs> = {
             experimental. It is not recommended for application use.
         </div>
         <nimble-table :data=${x => dataSets[x.data]} id-field-name=${x => dataSetIdFieldNames[x.data]}>
+            <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
+            <nimble-table-column-text field-name="quote" placeholder="no value">Quote</nimble-table-column-text>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {

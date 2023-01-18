@@ -23,19 +23,30 @@ export const styles = css`
         position: absolute;
     }
 
-    .svg-root.top {
+    .circle-base {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        fill: white;
+    }
+
+    .notch {
+        transform-origin: center center;
+    }
+
+    .notch.top {
         transform: rotate(-90deg);
     }
 
-    .svg-root.right {
+    .notch.right {
         transform: rotate(0deg);
     }
 
-    .svg-root.left {
+    .notch.left {
         transform: rotate(180deg);
     }
 
-    .svg-root.bottom {
+    .notch.bottom {
         transform: rotate(90deg);
     }
 

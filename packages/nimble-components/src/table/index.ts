@@ -9,6 +9,7 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
+import type { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
@@ -38,14 +39,8 @@ export class Table<
     @observable
     public tableData: TableRowState<TData>[] = [];
 
-    // TODO: Temporarily expose the columns as a string array. This will ultimately be
-    // column definitions provided by slotted elements.
     @observable
-    public columns: string[] = [];
-
-    // TODO: Temporarily expose the column headers as a string array.
-    @observable
-    public columnHeaders: string[] = [];
+    public readonly columns: TableColumn[] = [];
 
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
@@ -62,13 +57,6 @@ export class Table<
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
             getCoreRowModel: tanStackGetCoreRowModel(),
-            getRowId: record => {
-                if (this.idFieldName) {
-                    return record[this.idFieldName] as string;
-                }
-                // Return a falsey value to use the default ID from TanStack.
-                return '';
-            },
             columns: [],
             state: {},
             renderFallbackValue: null,
@@ -106,21 +94,27 @@ export class Table<
     }
 
     private trySetData(newData: TData[]): void {
-        const areIdsValid = this.tableValidator.validateDataIds(
+        const areIdsValid = this.tableValidator.validateRecordIds(
             newData,
             this.idFieldName
         );
-        if (areIdsValid) {
-            this.updateTableOptions({ data: newData });
-        } else {
-            this.updateTableOptions({ data: [] });
-        }
+
+        const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
+            ? undefined
+            : (record: TData) => record[this.idFieldName!] as string;
+        this.updateTableOptions({
+            data: areIdsValid ? newData : [],
+            getRowId: getRowIdFunction
+        });
     }
 
     private refreshRows(): void {
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
-            const rowState: TableRowState<TData> = { data: row.original };
+            const rowState: TableRowState<TData> = {
+                record: row.original,
+                id: row.id
+            };
             return rowState;
         });
     }
@@ -147,8 +141,8 @@ export class Table<
         }));
     };
 
-    // Temporarily auto-detect the keys in TData to make columns.
-    // TODO: Remove this logic when another way to specify columns is provided.
+    // Generate columns for TanStack that correspond to all the keys in TData because all operations,
+    // such as grouping and sorting, will be performed on the data's records, not the values rendered within a cell.
     private generateColumns(): void {
         if (this.data.length === 0) {
             return;
@@ -166,8 +160,6 @@ export class Table<
         });
 
         this.updateTableOptions({ columns: generatedColumns });
-        this.columnHeaders = generatedColumns.map(x => x.header as string);
-        this.columns = this.columnHeaders;
     }
 }
 
