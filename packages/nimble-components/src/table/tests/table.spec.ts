@@ -3,6 +3,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { Table } from '..';
 import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { controlHeight } from '../../theme-provider/design-tokens';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
 import { TablePageObject } from './table.pageobject';
@@ -317,7 +318,9 @@ describe('Table', () => {
             await waitForUpdatesAsync();
 
             const actualRowCount = pageObject.getRenderedRowCount();
-            const approximateRowHeight = 32;
+            const approximateRowHeight = parseFloat(
+                controlHeight.getValueFor(element)
+            );
             const expectedRowCountUpperBound = (element.offsetHeight / approximateRowHeight) * 3;
             expect(actualRowCount).toBeLessThan(data.length);
             expect(actualRowCount).toBeLessThan(expectedRowCountUpperBound);
