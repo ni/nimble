@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add table row ID and validity support to Blazor",
+  "packageName": "@ni/nimble-blazor",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
