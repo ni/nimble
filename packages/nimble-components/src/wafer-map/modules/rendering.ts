@@ -39,14 +39,12 @@ export class RenderingModule {
             if (prev && die.fillStyle !== prev.fillStyle && die.fillStyle) {
                 this.context.fillStyle = die.fillStyle;
             }
-            this.context?.beginPath();
-            this.context?.rect(
+            this.context?.fillRect(
                 die.x,
                 die.y,
                 this.dimensions.width,
                 this.dimensions.height
             );
-            this.context?.fill();
             prev = die;
         }
     }
