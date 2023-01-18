@@ -38,7 +38,7 @@ export const template = html<Table>`
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
-                <div class="table-scroll" style="height: ${x => x.rowContainerHeight}px;"></div>
+                <div class="table-scroll" style="height: ${x => x.allRowsHeight}px;"></div>
                 <div class="table-row-container" role="rowgroup" ${ref('rowContainer')}>
                     ${when(x => x.columns.length > 0, html<Table>`
                         ${repeat(x => x.visibleItems, html<VirtualItem>`
