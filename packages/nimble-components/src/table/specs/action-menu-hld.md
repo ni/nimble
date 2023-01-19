@@ -97,7 +97,7 @@ When an item in the menu is activated, the standard events associated with the m
 
 #### Slot Forwarding
 
-In order for a menu slotted within the table to be slotted within a cell's `nimble-menu-button`, the menu needs to be "forwarded" from the table to a row and then to a cell. The table will first determine the set of slots that need to exist based on every column that is configured with an `action-menu` attribute. Those slots will be created within the table, and the set of slots will be passed to the `nimble-table-row` so that it can also create appropriate slots. While there could be a number of slots within the table and a table's row, the slotted menus will be assigned to the correct row and cell based on events when the menu is opend. The templates will dyanamically rename their slots to ensure that the menus are slotted in the correct row and cell.
+In order for a menu slotted within the table to be slotted within a cell's `nimble-menu-button`, the menu needs to be "forwarded" from the table to a row and then to a cell. The table will first determine the set of slots that need to exist based on every column that is configured with an `action-menu` attribute. Those slots will be created within the table, and the set of slots will be passed to the `nimble-table-row` so that it can also create appropriate slots. While there could be a number of slots within the table and a table's row, the slotted menus will be assigned to the correct row and cell based on events when the menu is opened. The templates will dyanamically rename their slots to ensure that the menus are slotted in the correct row and cell.
 
 For example, the table's template will look something like this:
 
