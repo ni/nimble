@@ -140,7 +140,7 @@ export class WaferMap extends FoundationElement {
             this.canvasSideLength
         );
         this.zoomHandler.attachZoomBehavior();
-        this.renderer.drawWafer();
+        this.renderer.webGLRender();
     }
 
     private quadrantChanged(): void {

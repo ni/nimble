@@ -45,7 +45,7 @@ export class ZoomHandler {
             zoomIdentity.y,
             zoomIdentity.k
         );
-        this.renderingModule.drawWafer(this.zoomTransform.k);
+        this.renderingModule.webGLRender();
         this.zoomBehavior?.transform(
             select(this.canvas as Element),
             zoomIdentity
@@ -93,7 +93,7 @@ export class ZoomHandler {
                         zoomIdentity.y,
                         zoomIdentity.k
                     );
-                    this.renderingModule.drawWafer(this.zoomTransform.k);
+                    this.renderingModule.webGLRender();
                     zoomBehavior.transform(
                         select(this.canvas as Element),
                         zoomIdentity
@@ -111,7 +111,7 @@ export class ZoomHandler {
                         transform.y,
                         transform.k
                     );
-                    this.renderingModule.drawWafer(this.zoomTransform.k);
+                    this.renderingModule.webGLRender();
                 }
                 canvasContext.restore();
                 this.zoomContainer.setAttribute(

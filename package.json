@@ -47,5 +47,11 @@
     "patch-package": "^6.4.7",
     "style-dictionary": "3.1.1",
     "typescript": "~4.6.4"
+  },
+  "dependencies": {
+    "@luma.gl/engine": "^8.5.18",
+    "@luma.gl/webgl": "^8.5.18",
+    "webgl-dev-utils": "^0.0.2",
+    "webgl-utils": "^1.0.1"
   }
 }
