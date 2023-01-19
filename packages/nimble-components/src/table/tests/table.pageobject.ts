@@ -67,7 +67,7 @@ export class TablePageObject<T extends TableRecord> {
 
         return rows.item(rowIndex).recordId;
     }
-	
+
     public async scrollToLastRowAsync(): Promise<void> {
         const scrollElement = this.tableElement.viewport;
         scrollElement.scrollTop = scrollElement.scrollHeight;
