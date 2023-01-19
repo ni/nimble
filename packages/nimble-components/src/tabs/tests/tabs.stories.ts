@@ -49,7 +49,7 @@ const metadata: Meta<TabsArgs> = {
     argTypes: {
         activeId: {
             options: ['1', '2', '3'],
-            control: { type: 'radio' },
+            control: { type: 'radio' }
         },
         tabDisabled: {
             name: 'tab 1 disabled'
