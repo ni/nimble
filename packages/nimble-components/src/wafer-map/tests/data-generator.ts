@@ -28,7 +28,7 @@ export const generateDieContent = (
         x,
         y,
         value,
-        tooltip: `Placeholder tooltip value for Die x: ${x} y: ${y}`
+        metadata: `Placeholder metadata value for Die x: ${x} y: ${y}`
     };
 };
 
