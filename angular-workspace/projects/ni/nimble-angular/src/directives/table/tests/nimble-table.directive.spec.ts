@@ -73,9 +73,9 @@ describe('Nimble table', () => {
             fixture.detectChanges();
 
             const expectedValidity: TableValidity = {
-                duplicateRowId: false,
-                invalidRowId: false,
-                missingRowId: true
+                duplicateRecordId: false,
+                invalidRecordId: false,
+                missingRecordId: true
             };
             expect(directive.validity).toEqual(expectedValidity);
             expect(nativeElement.validity).toEqual(expectedValidity);

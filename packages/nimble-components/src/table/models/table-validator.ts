@@ -5,15 +5,15 @@ import type { TableRecord, TableValidity } from '../types';
  * is valid and report which aspects of the configuration are valid or invalid.
  */
 export class TableValidator<TData extends TableRecord> {
-    private duplicateRowId = false;
-    private missingRowId = false;
-    private invalidRowId = false;
+    private duplicateRecordId = false;
+    private missingRecordId = false;
+    private invalidRecordId = false;
 
     public getValidity(): TableValidity {
         return {
-            duplicateRowId: this.duplicateRowId,
-            missingRowId: this.missingRowId,
-            invalidRowId: this.invalidRowId
+            duplicateRecordId: this.duplicateRecordId,
+            missingRecordId: this.missingRecordId,
+            invalidRecordId: this.invalidRecordId
         };
     }
 
@@ -21,38 +21,42 @@ export class TableValidator<TData extends TableRecord> {
         return Object.values(this.getValidity()).every(x => x === false);
     }
 
-    public validateDataIds(
+    public validateRecordIds(
         data: TData[],
         idFieldName: string | null | undefined
     ): boolean {
         // Start off by assuming all IDs are valid.
-        this.duplicateRowId = false;
-        this.missingRowId = false;
-        this.invalidRowId = false;
+        this.duplicateRecordId = false;
+        this.missingRecordId = false;
+        this.invalidRecordId = false;
 
-        if (idFieldName == null) {
+        if (idFieldName === undefined || idFieldName === null) {
             return true;
         }
 
         const ids = new Set<string>();
         for (const record of data) {
             if (!Object.prototype.hasOwnProperty.call(record, idFieldName)) {
-                this.missingRowId = true;
+                this.missingRecordId = true;
                 continue;
             }
 
             const id = record[idFieldName];
-            if (typeof id !== 'string' || id === '') {
-                this.invalidRowId = true;
+            if (typeof id !== 'string') {
+                this.invalidRecordId = true;
                 continue;
             }
 
             if (ids.has(id)) {
-                this.duplicateRowId = true;
+                this.duplicateRecordId = true;
             }
             ids.add(id);
         }
 
-        return !this.missingRowId && !this.invalidRowId && !this.duplicateRowId;
+        return (
+            !this.missingRecordId
+            && !this.invalidRecordId
+            && !this.duplicateRecordId
+        );
     }
 }

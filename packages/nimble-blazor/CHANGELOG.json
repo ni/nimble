@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 18 Jan 2023 22:26:41 GMT",
+      "tag": "@ni/nimble-blazor_v10.0.7",
+      "version": "10.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a882a4ce55fb60b786dfde385fa97863536c45d6",
+            "comment": "Add table row ID and validity support to Blazor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Jan 2023 00:16:05 GMT",
       "tag": "@ni/nimble-blazor_v10.0.3",
       "version": "10.0.3",
