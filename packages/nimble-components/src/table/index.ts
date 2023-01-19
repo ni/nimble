@@ -58,16 +58,6 @@ export class Table<
     /**
      * @internal
      */
-    public readonly headerContainer!: HTMLElement;
-
-    /**
-     * @internal
-     */
-    public readonly rowContainer!: HTMLElement;
-
-    /**
-     * @internal
-     */
     public readonly viewport!: HTMLElement;
 
     /**
@@ -92,6 +82,12 @@ export class Table<
      */
     @observable
     public headerContainerMarginRight = 0;
+
+    /**
+     * @internal
+     */
+    @observable
+    public rowContainerYOffset = 0;
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
@@ -162,9 +158,6 @@ export class Table<
         } else {
             this.updateTableOptions({ data: [] });
         }
-        if (this.isConnected) {
-            this.updateVirtualizer();
-        }
     }
 
     private refreshRows(): void {
@@ -173,6 +166,9 @@ export class Table<
             const rowState: TableRowState<TData> = { record: row.original };
             return rowState;
         });
+        if (this.isConnected) {
+            this.updateVirtualizer();
+        }
     }
 
     private updateTableOptions(
@@ -257,16 +253,15 @@ export class Table<
         // the row container's height is only big enough to hold the virtualized rows. So we don't
         // use the TanStackVirtual-provided 'start' offset (which is in terms of the full height)
         // to translate every individual row, we just translate the row container.
-        let rowContainerTransform = '';
+        let rowContainerYOffset = 0;
         if (this.visibleItems.length > 0) {
             const firstItem = this.visibleItems[0]!;
             const lastItem = this.visibleItems[this.visibleItems.length - 1]!;
             if (lastItem.end < this.allRowsHeight) {
-                const offsetY = firstItem.start - this.viewport.scrollTop;
-                rowContainerTransform = `translateY(${offsetY}px)`;
+                rowContainerYOffset = firstItem.start - this.viewport.scrollTop;
             }
         }
-        this.rowContainer.style.transform = rowContainerTransform;
+        this.rowContainerYOffset = rowContainerYOffset;
         // If we have enough rows that a vertical scrollbar is shown, we need to offset the header widths
         // by the same margin so the column headers align with the corresponding rendered cells
         this.headerContainerMarginRight = this.viewport.getBoundingClientRect().width

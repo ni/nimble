@@ -64,8 +64,8 @@ import { TableDemoComponent } from './tabledemo/tabledemo.component';
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
-                { path: 'customapp', component: CustomAppComponent },
-                { path: 'tabledemo', component: TableDemoComponent }
+                { path: 'customapp', component: CustomAppComponent, title: 'Nimble components demo' },
+                { path: 'tabledemo', component: TableDemoComponent, title: 'Nimble Table component demo' }
             ],
             { useHash: true }
         )
