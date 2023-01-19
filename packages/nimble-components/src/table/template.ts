@@ -43,6 +43,8 @@ export const template = html<Table>`
                     ${when(x => x.columns.length > 0, html<Table>`
                         ${repeat(x => x.visibleItems, html<VirtualItem, Table>`
                             <${DesignSystem.tagFor(TableRow)}
+                                class="row"
+                                record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                 :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                 :columns="${(_, c) => c.parent.columns}"
                                 style="height: ${x => x.size}px;"

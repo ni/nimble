@@ -72,16 +72,16 @@ If the attribute is not specified, a default ID will be generated. If the attrib
 and the table will enter an invalid state according to the \`validity\` property and \`checkValidity()\` function.
 
 The attribute is invalid in the following conditions:
--   Multiple records were found with the same ID. This will cause \`validity.duplicateRowId\` to be \`true\`.
--   A record was found that did not have a field with the name specified by \`id-field-name\`. This will cause \`validity.missingRowId\` to be \`true\`.
--   A record was found where \`id-field-name\` did not refer to a value of type \`string\` with a non-empty value. This will cause \`validity.invalidRowId\` to be \`true\`.`;
+-   Multiple records were found with the same ID. This will cause \`validity.duplicateRecordId\` to be \`true\`.
+-   A record was found that did not have a field with the name specified by \`id-field-name\`. This will cause \`validity.missingRecordId\` to be \`true\`.
+-   A record was found where \`id-field-name\` did not refer to a value of type \`string\`. This will cause \`validity.invalidRecordId\` to be \`true\`.`;
 
 const validityDescription = `Readonly object of boolean values that represents the validity states that the table's configuration can be in.
 The object's type is \`TableValidityState\`, and it contains the following boolean properties:
 
--   \`duplicateRowId\`: \`true\` when multiple records were found with the same ID
--   \`missingRowId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
--   \`invalidRowId\`: \`true\` when record was found where \`id-field-name\` did not refer to a value of type \`string\` with a non-empty value
+-   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
+-   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
+-   \`invalidRecordId\`: \`true\` when record was found where \`id-field-name\` did not refer to a value of type \`string\`
 `;
 
 const metadata: Meta<TableArgs> = {

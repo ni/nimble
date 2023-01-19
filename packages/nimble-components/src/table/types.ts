@@ -49,11 +49,12 @@ export interface TableCellState<
 }
 
 export interface TableValidity {
-    readonly duplicateRowId: boolean;
-    readonly missingRowId: boolean;
-    readonly invalidRowId: boolean;
+    readonly duplicateRecordId: boolean;
+    readonly missingRecordId: boolean;
+    readonly invalidRecordId: boolean;
 }
 
 export interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
+    id: string;
 }

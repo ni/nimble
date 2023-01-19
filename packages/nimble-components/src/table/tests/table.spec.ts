@@ -94,6 +94,15 @@ describe('Table', () => {
         }
     }
 
+    function verifyRecordIDs(expectedRecordIds: string[]): void {
+        const expectedRowCount = expectedRecordIds.length;
+        for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
+            expect(pageObject.getRecordId(rowIndex)).toEqual(
+                expectedRecordIds[rowIndex]
+            );
+        }
+    }
+
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -230,6 +239,42 @@ describe('Table', () => {
         verifyRenderedData();
     });
 
+    describe('record IDs', () => {
+        it('setting ID field uses field value for ID', async () => {
+            const data = [...simpleTableData];
+            element.data = data;
+            element.idFieldName = 'stringData';
+            await connect();
+            await waitForUpdatesAsync();
+
+            verifyRecordIDs(data.map(x => x.stringData));
+        });
+
+        it('not setting ID field uses generated ID', async () => {
+            const data = [...simpleTableData];
+            element.data = data;
+            await connect();
+            await waitForUpdatesAsync();
+
+            verifyRecordIDs(data.map((_, index: number) => index.toString()));
+        });
+
+        it('row IDs update when id-field-name attribute is updated', async () => {
+            const data = [...simpleTableData];
+            element.data = data;
+            await connect();
+            await waitForUpdatesAsync();
+
+            element.idFieldName = 'stringData';
+            await waitForUpdatesAsync();
+            verifyRecordIDs(data.map(x => x.stringData));
+
+            element.idFieldName = undefined;
+            await waitForUpdatesAsync();
+            verifyRecordIDs(data.map((_, index: number) => index.toString()));
+        });
+    });
+
     describe('ID validation', () => {
         it('setting valid field for ID is valid and renders rows', async () => {
             const data = [...simpleTableData];
@@ -240,9 +285,9 @@ describe('Table', () => {
 
             verifyRenderedData();
             expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.duplicateRowId).toBeFalse();
-            expect(element.validity.invalidRowId).toBeFalse();
-            expect(element.validity.missingRowId).toBeFalse();
+            expect(element.validity.duplicateRecordId).toBeFalse();
+            expect(element.validity.invalidRecordId).toBeFalse();
+            expect(element.validity.missingRecordId).toBeFalse();
         });
 
         it('setting invalid field for ID  is invalid and renders no rows', async () => {
@@ -254,9 +299,9 @@ describe('Table', () => {
 
             expect(pageObject.getRenderedRowCount()).toBe(0);
             expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.duplicateRowId).toBeFalse();
-            expect(element.validity.invalidRowId).toBeTrue();
-            expect(element.validity.missingRowId).toBeFalse();
+            expect(element.validity.duplicateRecordId).toBeFalse();
+            expect(element.validity.invalidRecordId).toBeTrue();
+            expect(element.validity.missingRecordId).toBeFalse();
         });
 
         it('setting ID field name to undefined makes an invalid table valid', async () => {

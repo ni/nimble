@@ -57,6 +57,17 @@ export class TablePageObject<T extends TableRecord> {
         return cells.item(columnIndex).shadowRoot!.textContent?.trim() ?? '';
     }
 
+    public getRecordId(rowIndex: number): string | undefined {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+
+        return rows.item(rowIndex).recordId;
+    }
+	
     public async scrollToLastRowAsync(): Promise<void> {
         const scrollElement = this.tableElement.viewport;
         scrollElement.scrollTop = scrollElement.scrollHeight;

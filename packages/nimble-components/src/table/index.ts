@@ -100,13 +100,6 @@ export class Table<
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
             getCoreRowModel: tanStackGetCoreRowModel(),
-            getRowId: record => {
-                if (this.idFieldName) {
-                    return record[this.idFieldName] as string;
-                }
-                // Return a falsey value to use the default ID from TanStack.
-                return '';
-            },
             columns: [],
             state: {},
             renderFallbackValue: null,
@@ -149,21 +142,27 @@ export class Table<
     }
 
     private trySetData(newData: TData[]): void {
-        const areIdsValid = this.tableValidator.validateDataIds(
+        const areIdsValid = this.tableValidator.validateRecordIds(
             newData,
             this.idFieldName
         );
-        if (areIdsValid) {
-            this.updateTableOptions({ data: newData });
-        } else {
-            this.updateTableOptions({ data: [] });
-        }
+
+        const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
+            ? undefined
+            : (record: TData) => record[this.idFieldName!] as string;
+        this.updateTableOptions({
+            data: areIdsValid ? newData : [],
+            getRowId: getRowIdFunction
+        });
     }
 
     private refreshRows(): void {
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
-            const rowState: TableRowState<TData> = { record: row.original };
+            const rowState: TableRowState<TData> = {
+                record: row.original,
+                id: row.id
+            };
             return rowState;
         });
         if (this.isConnected) {
