@@ -45,7 +45,9 @@ export class ZoomHandler {
     }
 
     public resetTransform(): void {
-        if (this._renderingFunction === undefined) return;
+        if (this._renderingFunction === undefined) {
+            return;
+        }
         const canvasContext = this.canvas.getContext('2d');
         if (canvasContext === null) {
             return;
@@ -87,8 +89,12 @@ export class ZoomHandler {
                 return transform.k >= this.minScale || event.type === 'wheel';
             })
             .on('zoom', (event: { transform: ZoomTransform }) => {
-                if (this._hideHoverDieFunction) this._hideHoverDieFunction();
-                if (this._renderingFunction === undefined) return;
+                if (this._hideHoverDieFunction) {
+                    this._hideHoverDieFunction();
+                }
+                if (this._renderingFunction === undefined) {
+                    return;
+                }
                 const transform = event.transform;
                 const canvasContext = this.canvas.getContext('2d');
                 if (canvasContext === null) {

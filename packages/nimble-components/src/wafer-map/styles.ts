@@ -90,7 +90,7 @@ export const styles = css`
 
     .hover-layer {
         position: absolute;
-        pointer-events:none;
+        pointer-events: none;
         width: 100%;
         height: 100%;
     }

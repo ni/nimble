@@ -33,11 +33,17 @@ export class HoverHandler {
         if (this.dataManager) {
             this.rect.setAttribute(
                 'width',
-                `${this.dataManager.dieDimensions.width * this.zoomHandler.zoomTransform.k}`
+                `${
+                    this.dataManager.dieDimensions.width
+                    * this.zoomHandler.zoomTransform.k
+                }`
             );
             this.rect.setAttribute(
                 'height',
-                `${this.dataManager.dieDimensions.height * this.zoomHandler.zoomTransform.k}`
+                `${
+                    this.dataManager.dieDimensions.height
+                    * this.zoomHandler.zoomTransform.k
+                }`
             );
         }
     }
@@ -63,7 +69,10 @@ export class HoverHandler {
         }
 
         // get original mouse position in case we are in zoom.
-        const invertedPoint = this.zoomHandler.zoomTransform.invert([mouseX, mouseY]);
+        const invertedPoint = this.zoomHandler.zoomTransform.invert([
+            mouseX,
+            mouseY
+        ]);
         const { x, y } = this.calculateDiePositionNumbers(
             invertedPoint[0],
             invertedPoint[1]
