@@ -206,9 +206,9 @@
         <div class="sub-container">
             <div class="container-label">Tabs</div>
             <NimbleTabs @bind-ActiveId="@ActiveTabId">
-                <NimbleTab>Tab 1</NimbleTab>
-                <NimbleTab>Tab 2</NimbleTab>
-                <NimbleTab Disabled="true">Tab 3 (Disabled)</NimbleTab>
+                <NimbleTab id="tab-1">Tab 1</NimbleTab>
+                <NimbleTab id="tab-2">Tab 2</NimbleTab>
+                <NimbleTab id="tab-3" Disabled="true">Tab 3 (Disabled)</NimbleTab>
                 <NimbleTabsToolbar>
                     <NimbleButton>Toolbar Button</NimbleButton>
                 </NimbleTabsToolbar>
@@ -223,6 +223,22 @@
                 </NimbleTabPanel>
             </NimbleTabs>
             <NimbleSelect @bind-Value="@ActiveTabId">
+                <NimbleListOption Value="tab-1">Tab 1</NimbleListOption>
+                <NimbleListOption Value="tab-2">Tab 2</NimbleListOption>
+                <NimbleListOption Value="tab-3">Tab 3</NimbleListOption>
+            </NimbleSelect>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Tabs - Anchor</div>
+            <NimbleAnchorTabs @bind-ActiveId="@ActiveAnchorTabId">
+                <NimbleAnchorTab id="tab-1">Tab 1</NimbleAnchorTab>
+                <NimbleAnchorTab id="tab-2">Tab 2</NimbleAnchorTab>
+                <NimbleAnchorTab id="tab-3" Disabled="true">Tab 3 (Disabled)</NimbleAnchorTab>
+                <NimbleTabsToolbar>
+                    <NimbleButton>Toolbar Button</NimbleButton>
+                </NimbleTabsToolbar>
+            </NimbleAnchorTabs>
+            <NimbleSelect @bind-Value="@ActiveAnchorTabId">
                 <NimbleListOption Value="tab-1">Tab 1</NimbleListOption>
                 <NimbleListOption Value="tab-2">Tab 2</NimbleListOption>
                 <NimbleListOption Value="tab-3">Tab 3</NimbleListOption>
