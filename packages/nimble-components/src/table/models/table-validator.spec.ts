@@ -8,13 +8,13 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeFalse();
-        expect(validity.invalidRowId).toBeFalse();
-        expect(validity.missingRowId).toBeFalse();
+        expect(validity.duplicateRecordId).toBeFalse();
+        expect(validity.invalidRecordId).toBeFalse();
+        expect(validity.missingRecordId).toBeFalse();
     });
 
     it('setting `undefined` field for ID is valid', () => {
@@ -24,13 +24,13 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, undefined);
+        const isValid = validator.validateRecordIds(data, undefined);
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeFalse();
-        expect(validity.invalidRowId).toBeFalse();
-        expect(validity.missingRowId).toBeFalse();
+        expect(validity.duplicateRecordId).toBeFalse();
+        expect(validity.invalidRecordId).toBeFalse();
+        expect(validity.missingRecordId).toBeFalse();
     });
 
     it('setting `null` field for ID is valid', () => {
@@ -40,13 +40,13 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, null);
+        const isValid = validator.validateRecordIds(data, null);
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeFalse();
-        expect(validity.invalidRowId).toBeFalse();
-        expect(validity.missingRowId).toBeFalse();
+        expect(validity.duplicateRecordId).toBeFalse();
+        expect(validity.invalidRecordId).toBeFalse();
+        expect(validity.missingRecordId).toBeFalse();
     });
 
     it('setting data with duplicate IDs is invalid', () => {
@@ -56,13 +56,13 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeTrue();
-        expect(validity.invalidRowId).toBeFalse();
-        expect(validity.missingRowId).toBeFalse();
+        expect(validity.duplicateRecordId).toBeTrue();
+        expect(validity.invalidRecordId).toBeFalse();
+        expect(validity.missingRecordId).toBeFalse();
     });
 
     it('setting data with invalid ID value type is invalid', () => {
@@ -72,29 +72,29 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'numberField');
+        const isValid = validator.validateRecordIds(data, 'numberField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeFalse();
-        expect(validity.invalidRowId).toBeTrue();
-        expect(validity.missingRowId).toBeFalse();
+        expect(validity.duplicateRecordId).toBeFalse();
+        expect(validity.invalidRecordId).toBeTrue();
+        expect(validity.missingRecordId).toBeFalse();
     });
 
-    it('setting data with empty ID value is invalid', () => {
+    it('setting data with empty ID value is valid', () => {
         const data = [
             { stringField: 'value-1', numberField: 10 },
             { stringField: '', numberField: 11 }
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
-        expect(isValid).toBeFalse();
-        expect(validator.isValid()).toBeFalse();
+        const isValid = validator.validateRecordIds(data, 'stringField');
+        expect(isValid).toBeTrue();
+        expect(validator.isValid()).toBeTrue();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeFalse();
-        expect(validity.invalidRowId).toBeTrue();
-        expect(validity.missingRowId).toBeFalse();
+        expect(validity.duplicateRecordId).toBeFalse();
+        expect(validity.invalidRecordId).toBeFalse();
+        expect(validity.missingRecordId).toBeFalse();
     });
 
     it('setting data with undefined ID value is invalid', () => {
@@ -104,13 +104,13 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeFalse();
-        expect(validity.invalidRowId).toBeTrue();
-        expect(validity.missingRowId).toBeFalse();
+        expect(validity.duplicateRecordId).toBeFalse();
+        expect(validity.invalidRecordId).toBeTrue();
+        expect(validity.missingRecordId).toBeFalse();
     });
 
     it('setting data with null ID value is invalid', () => {
@@ -120,13 +120,13 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeFalse();
-        expect(validity.invalidRowId).toBeTrue();
-        expect(validity.missingRowId).toBeFalse();
+        expect(validity.duplicateRecordId).toBeFalse();
+        expect(validity.invalidRecordId).toBeTrue();
+        expect(validity.missingRecordId).toBeFalse();
     });
 
     it('setting data with missing IDs is invalid', () => {
@@ -136,13 +136,13 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'missingField');
+        const isValid = validator.validateRecordIds(data, 'missingField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeFalse();
-        expect(validity.invalidRowId).toBeFalse();
-        expect(validity.missingRowId).toBeTrue();
+        expect(validity.duplicateRecordId).toBeFalse();
+        expect(validity.invalidRecordId).toBeFalse();
+        expect(validity.missingRecordId).toBeTrue();
     });
 
     it('multiple errors are reported during validation', () => {
@@ -155,13 +155,13 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, 'stringField');
+        const isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeTrue();
-        expect(validity.invalidRowId).toBeTrue();
-        expect(validity.missingRowId).toBeTrue();
+        expect(validity.duplicateRecordId).toBeTrue();
+        expect(validity.invalidRecordId).toBeTrue();
+        expect(validity.missingRecordId).toBeTrue();
     });
 
     it('setting ID field name to undefined makes configuration valid', () => {
@@ -171,11 +171,11 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        let isValid = validator.validateDataIds(data, 'missingField');
+        let isValid = validator.validateRecordIds(data, 'missingField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
 
-        isValid = validator.validateDataIds(data, undefined);
+        isValid = validator.validateRecordIds(data, undefined);
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
     });
@@ -187,11 +187,11 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        let isValid = validator.validateDataIds(data, 'missingField');
+        let isValid = validator.validateRecordIds(data, 'missingField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
 
-        isValid = validator.validateDataIds(data, 'stringField');
+        isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
     });
@@ -203,11 +203,11 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        let isValid = validator.validateDataIds(data, 'stringField');
+        let isValid = validator.validateRecordIds(data, 'stringField');
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
 
-        isValid = validator.validateDataIds(data, 'missingField');
+        isValid = validator.validateRecordIds(data, 'missingField');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
     });
@@ -221,13 +221,13 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, '');
+        const isValid = validator.validateRecordIds(data, '');
         expect(isValid).toBeTrue();
         expect(validator.isValid()).toBeTrue();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeFalse();
-        expect(validity.invalidRowId).toBeFalse();
-        expect(validity.missingRowId).toBeFalse();
+        expect(validity.duplicateRecordId).toBeFalse();
+        expect(validity.invalidRecordId).toBeFalse();
+        expect(validity.missingRecordId).toBeFalse();
     });
 
     it('validation occurs when ID field name is an empty string', () => {
@@ -239,12 +239,12 @@ describe('TableValidator', () => {
         ];
         const validator = new TableValidator();
 
-        const isValid = validator.validateDataIds(data, '');
+        const isValid = validator.validateRecordIds(data, '');
         expect(isValid).toBeFalse();
         expect(validator.isValid()).toBeFalse();
         const validity = validator.getValidity();
-        expect(validity.duplicateRowId).toBeTrue();
-        expect(validity.invalidRowId).toBeFalse();
-        expect(validity.missingRowId).toBeFalse();
+        expect(validity.duplicateRecordId).toBeTrue();
+        expect(validity.invalidRecordId).toBeFalse();
+        expect(validity.missingRecordId).toBeFalse();
     });
 });
