@@ -138,7 +138,7 @@ describe('TableColumnText', () => {
     ];
     for (const fieldValue of fieldValues) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`data ${fieldValue.value} renders as ${fieldValue.value}`, async () => {
+        it(`data "${fieldValue.value}" renders as "${fieldValue.value}"`, async () => {
             await connect();
 
             element.data = [{ field: fieldValue.value }];
@@ -146,6 +146,37 @@ describe('TableColumnText', () => {
 
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
                 fieldValue.value
+            );
+        });
+    }
+
+    const placeholderValues = [
+        { value: 'foo' },
+        { value: '<button></button>' },
+        { value: 'null' },
+        { value: 'undefined' },
+        { value: 'null' },
+        { value: '-2147483648/-1' },
+        { value: '田' },
+        { value: 'Ω' },
+        { value: '( ͡° ͜ʖ ͡°)' },
+        { value: '😍' },
+        { value: 'Iñtërnâtiônàlizætiøn☃💩' },
+        { value: '１' }
+    ];
+    for (const placeholderValue of placeholderValues) {
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
+        it(`placeholder "${placeholderValue.value}" renders as "${placeholderValue.value}"`, async () => {
+            await connect();
+            element.data = [{ field: null }];
+            await waitForUpdatesAsync();
+
+            const firstColumn = element.columns[0] as TableColumnText;
+            firstColumn.placeholder = placeholderValue.value;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                placeholderValue.value
             );
         });
     }
