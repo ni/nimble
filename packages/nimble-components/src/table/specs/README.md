@@ -153,14 +153,14 @@ _Events_
     -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
     -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
     -   `recordIds` - string array - The IDs of the records that the menu is associated with.
-    -   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be `undefined` in the event details.
+    -   `columnTarget` - `TableColumn` - The column that the menu is associated with.
 
 ### Anatomy
 
 _Slots_
 
 -   default - the column elements
--   _user specified_ - Slots dynamically created based on the values specified for `action-menu` on the slotted column elements. A menu element should be provided in each slot that is associated with the action menu for any column that has `action-menu` set. For more information about the action menu, refer to the [action menu HLD](action-menu-hld.md).
+-   _user specified_ - Slots dynamically created based on the values specified for `action-menu-slot` on the slotted column elements. A menu element should be provided in each slot that is associated with the action menu for any column that has `action-menu-slot` set. For more information about the action menu, refer to the [action menu HLD](action-menu-hld.md).
 
 ### Security
 

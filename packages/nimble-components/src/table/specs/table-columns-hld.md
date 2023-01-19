@@ -93,12 +93,12 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnC
     // The name of the slot containing the action menu for this column, or `undefined` to indicate
     // that the column does not have an action menu.
     // Note: Multiple columns can specify the same slot.
-    @attr({ attribute: 'action-menu'})
-    actionMenu?: string;
+    @attr({ attribute: 'action-menu-slot'})
+    actionMenuSlot?: string;
 
     // The label to associated with the column's action menu for accessibility purposes.
-    @attr({ attribute: 'menu-label' })
-    menuLabel?: string;
+    @attr({ attribute: 'action-menu-label' })
+    actionMenuLabel?: string;
 
     // This method returns the relevant, static configuration a column requires its cellTemplate
     // to have access to

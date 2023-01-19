@@ -33,11 +33,11 @@ The nimble design system will be opinionated about many details of the menu butt
 
 If the need arises for a client to have more control of the menu button's configuration, the API can be extended at a later time.
 
-A client can specify that a column has an action menu within it by adding the `action-menu` attribute on that column definition. The value of the `action-menu` attribute is the name of the slot containing the menu associated with the column. Columns with an action menu should also specify a `menu-label` that provides a string to use as the accessible label for the button. In the example below, a menu will be added to the _First name_ column only:
+A client can specify that a column has an action menu within it by adding the `action-menu-slot` attribute on that column definition. The value of the `action-menu-slot` attribute is the name of the slot containing the menu associated with the column. Columns with an action menu should also specify a `action-menu-label` that provides a string to use as the accessible label for the button. In the example below, a menu will be added to the _First name_ column only:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-text field-name="firstName" action-menu="action-menu" menu-label="Configure user">First name</nimble-table-column-text>
+    <nimble-table-column-text field-name="firstName" action-menu-slot="action-menu" action-menu-label="Configure user">First name</nimble-table-column-text>
     <nimble-table-column-text field-name="lastName">Last name</nimble-table-column-text>
 
     <nimble-menu slot="action-menu">
@@ -52,8 +52,8 @@ Menus can be added to multiple columns:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-text field-name="firstName" action-menu="action-menu-1" menu-label="Configure first name">First name</nimble-table-column-text>
-    <nimble-table-column-text field-name="lastName" action-menu="action-menu-2" menu-label="Configure last name">Last name</nimble-table-column-text>
+    <nimble-table-column-text field-name="firstName" action-menu-slot="action-menu-1" action-menu-label="Configure first name">First name</nimble-table-column-text>
+    <nimble-table-column-text field-name="lastName" action-menu-slot="action-menu-2" action-menu-label="Configure last name">Last name</nimble-table-column-text>
 
     <nimble-menu slot="action-menu-1">
         <nimble-menu-item>My first action</nimble-menu-item>
@@ -73,8 +73,8 @@ A menu can be shared between columns by specifying the same slot name for multip
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-text field-name="firstName" action-menu="action-menu" menu-label="Configure first name">First name</nimble-table-column-text>
-    <nimble-table-column-text field-name="lastName" action-menu="action-menu" menu-label="Configure last name">Last name</nimble-table-column-text>
+    <nimble-table-column-text field-name="firstName" action-menu-slot="action-menu" action-menu-label="Configure first name">First name</nimble-table-column-text>
+    <nimble-table-column-text field-name="lastName" action-menu-slot="action-menu" action-menu-label="Configure last name">Last name</nimble-table-column-text>
 
     <nimble-menu slot="action-menu">
         <nimble-menu-item>My first action</nimble-menu-item>
@@ -89,7 +89,7 @@ If an application requires different menu items or different menu item states fo
 -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
 -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
 -   `recordIds` - string array - The IDs of the records that the menu is associated with.
--   `columnId` - string, possibly undefined - The ID of the column that the menu is associated with. A column ID is optional on a column definition. If the menu is associated with a column without an ID, `columnId` will be `undefined` in the event details.
+-   `columnTarget` - `TableColumn` - The column that the menu is associated with.
 
 When an item in the menu is activated, the standard events associated with the menu and menu items will be emitted. The event details will not contain any information about the table, its records, or its columns. Therefore, clients should use the `action-menu-beforetoggle` event to cache any necessary context about which records and column the menu is associated with in order to handle menu events appropriately.
 
@@ -97,7 +97,7 @@ When an item in the menu is activated, the standard events associated with the m
 
 #### Slot Forwarding
 
-In order for a menu slotted within the table to be slotted within a cell's `nimble-menu-button`, the menu needs to be "forwarded" from the table to a row and then to a cell. The table will first determine the set of slots that need to exist based on every column that is configured with an `action-menu` attribute. Those slots will be created within the table, and the set of slots will be passed to the `nimble-table-row` so that it can also create appropriate slots. While there could be a number of slots within the table and a table's row, the slotted menus will be assigned to the correct row and cell based on events when the menu is opened. The templates will dyanamically rename their slots to ensure that the menus are slotted in the correct row and cell.
+In order for a menu slotted within the table to be slotted within a cell's `nimble-menu-button`, the menu needs to be "forwarded" from the table to a row and then to a cell. The table will first determine the set of slots that need to exist based on every column that is configured with an `action-menu-slot` attribute. Those slots will be created within the table, and the set of slots will be passed to the `nimble-table-row` so that it can also create appropriate slots. While there could be a number of slots within the table and a table's row, the slotted menus will be assigned to the correct row and cell based on events when the menu is opened. The templates will dyanamically rename their slots to ensure that the menus are slotted in the correct row and cell.
 
 For example, the table's template will look something like this:
 
