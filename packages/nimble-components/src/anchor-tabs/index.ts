@@ -50,7 +50,7 @@ export class AnchorTabs extends FoundationElement {
      * HTML Attribute: activeid
      */
     @attr
-    public activeid = '';
+    public activeid?: string;
 
     /**
      * @internal
