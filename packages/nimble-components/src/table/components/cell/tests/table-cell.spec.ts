@@ -118,6 +118,8 @@ describe('TableCell', () => {
                 color: red;
             }
         `;
+        element.cellStyles = cellStyles;
+        await waitForUpdatesAsync();
         const renderedContent = pageObject.getRenderedCellContent();
         // prettier-ignore
         expect(window.getComputedStyle(renderedContent!).display).not.toBe('flex');
