@@ -14,8 +14,8 @@ interface SimpleTableRecord extends TableRecord {
 export class TableDemoComponent {
     public tableData: SimpleTableRecord[] = Array.from(Array(1000), (_, i) => {
         return {
-            stringValue1: `Row  ${(i + 1)}`,
-            stringValue2: 'Example Text'
+            stringValue1: `Row ${(i + 1)}`,
+            stringValue2: `Example Text ${(i + 1)}`
         };
     });
 }
