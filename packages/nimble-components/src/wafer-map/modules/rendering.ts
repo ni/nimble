@@ -40,7 +40,7 @@ export class RenderingModule {
             return 0;
         });
 
-        let prev!: DieRenderInfo;
+        let prev: DieRenderInfo | undefined;
 
         for (const die of this.dies) {
             if (!prev) {
