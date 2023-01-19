@@ -1,4 +1,4 @@
-import { observable } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
@@ -22,6 +22,9 @@ declare global {
 export class TableRow<
     TDataRecord extends TableDataRecord = TableDataRecord
 > extends FoundationElement {
+    @attr({ attribute: 'record-id' })
+    public recordId?: string;
+
     @observable
     public dataRecord?: TDataRecord;
 

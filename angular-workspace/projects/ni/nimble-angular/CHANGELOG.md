@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 18 Jan 2023 15:32:21 GMT and should not be manually modified.
+This log was last generated on Wed, 18 Jan 2023 21:20:08 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.0.7
+
+Wed, 18 Jan 2023 21:20:08 GMT
+
+### Patches
+
+- Fix bug in table record ID logic ([ni/nimble@fa6aff9](https://github.com/ni/nimble/commit/fa6aff9024add0e848792001f85da2d4067054dd))
+- Bump @ni/nimble-components to v17.0.6
 
 ## 15.0.6
 

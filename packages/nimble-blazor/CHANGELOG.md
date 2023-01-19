@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Sat, 14 Jan 2023 00:16:05 GMT and should not be manually modified.
+This log was last generated on Wed, 18 Jan 2023 22:26:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 10.0.7
+
+Wed, 18 Jan 2023 22:26:41 GMT
+
+### Patches
+
+- Add table row ID and validity support to Blazor ([ni/nimble@a882a4c](https://github.com/ni/nimble/commit/a882a4ce55fb60b786dfde385fa97863536c45d6))
 
 ## 10.0.3
 

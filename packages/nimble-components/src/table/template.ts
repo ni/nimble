@@ -41,6 +41,7 @@ export const template = html<Table>`
                 ${repeat(x => x.tableData, html<TableRowState>`
                     <${DesignSystem.tagFor(TableRow)}
                         class="row"
+                        record-id="${x => x.id}"
                         :dataRecord="${x => x.record}"
                         :columns="${(_, c) => (c.parent as Table).columns}"
                     >
