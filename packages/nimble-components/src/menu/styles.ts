@@ -1,17 +1,21 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 import {
     applicationBackgroundColor,
     borderWidth,
     borderColor,
     popupBorderColor,
-    popupBoxShadowColor,
     groupHeaderFont,
     groupHeaderTextTransform,
     groupHeaderFontColor,
-    smallPadding
+    smallPadding,
+    elevation2BoxShadow
 } from '../theme-provider/design-tokens';
+import { Theme } from '../theme-provider/types';
+import { hexToRgbaCssColor } from '../utilities/style/colors';
+import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
     ${display('grid')}
@@ -20,18 +24,25 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
-        padding: 4px;
-        min-width: 168px;
+        min-width: 176px;
         width: max-content;
-        box-shadow: 0px 2px 3px ${popupBoxShadowColor};
+        box-shadow: ${elevation2BoxShadow};
     }
+
+    slot {
+        padding: 4px;
+        display: block;
+    }
+
     :host([slot='submenu']) {
         margin: 0 calc(${smallPadding} * 2);
     }
+
     ::slotted(*) {
         padding-left: 8px;
         padding-right: 8px;
     }
+
     ::slotted(hr) {
         box-sizing: content-box;
         height: 2px;
@@ -40,6 +51,7 @@ export const styles = css`
         background: ${borderColor};
         opacity: 0.1;
     }
+
     ::slotted(header) {
         display: flex;
         font: ${groupHeaderFont};
@@ -48,4 +60,13 @@ export const styles = css`
         padding-top: ${smallPadding};
         padding-bottom: ${smallPadding};
     }
-`;
+`.withBehaviors(
+    themeBehavior(
+        Theme.color,
+        css`
+            slot {
+                background: ${hexToRgbaCssColor(White, 0.15)};
+            }
+        `
+    )
+);

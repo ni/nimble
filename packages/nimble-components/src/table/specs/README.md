@@ -129,9 +129,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   Attribute on table to represent parentId?
     -   Define event/property APIs needed for dealing with lazily-loaded hierarchical data (possibly out of scope of initial release)
     -   Describe the UI representation of hierarchical data (there should be a design doc to reference)
--   Action Menu
-    -   Define how the action menu gets associated with a particular column
-    -   Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
+-   [Action Menu](action-menu-hld.md)
 
 _Attributes_
 
@@ -151,14 +149,18 @@ _Functions_
 
 _Events_
 
-Placeholder
+-   `action-menu-beforetoggle` - An event that is emitted immediately prior to the action menu opening or closing. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. The event details include the following:
+    -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
+    -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
+    -   `recordIds` - string array - The IDs of the records that the menu is associated with.
+    -   `columnTarget` - `TableColumn` - The column that the menu is associated with.
 
 ### Anatomy
 
 _Slots_
 
 -   default - the column elements
--   `action-menu` (Placeholder for action menu)
+-   _user specified_ - Slots dynamically created based on the values specified for `action-menu-slot` on the slotted column elements. A menu element should be provided in each slot that is associated with the action menu for any column that has `action-menu-slot` set. For more information about the action menu, refer to the [action menu HLD](action-menu-hld.md).
 
 ### Security
 

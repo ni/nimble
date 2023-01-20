@@ -2,6 +2,21 @@
   "name": "@ni/xliff-to-json-converter",
   "entries": [
     {
+      "date": "Wed, 11 Jan 2023 20:34:04 GMT",
+      "tag": "@ni/xliff-to-json-converter_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627",
+            "comment": "Update styleguide versions"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Nov 2022 18:56:28 GMT",
       "tag": "@ni/xliff-to-json-converter_v1.1.0",
       "version": "1.1.0",

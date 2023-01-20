@@ -6,7 +6,7 @@ import {
     getWaferMapDies
 } from './utilities';
 
-describe('Data manager', () => {
+describe('Wafermap Data manager', () => {
     let dataManagerModule: DataManager;
     const axisLocation: WaferMapQuadrant = WaferMapQuadrant.topLeft;
     const canvasDimensions = { width: 100, height: 110 };

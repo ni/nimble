@@ -11,9 +11,25 @@ const generateStringValue = (
     valueGenerator?: IValueGenerator
 ): string => {
     let value: number;
-    if (valueGenerator !== undefined) value = valueGenerator(x, y);
-    else value = Math.random() * 100;
+    if (valueGenerator !== undefined) {
+        value = valueGenerator(x, y);
+    } else {
+        value = Math.random() * 100;
+    }
     return valueToString(value);
+};
+
+export const generateDieContent = (
+    x: number,
+    y: number,
+    value: string
+): WaferMapDie => {
+    return {
+        x,
+        y,
+        value,
+        metadata: `Placeholder metadata value for Die x: ${x} y: ${y}`
+    };
 };
 
 export const generateWaferData = (
@@ -40,7 +56,7 @@ export const generateWaferData = (
                 j--
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                diesSet.push({ x: i, y: j, value: stringValue });
+                diesSet.push(generateDieContent(i, j, stringValue));
             }
             // generate points right of centerX
             for (
@@ -50,7 +66,7 @@ export const generateWaferData = (
                 j++
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                diesSet.push({ x: i, y: j, value: stringValue });
+                diesSet.push(generateDieContent(i, j, stringValue));
             }
         }
     }

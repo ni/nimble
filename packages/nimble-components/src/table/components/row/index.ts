@@ -1,8 +1,13 @@
-import { observable } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableFieldValue, TableRecord } from '../../types';
+import type {
+    TableCellState,
+    TableDataRecord,
+    TableFieldName
+} from '../../types';
+import type { TableColumn } from '../../../table-column/base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -15,18 +20,44 @@ declare global {
  * @internal
  */
 export class TableRow<
-    TData extends TableRecord = TableRecord
+    TDataRecord extends TableDataRecord = TableDataRecord
 > extends FoundationElement {
-    @observable
-    public data?: TData;
+    @attr({ attribute: 'record-id' })
+    public recordId?: string;
 
-    // TODO: Temporarily assume the set of columns will be an array of strings.
-    // Eventually, this will be an array of column definitions.
     @observable
-    public columns: string[] = [];
+    public dataRecord?: TDataRecord;
 
-    public getCellValue(column: string): TableFieldValue {
-        return this.data ? this.data[column] : undefined;
+    @observable
+    public columns: TableColumn[] = [];
+
+    public getCellState(column: TableColumn): TableCellState {
+        const fieldNames = column.getDataRecordFieldNames();
+        if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
+            const cellDataValues = fieldNames.map(
+                field => this.dataRecord![field]
+            );
+            const cellRecord = Object.fromEntries(
+                column.cellRecordFieldNames.map((k, i) => [
+                    k,
+                    cellDataValues[i]
+                ])
+            );
+            const columnConfig = column.getColumnConfig?.() ?? {};
+            const cellState: TableCellState = {
+                cellRecord,
+                columnConfig
+            };
+            return cellState;
+        }
+
+        return { cellRecord: {}, columnConfig: {} };
+    }
+
+    private hasValidFieldNames(
+        keys: (TableFieldName | undefined)[]
+    ): keys is TableFieldName[] {
+        return keys.every(key => key !== undefined);
     }
 }
 

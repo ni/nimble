@@ -2,6 +2,207 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 20 Jan 2023 10:47:22 GMT",
+      "tag": "@ni/nimble-components_v17.0.8",
+      "version": "17.0.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "35329597+DStavilaNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8fba3fd7bf0ca6da7d6de9bcfbb0b817a1247b5c",
+            "comment": "Updated the WaferDie Interface to add an extra \"tooltip\" field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Jan 2023 21:56:55 GMT",
+      "tag": "@ni/nimble-components_v17.0.7",
+      "version": "17.0.7",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "831584335961fc4062a38fb3e15e732d61b078c1",
+            "comment": "HLD for table's action menu"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Jan 2023 13:56:34 GMT",
+      "tag": "@ni/nimble-components_v17.0.7",
+      "version": "17.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "62277788+zszilagy@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "47a5a0d167c9d490791ff68c7f570161125cbc86",
+            "comment": "Fixed issues with rendering"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Jan 2023 21:20:08 GMT",
+      "tag": "@ni/nimble-components_v17.0.6",
+      "version": "17.0.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fa6aff9024add0e848792001f85da2d4067054dd",
+            "comment": "Fix bug in table record ID logic"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Jan 2023 15:32:21 GMT",
+      "tag": "@ni/nimble-components_v17.0.5",
+      "version": "17.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5d2d985c73ccf41f7123593e41099569e619bab8",
+            "comment": "Fix menu background color on Color theme"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Jan 2023 14:55:24 GMT",
+      "tag": "@ni/nimble-components_v17.0.4",
+      "version": "17.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "eaa3e675766b5792343cf78f835cc8bc6a7d3986",
+            "comment": "Update table row styles"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 14 Jan 2023 00:16:05 GMT",
+      "tag": "@ni/nimble-components_v17.0.3",
+      "version": "17.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5",
+            "comment": "Introduce TableColumn and TableColumnText"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 13 Jan 2023 07:16:01 GMT",
+      "tag": "@ni/nimble-components_v17.0.2",
+      "version": "17.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "49208904+arinluca333@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "61ae65cf7c5ce57cd17a1deb03bed1186a04a871",
+            "comment": "Add zoom functionality to wafer map"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 Jan 2023 15:29:47 GMT",
+      "tag": "@ni/nimble-components_v17.0.1",
+      "version": "17.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "92c0e3f70282e055d3d1742265567bb6e53b7b8d",
+            "comment": "Add ability to specify a field within the table's data to use as a row's ID"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 Jan 2023 11:17:56 GMT",
+      "tag": "@ni/nimble-components_v17.0.0",
+      "version": "17.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "35329597+DStavilaNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "01b31f49d75b8cc7ad3d8794fed4c9fd6d46ebb0",
+            "comment": "Fixed the wafer-map resizing issues"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Jan 2023 21:08:14 GMT",
+      "tag": "@ni/nimble-components_v17.0.0",
+      "version": "17.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "14d2e7ce92455bfca0e61c2956f50a32ef1f253d",
+            "comment": "Update box shadow tokens, including removing the 'popupBoxShadowColor' token. The 'popupBoxShadowColor' token has been replaced by elevation tokens."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Jan 2023 20:34:04 GMT",
+      "tag": "@ni/nimble-components_v16.1.8",
+      "version": "16.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627",
+            "comment": "Update styleguide versions"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.3.2",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Jan 2023 15:57:33 GMT",
+      "tag": "@ni/nimble-components_v16.1.7",
+      "version": "16.1.7",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fa3d337af03cafe317da92efbfaf4cceabdb921f",
+            "comment": "Anchor tabs spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 09 Jan 2023 23:44:20 GMT",
       "tag": "@ni/nimble-components_v16.1.7",
       "version": "16.1.7",

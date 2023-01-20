@@ -57,11 +57,12 @@ namespace Demo.Shared.Pages
 
         public void UpdateTableData(int numberOfRows)
         {
-            var tableData = new Person[numberOfRows];
+            var tableData = new Person[numberOfRows + 1];
             for (int i = 0; i < numberOfRows; i++)
             {
                 tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last());
             }
+            tableData[numberOfRows] = new Person(null, null);
 
             TableData = tableData;
         }
@@ -69,14 +70,14 @@ namespace Demo.Shared.Pages
 
     public class Person
     {
-        public Person(string firstName, string lastName)
+        public Person(string? firstName, string? lastName)
         {
             FirstName = firstName;
             LastName = lastName;
         }
 
-        public string FirstName { get; }
-        public string LastName { get; }
+        public string? FirstName { get; }
+        public string? LastName { get; }
     }
 
     public enum DialogResult
