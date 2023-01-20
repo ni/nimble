@@ -14,3 +14,12 @@ export const MenuButtonPosition = {
 } as const;
 export type MenuButtonPosition =
     typeof MenuButtonPosition[keyof typeof MenuButtonPosition];
+
+/**
+ * The type of the detail associated with the `beforetoggle` CustomEvent
+ * on the menu button.
+ */
+export interface MenuButtonBeforeToggleEventDetail {
+    newState: boolean;
+    oldState: boolean;
+}
