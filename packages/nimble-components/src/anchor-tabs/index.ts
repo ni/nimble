@@ -62,7 +62,7 @@ export class AnchorTabs extends FoundationElement {
      * A reference to the active tab
      * @public
      */
-    public activetab: HTMLElement | undefined;
+    public activetab?: HTMLElement;
 
     /**
      * A reference to the tablist div
@@ -113,9 +113,13 @@ export class AnchorTabs extends FoundationElement {
         const gridVerticalProperty = 'gridRow';
 
         this.activetab = undefined;
+        let firstFocusableTab: HTMLElement | undefined;
         this.tabs.forEach((tab: HTMLElement, index: number) => {
             const tabId: string = this.tabIds[index]!;
             const isActiveTab = this.activeid === tabId;
+            if (!firstFocusableTab && this.isFocusableElement(tab)) {
+                firstFocusableTab = tab;
+            }
             const isTabStop = this.activeid === tabId && this.isFocusableElement(tab);
             tab.setAttribute('id', tabId);
             tab.setAttribute('aria-selected', isActiveTab ? 'true' : 'false');
@@ -131,6 +135,13 @@ export class AnchorTabs extends FoundationElement {
             tab.style[gridVerticalProperty] = '';
             tab.style[gridHorizontalProperty] = `${index + 1}`;
         });
+
+        if (
+            firstFocusableTab
+            && (!this.activetab || !this.isFocusableElement(this.activetab))
+        ) {
+            firstFocusableTab.setAttribute('tabindex', '0');
+        }
     };
 
     private getTabIds(): string[] {
@@ -148,9 +159,6 @@ export class AnchorTabs extends FoundationElement {
             this.tabs.forEach((tab: HTMLElement) => {
                 tab.setAttribute('tabindex', tab === selectedTab ? '0' : '-1');
             });
-            this.navigateToTab(
-                this.tabs.findIndex((item: HTMLElement) => item === selectedTab)
-            );
         }
     };
 
@@ -176,7 +184,7 @@ export class AnchorTabs extends FoundationElement {
             case keySpace:
             case keyEnter:
                 event.preventDefault();
-                event.target?.dispatchEvent(new Event('click'));
+                this.getTabAnchor(event.target as AnchorTab).click();
                 break;
             case 'ContextMenu':
                 event.preventDefault();
@@ -258,11 +266,6 @@ export class AnchorTabs extends FoundationElement {
             tab.setAttribute('tabindex', tab === focusedTab ? '0' : '-1');
         });
     };
-
-    private navigateToTab(index: number): void {
-        const tab = this.tabs[index] as AnchorTab;
-        this.getTabAnchor(tab).click();
-    }
 
     private getTabAnchor(tab: AnchorTab): HTMLAnchorElement {
         return tab.shadowRoot!.querySelector('a')!;

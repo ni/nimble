@@ -1,17 +1,12 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import {
-    endSlotTemplate,
-    FoundationElementTemplate,
-    startSlotTemplate
-} from '@microsoft/fast-foundation';
+import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { AnchorTab, TabOptions } from '.';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<AnchorTab>,
 TabOptions
-> = (context, definition) => html<AnchorTab>`
+> = () => html<AnchorTab>`
     <template slot="anchortab" role="tab" aria-disabled="${x => x.disabled}">
-        ${startSlotTemplate(context, definition)}
         <a
             download="${x => x.download}"
             href=${x => (x.disabled ? null : x.href)}
@@ -25,6 +20,5 @@ TabOptions
         >
             <slot></slot>
         </a>
-        ${endSlotTemplate(context, definition)}
     </template>
 `;
