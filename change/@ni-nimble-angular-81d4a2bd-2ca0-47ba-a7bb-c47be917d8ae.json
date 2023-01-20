@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add beforeToggle event on menu button",
+  "comment": "Add beforetoggle event on menu button",
   "packageName": "@ni/nimble-angular",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
