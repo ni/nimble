@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add beforetoggle event on menu button and update menu button to work when the slotted menu is nested within additional slots",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
