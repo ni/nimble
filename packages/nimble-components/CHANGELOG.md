@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 19 Jan 2023 13:56:34 GMT and should not be manually modified.
+This log was last generated on Fri, 20 Jan 2023 10:47:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.8
+
+Fri, 20 Jan 2023 10:47:22 GMT
+
+### Patches
+
+- Updated the WaferDie Interface to add an extra "tooltip" field ([ni/nimble@8fba3fd](https://github.com/ni/nimble/commit/8fba3fd7bf0ca6da7d6de9bcfbb0b817a1247b5c))
 
 ## 17.0.7
 

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 20 Jan 2023 10:47:22 GMT",
+      "tag": "@ni/nimble-components_v17.0.8",
+      "version": "17.0.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "35329597+DStavilaNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8fba3fd7bf0ca6da7d6de9bcfbb0b817a1247b5c",
+            "comment": "Updated the WaferDie Interface to add an extra \"tooltip\" field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 19 Jan 2023 21:56:55 GMT",
       "tag": "@ni/nimble-components_v17.0.7",
       "version": "17.0.7",
