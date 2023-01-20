@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add design tokens for additional spinner sizes (spinnerMediumHeight for 32x32 and spinnerLargeHeight for 64x64), and update docs.",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
