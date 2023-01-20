@@ -16,7 +16,7 @@ import {
 } from '../types';
 
 class TestSlottedElement extends FoundationElement {}
-const foo = TestSlottedElement.compose({
+const composedTestSlottedElement = TestSlottedElement.compose({
     baseName: 'test-slotted-element',
     template: html`
         <nimble-menu-button>
@@ -30,7 +30,7 @@ async function setup(): Promise<Fixture<MenuButton>> {
 }
 
 async function slottedSetup(): Promise<Fixture<TestSlottedElement>> {
-    return fixture(foo());
+    return fixture(composedTestSlottedElement());
 }
 
 /** A helper function to abstract adding an `open-change` event listener, spying
