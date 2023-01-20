@@ -22,10 +22,9 @@ describe('Nimble anchor tab RouterLinkDirective', () => {
             declarations: [TestHostComponent],
             imports: [NimbleAnchorTabModule,
                 CommonModule,
-                RouterTestingModule.withRoutes(
-                    [{ path: '', component: TestHostComponent, pathMatch: 'full' }
-                    ], { useHash: true }
-                )
+                RouterTestingModule.withRoutes([
+                    { path: '', component: TestHostComponent, pathMatch: 'full' }
+                ], { useHash: true })
             ]
         });
     });
