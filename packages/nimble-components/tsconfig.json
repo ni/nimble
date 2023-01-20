@@ -23,5 +23,5 @@
         "noUncheckedIndexedAccess": true,
         "noPropertyAccessFromIndexSignature": true
     },
-    "include": ["src"]
+    "include": ["src", "src/**/*.js"]
 }

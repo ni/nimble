@@ -30,7 +30,6 @@ export class RenderingModule {
     }
 
     public webGLRender(): void {
-        // Get A WebGL context
         if (!this.gl) {
             return;
         }
@@ -38,7 +37,10 @@ export class RenderingModule {
         const vertexShader = this.gl.createShader(this.gl.VERTEX_SHADER);
         this.gl.shaderSource(vertexShader!, `
         attribute vec4 a_position;
+        attribute vec4 a_color;
         uniform vec2 u_resolution;
+        varying vec4 v_color;
+
         void main() {
         // convert the position from pixels to 0.0 to 1.0
         vec2 zeroToOne = a_position.xy / u_resolution;
@@ -49,14 +51,9 @@ export class RenderingModule {
         vec2 clipSpace = zeroToTwo - 1.0;
 
         gl_Position = vec4(clipSpace, 0, 1);
+        v_color = a_color;
         }`);
         this.gl.compileShader(vertexShader!);
-
-        // let success = this.gl.getShaderParameter(vertexShader, this.gl.COMPILE_STATUS);
-        // if (!success) {
-        //     // Something went wrong during compilation; get the error
-        //     throw `could not compile shader:${gl.getShaderInfoLog(shader)}`;
-        // }
 
         // precision mediump float;
 
@@ -64,112 +61,111 @@ export class RenderingModule {
         //     gl_FragColor = vec4(1, 0, 0.5, 1);
         // }`
 
+        // precision mediump float;
+        // uniform vec4 u_color;
+
+        // void main() {
+        // gl_FragColor = u_color;
+        // }
+
         const fragmentShader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
         this.gl.shaderSource(fragmentShader!, `
         precision mediump float;
-        uniform vec4 u_color;
-
+        varying vec4 v_color;
+        
         void main() {
-        gl_FragColor = u_color;
+          gl_FragColor = v_color;
         }`);
 
         this.gl.compileShader(fragmentShader!);
-        // var success = gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS);
-        // if (!success) {
-        //     // Something went wrong during compilation; get the error
-        //     throw `could not compile shader:${gl.getShaderInfoLog(shader)}`;
-        // }
 
         const program = this.gl.createProgram();
         this.gl.attachShader(program!, vertexShader!);
         this.gl.attachShader(program!, fragmentShader!);
         this.gl.linkProgram(program!);
 
-        // var success = gl.getProgramParameter(program, gl.LINK_STATUS);
-        // if (!success) {
-        //     // something went wrong with the link
-        //     throw (`program failed to link:${gl.getProgramInfoLog(program)}`);
-        // }
-
         // look up where the vertex data needs to go.
-        const positionAttributeLocation = this.gl.getAttribLocation(program!, 'a_position');
+        const positionLocation = this.gl.getAttribLocation(program!, 'a_position');
+
+        // look up where the fragment data needs to go.
+        const colorLocation = this.gl.getAttribLocation(program!, 'a_color');
 
         // look up uniform locations
         const resolutionUniformLocation = this.gl.getUniformLocation(program!, 'u_resolution');
 
-        // Create a buffer to put three 2d clip space points in
-        const positionBuffer = this.gl.createBuffer();
+        const pos = [];
+        const colorPalette = [];
+        const width = this.dimensions.width;
+        for (const die of this.dies) {
+            const x1 = die.x;
+            const x2 = die.x + width;
+            const y1 = die.y;
+            const y2 = die.y + width;
 
-        // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
-        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
+            pos.push(
+                x1,
+                y1,
+                x2,
+                y1,
+                x1,
+                y2,
+                x1,
+                y2,
+                x2,
+                y1,
+                x2,
+                y2,
+            );
 
-        const positions: number[] = [];
-        let currentDie = 0;
-        let shaderPosition = 0;
-        debugger;
-        for (let i = 0; i < this.dies.length * 12; i++) {
-            switch (shaderPosition) {
-                case 0:
-                    positions[i] = this.dies[currentDie]?.x || 0;
-                    break;
-                case 1:
-                    positions[i] = this.dies[currentDie]?.y || 0;
-                    break;
-                case 2:
-                    positions[i] = (this.dies[currentDie]?.x || 0) + this.dimensions.width;
-                    break;
-                case 3:
-                    positions[i] = this.dies[currentDie]?.y || 0;
-                    break;
-                case 4:
-                    positions[i] = this.dies[currentDie]?.x || 0;
-                    break;
-                case 5:
-                    positions[i] = (this.dies[currentDie]?.y || 0) + this.dimensions.width;
-                    break;
-                case 6:
-                    positions[i] = this.dies[currentDie]?.x || 0;
-                    break;
-                case 7:
-                    positions[i] = (this.dies[currentDie]?.y || 0) + this.dimensions.width;
-                    break;
-                case 8:
-                    positions[i] = (this.dies[currentDie]?.x || 0) + this.dimensions.width;
-                    break;
-                case 9:
-                    positions[i] = this.dies[currentDie]?.y || 0;
-                    break;
-                case 10:
-                    positions[i] = (this.dies[currentDie]?.x || 0) + this.dimensions.width;
-                    break;
-                case 11:
-                    positions[i] = (this.dies[currentDie]?.y || 0) + this.dimensions.width;
-                    break;
-                default:
-                    break;
-            }
-            shaderPosition += 1;
-            if (shaderPosition > 11) {
-                shaderPosition = 0;
-                currentDie += 1;
-            }
+            const colors = die.fillStyle.split(',');
+            colors[0] = colors[0]?.replace('rgba(', '') || '';
+            colors[3] = colors[3]?.replace(')', '') || '';
+            const rgb = this.converRgbToFloat(colors);
+
+            //debugger;
+            const r = rgb[0] || 0;
+            const g = rgb[1] || 0;
+            const b = rgb[2] || 0;
+            const a = 1 || 0;
+            colorPalette.push(
+                r,
+                g,
+                b,
+                a,
+                r,
+                g,
+                b,
+                a,
+                r,
+                g,
+                b,
+                a,
+                r,
+                g,
+                b,
+                a,
+                r,
+                g,
+                b,
+                a,
+                r,
+                g,
+                b,
+                a,
+            );
         }
 
-        debugger;
+        // Create a buffer to put three 2d clip space points in
+        const positionBuffer = this.gl.createBuffer();
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(pos), this.gl.STATIC_DRAW);
 
-        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(positions), this.gl.STATIC_DRAW);
-
-        // webglUtils.resizeCanvasToDisplaySize(this.gl.canvas);
-
-        // const width = this.gl.canvas.clientWidth;
-        // const height = this.gl.canvas.clientHeight;
-        // if (this.gl.canvas.width !== width || this.gl.canvas.height !== height) {
-        //     this.gl.canvas.width = width;
-        //     this.gl.canvas.height = height;
-        // }
+        const colorBuffer = this.gl.createBuffer();
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, colorBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(colorPalette), this.gl.STATIC_DRAW);
 
         // Tell WebGL how to convert from clip space to pixels
-        this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
+        // this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
 
         // Clear the canvas
         this.gl.clearColor(0, 0, 0, 0);
@@ -179,30 +175,149 @@ export class RenderingModule {
         this.gl.useProgram(program);
 
         // Turn on the attribute
-        this.gl.enableVertexAttribArray(positionAttributeLocation);
+        this.gl.enableVertexAttribArray(positionLocation);
 
         // Bind the position buffer.
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
 
         // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
-        const size = 2; // 2 components per iteration
-        const type = this.gl.FLOAT; // the data is 32bit floats
-        const normalize = false; // don't normalize the data
-        const stride = 0; // 0 = move forward size * sizeof(type) each iteration to get the next position
-        this.gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, 0);
-
-        // const colorLocation = this.gl.getAttribLocation(program!, 'color');
-        // this.gl.enableVertexAttribArray(colorLocation);
-        // this.gl.bindBuffer(this.gl.ARRAY_BUFFER, colorBuffer);
-        // this.gl.vertexAttribPointer(colorLocation, 3, this.gl.FLOAT, false, 0, 0);
-        // set the resolution
+        const pSize = 2; // 2 components per iteration
+        const pType = this.gl.FLOAT; // the data is 32bit floats
+        const pNormalize = false; // don't normalize the data
+        const pStride = 0; // 0 = move forward size * sizeof(type) each iteration to get the next position
+        this.gl.vertexAttribPointer(positionLocation, pSize, pType, pNormalize, pStride, 0);
         this.gl.uniform2f(resolutionUniformLocation, this.gl.canvas.width, this.gl.canvas.height);
-        const fColorLocation = this.gl.getUniformLocation(program!, 'u_color');
-        this.gl.uniform4f(fColorLocation, Math.random(), Math.random(), Math.random(), 1);
-        // draw
+
+        this.gl.enableVertexAttribArray(colorLocation);
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, colorBuffer);
+
+        // Tell the color attribute how to get data out of colorBuffer (ARRAY_BUFFER)
+        const cSize = 4; // 4 components per iteration
+        const cType = this.gl.FLOAT; // the data is 32bit floats
+        const cNormalize = false; // don't normalize the data
+        const cStride = 0; // 0 = move forward size * sizeof(type) each iteration to get the next position
+        const cOffset = 0; // start at the beginning of the buffer
+        this.gl.vertexAttribPointer(colorLocation, cSize, cType, cNormalize, cStride, cOffset);
+
+        // const fColorLocation = this.gl.getUniformLocation(program!, 'u_color');
+        // for (const die of this.dies) {
+        //     this.setRectangle(die.x, die.y, this.dimensions.width);
+        //     const colors = die.fillStyle.split(',');
+        //     colors[0] = colors[0]?.replace('rgba(', '') || '';
+        //     colors[3] = colors[3]?.replace(')', '') || '';
+        //     const rgb = this.converRgbToFloat(colors);
+        //     debugger;
+        //     this.gl.uniform4f(fColorLocation, rgb[0]!, rgb[1]!, rgb[2]!, 1);
+
+        //     // Draw the rectangle.
+        //     const primitiveType = this.gl.TRIANGLES;
+        //     const offset = 0;
+        //     const count = 6;
+        //     this.gl.drawArrays(primitiveType, offset, count);
+        // }
+        // const pos = [];
+        // const colorPalette = [];
+        // const width = this.dimensions.width;
+        // for (const die of this.dies) {
+        //     const x1 = die.x;
+        //     const x2 = die.x + width;
+        //     const y1 = die.y;
+        //     const y2 = die.y + width;
+
+        //     pos.push(
+        //         x1,
+        //         y1,
+        //         x2,
+        //         y1,
+        //         x1,
+        //         y2,
+        //         x1,
+        //         y2,
+        //         x2,
+        //         y1,
+        //         x2,
+        //         y2,
+        //     );
+
+        //     const colors = die.fillStyle.split(',');
+        //     colors[0] = colors[0]?.replace('rgba(', '') || '';
+        //     colors[3] = colors[3]?.replace(')', '') || '';
+        //     const rgb = this.converRgbToFloat(colors);
+
+        //     debugger;
+        //     const r = rgb[0] || 0;
+        //     const g = rgb[1] || 0;
+        //     const b = rgb[2] || 0;
+        //     const a = 1 || 0;
+        //     colorPalette.push(
+        //         r,
+        //         g,
+        //         b,
+        //         a,
+        //         r,
+        //         g,
+        //         b,
+        //         a,
+        //         r,
+        //         g,
+        //         b,
+        //         a,
+        //     );
+        // }
+
+        debugger;
+        // this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(pos), this.gl.STATIC_DRAW);
+        // this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(colorPalette), this.gl.STATIC_DRAW);
+        // Draw the rectangle.
         const primitiveType = this.gl.TRIANGLES;
+        const offset = 0;
         const count = this.dies.length * 12;
-        this.gl.drawArrays(primitiveType, 0, count);
+        this.gl.drawArrays(primitiveType, offset, count);
+    }
+
+    private setRectangle(x: number, y: number, width: number): void {
+        const x1 = x;
+        const x2 = x + width;
+        const y1 = y;
+        const y2 = y + width;
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([
+            x1, y1,
+            x2, y1,
+            x1, y2,
+            x1, y2,
+            x2, y1,
+            x2, y2,
+        ]), this.gl.STATIC_DRAW);
+    }
+
+    private setColors(color: string) {
+        // Pick 2 random colors.
+        const colorPalette = [];
+        const colors = color.split(',');
+        colors[0] = colors[0]?.replace('rgba(', '') || '';
+        colors[3] = colors[3]?.replace(')', '') || '';
+        const rgb = this.converRgbToFloat(colors);
+
+        colorPalette.push(
+            rgb[0],
+            rgb[1],
+            rgb[2],
+            rgb[3],
+            1,
+            rgb[0],
+            rgb[1],
+            rgb[2],
+            rgb[3],
+            1,
+        );
+    }
+
+    private converRgbToFloat(colors: string[]): number[] {
+        const rgbArray = [];
+        for (const color of colors) {
+            rgbArray.push((parseInt(color, 10)) / 255.0);
+        }
+        return rgbArray;
     }
 
     private renderDies(transform?: number): void {
