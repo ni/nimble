@@ -7,7 +7,7 @@ import {
     getWaferMapDiesAsNaN
 } from './utilities';
 
-describe('Prerendering module', () => {
+describe('Wafermap Prerendering module', () => {
     let prerenderingModule: Prerendering;
 
     describe('with die input and small die height', () => {

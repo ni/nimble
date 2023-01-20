@@ -2,7 +2,7 @@ import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
 import { getLinearScale, getWaferMapDies } from './utilities';
 
-describe('Prerendering module', () => {
+describe('Wafermap Prerendering module', () => {
     let prerenderingModule: Prerendering;
 
     describe('with die input and margin', () => {
