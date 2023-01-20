@@ -82,6 +82,10 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
+    public get lastSelectedDie(): WaferMapDie | undefined {
+        return this.eventHandler?.lastSelectedDie;
+    }
+
     private renderQueued = false;
     private dataManager?: DataManager;
     private renderer?: RenderingModule;

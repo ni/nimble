@@ -6,7 +6,11 @@ import type { ZoomHandler } from './zoom-handler';
  * HoverHandler deals with user interactions and events like hovering
  */
 export class HoverHandler {
-    public lastDie: WaferMapDie | undefined;
+    private _lastSelectedDie: WaferMapDie | undefined;
+
+    public get lastSelectedDie(): WaferMapDie | undefined {
+        return this._lastSelectedDie;
+    }
 
     public constructor(
         private readonly canvas: HTMLCanvasElement,
@@ -22,7 +26,7 @@ export class HoverHandler {
             this.rect.setAttribute('opacity', '0.7');
         } else {
             this.rect.setAttribute('opacity', '0');
-            this.lastDie = undefined;
+            this._lastSelectedDie = undefined;
         }
     }
 
@@ -80,10 +84,10 @@ export class HoverHandler {
 
         // find die by x and y.
         const selectedDie = this.dataManager.getWaferMapDie(x, y);
-        if (this.lastDie === selectedDie) {
+        if (this._lastSelectedDie === selectedDie) {
             return;
         }
-        this.lastDie = selectedDie;
+        this._lastSelectedDie = selectedDie;
         if (selectedDie) {
             const transformedPoint = this.zoomHandler.zoomTransform.apply([
                 this.dataManager.horizontalScale(x)

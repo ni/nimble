@@ -1,5 +1,5 @@
 import type { WaferMap } from '..';
-import type { Dimensions, WaferMapQuadrant } from '../types';
+import type { Dimensions, WaferMapDie, WaferMapQuadrant } from '../types';
 import type { DataManager } from './data-manager';
 import { HoverHandler } from './hover-handler';
 import type { RenderingModule } from './rendering';
@@ -60,5 +60,9 @@ export class EventHandler {
 
     public resetZoomTransform(): void {
         this.zoomHandler.resetTransform();
+    }
+
+    public get lastSelectedDie(): WaferMapDie | undefined {
+        return this.hoverHandler.lastSelectedDie;
     }
 }
