@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 20 Jan 2023 10:47:22 GMT and should not be manually modified.
+This log was last generated on Fri, 20 Jan 2023 22:27:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.0
+
+Fri, 20 Jan 2023 22:27:00 GMT
+
+### Minor changes
+
+- Anchor tabs component ([ni/nimble@4c3c715](https://github.com/ni/nimble/commit/4c3c71571e92a5ca1ebc62a259c889cb90df710c))
 
 ## 17.0.8
 
