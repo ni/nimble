@@ -10,7 +10,10 @@ import {
 import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
-import { MenuButtonBeforeToggleEventDetail, MenuButtonPosition } from '../types';
+import {
+    MenuButtonBeforeToggleEventDetail,
+    MenuButtonPosition
+} from '../types';
 
 class TestSlottedElement extends FoundationElement {}
 const foo = TestSlottedElement.compose({
@@ -60,10 +63,14 @@ function createOpenChangeListener(menuButton: MenuButton): {
  * `beforetoggle` is fired and that when the `beforetoggle` event is fired, the
  * `openChangedSpy` has not been called.
  */
-function createBeforeToggleListener(menuButton: MenuButton, expectedOpenState: boolean, openChangedSpy: jasmine.Spy): {
-    promise: Promise<void>,
-    spy: jasmine.Spy
-} {
+function createBeforeToggleListener(
+    menuButton: MenuButton,
+    expectedOpenState: boolean,
+    openChangedSpy: jasmine.Spy
+): {
+        promise: Promise<void>,
+        spy: jasmine.Spy
+    } {
     const spy = jasmine.createSpy();
     return {
         promise: new Promise(resolve => {
@@ -224,7 +231,9 @@ describe('MenuButton', () => {
             element.open = true;
             element.position = MenuButtonPosition.above;
             await connect();
-            expect(element.region!.verticalPositioningMode).toBe('locktodefault');
+            expect(element.region!.verticalPositioningMode).toBe(
+                'locktodefault'
+            );
             expect(element.region!.verticalDefaultPosition).toBe('top');
         });
 
@@ -232,7 +241,9 @@ describe('MenuButton', () => {
             element.open = true;
             element.position = MenuButtonPosition.below;
             await connect();
-            expect(element.region!.verticalPositioningMode).toBe('locktodefault');
+            expect(element.region!.verticalPositioningMode).toBe(
+                'locktodefault'
+            );
             expect(element.region!.verticalDefaultPosition).toBe('bottom');
         });
 
@@ -263,7 +274,11 @@ describe('MenuButton', () => {
         it("should fire 'beforetoggle' event before the menu opens", async () => {
             await connect();
             const openChangeListener = createOpenChangeListener(element);
-            const beforeToggleListener = createBeforeToggleListener(element, false, openChangeListener.spy);
+            const beforeToggleListener = createBeforeToggleListener(
+                element,
+                false,
+                openChangeListener.spy
+            );
             const expectedDetails: MenuButtonBeforeToggleEventDetail = {
                 newState: true,
                 oldState: false
@@ -272,7 +287,8 @@ describe('MenuButton', () => {
             element.toggleButton!.control.click();
             await beforeToggleListener.promise;
             expect(beforeToggleListener.spy).toHaveBeenCalledTimes(1);
-            const event = beforeToggleListener.spy.calls.first().args[0] as CustomEvent;
+            const event = beforeToggleListener.spy.calls.first()
+                .args[0] as CustomEvent;
             expect(event.detail).toEqual(expectedDetails);
             beforeToggleListener.spy.calls.reset();
 
@@ -285,7 +301,11 @@ describe('MenuButton', () => {
             element.open = true;
             await connect();
             const openChangeListener = createOpenChangeListener(element);
-            const beforeToggleListener = createBeforeToggleListener(element, true, openChangeListener.spy);
+            const beforeToggleListener = createBeforeToggleListener(
+                element,
+                true,
+                openChangeListener.spy
+            );
             const expectedDetails: MenuButtonBeforeToggleEventDetail = {
                 newState: false,
                 oldState: true
@@ -294,7 +314,8 @@ describe('MenuButton', () => {
             element.toggleButton!.control.click();
             await beforeToggleListener.promise;
             expect(beforeToggleListener.spy).toHaveBeenCalledTimes(1);
-            const event = beforeToggleListener.spy.calls.first().args[0] as CustomEvent;
+            const event = beforeToggleListener.spy.calls.first()
+                .args[0] as CustomEvent;
             expect(event.detail).toEqual(expectedDetails);
             beforeToggleListener.spy.calls.reset();
 

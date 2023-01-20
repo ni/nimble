@@ -199,7 +199,9 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
             }
 
             if (currentItem?.nodeName === 'SLOT') {
-                currentItem = (currentItem as HTMLSlotElement).assignedNodes()[0] as HTMLElement;
+                currentItem = (
+                    currentItem as HTMLSlotElement
+                ).assignedNodes()[0] as HTMLElement;
             } else {
                 return undefined;
             }
