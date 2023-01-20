@@ -39,6 +39,16 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleMenuButton.razor
+    Blazor.registerCustomEventType('nimblemenubuttonbeforetoggle', {
+        browserEventName: 'beforetoggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
 }
 
 window.NimbleBlazor = {

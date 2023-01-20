@@ -53,6 +53,12 @@ public partial class NimbleMenuButton : ComponentBase
     public EventCallback<bool?> OpenChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback that's invoked before the 'open' state of the menu button changes
+    /// </summary>
+    [Parameter]
+    public EventCallback<MenuButtonBeforeToggleEventArgs> BeforeToggle { get; set; }
+
+    /// <summary>
     /// Called when 'open' changes on the web component.
     /// </summary>
     /// <param name="value">New value of open</param>
@@ -60,6 +66,15 @@ public partial class NimbleMenuButton : ComponentBase
     {
         Open = value;
         await OpenChanged.InvokeAsync(value);
+    }
+
+    /// <summary>
+    /// Called when the 'beforetoggle' event is fired on the web component
+    /// </summary>
+    /// <param name="eventArgs">The state of the menu button</param>
+    protected async void HandleBeforeToggle(MenuButtonBeforeToggleEventArgs eventArgs)
+    {
+        await BeforeToggle.InvokeAsync(eventArgs);
     }
 
     /// <summary>

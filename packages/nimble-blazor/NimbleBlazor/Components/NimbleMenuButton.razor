@@ -3,6 +3,7 @@
 <nimble-menu-button
     open="@BindConverter.FormatValue(Open)"
     @onnimblemenubuttonopenchange="(__value) => UpdateOpen(__value.Open)"
+    @onnimblemenubuttonbeforetoggle="(__value) => HandleBeforeToggle(__value)"
     appearance="@Appearance.ToAttributeValue()"
     position="@Position.ToAttributeValue()"
     disabled="@Disabled"
