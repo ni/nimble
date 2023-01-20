@@ -266,15 +266,16 @@ describe('AnchorTabs', () => {
         expect(document.activeElement).toBe(tab(0));
     });
 
-    it('should forward tab click to inner anchor element', async () => {
+    it('should update tabindex values on tab click', async () => {
         await connect();
-        let timesClicked = 0;
-        anchor(0).addEventListener('click', () => {
-            timesClicked += 1;
-        });
+        expect(tab(0).tabIndex).toBe(-1);
+        expect(tab(1).tabIndex).toBe(0);
+        expect(tab(2).tabIndex).toBe(-1);
         tab(0).dispatchEvent(new Event('click'));
         await DOM.nextUpdate();
-        expect(timesClicked).toBe(1);
+        expect(tab(0).tabIndex).toBe(0);
+        expect(tab(1).tabIndex).toBe(-1);
+        expect(tab(2).tabIndex).toBe(-1);
     });
 
     it('should turn tab Space key press into click on inner anchor element', async () => {
