@@ -7,16 +7,143 @@ import {
     keyEscape,
     keySpace
 } from '@microsoft/fast-web-utilities';
-import type { Menu, MenuItem } from '@microsoft/fast-foundation';
+import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
 import { MenuButtonBeforeToggleEventDetail, MenuButtonPosition } from '../types';
+
+class TestSlottedElement extends FoundationElement {}
+const foo = TestSlottedElement.compose({
+    baseName: 'test-slotted-element',
+    template: html`
+        <nimble-menu-button>
+            <slot slot="menu" name="test-menu"></slot>
+        </nimble-menu-button>
+    `
+});
 
 async function setup(): Promise<Fixture<MenuButton>> {
     return fixture<MenuButton>(html`<nimble-menu-button></nimble-menu-button>`);
 }
 
-describe('MenuButton', () => {
+async function slottedSetup(): Promise<Fixture<TestSlottedElement>> {
+    return fixture(foo());
+}
+
+/** A helper function to abstract adding an `open-change` event listener, spying
+ * on the event being called, and removing the event listener. The returned promise
+ * should be resolved prior to completing a test.
+ */
+function createOpenChangeListener(menuButton: MenuButton): {
+    promise: Promise<void>,
+    spy: jasmine.Spy
+} {
+    const spy = jasmine.createSpy();
+    return {
+        promise: new Promise(resolve => {
+            const handler = (...args: unknown[]): void => {
+                menuButton.removeEventListener('open-change', handler);
+                spy(...args);
+                resolve();
+            };
+            menuButton.addEventListener('open-change', handler);
+        }),
+        spy
+    };
+}
+
+/** A helper function to abstract adding a `beforetoggle` event listener, spying
+ * on the event being called, and removing the event listener. The returned promise
+ * should be resolved prior to completing a test.
+ *
+ * The function asserts that the menu button has the expected `open` value when the
+ * `beforetoggle` is fired and that when the `beforetoggle` event is fired, the
+ * `openChangedSpy` has not been called.
+ */
+function createBeforeToggleListener(menuButton: MenuButton, expectedOpenState: boolean, openChangedSpy: jasmine.Spy): {
+    promise: Promise<void>,
+    spy: jasmine.Spy
+} {
+    const spy = jasmine.createSpy();
+    return {
+        promise: new Promise(resolve => {
+            const handler = (...args: unknown[]): void => {
+                expect(menuButton.open).toEqual(expectedOpenState);
+                expect(openChangedSpy).not.toHaveBeenCalled();
+
+                menuButton.removeEventListener('beforetoggle', handler);
+                spy(...args);
+                resolve();
+            };
+            menuButton.addEventListener('beforetoggle', handler);
+        }),
+        spy
+    };
+}
+
+fdescribe('MenuButton2', () => {
+    let parent: HTMLElement;
+    let element: TestSlottedElement;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+    let menu: Menu;
+    let menuItem1: MenuItem;
+    let menuItem2: MenuItem;
+    let menuItem3: MenuItem;
+
+    function getMenuButton(): MenuButton {
+        return element.shadowRoot!.querySelector('nimble-menu-button')!;
+    }
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect, parent } = await slottedSetup());
+
+        menu = document.createElement('nimble-menu');
+        menu.slot = 'test-menu';
+
+        menuItem1 = document.createElement('nimble-menu-item');
+        menuItem1.textContent = 'menu item 1';
+        menu.appendChild(menuItem1);
+
+        menuItem2 = document.createElement('nimble-menu-item');
+        menuItem2.textContent = 'menu item 2';
+        menu.appendChild(menuItem2);
+
+        menuItem3 = document.createElement('nimble-menu-item');
+        menuItem3.textContent = 'menu item 3';
+        menu.appendChild(menuItem3);
+
+        element.appendChild(menu);
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
+    it('should open the menu and focus first menu item when the toggle button is clicked', async () => {
+        await connect();
+        const menuButton = getMenuButton();
+        const openChangeListener = createOpenChangeListener(menuButton);
+        menuButton.toggleButton!.control.click();
+        expect(menuButton.open).toBeTrue();
+        await openChangeListener.promise;
+        expect(document.activeElement).toEqual(menuItem1);
+    });
+
+    it('should open the menu and focus first menu item when the down arrow is pressed while the toggle button is focused', async () => {
+        await connect();
+        const openChangeListener = createOpenChangeListener(element);
+        const event = new KeyboardEvent('keydown', {
+            key: keyArrowDown
+        } as KeyboardEventInit);
+        element.toggleButton!.dispatchEvent(event);
+        expect(element.open).toBeTrue();
+        await openChangeListener.promise;
+        expect(document.activeElement).toEqual(menuItem1);
+    });
+});
+
+fdescribe('MenuButton', () => {
     let parent: HTMLElement;
     let element: MenuButton;
     let connect: () => Promise<void>;
@@ -25,57 +152,6 @@ describe('MenuButton', () => {
     let menuItem1: MenuItem;
     let menuItem2: MenuItem;
     let menuItem3: MenuItem;
-
-    /** A helper function to abstract adding an `open-change` event listener, spying
-     * on the event being called, and removing the event listener. The returned promise
-     * should be resolved prior to completing a test.
-     */
-    function createOpenChangeListener(): {
-        promise: Promise<void>,
-        spy: jasmine.Spy
-    } {
-        const spy = jasmine.createSpy();
-        return {
-            promise: new Promise(resolve => {
-                const handler = (...args: unknown[]): void => {
-                    element.removeEventListener('open-change', handler);
-                    spy(...args);
-                    resolve();
-                };
-                element.addEventListener('open-change', handler);
-            }),
-            spy
-        };
-    }
-
-    /** A helper function to abstract adding a `beforetoggle` event listener, spying
-     * on the event being called, and removing the event listener. The returned promise
-     * should be resolved prior to completing a test.
-     *
-     * The function asserts that the menu button has the expected `open` value when the
-     * `beforetoggle` is fired and that when the `beforetoggle` event is fired, the
-     * `openChangedSpy` has not been called.
-     */
-    function createBeforeToggleListener(expectedOpenState: boolean, openChangedSpy: jasmine.Spy): {
-        promise: Promise<void>,
-        spy: jasmine.Spy
-    } {
-        const spy = jasmine.createSpy();
-        return {
-            promise: new Promise(resolve => {
-                const handler = (...args: unknown[]): void => {
-                    expect(element.open).toEqual(expectedOpenState);
-                    expect(openChangedSpy).not.toHaveBeenCalled();
-
-                    element.removeEventListener('beforetoggle', handler);
-                    spy(...args);
-                    resolve();
-                };
-                element.addEventListener('beforetoggle', handler);
-            }),
-            spy
-        };
-    }
 
     beforeEach(async () => {
         ({ element, connect, disconnect, parent } = await setup());
@@ -175,7 +251,7 @@ describe('MenuButton', () => {
 
     it('should open the menu and focus first menu item when the toggle button is clicked', async () => {
         await connect();
-        const openChangeListener = createOpenChangeListener();
+        const openChangeListener = createOpenChangeListener(element);
         element.toggleButton!.control.click();
         expect(element.open).toBeTrue();
         await openChangeListener.promise;
@@ -184,7 +260,7 @@ describe('MenuButton', () => {
 
     it("should open the menu and focus first menu item when 'Enter' is pressed while the toggle button is focused", async () => {
         await connect();
-        const openChangeListener = createOpenChangeListener();
+        const openChangeListener = createOpenChangeListener(element);
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
         } as KeyboardEventInit);
@@ -196,7 +272,7 @@ describe('MenuButton', () => {
 
     it("should open the menu and focus first menu item when 'Space' is pressed while the toggle button is focused", async () => {
         await connect();
-        const openChangeListener = createOpenChangeListener();
+        const openChangeListener = createOpenChangeListener(element);
         const event = new KeyboardEvent('keypress', {
             key: keySpace
         } as KeyboardEventInit);
@@ -208,7 +284,7 @@ describe('MenuButton', () => {
 
     it('should open the menu and focus first menu item when the down arrow is pressed while the toggle button is focused', async () => {
         await connect();
-        const openChangeListener = createOpenChangeListener();
+        const openChangeListener = createOpenChangeListener(element);
         const event = new KeyboardEvent('keydown', {
             key: keyArrowDown
         } as KeyboardEventInit);
@@ -220,7 +296,7 @@ describe('MenuButton', () => {
 
     it('should open the menu and focus last menu item when the up arrow is pressed while the toggle button is focused', async () => {
         await connect();
-        const openChangeListener = createOpenChangeListener();
+        const openChangeListener = createOpenChangeListener(element);
         const event = new KeyboardEvent('keydown', {
             key: keyArrowUp
         } as KeyboardEventInit);
@@ -358,7 +434,7 @@ describe('MenuButton', () => {
 
     it("should fire 'openChanged' event when the menu is opened", async () => {
         await connect();
-        const openChangeListener = createOpenChangeListener();
+        const openChangeListener = createOpenChangeListener(element);
         element.open = true;
         await openChangeListener.promise;
         expect(openChangeListener.spy).toHaveBeenCalledTimes(1);
@@ -367,7 +443,7 @@ describe('MenuButton', () => {
     it("should fire 'openChanged' event when the menu is closed", async () => {
         element.open = true;
         await connect();
-        const openChangeListener = createOpenChangeListener();
+        const openChangeListener = createOpenChangeListener(element);
         element.open = false;
         await openChangeListener.promise;
         expect(openChangeListener.spy).toHaveBeenCalledTimes(1);
@@ -375,8 +451,8 @@ describe('MenuButton', () => {
 
     it("should fire 'beforetoggle' event before the menu opens", async () => {
         await connect();
-        const openChangeListener = createOpenChangeListener();
-        const beforeToggleListener = createBeforeToggleListener(false, openChangeListener.spy);
+        const openChangeListener = createOpenChangeListener(element);
+        const beforeToggleListener = createBeforeToggleListener(element, false, openChangeListener.spy);
         const expectedDetails: MenuButtonBeforeToggleEventDetail = {
             newState: true,
             oldState: false
@@ -397,8 +473,8 @@ describe('MenuButton', () => {
     it("should fire 'beforetoggle' event before the menu is closed", async () => {
         element.open = true;
         await connect();
-        const openChangeListener = createOpenChangeListener();
-        const beforeToggleListener = createBeforeToggleListener(true, openChangeListener.spy);
+        const openChangeListener = createOpenChangeListener(element);
+        const beforeToggleListener = createBeforeToggleListener(element, true, openChangeListener.spy);
         const expectedDetails: MenuButtonBeforeToggleEventDetail = {
             newState: false,
             oldState: true
