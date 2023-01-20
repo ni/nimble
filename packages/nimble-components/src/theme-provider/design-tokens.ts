@@ -214,6 +214,13 @@ export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
 
+export const spinnerMediumHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.spinnerMediumHeight)
+).withDefault('32px');
+export const spinnerLargeHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.spinnerLargeHeight)
+).withDefault('64px');
+
 // Drop Shadow Tokens
 export const elevation1BoxShadow = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.elevation1BoxShadow)

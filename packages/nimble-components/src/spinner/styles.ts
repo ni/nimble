@@ -12,8 +12,8 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        width: 16px;
         height: 16px;
+        aspect-ratio: 1 / 1;
     }
 
     div.container {

@@ -36,6 +36,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     iconSize: 'icon-size',
     groupHeaderTextTransform: 'group-header-text-transform',
     drawerWidth: 'drawer-width',
+    spinnerMediumHeight: 'spinner-medium-height',
+    spinnerLargeHeight: 'spinner-large-height',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
     largeDelay: 'large-delay',
