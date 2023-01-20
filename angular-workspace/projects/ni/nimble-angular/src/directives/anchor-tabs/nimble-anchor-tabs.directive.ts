@@ -11,7 +11,7 @@ export type { AnchorTabs };
 })
 export class NimbleAnchorTabsDirective {
     public get activeid(): string {
-        return this.elementRef.nativeElement.activeid;
+        return this.elementRef.nativeElement.activeid ?? '';
     }
 
     @Input() public set activeid(value: string) {
