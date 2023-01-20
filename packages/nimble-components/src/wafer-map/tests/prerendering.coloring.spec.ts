@@ -2,7 +2,7 @@ import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
 import { getLinearScale, getWaferMapDies } from './utilities';
 
-describe('Prerendering module', () => {
+describe('Wafermap Prerendering module', () => {
     let prerenderingModule: Prerendering;
     const emptyDieColor = 'rgba(218,223,236,1)';
     const nanDieColor = 'rgba(122,122,122,1)';
@@ -193,7 +193,13 @@ describe('Prerendering module', () => {
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
-                [{ x: 0, y: 0, value: 'NaN' }],
+                [
+                    {
+                        x: 0,
+                        y: 0,
+                        value: 'NaN'
+                    }
+                ],
                 { colors: [], values: [] },
                 highlightedValues,
                 getLinearScale([], []),
@@ -223,7 +229,13 @@ describe('Prerendering module', () => {
 
         beforeEach(() => {
             prerenderingModule = new Prerendering(
-                [{ x: 0, y: 0, value: undefined as unknown as string }],
+                [
+                    {
+                        x: 0,
+                        y: 0,
+                        value: undefined as unknown as string
+                    }
+                ],
                 { colors: [], values: [] },
                 highlightedValues,
                 getLinearScale([], []),

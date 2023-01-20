@@ -85,7 +85,21 @@ This interface could possibly be expanded in the future to communicate relevant 
 This abstract class is what a column web component (i.e. a slotted column element) must extend.
 
 ```TS
-abstract class TableColumn<TCellRecord extends TableRecord = TableRecord, TColumnConfig = {}> {
+abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnConfig = {}> {
+    // An optional ID to associated with the column.
+    @attr({ attribute: 'column-id' })
+    columnId?: string;
+
+    // The name of the slot containing the action menu for this column, or `undefined` to indicate
+    // that the column does not have an action menu.
+    // Note: Multiple columns can specify the same slot.
+    @attr({ attribute: 'action-menu-slot'})
+    actionMenuSlot?: string;
+
+    // The label to associated with the column's action menu for accessibility purposes.
+    @attr({ attribute: 'action-menu-label' })
+    actionMenuLabel?: string;
+
     // This method returns the relevant, static configuration a column requires its cellTemplate
     // to have access to
     getColumnConfig(): TColumnConfig {}

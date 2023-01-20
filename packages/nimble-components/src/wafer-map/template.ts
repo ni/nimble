@@ -11,11 +11,11 @@ export const template = html<WaferMap>`
                         version="1.1"
                         x="0px"
                         y="0px"
-                        viewBox="1 .45 20 21"
+                        viewBox="0 0 41 41"
                     >
                         <path
                             class="circle-drawing-path"
-                            d="m 21 12 a 10 10 330 1 1 0 -1.98 a 1 1 0 0 0 0 2"
+                            d="m 40.5 21 a 20 20 1 1 1 0 -1 a 0.5 0.5 0 0 0 0 1"
                         />
                     </svg>
                 </g>

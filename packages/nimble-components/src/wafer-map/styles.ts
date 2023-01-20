@@ -23,13 +23,6 @@ export const styles = css`
         position: absolute;
     }
 
-    .circle-base {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        fill: white;
-    }
-
     .notch {
         transform-origin: center center;
     }
