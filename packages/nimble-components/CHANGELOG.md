@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 18 Jan 2023 21:20:08 GMT and should not be manually modified.
+This log was last generated on Thu, 19 Jan 2023 13:56:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.7
+
+Thu, 19 Jan 2023 13:56:34 GMT
+
+### Patches
+
+- Fixed issues with rendering ([ni/nimble@47a5a0d](https://github.com/ni/nimble/commit/47a5a0d167c9d490791ff68c7f570161125cbc86))
 
 ## 17.0.6
 

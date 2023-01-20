@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 19 Jan 2023 21:56:55 GMT",
+      "tag": "@ni/nimble-components_v17.0.7",
+      "version": "17.0.7",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "831584335961fc4062a38fb3e15e732d61b078c1",
+            "comment": "HLD for table's action menu"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Jan 2023 13:56:34 GMT",
+      "tag": "@ni/nimble-components_v17.0.7",
+      "version": "17.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "62277788+zszilagy@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "47a5a0d167c9d490791ff68c7f570161125cbc86",
+            "comment": "Fixed issues with rendering"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Jan 2023 21:20:08 GMT",
       "tag": "@ni/nimble-components_v17.0.6",
       "version": "17.0.6",
