@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Create getter and setter for the table's data rather than using FAST's observable behavior",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
