@@ -51,7 +51,48 @@ const overviewText = 'The `nimble-table` is a component that offers a way to ren
 const dataDescription = `\`data\` is a property that is an array of records. A record provides the data that backs a single row in the table.
 Each record is made up of fields, which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type
 \`TableFieldName\`. The value in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`Date\`, \`null\`, or \`undefined\`,
-which is defined by the type \`TableFieldValue\`.`;
+which is defined by the type \`TableFieldValue\`.
+
+<details>
+    <summary>Updating \`data\`</summary>
+    To update the \`data\` property, the property must be reassigned. It can be reassigned either to a new array or to the same array instance.
+    Modifying the \`data\` property directly or modifying the value of an array that has already been assigned to \`data\` will not result in
+    the table detecting a change to the data.
+    - Correct examples of updating \`data\`:
+        - Assigning a new array
+
+            \`\`\`
+            myTable.data = [record0, record1];
+            myTable.data = [record2, record3, record4];
+            \`\`\`
+        - Reassigning the same array instance
+
+            \`\`\`
+            const myData = [record0, record1];
+            myTable.data = myData;
+            myData.push(record2);
+            myTable.data = myData;      // Update to include new record
+
+            myData[0].myField = 'new value';
+            myTable.data = myData;      // Update to change a new field value
+            \`\`\`
+
+    - Incorrect examples to updating \`data\`:
+        - Directly manipulating the \`data\` property on the table
+
+            \`\`\`
+            myTable.data = [record0, record1];
+            myTable.data.push(record2);     // The table will not detect 'record2' in the data
+            \`\`\`
+        - Modifying an array that has been assigned to \`data\`
+
+            \`\`\`
+            const myData = [record0, record1];
+            myTable.data = myData;
+            myData.push(record2);   // The table will not detect 'record2' in the data
+            \`\`\`
+</details>
+`;
 
 const idFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's ID.
 If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered,
