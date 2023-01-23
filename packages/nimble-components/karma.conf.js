@@ -49,7 +49,8 @@ module.exports = config => {
             'karma-source-map-support',
             'karma-sourcemap-loader',
             'karma-chrome-launcher',
-            'karma-firefox-launcher'
+            'karma-firefox-launcher',
+            'karma-safari-launcher'
         ],
         files: ['dist/esm/utilities/tests/setup.js'],
         preprocessors: {
@@ -107,7 +108,7 @@ module.exports = config => {
             'text/x-typescript': ['ts']
         },
         reporters: ['kjhtml'],
-        browsers: ['ChromeHeadlessOpt'],
+        browsers: ['ChromeHeadlessOpt', 'Firefox', 'Safari'],
         customLaunchers: {
             ChromeDebugging: {
                 base: 'Chrome',
