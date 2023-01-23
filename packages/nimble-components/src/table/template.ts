@@ -37,7 +37,7 @@ export const template = html<Table>`
                 </div>
             </div>
             <div class="table-viewport" role="rowgroup">
-            ${when(x => x.columns.length > 0, html<Table>`
+            ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                 ${repeat(x => x.tableData, html<TableRowState>`
                     <${DesignSystem.tagFor(TableRow)}
                         class="row"

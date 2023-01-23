@@ -30,8 +30,17 @@ export class Table<
     @attr({ attribute: 'id-field-name' })
     public idFieldName?: string | null;
 
-    @observable
-    public data: TData[] = [];
+    public get data(): TData[] {
+        return this.table.options.data;
+    }
+
+    public set data(newData: TData[]) {
+        if (newData.length > 0 && this.table.options.columns.length === 0) {
+            this.generateColumns();
+        }
+
+        this.setTableData(newData);
+    }
 
     /**
      * @internal
@@ -42,13 +51,18 @@ export class Table<
     @observable
     public readonly columns: TableColumn[] = [];
 
+    /**
+     * @internal
+     */
+    @observable
+    public canRenderRows = true;
+
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
     }
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
-    private readonly tableInitialized: boolean = false;
     private readonly tableValidator = new TableValidator();
 
     public constructor() {
@@ -63,7 +77,6 @@ export class Table<
             autoResetAll: false
         };
         this.table = tanStackCreateTable(this.options);
-        this.tableInitialized = true;
     }
 
     public idFieldNameChanged(
@@ -72,38 +85,25 @@ export class Table<
     ): void {
         // Force TanStack to detect a data update because a row's ID is only
         // generated when creating a new row model.
-        this.trySetData([...this.data]);
-    }
-
-    public dataChanged(
-        prev: TData[] | undefined,
-        next: TData[] | undefined
-    ): void {
-        if ((!prev || prev.length === 0) && next && next.length > 0) {
-            this.generateColumns();
-        }
-
-        // Ignore any updates that occur prior to the TanStack table being initialized.
-        if (this.tableInitialized) {
-            this.trySetData(this.data);
-        }
+        this.setTableData(this.data);
     }
 
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
     }
 
-    private trySetData(newData: TData[]): void {
-        const areIdsValid = this.tableValidator.validateRecordIds(
+    private setTableData(newData: TData[]): void {
+        this.tableValidator.validateRecordIds(
             newData,
             this.idFieldName
         );
+        this.canRenderRows = this.checkValidity();
 
         const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
             ? undefined
             : (record: TData) => record[this.idFieldName!] as string;
         this.updateTableOptions({
-            data: areIdsValid ? newData : [],
+            data: [...newData],
             getRowId: getRowIdFunction
         });
     }
@@ -112,7 +112,7 @@ export class Table<
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
             const rowState: TableRowState<TData> = {
-                record: row.original,
+                record: { ...row.original },
                 id: row.id
             };
             return rowState;
