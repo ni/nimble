@@ -66,7 +66,9 @@ describe('Table', () => {
         return visibleData;
     }
 
-    function verifyRenderedData(expectedData: readonly SimpleTableRecord[]): void {
+    function verifyRenderedData(
+        expectedData: readonly SimpleTableRecord[]
+    ): void {
         const visibleData = retrieveVisibleData(expectedData);
         const expectedRowCount = visibleData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
@@ -306,7 +308,11 @@ describe('Table', () => {
 
             const newData: SimpleTableRecord[] = [
                 ...simpleTableData,
-                { stringData: 'my string', moreStringData: 'my other string', numericData: -100 }
+                {
+                    stringData: 'my string',
+                    moreStringData: 'my other string',
+                    numericData: -100
+                }
             ];
             element.data = newData;
             await waitForUpdatesAsync();

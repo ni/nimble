@@ -93,10 +93,7 @@ export class Table<
     }
 
     private setTableData(newData: TData[]): void {
-        this.tableValidator.validateRecordIds(
-            newData,
-            this.idFieldName
-        );
+        this.tableValidator.validateRecordIds(newData, this.idFieldName);
         this.canRenderRows = this.checkValidity();
 
         const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
