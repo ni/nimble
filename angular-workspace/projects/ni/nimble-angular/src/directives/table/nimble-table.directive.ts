@@ -1,6 +1,7 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
 import type { Table } from '@ni/nimble-components/dist/esm/table';
 import type { TableRecord, TableFieldName, TableFieldValue, TableValidity } from '@ni/nimble-components/dist/esm/table/types';
+import { Observable, Subscription } from 'rxjs';
 
 export type { Table };
 export { TableRecord, TableFieldName, TableFieldValue, TableValidity };
@@ -11,13 +12,22 @@ export { TableRecord, TableFieldName, TableFieldValue, TableValidity };
 @Directive({
     selector: 'nimble-table'
 })
-export class NimbleTableDirective<TData extends TableRecord = TableRecord> {
-    public get data(): TData[] {
-        return this.elementRef.nativeElement.data;
+export class NimbleTableDirective<TData extends TableRecord = TableRecord> implements OnDestroy {
+    public get data$(): Observable<TData[]> | undefined {
+        return this.dataObservable;
     }
 
-    @Input() public set data(value: TData[]) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'data', value);
+    @Input() public set data$(value: Observable<TData[]> | undefined) {
+        if (this.dataObservable) {
+            this.dataSubscription.unsubscribe();
+        }
+
+        this.dataObservable = value;
+        if (value) {
+            this.dataSubscription.add(value.subscribe(
+                next => this.elementRef.nativeElement.setData(next)
+            ));
+        }
     }
 
     public get idFieldName(): string | null | undefined {
@@ -34,9 +44,20 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> {
         return this.elementRef.nativeElement.validity;
     }
 
+    private dataObservable?: Observable<TData[]>;
+    private readonly dataSubscription = new Subscription();
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Table<TData>>) {}
+
+    public ngOnDestroy(): void {
+        this.dataSubscription.unsubscribe();
+    }
 
     public checkValidity(): boolean {
         return this.elementRef.nativeElement.checkValidity();
+    }
+
+    public setData(data: TData[]): void {
+        this.setData(data);
     }
 }

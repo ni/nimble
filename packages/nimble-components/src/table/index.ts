@@ -30,18 +30,6 @@ export class Table<
     @attr({ attribute: 'id-field-name' })
     public idFieldName?: string | null;
 
-    public get data(): TData[] {
-        return this.table.options.data;
-    }
-
-    public set data(newData: TData[]) {
-        if (newData.length > 0 && this.table.options.columns.length === 0) {
-            this.generateColumns();
-        }
-
-        this.setTableData(newData);
-    }
-
     /**
      * @internal
      */
@@ -79,28 +67,37 @@ export class Table<
         this.table = tanStackCreateTable(this.options);
     }
 
+    public setData(newData: readonly TData[]): void {
+        if (newData.length > 0 && this.table.options.columns.length === 0) {
+            this.generateColumns(newData);
+        }
+
+        this.setTableData(newData);
+    }
+
     public idFieldNameChanged(
         _prev: string | undefined,
         _next: string | undefined
     ): void {
         // Force TanStack to detect a data update because a row's ID is only
         // generated when creating a new row model.
-        this.setTableData(this.data);
+        this.setTableData(this.table.options.data);
     }
 
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
     }
 
-    private setTableData(newData: TData[]): void {
-        this.tableValidator.validateRecordIds(newData, this.idFieldName);
+    private setTableData(newData: readonly TData[]): void {
+        const data = [...newData];
+        this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
 
         const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
             ? undefined
             : (record: TData) => record[this.idFieldName!] as string;
         this.updateTableOptions({
-            data: [...newData],
+            data,
             getRowId: getRowIdFunction
         });
     }
@@ -140,12 +137,12 @@ export class Table<
 
     // Generate columns for TanStack that correspond to all the keys in TData because all operations,
     // such as grouping and sorting, will be performed on the data's records, not the values rendered within a cell.
-    private generateColumns(): void {
-        if (this.data.length === 0) {
+    private generateColumns(data: readonly TData[]): void {
+        if (data.length === 0) {
             return;
         }
 
-        const firstItem = this.data[0]!;
+        const firstItem = data[0]!;
         const keys = Object.keys(firstItem);
         const generatedColumns = keys.map(key => {
             const columnDef: TanStackColumnDef<TData> = {
