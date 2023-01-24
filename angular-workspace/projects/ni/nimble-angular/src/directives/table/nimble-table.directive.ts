@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
 import type { Table } from '@ni/nimble-components/dist/esm/table';
 import type { TableRecord, TableFieldName, TableFieldValue, TableValidity } from '@ni/nimble-components/dist/esm/table/types';
-import { Observable, Subscription } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
 
 export type { Table };
 export { TableRecord, TableFieldName, TableFieldValue, TableValidity };
@@ -18,15 +18,13 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
     }
 
     @Input() public set data$(value: Observable<TData[]> | undefined) {
-        if (this.dataObservable) {
-            this.dataSubscription.unsubscribe();
-        }
+        this.dataSubscription?.unsubscribe();
 
         this.dataObservable = value;
         if (value) {
-            this.dataSubscription.add(value.subscribe(
+            this.dataSubscription = value.subscribe(
                 next => this.elementRef.nativeElement.setData(next)
-            ));
+            );
         }
     }
 
@@ -45,19 +43,19 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
     }
 
     private dataObservable?: Observable<TData[]>;
-    private readonly dataSubscription = new Subscription();
+    private dataSubscription?: Subscription;
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Table<TData>>) {}
 
     public ngOnDestroy(): void {
-        this.dataSubscription.unsubscribe();
+        this.dataSubscription?.unsubscribe();
     }
 
     public checkValidity(): boolean {
         return this.elementRef.nativeElement.checkValidity();
     }
 
-    public setData(data: TData[]): void {
-        this.setData(data);
+    public setData(data: readonly TData[]): void {
+        this.elementRef.nativeElement.setData(data);
     }
 }

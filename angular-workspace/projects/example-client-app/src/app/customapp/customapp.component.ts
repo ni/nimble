@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 import { Component, ViewChild } from '@angular/core';
 import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, TableRecord, UserDismissed } from '@ni/nimble-angular';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 interface ComboboxItem {
     first: string;
@@ -33,17 +34,22 @@ export class CustomAppComponent {
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
     public selectedRadio = 'mango';
 
-    public tableData: SimpleTableRecord[] = [
+    public readonly tableData$: Observable<SimpleTableRecord[]>;
+    private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([
         { stringValue1: 'hello world', stringValue2: 'more text' },
         { stringValue1: 'foo', stringValue2: 'bar' },
         { stringValue1: 'candy', stringValue2: 'bar' },
         { stringValue1: 'dive', stringValue2: 'bar' },
         { stringValue1: 're', stringValue2: 'bar' },
         { stringValue1: 'last row', stringValue2: 'yay!' }
-    ];
+    ]);
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
+
+    public constructor() {
+        this.tableData$ = this.tableDataSubject.asObservable();
+    }
 
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;
@@ -81,9 +87,11 @@ export class CustomAppComponent {
     }
 
     public onAddTableRow(): void {
-        this.tableData = [...this.tableData, {
-            stringValue1: `new string ${this.tableData.length}`,
-            stringValue2: `bar ${this.tableData.length}`
-        }];
+        const tableData = this.tableDataSubject.value;
+        tableData.push({
+            stringValue1: `new string ${tableData.length}`,
+            stringValue2: `bar ${tableData.length}`
+        });
+        this.tableDataSubject.next(tableData);
     }
 }

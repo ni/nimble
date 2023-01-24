@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { Table, TableRecord, TableValidity } from '@ni/nimble-angular';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { NimbleTableDirective } from '../nimble-table.directive';
 import { NimbleTableModule } from '../nimble-table.module';
 
@@ -17,6 +18,76 @@ describe('Nimble table', () => {
         });
     });
 
+    describe('data updates', () => {
+        interface SimpleRecord extends TableRecord {
+            field1: string;
+            field2: string;
+        }
+
+        @Component({
+            template: `
+                <nimble-table #table [data$]="data$"></nimble-table>
+            `
+        })
+        class TestHostComponent {
+            @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;
+            @ViewChild('table', { read: ElementRef }) public elementRef: ElementRef<Table<SimpleRecord>>;
+
+            public dataSubject = new Subject<SimpleRecord[]>();
+            public data$ = this.dataSubject.asObservable();
+        }
+
+        let fixture: ComponentFixture<TestHostComponent>;
+        let nativeElement: Table<SimpleRecord>;
+        let spy: jasmine.Spy;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestHostComponent],
+                imports: [NimbleTableModule]
+            });
+            fixture = TestBed.createComponent(TestHostComponent);
+            fixture.detectChanges();
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
+            spy = spyOn(nativeElement, 'setData');
+        });
+
+        it('`setData()` is called when data is emitted from the `data$` observable', () => {
+            const data: SimpleRecord[] = [{
+                field1: 'foo',
+                field2: 'bar'
+            }];
+            fixture.componentInstance.dataSubject.next(data);
+            expect(spy).toHaveBeenCalledOnceWith(data);
+        });
+
+        it('`setData()` is called after the bound observable changes', () => {
+            const newSubject = new Subject<SimpleRecord[]>();
+            const newObservable = newSubject.asObservable();
+            fixture.componentInstance.data$ = newObservable;
+            fixture.detectChanges();
+
+            const data: SimpleRecord[] = [{
+                field1: 'foo',
+                field2: 'bar'
+            }];
+            newSubject.next(data);
+            expect(spy).toHaveBeenCalledOnceWith(data);
+        });
+
+        it('changing bound `data$` observable unsubscribe from the original observable', () => {
+            fixture.componentInstance.data$ = new Observable<SimpleRecord[]>();
+            fixture.detectChanges();
+
+            const data: SimpleRecord[] = [{
+                field1: 'foo',
+                field2: 'bar'
+            }];
+            fixture.componentInstance.dataSubject.next(data);
+            expect(spy).not.toHaveBeenCalled();
+        });
+    });
+
     describe('validity', () => {
         interface SimpleRecord extends TableRecord {
             field1: string;
@@ -25,19 +96,22 @@ describe('Nimble table', () => {
 
         @Component({
             template: `
-                <nimble-table #table [data]="data" [idFieldName]="idFieldName"></nimble-table>
+                <nimble-table #table [idFieldName]="idFieldName"></nimble-table>
             `
         })
-        class TestHostComponent {
+        class TestHostComponent implements AfterViewInit {
             @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;
             @ViewChild('table', { read: ElementRef }) public elementRef: ElementRef<Table<SimpleRecord>>;
-            public readonly originalData = [{
+            public readonly originalData: readonly SimpleRecord[] = [{
                 field1: 'hello world',
                 field2: 'foo'
             }] as const;
 
-            public data: SimpleRecord[] = [...this.originalData];
             public idFieldName = 'field1';
+
+            public ngAfterViewInit(): void {
+                this.directive.setData(this.originalData);
+            }
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -108,9 +182,8 @@ describe('Nimble table', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('has expected defaults for data', () => {
-            expect(directive.data).toEqual([]);
-            expect(nativeElement.data).toEqual([]);
+        it('has expected defaults for data$', () => {
+            expect(directive.data$).toEqual(undefined);
         });
 
         it('has expected defaults for idFieldName', () => {
@@ -127,18 +200,14 @@ describe('Nimble table', () => {
 
         @Component({
             template: `
-                <nimble-table #table [data]="data" [idFieldName]="idFieldName"></nimble-table>
+                <nimble-table #table [data$]="data$" [idFieldName]="idFieldName"></nimble-table>
             `
         })
         class TestHostComponent {
             @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;
             @ViewChild('table', { read: ElementRef }) public elementRef: ElementRef<Table<SimpleRecord>>;
-            public readonly originalData = [{
-                field1: 'hello world',
-                field2: 'foo'
-            }] as const;
 
-            public data: SimpleRecord[] = [...this.originalData];
+            public data$ = new Observable<SimpleRecord[]>();
             public idFieldName = 'field1';
         }
 
@@ -158,24 +227,12 @@ describe('Nimble table', () => {
         });
 
         it('can be configured with property binding for data', () => {
-            expect(directive.data).toEqual(fixture.componentInstance.originalData);
-            expect(nativeElement.data).toEqual(fixture.componentInstance.originalData);
+            expect(directive.data$).toEqual(fixture.componentInstance.data$);
 
-            const newData = [{
-                field1: 'abc',
-                field2: 'xyz'
-            }, {
-                field1: 'hello world',
-                field2: 'hola world'
-            }, {
-                field1: 'foo bar baz',
-                field2: 'fim fam foo'
-            }] as const;
-            fixture.componentInstance.data = [...newData];
+            const newData$ = new Observable<SimpleRecord[]>();
             fixture.detectChanges();
 
-            expect(directive.data).toEqual(newData);
-            expect(nativeElement.data).toEqual(newData);
+            expect(directive.data$).toEqual(newData$);
         });
 
         it('can be configured with property binding for idFieldName', () => {
@@ -199,7 +256,6 @@ describe('Nimble table', () => {
         @Component({
             template: `
                 <nimble-table #table
-                    [data]="data"
                     [attr.id-field-name]="idFieldName">
                 </nimble-table>
             `
@@ -212,7 +268,6 @@ describe('Nimble table', () => {
                 field2: 'foo'
             }] as const;
 
-            public data: SimpleRecord[] = [...this.originalData];
             public idFieldName = 'field1';
         }
 
