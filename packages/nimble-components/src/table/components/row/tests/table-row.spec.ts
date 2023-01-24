@@ -72,12 +72,10 @@ describe('TableRow', () => {
         const firstCell = pageObject.getRenderedCell(0);
         const firstCellState = element.getCellState(textColumn1);
         expect(firstCellState).toEqual(firstCell!.cellState!);
-        // prettier-ignore
         expect((firstCellState.cellRecord as TableColumnTextCellRecord).value).toBe('string 1');
         const secondCell = pageObject.getRenderedCell(1);
         const secondCellState = element.getCellState(textColumn2);
         expect(secondCellState).toEqual(secondCell!.cellState!);
-        // prettier-ignore
         expect((secondCellState.cellRecord as TableColumnTextCellRecord).value).toBe('foo');
     });
 });

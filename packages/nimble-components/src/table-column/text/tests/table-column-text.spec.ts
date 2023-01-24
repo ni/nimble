@@ -6,6 +6,8 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/tests/table.pageobject';
+import { wackyStrings } from '../../../utilities/tests/wacky-strings';
+import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     field?: string | null;
@@ -122,62 +124,52 @@ describe('TableColumnText', () => {
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
     });
 
-    const fieldValues = [
-        { value: 'foo' },
-        { value: '<button></button>' },
-        { value: 'null' },
-        { value: 'undefined' },
-        { value: 'null' },
-        { value: '-2147483648/-1' },
-        { value: '田' },
-        { value: 'Ω' },
-        { value: '( ͡° ͜ʖ ͡°)' },
-        { value: '😍' },
-        { value: 'Iñtërnâtiônàlizætiøn☃💩' },
-        { value: '１' }
-    ];
-    for (const fieldValue of fieldValues) {
-        // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`data "${fieldValue.value}" renders as "${fieldValue.value}"`, async () => {
-            await connect();
-
-            element.data = [{ field: fieldValue.value }];
-            await waitForUpdatesAsync();
-
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                fieldValue.value
+    describe('various string values render as expected', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of wackyStrings) {
+            const specType = getSpecTypeByNamedList(
+                value,
+                focused,
+                disabled
             );
-        });
-    }
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(`data "${value.name}" renders as "${value.name}"`, async () => {
+                await connect();
 
-    const placeholderValues = [
-        { value: 'foo' },
-        { value: '<button></button>' },
-        { value: 'null' },
-        { value: 'undefined' },
-        { value: 'null' },
-        { value: '-2147483648/-1' },
-        { value: '田' },
-        { value: 'Ω' },
-        { value: '( ͡° ͜ʖ ͡°)' },
-        { value: '😍' },
-        { value: 'Iñtërnâtiônàlizætiøn☃💩' },
-        { value: '１' }
-    ];
-    for (const placeholderValue of placeholderValues) {
-        // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`placeholder "${placeholderValue.value}" renders as "${placeholderValue.value}"`, async () => {
-            await connect();
-            element.data = [{ field: null }];
-            await waitForUpdatesAsync();
+                element.data = [{ field: value.name }];
+                await waitForUpdatesAsync();
 
-            const firstColumn = element.columns[0] as TableColumnText;
-            firstColumn.placeholder = placeholderValue.value;
-            await waitForUpdatesAsync();
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    value.name
+                );
+            });
+        }
+    });
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                placeholderValue.value
+    describe('placeholder assigned various strings render as expected', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of wackyStrings) {
+            const specType = getSpecTypeByNamedList(
+                value,
+                focused,
+                disabled
             );
-        });
-    }
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(`placeholder "${value.name}" renders as "${value.name}"`, async () => {
+                await connect();
+                element.data = [{ field: null }];
+                await waitForUpdatesAsync();
+
+                const firstColumn = element.columns[0] as TableColumnText;
+                firstColumn.placeholder = value.name;
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    value.name
+                );
+            });
+        }
+    });
 });

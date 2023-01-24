@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "Adding tests.",
+  "comment": "Adding table string value and row / column element tests",
   "packageName": "@ni/nimble-components",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "none"

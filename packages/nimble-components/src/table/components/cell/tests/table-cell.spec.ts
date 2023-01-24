@@ -87,9 +87,6 @@ describe('TableCell', () => {
         element.cellStyles = cellStyles;
         await waitForUpdatesAsync();
 
-        element.cellState = {
-            cellRecord: { stringData: 'bar' }
-        } as TableCellState<SimpleTableCellRecord>;
         const renderedContent = pageObject.getRenderedCellContent();
         expect(window.getComputedStyle(renderedContent!).display).toBe('flex');
     });
@@ -115,7 +112,7 @@ describe('TableCell', () => {
 
         cellStyles = css`
             span {
-                color: red;
+                visibility: hidden;
             }
         `;
         element.cellStyles = cellStyles;
@@ -123,5 +120,6 @@ describe('TableCell', () => {
         const renderedContent = pageObject.getRenderedCellContent();
         // prettier-ignore
         expect(window.getComputedStyle(renderedContent!).display).not.toBe('flex');
+        expect(window.getComputedStyle(renderedContent!).visibility).toBe('hidden');
     });
 });
