@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 24 Jan 2023 22:55:17 GMT",
+      "tag": "@ni/nimble-angular_v15.1.0",
+      "version": "15.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "0548a2a07aee2461e94d22ebb0f91a817f2ae088",
+            "comment": "Angular integration for anchor tabs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 24 Jan 2023 21:30:30 GMT",
       "tag": "@ni/nimble-angular_v15.0.11",
       "version": "15.0.11",
