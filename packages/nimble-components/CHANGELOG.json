@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 24 Jan 2023 21:30:30 GMT",
+      "tag": "@ni/nimble-components_v17.2.0",
+      "version": "17.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3c778c0a354dcc5883273ac62b7edd9a3dbed3cd",
+            "comment": "Add design tokens for additional spinner sizes, and update docs."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 24 Jan 2023 17:30:17 GMT",
       "tag": "@ni/nimble-components_v17.1.0",
       "version": "17.1.0",
