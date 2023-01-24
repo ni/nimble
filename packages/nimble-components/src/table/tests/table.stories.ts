@@ -13,10 +13,7 @@ interface TableArgs {
     validity: undefined;
     checkValidity: undefined;
     tableRef: Table;
-    populateData: (
-        tableRef: Table,
-        data: ExampleDataType
-    ) => void;
+    populateData: (tableRef: Table, data: ExampleDataType) => void;
 }
 
 const simpleData = [

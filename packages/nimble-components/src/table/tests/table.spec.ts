@@ -280,7 +280,9 @@ describe('Table', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRecordIDs(simpleTableData.map((_, index: number) => index.toString()));
+            verifyRecordIDs(
+                simpleTableData.map((_, index: number) => index.toString())
+            );
         });
 
         it('row IDs update when id-field-name attribute is updated', async () => {
@@ -294,7 +296,9 @@ describe('Table', () => {
 
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
-            verifyRecordIDs(simpleTableData.map((_, index: number) => index.toString()));
+            verifyRecordIDs(
+                simpleTableData.map((_, index: number) => index.toString())
+            );
         });
     });
 
