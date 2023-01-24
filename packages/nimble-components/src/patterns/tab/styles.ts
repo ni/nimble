@@ -11,8 +11,8 @@ import {
     fillHoverSelectedColor,
     standardPadding,
     smallDelay
-} from '../theme-provider/design-tokens';
-import { focusVisible } from '../utilities/style/focus';
+} from '../../theme-provider/design-tokens';
+import { focusVisible } from '../../utilities/style/focus';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -36,12 +36,12 @@ export const styles = css`
         background-color: ${fillHoverColor};
     }
 
-    :host(:focus) {
-        outline: none;
+    :host(:hover[aria-selected='true']) {
+        background-color: ${fillHoverSelectedColor};
     }
 
-    :host(:focus:hover) {
-        background-color: ${fillHoverSelectedColor};
+    :host(:focus) {
+        outline: none;
     }
 
     :host(${focusVisible}) {
@@ -58,7 +58,7 @@ export const styles = css`
         background: none;
     }
 
-    slot {
+    slot:not([name]) {
         display: block;
         padding: calc(${standardPadding} / 2) ${standardPadding}
             calc(${standardPadding} / 2 - ${borderWidth});
@@ -105,7 +105,17 @@ export const styles = css`
         }
     }
 
+    :host(${focusVisible})::after {
+        width: 100%;
+        border-bottom-width: var(--ni-private-focus-indicator-width);
+    }
+
     :host([aria-selected='true'])::after {
         width: 100%;
+        border-bottom-width: var(--ni-private-active-indicator-width);
+    }
+
+    :host([aria-selected='true'][disabled])::after {
+        border-bottom-color: rgba(${borderHoverColor}, 0.3);
     }
 `;

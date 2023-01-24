@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 24 Jan 2023 17:30:17 GMT",
+      "tag": "@ni/nimble-components_v17.1.0",
+      "version": "17.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "67456b465d8c12eaed94a111682c51ca14e571fa",
+            "comment": "Adding table string value and row / column element tests"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 20 Jan 2023 22:27:00 GMT",
+      "tag": "@ni/nimble-components_v17.1.0",
+      "version": "17.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4c3c71571e92a5ca1ebc62a259c889cb90df710c",
+            "comment": "Anchor tabs component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 20 Jan 2023 10:47:22 GMT",
       "tag": "@ni/nimble-components_v17.0.8",
       "version": "17.0.8",
