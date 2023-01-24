@@ -184,10 +184,10 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs</div>
-            <nimble-tabs>
-                <nimble-tab>Tab 1</nimble-tab>
-                <nimble-tab>Tab 2</nimble-tab>
-                <nimble-tab disabled>Tab 3 (Disabled)</nimble-tab>
+            <nimble-tabs [(activeid)]="activeTabId">
+                <nimble-tab id="tab-1">Tab 1</nimble-tab>
+                <nimble-tab id="tab-2">Tab 2</nimble-tab>
+                <nimble-tab id="tab-3" disabled>Tab 3 (Disabled)</nimble-tab>
                 <nimble-tabs-toolbar>
                     <nimble-button (click)="onTabToolbarButtonClick()">Toolbar button</nimble-button>
                 </nimble-tabs-toolbar>
@@ -201,17 +201,27 @@
                     <div class="container-label">Tab 3 content</div>
                 </nimble-tab-panel>
             </nimble-tabs>
+            <nimble-select [(ngModel)]="activeTabId">
+                <nimble-list-option value="tab-1">Tab 1</nimble-list-option>
+                <nimble-list-option value="tab-2">Tab 2</nimble-list-option>
+                <nimble-list-option value="tab-3">Tab 3</nimble-list-option>
+            </nimble-select>
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs - Anchor</div>
-            <nimble-anchor-tabs #anchorTabs activeid="1">
-                <nimble-anchor-tab id="1" href="#" (click)="onAnchorTabClick('1')">Tab 1</nimble-anchor-tab>
-                <nimble-anchor-tab id="2" href="#" (click)="onAnchorTabClick('2')">Tab 2</nimble-anchor-tab>
-                <nimble-anchor-tab disabled id="3" href="#" (click)="onAnchorTabClick('3')">Tab 3 (Disabled)</nimble-anchor-tab>
+            <nimble-anchor-tabs #anchorTabs [activeid]="activeAnchorTabId">
+                <nimble-anchor-tab id="tab-1" href="https://nimble.ni.dev">Tab 1</nimble-anchor-tab>
+                <nimble-anchor-tab id="tab-2" href="https://ni.com">Tab 2</nimble-anchor-tab>
+                <nimble-anchor-tab disabled id="tab-3" href="https://google.com">Tab 3 (Disabled)</nimble-anchor-tab>
                 <nimble-tabs-toolbar>
                     <nimble-button (click)="onTabToolbarButtonClick()">Toolbar button</nimble-button>
                 </nimble-tabs-toolbar>
             </nimble-anchor-tabs>
+            <nimble-select [(ngModel)]="activeAnchorTabId">
+                <nimble-list-option value="tab-1">Tab 1</nimble-list-option>
+                <nimble-list-option value="tab-2">Tab 2</nimble-list-option>
+                <nimble-list-option value="tab-3">Tab 3</nimble-list-option>
+            </nimble-select>
         </div>
         <div class="sub-container">
             <div class="container-label">Text Area</div>
