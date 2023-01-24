@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Create getter and setter for the table's data rather than using FAST's observable behavior",
+  "comment": "Create `setData()` function on the table rather than having a `data` property",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
