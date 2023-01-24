@@ -62,7 +62,7 @@ public partial class NimbleMenuButton : ComponentBase
     /// Called when 'open' changes on the web component.
     /// </summary>
     /// <param name="value">New value of open</param>
-    protected async void UpdateOpen(MenuButtonToggleEventArgs eventArgs)
+    protected async void HandleToggle(MenuButtonToggleEventArgs eventArgs)
     {
         Open = eventArgs.NewState;
         await Toggle.InvokeAsync(eventArgs);
