@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { Table, TableRecord, TableValidity } from '@ni/nimble-angular';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { NimbleTableDirective } from '../nimble-table.directive';
 import { NimbleTableModule } from '../nimble-table.module';
 
