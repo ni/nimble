@@ -200,22 +200,29 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
             return undefined;
         }
 
-        let currentItem = this.slottedMenus[0];
+        let currentItem: HTMLElement | undefined = this.slottedMenus[0];
         while (currentItem) {
             if (currentItem.getAttribute('role') === 'menu') {
                 return currentItem;
             }
 
-            if (currentItem?.nodeName === 'SLOT') {
-                currentItem = (
-                    currentItem as HTMLSlotElement
-                ).assignedNodes()[0] as HTMLElement;
+            if (this.isSlotElement(currentItem)) {
+                const firstNode = currentItem.assignedNodes()[0];
+                if (firstNode instanceof HTMLElement) {
+                    currentItem = firstNode;
+                } else {
+                    currentItem = undefined;
+                }
             } else {
                 return undefined;
             }
         }
 
         return undefined;
+    }
+
+    private isSlotElement(element: HTMLElement | undefined): element is HTMLSlotElement {
+        return element?.nodeName === 'SLOT';
     }
 
     private focusMenu(): void {
