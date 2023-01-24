@@ -221,7 +221,9 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         return undefined;
     }
 
-    private isSlotElement(element: HTMLElement | undefined): element is HTMLSlotElement {
+    private isSlotElement(
+        element: HTMLElement | undefined
+    ): element is HTMLSlotElement {
         return element?.nodeName === 'SLOT';
     }
 

@@ -10,10 +10,7 @@ import {
 import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
-import {
-    MenuButtonToggleEventDetail,
-    MenuButtonPosition
-} from '../types';
+import { MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
 
 class TestSlottedElement extends FoundationElement {}
 const composedTestSlottedElement = TestSlottedElement.compose({
