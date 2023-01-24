@@ -25,10 +25,26 @@ public class NimbleAnchorTabsTests
     public void NimbleAnchorTabsWithChildContent_HasChildMarkup()
     {
         var tabs = RenderTabsWithContent();
-        var expectedChildrenNames = new[] { "nimble-anchor-tab", "nimble-tabs-toolbar" };
+        var expectedChildrenNames = new[] { "nimble-anchor-tab", "nimble-anchor-tab", "nimble-tabs-toolbar" };
 
         var actualChildNodeNames = tabs.Nodes.First().ChildNodes.OfType<IElement>().Select(node => node.LocalName).ToArray();
         Assert.Equal(expectedChildrenNames, actualChildNodeNames);
+    }
+
+    [Fact]
+    public void NimbleAnchorTabsWithChildContent_HasActiveIdMarkup()
+    {
+        var tabs = RenderTabsWithContent();
+
+        Assert.Contains("activeid", tabs.Markup);
+    }
+
+    [Fact]
+    public void NimbleAnchorTabsWithChildContent_HasDisabledMarkup()
+    {
+        var tabs = RenderTabsWithContent();
+
+        Assert.Contains("disabled", tabs.Markup);
     }
 
     private IRenderedComponent<NimbleAnchorTabs> RenderTabsWithContent()
@@ -40,7 +56,14 @@ public class NimbleAnchorTabsTests
 
     private void AddChildContentToTabs(ComponentParameterCollectionBuilder<NimbleAnchorTabs> parameters)
     {
+        parameters.Add(x => x.ActiveId, "tab1");
         parameters.AddChildContent<NimbleAnchorTab>();
+        parameters.AddChildContent<NimbleAnchorTab>(SetTabDisabled);
         parameters.AddChildContent<NimbleTabsToolbar>();
+    }
+
+    private void SetTabDisabled(ComponentParameterCollectionBuilder<NimbleAnchorTab> parameters)
+    {
+        parameters.Add(x => x.Disabled, true);
     }
 }

@@ -222,7 +222,10 @@
                     <div class="container-label">Tab 3 content</div>
                 </NimbleTabPanel>
             </NimbleTabs>
-            <NimbleSelect @bind-Value="@ActiveTabId">
+            <label id="activeTab">
+                Active tab:
+            </label>
+            <NimbleSelect @bind-Value="@ActiveTabId" aria-labelledby="activeTab">
                 <NimbleListOption Value="tab-1">Tab 1</NimbleListOption>
                 <NimbleListOption Value="tab-2">Tab 2</NimbleListOption>
                 <NimbleListOption Value="tab-3">Tab 3</NimbleListOption>
@@ -230,18 +233,21 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs - Anchor</div>
-            <NimbleAnchorTabs @bind-ActiveId="@ActiveAnchorTabId">
-                <NimbleAnchorTab id="tab-1">Tab 1</NimbleAnchorTab>
-                <NimbleAnchorTab id="tab-2">Tab 2</NimbleAnchorTab>
-                <NimbleAnchorTab id="tab-3" Disabled="true">Tab 3 (Disabled)</NimbleAnchorTab>
+            <NimbleAnchorTabs ActiveId="@ActiveAnchorTabId">
+                <NimbleAnchorTab id="a-tab-1" href="https://nimble.ni.dev">Tab 1</NimbleAnchorTab>
+                <NimbleAnchorTab id="a-tab-2" href="https://ni.com">Tab 2</NimbleAnchorTab>
+                <NimbleAnchorTab id="a-tab-3" Disabled="true">Tab 3 (Disabled)</NimbleAnchorTab>
                 <NimbleTabsToolbar>
                     <NimbleButton>Toolbar Button</NimbleButton>
                 </NimbleTabsToolbar>
             </NimbleAnchorTabs>
-            <NimbleSelect @bind-Value="@ActiveAnchorTabId">
-                <NimbleListOption Value="tab-1">Tab 1</NimbleListOption>
-                <NimbleListOption Value="tab-2">Tab 2</NimbleListOption>
-                <NimbleListOption Value="tab-3">Tab 3</NimbleListOption>
+            <label id="activeAnchorTab">
+                Active tab:
+            </label>
+            <NimbleSelect @bind-Value="@ActiveAnchorTabId" aria-labelledby="activeAnchorTab">
+                <NimbleListOption Value="a-tab-1">Tab 1</NimbleListOption>
+                <NimbleListOption Value="a-tab-2">Tab 2</NimbleListOption>
+                <NimbleListOption Value="a-tab-3">Tab 3</NimbleListOption>
             </NimbleSelect>
         </div>
         <div class="sub-container">

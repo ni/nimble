@@ -11,7 +11,7 @@ namespace Demo.Shared.Pages
     {
         private DrawerLocation _drawerLocation = DrawerLocation.Right;
         private string? ActiveTabId { get; set; }
-        private string? ActiveAnchorTabId { get; set; } = "tab-1";
+        private string? ActiveAnchorTabId { get; set; } = "a-tab-1";
         private NimbleDialog<DialogResult>? _dialog;
         private string? DialogClosedReason { get; set; }
         private NimbleDrawer<DialogResult>? _drawer;
