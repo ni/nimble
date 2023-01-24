@@ -10,7 +10,7 @@ import { ButtonAppearance } from '../button/types';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 import { template } from './template';
-import { MenuButtonBeforeToggleEventDetail, MenuButtonPosition } from './types';
+import { MenuButtonToggleEventDetail, MenuButtonPosition } from './types';
 import type { ButtonPattern } from '../patterns/button/types';
 import type { AnchoredRegion } from '../anchored-region';
 
@@ -108,7 +108,11 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         if (!this.open) {
             // Only fire an event here if the menu is changing to being closed. Otherwise,
             // wait until the menu is actually opened before firing the event.
-            this.$emit('open-change');
+            const eventDetail: MenuButtonToggleEventDetail = {
+                oldState: true,
+                newState: false
+            };
+            this.$emit('toggle', eventDetail);
         }
     }
 
@@ -120,7 +124,11 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
             this.focusMenu();
         }
 
-        this.$emit('open-change');
+        const eventDetail: MenuButtonToggleEventDetail = {
+            oldState: false,
+            newState: true
+        };
+        this.$emit('toggle', eventDetail);
     }
 
     public focusoutHandler(e: FocusEvent): boolean {
@@ -140,7 +148,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     public toggleButtonCheckedChangeHandler(e: Event): boolean {
         this.setOpen(this.toggleButton!.checked);
         // Don't bubble the 'change' event from the toggle button because
-        // the menu button has its own 'open-change' event.
+        // the menu button has its own 'toggle' event.
         e.stopPropagation();
         return false;
     }
@@ -175,7 +183,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
             return;
         }
 
-        const eventDetail: MenuButtonBeforeToggleEventDetail = {
+        const eventDetail: MenuButtonToggleEventDetail = {
             oldState: this.open,
             newState: newValue
         };

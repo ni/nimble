@@ -16,10 +16,10 @@ export type MenuButtonPosition =
     typeof MenuButtonPosition[keyof typeof MenuButtonPosition];
 
 /**
- * The type of the detail associated with the `beforetoggle` CustomEvent
- * on the menu button.
+ * The type of the detail associated with the `toggle` and `beforetoggle`
+ * events on the menu button.
  */
-export interface MenuButtonBeforeToggleEventDetail {
+export interface MenuButtonToggleEventDetail {
     newState: boolean;
     oldState: boolean;
 }

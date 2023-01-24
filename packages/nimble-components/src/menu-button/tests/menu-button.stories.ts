@@ -38,7 +38,7 @@ const metadata: Meta<MenuButtonArgs> = {
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
         },
         actions: {
-            handles: ['open-change', 'beforetoggle']
+            handles: ['toggle', 'beforetoggle']
         }
     },
     argTypes: {

@@ -87,7 +87,9 @@ _Events_
 -   `beforetoggle` (event) - event fired before the opened state has changed. The event detail contains:
     -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
     -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
--   `open-change` (event) - event for when the opened state has changed
+-   `toggle` (event) - event for when the opened state has changed
+    -   `newState` - boolean - The value of `open` on the menu button that the element transitioned in to.
+    -   `oldState` - boolean - The value of `open` on the menu button that the element transitioned out of.
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
