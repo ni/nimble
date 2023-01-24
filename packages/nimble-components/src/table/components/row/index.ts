@@ -25,6 +25,9 @@ export class TableRow<
     @attr({ attribute: 'record-id' })
     public recordId?: string;
 
+    // The template doesn't bind to `dataRecord`, but making it observable
+    // causes all the template bindings to be re-evaluated when the value changes
+    // because it is part of the binding context for the template.
     @observable
     public dataRecord?: TDataRecord;
 

@@ -69,7 +69,7 @@ export class Table<
 
     public setData(newData: readonly TData[]): void {
         if (newData.length > 0 && this.table.options.columns.length === 0) {
-            this.generateColumns(newData);
+            this.generateTanStackColumns(newData);
         }
 
         this.setTableData(newData);
@@ -137,7 +137,7 @@ export class Table<
 
     // Generate columns for TanStack that correspond to all the keys in TData because all operations,
     // such as grouping and sorting, will be performed on the data's records, not the values rendered within a cell.
-    private generateColumns(data: readonly TData[]): void {
+    private generateTanStackColumns(data: readonly TData[]): void {
         if (data.length === 0) {
             return;
         }
