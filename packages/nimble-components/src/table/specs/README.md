@@ -129,24 +129,38 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   Attribute on table to represent parentId?
     -   Define event/property APIs needed for dealing with lazily-loaded hierarchical data (possibly out of scope of initial release)
     -   Describe the UI representation of hierarchical data (there should be a design doc to reference)
--   Action Menu
-    -   Define how the action menu gets associated with a particular column
-    -   Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
+-   [Action Menu](action-menu-hld.md)
+
+_Attributes_
+
+-   `id-field-name` - An optional string attribute that specifies the field name within a row's record to use as a row's ID. If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered, and the table will enter an invalid state according to the `validity` property and `checkValidity()` function. The attribute is invalid in the following conditions:
+    -   Multiple records were found with the same ID
+    -   A record was found that did not have a field with the name specified by `id-field-name`
+    -   A record was found where `id-field-name` did not refer to a value of type `string`
 
 _Properties_
 
-Placeholder
+-   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
+-   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidityState`, analogous to the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property used for HTML 5 control validation.
+
+_Functions_
+
+-   `checkValidity(): boolean` - Function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.
 
 _Events_
 
--   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
+-   `action-menu-beforetoggle` - An event that is emitted immediately prior to the action menu opening or closing. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. The event details include the following:
+    -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
+    -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
+    -   `recordIds` - string array - The IDs of the records that the menu is associated with.
+    -   `columnTarget` - `TableColumn` - The column that the menu is associated with.
 
 ### Anatomy
 
 _Slots_
 
 -   default - the column elements
--   `action-menu` (Placeholder for action menu)
+-   _user specified_ - Slots dynamically created based on the values specified for `action-menu-slot` on the slotted column elements. A menu element should be provided in each slot that is associated with the action menu for any column that has `action-menu-slot` set. For more information about the action menu, refer to the [action menu HLD](action-menu-hld.md).
 
 ### Security
 
@@ -265,4 +279,7 @@ Storybook stories will be added to document/showcase the various features and AP
 
 ### Open Issues
 
-None.
+-   Should all invalid configurations get reflected to the client & end user the same way? Currently, invalid row ID configuration will cause no rows to be rendered in the table and the `validity` object to reflect why the table is invalid. Other options include: showing invalid text in the table or stopping updates to the table's state. Some things to keep in mind related to this:
+    -   We should be mindful of UI flickers when the client passes temporarily through an invalid state.
+    -   Stopping updates to the table's state could cause two tables with the same property values assigned to have different rendered outputs, which is not ideal.
+-   Should we implement our own algorithm for creating a default row ID rather than relying on TanStack? This would allow us to ensure backwards compatibility and would also allows us to make guarantees about it, such that it is always the index of the record within the `data` property (which isn't true in TanStack when dealing with hierarchical data).

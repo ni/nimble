@@ -8,10 +8,8 @@ interface ComboboxItem {
 }
 
 interface SimpleTableRecord extends TableRecord {
-    stringValue: string;
-    numberValue: number;
-    dateValue: Date;
-    booleanValue: boolean;
+    stringValue1: string;
+    stringValue2: string;
 }
 
 @Component({
@@ -36,12 +34,12 @@ export class CustomAppComponent {
     public selectedRadio = 'mango';
 
     public tableData: SimpleTableRecord[] = [
-        { stringValue: 'hello world', numberValue: 7, dateValue: new Date(2022, 12, 6), booleanValue: true },
-        { stringValue: 'foo', numberValue: 0, dateValue: new Date(2014, 2, 2), booleanValue: true },
-        { stringValue: 'bar', numberValue: 20, dateValue: new Date(2022, 7, 30), booleanValue: false },
-        { stringValue: 'baz', numberValue: -3, dateValue: new Date(2001, 5, 16), booleanValue: true },
-        { stringValue: 'abc 123 456', numberValue: 16, dateValue: new Date(2019, 1, 31), booleanValue: false },
-        { stringValue: 'last row', numberValue: 999, dateValue: new Date(2021, 12, 31), booleanValue: true }
+        { stringValue1: 'hello world', stringValue2: 'more text' },
+        { stringValue1: 'foo', stringValue2: 'bar' },
+        { stringValue1: 'candy', stringValue2: 'bar' },
+        { stringValue1: 'dive', stringValue2: 'bar' },
+        { stringValue1: 're', stringValue2: 'bar' },
+        { stringValue1: 'last row', stringValue2: 'yay!' }
     ];
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
@@ -84,10 +82,8 @@ export class CustomAppComponent {
 
     public onAddTableRow(): void {
         this.tableData = [...this.tableData, {
-            stringValue: `new string ${this.tableData.length}`,
-            numberValue: this.tableData.length,
-            booleanValue: true,
-            dateValue: new Date()
+            stringValue1: `new string ${this.tableData.length}`,
+            stringValue2: `bar ${this.tableData.length}`
         }];
     }
 }

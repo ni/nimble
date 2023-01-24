@@ -13,5 +13,7 @@ export async function waitMicrotask(): Promise<void> {
  * 1. Waiting for slotted content properties on Nimble components to be initialized
  */
 export async function waitTask(): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, 0));
+    return new Promise(resolve => {
+        setTimeout(resolve, 0);
+    });
 }

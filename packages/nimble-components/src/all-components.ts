@@ -6,6 +6,8 @@
 
 import './anchor';
 import './anchor-button';
+import './anchor-tab';
+import './anchor-tabs';
 import './anchored-region';
 import './breadcrumb';
 import './breadcrumb-item';
@@ -29,6 +31,7 @@ import './switch';
 import './tab';
 import './tab-panel';
 import './table';
+import './table-column/text';
 import './tabs';
 import './tabs-toolbar';
 import './text-area';

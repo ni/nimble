@@ -44,6 +44,7 @@ describe('Anchor', () => {
 
     const attributeNames: { name: string }[] = [
         { name: 'download' },
+        { name: 'href' },
         { name: 'hreflang' },
         { name: 'ping' },
         { name: 'referrerpolicy' },

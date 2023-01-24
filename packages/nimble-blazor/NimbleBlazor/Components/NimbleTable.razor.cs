@@ -16,9 +16,14 @@ public partial class NimbleTable<TData> : ComponentBase
     private bool _dataUpdated = false;
     private IEnumerable<TData> _data = Enumerable.Empty<TData>();
     internal static string SetTableDataMethodName = "NimbleBlazor.Table.setData";
+    internal static string CheckTableValidityMethodName = "NimbleBlazor.Table.checkValidity";
+    internal static string GetTableValidityMethodName = "NimbleBlazor.Table.getValidity";
 
     [Inject]
     private IJSRuntime? JSRuntime { get; set; }
+
+    [Parameter]
+    public string? IdFieldName { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -48,6 +53,22 @@ public partial class NimbleTable<TData> : ComponentBase
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    /// <summary>
+    /// Returns whether or not the table is valid.
+    /// </summary>
+    public async Task<bool> CheckValidityAsync()
+    {
+        return await JSRuntime!.InvokeAsync<bool>(CheckTableValidityMethodName, _table);
+    }
+
+    /// <summary>
+    /// Returns the validity state of the table.
+    /// </summary>
+    public async Task<ITableValidity> GetValidityAsync()
+    {
+        return await JSRuntime!.InvokeAsync<TableValidity>(GetTableValidityMethodName, _table);
+    }
 
     /// <inheritdoc/>
     /// <exception cref="JsonException"></exception>
