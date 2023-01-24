@@ -2,7 +2,7 @@ import { Computations } from '../modules/computations';
 import { Margin, WaferMapQuadrant } from '../types';
 import { getWaferMapDies } from './utilities';
 
-describe('Computations module', () => {
+describe('Wafermap Computations module', () => {
     let computationsModule: Computations;
 
     describe('with 100 square canvas', () => {
