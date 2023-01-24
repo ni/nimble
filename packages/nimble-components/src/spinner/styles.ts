@@ -5,6 +5,7 @@ import {
     Black91,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { spinnerSmallHeight } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
 
@@ -12,7 +13,7 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        height: 16px;
+        height: ${spinnerSmallHeight};
         aspect-ratio: 1 / 1;
     }
 

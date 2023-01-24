@@ -7,6 +7,11 @@ import {
     spinnerLargeHeight,
     spinnerMediumHeight
 } from '../../theme-provider/design-tokens';
+import {
+    scssPropertyFromTokenName,
+    scssPropertySetterMarkdown,
+    tokenNames
+} from '../../theme-provider/design-token-names';
 
 const spinnerSize = {
     small: null,
@@ -20,20 +25,7 @@ interface SpinnerArgs {
 
 const overviewText = '<p>The `nimble-spinner` is an animating indicator that can be placed in a particular region of a page to represent '
     + 'loading progress, or an ongoing operation, of an indeterminate / unknown duration.</p>'
-    + '<p>To customize its size, set its CSS `height` to a design token, and its width will automatically match its height.</p>'
-    + '<ul>'
-    + '<li>16x16 (small, default)'
-    + '<ul><li>Example usages: Alongside inline text, or small controls like checkboxes; in a table control row/cell</li></ul>'
-    + '</li>'
-    + '<li>32x32 (medium)'
-    + `<ul><li>\`height: var(${spinnerMediumHeight.cssCustomProperty});\`</li></ul>`
-    + '</li>'
-    + '<li>64x64 (large)'
-    + `<ul><li>\`height: var(${spinnerLargeHeight.cssCustomProperty});\`</li>`
-    + '<li>Example usage: For the  loading progress of components that take up the majority of a page</li></ul>'
-    + '</li>'
-    + '</ul>'
-    + '<p>The spinner will also scale appropriately if its width/ height are overriden via CSS styles, for advanced use cases.</p>';
+    + '<p>See the `size` argument details for information on customizing the spinner size.</p>';
 
 const metadata: Meta<SpinnerArgs> = {
     title: 'Spinner',
@@ -52,17 +44,34 @@ const metadata: Meta<SpinnerArgs> = {
     argTypes: {
         size: {
             description:
-                'Size of the spinner. To customize its size, set its CSS `height` to a design token, and its width will automatically match its height:<br/><ul>'
-                + `<li>For 32x32: \`height: var(${spinnerMediumHeight.cssCustomProperty});\`</li>`
-                + `<li>For 64x64: \`height: var(${spinnerLargeHeight.cssCustomProperty});\`</li></ul>`,
+                'Size of the spinner component.<details><summary>Usage details</summary>To customize its size, set its CSS '
+                + '<span style="font-family: monospace;">height</span> to a design token, and its width will automatically match its height:<br/><ul>'
+                + `<li>For Small (16x16): ${scssPropertySetterMarkdown(
+                    tokenNames.spinnerSmallHeight,
+                    'height'
+                )}</li>`
+                + `<li>For Medium (32x32): ${scssPropertySetterMarkdown(
+                    tokenNames.spinnerMediumHeight,
+                    'height'
+                )}</li>`
+                + `<li>For Large (64x64): ${scssPropertySetterMarkdown(
+                    tokenNames.spinnerLargeHeight,
+                    'height'
+                )}</li></ul></details>`,
             options: Object.keys(spinnerSize),
-            table: { defaultValue: { summary: '16x16 (small)' } },
+            table: { defaultValue: { summary: 'Small (16x16)' } },
             control: {
                 type: 'radio',
                 labels: {
-                    small: '16x16 (small, default)',
-                    medium: `32x32 (${spinnerMediumHeight.cssCustomProperty})`,
-                    large: `64x64 (${spinnerLargeHeight.cssCustomProperty})`
+                    small: `Small - 16x16 (default) - ${scssPropertyFromTokenName(
+                        tokenNames.spinnerSmallHeight
+                    )}`,
+                    medium: `Medium - 32x32 - ${scssPropertyFromTokenName(
+                        tokenNames.spinnerMediumHeight
+                    )}`,
+                    large: `Large - 64x64 - ${scssPropertyFromTokenName(
+                        tokenNames.spinnerLargeHeight
+                    )}`
                 }
             }
         }

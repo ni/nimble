@@ -214,6 +214,9 @@ export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
 
+export const spinnerSmallHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.spinnerSmallHeight)
+).withDefault('16px');
 export const spinnerMediumHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.spinnerMediumHeight)
 ).withDefault('32px');
