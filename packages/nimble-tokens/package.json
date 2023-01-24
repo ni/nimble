@@ -33,11 +33,11 @@
     "@ni/eslint-config-javascript": "^4.2.0",
     "cross-env": "^7.0.3",
     "glob": "^8.0.1",
-    "hex-rgb": "4.3.0",
+    "hex-rgb": "^5.0.0",
     "lodash": "^4.17.21",
-    "style-dictionary": "3.7.0",
-    "svg-to-ico": "1.0.8",
-    "svg-to-ts": "^6.0.1",
+    "style-dictionary": "3.7.2",
+    "svg-to-ico": "^1.0.11",
+    "svg-to-ts": "^9.0.0",
     "typescript": "~4.6.4"
   },
   "files": [
