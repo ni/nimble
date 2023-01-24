@@ -44,7 +44,7 @@
     "@ni/nimble-tokens": "*",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
-    "glob": "^8.0.1",
+    "glob": "^8.1.0",
     "rollup": "^3.10.1"
   }
 }
