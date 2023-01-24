@@ -32,6 +32,9 @@ jobs:
           node-version: '16'
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
+      # Specify npm version
+      # See: https://github.com/actions/setup-node/issues/529
+      - run: npm i -g npm@9
       - run: npm ci
 
       # Audit
