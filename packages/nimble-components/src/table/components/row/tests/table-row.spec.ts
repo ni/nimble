@@ -72,10 +72,12 @@ describe('TableRow', () => {
         const firstCell = pageObject.getRenderedCell(0);
         const firstCellState = element.getCellState(textColumn1);
         expect(firstCellState).toEqual(firstCell!.cellState!);
-        expect((firstCellState.cellRecord as TableColumnTextCellRecord).value).toBe('string 1');
+        const firstCellRecord = firstCellState.cellRecord as TableColumnTextCellRecord;
+        expect(firstCellRecord.value).toBe('string 1');
         const secondCell = pageObject.getRenderedCell(1);
         const secondCellState = element.getCellState(textColumn2);
         expect(secondCellState).toEqual(secondCell!.cellState!);
-        expect((secondCellState.cellRecord as TableColumnTextCellRecord).value).toBe('foo');
+        const secondCellRecord = secondCellState.cellRecord as TableColumnTextCellRecord;
+        expect(secondCellRecord.value).toBe('foo');
     });
 });

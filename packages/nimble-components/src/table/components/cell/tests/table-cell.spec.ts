@@ -118,8 +118,8 @@ describe('TableCell', () => {
         element.cellStyles = cellStyles;
         await waitForUpdatesAsync();
         const renderedContent = pageObject.getRenderedCellContent();
-        // prettier-ignore
-        expect(window.getComputedStyle(renderedContent!).display).not.toBe('flex');
-        expect(window.getComputedStyle(renderedContent!).visibility).toBe('hidden');
+        const style = window.getComputedStyle(renderedContent!);
+        expect(style.display).not.toBe('flex');
+        expect(style.visibility).toBe('hidden');
     });
 });
