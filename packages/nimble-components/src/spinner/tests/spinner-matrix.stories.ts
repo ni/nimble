@@ -32,9 +32,9 @@ const metadata: Meta = {
 export default metadata;
 
 const sizeStates = [
-    ['Small', ''],
-    ['Medium', `height: var(${spinnerMediumHeight.cssCustomProperty})`],
-    ['Large', `height: var(${spinnerLargeHeight.cssCustomProperty})`]
+    ['Small (16x16)', ''],
+    ['Medium (32x32)', `height: var(${spinnerMediumHeight.cssCustomProperty})`],
+    ['Large (64x64)', `height: var(${spinnerLargeHeight.cssCustomProperty})`]
 ];
 type SizeState = typeof sizeStates[number];
 
