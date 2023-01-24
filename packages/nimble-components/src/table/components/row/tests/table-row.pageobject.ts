@@ -11,8 +11,8 @@ export class TableRowPageObject<T extends TableRecord = TableRecord> {
     public constructor(private readonly tableRowElement: TableRow<T>) {}
 
     public getRenderedCell(columnIndex: number): TableCell | undefined {
-        return this.tableRowElement.shadowRoot!.querySelectorAll(
+        return this.tableRowElement.shadowRoot!.querySelectorAll<TableCell>(
             DesignSystem.tagFor(TableCell)
-        )[columnIndex] as TableCell;
+        )[columnIndex];
     }
 }
