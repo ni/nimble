@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 18 Jan 2023 21:20:08 GMT and should not be manually modified.
+This log was last generated on Tue, 24 Jan 2023 22:55:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.1.0
+
+Tue, 24 Jan 2023 22:55:17 GMT
+
+### Minor changes
+
+- Angular integration for anchor tabs ([ni/nimble@0548a2a](https://github.com/ni/nimble/commit/0548a2a07aee2461e94d22ebb0f91a817f2ae088))
+
+## 15.0.11
+
+Tue, 24 Jan 2023 21:30:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.2.0
+
+## 15.0.10
+
+Fri, 20 Jan 2023 22:27:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.1.0
+
+## 15.0.9
+
+Fri, 20 Jan 2023 10:47:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.8
+
+## 15.0.8
+
+Thu, 19 Jan 2023 13:56:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.7
 
 ## 15.0.7
 

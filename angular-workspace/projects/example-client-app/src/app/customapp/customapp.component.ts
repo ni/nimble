@@ -32,6 +32,8 @@ export class CustomAppComponent {
     public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
     public selectedRadio = 'mango';
+    public activeTabId = 'tab-1';
+    public activeAnchorTabId = 'a-tab-2';
 
     public tableData: SimpleTableRecord[] = [
         { stringValue1: 'hello world', stringValue2: 'more text' },

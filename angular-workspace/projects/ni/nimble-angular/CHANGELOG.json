@@ -2,6 +2,81 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 24 Jan 2023 22:55:17 GMT",
+      "tag": "@ni/nimble-angular_v15.1.0",
+      "version": "15.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "0548a2a07aee2461e94d22ebb0f91a817f2ae088",
+            "comment": "Angular integration for anchor tabs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 24 Jan 2023 21:30:30 GMT",
+      "tag": "@ni/nimble-angular_v15.0.11",
+      "version": "15.0.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v17.2.0",
+            "commit": "3c778c0a354dcc5883273ac62b7edd9a3dbed3cd"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 20 Jan 2023 22:27:00 GMT",
+      "tag": "@ni/nimble-angular_v15.0.10",
+      "version": "15.0.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v17.1.0",
+            "commit": "4c3c71571e92a5ca1ebc62a259c889cb90df710c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 20 Jan 2023 10:47:22 GMT",
+      "tag": "@ni/nimble-angular_v15.0.9",
+      "version": "15.0.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v17.0.8",
+            "commit": "8fba3fd7bf0ca6da7d6de9bcfbb0b817a1247b5c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Jan 2023 13:56:34 GMT",
+      "tag": "@ni/nimble-angular_v15.0.8",
+      "version": "15.0.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v17.0.7",
+            "commit": "47a5a0d167c9d490791ff68c7f570161125cbc86"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Jan 2023 21:20:08 GMT",
       "tag": "@ni/nimble-angular_v15.0.7",
       "version": "15.0.7",
