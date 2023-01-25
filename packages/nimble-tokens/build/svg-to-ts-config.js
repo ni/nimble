@@ -15,14 +15,16 @@ const svgToTsConfig = {
         // https://github.com/svg/svgo#built-in-plugins
         plugins: [
             {
-                name: 'cleanupAttrs'
-            },
-            {
-                name: 'removeUnknownsAndDefaults',
+                name: 'preset-default',
                 params: {
-                    keepDataAttrs: false
-                }
-            },
+                    overrides: {
+                        // customize default plugin options
+                        removeUnknownsAndDefaults: {
+                            keepDataAttrs: false,
+                        },
+                    },
+                },
+            }
         ],
     },
     fileName: 'index',
