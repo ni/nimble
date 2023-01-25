@@ -9,5 +9,5 @@ import { parseColorHexRGB } from '@microsoft/fast-colors';
  */
 export function hexToRgbaCssColor(hexValue: string, alpha: number): string {
     const { r, g, b } = parseColorHexRGB(hexValue)!;
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    return `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${alpha})`;
 }

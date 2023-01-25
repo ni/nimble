@@ -667,7 +667,7 @@ export const largeDelay = DesignToken.create<string>(
 // Private helpers functions
 function hexToRgbPartial(hexValue: string): string {
     const { r, g, b } = parseColorHexRGB(hexValue)!;
-    return `${r}, ${g}, ${b}`;
+    return `${r * 255}, ${g * 255}, ${b * 255}`;
 }
 
 function createFontTokens(
