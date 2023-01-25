@@ -93,6 +93,7 @@ export class Table<
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableInitialized: boolean = false;
     private readonly tableValidator = new TableValidator();
+    private readonly viewportResizeObserver: ResizeObserver;
 
     public constructor() {
         super();
@@ -107,6 +108,15 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.tableInitialized = true;
+        this.viewportResizeObserver = new ResizeObserver(entries => {
+            const borderBoxSize = entries[0]?.borderBoxSize[0];
+            if (borderBoxSize) {
+                // If we have enough rows that a vertical scrollbar is shown, we need to offset the header widths
+                // by the same margin so the column headers align with the corresponding rendered cells
+                const viewportBoundingWidth = borderBoxSize.inlineSize;
+                this.headerContainerMarginRight = viewportBoundingWidth - this.viewport.scrollWidth;
+            }
+        });
     }
 
     public idFieldNameChanged(
@@ -120,7 +130,12 @@ export class Table<
 
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.viewportResizeObserver.observe(this.viewport);
         this.updateVirtualizer();
+    }
+
+    public override disconnectedCallback(): void {
+        this.viewportResizeObserver.disconnect();
     }
 
     public dataChanged(
@@ -165,7 +180,7 @@ export class Table<
             };
             return rowState;
         });
-        if (this.isConnected) {
+        if (this.$fastController.isConnected) {
             this.updateVirtualizer();
         }
     }
@@ -261,10 +276,6 @@ export class Table<
             }
         }
         this.rowContainerYOffset = rowContainerYOffset;
-        // If we have enough rows that a vertical scrollbar is shown, we need to offset the header widths
-        // by the same margin so the column headers align with the corresponding rendered cells
-        this.headerContainerMarginRight = this.viewport.getBoundingClientRect().width
-            - this.viewport.scrollWidth;
     }
 }
 
