@@ -18,7 +18,7 @@ const tableColumnText = DesignSystem.tagFor(TableColumnText);
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table style="height: 400px;">
+        html`<nimble-table>
                 <${tableColumnText} field-name="field" placeholder="no value">
                     Column 1
                 </${tableColumnText}>

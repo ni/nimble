@@ -217,13 +217,19 @@ We will be using TanStack Table to manage all of the table state related to data
 
 TanStack Virtual provides various pieces of state to enable simple, efficient virtualization of table data. The Nimble Table will provide certain state/objects to the TanStack Virtual API for it to then provide the needed state that we can virtualize the table rows with. Namely:
 
--   The element that will serve as the scollable element
+-   The element that will serve as the scrollable element
 -   An estimated height for each row
 -   The total count of rows in the data
 
 With this set of information, the Nimble Table will be able to register a callback to the TanStack Virtual `onChange` which will happen any time the scrollable element scrolls. In that handler the Nimble Table can retrieve the set of virtual items from TanStack Virtual (i.e. `getVirtualItems()`), which represent the total set of rows that should be displayed, and contain the state information that allows the Nimble Table to retrieve the appropriate data from the TanStack Table model to apply to each rendered row, as well as the position each row should be rendered.
 
-_Placeholder for other implementation details_
+Our implementation has some differences from the TanStack Virtual examples:
+
+-   The scrollable element is the parent of 2 containers (the 1st has its `height` set to the height of all rows, and the 2nd is the row container)
+-   Rather than doing a `translate` `transform` on each individual row in the row container, we have one `translate` `transform` on the row container itself, which is never larger than the height of a couple of rows.
+-   The rows always render at the top of their container (which has `position: sticky` applied to it)
+
+The changes above result in better rendering performance (notably in Firefox which sometimes had flickering otherwise).
 
 ### States
 

@@ -257,7 +257,7 @@ export class Table<
             const firstItem = this.visibleItems[0]!;
             const lastItem = this.visibleItems[this.visibleItems.length - 1]!;
             if (lastItem.end < this.allRowsHeight) {
-                rowContainerYOffset = firstItem.start - this.viewport.scrollTop;
+                rowContainerYOffset = firstItem.start - virtualizer.scrollOffset;
             }
         }
         this.rowContainerYOffset = rowContainerYOffset;

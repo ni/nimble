@@ -14,11 +14,14 @@ import { themeBehavior } from '../utilities/style/theme';
 export const styles = css`
     ${display('flex')}
 
+    :host {
+        height: 480px;
+    }
+
     .table-container {
         display: flex;
         flex-direction: column;
         width: 100%;
-        max-height: 100vh;
         font: ${bodyFont};
         color: ${bodyFontColor};
     }
