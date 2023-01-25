@@ -10,3 +10,14 @@ export const BannerType = {
 } as const;
 export type BannerType =
     typeof BannerType[keyof typeof BannerType];
+
+/**
+ * Button appearances for the banner's action button.
+ * @public
+ */
+export const BannerActionButtonAppearance = {
+    ghost: 'ghost',
+    outline: 'outline'
+} as const;
+export type BannerActionButtonAppearance =
+    typeof BannerActionButtonAppearance[keyof typeof BannerActionButtonAppearance];

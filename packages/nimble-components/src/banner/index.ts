@@ -3,10 +3,9 @@ import {
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import type { ButtonAppearance } from '../button/types';
 import { styles } from './styles';
 import { template } from './template';
-import { BannerType } from './types';
+import { BannerActionButtonAppearance, BannerType } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -34,7 +33,7 @@ export class Banner extends FoundationElement {
     public actionHref?: string;
 
     @attr({ attribute: 'action-button-appearance' })
-    public actionButtonAppearance?: ButtonAppearance;
+    public actionButtonAppearance?: BannerActionButtonAppearance;
 
     /**
      * @public
@@ -43,6 +42,10 @@ export class Banner extends FoundationElement {
      */
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
+
+    public closeBanner(): void {
+        this.hidden = true;
+    }
 }
 
 const nimbleBanner = Banner.compose({
