@@ -77,13 +77,13 @@ The banner is a standalone component that spans the width of its containing elem
     <nimble-button appearance="${x => x.actionButtonAppearance}">${x => x.actionText}</nimble-button>`
   )}
 </div>
-  <div class="close">
+<div class="close">
   ${when(x => !x.preventDismiss), html`
     <nimble-button appearance="ghost" content-hidden>
       <nimble-icon-xmark slot="start"></nimble-icon-xmark>
     </nimble-button>`
   )}
-  </div>
+</div>
 ```
 
 ### Angular integration
