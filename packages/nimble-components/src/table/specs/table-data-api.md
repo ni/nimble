@@ -17,6 +17,7 @@ A table/data-grid component can have a variety of ways to introduce data into it
 In the `nimble-table`, the data associated with the table will be specified by calling a `setData()` function, that takes an array of key/value pairs. The collection of key/value pairs is called a record, and each record is used to populate one row in the table. Each key/value pair within a record is called a field. The name of a field (i.e. the key of the key/value pair) must be a string, and the value of a field (i.e. the value of the key/value pair) must be a `string`, `number`, `boolean`, `Date`, `null`, or `undefined`. As implied by the set of supported field types, complex field types such as arrays or objects are not supported. The supported field types are limited to ensure data operations are fast and to eliminate the need to create custom sort functions, which could hurt performance. While the types are limited, a rendered cell in the table can access multiple fields from the record. The details about the way column definitions use data from the table's data are out of scope for this spec.
 
 The data will be specified by calling a function for a few different reasons:
+
 -   Requiring a client to explicitly call `setData()` avoids confusion regarding what needs to be done to update the data. For example, if `data` were a property, would the table update if a new record were pushed into the assigned array? Would reassigning the same array instance cause the table to re-render to include any changes made to the array since last time the property was assigned?
 -   By not having a `getData()` function or a property with a getter and setter, the table does not have to create an additional copy of the data in order to have it available to return to the client. Instead, the data provided in `setData()` can be passed to TanStack without an additional copy being cached within the `Table` class in nimble.
 
@@ -97,8 +98,8 @@ const tableRef: Table<
         BooleanField<'awesome'>
 >;
 
- // The field names and types in the array passed to setData()
- // are enforced by the type above.
+// The field names and types in the array passed to setData()
+// are enforced by the type above.
 tableRef.setData([
     {
         value: 3,
