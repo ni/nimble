@@ -36,6 +36,10 @@ Refer to examples in the "Some examples of screenshots" section of the [GitHub i
 
 The banner is a standalone component that spans the width of its containing element, presenting, from left to right, an icon (dependent on Error/Warning/Info type), an optional title, an optional plaintext message, an optional action button or link, and an optional close control. The banner is intended to display short messages (recommended three lines or fewer) that communicate some persistent state or condition.
 
+In this initial implementation, we will not limit the height of the banner. It will grow to fit the text that it is given.
+
+When the user presses the close button, we will hide the banner (and fire a `close` event).
+
 ### API
 
 *The key elements of the component's public API surface:*
@@ -49,11 +53,24 @@ The banner is a standalone component that spans the width of its containing elem
   - `action-text` - the text of the action link/button. If unset, no link/button is displayed.
   - `action-href` - if set, the action element will be a link with the given `href`. (Otherwise, when `action-text` is set, a button element will be displayed.)
   - `action-button-appearance` - either `outline` or `ghost` (default). When an action button is displayed, this controls the appearance variant.
+  - `close-button-title` - a localized title to give the close button (for a11y purposes)
 - *Methods*
 - *Events*
   - `close` - fired when the banner is dismissed
   - `action` - fired when the action button is activated (by mouse or keyboard). This is the intended way for clients to perform an action.
 - *CSS Classes and CSS Custom Properties that affect the component*
+
+### Alternatives
+
+- The text of the banner could be provided as content rather than an attribute. This has the benefit of leaving the door open for us to support more than just plaintext in the future. However, so long as we _don't_ want to support arbitrary HTML, it may have the downside of giving users the wrong idea.
+
+- Instead of configuring the action link/button via attributes, we could allow the user to provide that element as content and slot it in an `action` slot. This would have the following benefits:
+    - allows full configuration of action element (e.g. attributes like `target` on a `nimble-anchor`)
+    - user can add handlers directly to their action element rather than relying on `action` event
+    - easier to support multiple actions in the future
+    - easy to support other kinds of action elements in the future
+
+    However, that flexibility is also a downside. We would no longer have tight control over what the user could show and how it would look.
 
 ### Anatomy
 
@@ -69,14 +86,16 @@ The banner is a standalone component that spans the width of its containing elem
   </span>
   ${x => x.text}
 </div>
-<div class="action">
-  ${when(x => x.actionText && x.actionHref, html`
-    <nimble-anchor href="${x => x.actionHref}">${x => x.actionText}</nimble-anchor>`
-  )}
-  ${when(x => x.actionText && !x.actionHref, html`
-    <nimble-button appearance="${x => x.actionButtonAppearance}">${x => x.actionText}</nimble-button>`
-  )}
-</div>
+${when(x => x.actionText, html`
+  <div class="action">
+    ${when(x.actionHref, html`
+      <nimble-anchor href="${x => x.actionHref}">${x => x.actionText}</nimble-anchor>`
+    )}
+    ${when(!x.actionHref, html`
+      <nimble-button appearance="${x => x.actionButtonAppearance}">${x => x.actionText}</nimble-button>`
+    )}
+  </div>`
+)}
 <div class="close">
   ${when(x => !x.preventDismiss), html`
     <nimble-button appearance="ghost" content-hidden>
@@ -153,7 +172,7 @@ N/A
 
 ### Test Plan
 
-Unit tests will be created that exercise all features.
+Unit tests and visual comparison tests will be created that exercise all features.
 
 ### Tooling
 
