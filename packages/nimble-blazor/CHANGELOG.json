@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 25 Jan 2023 17:37:11 GMT",
+      "tag": "@ni/nimble-blazor_v10.1.0",
+      "version": "10.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0671e34c7650008aa063fa0145cee62d4a981dd7",
+            "comment": "Support for anchor tabs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Jan 2023 22:26:41 GMT",
       "tag": "@ni/nimble-blazor_v10.0.7",
       "version": "10.0.7",

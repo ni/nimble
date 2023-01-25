@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 18 Jan 2023 22:26:41 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Jan 2023 17:37:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 10.1.0
+
+Wed, 25 Jan 2023 17:37:11 GMT
+
+### Minor changes
+
+- Support for anchor tabs ([ni/nimble@0671e34](https://github.com/ni/nimble/commit/0671e34c7650008aa063fa0145cee62d4a981dd7))
 
 ## 10.0.7
 
