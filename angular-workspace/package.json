@@ -9,7 +9,7 @@
     "build:library": "npm run generate-icons && ng build @ni/nimble-angular",
     "build:application": "ng build example-client-app",
     "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
-    "generate-icons:bundle": "rollup --config projects/ni/nimble-angular/build/generate-icons/rollup.config.js",
+    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config projects/ni/nimble-angular/build/generate-icons/rollup.config.js",
     "generate-icons:run": "node projects/ni/nimble-angular/build/generate-icons/dist/index.js",
     "pack": "npm run pack:library && npm run pack:application",
     "pack:library": "cd dist/ni/nimble-angular && npm pack",

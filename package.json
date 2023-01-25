@@ -44,6 +44,8 @@
     "@lhci/cli": "^0.10.0",
     "beachball": "^2.31.0",
     "cross-env": "^7.0.3",
-    "patch-package": "^6.4.7"
+    "patch-package": "^6.4.7",
+    "@storybook/builder-webpack5": "^6.5.10",
+    "@storybook/manager-webpack5": "^6.5.10"
   }
 }
