@@ -31,7 +31,7 @@ const sizeStates = [
     ['16x16', 'width: 16px; height: 16px'],
     ['32x32', 'width: 32px; height: 32px']
 ];
-type SizeState = typeof sizeStates[number];
+type SizeState = (typeof sizeStates)[number];
 
 const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">

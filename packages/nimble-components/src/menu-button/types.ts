@@ -13,4 +13,4 @@ export const MenuButtonPosition = {
     auto: 'auto'
 } as const;
 export type MenuButtonPosition =
-    typeof MenuButtonPosition[keyof typeof MenuButtonPosition];
+    (typeof MenuButtonPosition)[keyof typeof MenuButtonPosition];
