@@ -36,6 +36,9 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     iconSize: 'icon-size',
     groupHeaderTextTransform: 'group-header-text-transform',
     drawerWidth: 'drawer-width',
+    spinnerSmallHeight: 'spinner-small-height',
+    spinnerMediumHeight: 'spinner-medium-height',
+    spinnerLargeHeight: 'spinner-large-height',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
     largeDelay: 'large-delay',
@@ -213,6 +216,10 @@ const prefix = 'ni-nimble';
 export const styleNameFromTokenName = (tokenName: string): string => `${prefix}-${tokenName}`;
 export const cssPropertyFromTokenName = (tokenName: string): string => `--${prefix}-${tokenName}`;
 export const scssPropertyFromTokenName = (tokenName: string): string => `$${prefix}-${tokenName}`;
+export const scssPropertySetterMarkdown = (
+    tokenName: string,
+    cssProperty: string
+): string => `\`${cssProperty}: $${prefix}-${tokenName};\``;
 export const scssInternalPropertyFromTokenName = (tokenName: string): string => `$${prefix}-internal-${tokenName}`;
 export const scssInternalPropertySetterMarkdown = (
     tokenName: string,
