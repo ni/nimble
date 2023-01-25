@@ -4,7 +4,7 @@
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico",
-    "build:svg-to-ts": "svg-to-ts --config build/svg-to-ts-config.js",
+    "build:svg-to-ts": "svg-to-ts-constants --config build/svg-to-ts-config.js",
     "build:svg-to-ico": "node build/svg-to-ico.js",
     "build:ts": "tsc -p ./tsconfig.json",
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
