@@ -200,6 +200,35 @@ describe('Table', () => {
         verifyRenderedData(updatedData);
     });
 
+    it('can update to have empty array of data', async () => {
+        await connect();
+
+        element.setData(simpleTableData);
+        await waitForUpdatesAsync();
+
+        element.setData([]);
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedRowCount()).toBe(0);
+    });
+
+    it('updating data already assigned to the table does not update the table', async () => {
+        await connect();
+
+        const tableData: SimpleTableRecord[] = [...simpleTableData];
+        element.setData(tableData);
+        await waitForUpdatesAsync();
+
+        tableData.push({
+            stringData: 'another record',
+            moreStringData: 'with more data',
+            numericData: 0
+        });
+        await waitForUpdatesAsync();
+
+        verifyRenderedData(simpleTableData);
+    });
+
     it('can update a record without making a copy of the data', async () => {
         await connect();
         await waitForUpdatesAsync();

@@ -52,7 +52,10 @@ const overviewText = 'The `nimble-table` is a component that offers a way to ren
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
 which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type \`TableFieldName\`. The value
 in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`Date\`, \`null\`, or \`undefined\`, which is defined by the type \`TableFieldValue\`.
-The table will not automatically update if the contents of the array change after calling `setData()`. To trigger an update you can call `setData()` again with the same array reference.
+
+The table will not automatically update if the contents of the array change after calling \`setData()\`. To trigger an update, call
+\`setData()\` again with the same array reference or with a new array.
+
 <details>
     <summary>Framework specific considerations</summary>
     - Angular: In addition to exposing the \`setData()\` function in Angular, you can use the \`data$\` property to provide an
