@@ -75,9 +75,6 @@ export const styles = css`
     slot[name='separator'] svg {
         width: ${iconSize};
         height: ${iconSize};
-    }
-
-    slot[name='separator'] path {
         fill: ${placeholderFontColor};
     }
 `;
