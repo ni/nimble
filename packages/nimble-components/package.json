@@ -59,7 +59,6 @@
     "d3-zoom": "^3.0.0",
     "d3-random": "^3.0.1",
     "d3-scale": "^4.0.2",
-    "hex-rgb": "^5.0.0",
     "tslib": "^2.2.0"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
-import hexRgb from 'hex-rgb';
+import { parseColorHexRGB } from '@microsoft/fast-colors';
 import {
     Black7,
     Black91,
@@ -666,8 +666,8 @@ export const largeDelay = DesignToken.create<string>(
 
 // Private helpers functions
 function hexToRgbPartial(hexValue: string): string {
-    const { red, green, blue } = hexRgb(hexValue);
-    return `${red}, ${green}, ${blue}`;
+    const { r, g, b } = parseColorHexRGB(hexValue)!;
+    return `${r}, ${g}, ${b}`;
 }
 
 function createFontTokens(
