@@ -6,7 +6,7 @@ import {
     ZoomTransform,
     zoomTransform
 } from 'd3-zoom';
-import type { Dimensions } from '../types';
+import type { Dimensions, ZoomHandlerData } from '../types';
 
 /**
  * ZoomHandler deals with user interactions and events like zooming
@@ -17,6 +17,10 @@ export class ZoomHandler {
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
     private zoomBehavior: ZoomBehavior<Element, unknown> | undefined;
+    private readonly canvas: HTMLCanvasElement;
+    private readonly zoomContainer: HTMLElement;
+    private readonly containerDimensions: Dimensions | undefined;
+    private readonly canvasLength: number;
     private _renderingFunction: VoidFunction | undefined;
     private _hideHoverDieFunction: VoidFunction | undefined;
 
@@ -24,12 +28,12 @@ export class ZoomHandler {
         return this._zoomTransform;
     }
 
-    public constructor(
-        private readonly canvas: HTMLCanvasElement,
-        private readonly zoomContainer: HTMLElement,
-        private readonly containerDimensions: Dimensions,
-        private readonly canvasLength: number
-    ) {}
+    public constructor( data:ZoomHandlerData) {
+        this.canvas=data.canvas;
+        this.zoomContainer=data.zoomContainer;
+        this.containerDimensions=data.containerDimensions;
+        this.canvasLength=data.canvasLength;
+    }
 
     public set renderingFunction(renderingFunction: VoidFunction) {
         this._renderingFunction = renderingFunction;
@@ -73,8 +77,8 @@ export class ZoomHandler {
                 1.1,
                 this.getZoomMax(
                     this.canvasLength * this.canvasLength,
-                    this.containerDimensions.width
-                        * this.containerDimensions.height
+                    this.containerDimensions!.width
+                        * this.containerDimensions!.height
                 )
             ])
             .translateExtent([

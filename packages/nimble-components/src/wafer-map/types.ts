@@ -1,3 +1,5 @@
+import type { RenderingModule } from "./modules/rendering";
+
 export const WaferMapQuadrant = {
     bottomLeft: 'bottom-left',
     bottomRight: 'bottom-right',
@@ -37,6 +39,18 @@ export interface WaferMapDie {
 export interface WaferMapColorScale {
     colors: string[];
     values: string[];
+}
+
+export interface ZoomHandlerData{
+    canvas: HTMLCanvasElement,
+    zoomContainer: HTMLElement,
+    containerDimensions: Dimensions,
+    canvasLength:number,
+    renderModule:RenderingModule
+}
+
+export interface EventHandlerData{
+    zoomHandlerData:ZoomHandlerData
 }
 
 export interface Dimensions {

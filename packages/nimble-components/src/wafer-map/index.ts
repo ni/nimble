@@ -12,10 +12,14 @@ import {
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
-    WaferMapQuadrant
+    WaferMapQuadrant,
+    EventHandlerData,
+    ZoomHandlerData
 } from './types';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
+// import { HoverHandler } from './modules/hover-handler';
+// import { ZoomHandler } from './modules/zoom-handler';
 import { EventHandler } from './modules/event-handler';
 
 declare global {
@@ -82,9 +86,9 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    public get lastSelectedDie(): WaferMapDie | undefined {
-        return this.eventHandler?.lastSelectedDie;
-    }
+    // public get lastSelectedDie(): WaferMapDie | undefined {
+    //     return this.eventHandler?.lastSelectedDie;
+    // }
 
     private renderQueued = false;
     private dataManager?: DataManager;
@@ -142,16 +146,7 @@ export class WaferMap extends FoundationElement {
         );
 
         this.renderer = new RenderingModule(this.dataManager, this.canvas);
-        this.eventHandler = new EventHandler(
-            this.canvas,
-            this.zoomContainer,
-            this.dataManager.containerDimensions,
-            this.dataManager,
-            this.canvasSideLength,
-            this.renderer,
-            this.rect,
-            this.quadrant
-        );
+        this.eventHandler = new EventHandler(this.parseWaferDataToEventData());
 
         this.eventHandler.attachEvents(this);
         this.renderer.drawWafer();
@@ -201,7 +196,7 @@ export class WaferMap extends FoundationElement {
             this.canvas.width = this.canvasSideLength;
             this.canvas.height = this.canvasSideLength;
         }
-        this.eventHandler?.resetZoomTransform();
+        // this.eventHandler?.resetZoomTransform();
         this.queueRender();
     }
 
@@ -213,6 +208,19 @@ export class WaferMap extends FoundationElement {
             this.renderQueued = true;
             DOM.queueUpdate(() => this.render());
         }
+    }
+
+    private parseWaferDataToEventData():EventHandlerData {
+
+        const zoomHandlerData:ZoomHandlerData = {
+            canvas:this.canvas,
+            zoomContainer: this.zoomContainer,
+            containerDimensions:this.dataManager!.containerDimensions,
+            canvasLength: this.canvasSideLength!,
+            renderModule: this.renderer!
+        };
+
+        return {zoomHandlerData}
     }
 }
 
