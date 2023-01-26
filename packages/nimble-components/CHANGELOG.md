@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 24 Jan 2023 21:30:30 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Jan 2023 18:50:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.0.0
+
+Thu, 26 Jan 2023 18:50:13 GMT
+
+### Major changes
+
+- Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle'.
+Update menu button to work when the slotted menu is nested within additional slots. ([ni/nimble@c39e8c8](https://github.com/ni/nimble/commit/c39e8c80af79ada2a696372c93161355187944af))
 
 ## 17.2.0
 

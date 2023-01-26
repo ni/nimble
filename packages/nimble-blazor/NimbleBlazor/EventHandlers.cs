@@ -13,14 +13,16 @@ public class CheckboxChangeEventArgs : EventArgs
     public bool Checked { get; set; }
 }
 
-public class MenuButtonOpenChangeEventArgs : EventArgs
+public class MenuButtonToggleEventArgs : EventArgs
 {
-    public bool Open { get; set; }
+    public bool NewState { get; set; }
+    public bool OldState { get; set; }
 }
 
 [EventHandler("onnimbletabsactiveidchange", typeof(TabsChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblecheckedchange", typeof(CheckboxChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onnimblemenubuttonopenchange", typeof(MenuButtonOpenChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onnimblemenubuttontoggle", typeof(MenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
+[EventHandler("onnimblemenubuttonbeforetoggle", typeof(MenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 public static class EventHandlers
 {
 }
