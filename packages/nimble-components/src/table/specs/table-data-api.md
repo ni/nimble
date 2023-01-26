@@ -14,7 +14,7 @@ A table/data-grid component can have a variety of ways to introduce data into it
 
 ## Implementation / Design
 
-In the `nimble-table`, the data associated with the table will be specified by calling a `setData()` function, that takes an array of key/value pairs. The collection of key/value pairs is called a record, and each record is used to populate one row in the table. Each key/value pair within a record is called a field. The name of a field (i.e. the key of the key/value pair) must be a string, and the value of a field (i.e. the value of the key/value pair) must be a `string`, `number`, `boolean`, `Date`, `null`, or `undefined`. As implied by the set of supported field types, complex field types such as arrays or objects are not supported. The supported field types are limited to ensure data operations are fast and to eliminate the need to create custom sort functions, which could hurt performance. While the types are limited, a rendered cell in the table can access multiple fields from the record. The details about the way column definitions use data from the table's data are out of scope for this spec.
+In the `nimble-table`, the data associated with the table will be specified by calling a `setData()` function, that takes an array of key/value pairs. The collection of key/value pairs is called a record, and each record is used to populate one row in the table. Each key/value pair within a record is called a field. The name of a field (i.e. the key of the key/value pair) must be a string, and the value of a field (i.e. the value of the key/value pair) must be a `string`, `number`, `boolean`, `null`, or `undefined`. As implied by the set of supported field types, complex field types such as arrays or objects are not supported. The supported field types are limited to ensure data operations are fast and to eliminate the need to create custom sort functions, which could hurt performance. While the types are limited, a rendered cell in the table can access multiple fields from the record. The details about the way column definitions use data from the table's data are out of scope for this spec.
 
 The data will be specified by calling a function for a few different reasons:
 
@@ -26,7 +26,7 @@ To help enforce typing, the `Table` class will be generic on the type for the re
 ```ts
 type TableFieldName = string;
 
-type TableFieldValue = string | number | boolean | Date | null | undefined;
+type TableFieldValue = string | number | boolean | null | undefined;
 
 interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
@@ -69,10 +69,6 @@ type NumberField<FieldName extends string> = {
 
 type BooleanField<FieldName extends string> = {
     [name in FieldName]: boolean | null | undefined;
-};
-
-type DateField<FieldName extends string> = {
-    [name in FieldName]: Date | null | undefined;
 };
 ```
 

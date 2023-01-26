@@ -12,7 +12,6 @@ export type TableFieldValue =
     | string
     | number
     | boolean
-    | Date
     | null
     | undefined;
 

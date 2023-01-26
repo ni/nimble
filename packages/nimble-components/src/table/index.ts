@@ -68,10 +68,7 @@ export class Table<
     }
 
     public setData(newData: readonly TData[]): void {
-        if (newData.length > 0 && this.table.options.columns.length === 0) {
-            this.generateTanStackColumns(newData);
-        }
-
+        this.generateTanStackColumns(newData);
         this.setTableData(newData);
     }
 
@@ -89,7 +86,9 @@ export class Table<
     }
 
     private setTableData(newData: readonly TData[]): void {
-        const data = [...newData];
+        const data = newData.map(record => {
+            return { ...record };
+        });
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
 
@@ -106,7 +105,7 @@ export class Table<
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
             const rowState: TableRowState<TData> = {
-                record: { ...row.original },
+                record: row.original,
                 id: row.id
             };
             return rowState;

@@ -13,7 +13,6 @@ interface TableArgs {
     validity: undefined;
     checkValidity: undefined;
     tableRef: Table;
-    populateData: (tableRef: Table, data: ExampleDataType) => void;
 }
 
 const simpleData = [
@@ -51,7 +50,7 @@ const overviewText = 'The `nimble-table` is a component that offers a way to ren
 
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
 which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type \`TableFieldName\`. The value
-in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`Date\`, \`null\`, or \`undefined\`, which is defined by the type \`TableFieldValue\`.
+in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`null\`, or \`undefined\`, which is defined by the type \`TableFieldValue\`.
 
 The table will not automatically update if the contents of the array change after calling \`setData()\`. To trigger an update, call
 \`setData()\` again with the same array reference or with a new array.
@@ -61,8 +60,8 @@ The table will not automatically update if the contents of the array change afte
     - Angular: In addition to exposing the \`setData()\` function in Angular, you can use the \`data$\` property to provide an
     \`Observable<TableRecord[]>\`. Nimble will automatically subscribe and unsubscribe to the provided \`Observable\` and call
     \`setData()\` on the web component when new values are emitted.
-    - Blazor: In addition to exposing the \`setData\` function in Blazor, you can also use the \`Data\` property on the
-    Blazor component. Setting a new value on the property in Blazor will internally call \`setData()\` on the web component.
+    - Blazor: Blazor does not expose a \`setData()\` function. Use the \`Data\` property on the Blazor component to set new data on the table.
+    Setting a new value on the property in Blazor will internally call \`setData()\` on the web component.
 </details>
 `;
 
@@ -106,12 +105,10 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-button @click="${x => x.populateData(x.tableRef, x.data)}">
-            Load data
-        </nimble-button>
         <nimble-table
             ${ref('tableRef')}
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
+            data-unused="${x => x.tableRef.setData(dataSets[x.data])}"
         >
             <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
             <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
@@ -122,10 +119,6 @@ const metadata: Meta<TableArgs> = {
             #usage-warning {
                 color: red;
                 font: var(${bodyFont.cssCustomProperty});
-            }
-
-            nimble-button {
-                margin-bottom: 8px;
             }
         </style>
     `),
@@ -163,11 +156,6 @@ const metadata: Meta<TableArgs> = {
             table: {
                 disable: true
             }
-        },
-        populateData: {
-            table: {
-                disable: true
-            }
         }
     },
     args: {
@@ -175,10 +163,7 @@ const metadata: Meta<TableArgs> = {
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
-        tableRef: undefined,
-        populateData: (tableRef, data) => {
-            tableRef.setData(dataSets[data]);
-        }
+        tableRef: undefined
     }
 };
 
