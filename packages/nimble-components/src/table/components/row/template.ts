@@ -1,18 +1,17 @@
 import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { TableRow } from '.';
+import type { TableRow, ColumnState } from '.';
 import { TableCell } from '../cell';
-import type { TableColumn } from '../../../table-column/base';
 
 // prettier-ignore
 export const template = html<TableRow>`
     <template role="row">
-        ${repeat(x => x.columns, html<TableColumn, TableRow>`
+        ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
             <${DesignSystem.tagFor(TableCell)}
                 class="cell"
-                :cellTemplate="${x => x.cellTemplate}"
-                :cellStyles="${x => x.cellStyles}"
-                :cellState="${(x, c) => c.parent.getCellState(x)}"
+                :cellTemplate="${x => x.column.cellTemplate}"
+                :cellStyles="${x => x.column.cellStyles}"
+                :cellState="${x => x.cellState}"
             >
             </${DesignSystem.tagFor(TableCell)}>
         `)}

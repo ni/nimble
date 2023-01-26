@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
@@ -15,6 +15,11 @@ declare global {
     }
 }
 
+export interface ColumnState {
+    column: TableColumn;
+    cellState: TableCellState;
+}
+
 /**
  * A styled row that is used within the nimble-table.
  * @internal
@@ -25,36 +30,38 @@ export class TableRow<
     @attr({ attribute: 'record-id' })
     public recordId?: string;
 
-    // The template doesn't bind to `dataRecord`, but making it observable
-    // causes all the template bindings to be re-evaluated when the value changes
-    // because it is part of the binding context for the template.
     @observable
     public dataRecord?: TDataRecord;
 
     @observable
     public columns: TableColumn[] = [];
 
-    public getCellState(column: TableColumn): TableCellState {
-        const fieldNames = column.getDataRecordFieldNames();
-        if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
-            const cellDataValues = fieldNames.map(
-                field => this.dataRecord![field]
-            );
-            const cellRecord = Object.fromEntries(
-                column.cellRecordFieldNames.map((k, i) => [
-                    k,
-                    cellDataValues[i]
-                ])
-            );
-            const columnConfig = column.getColumnConfig?.() ?? {};
-            const cellState: TableCellState = {
-                cellRecord,
-                columnConfig
-            };
-            return cellState;
-        }
+    @volatile
+    public get columnStates(): { column: TableColumn, cellState: TableCellState }[] {
+        return this.columns.map(column => {
+            const fieldNames = column.getDataRecordFieldNames();
+            let cellState: TableCellState;
+            if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
+                const cellDataValues = fieldNames.map(
+                    field => this.dataRecord![field]
+                );
+                const cellRecord = Object.fromEntries(
+                    column.cellRecordFieldNames.map((k, i) => [
+                        k,
+                        cellDataValues[i]
+                    ])
+                );
+                const columnConfig = column.getColumnConfig?.() ?? {};
+                cellState = {
+                    cellRecord,
+                    columnConfig
+                };
+            } else {
+                cellState = { cellRecord: {}, columnConfig: {} };
+            }
 
-        return { cellRecord: {}, columnConfig: {} };
+            return { column, cellState };
+        });
     }
 
     private hasValidFieldNames(

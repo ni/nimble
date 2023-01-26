@@ -69,15 +69,16 @@ describe('TableRow', () => {
         };
         await waitForUpdatesAsync();
 
+        const columnStates = element.columnStates;
         const firstCell = pageObject.getRenderedCell(0);
-        const firstCellState = element.getCellState(textColumn1);
-        expect(firstCellState).toEqual(firstCell!.cellState!);
-        const firstCellRecord = firstCellState.cellRecord as TableColumnTextCellRecord;
+        const firstCellState = columnStates[0]?.cellState;
+        expect(firstCellState).toEqual(firstCell!.cellState);
+        const firstCellRecord = firstCellState!.cellRecord as TableColumnTextCellRecord;
         expect(firstCellRecord.value).toBe('string 1');
         const secondCell = pageObject.getRenderedCell(1);
-        const secondCellState = element.getCellState(textColumn2);
-        expect(secondCellState).toEqual(secondCell!.cellState!);
-        const secondCellRecord = secondCellState.cellRecord as TableColumnTextCellRecord;
+        const secondCellState = columnStates[1]?.cellState;
+        expect(secondCellState).toEqual(secondCell!.cellState);
+        const secondCellRecord = secondCellState!.cellRecord as TableColumnTextCellRecord;
         expect(secondCellRecord.value).toBe('foo');
     });
 });
