@@ -137,7 +137,10 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         }
 
         const focusTarget = e.relatedTarget as HTMLElement;
-        if (!this.contains(focusTarget) && !this.getMenu()?.contains(focusTarget)) {
+        if (
+            !this.contains(focusTarget)
+            && !this.getMenu()?.contains(focusTarget)
+        ) {
             this.setOpen(false);
             return false;
         }
