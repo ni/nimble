@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 26 Jan 2023 18:50:13 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Jan 2023 19:17:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.0.1
+
+Thu, 26 Jan 2023 19:17:59 GMT
+
+### Patches
+
+- Fix table row rendering on Safari ([ni/nimble@2e5a1c8](https://github.com/ni/nimble/commit/2e5a1c8875db2f230f49bc923d6126aba99200fe))
 
 ## 18.0.0
 

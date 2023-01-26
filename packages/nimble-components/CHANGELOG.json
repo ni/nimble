@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 26 Jan 2023 19:17:59 GMT",
+      "tag": "@ni/nimble-components_v18.0.1",
+      "version": "18.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2e5a1c8875db2f230f49bc923d6126aba99200fe",
+            "comment": "Fix table row rendering on Safari"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Jan 2023 18:50:13 GMT",
       "tag": "@ni/nimble-components_v18.0.0",
       "version": "18.0.0",

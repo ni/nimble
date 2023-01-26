@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix table row rendering on Safari",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
