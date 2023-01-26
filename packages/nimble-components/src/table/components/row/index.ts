@@ -37,7 +37,7 @@ export class TableRow<
     public columns: TableColumn[] = [];
 
     @volatile
-    public get columnStates(): { column: TableColumn, cellState: TableCellState }[] {
+    public get columnStates(): ColumnState[] {
         return this.columns.map(column => {
             const fieldNames = column.getDataRecordFieldNames();
             let cellState: TableCellState;
