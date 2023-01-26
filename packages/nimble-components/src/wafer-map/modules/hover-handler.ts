@@ -1,24 +1,30 @@
+import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { WaferMapDie, WaferMapQuadrant } from '../types';
 import type { DataManager } from './data-manager';
-import type { ZoomHandler } from './zoom-handler';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
  */
 export class HoverHandler {
     private _lastSelectedDie: WaferMapDie | undefined;
+    private _transform:ZoomTransform;
+
+    public constructor(
+        private readonly canvas: HTMLCanvasElement,
+        private readonly rect: HTMLElement,
+        private readonly dataManager: DataManager,
+        private readonly quadrant: WaferMapQuadrant,
+    ) {
+        this._transform=zoomIdentity;
+    }
 
     public get lastSelectedDie(): WaferMapDie | undefined {
         return this._lastSelectedDie;
     }
 
-    public constructor(
-        private readonly canvas: HTMLCanvasElement,
-        private readonly rect: HTMLElement,
-        private readonly zoomHandler: ZoomHandler,
-        private readonly dataManager: DataManager,
-        private readonly quadrant: WaferMapQuadrant
-    ) {}
+    public set transform(newTransform:ZoomTransform){
+        this._transform=newTransform;
+    }
 
     public toggleHoverDie(show: boolean, x = 0, y = 0): void {
         if (show) {
@@ -39,14 +45,14 @@ export class HoverHandler {
                 'width',
                 `${
                     this.dataManager.dieDimensions.width
-                    * this.zoomHandler.zoomTransform.k
+                    * this._transform.k
                 }`
             );
             this.rect.setAttribute(
                 'height',
                 `${
                     this.dataManager.dieDimensions.height
-                    * this.zoomHandler.zoomTransform.k
+                    * this._transform.k
                 }`
             );
         }
@@ -73,7 +79,7 @@ export class HoverHandler {
         }
 
         // get original mouse position in case we are in zoom.
-        const invertedPoint = this.zoomHandler.zoomTransform.invert([
+        const invertedPoint = this._transform.invert([
             mouseX,
             mouseY
         ]);
@@ -89,7 +95,7 @@ export class HoverHandler {
         }
         this._lastSelectedDie = selectedDie;
         if (selectedDie) {
-            const transformedPoint = this.zoomHandler.zoomTransform.apply([
+            const transformedPoint = this._transform.apply([
                 this.dataManager.horizontalScale(x)
                     + this.dataManager.margin.left,
                 this.dataManager.verticalScale(y) + this.dataManager.margin.top
@@ -130,7 +136,7 @@ export class HoverHandler {
     private removeMouseEvents(): boolean {
         const dieSize = this.dataManager.containerDimensions.width
             * this.dataManager.containerDimensions.height
-            * (this.zoomHandler.zoomTransform.k || 1);
+            * (this._transform.k || 1);
         return dieSize < 15;
     }
 

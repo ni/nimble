@@ -1,8 +1,8 @@
 import type { WaferMap } from '..';
+import type { RenderingModule } from './rendering';
 import type { Dimensions, WaferMapDie, WaferMapQuadrant, ZoomHandlerData, EventHandlerData } from '../types';
 import { HoverHandler } from './hover-handler';
 import { ZoomHandler } from './zoom-handler';
-import type { RenderingModule } from './rendering';
 
 /**
  * EventHandler deals with user interactions and events
@@ -17,8 +17,10 @@ export class EventHandler {
         
         this.zoomHandler = new ZoomHandler(eventHandlerData.zoomHandlerData);
         
-        this.zoomHandler.onZoom=()=>{
-           this.zoomHandler.reScale();
+        this.zoomHandler.onZoom=(event)=>{
+            // this.hoverHandler.toggleHoverDie(false);
+            this.zoomHandler.reScale();
+            // this.hoverHandler.createHoverDie();
         };
 
         // this.hoverHandler = new HoverHandler(
@@ -30,14 +32,9 @@ export class EventHandler {
         // );
         // this.hoverHandler.createHoverDie();
 
-        this.zoomHandler.renderingFunction = () => {
-            this.eventHandlerData.zoomHandlerData.renderModule.drawWafer();
-            // this.hoverHandler.createHoverDie();
-        };
-
-        this.zoomHandler.hideHoverDieFunction = () => {
-            // this.hoverHandler.toggleHoverDie(false);
-        };
+        // this.zoomHandler.hideHoverDieFunction = () => {
+        //     // this.hoverHandler.toggleHoverDie(false);
+        // };
     }
 
     public attachEvents(waferMap: WaferMap): void {

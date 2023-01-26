@@ -12,8 +12,8 @@ import type { Dimensions, ZoomEvent, ZoomHandlerData } from '../types';
  * ZoomHandler deals with user interactions and events like zooming
  */
 export class ZoomHandler {
-    public onZoom: VoidFunction | undefined;
-    private _zoomTransform: ZoomTransform = zoomIdentity;
+    public onZoom: ((event:ZoomEvent) => void) | undefined;
+    private zoomTransform: ZoomTransform = zoomIdentity;
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
@@ -22,13 +22,8 @@ export class ZoomHandler {
     private readonly zoomContainer: HTMLElement;
     private readonly containerDimensions: Dimensions | undefined;
     private readonly canvasLength: number;
-    private _renderingFunction: VoidFunction | undefined;
-    private _hideHoverDieFunction: VoidFunction | undefined;
+    private renderingFunction: VoidFunction;
     private lastEvent: ZoomEvent | undefined; 
-
-    public get zoomTransform(): ZoomTransform {
-        return this._zoomTransform;
-    }
 
     public constructor( data:ZoomHandlerData) {
         this.canvas=data.canvas;
@@ -37,14 +32,7 @@ export class ZoomHandler {
         this.canvasLength=data.canvasLength;
         this.zoomBehavior=this.createZoomBehavior();
         this.zoomBehavior(select(this.canvas as Element));
-    }
-
-    public set renderingFunction(renderingFunction: VoidFunction) {
-        this._renderingFunction = renderingFunction;
-    }
-
-    public set hideHoverDieFunction(hideHoverDieFunction: VoidFunction) {
-        this._hideHoverDieFunction = hideHoverDieFunction;
+        this.renderingFunction =() => {data.renderModule.drawWafer();};
     }
 
 
@@ -56,7 +44,7 @@ export class ZoomHandler {
         if (canvasContext === null) {
             return;
         }
-        this._zoomTransform = zoomIdentity;
+        this.zoomTransform = zoomIdentity;
         this.clearCanvas(canvasContext, this.canvasLength, this.canvasLength);
         this.scaleCanvas(
             canvasContext,
@@ -64,7 +52,7 @@ export class ZoomHandler {
             zoomIdentity.y,
             zoomIdentity.k
         );
-        this.onZoom();
+        this.reScale();
         this.zoomBehavior?.transform(
             select(this.canvas as Element),
             zoomIdentity
@@ -72,7 +60,7 @@ export class ZoomHandler {
     }
 
     public reScale(){
-        if (this._renderingFunction === undefined) return;
+        if (this.renderingFunction === undefined) return;
         if (this.lastEvent===undefined) return;
         const transform = this.lastEvent.transform;
         const canvasContext = this.canvas.getContext('2d');
@@ -81,7 +69,7 @@ export class ZoomHandler {
         }
         canvasContext.save();
         if (transform.k === this.minScale) {
-            this._zoomTransform = zoomIdentity;
+            this.zoomTransform = zoomIdentity;
             this.clearCanvas(
                 canvasContext,
                 this.canvasLength,
@@ -93,13 +81,13 @@ export class ZoomHandler {
                 zoomIdentity.y,
                 zoomIdentity.k
             );
-            this._renderingFunction();
+            this.renderingFunction();
             this.zoomBehavior.transform(
                 select(this.canvas as Element),
                 zoomIdentity
             );
         } else {
-            this._zoomTransform = transform;
+            this.zoomTransform = transform;
             this.clearCanvas(
                 canvasContext,
                 this.canvasLength * this.zoomTransform.k,
@@ -111,7 +99,7 @@ export class ZoomHandler {
                 transform.y,
                 transform.k
             );
-            this._renderingFunction();
+            this.renderingFunction();
         }
         canvasContext.restore();
         this.zoomContainer.setAttribute(
@@ -144,7 +132,7 @@ export class ZoomHandler {
             .on('zoom', (event: ZoomEvent) => {
                 this.lastEvent=event;
                 if(this.onZoom!==undefined){
-                    this.onZoom();
+                    this.onZoom(event);
                 }
             });
 
