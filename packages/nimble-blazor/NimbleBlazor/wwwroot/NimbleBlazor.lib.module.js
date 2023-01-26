@@ -31,11 +31,22 @@ export function afterStarted(Blazor) {
         }
     });
     // Used by NimbleMenuButton.razor
-    Blazor.registerCustomEventType('nimblemenubuttonopenchange', {
-        browserEventName: 'open-change',
+    Blazor.registerCustomEventType('nimblemenubuttontoggle', {
+        browserEventName: 'toggle',
         createEventArgs: event => {
             return {
-                open: event.target.open
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
+    // Used by NimbleMenuButton.razor
+    Blazor.registerCustomEventType('nimblemenubuttonbeforetoggle', {
+        browserEventName: 'beforetoggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
             };
         }
     });

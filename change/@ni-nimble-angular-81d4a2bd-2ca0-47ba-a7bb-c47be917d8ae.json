@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle'",
+  "packageName": "@ni/nimble-angular",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
