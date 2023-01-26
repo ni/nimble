@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 25 Jan 2023 17:37:11 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Jan 2023 18:50:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.0.0
+
+Thu, 26 Jan 2023 18:50:13 GMT
+
+### Major changes
+
+- Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle' ([ni/nimble@c39e8c8](https://github.com/ni/nimble/commit/c39e8c80af79ada2a696372c93161355187944af))
 
 ## 10.1.0
 
