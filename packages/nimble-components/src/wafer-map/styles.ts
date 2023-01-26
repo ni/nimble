@@ -10,7 +10,7 @@ export const styles = css`
 
     .wafer-map-container {
         width: 100%;
-        padding-bottom: 100%;
+        height: 100%;
         position: relative;
         display: inline-block;
         justify-content: center;
@@ -47,16 +47,7 @@ export const styles = css`
         transform-origin: center center;
     }
 
-    .zoom-container {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-    }
-
     .circle-base {
-        width: 100%;
-        height: 100%;
-        position: absolute;
         fill: white;
     }
 
@@ -67,18 +58,10 @@ export const styles = css`
         stroke: ${borderColor};
     }
 
-    .wafer-map-area {
-        position: absolute;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-    }
 
     .wafer-map-canvas {
         display: inline-block;
-        width: 100%;
-        height: 100%;
+        position: absolute;
     }
 
     .hover-layer {

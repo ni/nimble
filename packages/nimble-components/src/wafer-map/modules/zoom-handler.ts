@@ -28,7 +28,7 @@ export class ZoomHandler {
         private readonly canvas: HTMLCanvasElement,
         private readonly zoomContainer: HTMLElement,
         private readonly containerDimensions: Dimensions,
-        private readonly canvasLength: number
+        private readonly canvasDimensions: Readonly<Dimensions>,
     ) {}
 
     public set renderingFunction(renderingFunction: VoidFunction) {
@@ -53,13 +53,8 @@ export class ZoomHandler {
             return;
         }
         this._zoomTransform = zoomIdentity;
-        this.clearCanvas(canvasContext, this.canvasLength, this.canvasLength);
-        this.scaleCanvas(
-            canvasContext,
-            zoomIdentity.x,
-            zoomIdentity.y,
-            zoomIdentity.k
-        );
+        this.clearCanvas(canvasContext, this.canvasDimensions);
+        this.scaleCanvas(canvasContext, zoomIdentity);
         this._renderingFunction();
         this.zoomBehavior?.transform(
             select(this.canvas as Element),
@@ -67,12 +62,63 @@ export class ZoomHandler {
         );
     }
 
+    private readonly zoomEventHandler = (event: { transform: ZoomTransform, target: ZoomBehavior<Element, unknown> }): void => {
+        if (this._hideHoverDieFunction) {
+            this._hideHoverDieFunction();
+        }
+        if (this._renderingFunction === undefined) {
+            return;
+        }
+        // debugsger;
+        const transform = event.transform;
+        const canvasContext = this.canvas.getContext('2d');
+        if (canvasContext === null) {
+            return;
+        }
+        canvasContext.save();
+        if (transform.k === this.minScale) {
+            this._zoomTransform = zoomIdentity;
+            this.clearCanvas(
+                canvasContext,
+                this.canvasDimensions
+            );
+            this.scaleCanvas(
+                canvasContext,
+                zoomIdentity
+            );
+            this._renderingFunction();
+            event.target.transform(
+                select(this.canvas as Element),
+                zoomIdentity
+            );
+        } else {
+            this._zoomTransform = transform;
+            this.clearCanvas(
+                canvasContext,
+                {
+                    width: this.canvasDimensions.width * this.zoomTransform.k,
+                    height: this.canvasDimensions.height * this.zoomTransform.k
+                }
+            );
+            this.scaleCanvas(
+                canvasContext,
+                transform
+            );
+            this._renderingFunction();
+        }
+        canvasContext.restore();
+        this.zoomContainer.setAttribute(
+            'transform',
+            this.zoomTransform.toString()
+        );
+    };
+
     private createZoomBehavior(): ZoomBehavior<Element, unknown> {
         const zoomBehavior = zoom()
             .scaleExtent([
                 1.1,
                 this.getZoomMax(
-                    this.canvasLength * this.canvasLength,
+                    this.canvasDimensions.width * this.canvasDimensions.height,
                     this.containerDimensions.width
                         * this.containerDimensions.height
                 )
@@ -80,66 +126,15 @@ export class ZoomHandler {
             .translateExtent([
                 this.minExtentPoint,
                 [
-                    this.canvasLength + this.extentPadding,
-                    this.canvasLength + this.extentPadding
+                    this.canvasDimensions.width + this.extentPadding,
+                    this.canvasDimensions.height + this.extentPadding
                 ]
             ])
             .filter((event: Event) => {
                 const transform = zoomTransform(this.canvas);
                 return transform.k >= this.minScale || event.type === 'wheel';
             })
-            .on('zoom', (event: { transform: ZoomTransform }) => {
-                if (this._hideHoverDieFunction) {
-                    this._hideHoverDieFunction();
-                }
-                if (this._renderingFunction === undefined) {
-                    return;
-                }
-                const transform = event.transform;
-                const canvasContext = this.canvas.getContext('2d');
-                if (canvasContext === null) {
-                    return;
-                }
-                canvasContext.save();
-                if (transform.k === this.minScale) {
-                    this._zoomTransform = zoomIdentity;
-                    this.clearCanvas(
-                        canvasContext,
-                        this.canvasLength,
-                        this.canvasLength
-                    );
-                    this.scaleCanvas(
-                        canvasContext,
-                        zoomIdentity.x,
-                        zoomIdentity.y,
-                        zoomIdentity.k
-                    );
-                    this._renderingFunction();
-                    zoomBehavior.transform(
-                        select(this.canvas as Element),
-                        zoomIdentity
-                    );
-                } else {
-                    this._zoomTransform = transform;
-                    this.clearCanvas(
-                        canvasContext,
-                        this.canvasLength * this.zoomTransform.k,
-                        this.canvasLength * this.zoomTransform.k
-                    );
-                    this.scaleCanvas(
-                        canvasContext,
-                        transform.x,
-                        transform.y,
-                        transform.k
-                    );
-                    this._renderingFunction();
-                }
-                canvasContext.restore();
-                this.zoomContainer.setAttribute(
-                    'transform',
-                    this.zoomTransform.toString()
-                );
-            });
+            .on('zoom', this.zoomEventHandler);
 
         return zoomBehavior;
     }
@@ -150,19 +145,16 @@ export class ZoomHandler {
 
     private clearCanvas(
         context: CanvasRenderingContext2D,
-        width: number,
-        height: number
+        canvasDimensions: Readonly<Dimensions>,
     ): void {
-        context.clearRect(0, 0, width, height);
+        context.clearRect(0, 0, canvasDimensions.width, canvasDimensions.height);
     }
 
     private scaleCanvas(
         context: CanvasRenderingContext2D,
-        x = 0,
-        y = 0,
-        scale = 1
+        transform: ZoomTransform
     ): void {
-        context.translate(x, y);
-        context.scale(scale, scale);
+        context.translate(transform.x, transform.y);
+        context.scale(transform.k, transform.k);
     }
 }

@@ -17,7 +17,7 @@ export class EventHandler {
         private readonly zoomContainer: HTMLElement,
         private readonly containerDimensions: Dimensions,
         private readonly dataManager: DataManager,
-        private readonly canvasLength: number,
+        private readonly canvasDimensions: Readonly<Dimensions>,
         private readonly renderer: RenderingModule,
         private readonly rect: HTMLElement,
         private readonly quadrant: WaferMapQuadrant
@@ -26,7 +26,7 @@ export class EventHandler {
             canvas,
             zoomContainer,
             containerDimensions,
-            canvasLength
+            canvasDimensions
         );
 
         this.hoverHandler = new HoverHandler(
@@ -36,15 +36,15 @@ export class EventHandler {
             dataManager,
             quadrant
         );
-        this.hoverHandler.createHoverDie();
+        this.hoverHandler.createHoverDie(rect);
 
         this.zoomHandler.renderingFunction = () => {
             renderer.drawWafer();
-            this.hoverHandler.createHoverDie();
+            this.hoverHandler.createHoverDie(rect);
         };
 
         this.zoomHandler.hideHoverDieFunction = () => {
-            this.hoverHandler.toggleHoverDie(false);
+            this.hoverHandler.toggleHoverDie(rect, false);
         };
     }
 
@@ -52,8 +52,8 @@ export class EventHandler {
         waferMap.onmousemove = (e: MouseEvent) => {
             this.hoverHandler.mousemove(e);
         };
-        waferMap.onmouseout = () => {
-            this.hoverHandler.mouseout();
+        waferMap.onmouseout = (e: MouseEvent) => {
+            this.hoverHandler.mouseout(e);
         };
         this.zoomHandler.attachZoomBehavior();
     }

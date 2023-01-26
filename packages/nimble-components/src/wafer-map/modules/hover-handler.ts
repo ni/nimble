@@ -1,3 +1,4 @@
+import type { WaferMap } from '..';
 import { WaferMapDie, WaferMapQuadrant } from '../types';
 import type { DataManager } from './data-manager';
 import type { ZoomHandler } from './zoom-handler';
@@ -20,29 +21,29 @@ export class HoverHandler {
         private readonly quadrant: WaferMapQuadrant
     ) {}
 
-    public toggleHoverDie(show: boolean, x = 0, y = 0): void {
+    public toggleHoverDie(hoverDie: HTMLElement, show: boolean, x = 0, y = 0): void {
         if (show) {
-            this.rect.setAttribute('transform', `translate(${x},${y})`);
-            this.rect.setAttribute('opacity', '0.7');
+            hoverDie.setAttribute('transform', `translate(${x},${y})`);
+            hoverDie.setAttribute('opacity', '0.7');
         } else {
-            this.rect.setAttribute('opacity', '0');
+            hoverDie.setAttribute('opacity', '0');
             this._lastSelectedDie = undefined;
         }
     }
 
-    public createHoverDie(): void {
-        this.rect.setAttribute('opacity', '0');
-        this.rect.setAttribute('pointer-events', 'none');
+    public createHoverDie(hoverDie: HTMLElement): void {
+        hoverDie.setAttribute('opacity', '0');
+        hoverDie.setAttribute('pointer-events', 'none');
 
         if (this.dataManager) {
-            this.rect.setAttribute(
+            hoverDie.setAttribute(
                 'width',
                 `${
                     this.dataManager.dieDimensions.width
                     * this.zoomHandler.zoomTransform.k
                 }`
             );
-            this.rect.setAttribute(
+            hoverDie.setAttribute(
                 'height',
                 `${
                     this.dataManager.dieDimensions.height
@@ -61,8 +62,9 @@ export class HoverHandler {
         const mouseX = event.offsetX;
         const mouseY = event.offsetY;
 
+        // debugger;
         // get color for current mouse position to verify that mouse is hovering over a die.
-        const canvasContext = this.canvas.getContext('2d');
+        const canvasContext = (event.target as WaferMap).canvas.getContext('2d', { willReadFrequently: true });
         if (canvasContext === null) {
             return;
         }
@@ -94,17 +96,17 @@ export class HoverHandler {
                     + this.dataManager.margin.left,
                 this.dataManager.verticalScale(y) + this.dataManager.margin.top
             ]);
-            this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
+            this.toggleHoverDie((event.target as WaferMap).rect, true, transformedPoint[0], transformedPoint[1]);
         } else {
-            this.toggleHoverDie(false);
+            this.toggleHoverDie((event.target as WaferMap).rect, false);
         }
     }
 
-    public mouseout(): void {
+    public mouseout(event: MouseEvent): void {
         if (this.removeMouseEvents()) {
             return;
         }
-        this.toggleHoverDie(false);
+        this.toggleHoverDie((event.target as WaferMap).rect, false);
     }
 
     private getRGBSum(

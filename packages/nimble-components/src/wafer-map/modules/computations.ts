@@ -38,32 +38,46 @@ export class Computations {
         axisLocation: Readonly<WaferMapQuadrant>,
         canvasDimensions: Readonly<Dimensions>
     ) {
-        this.margin = this.baseMargin;
         const gridMapDimensions = this.calculateMapDimensions(dies);
+
+        const canvasDiameter = Math.min(canvasDimensions.width, canvasDimensions.height);
+
+        const canvasMargin = {
+            top: (canvasDimensions.height - canvasDiameter) / 2,
+            right: (canvasDimensions.width - canvasDiameter) / 2,
+            bottom: (canvasDimensions.height - canvasDiameter) / 2,
+            left: (canvasDimensions.width - canvasDiameter) / 2
+        };
+        this.margin = this.calculateMarginWithAddition(canvasMargin);
 
         this.containerDimensions = this.calculateContainerDimensions(
             canvasDimensions,
             this.margin
         );
+        const containerDiameter = Math.min(this.containerDimensions.width, this.containerDimensions.height);
+
         this.horizontalScale = this.createHorizontalScale(
             axisLocation,
             gridMapDimensions,
-            this.containerDimensions.width
+            containerDiameter
         );
         this.dieDimensions = {
             width: this.calculateGridWidth(
                 gridMapDimensions.cols,
-                this.containerDimensions.width
+                containerDiameter
             ),
             height: 0
         };
+        let dieDiameter = Math.min(this.dieDimensions.width, this.dieDimensions.height);
 
-        this.radius = this.containerDimensions.width / 2
-            + this.dieDimensions.width * this.dieSizeFactor;
-        if (this.radius > canvasDimensions.width / 2) {
-            this.margin = this.calculateMarginWithAddition(
-                this.radius - canvasDimensions.width / 2
-            );
+        this.radius = containerDiameter / 2 + dieDiameter * this.dieSizeFactor;
+        if (this.radius > canvasDiameter / 2) {
+            this.margin = this.calculateMarginWithAddition({
+                top: canvasMargin.top + this.radius - canvasDiameter / 2,
+                right: canvasMargin.right + this.radius - canvasDiameter / 2,
+                bottom: canvasMargin.bottom + this.radius - canvasDiameter / 2,
+                left: canvasMargin.left + this.radius - canvasDiameter / 2
+            });
             this.containerDimensions = this.calculateContainerDimensions(
                 canvasDimensions,
                 this.margin
@@ -71,29 +85,29 @@ export class Computations {
             this.horizontalScale = this.createHorizontalScale(
                 axisLocation,
                 gridMapDimensions,
-                this.containerDimensions.width
+                containerDiameter
             );
             this.dieDimensions = {
                 width: this.calculateGridWidth(
                     gridMapDimensions.cols,
-                    this.containerDimensions.width
+                    containerDiameter
                 ),
                 height: 0
             };
-            this.radius = this.containerDimensions.width / 2
-                + this.dieDimensions.width * this.dieSizeFactor;
+            dieDiameter = Math.min(this.dieDimensions.width, this.dieDimensions.height);
+            this.radius = containerDiameter / 2 + dieDiameter * this.dieSizeFactor;
         }
 
         this.verticalScale = this.createVerticalScale(
             axisLocation,
             gridMapDimensions,
-            this.containerDimensions.height
+            containerDiameter
         );
         this.dieDimensions = {
             width: this.dieDimensions.width,
             height: this.calculateGridHeight(
                 gridMapDimensions.rows,
-                this.containerDimensions.height
+                containerDiameter
             )
         };
     }
@@ -194,17 +208,17 @@ export class Computations {
             .bandwidth();
     }
 
-    private calculateMarginWithAddition(baseAddition = 0): {
-        top: number,
-        right: number,
-        bottom: number,
-        left: number
-    } {
+    private calculateMarginWithAddition(baseAddition = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    }): Margin {
         return {
-            top: this.baseMargin.top + baseAddition,
-            right: this.baseMargin.right + baseAddition,
-            bottom: this.baseMargin.bottom + baseAddition,
-            left: this.baseMargin.top + baseAddition
+            top: this.baseMargin.top + baseAddition.top,
+            right: this.baseMargin.right + baseAddition.right,
+            bottom: this.baseMargin.bottom + baseAddition.bottom,
+            left: this.baseMargin.top + baseAddition.left
         };
     }
 }

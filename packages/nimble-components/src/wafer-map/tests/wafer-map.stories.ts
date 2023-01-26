@@ -97,6 +97,7 @@ const metadata: Meta<WaferMapArgs> = {
             experimental. It is not recommended for application use.
         </div>
         <nimble-wafer-map
+            style="overflow: auto; resize:both;"
             colors-scale-mode="${x => x.colorScaleMode}"
             ?die-labels-hidden="${x => x.dieLabelsHidden}"
             die-labels-suffix="${x => x.dieLabelsSuffix}"
