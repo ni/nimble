@@ -14,7 +14,7 @@ The banner is a component used to display a persistent notification to a user.
 
 - Arbitrary HTML content
 - A container component that would enforce design constraints on multiple banners displayed together
-- Limitating length of displayed text and/or truncating text with ellipsis
+- Limiting length of displayed text and/or truncating text with ellipsis
 
 ### Features
 
@@ -38,7 +38,7 @@ The banner is a standalone component that spans the width of its containing elem
 
 In this initial implementation, we will not limit the height of the banner. It will grow to fit the text that it is given.
 
-When the user presses the close button, we will hide the banner (and fire a `close` event).
+When the user presses the close button, we will hide the banner (`display:none`) and fire a `close` event.
 
 ### API
 
@@ -46,70 +46,50 @@ When the user presses the close button, we will hide the banner (and fire a `clo
 
 - *Component Name*: `nimble-banner`
 - *Props/Attrs*:
-  - `heading` - if set, a heading with the specified text is shown to the left of the message. OPEN QUESTION: should we instead use the existing `title` attribute?
+  - `heading` - if set, a heading with the specified text is shown to the left of the message.
   - `text` - the message text
   - `prevent-dismiss` - set to hide the close button (attr name taken from Nimble dialog)
-  - `type` - one of `error`, `warning`, `info`, or `neutral` (default)
-  - `action-text` - the text of the action link/button. If unset, no link/button is displayed.
-  - `action-href` - if set, the action element will be a link with the given `href`. (Otherwise, when `action-text` is set, a button element will be displayed.)
-  - `action-button-appearance` - either `outline` or `ghost` (default). When an action button is displayed, this controls the appearance variant.
+  - `severity` - one of `error`, `warning`, `info`, or undefined (default)
   - `close-button-title` - a localized title to give the close button (for a11y purposes)
 - *Methods*
 - *Events*
   - `close` - fired when the banner is dismissed
   - `action` - fired when the action button is activated (by mouse or keyboard). This is the intended way for clients to perform an action.
+- *Slots*
+  -  `title` - for the title/header text
+  -  (default) - for the primary message text
+  -  `action` - for the action button/link
 - *CSS Classes and CSS Custom Properties that affect the component*
 
-### Alternatives
-
-- The text of the banner could be provided as content rather than an attribute. This has the benefit of leaving the door open for us to support more than just plaintext in the future. However, so long as we _don't_ want to support arbitrary HTML, it may have the downside of giving users the wrong idea.
-
-- Instead of configuring the action link/button via attributes, we could allow the user to provide that element as content and slot it in an `action` slot. This would have the following benefits:
-    - allows full configuration of action element (e.g. attributes like `target` on a `nimble-anchor`)
-    - user can add handlers directly to their action element rather than relying on `action` event
-    - easier to support multiple actions in the future
-    - easy to support other kinds of action elements in the future
-
-    However, that flexibility is also a downside. We would no longer have tight control over what the user could show and how it would look.
+We only formally support spans of text in the `title` and default slots, but we will not explicitly prevent other HTML from being slotted there. The `action` slot only expects `nimble-button` or `nimble-anchor`, and we will use the CSS `::slotted()` pseudo-element to remove all but those two element types. We will not explicitly prevent multiple elements from being slotted in the `action` slot, though we formally only support one.
 
 ### Anatomy
 
 ```html
 <div class="icon">
-  ${when(x => x.type === 'error', html`<nimble-icon-exclamation-mark></nimble-icon-exclamation-mark>`)}
-  ${when(x => x.type === 'warning', html`<nimble-icon-triangle-filled></nimble-icon-triangle-filled>`)}
-  ${when(x => x.type === 'info', html`<nimble-icon-info></nimble-icon-info>`)}
+  ${when(x => x.severity === 'error', html`<nimble-icon-exclamation-mark></nimble-icon-exclamation-mark>`)}
+  ${when(x => x.severity === 'warning', html`<nimble-icon-triangle-filled></nimble-icon-triangle-filled>`)}
+  ${when(x => x.severity === 'info', html`<nimble-icon-info></nimble-icon-info>`)}
 </div>
 <div class="text">
-  <span class="heading">
-    ${x => x.heading}
-  </span>
-  ${x => x.text}
+  <slot name="title"></slot>
+  <slot></slot>
 </div>
-${when(x => x.actionText, html`
-  <div class="action">
-    ${when(x.actionHref, html`
-      <nimble-anchor href="${x => x.actionHref}">${x => x.actionText}</nimble-anchor>`
+<div class="end">
+  <slot name="action"></slot>
+  <div class="close">
+    ${when(x => !x.preventDismiss), html`
+      <nimble-button appearance="ghost" content-hidden>
+        <nimble-icon-xmark slot="start"></nimble-icon-xmark>
+      </nimble-button>`
     )}
-    ${when(!x.actionHref, html`
-      <nimble-button appearance="${x => x.actionButtonAppearance}">${x => x.actionText}</nimble-button>`
-    )}
-  </div>`
-)}
-<div class="close">
-  ${when(x => !x.preventDismiss), html`
-    <nimble-button appearance="ghost" content-hidden>
-      <nimble-icon-xmark slot="start"></nimble-icon-xmark>
-    </nimble-button>`
-  )}
+  </div>
 </div>
 ```
 
 ### Angular integration
 
 An Angular wrapper will be created for `nimble-banner`. No `ControlValueAccessor` is needed.
-
-`routerLink` will not be supported for the link.
 
 ### Blazor integration
 
