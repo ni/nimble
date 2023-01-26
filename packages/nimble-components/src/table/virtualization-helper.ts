@@ -101,6 +101,7 @@ export class TableVirtualizationHelper<
             estimateSize: (_: number) => rowHeight,
             enableSmoothScroll: true,
             overscan: 3,
+            scrollingDelay: 5,
             scrollToFn: elementScroll,
             observeElementOffset,
             observeElementRect,
