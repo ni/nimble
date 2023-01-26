@@ -8,12 +8,7 @@ export type TableFieldName = string;
  * TableFieldValue describes the type associated with values within
  * a table's records.
  */
-export type TableFieldValue =
-    | string
-    | number
-    | boolean
-    | null
-    | undefined;
+export type TableFieldValue = string | number | boolean | null | undefined;
 
 /**
  * TableRecord describes the data structure that backs a single row in a table.
