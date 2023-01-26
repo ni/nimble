@@ -16,6 +16,10 @@ export class EventHandler {
     ) {
         
         this.zoomHandler = new ZoomHandler(eventHandlerData.zoomHandlerData);
+        
+        this.zoomHandler.onZoom=()=>{
+            this.eventHandlerData.zoomHandlerData.renderModule.drawWafer();
+        };
 
         // this.hoverHandler = new HoverHandler(
         //     canvas,
@@ -43,7 +47,6 @@ export class EventHandler {
         waferMap.onmouseout = () => {
             // this.hoverHandler.mouseout();
         };
-        this.zoomHandler.attachZoomBehavior();
     }
 
     public resetZoomTransform(): void {

@@ -1,3 +1,4 @@
+import type { ZoomTransform } from "d3-zoom";
 import type { RenderingModule } from "./modules/rendering";
 
 export const WaferMapQuadrant = {
@@ -47,6 +48,10 @@ export interface ZoomHandlerData{
     containerDimensions: Dimensions,
     canvasLength:number,
     renderModule:RenderingModule
+}
+
+export interface ZoomEvent{
+    zoomtransform: ZoomTransform
 }
 
 export interface EventHandlerData{
