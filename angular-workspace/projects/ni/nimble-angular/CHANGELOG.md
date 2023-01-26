@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 24 Jan 2023 22:55:17 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Jan 2023 19:17:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.0.1
+
+Thu, 26 Jan 2023 19:17:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.0.1
+
+## 16.0.0
+
+Thu, 26 Jan 2023 18:50:13 GMT
+
+### Major changes
+
+- Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle' ([ni/nimble@c39e8c8](https://github.com/ni/nimble/commit/c39e8c80af79ada2a696372c93161355187944af))
+- Bump @ni/nimble-components to v18.0.0
 
 ## 15.1.0
 

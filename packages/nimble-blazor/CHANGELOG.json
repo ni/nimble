@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 26 Jan 2023 18:50:13 GMT",
+      "tag": "@ni/nimble-blazor_v11.0.0",
+      "version": "11.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c39e8c80af79ada2a696372c93161355187944af",
+            "comment": "Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle'"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 25 Jan 2023 17:37:11 GMT",
       "tag": "@ni/nimble-blazor_v10.1.0",
       "version": "10.1.0",
