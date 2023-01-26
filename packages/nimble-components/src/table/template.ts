@@ -28,7 +28,7 @@ const isTableColumn = (): ElementsFilter => {
 export const template = html<Table>`
     <template role="table">
         <div class="table-container">
-            <div role="rowgroup" class="header-container" style="margin-right: ${x => x.headerContainerMarginRight}px;">
+            <div role="rowgroup" class="header-container" style="margin-right: ${x => x.virtualizationHelper.headerContainerMarginRight}px;">
                 <div class="header-row" role="row">
                     ${repeat(x => x.columns, html<TableColumn>`
                         <${DesignSystem.tagFor(TableHeader)} class="header">
@@ -38,10 +38,10 @@ export const template = html<Table>`
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
-                <div class="table-scroll" style="height: ${x => x.allRowsHeight}px;"></div>
-                <div class="table-row-container" role="rowgroup" style="transform: ${x => (x.rowContainerYOffset === 0 ? 'none' : `translateY(${x.rowContainerYOffset}px)`)};">
+                <div class="table-scroll" style="height: ${x => x.virtualizationHelper.allRowsHeight}px;"></div>
+                <div class="table-row-container" role="rowgroup" style="transform: ${x => (x.virtualizationHelper.rowContainerYOffset === 0 ? 'none' : `translateY(${x.virtualizationHelper.rowContainerYOffset}px)`)};">
                     ${when(x => x.columns.length > 0, html<Table>`
-                        ${repeat(x => x.visibleItems, html<VirtualItem, Table>`
+                        ${repeat(x => x.virtualizationHelper.visibleItems, html<VirtualItem, Table>`
                             <${DesignSystem.tagFor(TableRow)}
                                 class="row"
                                 record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
