@@ -51,7 +51,7 @@ export interface ZoomHandlerData{
 }
 
 export interface ZoomEvent{
-    zoomtransform: ZoomTransform
+    transform: ZoomTransform
 }
 
 export interface EventHandlerData{

@@ -18,7 +18,7 @@ export class EventHandler {
         this.zoomHandler = new ZoomHandler(eventHandlerData.zoomHandlerData);
         
         this.zoomHandler.onZoom=()=>{
-            this.eventHandlerData.zoomHandlerData.renderModule.drawWafer();
+           this.zoomHandler.reScale();
         };
 
         // this.hoverHandler = new HoverHandler(
