@@ -33,6 +33,8 @@ export class CustomAppComponent {
     public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
     public selectedRadio = 'mango';
+    public activeTabId = 'tab-1';
+    public activeAnchorTabId = 'a-tab-2';
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;
     private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([

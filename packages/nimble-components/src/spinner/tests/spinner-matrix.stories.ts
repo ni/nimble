@@ -9,7 +9,11 @@ import {
     createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
-import { bodyFontColor } from '../../theme-provider/design-tokens';
+import {
+    bodyFontColor,
+    spinnerLargeHeight,
+    spinnerMediumHeight
+} from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 
@@ -28,8 +32,9 @@ const metadata: Meta = {
 export default metadata;
 
 const sizeStates = [
-    ['16x16', 'width: 16px; height: 16px'],
-    ['32x32', 'width: 32px; height: 32px']
+    ['Small (16x16)', ''],
+    ['Medium (32x32)', `height: var(${spinnerMediumHeight.cssCustomProperty})`],
+    ['Large (64x64)', `height: var(${spinnerLargeHeight.cssCustomProperty})`]
 ];
 type SizeState = typeof sizeStates[number];
 
