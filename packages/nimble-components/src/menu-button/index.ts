@@ -137,7 +137,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         }
 
         const focusTarget = e.relatedTarget as HTMLElement;
-        if (!this.contains(focusTarget) && !this.menu?.contains(focusTarget)) {
+        if (!this.contains(focusTarget) && !this.getMenu()?.contains(focusTarget)) {
             this.setOpen(false);
             return false;
         }
@@ -192,7 +192,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         this.open = newValue;
     }
 
-    private get menu(): HTMLElement | undefined {
+    private getMenu(): HTMLElement | undefined {
         // Get the menu that is slotted within the menu-button, taking into account
         // that it may be nested within multiple 'slot' elements, such as when used
         // within a table.
@@ -228,11 +228,11 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     }
 
     private focusMenu(): void {
-        this.menu?.focus();
+        this.getMenu()?.focus();
     }
 
     private focusLastMenuItem(): void {
-        const menuItems = this.menu?.querySelectorAll('[role=menuitem]');
+        const menuItems = this.getMenu()?.querySelectorAll('[role=menuitem]');
         if (menuItems?.length) {
             const lastMenuItem = menuItems[menuItems.length - 1] as HTMLElement;
             lastMenuItem.focus();
