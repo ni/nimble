@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 20 Jan 2023 22:27:00 GMT and should not be manually modified.
+This log was last generated on Tue, 24 Jan 2023 21:30:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.2.0
+
+Tue, 24 Jan 2023 21:30:30 GMT
+
+### Minor changes
+
+- Add design tokens for additional spinner sizes, and update docs. ([ni/nimble@3c778c0](https://github.com/ni/nimble/commit/3c778c0a354dcc5883273ac62b7edd9a3dbed3cd))
 
 ## 17.1.0
 
