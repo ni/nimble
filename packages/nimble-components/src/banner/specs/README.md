@@ -49,11 +49,11 @@ _The key elements of the component's public API surface:_
     -   `open` - whether the banner is visible or not
     -   `prevent-dismiss` - set to hide the close button (attr name taken from Nimble dialog)
     -   `severity` - one of `error`, `warning`, `info`, or undefined (default)
+    -   `title-hidden` - set to hide the title text, which should always be provided for a11y reasons
     -   `close-button-title` - a localized title to give the close button (for a11y purposes)
 -   _Methods_
 -   _Events_
     -   `toggle` - fired when the banner is closed or opened. Event has `newState` and `oldState`.
-    -   `action` - fired when the action button is activated (by mouse or keyboard). This is the intended way for clients to perform an action.
 -   _Slots_
     -   `title` - for the title/header text
     -   (default) - for the primary message text
@@ -64,24 +64,28 @@ We only formally support spans of text in the `title` and default slots, but we 
 
 ### Anatomy
 
+<!-- prettier-ignore -->
 ```html
 <div class="icon">
-    ${when(x => x.severity === 'error', html`<nimble-icon-exclamation-mark
-    ></nimble-icon-exclamation-mark>`)} ${when(x => x.severity === 'warning',
-    html`<nimble-icon-triangle-filled></nimble-icon-triangle-filled>`)} ${when(x
-    => x.severity === 'info', html`<nimble-icon-info></nimble-icon-info>`)}
+    ${when(x => x.severity === 'error', html`
+        <nimble-icon-exclamation-mark></nimble-icon-exclamation-mark>`)}
+    ${when(x => x.severity === 'warning', html`
+        <nimble-icon-triangle-filled></nimble-icon-triangle-filled>`)}
+    ${when(x => x.severity === 'info', html`
+        <nimble-icon-info></nimble-icon-info>`)}
 </div>
 <div class="text">
-    <slot name="title"></slot>
+    ${when(x => !x.titleHidden, html`
+        <slot name="title"></slot>)}
     <slot></slot>
 </div>
 <div class="end">
     <slot name="action"></slot>
     <div class="close">
         ${when(x => !x.preventDismiss), html`
-        <nimble-button appearance="ghost" content-hidden>
-            <nimble-icon-xmark slot="start"></nimble-icon-xmark> </nimble-button
-        >` )}
+            <nimble-button appearance="ghost" content-hidden>
+                <nimble-icon-xmark slot="start"></nimble-icon-xmark>
+            </nimble-button>` )}
     </div>
 </div>
 ```
