@@ -1,4 +1,4 @@
-import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
+import { ScaleBand, ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
 import type {
@@ -30,8 +30,8 @@ export class Prerendering {
         dies: Readonly<Readonly<WaferMapDie>[]>,
         colorScale: Readonly<WaferMapColorScale>,
         highlightedValues: Readonly<string[]>,
-        horizontalScale: ScaleLinear<number, number>,
-        verticalScale: ScaleLinear<number, number>,
+        horizontalScale: ScaleBand<number>,
+        verticalScale: ScaleBand<number>,
         colorScaleMode: Readonly<WaferMapColorScaleMode>,
         dieLabelsHidden: Readonly<boolean>,
         dieLabelsSuffix: Readonly<string>,
@@ -48,9 +48,14 @@ export class Prerendering {
 
         this.diesRenderInfo = [];
         for (const die of dies) {
+            const scaledX = horizontalScale(die.x);
+            const scaledY = verticalScale(die.y);
+            if (scaledX === undefined || scaledY === undefined) {
+                continue;
+            }
             this.diesRenderInfo.push({
-                x: horizontalScale(die.x) + margin.right,
-                y: verticalScale(die.y) + margin.top,
+                x: scaledX + margin.right,
+                y: scaledY + margin.top,
                 fillStyle: this.calculateFillStyle(
                     die.value,
                     colorScaleMode,

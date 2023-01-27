@@ -1,3 +1,4 @@
+import { ScaleBand, ScaleQuantize, scaleQuantize } from 'd3-scale';
 import type { WaferMap } from '..';
 import { WaferMapDie, WaferMapQuadrant } from '../types';
 import type { DataManager } from './data-manager';
@@ -91,10 +92,14 @@ export class HoverHandler {
         }
         this._lastSelectedDie = selectedDie;
         if (selectedDie) {
+            const scaledX = this.dataManager.horizontalScale(x);
+            const scaledY = this.dataManager.verticalScale(y);
+            if (scaledX === undefined || scaledY === undefined) {
+                return;
+            }
             const transformedPoint = this.zoomHandler.zoomTransform.apply([
-                this.dataManager.horizontalScale(x)
-                    + this.dataManager.margin.left,
-                this.dataManager.verticalScale(y) + this.dataManager.margin.top
+                scaledX + this.dataManager.margin.left,
+                scaledY + this.dataManager.margin.top
             ]);
             this.toggleHoverDie((event.target as WaferMap).rect, true, transformedPoint[0], transformedPoint[1]);
         } else {
@@ -150,16 +155,17 @@ export class HoverHandler {
             ? Math.floor
             : Math.ceil;
         // go to x and y scale to get the x,y values of the die.
-        const x = xRoundFunction(
-            this.dataManager.horizontalScale.invert(
-                xPosition - this.dataManager.margin.left
-            )
-        );
-        const y = yRoundFunction(
-            this.dataManager.verticalScale.invert(
-                yPosition - this.dataManager.margin.top
-            )
-        );
+        const x = xRoundFunction(this.scaleBandInvert(this.dataManager.horizontalScale)(
+            xPosition - this.dataManager.margin.left
+        ));
+        const y = yRoundFunction(this.scaleBandInvert(this.dataManager.verticalScale)(
+            yPosition - this.dataManager.margin.top
+        ));
         return { x, y };
+    }
+
+    private scaleBandInvert(scale: ScaleBand<number>): ScaleQuantize<number, number> {
+        // this should be worked on
+        return scaleQuantize().domain(scale.range().sort()).range(scale.domain());
     }
 }

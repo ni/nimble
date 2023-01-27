@@ -1,4 +1,4 @@
-import { ScaleLinear, scaleLinear } from 'd3-scale';
+import { scaleBand, ScaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 import type { WaferMapColorScale, WaferMapDie } from '../types';
 
 export function getWaferMapDies(): WaferMapDie[] {
@@ -49,6 +49,6 @@ export function getHighlightedValues(): string[] {
 export function getLinearScale(
     domain: number[] = [0, 10],
     range: number[] = [0, 100]
-): ScaleLinear<number, number> {
-    return scaleLinear().domain(domain).range(range);
+): ScaleBand<number> {
+    return scaleBand<number>().domain(domain).range(range);
 }

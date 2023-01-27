@@ -1,4 +1,4 @@
-import type { ScaleLinear } from 'd3-scale';
+import type { ScaleBand, ScaleLinear } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
 import type {
@@ -31,11 +31,11 @@ export class DataManager {
         return this.computations.margin;
     }
 
-    public get horizontalScale(): ScaleLinear<number, number> {
+    public get horizontalScale(): ScaleBand<number> {
         return this.computations.horizontalScale;
     }
 
-    public get verticalScale(): ScaleLinear<number, number> {
+    public get verticalScale(): ScaleBand<number> {
         return this.computations.verticalScale;
     }
 
@@ -79,14 +79,14 @@ export class DataManager {
             dies,
             colorScale,
             highlightedValues,
-            this.computations.horizontalScale,
-            this.computations.verticalScale,
+            this.horizontalScale,
+            this.verticalScale,
             colorScaleMode,
             dieLabelsHidden,
             dieLabelsSuffix,
             maxCharacters,
-            this.computations.dieDimensions,
-            this.computations.margin
+            this.dieDimensions,
+            this.margin
         );
 
         this.dataMap = new Map(dies.map(die => [`${die.x}_${die.y}`, die]));
