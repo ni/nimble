@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 27 Jan 2023 15:05:13 GMT",
+      "tag": "@ni/nimble-blazor_v11.0.2",
+      "version": "11.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "f19bf610f46683eae4c80f2bdd5967d76e63124a",
+            "comment": "Update Blazor Table to call `setData()` rather than setting the `data` property."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Jan 2023 18:50:13 GMT",
       "tag": "@ni/nimble-blazor_v11.0.0",
       "version": "11.0.0",
