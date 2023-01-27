@@ -14,6 +14,7 @@ import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord, TableRowState, TableValidity } from './types';
+import { Virtualizer } from './models/virtualizer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -49,6 +50,16 @@ export class Table<
         return this.tableValidator.getValidity();
     }
 
+    /**
+     * @internal
+     */
+    public readonly viewport!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    public readonly virtualizer: Virtualizer<TData>;
+
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
@@ -65,6 +76,7 @@ export class Table<
             autoResetAll: false
         };
         this.table = tanStackCreateTable(this.options);
+        this.virtualizer = new Virtualizer(this);
     }
 
     public setData(newData: readonly TData[]): void {
@@ -79,6 +91,15 @@ export class Table<
         // Force TanStack to detect a data update because a row's ID is only
         // generated when creating a new row model.
         this.setTableData(this.table.options.data);
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.virtualizer.connectedCallback();
+    }
+
+    public override disconnectedCallback(): void {
+        this.virtualizer.disconnectedCallback();
     }
 
     public checkValidity(): boolean {
@@ -110,6 +131,7 @@ export class Table<
             };
             return rowState;
         });
+        this.virtualizer.dataChanged();
     }
 
     private updateTableOptions(
