@@ -14,7 +14,7 @@ import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord, TableRowState, TableValidity } from './types';
-import { TableVirtualizationHelper } from './virtualization-helper';
+import { Virtualizer } from './models/virtualizer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -55,7 +55,7 @@ export class Table<
     /**
      * @internal
      */
-    public readonly virtualizationHelper: TableVirtualizationHelper<TData>;
+    public readonly virtualizer: Virtualizer<TData>;
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
@@ -74,7 +74,7 @@ export class Table<
             autoResetAll: false
         };
         this.table = tanStackCreateTable(this.options);
-        this.virtualizationHelper = new TableVirtualizationHelper(this);
+        this.virtualizer = new Virtualizer(this);
         this.tableInitialized = true;
     }
 
@@ -89,11 +89,11 @@ export class Table<
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.virtualizationHelper.handleConnected();
+        this.virtualizer.connectedCallback();
     }
 
     public override disconnectedCallback(): void {
-        this.virtualizationHelper.handleDisconnected();
+        this.virtualizer.disconnectedCallback();
     }
 
     public dataChanged(
@@ -138,7 +138,7 @@ export class Table<
             };
             return rowState;
         });
-        this.virtualizationHelper.handleRowsUpdated();
+        this.virtualizer.dataChanged();
     }
 
     private updateTableOptions(

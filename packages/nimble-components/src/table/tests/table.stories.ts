@@ -46,7 +46,7 @@ for (let i = 0; i < 10000; i++) {
         firstName: firstNames[i % firstNames.length],
         lastName: lastNames[i % lastNames.length],
         favoriteColor: colors[i % colors.length],
-        quote: null
+        quote: `I'm number ${i + 1}!`
     });
 }
 

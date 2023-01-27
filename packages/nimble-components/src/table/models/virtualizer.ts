@@ -1,52 +1,37 @@
 import { observable } from '@microsoft/fast-element';
 import {
-    Virtualizer,
+    Virtualizer as TanStackVirtualizer,
     VirtualizerOptions,
     elementScroll,
     observeElementOffset,
     observeElementRect,
     VirtualItem
 } from '@tanstack/virtual-core';
-import { controlHeight } from '../theme-provider/design-tokens';
-import type { Table } from '.';
-import type { TableRecord } from './types';
+import { controlHeight } from '../../theme-provider/design-tokens';
+import type { Table } from '..';
+import type { TableRecord } from '../types';
 
 /**
- * Table virtualization helper
+ * Helper class for the nimble-table for row virtualization.
+ *
+ * @internal
  */
-export class TableVirtualizationHelper<
-    TData extends TableRecord = TableRecord
-> {
-    /**
-     * @internal
-     */
-    public virtualizer?: Virtualizer<HTMLElement, HTMLElement>;
-
-    /**
-     * @internal
-     */
+export class Virtualizer<TData extends TableRecord = TableRecord> {
     @observable
     public visibleItems: VirtualItem[] = [];
 
-    /**
-     * @internal
-     */
     @observable
     public allRowsHeight = 0;
 
-    /**
-     * @internal
-     */
     @observable
     public headerContainerMarginRight = 0;
 
-    /**
-     * @internal
-     */
     @observable
     public rowContainerYOffset = 0;
 
     private readonly table: Table<TData>;
+
+    private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
     private readonly viewportResizeObserver: ResizeObserver;
 
     public constructor(table: Table<TData>) {
@@ -62,16 +47,16 @@ export class TableVirtualizationHelper<
         });
     }
 
-    public handleConnected(): void {
+    public connectedCallback(): void {
         this.viewportResizeObserver.observe(this.table.viewport);
         this.updateVirtualizer();
     }
 
-    public handleDisconnected(): void {
+    public disconnectedCallback(): void {
         this.viewportResizeObserver.disconnect();
     }
 
-    public handleRowsUpdated(): void {
+    public dataChanged(): void {
         if (this.table.$fastController.isConnected) {
             this.updateVirtualizer();
         }
@@ -82,7 +67,7 @@ export class TableVirtualizationHelper<
         if (this.virtualizer) {
             this.virtualizer.setOptions(options);
         } else {
-            this.virtualizer = new Virtualizer(options);
+            this.virtualizer = new TanStackVirtualizer(options);
         }
         this.virtualizer._willUpdate();
         this.handleVirtualizerChange();
