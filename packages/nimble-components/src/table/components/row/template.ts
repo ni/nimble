@@ -20,7 +20,7 @@ export const template = html<TableRow>`
 
                 ${when((x, c) => ((c.parent as TableRow).currentActionMenuColumn === x.column) && x.column.actionMenuSlot, html<ColumnState, TableRow>`
                     <slot
-                        name="${x => `row-action-menu-${x.column.actionMenuSlot}`}"
+                        name="${x => `row-action-menu-${x.column.actionMenuSlot!}`}"
                         slot="cellActionMenu"
                     ></slot>
                 `)}
