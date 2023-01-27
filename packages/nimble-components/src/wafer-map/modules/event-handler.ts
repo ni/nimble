@@ -9,40 +9,31 @@ import { ZoomHandler } from './zoom-handler';
  */
 export class EventHandler {
     private readonly zoomHandler: ZoomHandler;
-    // private readonly hoverHandler: HoverHandler;
+    private readonly hoverHandler: HoverHandler;
 
     public constructor(
         private readonly eventHandlerData:EventHandlerData,
     ) {
         
         this.zoomHandler = new ZoomHandler(eventHandlerData.zoomHandlerData);
-        
-        this.zoomHandler.onZoom=(event)=>{
-            // this.hoverHandler.toggleHoverDie(false);
-            this.zoomHandler.reScale();
-            // this.hoverHandler.createHoverDie();
-        };
+    
+        this.hoverHandler = new HoverHandler(eventHandlerData.hoverHandlerData);
 
-        // this.hoverHandler = new HoverHandler(
-        //     canvas,
-        //     rect,
-        //     this.zoomHandler,
-        //     dataManager,
-        //     quadrant
-        // );
-        // this.hoverHandler.createHoverDie();
-
-        // this.zoomHandler.hideHoverDieFunction = () => {
-        //     // this.hoverHandler.toggleHoverDie(false);
-        // };
+        this.hoverHandler.createHoverDie();
     }
 
     public attachEvents(waferMap: WaferMap): void {
         waferMap.onmousemove = (e: MouseEvent) => {
-            // this.hoverHandler.mousemove(e);
+            this.hoverHandler.mousemove(e);
         };
         waferMap.onmouseout = () => {
-            // this.hoverHandler.mouseout();
+            this.hoverHandler.mouseout();
+        };
+        this.zoomHandler.onZoom=(event)=>{
+            this.hoverHandler.toggleHoverDie(false);
+            this.zoomHandler.reScale();
+            this.hoverHandler.transform=event.transform;
+            this.hoverHandler.createHoverDie();
         };
     }
 
@@ -51,7 +42,6 @@ export class EventHandler {
     }
 
     public get lastSelectedDie(): WaferMapDie | undefined {
-        // return this.hoverHandler.lastSelectedDie;
-        return {value:'100', x:10, y:10,}
+        return this.hoverHandler.lastSelectedDie;
     }
 }

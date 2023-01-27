@@ -1,5 +1,6 @@
 import type { ZoomTransform } from "d3-zoom";
 import type { RenderingModule } from "./modules/rendering";
+import type { DataManager } from "./modules/data-manager";
 
 export const WaferMapQuadrant = {
     bottomLeft: 'bottom-left',
@@ -50,12 +51,20 @@ export interface ZoomHandlerData{
     renderModule:RenderingModule
 }
 
+export interface HoverHandlerData{
+    canvas: HTMLCanvasElement;
+    rect: HTMLElement;
+    dataManager?: DataManager;
+    quadrant: WaferMapQuadrant;
+}
+
 export interface ZoomEvent{
     transform: ZoomTransform
 }
 
 export interface EventHandlerData{
-    zoomHandlerData:ZoomHandlerData
+    zoomHandlerData:ZoomHandlerData,
+    hoverHandlerData: HoverHandlerData
 }
 
 export interface Dimensions {

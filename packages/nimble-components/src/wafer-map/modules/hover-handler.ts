@@ -1,5 +1,5 @@
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
-import { WaferMapDie, WaferMapQuadrant } from '../types';
+import { HoverHandlerData, WaferMapDie, WaferMapQuadrant } from '../types';
 import type { DataManager } from './data-manager';
 
 /**
@@ -9,13 +9,19 @@ export class HoverHandler {
     private _lastSelectedDie: WaferMapDie | undefined;
     private _transform:ZoomTransform;
 
+    private readonly canvas: HTMLCanvasElement;
+    private readonly rect: HTMLElement;
+    private readonly dataManager: DataManager | undefined;
+    private readonly quadrant: WaferMapQuadrant;
+
     public constructor(
-        private readonly canvas: HTMLCanvasElement,
-        private readonly rect: HTMLElement,
-        private readonly dataManager: DataManager,
-        private readonly quadrant: WaferMapQuadrant,
+        hoverHandlerData:HoverHandlerData
     ) {
         this._transform=zoomIdentity;
+        this.canvas = hoverHandlerData.canvas;
+        this.rect=hoverHandlerData.rect;
+        this.dataManager=hoverHandlerData.dataManager;
+        this.quadrant=hoverHandlerData.quadrant;
     }
 
     public get lastSelectedDie(): WaferMapDie | undefined {
@@ -23,6 +29,7 @@ export class HoverHandler {
     }
 
     public set transform(newTransform:ZoomTransform){
+        console.log(`New transform: ------>`, newTransform);
         this._transform=newTransform;
     }
 
@@ -59,9 +66,8 @@ export class HoverHandler {
     }
 
     public mousemove(event: MouseEvent): void {
-        if (this.removeMouseEvents()) {
-            return;
-        }
+        if (this.removeMouseEvents()) return;
+        if (this.dataManager===undefined) return;
 
         // Get mouse position
         const mouseX = event.offsetX;
@@ -134,9 +140,13 @@ export class HoverHandler {
     }
 
     private removeMouseEvents(): boolean {
+        
+        if (this.dataManager===undefined) return true;
+
         const dieSize = this.dataManager.containerDimensions.width
             * this.dataManager.containerDimensions.height
             * (this._transform.k || 1);
+
         return dieSize < 15;
     }
 
@@ -144,6 +154,9 @@ export class HoverHandler {
         xPosition: number,
         yPosition: number
     ): { x: number, y: number } {
+
+        if (this.dataManager===undefined) return {x:-1, y:-1};
+
         const axisLocation = this.quadrant;
         const xRoundFunction = axisLocation === WaferMapQuadrant.bottomLeft
             || axisLocation === WaferMapQuadrant.topLeft

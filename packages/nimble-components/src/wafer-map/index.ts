@@ -14,7 +14,8 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant,
     EventHandlerData,
-    ZoomHandlerData
+    ZoomHandlerData,
+    HoverHandlerData
 } from './types';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
@@ -121,6 +122,8 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
+
+    
     public render(): void {
         this.renderQueued = false;
         if (
@@ -220,7 +223,14 @@ export class WaferMap extends FoundationElement {
             renderModule: this.renderer!
         };
 
-        return {zoomHandlerData}
+        const hoverHandlerData:HoverHandlerData = {
+            canvas:this.canvas,
+            rect: this.rect,
+            dataManager:this.dataManager,
+            quadrant: this.quadrant
+        }
+
+        return {zoomHandlerData, hoverHandlerData}
     }
 }
 
