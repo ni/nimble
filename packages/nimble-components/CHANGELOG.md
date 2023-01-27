@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 26 Jan 2023 19:17:59 GMT and should not be manually modified.
+This log was last generated on Fri, 27 Jan 2023 15:05:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.0.2
+
+Fri, 27 Jan 2023 15:05:13 GMT
+
+### Patches
+
+- Create `setData()` function on the table rather than having a `data` property ([ni/nimble@f19bf61](https://github.com/ni/nimble/commit/f19bf610f46683eae4c80f2bdd5967d76e63124a))
 
 ## 18.0.1
 

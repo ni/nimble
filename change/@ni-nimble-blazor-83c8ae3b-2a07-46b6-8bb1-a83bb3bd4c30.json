@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update Blazor Table to call `setData()` rather than setting the `data` property.",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
