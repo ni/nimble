@@ -457,6 +457,7 @@ describe('Table', () => {
             const originalRenderedRowCount = pageObject.getRenderedRowCount();
 
             element.style.height = '700px';
+            element.viewport.scrollTop = 2;
             await waitForUpdatesAsync();
 
             const newRenderedRowCount = pageObject.getRenderedRowCount();
