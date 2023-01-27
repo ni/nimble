@@ -30,9 +30,8 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public rowContainerYOffset = 0;
 
     private readonly table: Table<TData>;
-
-    private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
     private readonly viewportResizeObserver: ResizeObserver;
+    private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
 
     public constructor(table: Table<TData>) {
         this.table = table;
