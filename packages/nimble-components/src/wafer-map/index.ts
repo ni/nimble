@@ -19,8 +19,6 @@ import {
 } from './types';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
-// import { HoverHandler } from './modules/hover-handler';
-// import { ZoomHandler } from './modules/zoom-handler';
 import { EventHandler } from './modules/event-handler';
 
 declare global {
@@ -92,9 +90,7 @@ export class WaferMap extends FoundationElement {
     // }
 
     private renderQueued = false;
-    private dataManager?: DataManager;
     private renderer?: RenderingModule;
-    private eventHandler?: EventHandler;
     private resizeObserver?: ResizeObserver;
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -136,7 +132,9 @@ export class WaferMap extends FoundationElement {
             this.canvasSideLength,
             this.canvasSideLength
         );
-        this.dataManager = new DataManager(
+
+
+        const dataManager = new DataManager(
             this.dies,
             this.quadrant,
             { width: this.canvasSideLength, height: this.canvasSideLength },
@@ -148,10 +146,11 @@ export class WaferMap extends FoundationElement {
             this.maxCharacters
         );
 
-        this.renderer = new RenderingModule(this.dataManager, this.canvas);
-        this.eventHandler = new EventHandler(this.parseWaferDataToEventData());
+        this.renderer = new RenderingModule(dataManager, this.canvas);
 
-        this.eventHandler.attachEvents(this);
+        const eventHandler = new EventHandler(this.parseWaferDataToEventData(dataManager));
+        eventHandler.attachEvents(this);
+
         this.renderer.drawWafer();
     }
 
@@ -213,12 +212,12 @@ export class WaferMap extends FoundationElement {
         }
     }
 
-    private parseWaferDataToEventData():EventHandlerData {
+    private parseWaferDataToEventData(dataManager:DataManager):EventHandlerData {
 
         const zoomHandlerData:ZoomHandlerData = {
             canvas:this.canvas,
             zoomContainer: this.zoomContainer,
-            containerDimensions:this.dataManager!.containerDimensions,
+            containerDimensions:dataManager.containerDimensions,
             canvasLength: this.canvasSideLength!,
             renderModule: this.renderer!
         };
@@ -226,7 +225,7 @@ export class WaferMap extends FoundationElement {
         const hoverHandlerData:HoverHandlerData = {
             canvas:this.canvas,
             rect: this.rect,
-            dataManager:this.dataManager,
+            dataManager:dataManager,
             quadrant: this.quadrant
         }
 

@@ -54,7 +54,7 @@ export interface ZoomHandlerData{
 export interface HoverHandlerData{
     canvas: HTMLCanvasElement;
     rect: HTMLElement;
-    dataManager?: DataManager;
+    dataManager: DataManager;
     quadrant: WaferMapQuadrant;
 }
 

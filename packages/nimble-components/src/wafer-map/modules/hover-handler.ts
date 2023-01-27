@@ -29,7 +29,6 @@ export class HoverHandler {
     }
 
     public set transform(newTransform:ZoomTransform){
-        console.log(`New transform: ------>`, newTransform);
         this._transform=newTransform;
     }
 
