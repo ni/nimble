@@ -14,6 +14,8 @@ export class HoverHandler {
     private readonly dataManager: DataManager | undefined;
     private readonly quadrant: WaferMapQuadrant;
 
+    public onDieSelected: ((event:WaferMapDie) => void) | undefined;
+
     public constructor(
         hoverHandlerData:HoverHandlerData
     ) {
@@ -98,14 +100,17 @@ export class HoverHandler {
         if (this._lastSelectedDie === selectedDie) {
             return;
         }
-        this._lastSelectedDie = selectedDie;
         if (selectedDie) {
+            this._lastSelectedDie = selectedDie;
             const transformedPoint = this._transform.apply([
                 this.dataManager.horizontalScale(x)
                     + this.dataManager.margin.left,
                 this.dataManager.verticalScale(y) + this.dataManager.margin.top
             ]);
             this.toggleHoverDie(true, transformedPoint[0], transformedPoint[1]);
+            if(this.onDieSelected!==undefined){
+                this.onDieSelected(this._lastSelectedDie);
+            }
         } else {
             this.toggleHoverDie(false);
         }

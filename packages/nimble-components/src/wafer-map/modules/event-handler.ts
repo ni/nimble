@@ -35,6 +35,9 @@ export class EventHandler {
             this.hoverHandler.transform=event.transform;
             this.hoverHandler.createHoverDie();
         };
+
+        //Wafermap callbacks
+        this.hoverHandler.onDieSelected=this.eventHandlerData.eventCallbacks.dieSelected;
     }
 
     public resetZoomTransform(): void {

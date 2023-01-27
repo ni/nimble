@@ -15,7 +15,8 @@ import {
     WaferMapQuadrant,
     EventHandlerData,
     ZoomHandlerData,
-    HoverHandlerData
+    HoverHandlerData,
+    EventCallbacks
 } from './types';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
@@ -74,6 +75,11 @@ export class WaferMap extends FoundationElement {
      */
     public readonly rect!: HTMLElement;
 
+    //Last selectedDie accessor
+    public get lastSelectedDie(): WaferMapDie | undefined {
+        return this.eventHandler?.lastSelectedDie;
+    }
+
     /**
      * @internal
      */
@@ -85,13 +91,11 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    // public get lastSelectedDie(): WaferMapDie | undefined {
-    //     return this.eventHandler?.lastSelectedDie;
-    // }
-
     private renderQueued = false;
     private eventHandler?: EventHandler;
     private resizeObserver?: ResizeObserver;
+
+
     public override connectedCallback(): void {
         super.connectedCallback();
         this.resizeObserver = new ResizeObserver(entries => {
@@ -119,11 +123,6 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
 
-    private clearCanvas(width: number, height: number): void {
-        const context = this.canvas.getContext('2d')!;
-        context.clearRect(0, 0, width, height);
-    }
-    
     public render(): void {
         this.renderQueued = false;
         if (
@@ -136,7 +135,6 @@ export class WaferMap extends FoundationElement {
             this.canvasSideLength,
             this.canvasSideLength
         );
-
 
         const dataManager = new DataManager(
             this.dies,
@@ -156,6 +154,16 @@ export class WaferMap extends FoundationElement {
         renderer.drawWafer();
     }
 
+    private clearCanvas(width: number, height: number): void {
+        const context = this.canvas.getContext('2d')!;
+        context.clearRect(0, 0, width, height);
+    }
+
+    private onDieSelected = (die:WaferMapDie)=>{
+        // console.log(die);
+        this.dispatchEvent( new CustomEvent('die-selected', { detail: { die } }));
+    };
+    
     private quadrantChanged(): void {
         this.queueRender();
     }
@@ -231,7 +239,11 @@ export class WaferMap extends FoundationElement {
             quadrant: wafermap.quadrant
         }
 
-        return {zoomHandlerData, hoverHandlerData}
+        const eventCallbacks:EventCallbacks = {
+            dieSelected:this.onDieSelected
+        }
+
+        return {zoomHandlerData, hoverHandlerData, eventCallbacks}
     }
 }
 

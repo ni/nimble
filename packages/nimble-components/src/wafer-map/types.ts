@@ -58,13 +58,18 @@ export interface HoverHandlerData{
     quadrant: WaferMapQuadrant;
 }
 
+export interface EventCallbacks{
+    dieSelected:(die:WaferMapDie)=>void;
+}
+
 export interface ZoomEvent{
     transform: ZoomTransform
 }
 
 export interface EventHandlerData{
     zoomHandlerData:ZoomHandlerData,
-    hoverHandlerData: HoverHandlerData
+    hoverHandlerData: HoverHandlerData,
+    eventCallbacks: EventCallbacks
 }
 
 export interface Dimensions {
