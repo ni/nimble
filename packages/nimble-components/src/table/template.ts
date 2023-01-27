@@ -1,4 +1,5 @@
 import {
+    children,
     ElementsFilter,
     html,
     repeat,
@@ -25,13 +26,14 @@ const isTableColumn = (): ElementsFilter => {
 
 // prettier-ignore
 export const template = html<Table>`
-    <template role="table">
+    <template role="table" ${children({ property: 'columns', filter: isTableColumn() })}>
         <div class="table-container">
             <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
                     ${repeat(x => x.columns, html<TableColumn>`
-                        <${DesignSystem.tagFor(TableHeader)} class="header">
-                            ${x => x.textContent}
+                        <${DesignSystem.tagFor(TableHeader)} 
+                            class="header">
+                            <slot name="${x => x.slot}"></slot>
                         </${DesignSystem.tagFor(TableHeader)}>
                     `)}
                 </div>
@@ -50,6 +52,6 @@ export const template = html<Table>`
             `)}
             </div>
         </div>
-        <slot ${slotted({ property: 'columns', filter: isTableColumn() })}></slot>
+        <slot></slot>
     </template>
 `;
