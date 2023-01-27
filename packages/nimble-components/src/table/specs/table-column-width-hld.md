@@ -57,7 +57,7 @@ These properties are expected to be updated by both the initial state of separat
 - The values supplied to the `currentFixedWidth` property are meant to be pixel-based values.
 - The table will use `currentFixedWidth` over `currentFractionalWidth` when both are set.
 
-#### `currentMinWidth` berhavior
+#### `currentMinWidth` behavior
 
 Open Question: Is there a minimum width considered too small? If a user is allowed to provide a mimimum width smaller than the default, how should the various components within the header behave? If a user attempts to set a minimum width to an unsupported value, what is the appropriate response (i.e. should we simply update the `TableValidity` state?)?
 
