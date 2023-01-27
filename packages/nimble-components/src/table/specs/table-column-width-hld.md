@@ -8,6 +8,7 @@ We need to provide users the means for changing the widths of individual columns
 
 - [#873 Programmatically resize column width](https://github.com/ni/nimble/issues/873)
 - [#846 Interactively resize column width](https://github.com/ni/nimble/issues/846) 
+- [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
 
 
 ## Implementation / Design
@@ -26,59 +27,128 @@ The behavior that has been prescribed for column sizing is as follows:
 
 ### API
 
-To accomodate the various sizing modes of a column, in addition to the other necessary behaviors, we can add the following attributes to `TableColumn`:
+To accomodate the various sizing modes of a column, in addition to the other necessary behaviors, we can add the following properties to `TableColumn`:
 
 ```
 class TableColumn {
-    @attr({ attribute: 'fixed-width', converter: nullableNumberConverter })
-    public fixedWidth: number | null = null;
+    // when set 'currentFractionalWidth' should be ignored
+    @observable
+    public currentFixedWidth: number | null = null;
 
-    @attr({ attribute: 'fractional-width', converter: nullableNumberConverter })
-    public fractionalWidth = 1;
+    @observable
+    public currentFractionalWidth = 1;
 
-    @attr({ attribute: 'min-size' })
-    public minWidth?: number;
+    @observable
+    public currentMinWidth = 88; // the minimum size according to the design doc
 
-    @attr({ attribute: 'can-resize' })
-    @attr
-    public canResize = true;
+    @observable
+    public currentDisableResize = false;
 
     ...
 }
 ```
+Note that these properties are not attributes, and thus are not set by clients on the components via markup.
+
+These properties are expected to be updated by both the initial state of separate, column-specific APIs and interactive operations that the `Table` would manage.
+
+#### `currentFractionalWidth` vs `currentFixedWidth` behavior
+
+- The values supplied to the `currentFractionalWidth` property have the same meaning as the values supplied with the [`fr` unit](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout#the_fr_unit) for the CSS `grid-template-columns` property.
+- The values supplied to the `currentFixedWidth` property are meant to be pixel-based values.
+- The table will use `currentFixedWidth` over `currentFractionalWidth` when both are set.
+
+#### `currentMinWidth` berhavior
+
+Open Question: Is there a minimum width considered too small? If a user is allowed to provide a mimimum width smaller than the default, how should the various components within the header behave? If a user attempts to set a minimum width to an unsupported value, what is the appropriate response (i.e. should we simply update the `TableValidity` state?)?
+
+#### **Mixin Example**
+
+We can help facilitate proper implementation for concrete column types by providing mixins that define expected attribute APIs:
+
+```
+export abstract class FractionalWidthColumn extends TableColumn {
+    @attr({ attribute: 'fractional-width', converter: nullableNumberConverter })
+    public fractionalWidth = 1;
+
+    @attr({ attribute: 'disable-resize' })
+    public disableResize = false;
+
+    @attr({ attribute: 'min-width' })
+    public minWidth?: number;
+
+    public fractionalWidthChanged(): void {
+        this.currentFractionalWidth = this.fractionalWidth;
+    }
+
+    public disableResizeChanged(): void {
+        this.currentDisableResize = this.disableResize;
+    }
+
+    public minWidthChanged(): void {
+        this.currentMinWidth = this.minWidth;
+    }
+}
+
+```
 _Note: We do not need to provide a `maxWidth` as it seems like an unnecessarily limiting API._
 
-As defined above, columns can be set to have both a `fixedWidth` and a `fractionalWidth`. In such a scenario, we will always use the `fixedWidth` setting. However, columns will default to a `fractionalWidth` of 1 which will result in all columns taking up equal space in the table, and filling up the width of the table, regardless of the table's width.
+These mixin classes must extend `TableColumn` as that class is what defines the APIs that the internal components will rely on to create the appropriate layout state (and thus are updated by the mixin implementation as shown above). Additionally, they must be marked as `abstract` in order to avoid the requirement of implementing the abstract APIs of `TableColumn`.
 
-The `nullableNumberConverter` you see in the decorators for the attributes simply allows us to safely treat the values as a `number`.
+We can then apply that mixin to a concrete TableColumn class (e.g. `TableColumnText`) like so:
+```
+export class TableColumnText extends TableColumn<...> {
+    ...
+}
 
-The `minWidth` attribute is pixel-based.
+applyMixins(TableColumnText, FractionalWidthColumn);
+```
 
-#### FractionalWidth vs FixedWidth behavior
+The `applyMixins` method is a helper function provided by FAST, that we leverage in other places in Nimble already.
 
-The values supplied to the `fractionalWidth` attribute have the same meaning as the values supplied with the [`fr` unit](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout#the_fr_unit) for the CSS `grid-template-columns` property.
+#### **FixedWidth Column Example**
 
-The values supplied to the `fixedWidth` attribute are meant to be pixel-based values.
+At the moment there is no recognized use case for a fixed-width column that would allow a user to resize it. As such, there are no plans to provide a specific fixed-width mixin for columns. Instead, a concrete column desiring a fixed-width behavior could simply do something like the following in its constructor:
+
+```
+export class MyFixedWidthColumn : TableColumn<...> {
+    public constructor() {
+        super();
+        this.currentFixedWidth = 100;
+        this.disableResize = true;
+    }
+}
+```
 
 ### Implementation considerations
 
-[Prototype branch](https://github.com/ni/nimble/tree/column-width-prototype) ([Storybook](https://60e89457a987cf003efc0a5b-yjfkqsmcaq.chromatic.com/?path=/story/table--table))
+[Prototype branch](https://github.com/ni/nimble/tree/column-width-prototype) ([Storybook](https://60e89457a987cf003efc0a5b-qheevxtkdu.chromatic.com/?path=/story/table--table))
 
-#### Using "`display: grid`":
+#### **Using "`display: grid`"**:
 
-As the proposed API aligns well with the CSS "`display: grid;`" behavior, it makes sense to transition the layout of the cells of the `Table` to use this. Ultimately, this will require us to change the CSS `grid-template-columns` property dynamically (for whatever component was laying out cells, for instance the `TableRow`) in order to respond to any changes to the `fixedWidth` or `fractionalWidth` attributes on any column. This suggests providing observable properties (marked `internal`) that represent the ultimate string to provide to the `grid-template-columns` property.
+The `currentFractionalWidth` and `currentFixedWidth` properties of `TableColumn` align well with using the CSS "`display: grid;`" mode
+and setting `grid-template-columns` to the appropriate combination of values on the container div of the cell elements for either a data row, or the container for the header cells.
 
-As things are currently implemented, in order to provide the same layout for the header cells, we would have to provide a similar observable property on the `Table` itself and have its `rowHeader` element in the template bind its style to. This is undesirable, as the `Table` is a component we expect users to leverage its API extensively, and providing internal APIs on it should be avoided. Instead, it may make sense to provide a `TableHeaderRow` component, which can provide this API instead and be responsible for the header layout, in the same way the `TableRow` is for the cell layout.
+Example:
 
-_Note: The prototype branch shows one way how the above is done for the `TableRow`_
+Suppose a table had 3 columns with the following configuration: `currentFractionalWidth = 1`, `currentFixedWidth = 100`, and `currentFractionalWidth = 2`. This would result in "`grid-templateColumns: 1fr 100px 2fr;`".
 
-#### 
+#### **Managing interactive resize**
+
+In order to facilitate proper resizing of columns that are leveraging  `currentFractionalWidth` over `currentFixedWidth` (by way of a column mixin), it can be useful to set the `currentFixedWidth` to the appropriate calculated value (requiring knowledge of the current row width) on mouse down, and then updating `currentFixedWidth` according to the mouse delta during the mouse move, and then resetting the columns that should be using `currentFractionalWidth` to the appropriate new calculated value (based on the final `currentFixedWidth` value along with the current row width).
+
+Because we will allow a horizontal scrollbar once the right-most column reaches its minimum size, there is an implicit need for us to also size the container for the rows and header to the actual pixel sizes the columns resolve to (i.e. the container width becomes larger than the actual table width). Additionally, on a table resize, the row size should be updated by the same delta, to maintain the behavior of columns using `currentFractionalWidth` to be proportionlly sized as expected.
+
+#### **Future interactive sizing behaviors**
+
+Currently, we only have a need for an interactive resize to behave as outlined in the 'Expected Behaviors' section, but it is recognized that another behavior we will ultimately want to support is a "push" resize mode, where as a user drags a divider to the right, all columns are simply pushed to the right, maintaining their current pixel size. 
+
+To help facilitate this, it may be helpful to approach the initial implementation by encapsulating the column resize management within a separate class from the `Table` and have it implement a common interface that would allow a separate implementation to provide differing behavior.
 
 ## Alternative Implementations / Designs
 
 TanStack offers the ability to maintain column sizing state as well as APIs to manage interactive sizing ([`getResizeHandler`](https://tanstack.com/table/v8/docs/api/features/column-sizing#getresizehandler)). By plugging into `getResizeHandler` TanStack can provide all necessary column size state either as the column is being sized (allowing immediate sizing while dragging), or at the end of an interactive operation (columns update size on mouse up for example).
 
-TanStack expects size values to be provided as [pixel values](https://tanstack.com/table/v8/docs/api/features/column-sizing#size).
+TanStack expects size values to be provided as [pixel values](https://tanstack.com/table/v8/docs/api/features/column-sizing#size). As such, we wouldn't be able to leverage TanStack's APIs in a way to achieve our initial desired behavior. However, it's possible that it would be beneficial to attempt to upstream changes to TanStack that would allow us to leverage it, but I would suggest that we revisit this possibility at a later time.
 
 
 ## Open Issues
