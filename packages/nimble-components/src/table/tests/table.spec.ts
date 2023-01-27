@@ -3,6 +3,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { Table } from '..';
 import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { controlHeight } from '../../theme-provider/design-tokens';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
 import { TablePageObject } from './table.pageobject';
@@ -31,6 +32,14 @@ const simpleTableData = [
     }
 ] as const;
 
+const largeTableData = Array.from(Array(500), (_, i) => {
+    return {
+        stringData: `string ${i}`,
+        numericData: i,
+        moreStringData: 'foo'
+    };
+});
+
 const tableColumnText = DesignSystem.tagFor(TableColumnText);
 
 // prettier-ignore
@@ -50,10 +59,10 @@ describe('Table', () => {
 
     // The assumption being made here is that the values in the data are equal to their
     // rendered representation (no formatting).
-    function retrieveVisibleData(
+    function retrieveExpectedData(
         tableData: readonly SimpleTableRecord[]
     ): TableRecord[] {
-        const visibleData: TableRecord[] = [];
+        const expectedData: TableRecord[] = [];
         for (const rowData of tableData) {
             const record: TableRecord = {};
             for (const column of element.columns) {
@@ -61,15 +70,15 @@ describe('Table', () => {
                 const expectedCellData = rowData[dataKey]!;
                 record[dataKey] = expectedCellData;
             }
-            visibleData.push(record);
+            expectedData.push(record);
         }
-        return visibleData;
+        return expectedData;
     }
 
     function verifyRenderedData(
-        expectedData: readonly SimpleTableRecord[]
+        visibleTableDataSubset: readonly SimpleTableRecord[]
     ): void {
-        const visibleData = retrieveVisibleData(expectedData);
+        const visibleData = retrieveExpectedData(visibleTableDataSubset);
         const expectedRowCount = visibleData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
@@ -402,6 +411,58 @@ describe('Table', () => {
 
             expect(pageObject.getRenderedRowCount()).toBe(0);
             expect(element.checkValidity()).toBeFalse();
+        });
+    });
+
+    describe('uses virtualization', () => {
+        it('to render fewer rows (based on viewport size)', async () => {
+            await connect();
+
+            const data = [...largeTableData];
+            element.setData(data);
+            await waitForUpdatesAsync();
+
+            const actualRowCount = pageObject.getRenderedRowCount();
+            const approximateRowHeight = parseFloat(
+                controlHeight.getValueFor(element)
+            );
+            const expectedRowCountUpperBound = (element.offsetHeight / approximateRowHeight) * 3;
+            expect(actualRowCount).toBeLessThan(data.length);
+            expect(actualRowCount).toBeLessThan(expectedRowCountUpperBound);
+            const dataSubset = data.slice(0, actualRowCount);
+            verifyRenderedData(dataSubset);
+        });
+
+        it('and allows viewing the last rows in the data after scrolling to the bottom', async () => {
+            await connect();
+
+            const data = [...largeTableData];
+            element.setData(data);
+            await waitForUpdatesAsync();
+            await pageObject.scrollToLastRowAsync();
+
+            const actualRowCount = pageObject.getRenderedRowCount();
+            expect(actualRowCount).toBeLessThan(data.length);
+            const dataSubsetAtEnd = data.slice(-actualRowCount);
+            verifyRenderedData(dataSubsetAtEnd);
+        });
+
+        it('and shows additional rows when the table height increases', async () => {
+            await connect();
+
+            const data = [...largeTableData];
+            element.setData(data);
+            await waitForUpdatesAsync();
+
+            const originalRenderedRowCount = pageObject.getRenderedRowCount();
+
+            element.style.height = '700px';
+            await waitForUpdatesAsync();
+
+            const newRenderedRowCount = pageObject.getRenderedRowCount();
+            expect(newRenderedRowCount).toBeGreaterThan(
+                originalRenderedRowCount
+            );
         });
     });
 });

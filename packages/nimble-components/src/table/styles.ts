@@ -14,13 +14,37 @@ import { themeBehavior } from '../utilities/style/theme';
 export const styles = css`
     ${display('flex')}
 
+    :host {
+        height: 480px;
+    }
+
     .table-container {
         display: flex;
         flex-direction: column;
         width: 100%;
         font: ${bodyFont};
         color: ${bodyFontColor};
-        overflow: auto;
+    }
+
+    .table-viewport {
+        overflow-y: auto;
+        display: block;
+        height: 100%;
+        position: relative;
+    }
+
+    .table-scroll {
+        pointer-events: none;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .table-row-container {
+        width: 100%;
+        position: sticky;
+        overflow: hidden;
+        top: 0px;
     }
 
     .header-container {
