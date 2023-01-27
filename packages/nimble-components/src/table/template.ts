@@ -40,7 +40,7 @@ export const template = html<Table>`
             <div class="table-viewport" ${ref('viewport')}>
                 <div class="table-scroll" style="height: ${x => x.virtualizer.allRowsHeight}px;"></div>
                 <div class="table-row-container" role="rowgroup" style="transform: ${x => (x.virtualizer.rowContainerYOffset === 0 ? 'none' : `translateY(${x.virtualizer.rowContainerYOffset}px)`)};">
-                    ${when(x => x.columns.length > 0, html<Table>`
+                    ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                         ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
                             <${DesignSystem.tagFor(TableRow)}
                                 class="row"

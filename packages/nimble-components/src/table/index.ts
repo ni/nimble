@@ -31,9 +31,6 @@ export class Table<
     @attr({ attribute: 'id-field-name' })
     public idFieldName?: string | null;
 
-    @observable
-    public data: TData[] = [];
-
     /**
      * @internal
      */
@@ -42,6 +39,12 @@ export class Table<
 
     @observable
     public readonly columns: TableColumn[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public canRenderRows = true;
 
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
@@ -59,7 +62,6 @@ export class Table<
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
-    private readonly tableInitialized: boolean = false;
     private readonly tableValidator = new TableValidator();
 
     public constructor() {
@@ -75,7 +77,11 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this);
-        this.tableInitialized = true;
+    }
+
+    public setData(newData: readonly TData[]): void {
+        this.generateTanStackColumns(newData);
+        this.setTableData(newData);
     }
 
     public idFieldNameChanged(
@@ -84,7 +90,7 @@ export class Table<
     ): void {
         // Force TanStack to detect a data update because a row's ID is only
         // generated when creating a new row model.
-        this.trySetData([...this.data]);
+        this.setTableData(this.table.options.data);
     }
 
     public override connectedCallback(): void {
@@ -96,35 +102,22 @@ export class Table<
         this.virtualizer.disconnectedCallback();
     }
 
-    public dataChanged(
-        prev: TData[] | undefined,
-        next: TData[] | undefined
-    ): void {
-        if ((!prev || prev.length === 0) && next && next.length > 0) {
-            this.generateColumns();
-        }
-
-        // Ignore any updates that occur prior to the TanStack table being initialized.
-        if (this.tableInitialized) {
-            this.trySetData(this.data);
-        }
-    }
-
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
     }
 
-    private trySetData(newData: TData[]): void {
-        const areIdsValid = this.tableValidator.validateRecordIds(
-            newData,
-            this.idFieldName
-        );
+    private setTableData(newData: readonly TData[]): void {
+        const data = newData.map(record => {
+            return { ...record };
+        });
+        this.tableValidator.validateRecordIds(data, this.idFieldName);
+        this.canRenderRows = this.checkValidity();
 
         const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
             ? undefined
             : (record: TData) => record[this.idFieldName!] as string;
         this.updateTableOptions({
-            data: areIdsValid ? newData : [],
+            data,
             getRowId: getRowIdFunction
         });
     }
@@ -165,12 +158,12 @@ export class Table<
 
     // Generate columns for TanStack that correspond to all the keys in TData because all operations,
     // such as grouping and sorting, will be performed on the data's records, not the values rendered within a cell.
-    private generateColumns(): void {
-        if (this.data.length === 0) {
+    private generateTanStackColumns(data: readonly TData[]): void {
+        if (data.length === 0) {
             return;
         }
 
-        const firstItem = this.data[0]!;
+        const firstItem = data[0]!;
         const keys = Object.keys(firstItem);
         const generatedColumns = keys.map(key => {
             const columnDef: TanStackColumnDef<TData> = {

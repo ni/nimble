@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 27 Jan 2023 15:05:13 GMT",
+      "tag": "@ni/nimble-angular_v16.0.2",
+      "version": "16.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "f19bf610f46683eae4c80f2bdd5967d76e63124a",
+            "comment": "Create `setData()` function on the table rather than having a `data` property. Expose a `data$` observable on the Table directive."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.0.2",
+            "commit": "f19bf610f46683eae4c80f2bdd5967d76e63124a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Jan 2023 19:17:59 GMT",
       "tag": "@ni/nimble-angular_v16.0.1",
       "version": "16.0.1",

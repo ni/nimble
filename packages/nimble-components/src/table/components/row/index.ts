@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
@@ -13,6 +13,11 @@ declare global {
     interface HTMLElementTagNameMap {
         'nimble-table-row': TableRow;
     }
+}
+
+export interface ColumnState {
+    column: TableColumn;
+    cellState: TableCellState;
 }
 
 /**
@@ -31,27 +36,32 @@ export class TableRow<
     @observable
     public columns: TableColumn[] = [];
 
-    public getCellState(column: TableColumn): TableCellState {
-        const fieldNames = column.getDataRecordFieldNames();
-        if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
-            const cellDataValues = fieldNames.map(
-                field => this.dataRecord![field]
-            );
-            const cellRecord = Object.fromEntries(
-                column.cellRecordFieldNames.map((k, i) => [
-                    k,
-                    cellDataValues[i]
-                ])
-            );
-            const columnConfig = column.getColumnConfig?.() ?? {};
-            const cellState: TableCellState = {
-                cellRecord,
-                columnConfig
-            };
-            return cellState;
-        }
+    @volatile
+    public get columnStates(): ColumnState[] {
+        return this.columns.map(column => {
+            const fieldNames = column.getDataRecordFieldNames();
+            let cellState: TableCellState;
+            if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
+                const cellDataValues = fieldNames.map(
+                    field => this.dataRecord![field]
+                );
+                const cellRecord = Object.fromEntries(
+                    column.cellRecordFieldNames.map((k, i) => [
+                        k,
+                        cellDataValues[i]
+                    ])
+                );
+                const columnConfig = column.getColumnConfig?.() ?? {};
+                cellState = {
+                    cellRecord,
+                    columnConfig
+                };
+            } else {
+                cellState = { cellRecord: {}, columnConfig: {} };
+            }
 
-        return { cellRecord: {}, columnConfig: {} };
+            return { column, cellState };
+        });
     }
 
     private hasValidFieldNames(

@@ -60,7 +60,7 @@ describe('Table', () => {
     // The assumption being made here is that the values in the data are equal to their
     // rendered representation (no formatting).
     function retrieveExpectedData(
-        tableData: SimpleTableRecord[]
+        tableData: readonly SimpleTableRecord[]
     ): TableRecord[] {
         const expectedData: TableRecord[] = [];
         for (const rowData of tableData) {
@@ -75,7 +75,7 @@ describe('Table', () => {
         return expectedData;
     }
 
-    function verifyRenderedData(visibleElementDataSubset = element.data): void {
+    function verifyRenderedData(visibleElementDataSubset: readonly SimpleTableRecord[] = element.data): void {
         const visibleData = retrieveExpectedData(visibleElementDataSubset);
         const expectedRowCount = visibleData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
@@ -119,7 +119,7 @@ describe('Table', () => {
     it('should render column headers', async () => {
         await connect();
 
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedHeaderCount()).toEqual(
@@ -137,29 +137,27 @@ describe('Table', () => {
     });
 
     it('can set data before the element is connected', async () => {
-        const data = [...simpleTableData];
-        element.data = data;
+        element.setData(simpleTableData);
         await connect();
         await waitForUpdatesAsync();
 
-        verifyRenderedData();
+        verifyRenderedData(simpleTableData);
     });
 
     it('can set data after the element is connected', async () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const data = [...simpleTableData];
-        element.data = data;
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
-        verifyRenderedData();
+        verifyRenderedData(simpleTableData);
     });
 
     it('updating data can add a new row to the table', async () => {
         await connect();
 
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const updatedData: SimpleTableRecord[] = [
@@ -170,32 +168,32 @@ describe('Table', () => {
                 moreStringData: 'foo'
             }
         ];
-        element.data = updatedData;
+        element.setData(updatedData);
         await waitForUpdatesAsync();
 
-        verifyRenderedData();
+        verifyRenderedData(updatedData);
     });
 
     it('updating data can remove rows from the table', async () => {
         await connect();
 
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const updatedData: SimpleTableRecord[] = [
             simpleTableData[0],
             simpleTableData[2]
         ];
-        element.data = updatedData;
+        element.setData(updatedData);
         await waitForUpdatesAsync();
 
-        verifyRenderedData();
+        verifyRenderedData(updatedData);
     });
 
     it('updating data can reorder rows from the table', async () => {
         await connect();
 
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const updatedData: SimpleTableRecord[] = [
@@ -203,15 +201,79 @@ describe('Table', () => {
             simpleTableData[2],
             simpleTableData[0]
         ];
-        element.data = updatedData;
+        element.setData(updatedData);
         await waitForUpdatesAsync();
 
-        verifyRenderedData();
+        verifyRenderedData(updatedData);
+    });
+
+    it('can update to have empty array of data', async () => {
+        await connect();
+
+        element.setData(simpleTableData);
+        await waitForUpdatesAsync();
+
+        element.setData([]);
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedRowCount()).toBe(0);
+    });
+
+    it('updating data already assigned to the table does not update the table', async () => {
+        await connect();
+
+        const tableData: SimpleTableRecord[] = [...simpleTableData];
+        element.setData(tableData);
+        await waitForUpdatesAsync();
+
+        tableData.push({
+            stringData: 'another record',
+            moreStringData: 'with more data',
+            numericData: 0
+        });
+        await waitForUpdatesAsync();
+
+        verifyRenderedData(simpleTableData);
+    });
+
+    it('can update a record without making a copy of the data', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        const data: SimpleTableRecord[] = [...simpleTableData];
+        element.setData(data);
+        await waitForUpdatesAsync();
+        verifyRenderedData(data);
+
+        const currentFieldValue = data[0]!.stringData;
+        data[0]!.stringData = `${currentFieldValue} - updated value`;
+        element.setData(data);
+        await waitForUpdatesAsync();
+        verifyRenderedData(data);
+    });
+
+    it('can update the rendered rows by pushing a new record', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        const data: SimpleTableRecord[] = [...simpleTableData];
+        element.setData(data);
+        await waitForUpdatesAsync();
+        verifyRenderedData(data);
+
+        data.push({
+            stringData: 'hello world 123',
+            moreStringData: 'foo bar baz',
+            numericData: 9999
+        });
+        element.setData(data);
+        await waitForUpdatesAsync();
+        verifyRenderedData(data);
     });
 
     it('adding column to end renders data for column at end of row', async () => {
         await connect();
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const dateColumn = new TableColumnText();
@@ -221,12 +283,12 @@ describe('Table', () => {
         await waitForUpdatesAsync();
         expect(element.columns[element.columns.length - 1]).toBe(dateColumn);
 
-        verifyRenderedData();
+        verifyRenderedData(simpleTableData);
     });
 
     it('adding column to front renders data for column at front of row', async () => {
         await connect();
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const dateColumn = new TableColumnText();
@@ -236,54 +298,54 @@ describe('Table', () => {
         await waitForUpdatesAsync();
         expect(element.columns[0]).toBe(dateColumn);
 
-        verifyRenderedData();
+        verifyRenderedData(simpleTableData);
     });
 
     describe('record IDs', () => {
         it('setting ID field uses field value for ID', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'stringData';
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRecordIDs(data.map(x => x.stringData));
+            verifyRecordIDs(simpleTableData.map(x => x.stringData));
         });
 
         it('not setting ID field uses generated ID', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRecordIDs(data.map((_, index: number) => index.toString()));
+            verifyRecordIDs(
+                simpleTableData.map((_, index: number) => index.toString())
+            );
         });
 
         it('row IDs update when id-field-name attribute is updated', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
             element.idFieldName = 'stringData';
             await waitForUpdatesAsync();
-            verifyRecordIDs(data.map(x => x.stringData));
+            verifyRecordIDs(simpleTableData.map(x => x.stringData));
 
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
-            verifyRecordIDs(data.map((_, index: number) => index.toString()));
+            verifyRecordIDs(
+                simpleTableData.map((_, index: number) => index.toString())
+            );
         });
     });
 
     describe('ID validation', () => {
         it('setting valid field for ID is valid and renders rows', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'stringData';
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRenderedData();
+            verifyRenderedData(simpleTableData);
             expect(element.checkValidity()).toBeTrue();
             expect(element.validity.duplicateRecordId).toBeFalse();
             expect(element.validity.invalidRecordId).toBeFalse();
@@ -291,8 +353,7 @@ describe('Table', () => {
         });
 
         it('setting invalid field for ID  is invalid and renders no rows', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'numericData';
             await connect();
             await waitForUpdatesAsync();
@@ -305,8 +366,7 @@ describe('Table', () => {
         });
 
         it('setting ID field name to undefined makes an invalid table valid', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'missingFieldName';
             await connect();
 
@@ -316,13 +376,12 @@ describe('Table', () => {
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
 
-            verifyRenderedData();
+            verifyRenderedData(simpleTableData);
             expect(element.checkValidity()).toBeTrue();
         });
 
         it('setting a valid ID field name makes an invalid table valid', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'missingFieldName';
             await connect();
 
@@ -332,18 +391,17 @@ describe('Table', () => {
             element.idFieldName = 'stringData';
             await waitForUpdatesAsync();
 
-            verifyRenderedData();
+            verifyRenderedData(simpleTableData);
             expect(element.checkValidity()).toBeTrue();
         });
 
         it('setting invalid ID field name on valid table makes it invalid', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'stringData';
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRenderedData();
+            verifyRenderedData(simpleTableData);
             expect(element.checkValidity()).toBeTrue();
 
             element.idFieldName = 'missingFieldName';
