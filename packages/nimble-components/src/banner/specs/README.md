@@ -20,7 +20,7 @@ The banner is a component used to display a persistent notification to a user.
 
 -   Optionally dismissable
 -   Optional link or button (only 1) to perform an action/navigation
--   Distinct designs for banners of type Error, Warning, Info, or Neutral
+-   Distinct designs for banners of severity Error, Warning, Info, or Default
 
 ### Risks and Challenges
 
