@@ -77,7 +77,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public canvasSideLength?: number;
+    @observable public canvasSideLength: number = 0;
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorScale = {
@@ -90,7 +90,7 @@ export class WaferMap extends FoundationElement {
     // }
 
     private renderQueued = false;
-    private renderer?: RenderingModule;
+    private eventHandler?: EventHandler;
     private resizeObserver?: ResizeObserver;
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -119,6 +119,10 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
 
+    private clearCanvas(width: number, height: number): void {
+        const context = this.canvas.getContext('2d')!;
+        context.clearRect(0, 0, width, height);
+    }
     
     public render(): void {
         this.renderQueued = false;
@@ -128,7 +132,7 @@ export class WaferMap extends FoundationElement {
         ) {
             return;
         }
-        this.renderer?.clearCanvas(
+        this.clearCanvas(
             this.canvasSideLength,
             this.canvasSideLength
         );
@@ -146,12 +150,10 @@ export class WaferMap extends FoundationElement {
             this.maxCharacters
         );
 
-        this.renderer = new RenderingModule(dataManager, this.canvas);
-
-        const eventHandler = new EventHandler(this.parseWaferDataToEventData(dataManager));
-        eventHandler.attachEvents(this);
-
-        this.renderer.drawWafer();
+        const renderer = new RenderingModule(dataManager, this.canvas);
+        this.eventHandler = new EventHandler(this.parseWaferDataToEventData(dataManager, renderer, this));
+        this.eventHandler.attachEvents(this);
+        renderer.drawWafer();
     }
 
     private quadrantChanged(): void {
@@ -212,21 +214,21 @@ export class WaferMap extends FoundationElement {
         }
     }
 
-    private parseWaferDataToEventData(dataManager:DataManager):EventHandlerData {
+    private parseWaferDataToEventData(dataManager:DataManager, renderer:RenderingModule, wafermap:WaferMap):EventHandlerData {
 
         const zoomHandlerData:ZoomHandlerData = {
-            canvas:this.canvas,
-            zoomContainer: this.zoomContainer,
-            containerDimensions:dataManager.containerDimensions,
-            canvasLength: this.canvasSideLength!,
-            renderModule: this.renderer!
+            canvas: wafermap.canvas,
+            zoomContainer: wafermap.zoomContainer,
+            containerDimensions: dataManager.containerDimensions,
+            canvasLength: wafermap.canvasSideLength,
+            renderModule: renderer
         };
 
         const hoverHandlerData:HoverHandlerData = {
-            canvas:this.canvas,
-            rect: this.rect,
-            dataManager:dataManager,
-            quadrant: this.quadrant
+            canvas:wafermap.canvas,
+            rect: wafermap.rect,
+            dataManager: dataManager,
+            quadrant: wafermap.quadrant
         }
 
         return {zoomHandlerData, hoverHandlerData}
