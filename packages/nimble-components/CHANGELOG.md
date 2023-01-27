@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 27 Jan 2023 15:05:13 GMT and should not be manually modified.
+This log was last generated on Fri, 27 Jan 2023 20:53:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.0.3
+
+Fri, 27 Jan 2023 20:53:57 GMT
+
+### Patches
+
+- Add virtualization to table ([ni/nimble@c334239](https://github.com/ni/nimble/commit/c334239a606b1b0920c389592ac840182ec8a882))
 
 ## 18.0.2
 
