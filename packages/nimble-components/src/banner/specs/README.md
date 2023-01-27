@@ -38,7 +38,7 @@ The banner is a standalone component that spans the width of its containing elem
 
 In this initial implementation, we will not limit the height of the banner. It will grow to fit the text that it is given.
 
-When the user presses the dismiss button, we will hide the banner (`display:none`) and fire a `close` event.
+When the user presses the dismiss button, we will hide the banner (`display:none`) and fire a `toggle` event.
 
 ### API
 
