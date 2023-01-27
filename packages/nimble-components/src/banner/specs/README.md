@@ -38,7 +38,7 @@ The banner is a standalone component that spans the width of its containing elem
 
 In this initial implementation, we will not limit the height of the banner. It will grow to fit the text that it is given.
 
-When the user presses the close button, we will hide the banner (`display:none`) and fire a `close` event.
+When the user presses the dismiss button, we will hide the banner (`display:none`) and fire a `close` event.
 
 ### API
 
@@ -47,10 +47,10 @@ _The key elements of the component's public API surface:_
 -   _Component Name_: `nimble-banner`
 -   _Props/Attrs_:
     -   `open` - whether the banner is visible or not
-    -   `prevent-dismiss` - set to hide the close button (attr name taken from Nimble dialog)
+    -   `prevent-dismiss` - set to hide the dismiss button (attr name taken from Nimble dialog)
     -   `severity` - one of `error`, `warning`, `info`, or undefined (default)
     -   `title-hidden` - set to hide the title text, which should always be provided for a11y reasons
-    -   `close-button-title` - a localized title to give the close button (for a11y purposes)
+    -   `dismiss-button-label` - a localized label to give the dismiss button (for a11y purposes)
 -   _Methods_
 -   _Events_
     -   `toggle` - fired when the banner is closed or opened. Event has `newState` and `oldState`.
@@ -60,7 +60,33 @@ _The key elements of the component's public API surface:_
     -   `action` - for the action button/link
 -   _CSS Classes and CSS Custom Properties that affect the component_
 
-We only formally support spans of text in the `title` and default slots, but we will not explicitly prevent other HTML from being slotted there. The `action` slot only expects `nimble-button` or `nimble-anchor`, and we will use the CSS `::slotted()` pseudo-element to remove all but those two element types. We will not explicitly prevent multiple elements from being slotted in the `action` slot, though we formally only support one.
+We only formally support spans of text in the `title` and default slots, but we will not explicitly prevent other HTML from being slotted there. The `action` slot only supports a single `nimble-button` or `nimble-anchor`, but again, we will not do anything to enforce this.
+
+### Examples
+
+```html
+<nimble-banner severity="info" dismiss-button-label="Close">
+    <span slot="title">License Expiring</span>
+    Your license will expire at the end of the month. To renew, go to
+    ni.com/renew.
+    <nimble-anchor slot="action" href="...">Renew my license</nimble-anchor>
+</nimble-banner>
+```
+
+```html
+<nimble-banner severity="error" dismiss-button-label="Close">
+    <span slot="title">Authentication Failed</span>
+    Could not authenticate. Please re-enter your credentials from Settings.
+    <nimble-button slot="action">Open Settings</nimble-button>
+</nimble-banner>
+```
+
+```html
+<nimble-banner title-hidden prevent-dismiss>
+    <span slot="title">Demo mode message</span>
+    You are operating in demo mode. Some features will not be available.
+</nimble-banner>
+```
 
 ### Anatomy
 
@@ -127,7 +153,7 @@ N/A
 _Consider the accessibility of the component, including:_
 
 -   _Keyboard Navigation and Focus_
-    -   the action button/link and the close button will be focusable tab stops
+    -   the action button/link and the dismiss button will be focusable tab stops
 -   _Form Input_
     -   N/A
 -   _Use with Assistive Technology_
