@@ -75,8 +75,10 @@ describe('Table', () => {
         return expectedData;
     }
 
-    function verifyRenderedData(visibleElementDataSubset: readonly SimpleTableRecord[] = element.data): void {
-        const visibleData = retrieveExpectedData(visibleElementDataSubset);
+    function verifyRenderedData(
+        visibleTableDataSubset: readonly SimpleTableRecord[]
+    ): void {
+        const visibleData = retrieveExpectedData(visibleTableDataSubset);
         const expectedRowCount = visibleData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
@@ -417,7 +419,7 @@ describe('Table', () => {
             await connect();
 
             const data = [...largeTableData];
-            element.data = data;
+            element.setData(data);
             await waitForUpdatesAsync();
 
             const actualRowCount = pageObject.getRenderedRowCount();
@@ -435,7 +437,7 @@ describe('Table', () => {
             await connect();
 
             const data = [...largeTableData];
-            element.data = data;
+            element.setData(data);
             await waitForUpdatesAsync();
             await pageObject.scrollToLastRowAsync();
 
@@ -449,7 +451,7 @@ describe('Table', () => {
             await connect();
 
             const data = [...largeTableData];
-            element.data = data;
+            element.setData(data);
             await waitForUpdatesAsync();
 
             const originalRenderedRowCount = pageObject.getRenderedRowCount();
