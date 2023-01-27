@@ -34,7 +34,7 @@ jobs:
           cache: 'npm'
       # Specify npm version
       # See: https://github.com/actions/setup-node/issues/529
-      - run: npm i -g npm@9
+      - run: npm i -g npm@8
       - run: npm ci
 
       # Audit
