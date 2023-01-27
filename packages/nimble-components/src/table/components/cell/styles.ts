@@ -9,6 +9,7 @@ export const styles = css`
         padding: 0px calc(${standardPadding} / 2);
         align-self: center;
         height: 100%;
+        grid-template-columns: 1fr auto;
     }
 
     .cell-content-container {

@@ -15,4 +15,16 @@ export const styles = css`
         grid-auto-flow: column;
         grid-auto-columns: 1fr;
     }
+
+    nimble-table-cell::part(action-menu) {
+        display: none;
+    }
+
+    nimble-table-cell.menu-open::part(action-menu) {
+        display: initial;
+    }
+
+    :host(:hover) nimble-table-cell::part(action-menu) {
+        display: initial;
+    }
 `;

@@ -96,7 +96,7 @@ const metadata: Meta<TableArgs> = {
                 'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
         },
         actions: {
-            handles: []
+            handles: ['action-menu-beforetoggle', 'action-menu-toggle']
         }
     },
     // prettier-ignore
@@ -110,10 +110,23 @@ const metadata: Meta<TableArgs> = {
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.tableRef.setData(dataSets[x.data])}"
         >
-            <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="firstName" placeholder="no value" action-menu-slot="name-menu" action-menu-label="Configure name">First Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="lastName" placeholder="no value" action-menu-slot="name-menu" action-menu-label="Configure name">Last Name</nimble-table-column-text>
             <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
-            <nimble-table-column-text field-name="quote" placeholder="no value">Quote</nimble-table-column-text>
+            <nimble-table-column-text field-name="quote" placeholder="no value" action-menu-slot="quote-menu" action-menu-label="Configure quote">Quote</nimble-table-column-text>
+
+            <nimble-menu slot="name-menu">
+                <nimble-menu-item>Edit name</nimble-menu-item>
+                <nimble-menu-item>Delete person</nimble-menu-item>
+                <nimble-menu-item>Archive person</nimble-menu-item>
+                <nimble-menu-item>Duplicate person</nimble-menu-item>
+            </nimble-menu>
+
+            <nimble-menu slot="quote-menu">
+                <nimble-menu-item>Edit quote</nimble-menu-item>
+                <nimble-menu-item>Delete quote</nimble-menu-item>
+                <nimble-menu-item>Do something else with the quote</nimble-menu-item>
+            </nimble-menu>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {

@@ -13,7 +13,7 @@ import type { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableRecord, TableRowState, TableValidity } from './types';
+import type { TableActionMenuToggleEventDetail, TableRecord, TableRowState, TableValidity } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -38,6 +38,18 @@ export class Table<
 
     @observable
     public readonly columns: TableColumn[] = [];
+
+    @observable
+    /**
+     * @internal
+     */
+    public actionMenuSlots: string[] = [];
+
+    @observable
+    /**
+     * @internal
+     */
+    public openActionMenuRecordId?: string;
 
     /**
      * @internal
@@ -83,6 +95,29 @@ export class Table<
 
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
+    }
+
+    public onRowActionMenuBeforeToggle(event: CustomEvent): void {
+        const eventDetail = event.detail as TableActionMenuToggleEventDetail;
+        this.openActionMenuRecordId = eventDetail.recordIds[0];
+        this.$emit('action-menu-beforetoggle', event.detail);
+    }
+
+    public onRowActionMenuToggle(event: CustomEvent): void {
+        this.$emit('action-menu-toggle', event.detail);
+    }
+
+    private columnsChanged(
+        _prev: TableColumn[] | undefined,
+        _next: TableColumn[] | undefined
+    ): void {
+        const slots = new Set<string>();
+        for (const column of this.columns) {
+            if (column.actionMenuSlot) {
+                slots.add(column.actionMenuSlot);
+            }
+        }
+        this.actionMenuSlots = Array.from(slots);
     }
 
     private setTableData(newData: readonly TData[]): void {

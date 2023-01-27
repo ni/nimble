@@ -49,6 +49,7 @@ export const styles = css`
         width: 100%;
         height: 100%;
         position: absolute;
+        pointer-events: none;
     }
 
     .row:hover::before {
@@ -64,6 +65,7 @@ export const styles = css`
                 height: 100%;
                 position: absolute;
                 background: ${fillHoverColor};
+                pointer-events: none;
             }
 
             .row::before {

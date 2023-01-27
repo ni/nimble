@@ -3,11 +3,13 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type {
+    TableActionMenuToggleEventDetail,
     TableCellState,
     TableDataRecord,
     TableFieldName
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
+import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -36,6 +38,12 @@ export class TableRow<
     @observable
     public columns: TableColumn[] = [];
 
+    @observable
+    public currentActionMenuColumn?: TableColumn;
+
+    @observable
+    public menuIsOpen = false;
+
     @volatile
     public get columnStates(): ColumnState[] {
         return this.columns.map(column => {
@@ -62,6 +70,27 @@ export class TableRow<
 
             return { column, cellState };
         });
+    }
+
+    public onCellActionMenuBeforeToggle(event: CustomEvent, column: TableColumn): void {
+        this.currentActionMenuColumn = column;
+        this.emitToggleEvent('row-action-menu-beforetoggle', event.detail as MenuButtonToggleEventDetail, column);
+    }
+
+    public onCellActionMenuToggle(event: CustomEvent, column: TableColumn): void {
+        const menuButtonEventDetail = event.detail as MenuButtonToggleEventDetail;
+        this.menuIsOpen = menuButtonEventDetail.newState;
+        this.emitToggleEvent('row-action-menu-toggle', menuButtonEventDetail, column);
+    }
+
+    private emitToggleEvent(eventType: string, menuButtonEventDetail: MenuButtonToggleEventDetail, column: TableColumn): void {
+        const detail: TableActionMenuToggleEventDetail = {
+            newState: menuButtonEventDetail.newState,
+            oldState: menuButtonEventDetail.oldState,
+            recordIds: [this.recordId || ''],
+            columnTarget: column
+        };
+        this.$emit(eventType, detail);
     }
 
     private hasValidFieldNames(

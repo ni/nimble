@@ -1,4 +1,5 @@
 import type { ElementStyles, ViewTemplate } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type {
     TableCellRecord,
@@ -13,6 +14,12 @@ export abstract class TableColumn<
     TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > extends FoundationElement {
+    @attr({ attribute: 'action-menu-slot' })
+    public actionMenuSlot? = '';
+
+    @attr({ attribute: 'action-menu-label' })
+    public actionMenuLabel? = '';
+
     /**
      * The template to use to render the cell content for the column
      */

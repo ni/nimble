@@ -6,6 +6,7 @@ import {
     ViewTemplate
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import type { TableCellRecord, TableCellState } from '../../types';
 import { styles } from './styles';
 import { template } from './template';
@@ -32,6 +33,15 @@ export class TableCell<
     @observable
     public cellStyles?: ElementStyles;
 
+    @observable
+    public hasActionMenu = false;
+
+    @observable
+    public menuIsOpen = false;
+
+    @observable
+    public actionMenuLabel?: string;
+
     /**
      * @internal
      */
@@ -45,6 +55,16 @@ export class TableCell<
             this.cellState,
             this.cellContentContainer
         );
+    }
+
+    public onActionMenuBeforeToggle(event: CustomEvent): void {
+        this.$emit('cell-action-menu-beforetoggle', event.detail);
+    }
+
+    public onActionMenuToggle(event: CustomEvent): void {
+        const detail = event.detail as MenuButtonToggleEventDetail;
+        this.menuIsOpen = detail.newState;
+        this.$emit('cell-action-menu-toggle', event.detail);
     }
 
     protected cellStateChanged(): void {
