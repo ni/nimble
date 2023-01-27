@@ -75,7 +75,7 @@ describe('Nimble table', () => {
             expect(spy).toHaveBeenCalledOnceWith(data);
         });
 
-        it('changing bound `data$` observable unsubscribe from the original observable', () => {
+        it('changing bound `data$` observable unsubscribes from the original observable', () => {
             fixture.componentInstance.data$ = new Observable<SimpleRecord[]>();
             fixture.detectChanges();
 
