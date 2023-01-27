@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 27 Jan 2023 20:53:57 GMT",
+      "tag": "@ni/nimble-components_v18.0.3",
+      "version": "18.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c334239a606b1b0920c389592ac840182ec8a882",
+            "comment": "Add virtualization to table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 27 Jan 2023 15:05:13 GMT",
       "tag": "@ni/nimble-components_v18.0.2",
       "version": "18.0.2",
