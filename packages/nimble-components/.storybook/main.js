@@ -1,8 +1,6 @@
-const CircularDependencyPlugin = require('circular-dependency-plugin');
-
 module.exports = {
     core: {
-        builder: 'webpack5'
+        builder: '@storybook/builder-vite'
     },
     stories: ['../src/**/*.stories.@(ts|mdx)', '../docs/**/*.stories.mdx'],
     addons: [
@@ -19,27 +17,6 @@ module.exports = {
     features: {
         previewCsfV3: true,
         previewMdx2: true
-    },
-    webpackFinal: config => {
-        config.module.rules.push({
-            test: /\.ts$/,
-            use: [
-                {
-                    loader: require.resolve('ts-loader')
-                }
-            ]
-        });
-        config.plugins.push(
-            new CircularDependencyPlugin({
-                exclude: /node_modules/,
-                failOnError: process.env.NODE_ENV === 'production'
-            })
-        );
-        config.performance = {
-            hints: false
-        };
-
-        return config;
     },
     staticDirs: ['public']
 };

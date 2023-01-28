@@ -39,6 +39,7 @@ describe('AnchorTabs', () => {
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
+        await connect();
     });
 
     afterEach(async () => {
@@ -51,41 +52,34 @@ describe('AnchorTabs', () => {
         );
     });
 
-    it('should set the "tablist" class on the internal div', async () => {
-        await connect();
+    it('should set the "tablist" class on the internal div', () => {
         expect(element.tablist.classList.contains('tablist')).toBeTrue();
     });
 
-    it('should set the `part` attribute to "tablist" on the internal div', async () => {
-        await connect();
+    it('should set the `part` attribute to "tablist" on the internal div', () => {
         expect(element.tablist.part.contains('tablist')).toBeTrue();
     });
 
-    it('should set the `role` attribute to "tablist" on the internal div', async () => {
-        await connect();
+    it('should set the `role` attribute to "tablist" on the internal div', () => {
         expect(element.tablist.getAttribute('role')).toBe('tablist');
     });
 
-    it('should have a slots named "start", "anchortab", and "end", in that order', async () => {
-        await connect();
+    it('should have a slots named "start", "anchortab", and "end", in that order', () => {
         const slots = element.shadowRoot?.querySelectorAll('slot');
         expect(slots![0]?.getAttribute('name')).toBe('start');
         expect(slots![1]?.getAttribute('name')).toBe('anchortab');
         expect(slots![2]?.getAttribute('name')).toBe('end');
     });
 
-    it('should assign tab id when unspecified', async () => {
-        await connect();
+    it('should assign tab id when unspecified', () => {
         expect(tab(0).id).toBeDefined();
     });
 
-    it('should set activeid property from attribute value', async () => {
-        await connect();
+    it('should set activeid property from attribute value', () => {
         expect(element.activeid).toBe('tab-2');
     });
 
-    it('should populate tabs array with anchor tabs', async () => {
-        await connect();
+    it('should populate tabs array with anchor tabs', () => {
         expect(element.tabs.length).toBe(3);
         expect(element.tabs[0]?.nodeName.toLowerCase()).toBe(
             'nimble-anchor-tab'
@@ -98,32 +92,27 @@ describe('AnchorTabs', () => {
         );
     });
 
-    it('should set activetab property based on activeid', async () => {
-        await connect();
+    it('should set activetab property based on activeid', () => {
         expect(element.activetab).toBeDefined();
         expect(element.activetab).toBe(tab(1));
     });
 
-    it('should set aria-selected on active tab', async () => {
-        await connect();
+    it('should set aria-selected on active tab', () => {
         expect(element.activetab?.ariaSelected).toBe('true');
     });
 
-    it('should update activetab when activeid is changed', async () => {
-        await connect();
+    it('should update activetab when activeid is changed', () => {
         element.activeid = 'tab-3';
         expect(element.activetab).toBe(tab(2));
     });
 
     it('should clear activetab when active tab is removed', async () => {
-        await connect();
         tab(1).remove();
         await DOM.nextUpdate();
         expect(element.activetab).toBeUndefined();
     });
 
     it('should keep activetab when active tab is disabled', async () => {
-        await connect();
         tab(1).disabled = true;
         await DOM.nextUpdate();
         expect(element.activetab).toBe(tab(1));
@@ -240,7 +229,6 @@ describe('AnchorTabs', () => {
     });
 
     it('should skip past other tabs when pressing tab key after click', async () => {
-        await connect();
         tab(1).focus();
         tab(1).dispatchEvent(new Event('click'));
         await DOM.nextUpdate();
@@ -252,7 +240,6 @@ describe('AnchorTabs', () => {
     });
 
     it('should skip past other tabs when pressing tab key after arrow key', async () => {
-        await connect();
         tab(1).focus();
         await DOM.nextUpdate();
         document.activeElement!.dispatchEvent(
@@ -267,7 +254,6 @@ describe('AnchorTabs', () => {
     });
 
     it('should update tabindex values on tab click', async () => {
-        await connect();
         expect(tab(0).tabIndex).toBe(-1);
         expect(tab(1).tabIndex).toBe(0);
         expect(tab(2).tabIndex).toBe(-1);
@@ -279,7 +265,6 @@ describe('AnchorTabs', () => {
     });
 
     it('should turn tab Space key press into click on inner anchor element', async () => {
-        await connect();
         let timesClicked = 0;
         anchor(0).addEventListener('click', () => {
             timesClicked += 1;
@@ -290,7 +275,6 @@ describe('AnchorTabs', () => {
     });
 
     it('should turn tab Enter key press into click on inner anchor element', async () => {
-        await connect();
         let timesClicked = 0;
         anchor(0).addEventListener('click', () => {
             timesClicked += 1;
