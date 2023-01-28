@@ -32,12 +32,14 @@ module.exports = config => {
             'karma-chrome-launcher',
             'karma-firefox-launcher'
         ],
-        files: [{
-            pattern: 'src/**/*.spec.ts',
-            type: 'module',
-            watched: false,
-            served: false,
-        }],
+        files: [
+            {
+                pattern: 'src/**/*.spec.ts',
+                type: 'module',
+                watched: false,
+                served: false
+            }
+        ],
         reporters: ['kjhtml'],
         browsers: ['ChromeHeadlessOpt'],
         customLaunchers: {
