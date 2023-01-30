@@ -11,6 +11,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Banner',
@@ -77,6 +78,14 @@ export const bannerThemeMatrix: Story = createMatrixThemeStory(
         actionStates,
         preventDismissStates
     ])
+);
+
+export const textWrapBanner: Story = createStory(
+    html`<nimble-banner open severity="error">
+        <span slot="title">${loremIpsum.substring(0, 78)}</span>
+        ${loremIpsum}
+        <nimble-anchor slot="action" href="#">${loremIpsum.substring(0, 78)}</nimble-anchor>
+    </nimble-banner>`
 );
 
 export const hiddenBanner: Story = createStory(
