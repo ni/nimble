@@ -21,7 +21,13 @@ describe('NimbleTableColumnText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-text #column field-name="field1" placeholder="no value"></nimble-table-column-text>
+                    <nimble-table-column-text
+                        #column
+                        field-name="field1"
+                        placeholder="no value"
+                        action-menu-slot="my-slot"
+                        action-menu-label="my menu"
+                    ></nimble-table-column-text>
                 </nimble-table>
             `
         })
@@ -50,9 +56,19 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.fieldName).toBe('field1');
         });
 
-        it('cwill use template string values for placeholder', () => {
+        it('will use template string values for placeholder', () => {
             expect(directive.placeholder).toBe('no value');
             expect(nativeElement.placeholder).toBe('no value');
+        });
+
+        it('will use template string values for actionMenuSlot', () => {
+            expect(directive.actionMenuSlot).toBe('my-slot');
+            expect(nativeElement.actionMenuSlot).toBe('my-slot');
+        });
+
+        it('will use template string values for actionMenuLabel', () => {
+            expect(directive.actionMenuLabel).toBe('my menu');
+            expect(nativeElement.actionMenuLabel).toBe('my menu');
         });
     });
 
@@ -60,7 +76,13 @@ describe('NimbleTableColumnText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-text #column [field-name]="field" [placeholder]="placeholder"></nimble-table-column-text>
+                    <nimble-table-column-text
+                        #column
+                        [field-name]="field"
+                        [placeholder]="placeholder"
+                        [actionMenuSlot]="actionMenuSlot"
+                        [actionMenuLabel]="actionMenuLabel"
+                    ></nimble-table-column-text>
                 </nimble-table>
             `
         })
@@ -69,6 +91,8 @@ describe('NimbleTableColumnText', () => {
             @ViewChild('column', { read: ElementRef }) public elementRef: ElementRef<TableColumnText>;
             public field = 'field1';
             public placeholder = 'no value';
+            public actionMenuSlot = 'my-slot';
+            public actionMenuLabel = 'my menu';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -106,6 +130,28 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.placeholder).toBe('foo');
             expect(nativeElement.placeholder).toBe('foo');
+        });
+
+        it('can be configured with property binding for actionMenuSlot', () => {
+            expect(directive.actionMenuSlot).toBe('my-slot');
+            expect(nativeElement.actionMenuSlot).toBe('my-slot');
+
+            fixture.componentInstance.actionMenuSlot = 'new-slot';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuSlot).toBe('new-slot');
+            expect(nativeElement.actionMenuSlot).toBe('new-slot');
+        });
+
+        it('can be configured with property binding for actionMenuLabel', () => {
+            expect(directive.actionMenuLabel).toBe('my menu');
+            expect(nativeElement.actionMenuLabel).toBe('my menu');
+
+            fixture.componentInstance.actionMenuLabel = 'another menu';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuLabel).toBe('another menu');
+            expect(nativeElement.actionMenuLabel).toBe('another menu');
         });
     });
 
@@ -113,7 +159,13 @@ describe('NimbleTableColumnText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-text #column [attr.field-name]="field" [attr.placeholder]="placeholder"></nimble-table-column-text>
+                    <nimble-table-column-text
+                        #column
+                        [attr.field-name]="field"
+                        [attr.placeholder]="placeholder"
+                        [attr.action-menu-slot]="actionMenuSlot"
+                        [attr.action-menu-label]="actionMenuLabel"
+                    ></nimble-table-column-text>
                 </nimble-table>
             `
         })
@@ -122,6 +174,8 @@ describe('NimbleTableColumnText', () => {
             @ViewChild('column', { read: ElementRef }) public elementRef: ElementRef<TableColumnText>;
             public field = 'field1';
             public placeholder = 'no value';
+            public actionMenuSlot = 'my-slot';
+            public actionMenuLabel = 'my menu';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -159,6 +213,28 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.placeholder).toBe('foo');
             expect(nativeElement.placeholder).toBe('foo');
+        });
+
+        it('can be configured with property binding for actionMenuSlot', () => {
+            expect(directive.actionMenuSlot).toBe('my-slot');
+            expect(nativeElement.actionMenuSlot).toBe('my-slot');
+
+            fixture.componentInstance.actionMenuSlot = 'new-slot';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuSlot).toBe('new-slot');
+            expect(nativeElement.actionMenuSlot).toBe('new-slot');
+        });
+
+        it('can be configured with property binding for actionMenuLabel', () => {
+            expect(directive.actionMenuLabel).toBe('my menu');
+            expect(nativeElement.actionMenuLabel).toBe('my menu');
+
+            fixture.componentInstance.actionMenuLabel = 'another menu';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuLabel).toBe('another menu');
+            expect(nativeElement.actionMenuLabel).toBe('another menu');
         });
     });
 });

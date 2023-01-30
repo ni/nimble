@@ -20,6 +20,26 @@ export class NimbleTableColumnTextDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fieldName', value);
     }
 
+    public get actionMenuSlot(): string | undefined {
+        return this.elementRef.nativeElement.actionMenuSlot;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('action-menu-slot') public set actionMenuSlot(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'actionMenuSlot', value);
+    }
+
+    public get actionMenuLabel(): string | undefined {
+        return this.elementRef.nativeElement.actionMenuLabel;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('action-menu-label') public set actionMenuLabel(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'actionMenuLabel', value);
+    }
+
     public get placeholder(): string | undefined {
         return this.elementRef.nativeElement.placeholder;
     }
