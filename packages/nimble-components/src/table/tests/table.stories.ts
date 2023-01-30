@@ -13,6 +13,7 @@ interface TableArgs {
     validity: undefined;
     checkValidity: undefined;
     tableRef: Table;
+    updateData: (args: TableArgs) => void;
 }
 
 const simpleData = [
@@ -122,7 +123,7 @@ const metadata: Meta<TableArgs> = {
         <nimble-table
             ${ref('tableRef')}
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
-            data-unused="${x => x.tableRef.setData(dataSets[x.data])}"
+            data-unused="${x => x.updateData(x)}"
         >
             <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
             <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
@@ -171,6 +172,11 @@ const metadata: Meta<TableArgs> = {
             table: {
                 disable: true
             }
+        },
+        updateData: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
@@ -178,7 +184,15 @@ const metadata: Meta<TableArgs> = {
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
-        tableRef: undefined
+        tableRef: undefined,
+        updateData: x => {
+            void (async () => {
+                // Safari workaround: the table element instance is made at this point
+                // but doesn't seem to be upgraded to a custom element yet
+                await customElements.whenDefined('nimble-table');
+                x.tableRef.setData(dataSets[x.data]);
+            })();
+        }
     }
 };
 
