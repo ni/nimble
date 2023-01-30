@@ -69,6 +69,11 @@ nimble-drawer {
     }
 }
 
+nimble-table {
+    height: auto;
+    max-height: 480px;
+}
+
 .add-table-row-button {
     margin-top: $ni-nimble-standard-padding;
 }

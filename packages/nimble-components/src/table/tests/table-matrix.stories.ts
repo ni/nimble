@@ -11,6 +11,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
+import type { Table } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Table',
@@ -46,7 +47,7 @@ const data = [
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <nimble-table :data=${_ => data}>
+    <nimble-table>
         <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
         <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
         <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
@@ -56,6 +57,12 @@ const component = (): ViewTemplate => html`
 export const tableThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component)
 );
+
+tableThemeMatrix.play = (): void => {
+    document.querySelectorAll<Table>('nimble-table').forEach(table => {
+        table.setData(data);
+    });
+};
 
 export const hiddenTable: Story = createStory(
     hiddenWrapper(html`<nimble-table hidden></nimble-table>`)

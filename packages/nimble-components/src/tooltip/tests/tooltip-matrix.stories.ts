@@ -39,18 +39,18 @@ const textStates = [
     ['Short_Text', 'Hello'],
     ['Long_Text', loremIpsum]
 ] as const;
-type TextState = typeof textStates[number];
+type TextState = (typeof textStates)[number];
 
 const severityStates: [string, string | undefined][] = Object.entries(
     TooltipSeverity
 ).map(([key, value]) => [pascalCase(key), value]);
-type SeverityState = typeof severityStates[number];
+type SeverityState = (typeof severityStates)[number];
 
 const iconVisibleStates = [
     ['No_Icon', false],
     ['Icon_Visible', true]
 ] as const;
-type IconVisibleState = typeof iconVisibleStates[number];
+type IconVisibleState = (typeof iconVisibleStates)[number];
 
 const component = (
     [textName, text]: TextState,

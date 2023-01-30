@@ -98,11 +98,11 @@ export const styles = css`
         display: contents;
     }
 
-    slot[name='checked-indicator'] path {
+    slot[name='checked-indicator'] svg {
         fill: ${borderColor};
     }
 
-    :host([disabled]) slot[name='checked-indicator'] path {
+    :host([disabled]) slot[name='checked-indicator'] svg {
         fill: rgba(${borderRgbPartialColor}, 0.3);
     }
 
@@ -116,11 +116,11 @@ export const styles = css`
         display: contents;
     }
 
-    slot[name='indeterminate-indicator'] path {
+    slot[name='indeterminate-indicator'] svg {
         fill: ${borderColor};
     }
 
-    :host([disabled]) slot[name='indeterminate-indicator'] path {
+    :host([disabled]) slot[name='indeterminate-indicator'] svg {
         fill: rgba(${borderRgbPartialColor}, 0.3);
     }
 `;
