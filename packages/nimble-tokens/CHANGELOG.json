@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 30 Jan 2023 19:00:43 GMT",
+      "tag": "@ni/nimble-tokens_v4.4.0",
+      "version": "4.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "e1da13662d82fa41f81f038335e6a142355de29e",
+            "comment": "Nimble dependencies updated to latest"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Jan 2023 20:34:04 GMT",
       "tag": "@ni/nimble-tokens_v4.3.2",
       "version": "4.3.2",

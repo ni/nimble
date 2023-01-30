@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Nimble dependencies updated to latest",
-  "packageName": "@ni/nimble-blazor",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
