@@ -1,23 +1,12 @@
 /**
- * Types of banners.
+ * Severities of banners.
  * @public
  */
-export const BannerType = {
+export const BannerSeverity = {
     error: 'error',
     warning: 'warning',
     info: 'info',
-    default: 'neutral'
+    default: undefined
 } as const;
-export type BannerType =
-    typeof BannerType[keyof typeof BannerType];
-
-/**
- * Button appearances for the banner's action button.
- * @public
- */
-export const BannerActionButtonAppearance = {
-    ghost: 'ghost',
-    outline: 'outline'
-} as const;
-export type BannerActionButtonAppearance =
-    typeof BannerActionButtonAppearance[keyof typeof BannerActionButtonAppearance];
+export type BannerSeverity =
+    typeof BannerSeverity[keyof typeof BannerSeverity];

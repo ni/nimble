@@ -5,7 +5,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { BannerActionButtonAppearance, BannerType } from './types';
+import { BannerSeverity } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -17,23 +17,29 @@ declare global {
  * A nimble-styled banner.
  */
 export class Banner extends FoundationElement {
+    /**
+     * @public
+     * @description
+     * Whether the banner is visible or not
+     */
+    @attr({ mode: 'boolean' })
+    public open = false;
+
+    /**
+     * @public
+     * @description
+     * Severity of the banner's message
+     */
     @attr()
-    public heading?: string;
+    public severity: BannerSeverity = BannerSeverity.default;
 
-    @attr()
-    public type: BannerType = BannerType.default;
-
-    @attr()
-    public text?: string;
-
-    @attr({ attribute: 'action-text' })
-    public actionText?: string;
-
-    @attr({ attribute: 'action-href' })
-    public actionHref?: string;
-
-    @attr({ attribute: 'action-button-appearance' })
-    public actionButtonAppearance?: BannerActionButtonAppearance;
+    /**
+     * @public
+     * @description
+     * Whether the banner title is hidden
+     */
+    @attr({ attribute: 'title-hidden', mode: 'boolean' })
+    public titleHidden = false;
 
     /**
      * @public
@@ -43,8 +49,26 @@ export class Banner extends FoundationElement {
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
+    /**
+     * @public
+     * @description
+     * Label (not visible) for the dismiss button
+     */
+    @attr({ attribute: 'dismiss-button-label' })
+    public dismissButtonLabel?: string;
+
+    /**
+     * @internal
+     */
+    public openChanged(): void {
+        this.$emit('toggle', { oldState: !this.open, newState: this.open });
+    }
+
+    /**
+     * @internal
+     */
     public closeBanner(): void {
-        this.hidden = true;
+        this.open = false;
     }
 }
 

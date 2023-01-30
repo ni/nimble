@@ -3,13 +3,21 @@ import { display } from '@microsoft/fast-foundation';
 import { Black75, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 import {
+    actionRgbPartialColor,
     bodyFont,
+    borderHoverColor,
+    buttonLabelFontColor,
     failColor,
+    fillSelectedColor,
+    iconColor,
+    iconSize,
     informationColor,
+    linkActiveFontColor,
+    linkFontColor,
     warningColor
 } from '../theme-provider/design-tokens';
 import { MultivaluePropertyStyleSheetBehavior } from '../utilities/style/multivalue-property-stylesheet-behavior';
-import { BannerActionButtonAppearance, BannerType } from './types';
+import { BannerSeverity } from './types';
 
 export const styles = css`
     ${display('flex')}
@@ -19,6 +27,15 @@ export const styles = css`
         font: ${bodyFont};
         font-size: 12.8px;
         align-items: top;
+        overflow: hidden;
+        background: ${Black75};
+        color: ${White};
+        ${iconColor.cssCustomProperty}: rgba(255, 255, 255, 0.6);
+        ${borderHoverColor.cssCustomProperty}: transparent;
+    }
+
+    :host(:not([open])) {
+        display: none;
     }
 
     .icon {
@@ -26,6 +43,7 @@ export const styles = css`
         display: flex;
         justify-content: center;
         margin-top: 7px;
+        flex: 0 0 auto;
     }
 
     .text {
@@ -34,7 +52,7 @@ export const styles = css`
         margin-bottom: 7px;
     }
 
-    .heading {
+    ::slotted([slot="title"]) {
         font-weight: bold;
         padding-right: 8px;
         white-space: nowrap;
@@ -46,29 +64,29 @@ export const styles = css`
         justify-content: center;
     }
 
-    .action {
+    slot[name="action"] {
         display: flex;
         align-content: center;
     }
 
-    .action nimble-anchor {
-        --ni-nimble-link-font-color: ${White};
-        --ni-nimble-link-active-font-color: rgba(255, 255, 255, 0.6);
+    ::slotted(nimble-anchor[slot="action"]) {
+        ${linkFontColor.cssCustomProperty}: ${White};
+        ${linkActiveFontColor.cssCustomProperty}: rgba(255, 255, 255, 0.6);
         white-space: nowrap;
         margin-top: 7px;
     }
 
-    .action nimble-button {
+    ::slotted(nimble-button[slot="action"]) {
         height: 24px;
-        --ni-nimble-button-label-font-color: ${White};
-        --ni-nimble-fill-selected-color: rgba(255, 255, 255, 0.1);
-        --ni-nimble-border-hover-color: ${White};
+        ${buttonLabelFontColor.cssCustomProperty}: ${White};
+        ${fillSelectedColor.cssCustomProperty}: rgba(255, 255, 255, 0.2);
+        ${borderHoverColor.cssCustomProperty}: ${White};
         white-space: nowrap;
         margin-top: 4px;
     }
 
-    .action nimble-button:active {
-        background: rgba(255, 255, 255, 0.2);
+    ::slotted(nimble-button[slot="action"][appearance="outline"]) {
+        ${actionRgbPartialColor.cssCustomProperty}: ${White}
     }
 
     .close {
@@ -81,10 +99,10 @@ export const styles = css`
     .close nimble-button {
         height: 16px;
         width: 16px;
-        --ni-nimble-icon-size: 14px;
-        --ni-nimble-icon-color: ${White};
-        --ni-nimble-button-label-font-color: ${White};
-        --ni-nimble-fill-selected-color: rgba(255, 255, 255, 0.1);
+        ${iconSize.cssCustomProperty}: 14px;
+        ${iconColor.cssCustomProperty}: ${White};
+        ${buttonLabelFontColor.cssCustomProperty}: ${White};
+        ${fillSelectedColor.cssCustomProperty}: rgba(255, 255, 255, 0.1);
 
     }
 
@@ -93,63 +111,33 @@ export const styles = css`
     }
 `.withBehaviors(
     new MultivaluePropertyStyleSheetBehavior(
-        'type',
-        BannerType.error,
+        'severity',
+        BannerSeverity.error,
         css`
             :host {
                 background: ${failColor};
-                color: ${White};
-                --ni-nimble-icon-color: rgba(255, 255, 255, 0.6);
-                --ni-nimble-border-hover-color: transparent;
             }
         `
     ),
     new MultivaluePropertyStyleSheetBehavior(
-        'type',
-        BannerType.warning,
+        'severity',
+        BannerSeverity.warning,
         css`
             :host {
                 background: ${warningColor};
-                color: ${White};
-                --ni-nimble-icon-color: rgba(255, 255, 255, 0.6);
-                --ni-nimble-border-hover-color: transparent;
             }
         `
     ),
     new MultivaluePropertyStyleSheetBehavior(
-        'type',
-        BannerType.info,
+        'severity',
+        BannerSeverity.info,
         css`
             :host {
                 background: ${informationColor};
-                color: ${White};
-                --ni-nimble-icon-color: rgba(255, 255, 255, 0.6);
-                --ni-nimble-border-hover-color: transparent;
             }
 
             .icon {
-                --ni-nimble-icon-size: 18px;
-            }
-        `
-    ),
-    new MultivaluePropertyStyleSheetBehavior(
-        'type',
-        BannerType.default,
-        css`
-            :host {
-                background: ${Black75};
-                color: ${White};
-                --ni-nimble-icon-color: rgba(255, 255, 255, 0.6);
-                --ni-nimble-border-hover-color: transparent;
-            }
-        `
-    ),
-    new MultivaluePropertyStyleSheetBehavior(
-        'actionButtonAppearance',
-        BannerActionButtonAppearance.outline,
-        css`
-            .action nimble-button {
-                --ni-nimble-action-rgb-partial-color: ${White}
+                ${iconSize.cssCustomProperty}: 18px;
             }
         `
     )
