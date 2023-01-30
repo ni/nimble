@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 30 Jan 2023 19:33:59 GMT",
+      "tag": "@ni/nimble-components_v18.1.0",
+      "version": "18.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c48b2c4e06cbbdc8bba8aca6a0ca77751e5fef16",
+            "comment": "Safari workaround for table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 30 Jan 2023 19:00:43 GMT",
       "tag": "@ni/nimble-components_v18.1.0",
       "version": "18.1.0",
