@@ -1,4 +1,4 @@
-import { ScaleBand, ScaleQuantize, scaleQuantize } from 'd3-scale';
+import { ScaleBand, scaleQuantile, ScaleQuantile, ScaleQuantize, scaleQuantize } from 'd3-scale';
 import type { WaferMap } from '..';
 import { WaferMapDie, WaferMapQuadrant } from '../types';
 import type { DataManager } from './data-manager';
@@ -25,7 +25,7 @@ export class HoverHandler {
     public toggleHoverDie(hoverDie: HTMLElement, show: boolean, x = 0, y = 0): void {
         if (show) {
             hoverDie.setAttribute('transform', `translate(${x},${y})`);
-            hoverDie.setAttribute('opacity', '0.7');
+            hoverDie.setAttribute('opacity', '1');
         } else {
             hoverDie.setAttribute('opacity', '0');
             this._lastSelectedDie = undefined;
@@ -164,8 +164,12 @@ export class HoverHandler {
         return { x, y };
     }
 
-    private scaleBandInvert(scale: ScaleBand<number>): ScaleQuantize<number, number> {
-        // this should be worked on
-        return scaleQuantize().domain(scale.range().sort()).range(scale.domain());
+    private scaleBandInvert(scale: ScaleBand<number>): ScaleQuantile<number, number> {
+        const domain = scale.domain();
+        const range = scale.range();
+        if (range[0] > range[1]) {
+            domain.reverse();
+        }
+        return scaleQuantile().domain(range).range(domain);
     }
 }
