@@ -1,23 +1,34 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import {
-    Black75,
-    White
-} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 import {
     actionRgbPartialColor,
+    bannerButtonFillSelectedColor,
+    bannerButtonHeight,
+    bannerCloseButtonIconSize,
+    bannerCloseButtonSize,
+    bannerColor,
+    bannerErrorBackgroundColor,
+    bannerFontSize,
+    bannerIconColor,
+    bannerIconMarginTop,
+    bannerInfoBackgroundColor,
+    bannerLinkActiveFontColor,
+    bannerNeutralBackgroundColor,
+    bannerStartEndWidth,
+    bannerTextGap,
+    bannerTextMarginVertical,
+    bannerWarningBackgroundColor,
     bodyFont,
     borderHoverColor,
     buttonLabelFontColor,
-    failColor,
+    controlHeight,
     fillSelectedColor,
     iconColor,
     iconSize,
-    informationColor,
     linkActiveFontColor,
+    linkDisabledFontColor,
     linkFontColor,
-    warningColor
 } from '../theme-provider/design-tokens';
 import { MultivaluePropertyStyleSheetBehavior } from '../utilities/style/multivalue-property-stylesheet-behavior';
 import { BannerSeverity } from './types';
@@ -28,13 +39,12 @@ export const styles = css`
     :host {
         width: 100%;
         font: ${bodyFont};
-        font-size: 12.8px;
+        font-size: ${bannerFontSize};
         align-items: top;
         overflow: hidden;
-        background: ${Black75};
-        color: ${White};
-        ${iconColor.cssCustomProperty}: rgba(255, 255, 255, 0.6);
-        ${borderHoverColor.cssCustomProperty}: transparent;
+        background: ${bannerNeutralBackgroundColor};
+        color: ${bannerColor};
+        ${iconColor.cssCustomProperty}: ${bannerIconColor};
     }
 
     :host(:not([open])) {
@@ -42,22 +52,22 @@ export const styles = css`
     }
 
     .icon {
-        width: 48px;
+        width: ${bannerStartEndWidth};
         display: flex;
         justify-content: center;
-        margin-top: 7px;
+        margin-top: ${bannerIconMarginTop};
         flex: 0 0 auto;
     }
 
     .text {
         display: inline;
-        margin-top: 7px;
-        margin-bottom: 7px;
+        margin-top: ${bannerTextMarginVertical};
+        margin-bottom: ${bannerTextMarginVertical};
     }
 
     ::slotted([slot='title']) {
         font-weight: bold;
-        padding-right: 8px;
+        padding-right: ${bannerTextGap};
         white-space: nowrap;
     }
 
@@ -73,43 +83,44 @@ export const styles = css`
     }
 
     ::slotted(nimble-anchor[slot='action']) {
-        ${linkFontColor.cssCustomProperty}: ${White};
-        ${linkActiveFontColor.cssCustomProperty}: rgba(255, 255, 255, 0.6);
+        ${linkFontColor.cssCustomProperty}: ${bannerColor};
+        ${linkDisabledFontColor.cssCustomProperty}: ${bannerColor};
+        ${linkActiveFontColor.cssCustomProperty}: ${bannerLinkActiveFontColor};
         white-space: nowrap;
-        margin-top: 7px;
+        margin-top: ${bannerTextMarginVertical};
     }
 
     ::slotted(nimble-button[slot='action']) {
         height: 24px;
-        ${buttonLabelFontColor.cssCustomProperty}: ${White};
-        ${fillSelectedColor.cssCustomProperty}: rgba(255, 255, 255, 0.2);
-        ${borderHoverColor.cssCustomProperty}: ${White};
+        ${buttonLabelFontColor.cssCustomProperty}: ${bannerColor};
+        ${fillSelectedColor.cssCustomProperty}: ${bannerButtonFillSelectedColor};
+        ${borderHoverColor.cssCustomProperty}: ${bannerColor};
         white-space: nowrap;
-        margin-top: 4px;
+        margin-top: calc((${controlHeight} - ${bannerButtonHeight}) / 2);
     }
 
     ::slotted(nimble-button[slot='action'][appearance='outline']) {
-        ${actionRgbPartialColor.cssCustomProperty}: ${White}
+        ${actionRgbPartialColor.cssCustomProperty}: ${bannerColor}
     }
 
     .close {
-        width: 48px;
+        width: ${bannerStartEndWidth};
         display: flex;
         justify-content: center;
-        margin-top: 8px;
+        margin-top: ${bannerIconMarginTop};
     }
 
     .close nimble-button {
-        height: 16px;
-        width: 16px;
-        ${iconSize.cssCustomProperty}: 14px;
-        ${iconColor.cssCustomProperty}: ${White};
-        ${buttonLabelFontColor.cssCustomProperty}: ${White};
-        ${fillSelectedColor.cssCustomProperty}: rgba(255, 255, 255, 0.1);
+        height: ${bannerCloseButtonSize};
+        width: ${bannerCloseButtonSize};
+        ${iconSize.cssCustomProperty}: ${bannerCloseButtonIconSize};
+        ${buttonLabelFontColor.cssCustomProperty}: ${bannerColor};
+        ${borderHoverColor.cssCustomProperty}: transparent;
+        ${fillSelectedColor.cssCustomProperty}: ${bannerButtonFillSelectedColor};
     }
 
     .close nimble-button:hover {
-        background: rgba(255, 255, 255, 0.2);
+        background: ${bannerButtonFillSelectedColor};
     }
 `.withBehaviors(
     new MultivaluePropertyStyleSheetBehavior(
@@ -117,7 +128,7 @@ export const styles = css`
         BannerSeverity.error,
         css`
             :host {
-                background: ${failColor};
+                background: ${bannerErrorBackgroundColor};
             }
         `
     ),
@@ -126,7 +137,7 @@ export const styles = css`
         BannerSeverity.warning,
         css`
             :host {
-                background: ${warningColor};
+                background: ${bannerWarningBackgroundColor};
             }
         `
     ),
@@ -135,7 +146,7 @@ export const styles = css`
         BannerSeverity.info,
         css`
             :host {
-                background: ${informationColor};
+                background: ${bannerInfoBackgroundColor};
             }
 
             .icon {

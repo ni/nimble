@@ -1,12 +1,14 @@
 import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
 import hexRgb from 'hex-rgb';
 import {
+    Black,
     Black7,
-    Black91,
-    Black85,
     Black15,
+    Black75,
     Black80,
+    Black85,
     Black88,
+    Black91,
     White,
     ForestGreen,
     DigitalGreenLight,
@@ -15,6 +17,7 @@ import {
     MediumDelay,
     LargeDelay,
     Fail100DarkUi,
+    BannerFail100DarkUi,
     Warning100LightUi,
     Warning100DarkUi,
     Pass100LightUi,
@@ -88,8 +91,7 @@ import {
     PowerGreen,
     GridHeaderFamily,
     GridHeaderWeight,
-    GridHeaderSize,
-    Black
+    GridHeaderSize
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -663,6 +665,75 @@ export const mediumDelay = DesignToken.create<string>(
 export const largeDelay = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.largeDelay)
 ).withDefault(LargeDelay);
+
+// Banner Tokens
+export const bannerGapSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerGapSize)
+).withDefault('1px');
+
+export const bannerButtonHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerButtonHeight)
+).withDefault('24px');
+
+export const bannerFontSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerFontSize)
+).withDefault('12.8px');
+
+export const bannerColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerColor)
+).withDefault(White);
+
+export const bannerNeutralBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerNeutralBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black75, Black75, hexToRgbaCssColor('#FFFFFF', 0.3)));
+
+export const bannerErrorBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerErrorBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Fail100LightUi, BannerFail100DarkUi, hexToRgbaCssColor('#FFFFFF', 0.3)));
+
+export const bannerWarningBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerWarningBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Warning100LightUi, Warning100DarkUi, hexToRgbaCssColor('#FFFFFF', 0.3)));
+
+export const bannerInfoBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerInfoBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Information100LightUi, Information100DarkUi, hexToRgbaCssColor('#FFFFFF', 0.3)));
+
+export const bannerIconColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerIconColor)
+).withDefault(hexToRgbaCssColor('#FFFFFF', 0.6));
+
+export const bannerIconMarginTop = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerIconMarginTop)
+).withDefault('8px');
+
+export const bannerStartEndWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerStartEndWidth)
+).withDefault('48px');
+
+export const bannerTextMarginVertical = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerTextMarginVertical)
+).withDefault('7px');
+
+export const bannerTextGap = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerTextGap)
+).withDefault('8px');
+
+export const bannerButtonFillSelectedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerButtonFillSelectedColor)
+).withDefault(hexToRgbaCssColor('#FFFFFF', 0.2));
+
+export const bannerLinkActiveFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerLinkActiveFontColor)
+).withDefault(hexToRgbaCssColor('#FFFFFF', 0.6));
+
+export const bannerCloseButtonSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerCloseButtonSize)
+).withDefault('16px');
+
+export const bannerCloseButtonIconSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerCloseButtonIconSize)
+).withDefault('14px');
 
 // Private helpers functions
 function hexToRgbPartial(hexValue: string): string {

@@ -205,7 +205,24 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     tableRowBorderColor: 'table-row-border-color',
     elevation1BoxShadow: 'elevation-1-box-shadow',
     elevation2BoxShadow: 'elevation-2-box-shadow',
-    elevation3BoxShadow: 'elevation-3-box-shadow'
+    elevation3BoxShadow: 'elevation-3-box-shadow',
+    bannerGapSize: 'banner-gap-size',
+    bannerButtonHeight: 'banner-button-height',
+    bannerFontSize: 'banner-font-size',
+    bannerColor: 'banner-color',
+    bannerNeutralBackgroundColor: 'banner-neutral-background-color',
+    bannerErrorBackgroundColor: 'banner-error-background-color',
+    bannerWarningBackgroundColor: 'banner-warning-background-color',
+    bannerInfoBackgroundColor: 'banner-info-background-color',
+    bannerIconColor: 'banner-icon-color',
+    bannerIconMarginTop: 'banner-icon-margin-top',
+    bannerStartEndWidth: 'banner-start-end-width',
+    bannerTextMarginVertical: 'banner-text-margin-vertical',
+    bannerTextGap: 'banner-text-gap',
+    bannerButtonFillSelectedColor: 'banner-button-fill-selected-color',
+    bannerLinkActiveFontColor: 'banner-link-active-font-color',
+    bannerCloseButtonSize: 'banner-close-button-size',
+    bannerCloseButtonIconSize: 'banner-close-button-icon-size'
 };
 
 const prefix = 'ni-nimble';
