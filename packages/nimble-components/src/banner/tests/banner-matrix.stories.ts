@@ -72,7 +72,11 @@ const component = (
 `;
 
 export const bannerThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [severityStates, actionStates, preventDismissStates])
+    createMatrix(component, [
+        severityStates,
+        actionStates,
+        preventDismissStates
+    ])
 );
 
 export const hiddenBanner: Story = createStory(

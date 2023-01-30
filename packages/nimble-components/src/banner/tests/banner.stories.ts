@@ -13,8 +13,7 @@ const ActionType = {
     anchor: 'anchor'
 } as const;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-type ActionType =
-    typeof ActionType[keyof typeof ActionType];
+type ActionType = typeof ActionType[keyof typeof ActionType];
 
 interface BannerArgs {
     open: boolean;
@@ -28,8 +27,7 @@ interface BannerArgs {
     toggle: unknown;
 }
 
-const overviewText = `The banner is a component used to display a persistent notification to a user.`;
-
+const overviewText = 'The banner is a component used to display a persistent notification to a user.';
 
 const metadata: Meta<BannerArgs> = {
     title: 'Banner',
@@ -79,24 +77,29 @@ export const _banner: StoryObj<BannerArgs> = {
             description: 'Controls whether the banner is visible.'
         },
         title: {
-            description: 'Primary text which is displayed when `title-hidden` is not set. Banners should **always include a title** even when `title-hidden` is set. The title is used to provide an accessible name to assistive technologies regardless of the value of `title-hidden`.<br><br>Provide the title in an `inline` element such as `<span>` that is targeted to the `title` slot.'
+            description:
+                'Primary text which is displayed when `title-hidden` is not set. Banners should **always include a title** even when `title-hidden` is set. The title is used to provide an accessible name to assistive technologies regardless of the value of `title-hidden`.<br><br>Provide the title in an `inline` element such as `<span>` that is targeted to the `title` slot.'
         },
         text: {
-            description: 'Secondary text that provides a detailed message. This text should be short enough to fit within three lines when displayed.<br><br>Provide this text as content of the banner element (uses the default slot).'
+            description:
+                'Secondary text that provides a detailed message. This text should be short enough to fit within three lines when displayed.<br><br>Provide this text as content of the banner element (uses the default slot).'
         },
         severity: {
             options: Object.values(BannerSeverity),
             control: { type: 'radio' },
-            description: 'Severity of the message presented by the banner. Controls the displayed color and icon. If not set, the banner has a neutral appearance.'
+            description:
+                'Severity of the message presented by the banner. Controls the displayed color and icon. If not set, the banner has a neutral appearance.'
         },
         action: {
             options: Object.values(ActionType),
             control: { type: 'radio' },
-            description: 'The `action` slot provides a place to display a button or anchor that you provide. If you provide a button, it should have either the `"ghost"` or `"outline"` appearance.'
+            description:
+                'The `action` slot provides a place to display a button or anchor that you provide. If you provide a button, it should have either the `"ghost"` or `"outline"` appearance.'
         },
         preventDismiss: {
             name: 'prevent-dismiss',
-            description: 'If set, removes the "X" button that dismisses the banner.'
+            description:
+                'If set, removes the "X" button that dismisses the banner.'
         },
         titleHidden: {
             name: 'title-hidden',
@@ -104,10 +107,12 @@ export const _banner: StoryObj<BannerArgs> = {
         },
         dismissButtonLabel: {
             name: 'dismiss-button-label',
-            description: 'Set to a localized label (e.g. `"Close"`) for the dismiss button. This provides an accessible name for assistive technologies.'
+            description:
+                'Set to a localized label (e.g. `"Close"`) for the dismiss button. This provides an accessible name for assistive technologies.'
         },
         toggle: {
-            description: 'Event emitted by the banner when the `open` state changes. The event details include the booleans `oldState` and `newState`.'
+            description:
+                'Event emitted by the banner when the `open` state changes. The event details include the booleans `oldState` and `newState`.'
         }
     },
     args: {

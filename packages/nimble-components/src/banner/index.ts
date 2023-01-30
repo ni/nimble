@@ -1,8 +1,5 @@
 import { attr } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    FoundationElement
-} from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import { BannerSeverity } from './types';

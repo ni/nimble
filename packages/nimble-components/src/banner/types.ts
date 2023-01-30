@@ -8,5 +8,4 @@ export const BannerSeverity = {
     info: 'info',
     default: undefined
 } as const;
-export type BannerSeverity =
-    typeof BannerSeverity[keyof typeof BannerSeverity];
+export type BannerSeverity = typeof BannerSeverity[keyof typeof BannerSeverity];

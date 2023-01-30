@@ -1,6 +1,9 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { Black75, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import {
+    Black75,
+    White
+} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 import {
     actionRgbPartialColor,
@@ -52,7 +55,7 @@ export const styles = css`
         margin-bottom: 7px;
     }
 
-    ::slotted([slot="title"]) {
+    ::slotted([slot='title']) {
         font-weight: bold;
         padding-right: 8px;
         white-space: nowrap;
@@ -64,19 +67,19 @@ export const styles = css`
         justify-content: center;
     }
 
-    slot[name="action"] {
+    slot[name='action'] {
         display: flex;
         align-content: center;
     }
 
-    ::slotted(nimble-anchor[slot="action"]) {
+    ::slotted(nimble-anchor[slot='action']) {
         ${linkFontColor.cssCustomProperty}: ${White};
         ${linkActiveFontColor.cssCustomProperty}: rgba(255, 255, 255, 0.6);
         white-space: nowrap;
         margin-top: 7px;
     }
 
-    ::slotted(nimble-button[slot="action"]) {
+    ::slotted(nimble-button[slot='action']) {
         height: 24px;
         ${buttonLabelFontColor.cssCustomProperty}: ${White};
         ${fillSelectedColor.cssCustomProperty}: rgba(255, 255, 255, 0.2);
@@ -85,7 +88,7 @@ export const styles = css`
         margin-top: 4px;
     }
 
-    ::slotted(nimble-button[slot="action"][appearance="outline"]) {
+    ::slotted(nimble-button[slot='action'][appearance='outline']) {
         ${actionRgbPartialColor.cssCustomProperty}: ${White}
     }
 
@@ -103,7 +106,6 @@ export const styles = css`
         ${iconColor.cssCustomProperty}: ${White};
         ${buttonLabelFontColor.cssCustomProperty}: ${White};
         ${fillSelectedColor.cssCustomProperty}: rgba(255, 255, 255, 0.1);
-
     }
 
     .close nimble-button:hover {
