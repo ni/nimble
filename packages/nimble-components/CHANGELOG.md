@@ -1,8 +1,57 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 20 Jan 2023 10:47:22 GMT and should not be manually modified.
+This log was last generated on Fri, 27 Jan 2023 20:53:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.0.3
+
+Fri, 27 Jan 2023 20:53:57 GMT
+
+### Patches
+
+- Add virtualization to table ([ni/nimble@c334239](https://github.com/ni/nimble/commit/c334239a606b1b0920c389592ac840182ec8a882))
+
+## 18.0.2
+
+Fri, 27 Jan 2023 15:05:13 GMT
+
+### Patches
+
+- Create `setData()` function on the table rather than having a `data` property ([ni/nimble@f19bf61](https://github.com/ni/nimble/commit/f19bf610f46683eae4c80f2bdd5967d76e63124a))
+
+## 18.0.1
+
+Thu, 26 Jan 2023 19:17:59 GMT
+
+### Patches
+
+- Fix table row rendering on Safari ([ni/nimble@2e5a1c8](https://github.com/ni/nimble/commit/2e5a1c8875db2f230f49bc923d6126aba99200fe))
+
+## 18.0.0
+
+Thu, 26 Jan 2023 18:50:13 GMT
+
+### Major changes
+
+- Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle'.
+Update menu button to work when the slotted menu is nested within additional slots. ([ni/nimble@c39e8c8](https://github.com/ni/nimble/commit/c39e8c80af79ada2a696372c93161355187944af))
+
+## 17.2.0
+
+Tue, 24 Jan 2023 21:30:30 GMT
+
+### Minor changes
+
+- Add design tokens for additional spinner sizes, and update docs. ([ni/nimble@3c778c0](https://github.com/ni/nimble/commit/3c778c0a354dcc5883273ac62b7edd9a3dbed3cd))
+
+## 17.1.0
+
+Fri, 20 Jan 2023 22:27:00 GMT
+
+### Minor changes
+
+- Anchor tabs component ([ni/nimble@4c3c715](https://github.com/ni/nimble/commit/4c3c71571e92a5ca1ebc62a259c889cb90df710c))
 
 ## 17.0.8
 

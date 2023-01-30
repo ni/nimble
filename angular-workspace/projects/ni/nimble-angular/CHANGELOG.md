@@ -1,8 +1,66 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 20 Jan 2023 10:47:22 GMT and should not be manually modified.
+This log was last generated on Fri, 27 Jan 2023 20:53:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.0.3
+
+Fri, 27 Jan 2023 20:53:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.0.3
+
+## 16.0.2
+
+Fri, 27 Jan 2023 15:05:13 GMT
+
+### Patches
+
+- Create `setData()` function on the table rather than having a `data` property. Expose a `data$` observable on the Table directive. ([ni/nimble@f19bf61](https://github.com/ni/nimble/commit/f19bf610f46683eae4c80f2bdd5967d76e63124a))
+- Bump @ni/nimble-components to v18.0.2
+
+## 16.0.1
+
+Thu, 26 Jan 2023 19:17:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.0.1
+
+## 16.0.0
+
+Thu, 26 Jan 2023 18:50:13 GMT
+
+### Major changes
+
+- Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle' ([ni/nimble@c39e8c8](https://github.com/ni/nimble/commit/c39e8c80af79ada2a696372c93161355187944af))
+- Bump @ni/nimble-components to v18.0.0
+
+## 15.1.0
+
+Tue, 24 Jan 2023 22:55:17 GMT
+
+### Minor changes
+
+- Angular integration for anchor tabs ([ni/nimble@0548a2a](https://github.com/ni/nimble/commit/0548a2a07aee2461e94d22ebb0f91a817f2ae088))
+
+## 15.0.11
+
+Tue, 24 Jan 2023 21:30:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.2.0
+
+## 15.0.10
+
+Fri, 20 Jan 2023 22:27:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.1.0
 
 ## 15.0.9
 

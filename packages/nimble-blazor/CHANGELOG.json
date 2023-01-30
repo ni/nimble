@@ -2,6 +2,51 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 27 Jan 2023 15:05:13 GMT",
+      "tag": "@ni/nimble-blazor_v11.0.2",
+      "version": "11.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "f19bf610f46683eae4c80f2bdd5967d76e63124a",
+            "comment": "Update Blazor Table to call `setData()` rather than setting the `data` property."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Jan 2023 18:50:13 GMT",
+      "tag": "@ni/nimble-blazor_v11.0.0",
+      "version": "11.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c39e8c80af79ada2a696372c93161355187944af",
+            "comment": "Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle'"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 25 Jan 2023 17:37:11 GMT",
+      "tag": "@ni/nimble-blazor_v10.1.0",
+      "version": "10.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0671e34c7650008aa063fa0145cee62d4a981dd7",
+            "comment": "Support for anchor tabs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Jan 2023 22:26:41 GMT",
       "tag": "@ni/nimble-blazor_v10.0.7",
       "version": "10.0.7",
