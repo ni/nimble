@@ -23,7 +23,7 @@ export const template = html<WaferMap>`
         </svg>
         <canvas class="wafer-map-canvas" ${ref('canvas')}></canvas>
         <svg class="hover-layer">
-            <rect style="stroke:white;stroke-width:2px;fill-opacity:0;stroke-opacity:1;outline: 2px solid green;" ${ref('rect')} />
+            <rect style="fill:transparent;stroke:white;stroke-width:2px;outline-style:solid;outline-color:green;" ${ref('rect')} />
         </svg>
     </div>
 `;

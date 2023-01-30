@@ -25,15 +25,18 @@ export class HoverHandler {
     public toggleHoverDie(hoverDie: HTMLElement, show: boolean, x = 0, y = 0): void {
         if (show) {
             hoverDie.setAttribute('transform', `translate(${x},${y})`);
-            hoverDie.setAttribute('opacity', '1');
+            hoverDie.style.opacity = '1';
+            hoverDie.style.outlineWidth = '2px';
         } else {
-            hoverDie.setAttribute('opacity', '0');
+            hoverDie.style.opacity = '0';
+            hoverDie.style.outlineWidth = '0px';
             this._lastSelectedDie = undefined;
         }
     }
 
     public createHoverDie(hoverDie: HTMLElement): void {
-        hoverDie.setAttribute('opacity', '0');
+        hoverDie.style.opacity = '0';
+        hoverDie.style.outlineWidth = '0px';
         hoverDie.setAttribute('pointer-events', 'none');
 
         if (this.dataManager) {
