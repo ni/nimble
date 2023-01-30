@@ -29,7 +29,7 @@ const valueStates = [
     ['No Value', undefined, 'placeholder'],
     ['Value', 'Hello', 'placeholder']
 ] as const;
-type ValueState = typeof valueStates[number];
+type ValueState = (typeof valueStates)[number];
 
 const metadata: Meta = {
     title: 'Tests/Combobox',
@@ -51,7 +51,7 @@ const appearanceStates = Object.entries(DropdownAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
 
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (

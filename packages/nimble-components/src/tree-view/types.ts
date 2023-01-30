@@ -7,4 +7,4 @@ export const TreeViewSelectionMode = {
     none: 'none'
 } as const;
 export type TreeViewSelectionMode =
-    typeof TreeViewSelectionMode[keyof typeof TreeViewSelectionMode];
+    (typeof TreeViewSelectionMode)[keyof typeof TreeViewSelectionMode];
