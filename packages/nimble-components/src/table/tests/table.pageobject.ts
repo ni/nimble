@@ -1,4 +1,5 @@
 import type { Table } from '..';
+import type { TableHeader } from '../components/header';
 import type { TableRecord } from '../types';
 
 /**
@@ -15,8 +16,8 @@ export class TablePageObject<T extends TableRecord> {
         return headers.length;
     }
 
-    public getRenderedHeaderContent(columnIndex: number): string {
-        const headers = this.tableElement.shadowRoot!.querySelectorAll(
+    public getHeaderContent(columnIndex: number): Node | undefined | null {
+        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             'nimble-table-header'
         )!;
         if (columnIndex >= headers.length) {
@@ -25,7 +26,25 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        return headers.item(columnIndex).textContent?.trim() ?? '';
+        return this.getHeaderContentElement(headers[columnIndex]!);
+    }
+
+    public getRenderedHeaderContent(
+        columnIndex: number
+    ): Node | null | undefined {
+        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
+            'nimble-table-header'
+        )!;
+        if (columnIndex >= headers.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        const headerContent = this.getHeaderContentElement(
+            headers[columnIndex]!
+        );
+        return headerContent?.firstChild;
     }
 
     public getRenderedRowCount(): number {
@@ -66,4 +85,30 @@ export class TablePageObject<T extends TableRecord> {
 
         return rows.item(rowIndex).recordId;
     }
+
+    private getHeaderContentElement(
+        element: HTMLElement | HTMLSlotElement
+    ): Node | undefined {
+        const nodeChildren = this.isSlotElement(element)
+            ? element.assignedNodes()
+            : element.shadowRoot?.childNodes;
+        if (!nodeChildren) {
+            return undefined;
+        }
+
+        const slotElement = Array.from(nodeChildren)?.find<HTMLSlotElement>(
+            this.isSlotElement
+        );
+        if (slotElement) {
+            return this.getHeaderContentElement(slotElement);
+        }
+
+        return nodeChildren[0]; // header content should be first item in final slot element
+    }
+
+    private readonly isSlotElement = (
+        element: Node | undefined
+    ): element is HTMLSlotElement => {
+        return element?.nodeName === 'SLOT' ?? false;
+    };
 }

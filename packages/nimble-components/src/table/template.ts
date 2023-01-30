@@ -3,7 +3,6 @@ import {
     ElementsFilter,
     html,
     repeat,
-    slotted,
     when
 } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';

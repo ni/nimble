@@ -1,6 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Table } from '..';
+import { IconCheck } from '../../icons/check';
 import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
@@ -32,12 +33,14 @@ const simpleTableData = [
 ] as const;
 
 const tableColumnText = DesignSystem.tagFor(TableColumnText);
+const checkIcon = DesignSystem.tagFor(IconCheck);
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
                 <${tableColumnText} field-name="stringData">stringData</${tableColumnText}>
+                <${tableColumnText} field-name="moreStringData"><${checkIcon}></${checkIcon}></${tableColumnText}>
             </nimble-table>`
     );
 }
@@ -109,7 +112,7 @@ describe('Table', () => {
         expect(document.createElement('nimble-table')).toBeInstanceOf(Table);
     });
 
-    it('should render column headers', async () => {
+    it('column header content should be the columns', async () => {
         await connect();
 
         element.setData(simpleTableData);
@@ -123,10 +126,25 @@ describe('Table', () => {
             columnIndex < element.columns.length;
             columnIndex++
         ) {
-            expect(pageObject.getRenderedHeaderContent(columnIndex)).toEqual(
-                element.columns[columnIndex]!.textContent!
+            expect(pageObject.getHeaderContent(columnIndex)).toEqual(
+                element.columns[columnIndex]
             );
         }
+    });
+
+    it('changing column content updates header rendered content', async () => {
+        await connect();
+
+        element.setData(simpleTableData);
+        await waitForUpdatesAsync();
+
+        const headerContent = pageObject.getRenderedHeaderContent(0)!;
+        expect(headerContent.textContent).toEqual('stringData');
+
+        element.columns[0]!.textContent = 'foo';
+        await waitForUpdatesAsync();
+
+        expect(headerContent.textContent).toEqual('foo');
     });
 
     it('can set data before the element is connected', async () => {
