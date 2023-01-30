@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 30 Jan 2023 19:00:43 GMT",
+      "tag": "@ni/nimble-components_v18.1.0",
+      "version": "18.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e1da13662d82fa41f81f038335e6a142355de29e",
+            "comment": "Nimble dependencies updated to latest"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.4.0",
+            "commit": "e1da13662d82fa41f81f038335e6a142355de29e"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 27 Jan 2023 20:53:57 GMT",
       "tag": "@ni/nimble-components_v18.0.3",
       "version": "18.0.3",

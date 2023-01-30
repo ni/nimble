@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 30 Jan 2023 19:00:43 GMT",
+      "tag": "@ni/nimble-blazor_v11.1.0",
+      "version": "11.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e1da13662d82fa41f81f038335e6a142355de29e",
+            "comment": "Nimble dependencies updated to latest"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 27 Jan 2023 15:05:13 GMT",
       "tag": "@ni/nimble-blazor_v11.0.2",
       "version": "11.0.2",
