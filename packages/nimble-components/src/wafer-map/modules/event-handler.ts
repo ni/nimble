@@ -1,7 +1,5 @@
 import type { WaferMap } from '..';
-import type { RenderingModule } from './rendering';
-import type { Dimensions, WaferMapDie, WaferMapQuadrant, ZoomHandlerData, EventHandlerData } from '../types';
-import { HoverHandler } from './hover-handler';
+import type {WaferMapDie, EventHandlerData } from '../types';
 import { ZoomHandler } from './zoom-handler';
 
 /**
@@ -9,35 +7,39 @@ import { ZoomHandler } from './zoom-handler';
  */
 export class EventHandler {
     private readonly zoomHandler: ZoomHandler;
-    private readonly hoverHandler: HoverHandler;
-
+    
     public constructor(
         private readonly eventHandlerData:EventHandlerData,
     ) {
         
         this.zoomHandler = new ZoomHandler(eventHandlerData.zoomHandlerData);
     
-        this.hoverHandler = new HoverHandler(eventHandlerData.hoverHandlerData);
+        // HoverHandler - initialization
 
-        this.hoverHandler.createHoverDie();
+        // HoverHandler -  create a hoverDie element
+
     }
 
     public attachEvents(waferMap: WaferMap): void {
         waferMap.onmousemove = (e: MouseEvent) => {
-            this.hoverHandler.mousemove(e);
+            // HoverHandler - mousemove(e) callback
         };
         waferMap.onmouseout = () => {
-            this.hoverHandler.mouseout();
+            // HoverHandler - mouseout() callback
         };
         this.zoomHandler.onZoom=(event)=>{
-            this.hoverHandler.toggleHoverDie(false);
+            
+            // HoverHandler - toggle hoverDie with false
+
             this.zoomHandler.reScale();
-            this.hoverHandler.transform=event.transform;
-            this.hoverHandler.createHoverDie();
+
+            // HoverHandler - set new transfrom from event.transform
+
+            // HoverHandler - create a new hoverDie
         };
 
         //Wafermap callbacks
-        this.hoverHandler.onDieSelected=this.eventHandlerData.eventCallbacks.dieSelected;
+        // HoverHandler - configure the callback to be fired from HoverHandler when a new die is selected
     }
 
     public resetZoomTransform(): void {
@@ -45,6 +47,9 @@ export class EventHandler {
     }
 
     public get lastSelectedDie(): WaferMapDie | undefined {
-        return this.hoverHandler.lastSelectedDie;
+
+        // HoverHandler - return the last selected die when called
+        
+        return undefined;
     }
 }
