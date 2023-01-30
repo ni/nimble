@@ -12,29 +12,30 @@ import type { Dimensions, ZoomEvent, ZoomHandlerData } from '../types';
  * ZoomHandler deals with user interactions and events like zooming
  */
 export class ZoomHandler {
-    public onZoom: ((event:ZoomEvent) => void) | undefined;
+    public onZoom: ((event: ZoomEvent) => void) | undefined;
     private zoomTransform: ZoomTransform = zoomIdentity;
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
-    private zoomBehavior: ZoomBehavior<Element, unknown>;
+    private readonly zoomBehavior: ZoomBehavior<Element, unknown>;
     private readonly canvas: HTMLCanvasElement;
     private readonly zoomContainer: HTMLElement;
     private readonly containerDimensions: Dimensions | undefined;
     private readonly canvasLength: number;
-    private renderingFunction: VoidFunction;
-    private lastEvent: ZoomEvent | undefined; 
+    private readonly renderingFunction: VoidFunction;
+    private lastEvent: ZoomEvent | undefined;
 
-    public constructor( data:ZoomHandlerData) {
-        this.canvas=data.canvas;
-        this.zoomContainer=data.zoomContainer;
-        this.containerDimensions=data.containerDimensions;
-        this.canvasLength=data.canvasLength;
-        this.zoomBehavior=this.createZoomBehavior();
+    public constructor(data: ZoomHandlerData) {
+        this.canvas = data.canvas;
+        this.zoomContainer = data.zoomContainer;
+        this.containerDimensions = data.containerDimensions;
+        this.canvasLength = data.canvasLength;
+        this.zoomBehavior = this.createZoomBehavior();
         this.zoomBehavior(select(this.canvas as Element));
-        this.renderingFunction =() => {data.renderModule.drawWafer();};
+        this.renderingFunction = () => {
+            data.renderModule.drawWafer();
+        };
     }
-
 
     public resetTransform(): void {
         if (this.onZoom === undefined) {
@@ -59,9 +60,13 @@ export class ZoomHandler {
         );
     }
 
-    public reScale(){
-        if (this.renderingFunction === undefined) return;
-        if (this.lastEvent===undefined) return;
+    public reScale(): void {
+        if (this.renderingFunction === undefined) {
+            return;
+        }
+        if (this.lastEvent === undefined) {
+            return;
+        }
         const transform = this.lastEvent.transform;
         const canvasContext = this.canvas.getContext('2d');
         if (canvasContext === null) {
@@ -130,8 +135,8 @@ export class ZoomHandler {
                 return transform.k >= this.minScale || event.type === 'wheel';
             })
             .on('zoom', (event: ZoomEvent) => {
-                this.lastEvent=event;
-                if(this.onZoom!==undefined){
+                this.lastEvent = event;
+                if (this.onZoom !== undefined) {
                     this.onZoom(event);
                 }
             });
