@@ -24,6 +24,7 @@ export const styles = css`
         display: initial;
     }
 
+    :host(.hover) nimble-table-cell::part(action-menu),
     :host(:hover) nimble-table-cell::part(action-menu) {
         display: initial;
     }
