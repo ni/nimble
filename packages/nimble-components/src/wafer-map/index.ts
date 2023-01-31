@@ -142,7 +142,6 @@ export class WaferMap extends FoundationElement {
         this.eventHandler = new EventHandler(
             this.parseWaferDataToEventData(dataManager, renderer, this)
         );
-        this.eventHandler.attachEvents(this);
         renderer.drawWafer();
     }
 
@@ -238,7 +237,7 @@ export class WaferMap extends FoundationElement {
             dieSelected: this.onDieSelected
         };
 
-        return { zoomHandlerData, hoverHandlerData, eventCallbacks };
+        return { zoomHandlerData, hoverHandlerData, eventCallbacks, wafermap };
     }
 }
 
