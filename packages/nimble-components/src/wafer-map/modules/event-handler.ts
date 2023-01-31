@@ -3,10 +3,6 @@ import type { WaferMapDie, HoverHandlerData } from '../types';
 import type { ZoomHandlerData } from './zoom-handler';
 import { ZoomHandler } from './zoom-handler';
 
-/**
- * EventHandler deals with user interactions and events
- */
-
 export interface EventHandlerData {
     zoomHandlerData: ZoomHandlerData;
     hoverHandlerData: HoverHandlerData;
@@ -18,7 +14,7 @@ export interface EventCallbacks {
 }
 
 /**
- *
+ * EventHandler deals with user interactions and events
  */
 export class EventHandler {
     private readonly zoomHandler: ZoomHandler;
