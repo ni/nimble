@@ -7,7 +7,8 @@ We need to provide users the means for changing the widths of individual columns
 ## Links To Relevant Work Items and Reference Material
 
 - [#873 Programmatically resize column width](https://github.com/ni/nimble/issues/873)
-- [#846 Interactively resize column width](https://github.com/ni/nimble/issues/846) 
+- [#846 Interactively resize column width](https://github.com/ni/nimble/issues/846)
+- [Table README](./README.md)
 - [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
 
 
@@ -25,6 +26,12 @@ The behavior that has been prescribed for column sizing is as follows:
 - Columns can be configured to not allow a user to interactively size them
     - The implicit behavior present based on the behaviors described above, is that in a sizing action that cascades to a column configured to not be resized is that the column won't be resized towards a minimum size, and the cascade will effectively "skip" this column.
 
+### Out of Scope
+
+There are some column sizing behaviors that we will ultimately expect to support, but the APIs presented here are not meant to address:
+- Auto-resizing: We will not describe how we intend to support the use-case of having a column auto-size to its contents
+- Different interactive sizing modes: While the APIs described in this HLD do not inherently prescribe to a particular interactive sizing behavior, it's worth saying that in order to support multiple sizing modes, there will likely be additional APIs required that this HLD does not address.
+
 ### API
 
 To accomodate the various sizing modes of a column, in addition to the other necessary behaviors, we can add the following properties to `TableColumn`:
@@ -33,7 +40,7 @@ To accomodate the various sizing modes of a column, in addition to the other nec
 class TableColumn {
     // when set 'currentFractionalWidth' should be ignored
     @observable
-    public currentFixedWidth: number | null = null;
+    public currentPixelWidth: number | null = null;
 
     @observable
     public currentFractionalWidth = 1;
@@ -51,11 +58,11 @@ Note that these properties are not attributes, and thus are not set by clients o
 
 These properties are expected to be updated by both the initial state of separate, column-specific APIs and interactive operations that the `Table` would manage.
 
-#### `currentFractionalWidth` vs `currentFixedWidth` behavior
+#### `currentFractionalWidth` vs `currentPixelWidth` behavior
 
 - The values supplied to the `currentFractionalWidth` property have the same meaning as the values supplied with the [`fr` unit](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout#the_fr_unit) for the CSS `grid-template-columns` property.
-- The values supplied to the `currentFixedWidth` property are meant to be pixel-based values.
-- The table will use `currentFixedWidth` over `currentFractionalWidth` when both are set.
+- The values supplied to the `currentPixelWidth` property are meant to be pixel-based values.
+- The table will use `currentPixelWidth` over `currentFractionalWidth` when both are set.
 
 #### `currentMinWidth` behavior
 
@@ -105,6 +112,8 @@ applyMixins(TableColumnText, FractionalWidthColumn);
 
 The `applyMixins` method is a helper function provided by FAST, that we leverage in other places in Nimble already.
 
+The mixin pattern is appropriate for columns since there will be columns that have no fundamental need for various sizing APIs, and thus not add the mixin. Additionally, the mixin is preferred over interfaces, in that the implementation of the public APIs _must_ update the `TableColumn` properties, which an interface can't enforce.
+
 #### **FixedWidth Column Example**
 
 At the moment there is no recognized use case for a fixed-width column that would allow a user to resize it. As such, there are no plans to provide a specific fixed-width mixin for columns. Instead, a concrete column desiring a fixed-width behavior could simply do something like the following in its constructor:
@@ -113,7 +122,7 @@ At the moment there is no recognized use case for a fixed-width column that woul
 export class MyFixedWidthColumn : TableColumn<...> {
     public constructor() {
         super();
-        this.currentFixedWidth = 100;
+        this.currentPixelWidth = 100;
         this.disableResize = true;
     }
 }
@@ -125,18 +134,26 @@ export class MyFixedWidthColumn : TableColumn<...> {
 
 #### **Using "`display: grid`"**:
 
-The `currentFractionalWidth` and `currentFixedWidth` properties of `TableColumn` align well with using the CSS "`display: grid;`" mode
+The `currentFractionalWidth` and `currentPixelWidth` properties of `TableColumn` align well with using the CSS "`display: grid;`" mode
 and setting `grid-template-columns` to the appropriate combination of values on the container div of the cell elements for either a data row, or the container for the header cells.
 
 Example:
 
-Suppose a table had 3 columns with the following configuration: `currentFractionalWidth = 1`, `currentFixedWidth = 100`, and `currentFractionalWidth = 2`. This would result in "`grid-templateColumns: 1fr 100px 2fr;`".
+Suppose a table had 3 columns with the following configuration: `currentFractionalWidth = 1`, `currentPixelWidth = 100`, and `currentFractionalWidth = 2`. This would result in "`grid-templateColumns: 1fr 100px 2fr;`".
 
 #### **Managing interactive resize**
 
-In order to facilitate proper resizing of columns that are leveraging  `currentFractionalWidth` over `currentFixedWidth` (by way of a column mixin), it can be useful to set the `currentFixedWidth` to the appropriate calculated value (requiring knowledge of the current row width) on mouse down, and then updating `currentFixedWidth` according to the mouse delta during the mouse move, and then resetting the columns that should be using `currentFractionalWidth` to the appropriate new calculated value (based on the final `currentFixedWidth` value along with the current row width).
+In order to facilitate proper resizing of columns that are leveraging  `currentFractionalWidth` over `currentPixelWidth` (by way of a column mixin), it can be useful to set the `currentPixelWidth` to the appropriate calculated value (requiring knowledge of the current row width) on mouse down, and then updating `currentPixelWidth` according to the mouse delta during the mouse move, and then resetting the columns that should be using `currentFractionalWidth` to the appropriate new calculated value (based on the final `currentPixelWidth` value along with the current row width).
 
 Because we will allow a horizontal scrollbar once the right-most column reaches its minimum size, there is an implicit need for us to also size the container for the rows and header to the actual pixel sizes the columns resolve to (i.e. the container width becomes larger than the actual table width). Additionally, on a table resize, the row size should be updated by the same delta, to maintain the behavior of columns using `currentFractionalWidth` to be proportionlly sized as expected.
+
+#### **Interactive visual states**
+
+Consult the [design document](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/) for details on the column divider appearance states, as well as the cursor appearance while hovering over a divider. Note that we shouldn't alter the appearance of the mouse cursor if hovering over a divider between two non-resizable columns.
+
+#### **Accessibility**
+
+We need to consider and ultimately document specific accessibility concerns related to interactively sizing columns.
 
 #### **Future interactive sizing behaviors**
 
@@ -153,5 +170,4 @@ TanStack expects size values to be provided as [pixel values](https://tanstack.c
 
 ## Open Issues
 
-*Describe any open issues with the design that you need feedback on before proceeding.*
-*It is expected that these issues will be resolved during the review process and this section will be removed when this documented in pulled into source.*
+- Should we show a divider between two columns that are not resizable on hover over one of those columns?
