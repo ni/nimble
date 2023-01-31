@@ -61,9 +61,6 @@ export class ZoomHandler {
     }
 
     public rescale(): void {
-        if (this.renderingFunction === undefined) {
-            return;
-        }
         if (this.lastEvent === undefined) {
             return;
         }
