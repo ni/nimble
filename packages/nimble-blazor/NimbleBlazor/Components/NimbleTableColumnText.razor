@@ -1,6 +1,11 @@
 ﻿@namespace NimbleBlazor
 
-<nimble-table-column-text field-name="@FieldName" placeholder="@Placeholder">
+<nimble-table-column-text
+    field-name="@FieldName"
+    placeholder="@Placeholder"
+    action-menu-slot="@ActionMenuSlot"
+    action-menu-label="@ActionMenuLabel"
+>
     @ChildContent
 </nimble-table-column-text>
 
