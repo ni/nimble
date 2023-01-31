@@ -80,11 +80,4 @@ export const styles = css`
         width: 100%;
         height: 100%;
     }
-
-    .hover-layer {
-        position: absolute;
-        pointer-events: none;
-        width: 100%;
-        height: 100%;
-    }
 `;
