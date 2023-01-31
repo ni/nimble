@@ -7,20 +7,19 @@ import {
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { template } from './template';
 import { styles } from './styles';
+import { DataManager } from './modules/data-manager';
+import { RenderingModule } from './modules/rendering';
+import { EventHandler } from './modules/event-handler';
 import {
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
     WaferMapQuadrant,
-    EventHandlerData,
-    ZoomHandlerData,
-    HoverHandlerData,
-    EventCallbacks
+    HoverHandlerData
 } from './types';
-import { DataManager } from './modules/data-manager';
-import { RenderingModule } from './modules/rendering';
-import { EventHandler } from './modules/event-handler';
+import type { ZoomHandlerData } from './modules/zoom-handler';
+import type { EventHandlerData, EventCallbacks } from './modules/event-handler';
 
 declare global {
     interface HTMLElementTagNameMap {

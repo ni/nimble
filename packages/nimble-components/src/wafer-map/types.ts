@@ -1,5 +1,3 @@
-import type { ZoomTransform } from 'd3-zoom';
-import type { RenderingModule } from './modules/rendering';
 import type { DataManager } from './modules/data-manager';
 
 export const WaferMapQuadrant = {
@@ -43,33 +41,11 @@ export interface WaferMapColorScale {
     values: string[];
 }
 
-export interface ZoomHandlerData {
-    canvas: HTMLCanvasElement;
-    zoomContainer: HTMLElement;
-    containerDimensions: Dimensions;
-    canvasLength: number;
-    renderModule: RenderingModule;
-}
-
 export interface HoverHandlerData {
     canvas: HTMLCanvasElement;
     rect: HTMLElement;
     dataManager: DataManager;
     quadrant: WaferMapQuadrant;
-}
-
-export interface EventCallbacks {
-    dieSelected: (die: WaferMapDie) => void;
-}
-
-export interface ZoomEvent {
-    transform: ZoomTransform;
-}
-
-export interface EventHandlerData {
-    zoomHandlerData: ZoomHandlerData;
-    hoverHandlerData: HoverHandlerData;
-    eventCallbacks: EventCallbacks;
 }
 
 export interface Dimensions {

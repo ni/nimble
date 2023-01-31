@@ -1,10 +1,23 @@
 import type { WaferMap } from '..';
-import type { WaferMapDie, EventHandlerData } from '../types';
+import type { WaferMapDie, HoverHandlerData } from '../types';
+import type { ZoomHandlerData } from './zoom-handler';
 import { ZoomHandler } from './zoom-handler';
 
 /**
  * EventHandler deals with user interactions and events
  */
+
+export interface EventHandlerData {
+    zoomHandlerData: ZoomHandlerData;
+    hoverHandlerData: HoverHandlerData;
+    eventCallbacks: EventCallbacks;
+}
+
+export interface EventCallbacks {
+    dieSelected: (die: WaferMapDie) => void;
+}
+
+
 export class EventHandler {
     private readonly zoomHandler: ZoomHandler;
 
@@ -23,15 +36,13 @@ export class EventHandler {
         waferMap.onmouseout = () => {
             // TODO HoverHandler - mouseout() callback
         };
-        this.zoomHandler.onZoom = () => {
+        this.zoomHandler.onBeforeZoom = () => {
             // TODO HoverHandler - toggle hoverDie with false
-
-            this.zoomHandler.rescale();
-
-            // TODO HoverHandler - set new transfrom from event.transform
-
-            // TODO HoverHandler - create a new hoverDie
         };
+        this.zoomHandler.onAfterZoom = ()=>{
+            // TODO HoverHandler - set new transfrom from event.transform
+            // TODO HoverHandler - create a new hoverDie
+        }
 
         // Wafermap callbacks
         // TODO HoverHandler - configure the callback to be fired from HoverHandler when a new die is selected

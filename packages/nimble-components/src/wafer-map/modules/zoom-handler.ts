@@ -6,7 +6,20 @@ import {
     ZoomTransform,
     zoomTransform
 } from 'd3-zoom';
-import type { Dimensions, ZoomEvent, ZoomHandlerData } from '../types';
+import type { Dimensions } from '../types';
+import type { RenderingModule } from './rendering';
+
+export interface ZoomEvent {
+    transform: ZoomTransform;
+}
+
+export interface ZoomHandlerData {
+    canvas: HTMLCanvasElement;
+    zoomContainer: HTMLElement;
+    containerDimensions: Dimensions;
+    canvasLength: number;
+    renderModule: RenderingModule;
+}
 
 /**
  * ZoomHandler deals with user interactions and events like zooming
@@ -16,7 +29,9 @@ export class ZoomHandler {
      * This "event" is triggered when the user zooms the wafer map.
      * This is just a callback function since it can only have one subscriber right now.
      */
-    public onZoom: ((event: ZoomEvent) => void) | undefined;
+
+    public onBeforeZoom : ((event: ZoomEvent) => void) | undefined;
+    public onAfterZoom : ((event: ZoomEvent) => void) | undefined;
 
     private zoomTransform: ZoomTransform = zoomIdentity;
     private readonly minScale = 1.1;
@@ -43,9 +58,6 @@ export class ZoomHandler {
     }
 
     public resetTransform(): void {
-        if (this.onZoom === undefined) {
-            return;
-        }
         const canvasContext = this.canvas.getContext('2d');
         if (canvasContext === null) {
             return;
@@ -65,7 +77,7 @@ export class ZoomHandler {
         );
     }
 
-    public rescale(): void {
+    private rescale(): void {
         if (this.lastEvent === undefined) {
             return;
         }
@@ -138,8 +150,15 @@ export class ZoomHandler {
             })
             .on('zoom', (event: ZoomEvent) => {
                 this.lastEvent = event;
-                if (this.onZoom !== undefined) {
-                    this.onZoom(event);
+                
+                if (this.onBeforeZoom !== undefined) {
+                    this.onBeforeZoom(event);
+                };
+
+                this.rescale();
+
+                if (this.onAfterZoom !== undefined) {
+                    this.onAfterZoom(event);
                 }
             });
 
