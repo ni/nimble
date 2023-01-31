@@ -17,7 +17,9 @@ export interface EventCallbacks {
     dieSelected: (die: WaferMapDie) => void;
 }
 
-
+/**
+ *
+ */
 export class EventHandler {
     private readonly zoomHandler: ZoomHandler;
 
@@ -39,10 +41,10 @@ export class EventHandler {
         this.zoomHandler.onBeforeZoom = () => {
             // TODO HoverHandler - toggle hoverDie with false
         };
-        this.zoomHandler.onAfterZoom = ()=>{
+        this.zoomHandler.onAfterZoom = () => {
             // TODO HoverHandler - set new transfrom from event.transform
             // TODO HoverHandler - create a new hoverDie
-        }
+        };
 
         // Wafermap callbacks
         // TODO HoverHandler - configure the callback to be fired from HoverHandler when a new die is selected
@@ -52,7 +54,7 @@ export class EventHandler {
         this.zoomHandler.resetTransform();
     }
 
-    public get lastSelectedDie(): WaferMapDie | undefined {
+    public get selectedDie(): WaferMapDie | undefined {
         // TODO HoverHandler - return the last selected die when called
 
         return undefined;

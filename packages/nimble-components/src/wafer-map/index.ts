@@ -74,11 +74,6 @@ export class WaferMap extends FoundationElement {
      */
     public readonly rect!: HTMLElement;
 
-    // Last selectedDie accessor
-    public get lastSelectedDie(): WaferMapDie | undefined {
-        return this.eventHandler?.lastSelectedDie;
-    }
-
     /**
      * @internal
      */

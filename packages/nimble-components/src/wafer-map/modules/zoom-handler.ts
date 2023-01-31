@@ -30,8 +30,8 @@ export class ZoomHandler {
      * This is just a callback function since it can only have one subscriber right now.
      */
 
-    public onBeforeZoom : ((event: ZoomEvent) => void) | undefined;
-    public onAfterZoom : ((event: ZoomEvent) => void) | undefined;
+    public onBeforeZoom: ((event: ZoomEvent) => void) | undefined;
+    public onAfterZoom: ((event: ZoomEvent) => void) | undefined;
 
     private zoomTransform: ZoomTransform = zoomIdentity;
     private readonly minScale = 1.1;
@@ -150,10 +150,10 @@ export class ZoomHandler {
             })
             .on('zoom', (event: ZoomEvent) => {
                 this.lastEvent = event;
-                
+
                 if (this.onBeforeZoom !== undefined) {
                     this.onBeforeZoom(event);
-                };
+                }
 
                 this.rescale();
 
