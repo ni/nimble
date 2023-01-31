@@ -31,6 +31,7 @@ The behavior that has been prescribed for column sizing is as follows:
 There are some column sizing behaviors that we will ultimately expect to support, but the APIs presented here are not meant to address:
 - Auto-resizing: We will not describe how we intend to support the use-case of having a column auto-size to its contents
 - Different interactive sizing modes: While the APIs described in this HLD do not inherently prescribe to a particular interactive sizing behavior, it's worth saying that in order to support multiple sizing modes, there will likely be additional APIs required that this HLD does not address.
+- Mechanisms related to accessibility-centric interactive column sizing (if there are such mechanisms). One possible example is allowing a user to size a column by way of the keyboard, instead of using a mouse. Ultimately, such a scenario is not in conflict with the API presented here, nor the mouse-based approach we know we will require, and can thus be handled separately, if ever.
 
 ### API
 
@@ -150,10 +151,6 @@ Because we will allow a horizontal scrollbar once the right-most column reaches 
 #### **Interactive visual states**
 
 Consult the [design document](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/) for details on the column divider appearance states, as well as the cursor appearance while hovering over a divider. Note that we shouldn't alter the appearance of the mouse cursor if hovering over a divider between two non-resizable columns.
-
-#### **Accessibility**
-
-We need to consider and ultimately document specific accessibility concerns related to interactively sizing columns.
 
 #### **Future interactive sizing behaviors**
 
