@@ -53,14 +53,14 @@ export class ZoomHandler {
             zoomIdentity.y,
             zoomIdentity.k
         );
-        this.reScale();
+        this.rescale();
         this.zoomBehavior?.transform(
             select(this.canvas as Element),
             zoomIdentity
         );
     }
 
-    public reScale(): void {
+    public rescale(): void {
         if (this.renderingFunction === undefined) {
             return;
         }

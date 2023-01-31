@@ -26,7 +26,7 @@ export class EventHandler {
         this.zoomHandler.onZoom = () => {
             // TODO HoverHandler - toggle hoverDie with false
 
-            this.zoomHandler.reScale();
+            this.zoomHandler.rescale();
 
             // TODO HoverHandler - set new transfrom from event.transform
 
