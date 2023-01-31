@@ -3,6 +3,8 @@
 <nimble-table
     @ref="_table"
     id-field-name="@IdFieldName"
-    @attributes="AdditionalAttributes">
+    @attributes="AdditionalAttributes"
+    @onnimbleactionmenubeforetoggle="(__value) => FireActionMenuBeforeToggle(__value)"
+    @onnimbleactionmenutoggle="(__value) => FireActionMenuToggle(__value)">
     @ChildContent
 </nimble-table>

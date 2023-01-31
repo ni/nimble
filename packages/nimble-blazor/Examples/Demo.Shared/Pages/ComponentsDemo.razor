@@ -197,7 +197,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Table</div>
-            <NimbleTable @bind-Data="TableData" class="table">
+            <NimbleTable @bind-Data="TableData" class="table" ActionMenuToggle="TableActionMenuToggle" ActionMenuBeforeToggle="TableActionMenuBeforeToggle">
                 <NimbleTableColumnText FieldName="FirstName" Placeholder="no value" ActionMenuSlot="action-menu" ActionMenuLabel="Action menu">First Name</NimbleTableColumnText>
                 <NimbleTableColumnText FieldName="LastName" Placeholder="no value">Last Name</NimbleTableColumnText>
 

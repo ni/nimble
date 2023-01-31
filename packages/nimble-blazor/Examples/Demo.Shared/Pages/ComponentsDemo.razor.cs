@@ -67,6 +67,16 @@ namespace Demo.Shared.Pages
 
             TableData = tableData;
         }
+
+        public void TableActionMenuBeforeToggle(TableActionMenuToggleEventArgs args)
+        {
+            DrawerClosedReason = "Before toggle";
+        }
+
+        public void TableActionMenuToggle(TableActionMenuToggleEventArgs args)
+        {
+            DialogClosedReason = "Toggle";
+        }
     }
 
     public class Person
