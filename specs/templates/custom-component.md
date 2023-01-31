@@ -36,6 +36,10 @@
 - *A developer building an app with the component and interacting through HTML/CSS/JavaScript.*
 - *A designer customizing the component.*
 
+*Include code snippets showing basic component use and any interesting configurations.*
+
+*For each section below, consider adding an "Alternatives" sub-section to describe any design alternatives and discuss why they were rejected.*
+
 ### API
 
 *The key elements of the component's public API surface:*
