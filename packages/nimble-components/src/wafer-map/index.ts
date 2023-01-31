@@ -207,7 +207,6 @@ export class WaferMap extends FoundationElement {
             this.canvas.width = this.canvasSideLength;
             this.canvas.height = this.canvasSideLength;
         }
-        // this.eventHandler?.resetZoomTransform();
         this.queueRender();
     }
 
