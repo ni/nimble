@@ -12,7 +12,12 @@ import type { Dimensions, ZoomEvent, ZoomHandlerData } from '../types';
  * ZoomHandler deals with user interactions and events like zooming
  */
 export class ZoomHandler {
+    /*
+     * This "event" is triggered when the user zooms the wafer map.
+     * This is just a callback function since it can only have one subscriber right now.
+     */
     public onZoom: ((event: ZoomEvent) => void) | undefined;
+
     private zoomTransform: ZoomTransform = zoomIdentity;
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
