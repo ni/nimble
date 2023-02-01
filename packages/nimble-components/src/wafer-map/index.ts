@@ -9,7 +9,7 @@ import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
-import { EventHandler } from './modules/event-handler';
+import { EventCoordinator } from './modules/event-coordinator';
 import {
     WaferMapColorScale,
     WaferMapColorScaleMode,
@@ -19,7 +19,10 @@ import {
     HoverHandlerData
 } from './types';
 import type { ZoomHandlerData } from './modules/zoom-handler';
-import type { EventHandlerData, EventCallbacks } from './modules/event-handler';
+import type {
+    EventCoordinatorData,
+    EventCallbacks
+} from './modules/event-coordinator';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -86,29 +89,17 @@ export class WaferMap extends FoundationElement {
     };
 
     private renderQueued = false;
-    private eventHandler?: EventHandler;
+    private eventCoordinator?: EventCoordinator;
     private resizeObserver?: ResizeObserver;
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.resizeObserver = new ResizeObserver(entries => {
-            const entry = entries[0];
-            if (entry === undefined) {
-                return;
-            }
-            const { height, width } = entry.contentRect;
-            this.canvasSideLength = Math.min(height, width);
-        });
-        this.resizeObserver.observe(this);
-        this.canvas.addEventListener('wheel', event => event.preventDefault(), {
-            passive: false
-        });
+        this.resizeObserver = this.createResizeObserver();
         this.queueRender();
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.canvas.removeEventListener('wheel', event => event.preventDefault());
         this.resizeObserver!.unobserve(this);
     }
 
@@ -124,7 +115,7 @@ export class WaferMap extends FoundationElement {
         ) {
             return;
         }
-        this.clearCanvas(this.canvasSideLength, this.canvasSideLength);
+        this.cleanUp();
 
         const dataManager = new DataManager(
             this.dies,
@@ -139,10 +130,30 @@ export class WaferMap extends FoundationElement {
         );
 
         const renderer = new RenderingModule(dataManager, this.canvas);
-        this.eventHandler = new EventHandler(
+        this.eventCoordinator = new EventCoordinator(
             this.parseWaferDataToEventData(dataManager, renderer, this)
         );
         renderer.drawWafer();
+    }
+
+    private createResizeObserver(): ResizeObserver {
+        const resizeObserver = new ResizeObserver(entries => {
+            const entry = entries[0];
+            if (entry === undefined) {
+                return;
+            }
+            const { height, width } = entry.contentRect;
+            this.canvasSideLength = Math.min(height, width);
+        });
+        resizeObserver.observe(this);
+        return resizeObserver;
+    }
+
+    private cleanUp(): void {
+        this.clearCanvas(this.canvasSideLength, this.canvasSideLength);
+        if (this.eventCoordinator !== undefined) {
+            this.eventCoordinator.detachEvents();
+        }
     }
 
     private clearCanvas(width: number, height: number): void {
@@ -217,7 +228,7 @@ export class WaferMap extends FoundationElement {
         dataManager: DataManager,
         renderer: RenderingModule,
         wafermap: WaferMap
-    ): EventHandlerData {
+    ): EventCoordinatorData {
         const zoomHandlerData: ZoomHandlerData = {
             canvas: wafermap.canvas,
             zoomContainer: wafermap.zoomContainer,

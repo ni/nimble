@@ -24,15 +24,7 @@ export interface ZoomHandlerData {
 /**
  * ZoomHandler deals with user interactions and events like zooming
  */
-export class ZoomHandler {
-    /*
-     * This "event" is triggered when the user zooms the wafer map.
-     * This is just a callback function since it can only have one subscriber right now.
-     */
-
-    public onBeforeZoom: ((event: ZoomEvent) => void) | undefined;
-    public onAfterZoom: ((event: ZoomEvent) => void) | undefined;
-
+export class ZoomHandler extends EventTarget {
     private zoomTransform: ZoomTransform = zoomIdentity;
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
@@ -46,6 +38,7 @@ export class ZoomHandler {
     private lastEvent: ZoomEvent | undefined;
 
     public constructor(data: ZoomHandlerData) {
+        super();
         this.canvas = data.canvas;
         this.zoomContainer = data.zoomContainer;
         this.containerDimensions = data.containerDimensions;
@@ -151,15 +144,15 @@ export class ZoomHandler {
             .on('zoom', (event: ZoomEvent) => {
                 this.lastEvent = event;
 
-                if (this.onBeforeZoom !== undefined) {
-                    this.onBeforeZoom(event);
-                }
+                this.dispatchEvent(
+                    new CustomEvent('before-zoom', { detail: { event } })
+                );
 
                 this.rescale();
 
-                if (this.onAfterZoom !== undefined) {
-                    this.onAfterZoom(event);
-                }
+                this.dispatchEvent(
+                    new CustomEvent('after-zoom', { detail: { event } })
+                );
             });
 
         return zoomBehavior;
