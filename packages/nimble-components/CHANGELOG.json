@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 01 Feb 2023 21:48:31 GMT",
+      "tag": "@ni/nimble-components_v18.1.0",
+      "version": "18.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "acfc103fc3cfd607cb97a4f8df2c2990c920ba73",
+            "comment": "Disable chromatic snapshot in spinner"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 30 Jan 2023 19:33:59 GMT",
       "tag": "@ni/nimble-components_v18.1.0",
       "version": "18.1.0",
