@@ -20,8 +20,12 @@ export interface EventCallbacks {
 export class EventCoordinator {
     private readonly zoomHandler: ZoomHandler;
 
-    public constructor(private readonly EventCoordinatorData: EventCoordinatorData) {
-        this.zoomHandler = new ZoomHandler(EventCoordinatorData.zoomHandlerData);
+    public constructor(
+        private readonly eventCoordinatorData: EventCoordinatorData
+    ) {
+        this.zoomHandler = new ZoomHandler(
+            eventCoordinatorData.zoomHandlerData
+        );
 
         // TODO HoverHandler - initialization
 
@@ -41,15 +45,15 @@ export class EventCoordinator {
     }
 
     public detachEvents(): void {
-        this.EventCoordinatorData.wafermap.removeEventListener(
+        this.eventCoordinatorData.wafermap.removeEventListener(
             'mousemove',
             this.onMouseMove
         );
-        this.EventCoordinatorData.wafermap.removeEventListener(
+        this.eventCoordinatorData.wafermap.removeEventListener(
             'mouseout',
             this.onMouseOut
         );
-        this.EventCoordinatorData.wafermap.canvas.removeEventListener(
+        this.eventCoordinatorData.wafermap.canvas.removeEventListener(
             'wheel',
             this.onWheelMove
         );
@@ -85,15 +89,15 @@ export class EventCoordinator {
     };
 
     private attachEvents(): void {
-        this.EventCoordinatorData.wafermap.addEventListener(
+        this.eventCoordinatorData.wafermap.addEventListener(
             'mousemove',
             this.onMouseMove
         );
-        this.EventCoordinatorData.wafermap.addEventListener(
+        this.eventCoordinatorData.wafermap.addEventListener(
             'mouseout',
             this.onMouseOut
         );
-        this.EventCoordinatorData.wafermap.canvas.addEventListener(
+        this.eventCoordinatorData.wafermap.canvas.addEventListener(
             'wheel',
             this.onWheelMove,
             {
