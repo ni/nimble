@@ -161,10 +161,8 @@ export class WaferMap extends FoundationElement {
         context.clearRect(0, 0, width, height);
     }
 
-    private readonly onDieSelected = (die: WaferMapDie): void => {
-        this.dispatchEvent(
-            new CustomEvent('die-selected', { detail: { die } })
-        );
+    private readonly emitDieSelected = (die: WaferMapDie): void => {
+        this.$emit('die-selected', { detail: { die } });
     };
 
     private quadrantChanged(): void {
@@ -245,7 +243,7 @@ export class WaferMap extends FoundationElement {
         };
 
         const eventCallbacks: EventCallbacks = {
-            dieSelected: this.onDieSelected
+            dieSelected: die => this.emitDieSelected(die)
         };
 
         return { zoomHandlerData, hoverHandlerData, eventCallbacks, wafermap };

@@ -29,22 +29,18 @@ export const styles = css`
 
     .notch.top {
         transform: rotate(-90deg);
-        transform-origin: center center;
     }
 
     .notch.right {
         transform: rotate(0deg);
-        transform-origin: center center;
     }
 
     .notch.left {
         transform: rotate(180deg);
-        transform-origin: center center;
     }
 
     .notch.bottom {
         transform: rotate(90deg);
-        transform-origin: center center;
     }
 
     .zoom-container {
