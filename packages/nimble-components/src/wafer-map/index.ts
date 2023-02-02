@@ -106,7 +106,6 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-
     public render(): void {
         this.renderQueued = false;
         if (
@@ -139,6 +138,7 @@ export class WaferMap extends FoundationElement {
     private createResizeObserver(): ResizeObserver {
         const resizeObserver = new ResizeObserver(entries => {
             const entry = entries[0];
+            console.log(entry);
             if (entry === undefined) {
                 return;
             }
