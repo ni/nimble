@@ -114,7 +114,7 @@ export class WaferMap extends FoundationElement {
         ) {
             return;
         }
-        this.cleanUp();
+        this.cleanupEventCoordinatorAndClearCanvas();
 
         const dataManager = new DataManager(
             this.dies,
@@ -138,7 +138,6 @@ export class WaferMap extends FoundationElement {
     private createResizeObserver(): ResizeObserver {
         const resizeObserver = new ResizeObserver(entries => {
             const entry = entries[0];
-            console.log(entry);
             if (entry === undefined) {
                 return;
             }
@@ -149,11 +148,9 @@ export class WaferMap extends FoundationElement {
         return resizeObserver;
     }
 
-    private cleanUp(): void {
+    private cleanupEventCoordinatorAndClearCanvas(): void {
         this.clearCanvas(this.canvasSideLength, this.canvasSideLength);
-        if (this.eventCoordinator !== undefined) {
-            this.eventCoordinator.detachEvents();
-        }
+        this.eventCoordinator?.detachEvents();
     }
 
     private clearCanvas(width: number, height: number): void {
