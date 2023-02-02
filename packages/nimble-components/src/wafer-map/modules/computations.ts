@@ -1,5 +1,5 @@
 import { range } from 'd3-array';
-import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
+import { ScaleBand, scaleBand } from 'd3-scale';
 import type { WaferMapDie } from '../types';
 import { Dimensions, Margin, WaferMapQuadrant } from '../types';
 
@@ -25,14 +25,15 @@ export class Computations {
     public verticalScale!: ScaleBand<number>;
 
     private readonly baseMargin: Margin = {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
     } as const;
 
     private readonly dieSizeFactor = 1.5;
     private readonly defaultAlign = 0.5;
+    private readonly baseMarginPercentage = 0.04;
 
     public constructor(
         dies: Readonly<Readonly<WaferMapDie>[]>,
@@ -50,20 +51,26 @@ export class Computations {
             bottom: (canvasDimensions.height - canvasDiameter) / 2,
             left: (canvasDimensions.width - canvasDiameter) / 2
         };
+        const baseMargin = {
+            top: canvasDiameter * this.baseMarginPercentage,
+            right: canvasDiameter * this.baseMarginPercentage,
+            bottom: canvasDiameter * this.baseMarginPercentage,
+            left: canvasDiameter * this.baseMarginPercentage
+        };
         this.radius = 0;
-        this.margin = this.calculateMarginAddition(this.baseMargin, canvasMargin);
+        this.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
 
         this.computeDisplayDimensions(axisLocation, gridDimensions, canvasDimensions);
 
-        while (this.radius > canvasDiameter / 2) {
-            this.margin = this.calculateMarginAddition(this.margin, {
-                top: this.radius - canvasDiameter / 2,
-                right: this.radius - canvasDiameter / 2,
-                bottom: this.radius - canvasDiameter / 2,
-                left: this.radius - canvasDiameter / 2
-            });
-            this.computeDisplayDimensions(axisLocation, gridDimensions, canvasDimensions);
-        }
+        // while (this.radius > canvasDiameter / 2) {
+        //     this.margin = this.calculateMarginAddition(this.margin, {
+        //         top: this.radius - canvasDiameter / 2,
+        //         right: this.radius - canvasDiameter / 2,
+        //         bottom: this.radius - canvasDiameter / 2,
+        //         left: this.radius - canvasDiameter / 2
+        //     });
+        //     this.computeDisplayDimensions(axisLocation, gridDimensions, canvasDimensions);
+        // }
     }
 
     private computeDisplayDimensions(
@@ -94,8 +101,8 @@ export class Computations {
             width: this.horizontalScale.bandwidth(),
             height: this.verticalScale.bandwidth()
         };
-        const dieDiameter = Math.min(this.dieDimensions.width, this.dieDimensions.height);
-        this.radius = containerDiameter / 2 + dieDiameter * this.dieSizeFactor;
+        // const dieDiameter = Math.sqrt(this.dieDimensions.width * this.dieDimensions.width + this.dieDimensions.height * this.dieDimensions.height);
+        this.radius = containerDiameter / 2;
     }
 
     private calculateGridDimensions(
@@ -148,7 +155,7 @@ export class Computations {
         const scale = scaleBand<number>()
             .domain(range(grid.origin.x, grid.origin.x + grid.cols))
             .range([0, containerWidth])
-            .paddingInner(0.2)
+            .paddingInner(0)
             .paddingOuter(0)
             .align(0)
             .round(false);
@@ -169,7 +176,7 @@ export class Computations {
         const scale = scaleBand<number>()
             .domain(range(grid.origin.y, grid.origin.y + grid.rows))
             .range([containerHeight, 0])
-            .paddingInner(0.2)
+            .paddingInner(0)
             .paddingOuter(0)
             .align(0)
             .round(false);

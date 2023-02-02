@@ -17,7 +17,7 @@ export class ZoomHandler {
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
     private zoomBehavior: ZoomBehavior<Element, unknown> | undefined;
-    private _renderingFunction: VoidFunction | undefined;
+    private _renderingFunction: ((_: number) => void) | undefined;
     private _hideHoverDieFunction: VoidFunction | undefined;
 
     public get zoomTransform(): ZoomTransform {
@@ -31,7 +31,7 @@ export class ZoomHandler {
         private readonly canvasDimensions: Readonly<Dimensions>,
     ) {}
 
-    public set renderingFunction(renderingFunction: VoidFunction) {
+    public set renderingFunction(renderingFunction: (_: number) => void) {
         this._renderingFunction = renderingFunction;
     }
 
@@ -55,7 +55,7 @@ export class ZoomHandler {
         this._zoomTransform = zoomIdentity;
         this.clearCanvas(canvasContext, this.canvasDimensions);
         this.scaleCanvas(canvasContext, zoomIdentity);
-        this._renderingFunction();
+        this._renderingFunction(zoomIdentity.k);
         this.zoomBehavior?.transform(
             select(this.canvas as Element),
             zoomIdentity
@@ -86,7 +86,7 @@ export class ZoomHandler {
                 canvasContext,
                 zoomIdentity
             );
-            this._renderingFunction();
+            this._renderingFunction(zoomIdentity.k);
             event.target.transform(
                 select(this.canvas as Element),
                 zoomIdentity
@@ -104,7 +104,7 @@ export class ZoomHandler {
                 canvasContext,
                 transform
             );
-            this._renderingFunction();
+            this._renderingFunction(transform.k);
         }
         canvasContext.restore();
         this.zoomContainer.setAttribute(

@@ -6,7 +6,6 @@ import type { DataManager } from './data-manager';
  */
 export class RenderingModule {
     private readonly context: CanvasRenderingContext2D;
-    private dieSize?: number;
     private readonly dies: DieRenderInfo[];
     private readonly dimensions: Dimensions;
     private readonly labelFontSize: number;
@@ -19,7 +18,7 @@ export class RenderingModule {
     }
 
     public drawWafer(transform?: number): void {
-        this.renderDies(transform);
+        this.renderDies();
         this.renderText(transform);
     }
 
@@ -27,8 +26,7 @@ export class RenderingModule {
         this.context.clearRect(0, 0, width, height);
     }
 
-    private renderDies(transform?: number): void {
-        this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
+    private renderDies(): void {
         this.dies.sort((a, b) => {
             if (a.fillStyle > b.fillStyle) {
                 return 1;
@@ -60,7 +58,7 @@ export class RenderingModule {
     }
 
     private renderText(transform?: number): void {
-        this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
+        const dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
         const fontsize = this.labelFontSize;
         this.context.font = `${fontsize.toString()}px sans-serif`;
         this.context.fillStyle = '#ffffff';
@@ -68,7 +66,7 @@ export class RenderingModule {
         this.context.lineCap = 'butt';
         const aproxTextHeight = this.context.measureText('M');
 
-        if (this.dieSize >= 50) {
+        if (dieSize >= 50) {
             for (const die of this.dies) {
                 this.context.fillText(
                     die.text,

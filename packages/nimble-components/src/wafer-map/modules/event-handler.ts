@@ -38,8 +38,8 @@ export class EventHandler {
         );
         this.hoverHandler.createHoverDie(rect);
 
-        this.zoomHandler.renderingFunction = () => {
-            renderer.drawWafer();
+        this.zoomHandler.renderingFunction = (transform: number) => {
+            renderer.drawWafer(transform);
             this.hoverHandler.createHoverDie(rect);
         };
 
