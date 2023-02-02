@@ -1,4 +1,4 @@
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import {
     keyArrowLeft,
     keyArrowRight,
@@ -11,6 +11,7 @@ import {
 import { AnchorTabs } from '..';
 import '../../anchor-tab';
 import type { AnchorTab } from '../../anchor-tab';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
@@ -108,13 +109,13 @@ describe('AnchorTabs', () => {
 
     it('should clear activetab when active tab is removed', async () => {
         tab(1).remove();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.activetab).toBeUndefined();
     });
 
     it('should keep activetab when active tab is disabled', async () => {
         tab(1).disabled = true;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.activetab).toBe(tab(1));
     });
 
@@ -214,13 +215,13 @@ describe('AnchorTabs', () => {
                 await connect();
                 if (test.disabledIndex !== undefined) {
                     tab(test.disabledIndex).disabled = true;
-                    await DOM.nextUpdate();
+                    await waitForUpdatesAsync();
                 }
                 tab(test.initialFocusIndex).focus();
                 tab(test.initialFocusIndex).dispatchEvent(
                     new KeyboardEvent('keydown', { key: test.keyName })
                 );
-                await DOM.nextUpdate();
+                await waitForUpdatesAsync();
                 expect(document.activeElement).toBe(
                     tab(test.expectedFinalFocusIndex)
                 );
@@ -231,25 +232,25 @@ describe('AnchorTabs', () => {
     it('should skip past other tabs when pressing tab key after click', async () => {
         tab(1).focus();
         tab(1).dispatchEvent(new Event('click'));
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         document.activeElement!.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyTab })
         );
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(document.activeElement).toBe(tab(1));
     });
 
     it('should skip past other tabs when pressing tab key after arrow key', async () => {
         tab(1).focus();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         document.activeElement!.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyArrowLeft })
         );
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         document.activeElement!.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyTab })
         );
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(document.activeElement).toBe(tab(0));
     });
 
@@ -258,7 +259,7 @@ describe('AnchorTabs', () => {
         expect(tab(1).tabIndex).toBe(0);
         expect(tab(2).tabIndex).toBe(-1);
         tab(0).dispatchEvent(new Event('click'));
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(tab(0).tabIndex).toBe(0);
         expect(tab(1).tabIndex).toBe(-1);
         expect(tab(2).tabIndex).toBe(-1);
@@ -270,7 +271,7 @@ describe('AnchorTabs', () => {
             timesClicked += 1;
         });
         tab(0).dispatchEvent(new KeyboardEvent('keydown', { key: keySpace }));
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(timesClicked).toBe(1);
     });
 
@@ -280,7 +281,7 @@ describe('AnchorTabs', () => {
             timesClicked += 1;
         });
         tab(0).dispatchEvent(new KeyboardEvent('keydown', { key: keyEnter }));
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(timesClicked).toBe(1);
     });
 });

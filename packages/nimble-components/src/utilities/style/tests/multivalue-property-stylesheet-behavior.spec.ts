@@ -7,7 +7,6 @@ import {
     css,
     ref,
     ElementStyles,
-    DOM,
     Behavior,
     attr
 } from '@microsoft/fast-element';
@@ -15,6 +14,7 @@ import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
 import { TestAppearance } from './types';
 import { MultivaluePropertyStyleSheetBehavior } from '../multivalue-property-stylesheet-behavior';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 const testAppearance = (
     value: TestAppearance | TestAppearance[],
@@ -176,7 +176,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             );
             await connect();
             appearanceController.appearance = TestAppearance.awesome;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
@@ -191,12 +191,12 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             );
             await connect();
             appearanceController.appearance = TestAppearance.awesome;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
             appearanceController.appearance = TestAppearance.best;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.best);
@@ -211,12 +211,12 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             );
             await connect();
             appearanceController.appearance = TestAppearance.awesome;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
             appearanceController.appearance = TestAppearance.best;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
@@ -234,12 +234,12 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.default);
             appearanceController.appearance = TestAppearance.awesome;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
             appearanceController.appearance = TestAppearance.best;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.default);
@@ -307,7 +307,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             );
             await connect();
             appearanceController.appearance2 = TestAppearance.awesome;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement1.resolveApearanceStyle()
             ).toBe(TestAppearance.default);
@@ -326,7 +326,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             await connect();
             appearanceController.appearance1 = TestAppearance.awesome;
             appearanceController.appearance2 = TestAppearance.best;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement1.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);

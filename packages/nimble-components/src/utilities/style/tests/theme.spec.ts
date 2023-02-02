@@ -6,14 +6,14 @@ import {
     observable,
     css,
     ref,
-    ElementStyles,
-    DOM
+    ElementStyles
 } from '@microsoft/fast-element';
 import type { ThemeProvider } from '../../../theme-provider';
 import { Theme } from '../../../theme-provider/types';
 import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
 import { themeBehavior } from '../theme';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 /**
  * Test element with theme-aware styles
@@ -163,7 +163,7 @@ describe('The ThemeStylesheetBehavior', () => {
             );
             await connect();
             themeController.theme = Theme.light;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.light
             );
@@ -178,7 +178,7 @@ describe('The ThemeStylesheetBehavior', () => {
             );
             await connect();
             themeController.theme = Theme.dark;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
@@ -193,7 +193,7 @@ describe('The ThemeStylesheetBehavior', () => {
             );
             await connect();
             themeController.theme = Theme.color;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.color
             );
@@ -208,12 +208,12 @@ describe('The ThemeStylesheetBehavior', () => {
             );
             await connect();
             themeController.theme = Theme.light;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.light
             );
             themeController.theme = Theme.dark;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
@@ -228,12 +228,12 @@ describe('The ThemeStylesheetBehavior', () => {
             );
             await connect();
             themeController.theme = Theme.dark;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
             themeController.theme = Theme.color;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
@@ -248,17 +248,17 @@ describe('The ThemeStylesheetBehavior', () => {
             );
             await connect();
             themeController.theme = Theme.light;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.light
             );
             themeController.theme = Theme.dark;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 'theme-unset'
             );
             themeController.theme = Theme.color;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 'theme-unset'
             );
@@ -321,7 +321,7 @@ describe('The ThemeStylesheetBehavior', () => {
             await connect();
             themeController.theme1 = Theme.light;
             themeController.theme2 = Theme.dark;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement1.resolveThemedStyle()).toBe(
                 Theme.light
             );
@@ -340,7 +340,7 @@ describe('The ThemeStylesheetBehavior', () => {
             await connect();
             themeController.theme1 = Theme.dark;
             themeController.theme2 = Theme.color;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
 
             expect(themeController.themedElement1.resolveThemedStyle()).toBe(
                 Theme.dark
