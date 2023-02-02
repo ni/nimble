@@ -15,7 +15,7 @@ export interface EventCallbacks {
 }
 
 /**
- * EventHandler deals with user interactions and events
+ * EventCoordinator deals with user interactions and events
  */
 export class EventCoordinator {
     private readonly zoomHandler: ZoomHandler;
