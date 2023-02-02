@@ -21,7 +21,7 @@ import {
 import type { ZoomHandlerData } from './modules/zoom-handler';
 import type {
     EventCoordinatorData,
-    EventCallbacks
+    EventCoordinatorCallbacks
 } from './modules/event-coordinator';
 
 declare global {
@@ -239,11 +239,11 @@ export class WaferMap extends FoundationElement {
             quadrant: wafermap.quadrant
         };
 
-        const eventCallbacks: EventCallbacks = {
+        const eventCoordinatorCallbacks: EventCoordinatorCallbacks = {
             dieSelected: die => this.emitDieSelected(die)
         };
 
-        return { zoomHandlerData, hoverHandlerData, eventCallbacks, wafermap };
+        return { zoomHandlerData, hoverHandlerData, eventCoordinatorCallbacks, wafermap };
     }
 }
 

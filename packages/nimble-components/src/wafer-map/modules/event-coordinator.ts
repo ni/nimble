@@ -6,11 +6,11 @@ import { ZoomHandler } from './zoom-handler';
 export interface EventCoordinatorData {
     zoomHandlerData: ZoomHandlerData;
     hoverHandlerData: HoverHandlerData;
-    eventCallbacks: EventCallbacks;
+    eventCoordinatorCallbacks: EventCoordinatorCallbacks;
     wafermap: WaferMap;
 }
 
-export interface EventCallbacks {
+export interface EventCoordinatorCallbacks {
     dieSelected: (die: WaferMapDie) => void;
 }
 
