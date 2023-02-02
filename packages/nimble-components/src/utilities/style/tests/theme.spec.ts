@@ -157,7 +157,7 @@ describe('The ThemeStylesheetBehavior', () => {
 
         it('responds to light theme', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
@@ -167,11 +167,12 @@ describe('The ThemeStylesheetBehavior', () => {
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.light
             );
+            await disconnect();
         });
 
         it('responds to dark theme', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
@@ -181,11 +182,12 @@ describe('The ThemeStylesheetBehavior', () => {
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
+            await disconnect();
         });
 
         it('responds to color theme', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
@@ -195,11 +197,12 @@ describe('The ThemeStylesheetBehavior', () => {
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.color
             );
+            await disconnect();
         });
 
         it('responds to change from light theme to dark theme', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
@@ -214,11 +217,12 @@ describe('The ThemeStylesheetBehavior', () => {
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
+            await disconnect();
         });
 
         it('can share styles for dark and color themes', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.sharedDarkColorBehaviorsStyles
             );
@@ -233,11 +237,12 @@ describe('The ThemeStylesheetBehavior', () => {
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
+            await disconnect();
         });
 
         it('can have unset color and dark themes', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.unsetDarkColorBehaviorsStyles
             );
@@ -257,6 +262,7 @@ describe('The ThemeStylesheetBehavior', () => {
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 'theme-unset'
             );
+            await disconnect();
         });
     });
 
@@ -308,7 +314,7 @@ describe('The ThemeStylesheetBehavior', () => {
 
         it('can have one light and one dark themed element', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
@@ -322,11 +328,12 @@ describe('The ThemeStylesheetBehavior', () => {
             expect(themeController.themedElement2.resolveThemedStyle()).toBe(
                 Theme.dark
             );
+            await disconnect();
         });
 
         it('can have one dark and one color themed element', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
@@ -341,6 +348,7 @@ describe('The ThemeStylesheetBehavior', () => {
             expect(themeController.themedElement2.resolveThemedStyle()).toBe(
                 Theme.color
             );
+            await disconnect();
         });
     });
 });

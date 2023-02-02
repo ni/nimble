@@ -157,7 +157,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
 
         it('has a default appearance', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.allAppearanceStyles
             );
@@ -165,11 +165,12 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.default);
+            await disconnect();
         });
 
         it('has an appearance of awesome', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.allAppearanceStyles
             );
@@ -179,11 +180,12 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
+            await disconnect();
         });
 
         it('responds to change of appearance from awesome to best', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.allAppearanceStyles
             );
@@ -198,11 +200,12 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.best);
+            await disconnect();
         });
 
         it('can share styles for appearances awesome and best', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.sharedAppearanceStyles
             );
@@ -217,11 +220,12 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
+            await disconnect();
         });
 
         it('can have an unset appearance best', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.unsetAppearanceStyles
             );
@@ -239,6 +243,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.default);
+            await disconnect();
         });
     });
 
@@ -296,7 +301,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
 
         it('can have one default and one awesome element', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.allAppearanceStyles
             );
@@ -309,11 +314,12 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             expect(
                 appearanceController.appearanceElement2.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
+            await disconnect();
         });
 
         it('can have one awesome and one best element', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.allAppearanceStyles
             );
@@ -327,6 +333,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             expect(
                 appearanceController.appearanceElement2.resolveApearanceStyle()
             ).toBe(TestAppearance.best);
+            await disconnect();
         });
     });
 });

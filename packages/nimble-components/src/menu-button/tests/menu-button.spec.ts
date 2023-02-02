@@ -543,7 +543,9 @@ describe('MenuButton', () => {
                 // Start with the focus on the menu button so that it can lose focus later
                 menuButton.focus();
                 menuButton.open = true;
+                await DOM.nextUpdate();
                 focusableElement.focus();
+                await DOM.nextUpdate();
                 expect(menuButton.open).toBeFalse();
             });
         });
