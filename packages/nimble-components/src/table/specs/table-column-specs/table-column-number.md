@@ -1,21 +1,29 @@
-# TableColumnText
+# TableColumnNumber
 
 ## Overview
 
-The `nimble-table-column-text` is a component that defines how to render a cell for that column in a `nimble-table` as text.
+The `nimble-table-column-number` is a component that defines how to render a number in a cell for that column in a `nimble-table` as text.
+
+One key advantage of the number column beyond the existing `nimble-table-column-text` is that it will ensure data in the column is sorted numerically rather than alphabetically. TODO: true?
 
 ### Background
+
+[Number column work item](https://github.com/ni/nimble/issues/1011)
 
 [Table Column API](../table-columns-hld.md)
 
 [Table Spec](../README.md)
 
+[Table Column Text Spec](./table-column-text-field.md)
+
 [Visual Design Spec](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/specs/)
 
 ### Non-goals
 
--   Defining an API that supports editable text. Once we need editable text we will determine if it makes sense to modify this component or introduce a new column type.
--   Provide API to customize styling of the column content. Styles will be defined statically in the implementation via the abstract `cssStyles` property.
+-   Editable numbers. This is not supported by the text column yet either.
+-   Customizing the styling or alignment of the column content. This is not supported by the text column yet either.
+-   API to include units with the number (e.g. "10 miles"). While it would be easy to append a client-configurable unit string after the number (and we may decide to do so eventually), the existing use cases we've found would require custom logic for each unit that doesn't belong in a generic column type. For example, formatting 76 seconds of elapsed time as "1m 16s" or formatting 1024 bytes of file size as "1 KB". These could be provided by Nimble or by clients as their own dedicated column types.
+-   API to configure numeric formatting. While clients may eventually wish to choose to display values with, for example, a specific number of decimal digits or a customizable thousands separator, the concrete use cases we have initially can be handled with a default formatting behavior (described below).
 
 ### Features
 
@@ -25,12 +33,12 @@ The `nimble-table-column-text` is a component that defines how to render a cell 
 
 ## Design
 
-Below is an example of how the `nimble-table-column-text` would be used within a `nimble-table`:
+Below is an example of how the `nimble-table-column-number` would be used within a `nimble-table`:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-text field-name="firstName" placeholder="No data">First Name</nimble-table-column-text-field>
-    <nimble-table-column-text field-name="lastName" placeholder="No data">Last Name</nimble-table-column-text-field>
+    <nimble-table-column-number field-name="recordCount" placeholder="">Count</nimble-table-column-number>
+    <nimble-table-column-number field-name="tagValue" placeholder="No value">Tag Value</nimble-table-column-number>
 </nimble-table>
 ```
 
@@ -38,7 +46,7 @@ Below is an example of how the `nimble-table-column-text` would be used within a
 
 _Component Name_
 
--   `nimble-table-column-text`
+-   `nimble-table-column-number`
 
 _*Props/Attrs*_
 
