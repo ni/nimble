@@ -1,4 +1,5 @@
 import {
+    children,
     ElementsFilter,
     html,
     ref,
@@ -11,22 +12,19 @@ import type { VirtualItem } from '@tanstack/virtual-core';
 import type { Table } from '.';
 import { TableHeader } from './components/header';
 import { TableRow } from './components/row';
-import { TableColumn } from '../table-column/base';
-
-const isTableColumn = (): ElementsFilter => {
-    const filter: ElementsFilter = (
-        value: Node,
-        _: number,
-        __: Node[]
-    ): boolean => {
-        return value instanceof TableColumn;
-    };
-    return filter;
-};
+import type { TableColumn } from '../table-column/base';
 
 // prettier-ignore
 export const template = html<Table>`
-    <template role="table">
+    <template
+        role="table"
+        ${children({
+            property: 'childItems',
+            attributeFilter: ['column-id', 'field-name'],
+            subtree: true,
+            selector: '*'
+        })}
+    >
         <div class="table-container">
             <div role="rowgroup" class="header-container" style="margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;">
                 <div class="header-row" role="row">
@@ -55,6 +53,5 @@ export const template = html<Table>`
                 </div>
             </div>
         </div>
-        <slot ${slotted({ property: 'columns', filter: isTableColumn() })}></slot>
     </template>
 `;

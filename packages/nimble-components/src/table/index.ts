@@ -9,7 +9,7 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
-import type { TableColumn } from '../table-column/base';
+import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
@@ -38,7 +38,7 @@ export class Table<
     public tableData: TableRowState<TData>[] = [];
 
     @observable
-    public readonly columns: TableColumn[] = [];
+    public columns: TableColumn[] = [];
 
     /**
      * @internal
@@ -54,6 +54,9 @@ export class Table<
      * @internal
      */
     public readonly viewport!: HTMLElement;
+
+    @observable
+    public childItems: Element[] = [];
 
     /**
      * @internal
@@ -84,18 +87,12 @@ export class Table<
         this.setTableData(newData);
     }
 
-    public idFieldNameChanged(
-        _prev: string | undefined,
-        _next: string | undefined
-    ): void {
-        // Force TanStack to detect a data update because a row's ID is only
-        // generated when creating a new row model.
-        this.setTableData(this.table.options.data);
-    }
-
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
+
+        this.tableValidator.validateColumnIds(this.columns.map(x => x.columnId));
+        this.canRenderRows = this.checkValidity();
     }
 
     public override disconnectedCallback(): void {
@@ -104,6 +101,31 @@ export class Table<
 
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
+    }
+
+    private idFieldNameChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
+        // Force TanStack to detect a data update because a row's ID is only
+        // generated when creating a new row model.
+        this.setTableData(this.table.options.data);
+    }
+
+    private columnsChanged(
+        _prev: TableColumn[] | undefined,
+        _next: TableColumn[]
+    ): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.tableValidator.validateColumnIds(this.columns.map(x => x.columnId));
+        this.canRenderRows = this.checkValidity();
+    }
+
+    private childItemsChanged(_prev: undefined | Element[], next: Element[]): void {
+        this.columns = next.filter(x => x instanceof TableColumn).map(x => x as TableColumn);
     }
 
     private setTableData(newData: readonly TData[]): void {

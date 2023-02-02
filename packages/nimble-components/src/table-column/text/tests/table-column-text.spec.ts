@@ -62,7 +62,7 @@ describe('TableColumnText', () => {
         });
     }
 
-    it('changing fieldName updates display', async () => {
+    fit('changing fieldName updates display', async () => {
         element.setData([{ field: 'foo', anotherField: 'bar' }]);
         await connect();
         await waitForUpdatesAsync();

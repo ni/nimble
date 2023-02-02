@@ -125,10 +125,10 @@ const metadata: Meta<TableArgs> = {
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
-            <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
-            <nimble-table-column-text field-name="quote" placeholder="no value">Quote</nimble-table-column-text>
+            <nimble-table-column-text field-name="firstName" placeholder="no value" column-id="foo">First Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="lastName" placeholder="no value" column-id="food">Last Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="favoriteColor" placeholder="no value" column-id="bar">Favorite Color</nimble-table-column-text>
+            <nimble-table-column-text field-name="quote" placeholder="no value" column-id="baz">Quote</nimble-table-column-text>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {
