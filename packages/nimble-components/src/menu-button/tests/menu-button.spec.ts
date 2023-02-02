@@ -11,7 +11,10 @@ import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
 import { MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
-import { processUpdates, waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 
 class TestSlottedElement extends FoundationElement {}
 const composedTestSlottedElement = TestSlottedElement.compose({
