@@ -243,7 +243,12 @@ export class WaferMap extends FoundationElement {
             dieSelected: die => this.emitDieSelected(die)
         };
 
-        return { zoomHandlerData, hoverHandlerData, eventCoordinatorCallbacks, wafermap };
+        return {
+            zoomHandlerData,
+            hoverHandlerData,
+            eventCoordinatorCallbacks,
+            wafermap
+        };
     }
 }
 
