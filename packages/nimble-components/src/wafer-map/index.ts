@@ -80,6 +80,15 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
+    public dataManager?:DataManager;
+    /**
+     * @internal
+     */
+    public renderer?:RenderingModule;
+
+    /**
+     * @internal
+     */
     @observable public canvasSideLength = 0;
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
@@ -116,23 +125,11 @@ export class WaferMap extends FoundationElement {
         }
         this.cleanupEventCoordinatorAndClearCanvas();
 
-        const dataManager = new DataManager(
-            this.dies,
-            this.quadrant,
-            { width: this.canvasSideLength, height: this.canvasSideLength },
-            this.colorScale,
-            this.highlightedValues,
-            this.colorScaleMode,
-            this.dieLabelsHidden,
-            this.dieLabelsSuffix,
-            this.maxCharacters
-        );
+        this.dataManager = new DataManager(this);
+        this.renderer = new RenderingModule(this);
 
-        const renderer = new RenderingModule(dataManager, this.canvas);
-        this.eventCoordinator = new EventCoordinator(
-            this.parseWaferDataToEventData(dataManager, renderer, this)
-        );
-        renderer.drawWafer();
+        this.eventCoordinator = new EventCoordinator(this);
+        this.renderer.drawWafer();
     }
 
     private createResizeObserver(): ResizeObserver {

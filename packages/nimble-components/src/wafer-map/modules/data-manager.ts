@@ -1,6 +1,7 @@
 import type { ScaleLinear } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
+import type { WaferMap } from '..';
 import type {
     Dimensions,
     Margin,
@@ -59,37 +60,29 @@ export class DataManager {
     private readonly dataMap: Map<string, WaferMapDie>;
 
     public constructor(
-        dies: Readonly<Readonly<WaferMapDie>[]>,
-        axisLocation: Readonly<WaferMapQuadrant>,
-        canvasDimensions: Readonly<Dimensions>,
-        colorScale: Readonly<WaferMapColorScale>,
-        highlightedValues: Readonly<string[]>,
-        colorScaleMode: Readonly<WaferMapColorScaleMode>,
-        dieLabelsHidden: Readonly<boolean>,
-        dieLabelsSuffix: Readonly<string>,
-        maxCharacters: Readonly<number>
+        wafermap:WaferMap
     ) {
         this.computations = new Computations(
-            dies,
-            axisLocation,
-            canvasDimensions
+            wafermap.dies,
+            wafermap.quadrant,
+            {width: wafermap.canvasSideLength, height: wafermap.canvasSideLength},
         );
 
         this.prerendering = new Prerendering(
-            dies,
-            colorScale,
-            highlightedValues,
+            wafermap.dies,
+            wafermap.colorScale,
+            wafermap.highlightedValues,
             this.computations.horizontalScale,
             this.computations.verticalScale,
-            colorScaleMode,
-            dieLabelsHidden,
-            dieLabelsSuffix,
-            maxCharacters,
+            wafermap.colorScaleMode,
+            wafermap.dieLabelsHidden,
+            wafermap.dieLabelsSuffix,
+            wafermap.maxCharacters,
             this.computations.dieDimensions,
             this.computations.margin
         );
 
-        this.dataMap = new Map(dies.map(die => [`${die.x}_${die.y}`, die]));
+        this.dataMap = new Map(wafermap.dies.map(die => [`${die.x}_${die.y}`, die]));
     }
 
     public getWaferMapDie(x: number, y: number): WaferMapDie | undefined {

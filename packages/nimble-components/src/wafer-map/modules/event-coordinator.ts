@@ -1,7 +1,7 @@
-import type { WaferMap } from '..';
 import type { WaferMapDie, HoverHandlerData } from '../types';
 import type { ZoomHandlerData } from './zoom-handler';
 import { ZoomHandler } from './zoom-handler';
+import type { WaferMap } from '..';
 
 export interface EventCoordinatorData {
     zoomHandlerData: ZoomHandlerData;
@@ -19,13 +19,12 @@ export interface EventCoordinatorCallbacks {
  */
 export class EventCoordinator {
     private readonly zoomHandler: ZoomHandler;
+    // private readonly eventCoordinatorData: EventCoordinatorData
 
     public constructor(
-        private readonly eventCoordinatorData: EventCoordinatorData
+       private readonly wafermap:WaferMap
     ) {
-        this.zoomHandler = new ZoomHandler(
-            eventCoordinatorData.zoomHandlerData
-        );
+        this.zoomHandler = new ZoomHandler(wafermap);
 
         // TODO HoverHandler - initialization
 
@@ -45,15 +44,15 @@ export class EventCoordinator {
     }
 
     public detachEvents(): void {
-        this.eventCoordinatorData.wafermap.removeEventListener(
+        this.wafermap.removeEventListener(
             'mousemove',
             this.onMouseMove
         );
-        this.eventCoordinatorData.wafermap.removeEventListener(
+        this.wafermap.removeEventListener(
             'mouseout',
             this.onMouseOut
         );
-        this.eventCoordinatorData.wafermap.canvas.removeEventListener(
+        this.wafermap.canvas.removeEventListener(
             'wheel',
             this.onWheelMove
         );
@@ -89,15 +88,15 @@ export class EventCoordinator {
     };
 
     private attachEvents(): void {
-        this.eventCoordinatorData.wafermap.addEventListener(
+        this.wafermap.addEventListener(
             'mousemove',
             this.onMouseMove
         );
-        this.eventCoordinatorData.wafermap.addEventListener(
+        this.wafermap.addEventListener(
             'mouseout',
             this.onMouseOut
         );
-        this.eventCoordinatorData.wafermap.canvas.addEventListener(
+        this.wafermap.canvas.addEventListener(
             'wheel',
             this.onWheelMove,
             {

@@ -6,6 +6,7 @@ import {
     ZoomTransform,
     zoomTransform
 } from 'd3-zoom';
+import type { WaferMap } from '..';
 import type { Dimensions } from '../types';
 import type { RenderingModule } from './rendering';
 
@@ -37,16 +38,16 @@ export class ZoomHandler extends EventTarget {
     private readonly renderingFunction: VoidFunction;
     private lastEvent: ZoomEvent | undefined;
 
-    public constructor(data: ZoomHandlerData) {
+    public constructor(wafermap:WaferMap) {
         super();
-        this.canvas = data.canvas;
-        this.zoomContainer = data.zoomContainer;
-        this.containerDimensions = data.containerDimensions;
-        this.canvasLength = data.canvasLength;
+        this.canvas = wafermap.canvas;
+        this.zoomContainer = wafermap.zoomContainer;
+        this.containerDimensions = wafermap.dataManager!.containerDimensions;
+        this.canvasLength = wafermap.canvasSideLength;
         this.zoomBehavior = this.createZoomBehavior();
         this.zoomBehavior(select(this.canvas as Element));
         this.renderingFunction = () => {
-            data.renderModule.drawWafer();
+            wafermap.renderer!.drawWafer();
         };
     }
 

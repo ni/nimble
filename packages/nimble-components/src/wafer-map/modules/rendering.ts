@@ -1,3 +1,4 @@
+import type { WaferMap } from '..';
 import type { DieRenderInfo, Dimensions } from '../types';
 import type { DataManager } from './data-manager';
 
@@ -11,15 +12,15 @@ export class RenderingModule {
     private readonly dimensions: Dimensions;
     private readonly labelFontSize: number;
 
-    public constructor(waferData: DataManager, canvas: HTMLCanvasElement) {
-        this.context = canvas.getContext('2d')!;
-        this.dies = waferData.diesRenderInfo;
-        this.dimensions = waferData.dieDimensions;
-        this.labelFontSize = waferData.labelsFontSize;
+    public constructor(wafermap:WaferMap) {
+        this.context = wafermap.canvas.getContext('2d')!;
+        this.dies = wafermap.dataManager!.diesRenderInfo;
+        this.dimensions = wafermap.dataManager!.dieDimensions;
+        this.labelFontSize = wafermap.dataManager!.labelsFontSize;
     }
 
     public drawWafer(transform?: number): void {
-        this.renderDies(transform);
+        this.renderDies();
         this.renderText(transform);
     }
 
@@ -27,8 +28,8 @@ export class RenderingModule {
         this.context.clearRect(0, 0, width, height);
     }
 
-    private renderDies(transform?: number): void {
-        this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
+    private renderDies(): void {
+        // this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
         this.dies.sort((a, b) => {
             if (a.fillStyle > b.fillStyle) {
                 return 1;
