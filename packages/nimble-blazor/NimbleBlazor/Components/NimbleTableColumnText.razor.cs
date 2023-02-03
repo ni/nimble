@@ -6,6 +6,12 @@ namespace NimbleBlazor;
 public partial class NimbleTableColumnText : ComponentBase
 {
     /// <summary>
+    /// The ID of the column of a <see cref="NimbleTable{TData}"/>
+    /// </summary>
+    [Parameter]
+    public string? ColumnId { get; set; }
+
+    /// <summary>
     /// Gets or sets the field in the element representing a row of data in a <see cref="NimbleTable{TData}"/>to display
     /// </summary>
     [Parameter]
