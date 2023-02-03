@@ -25,7 +25,8 @@ const metadata: Meta = {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/specs/'
-        }
+        },
+        chromatic: { pauseAnimationAtEnd: true } // test change
     }
 };
 
