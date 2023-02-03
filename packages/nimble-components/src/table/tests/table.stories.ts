@@ -94,7 +94,9 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 
 -   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
 -   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
--   \`invalidRecordId\`: \`true\` when record was found where \`id-field-name\` did not refer to a value of type \`string\`
+-   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
+-   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
+-   \`invalidColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
 `;
 
 const metadata: Meta<TableArgs> = {
