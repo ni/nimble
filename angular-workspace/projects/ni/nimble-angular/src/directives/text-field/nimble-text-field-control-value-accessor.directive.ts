@@ -1,24 +1,17 @@
-import { Directive, forwardRef } from '@angular/core';
-import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+/* eslint-disable */
+import { Directive, ElementRef, forwardRef, Inject, Optional, Renderer2 } from '@angular/core';
+import { COMPOSITION_BUFFER_MODE, ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-/**
- * Extension of Angular's DefaultValueAccessor to target the text-based inputs.
- *
- * Directive decorator based on DefaultValueAccessor decorator
- * https://github.com/angular/angular/blob/master/packages/forms/src/directives/default_value_accessor.ts#L72
- */
+type OriginalDefaultValueAccessor = Pick<DefaultValueAccessor, keyof DefaultValueAccessor>;
+
 @Directive({
     selector:
         'nimble-text-field[formControlName],nimble-text-field[formControl],nimble-text-field[ngModel]',
-    // The following host metadata is duplicated from DefaultValueAccessor
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
     host: {
-        /* eslint-disable @typescript-eslint/naming-convention */
-        '(input)': '$any(this)._handleInput($event.target.value)',
-        '(blur)': 'onTouched()',
-        '(compositionstart)': '$any(this)._compositionStart()',
-        '(compositionend)': '$any(this)._compositionEnd($event.target.value)'
-        /* eslint-enable @typescript-eslint/naming-convention */
+        '(input)': '$any(this).defaultValueAccessor._handleInput($event.target.value)',
+        '(blur)': 'defaultValueAccessor.onTouched()',
+        '(compositionstart)': '$any(this).defaultValueAccessor._compositionStart()',
+        '(compositionend)': '$any(this).defaultValueAccessor._compositionEnd($event.target.value)'
     },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
@@ -26,4 +19,49 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
         multi: true
     }]
 })
-export class NimbleTextFieldControlValueAccessorDirective extends DefaultValueAccessor { }
+export class NimbleTextFieldControlValueAccessorDirective implements OriginalDefaultValueAccessor {
+    private readonly defaultValueAccessor: DefaultValueAccessor;
+    public constructor(
+        renderer: Renderer2,
+        elementRef: ElementRef,
+        @Optional() @Inject(COMPOSITION_BUFFER_MODE) _compositionMode: boolean
+    ) {
+        this.defaultValueAccessor = new DefaultValueAccessor(renderer, elementRef, _compositionMode);
+    }
+
+    set onChange (val: (_: any) => void) {
+        this.defaultValueAccessor.onChange = val;
+    }
+
+    get onChange(): (_: any) => void {
+        return this.defaultValueAccessor.onChange;
+    }
+
+    set onTouched (val: () => void) {
+        this.defaultValueAccessor.onTouched = val;
+    }
+
+    get onTouched(): () => void {
+        return this.defaultValueAccessor.onTouched;
+    }
+
+    protected setProperty(key: string, value: any): void {
+        throw new Error('Method not implemented.');
+    }
+
+    public writeValue(obj: any): void {
+        this.defaultValueAccessor.writeValue(obj);
+    }
+
+    public registerOnChange(fn: (_: any) => {}): void {
+        this.defaultValueAccessor.registerOnChange(fn);
+    }
+
+    public registerOnTouched(fn: () => void): void {
+        this.defaultValueAccessor.registerOnTouched(fn);
+    }
+
+    public setDisabledState(isDisabled: boolean): void {
+        this.defaultValueAccessor.setDisabledState(isDisabled);
+    }
+}

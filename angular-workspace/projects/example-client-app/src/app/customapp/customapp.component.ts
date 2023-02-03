@@ -96,4 +96,9 @@ export class CustomAppComponent {
         });
         this.tableDataSubject.next(tableData);
     }
+
+    public doChange(): void {
+        // eslint-disable-next-line no-console
+        console.log('change', Date.now());
+    }
 }
