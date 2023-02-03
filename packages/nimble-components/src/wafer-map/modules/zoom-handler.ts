@@ -38,7 +38,7 @@ export class ZoomHandler extends EventTarget {
     private readonly renderingFunction: VoidFunction;
     private lastEvent: ZoomEvent | undefined;
 
-    public constructor(wafermap:WaferMap) {
+    public constructor(private readonly wafermap:WaferMap) {
         super();
         this.canvas = wafermap.canvas;
         this.zoomContainer = wafermap.zoomContainer;
@@ -94,6 +94,7 @@ export class ZoomHandler extends EventTarget {
                 zoomIdentity.y,
                 zoomIdentity.k
             );
+            this.wafermap.transform = transform;
             this.renderingFunction();
             this.zoomBehavior.transform(
                 select(this.canvas as Element),
@@ -112,6 +113,7 @@ export class ZoomHandler extends EventTarget {
                 transform.y,
                 transform.k
             );
+            this.wafermap.transform = transform;
             this.renderingFunction();
         }
         canvasContext.restore();

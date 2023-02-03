@@ -15,14 +15,10 @@ import {
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
-    WaferMapQuadrant,
-    HoverHandlerData
+    WaferMapQuadrant
 } from './types';
-import type { ZoomHandlerData } from './modules/zoom-handler';
-import type {
-    EventCoordinatorData,
-    EventCoordinatorCallbacks
-} from './modules/event-coordinator';
+
+import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -90,6 +86,12 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     @observable public canvasSideLength = 0;
+
+    /**
+     * @internal
+     */
+    @observable public transform:ZoomTransform = zoomIdentity;
+
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorScale = {
@@ -195,6 +197,11 @@ export class WaferMap extends FoundationElement {
         this.queueRender();
     }
 
+    private transformChanged(): void {
+        console.log(this.transform);
+        // this.queueRender();
+    }
+
     private canvasSideLengthChanged(): void {
         if (
             this.canvasSideLength !== undefined
@@ -214,38 +221,6 @@ export class WaferMap extends FoundationElement {
             this.renderQueued = true;
             DOM.queueUpdate(() => this.render());
         }
-    }
-
-    private parseWaferDataToEventData(
-        dataManager: DataManager,
-        renderer: RenderingModule,
-        wafermap: WaferMap
-    ): EventCoordinatorData {
-        const zoomHandlerData: ZoomHandlerData = {
-            canvas: wafermap.canvas,
-            zoomContainer: wafermap.zoomContainer,
-            containerDimensions: dataManager.containerDimensions,
-            canvasLength: wafermap.canvasSideLength,
-            renderModule: renderer
-        };
-
-        const hoverHandlerData: HoverHandlerData = {
-            canvas: wafermap.canvas,
-            rect: wafermap.rect,
-            dataManager,
-            quadrant: wafermap.quadrant
-        };
-
-        const eventCoordinatorCallbacks: EventCoordinatorCallbacks = {
-            dieSelected: die => this.emitDieSelected(die)
-        };
-
-        return {
-            zoomHandlerData,
-            hoverHandlerData,
-            eventCoordinatorCallbacks,
-            wafermap
-        };
     }
 }
 

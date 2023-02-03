@@ -3,12 +3,6 @@ import type { ZoomHandlerData } from './zoom-handler';
 import { ZoomHandler } from './zoom-handler';
 import type { WaferMap } from '..';
 
-export interface EventCoordinatorData {
-    zoomHandlerData: ZoomHandlerData;
-    hoverHandlerData: HoverHandlerData;
-    eventCoordinatorCallbacks: EventCoordinatorCallbacks;
-    wafermap: WaferMap;
-}
 
 export interface EventCoordinatorCallbacks {
     dieSelected: (die: WaferMapDie) => void;
