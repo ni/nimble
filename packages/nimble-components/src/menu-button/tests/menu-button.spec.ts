@@ -1,4 +1,4 @@
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import {
     eventChange,
     keyArrowDown,
@@ -11,6 +11,10 @@ import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
 import { MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 
 class TestSlottedElement extends FoundationElement {}
 const composedTestSlottedElement = TestSlottedElement.compose({
@@ -168,7 +172,7 @@ describe('MenuButton', () => {
         it('should mark the toggle button as checked when the menu is opened after connect', async () => {
             await connect();
             element.open = true;
-            DOM.processUpdates();
+            processUpdates();
             expect(element.toggleButton!.checked).toBeTrue();
         });
 
@@ -543,7 +547,9 @@ describe('MenuButton', () => {
                 // Start with the focus on the menu button so that it can lose focus later
                 menuButton.focus();
                 menuButton.open = true;
+                await waitForUpdatesAsync();
                 focusableElement.focus();
+                await waitForUpdatesAsync();
                 expect(menuButton.open).toBeFalse();
             });
         });
