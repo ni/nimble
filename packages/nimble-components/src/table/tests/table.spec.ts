@@ -1,6 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Table } from '..';
+import type { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
@@ -40,14 +41,10 @@ const largeTableData = Array.from(Array(500), (_, i) => {
     };
 });
 
-const tableColumnText = DesignSystem.tagFor(TableColumnText);
-
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-                <${tableColumnText} field-name="stringData">stringData</${tableColumnText}>
-            </nimble-table>`
+        html`<nimble-table></nimble-table>`
     );
 }
 
@@ -56,6 +53,8 @@ describe('Table', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
+    let column1: TableColumn;
+    let column2: TableColumn;
 
     // The assumption being made here is that the values in the data are equal to their
     // rendered representation (no formatting).
@@ -108,6 +107,17 @@ describe('Table', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         pageObject = new TablePageObject<SimpleTableRecord>(element);
+
+        const tableColumnTextTag = DesignSystem.tagFor(TableColumnText);
+        column1 = document.createElement(tableColumnTextTag) as TableColumn;
+        column1.textContent = 'stringData';
+        (column1 as TableColumnText).fieldName = 'stringData';
+        column2 = document.createElement(tableColumnTextTag) as TableColumn;
+        column2.textContent = 'moreStringData';
+        (column2 as TableColumnText).fieldName = 'stringData';
+
+        element.appendChild(column1);
+        element.appendChild(column2);
     });
 
     afterEach(async () => {
@@ -407,6 +417,67 @@ describe('Table', () => {
             expect(element.checkValidity()).toBeTrue();
 
             element.idFieldName = 'missingFieldName';
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+        });
+    });
+
+    describe('column IDs', () => {
+        it('duplicate column IDs marks the table as invalid and rows are not rendered', async () => {
+            element.setData(simpleTableData);
+            column1.columnId = 'my-column-id';
+            column2.columnId = 'my-column-id';
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.duplicateColumnId).toBeTrue();
+            expect(element.validity.missingColumnId).toBeFalse();
+        });
+
+        it('missing column IDs marks the table as invalid and rows are not rendered', async () => {
+            element.setData(simpleTableData);
+            column1.columnId = 'my-column-id';
+            column2.columnId = undefined;
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.duplicateColumnId).toBeFalse();
+            expect(element.validity.missingColumnId).toBeTrue();
+        });
+
+        it('table validity updates if column IDs become valid', async () => {
+            element.setData(simpleTableData);
+            column1.columnId = 'my-column-id';
+            column2.columnId = undefined;
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+
+            column2.setAttribute('column-id', 'my-other-column-id');
+            await waitForUpdatesAsync();
+
+            verifyRenderedData(simpleTableData);
+            expect(element.checkValidity()).toBeTrue();
+        });
+
+        it('table validity updates if column IDs become invalid', async () => {
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            verifyRenderedData(simpleTableData);
+            expect(element.checkValidity()).toBeTrue();
+
+            column1.setAttribute('column-id', 'my-column-id');
+            column2.setAttribute('column-id', 'my-column-id');
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedRowCount()).toBe(0);

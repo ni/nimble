@@ -1,7 +1,7 @@
 import type { TableRecord, TableValidity } from '../types';
 import { TableValidator } from './table-validator';
 
-fdescribe('TableValidator', () => {
+describe('TableValidator', () => {
     let validator: TableValidator<TableRecord>;
 
     beforeEach(() => {
@@ -225,5 +225,35 @@ fdescribe('TableValidator', () => {
                 validateValidity(columnConfiguration.invalidKeys);
             });
         }
+    });
+
+    describe('validation checks do not reset unrelated state', () => {
+        it('invalid record IDs stay invalid when validating column IDs', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 },
+                { stringField: 'value-1', numberField: 12 },
+                { numberField: 12 },
+                { stringField: true, numberField: 12 }
+            ];
+
+            const recordIdsAreValid = validator.validateRecordIds(data, 'stringField');
+            expect(recordIdsAreValid).toBeFalse();
+            validateValidity(['missingRecordId', 'duplicateRecordId', 'invalidRecordId']);
+
+            const columnIdsAreValid = validator.validateColumnIds(['id-1', 'id-2', 'id-3']);
+            expect(columnIdsAreValid).toBeTrue();
+            validateValidity(['missingRecordId', 'duplicateRecordId', 'invalidRecordId']);
+        });
+
+        it('invalid column IDs stay invalid when validating record IDs', () => {
+            const columnIdsAreValid = validator.validateColumnIds(['id-1', 'id-1', undefined]);
+            expect(columnIdsAreValid).toBeFalse();
+            validateValidity(['missingColumnId', 'duplicateColumnId']);
+
+            const recordIdsAreValid = validator.validateRecordIds([], undefined);
+            expect(recordIdsAreValid).toBeTrue();
+            validateValidity(['missingColumnId', 'duplicateColumnId']);
+        });
     });
 });
