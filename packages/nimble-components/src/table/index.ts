@@ -91,7 +91,9 @@ export class Table<
         super.connectedCallback();
         this.virtualizer.connectedCallback();
 
-        this.tableValidator.validateColumnIds(this.columns.map(x => x.columnId));
+        this.tableValidator.validateColumnIds(
+            this.columns.map(x => x.columnId)
+        );
         this.canRenderRows = this.checkValidity();
     }
 
@@ -120,12 +122,19 @@ export class Table<
             return;
         }
 
-        this.tableValidator.validateColumnIds(this.columns.map(x => x.columnId));
+        this.tableValidator.validateColumnIds(
+            this.columns.map(x => x.columnId)
+        );
         this.canRenderRows = this.checkValidity();
     }
 
-    private childItemsChanged(_prev: undefined | Element[], next: Element[]): void {
-        this.columns = next.filter(x => x instanceof TableColumn).map(x => x as TableColumn);
+    private childItemsChanged(
+        _prev: undefined | Element[],
+        next: Element[]
+    ): void {
+        this.columns = next
+            .filter(x => x instanceof TableColumn)
+            .map(x => x as TableColumn);
     }
 
     private setTableData(newData: readonly TData[]): void {

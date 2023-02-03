@@ -12,11 +12,21 @@ describe('TableValidator', () => {
         expect(validator.isValid()).toEqual(invalidKeys.length === 0);
 
         const validity = validator.getValidity();
-        expect(validity.duplicateRecordId).toBe(invalidKeys.some(x => x === 'duplicateRecordId'));
-        expect(validity.missingRecordId).toBe(invalidKeys.some(x => x === 'missingRecordId'));
-        expect(validity.invalidRecordId).toBe(invalidKeys.some(x => x === 'invalidRecordId'));
-        expect(validity.duplicateColumnId).toBe(invalidKeys.some(x => x === 'duplicateColumnId'));
-        expect(validity.missingColumnId).toBe(invalidKeys.some(x => x === 'missingColumnId'));
+        expect(validity.duplicateRecordId).toBe(
+            invalidKeys.some(x => x === 'duplicateRecordId')
+        );
+        expect(validity.missingRecordId).toBe(
+            invalidKeys.some(x => x === 'missingRecordId')
+        );
+        expect(validity.invalidRecordId).toBe(
+            invalidKeys.some(x => x === 'invalidRecordId')
+        );
+        expect(validity.duplicateColumnId).toBe(
+            invalidKeys.some(x => x === 'duplicateColumnId')
+        );
+        expect(validity.missingColumnId).toBe(
+            invalidKeys.some(x => x === 'missingColumnId')
+        );
     }
 
     describe('record ID validation', () => {
@@ -130,7 +140,11 @@ describe('TableValidator', () => {
 
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeFalse();
-            validateValidity(['missingRecordId', 'duplicateRecordId', 'invalidRecordId']);
+            validateValidity([
+                'missingRecordId',
+                'duplicateRecordId',
+                'invalidRecordId'
+            ]);
         });
 
         it('setting ID field name to undefined makes configuration valid', () => {
@@ -206,22 +220,64 @@ describe('TableValidator', () => {
     });
 
     describe('column ID validation', () => {
-        const columnConfigurations: { columnIds: (string | undefined | null)[], invalidKeys: (keyof TableValidity)[], testDescription: string }[] = [
-            { columnIds: [null, null, undefined, undefined], invalidKeys: [], testDescription: 'does not require column IDs' },
-            { columnIds: [null, 'my-id', undefined, undefined], invalidKeys: ['missingColumnId'], testDescription: 'requires column IDs for all columns if a column ID is defined for at least one' },
-            { columnIds: ['my-id-1', 'my-id-2', 'my-id-3'], invalidKeys: [], testDescription: 'unique defined IDs are valid' },
-            { columnIds: ['my-id-1', 'my-id-2', 'my-id-2'], invalidKeys: ['duplicateColumnId'], testDescription: 'duplicate column IDs is invalid' },
-            { columnIds: ['my-id-1', 'my-id-2', 'my-id-2', undefined], invalidKeys: ['missingColumnId', 'duplicateColumnId'], testDescription: 'reports multiple column ID validation errors' },
-            { columnIds: ['my-id-1', 'my-id-2', ''], invalidKeys: [], testDescription: 'empty string is a valid column ID' },
-            { columnIds: ['my-id-1', '', ''], invalidKeys: ['duplicateColumnId'], testDescription: 'detects duplicate empty string column IDs' },
-            { columnIds: [null, undefined, ''], invalidKeys: ['missingColumnId'], testDescription: 'requires column IDs for all columns if one is set to empty string' },
+        const columnConfigurations: {
+            columnIds: (string | undefined | null)[],
+            invalidKeys: (keyof TableValidity)[],
+            testDescription: string
+        }[] = [
+            {
+                columnIds: [null, null, undefined, undefined],
+                invalidKeys: [],
+                testDescription: 'does not require column IDs'
+            },
+            {
+                columnIds: [null, 'my-id', undefined, undefined],
+                invalidKeys: ['missingColumnId'],
+                testDescription:
+                    'requires column IDs for all columns if a column ID is defined for at least one'
+            },
+            {
+                columnIds: ['my-id-1', 'my-id-2', 'my-id-3'],
+                invalidKeys: [],
+                testDescription: 'unique defined IDs are valid'
+            },
+            {
+                columnIds: ['my-id-1', 'my-id-2', 'my-id-2'],
+                invalidKeys: ['duplicateColumnId'],
+                testDescription: 'duplicate column IDs is invalid'
+            },
+            {
+                columnIds: ['my-id-1', 'my-id-2', 'my-id-2', undefined],
+                invalidKeys: ['missingColumnId', 'duplicateColumnId'],
+                testDescription: 'reports multiple column ID validation errors'
+            },
+            {
+                columnIds: ['my-id-1', 'my-id-2', ''],
+                invalidKeys: [],
+                testDescription: 'empty string is a valid column ID'
+            },
+            {
+                columnIds: ['my-id-1', '', ''],
+                invalidKeys: ['duplicateColumnId'],
+                testDescription: 'detects duplicate empty string column IDs'
+            },
+            {
+                columnIds: [null, undefined, ''],
+                invalidKeys: ['missingColumnId'],
+                testDescription:
+                    'requires column IDs for all columns if one is set to empty string'
+            }
         ];
 
         for (const columnConfiguration of columnConfigurations) {
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             it(columnConfiguration.testDescription, () => {
-                const isValid = validator.validateColumnIds(columnConfiguration.columnIds);
-                expect(isValid).toBe(columnConfiguration.invalidKeys.length === 0);
+                const isValid = validator.validateColumnIds(
+                    columnConfiguration.columnIds
+                );
+                expect(isValid).toBe(
+                    columnConfiguration.invalidKeys.length === 0
+                );
                 validateValidity(columnConfiguration.invalidKeys);
             });
         }
@@ -237,21 +293,43 @@ describe('TableValidator', () => {
                 { stringField: true, numberField: 12 }
             ];
 
-            const recordIdsAreValid = validator.validateRecordIds(data, 'stringField');
+            const recordIdsAreValid = validator.validateRecordIds(
+                data,
+                'stringField'
+            );
             expect(recordIdsAreValid).toBeFalse();
-            validateValidity(['missingRecordId', 'duplicateRecordId', 'invalidRecordId']);
+            validateValidity([
+                'missingRecordId',
+                'duplicateRecordId',
+                'invalidRecordId'
+            ]);
 
-            const columnIdsAreValid = validator.validateColumnIds(['id-1', 'id-2', 'id-3']);
+            const columnIdsAreValid = validator.validateColumnIds([
+                'id-1',
+                'id-2',
+                'id-3'
+            ]);
             expect(columnIdsAreValid).toBeTrue();
-            validateValidity(['missingRecordId', 'duplicateRecordId', 'invalidRecordId']);
+            validateValidity([
+                'missingRecordId',
+                'duplicateRecordId',
+                'invalidRecordId'
+            ]);
         });
 
         it('invalid column IDs stay invalid when validating record IDs', () => {
-            const columnIdsAreValid = validator.validateColumnIds(['id-1', 'id-1', undefined]);
+            const columnIdsAreValid = validator.validateColumnIds([
+                'id-1',
+                'id-1',
+                undefined
+            ]);
             expect(columnIdsAreValid).toBeFalse();
             validateValidity(['missingColumnId', 'duplicateColumnId']);
 
-            const recordIdsAreValid = validator.validateRecordIds([], undefined);
+            const recordIdsAreValid = validator.validateRecordIds(
+                [],
+                undefined
+            );
             expect(recordIdsAreValid).toBeTrue();
             validateValidity(['missingColumnId', 'duplicateColumnId']);
         });

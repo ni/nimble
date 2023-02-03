@@ -64,11 +64,15 @@ export class TableValidator<TData extends TableRecord> {
         );
     }
 
-    public validateColumnIds(columnIds: (string | null | undefined)[]): boolean {
+    public validateColumnIds(
+        columnIds: (string | null | undefined)[]
+    ): boolean {
         this.missingColumnId = false;
         this.duplicateColumnId = false;
 
-        const anyColumnsHaveIds = columnIds.some(columnId => columnId !== undefined && columnId !== null);
+        const anyColumnsHaveIds = columnIds.some(
+            columnId => columnId !== undefined && columnId !== null
+        );
 
         if (!anyColumnsHaveIds) {
             return true;
@@ -87,9 +91,6 @@ export class TableValidator<TData extends TableRecord> {
             idSet.add(columnId);
         }
 
-        return (
-            !this.missingColumnId
-            && !this.duplicateColumnId
-        );
+        return !this.missingColumnId && !this.duplicateColumnId;
     }
 }
