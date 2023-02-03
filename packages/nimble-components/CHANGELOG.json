@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 02 Feb 2023 19:32:25 GMT",
+      "tag": "@ni/nimble-components_v18.1.0",
+      "version": "18.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f1427f17a56b8056fe67cdec969503bb58259235",
+            "comment": "Test updates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Feb 2023 21:48:31 GMT",
       "tag": "@ni/nimble-components_v18.1.0",
       "version": "18.1.0",
