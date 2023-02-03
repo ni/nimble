@@ -104,8 +104,10 @@ export class WaferMap extends FoundationElement {
     private resizeObserver?: ResizeObserver;
 
     public override connectedCallback(): void {
+        // console.log("connectedRun")
         super.connectedCallback();
         this.resizeObserver = this.createResizeObserver();
+        this.initalizeHandlers();
         this.queueRender();
     }
 
@@ -124,14 +126,19 @@ export class WaferMap extends FoundationElement {
             || this.canvasSideLength === 0
         ) {
             return;
-        }
+        }          
         this.cleanupEventCoordinatorAndClearCanvas();
-
         this.dataManager = new DataManager(this);
         this.renderer = new RenderingModule(this);
-
         this.eventCoordinator = new EventCoordinator(this);
-        this.renderer.drawWafer();
+        this.renderer?.drawWafer();
+    }
+
+    private initalizeHandlers(){
+        // this.cleanupEventCoordinatorAndClearCanvas();
+        // this.dataManager = new DataManager(this);
+        // this.renderer = new RenderingModule(this);
+        // this.eventCoordinator = new EventCoordinator(this);
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -198,8 +205,8 @@ export class WaferMap extends FoundationElement {
     }
 
     private transformChanged(): void {
-        console.log(this.transform);
-        // this.queueRender();
+        // console.log(this.transform);
+        this.queueRender();
     }
 
     private canvasSideLengthChanged(): void {

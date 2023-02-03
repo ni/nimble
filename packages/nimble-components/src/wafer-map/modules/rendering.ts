@@ -30,6 +30,7 @@ export class RenderingModule {
 
     private renderDies(): void {
         // this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
+        console.log("context ------>", this.dimensions);
         this.dies.sort((a, b) => {
             if (a.fillStyle > b.fillStyle) {
                 return 1;

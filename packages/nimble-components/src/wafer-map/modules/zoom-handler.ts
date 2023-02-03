@@ -31,33 +31,25 @@ export class ZoomHandler extends EventTarget {
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
     private readonly zoomBehavior: ZoomBehavior<Element, unknown>;
-    private readonly canvas: HTMLCanvasElement;
-    private readonly zoomContainer: HTMLElement;
-    private readonly containerDimensions: Dimensions | undefined;
-    private readonly canvasLength: number;
     private readonly renderingFunction: VoidFunction;
     private lastEvent: ZoomEvent | undefined;
 
     public constructor(private readonly wafermap:WaferMap) {
         super();
-        this.canvas = wafermap.canvas;
-        this.zoomContainer = wafermap.zoomContainer;
-        this.containerDimensions = wafermap.dataManager!.containerDimensions;
-        this.canvasLength = wafermap.canvasSideLength;
         this.zoomBehavior = this.createZoomBehavior();
-        this.zoomBehavior(select(this.canvas as Element));
+        this.zoomBehavior(select(this.wafermap.canvas as Element));
         this.renderingFunction = () => {
             wafermap.renderer!.drawWafer();
         };
     }
 
     public resetTransform(): void {
-        const canvasContext = this.canvas.getContext('2d');
+        const canvasContext = this.wafermap.canvas.getContext('2d');
         if (canvasContext === null) {
             return;
         }
         this.zoomTransform = zoomIdentity;
-        this.clearCanvas(canvasContext, this.canvasLength, this.canvasLength);
+        this.clearCanvas(canvasContext, this.wafermap.canvasSideLength, this.wafermap.canvasSideLength);
         this.scaleCanvas(
             canvasContext,
             zoomIdentity.x,
@@ -66,7 +58,7 @@ export class ZoomHandler extends EventTarget {
         );
         this.rescale();
         this.zoomBehavior?.transform(
-            select(this.canvas as Element),
+            select(this.wafermap.canvas as Element),
             zoomIdentity
         );
     }
@@ -76,7 +68,7 @@ export class ZoomHandler extends EventTarget {
             return;
         }
         const transform = this.lastEvent.transform;
-        const canvasContext = this.canvas.getContext('2d');
+        const canvasContext = this.wafermap.canvas.getContext('2d');
         if (canvasContext === null) {
             return;
         }
@@ -85,8 +77,8 @@ export class ZoomHandler extends EventTarget {
             this.zoomTransform = zoomIdentity;
             this.clearCanvas(
                 canvasContext,
-                this.canvasLength,
-                this.canvasLength
+                this.wafermap.canvasSideLength,
+                this.wafermap.canvasSideLength
             );
             this.scaleCanvas(
                 canvasContext,
@@ -94,18 +86,18 @@ export class ZoomHandler extends EventTarget {
                 zoomIdentity.y,
                 zoomIdentity.k
             );
-            this.wafermap.transform = transform;
+            // this.wafermap.transform = this.zoomTransform;
             this.renderingFunction();
             this.zoomBehavior.transform(
-                select(this.canvas as Element),
+                select(this.wafermap.canvas as Element),
                 zoomIdentity
             );
         } else {
             this.zoomTransform = transform;
             this.clearCanvas(
                 canvasContext,
-                this.canvasLength * this.zoomTransform.k,
-                this.canvasLength * this.zoomTransform.k
+                this.wafermap.canvasSideLength * this.zoomTransform.k,
+                this.wafermap.canvasSideLength * this.zoomTransform.k
             );
             this.scaleCanvas(
                 canvasContext,
@@ -113,14 +105,16 @@ export class ZoomHandler extends EventTarget {
                 transform.y,
                 transform.k
             );
-            this.wafermap.transform = transform;
+            // this.wafermap.transform = this.zoomTransform;
             this.renderingFunction();
         }
+
         canvasContext.restore();
-        this.zoomContainer.setAttribute(
+        this.wafermap.zoomContainer.setAttribute(
             'transform',
             this.zoomTransform.toString()
         );
+        // this.wafermap.transform = this.zoomTransform;
     }
 
     private createZoomBehavior(): ZoomBehavior<Element, unknown> {
@@ -128,20 +122,20 @@ export class ZoomHandler extends EventTarget {
             .scaleExtent([
                 1.1,
                 this.getZoomMax(
-                    this.canvasLength * this.canvasLength,
-                    this.containerDimensions!.width
-                        * this.containerDimensions!.height
+                    this.wafermap.canvasSideLength * this.wafermap.canvasSideLength,
+                    this.wafermap.dataManager!.containerDimensions.width
+                        * this.wafermap.dataManager!.containerDimensions.height
                 )
             ])
             .translateExtent([
                 this.minExtentPoint,
                 [
-                    this.canvasLength + this.extentPadding,
-                    this.canvasLength + this.extentPadding
+                    this.wafermap.canvasSideLength + this.extentPadding,
+                    this.wafermap.canvasSideLength + this.extentPadding
                 ]
             ])
             .filter((event: Event) => {
-                const transform = zoomTransform(this.canvas);
+                const transform = zoomTransform(this.wafermap.canvas);
                 return transform.k >= this.minScale || event.type === 'wheel';
             })
             .on('zoom', (event: ZoomEvent) => {
