@@ -7,7 +7,7 @@ import {
     createFixedThemeStory,
     createMatrixThemeStory
 } from '../../utilities/tests/storybook';
-import { TextFieldAppearance } from '../types';
+import { TextFieldAppearance, TextFieldType } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -58,8 +58,8 @@ const valueStates = [
 type ValueState = (typeof valueStates)[number];
 
 const typeStates = [
-    ['Text', 'text'],
-    ['Password', 'password']
+    ['Text', TextFieldType.text],
+    ['Password', TextFieldType.password]
 ] as const;
 type TypeState = (typeof typeStates)[number];
 
