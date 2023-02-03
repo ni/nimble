@@ -1,10 +1,8 @@
 import {
     children,
-    ElementsFilter,
     html,
     ref,
     repeat,
-    slotted,
     when
 } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
@@ -19,11 +17,11 @@ export const template = html<Table>`
     <template
         role="table"
         ${children({
-            property: 'childItems',
-            attributeFilter: ['column-id', 'field-name'],
-            subtree: true,
-            selector: '*'
-        })}
+        property: 'childItems',
+        attributeFilter: ['column-id'],
+        subtree: true,
+        selector: '*'
+    })}
     >
         <div class="table-container">
             <div role="rowgroup" class="header-container" style="margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;">

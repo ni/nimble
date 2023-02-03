@@ -1,4 +1,3 @@
-import type { TableColumn } from '../../table-column/base';
 import type { TableRecord, TableValidity } from '../types';
 
 /**
