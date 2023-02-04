@@ -104,11 +104,8 @@ export class WaferMap extends FoundationElement {
     private resizeObserver?: ResizeObserver;
 
     public override connectedCallback(): void {
-        // console.log("connectedRun")
         super.connectedCallback();
         this.resizeObserver = this.createResizeObserver();
-        this.initalizeHandlers();
-        this.queueRender();
     }
 
     public override disconnectedCallback(): void {
@@ -121,24 +118,15 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        if (
-            this.canvasSideLength === undefined
-            || this.canvasSideLength === 0
-        ) {
-            return;
-        }          
-        this.cleanupEventCoordinatorAndClearCanvas();
-        this.dataManager = new DataManager(this);
-        this.renderer = new RenderingModule(this);
-        this.eventCoordinator = new EventCoordinator(this);
+        this.clearCanvas(this.canvasSideLength, this.canvasSideLength);
         this.renderer?.drawWafer();
     }
 
-    private initalizeHandlers(){
-        // this.cleanupEventCoordinatorAndClearCanvas();
-        // this.dataManager = new DataManager(this);
-        // this.renderer = new RenderingModule(this);
-        // this.eventCoordinator = new EventCoordinator(this);
+    private initalizeInternalModules(){
+        this.eventCoordinator?.detachEvents();
+        this.dataManager = new DataManager(this);
+        this.renderer = new RenderingModule(this);
+        this.eventCoordinator = new EventCoordinator(this);
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -152,11 +140,6 @@ export class WaferMap extends FoundationElement {
         });
         resizeObserver.observe(this);
         return resizeObserver;
-    }
-
-    private cleanupEventCoordinatorAndClearCanvas(): void {
-        this.clearCanvas(this.canvasSideLength, this.canvasSideLength);
-        this.eventCoordinator?.detachEvents();
     }
 
     private clearCanvas(width: number, height: number): void {
@@ -205,7 +188,6 @@ export class WaferMap extends FoundationElement {
     }
 
     private transformChanged(): void {
-        // console.log(this.transform);
         this.queueRender();
     }
 
@@ -216,8 +198,9 @@ export class WaferMap extends FoundationElement {
         ) {
             this.canvas.width = this.canvasSideLength;
             this.canvas.height = this.canvasSideLength;
-        }
-        this.queueRender();
+            this.initalizeInternalModules();
+            this.queueRender();
+        };
     }
 
     private queueRender(): void {
