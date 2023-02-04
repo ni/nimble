@@ -28,13 +28,14 @@ const isTableColumn = (): ElementsFilter => {
 export const template = html<Table>`
     <template role="table">
         <div class="table-container">
-            <div role="rowgroup" class="header-container" style="margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;">
+            <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
                     ${repeat(x => x.columns, html<TableColumn>`
                         <${DesignSystem.tagFor(TableHeader)} class="header">
                             ${x => x.textContent}
                         </${DesignSystem.tagFor(TableHeader)}>
                     `)}
+                    <div style="width: ${x => x.virtualizer.headerContainerMarginRight}px;"></div>
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
