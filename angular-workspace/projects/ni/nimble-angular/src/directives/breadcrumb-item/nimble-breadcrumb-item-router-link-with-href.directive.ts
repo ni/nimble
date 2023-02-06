@@ -28,6 +28,9 @@ export class NimbleBreadcrumbItemRouterLinkWithHrefDirective extends RouterLinkW
     }
 
     public override onClick(_button: number, _ctrlKey: boolean, _shiftKey: boolean, _altKey: boolean, _metaKey: boolean): boolean {
+        // onClick is the 'click' @HostListener handler in RouterLinkWithHref. Override it to do nothing so that this directive
+        // can be in control of when the click handler is called. This allows RouterLinkWithHref's onClick to only be called
+        // when the link within the element is clicked rather than any part of the element.
         return true;
     }
 
@@ -36,6 +39,7 @@ export class NimbleBreadcrumbItemRouterLinkWithHrefDirective extends RouterLinkW
         ['$event', '$event.button', '$event.ctrlKey', '$event.shiftKey', '$event.altKey', '$event.metaKey']
     )
     public breadcrumbItemClick(event: MouseEvent): boolean {
+        // Call onClick on the base class only when the anchor within the breadcrumb item was clicked.
         if (event.composedPath().some(el => el === this.elementRef.nativeElement.control)) {
             return super.onClick(event.button, event.ctrlKey, event.shiftKey, event.altKey, event.metaKey);
         }
