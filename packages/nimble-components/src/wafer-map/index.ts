@@ -204,7 +204,8 @@ export class WaferMap extends FoundationElement {
     }
 
     private transformChanged(): void {
-        this.queueRender();
+        // console.log(this.transform);
+        // this.queueRender();
         // this.render();
     }
 

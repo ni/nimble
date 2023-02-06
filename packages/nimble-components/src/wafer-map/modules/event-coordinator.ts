@@ -61,6 +61,7 @@ export class EventCoordinator {
     }
 
     private readonly onWheelMove = (event: Event): void => {
+        // console.log(event);
         event.preventDefault();
     };
 
