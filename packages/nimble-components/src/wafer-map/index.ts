@@ -122,6 +122,7 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
+        this.initalizeInternalModules();
         this.renderer?.drawWafer();
     }
 
@@ -156,11 +157,6 @@ export class WaferMap extends FoundationElement {
         });
         resizeObserver.observe(this);
         return resizeObserver;
-    }
-
-    private clearCanvas(width: number, height: number): void {
-        const context = this.canvas.getContext('2d')!;
-        context.clearRect(0, 0, width, height);
     }
 
     private readonly emitDieSelected = (die: WaferMapDie): void => {
@@ -204,9 +200,8 @@ export class WaferMap extends FoundationElement {
     }
 
     private transformChanged(): void {
-        // console.log(this.transform);
-        // this.queueRender();
-        // this.render();
+
+        this.queueRender();
     }
 
     private canvasSideLengthChanged(): void {
@@ -217,8 +212,6 @@ export class WaferMap extends FoundationElement {
             console.log('Canvas side changed');
             this.canvas.width = this.canvasSideLength;
             this.canvas.height = this.canvasSideLength;
-            this.initalizeInternalModules();
-            this.clearCanvas(this.canvasSideLength, this.canvasSideLength);
             this.queueRender();
         };
     }

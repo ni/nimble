@@ -12,7 +12,6 @@ export interface EventCoordinatorCallbacks {
  */
 export class EventCoordinator {
     private readonly zoomHandler: ZoomHandler;
-    // private readonly eventCoordinatorData: EventCoordinatorData
 
     public constructor(
        private readonly wafermap:WaferMap
@@ -24,10 +23,6 @@ export class EventCoordinator {
         // TODO HoverHandler -  create a hoverDie element
 
         this.attachEvents();
-    }
-
-    public resetZoomTransform(): void {
-        this.zoomHandler.resetTransform();
     }
 
     public get selectedDie(): WaferMapDie | undefined {
@@ -60,7 +55,6 @@ export class EventCoordinator {
     }
 
     private readonly onWheelMove = (event: Event): void => {
-        // console.log(event);
         event.preventDefault();
     };
 
@@ -69,7 +63,6 @@ export class EventCoordinator {
     };
 
     private readonly afterZoom = (): void => {
-        this.wafermap.queueRender();
         // TODO HoverHandler - set new transfrom from event.transform
         // TODO HoverHandler - create a new hoverDie
     };
@@ -97,10 +90,6 @@ export class EventCoordinator {
             {
                 passive: false
             }
-        );
-
-        this.wafermap.renderer?.addEventListener(
-            'render-complete', ()=>{console.log('Render complete');}
         );
 
         this.zoomHandler.addEventListener(

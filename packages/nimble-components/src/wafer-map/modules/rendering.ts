@@ -12,7 +12,7 @@ export class RenderingModule extends EventTarget{
     private readonly dimensions: Dimensions;
     private readonly labelFontSize: number;
 
-    public constructor(wafermap:WaferMap) {
+    public constructor(private readonly wafermap:WaferMap) {
         super();
         this.context = wafermap.canvas.getContext('2d')!;
         this.dies = wafermap.dataManager!.diesRenderInfo;
@@ -20,22 +20,19 @@ export class RenderingModule extends EventTarget{
         this.labelFontSize = wafermap.dataManager!.labelsFontSize;
     }
 
-    public drawWafer(transform?: number): void {
-        console.log('start draw wafer');
+    public drawWafer(): void {
+        this.context.save();
+        this.clearCanvas();
+        this.scaleCanvas();
         this.renderDies();
-        this.renderText(transform);
+        this.renderText();
         this.context.restore();
         this.dispatchEvent(
             new CustomEvent('render-complete')
         );
     }
 
-    public clearCanvas(width: number, height: number): void {
-        this.context.clearRect(0, 0, width, height);
-    }
-
     private renderDies(): void {
-        // this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
         this.dies.sort((a, b) => {
             if (a.fillStyle > b.fillStyle) {
                 return 1;
@@ -56,7 +53,6 @@ export class RenderingModule extends EventTarget{
             if (prev && die.fillStyle !== prev.fillStyle && die.fillStyle) {
                 this.context.fillStyle = die.fillStyle;
             }
-            // console.log(die);
             this.context.fillRect(
                 die.x,
                 die.y,
@@ -67,8 +63,8 @@ export class RenderingModule extends EventTarget{
         }
     }
 
-    private renderText(transform?: number): void {
-        this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
+    private renderText(): void {
+        this.dieSize = this.dimensions.width * this.dimensions.height * (this.wafermap.transform.k || 1);
         const fontsize = this.labelFontSize;
         this.context.font = `${fontsize.toString()}px sans-serif`;
         this.context.fillStyle = '#ffffff';
@@ -88,5 +84,14 @@ export class RenderingModule extends EventTarget{
                 );
             }
         }
+    }
+
+    private clearCanvas(): void {
+        this.context.clearRect(0, 0, this.wafermap.canvasSideLength * this.wafermap.transform.k, this.wafermap.canvasSideLength * this.wafermap.transform.k);
+    }
+
+    private scaleCanvas(): void {
+        this.context.translate(this.wafermap.transform.x, this.wafermap.transform.y);
+        this.context.scale(this.wafermap.transform.k, this.wafermap.transform.k);
     }
 }
