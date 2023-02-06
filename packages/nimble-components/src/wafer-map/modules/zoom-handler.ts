@@ -113,16 +113,16 @@ export class ZoomHandler extends EventTarget {
             // this.wafermap.queueRender();
         }
 
-        // this.wafermap.render();
+        this.wafermap.render();
 
         this.wafermap.zoomContainer.setAttribute(
             'transform',
             this.zoomTransform.toString()
         );
 
-        // canvasContext.restore();
+        canvasContext.restore();
 
-        this.wafermap.queueRender();
+        // this.wafermap.queueRender();
         // this.wafermap.transform = this.zoomTransform;
         
     }
@@ -150,7 +150,8 @@ export class ZoomHandler extends EventTarget {
             })
             .on('zoom', (event: ZoomEvent) => {
                 
-                if(this.wafermap.renderQueued) return;
+                // if(this.wafermap.renderQueued) return;
+                if(false) return;
                 else {
 
                     this.lastEvent = event;
