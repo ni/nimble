@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
+import { DesignToken } from '@microsoft/fast-foundation';
 import { PropertyFormat } from './types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
@@ -19,6 +20,11 @@ import {
     groupHeaderFontColor,
     groupHeaderTextTransform
 } from '../design-tokens';
+import { processUpdates } from '../../testing/async-helpers';
+
+// Setting token default values is done as part of the FAST render queue so it needs to be flushed before reading them
+// https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
+processUpdates();
 
 type TokenName = keyof typeof tokenNames;
 const tokenNameKeys = Object.keys(tokenNames) as TokenName[];
@@ -42,6 +48,8 @@ const metadata: Meta = {
 };
 
 export default metadata;
+
+DesignToken.registerRoot(document.documentElement);
 
 const computedCSSValueFromTokenName = (tokenName: string): string => {
     return getComputedStyle(document.documentElement).getPropertyValue(
