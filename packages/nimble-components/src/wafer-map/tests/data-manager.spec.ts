@@ -1,6 +1,11 @@
 import { DataManager } from '../modules/data-manager';
 import { WaferMap } from '..';
-import { Dimensions, Margin, WaferMapColorScaleMode, WaferMapQuadrant } from '../types';
+import {
+    Dimensions,
+    Margin,
+    WaferMapColorScaleMode,
+    WaferMapQuadrant
+} from '../types';
 import {
     getColorScale,
     getHighlightedValues,
@@ -12,17 +17,20 @@ describe('Wafermap Data manager', () => {
     let dataManagerModule: DataManager;
     const dieLabelsSuffix = '%';
     const canvasSideLength = 100;
-    const canvasDimensions:Dimensions = {width:canvasSideLength, height:canvasSideLength};
+    const canvasDimensions: Dimensions = {
+        width: canvasSideLength,
+        height: canvasSideLength
+    };
 
     waferMap.quadrant = WaferMapQuadrant.topLeft;
-    waferMap.canvasSideLength=100;
+    waferMap.canvasSideLength = 100;
     waferMap.dieLabelsSuffix = dieLabelsSuffix;
-    waferMap.dieLabelsHidden= false;
+    waferMap.dieLabelsHidden = false;
     waferMap.maxCharacters = 3;
     waferMap.dies = getWaferMapDies();
     waferMap.colorScale = getColorScale();
-    waferMap.colorScaleMode= WaferMapColorScaleMode.ordinal;
-    waferMap.highlightedValues=getHighlightedValues();
+    waferMap.colorScaleMode = WaferMapColorScaleMode.ordinal;
+    waferMap.highlightedValues = getHighlightedValues();
     const defaultMargin: Margin = {
         top: 20,
         right: 20,

@@ -2,15 +2,7 @@ import type { ScaleLinear } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
 import type { WaferMap } from '..';
-import type {
-    Dimensions,
-    Margin,
-    WaferMapQuadrant,
-    DieRenderInfo,
-    WaferMapColorScale,
-    WaferMapDie,
-    WaferMapColorScaleMode
-} from '../types';
+import type { Dimensions, Margin, DieRenderInfo, WaferMapDie } from '../types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results
@@ -59,14 +51,11 @@ export class DataManager {
     private readonly prerendering: Prerendering;
     private readonly dataMap: Map<string, WaferMapDie>;
 
-    public constructor(
-        wafermap:WaferMap
-    ) {
-        this.computations = new Computations(
-            wafermap.dies,
-            wafermap.quadrant,
-            {width: wafermap.canvasSideLength, height: wafermap.canvasSideLength},
-        );
+    public constructor(wafermap: WaferMap) {
+        this.computations = new Computations(wafermap.dies, wafermap.quadrant, {
+            width: wafermap.canvasSideLength,
+            height: wafermap.canvasSideLength
+        });
 
         this.prerendering = new Prerendering(
             wafermap.dies,
@@ -82,7 +71,9 @@ export class DataManager {
             this.computations.margin
         );
 
-        this.dataMap = new Map(wafermap.dies.map(die => [`${die.x}_${die.y}`, die]));
+        this.dataMap = new Map(
+            wafermap.dies.map(die => [`${die.x}_${die.y}`, die])
+        );
     }
 
     public getWaferMapDie(x: number, y: number): WaferMapDie | undefined {

@@ -5,6 +5,7 @@ import {
     observable
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -17,8 +18,6 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
-
-import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -76,11 +75,11 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public dataManager?:DataManager;
+    public dataManager?: DataManager;
     /**
      * @internal
      */
-    public renderer?:RenderingModule;
+    public renderer?: RenderingModule;
 
     /**
      * @internal
@@ -95,7 +94,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public transform:ZoomTransform = zoomIdentity;
+    @observable public transform: ZoomTransform = zoomIdentity;
 
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
@@ -139,7 +138,7 @@ export class WaferMap extends FoundationElement {
         }
     }
 
-    private initalizeInternalModules(){
+    private initalizeInternalModules(): void {
         this.eventCoordinator?.detachEvents();
         this.dataManager = new DataManager(this);
         this.renderer = new RenderingModule(this);
@@ -200,7 +199,6 @@ export class WaferMap extends FoundationElement {
     }
 
     private transformChanged(): void {
-
         this.queueRender();
     }
 
@@ -209,11 +207,10 @@ export class WaferMap extends FoundationElement {
             this.canvasSideLength !== undefined
             && this.canvasSideLength !== 0
         ) {
-            console.log('Canvas side changed');
             this.canvas.width = this.canvasSideLength;
             this.canvas.height = this.canvasSideLength;
             this.queueRender();
-        };
+        }
     }
 }
 

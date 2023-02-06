@@ -1,18 +1,17 @@
 import type { WaferMap } from '..';
 import type { DieRenderInfo, Dimensions } from '../types';
-import type { DataManager } from './data-manager';
 
 /**
  * Responsible for drawing the dies inside the wafer map
  */
-export class RenderingModule extends EventTarget{
+export class RenderingModule extends EventTarget {
     private readonly context: CanvasRenderingContext2D;
     private dieSize?: number;
     private readonly dies: DieRenderInfo[];
     private readonly dimensions: Dimensions;
     private readonly labelFontSize: number;
 
-    public constructor(private readonly wafermap:WaferMap) {
+    public constructor(private readonly wafermap: WaferMap) {
         super();
         this.context = wafermap.canvas.getContext('2d')!;
         this.dies = wafermap.dataManager!.diesRenderInfo;
@@ -27,9 +26,7 @@ export class RenderingModule extends EventTarget{
         this.renderDies();
         this.renderText();
         this.context.restore();
-        this.dispatchEvent(
-            new CustomEvent('render-complete')
-        );
+        this.dispatchEvent(new CustomEvent('render-complete'));
     }
 
     private renderDies(): void {
@@ -64,7 +61,9 @@ export class RenderingModule extends EventTarget{
     }
 
     private renderText(): void {
-        this.dieSize = this.dimensions.width * this.dimensions.height * (this.wafermap.transform.k || 1);
+        this.dieSize = this.dimensions.width
+            * this.dimensions.height
+            * (this.wafermap.transform.k || 1);
         const fontsize = this.labelFontSize;
         this.context.font = `${fontsize.toString()}px sans-serif`;
         this.context.fillStyle = '#ffffff';
@@ -87,11 +86,22 @@ export class RenderingModule extends EventTarget{
     }
 
     private clearCanvas(): void {
-        this.context.clearRect(0, 0, this.wafermap.canvasSideLength * this.wafermap.transform.k, this.wafermap.canvasSideLength * this.wafermap.transform.k);
+        this.context.clearRect(
+            0,
+            0,
+            this.wafermap.canvasSideLength * this.wafermap.transform.k,
+            this.wafermap.canvasSideLength * this.wafermap.transform.k
+        );
     }
 
     private scaleCanvas(): void {
-        this.context.translate(this.wafermap.transform.x, this.wafermap.transform.y);
-        this.context.scale(this.wafermap.transform.k, this.wafermap.transform.k);
+        this.context.translate(
+            this.wafermap.transform.x,
+            this.wafermap.transform.y
+        );
+        this.context.scale(
+            this.wafermap.transform.k,
+            this.wafermap.transform.k
+        );
     }
 }

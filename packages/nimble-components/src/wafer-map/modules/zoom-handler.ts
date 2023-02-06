@@ -21,23 +21,15 @@ export class ZoomHandler extends EventTarget {
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
     private readonly zoomBehavior: ZoomBehavior<Element, unknown>;
-    private readonly renderingFunction: VoidFunction;
-    private lastEvent: ZoomEvent | undefined;
 
-    public constructor(private readonly wafermap:WaferMap) {
+    public constructor(private readonly wafermap: WaferMap) {
         super();
         this.zoomBehavior = this.createZoomBehavior();
         this.zoomBehavior(select(this.wafermap.canvas as Element));
-        this.renderingFunction = () => {
-            wafermap.renderer!.drawWafer();
-        };
     }
 
-    private rescale(): void {
-        if (this.lastEvent === undefined) {
-            return;
-        }
-        const transform = this.lastEvent.transform;
+    private rescale(event: ZoomEvent): void {
+        const transform = event.transform;
         if (transform.k === this.minScale) {
             this.zoomTransform = zoomIdentity;
             this.zoomBehavior.transform(
@@ -56,7 +48,8 @@ export class ZoomHandler extends EventTarget {
             .scaleExtent([
                 1.1,
                 this.getZoomMax(
-                    this.wafermap.canvasSideLength * this.wafermap.canvasSideLength,
+                    this.wafermap.canvasSideLength
+                        * this.wafermap.canvasSideLength,
                     this.wafermap.dataManager!.containerDimensions.width
                         * this.wafermap.dataManager!.containerDimensions.height
                 )
@@ -74,22 +67,7 @@ export class ZoomHandler extends EventTarget {
                 return filterEval;
             })
             .on('zoom', (event: ZoomEvent) => {
-                if(this.wafermap.renderQueued) return;
-                else {
-
-                    this.lastEvent = event;
-
-                    this.dispatchEvent(
-                        new CustomEvent('before-zoom', { detail: { event } })
-                    );
-
-                    this.rescale();
-
-                    this.dispatchEvent(
-                        new CustomEvent('after-zoom', { detail: { event } })
-                    );
-
-                }
+                this.rescale(event);
             });
 
         return zoomBehavior;
@@ -97,5 +75,5 @@ export class ZoomHandler extends EventTarget {
 
     private getZoomMax(canvasArea: number, dataArea: number): number {
         return Math.ceil((dataArea / canvasArea) * 100);
-    };
+    }
 }
