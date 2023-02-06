@@ -5,7 +5,7 @@ import type { DataManager } from './data-manager';
 /**
  * Responsible for drawing the dies inside the wafer map
  */
-export class RenderingModule {
+export class RenderingModule extends EventTarget{
     private readonly context: CanvasRenderingContext2D;
     private dieSize?: number;
     private readonly dies: DieRenderInfo[];
@@ -13,6 +13,7 @@ export class RenderingModule {
     private readonly labelFontSize: number;
 
     public constructor(wafermap:WaferMap) {
+        super();
         this.context = wafermap.canvas.getContext('2d')!;
         this.dies = wafermap.dataManager!.diesRenderInfo;
         this.dimensions = wafermap.dataManager!.dieDimensions;
@@ -22,6 +23,10 @@ export class RenderingModule {
     public drawWafer(transform?: number): void {
         this.renderDies();
         this.renderText(transform);
+        this.context.restore();
+        this.dispatchEvent(
+            new CustomEvent('render-complete')
+        );
     }
 
     public clearCanvas(width: number, height: number): void {
@@ -30,7 +35,6 @@ export class RenderingModule {
 
     private renderDies(): void {
         // this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
-        console.log("context ------>", this.dimensions);
         this.dies.sort((a, b) => {
             if (a.fillStyle > b.fillStyle) {
                 return 1;
@@ -51,6 +55,7 @@ export class RenderingModule {
             if (prev && die.fillStyle !== prev.fillStyle && die.fillStyle) {
                 this.context.fillStyle = die.fillStyle;
             }
+            // console.log(die);
             this.context.fillRect(
                 die.x,
                 die.y,

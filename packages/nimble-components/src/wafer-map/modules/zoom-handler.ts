@@ -86,12 +86,14 @@ export class ZoomHandler extends EventTarget {
                 zoomIdentity.y,
                 zoomIdentity.k
             );
-            // this.wafermap.transform = this.zoomTransform;
-            this.renderingFunction();
             this.zoomBehavior.transform(
                 select(this.wafermap.canvas as Element),
                 zoomIdentity
             );
+            // this.wafermap.transform = this.zoomTransform;
+            // this.renderingFunction();
+            // this.wafermap.render();
+            // this.wafermap.queueRender();
         } else {
             this.zoomTransform = transform;
             this.clearCanvas(
@@ -106,15 +108,23 @@ export class ZoomHandler extends EventTarget {
                 transform.k
             );
             // this.wafermap.transform = this.zoomTransform;
-            this.renderingFunction();
+            // this.renderingFunction();
+            // this.wafermap.render();
+            // this.wafermap.queueRender();
         }
 
-        canvasContext.restore();
+        // this.wafermap.render();
+
         this.wafermap.zoomContainer.setAttribute(
             'transform',
             this.zoomTransform.toString()
         );
+
+        // canvasContext.restore();
+
+        this.wafermap.queueRender();
         // this.wafermap.transform = this.zoomTransform;
+        
     }
 
     private createZoomBehavior(): ZoomBehavior<Element, unknown> {
@@ -139,17 +149,23 @@ export class ZoomHandler extends EventTarget {
                 return transform.k >= this.minScale || event.type === 'wheel';
             })
             .on('zoom', (event: ZoomEvent) => {
-                this.lastEvent = event;
+                
+                if(this.wafermap.renderQueued) return;
+                else {
 
-                this.dispatchEvent(
-                    new CustomEvent('before-zoom', { detail: { event } })
-                );
+                    this.lastEvent = event;
 
-                this.rescale();
+                    this.dispatchEvent(
+                        new CustomEvent('before-zoom', { detail: { event } })
+                    );
 
-                this.dispatchEvent(
-                    new CustomEvent('after-zoom', { detail: { event } })
-                );
+                    this.rescale();
+
+                    this.dispatchEvent(
+                        new CustomEvent('after-zoom', { detail: { event } })
+                    );
+
+                }
             });
 
         return zoomBehavior;

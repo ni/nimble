@@ -85,6 +85,11 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
+    public renderQueued = false;
+
+    /**
+     * @internal
+     */
     @observable public canvasSideLength = 0;
 
     /**
@@ -99,7 +104,6 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private renderQueued = false;
     private eventCoordinator?: EventCoordinator;
     private resizeObserver?: ResizeObserver;
 
@@ -118,8 +122,20 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        this.clearCanvas(this.canvasSideLength, this.canvasSideLength);
         this.renderer?.drawWafer();
+    }
+
+    /**
+     * @internal
+     */
+    public queueRender(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.renderQueued) {
+            this.renderQueued = true;
+            DOM.queueUpdate(() => this.render());
+        }
     }
 
     private initalizeInternalModules(){
@@ -189,6 +205,7 @@ export class WaferMap extends FoundationElement {
 
     private transformChanged(): void {
         this.queueRender();
+        // this.render();
     }
 
     private canvasSideLengthChanged(): void {
@@ -196,21 +213,13 @@ export class WaferMap extends FoundationElement {
             this.canvasSideLength !== undefined
             && this.canvasSideLength !== 0
         ) {
+            console.log('Canvas side changed');
             this.canvas.width = this.canvasSideLength;
             this.canvas.height = this.canvasSideLength;
             this.initalizeInternalModules();
+            this.clearCanvas(this.canvasSideLength, this.canvasSideLength);
             this.queueRender();
         };
-    }
-
-    private queueRender(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-        if (!this.renderQueued) {
-            this.renderQueued = true;
-            DOM.queueUpdate(() => this.render());
-        }
     }
 }
 

@@ -97,6 +97,11 @@ export class EventCoordinator {
                 passive: false
             }
         );
+
+        this.wafermap.renderer?.addEventListener(
+            'render-complete', ()=>{console.log('Render complete');}
+        );
+
         this.zoomHandler.addEventListener(
             'before-zoom',
             this.beforeZoom as EventListener
