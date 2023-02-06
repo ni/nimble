@@ -1,5 +1,6 @@
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { AnchorTab } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
@@ -50,7 +51,7 @@ describe('AnchorTab', () => {
                 await connect();
 
                 element.setAttribute(attribute.name, 'foo');
-                await DOM.nextUpdate();
+                await waitForUpdatesAsync();
 
                 expect(
                     element

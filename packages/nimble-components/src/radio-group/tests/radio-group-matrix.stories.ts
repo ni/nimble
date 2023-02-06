@@ -33,7 +33,7 @@ const orientationStates = [
     ['Horizontal', Orientation.horizontal],
     ['Vertical', Orientation.vertical]
 ] as const;
-type OrientationState = typeof orientationStates[number];
+type OrientationState = (typeof orientationStates)[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,

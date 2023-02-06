@@ -17,7 +17,8 @@ module.exports = {
         '@storybook/addon-interactions'
     ],
     features: {
-        previewCsfV3: true
+        previewCsfV3: true,
+        previewMdx2: true
     },
     webpackFinal: config => {
         config.module.rules.push({

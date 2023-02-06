@@ -42,7 +42,9 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
 ## Updating icons
 
-1. Export high-quality, optimized SVG files from the `source/icons/Nimble_Iconography.ai` icon source file, by using the **Export for Screens…** workflow within Adobe Illustrator to export SVG files:
+1. Get the latest copy of the icon source file from NI internal Perforce at `\NIComponents\VisualDesign\ProductionAssets\DiagramPaletteAssets_XML\SystemLink\trunk\20.0\source\Nimble_Iconography.ai`. If you don't have access, reach out to Fred Visser or Brandon O'Keefe to request a copy.
+2. Copy the icon source file from Perforce to `source/icons/Nimble_Iconography.ai` and include it in your PR.
+3. Export high-quality, optimized SVG files from the icon source file, by using the **Export for Screens…** workflow within Adobe Illustrator to export SVG files:
 
    1. Choose **File » Export » Export for Screens…**
 
@@ -60,12 +62,12 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
       <img src="docs/ai-export-4.png" width="600"> 
 
-2. Search for all `<defs>.*</defs>` tags in the exported `.svg` files (in the `packages/nimble-tokens/dist/icons/svg` directory), and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
+4. Search for all `<defs>.*</defs>` tags in the exported `.svg` files (in the `packages/nimble-tokens/dist/icons/svg` directory), and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
 
       <img src="docs/find-replace-5.png" width="1000">
 
-3. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens` & `npm run build -w @ni/nimble-components`.
-4. Add metadata for the new icons to `nimble-components\src\icon-base\icon-metadata.ts`.
-5. Generate and build icon components by running `npm run build -w @ni/nimble-components`.
-6. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly.
-7. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.
+5. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens` & `npm run build -w @ni/nimble-components`.
+6. Add metadata for the new icons to `nimble-components\src\icon-base\icon-metadata.ts`.
+7. Generate and build icon components by running `npm run build -w @ni/nimble-components`.
+8. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly.
+9. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.

@@ -2,6 +2,102 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 06 Feb 2023 17:01:19 GMT",
+      "tag": "@ni/nimble-components_v18.1.1",
+      "version": "18.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4bd1cacb892ba920237ef99eed40ac0f1d629deb",
+            "comment": "Add docs for TextFieldType"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 Feb 2023 16:22:19 GMT",
+      "tag": "@ni/nimble-components_v18.1.1",
+      "version": "18.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "00800bde3e48f362e0cb0c648e947272b5696b34",
+            "comment": "remove explicitly calling out 'null' in type of table's idFieldName property"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Feb 2023 19:32:25 GMT",
+      "tag": "@ni/nimble-components_v18.1.0",
+      "version": "18.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f1427f17a56b8056fe67cdec969503bb58259235",
+            "comment": "Test updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Feb 2023 21:48:31 GMT",
+      "tag": "@ni/nimble-components_v18.1.0",
+      "version": "18.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "acfc103fc3cfd607cb97a4f8df2c2990c920ba73",
+            "comment": "Disable chromatic snapshot in spinner"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 30 Jan 2023 19:33:59 GMT",
+      "tag": "@ni/nimble-components_v18.1.0",
+      "version": "18.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c48b2c4e06cbbdc8bba8aca6a0ca77751e5fef16",
+            "comment": "Safari workaround for table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 30 Jan 2023 19:00:43 GMT",
+      "tag": "@ni/nimble-components_v18.1.0",
+      "version": "18.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e1da13662d82fa41f81f038335e6a142355de29e",
+            "comment": "Nimble dependencies updated to latest"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.4.0",
+            "commit": "e1da13662d82fa41f81f038335e6a142355de29e"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 27 Jan 2023 20:53:57 GMT",
       "tag": "@ni/nimble-components_v18.0.3",
       "version": "18.0.3",

@@ -8,7 +8,7 @@ export const WaferMapQuadrant = {
 } as const;
 
 export type WaferMapQuadrant =
-    typeof WaferMapQuadrant[keyof typeof WaferMapQuadrant];
+    (typeof WaferMapQuadrant)[keyof typeof WaferMapQuadrant];
 
 export const WaferMapOrientation = {
     top: 'top',
@@ -18,7 +18,7 @@ export const WaferMapOrientation = {
 } as const;
 
 export type WaferMapOrientation =
-    typeof WaferMapOrientation[keyof typeof WaferMapOrientation];
+    (typeof WaferMapOrientation)[keyof typeof WaferMapOrientation];
 
 export const WaferMapColorScaleMode = {
     linear: 'linear',
@@ -26,7 +26,7 @@ export const WaferMapColorScaleMode = {
 } as const;
 
 export type WaferMapColorScaleMode =
-    typeof WaferMapColorScaleMode[keyof typeof WaferMapColorScaleMode];
+    (typeof WaferMapColorScaleMode)[keyof typeof WaferMapColorScaleMode];
 
 export interface WaferMapDie {
     value: string;
