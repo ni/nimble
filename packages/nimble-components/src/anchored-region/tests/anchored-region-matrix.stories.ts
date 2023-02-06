@@ -30,14 +30,14 @@ const horizontalPositionStates = [
     ['Right', 'right'],
     ['Center', 'center']
 ] as const;
-type HorizontalPositionState = (typeof horizontalPositionStates)[number];
+type HorizontalPositionState = typeof horizontalPositionStates[number];
 
 const verticalPositionStates = [
     ['Top', 'top'],
     ['Bottom', 'bottom'],
     ['Center', 'center']
 ] as const;
-type VerticalPositionState = (typeof verticalPositionStates)[number];
+type VerticalPositionState = typeof verticalPositionStates[number];
 
 const component = (
     [horizontalPositionName, horizontalPosition]: HorizontalPositionState,

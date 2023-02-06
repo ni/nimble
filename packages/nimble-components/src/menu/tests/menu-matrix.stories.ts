@@ -39,7 +39,7 @@ const subMenuStates = [
     [true, true, false],
     [true, true, true]
 ] as const;
-type SubMenuState = (typeof subMenuStates)[number];
+type SubMenuState = typeof subMenuStates[number];
 
 // prettier-ignore
 const component = (

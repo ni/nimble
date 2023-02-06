@@ -7,4 +7,4 @@ export const AnchorAppearance = {
     prominent: 'prominent'
 } as const;
 export type AnchorAppearance =
-    (typeof AnchorAppearance)[keyof typeof AnchorAppearance];
+    typeof AnchorAppearance[keyof typeof AnchorAppearance];

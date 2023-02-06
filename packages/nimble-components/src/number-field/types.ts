@@ -8,4 +8,4 @@ export const NumberFieldAppearance = {
 } as const;
 
 export type NumberFieldAppearance =
-    (typeof NumberFieldAppearance)[keyof typeof NumberFieldAppearance];
+    typeof NumberFieldAppearance[keyof typeof NumberFieldAppearance];

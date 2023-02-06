@@ -28,7 +28,7 @@ const orientationStates = [
     [WaferMapOrientation.left],
     [WaferMapOrientation.right]
 ] as const;
-type OrientationState = (typeof orientationStates)[number];
+type OrientationState = typeof orientationStates[number];
 
 const dieOrientation = [
     [WaferMapQuadrant.topLeft],
@@ -36,7 +36,7 @@ const dieOrientation = [
     [WaferMapQuadrant.topRight],
     [WaferMapQuadrant.bottomRight]
 ] as const;
-type DieOrientation = (typeof dieOrientation)[number];
+type DieOrientation = typeof dieOrientation[number];
 
 const colorsScales = [
     [
@@ -52,7 +52,7 @@ const colorsScales = [
         }
     ]
 ] as const;
-type ColorScales = (typeof colorsScales)[number];
+type ColorScales = typeof colorsScales[number];
 
 const defaultColor = {
     colors: ['red', 'blue', 'green'],
@@ -60,7 +60,7 @@ const defaultColor = {
 };
 
 const dieLabelHidden = [[true], [false]] as const;
-type DieLabelHidden = (typeof dieLabelHidden)[number];
+type DieLabelHidden = typeof dieLabelHidden[number];
 
 const waferMapDie = [
     { x: 0, y: 0, value: '100' },

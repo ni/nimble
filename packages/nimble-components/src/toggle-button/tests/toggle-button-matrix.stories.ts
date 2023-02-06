@@ -38,18 +38,18 @@ const partVisibilityStates = [
     [true, true, true],
     [false, true, true]
 ] as const;
-type PartVisibilityState = (typeof partVisibilityStates)[number];
+type PartVisibilityState = typeof partVisibilityStates[number];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     ButtonAppearance
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
+type AppearanceState = typeof appearanceStates[number];
 
 const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
 ] as const;
-type CheckedState = (typeof checkedStates)[number];
+type CheckedState = typeof checkedStates[number];
 
 // prettier-ignore
 const component = (

@@ -29,7 +29,7 @@ const metadata: Meta = {
 export default metadata;
 
 const tabsToolbarState = [false, true] as const;
-type TabsToolbarState = (typeof tabsToolbarState)[number];
+type TabsToolbarState = typeof tabsToolbarState[number];
 
 // prettier-ignore
 const component = (

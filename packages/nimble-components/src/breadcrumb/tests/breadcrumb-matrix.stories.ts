@@ -32,7 +32,7 @@ export default metadata;
 const appearanceStates: [string, string | undefined][] = Object.entries(
     BreadcrumbAppearance
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
+type AppearanceState = typeof appearanceStates[number];
 
 const component = ([
     appearanceName,

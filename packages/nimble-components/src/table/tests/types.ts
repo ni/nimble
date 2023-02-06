@@ -3,4 +3,4 @@ export const ExampleDataType = {
     largeDataSet: 'LargeDataSet'
 } as const;
 export type ExampleDataType =
-    (typeof ExampleDataType)[keyof typeof ExampleDataType];
+    typeof ExampleDataType[keyof typeof ExampleDataType];

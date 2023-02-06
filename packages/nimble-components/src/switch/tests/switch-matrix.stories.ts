@@ -31,13 +31,13 @@ const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
 ] as const;
-type CheckedState = (typeof checkedStates)[number];
+type CheckedState = typeof checkedStates[number];
 
 const messagesStates = [
     ['With Messages', true],
     ['Without Messages', false]
 ] as const;
-type MessagesState = (typeof messagesStates)[number];
+type MessagesState = typeof messagesStates[number];
 
 // prettier-ignore
 const component = (

@@ -16,4 +16,4 @@ export const TextFieldAppearance = {
 } as const;
 
 export type TextFieldAppearance =
-    (typeof TextFieldAppearance)[keyof typeof TextFieldAppearance];
+    typeof TextFieldAppearance[keyof typeof TextFieldAppearance];

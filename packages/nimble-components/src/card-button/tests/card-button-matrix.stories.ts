@@ -32,7 +32,7 @@ const selectedStates = [
     ['Selected', true],
     ['', false]
 ] as const;
-type SelectedState = (typeof selectedStates)[number];
+type SelectedState = typeof selectedStates[number];
 
 // prettier-ignore
 const component = (

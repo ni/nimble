@@ -244,7 +244,7 @@ const tokenSuffixes = [
     'Padding',
     'Color'
 ] as const;
-export type TokenSuffix = (typeof tokenSuffixes)[number];
+export type TokenSuffix = typeof tokenSuffixes[number];
 export const suffixFromTokenName = (
     tokenName: string
 ): TokenSuffix | undefined => tokenSuffixes[

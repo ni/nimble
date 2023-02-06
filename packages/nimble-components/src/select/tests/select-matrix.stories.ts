@@ -44,7 +44,7 @@ const appearanceStates = Object.entries(DropdownAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
 
-type AppearanceState = (typeof appearanceStates)[number];
+type AppearanceState = typeof appearanceStates[number];
 
 // prettier-ignore
 const component = (

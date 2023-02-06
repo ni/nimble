@@ -3,5 +3,4 @@ export const TestAppearance = {
     awesome: 'awesome',
     best: 'best'
 } as const;
-export type TestAppearance =
-    (typeof TestAppearance)[keyof typeof TestAppearance];
+export type TestAppearance = typeof TestAppearance[keyof typeof TestAppearance];

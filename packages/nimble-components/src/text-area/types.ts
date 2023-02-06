@@ -7,4 +7,4 @@ export const TextAreaAppearance = {
     block: 'block'
 } as const;
 export type TextAreaAppearance =
-    (typeof TextAreaAppearance)[keyof typeof TextAreaAppearance];
+    typeof TextAreaAppearance[keyof typeof TextAreaAppearance];

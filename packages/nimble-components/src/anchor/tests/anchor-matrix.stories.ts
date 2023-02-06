@@ -34,18 +34,18 @@ const disabledStates = [
     ['', 'https://nimble.ni.dev'],
     ['Disabled', null]
 ] as const;
-type DisabledState = (typeof disabledStates)[number];
+type DisabledState = typeof disabledStates[number];
 
 const underlineHiddenStates = [
     ['', false],
     ['Underline Hidden', true]
 ] as const;
-type UnderlineHiddenState = (typeof underlineHiddenStates)[number];
+type UnderlineHiddenState = typeof underlineHiddenStates[number];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     AnchorAppearance
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
+type AppearanceState = typeof appearanceStates[number];
 
 // prettier-ignore
 const component = (
