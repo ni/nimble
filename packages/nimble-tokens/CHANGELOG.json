@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 06 Feb 2023 15:05:44 GMT",
+      "tag": "@ni/nimble-tokens_v4.4.0",
+      "version": "4.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "c47e8f7a9064e5bd618453226f702f933fda23af",
+            "comment": "Update icon import instructions"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 30 Jan 2023 19:00:43 GMT",
       "tag": "@ni/nimble-tokens_v4.4.0",
       "version": "4.4.0",
