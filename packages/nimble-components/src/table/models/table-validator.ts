@@ -23,14 +23,14 @@ export class TableValidator<TData extends TableRecord> {
 
     public validateRecordIds(
         data: TData[],
-        idFieldName: string | null | undefined
+        idFieldName: string | undefined
     ): boolean {
         // Start off by assuming all IDs are valid.
         this.duplicateRecordId = false;
         this.missingRecordId = false;
         this.invalidRecordId = false;
 
-        if (idFieldName === undefined || idFieldName === null) {
+        if (typeof idFieldName !== 'string') {
             return true;
         }
 

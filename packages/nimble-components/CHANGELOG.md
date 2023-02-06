@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 30 Jan 2023 19:00:43 GMT and should not be manually modified.
+This log was last generated on Mon, 06 Feb 2023 16:22:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.1.1
+
+Mon, 06 Feb 2023 16:22:19 GMT
+
+### Patches
+
+- remove explicitly calling out 'null' in type of table's idFieldName property ([ni/nimble@00800bd](https://github.com/ni/nimble/commit/00800bde3e48f362e0cb0c648e947272b5696b34))
 
 ## 18.1.0
 
