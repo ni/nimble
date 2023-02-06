@@ -1,6 +1,8 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
+    applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
     bodyDisabledFontColor,
@@ -14,11 +16,13 @@ import {
     borderRgbPartialColor,
     standardPadding,
     failColor,
-    elevation2BoxShadow,
-    sectionBackgroundColor
+    elevation2BoxShadow
 } from '../../theme-provider/design-tokens';
+import { Theme } from '../../theme-provider/types';
 import { appearanceBehavior } from '../../utilities/style/appearance';
+import { hexToRgbaCssColor } from '../../utilities/style/colors';
 import { focusVisible } from '../../utilities/style/focus';
+import { themeBehavior } from '../../utilities/style/theme';
 import { DropdownAppearance } from './types';
 
 export const styles = css`
@@ -139,11 +143,15 @@ export const styles = css`
                 var(--ni-private-listbox-padding)
         );
         z-index: 1;
-        padding: var(--ni-private-listbox-padding);
         box-shadow: ${elevation2BoxShadow};
         border: 1px solid ${popupBorderColor};
-        background-color: ${sectionBackgroundColor};
-        background-clip: padding-box;
+        background-color: ${applicationBackgroundColor};
+    }
+
+    .listbox slot {
+        display: block;
+        background: transparent;
+        padding: var(--ni-private-listbox-padding);
     }
 
     .listbox[hidden] {
@@ -257,6 +265,14 @@ export const styles = css`
 
             :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
+            .listbox slot {
+                background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `
     )

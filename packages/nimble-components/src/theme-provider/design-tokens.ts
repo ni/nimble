@@ -101,18 +101,6 @@ import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
-// The following colors were designed with transparancy, but we don't want
-// backgrounds to show through, so we use opaque versions based on laying the
-// transparent color over a specific background color.
-// 15% White over ForestGreen
-const sectionBackgroundColorColorUI = '#295d44';
-// 30% Black91 over headerBackgroundColor
-const popupBorderColorLightUI = '#a1a1a1';
-// 30% Black15 over headerBackgroundColor
-const popupBorderColorDarkUI = '#606061';
-// 30% White over headerBackgroundColor
-const popupBorderColorColorUI = '#507663';
-
 // Color Tokens
 export const actionRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.actionRgbPartialColor)
@@ -128,7 +116,7 @@ export const headerBackgroundColor = DesignToken.create<string>(
 
 export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, sectionBackgroundColorColorUI));
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black85, ForestGreen));
 
 export const dividerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.dividerBackgroundColor)
@@ -193,12 +181,7 @@ export const modalBackdropColor = DesignToken.create<string>(
 
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    popupBorderColorLightUI,
-    popupBorderColorDarkUI,
-    popupBorderColorColorUI
-));
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
 
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)

@@ -1,7 +1,9 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 import {
+    applicationBackgroundColor,
     borderWidth,
     borderColor,
     popupBorderColor,
@@ -9,15 +11,17 @@ import {
     groupHeaderTextTransform,
     groupHeaderFontColor,
     smallPadding,
-    elevation2BoxShadow,
-    sectionBackgroundColor
+    elevation2BoxShadow
 } from '../theme-provider/design-tokens';
+import { Theme } from '../theme-provider/types';
+import { hexToRgbaCssColor } from '../utilities/style/colors';
+import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
     ${display('grid')}
 
     :host {
-        background: ${sectionBackgroundColor};
+        background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
         min-width: 176px;
@@ -56,4 +60,13 @@ export const styles = css`
         padding-top: ${smallPadding};
         padding-bottom: ${smallPadding};
     }
-`;
+`.withBehaviors(
+    themeBehavior(
+        Theme.color,
+        css`
+            slot {
+                background: ${hexToRgbaCssColor(White, 0.15)};
+            }
+        `
+    )
+);
