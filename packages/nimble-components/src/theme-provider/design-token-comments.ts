@@ -8,7 +8,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     applicationBackgroundColor: 'Primary background color for the application',
     dividerBackgroundColor: 'Divider background color',
     headerBackgroundColor: 'Background color for application headers',
-    sectionBackgroundColor: 'Background color for dialogs and menus',
+    sectionBackgroundColor: 'Background color for menus and dropdown lists',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',

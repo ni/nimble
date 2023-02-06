@@ -1,7 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
     bodyDisabledFontColor,
@@ -15,7 +14,8 @@ import {
     borderRgbPartialColor,
     standardPadding,
     failColor,
-    elevation2BoxShadow
+    elevation2BoxShadow,
+    sectionBackgroundColor
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { focusVisible } from '../../utilities/style/focus';
@@ -142,7 +142,7 @@ export const styles = css`
         padding: var(--ni-private-listbox-padding);
         box-shadow: ${elevation2BoxShadow};
         border: 1px solid ${popupBorderColor};
-        background-color: ${applicationBackgroundColor};
+        background-color: ${sectionBackgroundColor};
         background-clip: padding-box;
     }
 
