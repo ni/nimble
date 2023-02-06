@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 06 Feb 2023 16:22:19 GMT",
+      "tag": "@ni/nimble-components_v18.1.1",
+      "version": "18.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "00800bde3e48f362e0cb0c648e947272b5696b34",
+            "comment": "remove explicitly calling out 'null' in type of table's idFieldName property"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Feb 2023 19:32:25 GMT",
       "tag": "@ni/nimble-components_v18.1.0",
       "version": "18.1.0",

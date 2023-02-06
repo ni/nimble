@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "remove explicitly calling out 'null' in type of table's idFieldName property",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
