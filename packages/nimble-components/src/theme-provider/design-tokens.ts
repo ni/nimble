@@ -193,7 +193,12 @@ export const modalBackdropColor = DesignToken.create<string>(
 
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, popupBorderColorLightUI, popupBorderColorDarkUI, popupBorderColorColorUI));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    popupBorderColorLightUI,
+    popupBorderColorDarkUI,
+    popupBorderColorColorUI
+));
 
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
