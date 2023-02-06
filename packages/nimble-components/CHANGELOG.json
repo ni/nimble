@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 06 Feb 2023 17:01:19 GMT",
+      "tag": "@ni/nimble-components_v18.1.1",
+      "version": "18.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4bd1cacb892ba920237ef99eed40ac0f1d629deb",
+            "comment": "Add docs for TextFieldType"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 06 Feb 2023 16:22:19 GMT",
       "tag": "@ni/nimble-components_v18.1.1",
       "version": "18.1.1",
