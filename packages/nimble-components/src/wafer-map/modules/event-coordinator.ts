@@ -1,5 +1,4 @@
 import type { WaferMapDie, HoverHandlerData } from '../types';
-import type { ZoomHandlerData } from './zoom-handler';
 import { ZoomHandler } from './zoom-handler';
 import type { WaferMap } from '..';
 
@@ -70,6 +69,7 @@ export class EventCoordinator {
     };
 
     private readonly afterZoom = (): void => {
+        this.wafermap.queueRender();
         // TODO HoverHandler - set new transfrom from event.transform
         // TODO HoverHandler - create a new hoverDie
     };

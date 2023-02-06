@@ -21,6 +21,7 @@ export class RenderingModule extends EventTarget{
     }
 
     public drawWafer(transform?: number): void {
+        console.log('start draw wafer');
         this.renderDies();
         this.renderText(transform);
         this.context.restore();

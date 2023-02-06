@@ -7,19 +7,9 @@ import {
     zoomTransform
 } from 'd3-zoom';
 import type { WaferMap } from '..';
-import type { Dimensions } from '../types';
-import type { RenderingModule } from './rendering';
 
 export interface ZoomEvent {
     transform: ZoomTransform;
-}
-
-export interface ZoomHandlerData {
-    canvas: HTMLCanvasElement;
-    zoomContainer: HTMLElement;
-    containerDimensions: Dimensions;
-    canvasLength: number;
-    renderModule: RenderingModule;
 }
 
 /**
@@ -64,6 +54,7 @@ export class ZoomHandler extends EventTarget {
     }
 
     private rescale(): void {
+        console.log('rescale');
         if (this.lastEvent === undefined) {
             return;
         }
@@ -72,8 +63,10 @@ export class ZoomHandler extends EventTarget {
         if (canvasContext === null) {
             return;
         }
+        // console.log(transform);
         canvasContext.save();
         if (transform.k === this.minScale) {
+            console.log('tranform minscale');
             this.zoomTransform = zoomIdentity;
             this.clearCanvas(
                 canvasContext,
@@ -122,8 +115,9 @@ export class ZoomHandler extends EventTarget {
         //     this.zoomTransform.toString()
         // );
 
+        // console.log(this.zoomTransform);
         this.wafermap.transform = this.zoomTransform;
-        this.wafermap.queueRender();
+        // this.wafermap.queueRender();
     }
 
     private createZoomBehavior(): ZoomBehavior<Element, unknown> {
@@ -144,11 +138,15 @@ export class ZoomHandler extends EventTarget {
                 ]
             ])
             .filter((event: Event) => {
+                // console.log('filter events ------>', event);
                 const transform = zoomTransform(this.wafermap.canvas);
-                return transform.k >= this.minScale || event.type === 'wheel';
+                // console.log('transform ----->', transform);
+                const filterEval = transform.k >= this.minScale || event.type === 'wheel';
+                // console.log('eval ---->', filterEval)
+                return filterEval;
             })
             .on('zoom', (event: ZoomEvent) => {
-                
+                // console.log('---------------- zoom -------------');
                 if(this.wafermap.renderQueued) return;
                 // if(false) return;
                 else {
