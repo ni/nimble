@@ -7,7 +7,7 @@ import {
     createFixedThemeStory,
     createMatrixThemeStory
 } from '../../utilities/tests/storybook';
-import { TextFieldAppearance } from '../types';
+import { TextFieldAppearance, TextFieldType } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -55,36 +55,36 @@ const valueStates = [
     ['No Value', null, 'placeholder'],
     ['Value', 'Hello', 'placeholder']
 ] as const;
-type ValueState = typeof valueStates[number];
+type ValueState = (typeof valueStates)[number];
 
 const typeStates = [
-    ['Text', 'text'],
-    ['Password', 'password']
+    ['Text', TextFieldType.text],
+    ['Password', TextFieldType.password]
 ] as const;
-type TypeState = typeof typeStates[number];
+type TypeState = (typeof typeStates)[number];
 
 const actionButtonStates = [
     ['', false],
     ['w/ Buttons', true]
 ] as const;
-type ActionButtonState = typeof actionButtonStates[number];
+type ActionButtonState = (typeof actionButtonStates)[number];
 
 const leftIconStates = [
     ['', false],
     ['w/ Icon', true]
 ] as const;
-type LeftIconState = typeof leftIconStates[number];
+type LeftIconState = (typeof leftIconStates)[number];
 
 const appearanceStates = Object.entries(TextFieldAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 const fullBleedStates = [
     ['', false],
     ['Full Bleed', true]
 ] as const;
-type FullBleedState = typeof fullBleedStates[number];
+type FullBleedState = (typeof fullBleedStates)[number];
 
 // prettier-ignore
 const component = (

@@ -1,6 +1,6 @@
-import { DOM } from '@microsoft/fast-element';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 export async function clickElement(element: HTMLElement): Promise<void> {
     element.click();
-    await DOM.nextUpdate();
+    await waitForUpdatesAsync();
 }

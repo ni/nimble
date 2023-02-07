@@ -41,7 +41,7 @@ export const ButtonAppearance = {
     block: 'block'
 } as const;
 export type ButtonAppearance =
-    typeof ButtonAppearance[keyof typeof ButtonAppearance];
+    (typeof ButtonAppearance)[keyof typeof ButtonAppearance];
 
 /**
  * Types of button appearance variants.
@@ -52,4 +52,4 @@ export const ButtonAppearanceVariant = {
     primary: 'primary'
 } as const;
 export type ButtonAppearanceVariant =
-    typeof ButtonAppearanceVariant[keyof typeof ButtonAppearanceVariant];
+    (typeof ButtonAppearanceVariant)[keyof typeof ButtonAppearanceVariant];

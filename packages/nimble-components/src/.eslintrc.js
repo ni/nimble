@@ -1,3 +1,17 @@
+const restrictedImportsPaths = () => ([
+    {
+        name: '@microsoft/fast-foundation',
+        importNames: ['focusVisible'],
+        message:
+            'Please use focusVisible from src/utilities/style/focus instead.'
+    },
+    {
+        name: '@microsoft/fast-components',
+        message:
+            'It is not expected to leverage @microsoft/fast-components directly as they are coupled to FAST design tokens.'
+    }
+]);
+
 module.exports = {
     root: true,
     plugins: ['jsdoc'],
@@ -43,19 +57,7 @@ module.exports = {
         'no-restricted-imports': [
             'error',
             {
-                paths: [
-                    {
-                        name: '@microsoft/fast-foundation',
-                        importNames: ['focusVisible'],
-                        message:
-                            'Please use focusVisible from src/utilities/style/focus instead.'
-                    },
-                    {
-                        name: '@microsoft/fast-components',
-                        message:
-                            'It is not expected to leverage @microsoft/fast-components directly as they are coupled to FAST design tokens.'
-                    }
-                ]
+                paths: restrictedImportsPaths()
             }
         ],
 
@@ -85,7 +87,20 @@ module.exports = {
             rules: {
                 // Classes defined in test code aren't part of the public API so don't need docs
                 'jsdoc/require-jsdoc': 'off',
-                'jsdoc/require-description': 'off'
+                'jsdoc/require-description': 'off',
+                'no-restricted-imports': [
+                    'error',
+                    {
+                        paths: [
+                            ...restrictedImportsPaths(),
+                            {
+                                name: '@microsoft/fast-element',
+                                importNames: ['DOM'],
+                                message: 'For tests, please use functions from src/testing/async-helpers instead.'
+                            }
+                        ]
+                    }
+                ],
             }
         },
         {

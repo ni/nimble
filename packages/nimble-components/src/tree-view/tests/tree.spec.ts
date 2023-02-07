@@ -2,7 +2,7 @@ import {
     DesignSystem,
     TreeView as FoundationTreeView
 } from '@microsoft/fast-foundation';
-import { DOM, html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import { notebook16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
@@ -68,7 +68,7 @@ describe('TreeView', () => {
         model = new Model();
         ({ connect, disconnect } = await setup(model));
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
     });
 
     afterEach(async () => {

@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 27 Jan 2023 15:05:13 GMT and should not be manually modified.
+This log was last generated on Mon, 06 Feb 2023 16:22:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.1.1
+
+Mon, 06 Feb 2023 16:22:19 GMT
+
+### Patches
+
+- remove explicitly calling out 'null' in type of table's idFieldName property ([ni/nimble@00800bd](https://github.com/ni/nimble/commit/00800bde3e48f362e0cb0c648e947272b5696b34))
+
+## 18.1.0
+
+Mon, 30 Jan 2023 19:00:43 GMT
+
+### Minor changes
+
+- Nimble dependencies updated to latest ([ni/nimble@e1da136](https://github.com/ni/nimble/commit/e1da13662d82fa41f81f038335e6a142355de29e))
+- Bump @ni/nimble-tokens to v4.4.0
+
+## 18.0.3
+
+Fri, 27 Jan 2023 20:53:57 GMT
+
+### Patches
+
+- Add virtualization to table ([ni/nimble@c334239](https://github.com/ni/nimble/commit/c334239a606b1b0920c389592ac840182ec8a882))
 
 ## 18.0.2
 

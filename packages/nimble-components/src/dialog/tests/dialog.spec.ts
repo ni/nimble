@@ -1,7 +1,8 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Dialog, ExtendedDialog, UserDismissed } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
@@ -58,7 +59,7 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         void element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(getComputedStyle(nativeDialogElement(element)).display).toBe(
             'flex'
@@ -71,9 +72,9 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         void element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         element.close();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(getComputedStyle(nativeDialogElement(element)).display).toBe(
             'none'
@@ -95,7 +96,7 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         void element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.open).toBeTrue();
 
@@ -106,9 +107,9 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         void element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         element.close();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.open).toBeFalse();
 
@@ -119,9 +120,9 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const dialogPromise = element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         element.close();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         await expectAsync(dialogPromise).not.toBeRejectedWithError();
 
@@ -133,9 +134,9 @@ describe('Dialog', () => {
         await connect();
         const expectedReason = 'just because';
         const dialogDromise = element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         element.close(expectedReason);
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         await expectAsync(dialogDromise).toBeResolvedTo(expectedReason);
 
@@ -146,9 +147,9 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const dialogPromise = element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         element.close();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         await expectAsync(dialogPromise).toBeResolvedTo(undefined);
 
@@ -159,12 +160,12 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const dialogPromise = element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         // Simulate user dismiss events in browser
         const cancelEvent = new Event('cancel', { cancelable: true });
         nativeDialogElement(element).dispatchEvent(cancelEvent);
         nativeDialogElement(element).dispatchEvent(new Event('close'));
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         await expectAsync(dialogPromise).toBeResolvedTo(UserDismissed);
         expect(cancelEvent.defaultPrevented).toBeFalse();
@@ -177,11 +178,11 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup(true);
         await connect();
         void element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         // Simulate user dismiss events in browser that are cancelled
         const cancelEvent = new Event('cancel', { cancelable: true });
         nativeDialogElement(element).dispatchEvent(cancelEvent);
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(cancelEvent.defaultPrevented).toBeTrue();
         expect(element.open).toBeTrue();
@@ -193,7 +194,7 @@ describe('Dialog', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         void element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         await expectAsync(element.show()).toBeRejectedWithError();
 
@@ -229,10 +230,10 @@ describe('Dialog', () => {
         button2.focus();
         const initialActiveElement = document.activeElement;
         void element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         const afterDialogOpenActiveElement = document.activeElement;
         element.close();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         const afterDialogCloseActiveElement = document.activeElement;
 
         expect(initialActiveElement).toBe(button2);
@@ -247,7 +248,7 @@ describe('Dialog', () => {
         await connect();
         const okButton = document.getElementById('ok')!;
         void element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(document.activeElement).toBe(okButton);
 
@@ -259,9 +260,9 @@ describe('Dialog', () => {
         await connect();
         const cancelButton = document.getElementById('cancel')!;
         cancelButton.setAttribute('autofocus', '');
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         void element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(document.activeElement).toBe(cancelButton);
 
@@ -275,11 +276,11 @@ describe('Dialog', () => {
         const secondDialogButton = document.createElement('nimble-button');
         secondDialog.append(secondDialogButton);
         element.parentElement!.append(secondDialog);
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         void element.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         void secondDialog.show();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.open).toBeTrue();
         expect(secondDialog.open).toBeTrue();

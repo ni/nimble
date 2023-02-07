@@ -1,8 +1,9 @@
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Drawer, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
+import { processUpdates } from '../../testing/async-helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
@@ -181,7 +182,7 @@ describe('Drawer', () => {
         it('forwards value of aria-label to internal dialog element', () => {
             const expectedValue = 'doughnut';
             element.ariaLabel = expectedValue;
-            DOM.processUpdates();
+            processUpdates();
             expect(
                 nativeDialogElement(element).getAttribute('aria-label')
             ).toEqual(expectedValue);
@@ -189,9 +190,9 @@ describe('Drawer', () => {
 
         it('removes value of aria-label from internal dialog element when cleared from host', () => {
             element.ariaLabel = 'not empty';
-            DOM.processUpdates();
+            processUpdates();
             element.ariaLabel = null;
-            DOM.processUpdates();
+            processUpdates();
             expect(
                 nativeDialogElement(element).getAttribute('aria-label')
             ).toBeNull();
@@ -221,7 +222,7 @@ describe('Drawer', () => {
         it('focuses the button with autofocus when the drawer opens', () => {
             const cancelButton = document.getElementById('cancel')!;
             cancelButton.setAttribute('autofocus', '');
-            DOM.processUpdates();
+            processUpdates();
             void element.show();
             expect(document.activeElement).toBe(cancelButton);
         });
@@ -262,7 +263,7 @@ describe('Drawer', () => {
             // Simulate user dismiss event in browser
             const cancelEvent = new Event('cancel', { cancelable: true });
             nativeDialogElement(element).dispatchEvent(cancelEvent);
-            DOM.processUpdates();
+            processUpdates();
 
             expect(element.open).toBeTrue();
             // The drawer should not be closing
