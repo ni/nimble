@@ -20,7 +20,7 @@ The behavior that has been prescribed for column sizing is as follows:
 
 - Columns should be able to be configured to either maintain a fixed width, or grow proportionally with the table such as when the window resizes causing the table width to increase. Tables can consist of columns that are configured as a mixture of the two modes.
 - If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are:
-    - If a shrinking column has reached its minimum pixel size, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
+    - If a shrinking column has reached its minimum pixel size or is not resizable, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
     - A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size.
     - A sizing action to the right that would ultimately result in the final right column reaching its minimum size (all columns still within current table width) would then begin to push columns out of the table width resulting in a horizontal scrollbar.
 - Columns can be configured to not allow a user to interactively size them
