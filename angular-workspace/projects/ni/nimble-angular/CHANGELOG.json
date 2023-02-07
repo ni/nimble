@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 07 Feb 2023 17:44:56 GMT",
+      "tag": "@ni/nimble-angular_v16.0.6",
+      "version": "16.0.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "2ef58836cd5a1fd4bed4a9e6d24c5d53a604b541",
+            "comment": "Make the click area of the breadcrumb-item match the link area"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 06 Feb 2023 16:22:19 GMT",
       "tag": "@ni/nimble-angular_v16.0.5",
       "version": "16.0.5",
