@@ -56,6 +56,5 @@ export const template = html<Table>`
                 </div>
             </div>
         </div>
-        <slot></slot>
     </template>
 `;

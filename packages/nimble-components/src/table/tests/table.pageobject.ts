@@ -30,24 +30,6 @@ export class TablePageObject<T extends TableRecord> {
         return this.getHeaderContentElement(headers[columnIndex]!);
     }
 
-    public getRenderedHeaderContent(
-        columnIndex: number
-    ): Node | null | undefined {
-        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
-            'nimble-table-header'
-        )!;
-        if (columnIndex >= headers.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered columns'
-            );
-        }
-
-        const headerContent = this.getHeaderContentElement(
-            headers[columnIndex]!
-        );
-        return headerContent?.firstChild;
-    }
-
     public getRenderedRowCount(): number {
         return this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-row'

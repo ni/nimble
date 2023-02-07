@@ -126,7 +126,7 @@ const metadata: Meta<TableArgs> = {
             data-unused="${x => x.updateData(x)}"
         >
             <nimble-table-column-text field-name="firstName" placeholder="no value">
-                <nimble-icon-user></nimble-icon-user>
+                <nimble-icon-user title="First Name"></nimble-icon-user>
             </nimble-table-column-text>
             <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
             <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>

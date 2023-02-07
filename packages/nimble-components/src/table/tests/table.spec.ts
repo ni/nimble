@@ -135,7 +135,7 @@ describe('Table', () => {
             columnIndex < element.columns.length;
             columnIndex++
         ) {
-            expect(pageObject.getHeaderContent(columnIndex)).toEqual(
+            expect(pageObject.getHeaderContent(columnIndex)).withContext(`for column${columnIndex}`).toEqual(
                 element.columns[columnIndex]
             );
         }
@@ -147,13 +147,14 @@ describe('Table', () => {
         element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
-        const headerContent = pageObject.getRenderedHeaderContent(0)!;
-        expect(headerContent.textContent).toEqual('stringData');
+        let headerContent = pageObject.getHeaderContent(0)!.firstChild;
+        expect(headerContent?.textContent).toEqual('stringData');
 
         element.columns[0]!.textContent = 'foo';
         await waitForUpdatesAsync();
 
-        expect(headerContent.textContent).toEqual('foo');
+        headerContent = pageObject.getHeaderContent(0)!.firstChild;
+        expect(headerContent?.textContent).toEqual('foo');
     });
 
     it('can set data before the element is connected', async () => {
