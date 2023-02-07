@@ -67,7 +67,7 @@ These properties are expected to be updated by both the initial state of separat
 
 #### `currentMinWidth` behavior
 
-Open Question: Is there a minimum width considered too small? If a user is allowed to provide a mimimum width smaller than the default, how should the various components within the header behave? If a user attempts to set a minimum width to an unsupported value, what is the appropriate response (i.e. should we simply update the `TableValidity` state?)?
+Open Question: Is there a minimum width considered too small? If a plugin is allowed to provide a mimimum width smaller than the default, how should the various components within the header behave? If a plugin attempts to set a minimum width to an unsupported value, what is the appropriate response (i.e. should we simply update the `TableValidity` state?)?
 
 #### **Mixin Example**
 
