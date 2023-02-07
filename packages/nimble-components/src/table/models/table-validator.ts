@@ -64,9 +64,7 @@ export class TableValidator<TData extends TableRecord> {
         );
     }
 
-    public validateColumnIds(
-        columnIds: (string | undefined)[]
-    ): boolean {
+    public validateColumnIds(columnIds: (string | undefined)[]): boolean {
         this.missingColumnId = false;
         this.duplicateColumnId = false;
 

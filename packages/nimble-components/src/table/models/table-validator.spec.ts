@@ -243,7 +243,8 @@ describe('TableValidator', () => {
             {
                 columnIds: ['my-id-1', ''],
                 invalidKeys: ['missingColumnId'],
-                testDescription: 'does not allow empty string as a defined column ID'
+                testDescription:
+                    'does not allow empty string as a defined column ID'
             }
         ];
 
