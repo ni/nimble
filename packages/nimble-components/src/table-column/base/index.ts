@@ -34,7 +34,7 @@ export abstract class TableColumn<
     public constructor() {
         super();
 
-        this.setAttribute('slot', uniqueId('table-column'));
+        this.setAttribute('slot', uniqueId('table-column-slot'));
     }
 
     /**
