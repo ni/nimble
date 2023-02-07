@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix nimble-table virtualizer bug (when table height changes)",
-  "packageName": "@ni/nimble-components",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
