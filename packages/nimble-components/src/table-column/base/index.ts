@@ -34,7 +34,7 @@ export abstract class TableColumn<
     public override connectedCallback(): void {
         super.connectedCallback();
 
-        this.setAttribute('slot', uniqueId('table-column'));
+        this.setAttribute('slot', uniqueId('table-column-slot'));
     }
 
     /**
