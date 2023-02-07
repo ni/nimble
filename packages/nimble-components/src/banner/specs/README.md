@@ -102,7 +102,7 @@ We only formally support spans of text in the `title` and default slots, but we 
 </div>
 <div class="text">
     ${when(x => !x.titleHidden, html`
-        <slot name="title"></slot>)}
+        <slot name="title"></slot>`)}
     <slot></slot>
 </div>
 <div class="end">
