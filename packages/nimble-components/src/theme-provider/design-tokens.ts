@@ -685,23 +685,23 @@ export const bannerColor = DesignToken.create<string>(
 
 export const bannerNeutralBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerNeutralBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black75, Black75, hexToRgbaCssColor('#FFFFFF', 0.3)));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black75, Black75, hexToRgbaCssColor(White, 0.3)));
 
 export const bannerErrorBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerErrorBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Fail100LightUi, BannerFail100DarkUi, hexToRgbaCssColor('#FFFFFF', 0.3)));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Fail100LightUi, BannerFail100DarkUi, hexToRgbaCssColor(White, 0.3)));
 
 export const bannerWarningBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerWarningBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Warning100LightUi, Warning100DarkUi, hexToRgbaCssColor('#FFFFFF', 0.3)));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Warning100LightUi, Warning100DarkUi, hexToRgbaCssColor(White, 0.3)));
 
 export const bannerInfoBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerInfoBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Information100LightUi, Information100DarkUi, hexToRgbaCssColor('#FFFFFF', 0.3)));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Information100LightUi, Information100DarkUi, hexToRgbaCssColor(White, 0.3)));
 
 export const bannerIconColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerIconColor)
-).withDefault(hexToRgbaCssColor('#FFFFFF', 0.6));
+).withDefault(hexToRgbaCssColor(White, 0.6));
 
 export const bannerIconMarginTop = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerIconMarginTop)
@@ -721,11 +721,11 @@ export const bannerTextGap = DesignToken.create<string>(
 
 export const bannerButtonFillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerButtonFillSelectedColor)
-).withDefault(hexToRgbaCssColor('#FFFFFF', 0.2));
+).withDefault(hexToRgbaCssColor(White, 0.2));
 
 export const bannerLinkActiveFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerLinkActiveFontColor)
-).withDefault(hexToRgbaCssColor('#FFFFFF', 0.6));
+).withDefault(hexToRgbaCssColor(White, 0.6));
 
 export const bannerCloseButtonSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerCloseButtonSize)

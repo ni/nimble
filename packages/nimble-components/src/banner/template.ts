@@ -12,15 +12,19 @@ export const template = html<Banner>`
     <template role="status">
         <div class="icon">
             ${when(x => x.severity === 'error', html`
-                <${DesignSystem.tagFor(IconExclamationMark)}></${DesignSystem.tagFor(IconExclamationMark)}>`)}
+                <${DesignSystem.tagFor(IconExclamationMark)}></${DesignSystem.tagFor(IconExclamationMark)}>
+            `)}
             ${when(x => x.severity === 'warning', html`
-                <${DesignSystem.tagFor(IconTriangleFilled)}></${DesignSystem.tagFor(IconTriangleFilled)}>`)}
+                <${DesignSystem.tagFor(IconTriangleFilled)}></${DesignSystem.tagFor(IconTriangleFilled)}>
+            `)}
             ${when(x => x.severity === 'info', html`
-                <${DesignSystem.tagFor(IconInfo)}></${DesignSystem.tagFor(IconInfo)}>`)}
+                <${DesignSystem.tagFor(IconInfo)}></${DesignSystem.tagFor(IconInfo)}>
+            `)}
         </div>
         <div class="text">
             ${when(x => !x.titleHidden, html`
-                <slot name="title"></slot>`)}
+                <slot name="title"></slot>
+            `)}
             <slot></slot>
         </div>
         <div class="controls">
@@ -30,7 +34,8 @@ export const template = html<Banner>`
                     <${DesignSystem.tagFor(Button)} appearance="ghost" content-hidden @click="${x => x.closeBanner()}">
                         <${DesignSystem.tagFor(IconXmark)} slot="start"></${DesignSystem.tagFor(IconXmark)}>
                         ${x => x.dismissButtonLabel}
-                    </${DesignSystem.tagFor(Button)}>`)}
+                    </${DesignSystem.tagFor(Button)}>
+                `)}
             </div>
         </div>
     </template>

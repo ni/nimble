@@ -11,7 +11,7 @@ declare global {
 }
 
 /**
- * A nimble-styled banner.
+ * A nimble-styled notification banner for persistent messages.
  */
 export class Banner extends FoundationElement {
     /**
@@ -41,7 +41,7 @@ export class Banner extends FoundationElement {
     /**
      * @public
      * @description
-     * Hides the close button
+     * Hides the dismiss button
      */
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
