@@ -111,6 +111,7 @@ We only formally support spans of text in the `title` and default slots, but we 
         ${when(x => !x.preventDismiss), html`
             <nimble-button appearance="ghost" content-hidden>
                 <nimble-icon-xmark slot="start"></nimble-icon-xmark>
+                ${x => x.dismissButtonLabel}
             </nimble-button>` )}
     </div>
 </div>
