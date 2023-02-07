@@ -28,7 +28,7 @@ import {
     iconSize,
     linkActiveFontColor,
     linkDisabledFontColor,
-    linkFontColor,
+    linkFontColor
 } from '../theme-provider/design-tokens';
 import { MultivaluePropertyStyleSheetBehavior } from '../utilities/style/multivalue-property-stylesheet-behavior';
 import { BannerSeverity } from './types';

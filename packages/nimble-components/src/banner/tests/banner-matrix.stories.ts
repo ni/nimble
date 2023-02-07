@@ -84,7 +84,9 @@ export const textWrapBanner: Story = createStory(
     html`<nimble-banner open severity="error">
         <span slot="title">${loremIpsum.substring(0, 78)}</span>
         ${loremIpsum}
-        <nimble-anchor slot="action" href="#">${loremIpsum.substring(0, 78)}</nimble-anchor>
+        <nimble-anchor slot="action" href="#"
+            >${loremIpsum.substring(0, 78)}</nimble-anchor
+        >
     </nimble-banner>`
 );
 

@@ -76,9 +76,7 @@ export class Banner extends FoundationElement {
      * @internal
      */
     public getAriaLabel(): string {
-        return this.slottedTitle
-            ? this.slottedTitle[0]?.innerText ?? ''
-            : '';
+        return this.slottedTitle ? this.slottedTitle[0]?.innerText ?? '' : '';
     }
 }
 

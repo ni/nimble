@@ -689,15 +689,30 @@ export const bannerNeutralBackgroundColor = DesignToken.create<string>(
 
 export const bannerErrorBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerErrorBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Fail100LightUi, BannerFail100DarkUi, hexToRgbaCssColor(White, 0.3)));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Fail100LightUi,
+    BannerFail100DarkUi,
+    hexToRgbaCssColor(White, 0.3)
+));
 
 export const bannerWarningBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerWarningBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Warning100LightUi, Warning100DarkUi, hexToRgbaCssColor(White, 0.3)));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Warning100LightUi,
+    Warning100DarkUi,
+    hexToRgbaCssColor(White, 0.3)
+));
 
 export const bannerInfoBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerInfoBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Information100LightUi, Information100DarkUi, hexToRgbaCssColor(White, 0.3)));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Information100LightUi,
+    Information100DarkUi,
+    hexToRgbaCssColor(White, 0.3)
+));
 
 export const bannerIconColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerIconColor)

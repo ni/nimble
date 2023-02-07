@@ -263,16 +263,19 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     bannerButtonHeight: 'Height of action button in a banner',
     bannerFontSize: 'Font size for the banner',
     bannerColor: 'Color for the banner',
-    bannerNeutralBackgroundColor: 'Banner background color for no severity value',
+    bannerNeutralBackgroundColor:
+        'Banner background color for no severity value',
     bannerErrorBackgroundColor: 'Banner background color for error severity',
-    bannerWarningBackgroundColor: 'Banner background color for warning severity',
+    bannerWarningBackgroundColor:
+        'Banner background color for warning severity',
     bannerInfoBackgroundColor: 'Banner background color for info severity',
     bannerIconColor: 'Color for icon in banner',
     bannerIconMarginTop: 'Top margin for icon in banner',
     bannerStartEndWidth: 'The width of the regions on both ends of the banner',
     bannerTextMarginVertical: 'Top and bottom margin of text in banner',
     bannerTextGap: 'Gap between title and body text in banner',
-    bannerButtonFillSelectedColor: 'Fill selected color for banner action button',
+    bannerButtonFillSelectedColor:
+        'Fill selected color for banner action button',
     bannerLinkActiveFontColor: 'Color for active link in banner',
     bannerCloseButtonSize: 'Size of the close button in banner',
     bannerCloseButtonIconSize: 'Size of the icon in the close button in banner'
