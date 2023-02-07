@@ -14,7 +14,7 @@ export abstract class TableColumn<
     TColumnConfig = unknown
 > extends FoundationElement {
     @attr({ attribute: 'column-id' })
-    public columnId?: string | null;
+    public columnId?: string;
 
     /**
      * The template to use to render the cell content for the column

@@ -65,14 +65,12 @@ export class TableValidator<TData extends TableRecord> {
     }
 
     public validateColumnIds(
-        columnIds: (string | null | undefined)[]
+        columnIds: (string | undefined)[]
     ): boolean {
         this.missingColumnId = false;
         this.duplicateColumnId = false;
 
-        const anyColumnsHaveIds = columnIds.some(
-            columnId => columnId !== undefined && columnId !== null
-        );
+        const anyColumnsHaveIds = columnIds.some(id => id);
 
         if (!anyColumnsHaveIds) {
             return true;
@@ -80,7 +78,7 @@ export class TableValidator<TData extends TableRecord> {
 
         const idSet = new Set<string>();
         for (const columnId of columnIds) {
-            if (typeof columnId !== 'string') {
+            if (!columnId) {
                 this.missingColumnId = true;
                 continue;
             }

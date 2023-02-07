@@ -90,11 +90,7 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
-
-        this.tableValidator.validateColumnIds(
-            this.columns.map(x => x.columnId)
-        );
-        this.canRenderRows = this.checkValidity();
+        this.validateColumnIds();
     }
 
     public override disconnectedCallback(): void {
@@ -122,10 +118,7 @@ export class Table<
             return;
         }
 
-        this.tableValidator.validateColumnIds(
-            this.columns.map(x => x.columnId)
-        );
-        this.canRenderRows = this.checkValidity();
+        this.validateColumnIds();
     }
 
     private childItemsChanged(
@@ -135,6 +128,13 @@ export class Table<
         this.columns = next
             .filter(x => x instanceof TableColumn)
             .map(x => x as TableColumn);
+    }
+
+    private validateColumnIds(): void {
+        this.tableValidator.validateColumnIds(
+            this.columns.map(x => x.columnId)
+        );
+        this.canRenderRows = this.checkValidity();
     }
 
     private setTableData(newData: readonly TData[]): void {

@@ -210,17 +210,17 @@ describe('TableValidator', () => {
 
     describe('column ID validation', () => {
         const columnConfigurations: {
-            columnIds: (string | undefined | null)[],
+            columnIds: (string | undefined)[],
             invalidKeys: (keyof TableValidity)[],
             testDescription: string
         }[] = [
             {
-                columnIds: [null, null, undefined, undefined],
+                columnIds: [undefined, ''],
                 invalidKeys: [],
                 testDescription: 'does not require column IDs'
             },
             {
-                columnIds: [null, 'my-id', undefined, undefined],
+                columnIds: ['my-id', undefined, undefined],
                 invalidKeys: ['missingColumnId'],
                 testDescription:
                     'requires column IDs for all columns if a column ID is defined for at least one'
@@ -241,20 +241,9 @@ describe('TableValidator', () => {
                 testDescription: 'reports multiple column ID validation errors'
             },
             {
-                columnIds: ['my-id-1', 'my-id-2', ''],
-                invalidKeys: [],
-                testDescription: 'empty string is a valid column ID'
-            },
-            {
-                columnIds: ['my-id-1', '', ''],
-                invalidKeys: ['duplicateColumnId'],
-                testDescription: 'detects duplicate empty string column IDs'
-            },
-            {
-                columnIds: [null, undefined, ''],
+                columnIds: ['my-id-1', ''],
                 invalidKeys: ['missingColumnId'],
-                testDescription:
-                    'requires column IDs for all columns if one is set to empty string'
+                testDescription: 'does not allow empty string as a defined column ID'
             }
         ];
 
