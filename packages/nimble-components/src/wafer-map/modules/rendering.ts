@@ -2,7 +2,7 @@ import type { WaferMap } from '..';
 import type { DieRenderInfo, Dimensions } from '../types';
 
 /**
- * Responsible for drawing the dies inside the wafer map
+ * Responsible for drawing the dies inside the wafer map and scaling the canvas
  */
 export class RenderingModule extends EventTarget {
     private readonly context: CanvasRenderingContext2D;
