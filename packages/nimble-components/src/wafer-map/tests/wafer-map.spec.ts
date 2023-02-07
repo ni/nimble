@@ -108,14 +108,14 @@ describe('WaferMap', () => {
 
         beforeEach(() => {
             initialValue = getTransform();
-            expect(initialValue).not.toBeDefined();
+            expect(initialValue).toBe('translate(0,0) scale(1)');
         });
 
         it('will zoom in the wafer-map', () => {
             element.canvas.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
-
+            processUpdates();
             const zoomedValue = getTransform();
             expect(zoomedValue).not.toBe(initialValue);
         });
@@ -125,6 +125,7 @@ describe('WaferMap', () => {
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
 
+            processUpdates();
             const zoomedValue = getTransform();
             expect(zoomedValue).not.toEqual('translate(0,0) scale(1)');
 
@@ -132,6 +133,7 @@ describe('WaferMap', () => {
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
 
+            processUpdates();
             const zoomedOut = getTransform();
             expect(zoomedOut).toBe('translate(0,0) scale(1)');
         });
@@ -140,7 +142,7 @@ describe('WaferMap', () => {
             element.canvas.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
-
+            processUpdates();
             const zoomedOut = getTransform();
             expect(zoomedOut).toBe('translate(0,0) scale(1)');
         });

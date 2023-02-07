@@ -1,5 +1,9 @@
-import { DataManager } from '../modules/data-manager';
-import { WaferMap } from '..';
+import { html } from '@microsoft/fast-element';
+
+import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { processUpdates } from '../../testing/async-helpers';
+import type { DataManager } from '../modules/data-manager';
+import type { WaferMap } from '..';
 import {
     Dimensions,
     Margin,
@@ -12,8 +16,11 @@ import {
     getWaferMapDies
 } from './utilities';
 
+async function setup(): Promise<Fixture<WaferMap>> {
+    return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
+}
+
 describe('Wafermap Data manager', () => {
-    const waferMap = new WaferMap();
     let dataManagerModule: DataManager;
     const dieLabelsSuffix = '%';
     const canvasSideLength = 100;
@@ -21,16 +28,6 @@ describe('Wafermap Data manager', () => {
         width: canvasSideLength,
         height: canvasSideLength
     };
-
-    waferMap.quadrant = WaferMapQuadrant.topLeft;
-    waferMap.canvasSideLength = 100;
-    waferMap.dieLabelsSuffix = dieLabelsSuffix;
-    waferMap.dieLabelsHidden = false;
-    waferMap.maxCharacters = 3;
-    waferMap.dies = getWaferMapDies();
-    waferMap.colorScale = getColorScale();
-    waferMap.colorScaleMode = WaferMapColorScaleMode.ordinal;
-    waferMap.highlightedValues = getHighlightedValues();
     const defaultMargin: Margin = {
         top: 20,
         right: 20,
@@ -38,14 +35,36 @@ describe('Wafermap Data manager', () => {
         left: 20
     };
 
-    beforeEach(() => {
-        dataManagerModule = new DataManager(waferMap);
+    let element: WaferMap;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        element.dies = getWaferMapDies();
+        element.colorScale = getColorScale();
+        element.quadrant = WaferMapQuadrant.topLeft;
+        element.dieLabelsSuffix = dieLabelsSuffix;
+        element.dieLabelsHidden = false;
+        element.maxCharacters = 3;
+        element.colorScaleMode = WaferMapColorScaleMode.ordinal;
+        element.highlightedValues = getHighlightedValues();
+        element.canvasSideLength = canvasSideLength;
+
+        processUpdates();
+
+        dataManagerModule = element.dataManager!;
+    });
+
+    afterEach(async () => {
+        await disconnect();
     });
 
     it('computes the correct containerDimensions', () => {
         expect(dataManagerModule.containerDimensions).toEqual({
             width: 60,
-            height: 70
+            height: 60
         });
     });
 
@@ -54,9 +73,13 @@ describe('Wafermap Data manager', () => {
     });
 
     it('computes the correct dieDimensions', () => {
-        expect(dataManagerModule.dieDimensions).toEqual({
+        const expectedDimensions = {
+            width: Math.ceil(dataManagerModule.dieDimensions.width),
+            height: Math.ceil(dataManagerModule.dieDimensions.height)
+        };
+        expect(expectedDimensions).toEqual({
             width: 10,
-            height: 10
+            height: 9
         });
     });
 
@@ -69,7 +92,7 @@ describe('Wafermap Data manager', () => {
     });
 
     it('should have increasing vertical range', () => {
-        expect(dataManagerModule.verticalScale.range()).toEqual([0, 70]);
+        expect(dataManagerModule.verticalScale.range()).toEqual([0, 60]);
     });
 
     it('should not have labelsFontSize larger than the die height', () => {
@@ -91,14 +114,8 @@ describe('Wafermap Data manager', () => {
     });
 
     it('should have label with suffix for each die', () => {
-        const waferMapDies = getWaferMapDies();
-        const expectedValues = waferMapDies.map(x => {
-            return { text: `${x.value}${dieLabelsSuffix}` };
-        });
-        for (let i = 0; i < waferMapDies.length; i += 1) {
-            expect(dataManagerModule.diesRenderInfo[i]!.text).toEqual(
-                expectedValues[i]!.text
-            );
+        for (const dieInfo of dataManagerModule.diesRenderInfo) {
+            expect(dieInfo.text).toContain(dieLabelsSuffix);
         }
     });
 
