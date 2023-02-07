@@ -29,7 +29,7 @@ export class Table<
     TData extends TableRecord = TableRecord
 > extends FoundationElement {
     @attr({ attribute: 'id-field-name' })
-    public idFieldName?: string | null;
+    public idFieldName?: string;
 
     /**
      * @internal
