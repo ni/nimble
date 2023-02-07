@@ -1,4 +1,4 @@
-import { html, when } from '@microsoft/fast-element';
+import { html, slotted, when } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { Banner } from '.';
 import { Button } from '../button';
@@ -9,7 +9,7 @@ import { IconXmark } from '../icons/xmark';
 
 // prettier-ignore
 export const template = html<Banner>`
-    <template role="status">
+    <template role="status" aria-label=${x => x.getAriaLabel()}>
         <div class="icon">
             ${when(x => x.severity === 'error', html`
                 <${DesignSystem.tagFor(IconExclamationMark)}></${DesignSystem.tagFor(IconExclamationMark)}>
@@ -23,7 +23,7 @@ export const template = html<Banner>`
         </div>
         <div class="text">
             ${when(x => !x.titleHidden, html`
-                <slot name="title"></slot>
+                <slot name="title" ${slotted('slottedTitle')}></slot>
             `)}
             <slot></slot>
         </div>

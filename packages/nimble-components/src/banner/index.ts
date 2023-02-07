@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
@@ -54,6 +54,10 @@ export class Banner extends FoundationElement {
     @attr({ attribute: 'dismiss-button-label' })
     public dismissButtonLabel?: string;
 
+    /** @internal */
+    @observable
+    public readonly slottedTitle?: HTMLElement[];
+
     /**
      * @internal
      */
@@ -66,6 +70,15 @@ export class Banner extends FoundationElement {
      */
     public closeBanner(): void {
         this.open = false;
+    }
+
+    /**
+     * @internal
+     */
+    public getAriaLabel(): string {
+        return this.slottedTitle
+            ? this.slottedTitle[0]?.innerText ?? ''
+            : '';
     }
 }
 
