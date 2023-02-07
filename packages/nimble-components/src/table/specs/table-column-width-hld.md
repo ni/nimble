@@ -47,7 +47,7 @@ class TableColumn {
     public currentFractionalWidth = 1;
 
     @observable
-    public currentMinWidth = 88; // the minimum size according to the design doc
+    public currentMinWidth = 88; // the minimum size in pixels according to the design doc
 
     @observable
     public currentDisableResize = false;
@@ -55,9 +55,7 @@ class TableColumn {
     ...
 }
 ```
-Note that these properties are not attributes, and thus are not set by clients on the components via markup.
-
-These properties are expected to be updated by both the initial state of separate, column-specific APIs and interactive operations that the `Table` would manage.
+Note that these properties are not attributes, and thus are not set by clients on the components via markup. Instead, these properties are meant to be configured by the concrete column implementations (typically initialization), as well as the Table as part of interactive column sizing.
 
 #### `currentFractionalWidth` vs `currentPixelWidth` behavior
 
