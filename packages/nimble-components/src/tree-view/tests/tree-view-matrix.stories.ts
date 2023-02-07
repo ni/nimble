@@ -29,13 +29,13 @@ const expandedStates = [
     ['Collapsed', false],
     ['Expanded', true]
 ] as const;
-type ExpandedState = typeof expandedStates[number];
+type ExpandedState = (typeof expandedStates)[number];
 
 const selectedStates = [
     ['Unselected', false],
     ['Selected', true]
 ] as const;
-type SelectedState = typeof selectedStates[number];
+type SelectedState = (typeof selectedStates)[number];
 
 // prettier-ignore
 const component = (

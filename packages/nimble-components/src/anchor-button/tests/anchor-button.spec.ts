@@ -1,5 +1,6 @@
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { AnchorButton } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
@@ -43,7 +44,7 @@ describe('AnchorButton', () => {
         element.control.setAttribute('href', 'http://www.ni.com');
 
         element.disabled = true;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('href')).toBeNull();
     });
@@ -91,7 +92,7 @@ describe('AnchorButton', () => {
                 await connect();
 
                 element.setAttribute(attribute.name, 'foo');
-                await DOM.nextUpdate();
+                await waitForUpdatesAsync();
 
                 expect(element.control.getAttribute(attribute.name)).toBe(
                     'foo'

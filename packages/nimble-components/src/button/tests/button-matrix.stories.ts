@@ -38,17 +38,17 @@ const partVisibilityStates = [
     [true, true, true],
     [false, true, true]
 ] as const;
-type PartVisibilityState = typeof partVisibilityStates[number];
+type PartVisibilityState = (typeof partVisibilityStates)[number];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     ButtonAppearance
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 const appearanceVariantStates: [string, string | undefined][] = Object.entries(
     ButtonAppearanceVariant
 ).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceVariantState = typeof appearanceVariantStates[number];
+type AppearanceVariantState = (typeof appearanceVariantStates)[number];
 
 // prettier-ignore
 const component = (

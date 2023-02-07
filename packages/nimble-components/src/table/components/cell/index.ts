@@ -52,7 +52,7 @@ export class TableCell<
     }
 
     protected cellTemplateChanged(): void {
-        if (this.isConnected) {
+        if (this.$fastController.isConnected) {
             this.customCellView = this.cellTemplate?.render(
                 this.cellState,
                 this.cellContentContainer

@@ -1,18 +1,19 @@
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { ExampleDataType } from './types';
 import { bodyFont } from '../../theme-provider/design-tokens';
+import type { Table } from '..';
 
 interface TableArgs {
     data: ExampleDataType;
-
-    // Used for documentation purposes only
     idFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
+    tableRef: Table;
+    updateData: (args: TableArgs) => void;
 }
 
 const simpleData = [
@@ -36,22 +37,48 @@ const simpleData = [
     }
 ] as const;
 
-const simpleDataIdFieldName = 'firstName';
+const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
+const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
+const colors = ['Red', 'Blue', 'Green', 'Yellow'];
+const largeData = [];
+for (let i = 0; i < 10000; i++) {
+    largeData.push({
+        id: i.toString(),
+        firstName: firstNames[i % firstNames.length],
+        lastName: lastNames[i % lastNames.length],
+        favoriteColor: colors[i % colors.length],
+        quote: `I'm number ${i + 1}!`
+    });
+}
 
 const dataSets = {
-    [ExampleDataType.simpleData]: simpleData
+    [ExampleDataType.simpleData]: simpleData,
+    [ExampleDataType.largeDataSet]: largeData
 } as const;
 
 const dataSetIdFieldNames = {
-    [ExampleDataType.simpleData]: simpleDataIdFieldName
+    [ExampleDataType.simpleData]: 'firstName',
+    [ExampleDataType.largeDataSet]: 'id'
 } as const;
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
 
-const dataDescription = `\`data\` is a property that is an array of records. A record provides the data that backs a single row in the table.
-Each record is made up of fields, which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type
-\`TableFieldName\`. The value in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`Date\`, \`null\`, or \`undefined\`,
-which is defined by the type \`TableFieldValue\`.`;
+const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
+which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type \`TableFieldName\`. The value
+in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`null\`, or \`undefined\`, which is defined by the type \`TableFieldValue\`.
+
+The table will not automatically update if the contents of the array change after calling \`setData()\`. To trigger an update, call
+\`setData()\` again with the same array reference or with a new array.
+
+<details>
+    <summary>Framework specific considerations</summary>
+    - Angular: In addition to exposing the \`setData()\` function in Angular, you can use the \`data$\` property to provide an
+    \`Observable<TableRecord[]>\`. Nimble will automatically subscribe and unsubscribe to the provided \`Observable\` and call
+    \`setData()\` on the web component when new values are emitted.
+    - Blazor: Blazor does not expose a \`setData()\` function. Use the \`Data\` property on the Blazor component to set new data on the table.
+    Setting a new value on the property in Blazor will internally call \`setData()\` on the web component.
+</details>
+`;
 
 const idFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's ID.
 If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered,
@@ -93,7 +120,11 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table :data=${x => dataSets[x.data]} id-field-name=${x => dataSetIdFieldNames[x.data]}>
+        <nimble-table
+            ${ref('tableRef')}
+            id-field-name="${x => dataSetIdFieldNames[x.data]}"
+            data-unused="${x => x.updateData(x)}"
+        >
             <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
             <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
             <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
@@ -108,15 +139,14 @@ const metadata: Meta<TableArgs> = {
     `),
     argTypes: {
         data: {
+            name: 'setData(data)',
             description: dataDescription,
-            table: {
-                defaultValue: { summary: '[]' }
-            },
-            options: [ExampleDataType.simpleData],
+            options: Object.values(ExampleDataType),
             control: {
                 type: 'radio',
                 labels: {
-                    [ExampleDataType.simpleData]: 'Simple data'
+                    [ExampleDataType.simpleData]: 'Simple data',
+                    [ExampleDataType.largeDataSet]: 'Large data set (10k rows)'
                 }
             }
         },
@@ -137,13 +167,32 @@ const metadata: Meta<TableArgs> = {
             description:
                 'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
             control: false
+        },
+        tableRef: {
+            table: {
+                disable: true
+            }
+        },
+        updateData: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
         data: ExampleDataType.simpleData,
         idFieldName: undefined,
         validity: undefined,
-        checkValidity: undefined
+        checkValidity: undefined,
+        tableRef: undefined,
+        updateData: x => {
+            void (async () => {
+                // Safari workaround: the table element instance is made at this point
+                // but doesn't seem to be upgraded to a custom element yet
+                await customElements.whenDefined('nimble-table');
+                x.tableRef.setData(dataSets[x.data]);
+            })();
+        }
     }
 };
 

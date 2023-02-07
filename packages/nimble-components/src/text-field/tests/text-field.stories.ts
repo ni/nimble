@@ -2,12 +2,12 @@ import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { TextFieldAppearance } from '../types';
+import { TextFieldAppearance, TextFieldType } from '../types';
 import '../../all-components';
 
 interface TextFieldArgs {
     label: string;
-    type: string;
+    type: TextFieldType;
     appearance: string;
     fullBleed: boolean;
     value: string;
@@ -72,7 +72,7 @@ const metadata: Meta<TextFieldArgs> = {
     `),
     argTypes: {
         type: {
-            options: ['text', 'password'],
+            options: Object.values(TextFieldType),
             control: { type: 'select' }
         },
         appearance: {
@@ -96,7 +96,7 @@ const metadata: Meta<TextFieldArgs> = {
     },
     args: {
         label: 'default label',
-        type: 'text',
+        type: TextFieldType.text,
         appearance: 'underline',
         fullBleed: false,
         value: '',
@@ -128,5 +128,5 @@ export const framelessTextField: StoryObj<TextFieldArgs> = {
 };
 
 export const passwordField: StoryObj<TextFieldArgs> = {
-    args: { label: 'Password Field', type: 'password' }
+    args: { label: 'Password Field', type: TextFieldType.password }
 };
