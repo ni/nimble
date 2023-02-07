@@ -24,7 +24,7 @@ const positionStates = [
     ['below', 'margin-bottom: 120px;'],
     ['above', 'margin-top: 120px;']
 ] as const;
-type PositionState = typeof positionStates[number];
+type PositionState = (typeof positionStates)[number];
 
 // prettier-ignore
 const component = ([

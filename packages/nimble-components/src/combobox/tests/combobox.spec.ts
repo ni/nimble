@@ -2,12 +2,13 @@ import {
     DesignSystem,
     Combobox as FoundationCombobox
 } from '@microsoft/fast-foundation';
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { keyArrowDown, keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox } from '..';
 import '../../list-option';
 import { ComboboxAutocomplete } from '../types';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(
     position?: string,
@@ -54,7 +55,7 @@ describe('Combobox', () => {
         const { element, connect, disconnect } = await setup(position, true);
 
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('open')).not.toBeNull();
         expect(element.getAttribute('position')).toBe(position);
@@ -66,7 +67,7 @@ describe('Combobox', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         element.value = 'two';
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.value).toBe('Two');
 
         // Add option zero at the top of the options list
@@ -75,7 +76,7 @@ describe('Combobox', () => {
             'afterbegin',
             '<nimble-list-option value="zero">Zero</nimble-list-option>'
         );
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.value).toBe('Two');
 
@@ -96,7 +97,7 @@ describe('Combobox', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         element.disabled = true;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.dropdownButton!.disabled).toBeTrue();
 
@@ -108,7 +109,7 @@ describe('Combobox', () => {
         await connect();
 
         element.control.click();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.dropdownButton?.checked).toBeTrue();
 
@@ -120,7 +121,7 @@ describe('Combobox', () => {
         await connect();
 
         element.dropdownButton?.control.click();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.open).toBeTrue();
 
@@ -132,7 +133,7 @@ describe('Combobox', () => {
         await connect();
 
         element.dropdownButton?.control.click();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.open).toBeFalse();
 
@@ -144,7 +145,7 @@ describe('Combobox', () => {
         await connect();
 
         element.dropdownButton?.control.click();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.dropdownButton?.checked).toBeFalse();
 
@@ -156,7 +157,7 @@ describe('Combobox', () => {
         await connect();
 
         element.open = true;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.dropdownButton?.checked).toBeTrue();
 
@@ -168,9 +169,9 @@ describe('Combobox', () => {
         await connect();
 
         element.dropdownButton?.control.click(); // open should be false
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         element.control.click(); // open should be true
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.dropdownButton?.checked).toBeTrue();
 
@@ -183,7 +184,7 @@ describe('Combobox', () => {
 
         const expectedLabel = 'new label';
         element.ariaLabel = expectedLabel;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         const inputElement = element.shadowRoot?.querySelector('.selected-value');
         expect(inputElement?.getAttribute('aria-label')).toEqual(expectedLabel);
@@ -197,10 +198,10 @@ describe('Combobox', () => {
 
         const expectedLabel = 'new label';
         element.ariaLabel = expectedLabel;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         element.ariaLabel = null;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         const inputElement = element.shadowRoot?.querySelector('.selected-value');
         expect(inputElement?.getAttribute('aria-label')).toEqual(null);
@@ -211,11 +212,11 @@ describe('Combobox', () => {
     it('value updates on input', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         element.autocomplete = ComboboxAutocomplete.both;
         updateComboboxWithText(element, 'O');
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.value).toEqual('One'); // value set to input text which should autocomplete to 'One'
 
         element.control.value = 'O';
@@ -224,7 +225,7 @@ describe('Combobox', () => {
         }); // delete autocompleted portion
         element.inputHandler(inputEvent);
         element.dispatchEvent(inputEvent);
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.value).toEqual('O');
 
         await disconnect();
@@ -233,17 +234,17 @@ describe('Combobox', () => {
     it('emits one change event after changing value through text entry', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         const changeEvent = jasmine.createSpy();
         element.addEventListener('change', changeEvent);
         element.autocomplete = ComboboxAutocomplete.none;
         updateComboboxWithText(element, 'O');
         expect(changeEvent).toHaveBeenCalledTimes(0);
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         updateComboboxWithText(element, 'On');
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(changeEvent).toHaveBeenCalledTimes(0);
 
         const enterEvent = new KeyboardEvent('keydown', {
@@ -264,7 +265,7 @@ describe('Combobox', () => {
     it('should not emit change event if entered text matches value prior to typing', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         element.autocomplete = ComboboxAutocomplete.none;
         updateComboboxWithText(element, 'O');
@@ -289,7 +290,7 @@ describe('Combobox', () => {
     it('after text entry if user browses popup and selects option pressing <Enter>, emit only one change event', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         element.autocomplete = ComboboxAutocomplete.none;
         const changeEvent = jasmine.createSpy();
@@ -304,7 +305,7 @@ describe('Combobox', () => {
             key: keyEnter
         } as KeyboardEventInit);
         element.dispatchEvent(enterEvent); // commit value ('One')
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(changeEvent).toHaveBeenCalledTimes(1);
 

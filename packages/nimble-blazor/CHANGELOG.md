@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 18 Jan 2023 22:26:41 GMT and should not be manually modified.
+This log was last generated on Mon, 30 Jan 2023 19:00:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.1.0
+
+Mon, 30 Jan 2023 19:00:43 GMT
+
+### Minor changes
+
+- Nimble dependencies updated to latest ([ni/nimble@e1da136](https://github.com/ni/nimble/commit/e1da13662d82fa41f81f038335e6a142355de29e))
+
+## 11.0.2
+
+Fri, 27 Jan 2023 15:05:13 GMT
+
+### Patches
+
+- Update Blazor Table to call `setData()` rather than setting the `data` property. ([ni/nimble@f19bf61](https://github.com/ni/nimble/commit/f19bf610f46683eae4c80f2bdd5967d76e63124a))
+
+## 11.0.0
+
+Thu, 26 Jan 2023 18:50:13 GMT
+
+### Major changes
+
+- Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle' ([ni/nimble@c39e8c8](https://github.com/ni/nimble/commit/c39e8c80af79ada2a696372c93161355187944af))
+
+## 10.1.0
+
+Wed, 25 Jan 2023 17:37:11 GMT
+
+### Minor changes
+
+- Support for anchor tabs ([ni/nimble@0671e34](https://github.com/ni/nimble/commit/0671e34c7650008aa063fa0145cee62d4a981dd7))
 
 ## 10.0.7
 

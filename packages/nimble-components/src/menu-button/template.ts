@@ -1,4 +1,4 @@
-import { elements, html, ref, slotted, when } from '@microsoft/fast-element';
+import { html, ref, slotted, when } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { MenuButton } from '.';
 import { ToggleButton } from '../toggle-button';
@@ -43,7 +43,7 @@ export const template = html<MenuButton>`
                 ${ref('region')}
             >
                 <span part="menu">
-                    <slot name="menu" ${slotted({ property: 'slottedMenus', filter: elements('[role=menu]') })}></slot>
+                    <slot name="menu" ${slotted({ property: 'slottedMenus' })}></slot>
                 </span>
             </${DesignSystem.tagFor(AnchoredRegion)}>
         `
