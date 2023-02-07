@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-    <defs>
-        <style>.cls-1{fill:#161617;}</style>
-    </defs>
     <path class="cls-1"
         d="M12.45453,4H3.58319c-.32996,0-.58319,.26736-.58319,.5978v6.9022l1.5,1.49713,7.85791,.00287c.32996,0,.59998-.27039,.59998-.60083l.04211-7.85297c0-.33044-.21545-.5462-.54547-.5462Zm-1.45453,8h-3v-2h-2v2h-1v-3h6v3Zm1-4H4v-3H12v3Z" />
 </svg>
