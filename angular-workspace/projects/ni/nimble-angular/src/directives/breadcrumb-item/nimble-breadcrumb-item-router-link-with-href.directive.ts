@@ -38,7 +38,7 @@ export class NimbleBreadcrumbItemRouterLinkWithHrefDirective extends RouterLinkW
         'click',
         ['$event', '$event.button', '$event.ctrlKey', '$event.shiftKey', '$event.altKey', '$event.metaKey']
     )
-    public breadcrumbItemClick(event: MouseEvent): boolean {
+    public nimbleOnClick(event: MouseEvent): boolean {
         // Call onClick on the base class only when the anchor within the breadcrumb item was clicked.
         if (event.composedPath().some(el => el === this.elementRef.nativeElement.control)) {
             return super.onClick(event.button, event.ctrlKey, event.shiftKey, event.altKey, event.metaKey);
