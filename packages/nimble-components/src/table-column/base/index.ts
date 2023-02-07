@@ -31,8 +31,8 @@ export abstract class TableColumn<
      */
     public abstract readonly cellRecordFieldNames: readonly TableFieldName[];
 
-    public constructor() {
-        super();
+    public override connectedCallback(): void {
+        super.connectedCallback();
 
         this.setAttribute('slot', uniqueId('table-column'));
     }
