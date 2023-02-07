@@ -27,7 +27,10 @@ interface BannerArgs {
     toggle: unknown;
 }
 
-const overviewText = 'The banner is a component used to display a persistent notification to a user.';
+const overviewText = `The banner is a component used to display a persistent notification to a user.
+
+Banner messages should be limited to approximately three lines of text under normal display size at the intended location. Multiple banners may be stacked vertically in order of age, with the newest at the top. Stacked banners should be spaced 1px apart.
+`;
 
 const metadata: Meta<BannerArgs> = {
     title: 'Banner',
