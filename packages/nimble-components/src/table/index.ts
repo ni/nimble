@@ -126,8 +126,7 @@ export class Table<
         next: Element[]
     ): void {
         this.columns = next
-            .filter(x => x instanceof TableColumn)
-            .map(x => x as TableColumn);
+            .filter((x): x is TableColumn => x instanceof TableColumn);
     }
 
     private validateColumnIds(): void {
