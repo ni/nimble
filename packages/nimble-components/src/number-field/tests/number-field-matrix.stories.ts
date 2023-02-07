@@ -38,12 +38,12 @@ const valueStates = [
     ['Placeholder', null, 'placeholder'],
     ['Value', '1234', null]
 ] as const;
-type ValueState = typeof valueStates[number];
+type ValueState = (typeof valueStates)[number];
 
 const appearanceStates = Object.entries(NumberFieldAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,

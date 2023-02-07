@@ -32,13 +32,13 @@ const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
 ] as const;
-type CheckedState = typeof checkedStates[number];
+type CheckedState = (typeof checkedStates)[number];
 
 const indeterminateStates = [
     ['Indeterminate', true],
     ['', false]
 ] as const;
-type IndeterminateState = typeof indeterminateStates[number];
+type IndeterminateState = (typeof indeterminateStates)[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,

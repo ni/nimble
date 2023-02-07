@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 26 Jan 2023 18:50:13 GMT and should not be manually modified.
+This log was last generated on Mon, 30 Jan 2023 19:00:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.1.0
+
+Mon, 30 Jan 2023 19:00:43 GMT
+
+### Minor changes
+
+- Nimble dependencies updated to latest ([ni/nimble@e1da136](https://github.com/ni/nimble/commit/e1da13662d82fa41f81f038335e6a142355de29e))
+
+## 11.0.2
+
+Fri, 27 Jan 2023 15:05:13 GMT
+
+### Patches
+
+- Update Blazor Table to call `setData()` rather than setting the `data` property. ([ni/nimble@f19bf61](https://github.com/ni/nimble/commit/f19bf610f46683eae4c80f2bdd5967d76e63124a))
 
 ## 11.0.0
 

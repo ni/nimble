@@ -27,10 +27,10 @@
   "devDependencies": {
     "@ni/eslint-config-javascript": "^4.2.0",
     "@ni/eslint-config-typescript": "^4.2.0",
-    "@types/jasmine": "^4.0.2",
+    "@types/jasmine": "^4.3.1",
     "@types/yargs": "^17.0.10",
     "jasmine": "^4.2.0",
-    "jasmine-core": "^4.1.0",
+    "jasmine-core": "^4.5.0",
     "typescript": "~4.6.4"
   },
   "dependencies": {

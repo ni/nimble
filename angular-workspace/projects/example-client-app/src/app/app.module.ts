@@ -64,7 +64,7 @@ import { HeaderComponent } from './header/header.component';
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
-                { path: 'customapp', component: CustomAppComponent }
+                { path: 'customapp', component: CustomAppComponent, title: 'Nimble components demo' }
             ],
             { useHash: true }
         )

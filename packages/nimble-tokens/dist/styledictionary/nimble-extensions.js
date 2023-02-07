@@ -7,7 +7,6 @@
 const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
-const hexRgb = require('hex-rgb');
 const StyleDictionary = require('style-dictionary');
 const config = require('./config');
 
@@ -147,8 +146,8 @@ StyleDictionary.registerTransform({
     transitive: true,
     matcher: token => token.attributes.category === 'color',
     transformer: token => {
-        const color = hexRgb(token.value);
-        return `${color.red}, ${color.green}, ${color.blue}`;
+        const { r, g, b } = (global.fastColorsParseColorHexRGBA(token.value));
+        return `${r * 255}, ${g * 255}, ${b * 255}`;
     }
 });
 
