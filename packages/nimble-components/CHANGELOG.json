@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 07 Feb 2023 18:27:36 GMT",
+      "tag": "@ni/nimble-components_v18.1.1",
+      "version": "18.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "33e62a6ae312dce635e2580f828f7dd53a40a66d",
+            "comment": "Banner spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 06 Feb 2023 17:01:19 GMT",
       "tag": "@ni/nimble-components_v18.1.1",
       "version": "18.1.1",
