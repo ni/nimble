@@ -476,8 +476,6 @@ describe('Table', () => {
             const originalRenderedRowCount = pageObject.getRenderedRowCount();
 
             element.style.height = '700px';
-            // Workaround for https://github.com/ni/nimble/issues/1008
-            element.viewport.scrollTop = 2;
             await waitForUpdatesAsync();
 
             const newRenderedRowCount = pageObject.getRenderedRowCount();
