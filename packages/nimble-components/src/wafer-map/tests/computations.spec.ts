@@ -6,11 +6,11 @@ describe('Wafermap Computations module', () => {
     let computationsModule: Computations;
 
     describe('with 100 square canvas', () => {
-        const defaultMargin: Margin = {
-            top: 20,
-            right: 20,
-            bottom: 20,
-            left: 20
+        const expectedMargin: Margin = {
+            top: 4,
+            right: 4,
+            bottom: 4,
+            left: 4
         };
         beforeEach(() => {
             computationsModule = new Computations(
@@ -20,62 +20,70 @@ describe('Wafermap Computations module', () => {
             );
         });
 
-        it('should have 60 square container', () => {
+        it('should have expected square container', () => {
             expect(computationsModule.containerDimensions).toEqual({
-                width: 60,
-                height: 60
+                width: 92,
+                height: 92
             });
         });
 
-        it('should have 10:8.571428571428571 die', () => {
-            expect(computationsModule.dieDimensions).toEqual({
-                width: 10,
-                height: 8.571428571428571
+        it('should have expected die size', () => {
+            const computedDimensions = {
+                width: Math.ceil(computationsModule.dieDimensions.width),
+                height: Math.ceil(computationsModule.dieDimensions.height)
+            };
+            expect(computedDimensions).toEqual({
+                width: 16,
+                height: 14
             });
         });
 
-        it('should have 45 radius', () => {
-            expect(computationsModule.radius).toEqual(45);
+        it('should have expected radius', () => {
+            expect(computationsModule.radius).toEqual(46);
         });
 
-        it('should have default margin', () => {
-            expect(computationsModule.margin).toEqual(defaultMargin);
+        it('should have expected margin', () => {
+            expect(computationsModule.margin).toEqual(expectedMargin);
         });
     });
 
-    describe('with 180 square canvas', () => {
+    describe('with rectangular canvas', () => {
         beforeEach(() => {
             computationsModule = new Computations(
                 getWaferMapDies(),
                 WaferMapQuadrant.topLeft,
-                { width: 180, height: 180 }
+                { width: 200, height: 100 }
             );
         });
 
-        it('should have adjusted 110 square container', () => {
+        it('should have adjusted square container', () => {
             expect(computationsModule.containerDimensions).toEqual({
-                width: 110,
-                height: 110
+                width: 92,
+                height: 92
             });
         });
 
-        it('should have adjusted 18.333333333333332:15.714285714285714 die', () => {
-            expect(computationsModule.dieDimensions).toEqual({
-                width: 18.333333333333332,
-                height: 15.714285714285714
+        it('should have adjusted die size', () => {
+            const computedDimensions = {
+                width: Math.ceil(computationsModule.dieDimensions.width),
+                height: Math.ceil(computationsModule.dieDimensions.height)
+            };
+            expect(computedDimensions).toEqual({
+                width: 16,
+                height: 14
             });
         });
 
-        it('should have adjusted 82.5 radius', () => {
-            expect(computationsModule.radius).toEqual(82.5);
+        it('should have adjusted radius', () => {
+            expect(computationsModule.radius).toEqual(46);
         });
 
         it('should have adjusted margin', () => {
             expect(computationsModule.margin).toEqual({
-                top: 35,
-                right: 35,
-                bottom: 35,
-                left: 35
+                top: 4,
+                right: 54,
+                bottom: 4,
+                left: 54
             });
         });
     });
@@ -100,7 +108,7 @@ describe('Wafermap Computations module', () => {
         );
 
         it('should have increasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([0, 60]);
+            expect(computationsModule.horizontalScale.range()).toEqual([0, 92]);
         });
 
         it(
@@ -114,7 +122,7 @@ describe('Wafermap Computations module', () => {
         );
 
         it('should have increasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([0, 60]);
+            expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
         });
     });
 
@@ -138,7 +146,7 @@ describe('Wafermap Computations module', () => {
         );
 
         it('should have decreasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([60, 0]);
+            expect(computationsModule.horizontalScale.range()).toEqual([92, 0]);
         });
 
         it(
@@ -152,7 +160,7 @@ describe('Wafermap Computations module', () => {
         );
 
         it('should have increasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([0, 60]);
+            expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
         });
     });
 
@@ -176,7 +184,7 @@ describe('Wafermap Computations module', () => {
         );
 
         it('should have increasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([0, 60]);
+            expect(computationsModule.horizontalScale.range()).toEqual([0, 92]);
         });
 
         it(
@@ -190,7 +198,7 @@ describe('Wafermap Computations module', () => {
         );
 
         it('should have decreasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([60, 0]);
+            expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
         });
     });
 
@@ -214,7 +222,7 @@ describe('Wafermap Computations module', () => {
         );
 
         it('should have decreasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([60, 0]);
+            expect(computationsModule.horizontalScale.range()).toEqual([92, 0]);
         });
 
         it(
@@ -228,7 +236,7 @@ describe('Wafermap Computations module', () => {
         );
 
         it('should have decreasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([60, 0]);
+            expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
         });
     });
 });

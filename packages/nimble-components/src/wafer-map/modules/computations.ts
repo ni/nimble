@@ -30,7 +30,6 @@ export class Computations {
         left: 0
     } as const;
 
-    private readonly dieSizeFactor = 1.5;
     private readonly defaultAlign = 0.5;
     private readonly baseMarginPercentage = 0.04;
 
