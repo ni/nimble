@@ -127,6 +127,10 @@ export const styles = css`
         )};
     }
 
+    .dismiss nimble-button:focus-within {
+        outline: 2px solid ${White};
+    }
+
     .dismiss nimble-button:hover {
         background: ${hexToRgbaCssColor(White, 0.2)};
     }
