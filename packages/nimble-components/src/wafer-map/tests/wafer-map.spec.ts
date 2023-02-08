@@ -20,7 +20,6 @@ describe('WaferMap', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        // element.canvasSideLength = 500;
         processUpdates();
         spy = spyOn(element, 'render');
     });
@@ -149,6 +148,6 @@ describe('WaferMap', () => {
     });
 
     function getTransform(): string | undefined {
-        return element.zoomContainer.getAttribute('transform')?.toString();
+        return element.transform.toString();
     }
 });

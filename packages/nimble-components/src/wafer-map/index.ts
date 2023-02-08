@@ -104,6 +104,7 @@ export class WaferMap extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.resizeObserver = this.createResizeObserver();
+        this.queueRender();
     }
 
     public override disconnectedCallback(): void {
