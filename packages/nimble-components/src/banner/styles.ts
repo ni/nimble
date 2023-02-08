@@ -1,24 +1,18 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import {
+    BannerFail100DarkUi,
+    Black75,
+    Fail100LightUi,
+    Information100DarkUi,
+    Information100LightUi,
+    Warning100DarkUi,
+    Warning100LightUi,
+    White
+} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 import {
     actionRgbPartialColor,
-    bannerButtonFillSelectedColor,
-    bannerButtonHeight,
-    bannerDismissButtonIconSize,
-    bannerDismissButtonSize,
-    bannerColor,
-    bannerErrorBackgroundColor,
-    bannerFontSize,
-    bannerIconColor,
-    bannerIconTopPadding,
-    bannerInfoBackgroundColor,
-    bannerLinkActiveFontColor,
-    bannerNeutralBackgroundColor,
-    bannerStartEndWidth,
-    bannerTextGapSize,
-    bannerTextVerticalPadding,
-    bannerWarningBackgroundColor,
     bodyFont,
     borderHoverColor,
     buttonLabelFontColor,
@@ -28,9 +22,13 @@ import {
     iconSize,
     linkActiveFontColor,
     linkDisabledFontColor,
-    linkFontColor
+    linkFontColor,
+    slimControlHeight
 } from '../theme-provider/design-tokens';
+import { Theme } from '../theme-provider/types';
+import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { MultivaluePropertyStyleSheetBehavior } from '../utilities/style/multivalue-property-stylesheet-behavior';
+import { themeBehavior } from '../utilities/style/theme';
 import { BannerSeverity } from './types';
 
 export const styles = css`
@@ -39,12 +37,11 @@ export const styles = css`
     :host {
         width: 100%;
         font: ${bodyFont};
-        font-size: ${bannerFontSize};
+        font-size: 12.8px;
         align-items: top;
         overflow: hidden;
-        background: ${bannerNeutralBackgroundColor};
-        color: ${bannerColor};
-        ${iconColor.cssCustomProperty}: ${bannerIconColor};
+        color: ${White};
+        ${iconColor.cssCustomProperty}: ${hexToRgbaCssColor(White, 0.6)};
     }
 
     :host(:not([open])) {
@@ -52,22 +49,22 @@ export const styles = css`
     }
 
     .icon {
-        width: ${bannerStartEndWidth};
+        width: 48px;
         display: flex;
         justify-content: center;
-        margin-top: ${bannerIconTopPadding};
+        margin-top: 8px;
         flex: 0 0 auto;
     }
 
     .text {
         display: inline;
-        margin-top: ${bannerTextVerticalPadding};
-        margin-bottom: ${bannerTextVerticalPadding};
+        margin-top: 7px;
+        margin-bottom: 7px;
     }
 
     ::slotted([slot='title']) {
         font-weight: bold;
-        padding-right: ${bannerTextGapSize};
+        padding-right: 8px;
         white-space: nowrap;
     }
 
@@ -83,75 +80,169 @@ export const styles = css`
     }
 
     ::slotted(nimble-anchor[slot='action']) {
-        ${linkFontColor.cssCustomProperty}: ${bannerColor};
-        ${linkDisabledFontColor.cssCustomProperty}: ${bannerColor};
-        ${linkActiveFontColor.cssCustomProperty}: ${bannerLinkActiveFontColor};
+        ${linkFontColor.cssCustomProperty}: ${White};
+        ${linkDisabledFontColor.cssCustomProperty}: ${White};
+        ${linkActiveFontColor.cssCustomProperty}: ${hexToRgbaCssColor(
+            White,
+            0.6
+        )};
+        font-size: 12.8px;
         white-space: nowrap;
-        margin-top: ${bannerTextVerticalPadding};
+        margin-top: 7px;
     }
 
     ::slotted(nimble-button[slot='action']) {
-        height: 24px;
-        ${buttonLabelFontColor.cssCustomProperty}: ${bannerColor};
-        ${fillSelectedColor.cssCustomProperty}: ${bannerButtonFillSelectedColor};
-        ${borderHoverColor.cssCustomProperty}: ${bannerColor};
+        height: ${slimControlHeight};
+        ${buttonLabelFontColor.cssCustomProperty}: ${White};
+        ${fillSelectedColor.cssCustomProperty}: ${hexToRgbaCssColor(
+            White,
+            0.2
+        )};
+        ${borderHoverColor.cssCustomProperty}: ${White};
+        font-size: 12.8px;
         white-space: nowrap;
-        margin-top: calc((${controlHeight} - ${bannerButtonHeight}) / 2);
+        margin-top: calc((${controlHeight} - ${slimControlHeight}) / 2);
     }
 
     ::slotted(nimble-button[slot='action'][appearance='outline']) {
-        ${actionRgbPartialColor.cssCustomProperty}: ${bannerColor}
+        ${actionRgbPartialColor.cssCustomProperty}: ${White}
     }
 
     .dismiss {
-        width: ${bannerStartEndWidth};
+        width: 48px;
         display: flex;
         justify-content: center;
-        margin-top: ${bannerIconTopPadding};
+        margin-top: 8px;
     }
 
     .dismiss nimble-button {
-        height: ${bannerDismissButtonSize};
-        width: ${bannerDismissButtonSize};
-        ${iconSize.cssCustomProperty}: ${bannerDismissButtonIconSize};
-        ${buttonLabelFontColor.cssCustomProperty}: ${bannerColor};
+        height: 16px;
+        width: 16px;
+        ${iconSize.cssCustomProperty}: 14px;
+        ${buttonLabelFontColor.cssCustomProperty}: ${White};
         ${borderHoverColor.cssCustomProperty}: transparent;
-        ${fillSelectedColor.cssCustomProperty}: ${bannerButtonFillSelectedColor};
+        ${fillSelectedColor.cssCustomProperty}: ${hexToRgbaCssColor(
+            White,
+            0.2
+        )};
     }
 
     .dismiss nimble-button:hover {
-        background: ${bannerButtonFillSelectedColor};
+        background: ${hexToRgbaCssColor(White, 0.2)};
     }
 `.withBehaviors(
+    themeBehavior(
+        Theme.light,
+        css`
+            :host {
+                background: ${Black75};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
+            :host {
+                background: ${Black75};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
+            :host {
+                background: ${hexToRgbaCssColor(White, 0.3)};
+            }
+        `
+    ),
     new MultivaluePropertyStyleSheetBehavior(
         'severity',
         BannerSeverity.error,
-        css`
-            :host {
-                background: ${bannerErrorBackgroundColor};
-            }
-        `
+        css``.withBehaviors(
+            themeBehavior(
+                Theme.light,
+                css`
+                    :host {
+                        background: ${Fail100LightUi};
+                    }
+                `
+            ),
+            themeBehavior(
+                Theme.dark,
+                css`
+                    :host {
+                        background: ${BannerFail100DarkUi};
+                    }
+                `
+            ),
+            themeBehavior(
+                Theme.color,
+                css`
+                    :host {
+                        background: ${hexToRgbaCssColor(White, 0.3)};
+                    }
+                `
+            )
+        )
     ),
     new MultivaluePropertyStyleSheetBehavior(
         'severity',
         BannerSeverity.warning,
-        css`
-            :host {
-                background: ${bannerWarningBackgroundColor};
-            }
-        `
+        css``.withBehaviors(
+            themeBehavior(
+                Theme.light,
+                css`
+                    :host {
+                        background: ${Warning100LightUi};
+                    }
+                `
+            ),
+            themeBehavior(
+                Theme.dark,
+                css`
+                    :host {
+                        background: ${Warning100DarkUi};
+                    }
+                `
+            ),
+            themeBehavior(
+                Theme.color,
+                css`
+                    :host {
+                        background: ${hexToRgbaCssColor(White, 0.3)};
+                    }
+                `
+            )
+        )
     ),
     new MultivaluePropertyStyleSheetBehavior(
         'severity',
         BannerSeverity.info,
-        css`
-            :host {
-                background: ${bannerInfoBackgroundColor};
-            }
-
-            .icon {
-                ${iconSize.cssCustomProperty}: 18px;
-            }
-        `
+        css``.withBehaviors(
+            themeBehavior(
+                Theme.light,
+                css`
+                    :host {
+                        background: ${Information100LightUi};
+                    }
+                `
+            ),
+            themeBehavior(
+                Theme.dark,
+                css`
+                    :host {
+                        background: ${Information100DarkUi};
+                    }
+                `
+            ),
+            themeBehavior(
+                Theme.color,
+                css`
+                    :host {
+                        background: ${hexToRgbaCssColor(White, 0.3)};
+                    }
+                `
+            )
+        )
     )
 );

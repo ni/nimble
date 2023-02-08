@@ -32,6 +32,8 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     popupBorderColor: 'Border color for menus and dialog boxes',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
+    slimControlHeight:
+        'Height of controls that are somewhat shorter than standard height.',
     smallPadding: 'Small layout padding for components',
     standardPadding: 'Standard layout padding for components',
     labelHeight:
@@ -40,6 +42,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     iconSize: 'Standard layout height for all icons',
     groupHeaderTextTransform: 'CSS text-transform string to use for headers',
     drawerWidth: 'TODO: delete when able',
+    bannerGapSize: 'Space between stacked banners',
     smallDelay:
         'Elements with small transition areas, such as icons and selection controls, have short durations.',
     mediumDelay:
@@ -258,25 +261,5 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     elevation2BoxShadow:
         'The box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
     elevation3BoxShadow:
-        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.',
-    bannerGapSize: 'Space between stacked banners',
-    bannerButtonHeight: 'Height of action button in a banner',
-    bannerFontSize: 'Font size for the banner',
-    bannerColor: 'Color for the banner',
-    bannerNeutralBackgroundColor:
-        'Banner background color for no severity value',
-    bannerErrorBackgroundColor: 'Banner background color for error severity',
-    bannerWarningBackgroundColor:
-        'Banner background color for warning severity',
-    bannerInfoBackgroundColor: 'Banner background color for info severity',
-    bannerIconColor: 'Color for icon in banner',
-    bannerIconTopPadding: 'Top padding for icon in banner',
-    bannerStartEndWidth: 'The width of the regions on both ends of the banner',
-    bannerTextVerticalPadding: 'Top and bottom padding of text in banner',
-    bannerTextGapSize: 'Gap between title and body text in banner',
-    bannerButtonFillSelectedColor:
-        'Fill selected color for banner action button',
-    bannerLinkActiveFontColor: 'Color for active link in banner',
-    bannerDismissButtonSize: 'Size of the dismiss button in banner',
-    bannerDismissButtonIconSize: 'Size of the icon in the dismiss button in banner'
+        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.'
 };

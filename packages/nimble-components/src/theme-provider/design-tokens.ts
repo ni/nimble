@@ -4,7 +4,6 @@ import {
     Black,
     Black7,
     Black15,
-    Black75,
     Black80,
     Black85,
     Black88,
@@ -17,7 +16,6 @@ import {
     MediumDelay,
     LargeDelay,
     Fail100DarkUi,
-    BannerFail100DarkUi,
     Warning100LightUi,
     Warning100DarkUi,
     Pass100LightUi,
@@ -197,6 +195,9 @@ export const tableRowBorderColor = DesignToken.create<string>(
 export const controlHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlHeight)
 ).withDefault('32px');
+export const slimControlHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.slimControlHeight)
+).withDefault('24px');
 export const smallPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.smallPadding)
 ).withDefault('4px');
@@ -215,6 +216,9 @@ export const iconSize = DesignToken.create<string>(
 export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
+export const bannerGapSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerGapSize)
+).withDefault('1px');
 
 // Drop Shadow Tokens
 export const elevation1BoxShadow = DesignToken.create<string>(
@@ -665,90 +669,6 @@ export const mediumDelay = DesignToken.create<string>(
 export const largeDelay = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.largeDelay)
 ).withDefault(LargeDelay);
-
-// Banner Tokens
-export const bannerGapSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerGapSize)
-).withDefault('1px');
-
-export const bannerButtonHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerButtonHeight)
-).withDefault('24px');
-
-export const bannerFontSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerFontSize)
-).withDefault('12.8px');
-
-export const bannerColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerColor)
-).withDefault(White);
-
-export const bannerNeutralBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerNeutralBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black75, Black75, hexToRgbaCssColor(White, 0.3)));
-
-export const bannerErrorBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerErrorBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    Fail100LightUi,
-    BannerFail100DarkUi,
-    hexToRgbaCssColor(White, 0.3)
-));
-
-export const bannerWarningBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerWarningBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    Warning100LightUi,
-    Warning100DarkUi,
-    hexToRgbaCssColor(White, 0.3)
-));
-
-export const bannerInfoBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerInfoBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    Information100LightUi,
-    Information100DarkUi,
-    hexToRgbaCssColor(White, 0.3)
-));
-
-export const bannerIconColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerIconColor)
-).withDefault(hexToRgbaCssColor(White, 0.6));
-
-export const bannerIconTopPadding = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerIconTopPadding)
-).withDefault('8px');
-
-export const bannerStartEndWidth = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerStartEndWidth)
-).withDefault('48px');
-
-export const bannerTextVerticalPadding = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerTextVerticalPadding)
-).withDefault('7px');
-
-export const bannerTextGapSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerTextGapSize)
-).withDefault('8px');
-
-export const bannerButtonFillSelectedColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerButtonFillSelectedColor)
-).withDefault(hexToRgbaCssColor(White, 0.2));
-
-export const bannerLinkActiveFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerLinkActiveFontColor)
-).withDefault(hexToRgbaCssColor(White, 0.6));
-
-export const bannerDismissButtonSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerDismissButtonSize)
-).withDefault('16px');
-
-export const bannerDismissButtonIconSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerDismissButtonIconSize)
-).withDefault('14px');
 
 // Private helpers functions
 function hexToRgbPartial(hexValue: string): string {

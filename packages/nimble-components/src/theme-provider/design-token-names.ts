@@ -29,6 +29,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     modalBackdropColor: 'modal-backdrop-color',
     popupBorderColor: 'popup-border-color',
     controlHeight: 'control-height',
+    slimControlHeight: 'slim-control-height',
     smallPadding: 'small-padding',
     standardPadding: 'standard-padding',
     labelHeight: 'label-height',
@@ -36,6 +37,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     iconSize: 'icon-size',
     groupHeaderTextTransform: 'group-header-text-transform',
     drawerWidth: 'drawer-width',
+    bannerGapSize: 'banner-gap-size',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
     largeDelay: 'large-delay',
@@ -205,24 +207,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     tableRowBorderColor: 'table-row-border-color',
     elevation1BoxShadow: 'elevation-1-box-shadow',
     elevation2BoxShadow: 'elevation-2-box-shadow',
-    elevation3BoxShadow: 'elevation-3-box-shadow',
-    bannerGapSize: 'banner-gap-size',
-    bannerButtonHeight: 'banner-button-height',
-    bannerFontSize: 'banner-font-size',
-    bannerColor: 'banner-color',
-    bannerNeutralBackgroundColor: 'banner-neutral-background-color',
-    bannerErrorBackgroundColor: 'banner-error-background-color',
-    bannerWarningBackgroundColor: 'banner-warning-background-color',
-    bannerInfoBackgroundColor: 'banner-info-background-color',
-    bannerIconColor: 'banner-icon-color',
-    bannerIconTopPadding: 'banner-icon-top-padding',
-    bannerStartEndWidth: 'banner-start-end-width',
-    bannerTextVerticalPadding: 'banner-text-vertical-padding',
-    bannerTextGapSize: 'banner-text-gap-size',
-    bannerButtonFillSelectedColor: 'banner-button-fill-selected-color',
-    bannerLinkActiveFontColor: 'banner-link-active-font-color',
-    bannerDismissButtonSize: 'banner-dismiss-button-size',
-    bannerDismissButtonIconSize: 'banner-dismiss-button-icon-size'
+    elevation3BoxShadow: 'elevation-3-box-shadow'
 };
 
 const prefix = 'ni-nimble';
