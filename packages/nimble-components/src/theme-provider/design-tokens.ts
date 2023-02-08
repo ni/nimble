@@ -718,8 +718,8 @@ export const bannerIconColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerIconColor)
 ).withDefault(hexToRgbaCssColor(White, 0.6));
 
-export const bannerIconMarginTop = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerIconMarginTop)
+export const bannerIconTopPadding = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerIconTopPadding)
 ).withDefault('8px');
 
 export const bannerStartEndWidth = DesignToken.create<string>(

@@ -270,7 +270,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Banner background color for warning severity',
     bannerInfoBackgroundColor: 'Banner background color for info severity',
     bannerIconColor: 'Color for icon in banner',
-    bannerIconMarginTop: 'Top margin for icon in banner',
+    bannerIconTopPadding: 'Top padding for icon in banner',
     bannerStartEndWidth: 'The width of the regions on both ends of the banner',
     bannerTextVerticalPadding: 'Top and bottom padding of text in banner',
     bannerTextGapSize: 'Gap between title and body text in banner',

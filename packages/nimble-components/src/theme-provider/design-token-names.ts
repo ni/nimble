@@ -215,7 +215,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     bannerWarningBackgroundColor: 'banner-warning-background-color',
     bannerInfoBackgroundColor: 'banner-info-background-color',
     bannerIconColor: 'banner-icon-color',
-    bannerIconMarginTop: 'banner-icon-margin-top',
+    bannerIconTopPadding: 'banner-icon-top-padding',
     bannerStartEndWidth: 'banner-start-end-width',
     bannerTextVerticalPadding: 'banner-text-vertical-padding',
     bannerTextGapSize: 'banner-text-gap-size',

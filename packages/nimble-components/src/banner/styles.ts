@@ -11,7 +11,7 @@ import {
     bannerErrorBackgroundColor,
     bannerFontSize,
     bannerIconColor,
-    bannerIconMarginTop,
+    bannerIconTopPadding,
     bannerInfoBackgroundColor,
     bannerLinkActiveFontColor,
     bannerNeutralBackgroundColor,
@@ -55,7 +55,7 @@ export const styles = css`
         width: ${bannerStartEndWidth};
         display: flex;
         justify-content: center;
-        margin-top: ${bannerIconMarginTop};
+        margin-top: ${bannerIconTopPadding};
         flex: 0 0 auto;
     }
 
@@ -107,7 +107,7 @@ export const styles = css`
         width: ${bannerStartEndWidth};
         display: flex;
         justify-content: center;
-        margin-top: ${bannerIconMarginTop};
+        margin-top: ${bannerIconTopPadding};
     }
 
     .close nimble-button {
