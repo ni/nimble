@@ -135,9 +135,9 @@ describe('Table', () => {
             columnIndex < element.columns.length;
             columnIndex++
         ) {
-            expect(pageObject.getHeaderContent(columnIndex)).withContext(`for column${columnIndex}`).toEqual(
-                element.columns[columnIndex]
-            );
+            expect(pageObject.getHeaderContent(columnIndex))
+                .withContext(`for column${columnIndex}`)
+                .toEqual(element.columns[columnIndex]);
         }
     });
 
