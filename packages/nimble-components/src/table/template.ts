@@ -1,4 +1,11 @@
-import { children, ElementsFilter, html, ref, repeat, when } from '@microsoft/fast-element';
+import {
+    children,
+    ElementsFilter,
+    html,
+    ref,
+    repeat,
+    when
+} from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { VirtualItem } from '@tanstack/virtual-core';
 import type { Table } from '.';

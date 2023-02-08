@@ -8,7 +8,9 @@ describe('TableValidator', () => {
         validator = new TableValidator();
     });
 
-    function getInvalidKeys(tableValidator: TableValidator<TableRecord>): string[] {
+    function getInvalidKeys(
+        tableValidator: TableValidator<TableRecord>
+    ): string[] {
         return Object.entries(tableValidator)
             .filter(([_, value]) => value)
             .map(([key, _]) => key);
@@ -48,7 +50,9 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents(['duplicateRecordId']));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents(['duplicateRecordId'])
+            );
         });
 
         it('setting data with invalid ID value type is invalid', () => {
@@ -60,7 +64,9 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'numberField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents(['invalidRecordId']));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents(['invalidRecordId'])
+            );
         });
 
         it('setting data with empty ID value is valid', () => {
@@ -84,7 +90,9 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents(['invalidRecordId']));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents(['invalidRecordId'])
+            );
         });
 
         it('setting data with null ID value is invalid', () => {
@@ -96,7 +104,9 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents(['invalidRecordId']));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents(['invalidRecordId'])
+            );
         });
 
         it('setting data with missing IDs is invalid', () => {
@@ -108,7 +118,9 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'missingField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents(['missingRecordId']));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents(['missingRecordId'])
+            );
         });
 
         it('multiple errors are reported during validation', () => {
@@ -123,11 +135,13 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents([
-                'missingRecordId',
-                'duplicateRecordId',
-                'invalidRecordId'
-            ]));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents([
+                    'missingRecordId',
+                    'duplicateRecordId',
+                    'invalidRecordId'
+                ])
+            );
         });
 
         it('setting ID field name to undefined makes configuration valid', () => {
@@ -200,7 +214,9 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, '');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents(['duplicateRecordId']));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents(['duplicateRecordId'])
+            );
         });
     });
 
@@ -253,8 +269,14 @@ describe('TableValidator', () => {
                 expect(isValid).toBe(
                     columnConfiguration.invalidKeys.length === 0
                 );
-                expect(validator.isValid()).toBe(columnConfiguration.invalidKeys.length === 0);
-                expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents(columnConfiguration.invalidKeys));
+                expect(validator.isValid()).toBe(
+                    columnConfiguration.invalidKeys.length === 0
+                );
+                expect(getInvalidKeys(validator)).toEqual(
+                    jasmine.arrayWithExactContents(
+                        columnConfiguration.invalidKeys
+                    )
+                );
             });
         }
     });
@@ -275,11 +297,13 @@ describe('TableValidator', () => {
             );
             expect(recordIdsAreValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents([
-                'missingRecordId',
-                'duplicateRecordId',
-                'invalidRecordId'
-            ]));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents([
+                    'missingRecordId',
+                    'duplicateRecordId',
+                    'invalidRecordId'
+                ])
+            );
 
             const columnIdsAreValid = validator.validateColumnIds([
                 'id-1',
@@ -288,11 +312,13 @@ describe('TableValidator', () => {
             ]);
             expect(columnIdsAreValid).toBeTrue();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents([
-                'missingRecordId',
-                'duplicateRecordId',
-                'invalidRecordId'
-            ]));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents([
+                    'missingRecordId',
+                    'duplicateRecordId',
+                    'invalidRecordId'
+                ])
+            );
         });
 
         it('invalid column IDs stay invalid when validating record IDs', () => {
@@ -303,7 +329,12 @@ describe('TableValidator', () => {
             ]);
             expect(columnIdsAreValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents(['missingColumnId', 'duplicateColumnId']));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents([
+                    'missingColumnId',
+                    'duplicateColumnId'
+                ])
+            );
 
             const recordIdsAreValid = validator.validateRecordIds(
                 [],
@@ -311,7 +342,12 @@ describe('TableValidator', () => {
             );
             expect(recordIdsAreValid).toBeTrue();
             expect(validator.isValid()).toBeFalse();
-            expect(getInvalidKeys(validator)).toEqual(jasmine.arrayWithExactContents(['missingColumnId', 'duplicateColumnId']));
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents([
+                    'missingColumnId',
+                    'duplicateColumnId'
+                ])
+            );
         });
     });
 });
