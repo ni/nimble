@@ -4,7 +4,7 @@ import type { DieRenderInfo, Dimensions } from '../types';
 /**
  * Responsible for drawing the dies inside the wafer map and scaling the canvas
  */
-export class RenderingModule extends EventTarget {
+export class RenderingModule {
     private readonly context: CanvasRenderingContext2D;
     private dieSize?: number;
     private readonly dies: DieRenderInfo[];
@@ -12,7 +12,6 @@ export class RenderingModule extends EventTarget {
     private readonly labelFontSize: number;
 
     public constructor(private readonly wafermap: WaferMap) {
-        super();
         this.context = wafermap.canvas.getContext('2d')!;
         this.dies = wafermap.dataManager!.diesRenderInfo;
         this.dimensions = wafermap.dataManager!.dieDimensions;
@@ -26,7 +25,6 @@ export class RenderingModule extends EventTarget {
         this.renderDies();
         this.renderText();
         this.context.restore();
-        this.dispatchEvent(new CustomEvent('render-complete'));
     }
 
     private renderDies(): void {
