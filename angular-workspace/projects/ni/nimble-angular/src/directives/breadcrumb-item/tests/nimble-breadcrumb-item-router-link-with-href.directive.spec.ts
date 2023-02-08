@@ -32,8 +32,10 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     let router: Router;
     let location: Location;
     let anchor: HTMLAnchorElement;
+    let separator: HTMLSpanElement;
     let routerNavigateByUrlSpy: jasmine.Spy;
     let anchorClickHandlerSpy: jasmine.Spy;
+    let separatorClickHandlerSpy: jasmine.Spy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -59,9 +61,12 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
         tick();
         processUpdates();
         anchor = breadcrumbItem1!.shadowRoot!.querySelector('a')!;
+        separator = breadcrumbItem1!.shadowRoot!.querySelector('.separator')!;
         routerNavigateByUrlSpy = spyOn(router, 'navigateByUrl').and.callThrough();
         anchorClickHandlerSpy = jasmine.createSpy('click');
-        anchor!.addEventListener('click', anchorClickHandlerSpy);
+        separatorClickHandlerSpy = jasmine.createSpy('click');
+        anchor.addEventListener('click', anchorClickHandlerSpy);
+        separator.addEventListener('click', separatorClickHandlerSpy);
     }));
 
     afterEach(() => {
@@ -80,6 +85,14 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
             }
         }));
         expect(location.path()).toEqual(expectedDestinationUrl);
+    }));
+
+    it('does not navigate via router.navigateByUrl when separator is clicked', fakeAsync(() => {
+        separator!.click();
+        tick();
+
+        expect(separatorClickHandlerSpy).toHaveBeenCalledTimes(1);
+        expect(routerNavigateByUrlSpy).not.toHaveBeenCalled();
     }));
 
     const secondaryClickTests: { testName: string, clickArgs: { [key: string]: unknown } }[] = [

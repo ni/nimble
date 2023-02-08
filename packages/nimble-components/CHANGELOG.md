@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 06 Feb 2023 16:22:19 GMT and should not be manually modified.
+This log was last generated on Tue, 07 Feb 2023 20:17:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.1.2
+
+Tue, 07 Feb 2023 20:17:44 GMT
+
+### Patches
+
+- Fix nimble-table virtualizer bug (when table height changes) ([ni/nimble@48e5e07](https://github.com/ni/nimble/commit/48e5e07874f03ce339e2c05b8345500fd5d5e654))
 
 ## 18.1.1
 
