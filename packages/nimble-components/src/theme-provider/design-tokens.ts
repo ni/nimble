@@ -726,12 +726,12 @@ export const bannerStartEndWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerStartEndWidth)
 ).withDefault('48px');
 
-export const bannerTextMarginVertical = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerTextMarginVertical)
+export const bannerTextVerticalPadding = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerTextVerticalPadding)
 ).withDefault('7px');
 
-export const bannerTextGap = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerTextGap)
+export const bannerTextGapSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerTextGapSize)
 ).withDefault('8px');
 
 export const bannerButtonFillSelectedColor = DesignToken.create<string>(

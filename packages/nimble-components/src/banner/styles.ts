@@ -16,8 +16,8 @@ import {
     bannerLinkActiveFontColor,
     bannerNeutralBackgroundColor,
     bannerStartEndWidth,
-    bannerTextGap,
-    bannerTextMarginVertical,
+    bannerTextGapSize,
+    bannerTextVerticalPadding,
     bannerWarningBackgroundColor,
     bodyFont,
     borderHoverColor,
@@ -61,13 +61,13 @@ export const styles = css`
 
     .text {
         display: inline;
-        margin-top: ${bannerTextMarginVertical};
-        margin-bottom: ${bannerTextMarginVertical};
+        margin-top: ${bannerTextVerticalPadding};
+        margin-bottom: ${bannerTextVerticalPadding};
     }
 
     ::slotted([slot='title']) {
         font-weight: bold;
-        padding-right: ${bannerTextGap};
+        padding-right: ${bannerTextGapSize};
         white-space: nowrap;
     }
 
@@ -87,7 +87,7 @@ export const styles = css`
         ${linkDisabledFontColor.cssCustomProperty}: ${bannerColor};
         ${linkActiveFontColor.cssCustomProperty}: ${bannerLinkActiveFontColor};
         white-space: nowrap;
-        margin-top: ${bannerTextMarginVertical};
+        margin-top: ${bannerTextVerticalPadding};
     }
 
     ::slotted(nimble-button[slot='action']) {

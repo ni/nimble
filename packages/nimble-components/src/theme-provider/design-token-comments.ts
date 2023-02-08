@@ -272,8 +272,8 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     bannerIconColor: 'Color for icon in banner',
     bannerIconMarginTop: 'Top margin for icon in banner',
     bannerStartEndWidth: 'The width of the regions on both ends of the banner',
-    bannerTextMarginVertical: 'Top and bottom margin of text in banner',
-    bannerTextGap: 'Gap between title and body text in banner',
+    bannerTextVerticalPadding: 'Top and bottom padding of text in banner',
+    bannerTextGapSize: 'Gap between title and body text in banner',
     bannerButtonFillSelectedColor:
         'Fill selected color for banner action button',
     bannerLinkActiveFontColor: 'Color for active link in banner',
