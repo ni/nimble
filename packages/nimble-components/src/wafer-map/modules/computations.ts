@@ -15,13 +15,13 @@ interface GridDimensions {
  * Computations calculates and stores different measures which are used in the Wafermap
  */
 export class Computations {
-    public containerDimensions!: Dimensions;
-    public dieDimensions!: Dimensions;
-    public radius: number;
-    public margin: Margin;
+    public readonly containerDimensions: Dimensions;
+    public readonly dieDimensions: Dimensions;
+    public readonly radius: number;
+    public readonly margin: Margin;
 
-    public horizontalScale!: ScaleLinear<number, number>;
-    public verticalScale!: ScaleLinear<number, number>;
+    public readonly horizontalScale: ScaleLinear<number, number>;
+    public readonly verticalScale: ScaleLinear<number, number>;
 
     private readonly baseMargin: Margin = {
         top: 0,
@@ -39,12 +39,10 @@ export class Computations {
         canvasDimensions: Readonly<Dimensions>
     ) {
         const gridDimensions = this.calculateGridDimensions(dies);
-
         const canvasDiameter = Math.min(
             canvasDimensions.width,
             canvasDimensions.height
         );
-
         const canvasMargin = {
             top: (canvasDimensions.height - canvasDiameter) / 2,
             right: (canvasDimensions.width - canvasDiameter) / 2,
@@ -57,21 +55,7 @@ export class Computations {
             bottom: canvasDiameter * this.baseMarginPercentage,
             left: canvasDiameter * this.baseMarginPercentage
         };
-        this.radius = 0;
         this.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
-
-        this.computeDisplayDimensions(
-            axisLocation,
-            gridDimensions,
-            canvasDimensions
-        );
-    }
-
-    private computeDisplayDimensions(
-        axisLocation: Readonly<WaferMapQuadrant>,
-        gridDimensions: GridDimensions,
-        canvasDimensions: Readonly<Dimensions>
-    ): void {
         this.containerDimensions = this.calculateContainerDimensions(
             canvasDimensions,
             this.margin
@@ -80,14 +64,12 @@ export class Computations {
             this.containerDimensions.width,
             this.containerDimensions.height
         );
-
         // this scale is used for positioning the dies on the canvas
         this.horizontalScale = this.createHorizontalScale(
             axisLocation,
             gridDimensions,
             containerDiameter
         );
-
         // this scale is used for positioning the dies on the canvas
         this.verticalScale = this.createVerticalScale(
             axisLocation,
@@ -104,7 +86,6 @@ export class Computations {
                 this.containerDimensions.height
             )
         };
-        // const dieDiameter = Math.sqrt(this.dieDimensions.width * this.dieDimensions.width + this.dieDimensions.height * this.dieDimensions.height);
         this.radius = containerDiameter / 2;
     }
 
