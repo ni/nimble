@@ -742,12 +742,12 @@ export const bannerLinkActiveFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerLinkActiveFontColor)
 ).withDefault(hexToRgbaCssColor(White, 0.6));
 
-export const bannerCloseButtonSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerCloseButtonSize)
+export const bannerDismissButtonSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerDismissButtonSize)
 ).withDefault('16px');
 
-export const bannerCloseButtonIconSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerCloseButtonIconSize)
+export const bannerDismissButtonIconSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerDismissButtonIconSize)
 ).withDefault('14px');
 
 // Private helpers functions

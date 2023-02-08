@@ -29,9 +29,9 @@ export const template = html<Banner>`
         </div>
         <div class="controls">
             <slot name="action"></slot>
-            <div class="close">
+            <div class="dismiss">
                 ${when(x => !x.preventDismiss, html<Banner>`
-                    <${DesignSystem.tagFor(Button)} appearance="ghost" content-hidden @click="${x => x.closeBanner()}">
+                    <${DesignSystem.tagFor(Button)} appearance="ghost" content-hidden @click="${x => x.dismissBanner()}">
                         <${DesignSystem.tagFor(IconXmark)} slot="start"></${DesignSystem.tagFor(IconXmark)}>
                         ${x => x.dismissButtonLabel}
                     </${DesignSystem.tagFor(Button)}>

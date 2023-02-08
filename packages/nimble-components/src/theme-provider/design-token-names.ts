@@ -221,8 +221,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     bannerTextGapSize: 'banner-text-gap-size',
     bannerButtonFillSelectedColor: 'banner-button-fill-selected-color',
     bannerLinkActiveFontColor: 'banner-link-active-font-color',
-    bannerCloseButtonSize: 'banner-close-button-size',
-    bannerCloseButtonIconSize: 'banner-close-button-icon-size'
+    bannerDismissButtonSize: 'banner-dismiss-button-size',
+    bannerDismissButtonIconSize: 'banner-dismiss-button-icon-size'
 };
 
 const prefix = 'ni-nimble';

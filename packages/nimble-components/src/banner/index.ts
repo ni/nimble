@@ -68,7 +68,7 @@ export class Banner extends FoundationElement {
     /**
      * @internal
      */
-    public closeBanner(): void {
+    public dismissBanner(): void {
         this.open = false;
     }
 

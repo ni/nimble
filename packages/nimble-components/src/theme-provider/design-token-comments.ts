@@ -277,6 +277,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     bannerButtonFillSelectedColor:
         'Fill selected color for banner action button',
     bannerLinkActiveFontColor: 'Color for active link in banner',
-    bannerCloseButtonSize: 'Size of the close button in banner',
-    bannerCloseButtonIconSize: 'Size of the icon in the close button in banner'
+    bannerDismissButtonSize: 'Size of the dismiss button in banner',
+    bannerDismissButtonIconSize: 'Size of the icon in the dismiss button in banner'
 };

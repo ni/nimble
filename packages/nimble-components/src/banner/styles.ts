@@ -5,8 +5,8 @@ import {
     actionRgbPartialColor,
     bannerButtonFillSelectedColor,
     bannerButtonHeight,
-    bannerCloseButtonIconSize,
-    bannerCloseButtonSize,
+    bannerDismissButtonIconSize,
+    bannerDismissButtonSize,
     bannerColor,
     bannerErrorBackgroundColor,
     bannerFontSize,
@@ -103,23 +103,23 @@ export const styles = css`
         ${actionRgbPartialColor.cssCustomProperty}: ${bannerColor}
     }
 
-    .close {
+    .dismiss {
         width: ${bannerStartEndWidth};
         display: flex;
         justify-content: center;
         margin-top: ${bannerIconTopPadding};
     }
 
-    .close nimble-button {
-        height: ${bannerCloseButtonSize};
-        width: ${bannerCloseButtonSize};
-        ${iconSize.cssCustomProperty}: ${bannerCloseButtonIconSize};
+    .dismiss nimble-button {
+        height: ${bannerDismissButtonSize};
+        width: ${bannerDismissButtonSize};
+        ${iconSize.cssCustomProperty}: ${bannerDismissButtonIconSize};
         ${buttonLabelFontColor.cssCustomProperty}: ${bannerColor};
         ${borderHoverColor.cssCustomProperty}: transparent;
         ${fillSelectedColor.cssCustomProperty}: ${bannerButtonFillSelectedColor};
     }
 
-    .close nimble-button:hover {
+    .dismiss nimble-button:hover {
         background: ${bannerButtonFillSelectedColor};
     }
 `.withBehaviors(
