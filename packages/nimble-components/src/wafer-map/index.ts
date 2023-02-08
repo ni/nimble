@@ -125,10 +125,7 @@ export class WaferMap extends FoundationElement {
         this.renderer?.drawWafer();
     }
 
-    /**
-     * @internal
-     */
-    public queueRender(): void {
+    private queueRender(): void {
         if (!this.$fastController.isConnected) {
             return;
         }

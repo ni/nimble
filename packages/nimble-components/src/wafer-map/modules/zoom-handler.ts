@@ -8,7 +8,7 @@ import {
 } from 'd3-zoom';
 import type { WaferMap } from '..';
 
-export interface ZoomEvent {
+interface ZoomEvent {
     transform: ZoomTransform;
 }
 
