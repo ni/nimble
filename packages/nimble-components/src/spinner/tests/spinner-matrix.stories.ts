@@ -37,7 +37,7 @@ const sizeStates = [
     ['Medium (32x32)', `height: var(${spinnerMediumHeight.cssCustomProperty})`],
     ['Large (64x64)', `height: var(${spinnerLargeHeight.cssCustomProperty})`]
 ];
-type SizeState = typeof sizeStates[number];
+type SizeState = (typeof sizeStates)[number];
 
 const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
