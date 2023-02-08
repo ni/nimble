@@ -176,7 +176,12 @@ const metadata: Meta<WaferMapArgs> = {
                     The \`dies\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
                 </details>
                 `,
-            options: ['randomDies10', 'randomDies100', 'goodDies1000', 'badDies10000'],
+            options: [
+                'randomDies10',
+                'randomDies100',
+                'goodDies1000',
+                'badDies10000'
+            ],
             control: {
                 type: 'radio',
                 labels: {

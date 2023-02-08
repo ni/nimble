@@ -40,7 +40,10 @@ export class Computations {
     ) {
         const gridDimensions = this.calculateGridDimensions(dies);
 
-        const canvasDiameter = Math.min(canvasDimensions.width, canvasDimensions.height);
+        const canvasDiameter = Math.min(
+            canvasDimensions.width,
+            canvasDimensions.height
+        );
 
         const canvasMargin = {
             top: (canvasDimensions.height - canvasDiameter) / 2,
@@ -57,7 +60,11 @@ export class Computations {
         this.radius = 0;
         this.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
 
-        this.computeDisplayDimensions(axisLocation, gridDimensions, canvasDimensions);
+        this.computeDisplayDimensions(
+            axisLocation,
+            gridDimensions,
+            canvasDimensions
+        );
     }
 
     private computeDisplayDimensions(
@@ -69,7 +76,10 @@ export class Computations {
             canvasDimensions,
             this.margin
         );
-        const containerDiameter = Math.min(this.containerDimensions.width, this.containerDimensions.height);
+        const containerDiameter = Math.min(
+            this.containerDimensions.width,
+            this.containerDimensions.height
+        );
 
         // this scale is used for positioning the dies on the canvas
         this.horizontalScale = this.createHorizontalScale(
@@ -194,7 +204,10 @@ export class Computations {
             .bandwidth();
     }
 
-    private calculateMarginAddition(baseMargin: Margin, addedMargin: Margin): Margin {
+    private calculateMarginAddition(
+        baseMargin: Margin,
+        addedMargin: Margin
+    ): Margin {
         return {
             top: baseMargin.top + addedMargin.top,
             right: baseMargin.right + addedMargin.right,
