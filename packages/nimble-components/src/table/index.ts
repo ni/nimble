@@ -14,12 +14,12 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
+import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord, TableRowState, TableValidity } from './types';
 import { Virtualizer } from './models/virtualizer';
-import { TableColumn } from '../table-column/base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -99,6 +99,7 @@ export class Table<
 
     public override disconnectedCallback(): void {
         this.virtualizer.disconnectedCallback();
+        this.removeColumnObservers();
     }
 
     public checkValidity(): boolean {
@@ -139,11 +140,15 @@ export class Table<
         this.validateColumnIds();
     }
 
-    private observeColumns(): void {
+    private removeColumnObservers(): void {
         this.notifiers.forEach(notifier => {
             notifier.unsubscribe(this);
         });
         this.notifiers = [];
+    }
+
+    private observeColumns(): void {
+        this.removeColumnObservers();
 
         for (const column of this.columns) {
             const notifier = Observable.getNotifier(column);
