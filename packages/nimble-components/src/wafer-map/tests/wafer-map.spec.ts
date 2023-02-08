@@ -20,7 +20,7 @@ describe('WaferMap', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        element.canvasSideLength = 500;
+        // element.canvasSideLength = 500;
         processUpdates();
         spy = spyOn(element, 'render');
     });

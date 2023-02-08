@@ -48,8 +48,8 @@ export class ZoomHandler extends EventTarget {
             .scaleExtent([
                 1.1,
                 this.getZoomMax(
-                    this.wafermap.canvasSideLength
-                        * this.wafermap.canvasSideLength,
+                    this.wafermap.canvas.width
+                        * this.wafermap.canvas.height,
                     this.wafermap.dataManager!.containerDimensions.width
                         * this.wafermap.dataManager!.containerDimensions.height
                 )
@@ -57,8 +57,8 @@ export class ZoomHandler extends EventTarget {
             .translateExtent([
                 this.minExtentPoint,
                 [
-                    this.wafermap.canvasSideLength + this.extentPadding,
-                    this.wafermap.canvasSideLength + this.extentPadding
+                    this.wafermap.canvas.width + this.extentPadding,
+                    this.wafermap.canvas.height + this.extentPadding
                 ]
             ])
             .filter((event: Event) => {

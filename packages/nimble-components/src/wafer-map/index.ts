@@ -89,11 +89,6 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public canvasSideLength = 0;
-
-    /**
-     * @internal
-     */
     @observable public transform: ZoomTransform = zoomIdentity;
 
     @observable public highlightedValues: string[] = [];
@@ -121,7 +116,7 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        this.initalizeInternalModules();
+        this.initializeInternalModules();
         this.renderer?.drawWafer();
     }
 
@@ -138,7 +133,7 @@ export class WaferMap extends FoundationElement {
         }
     }
 
-    private initalizeInternalModules(): void {
+    private initializeInternalModules(): void {
         this.eventCoordinator?.detachEvents();
         this.dataManager = new DataManager(this);
         this.renderer = new RenderingModule(this);
@@ -152,7 +147,9 @@ export class WaferMap extends FoundationElement {
                 return;
             }
             const { height, width } = entry.contentRect;
-            this.canvasSideLength = Math.min(height, width);
+            this.canvas.width = width;
+            this.canvas.height = height;
+            this.queueRender();
         });
         resizeObserver.observe(this);
         return resizeObserver;
@@ -200,17 +197,6 @@ export class WaferMap extends FoundationElement {
 
     private transformChanged(): void {
         this.queueRender();
-    }
-
-    private canvasSideLengthChanged(): void {
-        if (
-            this.canvasSideLength !== undefined
-            && this.canvasSideLength !== 0
-        ) {
-            this.canvas.width = this.canvasSideLength;
-            this.canvas.height = this.canvasSideLength;
-            this.queueRender();
-        }
     }
 }
 

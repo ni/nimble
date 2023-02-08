@@ -2,7 +2,7 @@ import { scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 import type { WaferMapDie } from '../types';
 import { Dimensions, Margin, WaferMapQuadrant } from '../types';
 
-interface MapDimensions {
+interface GridDimensions {
     origin: {
         x: number,
         y: number
@@ -15,92 +15,93 @@ interface MapDimensions {
  * Computations calculates and stores different measures which are used in the Wafermap
  */
 export class Computations {
-    public readonly containerDimensions: Dimensions;
-    public readonly dieDimensions: Dimensions;
-    public readonly radius: number;
-    public readonly margin: Margin;
+    public containerDimensions!: Dimensions;
+    public dieDimensions!: Dimensions;
+    public radius: number;
+    public margin: Margin;
 
-    public readonly horizontalScale: ScaleLinear<number, number>;
-    public readonly verticalScale: ScaleLinear<number, number>;
+    public horizontalScale!: ScaleLinear<number, number>;
+    public verticalScale!: ScaleLinear<number, number>;
 
     private readonly baseMargin: Margin = {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
     } as const;
 
     private readonly dieSizeFactor = 1.5;
     private readonly defaultAlign = 0.5;
+    private readonly baseMarginPercentage = 0.04;
 
     public constructor(
         dies: Readonly<Readonly<WaferMapDie>[]>,
         axisLocation: Readonly<WaferMapQuadrant>,
         canvasDimensions: Readonly<Dimensions>
     ) {
-        this.margin = this.baseMargin;
-        const gridMapDimensions = this.calculateMapDimensions(dies);
+        const gridDimensions = this.calculateGridDimensions(dies);
 
+        const canvasDiameter = Math.min(canvasDimensions.width, canvasDimensions.height);
+
+        const canvasMargin = {
+            top: (canvasDimensions.height - canvasDiameter) / 2,
+            right: (canvasDimensions.width - canvasDiameter) / 2,
+            bottom: (canvasDimensions.height - canvasDiameter) / 2,
+            left: (canvasDimensions.width - canvasDiameter) / 2
+        };
+        const baseMargin = {
+            top: canvasDiameter * this.baseMarginPercentage,
+            right: canvasDiameter * this.baseMarginPercentage,
+            bottom: canvasDiameter * this.baseMarginPercentage,
+            left: canvasDiameter * this.baseMarginPercentage
+        };
+        this.radius = 0;
+        this.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
+
+        this.computeDisplayDimensions(axisLocation, gridDimensions, canvasDimensions);
+    }
+
+    private computeDisplayDimensions(
+        axisLocation: Readonly<WaferMapQuadrant>,
+        gridDimensions: GridDimensions,
+        canvasDimensions: Readonly<Dimensions>
+    ): void {
         this.containerDimensions = this.calculateContainerDimensions(
             canvasDimensions,
             this.margin
         );
+        const containerDiameter = Math.min(this.containerDimensions.width, this.containerDimensions.height);
+
+        // this scale is used for positioning the dies on the canvas
         this.horizontalScale = this.createHorizontalScale(
             axisLocation,
-            gridMapDimensions,
-            this.containerDimensions.width
+            gridDimensions,
+            containerDiameter
+        );
+
+        // this scale is used for positioning the dies on the canvas
+        this.verticalScale = this.createVerticalScale(
+            axisLocation,
+            gridDimensions,
+            containerDiameter
         );
         this.dieDimensions = {
             width: this.calculateGridWidth(
-                gridMapDimensions.cols,
+                gridDimensions.cols,
                 this.containerDimensions.width
             ),
-            height: 0
-        };
-
-        this.radius = this.containerDimensions.width / 2
-            + this.dieDimensions.width * this.dieSizeFactor;
-        if (this.radius > canvasDimensions.width / 2) {
-            this.margin = this.calculateMarginWithAddition(
-                this.radius - canvasDimensions.width / 2
-            );
-            this.containerDimensions = this.calculateContainerDimensions(
-                canvasDimensions,
-                this.margin
-            );
-            this.horizontalScale = this.createHorizontalScale(
-                axisLocation,
-                gridMapDimensions,
-                this.containerDimensions.width
-            );
-            this.dieDimensions = {
-                width: this.calculateGridWidth(
-                    gridMapDimensions.cols,
-                    this.containerDimensions.width
-                ),
-                height: 0
-            };
-            this.radius = this.containerDimensions.width / 2
-                + this.dieDimensions.width * this.dieSizeFactor;
-        }
-
-        this.verticalScale = this.createVerticalScale(
-            axisLocation,
-            gridMapDimensions,
-            this.containerDimensions.height
-        );
-        this.dieDimensions = {
-            width: this.dieDimensions.width,
             height: this.calculateGridHeight(
-                gridMapDimensions.rows,
+                gridDimensions.rows,
                 this.containerDimensions.height
             )
         };
+        // const dieDiameter = Math.sqrt(this.dieDimensions.width * this.dieDimensions.width + this.dieDimensions.height * this.dieDimensions.height);
+        this.radius = containerDiameter / 2;
     }
 
-    private calculateMapDimensions(
+    private calculateGridDimensions(
         dies: Readonly<Readonly<WaferMapDie>[]>
-    ): MapDimensions {
+    ): GridDimensions {
         if (dies.length === 0 || dies[0] === undefined) {
             return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
         }
@@ -142,7 +143,7 @@ export class Computations {
 
     private createHorizontalScale(
         axisLocation: WaferMapQuadrant,
-        grid: MapDimensions,
+        grid: GridDimensions,
         containerWidth: number
     ): ScaleLinear<number, number> {
         if (
@@ -160,7 +161,7 @@ export class Computations {
 
     private createVerticalScale(
         axisLocation: WaferMapQuadrant,
-        grid: MapDimensions,
+        grid: GridDimensions,
         containerHeight: number
     ): ScaleLinear<number, number> {
         if (
@@ -194,17 +195,12 @@ export class Computations {
             .bandwidth();
     }
 
-    private calculateMarginWithAddition(baseAddition = 0): {
-        top: number,
-        right: number,
-        bottom: number,
-        left: number
-    } {
+    private calculateMarginAddition(baseMargin: Margin, addedMargin: Margin): Margin {
         return {
-            top: this.baseMargin.top + baseAddition,
-            right: this.baseMargin.right + baseAddition,
-            bottom: this.baseMargin.bottom + baseAddition,
-            left: this.baseMargin.top + baseAddition
+            top: baseMargin.top + addedMargin.top,
+            right: baseMargin.right + addedMargin.right,
+            bottom: baseMargin.bottom + addedMargin.bottom,
+            left: baseMargin.left + addedMargin.left
         };
     }
 }

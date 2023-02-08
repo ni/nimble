@@ -5,7 +5,6 @@ export const template = html<WaferMap>`
     <div class="wafer-map-container">
         <svg class="svg-root">
             <g
-                class="zoom-container"
                 ${ref('zoomContainer')}
                 transform=${x => x.transform.toString()}
             >
@@ -25,8 +24,6 @@ export const template = html<WaferMap>`
                 </g>
             </g>
         </svg>
-        <div class="wafer-map-area">
-            <canvas class="wafer-map-canvas" ${ref('canvas')}></canvas>
-        </div>
+        <canvas class="wafer-map-canvas" ${ref('canvas')}></canvas>
     </div>
 `;

@@ -49,20 +49,19 @@ export class DataManager {
 
     private readonly computations: Computations;
     private readonly prerendering: Prerendering;
-    private readonly dataMap: Map<string, WaferMapDie>;
 
     public constructor(wafermap: WaferMap) {
         this.computations = new Computations(wafermap.dies, wafermap.quadrant, {
-            width: wafermap.canvasSideLength,
-            height: wafermap.canvasSideLength
+            width: wafermap.canvas.width,
+            height: wafermap.canvas.height
         });
 
         this.prerendering = new Prerendering(
             wafermap.dies,
             wafermap.colorScale,
             wafermap.highlightedValues,
-            this.computations.horizontalScale,
-            this.computations.verticalScale,
+            this.horizontalScale,
+            this.verticalScale,
             wafermap.colorScaleMode,
             wafermap.dieLabelsHidden,
             wafermap.dieLabelsSuffix,
@@ -70,13 +69,5 @@ export class DataManager {
             this.computations.dieDimensions,
             this.computations.margin
         );
-
-        this.dataMap = new Map(
-            wafermap.dies.map(die => [`${die.x}_${die.y}`, die])
-        );
-    }
-
-    public getWaferMapDie(x: number, y: number): WaferMapDie | undefined {
-        return this.dataMap.get(`${x}_${y}`);
     }
 }

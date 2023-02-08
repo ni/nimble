@@ -6,7 +6,6 @@ import type { DieRenderInfo, Dimensions } from '../types';
  */
 export class RenderingModule extends EventTarget {
     private readonly context: CanvasRenderingContext2D;
-    private dieSize?: number;
     private readonly dies: DieRenderInfo[];
     private readonly dimensions: Dimensions;
     private readonly labelFontSize: number;
@@ -61,7 +60,7 @@ export class RenderingModule extends EventTarget {
     }
 
     private renderText(): void {
-        this.dieSize = this.dimensions.width
+        const dieSize = this.dimensions.width
             * this.dimensions.height
             * (this.wafermap.transform.k || 1);
         const fontsize = this.labelFontSize;
@@ -71,7 +70,7 @@ export class RenderingModule extends EventTarget {
         this.context.lineCap = 'butt';
         const aproxTextHeight = this.context.measureText('M');
 
-        if (this.dieSize >= 50) {
+        if (dieSize >= 50) {
             for (const die of this.dies) {
                 this.context.fillText(
                     die.text,
@@ -89,8 +88,8 @@ export class RenderingModule extends EventTarget {
         this.context.clearRect(
             0,
             0,
-            this.wafermap.canvasSideLength * this.wafermap.transform.k,
-            this.wafermap.canvasSideLength * this.wafermap.transform.k
+            this.wafermap.canvas.width * this.wafermap.transform.k,
+            this.wafermap.canvas.height * this.wafermap.transform.k
         );
     }
 
