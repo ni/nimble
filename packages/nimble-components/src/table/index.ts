@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, Observable, observable, Notifier } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
@@ -9,12 +9,12 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
-import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord, TableRowState, TableValidity } from './types';
 import { Virtualizer } from './models/virtualizer';
+import { TableColumn } from '../table-column/base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -38,7 +38,7 @@ export class Table<
     public tableData: TableRowState<TData>[] = [];
 
     @observable
-    public columns: TableColumn[] = [];
+    public readonly columns: TableColumn[] = [];
 
     /**
      * @internal
@@ -55,9 +55,6 @@ export class Table<
      */
     public readonly viewport!: HTMLElement;
 
-    @observable
-    public childItems: Element[] = [];
-
     /**
      * @internal
      */
@@ -66,6 +63,7 @@ export class Table<
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
+    private notifiers: Notifier[] = [];
 
     public constructor() {
         super();
@@ -90,6 +88,7 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
+        this.observeColumns();
         this.validateColumnIds();
     }
 
@@ -99,6 +98,19 @@ export class Table<
 
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
+    }
+
+    /**
+     * @internal
+     */
+    // 'handleChange' is an API exposed by FAST that we need to implement. Disable lint rules caused by its signature.
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+    public handleChange(source: any, args: any): void {
+        if (source instanceof TableColumn) {
+            if (args === 'columnId') {
+                this.validateColumnIds();
+            }
+        }
     }
 
     private idFieldNameChanged(
@@ -118,15 +130,20 @@ export class Table<
             return;
         }
 
+        this.observeColumns();
         this.validateColumnIds();
     }
 
-    private childItemsChanged(
-        _prev: undefined | Element[],
-        next: Element[]
-    ): void {
-        this.columns = next
-            .filter((x): x is TableColumn => x instanceof TableColumn);
+    private observeColumns(): void {
+        this.notifiers.forEach(notifier => {
+            notifier.unsubscribe(this);
+        });
+        this.notifiers = [];
+
+        for (const column of this.columns) {
+            const notifier = Observable.getNotifier(column);
+            notifier.subscribe(this);
+        }
     }
 
     private validateColumnIds(): void {
