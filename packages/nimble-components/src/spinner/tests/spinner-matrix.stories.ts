@@ -26,7 +26,7 @@ const metadata: Meta = {
             artboardUrl:
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/specs/'
         },
-        chromatic: { pauseAnimationAtEnd: true } // test change 4
+        chromatic: { pauseAnimationAtEnd: true } // test change 5
     }
 };
 
@@ -37,7 +37,7 @@ const sizeStates = [
     ['Medium (32x32)', `height: var(${spinnerMediumHeight.cssCustomProperty})`],
     ['Large (64x64)', `height: var(${spinnerLargeHeight.cssCustomProperty})`]
 ];
-type SizeState = (typeof sizeStates)[number];
+type SizeState = typeof sizeStates[number];
 
 const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
