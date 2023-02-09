@@ -117,7 +117,7 @@ The mixin pattern is appropriate for columns since there will be columns that ha
 
 #### **FixedWidth Column Example**
 
-At the moment there is no recognized use case for a fixed-width column that would allow a user to resize it. As such, there are no plans to provide a specific fixed-width mixin for columns. Instead, a concrete column desiring a fixed-width behavior could simply do something like the following in its constructor:
+At the moment there is no recognized use case for a pixel-width column that would allow a user to resize it. As such, there are no plans to provide a specific pixel-width mixin for columns. Instead, a concrete column desiring a pixel-width behavior could simply do something like the following in its constructor:
 
 ```
 export class MyFixedWidthColumn : TableColumn<...> {
