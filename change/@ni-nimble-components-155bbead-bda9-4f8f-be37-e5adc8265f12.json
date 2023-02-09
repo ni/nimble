@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix issue re-rendering table cells when the table becomes valid again",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
