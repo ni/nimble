@@ -1,8 +1,8 @@
+import type { WaferMap } from '..';
 import type { DieRenderInfo, Dimensions } from '../types';
-import type { DataManager } from './data-manager';
 
 /**
- * Responsible for drawing the dies inside the wafer map
+ * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class RenderingModule {
     private readonly context: CanvasRenderingContext2D;
@@ -11,24 +11,23 @@ export class RenderingModule {
     private readonly dimensions: Dimensions;
     private readonly labelFontSize: number;
 
-    public constructor(waferData: DataManager, canvas: HTMLCanvasElement) {
-        this.context = canvas.getContext('2d')!;
-        this.dies = waferData.diesRenderInfo;
-        this.dimensions = waferData.dieDimensions;
-        this.labelFontSize = waferData.labelsFontSize;
+    public constructor(private readonly wafermap: WaferMap) {
+        this.context = wafermap.canvas.getContext('2d')!;
+        this.dies = wafermap.dataManager!.diesRenderInfo;
+        this.dimensions = wafermap.dataManager!.dieDimensions;
+        this.labelFontSize = wafermap.dataManager!.labelsFontSize;
     }
 
-    public drawWafer(transform?: number): void {
-        this.renderDies(transform);
-        this.renderText(transform);
+    public drawWafer(): void {
+        this.context.save();
+        this.clearCanvas();
+        this.scaleCanvas();
+        this.renderDies();
+        this.renderText();
+        this.context.restore();
     }
 
-    public clearCanvas(width: number, height: number): void {
-        this.context.clearRect(0, 0, width, height);
-    }
-
-    private renderDies(transform?: number): void {
-        this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
+    private renderDies(): void {
         this.dies.sort((a, b) => {
             if (a.fillStyle > b.fillStyle) {
                 return 1;
@@ -59,8 +58,10 @@ export class RenderingModule {
         }
     }
 
-    private renderText(transform?: number): void {
-        this.dieSize = this.dimensions.width * this.dimensions.height * (transform || 1);
+    private renderText(): void {
+        this.dieSize = this.dimensions.width
+            * this.dimensions.height
+            * (this.wafermap.transform.k || 1);
         const fontsize = this.labelFontSize;
         this.context.font = `${fontsize.toString()}px sans-serif`;
         this.context.fillStyle = '#ffffff';
@@ -80,5 +81,25 @@ export class RenderingModule {
                 );
             }
         }
+    }
+
+    private clearCanvas(): void {
+        this.context.clearRect(
+            0,
+            0,
+            this.wafermap.canvasSideLength * this.wafermap.transform.k,
+            this.wafermap.canvasSideLength * this.wafermap.transform.k
+        );
+    }
+
+    private scaleCanvas(): void {
+        this.context.translate(
+            this.wafermap.transform.x,
+            this.wafermap.transform.y
+        );
+        this.context.scale(
+            this.wafermap.transform.k,
+            this.wafermap.transform.k
+        );
     }
 }

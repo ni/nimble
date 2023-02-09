@@ -4,7 +4,11 @@ import type { WaferMap } from '.';
 export const template = html<WaferMap>`
     <div class="wafer-map-container">
         <svg class="svg-root">
-            <g class="zoom-container" ${ref('zoomContainer')}>
+            <g
+                class="zoom-container"
+                ${ref('zoomContainer')}
+                transform=${x => x.transform.toString()}
+            >
                 <g class="notch ${x => x.orientation}">
                     <svg
                         class="circle-base"
