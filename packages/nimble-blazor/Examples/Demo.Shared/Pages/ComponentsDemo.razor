@@ -1,6 +1,5 @@
 @page "/"
 @namespace Demo.Shared.Pages
-@using NimbleBlazor
 @inherits LayoutComponentBase
 
 <div class="content container">
@@ -199,7 +198,7 @@
         <div class="sub-container">
             <div class="container-label">Table</div>
             <NimbleTable @bind-Data="TableData" class="table">
-                <NimbleTableColumnText FieldName="FirstName" Placeholder="no value"><Nimble-Icon-User title="First Name"></Nimble-Icon-User></NimbleTableColumnText>
+                <NimbleTableColumnText FieldName="FirstName" Placeholder="no value"><NimbleIconKey title="First Name"></NimbleIconKey></NimbleTableColumnText>
                 <NimbleTableColumnText FieldName="LastName" Placeholder="no value">Last Name</NimbleTableColumnText>
             </NimbleTable>
         </div>
