@@ -77,5 +77,5 @@ These steps require access to Adobe Illustrator and Perforce so will typically b
 4. Generate and build icon components by running `npm run build -w @ni/nimble-components`. This step will report an error at this point but is necessary to enable the next step.
 4. Add metadata for the new icons to `nimble-components\src\icon-base\icon-metadata.ts`.
 5. Run `npm run build -w @ni/nimble-components` again. It should now succeed.
-6. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly.
+6. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly. Inspect the icons in each **Severity** and ensure their color changes.
 7. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.
