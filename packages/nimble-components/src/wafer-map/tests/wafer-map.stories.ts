@@ -121,7 +121,8 @@ const metadata: Meta<WaferMapArgs> = {
             }
             #wafer-map {
                 width: 100%;
-                height: 500px;
+                height: 100%;
+                aspect-ratio: 16 / 9;
             }
         </style>
     `),
