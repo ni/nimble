@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import type { Banner } from '@ni/nimble-components/dist/esm/banner';
 import type { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
@@ -19,6 +19,8 @@ export class NimbleBannerDirective {
     @Input() public set open(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'open', toBooleanProperty(value));
     }
+
+    @Output() public openChange = new EventEmitter<boolean>();
 
     public get severity(): BannerSeverity {
         return this.elementRef.nativeElement.severity;
@@ -59,4 +61,11 @@ export class NimbleBannerDirective {
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Banner>) {}
+
+    @HostListener('toggle', ['$event'])
+    public onToggle($event: Event): void {
+        if ($event.target === this.elementRef.nativeElement) {
+            this.openChange.emit(this.open);
+        }
+    }
 }
