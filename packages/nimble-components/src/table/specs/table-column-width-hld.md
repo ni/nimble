@@ -38,17 +38,29 @@ There are some column sizing behaviors that we will ultimately expect to support
 To accomodate the various sizing modes of a column, in addition to the other necessary behaviors, we can add the following properties to `TableColumn`:
 
 ```
-class TableColumn {
+abstract class TableColumn {
+    /*
+     * @internal
+     */
     // when set 'currentFractionalWidth' should be ignored
     @observable
     public currentPixelWidth: number | null = null;
 
+    /*
+     * @internal
+     */
     @observable
     public currentFractionalWidth = 1;
 
+    /*
+     * @internal
+     */
     @observable
     public currentMinWidth = 88; // the minimum size in pixels according to the design doc
 
+    /*
+     * @internal
+     */
     @observable
     public currentDisableResize = false;
 
@@ -69,47 +81,49 @@ Open Question: Is there a minimum width considered too small? If a user is allow
 
 #### **Mixin Example**
 
-We can help facilitate proper implementation for concrete column types by providing mixins that define expected attribute APIs:
+We can help facilitate proper implementation for concrete column types by providing mixins that define expected attribute APIs.
 
+The following pattern is modeled after Typescript's documented [Constrained mixin pattern](https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins), combining patterns in place in FAST's [`FormAssociated` mixin](https://github.com/microsoft/fast/blob/f8dde59eee21a1152263447d22a76593ee5ed9e5/packages/web-components/fast-foundation/src/form-associated/form-associated.ts#L206).
 ```
-export abstract class FractionalWidthColumn extends TableColumn {
-    @attr({ attribute: 'fractional-width', converter: nullableNumberConverter })
-    public fractionalWidth = 1;
+export function fractionalWidthColumn<TBase extends abstract new (...args: any[]) => TableColumn>(base: TBase): TBase {
+    abstract class FractionalWidthColumn extends base {
+        public fractionalWidth = 1;
 
-    @attr({ attribute: 'disable-resize' })
-    public disableResize = false;
+        public disableResize = false;
 
-    @attr({ attribute: 'min-width' })
-    public minWidth?: number;
+        public minWidth?: number;
 
-    public fractionalWidthChanged(): void {
-        this.currentFractionalWidth = this.fractionalWidth;
+        public fractionalWidthChanged(): void {
+            this.currentFractionalWidth = this.fractionalWidth;
+        }
+
+        public disableResizeChanged(): void {
+            this.currentDisableResize = this.disableResize;
+        }
+
+        public minWidthChanged(): void {
+            if (this.minWidth !== undefined) {
+                this.currentMinWidth = this.minWidth;
+            }
+        }
     }
 
-    public disableResizeChanged(): void {
-        this.currentDisableResize = this.disableResize;
-    }
-
-    public minWidthChanged(): void {
-        this.currentMinWidth = this.minWidth;
-    }
+    (attr({ attribute: 'fractional-width', converter: nullableNumberConverter }))(FractionalWidthColumn.prototype, "fractionalWidth");
+    (attr({ attribute: 'disable-resize', mode: 'boolean' }))(FractionalWidthColumn.prototype, 'disableResize');
+    (attr({ attribute: 'min-width' }))(FractionalWidthColumn.prototype, 'minWidth');
+    return FractionalWidthColumn;
 }
-
 ```
-_Note: We do not need to provide a `maxWidth` as it seems like an unnecessarily limiting API._
-
-These mixin classes must extend `TableColumn` as that class is what defines the APIs that the internal components will rely on to create the appropriate layout state (and thus are updated by the mixin implementation as shown above). Additionally, they must be marked as `abstract` in order to avoid the requirement of implementing the abstract APIs of `TableColumn`.
-
-We can then apply that mixin to a concrete TableColumn class (e.g. `TableColumnText`) like so:
+Consuming this mixin pattern would look like the following:
 ```
-export class TableColumnText extends TableColumn<...> {
+export class TableColumnTextBase extends TableColumn<
+TableColumnTextCellRecord,
+TableColumnTextColumnConfig> {
     ...
 }
 
-applyMixins(TableColumnText, FractionalWidthColumn);
+export class TableColumnText extends fractionalWidthColumn(TableColumnTextBase) {}
 ```
-
-The `applyMixins` method is a helper function provided by FAST, that we leverage in other places in Nimble already.
 
 The mixin pattern is appropriate for columns since there will be columns that have no fundamental need for various sizing APIs, and thus not add the mixin. Additionally, the mixin is preferred over interfaces, in that the implementation of the public APIs _must_ update the `TableColumn` properties, which an interface can't enforce.
 
@@ -149,6 +163,10 @@ Because we will allow a horizontal scrollbar once the right-most column reaches 
 #### **Interactive visual states**
 
 Consult the [design document](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/) for details on the column divider appearance states, as well as the cursor appearance while hovering over a divider. Note that we shouldn't alter the appearance of the mouse cursor if hovering over a divider between two non-resizable columns.
+
+#### **Mobile considerations**
+
+We should consider how table re-sizing will work when on a mobile platform (touch-based sizing). Tables/DataGrids like the one Tabulator offers don't offer a separate experience, but still manage to have a fairly friendly experience with sizing the column through a touch-based drag.
 
 #### **Future interactive sizing behaviors**
 
