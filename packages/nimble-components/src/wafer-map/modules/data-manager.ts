@@ -1,15 +1,8 @@
 import type { ScaleLinear } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
-import type {
-    Dimensions,
-    Margin,
-    WaferMapQuadrant,
-    DieRenderInfo,
-    WaferMapColorScale,
-    WaferMapDie,
-    WaferMapColorScaleMode
-} from '../types';
+import type { WaferMap } from '..';
+import type { Dimensions, Margin, DieRenderInfo } from '../types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results
@@ -57,33 +50,22 @@ export class DataManager {
     private readonly computations: Computations;
     private readonly prerendering: Prerendering;
 
-    public constructor(
-        dies: Readonly<Readonly<WaferMapDie>[]>,
-        axisLocation: Readonly<WaferMapQuadrant>,
-        canvasDimensions: Readonly<Dimensions>,
-        colorScale: Readonly<WaferMapColorScale>,
-        highlightedValues: Readonly<string[]>,
-        colorScaleMode: Readonly<WaferMapColorScaleMode>,
-        dieLabelsHidden: Readonly<boolean>,
-        dieLabelsSuffix: Readonly<string>,
-        maxCharacters: Readonly<number>
-    ) {
-        this.computations = new Computations(
-            dies,
-            axisLocation,
-            canvasDimensions
-        );
+    public constructor(wafermap: WaferMap) {
+        this.computations = new Computations(wafermap.dies, wafermap.quadrant, {
+            width: wafermap.canvasSideLength,
+            height: wafermap.canvasSideLength
+        });
 
         this.prerendering = new Prerendering(
-            dies,
-            colorScale,
-            highlightedValues,
+            wafermap.dies,
+            wafermap.colorScale,
+            wafermap.highlightedValues,
             this.computations.horizontalScale,
             this.computations.verticalScale,
-            colorScaleMode,
-            dieLabelsHidden,
-            dieLabelsSuffix,
-            maxCharacters,
+            wafermap.colorScaleMode,
+            wafermap.dieLabelsHidden,
+            wafermap.dieLabelsSuffix,
+            wafermap.maxCharacters,
             this.computations.dieDimensions,
             this.computations.margin
         );
