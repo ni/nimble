@@ -29,7 +29,10 @@ interface BannerArgs {
 
 const overviewText = `The banner is a component used to display a persistent notification to a user.
 
-Banner messages should be limited to approximately three lines of text under normal display size at the intended location. Multiple banners may be stacked vertically in order of age, with the newest at the top. Stacked banners should be spaced 1px apart.
+Banners span the full width of their parent element, and that parent should span the full width of the page/panel.
+Banner messages should be limited to approximately three lines of text under normal display size at the intended
+location. Multiple banners may be stacked vertically in order of age, with the newest at the top. Stacked banners
+should be spaced \`--ni-nimble-banner-gap-size\` apart.
 `;
 
 const metadata: Meta<BannerArgs> = {
@@ -88,7 +91,7 @@ export const _banner: StoryObj<BannerArgs> = {
                 'Secondary text that provides a detailed message. This text should be short enough to fit within three lines when displayed.<br><br>Provide this text as content of the banner element (uses the default slot).'
         },
         severity: {
-            options: Object.values(BannerSeverity),
+            options: Object.keys(BannerSeverity),
             control: { type: 'radio' },
             description:
                 'Severity of the message presented by the banner. Controls the displayed color and icon. If not set, the banner has a neutral appearance.'

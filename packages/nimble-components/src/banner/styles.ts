@@ -191,18 +191,6 @@ export const styles = css`
                         background: ${BannerFail100DarkUi};
                     }
                 `
-            ),
-            themeBehavior(
-                Theme.color,
-                css`
-                    :host {
-                        background: ${applicationBackgroundColor};
-                    }
-
-                    .container {
-                        background: ${hexToRgbaCssColor(White, 0.3)};
-                    }
-                `
             )
         )
     ),
@@ -225,18 +213,6 @@ export const styles = css`
                         background: ${Warning100DarkUi};
                     }
                 `
-            ),
-            themeBehavior(
-                Theme.color,
-                css`
-                    :host {
-                        background: ${applicationBackgroundColor};
-                    }
-
-                    .container {
-                        background: ${hexToRgbaCssColor(White, 0.3)};
-                    }
-                `
             )
         )
     ),
@@ -257,18 +233,6 @@ export const styles = css`
                 css`
                     :host {
                         background: ${Information100DarkUi};
-                    }
-                `
-            ),
-            themeBehavior(
-                Theme.color,
-                css`
-                    :host {
-                        background: ${applicationBackgroundColor};
-                    }
-
-                    .container {
-                        background: ${hexToRgbaCssColor(White, 0.3)};
                     }
                 `
             )
