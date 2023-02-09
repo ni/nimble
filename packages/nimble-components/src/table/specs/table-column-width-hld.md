@@ -20,7 +20,7 @@ The behavior that has been prescribed for column sizing is as follows:
 
 - Columns should be able to be configured to either maintain a fixed width, or grow proportionally with the table such as when the window resizes causing the table width to increase. Tables can consist of columns that are configured as a mixture of the two modes.
 - If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are:
-    - If a shrinking column has reached its minimum pixel size, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
+    - If a shrinking column has reached its minimum pixel size or is not resizable, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
     - A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size.
     - A sizing action to the right that would ultimately result in the final right column reaching its minimum size (all columns still within current table width) would then begin to push columns out of the table width resulting in a horizontal scrollbar.
 - Columns can be configured to not allow a user to interactively size them
@@ -77,7 +77,7 @@ Note that these properties are not attributes, and thus are not set by clients o
 
 #### `currentMinWidth` behavior
 
-Open Question: Is there a minimum width considered too small? If a user is allowed to provide a mimimum width smaller than the default, how should the various components within the header behave? If a user attempts to set a minimum width to an unsupported value, what is the appropriate response (i.e. should we simply update the `TableValidity` state?)?
+Open Question: Is there a minimum width considered too small? If a plugin is allowed to provide a mimimum width smaller than the default, how should the various components within the header behave? If a plugin attempts to set a minimum width to an unsupported value, what is the appropriate response (i.e. should we simply update the `TableValidity` state?)?
 
 #### **Mixin Example**
 
@@ -129,7 +129,7 @@ The mixin pattern is appropriate for columns since there will be columns that ha
 
 #### **FixedWidth Column Example**
 
-At the moment there is no recognized use case for a fixed-width column that would allow a user to resize it. As such, there are no plans to provide a specific fixed-width mixin for columns. Instead, a concrete column desiring a fixed-width behavior could simply do something like the following in its constructor:
+At the moment there is no recognized use case for a pixel-width column that would allow a user to resize it. As such, there are no plans to provide a specific pixel-width mixin for columns. Instead, a concrete column desiring a pixel-width behavior could simply do something like the following in its constructor:
 
 ```
 export class MyFixedWidthColumn : TableColumn<...> {
