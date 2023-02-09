@@ -13,6 +13,7 @@ import {
 
 import {
     actionRgbPartialColor,
+    applicationBackgroundColor,
     bodyFont,
     borderHoverColor,
     buttonLabelFontColor,
@@ -23,7 +24,8 @@ import {
     linkActiveFontColor,
     linkDisabledFontColor,
     linkFontColor,
-    slimControlHeight
+    slimControlHeight,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -46,6 +48,11 @@ export const styles = css`
 
     :host(:not([open])) {
         display: none;
+    }
+
+    .container {
+        display: flex;
+        width: 100%;
     }
 
     .icon {
@@ -89,6 +96,7 @@ export const styles = css`
         font-size: 12.8px;
         white-space: nowrap;
         margin-top: 7px;
+        margin-left: ${standardPadding};
     }
 
     ::slotted(nimble-button[slot='action']) {
@@ -102,6 +110,7 @@ export const styles = css`
         font-size: 12.8px;
         white-space: nowrap;
         margin-top: calc((${controlHeight} - ${slimControlHeight}) / 2);
+        margin-left: ${standardPadding};
     }
 
     ::slotted(nimble-button[slot='action'][appearance='outline']) {
@@ -155,6 +164,10 @@ export const styles = css`
         Theme.color,
         css`
             :host {
+                background: ${applicationBackgroundColor};
+            }
+
+            .container {
                 background: ${hexToRgbaCssColor(White, 0.3)};
             }
         `
@@ -183,6 +196,10 @@ export const styles = css`
                 Theme.color,
                 css`
                     :host {
+                        background: ${applicationBackgroundColor};
+                    }
+
+                    .container {
                         background: ${hexToRgbaCssColor(White, 0.3)};
                     }
                 `
@@ -213,6 +230,10 @@ export const styles = css`
                 Theme.color,
                 css`
                     :host {
+                        background: ${applicationBackgroundColor};
+                    }
+
+                    .container {
                         background: ${hexToRgbaCssColor(White, 0.3)};
                     }
                 `
@@ -243,6 +264,10 @@ export const styles = css`
                 Theme.color,
                 css`
                     :host {
+                        background: ${applicationBackgroundColor};
+                    }
+
+                    .container {
                         background: ${hexToRgbaCssColor(White, 0.3)};
                     }
                 `
