@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 09 Feb 2023 17:09:32 GMT",
+      "tag": "@ni/nimble-components_v18.1.4",
+      "version": "18.1.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "26cdfeae9c0c418b48f8ed10acb82c8594960f2a",
+            "comment": "Fix issue re-rendering table cells when the table becomes valid again"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Feb 2023 14:24:11 GMT",
       "tag": "@ni/nimble-components_v18.1.3",
       "version": "18.1.3",
