@@ -33,7 +33,10 @@ export class Prerendering {
         dieDimensions: Readonly<Dimensions>,
         margin: Readonly<Margin>
     ) {
-        this.d3ColorScale = this.createD3ColorScale(wafermap.colorScale, wafermap.colorScaleMode);
+        this.d3ColorScale = this.createD3ColorScale(
+            wafermap.colorScale,
+            wafermap.colorScaleMode
+        );
 
         this.labelsFontSize = this.calculateLabelsFontSize(
             dieDimensions,

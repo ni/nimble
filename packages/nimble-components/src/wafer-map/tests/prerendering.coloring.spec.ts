@@ -54,7 +54,10 @@ describe('Wafermap Prerendering module', () => {
                 prerenderingModule = new Prerendering(
                     {
                         dies: getWaferMapDies(),
-                        colorScale: { colors: ['red', 'red'], values: ['1', '1'] },
+                        colorScale: {
+                            colors: ['red', 'red'],
+                            values: ['1', '1']
+                        },
                         highlightedValues,
                         colorScaleMode,
                         dieLabelsHidden,
@@ -86,7 +89,10 @@ describe('Wafermap Prerendering module', () => {
                 prerenderingModule = new Prerendering(
                     {
                         dies: getWaferMapDies(),
-                        colorScale: { colors: ['black', 'red'], values: ['1', '18'] },
+                        colorScale: {
+                            colors: ['black', 'red'],
+                            values: ['1', '18']
+                        },
                         highlightedValues,
                         colorScaleMode,
                         dieLabelsHidden,
@@ -162,7 +168,10 @@ describe('Wafermap Prerendering module', () => {
                 prerenderingModule = new Prerendering(
                     {
                         dies: getWaferMapDies(),
-                        colorScale: { colors: ['black', 'red'], values: [] as string[] },
+                        colorScale: {
+                            colors: ['black', 'red'],
+                            values: [] as string[]
+                        },
                         highlightedValues,
                         colorScaleMode,
                         dieLabelsHidden,
@@ -212,7 +221,10 @@ describe('Wafermap Prerendering module', () => {
                             value: 'NaN'
                         }
                     ],
-                    colorScale: { colors: [] as string[], values: [] as string[] },
+                    colorScale: {
+                        colors: [] as string[],
+                        values: [] as string[]
+                    },
                     highlightedValues,
                     colorScaleMode: WaferMapColorScaleMode.linear,
                     dieLabelsHidden,
@@ -250,7 +262,10 @@ describe('Wafermap Prerendering module', () => {
                             value: undefined as unknown as string
                         }
                     ],
-                    colorScale: { colors: [] as string[], values: [] as string[] },
+                    colorScale: {
+                        colors: [] as string[],
+                        values: [] as string[]
+                    },
                     highlightedValues,
                     colorScaleMode: WaferMapColorScaleMode.linear,
                     dieLabelsHidden,
