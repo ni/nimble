@@ -10,6 +10,14 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Breadcrumb</div>
+            <nimble-banner [open]="bannerOpen" severity="info">
+                <span slot="title">Title of the banner</span>
+                This is the message text of this banner. It tells you something interesting.
+            </nimble-banner>
+            <nimble-button (click)="openBanner()">Open Drawer</nimble-button>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Breadcrumb</div>
             <nimble-breadcrumb>
                 <nimble-breadcrumb-item href="#">Page 1</nimble-breadcrumb-item>
                 <nimble-breadcrumb-item nimbleRouterLink="/customapp">Page 2</nimble-breadcrumb-item>
