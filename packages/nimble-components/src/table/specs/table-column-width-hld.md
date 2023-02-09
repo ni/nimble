@@ -56,13 +56,13 @@ abstract class TableColumn {
      * @internal
      */
     @observable
-    public columnMinWidth = 88; // the minimum size in pixels according to the design doc
+    public columnMinPixelWidth = 88; // the minimum size in pixels according to the design doc
 
     /*
      * @internal
      */
     @observable
-    public currentDisableResize = false;
+    public columnDisableResize = false;
 
     ...
 }
@@ -75,10 +75,6 @@ Note that these properties are not attributes, and thus are not set by clients o
 -   The values supplied to the `currentFractionalWidth` property have the same meaning as the values supplied with the [`fr` unit](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout#the_fr_unit) for the CSS `grid-template-columns` property.
 -   The values supplied to the `currentPixelWidth` property are meant to be pixel-based values.
 -   The table will use `currentPixelWidth` over `currentFractionalWidth` when both are set.
-
-#### `columnMinWidth` behavior
-
-Open Question: Is there a minimum width considered too small? If a plugin is allowed to provide a mimimum width smaller than the default, how should the various components within the header behave? If a plugin attempts to set a minimum width to an unsupported value, what is the appropriate response (i.e. should we simply update the `TableValidity` state?)?
 
 #### **Mixin Example**
 
@@ -100,7 +96,7 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
         }
 
         public disableResizeChanged(): void {
-            this.currentDisableResize = this.disableResize;
+            this.columnDisableResize = this.disableResize;
         }
 
         public minWidthChanged(): void {
