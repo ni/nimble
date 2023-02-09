@@ -17,7 +17,7 @@ export class TablePageObject<T extends TableRecord> {
         return headers.length;
     }
 
-    public getHeaderContent(columnIndex: number): Node | undefined | null {
+    public getHeaderContent(columnIndex: number): Node | undefined {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             'nimble-table-header'
         )!;
