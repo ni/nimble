@@ -1,4 +1,5 @@
 import { scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
+import type { WaferMap } from '..';
 import type { WaferMapDie } from '../types';
 import { Dimensions, Margin, WaferMapQuadrant } from '../types';
 
@@ -33,12 +34,12 @@ export class Computations {
     private readonly defaultAlign = 0.5;
     private readonly baseMarginPercentage = 0.04;
 
-    public constructor(
-        dies: Readonly<Readonly<WaferMapDie>[]>,
-        axisLocation: Readonly<WaferMapQuadrant>,
-        canvasDimensions: Readonly<Dimensions>
-    ) {
-        const gridDimensions = this.calculateGridDimensions(dies);
+    public constructor(wafermap: WaferMap) {
+        const canvasDimensions = {
+            width: wafermap.canvas.width,
+            height: wafermap.canvas.height
+        };
+        const gridDimensions = this.calculateGridDimensions(wafermap.dies);
         const canvasDiameter = Math.min(
             canvasDimensions.width,
             canvasDimensions.height
@@ -66,13 +67,13 @@ export class Computations {
         );
         // this scale is used for positioning the dies on the canvas
         this.horizontalScale = this.createHorizontalScale(
-            axisLocation,
+            wafermap.quadrant,
             gridDimensions,
             containerDiameter
         );
         // this scale is used for positioning the dies on the canvas
         this.verticalScale = this.createVerticalScale(
-            axisLocation,
+            wafermap.quadrant,
             gridDimensions,
             containerDiameter
         );

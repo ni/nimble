@@ -1,3 +1,4 @@
+import type { WaferMap } from '..';
 import { Computations } from '../modules/computations';
 import { Margin, WaferMapQuadrant } from '../types';
 import { getWaferMapDies } from './utilities';
@@ -13,11 +14,11 @@ describe('Wafermap Computations module', () => {
             left: 4
         };
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.topLeft,
-                { width: 100, height: 100 }
-            );
+            computationsModule = new Computations({
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.topLeft,
+                canvas: { width: 100, height: 100 }
+            } as WaferMap);
         });
 
         it('should have expected square container', () => {
@@ -49,11 +50,11 @@ describe('Wafermap Computations module', () => {
 
     describe('with rectangular canvas', () => {
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.topLeft,
-                { width: 200, height: 100 }
-            );
+            computationsModule = new Computations({
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.topLeft,
+                canvas: { width: 200, height: 100 }
+            } as WaferMap);
         });
 
         it('should have adjusted square container', () => {
@@ -90,11 +91,11 @@ describe('Wafermap Computations module', () => {
 
     describe('with top left origin quadrant', () => {
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.topLeft,
-                { width: 100, height: 100 }
-            );
+            computationsModule = new Computations({
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.topLeft,
+                canvas: { width: 100, height: 100 }
+            } as WaferMap);
         });
 
         it(
@@ -128,11 +129,11 @@ describe('Wafermap Computations module', () => {
 
     describe('with top right origin quadrant', () => {
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.topRight,
-                { width: 100, height: 100 }
-            );
+            computationsModule = new Computations({
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.topRight,
+                canvas: { width: 100, height: 100 }
+            } as WaferMap);
         });
 
         it(
@@ -166,11 +167,11 @@ describe('Wafermap Computations module', () => {
 
     describe('with bottom left origin quadrant', () => {
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.bottomLeft,
-                { width: 100, height: 100 }
-            );
+            computationsModule = new Computations({
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.bottomLeft,
+                canvas: { width: 100, height: 100 }
+            } as WaferMap);
         });
 
         it(
@@ -204,11 +205,11 @@ describe('Wafermap Computations module', () => {
 
     describe('with bottom right origin quadrant', () => {
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.bottomRight,
-                { width: 100, height: 100 }
-            );
+            computationsModule = new Computations({
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.bottomRight,
+                canvas: { width: 100, height: 100 }
+            } as WaferMap);
         });
 
         it(
