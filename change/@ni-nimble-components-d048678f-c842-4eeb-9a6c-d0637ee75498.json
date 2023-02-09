@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Fix intermittent test failure",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
