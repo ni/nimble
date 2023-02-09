@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Changed canvas size and zoom behavior for the Wafer Map Component",
+  "packageName": "@ni/nimble-components",
+  "email": "33986780+munteannatan@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
