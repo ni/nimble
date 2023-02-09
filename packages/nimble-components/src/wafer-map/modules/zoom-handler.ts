@@ -8,14 +8,14 @@ import {
 } from 'd3-zoom';
 import type { WaferMap } from '..';
 
-export interface ZoomEvent {
+interface ZoomEvent {
     transform: ZoomTransform;
 }
 
 /**
  * ZoomHandler deals with user interactions and events like zooming
  */
-export class ZoomHandler extends EventTarget {
+export class ZoomHandler {
     private zoomTransform: ZoomTransform = zoomIdentity;
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
@@ -23,7 +23,6 @@ export class ZoomHandler extends EventTarget {
     private readonly zoomBehavior: ZoomBehavior<Element, unknown>;
 
     public constructor(private readonly wafermap: WaferMap) {
-        super();
         this.zoomBehavior = this.createZoomBehavior();
         this.zoomBehavior(select(this.wafermap.canvas as Element));
     }
@@ -66,6 +65,8 @@ export class ZoomHandler extends EventTarget {
                 return filterEval;
             })
             .on('zoom', (event: ZoomEvent) => {
+                // D3 will automatically remove existing handlers when adding new ones
+                // See: https://github.com/d3/d3-zoom/blob/v3.0.0/README.md#zoom_on
                 this.rescale(event);
             });
 

@@ -2,16 +2,15 @@ import type { WaferMap } from '..';
 import type { DieRenderInfo, Dimensions } from '../types';
 
 /**
- * Responsible for drawing the dies inside the wafer map and scaling the canvas
+ * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
-export class RenderingModule extends EventTarget {
+export class RenderingModule {
     private readonly context: CanvasRenderingContext2D;
     private readonly dies: DieRenderInfo[];
     private readonly dimensions: Dimensions;
     private readonly labelFontSize: number;
 
     public constructor(private readonly wafermap: WaferMap) {
-        super();
         this.context = wafermap.canvas.getContext('2d')!;
         this.dies = wafermap.dataManager!.diesRenderInfo;
         this.dimensions = wafermap.dataManager!.dieDimensions;
@@ -25,7 +24,6 @@ export class RenderingModule extends EventTarget {
         this.renderDies();
         this.renderText();
         this.context.restore();
-        this.dispatchEvent(new CustomEvent('render-complete'));
     }
 
     private renderDies(): void {
@@ -68,7 +66,7 @@ export class RenderingModule extends EventTarget {
         this.context.fillStyle = '#ffffff';
         this.context.textAlign = 'center';
         this.context.lineCap = 'butt';
-        const aproxTextHeight = this.context.measureText('M');
+        const approxTextHeight = this.context.measureText('M');
 
         if (dieSize >= 50) {
             for (const die of this.dies) {
@@ -77,7 +75,7 @@ export class RenderingModule extends EventTarget {
                     die.x + this.dimensions.width / 2,
                     die.y
                         + this.dimensions.height / 2
-                        + aproxTextHeight.width / 2,
+                        + approxTextHeight.width / 2,
                     this.dimensions.width - (this.dimensions.width / 100) * 20
                 );
             }
