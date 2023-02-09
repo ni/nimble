@@ -16,6 +16,8 @@ export * from './directives/anchor-tab/nimble-anchor-tab.directive';
 export * from './directives/anchor-tab/nimble-anchor-tab.module';
 export * from './directives/anchor-tabs/nimble-anchor-tabs.directive';
 export * from './directives/anchor-tabs/nimble-anchor-tabs.module';
+export * from './directives/banner/nimble-banner.directive';
+export * from './directives/banner/nimble-banner.module';
 export * from './directives/breadcrumb/nimble-breadcrumb.directive';
 export * from './directives/breadcrumb/nimble-breadcrumb.module';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item-router-link-with-href.directive';
