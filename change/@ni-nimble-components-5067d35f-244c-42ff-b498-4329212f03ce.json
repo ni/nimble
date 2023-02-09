@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add zoom functionality to wafer map",
-  "packageName": "@ni/nimble-components",
-  "email": "35329597+DStavilaNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
