@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 09 Feb 2023 14:24:11 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Feb 2023 17:09:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.1.4
+
+Thu, 09 Feb 2023 17:09:32 GMT
+
+### Patches
+
+- Fix issue re-rendering table cells when the table becomes valid again ([ni/nimble@26cdfea](https://github.com/ni/nimble/commit/26cdfeae9c0c418b48f8ed10acb82c8594960f2a))
 
 ## 18.1.3
 
