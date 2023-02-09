@@ -67,10 +67,6 @@ export class CustomAppComponent {
         }
     }
 
-    public openBanner(): void {
-        this.bannerOpen = true;
-    }
-
     public async openDialog(): Promise<void> {
         const closeReason = await this.dialog.show();
         this.dialogCloseReason = (closeReason === UserDismissed) ? 'escape pressed' : closeReason;
