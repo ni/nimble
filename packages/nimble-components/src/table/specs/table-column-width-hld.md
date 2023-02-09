@@ -56,7 +56,7 @@ abstract class TableColumn {
      * @internal
      */
     @observable
-    public currentMinWidth = 88; // the minimum size in pixels according to the design doc
+    public columnMinWidth = 88; // the minimum size in pixels according to the design doc
 
     /*
      * @internal
@@ -76,7 +76,7 @@ Note that these properties are not attributes, and thus are not set by clients o
 -   The values supplied to the `currentPixelWidth` property are meant to be pixel-based values.
 -   The table will use `currentPixelWidth` over `currentFractionalWidth` when both are set.
 
-#### `currentMinWidth` behavior
+#### `columnMinWidth` behavior
 
 Open Question: Is there a minimum width considered too small? If a plugin is allowed to provide a mimimum width smaller than the default, how should the various components within the header behave? If a plugin attempts to set a minimum width to an unsupported value, what is the appropriate response (i.e. should we simply update the `TableValidity` state?)?
 
@@ -105,7 +105,7 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
 
         public minWidthChanged(): void {
             if (this.minWidth !== undefined) {
-                this.currentMinWidth = this.minWidth;
+                this.columnMinWidth = this.minWidth;
             }
         }
     }
