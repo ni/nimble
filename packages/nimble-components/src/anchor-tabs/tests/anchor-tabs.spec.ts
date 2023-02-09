@@ -17,10 +17,10 @@ import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorTabs>> {
     return fixture<AnchorTabs>(
-        html`<nimble-anchor-tabs activeid="tab-2">
+        html`<nimble-anchor-tabs activeid="tab-two">
             <nimble-anchor-tab></nimble-anchor-tab>
-            <nimble-anchor-tab id="tab-2"></nimble-anchor-tab>
-            <nimble-anchor-tab id="tab-3"></nimble-anchor-tab>
+            <nimble-anchor-tab id="tab-two"></nimble-anchor-tab>
+            <nimble-anchor-tab id="tab-three"></nimble-anchor-tab>
         </nimble-anchor-tabs>`
     );
 }
@@ -77,7 +77,7 @@ describe('AnchorTabs', () => {
     });
 
     it('should set activeid property from attribute value', () => {
-        expect(element.activeid).toBe('tab-2');
+        expect(element.activeid).toBe('tab-two');
     });
 
     it('should populate tabs array with anchor tabs', () => {
@@ -103,7 +103,7 @@ describe('AnchorTabs', () => {
     });
 
     it('should update activetab when activeid is changed', () => {
-        element.activeid = 'tab-3';
+        element.activeid = 'tab-three';
         expect(element.activetab).toBe(tab(2));
     });
 
