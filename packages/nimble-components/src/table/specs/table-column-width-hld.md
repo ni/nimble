@@ -42,7 +42,7 @@ abstract class TableColumn {
     /*
      * @internal
      */
-    // when set 'currentFractionalWidth' should be ignored
+    // when set 'currentFractionalWidth' will be ignored
     @observable
     public currentPixelWidth: number | null = null;
 
