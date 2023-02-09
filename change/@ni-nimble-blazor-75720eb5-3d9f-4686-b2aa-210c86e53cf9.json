@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Arbitrary header content",
+  "comment": "Support dynamic arbitrary header content",
   "packageName": "@ni/nimble-blazor",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "patch"
