@@ -367,6 +367,12 @@ export const iconMetadata: {
     IconSkipArrow: {
         tags: ['status', 'skipped']
     },
+    IconSortAscending: {
+        tags: ['sort', 'arrow', 'up']
+    },
+    IconSortDescending: {
+        tags: ['sort', 'arrow', 'down']
+    },
     IconSpinner: {
         tags: ['in-progress']
     },
