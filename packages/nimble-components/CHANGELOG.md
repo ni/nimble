@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 06 Feb 2023 16:22:19 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Feb 2023 14:24:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.1.3
+
+Thu, 09 Feb 2023 14:24:11 GMT
+
+### Patches
+
+- Add zoom functionality to wafer map ([ni/nimble@61ae65c](https://github.com/ni/nimble/commit/61ae65cf7c5ce57cd17a1deb03bed1186a04a871))
+
+## 18.1.2
+
+Tue, 07 Feb 2023 20:17:44 GMT
+
+### Patches
+
+- Fix nimble-table virtualizer bug (when table height changes) ([ni/nimble@48e5e07](https://github.com/ni/nimble/commit/48e5e07874f03ce339e2c05b8345500fd5d5e654))
 
 ## 18.1.1
 
