@@ -32,13 +32,13 @@ interface WaferMapArgs {
 
 const getDiesSet = (
     setName: string,
-    _sets: WaferMapDie[][]
+    sets: WaferMapDie[][]
 ): WaferMapDie[] | undefined => {
     const seed = 0.5;
     let returnedValue: WaferMapDie[];
     switch (setName) {
-        case 'randomDies10':
-            returnedValue = generateWaferData(10);
+        case 'fixedDies10':
+            returnedValue = sets[0]!;
             break;
         case 'randomDies100':
             returnedValue = generateWaferData(100);
@@ -128,7 +128,7 @@ const metadata: Meta<WaferMapArgs> = {
     args: {
         colorScale: waferMapColorScaleSets[0],
         colorScaleMode: WaferMapColorScaleMode.linear,
-        dies: 'randomDies100',
+        dies: 'fixedDies10',
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
         highlightedValues: 'set1',
@@ -177,7 +177,7 @@ const metadata: Meta<WaferMapArgs> = {
                 </details>
                 `,
             options: [
-                'randomDies10',
+                'fixedDies10',
                 'randomDies100',
                 'goodDies1000',
                 'badDies10000'
@@ -185,7 +185,7 @@ const metadata: Meta<WaferMapArgs> = {
             control: {
                 type: 'radio',
                 labels: {
-                    randomDies10: 'Small dies set of random values',
+                    fixedDies10: 'Small dies set of fixed values',
                     randomDies100: 'Medium dies set of random values',
                     goodDies1000: 'Large dies set of mostly good values',
                     badDies10000: 'Very Large dies set of mostly bad values'
