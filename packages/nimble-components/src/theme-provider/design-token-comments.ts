@@ -32,7 +32,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     popupBorderColor: 'Border color for menus and dialog boxes',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
-    controSlimlHeight:
+    controlSlimHeight:
         'Height of controls that are somewhat shorter than standard height.',
     smallPadding: 'Small layout padding for components',
     standardPadding: 'Standard layout padding for components',
