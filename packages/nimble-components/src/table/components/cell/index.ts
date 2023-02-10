@@ -47,6 +47,15 @@ export class TableCell<
         );
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        if (this.customCellView) {
+            this.customCellView.dispose();
+            this.customCellView = undefined;
+        }
+    }
+
     protected cellStateChanged(): void {
         this.customCellView?.bind(this.cellState, defaultExecutionContext);
     }
