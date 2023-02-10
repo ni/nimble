@@ -5,8 +5,12 @@ import {
     observable
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { template } from './template';
 import { styles } from './styles';
+import { DataManager } from './modules/data-manager';
+import { RenderingModule } from './modules/rendering';
+import { EventCoordinator } from './modules/event-coordinator';
 import {
     WaferMapColorScale,
     WaferMapColorScaleMode,
@@ -14,9 +18,6 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
-import { DataManager } from './modules/data-manager';
-import { RenderingModule } from './modules/rendering';
-import { ZoomHandler } from './modules/zoom-handler';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -69,7 +70,32 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public canvasSideLength?: number;
+    public readonly rect!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    public dataManager?: DataManager;
+    /**
+     * @internal
+     */
+    public renderer?: RenderingModule;
+
+    /**
+     * @internal
+     */
+    public renderQueued = false;
+
+    /**
+     * @internal
+     */
+    @observable public canvasSideLength = 0;
+
+    /**
+     * @internal
+     */
+    @observable public transform: ZoomTransform = zoomIdentity;
+
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorScale = {
@@ -77,31 +103,16 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private renderQueued = false;
-    private dataManager?: DataManager;
-    private renderer?: RenderingModule;
+    private eventCoordinator?: EventCoordinator;
     private resizeObserver?: ResizeObserver;
-    private zoomHandler?: ZoomHandler;
+
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.resizeObserver = new ResizeObserver(entries => {
-            const entry = entries[0];
-            if (entry === undefined) {
-                return;
-            }
-            const { height, width } = entry.contentRect;
-            this.canvasSideLength = Math.min(height, width);
-        });
-        this.resizeObserver.observe(this);
-        this.canvas.addEventListener('wheel', event => event.preventDefault(), {
-            passive: false
-        });
-        this.queueRender();
+        this.resizeObserver = this.createResizeObserver();
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.canvas.removeEventListener('wheel', event => event.preventDefault());
         this.resizeObserver!.unobserve(this);
     }
 
@@ -110,38 +121,43 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        if (
-            this.canvasSideLength === undefined
-            || this.canvasSideLength === 0
-        ) {
+        this.initalizeInternalModules();
+        this.renderer?.drawWafer();
+    }
+
+    private queueRender(): void {
+        if (!this.$fastController.isConnected) {
             return;
         }
-        this.renderer?.clearCanvas(
-            this.canvasSideLength,
-            this.canvasSideLength
-        );
-        this.dataManager = new DataManager(
-            this.dies,
-            this.quadrant,
-            { width: this.canvasSideLength, height: this.canvasSideLength },
-            this.colorScale,
-            this.highlightedValues,
-            this.colorScaleMode,
-            this.dieLabelsHidden,
-            this.dieLabelsSuffix,
-            this.maxCharacters
-        );
-        this.renderer = new RenderingModule(this.dataManager, this.canvas);
-        this.zoomHandler = new ZoomHandler(
-            this.canvas,
-            this.zoomContainer,
-            this.dataManager,
-            this.renderer,
-            this.canvasSideLength
-        );
-        this.zoomHandler.attachZoomBehavior();
-        this.renderer.drawWafer();
+        if (!this.renderQueued) {
+            this.renderQueued = true;
+            DOM.queueUpdate(() => this.render());
+        }
     }
+
+    private initalizeInternalModules(): void {
+        this.eventCoordinator?.detachEvents();
+        this.dataManager = new DataManager(this);
+        this.renderer = new RenderingModule(this);
+        this.eventCoordinator = new EventCoordinator(this);
+    }
+
+    private createResizeObserver(): ResizeObserver {
+        const resizeObserver = new ResizeObserver(entries => {
+            const entry = entries[0];
+            if (entry === undefined) {
+                return;
+            }
+            const { height, width } = entry.contentRect;
+            this.canvasSideLength = Math.min(height, width);
+        });
+        resizeObserver.observe(this);
+        return resizeObserver;
+    }
+
+    private readonly emitDieSelected = (die: WaferMapDie): void => {
+        this.$emit('die-selected', { detail: { die } });
+    };
 
     private quadrantChanged(): void {
         this.queueRender();
@@ -179,6 +195,10 @@ export class WaferMap extends FoundationElement {
         this.queueRender();
     }
 
+    private transformChanged(): void {
+        this.queueRender();
+    }
+
     private canvasSideLengthChanged(): void {
         if (
             this.canvasSideLength !== undefined
@@ -186,18 +206,7 @@ export class WaferMap extends FoundationElement {
         ) {
             this.canvas.width = this.canvasSideLength;
             this.canvas.height = this.canvasSideLength;
-        }
-        this.zoomHandler?.resetTransform();
-        this.queueRender();
-    }
-
-    private queueRender(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-        if (!this.renderQueued) {
-            this.renderQueued = true;
-            DOM.queueUpdate(() => this.render());
+            this.queueRender();
         }
     }
 }
