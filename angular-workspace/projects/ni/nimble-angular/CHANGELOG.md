@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 06 Feb 2023 16:22:19 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Feb 2023 15:26:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.0.10
+
+Fri, 10 Feb 2023 15:26:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.2.0
+
+## 16.0.9
+
+Thu, 09 Feb 2023 17:09:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.1.4
+
+## 16.0.8
+
+Thu, 09 Feb 2023 14:24:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.1.3
+
+## 16.0.7
+
+Tue, 07 Feb 2023 20:17:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.1.2
+
+## 16.0.6
+
+Tue, 07 Feb 2023 17:44:56 GMT
+
+### Patches
+
+- Make the click area of the breadcrumb-item match the link area ([ni/nimble@2ef5883](https://github.com/ni/nimble/commit/2ef58836cd5a1fd4bed4a9e6d24c5d53a604b541))
 
 ## 16.0.5
 
