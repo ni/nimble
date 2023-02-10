@@ -149,15 +149,15 @@ export const styles = css`
                 background: ${Black75};
             }
 
-            :host[severity='error'] {
+            :host([severity='error']) {
                 background: ${Fail100LightUi};
             }
 
-            :host[severity='warning'] {
+            :host([severity='warning']) {
                 background: ${Warning100LightUi};
             }
 
-            :host[severity='info'] {
+            :host([severity='info']) {
                 background: ${Information100LightUi};
             }
         `
@@ -169,15 +169,15 @@ export const styles = css`
                 background: ${Black75};
             }
 
-            :host[severity='error'] {
+            :host([severity='error']) {
                 background: ${BannerFail100DarkUi};
             }
 
-            :host[severity='warning'] {
+            :host([severity='warning']) {
                 background: ${Warning100DarkUi};
             }
 
-            :host[severity='info'] {
+            :host([severity='info']) {
                 background: ${Information100DarkUi};
             }
         `
