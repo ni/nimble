@@ -1,3 +1,5 @@
+import type { DataManager } from './modules/data-manager';
+
 export const WaferMapQuadrant = {
     bottomLeft: 'bottom-left',
     bottomRight: 'bottom-right',
@@ -37,6 +39,13 @@ export interface WaferMapDie {
 export interface WaferMapColorScale {
     colors: string[];
     values: string[];
+}
+
+export interface HoverHandlerData {
+    canvas: HTMLCanvasElement;
+    rect: HTMLElement;
+    dataManager: DataManager;
+    quadrant: WaferMapQuadrant;
 }
 
 export interface Dimensions {

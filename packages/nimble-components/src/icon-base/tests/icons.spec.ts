@@ -6,7 +6,7 @@ import * as allIconsNamespace from '../../icons/all-icons';
 import { iconMetadata } from '../icon-metadata';
 
 describe('Icons', () => {
-    describe('should have a viewBox', () => {
+    describe('should have correct SVG structure', () => {
         const nimbleIcons = Object.values(nimbleIconsMap);
         const getSVGElement = (htmlString: string): SVGElement => {
             const template = document.createElement('template');
@@ -27,6 +27,7 @@ describe('Icons', () => {
                 expect(svg.getAttribute('viewBox')).toBeTruthy();
                 expect(svg.getAttribute('height')).toBeNull();
                 expect(svg.getAttribute('width')).toBeNull();
+                expect(svg.querySelector('defs')).toBeNull();
                 for (const path of paths) {
                     expect(path.getAttribute('style')).toBeNull();
                 }

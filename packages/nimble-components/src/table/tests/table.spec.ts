@@ -313,6 +313,24 @@ describe('Table', () => {
         verifyRenderedData(simpleTableData);
     });
 
+    it('transitioning the table state from valid to invalid and back to valid rerenders the table correctly', async () => {
+        element.setData(simpleTableData);
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.idFieldName = 'missingFieldName';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedRowCount()).toBe(0);
+        expect(element.checkValidity()).toBeFalse();
+
+        element.idFieldName = undefined;
+        await waitForUpdatesAsync();
+
+        verifyRenderedData(simpleTableData);
+        expect(element.checkValidity()).toBeTrue();
+    });
+
     describe('record IDs', () => {
         it('setting ID field uses field value for ID', async () => {
             element.setData(simpleTableData);
