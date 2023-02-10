@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 10 Feb 2023 15:26:34 GMT",
+      "tag": "@ni/nimble-components_v18.2.0",
+      "version": "18.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b5ca27c7db12c4d69eaf4cc0b57cd15ebc581ddb",
+            "comment": "Add new save icon"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.5.0",
+            "commit": "b5ca27c7db12c4d69eaf4cc0b57cd15ebc581ddb"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Feb 2023 22:00:05 GMT",
       "tag": "@ni/nimble-components_v18.1.4",
       "version": "18.1.4",

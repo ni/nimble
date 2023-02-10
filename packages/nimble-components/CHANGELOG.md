@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 09 Feb 2023 17:09:32 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Feb 2023 15:26:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.2.0
+
+Fri, 10 Feb 2023 15:26:34 GMT
+
+### Minor changes
+
+- Add new save icon ([ni/nimble@b5ca27c](https://github.com/ni/nimble/commit/b5ca27c7db12c4d69eaf4cc0b57cd15ebc581ddb))
+- Bump @ni/nimble-tokens to v4.5.0
 
 ## 18.1.4
 

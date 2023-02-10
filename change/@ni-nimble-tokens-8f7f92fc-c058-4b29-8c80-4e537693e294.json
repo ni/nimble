@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add new save icon",
-  "packageName": "@ni/nimble-tokens",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
