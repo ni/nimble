@@ -1,0 +1,11 @@
+@namespace NimbleBlazor
+<nimble-banner
+    open="@Open"
+    severity="@Severity.ToAttributeValue()"
+    title-hidden="@TitleHidden"
+    disabled="@Disabled"
+    prevent-dismiss="@PreventDismiss"
+    dismiss-button-label="@DismissButtonLabel"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-banner>
