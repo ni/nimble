@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 10 Feb 2023 20:11:53 GMT",
+      "tag": "@ni/nimble-components_v18.3.1",
+      "version": "18.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "571f121aa06be77e178a794846dbe0ef985433b8",
+            "comment": "Fix background color of dropdown listbox"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Feb 2023 19:40:36 GMT",
       "tag": "@ni/nimble-components_v18.3.0",
       "version": "18.3.0",

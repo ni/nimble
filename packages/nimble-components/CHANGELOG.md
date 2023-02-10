@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 10 Feb 2023 19:40:36 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Feb 2023 20:11:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.3.1
+
+Fri, 10 Feb 2023 20:11:53 GMT
+
+### Patches
+
+- Fix background color of dropdown listbox ([ni/nimble@571f121](https://github.com/ni/nimble/commit/571f121aa06be77e178a794846dbe0ef985433b8))
 
 ## 18.3.0
 
