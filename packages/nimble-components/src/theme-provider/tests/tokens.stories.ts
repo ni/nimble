@@ -194,6 +194,6 @@ themeAwareTokens.loaders = [
     async () => ({
         // Matches syntax in Storybook docs for loaders
         // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
-        tokens: await waitForUpdatesAsync(),
-    }),
+        tokens: await waitForUpdatesAsync()
+    })
 ];
