@@ -19,11 +19,7 @@ import {
     groupHeaderFontColor,
     groupHeaderTextTransform
 } from '../design-tokens';
-import { processUpdates } from '../../testing/async-helpers';
-
-// Setting token default values is done as part of the FAST render queue so it needs to be flushed before reading them
-// https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
-processUpdates();
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 type TokenName = keyof typeof tokenNames;
 const tokenNameKeys = Object.keys(tokenNames) as TokenName[];
@@ -190,3 +186,14 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
 };
 
 themeAwareTokens.storyName = 'Theme-aware Tokens';
+
+// Setting token default values is done as part of the FAST render queue so it needs to be cleared before reading them
+// https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
+// This uses Storybook's "loaders" feature to await the queue. https://storybook.js.org/docs/html/writing-stories/loaders
+themeAwareTokens.loaders = [
+    async () => ({
+        // Matches syntax in Storybook docs for loaders
+        // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+        tokens: await waitForUpdatesAsync(),
+    }),
+];
