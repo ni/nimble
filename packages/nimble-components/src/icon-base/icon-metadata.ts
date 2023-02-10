@@ -226,6 +226,9 @@ export const iconMetadata: {
     IconFilter: {
         tags: []
     },
+    IconFloppyDisk: {
+        tags: ['save']
+    },
     IconFloppyDiskCheckmark: {
         tags: ['save', 'no-unsaved-changed']
     },
