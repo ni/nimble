@@ -1,5 +1,6 @@
 import type { TableRecord, TableValidity } from '../types';
 import { TableValidator } from './table-validator';
+import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 describe('TableValidator', () => {
     let validator: TableValidator<TableRecord>;
@@ -223,56 +224,63 @@ describe('TableValidator', () => {
     describe('column ID validation', () => {
         const columnConfigurations: {
             columnIds: (string | undefined)[],
+            isValid: boolean,
             invalidKeys: (keyof TableValidity)[],
-            testDescription: string
+            name: string
         }[] = [
             {
                 columnIds: [undefined, ''],
+                isValid: true,
                 invalidKeys: [],
-                testDescription: 'does not require column IDs'
+                name: 'does not require column IDs'
             },
             {
                 columnIds: ['my-id', undefined, undefined],
+                isValid: false,
                 invalidKeys: ['missingColumnId'],
-                testDescription:
+                name:
                     'requires column IDs for all columns if a column ID is defined for at least one'
             },
             {
                 columnIds: ['my-id-1', 'my-id-2', 'my-id-3'],
+                isValid: true,
                 invalidKeys: [],
-                testDescription: 'unique defined IDs are valid'
+                name: 'unique defined IDs are valid'
             },
             {
                 columnIds: ['my-id-1', 'my-id-2', 'my-id-2'],
+                isValid: false,
                 invalidKeys: ['duplicateColumnId'],
-                testDescription: 'duplicate column IDs is invalid'
+                name: 'duplicate column IDs is invalid'
             },
             {
                 columnIds: ['my-id-1', 'my-id-2', 'my-id-2', undefined],
+                isValid: false,
                 invalidKeys: ['missingColumnId', 'duplicateColumnId'],
-                testDescription: 'reports multiple column ID validation errors'
+                name: 'reports multiple column ID validation errors'
             },
             {
                 columnIds: ['my-id-1', ''],
+                isValid: false,
                 invalidKeys: ['missingColumnId'],
-                testDescription:
+                name:
                     'does not allow empty string as a defined column ID'
             }
         ];
 
+        const focused: string[] = [];
+        const disabled: string[] = [];
         for (const columnConfiguration of columnConfigurations) {
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            it(columnConfiguration.testDescription, () => {
-                const isValid = validator.validateColumnIds(
+            const specType = getSpecTypeByNamedList(columnConfiguration, focused, disabled);
+            specType(columnConfiguration.name, () => {
+                const tableValidator = new TableValidator();
+                const isValid = tableValidator.validateColumnIds(
                     columnConfiguration.columnIds
                 );
-                expect(isValid).toBe(
-                    columnConfiguration.invalidKeys.length === 0
-                );
-                expect(validator.isValid()).toBe(
-                    columnConfiguration.invalidKeys.length === 0
-                );
-                expect(getInvalidKeys(validator)).toEqual(
+
+                expect(isValid).toBe(columnConfiguration.isValid);
+                expect(tableValidator.isValid()).toBe(columnConfiguration.invalidKeys.length === 0);
+                expect(getInvalidKeys(tableValidator)).toEqual(
                     jasmine.arrayWithExactContents(
                         columnConfiguration.invalidKeys
                     )

@@ -68,7 +68,7 @@ export class Table<
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
-    private notifiers: Notifier[] = [];
+    private columnNotifiers: Notifier[] = [];
 
     public constructor() {
         super();
@@ -93,11 +93,11 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
-        this.observeColumns();
-        this.validateColumnIds();
+        this.validateAndObserveColumns();
     }
 
     public override disconnectedCallback(): void {
+        super.disconnectedCallback();
         this.virtualizer.disconnectedCallback();
         this.removeColumnObservers();
     }
@@ -108,10 +108,12 @@ export class Table<
 
     /**
      * @internal
+     *
+     * The event handler that is called when a notifier detects a change. Notifiers are added
+     * to each column, so `source` is expected to be an instance of `TableColumn`, and `args`
+     * is the string name of the property that changed on that column.
      */
-    // 'handleChange' is an API exposed by FAST that we need to implement. Disable lint rules caused by its signature.
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-    public handleChange(source: any, args: any): void {
+    public handleChange(source: unknown, args: unknown): void {
         if (source instanceof TableColumn) {
             if (args === 'columnId') {
                 this.validateColumnIds();
@@ -136,24 +138,26 @@ export class Table<
             return;
         }
 
-        this.observeColumns();
-        this.validateColumnIds();
+        this.validateAndObserveColumns();
     }
 
     private removeColumnObservers(): void {
-        this.notifiers.forEach(notifier => {
+        this.columnNotifiers.forEach(notifier => {
             notifier.unsubscribe(this);
         });
-        this.notifiers = [];
+        this.columnNotifiers = [];
     }
 
-    private observeColumns(): void {
+    private validateAndObserveColumns(): void {
         this.removeColumnObservers();
 
         for (const column of this.columns) {
             const notifier = Observable.getNotifier(column);
             notifier.subscribe(this);
+            this.columnNotifiers.push(notifier);
         }
+
+        this.validateColumnIds();
     }
 
     private validateColumnIds(): void {
