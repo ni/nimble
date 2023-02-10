@@ -238,8 +238,7 @@ describe('TableValidator', () => {
                 columnIds: ['my-id', undefined, undefined],
                 isValid: false,
                 invalidKeys: ['missingColumnId'],
-                name:
-                    'requires column IDs for all columns if a column ID is defined for at least one'
+                name: 'requires column IDs for all columns if a column ID is defined for at least one'
             },
             {
                 columnIds: ['my-id-1', 'my-id-2', 'my-id-3'],
@@ -263,15 +262,18 @@ describe('TableValidator', () => {
                 columnIds: ['my-id-1', ''],
                 isValid: false,
                 invalidKeys: ['missingColumnId'],
-                name:
-                    'does not allow empty string as a defined column ID'
+                name: 'does not allow empty string as a defined column ID'
             }
         ];
 
         const focused: string[] = [];
         const disabled: string[] = [];
         for (const columnConfiguration of columnConfigurations) {
-            const specType = getSpecTypeByNamedList(columnConfiguration, focused, disabled);
+            const specType = getSpecTypeByNamedList(
+                columnConfiguration,
+                focused,
+                disabled
+            );
             specType(columnConfiguration.name, () => {
                 const tableValidator = new TableValidator();
                 const isValid = tableValidator.validateColumnIds(
@@ -279,7 +281,9 @@ describe('TableValidator', () => {
                 );
 
                 expect(isValid).toBe(columnConfiguration.isValid);
-                expect(tableValidator.isValid()).toBe(columnConfiguration.invalidKeys.length === 0);
+                expect(tableValidator.isValid()).toBe(
+                    columnConfiguration.invalidKeys.length === 0
+                );
                 expect(getInvalidKeys(tableValidator)).toEqual(
                     jasmine.arrayWithExactContents(
                         columnConfiguration.invalidKeys
