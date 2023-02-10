@@ -24,10 +24,10 @@
         <div class="sub-container">
             <div class="container-label">Banner</div>
             <NimbleBanner @bind-Open="@BannerOpen" Severity="BannerSeverity.Info">
-                <span slot="title">Banner title</span>
-                This is the message text.
+                <span slot="title">Title of the banner</span>
+                This is the message text of this banner. It tells you something interesting.
             </NimbleBanner>
-            <NimbleCheckbox @bind-Value="@BannerOpen">Banner open</NimbleCheckbox>
+            <NimbleCheckbox @bind-Value="@BannerOpen">Show banner</NimbleCheckbox>
         </div>
         <div class="sub-container">
             <div class="container-label">Buttons</div>
