@@ -40,8 +40,8 @@ const getDiesSet = (
         case 'fixedDies10':
             returnedValue = sets[0]!;
             break;
-        case 'randomDies100':
-            returnedValue = generateWaferData(100);
+        case 'goodDies100':
+            returnedValue = generateWaferData(100, goodValueGenerator(seed));
             break;
         case 'goodDies1000':
             returnedValue = generateWaferData(1000, goodValueGenerator(seed))!;
@@ -120,9 +120,8 @@ const metadata: Meta<WaferMapArgs> = {
                 font: var(${bodyFont.cssCustomProperty});
             }
             #wafer-map {
-                width: 100%;
-                height: 100%;
-                aspect-ratio: 16 / 9;
+                resize: both;
+                overflow: hidden;
             }
         </style>
     `),
@@ -171,7 +170,7 @@ const metadata: Meta<WaferMapArgs> = {
             }
         },
         dies: {
-            description: `Represents the input data, an array of \`WaferMapDie\`, which will be renedered by the wafer map
+            description: `Represents the input data, an array of \`WaferMapDie\`, which will be rendered by the wafer map
                 <details>
                     <summary>Usage details</summary>
                     The \`dies\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
@@ -179,7 +178,7 @@ const metadata: Meta<WaferMapArgs> = {
                 `,
             options: [
                 'fixedDies10',
-                'randomDies100',
+                'goodDies100',
                 'goodDies1000',
                 'badDies10000'
             ],
@@ -187,9 +186,9 @@ const metadata: Meta<WaferMapArgs> = {
                 type: 'radio',
                 labels: {
                     fixedDies10: 'Small dies set of fixed values',
-                    randomDies100: 'Medium dies set of random values',
+                    goodDies100: 'Medium dies set of mostly good values',
                     goodDies1000: 'Large dies set of mostly good values',
-                    badDies10000: 'Very Large dies set of mostly bad values'
+                    badDies10000: 'Very large dies set of mostly bad values'
                 }
             },
             defaultValue: 'set1'
