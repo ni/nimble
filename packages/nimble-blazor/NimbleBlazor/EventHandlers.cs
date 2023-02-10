@@ -19,10 +19,17 @@ public class MenuButtonToggleEventArgs : EventArgs
     public bool OldState { get; set; }
 }
 
+public class BannerToggleEventArgs : EventArgs
+{
+    public bool OldState { get; set; }
+    public bool NewState { get; set; }
+}
+
 [EventHandler("onnimbletabsactiveidchange", typeof(TabsChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblecheckedchange", typeof(CheckboxChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblemenubuttontoggle", typeof(MenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblemenubuttonbeforetoggle", typeof(MenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
+[EventHandler("onnimblebannertoggle", typeof(BannerToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }

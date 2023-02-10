@@ -1,9 +1,9 @@
 @namespace NimbleBlazor
 <nimble-banner
-    open="@Open"
+    open="@BindConverter.FormatValue(Open)"
+    @onnimblebannertoggle="(__value) => UpdateOpen(__value.NewState)"
     severity="@Severity.ToAttributeValue()"
     title-hidden="@TitleHidden"
-    disabled="@Disabled"
     prevent-dismiss="@PreventDismiss"
     dismiss-button-label="@DismissButtonLabel"
     @attributes="AdditionalAttributes">

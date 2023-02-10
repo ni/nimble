@@ -2,7 +2,6 @@
 
 namespace NimbleBlazor;
 
-
 /// <summary>
 /// A banner component for displaying persistent messages
 /// </summary>
@@ -43,6 +42,22 @@ public partial class NimbleBanner : ComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that's invoked when 'open' changes
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> OpenChanged { get; set; }
+
+    /// <summary>
+    /// Called when 'open' changes on the web component.
+    /// </summary>
+    /// <param name="value">New value of open</param>
+    protected async void UpdateOpen(bool value)
+    {
+        Open = value;
+        await OpenChanged.InvokeAsync(value);
+    }
 
     /// <summary>
     /// Any additional attributes that did not match known properties.

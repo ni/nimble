@@ -26,7 +26,7 @@ public class NimbleBannerTests
     [InlineData(BannerSeverity.Default, "<nimble-banner>")]
     [InlineData(BannerSeverity.Error, "severity=\"error\"")]
     [InlineData(BannerSeverity.Warning, "severity=\"warning\"")]
-    [InlineData(BannerSeverity.Information, "severity=\"info\"")]
+    [InlineData(BannerSeverity.Info, "severity=\"info\"")]
     public void BannerSeverity_AttributeIsSet(BannerSeverity value, string expectedAttribute)
     {
         var banner = RenderWithPropertySet(x => x.Severity, value);

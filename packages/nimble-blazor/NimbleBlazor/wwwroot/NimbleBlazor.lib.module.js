@@ -50,6 +50,16 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleBanner.razor
+    Blazor.registerCustomEventType('nimblebannertoggle', {
+        browserEventName: 'toggle',
+        createEventArgs: event => {
+            return {
+                oldState: !event.target.open,
+                newState: event.target.open
+            };
+        }
+    });
 }
 
 window.NimbleBlazor = {
