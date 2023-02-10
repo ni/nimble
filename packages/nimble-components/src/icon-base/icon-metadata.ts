@@ -13,6 +13,9 @@ export const iconMetadata: {
     IconAdd: {
         tags: ['add-input-field']
     },
+    IconArrowDown: {
+        tags: ['sort', 'arrow', 'down', 'descending']
+    },
     IconArrowDownRightAndArrowUpLeft: {
         tags: ['resize', 'collapse']
     },
@@ -51,6 +54,9 @@ export const iconMetadata: {
     },
     IconArrowsRepeat: {
         tags: ['status', 'looping']
+    },
+    IconArrowUp: {
+        tags: ['sort', 'arrow', 'up', 'ascending']
     },
     IconBars: {
         tags: ['hamburger-menu']
