@@ -18,20 +18,18 @@ import {
     borderHoverColor,
     buttonLabelFontColor,
     controlHeight,
+    controlSlimHeight,
     fillSelectedColor,
     iconColor,
     iconSize,
     linkActiveFontColor,
     linkDisabledFontColor,
     linkFontColor,
-    slimControlHeight,
     standardPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
-import { MultivaluePropertyStyleSheetBehavior } from '../utilities/style/multivalue-property-stylesheet-behavior';
 import { themeBehavior } from '../utilities/style/theme';
-import { BannerSeverity } from './types';
 
 export const styles = css`
     ${display('flex')}
@@ -100,7 +98,7 @@ export const styles = css`
     }
 
     ::slotted(nimble-button[slot='action']) {
-        height: ${slimControlHeight};
+        height: ${controlSlimHeight};
         ${buttonLabelFontColor.cssCustomProperty}: ${White};
         ${fillSelectedColor.cssCustomProperty}: ${hexToRgbaCssColor(
             White,
@@ -109,7 +107,7 @@ export const styles = css`
         ${borderHoverColor.cssCustomProperty}: ${White};
         font-size: 12.8px;
         white-space: nowrap;
-        margin-top: calc((${controlHeight} - ${slimControlHeight}) / 2);
+        margin-top: calc((${controlHeight} - ${controlSlimHeight}) / 2);
         margin-left: ${standardPadding};
     }
 
