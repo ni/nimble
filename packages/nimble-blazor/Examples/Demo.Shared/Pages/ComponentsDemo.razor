@@ -21,6 +21,13 @@
                 <NimbleBreadcrumbItem>Current Page (No Link)</NimbleBreadcrumbItem>
             </NimbleBreadcrumb>
         </div>
+            <div class="container-label">Banner</div>
+            <NimbleBanner @bind-Open="@BannerOpen" Severity="BannerSeverity.Information">
+                    <span slot="title">Banner title</span>
+                    This is the message text.
+            </NimbleBanner>
+            <NimbleCheckbox @bind-Checked="@BannerOpen">Banner open</NimbleCheckbox>
+        </div>
         <div class="sub-container">
             <div class="container-label">Buttons</div>
             <NimbleButton Appearance="ButtonAppearance.Outline">Outline Button</NimbleButton>
