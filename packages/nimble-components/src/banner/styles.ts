@@ -150,6 +150,18 @@ export const styles = css`
             :host {
                 background: ${Black75};
             }
+
+            :host[severity='error'] {
+                background: ${Fail100LightUi};
+            }
+
+            :host[severity='warning'] {
+                background: ${Warning100LightUi};
+            }
+
+            :host[severity='info'] {
+                background: ${Information100LightUi};
+            }
         `
     ),
     themeBehavior(
@@ -157,6 +169,18 @@ export const styles = css`
         css`
             :host {
                 background: ${Black75};
+            }
+
+            :host[severity='error'] {
+                background: ${BannerFail100DarkUi};
+            }
+
+            :host[severity='warning'] {
+                background: ${Warning100DarkUi};
+            }
+
+            :host[severity='info'] {
+                background: ${Information100DarkUi};
             }
         `
     ),
@@ -171,71 +195,5 @@ export const styles = css`
                 background: ${hexToRgbaCssColor(White, 0.3)};
             }
         `
-    ),
-    new MultivaluePropertyStyleSheetBehavior(
-        'severity',
-        BannerSeverity.error,
-        css``.withBehaviors(
-            themeBehavior(
-                Theme.light,
-                css`
-                    :host {
-                        background: ${Fail100LightUi};
-                    }
-                `
-            ),
-            themeBehavior(
-                Theme.dark,
-                css`
-                    :host {
-                        background: ${BannerFail100DarkUi};
-                    }
-                `
-            )
-        )
-    ),
-    new MultivaluePropertyStyleSheetBehavior(
-        'severity',
-        BannerSeverity.warning,
-        css``.withBehaviors(
-            themeBehavior(
-                Theme.light,
-                css`
-                    :host {
-                        background: ${Warning100LightUi};
-                    }
-                `
-            ),
-            themeBehavior(
-                Theme.dark,
-                css`
-                    :host {
-                        background: ${Warning100DarkUi};
-                    }
-                `
-            )
-        )
-    ),
-    new MultivaluePropertyStyleSheetBehavior(
-        'severity',
-        BannerSeverity.info,
-        css``.withBehaviors(
-            themeBehavior(
-                Theme.light,
-                css`
-                    :host {
-                        background: ${Information100LightUi};
-                    }
-                `
-            ),
-            themeBehavior(
-                Theme.dark,
-                css`
-                    :host {
-                        background: ${Information100DarkUi};
-                    }
-                `
-            )
-        )
     )
 );

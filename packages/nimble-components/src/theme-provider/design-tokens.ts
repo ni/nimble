@@ -195,8 +195,8 @@ export const tableRowBorderColor = DesignToken.create<string>(
 export const controlHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlHeight)
 ).withDefault('32px');
-export const slimControlHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.slimControlHeight)
+export const controlSlimHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.controlSlimHeight)
 ).withDefault('24px');
 export const smallPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.smallPadding)

@@ -29,7 +29,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     modalBackdropColor: 'modal-backdrop-color',
     popupBorderColor: 'popup-border-color',
     controlHeight: 'control-height',
-    slimControlHeight: 'slim-control-height',
+    controSlimlHeight: 'control-slim-height',
     smallPadding: 'small-padding',
     standardPadding: 'standard-padding',
     labelHeight: 'label-height',
