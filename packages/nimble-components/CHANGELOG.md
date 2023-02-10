@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 10 Feb 2023 15:26:34 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Feb 2023 19:40:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.3.0
+
+Fri, 10 Feb 2023 19:40:36 GMT
+
+### Minor changes
+
+- Add icons for column sorting ([ni/nimble@4df842d](https://github.com/ni/nimble/commit/4df842d8bc104a9f02d4f73c76f778c6f7b71ef8))
+- Bump @ni/nimble-tokens to v4.6.0
 
 ## 18.2.0
 
