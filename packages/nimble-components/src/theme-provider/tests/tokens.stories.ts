@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
-import { DesignToken } from '@microsoft/fast-foundation';
 import { PropertyFormat } from './types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
@@ -48,8 +47,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-DesignToken.registerRoot(document.documentElement);
 
 const computedCSSValueFromTokenName = (tokenName: string): string => {
     return getComputedStyle(document.documentElement).getPropertyValue(
