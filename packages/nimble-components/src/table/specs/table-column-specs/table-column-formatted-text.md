@@ -149,7 +149,6 @@ For common use cases we could provide column types that expose simplified format
     >
         Progress
     <nimble-table-column-numeric>`
-    <nimble-table-column-date-time field-name="start" display-mode='date'>Start date</nimble-table-column-date>
 </nimble-table>
 ```
 
