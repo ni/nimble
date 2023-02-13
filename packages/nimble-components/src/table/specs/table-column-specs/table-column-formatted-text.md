@@ -53,7 +53,7 @@ At this stage, code examples are meant to be illustrative pseudo-code, not propo
 
 #### Use `table-column-text`
 
-With the changes proposed in #1049 to allow a column to be sorted by a different data field than the one being used for display, many of the above use cases could be met with minor changes to the existing text column. Clients would write custom logic populate their data with a new string field that contains formatted values. Then they would configure the table to display that string field while sorting by the original numeric field.
+With the changes proposed in [HLD for programmatically sorting columns](https://github.com/ni/nimble/pull/1049) to allow a column to be sorted by a different data field than the one being used for display, many of the above use cases could be met with minor changes to the existing text column. Clients would write custom logic populate their data with a new string field that contains formatted values. Then they would configure the table to display that string field while sorting by the original numeric field.
 
 ```html
 <nimble-table>
