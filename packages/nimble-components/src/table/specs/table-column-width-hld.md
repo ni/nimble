@@ -56,19 +56,35 @@ abstract class TableColumn {
      * @internal
      */
     @observable
-    public columnMinPixelWidth = 88; // the minimum size in pixels according to the design doc
+    public internalPixelWidth: number | null = null; // change should update currentPixelWidth
 
     /*
      * @internal
      */
     @observable
-    public columnDisableResize = false;
+    public internalFractionalWidth = 1; // change should update currentFractionalWidth
+
+    /*
+     * @internal
+     */
+    @observable
+    public internalMinPixelWidth = 88; // the minimum size in pixels according to the design doc
+
+    /*
+     * @internal
+     */
+    @observable
+    public internalDisableResize = false;
 
     ...
 }
 ```
 
 Note that these properties are not attributes, and thus are not set by clients on the components via markup. Instead, these properties are meant to be configured by the concrete column implementations (typically initialization), as well as the Table as part of interactive column sizing.
+
+#### `current<>` versus `internal<>` properties
+
+The properties with the `current` suffix are those that the `Table` will use to update as needed based off of user interaction, and thus are not expected to be used by a plugin/mixin author. The `internal` properties are those expected to be set as needed by plugin/mixin authors in response to a change to their own exposed attributes.
 
 #### `currentFractionalWidth` vs `currentPixelWidth` behavior
 
@@ -92,16 +108,16 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
         public minWidth = null: number | null;
 
         public fractionalWidthChanged(): void {
-            this.currentFractionalWidth = this.fractionalWidth;
+            this.internalFractionalWidth = this.fractionalWidth;
         }
 
         public disableResizeChanged(): void {
-            this.columnDisableResize = this.disableResize;
+            this.internalDisableResize = this.disableResize;
         }
 
         public minWidthChanged(): void {
             if (this.minWidth !== null) {
-                this.columnMinWidth = this.minWidth;
+                this.internalMinWidth = this.minWidth;
             }
         }
     }
@@ -162,7 +178,7 @@ Because we will allow a horizontal scrollbar once the right-most column reaches 
 
 #### **Interactive visual states**
 
-Consult the [design document](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/) for details on the column divider appearance states, as well as the cursor appearance while hovering over a divider. If a user hovers over a column that is not resizable, no dividers will be shown. 
+Consult the [design document](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/) for details on the column divider appearance states, as well as the cursor appearance while hovering over a divider. If a user hovers over a column that is not resizable, no dividers will be shown.
 
 #### **Mobile considerations**
 
