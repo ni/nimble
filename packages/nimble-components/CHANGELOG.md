@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 10 Feb 2023 20:11:53 GMT and should not be manually modified.
+This log was last generated on Mon, 13 Feb 2023 23:05:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.3.2
+
+Mon, 13 Feb 2023 23:05:12 GMT
+
+### Patches
+
+- Table styling update to headers when scrollbar is showing ([ni/nimble@97201af](https://github.com/ni/nimble/commit/97201afa8cc6499a8d1c3b1b593f377cfee883cf))
 
 ## 18.3.1
 
