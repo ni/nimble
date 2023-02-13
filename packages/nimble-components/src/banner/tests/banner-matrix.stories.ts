@@ -43,24 +43,25 @@ const actionStates = [
 ] as const;
 type ActionState = typeof actionStates[number];
 
-const preventDismissStates = [
+const partsHiddenStates = [
     ['', false],
-    ['prevent dismiss', true]
+    ['parts hidden', true]
 ] as const;
-type PreventDismissState = typeof preventDismissStates[number];
+type PartsHiddenState = typeof partsHiddenStates[number];
 
 // prettier-ignore
 const component = (
     [severityLabel, severity]: SeverityState,
     [actionLabel, linkVisible, buttonAppearance]: ActionState,
-    [preventDismissLabel, preventDismiss]: PreventDismissState
+    [partsHiddenLabel, partsHidden]: PartsHiddenState
 ): ViewTemplate => html`
     <nimble-banner
         open
         severity="${severity!}"
-        prevent-dismiss="${preventDismiss}"
+        title-hidden="${partsHidden}"
+        prevent-dismiss="${partsHidden}"
     >
-        <span slot="title">${severityLabel} ${actionLabel} ${preventDismissLabel}</span>
+        <span slot="title">${severityLabel} ${actionLabel} ${partsHiddenLabel}</span>
         This is message text.
         ${when(() => linkVisible, html`
             <nimble-anchor slot="action" href="#">Nimble anchor</nimble-anchor>
@@ -76,7 +77,7 @@ export const bannerThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [
         severityStates,
         actionStates,
-        preventDismissStates
+        partsHiddenStates
     ])
 );
 

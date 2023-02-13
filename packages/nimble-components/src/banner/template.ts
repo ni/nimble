@@ -23,9 +23,7 @@ export const template = html<Banner>`
                 `)}
             </div>
             <div class="text">
-                ${when(x => !x.titleHidden, html`
-                    <slot name="title" ${slotted('slottedTitle')}></slot>
-                `)}
+                <slot name="title" ${slotted('slottedTitle')}></slot>
                 <slot></slot>
             </div>
             <div class="controls">

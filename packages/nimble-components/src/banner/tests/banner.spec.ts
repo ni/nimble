@@ -91,16 +91,16 @@ describe('Banner', () => {
         expect(element.severity).toBe(BannerSeverity.default);
     });
 
-    it("should hide title when 'titleHidden' set", async () => {
+    it("should set 'aria-title' to title text when 'titleHidden' set", async () => {
         element.titleHidden = true;
         await waitForUpdatesAsync();
-        expect(element.slottedTitle![0]).toBeUndefined();
+        expect(element.ariaLabel).toBe('Title');
     });
 
-    it("should show title when 'titleHidden' not set", async () => {
+    it("should set 'aria-title' to title text when 'titleHidden' not set", async () => {
         element.titleHidden = false;
         await waitForUpdatesAsync();
-        expect(element.slottedTitle![0]?.innerText).toBe('Title');
+        expect(element.ariaLabel).toBe('Title');
     });
 
     it("should hide dismiss button when 'preventDismiss' set", async () => {

@@ -67,16 +67,39 @@ export const styles = css`
         margin-bottom: 7px;
     }
 
-    ::slotted([slot='title']) {
+    slot[name='title']::slotted(*) {
         font-weight: bold;
         padding-right: 8px;
         white-space: nowrap;
     }
 
+    :host([title-hidden]) slot[name='title'] {
+        ${
+            /**
+             * Hide content visually while keeping it screen reader-accessible.
+             * Source: https://webaim.org/techniques/css/invisiblecontent/#techniques
+             * See discussion here: https://github.com/microsoft/fast/issues/5740#issuecomment-1068195035
+             */
+            ''
+        }
+        display: inline-block;
+        height: 1px;
+        width: 1px;
+        position: absolute;
+        margin: -1px;
+        clip: rect(1px, 1px, 1px, 1px);
+        clip-path: inset(50%);
+        overflow: hidden;
+        padding: 0;
+    }
+
     .controls {
+        height: ${controlHeight};
         margin-left: auto;
         display: flex;
+        align-items: center;
         justify-content: center;
+        align-self: flex-start;
     }
 
     slot[name='action'] {
@@ -84,7 +107,7 @@ export const styles = css`
         align-content: center;
     }
 
-    ::slotted(nimble-anchor[slot='action']) {
+    slot[name='action']::slotted(nimble-anchor) {
         ${linkFontColor.cssCustomProperty}: ${White};
         ${linkDisabledFontColor.cssCustomProperty}: ${White};
         ${linkActiveFontColor.cssCustomProperty}: ${hexToRgbaCssColor(
@@ -93,11 +116,10 @@ export const styles = css`
         )};
         font-size: 12.8px;
         white-space: nowrap;
-        margin-top: 7px;
         margin-left: ${standardPadding};
     }
 
-    ::slotted(nimble-button[slot='action']) {
+    slot[name='action']::slotted(nimble-button) {
         height: ${controlSlimHeight};
         ${buttonLabelFontColor.cssCustomProperty}: ${White};
         ${fillSelectedColor.cssCustomProperty}: ${hexToRgbaCssColor(
@@ -105,13 +127,11 @@ export const styles = css`
             0.2
         )};
         ${borderHoverColor.cssCustomProperty}: ${White};
-        font-size: 12.8px;
         white-space: nowrap;
-        margin-top: calc((${controlHeight} - ${controlSlimHeight}) / 2);
         margin-left: ${standardPadding};
     }
 
-    ::slotted(nimble-button[slot='action'][appearance='outline']) {
+    slot[name='action']::slotted(nimble-button[appearance='outline']) {
         ${actionRgbPartialColor.cssCustomProperty}: ${White}
     }
 
@@ -119,7 +139,6 @@ export const styles = css`
         width: 48px;
         display: flex;
         justify-content: center;
-        margin-top: 8px;
     }
 
     .dismiss nimble-button {
