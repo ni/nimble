@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "HLD for column sorting",
+  "comment": "HLD for programmatic column sorting",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "none"
