@@ -85,11 +85,11 @@ The following pattern is modeled after Typescript's documented [Constrained mixi
 ```
 export function fractionalWidthColumn<TBase extends abstract new (...args: any[]) => TableColumn>(base: TBase): TBase {
     abstract class FractionalWidthColumn extends base {
-        public fractionalWidth = 1;
+        public fractionalWidth = 1: number | null;
 
         public disableResize = false;
 
-        public minWidth?: number;
+        public minWidth = null: number | null;
 
         public fractionalWidthChanged(): void {
             this.currentFractionalWidth = this.fractionalWidth;
@@ -100,7 +100,7 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
         }
 
         public minWidthChanged(): void {
-            if (this.minWidth !== undefined) {
+            if (this.minWidth !== null) {
                 this.columnMinWidth = this.minWidth;
             }
         }
@@ -108,7 +108,7 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
 
     (attr({ attribute: 'fractional-width', converter: nullableNumberConverter }))(FractionalWidthColumn.prototype, "fractionalWidth");
     (attr({ attribute: 'disable-resize', mode: 'boolean' }))(FractionalWidthColumn.prototype, 'disableResize');
-    (attr({ attribute: 'min-width' }))(FractionalWidthColumn.prototype, 'minWidth');
+    (attr({ attribute: 'min-width', converter: nullableNumberConverter }))(FractionalWidthColumn.prototype, 'minWidth');
     return FractionalWidthColumn;
 }
 ```
@@ -162,7 +162,7 @@ Because we will allow a horizontal scrollbar once the right-most column reaches 
 
 #### **Interactive visual states**
 
-Consult the [design document](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/) for details on the column divider appearance states, as well as the cursor appearance while hovering over a divider. Note that we shouldn't alter the appearance of the mouse cursor if hovering over a divider between two non-resizable columns.
+Consult the [design document](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/) for details on the column divider appearance states, as well as the cursor appearance while hovering over a divider. If a user hovers over a column that is not resizable, no dividers will be shown. 
 
 #### **Mobile considerations**
 
@@ -179,7 +179,3 @@ To help facilitate this, it may be helpful to approach the initial implementatio
 TanStack offers the ability to maintain column sizing state as well as APIs to manage interactive sizing ([`getResizeHandler`](https://tanstack.com/table/v8/docs/api/features/column-sizing#getresizehandler)). By plugging into `getResizeHandler` TanStack can provide all necessary column size state either as the column is being sized (allowing immediate sizing while dragging), or at the end of an interactive operation (columns update size on mouse up for example).
 
 TanStack expects size values to be provided as [pixel values](https://tanstack.com/table/v8/docs/api/features/column-sizing#size). As such, we wouldn't be able to leverage TanStack's APIs in a way to achieve our initial desired behavior. However, it's possible that it would be beneficial to attempt to upstream changes to TanStack that would allow us to leverage it, but I would suggest that we revisit this possibility at a later time.
-
-## Open Issues
-
--   Should we show a divider between two columns that are not resizable on hover over one of those columns?
