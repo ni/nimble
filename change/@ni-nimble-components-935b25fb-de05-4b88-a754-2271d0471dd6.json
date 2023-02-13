@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Table styling update to headers when scrollbar is showing",
-  "packageName": "@ni/nimble-components",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
