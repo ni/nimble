@@ -38,12 +38,14 @@ There's several potential approaches to detecting if the table contains selected
 - Check if `range.startContainer`/`range.endContainer` is the `nimble-table` (or a descendant)
   - Chrome: This will be `nimble-table` if the text selection includes text before or after the table, plus some text in the table. If the selection is only in the table, these properties will misleadingly give us an ancestor of the table (like `nimble-theme-provider`).
   - Firefox: If text is selected in the table, this is a `#text` node within the Shadow DOM of a cell. It's possible to look for the `nimble-table` as an ancestor via "`node.getRootNode()` + check if `ShadowRoot` + if so, continue/repeat from `shadowRoot.host`".
-  - Safari: These are generally incorrect values - either the ancestor `nimble-theme-provider`, or sometimes `startContainer` = `endContainer` = (a `#text` node from a single cell).
+  - Safari: These are generally incorrect values, such as the ancestor `nimble-theme-provider`, or sometimes `startContainer` = `endContainer` = (a `#text` node from a single cell). Additionally when a text selection starts in the table and ends with text after+outside the table, `startContainer` = `endContainer` = (a `#text` node from outside the table), in which case these properties don't tell us anything about the text selection in the table.
 - Check if `range.getBoundingClientRect()` intersects with `table.viewport.getBoundingClientRect()`
   - Chrome/Safari: If the text selection is within the table only, the rect is `0x0` (unusable). If the text selection is partially in table and partially not, the rect will only include the part of the selection not in the table (assuming that part isn't in shadow DOM) (also unusable).
   - Firefox: Rect looks to be correct for all of the selection variants (within the table, and crossing the table's bounds)
 - Compare start/end points against a `Range` with the table fully selected (`tableRange = new Range(); tableRange.selectNode(table)`) via `range.compareBoundaryPoints(Range.START_TO_START, tableRange)` and `range.compareBoundaryPoints(Range.END_TO_END, tableRange)`
     - Chrome/Safari: Works when the text selection is fully within the table
+    - Chrome: Works when the text selection is partially in the table, partially outside the table
+    - Safari: Doesn't work when the text selection is partially in the table, partially outside the table. In that case, the `compareBoundaryPoints` results match what we'd get if the text selection was only before / only after the table (unusable).
     - Firefox: Errors out with a `WrongDocumentError` (i.e. one range is in a shadow root, and the other isn't / is in a different shadow root)
 - (Chrome only) Look at `table.shadowRoot.getSelection()`. If non-null and `rangeCount > 0` we have selected text somewhere in the table. Simplest approach, but this API is non-standard / not in the other browsers / may be removed at any time in the future.
 
@@ -55,7 +57,9 @@ Get `window.getSelection()`. If null or `rangeCount === 0`, no text is selected.
 - Else, check if `startContainer`/`endContainer` has the `nimble-table` as an ancestor
 
 If any of those `Range` checks succeed, remove that `Range` from the selection.  
-**Limitations:** This means that if text is selected in the table but outside rows (e.g. column header text), it will also be cleared when the user scrolls. There's not a good way to differentiate the text location that works in each browser, so that seems like an acceptable compromise.
+**Limitations:**  
+  - If text is selected in the table but outside rows (e.g. column header text), it will also be cleared when the user scrolls. There's not a good way to differentiate the text location that works in each browser, so that seems like an acceptable compromise.
+  - (Safari only) If text selection is partially in the table and partially before/ after it, there isn't any way for us to detect that case. So Safari will still have text incorrectly selected after the scroll in that case.
 
 **Planned API:**  
 This logic will be in the Nimble Virtualizer class, called from `handleVirtualizerChange()` (called when the user scrolls). It will apply to all Nimble tables / all column types, without an opt-out option.
@@ -72,7 +76,9 @@ If we have a focused cell:
   - General expected implementation, for a column type with editable controls in their `cellTemplate` would be to find the editable control with `querySelector()`, and close/commit it. i.e. `blur()` for `nimble-text-field`/`nimble-text-area`/`nimble-number-field` or other input controls, `open = false` for `nimble-menu-button`/`nimble-combobox`/etc.
 
 **Planned API:**  
-New optional abstract method `onBeforeFocusedCellRecycled(cell: TableCell)` on the `TableColumn` abstract class.
+New optional abstract method `onBeforeFocusedCellRecycled(cell: TableCell)` on the `TableColumn` abstract class.  
+New logic in Nimble Virtualizer class, `handleVirtualizerChange()` (called when the user scrolls), to find the active/focused cell.  
+`TableCell` doesn't have a direct reference to `TableColumn` so we'll need to determine the best way to get that reference (to call `onBeforeFocusedCellRecycled`). Perhaps `TableCell` also has an `onBeforeRecycled` function that raises an event that `TableRow` can handle (which does have that mapping, via `row.columnStates`).
 
 ## Alternative Implementations / Designs
 
@@ -80,5 +86,6 @@ N/A
 
 ## Open Issues
 
+- (Need to finalize API details surrounding the `onBeforeFocusedCellRecycled` proposal)
 - Do we need to provide additional APIs to allow for saving off cell state at the beginning of a scroll, even if no control is focused? (This would imply something we need to call for every visible cell in a column)
 - Should we have a default, generic implementation of `onBeforeFocusedCellRecycled`? (It would look for known Nimble control types in the cell, and call the appropriate API on them, `blur()` or `open = false`)
