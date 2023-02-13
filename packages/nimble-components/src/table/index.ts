@@ -151,8 +151,10 @@ export class Table<
 
     // This is a workaround for dealing with a change in Safari 16+. It seems related to this bug, filed
     // against WebKit: https://bugs.webkit.org/show_bug.cgi?id=246899, which was closed as "intentional"
-    // behavior change. Note that the FAST DataGrid does something similar to this to update its row
-    // indexes.
+    // behavior change. The issue we faced was that using a filter for the `children` directive in the
+    // template that required JS object APIs (like instanceOf) did not work because the elements being
+    // filtered were not fully initialized JS objects.
+    // Note that the FAST DataGrid does something similar to this (using DOM.queueUpdate) to update its row indexes.
     private updateColumnsFromChildren(): void {
         DOM.queueUpdate(() => {
             this.columns = this.childItems.filter((x): x is TableColumn => x instanceof TableColumn);
