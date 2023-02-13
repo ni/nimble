@@ -116,9 +116,7 @@ export class Table<
     }
 
     protected childItemsChanged(): void {
-        void (async () => this.updateColumnsFromChildItems())().catch(ex => {
-            throw ex;
-        });
+        void this.updateColumnsFromChildItems();
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {
