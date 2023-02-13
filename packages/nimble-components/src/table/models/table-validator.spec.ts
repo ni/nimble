@@ -33,22 +33,6 @@ describe('TableValidator', () => {
         expect(validity.missingRecordId).toBeFalse();
     });
 
-    it('setting `null` field for ID is valid', () => {
-        const data = [
-            { stringField: 'value-1', numberField: 10 },
-            { stringField: 'value-2', numberField: 11 }
-        ];
-        const validator = new TableValidator();
-
-        const isValid = validator.validateRecordIds(data, null);
-        expect(isValid).toBeTrue();
-        expect(validator.isValid()).toBeTrue();
-        const validity = validator.getValidity();
-        expect(validity.duplicateRecordId).toBeFalse();
-        expect(validity.invalidRecordId).toBeFalse();
-        expect(validity.missingRecordId).toBeFalse();
-    });
-
     it('setting data with duplicate IDs is invalid', () => {
         const data = [
             { stringField: 'value-1', numberField: 10 },

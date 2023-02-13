@@ -89,6 +89,9 @@ const metadata: Meta<WaferMapArgs> = {
                 component:
                     'A wafer map is a component for visualizing data from the manufacture of semiconductor wafers. Each die on the wafer can show numerical information and be colored to indicate information about that die.'
             }
+        },
+        actions: {
+            handles: ['click', 'die-selected']
         }
     },
     render: createUserSelectedThemeStory(html`

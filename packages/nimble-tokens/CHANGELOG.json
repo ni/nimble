@@ -2,6 +2,51 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 10 Feb 2023 19:40:36 GMT",
+      "tag": "@ni/nimble-tokens_v4.6.0",
+      "version": "4.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "4df842d8bc104a9f02d4f73c76f778c6f7b71ef8",
+            "comment": "Add icons for column sorting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Feb 2023 15:26:34 GMT",
+      "tag": "@ni/nimble-tokens_v4.5.0",
+      "version": "4.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "b5ca27c7db12c4d69eaf4cc0b57cd15ebc581ddb",
+            "comment": "Add new save icon"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 Feb 2023 15:05:44 GMT",
+      "tag": "@ni/nimble-tokens_v4.4.0",
+      "version": "4.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "c47e8f7a9064e5bd618453226f702f933fda23af",
+            "comment": "Update icon import instructions"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 30 Jan 2023 19:00:43 GMT",
       "tag": "@ni/nimble-tokens_v4.4.0",
       "version": "4.4.0",
