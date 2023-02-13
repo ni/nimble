@@ -37,6 +37,9 @@ export class Table<
     @observable
     public tableData: TableRowState<TData>[] = [];
 
+    /**
+     * @internal
+     */
     @observable
     public columns: TableColumn[] = [];
 
