@@ -51,7 +51,7 @@ Below are different alternatives to solve these use cases. Some alternatives wil
 
 At this stage, code examples are meant to be illustrative pseudo-code, not proposed APIs.
 
-#### Use `table-column-text`
+#### Alternative 1: Use `table-column-text`
 
 With the changes proposed in [HLD for programmatically sorting columns](https://github.com/ni/nimble/pull/1049) to allow a column to be sorted by a different data field than the one being used for display, many of the above use cases could be met with minor changes to the existing text column. Clients would write custom logic to populate their data with a new string field that contains formatted values. Then they would configure the table to display that string field while sorting by the original numeric field.
 
@@ -91,7 +91,7 @@ table.data = tableData;
 - Exposing `operational-data-field-name` to be set by client code rather than column definition
 
 
-#### Client specifies formatting function
+#### Alternative 2: Client specifies formatting function
 
 When configuring a column, clients could provide a callback function that converts data of any supported type into a formatted string.
 
@@ -136,7 +136,7 @@ MyAppProgressColumn.registerColumn('my-app-progress-column');
 
 - Expose mechanism for providing format function
 
-#### Nimble provides column implementation for common use cases
+#### Alternative 3: Nimble provides column implementation for common use cases
 
 For common use cases we could provide column types that expose simplified formatting APIs:
 
@@ -166,7 +166,7 @@ For common use cases we could provide column types that expose simplified format
 
 - API design and implementation for each new column type
 
-#### Client provides custom column implementation for each use case
+#### Alternative 4: Client provides custom column implementation for each use case
 
 Nimble already has a mechanism for clients to provide custom columns by deriving from a base class, specifying the data fields / template / styling, and registering the column type with Nimble. We could ask clients to use this mechanism for text column types.
 
