@@ -1,4 +1,4 @@
-import { attr, DOM, observable } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
