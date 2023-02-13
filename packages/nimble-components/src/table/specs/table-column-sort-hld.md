@@ -6,10 +6,7 @@ In many tables, there is a requirement to have columns that can be sorted, both 
 
 ### Out of scope of this HLD
 
-While some interactive sorting may be alluded to within this document, solidifying the details of interactive sorting is out of scope for this document. For example, this document does not cover:
-    - How a column will opt in/out of being interactively sortable
-    - Event(s) that are emitted related to sorting
-    - Interactions that lead to the sorting state changing (e.g. clicking a header, option(s) in the header's menu)
+While some interactive sorting may be alluded to within this document, solidifying the details of interactive sorting is out of scope for this document. For example, this document does not cover: - How a column will opt in/out of being interactively sortable - Event(s) that are emitted related to sorting - Interactions that lead to the sorting state changing (e.g. clicking a header, option(s) in the header's menu)
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -31,11 +28,12 @@ A column within the table may not have a one-to-one mapping to a field within th
 For performance reasons, the table will not support custom sort functions on a column. A column can only be sorted based on a single field within the table's data, which guards against performance degradations from inefficient custom sort functions.
 
 #### Summary of new attributes on the base table column
-| attribute name | type | default value | description |
-| -- | -- | -- | -- |
-| sort-direction | `TableColumnSortDirection`, defined as `{none: undefined, ascending: 'ascending', descending: 'descending'}` | `TableColumnSortDirection.none` | The direction the column is sorted |
-| sort-index | `number` or `null` * | `TableColumnSortDirection.none` | The direction the column is sorted |
-| hidden | `boolean` | `false` | When set to true, do not render the column as part of the table |
+
+| attribute name | type                                                                                                         | default value                   | description                                                     |
+| -------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------- | --------------------------------------------------------------- |
+| sort-direction | `TableColumnSortDirection`, defined as `{none: undefined, ascending: 'ascending', descending: 'descending'}` | `TableColumnSortDirection.none` | The direction the column is sorted                              |
+| sort-index     | `number` or `null` \*                                                                                        | `TableColumnSortDirection.none` | The direction the column is sorted                              |
+| hidden         | `boolean`                                                                                                    | `false`                         | When set to true, do not render the column as part of the table |
 
 \* Note: The `sort-index` attribute is `number | null` because of the plan to use the `nullableNumberConverter` provided by FAST. That converter uses the value of `null` to represent non-number types rather than `undefined`, which is common within the nimble repo.
 
@@ -56,6 +54,7 @@ Each column that is sorted ascending will have `aria-sort="ascending"` set on it
 ### Add additional restrictions for validation
 
 The table could enforce additional restrictions on the sort settings of the columns, for example:
+
 -   All sorted columns must have sequencial sort orders starting at 0
 -   No column can have a `sort-index` specified if its `sort-direction` is `none`
 -   No column can have its `sort-direction` specified as `ascending` or `descending` without a `sort-index` specified
@@ -69,4 +68,4 @@ The base table column could provide a way for a client to override the sort fiel
 
 ## Open Issues
 
-*None*
+_None_
