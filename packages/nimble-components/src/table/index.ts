@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, DOM, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
@@ -9,7 +9,7 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
-import type { TableColumn } from '../table-column/base';
+import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
@@ -38,7 +38,13 @@ export class Table<
     public tableData: TableRowState<TData>[] = [];
 
     @observable
-    public readonly columns: TableColumn[] = [];
+    public columns: TableColumn[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public readonly childItems: Element[] = [];
 
     /**
      * @internal
@@ -96,6 +102,7 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
+        this.updateColumnsFromChildren();
     }
 
     public override disconnectedCallback(): void {
@@ -140,6 +147,12 @@ export class Table<
         this.options = { ...this.options, ...updatedOptions };
         this.update(this.table.initialState);
         this.refreshRows();
+    }
+
+    private updateColumnsFromChildren(): void {
+        DOM.queueUpdate(() => {
+            this.columns = this.childItems.filter((x): x is TableColumn => x instanceof TableColumn);
+        });
     }
 
     private readonly update = (state: TanStackTableState): void => {
