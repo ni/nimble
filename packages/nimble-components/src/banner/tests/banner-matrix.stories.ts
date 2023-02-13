@@ -1,6 +1,7 @@
 import type { Story, Meta } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrixThemeStory,
     createStory
@@ -12,6 +13,7 @@ import {
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+import { BannerSeverity } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Banner',
@@ -27,12 +29,9 @@ const metadata: Meta = {
 
 export default metadata;
 
-const severityStates = [
-    ['Neutral', undefined],
-    ['Error', 'error'],
-    ['Warning', 'warning'],
-    ['Info', 'info']
-] as const;
+const severityStates: [string, string | undefined][] = Object.entries(
+    BannerSeverity
+).map(([key, value]) => [pascalCase(key), value]);
 type SeverityState = typeof severityStates[number];
 
 const actionStates = [
@@ -57,7 +56,7 @@ const component = (
 ): ViewTemplate => html`
     <nimble-banner
         open
-        severity="${severity!}"
+        severity="${() => severity}"
         title-hidden="${partsHidden}"
         prevent-dismiss="${partsHidden}"
     >

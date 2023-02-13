@@ -103,6 +103,12 @@ describe('Banner', () => {
         expect(element.ariaLabel).toBe('Title');
     });
 
+    it("should update 'aria-title' when title text changes", async () => {
+        element.querySelector('span')!.innerText = 'New Title';
+        await waitForUpdatesAsync();
+        expect(element.ariaLabel).toBe('New Title');
+    });
+
     it("should hide dismiss button when 'preventDismiss' set", async () => {
         element.preventDismiss = true;
         await waitForUpdatesAsync();

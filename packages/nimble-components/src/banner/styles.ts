@@ -105,6 +105,8 @@ export const styles = css`
     slot[name='action'] {
         display: flex;
         align-content: center;
+        margin-left: ${standardPadding};
+        white-space: nowrap;
     }
 
     slot[name='action']::slotted(nimble-anchor) {
@@ -115,8 +117,6 @@ export const styles = css`
             0.6
         )};
         font-size: 12.8px;
-        white-space: nowrap;
-        margin-left: ${standardPadding};
     }
 
     slot[name='action']::slotted(nimble-button) {
@@ -127,8 +127,6 @@ export const styles = css`
             0.2
         )};
         ${borderHoverColor.cssCustomProperty}: ${White};
-        white-space: nowrap;
-        margin-left: ${standardPadding};
     }
 
     slot[name='action']::slotted(nimble-button[appearance='outline']) {
