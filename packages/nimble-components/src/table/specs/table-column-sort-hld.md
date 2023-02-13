@@ -27,7 +27,7 @@ The sorting state of the table will be declaritively defined within the `TableCo
 
 In some cases, a client may want to configure their table to be sorted by a column that is not visible within the table. To enable this, a column within the table can be marked as hidden. A hidden column exists in the table to provide metadata that can be used for operations, such as sorting, but it is not rendered within the table.
 
-A column within the table may not have a one-to-one mapping to a field within the table's data. For example, a hyperlink column might use two fields from the data: a string to use as the hyperlink's display and a string to use as the hyperlink's href. Because of this, a column must define which data field is used when sorting that column. That field is specified by a column definition by implementing a `defaultDataFieldName` getter that returns the name of the field to use for sorting. For example, the text column would return the value of `fieldName` and the hyperlink column would return the field name associated with the display string.
+A column within the table may not have a one-to-one mapping to a field within the table's data. For example, a hyperlink column might use two fields from the data: a string to use as the hyperlink's display and a string to use as the hyperlink's href. Because of this, a column must define which data field is used when sorting that column. That field is specified by a column definition by implementing an `operationalDataFieldName` getter that returns the name of the field to use for sorting. For example, the text column would return the value of `fieldName` and the hyperlink column would return the field name associated with the display string.
 
 For performance reasons, the table will not support custom sort functions on a column. A column can only be sorted based on a single field within the table's data, which guards against performance degradations from inefficient custom sort functions.
 
@@ -68,7 +68,7 @@ The purpose of the table's validation is to ensure that a user/client does not g
 
 ### Provide a way for clients to override the sort field
 
-The base table column could provide a way for a client to override the sort field for a column. For example, the base column class could expose an attribute named `data-field-name` that overrides the value returned by the `defaultDataFieldName` getter. It isn't clear at this point in time whether or not this is required on all column types, or even any column types. As a result, the attribute will not be added at this time. In the future, when there is more insight into the requirements, the attribute can either be added to the base class or a mixin can be created to provide a consistent way to allow some column types to expose the configuration in a consistent way.
+The base table column could provide a way for a client to override the sort field for a column. For example, the base column class could expose an attribute that overrides the value returned by the `operationalDataFieldName` getter. It isn't clear at this point in time whether or not this is required on all column types, or even any column types. As a result, the attribute will not be added at this time. In the future, when there is more insight into the requirements, the attribute can either be added to the base class or a mixin can be created to provide a consistent way to allow some column types to expose the configuration in a consistent way.
 
 ## Open Issues
 
