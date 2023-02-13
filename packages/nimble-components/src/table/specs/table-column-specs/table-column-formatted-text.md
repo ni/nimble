@@ -53,7 +53,7 @@ At this stage, code examples are meant to be illustrative pseudo-code, not propo
 
 #### Use `table-column-text`
 
-With the changes proposed in [HLD for programmatically sorting columns](https://github.com/ni/nimble/pull/1049) to allow a column to be sorted by a different data field than the one being used for display, many of the above use cases could be met with minor changes to the existing text column. Clients would write custom logic populate their data with a new string field that contains formatted values. Then they would configure the table to display that string field while sorting by the original numeric field.
+With the changes proposed in [HLD for programmatically sorting columns](https://github.com/ni/nimble/pull/1049) to allow a column to be sorted by a different data field than the one being used for display, many of the above use cases could be met with minor changes to the existing text column. Clients would write custom logic to populate their data with a new string field that contains formatted values. Then they would configure the table to display that string field while sorting by the original numeric field.
 
 ```html
 <nimble-table>
@@ -82,9 +82,9 @@ table.data = tableData;
 
 **Cons:**
 
-- increased memory usage and data update time from clients pre-populating data with field for each formatted column
-- added complexity of writing procedural code even for simple formatting use cases
-- reduced cross-app consistency if formatting code isn't shared
+- Increased memory usage and data update time from clients pre-populating data with field for each formatted column
+- Added complexity of writing procedural code even for simple formatting use cases
+- Potential cross-app inconsistency if formatting code isn't shared
 
 **Implementation Cost:**
 
@@ -123,13 +123,14 @@ MyAppProgressColumn.registerColumn('my-app-progress-column');
 
 **Pros:**
 
-- small memory footprint and fast data update time because formatting function is called on-demand
-- powerful; clients can format data however they want, including via browser APIs which are i18n-friendly
+- Small memory footprint and fast data update time because formatting function is called on-demand
+- Powerful; clients can format data however they want, including via browser APIs which are i18n-friendly
 
 **Cons:**
 
-- possible reduced scroll performance because formatting function is called on-demand
-- requires JS code to do formatting which is less convenient in frameworks like Blazor
+- Possible reduced scroll performance because formatting function is called on-demand
+- Requires JS code to do formatting which is less convenient in frameworks like Blazor
+- Potential cross-app inconsistency if formatting code isn't shared
 
 **Implementation Cost:**
 
@@ -154,12 +155,12 @@ For common use cases we could provide column types that expose simplified format
 
 **Pros:**
 
-- easy for clients to use since configuration is declarative
+- Easy for clients to use since configuration is declarative
 
 **Cons:**
 
-- requires Nimble team to design simple but powerful formatting and i18n APIs
-- can't solve some use cases like app-specific formatting logic
+- Requires Nimble team to design simple but powerful formatting and i18n APIs
+- Can't solve some use cases like app-specific formatting logic
 
 **Implementation Cost:**
 
@@ -177,6 +178,7 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 - Higher burden on clients to specify template, styling, etc in JS
 - Potential for inconsistent styling
+- Potential cross-app inconsistency if formatting code isn't shared
 
 
 ### API
