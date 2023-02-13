@@ -74,11 +74,7 @@ const component = (
 `;
 
 export const bannerThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [
-        severityStates,
-        actionStates,
-        partsHiddenStates
-    ])
+    createMatrix(component, [severityStates, actionStates, partsHiddenStates])
 );
 
 export const textWrapBanner: Story = createStory(
