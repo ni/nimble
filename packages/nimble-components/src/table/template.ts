@@ -29,7 +29,7 @@ export const template = html<Table>`
     <template role="table">
         <div class="table-container">
             <div role="rowgroup" class="header-container" style="margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;">
-                <div class="header-row" role="row">
+                <div class="header-row" role="row" style="grid-template-columns: ${x => x.rowGridColumns}">
                     ${repeat(x => x.columns, html<TableColumn>`
                         <${DesignSystem.tagFor(TableHeader)} class="header">
                             ${x => x.textContent}

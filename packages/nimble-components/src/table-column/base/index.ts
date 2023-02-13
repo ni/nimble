@@ -1,4 +1,4 @@
-import type { ElementStyles, ViewTemplate } from '@microsoft/fast-element';
+import { ElementStyles, observable, ViewTemplate } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type {
     TableCellRecord,
@@ -13,6 +13,35 @@ export abstract class TableColumn<
     TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > extends FoundationElement {
+    /**
+     * @internal
+     * Used by the Table in order to give a column a specific pixel width.
+     * When set 'currentFractionalWidth' will be ignored.
+     */
+    @observable
+    public currentPixelWidth: number | null = null;
+
+    /**
+     * @internal
+     * Used by the Table in order to size a column proportionally to the available
+     * width of a row.
+     */
+    @observable
+    public currentFractionalWidth = 1;
+
+    /**
+     * @internal
+     * The minimum size in pixels according to the design doc
+     */
+    @observable
+    public columnMinPixelWidth = 88;
+
+    /**
+     * @internal
+     */
+    @observable
+    public columnDisableResize = false;
+
     /**
      * The template to use to render the cell content for the column
      */

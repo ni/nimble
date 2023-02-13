@@ -53,8 +53,7 @@ export const styles = css`
     }
 
     .header-row {
-        display: flex;
-        flex-direction: row;
+        display: grid;
         background: ${applicationBackgroundColor};
         position: relative;
     }

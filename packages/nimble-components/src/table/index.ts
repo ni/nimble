@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
@@ -15,6 +15,7 @@ import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord, TableRowState, TableValidity } from './types';
 import { Virtualizer } from './models/virtualizer';
+import { TableLayoutHelper } from './models/table-layout-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -104,6 +105,14 @@ export class Table<
 
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
+    }
+
+    /**
+     * @internal
+     */
+    @volatile
+    public get rowGridColumns(): string {
+        return this.columns.length > 0 ? TableLayoutHelper.getGridTemplateColumns(this.columns) : '';
     }
 
     private setTableData(newData: readonly TData[]): void {

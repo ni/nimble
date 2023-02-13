@@ -8,6 +8,7 @@ import type {
     TableFieldName
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
+import { TableLayoutHelper } from '../../models/table-layout-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -35,6 +36,11 @@ export class TableRow<
 
     @observable
     public columns: TableColumn[] = [];
+
+    @volatile
+    public get rowGridColumns(): string {
+        return this.columns.length > 0 ? TableLayoutHelper.getGridTemplateColumns(this.columns) : '';
+    }
 
     @volatile
     public get columnStates(): ColumnState[] {
