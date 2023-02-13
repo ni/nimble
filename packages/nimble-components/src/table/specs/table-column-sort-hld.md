@@ -33,11 +33,11 @@ For performance reasons, the table will not support custom sort functions on a c
 
 #### Summary of new attributes on the base table column
 
-| attribute name | type                                                                                                         | default value                   | description                                                     |
-| -------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------- | --------------------------------------------------------------- |
-| sort-direction | `TableColumnSortDirection`, defined as `{none: undefined, ascending: 'ascending', descending: 'descending'}` | `TableColumnSortDirection.none` | The direction the column is sorted                              |
+| attribute name | type                                                                                                         | default value                   | description                                                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| sort-direction | `TableColumnSortDirection`, defined as `{none: undefined, ascending: 'ascending', descending: 'descending'}` | `TableColumnSortDirection.none` | The direction the column is sorted                                                                                          |
 | sort-index     | `number` or `null` \*                                                                                        | `null`                          | The index for sorting the column. When multiple columns are sorted, they will be sorted from lowest index to highest index. |
-| hidden         | `boolean`                                                                                                    | `false`                         | When set to true, do not render the column as part of the table |
+| hidden         | `boolean`                                                                                                    | `false`                         | When set to true, do not render the column as part of the table                                                             |
 
 \* Note: The `sort-index` attribute is `number | null` because of the plan to use the `nullableNumberConverter` provided by FAST. That converter uses the value of `null` to represent non-number types rather than `undefined`, which is common within the nimble repo.
 
