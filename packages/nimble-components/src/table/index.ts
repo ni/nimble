@@ -113,6 +113,14 @@ export class Table<
         return this.tableValidator.isValid();
     }
 
+    protected childItemsChanged(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.updateColumnsFromChildren();
+    }
+
     private setTableData(newData: readonly TData[]): void {
         const data = newData.map(record => {
             return { ...record };
