@@ -149,6 +149,10 @@ export class Table<
         this.refreshRows();
     }
 
+    // This is a workaround for dealing with a change in Safari 16+. It seems related to this bug, filed
+    // against WebKit: https://bugs.webkit.org/show_bug.cgi?id=246899, which was closed as "intentional"
+    // behavior change. Note that the FAST DataGrid does something similar to this to update its row
+    // indexes.
     private updateColumnsFromChildren(): void {
         DOM.queueUpdate(() => {
             this.columns = this.childItems.filter((x): x is TableColumn => x instanceof TableColumn);
