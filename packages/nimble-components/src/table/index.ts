@@ -102,7 +102,6 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
-        this.updateColumnsFromChildren();
     }
 
     public override disconnectedCallback(): void {
@@ -114,11 +113,19 @@ export class Table<
     }
 
     protected childItemsChanged(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
+        void (async () => this.updateColumnsFromChildItems())().catch(ex => {
+            throw ex;
+        });
+    }
 
-        this.updateColumnsFromChildren();
+    private async updateColumnsFromChildItems(): Promise<void> {
+        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+            ? customElements.whenDefined(item.localName)
+            : Promise.resolve()));
+        await Promise.all(definedElements);
+        this.columns = this.childItems.filter(
+            (x): x is TableColumn => x instanceof TableColumn
+        );
     }
 
     private setTableData(newData: readonly TData[]): void {
@@ -155,20 +162,6 @@ export class Table<
         this.options = { ...this.options, ...updatedOptions };
         this.update(this.table.initialState);
         this.refreshRows();
-    }
-
-    // This is a workaround for dealing with a change in Safari 16+. It seems related to this bug, filed
-    // against WebKit: https://bugs.webkit.org/show_bug.cgi?id=246899, which was closed as "intentional"
-    // behavior change. The issue we faced was that using a filter for the `children` directive in the
-    // template that required JS object APIs (like instanceOf) did not work because the elements being
-    // filtered were not fully initialized JS objects.
-    // Note that the FAST DataGrid does something similar to this (using DOM.queueUpdate) to update its row indexes.
-    private updateColumnsFromChildren(): void {
-        DOM.queueUpdate(() => {
-            this.columns = this.childItems.filter(
-                (x): x is TableColumn => x instanceof TableColumn
-            );
-        });
     }
 
     private readonly update = (state: TanStackTableState): void => {
