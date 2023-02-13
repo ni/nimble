@@ -42,9 +42,12 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
 ## Updating icons
 
-1. Get the latest copy of the icon source file from NI internal Perforce at `\NIComponents\VisualDesign\ProductionAssets\DiagramPaletteAssets_XML\SystemLink\trunk\20.0\source\Nimble_Iconography.ai`. If you don't have access, reach out to Fred Visser or Brandon O'Keefe to request a copy.
-2. Copy the icon source file from Perforce to `source/icons/Nimble_Iconography.ai` and include it in your PR.
-3. Export high-quality, optimized SVG files from the icon source file, by using the **Export for Screens…** workflow within Adobe Illustrator to export SVG files:
+### Extract icons from Adobe Illustrator
+
+These steps require access to Adobe Illustrator and Perforce so will typically be completed by Brandon O'Keefe, Fred Visser, or another designer.
+
+1. Get the latest copy of the icon source file from NI internal Perforce at `\NIComponents\VisualDesign\ProductionAssets\DiagramPaletteAssets_XML\SystemLink\trunk\20.0\source\Nimble_Iconography.ai`.
+2. Export high-quality, optimized SVG files from the icon source file, by using the **Export for Screens…** workflow within Adobe Illustrator to export SVG files:
 
    1. Choose **File » Export » Export for Screens…**
 
@@ -61,13 +64,18 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
    4. Choose to replace any existing files in the `dist/icons/svg` folder.
 
       <img src="docs/ai-export-4.png" width="600"> 
+3. Proceed to the steps below or [create a user story](https://github.com/ni/nimble/issues/new/choose) requesting that the Nimble team perform them. If filing an issue, attach the new and modified SVG files and also `Nimble_Iconography.ai` to the issue.
 
-4. Search for all `<defs>.*</defs>` tags in the exported `.svg` files (in the `packages/nimble-tokens/dist/icons/svg` directory), and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
+### Adding icons to Nimble
+
+1. In a new branch, copy the Illustrator file to `source/icons/Nimble_Iconography.ai` and the SVG files to `dist/icons/svg`.
+2. Search for all `<defs>.*</defs>` tags in the exported `.svg` files and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
 
       <img src="docs/find-replace-5.png" width="1000">
 
-5. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens` & `npm run build -w @ni/nimble-components`.
-6. Add metadata for the new icons to `nimble-components\src\icon-base\icon-metadata.ts`.
-7. Generate and build icon components by running `npm run build -w @ni/nimble-components`.
-8. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly.
-9. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.
+3. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
+4. Generate and build icon components by running `npm run build -w @ni/nimble-components`. This step will report an error at this point but is necessary to enable the next step.
+5. Add metadata for the new icons to `nimble-components\src\icon-base\icon-metadata.ts`.
+6. Run `npm run build -w @ni/nimble-components` again. It should now succeed.
+7. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly. Inspect the icons in each **Severity** and ensure their color changes.
+8. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.
