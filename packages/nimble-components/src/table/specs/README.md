@@ -233,6 +233,10 @@ Our implementation has some differences from the TanStack Virtual examples:
 
 The changes above result in better rendering performance (notably in Firefox which sometimes had flickering otherwise).
 
+#### Cell State and Virtualized Scrolling
+
+With virtualization enabled, when a scroll occurs, before components in cells are reused for data at the new scroll position, we need to clear/commit some cell state first. The [Cell State when Scrolling HLD](cell-state-when-scrolling-hld.md) covers specifics for that behavior.
+
 ### States
 
 Placeholder
