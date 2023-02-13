@@ -18,7 +18,7 @@ Some of the cell state that would incorrectly apply to new rows (once the user s
 
 When the user scrolls the table, we will:
 - Clear text selection (in the table)
-- 'Blur' (Lose focus) from any active/focused control in a table cell. Generally this means that whatever text the user began to change in that control will be committed, not discarded.
+- 'Blur' (Lose focus) from any active/focused control in a table cell. Generally this means that whatever text the user began to change in that control will be committed, not discarded. In the case of a focused menu item, we'll close the associated menu via the menu button.
 
 Currently we do not have any plans to try and re-apply that state to the re-bound rows/cells after the scroll. That means that we won't reselect the text / re-focus the previously focused control in a cell / re-open an action menu, after a scroll operation.
 
@@ -52,7 +52,7 @@ Based on the observations above, the current plan to check if the table contains
 Get `window.getSelection()`. If null or `rangeCount === 0`, no text is selected. Otherwise, for each `Range`:
 - Check if `startContainer`/`endContainer` is the `nimble-table`
 - Else, do the `compareBoundaryPoints` check (in a `try/catch`)
-- Else, check if `startContainer`/`endContainer` is an ancestor the `nimble-table`
+- Else, check if `startContainer`/`endContainer` has the `nimble-table` as an ancestor
 
 If any of those `Range` checks succeed, remove that `Range` from the selection.  
 **Limitations:** This means that if text is selected in the table but outside rows (e.g. column header text), it will also be cleared when the user scrolls. There's not a good way to differentiate the text location that works in each browser, so that seems like an acceptable compromise.
