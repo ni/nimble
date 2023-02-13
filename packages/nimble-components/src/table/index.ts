@@ -157,7 +157,9 @@ export class Table<
     // Note that the FAST DataGrid does something similar to this (using DOM.queueUpdate) to update its row indexes.
     private updateColumnsFromChildren(): void {
         DOM.queueUpdate(() => {
-            this.columns = this.childItems.filter((x): x is TableColumn => x instanceof TableColumn);
+            this.columns = this.childItems.filter(
+                (x): x is TableColumn => x instanceof TableColumn
+            );
         });
     }
 
